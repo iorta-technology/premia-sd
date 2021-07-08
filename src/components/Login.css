@@ -18,3 +18,16 @@
 .logo{
     height: 80px;
 }
+.forgotpasswordtext{
+    font-size: 16px;
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: right;
+}
+.loginbtn{
+    background: #1FB3AB;
+    color: #fff;
+    height: 40px;
+    border-color: transparent;
+}
