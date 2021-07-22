@@ -10,7 +10,7 @@ const Login = () => {
         <div className="main-body">
             <Form form={form} onFinish={onLogin}>
                 <div className="login-card">
-                    <Card>
+                    <Card className="main-card">
                         <div className="logo">
                             <Image preview={false} width={350} src="https://sdtatadev.iorta.in/assets/loginlogo20years.png" alt="login-logo" />
                         </div>
