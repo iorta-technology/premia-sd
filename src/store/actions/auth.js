@@ -31,14 +31,6 @@ export const login = (email,password) => {
         return axios.post(`user_login_v2`,{email,password})
         .then(res=>{
             return dispatch(loginSuccess(res.data.errMsg))
-            // let login_agent_data = resp.data.errMsg
-            // if(resp?.data.errCode === -1){
-            //     dispatch(login({
-            //         login_agent_data
-            //     }))
-            //     // history.push('/home')
-            // }
-            // console.log("logged-in data",resp)
         }).catch(error=>{
             console.log(error)
         })

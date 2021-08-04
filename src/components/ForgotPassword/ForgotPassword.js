@@ -20,12 +20,12 @@ const ForgotPassword = () => {
         <div className="main-body">
             <Form form={form} onFinish={onForgotPassword}>
                 <div className="login-card">
-                    <Card>
+                    <Card className="main-card">
                         <div className="logo">
-                            <Image preview={false} height={30} width={130} src="https://sdrestdemo.iorta.in/assets/salesDrivelogo.png" alt="login-logo" />
+                            <Image preview={false} width={130} src="https://sdrestdemo.iorta.in/assets/salesDrivelogo.png" alt="login-logo" />
                         </div>
                         <hr className="horline" />
-                        <p className="forgotpasstext">Forgot Password</p>
+                        <p className="forgotpasstext" style={{margin:20}}>Forgot Password</p>
                         <Form.Item
                             name="email"
                             rules={[
@@ -41,7 +41,7 @@ const ForgotPassword = () => {
                             <Input size="large" placeholder="Enter UserName" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} />
                         </Form.Item>
                         <Link to="/login">
-                            <p className="Logintext">Back To Login</p>
+                            <p className="Logintext" style={{color: '#fff', textDecoration: 'underline'}}>Back To Login</p>
                         </Link>
                         <Button type="primary" htmlType="submit" className="sendlinkbtn" block>Send Link</Button>
                     </Card>

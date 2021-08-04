@@ -1,19 +1,17 @@
 .main-body{
     padding: 200px;
-    background-image: url('../images/Bgimage.png');
+    background-image: url('../../images/Bgimage.png');
     overflow: hidden;
     height: 100vh;
 }
-.ant-card-body{
-    justify-content: center;
-    background-color: #3e3e3e;
-}
-.ant-btn-primary {
+/* .ant-btn-primary {
     background-color: #1FB3AB;
-}
+} */
 .login-card{
    width: 400px;
    margin: auto;
+   justify-content: center;
+   background-color: #3e3e3e;
 }
 .logo{
     height: 80px;
@@ -26,7 +24,7 @@
     text-align: right;
 }
 .loginbtn{
-    background: #1FB3AB;
+    background: #1FB3AB !important;
     color: #fff;
     height: 40px;
     border-color: transparent;
