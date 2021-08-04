@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.60529af1.chunk.css",
-    "main.js": "/static/js/main.d5bf8dce.chunk.js",
-    "main.js.map": "/static/js/main.d5bf8dce.chunk.js.map",
+    "main.css": "/static/css/main.e3352a61.chunk.css",
+    "main.js": "/static/js/main.a07295a9.chunk.js",
+    "main.js.map": "/static/js/main.a07295a9.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.7acaa4a9.js",
     "runtime-main.js.map": "/static/js/runtime-main.7acaa4a9.js.map",
     "static/css/2.b4e56faa.chunk.css": "/static/css/2.b4e56faa.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.2306647b.chunk.js.map": "/static/js/3.2306647b.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.b4e56faa.chunk.css.map": "/static/css/2.b4e56faa.chunk.css.map",
-    "static/css/main.60529af1.chunk.css.map": "/static/css/main.60529af1.chunk.css.map",
+    "static/css/main.e3352a61.chunk.css.map": "/static/css/main.e3352a61.chunk.css.map",
     "static/js/2.ce690869.chunk.js.LICENSE.txt": "/static/js/2.ce690869.chunk.js.LICENSE.txt",
     "static/media/ChangePassword.css": "/static/media/Bgimage.2410934b.png"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.7acaa4a9.js",
     "static/css/2.b4e56faa.chunk.css",
     "static/js/2.ce690869.chunk.js",
-    "static/css/main.60529af1.chunk.css",
-    "static/js/main.d5bf8dce.chunk.js"
+    "static/css/main.e3352a61.chunk.css",
+    "static/js/main.a07295a9.chunk.js"
   ]
 }
