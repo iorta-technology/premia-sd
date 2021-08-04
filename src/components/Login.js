@@ -3,10 +3,8 @@ import './Login.css';
 import { Card, Input, Button, Image, Form } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
-
-import { useDispatch } from 'react-redux';
-import { login} from '../features/userSlice';
-import axios from 'axios';
+import * as actions from '../store/actions/index';
+import { useDispatch,useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
  const Login = () => {
@@ -17,20 +15,10 @@ import { useHistory } from 'react-router';
     const dispatch = useDispatch();
     const history = useHistory()
     const onLogin = () => { 
-        axios.post('https://sdrestnode.iorta.in/secure/sd/user/user_login_v2',{email,password}).then(resp=>{
-            let login_agent_data = resp.data.errMsg
-            if(resp?.data.errCode === -1){
-                dispatch(login({
-                    login_agent_data
-                }))
+                dispatch(actions.login(email,password))
                 history.push('/home')
             }
-            console.log("logged-in data",resp)
-        }).catch(error=>{
-            console.log(error)
-        })
-        
-    }
+       
     return (
         <div className="main-body">
             <Form form={form} onFinish={onLogin}>

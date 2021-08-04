@@ -1,5 +1,5 @@
 import React ,{useState} from 'react';
-import './ForgotPassword.css';
+// import './ForgotPassword.css';
 import { Card, Input, Button, Image, Form } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
