@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react'
+import {PlusCircleFilled} from '@ant-design/icons'
 import Tab from '../../components/Tab/Tab'
 import LeadCards from '../../components/LeadCards/LeadCards'
 import { Pagination } from 'antd';
@@ -15,7 +16,7 @@ const LeadMaster = (props) => {
 
     //Accessing LeadCard data  from store
     const leadsData = useSelector((state)=>state.leads.allLeads)
-
+    const leadDataLoading = useSelector((state)=>state.leads.fetch_allLeads_Loading)
     // lead count of the page
     const totalLeads = useSelector((state)=>{
         // console.log(state.leads.count[0].count)
@@ -42,7 +43,7 @@ const LeadMaster = (props) => {
     return (
         <div style={{backgroundColor:'#fafafa'}}>
             <Tab/>
-            <LeadCards leads={leadsData}/>
+            <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
                     current={current}
@@ -51,6 +52,7 @@ const LeadMaster = (props) => {
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
+            <PlusCircleFilled className="icon-size"/>
         </div>
     )
 }

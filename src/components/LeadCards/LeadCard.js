@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import {Card,Avatar} from 'antd'
+import {Card,Avatar,Switch} from 'antd'
 import {MoreOutlined } from '@ant-design/icons';
 import './LeadCard.css';
 const LeadCard = React.memo((props) => {
@@ -36,6 +36,7 @@ const LeadCard = React.memo((props) => {
     // Card for desktop
     let card = 
             <Card
+                loading={props.loading}
                 className="lead-card-desktop"
                 hoverable={true}>
                     <div className="avatar-and-status">
@@ -80,7 +81,6 @@ const LeadCard = React.memo((props) => {
                     </div>
                     <button className="update-btn">Update</button>  
             </Card>
-
     //Card for Mobile
     if(width<breakpoint){
         card = 
