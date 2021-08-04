@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import './HomePage.css';
 import {Image } from 'antd';
-import { Bar } from '@ant-design/charts';
+// import { Bar } from '@ant-design/charts';
 import 'antd/dist/antd.css';
 const HomePage = () => {
 //   const salesData = [];

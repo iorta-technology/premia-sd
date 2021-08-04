@@ -4,13 +4,13 @@
     overflow: hidden;
     height: 100vh;
 }
-.ant-card-body{
+/* .ant-card-body{
     justify-content: center;
     background-color: #3e3e3e;
 }
 .ant-btn-primary {
     background-color: #1FB3AB;
-}
+} */
 .login-card{
    width: 400px;
    margin: auto;

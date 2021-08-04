@@ -40,7 +40,7 @@ const LeadMaster = (props) => {
     }
 
     return (
-        <div>
+        <div style={{backgroundColor:'#fafafa'}}>
             <Tab/>
             <LeadCards leads={leadsData}/>
             <div className="page-holder">

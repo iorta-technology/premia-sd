@@ -4,7 +4,7 @@ import { Card, Input, Button, Image, Form } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import * as actions from '../store/actions/index';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
  const Login = () => {
