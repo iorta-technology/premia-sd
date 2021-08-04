@@ -15,7 +15,15 @@
     display: flex;
     align-items: center;
 }
-
+.failed{
+    color: red;
+}
+.converted{
+    color: green;
+}
+.open{
+    color: yellow;
+}
 .capitalize{
     text-transform: capitalize;
 }

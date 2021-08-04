@@ -1,3 +1,12 @@
-/* .tab-container> .ant-tabs-card{
-    background-color: rgb(1, 180, 187);
-} */
+.tab-container> .ant-tabs-card{
+    background-color: #fafafa;
+}
+.tab-container> .ant-tabs>.ant-tabs-nav{
+    border-bottom: none;
+}
+.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab{
+    border: none;
+}
+.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active{
+    background-color: #fafafa;
+}

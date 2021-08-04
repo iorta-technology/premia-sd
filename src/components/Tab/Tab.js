@@ -9,7 +9,7 @@ const  Tab = (props)=> {
     let card3 = <Card className="tab-pane">Failed</Card>
     return (
         <div className="tab-container">
-            <Tabs defaultActiveKey="1" tabBarGutter={0} type="card" centered={true}>
+            <Tabs defaultActiveKey="1" tabBarGutter={10} type="card" centered={true}>
                 <TabPane tab={card1} key="1">
                 </TabPane>
                 <TabPane tab={card2} key="2">
@@ -17,7 +17,6 @@ const  Tab = (props)=> {
                 <TabPane tab={card3} key="3">
                 </TabPane>
             </Tabs>
-           
         </div>
     )
 }

@@ -5,6 +5,20 @@ import './LeadCard.css';
 const LeadCard = React.memo((props) => {
 
     const {lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+  const leadComponent = 
+  leadStatus === 'open'
+  ? 
+  <p className="user-status-text capitalize open">{leadStatus}</p>
+  :
+  leadStatus === 'converted'
+  ?
+  <p className="user-status-text capitalize converted">{leadStatus}</p>
+  :
+  leadStatus === 'failed'
+  ?
+  <p className="user-status-text capitalize failed">{leadStatus}</p>
+  :
+  <p className="user-status-text capitalize">{leadStatus}</p>
 
     let avatar = firstName.match(/\b(\w)/g) + lastName.match(/\b(\w)/g)
 
@@ -26,7 +40,7 @@ const LeadCard = React.memo((props) => {
                 hoverable={true}>
                     <div className="avatar-and-status">
                         <Avatar size={{xl: 50}}>{avatar}</Avatar>
-                        <p className="user-status-text capitalize">{leadStatus}</p>
+                        {leadComponent}
                     </div>
                     <div className="content">
                         <div className="content-header">

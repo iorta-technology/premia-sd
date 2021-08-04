@@ -43,6 +43,6 @@
     -o-border-radius: none;
 }
 
-.page-holder>ul>.ant-pagination-prev{
+.page-holder>ul>.ant-pagination-prev,.ant-pagination-options{
     display: none;
 }

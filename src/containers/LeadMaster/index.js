@@ -17,7 +17,7 @@ const LeadMaster = (props) => {
     const leadsData = useSelector((state)=>state.leads.allLeads)
 
     // lead count of the page
-    const count = useSelector((state)=>{
+    const totalLeads = useSelector((state)=>{
         // console.log(state.leads.count[0].count)
         return state.leads.count
     })
@@ -25,16 +25,12 @@ const LeadMaster = (props) => {
     //Pagination numbers function
     function itemRender(cur, type, originalElement) {
         const onNext = ()=>{
-
             setcurrent(current+1)
-
         }
-        
         if (type === 'next') {
             // console.log(current)
           return <button current={current} onClick={onNext}>Next</button>;
         }
-        
         return originalElement;
     }
 
@@ -51,7 +47,7 @@ const LeadMaster = (props) => {
                 <Pagination
                     current={current}
                     onChange={handlePageClick}
-                    total={count}
+                    total={totalLeads}
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
