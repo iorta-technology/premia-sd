@@ -1,12 +1,27 @@
 import React from 'react'
-import {Tabs,Card} from 'antd'
+import {Tabs,Card,Button} from 'antd'
 import './Tab.css'
 const {TabPane} = Tabs
 
 const  Tab = (props)=> {
-    let card1 = <Card className="tab-pane">All leads</Card>
-    let card2 = <Card className="tab-pane">Open</Card>
-    let card3 = <Card className="tab-pane">Failed</Card>
+    let card1 = <Card className="tab-pane">
+                    All leads
+                    <Button type="primary" danger={true} shape="circle" size="small">
+                        95
+                    </Button>
+                </Card>
+    let card2 = <Card className="tab-pane">
+                    Open
+                    <Button type="primary" danger={true} shape="circle" size="small">
+                        10
+                    </Button>
+                </Card>
+    let card3 = <Card className="tab-pane">
+                    Failed
+                    <Button type="primary" danger={true} shape="circle" size="small">
+                        12
+                    </Button>
+                </Card>
     return (
         <div className="tab-container">
             <Tabs defaultActiveKey="1" tabBarGutter={10} type="card" centered={true}>
