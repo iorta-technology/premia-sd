@@ -1,0 +1,183 @@
+.activecontestdetails-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-right: 50px;
+  /* background-color: blue; */
+  height: 100vh;
+}
+.activecontestdetails-card-style {
+  display: flex;
+
+  flex-direction: column;
+  height: 150px;
+  width: 90%;
+  /* background-color:brown; */
+  border-radius: 5px;
+  overflow: hidden;
+  border-width: 1px;
+  border-color: grey;
+  /* border-style:solid; */
+  box-shadow: 0.3px 0.55px 1.1px 2px rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+}
+
+.activecontestdetails-cardhead-text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.activecontestdetails-cardcontent-info-text {
+  font-size: 14px;
+  color: #a9a5a5;
+}
+.activeContestDetails-prizetab-single-card-flex {
+  display: flex;
+  flex: 0.32;
+  /* background-color:yellow */
+}
+.activeContestDetails-prizetab-cardstyle {
+  display: flex;
+
+  flex-direction: column;
+  height: 370px;
+  width: 100%;
+
+  border-radius: 5px;
+  overflow: hidden;
+  border-width: 1px;
+  border-color: grey;
+
+  box-shadow: 0.3px 0.55px 1.1px 2px rgba(0, 0, 0, 0.2);
+  /* margin-top: 30px */
+}
+.activeContestDetails-prizetab-head-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0.2;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* background-color:brown */
+}
+
+.activeContestDetails-prizetab-head-coloured-style {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 30px;
+  width: 100%;
+  background-color: #f1f1f1;
+}
+.activeContestDetails-prizetab-title-text {
+  font-weight: bold;
+  font-size: 16px;
+}
+.activeContestDetails-prizetab-image-flex {
+  display: flex;
+  flex: 0.65;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* background-color:yellow; */
+}
+.activeContestDetails-prizetab-footer-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0.15;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* background-color:green */
+}
+
+.activeContestDetails-prizetab-footer-text {
+  font-size: 14px;
+  color: #a9a5a5;
+}
+
+.activeContestDetails-extrastab-cardstyle {
+  display: flex;
+
+  flex-direction: column;
+  height: 200px;
+  width: 100%;
+
+  border-radius: 5px;
+  overflow: hidden;
+  border-width: 1px;
+  border-color: #d5d1d1;
+  border-style: solid;
+  box-shadow: 0.3px 0.55px 1.1px 2px rgba(0, 0, 0, 0.2);
+  /* margin-top: 30px */
+}
+
+.activeContestDetails-extrastab-content-flex {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  /* background-color:red; */
+}
+.activeContestDetails-extrastab-title-text {
+  font-weight: bold;
+  font-size: 18px;
+}
+.activeContestDetails-extrastab-content-text {
+  font-size: 14.5px;
+  color: #a9a5a5;
+}
+
+.activeContestDetails-videostab-cardstyle {
+  display: flex;
+
+  flex-direction: column;
+  height: 350px;
+  width: 100%;
+
+  border-radius: 5px;
+  overflow: hidden;
+  border-width: 1px;
+  border-color: #d5d1d1;
+  border-style: solid;
+  box-shadow: 0.3px 0.55px 1.1px 2px rgba(0, 0, 0, 0.2);
+  /* margin-top: 30px */
+}
+
+.activeContestDetails-videostab-flex {
+  display: flex;
+  flex-direction: row;
+  /* background-color: blueviolet; */
+}
+
+.activeContestDetails-videostab-video-flex {
+  display: flex;
+  flex: 0.3;
+  /* background-color: blue; */
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  height: 100vh;
+}
+.activeContestDetails-videostab-video-column-flex {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+}
+.activeContestDetails-videostab-content-flex {
+  display: flex;
+  flex: 0.7;
+  /* background-color: red; */
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 100vh;
+}
+.activeContestDetails-videostab-video-column-flex {
+  display: flex;
+  flex-direction: column;
+}
