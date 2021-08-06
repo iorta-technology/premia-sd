@@ -6,7 +6,6 @@ import _ from "lodash";
 const LeadCards = (props)=> {
     let card = [];
     if(props.leads && !_.isEmpty(props.leads)){
-        console.log(props.leads)
         card = _.map(props.leads, (lead, index) => {
        return ( <React.Fragment>
             <LeadCard 
@@ -20,6 +19,7 @@ const LeadCards = (props)=> {
                 primaryMobile={lead.primaryMobile}
                 allocatedBy={lead.lead_allocated_by.first_name +' '+ lead.lead_allocated_by.last_name}
                 allocatedTo={lead.lead_allocated_by.first_name +' '+ lead.lead_allocated_by.last_name}
+                loading={props.leadDataLoading}
             />
         </React.Fragment>
        )

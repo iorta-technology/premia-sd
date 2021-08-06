@@ -46,3 +46,12 @@
 .page-holder>ul>.ant-pagination-prev,.ant-pagination-options{
     display: none;
 }
+
+.icon-size{
+    font-size: 50px;
+    color: #1FB3AB;
+    position: sticky;
+    right: 0;
+    left: 90vw;
+    bottom: 5vh;
+}
