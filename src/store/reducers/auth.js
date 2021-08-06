@@ -3,6 +3,7 @@ import { updateObject } from '../utility';
 
 const initialState = {
     login_agent_data:null,
+    agent_id:"",
     login_error:null
 }
 
@@ -11,7 +12,8 @@ const loginStart = (state, action) => {
 }
 
 const loginSuccess = (state, action) => {
-    return updateObject(state, { fetch_allLeads_Loading: false, login_agent_data: action.login_agent_data })
+    console.log("id",action.login_agent_data._id)
+    return updateObject(state, { fetch_allLeads_Loading: false, login_agent_data: action.login_agent_data,user_name: action.login_agent_data.first_name,agent_id: action.login_agent_data.agent_id,id: action.login_agent_data._id })
 }
 const loginFail = (state, action) => {
     return updateObject(state, { fetch_allLeads_Loading: false, login_error: action.error });
