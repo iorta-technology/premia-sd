@@ -1,0 +1,34 @@
+.tab-container> .ant-tabs>.ant-tabs-nav{
+    border-bottom: none;
+}
+.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab{
+    border: none;
+}
+.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active{
+    background-color: #fafafa;
+}
+.tab-container>.ant-tabs-top > .ant-tabs-nav::before,
+ .ant-tabs-bottom > .ant-tabs-nav::before, 
+ .ant-tabs-top > div > .ant-tabs-nav::before, .ant-tabs-bottom > div > .ant-tabs-nav::before{
+    border: none;
+}
+
+.tab-container>div>div>div>div>div>.ant-tabs-tab-btn{
+    height: 100px;
+    width: 150px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.tab-pane{
+    position: relative;
+}
+
+.tab-pane>.ant-card-body>button{
+    position: absolute;
+    top:5px;
+    right:5px;
+}

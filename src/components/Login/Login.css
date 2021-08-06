@@ -1,0 +1,34 @@
+.main-body{
+    padding: 200px;
+    background-image: url('../../images/Bgimage.png');
+    overflow: hidden;
+    height: 100vh;
+}
+/* .ant-btn-primary {
+    background-color: #1FB3AB;
+} */
+.login-card{
+   width: 400px;
+   margin: auto;
+   justify-content: center;
+   background-color: #3e3e3e;
+}
+.logo{
+    height: 80px;
+}
+.forgotpasswordtext{
+    font-size: 16px;
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: right;
+}
+.loginbtn{
+    background: #1FB3AB !important;
+    color: #fff;
+    height: 40px;
+    border-color: transparent;
+}
+.main-card{
+    background-color: transparent;
+}

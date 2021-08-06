@@ -1,0 +1,132 @@
+.cardHolder{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 20px;
+ padding: 30px 0px;
+ justify-content: center;
+}
+.cardHolder .dataCard{
+  width: 390px !important;
+  height: 350px !important;
+  padding: 20px;
+  border-radius: 8px;
+}
+.dataCard .events-body .stars{
+  width:120px !important;
+  height: 120px !important;
+  margin: 30px 60px 10px;
+}
+
+  .card-content{
+    display: block;
+    margin-top: 10px;
+  }
+  /* .ant-card-body {
+    justify-content: center;
+    background-color: transparent;
+    color: white;
+} */
+.activity-icon{
+  align-items: flex-start;
+  float: left;
+  cursor: pointer;
+}
+.activities-text{
+  display: inline-block;
+  margin-left: 5%;
+}
+.events-body{
+  background-color: #fff;
+  height: 78%;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+.todo-body{
+  background-color: #fff;
+  height: 230px;
+  width: 320px;
+  border-radius: 5px;
+}
+.action-cards-content{
+  padding: 20px;
+  margin-top: 50px;
+ overflow-y: scroll;
+ height: 220px;
+}
+.action-cards-content::-webkit-scrollbar{
+  display: none;
+}
+.action-cards-content div{
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  height: 80px;
+  padding: 5px;
+}
+.rewardscorner-text{
+  padding: 60px;
+}
+.salesGuideCont{
+  display: flex;
+  column-gap: 10px;
+  text-align: center;
+  margin: 0;
+  margin-top: 70px;
+  float: none;
+}
+.salesGuideCont div{
+  width: 110px;
+  border-right: 1px solid #fff;
+  color: #fff !important;
+  height:120px
+}
+.salesGuideCont div h1{
+  color: #fff !important;
+font-size: 50px;
+}
+.salesGuideCont div:first-child{
+  text-align: left;
+}
+.salesGuideCont div:last-child{
+  border: none;
+  text-align: center;
+}
+.sales-guide-content{
+  margin-top: 40px;
+}
+.b1-content{
+  display: flex;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+.sales-content{
+  border:1px solid #fff;
+  border-radius:15px;
+  padding: 5px;
+  text-align: center;
+  color: #fff;
+}
+.birthday-slides{
+  text-align: center;
+  padding: 20px;
+  margin-top: 190px;
+  display: flex;
+  cursor: pointer;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width:390px){
+  .cardHolder .dataCard{
+    width:92% !important;
+    padding: 15px;
+    margin: auto;
+  }
+  .action-cards-content{
+    padding: 0;
+  }
+  
+}
