@@ -9,16 +9,9 @@
     height: 20vh;
 } */
 
-.summary{
+/* .summary{
     height: 50vh;
-}
-
-.btn-container{
-    display: flex;
-    justify-content: flex-end;
-    gap:1.5rem;
-    height: 10vh;
-}
+} */
 
 .contact-details,
 .status,
@@ -64,9 +57,35 @@
     border-right-color: #ffffff;   
 }
 
+.btn-container{ 
+    display: flex;
+    justify-content: flex-end;
+    gap:1.5rem;
+    height: 10vh;
+}
+.label-color>div>.ant-form-item-required{
+    color: rgb(159, 159, 159);
+}
 @media (max-width:524px) {
+    
     .contact-detail-form>.ant-col{
         flex:0 1 100%;
-    
+        
+    }
+    .btn-container{
+        display: block;
+        padding: 0;
+    }
+    .btn-container>.ant-btn{
+        margin: 15px auto;
+    }
+    .btn-center{
+        margin: 0 auto;
+    }
+    .cta-btn{
+        margin-bottom: 1rem;
+    }
+    .btn-color{
+        color: rgb(59, 55, 30)!important;
     }
 }

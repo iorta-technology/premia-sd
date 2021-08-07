@@ -12,7 +12,7 @@ const formItemLayout = {
       span: 24,
     },
   };
-const NewLead = () => {
+const NewLead = React.memo(() => {
 
     return (
         <div className="form-container">
@@ -26,8 +26,8 @@ const NewLead = () => {
                             <Form layout="horizontal" className="contact-detail-form">
                                 <Col >
                                     <Form.Item
-                                        className="form-item-name"
                                         {...formItemLayout}
+                                        className="form-item-name label-color"
                                         name={['user', 'name']}
                                         label="First Name"
                                         rules={[
@@ -42,6 +42,7 @@ const NewLead = () => {
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
+                                        className="form-item-name label-color"
                                         name={['user', 'name']}
                                         label="Surname"
                                         rules={[
@@ -56,6 +57,7 @@ const NewLead = () => {
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
+                                        className="form-item-name label-color"
                                         name={['user', 'name']}
                                         label="Email Address "
                                         rules={[
@@ -70,6 +72,7 @@ const NewLead = () => {
                                 <Col >
                                     <Form.Item
                                     {...formItemLayout}
+                                    className="form-item-name label-color"
                                     name={['user', 'name']}
                                     label="Primary Mobile"
                                     rules={[
@@ -84,6 +87,7 @@ const NewLead = () => {
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
+                                        className="form-item-name label-color"
                                         name="State"
                                         label="State"
                                         hasFeedback
@@ -103,6 +107,7 @@ const NewLead = () => {
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
+                                        className="form-item-name label-color"
                                         name="City"
                                         label="City"
                                         hasFeedback
@@ -122,6 +127,7 @@ const NewLead = () => {
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
+                                        className="form-item-name label-color"
                                         name="Lead Type"
                                         label="Lead Type"
                                         hasFeedback
@@ -140,16 +146,17 @@ const NewLead = () => {
                                 </Col>
                                 <Col >
                                     <Form.Item
-                                    {...formItemLayout}
-                                    name="Product"
-                                    label="Product"
-                                    hasFeedback
-                                    rules={[
-                                    {
-                                        required: true,
-                                        message: 'Select Product',
-                                    },
-                                    ]}
+                                        {...formItemLayout}
+                                        className="form-item-name label-color"
+                                        name="Product"
+                                        label="Product"
+                                        hasFeedback
+                                        rules={[
+                                        {
+                                            required: true,
+                                            message: 'Select Product',
+                                        },
+                                        ]}
                                     >
                                         <Select placeholder="Select Product">
                                         <Option value="china">China</Option>
@@ -160,6 +167,7 @@ const NewLead = () => {
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
+                                        className="form-item-name label-color"
                                         name="Insurance Company"
                                         label="Insurance Company"
                                         hasFeedback
@@ -182,6 +190,65 @@ const NewLead = () => {
                             <div className="form-title">
                                 <Title level={4}>Status</Title>
                                 <Form >
+                                    <Row gutter={16}>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12} >
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name="Lead Status"
+                                                label="Lead Status"
+                                                hasFeedback
+                                                rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Lead Status',
+                                                },
+                                                ]}
+                                            >
+                                                <Select placeholder="New Lead Entry">
+                                                <Option value="china">China</Option>
+                                                <Option value="usa">U.S.A</Option>
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12} >
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name={['user', 'name']}
+                                                label="Remark From Source "
+                                                rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                                ]}
+                                            >
+                                                <Input className="email border-bottom" placeholder="Enter Some Remark"/>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12} >
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name={['user', 'name']}
+                                                label="Remark From Source "
+                                                rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                                ]}
+                                            >
+                                                <Input className="email border-bottom" placeholder="Enter Some Remark"/>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={24} md={24} lg={12} xl={12} >
+                                            <p>Select the team members you want to involve for this lead</p>
+                                            {window.innerWidth >620 ? 
+                                            <Button shape="round" size="large" block={false} >Add Team Member</Button>
+                                            :<Button shape="round" size="large" block>Add Team Member</Button>
+                                            }
+                                        </Col>
+                                    </Row>
                                 </Form>
                             </div>
                         </Col>
@@ -192,22 +259,38 @@ const NewLead = () => {
                         <Col className="summary" xs={22} sm={24} md={24} lg={24} xl={24}  span={24} >
                             <div className="form-title">
                                 <Title level={4}>Summary</Title>
+                                <p>Fresh Lead</p>
                             </div>
                         </Col>
                     </Row>
                 </Col>
                 <Col xs={{order:3}} sm={20} md={20} lg={{order:3}} xl={{order:3}}  span={22}>
+                    {window.innerWidth >620 ?
                     <Row>
                         <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
-                            <Button>Proceed</Button>
-                            <Button>Submit</Button>
+                            <Button shape="round" size="large">Proceed</Button>
+                            <Button shape="round" size="large">Submit</Button>
                         </Col>
                     </Row>
+                        :
+                    <Row gutter={['',{xs:16}]}>
+                    
+                            <Col xs={20}  className="btn-center">
+                                <Button className="cta-btn btn-color" shape="round" size="large" block>Proceed</Button>
+                                <Button className="cta-btn btn-color" shape="round" size="large" block>Submit</Button>
+                            </Col>
+                        {/* <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
+                        </Col>
+                        <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
+                        </Col> */}
+                    </Row>
+                    
+                        }
                 </Col>
             </Row>
             
         </div>
     )
-}
+})
 
 export default NewLead
