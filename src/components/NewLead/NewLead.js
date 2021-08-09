@@ -58,8 +58,8 @@ const NewLead = React.memo(() => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name={['user', 'name']}
-                                        label="Email Address "
+                                        name={['email', 'address']}
+                                        label="Email Address"
                                         rules={[
                                         {
                                             required: false,
@@ -99,8 +99,8 @@ const NewLead = React.memo(() => {
                                         ]}
                                     >
                                         <Select placeholder="Select a country">
-                                        <Option value="china">China</Option>
-                                        <Option value="usa">U.S.A</Option>
+                                            <Option value="china">China</Option>
+                                            <Option value="usa">U.S.A</Option>
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -119,8 +119,8 @@ const NewLead = React.memo(() => {
                                         ]}
                                     >
                                         <Select placeholder="Select a city">
-                                        <Option value="china">China</Option>
-                                        <Option value="usa">U.S.A</Option>
+                                            <Option value="china">China</Option>
+                                            <Option value="usa">U.S.A</Option>
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -159,8 +159,8 @@ const NewLead = React.memo(() => {
                                         ]}
                                     >
                                         <Select placeholder="Select Product">
-                                        <Option value="china">China</Option>
-                                        <Option value="usa">U.S.A</Option>
+                                            <Option value="china">China</Option>
+                                            <Option value="usa">U.S.A</Option>
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -179,8 +179,8 @@ const NewLead = React.memo(() => {
                                         ]}
                                     >
                                         <Select placeholder="Insurance">
-                                        <Option value="china">China</Option>
-                                        <Option value="usa">U.S.A</Option>
+                                            <Option value="china">China</Option>
+                                            <Option value="usa">U.S.A</Option>
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -206,8 +206,8 @@ const NewLead = React.memo(() => {
                                                 ]}
                                             >
                                                 <Select placeholder="New Lead Entry">
-                                                <Option value="china">China</Option>
-                                                <Option value="usa">U.S.A</Option>
+                                                    <Option value="china">China</Option>
+                                                    <Option value="usa">U.S.A</Option>
                                                 </Select>
                                             </Form.Item>
                                         </Col>
