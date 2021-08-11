@@ -1,6 +1,6 @@
 import React from 'react'
 import './NewLead.css'
-import { Row, Col,Form,Typography,Button,Input,Select} from 'antd';
+import { Row, Col,Form,Typography,Button,Input,Select,Cascader } from 'antd';
 const { Title } = Typography;
 
 const { Option } = Select;
@@ -12,6 +12,161 @@ const formItemLayout = {
       span: 24,
     },
   };
+  const options = [
+    {
+      value: 'newleadentry',
+      label: 'New Lead Entry',
+    },
+    {
+      value: 'nocontact',
+      label: 'No Contact',
+      children: [
+        {
+          value: 'notreachable',
+          label: 'Not Reachable',
+          children: [
+            {
+              value: 'notreachable',
+              label: 'Not Reachable',
+            },
+          ],
+        },
+        {
+            value: 'ringingbusy',
+            label: 'Ringing Busy',
+            children: [
+              {
+                value: 'ringingbusy',
+                label: 'Ringing Busy',
+              },
+            ],
+        },
+        {
+            value: 'wrongnumber',
+            label: 'Wrong Number',
+            children: [
+              {
+                value: 'wrongnumber',
+                label: 'Wrong Number',
+              },
+            ],
+        },
+        {
+            value: 'invalidnumber',
+            label: 'Invalid Number',
+            children: [
+              {
+                value: 'invalidnumber',
+                label: 'Invalid Number',
+              },
+            ],
+        },
+        {
+            value: 'switchedoff',
+            label: 'Switched Off',
+            children: [
+              {
+                value: 'switchedoff',
+                label: 'Switched Off',
+              },
+            ],
+        },
+      ],
+    },
+    {
+        value: 'contact',
+        label: 'Contact',
+        children: [
+          {
+            value: 'appointment',
+            label: 'Appointment',
+            children: [
+              {
+                value: 'clienthasgivenappointment',
+                label: 'Client has given appointment',
+              },
+            ],
+          },
+          {
+            value: 'callback',
+            label: 'Callback',
+            children: [
+              {
+                value: 'askedtocallbacklater',
+                label: 'Asked to callback later',
+              },
+              {
+                value: 'decisionmakerunavailable',
+                label: 'Decision maker unavailable',
+              },
+              {
+                value: 'ecsisactiveaskedtocallonduedate',
+                label: 'ECS is active asked to call on due date',
+              },
+            ],
+          },
+          {
+            value: 'shorthangup',
+            label: 'Short hang up',
+            children: [
+              {
+                value: 'shorthangup',
+                label: 'Short hang up',
+              },
+            ],
+          },
+          {
+            value: 'notinterested',
+            label: 'Not interested',
+            children: [
+              {
+                value: 'notinterestedtomeet',
+                label: 'Not interested to meet',
+              },
+              {
+                value: 'didnotenquire',
+                label: 'Did not Enquire',
+              },
+              {
+                value: 'tooexpensive',
+                label: 'Too Expensive',
+              },
+              {
+                value: 'notinterestedtocontinueexistingpolicy',
+                label: 'Not interested to continue existing policy',
+              },
+            ],
+          },
+          {
+            value: 'nonservicelocation',
+            label: 'Non service location',
+            children: [
+              {
+                value: 'nonservicelocation',
+                label: 'Non service location',
+              },
+            ],
+          },
+          {
+            value: 'noteligible',
+            label: 'Not eligible',
+            children: [
+              {
+                value: 'neincome',
+                label: 'NE - Income',
+              },
+              {
+                value: 'neage',
+                label: 'NE - Age',
+              },
+            ],
+          },
+        ],
+    },
+];
+
+
+  
 const NewLead = React.memo(() => {
 
     return (
@@ -197,19 +352,16 @@ const NewLead = React.memo(() => {
                                                 className="form-item-name label-color"
                                                 name="Lead Status"
                                                 label="Lead Status"
-                                                hasFeedback
-                                                rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Lead Status',
-                                                },
-                                                ]}
                                             >
-                                                <Select placeholder="New Lead Entry">
-                                                    <Option value="china">China</Option>
-                                                    <Option value="usa">U.S.A</Option>
-                                                </Select>
+                                                <Cascader 
+                                                    options={options} 
+                                                    placeholder="New Contact"
+                                                    size="medium"
+                                                    popupClassName="popup-size"
+                                                /> 
+                                                
                                             </Form.Item>
+
                                         </Col>
                                         <Col xs={24} sm={12} md={24} lg={12} xl={12} >
                                             <Form.Item

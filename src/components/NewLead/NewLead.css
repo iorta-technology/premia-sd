@@ -88,4 +88,13 @@
     .btn-color{
         color: rgb(59, 55, 30)!important;
     }
+    .ant-cascader-menu{
+        height: auto;
+    }
+    .ant-cascader-menu-item{
+        padding: 5px 5px;
+        white-space: normal;
+        width: 120px;
+        line-height: 18px;
+    }
 }
