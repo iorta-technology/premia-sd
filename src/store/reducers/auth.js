@@ -4,6 +4,7 @@ import { updateObject } from '../utility';
 const initialState = {
     login_agent_data:null,
     agent_id:"",
+    id:'',
     login_error:null
 }
 
