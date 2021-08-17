@@ -3,12 +3,16 @@ import { Button, Card,Progress} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import './ActiveContest.css';
-
+import {useHistory} from 'react-router-dom';
 
 
 const ActiveContest=()=>{
     let{innerWidth:width,innerHeight:height}=window;
 console.log(width)
+let history=useHistory()
+const ActiveContestRoute=()=>{
+  history.push("/rewardscorner/contests/activecontestdetails")
+}
     return( 
  
         <div 
@@ -163,6 +167,7 @@ marginRight:width<="374"?"-23px":width<="424"?"-18px":width<="767"?"-16px":"0px"
                >
                  <button
                   className="leaderboard-button-style"
+                  onClick={ActiveContestRoute}
                  >View Details</button>
                 
          </div>
@@ -252,6 +257,7 @@ marginRight:width<="374"?"-23px":width<="424"?"-18px":width<="767"?"-16px":"0px"
                >
                  <button
                   className="leaderboard-button-style"
+                  onClick={ActiveContestRoute}
                  >View Details</button>
                 
          </div>
@@ -340,6 +346,7 @@ marginRight:width<="374"?"-23px":width<="424"?"-18px":width<="767"?"-16px":"0px"
                >
                  <button
                   className="leaderboard-button-style"
+                  onClick={ActiveContestRoute}
                  >View Details</button>
                 
          </div>
@@ -428,6 +435,7 @@ marginRight:width<="374"?"-23px":width<="424"?"-18px":width<="767"?"-16px":"0px"
                >
                  <button
                   className="leaderboard-button-style"
+                  onClick={ActiveContestRoute}
                  >View Details</button>
                 
          </div>
@@ -516,6 +524,7 @@ marginRight:width<="374"?"-23px":width<="424"?"-18px":width<="767"?"-16px":"0px"
                >
                  <button
                   className="leaderboard-button-style"
+                  onClick={ActiveContestRoute}
                  >View Details</button>
                 
          </div>

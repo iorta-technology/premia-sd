@@ -1,10 +1,13 @@
 import { Card, Progress } from 'antd';
 import React from 'react';
 import './AllContest.css';
-
+import {useHistory} from 'react-router-dom';
 const AllContest=()=>{
+    let history=useHistory();
     let{innerWidth:width,innerHeight:height}=window;
-    
+const AllContestDetailsRoute=()=>{
+history.push("/rewardscorner/contests/allcontestdetails")
+}
     return(
         <div className="contestall-main-style">
 
@@ -12,7 +15,6 @@ const AllContest=()=>{
 <div className="contestall-two-cards-row-flex">
 
          <div className="contestall-card-style">
-
              <div  className="contestall-topcard-row-flex">
                  <div>
                  <h5 className="contestall-topcard-underline-text">Digital East</h5>
@@ -40,7 +42,9 @@ className="contestall-bottomcard-progressbar-style"
 </div>
 
 
-<button className="contestall-bottomcard-button-style">
+<button className="contestall-bottomcard-button-style"
+onClick={AllContestDetailsRoute}
+>
 Details
 </button>
              </div>
@@ -80,7 +84,9 @@ strokeLinecap="square"
 </div>
 
 
-<button className="contestall-bottomcard-button-style">
+<button className="contestall-bottomcard-button-style"
+onClick={AllContestDetailsRoute}
+>
 Details
 </button>
 </div>
@@ -122,7 +128,8 @@ strokeLinecap="square"
 </div>
 
 
-<button className="contestall-bottomcard-button-style">
+<button className="contestall-bottomcard-button-style"
+onClick={AllContestDetailsRoute}>
 Details
 </button>
 </div>
@@ -162,7 +169,9 @@ strokeLinecap="square"
 </div>
 
 
-<button className="contestall-bottomcard-button-style">
+<button className="contestall-bottomcard-button-style"
+onClick={AllContestDetailsRoute}
+>
 Details
 </button>
 </div>
@@ -203,7 +212,9 @@ strokeLinecap="square"
 </div>
 
 
-<button className="contestall-bottomcard-button-style">
+<button className="contestall-bottomcard-button-style"
+onClick={AllContestDetailsRoute}
+>
 Details
 </button>
 </div>
