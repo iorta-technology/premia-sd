@@ -6,7 +6,6 @@ import Login from './components/Login/Login'
 import HomePage from './components/Home/HomePage';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword';
-// import cards from './components/LeadCards/LeadCards';
 function App() {
   return (
     <Router>

@@ -63,7 +63,7 @@
     gap:1.5rem;
     height: 10vh;
 }
-.label-color>div>.ant-form-item-required{
+.label-color>.ant-form-item-label{
     color: rgb(159, 159, 159);
 }
 @media (max-width:524px) {
