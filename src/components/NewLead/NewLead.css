@@ -66,6 +66,13 @@
 .label-color>.ant-form-item-label{
     color: rgb(159, 159, 159);
 }
+
+.botton-label{
+    margin-bottom: 8px;
+}
+.lead-manager{
+    margin-bottom: 16px;
+}
 @media (max-width:524px) {
     
     .contact-detail-form>.ant-col{

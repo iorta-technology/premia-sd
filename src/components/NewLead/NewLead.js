@@ -238,20 +238,40 @@ const NewLead = React.memo(() => {
 
   const [leadSelect, setLeadSelect] = useState()
 
-  const [visible, setVisible] = React.useState(false);
-  const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const [modalText, setModalText] = React.useState('Content of the modal');
+  // add team Member modal state control
+  const [visibleTeamMemberModal, setVisibleTeamMemberModal] = React.useState(false);
+  const [teamMemberLoading, setTeamMemberLoading] = React.useState(false);
+  // const [modalText, setModalText] = React.useState('Content of the modal');
 
-  const showModal = () => {
-    setVisible(true);
+  // change owner Member modal state control
+  const [visibleChangeOwnerMOdel, setVisibleChangeOwnerMOdel] = React.useState(false);
+  const [changeOwnerLoading, setChangeOwnerLoading] = React.useState(false);
+  // const [modalText, setModalText] = React.useState('Content of the modal');
+
+
+  const showTeamMemeberModal = () => {
+    setVisibleTeamMemberModal(true);
   };
 
-  const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
-    setConfirmLoading(true);
+  const showChangeOwnerModal = () => {
+    setVisibleChangeOwnerMOdel(true);
+  };
+
+  const handleAddMember = () => {
+    // setModalText('Updating changes ');
+    setTeamMemberLoading(true);
     setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
+      setVisibleTeamMemberModal(false);
+      setTeamMemberLoading(false);
+    }, 2000);
+  };
+
+  const handleChangeOwner = () => {
+    // setModalText('Updating changes ');
+    setChangeOwnerLoading(true);
+    setTimeout(() => {
+      setVisibleChangeOwnerMOdel(false);
+      setChangeOwnerLoading(false);
     }, 2000);
   };
 
@@ -545,18 +565,19 @@ const NewLead = React.memo(() => {
                         <Input className="email border-bottom" placeholder="Enter Some Remark" />
                       </Form.Item>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={12} xl={12} >
-                      <p>Select the team members you want to involve for this lead</p>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} className="lead-manager">
+                      <p className="botton-label">Select the team members you want to involve for this lead</p>
+                      <Button shape="round" size="large" block={false} onClick={showTeamMemeberModal}>Add Team Member</Button>
+                    </Col>
                       <>
-                        <Button shape="round" size="large" block={false} onClick={showModal}>Add Team Member</Button>
                         <Modal
-                          visible={visible}
-                          onOk={handleOk}
-                          confirmLoading={confirmLoading}
-                          width={375}
+                          title="Add Team Member"
+                          visible={visibleTeamMemberModal}
+                          onOk={handleAddMember}
+                          confirmLoading={teamMemberLoading}
                           // onCancel={handleCancel}
                         >
-                          <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item
                               {...formItemLayout}
                               className="form-item-name label-color"
@@ -573,7 +594,7 @@ const NewLead = React.memo(() => {
                               <Select options={setReminderOptions} placeholder="Set Designation"></Select>
                             </Form.Item>
                           </Col>
-                          <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item
                               {...formItemLayout}
                               className="form-item-name label-color"
@@ -592,22 +613,54 @@ const NewLead = React.memo(() => {
                           </Col>
                         </Modal>
                       </>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} className="lead-manager">
+                      <p className="botton-label">Currently this lead is allocated to Self</p>
+                      <Button shape="round" size="large" block={false} onClick={showChangeOwnerModal}>Change Owner</Button>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={12} xl={12} >
-                      <p>Currently this lead is allocated to Self</p>
-                      <Button shape="round" size="large" block={false} onClick={showModal}>Change Owner</Button>
                       <>
-                        {/* <Modal
-                          title="Add Team Member"
-                          visible={visible}
-                          onOk={handleOk}
-                          confirmLoading={confirmLoading}
+                        <Modal
+                          title="Allocate to"
+                          visible={visibleChangeOwnerMOdel}
+                          onOk={handleChangeOwner}
+                          confirmLoading={changeOwnerLoading}
                           // onCancel={handleCancel}
                         >
-                          <p>{modalText}</p>
-                        </Modal> */}
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Designation"
+                              label="Select Designation"
+                              hasFeedback
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Designation',
+                                },
+                              ]}
+                            >
+                              <Select options={setReminderOptions} placeholder="Set Designation"></Select>
+                            </Form.Item>
+                          </Col>
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Team Member"
+                              label="Select Team Member"
+                              hasFeedback
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Reminder',
+                                },
+                              ]}
+                            >
+                              <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
+                            </Form.Item>
+                          </Col>
+                        </Modal>
                       </>
-                    </Col>
                   </Row>
                 </Form>
               </div>

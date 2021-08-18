@@ -7,16 +7,16 @@ import * as actions from '../../store/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from "moment";
 import _ from "lodash";
-import Container from './Container'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from 'recharts'
+// import Container from './Container'
+// import {
+//   BarChart,
+//   Bar,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+// } from 'recharts'
 const HomePage = () => {
   const agent_id = useSelector((state) => state.login.agent_id)
   const logged_in_user = useSelector((state) => state.login.user_name)
