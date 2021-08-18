@@ -15,16 +15,19 @@ export default function CalendarEvent() {
   //  alert(moment("2021-08-10 " ))
   //  alert(moment(value,format))
   // })
-  const[teamMemberCheck,setTeamMemberCheck]=useState(true)
+  const[advisorCheck,setAdvisorCheck]=useState(true)
   const[prospectCheck,setProspectCheck]=useState(false)
   const[customerCheck,setCustomerCheck]=useState(false)
  
-const[teamMemberCollection,setTeamMemberCollection]=useState({
-  meeting:true,
+const[advisorCollection,setAdvisorCollection]=useState({
+  appointment_advisor:true,
+  phone_call_advisor:false,
   training:false,
   businessPlanning_review:true,
   unit_meeting:false,
-  joint_customer_visit:false
+  joint_customer_visit:false,
+  servicing:false,
+  inactive_agent_reactivation:false
 
 })
 
@@ -37,8 +40,8 @@ const[prospectCollection,setProspectCollection]=useState({
   document_collection:false
 })
 const[customerCollection,setCustomerCollection]=useState({
-appointment:true,
-phone_call:false,
+appointment_customer:true,
+phone_call_customer:false,
 policy_renewal:false
 })
 
@@ -55,40 +58,99 @@ const[prospectTraining,setProspectTraining]=useState(false)
   const[endVal,setEndVal]=useState(moment('10:00',format));
 
 const checkTeamMemberFunc=()=>{
-  setTeamMemberCheck(true)
+  setAdvisorCheck(true)
   setProspectCheck(false)
   setCustomerCheck(false)
 }
 const checkProspectFunc=()=>{
-  setTeamMemberCheck(false)
+  setAdvisorCheck(false)
   setProspectCheck(true)
   setCustomerCheck(false)
 }
 
 const checkCustomerFunc=()=>{
-  setTeamMemberCheck(false)
+  setAdvisorCheck(false)
   setProspectCheck(false)
   setCustomerCheck(true)
 }
-
-const TeamMemberMeetingFunc=()=>{
-
-setTeamMemberCollection({
-  meeting:true,
-  training:false
-})
-
+const AdvisorTrainingFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:false,
+    phone_call_advisor:false,
+    training:true,
+  })
 }
-const TeamMemberTrainingFunc=()=>{
-  setTeamMemberCollection({
-    meeting:false,
-    training:true
+const AdvisorPhoneCallFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:false,
+    phone_call_advisor:true,
+    training:false,
+  })
+}
+const AdvisorAppointmentFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:true,
+    phone_call_advisor:false,
+    training:false,
   })
 
 }
+const CustomerAppointmentFunc=()=>{
+  setCustomerCollection({
+    appointment_customer:true,
+    phone_call_customer:false,
+    policy_renewal:false
+  })
+}
+const CustomerPhoneCallFunc=()=>{
+  setCustomerCollection({
+    appointment_customer:false,
+    phone_call_customer:true,
+    policy_renewal:false
+  })
+}
+const CustomerPolicyRenewalFunc=()=>{
+  setCustomerCollection({
+    appointment_customer:false,
+    phone_call_customer:false,
+    policy_renewal:true
+  })
+}
+
+
+const TeamMemberMeetingFunc=()=>{
+
+setAdvisorCollection({
+  appointment_advisor:true,
+  phone_call_advisor:false,
+  training:false,
+})
+if(prospectCheck==true){
+  setProspectCollection({
+    appointment_prospect:true,
+    phone_call:false,
+    training_prospect:false
+  })
+}
+
+}
+const TeamMemberTrainingFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:false,
+  phone_call_advisor:false,
+  training:true,
+  })
+  if(prospectCheck==true){
+    setProspectCollection({
+      appointment_prospect:false,
+      phone_call:true,
+      training_prospect:false
+    })
+  }
+}
 
 const TeamMemberBusinessPlanning_ReviewFunc=()=>{
-  setTeamMemberCollection({
+  setAdvisorCollection({
    businessPlanning_review:true,
    unit_meeting:false,
    joint_customer_visit:false
@@ -96,7 +158,7 @@ const TeamMemberBusinessPlanning_ReviewFunc=()=>{
  
 }
 const TeamMemberUnitMeetingFunc=()=>{
-  setTeamMemberCollection({
+  setAdvisorCollection({
    businessPlanning_review:false,
    unit_meeting:true,
    joint_customer_visit:false
@@ -104,32 +166,42 @@ const TeamMemberUnitMeetingFunc=()=>{
  
 }
 const TeamMemberJointCustomerVisitFunc=()=>{
-  setTeamMemberCollection({
+  setAdvisorCollection({
    businessPlanning_review:false,
    unit_meeting:false,
    joint_customer_visit:true
   })
  
 }
-const ProspectCollectionAppointmentFunc=()=>{
+const ProspectAppointmentFunc=()=>{
 
-  setProspectAppointment(true)
-  setProspectPhoneCall(false)
-  setProspectTraining(false)
-alert(prospectAppointment)  
+setProspectCollection({
+  appointment_prospect:true,
+  phone_call:false,
+  training_prospect:false
+})
+
+  
   }
 const ProspectPhoneCallFunc=()=>{
-  setProspectAppointment(false)
-  setProspectPhoneCall(true)
-  setProspectTraining(false)
+
+  setProspectCollection({
+    appointment_prospect:false,
+    phone_call:true,
+    training_prospect:false
+  })
+
   
 }
 const ProspectTrainingFunc=()=>{
+
   setProspectCollection({
     appointment_prospect:false,
     phone_call:false,
     training_prospect:true,
   })
+
+  
 }
 const ProspectFirstMeetingFunc=()=>{
   setProspectCollection({
@@ -155,22 +227,22 @@ const ProspectDocumentCollectionFunc=()=>{
 
 const CustomerAppointmentCollectionFunc=()=>{
   setCustomerCollection({
-    appointment:true,
-    phone_call:false,
+    appointment_customer:true,
+    phone_call_customer:false,
     policy_renewal:false
   })
 }
 const CustomerPhoneCallCollectionFunc=()=>{
   setCustomerCollection({
-    appointment:false,
-    phone_call:true,
+    appointment_customer:false,
+    phone_call_customer:true,
     policy_renewal:false
   })
 }
 const CustomerPolicyRenewalCollectionFunc=()=>{
   setCustomerCollection({
-    appointment:false,
-    phone_call:false,
+    appointment_customer:false,
+    phone_call_customer:false,
     policy_renewal:true
   })
 }
@@ -316,8 +388,8 @@ className="CalendarEvent-Modal-Card-button-flex"
 >
 <button
 onClick={checkTeamMemberFunc}
-className={teamMemberCheck==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
->Team Member</button>
+className={advisorCheck==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Advisor</button>
 <button
 onClick={checkProspectFunc}
 className={prospectCheck==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
@@ -337,25 +409,86 @@ className="CalendarEvent-Modal-Card-vertical-line"
 <h4
 className="CalendarEvent-Modal-Card-header-type"
 >Event Type</h4>
-<div
-className={teamMemberCheck==true?"CalendarEvent-teammember-event-type-button-flex":prospectCheck==true?"CalendarEvent-Modal-Card-button-flex":"CalendarEvent-Modal-Card-button-flex"}
+{advisorCheck==true?
+  <div
+className={advisorCheck==true?"CalendarEvent-Modal-Card-button-flex":"CalendarEvent-Modal-Card-button-flex"}
 >
 <button
-className={teamMemberCollection.meeting==true||prospectAppointment==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+className={advisorCollection.appointment_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+onClick={AdvisorAppointmentFunc}
+
+>Appointment</button>
+<button
+className={advisorCollection.phone_call_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+onClick={AdvisorPhoneCallFunc}
+>Phone Call</button>
+
+  <button
+onClick={AdvisorTrainingFunc}
+className={advisorCollection.training==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Training</button>
+
+</div>
+:prospectCheck==true? 
+<div
+className={prospectCheck==true?"CalendarEvent-Modal-Card-button-flex":"CalendarEvent-Modal-Card-button-flex"}
+>
+<button
+className={prospectCollection.appointment_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+onClick={ProspectAppointmentFunc}
+
+>Appointment</button>
+<button
+className={prospectCollection.phone_call==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+onClick={ProspectPhoneCallFunc}
+>Phone Call</button>
+
+  <button
+onClick={ProspectTrainingFunc}
+className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Training</button>
+
+</div>
+:customerCheck==true? 
+<div
+className={customerCheck==true?"CalendarEvent-Modal-Card-button-flex":"CalendarEvent-Modal-Card-button-flex"}
+>
+<button
+className={customerCollection.appointment_customer==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+onClick={CustomerAppointmentFunc}
+
+>Appointment</button>
+<button
+className={customerCollection.phone_call_customer==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+onClick={CustomerPhoneCallFunc}
+>Phone Call</button>
+
+  <button
+onClick={CustomerPolicyRenewalFunc}
+className={customerCollection.policy_renewal==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Policy Renewals</button>
+
+</div>
+:null}
+{/* <div
+className={advisorCheck==true||prospectCheck==true?"CalendarEvent-Modal-Card-button-flex":"CalendarEvent-Modal-Card-button-flex"}
+>
+<button
+className={prospectCollection.appointment_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.appointment_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":customerCollection.appointment_customer==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
 onClick={ProspectCollectionAppointmentFunc}
 
->{teamMemberCheck==true?"Meeting":"Appointment"}</button>
+>Appointment</button>
 <button
-className={prospectPhoneCall==true||teamMemberCollection.training==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+className={prospectCollection.phone_call==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.phone_call_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
 onClick={ProspectPhoneCallFunc}
->{teamMemberCheck==true?"Training":"Phone Call"}</button>
-{prospectCheck==true || customerCheck==true?
+>Phone Call</button>
+
   <button
-onClick={checkCustomerFunc}
-className={prospectCheck==true||customerCheck==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
->{prospectCheck==true?"Training":customerCheck==true?"Policy Renewals":null}</button>
-:null}
-</div>
+onClick={ProspectTrainingFunc}
+className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.training==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>{advisorCheck==true||prospectCheck==true?"Training":customerCheck==true?"Policy Renewals":null}</button>
+
+</div> */}
 <div
 className="CalendarEvent-Modal-Card-vertical-line"
 >
@@ -363,8 +496,8 @@ className="CalendarEvent-Modal-Card-vertical-line"
 </div>
 <h4
 className="CalendarEvent-Modal-Card-header-type"
->Event With</h4>
-<div
+>Event With</h4>{prospectCollection.appointment_prospect==true?
+  <div
 className="CalendarEvent-Modal-appointmenttype-button-flex"
 >
 <button
@@ -379,6 +512,23 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
 
 
 </div>
+
+:null}
+{/* <div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+<button
+className="CalendarEvent-Modal-Card-eventwith-onclick-button-style"
+>First Meeting</button>
+<button
+className="CalendarEvent-Modal-Card-eventwith-static-button-style"
+>Follow Up</button>
+<button
+className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
+>Document Collection</button>
+
+
+</div> */}
 
 
 
