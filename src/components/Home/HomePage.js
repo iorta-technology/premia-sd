@@ -9,6 +9,7 @@ import Moment from "moment";
 import _ from "lodash";
 import { Link } from 'react-router-dom';
 import Container from './Container'
+import FloatButton from '../FloatButton/FloatButton';
 import {
   BarChart,
   Bar,
@@ -85,6 +86,7 @@ const HomePage = () => {
     },
   ]
   return <Fragment >
+    <FloatButton/>
     <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>Hi {logged_in_user}</h3>
     <div className="cardHolder">
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>

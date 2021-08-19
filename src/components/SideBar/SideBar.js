@@ -54,7 +54,7 @@ const Sidebar = () => {
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
           <NavIcon to='#'>
-          <FaIcons.FaBell style={{float:'right'}} />
+          <FaIcons.FaBell  />
             </NavIcon>
         </Nav>
         <SidebarNav sidebar={sidebar}>
