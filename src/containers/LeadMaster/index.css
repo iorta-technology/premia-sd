@@ -31,7 +31,8 @@
     border-color: #E8E8E8;
 }
 
-.page-holder>ul>.ant-pagination-next>button{
+.page-holder>ul>.ant-pagination-next>button,
+.page-holder>ul>.ant-pagination-prev>button{
     color: #545454;
     font-weight: bold;
     background-color: #ffffff;
@@ -43,7 +44,7 @@
     -o-border-radius: none;
 }
 
-.page-holder>ul>.ant-pagination-prev,.ant-pagination-options{
+.page-holder>ul>.ant-pagination-options{
     display: none;
 }
 
