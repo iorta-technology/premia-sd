@@ -4,7 +4,9 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './CalendarEvent.css';
-import {TimePicker,Button,Modal,Card} from 'antd';
+import {TimePicker,Button,Modal,Card,Input,DatePicker} from 'antd';
+import { PresetStatusColorTypes } from "antd/lib/_util/colors";
+const { Search } = Input;
 
 
 
@@ -18,7 +20,10 @@ export default function CalendarEvent() {
   const[advisorCheck,setAdvisorCheck]=useState(true)
   const[prospectCheck,setProspectCheck]=useState(false)
   const[customerCheck,setCustomerCheck]=useState(false)
- 
+ const[durationButton,setDurationButton]=useState({
+   select_time:true,
+   all_day:false
+ })
 const[advisorCollection,setAdvisorCollection]=useState({
   appointment_advisor:true,
   phone_call_advisor:false,
@@ -30,7 +35,10 @@ const[advisorCollection,setAdvisorCollection]=useState({
   inactive_agent_reactivation:false
 
 })
-
+const[status_type,setStatusType]=useState({
+  openStatus:true,
+  closeStatus:false
+})
 const[prospectCollection,setProspectCollection]=useState({
   appointment_prospect:true,
   phone_call:false,
@@ -73,6 +81,30 @@ const checkCustomerFunc=()=>{
   setProspectCheck(false)
   setCustomerCheck(true)
 }
+const DurationSelectTimeFunc=()=>{
+  setDurationButton({
+    select_time:true,
+    all_day:false
+  })
+}
+const DurationAllDayFunc=()=>{
+  setDurationButton({
+    select_time:false,
+    all_day:true
+  })
+}
+const StatusTypeOpenFunc=()=>{
+  setStatusType({
+    openStatus:true,
+    closeStatus:false
+  })
+}
+const StatusTypeCloseFunc=()=>{
+  setStatusType({
+    openStatus:false,
+    closeStatus:true
+  })
+}
 const AdvisorTrainingFunc=()=>{
   setAdvisorCollection({
     appointment_advisor:false,
@@ -82,6 +114,7 @@ const AdvisorTrainingFunc=()=>{
 }
 const AdvisorPhoneCallFunc=()=>{
   setAdvisorCollection({
+    
     appointment_advisor:false,
     phone_call_advisor:true,
     training:false,
@@ -115,6 +148,94 @@ const CustomerPolicyRenewalFunc=()=>{
     phone_call_customer:false,
     policy_renewal:true
   })
+}
+
+const AppointmentProspectMeetingFunc=()=>{
+
+  setProspectCollection({
+    appointment_prospect:true,
+    first_meeting:true,
+    follow_up:false,
+    document_collection:false
+  })
+}
+
+const AppointmentProspectFollowUpFunc=()=>{
+  setProspectCollection({
+    appointment_prospect:true,
+    first_meeting:false,
+    follow_up:true,
+    document_collection:false
+  })
+}
+
+const AppointmentProspectDocCollectionFunc=()=>{
+  setProspectCollection({
+    appointment_prospect:true,
+    first_meeting:false,
+    follow_up:false,
+    document_collection:true
+  })
+}
+// const AppointmentAdvisorUnitMeetingFunc=()=>{}
+const AppointmentAdvisorUnitMeetingFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:true,
+    businessPlanning_review:false,
+    inactive_agent_reactivation:false,
+    unit_meeting:true,
+    joint_customer_visit:false,
+    servicing:false
+  })
+}
+const AppointmentAdvisorServicingFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:true,
+    businessPlanning_review:false,
+    inactive_agent_reactivation:false,
+    unit_meeting:false,
+    joint_customer_visit:false,
+    servicing:true
+  })
+}
+const AppointmentAdvisorJoint_Cust_MeetingFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:true,
+    businessPlanning_review:false,
+    inactive_agent_reactivation:false,
+    unit_meeting:false,
+    joint_customer_visit:true,
+    servicing:false
+  })
+}
+const AppointmentAdvisorBusinessPlanningFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:true,
+    businessPlanning_review:true,
+    inactive_agent_reactivation:false,
+    unit_meeting:false,
+    joint_customer_visit:false,
+    servicing:false
+  })
+}
+
+const AppointmentAdvisorInactiveAgentFunc=()=>{
+  setAdvisorCollection({
+    appointment_advisor:true,
+    businessPlanning_review:false,
+    inactive_agent_reactivation:true,
+    unit_meeting:false,
+    joint_customer_visit:false,
+    servicing:false
+  })
+}
+
+const onChangeDate=(date, dateString)=>{
+  console.log(date, dateString);
+}
+
+const onChangeTime=(time, timeString)=>{
+  console.log(time, timeString);
 }
 
 
@@ -494,26 +615,265 @@ className="CalendarEvent-Modal-Card-vertical-line"
 >
 
 </div>
-<h4
+{advisorCollection.appointment_advisor==true&&advisorCheck==true?
+  <div>
+    <h4
 className="CalendarEvent-Modal-Card-header-type"
->Event With</h4>{prospectCollection.appointment_prospect==true?
-  <div
+>Appointment Type</h4>
+<div
+className="CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex"
+>
+ <button
+ onClick={AppointmentAdvisorBusinessPlanningFunc}
+ className={advisorCollection.businessPlanning_review==true?"CalendarEvent-Modal-businessPlanning-onclick-button-style":"CalendarEvent-Modal-businessPlanning-static-button-style "}
+ >Business Planning & Review</button>
+ <button
+ onClick={AppointmentAdvisorInactiveAgentFunc}
+ className={advisorCollection.inactive_agent_reactivation==true?"CalendarEvent-Modal-businessPlanning-onclick-button-style":"CalendarEvent-Modal-businessPlanning-static-button-style "}
+ >Inactive Agent re-activation</button>
+</div>
+
+<div
 className="CalendarEvent-Modal-appointmenttype-button-flex"
 >
 <button
-className="CalendarEvent-Modal-Card-eventwith-onclick-button-style"
->First Meeting</button>
+onClick={AppointmentAdvisorUnitMeetingFunc}
+className={advisorCollection.unit_meeting==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Unit Meeting</button>
 <button
-className="CalendarEvent-Modal-Card-eventwith-static-button-style"
->Follow Up</button>
+onClick={AppointmentAdvisorJoint_Cust_MeetingFunc}
+className={advisorCollection.joint_customer_visit==true?"CalendarEvent-Modal-joint-customer-onclick-button-style":"CalendarEvent-Modal-joint-customer-static-button-style"}
+>Joint Customer Meeting</button>
 <button
-className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
->Document Collection</button>
+onClick={AppointmentAdvisorServicingFunc}
+className={advisorCollection.servicing==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Servicing</button>
 
 
 </div>
+</div>
+
+
+:advisorCollection.phone_call_advisor==true&&advisorCheck==true?
+  <div>
+    <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Client Visit</h4>
+
+
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+<button
+onClick={()=>{}}
+className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
+>Relationship Call </button>
+
+
+
+</div>
+</div>
+:prospectCollection.phone_call==true&&prospectCheck==true?
+<div>
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Client Visit</h4>
+
+
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+<button
+onClick={()=>{}}
+className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
+>Relationship Call </button>
+
+
+
+</div>
+</div>
+:customerCollection.phone_call_customer==true&&customerCheck==true?
+<div>
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Client Visit</h4>
+
+
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+<button
+onClick={()=>{}}
+className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
+>Relationship Call </button>
+
+
+
+</div>
+</div>
+
+:prospectCollection.appointment_prospect==true&&prospectCheck==true?
+<div>
+<h4
+className="CalendarEvent-Modal-Card-header-type"
+>Appointment Type</h4>
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+
+<button
+onClick={AppointmentProspectMeetingFunc}
+className={prospectCollection.first_meeting==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>First Meeting</button>
+<button
+onClick={AppointmentProspectFollowUpFunc}
+className={prospectCollection.follow_up==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Follow Up</button>
+<button
+onClick={AppointmentProspectDocCollectionFunc}
+className={prospectCollection.document_collection==true?"CalendarEvent-Modal-documentcollection-onclick-button-style":"CalendarEvent-Modal-Card-documentcollection-static-button-style"}
+>Document Collection</button>
+
+</div>
+</div>
 
 :null}
+
+
+
+{advisorCheck==true?
+<div>
+<div
+className="CalendarEvent-Modal-Card-vertical-line"
+>
+
+</div>
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Search Advisor</h4>
+
+
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+<Search placeholder="Search By Name" onSearch={()=>{}} 
+enterButton
+className="CalendarEvent-Modal-textinput-style"
+/>
+
+
+
+
+</div>
+</div>
+:prospectCollection.phone_call==true||prospectCollection.training_prospect==true||prospectCollection.follow_up==true||prospectCollection.document_collection==true?
+<div>
+<div
+className="CalendarEvent-Modal-Card-vertical-line"
+>
+
+</div>
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Search Prospect</h4>
+
+
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+<Search placeholder="Search By Name" onSearch={()=>{}} 
+enterButton
+className="CalendarEvent-Modal-textinput-style"
+/>
+
+
+
+
+</div>
+</div>
+:customerCheck==true?
+<div>
+<div
+className="CalendarEvent-Modal-Card-vertical-line"
+>
+
+</div>
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Search Customer</h4>
+
+
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+<Search placeholder="Search By Name" onSearch={()=>{}} 
+enterButton
+className="CalendarEvent-Modal-textinput-style"
+/>
+
+
+
+
+</div>
+</div>:null}
+{
+  prospectCollection.first_meeting==true&&prospectCheck==true?
+  <div>
+    <div
+    className="CalendarEvent-Modal-prospect-meeting-textbox-flex"
+    >
+       <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Prospect First Name</h4>
+<input
+className="CalendarEvent-Modal-textbox-style"
+type="text"
+required
+/>
+
+    </div>
+    <div
+    className="CalendarEvent-Modal-prospect-meeting-textbox-flex"
+    >
+       <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Prospect Last Name</h4>
+<input
+className="CalendarEvent-Modal-textbox-style"
+type="text"
+required
+/>
+
+    </div>
+    <div
+    className="CalendarEvent-Modal-prospect-meeting-textbox-flex"
+    >
+       <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Email Address</h4>
+<input
+className="CalendarEvent-Modal-textbox-style"
+type="text"
+required
+/>
+
+    </div>
+    <div
+    className="CalendarEvent-Modal-prospect-meeting-textbox-flex"
+    >
+       <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Primary Phone No</h4>
+<input
+className="CalendarEvent-Modal-textbox-style"
+type="text"
+required
+/>
+
+    </div>
+    </div>
+  :null
+}
 {/* <div
 className="CalendarEvent-Modal-appointmenttype-button-flex"
 >
@@ -536,10 +896,158 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
 
 
 
+<div
+className="CalendarEvent-Modal-Card-vertical-line"
+>
+</div>
+<h4
+className="CalendarEvent-Modal-Card-header-type"
+>Duration</h4>
+<div
+className="CalendarEvent-Modal-Card-time-duration-flex"
+>
+<button
+onClick={DurationSelectTimeFunc}
+className={durationButton.select_time==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Select Time</button><button
+onClick={DurationAllDayFunc}
+className={durationButton.all_day==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>All Day</button>
+
+</div>
+{durationButton.select_time==true?
+<div>
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+  <div
+  className="CalendarEvent-Modal-date-column-flex"
+  >
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Start Date *</h4>
+<DatePicker onChange={onChangeDate}
+className="CalendarEvent-Modal-picker-style"
+/>
+  </div>
+<div
+className="CalendarEvent-Modal-date-column-flex"
+>
+<h4
+className="CalendarEvent-Modal-Card-header-type"
+>Start Time *</h4>
+<TimePicker onChange={onChangeTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+className="CalendarEvent-Modal-picker-style"
+/>
+</div>
+
+</div>
+<div
+className="CalendarEvent-Modal-duration-style"
+>
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+  <div
+  className="CalendarEvent-Modal-date-column-flex"
+  >
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>End Date *</h4>
+<DatePicker onChange={onChangeDate}
+className="CalendarEvent-Modal-picker-style"
+/>
+  </div>
+<div
+className="CalendarEvent-Modal-date-column-flex"
+>
+<h4
+className="CalendarEvent-Modal-Card-header-type"
+>End Time *</h4>
+<TimePicker onChange={onChangeTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+className="CalendarEvent-Modal-picker-style"
+/>
+</div>
+
+</div>
+
+</div>
+</div>:
+<div>
+<div
+className="CalendarEvent-Modal-appointmenttype-button-flex"
+>
+  <div
+  className="CalendarEvent-Modal-date-column-flex"
+  >
+  <h4
+className="CalendarEvent-Modal-Card-header-type"
+>Start Date *</h4>
+<DatePicker onChange={onChangeDate}
+className="CalendarEvent-Modal-picker-style"
+/>
+  </div>
+
+</div>
+  </div>
+}
+<div
+className="CalendarEvent-Modal-Card-vertical-line"
+>
+</div>
+<h4
+className="CalendarEvent-Modal-Card-header-type"
+>Add Team Member</h4>
+<Search placeholder="Search By Name" onSearch={()=>{}} 
+enterButton
+className="CalendarEvent-Modal-textinput-style"
+/>
+<div
+className="CalendarEvent-Modal-Card-vertical-line"
+>
+<h4
+className="CalendarEvent-Modal-Card-header-type"
+>Status</h4>
+
+<div
+className="CalendarEvent-Modal-Card-status-flex"
+>
+<button
+onClick={StatusTypeOpenFunc}
+className={status_type.openStatus==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Open</button>
+<button
+onClick={StatusTypeCloseFunc}
+className={status_type.closeStatus==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+>Close</button>
+</div>
+{
+  status_type.closeStatus==true?
+  <div
+  className="CalendarEvent-Modal-Card-close-textbox-flex"
+  >
+<input
+className="CalendarEvent-Modal-Card-close-textbox-style"
+type="text"
+placeholder="Enter the reason"
+required
+/>
+  </div>
+  :null
+}
+</div>
 
 </div>
 
     </div>
+  <div
+  className="CalendarEvent-Modal-book-appointment-flex"
+  >
+  <button
+onClick={()=>{}}
+className={"CalendarEvent-Modal-book-appointment-button-style"}
+>Book Appointment</button>
+  </div>
 {/* <Card>
   <h4>jasjkhdsaj</h4>
 </Card> */}
