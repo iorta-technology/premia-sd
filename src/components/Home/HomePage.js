@@ -7,16 +7,17 @@ import * as actions from '../../store/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from "moment";
 import _ from "lodash";
-// import Container from './Container'
-// import {
-//   BarChart,
-//   Bar,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   Legend,
-// } from 'recharts'
+import { Link } from 'react-router-dom';
+import Container from './Container'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts'
 const HomePage = () => {
   const agent_id = useSelector((state) => state.login.agent_id)
   const logged_in_user = useSelector((state) => state.login.user_name)
@@ -87,44 +88,65 @@ const HomePage = () => {
     <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>Hi {logged_in_user}</h3>
     <div className="cardHolder">
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
-        <div className="card-content">
-          <div className="activity-icon">
-            <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3371.png" alt="Activities" />
-          </div>
-          <div className="activities-text">
-            <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
-            <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
-          </div>
-        </div>
-        {activities_data && !_.isEmpty(activities_data) && activities_data !== "No appointment "?
-          _.map((item)=>{
-            return(
-          <div className="action-cards-content" key={item._id}>
-            <div style={{ width: 320 }}>
-              <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
-              <p style={{ width: "100%", margin: "0" }}>{Moment(item.start_time_MS).format("h:mm a")} <span style={{ width: "100%", margin: "40px", fontWeight: "bold" }}>{item.event_name}</span> <span style={{ float: "right" }}>{Moment(item.end_time_MS).format("h:mm a")}</span></p>
-              <p><b style={{ color: '#00ACC1' }}><Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>{item.set_reminder_prority}</Button></b> <span style={{ fontSize: "12px", fontWeight: "400" }}>{item.event_description}</span><span style={{ float: "right" }}>{item.leadId?.primaryMobile}</span></p>
+        <Link to="/calendar">
+          <div className="card-content">
+            <div className="activity-icon">
+              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3371.png" alt="Activities" />
             </div>
-          </div>)
-          }):<div className="events-body" >
-          <Image className="stars" preview={false} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group127.png" alt="Events" />
-          <p style={{ color: '#CEA0E1', fontSize: '20px',width:"fit-content",margin:"auto" }}>No Events Exist</p>
-          <div style={{ color: '#fff', padding:"5px 20px", backgroundColor: '#CEA0E1', width: '40%',width:"fit-content",margin:"auto", cursor: 'pointer' }} >Create an Event</div>
-        </div>}
+            <div className="activities-text">
+              <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
+              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
+            </div>
+          </div>
+        </Link>
+        {activities_data && !_.isEmpty(activities_data) ?
+          (
+            <div className="activity-block">
+              {
+              activities_data.map((item) => {
+                return (
+                  <div className="action-cards-content-activity" key={item._id}>
+                    <div  >
+                      <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
+                      <p style={{ width: "100%", margin: "0" }}>{Moment(item.start_time_MS).format("h:mm a")} <span style={{ width: "100%", margin: "40px", fontWeight: "bold" }}>{item.event_name}</span> <span style={{ float: "right" }}>{Moment(item.end_time_MS).format("h:mm a")}</span></p>
+                      <p>
+                        <b style={{ color: '#00ACC1' }}>
+                          <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
+                            {item.set_reminder_prority}
+                            </Button>
+                            </b>
+                             <span style={{ fontSize: "12px", fontWeight: "400" }}>{item.event_description}</span>
+                             <span style={{ float: "right" }}>{item.leadId?.primaryMobile}</span>
+                             </p>
+                    </div>
+                  </div>
+                )
+              })
+            }
+            </div>
+          )
+          : <div className="events-body" >
+            <Image className="stars" preview={false} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group127.png" alt="Events" />
+            <p style={{ color: '#CEA0E1', fontSize: '20px', width: "fit-content", margin: "auto" }}>No Events Exist</p>
+            <Link to="/calendar">
+              <div style={{ color: '#fff', padding: "5px 20px", backgroundColor: '#CEA0E1', width: '40%', width: "fit-content", margin: "auto", cursor: 'pointer' }} >Create an Event</div>
+            </Link>
+          </div>}
       </div>
-
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
-        <div className="card-content">
-          <div className="activity-icon">
-            <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3367.png" alt="Opportunities" />
+        <Link to="/leadMaster">
+          <div className="card-content">
+            <div className="activity-icon">
+              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3367.png" alt="Opportunities" />
+            </div>
+            <div className="activities-text">
+              <p style={{ fontSize: '15px', color: '#fff' }}>Opportunities</p>
+              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '280%', margin: '-6px' }} />
+            </div>
           </div>
-          <div className="activities-text">
-            <p style={{ fontSize: '15px', color: '#fff' }}>Opportunities</p>
-            <hr style={{ backgroundColor: '#ececec', height: '1px', width: '280%', margin: '-6px' }} />
-          </div>
-        </div>
-        {/* <div style={{ marginTop: "40px" ,backgroundColor:"red" }}>
-        <Container>
+        </Link>
+        <div style={{ marginTop: "30px" }}>
+          {/* <Container>
             <BarChart
               data={data}
               margin={{
@@ -141,16 +163,16 @@ const HomePage = () => {
             <Bar dataKey="pv" fill="#8884d8" />
             <Bar dataKey="uv" fill="#82ca9d" />
             </BarChart>
-        </Container>
-        </div> */}
+        </Container> */}
+        </div>
         <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
           <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
             <p>For Today</p>
-            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.today?home_data.today: '00'}</h1>
+            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.today ? home_data.today : '00'}</h1>
           </div>
           <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
             <p>Open</p>
-            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.open_lead?home_data.open_lead:'00'}</h1>
+            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.open_lead ? home_data.open_lead : '00'}</h1>
           </div>
         </div>
       </div>
@@ -166,14 +188,14 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: "center", marginTop: "40px",marginRight:"36px" }}>
+        <div style={{ display: 'flex', justifyContent: "center", marginTop: "40px", marginRight: "36px" }}>
           <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
             <p>Login</p>
             <h1 style={{ color: "#fff", fontSize: "35px" }}>00</h1>
           </div>
           <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
             <p>CFR</p>
-            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.cfr_count_team?home_data.cfr_count_team: '00'}</h1>
+            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.cfr_count_team ? home_data.cfr_count_team : '00'}</h1>
           </div>
         </div>
         <hr style={{ border: "none", borderBottom: "1px solid #fff", width: "200px" }} />
@@ -304,12 +326,12 @@ const HomePage = () => {
           <div style={{ display: 'flex', justifyContent: "center" }}>
             <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
               <p>Renewals</p>
-              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.Renewal_count_team?home_data.Renewal_count_team: '00'}</h1>
+              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.Renewal_count_team ? home_data.Renewal_count_team : '00'}</h1>
               <p><b>New</b></p>
             </div>
             <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
               <p>Customers</p>
-              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.customer_count_team?home_data.customer_count_team: '00'}</h1>
+              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.customer_count_team ? home_data.customer_count_team : '00'}</h1>
               <p><b>New</b></p>
 
             </div>
@@ -319,20 +341,24 @@ const HomePage = () => {
 
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
         <div className="card-content">
-          <div className="activity-icon">
-            <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3379.png" alt="Rewards Corner" />
-          </div>
-          <div className="activities-text">
-            <p style={{ fontSize: '15px', color: '#fff' }}>Rewards Corner</p>
-            <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} />
-          </div>
+          <Link to="/rewardscorner/contests/allcontest">
+            <div className="activity-icon">
+              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3379.png" alt="Rewards Corner" />
+            </div>
+            <div className="activities-text">
+              <p style={{ fontSize: '15px', color: '#fff' }}>Rewards Corner</p>
+              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} />
+            </div>
+          </Link>
           <div className='rewardscorner-text'>
             <div style={{ display: 'flex', justifyContent: "center" }}>
-              <div style={{ padding: "0 20px", cursor:'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
-                <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
-                <p>Contests</p>
-              </div>
-              <div style={{ padding: "0 20px", cursor:'pointer', textAlign: "center", color: "#fff" }}>
+              <Link to="/rewardscorner/contests/allcontest">
+                <div style={{ padding: "0 20px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+                  <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
+                  <p>Contests</p>
+                </div>
+              </Link>
+              <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
                 <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
                 <p>Clubs</p>
               </div>
