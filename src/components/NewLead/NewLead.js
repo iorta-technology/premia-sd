@@ -168,11 +168,11 @@ const options = [
 ];
 
 const setTimeOptions = [
-  {value: '8am',label: ''},{value: '08:30am',label: '08:30 AM'},
-  {value: '9am',label: '09:00 AM'},{value: '09:30am',label: '09:30 AM'},
+  {value: '08am',label: '08:00 AM'},{value: '08:30am',label: '08:30 AM'},
+  {value: '09am',label: '09:00 AM'},{value: '09:30am',label: '09:30 AM'},
   {value: '10am',label: '10:00 AM'},{value: '10:30am',label: '10:30 AM'},
   {value: '11am',label: '11:00 AM'},{value: '11:30am',label: '11:30 AM'},
-  {value: 'pm',label: '12:00 PM'},{value: 'pm',label: '12:30 PM'},
+  {value: '12pm',label: '12:00 PM'},{value: '12:30pm',label: '12:30 PM'},
   {value: 'pm',label: '01:00 PM'},{value: 'pm',label: '01:30 PM'},
   {value: 'pm',label: '02:00 PM'},{value: 'pm',label: '02:30 PM'},
   {value: 'pm',label: '03:00 PM'},{value: 'pm',label: '03:30 PM'},
@@ -192,25 +192,86 @@ const setReminderOptions=[
   {value: '2daysbefore',label: '2 days before'},{value: '1weekbefore',label: '1 week before'},
 ]
 
+const setStateOptions=[
+    
+      {value:"Andaman and Nicobar Islands",label:"Andaman and Nicobar Islands"},
+      {value:"Andhra Pradesh",label:"Andhra Pradesh"},
+      {value:"Arunachal Pradesh",label:"Arunachal Pradesh"},
+      {value:"Assam",label:"Assam"},
+      {value:"Bihar",label:"Bihar"},
+      {value:"Chandigarh",label:"Chandigarh"},
+      {value:"Chhattisgarh",label:"Chhattisgarh"},
+      {value:"Dadra and Nagar Haveli",label:"Dadra and Nagar Haveli"},
+      {value:"Daman and Diu",label:"Daman and Diu"},
+      {value:"Delhi",label:"Delhi"},
+      {value:"Goa",label:"Goa"},
+      {value:"Gujarat",label:"Gujarat"},
+      {value:"Haryana",label:"Haryana"},
+      {value:"Himachal Pradesh",label:"Himachal Pradesh"},
+      {value:"Jammu and Kashmir",label:"Jammu and Kashmir"},
+      {value:"Jharkhand",label:"Jharkhand"},
+      {value:"Karnataka",label:"Karnataka"},
+      {value:"Kerala",label:"Kerala"},
+      {value:"Ladakh",label:"Ladakh"},
+      {value:"Lakshadweep",label:"Lakshadweep"},
+      {value:"Madhya Pradesh" ,label:"Madhya Pradesh"},
+      {value:"Maharashtra",label:"Maharashtra"},
+      {value:"Manipur",label:"Manipur"},
+      {value:"Meghala",label:"Meghalaya"},
+      {value:"Mizoram",label:"Mizoram"},
+      {value:"Nagaland",label:"Nagaland"},
+      {value:"Odisha",label:"Odisha"},
+      {value:"Puducherry",label:"Puducherry"},
+      {value:"Punjab",label:"Punjab"},
+      {value:"Rajasthan",label:"Rajasthan"},
+      {value:"Sikkim",label:"Sikkim"},
+      {value:"Tamil Nadu",label:"Tamil Nadu"},
+      {value:"Telangana",label:"Telangana"},
+      {value:"Tripura",label:"Tripura"},
+      {value:"Uttar Pradesh",label:"Uttar Pradesh"},
+      {value:"Uttarakhand",label:"Uttarakhand"},
+      {value:"West Bengal",label:"West Bengal"}
+  
+]
 
 const NewLead = React.memo(() => {
 
   const [leadSelect, setLeadSelect] = useState()
 
-  const [visible, setVisible] = React.useState(false);
-  const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const [modalText, setModalText] = React.useState('Content of the modal');
+  // add team Member modal state control
+  const [visibleTeamMemberModal, setVisibleTeamMemberModal] = React.useState(false);
+  const [teamMemberLoading, setTeamMemberLoading] = React.useState(false);
+  // const [modalText, setModalText] = React.useState('Content of the modal');
 
-  const showModal = () => {
-    setVisible(true);
+  // change owner Member modal state control
+  const [visibleChangeOwnerMOdel, setVisibleChangeOwnerMOdel] = React.useState(false);
+  const [changeOwnerLoading, setChangeOwnerLoading] = React.useState(false);
+  // const [modalText, setModalText] = React.useState('Content of the modal');
+
+
+  const showTeamMemeberModal = () => {
+    setVisibleTeamMemberModal(true);
   };
 
-  const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
-    setConfirmLoading(true);
+  const showChangeOwnerModal = () => {
+    setVisibleChangeOwnerMOdel(true);
+  };
+
+  const handleAddMember = () => {
+    // setModalText('Updating changes ');
+    setTeamMemberLoading(true);
     setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
+      setVisibleTeamMemberModal(false);
+      setTeamMemberLoading(false);
+    }, 2000);
+  };
+
+  const handleChangeOwner = () => {
+    // setModalText('Updating changes ');
+    setChangeOwnerLoading(true);
+    setTimeout(() => {
+      setVisibleChangeOwnerMOdel(false);
+      setChangeOwnerLoading(false);
     }, 2000);
   };
 
@@ -303,10 +364,7 @@ const NewLead = React.memo(() => {
                       },
                     ]}
                   >
-                    <Select placeholder="Select a country">
-                      <Option value="china">China</Option>
-                      <Option value="usa">U.S.A</Option>
-                    </Select>
+                  <Select options={setStateOptions} placeholder="Select Your State"></Select>
                   </Form.Item>
                 </Col>
                 <Col >
@@ -344,8 +402,9 @@ const NewLead = React.memo(() => {
                     ]}
                   >
                     <Select placeholder="New Bussiness">
-                      <Option value="china">China</Option>
-                      <Option value="usa">U.S.A</Option>
+                      <Option value="newbussiness">New Bussiness</Option>
+                      <Option value="renewal">Renewal</Option>
+                      <Option value="crosssell">Cross Sell</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -364,8 +423,12 @@ const NewLead = React.memo(() => {
                     ]}
                   >
                     <Select placeholder="Select Product">
-                      <Option value="china">China</Option>
-                      <Option value="usa">U.S.A</Option>
+                      <Option value="health">Health</Option>
+                      <Option value="motor">Motor</Option>
+                      <Option value="travel">Travel</Option>
+                      <Option value="personalaccident">Personal Accident</Option>
+                      <Option value="term">Term</Option>
+                      <Option value="ulip">ULIP</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -384,8 +447,11 @@ const NewLead = React.memo(() => {
                     ]}
                   >
                     <Select placeholder="Insurance">
-                      <Option value="china">China</Option>
-                      <Option value="usa">U.S.A</Option>
+                      <Option value="tataaiggeneralinsurancecompany">Tata AIG General Insurance Company</Option>
+                      <Option value="icicilombardgeneralinsurancecompany">ICICI Lombard General Insurance Company</Option>
+                      <Option value="iciciprudentiallifeinsurancecompany">ICICI Prudential Life Insurance Company</Option>
+                      <Option value="manipalcignahealthinsurancecompany">Manipal Cigna Health Insurance Company</Option>
+                      <Option value="exidelifeinsurancecompanylimited">Exide Life Insurance Company Limited</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -499,21 +565,102 @@ const NewLead = React.memo(() => {
                         <Input className="email border-bottom" placeholder="Enter Some Remark" />
                       </Form.Item>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={12} xl={12} >
-                      <p>Select the team members you want to involve for this lead</p>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} className="lead-manager">
+                      <p className="botton-label">Select the team members you want to involve for this lead</p>
+                      <Button shape="round" size="large" block={false} onClick={showTeamMemeberModal}>Add Team Member</Button>
+                    </Col>
                       <>
-                        <Button shape="round" size="large" block={false} onClick={showModal}>Add Team Member</Button>
                         <Modal
                           title="Add Team Member"
-                          visible={visible}
-                          onOk={handleOk}
-                          confirmLoading={confirmLoading}
+                          visible={visibleTeamMemberModal}
+                          onOk={handleAddMember}
+                          confirmLoading={teamMemberLoading}
                           // onCancel={handleCancel}
                         >
-                          <p>{modalText}</p>
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Designation"
+                              label="Select Designation"
+                              hasFeedback
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Designation',
+                                },
+                              ]}
+                            >
+                              <Select options={setReminderOptions} placeholder="Set Designation"></Select>
+                            </Form.Item>
+                          </Col>
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Team Member"
+                              label="Select Team Member"
+                              hasFeedback
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Reminder',
+                                },
+                              ]}
+                            >
+                              <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
+                            </Form.Item>
+                          </Col>
                         </Modal>
                       </>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} className="lead-manager">
+                      <p className="botton-label">Currently this lead is allocated to Self</p>
+                      <Button shape="round" size="large" block={false} onClick={showChangeOwnerModal}>Change Owner</Button>
                     </Col>
+                      <>
+                        <Modal
+                          title="Allocate to"
+                          visible={visibleChangeOwnerMOdel}
+                          onOk={handleChangeOwner}
+                          confirmLoading={changeOwnerLoading}
+                          // onCancel={handleCancel}
+                        >
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Designation"
+                              label="Select Designation"
+                              hasFeedback
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Designation',
+                                },
+                              ]}
+                            >
+                              <Select options={setReminderOptions} placeholder="Set Designation"></Select>
+                            </Form.Item>
+                          </Col>
+                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Team Member"
+                              label="Select Team Member"
+                              hasFeedback
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Reminder',
+                                },
+                              ]}
+                            >
+                              <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
+                            </Form.Item>
+                          </Col>
+                        </Modal>
+                      </>
                   </Row>
                 </Form>
               </div>
