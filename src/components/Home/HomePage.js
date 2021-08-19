@@ -146,11 +146,11 @@ const HomePage = () => {
         <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
           <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
             <p>For Today</p>
-            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.today}</h1>
+            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.today?home_data.today: '00'}</h1>
           </div>
           <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
             <p>Open</p>
-            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.open_lead}</h1>
+            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.open_lead?home_data.open_lead:'00'}</h1>
           </div>
         </div>
       </div>
@@ -173,7 +173,7 @@ const HomePage = () => {
           </div>
           <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
             <p>CFR</p>
-            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.cfr_count_team}</h1>
+            <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.cfr_count_team?home_data.cfr_count_team: '00'}</h1>
           </div>
         </div>
         <hr style={{ border: "none", borderBottom: "1px solid #fff", width: "200px" }} />
@@ -304,12 +304,12 @@ const HomePage = () => {
           <div style={{ display: 'flex', justifyContent: "center" }}>
             <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
               <p>Renewals</p>
-              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.Renewal_count_team}</h1>
+              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.Renewal_count_team?home_data.Renewal_count_team: '00'}</h1>
               <p><b>New</b></p>
             </div>
             <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
               <p>Customers</p>
-              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.customer_count_team}</h1>
+              <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.customer_count_team?home_data.customer_count_team: '00'}</h1>
               <p><b>New</b></p>
 
             </div>
@@ -328,11 +328,11 @@ const HomePage = () => {
           </div>
           <div className='rewardscorner-text'>
             <div style={{ display: 'flex', justifyContent: "center" }}>
-              <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+              <div style={{ padding: "0 20px", cursor:'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
                 <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
                 <p>Contests</p>
               </div>
-              <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
+              <div style={{ padding: "0 20px", cursor:'pointer', textAlign: "center", color: "#fff" }}>
                 <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
                 <p>Clubs</p>
               </div>

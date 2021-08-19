@@ -9,8 +9,7 @@ const ForgotPassword = () => {
     const [form] = Form.useForm();
     const [email,setEmail] = useState('');
     const onForgotPassword = () => { 
-        let payload = {email}
-        axios.post('https://sdrestnode.iorta.in/secure/sd/user/forgotPasscode',{payload}).then(resp=>{
+        axios.post('https://sdrestnode.iorta.in/secure/sd/user/forgotPasscode',{email:email}).then(resp=>{
             console.log("forgotpassword resp data",resp)
         }).catch(error=>{
             console.log(error)
