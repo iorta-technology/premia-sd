@@ -1,5 +1,5 @@
 import axios from 'axios'; 
-export const baseURL = 'https://sdrestnode.iorta.in/secure/sd/user/';
+export const baseURL = 'https://sdrestnode.iorta.in/secure/sd/';
 
 let defaultHeaders = {
     'Accept': 'application/json',

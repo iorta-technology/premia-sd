@@ -119,6 +119,8 @@ font-size: 50px;
   justify-content: space-evenly;
 }
 
+
+
 @media screen and (max-width:390px){
   .cardHolder .dataCard{
     width:92% !important;
