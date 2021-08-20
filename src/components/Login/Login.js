@@ -4,7 +4,7 @@ import { Card, Input, Button, Image, Form } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import * as actions from '../../store/actions/index';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
  const Login = () => {
@@ -12,11 +12,14 @@ import { useHistory } from 'react-router';
     const [email,setEmail] = useState('');
     const [password,setPassword]= useState('')
 
+    const agent_data = useSelector((state) => state.login.login_agent_data)
     const dispatch = useDispatch();
     const history = useHistory()
     const onLogin = () => { 
                 dispatch(actions.login(email,password))
-                history.push('/home')
+                if(agent_data !== 'null' && agent_data !== 'undefined'){
+                    history.push('/home')
+                }
             }
        
     return (

@@ -2,11 +2,17 @@ import React,{ useState } from 'react';
 import './ChangePassword.css';
 import { Card, Input, Button, Image, Form } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import axios from 'axios';
 const ChangePassword = () => {
     const [form] = Form.useForm();
     const [newpassword,setnewPassword]= useState('')
     const onNewPassword = ()=>{
         console.log("newpassword",newpassword)
+        axios.post('https://sdrestnode.iorta.in/secure/sd/user/changePasscode',{newpassword:newpassword}).then(resp=>{
+            console.log("changepassword resp data",resp)
+        }).catch(error=>{
+            console.log(error)
+        })
     }
     return (
         <div className="main-body">

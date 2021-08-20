@@ -2,11 +2,10 @@ import React,{useEffect,useState} from 'react'
 import './index.css'
 import Tab from '../../components/Tab/Tab'
 import LeadCards from '../../components/LeadCards/LeadCards'
+import FloatButton from '../../components/FloatButton/FloatButton'
 import * as actions from '../../store/actions/index';
 import { Pagination } from 'antd';
-import {PlusCircleFilled} from '@ant-design/icons'
 import { useDispatch,useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 const LeadMaster = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
@@ -27,9 +26,16 @@ const LeadMaster = (props) => {
 
     //Pagination numbers function
     function itemRender(cur, type, originalElement) {
+        const onPrev = ()=>{
+            setcurrent(current-1)
+        }
         const onNext = ()=>{
             setcurrent(current+1)
         }
+
+        if (type === 'prev') {
+            return <button current={current} onClick={onPrev}>Prev</button>;
+          }
         if (type === 'next') {
             // console.log(current)
           return <button current={current} onClick={onNext}>Next</button>;
@@ -48,13 +54,14 @@ const LeadMaster = (props) => {
             <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
+                    size="small"
                     current={current}
                     onChange={handlePageClick}
                     total={totalLeads}
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
-            <Link to="/leadmasterpage/statuslead"><PlusCircleFilled className="icon-size" to="/leadMaster/newLead/"/></Link>
+            <FloatButton/>
         </div>
     )
 }

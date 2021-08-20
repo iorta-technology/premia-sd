@@ -55,7 +55,21 @@
  overflow-y: scroll;
  height: 220px;
 }
+.activity-block{
+  margin-top: 50px;
+  overflow-y: scroll;
+  height: 220px;
+}
+.activity-block .action-cards-content-activity{
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 6px;
+}
 .action-cards-content::-webkit-scrollbar{
+  display: none;
+}
+.activity-block::-webkit-scrollbar{
   display: none;
 }
 .action-cards-content div{
@@ -118,6 +132,10 @@ font-size: 50px;
   cursor: pointer;
   justify-content: space-evenly;
 }
+.action-cards-content{
+  padding: 0;
+}
+
 
 @media screen and (max-width:390px){
   .cardHolder .dataCard{
@@ -125,8 +143,6 @@ font-size: 50px;
     padding: 15px;
     margin: auto;
   }
-  .action-cards-content{
-    padding: 0;
-  }
+
   
 }
