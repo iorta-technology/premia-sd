@@ -2,7 +2,7 @@ import './App.css';
 import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
 import LeadMaster from './containers/LeadMaster/index';
 import NewLead from './components/NewLead/NewLead'
-import Login from './components/Login/Login'
+import Login from './components/Login/Login';
 import HomePage from './components/Home/HomePage';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword';

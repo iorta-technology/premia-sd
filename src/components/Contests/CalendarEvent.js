@@ -4,7 +4,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './CalendarEvent.css';
-import {TimePicker,Button,Modal,Card,Input,DatePicker} from 'antd';
+import {TimePicker,Button,Modal,Card,Input,DatePicker,Alert } from 'antd';
 import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 const { Search } = Input;
 
@@ -92,6 +92,101 @@ const DurationAllDayFunc=()=>{
     select_time:false,
     all_day:true
   })
+}
+
+const[durationStartDate,setDurationStartDate]=useState("");
+const[durationEndDate,setDurationEndDate]=useState("");
+const[durationStartTime,setDurationStartTime]=useState("");
+const[durationEndTime,setDurationEndTime]=useState("");
+const[durationStartDateCheck,setDurationStartDateCheck]=useState(true)
+const[durationEndDateCheck,setDurationEndDateCheck]=useState(true)
+const[durationStartTimeCheck,setDurationStartTimeCheck]=useState(true);
+const[durationEndTimeCheck,setDurationEndTimeCheck]=useState(true);
+
+const[durationDateAlert,setDurationDateAlert]=useState(false)
+const[durationTimeAlert,setDurationTimeAlert]=useState(false)
+const[cardHeight,setCardHeight]=useState(true);
+const StartDateFunc=(value,dateString)=>{
+ setDurationStartDate(moment(value))
+setDurationStartDateCheck(true)
+  console.log('Selected Time: ', value);
+  console.log('Formatted Selected Time: ', value);
+
+ 
+  if(durationEndDate==""){
+
+    setDurationEndDate(value)
+  setDurationEndDateCheck(true)
+
+  }
+  setDurationDateAlert(false)
+}
+const EndDateFunc=(value)=>{
+  setDurationEndDate(moment(value))
+  setDurationEndDateCheck(true)
+
+  console.log('Selected Time: ', value);
+  console.log('Formatted Selected Time: ', value);
+  if(durationStartDate==""){
+
+    setDurationStartDate(value)
+  setDurationStartDateCheck(true)
+
+  }
+ setDurationDateAlert(false)
+}
+const StartTimeFunc=(time)=>{
+  setDurationStartTime(moment(time))
+
+
+  console.log('Selected Time: ', time);
+  console.log('Formatted Selected Time: ', time);
+  if(durationEndTime==""){
+    // alert("This works")
+    setDurationEndTime(moment(time).add(1,'hours'))
+  
+  }
+ setDurationTimeAlert(false)
+}
+const EndTimeFunc=(time)=>{
+  setDurationEndTime(moment(time))
+
+
+  console.log('Selected Time: ', time);
+  console.log('Formatted Selected Time: ', time);
+  if(durationStartTime==""){
+
+    setDurationStartTime(moment(time).subtract(1,'hours'))
+  
+  }
+ setDurationTimeAlert(false)
+}
+const BookAppointmentFunc=()=>{
+  if(durationStartDate==""&&durationButton.select_time==true){
+   setDurationStartDate(false)
+   setDurationDateAlert(true)
+    return false
+  }
+  if(durationStartDate==""&&durationButton.all_day==true){
+    setDurationStartDate(false)
+    setDurationDateAlert(true)
+  return false
+  }
+  if(durationEndDate==""&&durationButton.select_time==true){
+   setDurationEndDate(false)
+   setDurationDateAlert(true)
+  return false
+    }
+    if(durationStartTime==""&&durationButton.select_time==true){
+     setDurationStartTime(false)
+     setDurationTimeAlert(true)
+    return false
+      }
+      if(durationEndTime==""&&durationButton.select_time==true){
+        setDurationEndTime(false)
+        setDurationTimeAlert(true)
+        return false
+        }
 }
 const StatusTypeOpenFunc=()=>{
   setStatusType({
@@ -484,19 +579,37 @@ const DateClick=(e)=>{
   return (
     <div className="App">
     
-      <Modal title="Create Event" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}
+      <Modal 
+     
+      title={durationTimeAlert==true?
+ <Alert message="Start Time is Mandatory" type="warning" 
+ closable
+ 
+ />
+: 
+durationDateAlert==true?
+ <Alert message="Start Date is Mandatory" type="warning"
+ closable
+ onClose={()=>{
+   setDurationDateAlert(false)
+ }}
+ />
+:<div>Create Event</div>} visible={isModalVisible} onOk={handleOk} 
+closable={durationDateAlert==true||durationTimeAlert==true?false:true}
+onCancel={handleCancel}
+footer= {null}
 width="600px"
 bodyStyle={{
   height:"60vh",
 // display:"flex",
 // flexDirection:"column"
-overflow:"scroll"
+overflowY:"scroll"
 
 }}
       >
 
 <div
-className="CalendarEvent-Modal-Card-style"
+className={ prospectCollection.first_meeting==true&&prospectCheck==true?"CalendarEvent-Modal-Card-height":"CalendarEvent-Modal-Card-style"}
 >
 <div
 className="CalendarEvent-Modal-Card-content"
@@ -918,7 +1031,7 @@ className={durationButton.all_day==true?"CalendarEvent-Modal-Card-eventwith-oncl
 {durationButton.select_time==true?
 <div>
 <div
-className="CalendarEvent-Modal-appointmenttype-button-flex"
+className="CalendarEvent-Modal-datePicker-button-flex"
 >
   <div
   className="CalendarEvent-Modal-date-column-flex"
@@ -926,7 +1039,8 @@ className="CalendarEvent-Modal-appointmenttype-button-flex"
   <h4
 className="CalendarEvent-Modal-Card-header-type"
 >Start Date *</h4>
-<DatePicker onChange={onChangeDate}
+<DatePicker onChange={StartDateFunc}
+value={durationStartDate}
 className="CalendarEvent-Modal-picker-style"
 />
   </div>
@@ -936,7 +1050,9 @@ className="CalendarEvent-Modal-date-column-flex"
 <h4
 className="CalendarEvent-Modal-Card-header-type"
 >Start Time *</h4>
-<TimePicker onChange={onChangeTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+<TimePicker onChange={StartTimeFunc} 
+value={durationStartTime}
+defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
 className="CalendarEvent-Modal-picker-style"
 />
 </div>
@@ -946,7 +1062,7 @@ className="CalendarEvent-Modal-picker-style"
 className="CalendarEvent-Modal-duration-style"
 >
 <div
-className="CalendarEvent-Modal-appointmenttype-button-flex"
+className="CalendarEvent-Modal-datePicker-button-flex"
 >
   <div
   className="CalendarEvent-Modal-date-column-flex"
@@ -954,7 +1070,8 @@ className="CalendarEvent-Modal-appointmenttype-button-flex"
   <h4
 className="CalendarEvent-Modal-Card-header-type"
 >End Date *</h4>
-<DatePicker onChange={onChangeDate}
+<DatePicker onChange={EndDateFunc}
+value={durationEndDate}
 className="CalendarEvent-Modal-picker-style"
 />
   </div>
@@ -964,7 +1081,8 @@ className="CalendarEvent-Modal-date-column-flex"
 <h4
 className="CalendarEvent-Modal-Card-header-type"
 >End Time *</h4>
-<TimePicker onChange={onChangeTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+<TimePicker onChange={EndTimeFunc} 
+value={durationEndTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
 className="CalendarEvent-Modal-picker-style"
 />
 </div>
@@ -975,7 +1093,7 @@ className="CalendarEvent-Modal-picker-style"
 </div>:
 <div>
 <div
-className="CalendarEvent-Modal-appointmenttype-button-flex"
+className="CalendarEvent-Modal-datePicker-button-flex"
 >
   <div
   className="CalendarEvent-Modal-date-column-flex"
@@ -985,12 +1103,14 @@ className="CalendarEvent-Modal-Card-header-type"
 >Start Date *</h4>
 <DatePicker onChange={onChangeDate}
 className="CalendarEvent-Modal-picker-style"
+value={durationStartDate}
 />
   </div>
 
 </div>
   </div>
 }
+
 <div
 className="CalendarEvent-Modal-Card-vertical-line"
 >
@@ -1014,11 +1134,11 @@ className="CalendarEvent-Modal-Card-status-flex"
 >
 <button
 onClick={StatusTypeOpenFunc}
-className={status_type.openStatus==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+className={status_type.openStatus==true?"CalendarEvent-Modal-Card-status-onclick-button-style":"CalendarEvent-Modal-Card-status-static-button-style"}
 >Open</button>
 <button
 onClick={StatusTypeCloseFunc}
-className={status_type.closeStatus==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
+className={status_type.closeStatus==true?"CalendarEvent-Modal-Card-status-onclick-button-style":"CalendarEvent-Modal-Card-status-static-button-style"}
 >Close</button>
 </div>
 {
@@ -1046,6 +1166,7 @@ required
   <button
 onClick={()=>{}}
 className={"CalendarEvent-Modal-book-appointment-button-style"}
+onClick={BookAppointmentFunc}
 >Book Appointment</button>
   </div>
 {/* <Card>
@@ -1063,7 +1184,7 @@ className={"CalendarEvent-Modal-book-appointment-button-style"}
        onChange={OnEndTimeChange}
       defaultValue={moment('12:00', format)} format={format} /> */}
       </Modal>
-      
+
       <FullCalendar
  
     //  defaultAllDay="false"
