@@ -577,7 +577,7 @@ const DateClick=(e)=>{
   console.log('it works')
 }
   return (
-    <div className="App">
+    <div className="CalendarEvent-main-class">
     
       <Modal 
      
@@ -1227,6 +1227,7 @@ droppable= "true"
         plugins={[dayGridPlugin,interactionPlugin]}
         events={addEvents}
       />
+
     </div>
   );
 }
