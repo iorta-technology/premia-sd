@@ -3,9 +3,12 @@ import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
 import LeadMaster from './containers/LeadMaster/index';
 import NewLead from './components/NewLead/NewLead'
 import Login from './components/Login/Login';
+import ClubsMaster from './components/ClubMaster/ClubsMaster';
+import Birthday from './components/Birthday/Birthday';
 import HomePage from './components/Home/HomePage';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword';
+import Sidebar from './components/SideBar/SideBar';
 import CompletedContest from './components/Contests/CompletedContest';
 import ActiveContest from './components/Contests/ActiveContest';
 import ActiveContestDetails from './components/Contests/ActiveContestDetails';
@@ -27,24 +30,28 @@ function App() {
             <Route exact path="/">
                 <Redirect to="/login" />
             </Route>
-            <Route path="/home"  component={HomePage}></Route>
-            <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route>
-
-
-            <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
-            <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
-            <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
-            <Route path="/rewardscorner/contests/allcontestdetails"  component={AllContestDetails}/>
-        
-            <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
-            <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
-           
-          <Route path="/calendar" component={Calendar}/>
+            
             <Route path="/login"  component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>
             <Route path="/leadmasterpage/statuslead" component={NewLead}></Route>
             <Route path="/leadMaster" component={LeadMaster}></Route>
+            <Route path="/clubsMaster" component={ClubsMaster}></Route>
+            <Route path="/birthday" component={Birthday}></Route>
+            <div>
+              <Sidebar />
+              <Route path="/home"  component={HomePage}></Route>
+              <Route path="/leadmasterpage/statuslead" component={NewLead}></Route>
+              <Route path="/leadMaster" component={LeadMaster}></Route>
+              <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route>
+              <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
+              <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
+              <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
+              <Route path="/rewardscorner/contests/allcontestdetails"  component={AllContestDetails}/>
+              <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
+              <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
+              <Route path="/calendar" component={Calendar}/>
+            </div>
         </Switch>
       </div>
     </Router>
