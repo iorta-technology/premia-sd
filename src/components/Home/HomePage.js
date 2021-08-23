@@ -10,15 +10,15 @@ import _ from "lodash";
 import { Link } from 'react-router-dom';
 import Container from './Container'
 import FloatButton from '../FloatButton/FloatButton';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from 'recharts'
+// import {
+//   BarChart,
+//   Bar,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+// } from 'recharts'
 const HomePage = () => {
   const agent_id = useSelector((state) => state.login.agent_id)
   const logged_in_user = useSelector((state) => state.login.user_name)
@@ -86,7 +86,7 @@ const HomePage = () => {
     },
   ]
   return <Fragment >
-    <FloatButton/>
+    <FloatButton />
     <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>Hi {logged_in_user}</h3>
     <div className="cardHolder">
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
@@ -105,26 +105,43 @@ const HomePage = () => {
           (
             <div className="activity-block">
               {
-              activities_data.map((item) => {
-                return (
-                  <div className="action-cards-content-activity" key={item._id}>
-                    <div  >
+                activities_data.map((item) => {
+                  return (
+                    <div className="action-cards-content-activity" key={item._id}>
+                      <div >
                       <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
-                      <p style={{ width: "100%", margin: "0" }}>{Moment(item.start_time_MS).format("h:mm a")} <span style={{ width: "100%", margin: "40px", fontWeight: "bold" }}>{item.event_name}</span> <span style={{ float: "right" }}>{Moment(item.end_time_MS).format("h:mm a")}</span></p>
-                      <p>
-                        <b style={{ color: '#00ACC1' }}>
-                          <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
-                            {item.set_reminder_prority}
+
+                        <table>
+                          <tr>
+                            <td>{Moment(item.start_time_MS).format("h:mm a")}</td>
+                            <td>{item.event_name}</td>
+                            <td>{Moment(item.end_time_MS).format("h:mm a")}</td>
+                          </tr>
+                          <tr>
+                            <td style={{width:'85px'}}>
+                            <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
+                              {item.set_reminder_prority}
                             </Button>
-                            </b>
-                             <span style={{ fontSize: "12px", fontWeight: "400" }}>{item.event_description}</span>
-                             <span style={{ float: "right" }}>{item.leadId?.primaryMobile}</span>
-                             </p>
+                            </td>
+                            <td>{item.event_description}</td>
+                            <td>{item.leadId?.primaryMobile}</td>
+                          </tr>
+                        </table>
+                        {/* <p style={{ width: "100%", margin: "0" }}>{Moment(item.start_time_MS).format("h:mm a")} <span style={{ width: "100%", margin: "40px", fontWeight: "bold" }}>{item.event_name}</span> <span style={{ float: "right" }}>{Moment(item.end_time_MS).format("h:mm a")}</span></p>
+                        <p>
+                          <b style={{ color: '#00ACC1' }}>
+                            <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
+                              {item.set_reminder_prority}
+                            </Button>
+                          </b>
+                          <span style={{ fontSize: "12px", fontWeight: "400" }}>{item.event_description}</span>
+                          <span style={{ float: "right" }}>{item.leadId?.primaryMobile}</span>
+                        </p> */}
+                      </div>
                     </div>
-                  </div>
-                )
-              })
-            }
+                  )
+                })
+              }
             </div>
           )
           : <div className="events-body" >
