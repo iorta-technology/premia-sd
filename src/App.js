@@ -44,7 +44,8 @@ function App() {
               <Route path="/leadmasterpage/statuslead" component={NewLead}></Route>
               <Route path="/leadMaster" component={LeadMaster}></Route>
               <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route>
-              <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
+             <Route path="/rewardscorner/contests/allcontestdetails"  component={AllContestDetails}/>
+             <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
               <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
               <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
               <Route path="/rewardscorner/contests/allcontestdetails"  component={AllContestDetails}/>
