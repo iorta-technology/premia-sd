@@ -28,7 +28,7 @@ export const login = (email,password) => {
        
     return dispatch => {
         dispatch(loginStart())
-        return axios.post(`user_login_v2`,{email,password})
+        return axios.post(`user/user_login_v2`,{email,password})
         .then(res=>{
             return dispatch(loginSuccess(res.data.errMsg))
         }).catch(error=>{

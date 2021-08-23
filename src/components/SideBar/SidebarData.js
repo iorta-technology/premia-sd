@@ -8,9 +8,9 @@ export const SidebarData = [
   {
     title: 'Home',
     path: '/home',
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+    icon: <AiIcons.AiFillHome color="#000"/>,
+    iconClosed: <RiIcons.RiArrowDownSFill color="#000"/>,
+    iconOpened: <RiIcons.RiArrowUpSFill color="#000"/>,
 
     // subNav: [
     //   {
@@ -55,12 +55,12 @@ export const SidebarData = [
   {
     title: 'Contest',
     // path: '/products',
-    icon: <FaIcons.FaCartPlus />
+    icon: <FaIcons.FaCartPlus color="#000" />
   },
   {
     title: 'Leads',
     // path: '/team',
-    icon: <IoIcons.IoMdPeople />
+    icon: <IoIcons.IoMdPeople color="#000"/>
   },
   // {
   //   title: 'Messages',
@@ -86,6 +86,6 @@ export const SidebarData = [
   {
     title: 'Logout',
     path: '/login',
-    icon: <IoIcons.IoMdHelpCircle />
+    icon: <IoIcons.IoMdHelpCircle color="#000"/>
   }
 ];
