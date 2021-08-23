@@ -17,7 +17,7 @@ import { useHistory } from 'react-router';
     const history = useHistory()
     const onLogin = () => { 
                 dispatch(actions.login(email,password))
-                if(agent_data !== 'null' && agent_data !== 'undefined'){
+                if(agent_data !== 'null' && agent_data !== 'undefined' && agent_data !== "Email/password is incorrect"){
                     history.push('/home')
                 }
             }

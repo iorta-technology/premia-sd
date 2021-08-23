@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const SidebarLink = styled(Link)`
   display: flex;
-  color: #e1e9fc;
+  color: black;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
@@ -14,8 +14,8 @@ const SidebarLink = styled(Link)`
   font-size: 18px;
   &:hover {
     background: grey;
-    border-left: 4px solid #fff;
     cursor: pointer;
+    color: #fff
   }
 `;
 
