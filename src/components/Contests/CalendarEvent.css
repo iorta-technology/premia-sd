@@ -4,23 +4,54 @@
 .fc .fc-event-title {
   font-weight: bold;
 }
+.ant-btn-primary {
+  background: #a4a8abfc;
+  border-color: #a4a8abfc;
+}
+.ant-modal-header {
+  box-shadow: 0px 5px 7px #00000029;
+}
 
+.CalendarEvent-main-class {
+  margin-left: 2vw;
+  margin-right: 2vw;
+  margin-bottom: 5vw;
+  height: auto;
+  /* background-color: brown; */
+}
 .CalendarEvent-Modal-Card-View {
   display: flex;
   height: auto;
   /* margin-left: 6vw;
   margin-right: 6vw; */
 }
-
-.CalendarEvent-Modal-Card-style {
+.CalendarEvent-Modal-Card-height {
   display: flex;
   width: 100%;
   /* max-height: 140vh; */
-  height: 140vh;
+  height: 160vh;
   border-radius: 10px;
   margin-left: 3px;
   border-width: 1px;
   box-shadow: 0px 0px 0px 0px;
+  overflow: hidden;
+
+  flex: 1;
+  flex-direction: column;
+  border-style: solid;
+  border-color: #d9dbd1;
+  /* margin-top: 20px;
+ margin-right: 30px; */
+}
+.CalendarEvent-Modal-Card-style {
+  display: flex;
+  width: 100%;
+  /* max-height: 140vh; */
+  height: 121vh;
+  border-radius: 10px;
+  margin-left: 3px;
+  border-width: 1px;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   overflow: hidden;
 
   flex: 1;
@@ -59,13 +90,15 @@
 }
 
 .CalendarEvent-Modal-Card-eventwith-onclick-button-style {
-  background-color: #58a2cf; /* Green */
+  background-color: #00acc1; /* Green */
   color: white;
   text-align: center;
-  border: none;
+  border: 1px solid #e6e9eb;
+
   width: 8vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
@@ -73,13 +106,43 @@
 .CalendarEvent-Modal-Card-eventwith-static-button-style {
   /* background-color: #58a2cf; 
   color: white; */
-  border-color: #aeb0b2;
-  border-width: 0.4px;
+  /* border-color: #aeb0b2; */
+  /* border-width: 0.4px; */
   text-align: center;
-  border-style: solid;
+  border: 0.5px solid #c1c8cc;
   width: 8vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
+  /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
+  cursor: pointer;
+  font-size: calc(10px + 0.28vw);
+}
+.CalendarEvent-Modal-Card-status-onclick-button-style {
+  background-color: #e46a25; /* Green */
+  color: white;
+  text-align: center;
+  border: 1px solid #e6e9eb;
+
+  width: 8vw;
+  border-radius: 0.4vw;
+  height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
+  /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
+  cursor: pointer;
+  font-size: calc(10px + 0.28vw);
+}
+.CalendarEvent-Modal-Card-status-static-button-style {
+  /* background-color: #58a2cf; 
+  color: white; */
+  /* border-color: #aeb0b2; */
+  /* border-width: 0.4px; */
+  text-align: center;
+  border: 0.5px solid #c1c8cc;
+  width: 8vw;
+  border-radius: 0.4vw;
+  height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
@@ -107,6 +170,7 @@
   width: 12vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
@@ -137,12 +201,11 @@
 
   /* background-color: #58a2cf;  */
   /* color: white; */
-  border-color: #aeb0b2;
-  border-width: 0.4px;
+  border: 0.5px solid #c1c8cc;
   text-align: center;
-  border-style: solid;
   width: 12vw;
   border-radius: 0.4vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   height: 1.9vw;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
@@ -158,31 +221,31 @@
 }
 
 .CalendarEvent-Modal-businessPlanning-onclick-button-style {
-  background-color: #58a2cf; /* Green */
+  background-color: #00acc1; /* Green */
   color: white;
   text-align: center;
   border: none;
   width: 15vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
 }
 .CalendarEvent-Modal-businessPlanning-static-button-style {
-  border-color: #aeb0b2;
-  border-width: 0.4px;
+  border: 0.5px solid #c1c8cc;
   text-align: center;
-  border-style: solid;
   width: 15vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
 }
 .CalendarEvent-Modal-joint-customer-onclick-button-style {
-  background-color: #58a2cf; /* Green */
+  background-color: #00acc1; /* Green */
   color: white;
 
   text-align: center;
@@ -190,43 +253,45 @@
   width: 12vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
 }
 .CalendarEvent-Modal-joint-customer-static-button-style {
-  border-color: #aeb0b2;
-  border-width: 0.4px;
+  border: 0.5px solid #c1c8cc;
   text-align: center;
-  border-style: solid;
+
   width: 12vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
 }
 
 .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
-  background-color: #58a2cf; /* Green */
+  background-color: #00acc1; /* Green */
   color: white;
   text-align: center;
   border: none;
   width: 12vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
 }
 .CalendarEvent-Modal-Card-clientVisit-static-button-style {
-  border-color: #aeb0b2;
-  border-width: 0.4px;
+  border: 0.5px solid #c1c8cc;
   text-align: center;
-  border-style: solid;
+
   width: 12vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 0.3vw 0.7vw #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
@@ -236,6 +301,7 @@
   width: 24vw;
   font-size: 15px;
   color: grey;
+  box-shadow: 0px 2px 2px #00000024;
 }
 .CalendarEvent-Modal-prospect-meeting-textbox-flex {
   display: flex;
@@ -253,6 +319,13 @@
   border-color: #aeb0b2;
   /* border-style: none; */
 }
+.CalendarEvent-Modal-datePicker-button-flex {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* background-color: blanchedalmond; */
+  justify-content: space-between;
+}
 .CalendarEvent-Modal-Card-time-duration-flex {
   display: flex;
   flex-direction: row;
@@ -266,7 +339,10 @@
   flex-direction: column;
 }
 .CalendarEvent-Modal-picker-style {
-  width: 14vw;
+  width: 15vw;
+  box-shadow: 0px 2px 2px #00000024;
+  border-radius: 0.4vw;
+  border: 0.5px solid #c1c8cc;
 }
 .CalendarEvent-Modal-duration-style {
   margin-top: 1vw;
@@ -288,7 +364,7 @@
   justify-content: space-between;
 }
 .CalendarEvent-Modal-book-appointment-button-style {
-  background-color: #f77128; /* Green */
+  background-color: #e46a25; /* Green */
   color: white;
 
   text-align: center;
@@ -296,6 +372,7 @@
   width: 12vw;
   border-radius: 0.4vw;
   height: 1.9vw;
+  box-shadow: 0px 2px 2px #00000029;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
@@ -312,11 +389,13 @@
 .CalendarEvent-Modal-Card-close-textbox-style {
   display: inline-block;
   width: 100%;
+  border: 0.5px solid #c1c8cc;
   height: 10vh;
   font-size: 14px;
   border-radius: 0.5vw;
   border-width: 1px;
-  border-color: #aeb0b2;
+  color: #666767;
+  box-shadow: 0px 5px 7px #00000029;
 }
 @media (min-width: 320px) and (max-width: 374px) {
   .fc .fc-toolbar-chunk {
@@ -327,11 +406,15 @@
     text-align: center;
   }
 
+  .CalendarEvent-Modal-Card-height {
+    height: 131vh;
+  }
+
   .CalendarEvent-Modal-Card-style {
-    height: 120vh;
+    height: 131vh;
   }
   .CalendarEvent-Modal-Card-header-type {
-    font-size: 10px;
+    font-size: 11px;
   }
   .CalendarEvent-Modal-Card-vertical-line {
     margin-top: 2vw;
@@ -342,13 +425,23 @@
   .CalendarEvent-Modal-Card-eventwith-onclick-button-style {
     width: 23vw;
     height: 4vh;
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .CalendarEvent-Modal-Card-eventwith-static-button-style {
     width: 23vw;
     height: 4vh;
-    font-size: 9px;
+    font-size: 10px;
+  }
+  .CalendarEvent-Modal-Card-status-onclick-button-style {
+    width: 23vw;
+    height: 4vh;
+    font-size: 10px;
+  }
+  .CalendarEvent-Modal-Card-status-static-button-style {
+    width: 23vw;
+    height: 4vh;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-appointmenttype-button-flex {
     width: 100%;
@@ -356,12 +449,12 @@
   .CalendarEvent-Modal-documentcollection-onclick-button-style {
     width: 23vw;
     height: 5.3vh;
-    font-size: 9px;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-Card-documentcollection-static-button-style {
     width: 23vw;
     height: 5.6vh;
-    font-size: 9px;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
     width: 100%;
@@ -371,34 +464,37 @@
   .CalendarEvent-Modal-businessPlanning-onclick-button-style {
     width: 25vw;
     height: 5.3vh;
-    font-size: 9px;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-businessPlanning-static-button-style {
     width: 25vw;
     height: 5.3vh;
-    font-size: 9px;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-joint-customer-onclick-button-style {
     width: 23vw;
     height: 8vh;
-    font-size: 9px;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-joint-customer-static-button-style {
     width: 23vw;
     height: 8vh;
-    font-size: 9px;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
     width: 25vw;
     height: 5.3vh;
-    font-size: 9px;
+    font-size: 10px;
   }
   .CalendarEvent-Modal-textinput-style {
     font-size: 10px;
-    width: 60vw;
+    width: 100%;
+  }
+  .CalendarEvent-Modal-datePicker-button-flex {
+    flex-direction: column;
   }
   .CalendarEvent-Modal-picker-style {
-    width: 36vw;
+    width: 100%;
   }
   .CalendarEvent-Modal-textbox-style {
     width: 60%;
@@ -434,8 +530,11 @@
   .fc .fc-toolbar-title {
     text-align: center;
   }
+  .CalendarEvent-Modal-Card-height {
+    height: 136vh;
+  }
   .CalendarEvent-Modal-Card-style {
-    height: 125vh;
+    height: 110vh;
   }
   .CalendarEvent-Modal-Card-header-type {
     font-size: 11px;
@@ -453,6 +552,16 @@
   }
 
   .CalendarEvent-Modal-Card-eventwith-static-button-style {
+    width: 23vw;
+    height: 4vh;
+    font-size: 10px;
+  }
+  .CalendarEvent-Modal-Card-status-onclick-button-style {
+    width: 23vw;
+    height: 4vh;
+    font-size: 10px;
+  }
+  .CalendarEvent-Modal-Card-status-static-button-style {
     width: 23vw;
     height: 4vh;
     font-size: 10px;
@@ -535,11 +644,15 @@
   .fc .fc-toolbar-title {
     text-align: center;
   }
+
+  .CalendarEvent-Modal-Card-height {
+    height: 143vh;
+  }
   .CalendarEvent-Modal-Card-header-type {
     font-size: 12px;
   }
   .CalendarEvent-Modal-Card-style {
-    height: 132vh;
+    height: 116vh;
   }
   .CalendarEvent-Modal-Card-vertical-line {
     margin-top: 2vw;
@@ -554,6 +667,16 @@
   }
 
   .CalendarEvent-Modal-Card-eventwith-static-button-style {
+    width: 23vw;
+    height: 4vh;
+    font-size: 11px;
+  }
+  .CalendarEvent-Modal-Card-status-onclick-button-style {
+    width: 23vw;
+    height: 4vh;
+    font-size: 11px;
+  }
+  .CalendarEvent-Modal-Card-status-static-button-style {
     width: 23vw;
     height: 4vh;
     font-size: 11px;
@@ -637,7 +760,7 @@
     text-align: center;
   }
   .CalendarEvent-Modal-Card-style {
-    height: 140vh;
+    height: 127vh;
   }
   .CalendarEvent-Modal-Card-header-type {
     font-size: 12px;
@@ -655,6 +778,16 @@
   }
 
   .CalendarEvent-Modal-Card-eventwith-static-button-style {
+    width: 17vw;
+    height: 4vh;
+    font-size: 11px;
+  }
+  .CalendarEvent-Modal-Card-status-onclick-button-style {
+    width: 17vw;
+    height: 4vh;
+    font-size: 11px;
+  }
+  .CalendarEvent-Modal-Card-status-static-button-style {
     width: 17vw;
     height: 4vh;
     font-size: 11px;
