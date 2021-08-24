@@ -1,7 +1,7 @@
-import { Tabs } from 'antd';
+import { Tabs ,Input} from 'antd';
 import React,{useDebugValue, useState} from 'react';
 import './AllContestDetails.css';
-
+const { Search } = Input;
 
 const AllContestDetails=()=>{
     let{innerWidth:width,innerHeight:height}=window;
@@ -188,6 +188,9 @@ className="AllContestDetails1-card-flex"
 <div
 className="AllContestDetails1-details-card-content-align"
 >
+<Search placeholder="Search By Name" onSearch={()=>{}} 
+enterButton
+/>
 <h4
 className="AllContestDetails1-details-card-title-text"
 >
