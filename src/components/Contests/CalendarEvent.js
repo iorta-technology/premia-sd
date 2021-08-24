@@ -131,6 +131,7 @@ const[customerOnClickVal,setCustomerOnClickVal]=useState()
 const[searchCustomerText,setSearchCustomerText]=useState("");
 const[customerOnClickCheck,setCustomerOnClickCheck]=useState(false)
 useEffect(()=>{
+// axios.get(`https://sdtatadevlmsv2.iorta.in/secure/user/search/partners?csmId=60c2fdb39c78a32644d0cf63&search=${searchCustomerText}`)
   axios.get("https://jsonplaceholder.typicode.com/users")
   .then((res)=>{
     console.log(res.data)
@@ -830,7 +831,7 @@ const CustomerMobileNoFunc = (e) => {
                 </div>
                 : customerCheck == true ?
                   <div
-                    className={customerCheck == true ? "CalendarEvent-Modal-Card-button-flex" : "CalendarEvent-Modal-Card-button-flex"}
+                    className={customerCheck == true ? "CalendarEvent-Modal-Card-customer-event-button-flex" : "CalendarEvent-Modal-Card-customer-event-button-flex"}
                   >
                     <button
                       className={customerCollection.appointment_customer == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
@@ -844,7 +845,7 @@ const CustomerMobileNoFunc = (e) => {
 
                     <button
                       onClick={CustomerPolicyRenewalFunc}
-                      className={customerCollection.policy_renewal == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
+                      className={customerCollection.policy_renewal == true ? "CalendarEvent-Modal-documentcollection-onclick-button-style" : "CalendarEvent-Modal-Card-documentcollection-static-button-style"}
                     >Policy Renewals</button>
 
                   </div>
@@ -1085,11 +1086,12 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                             className="CalendarEvent-Modal-click-record-style"
                             onClick={()=>CustomerClickedTag(cust.username)}
                             >
+                               <div
+                              className="CalendarEvent-Modal-Card-searchbox-vertical-line"
+                              ></div>
                               <h4>{cust.username}</h4>
                               </div>
-                              <div
-                              className="CalendarEvent-Modal-Card-vertical-line"
-                              ></div>
+                             
                               </div>
                           )
                         })}
@@ -1211,9 +1213,19 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                 >
                 </div>
 
-
-
                 <div
+                        className="CalendarEvent-Modal-appointmenttype-button-flex"
+                      >
+                <Button
+                    className="CalendarEvent-Modal-Card-Addmanual-button-style"
+                    onClick={AddManuallyFunc}
+                type="primary" icon={<PlusCircleOutlined />}>
+      Add Manually
+
+
+    </Button>
+    </div>
+                {/* <div
                   className="CalendarEvent-Modal-Card-add-manually-button"
                 >
                   <div
@@ -1227,8 +1239,8 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                     <h4
                       className="CalendarEvent-Modal-Card-add-button-text"
                     >Add Manually</h4>
-                  </div>
-                </div>
+                  </div> 
+                </div>*/}
               </div>
               : null}
 {customerCheck == true&&addManuallyButtonCheck==true?
