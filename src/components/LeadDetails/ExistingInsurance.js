@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Row, Col, Form, Typography, Switch, Button, Input, Select, Radio, Modal } from 'antd';
+import { Row, Col, Form, Typography, Switch, Button, Input, Select, Radio, Modal, Space, DatePicker } from 'antd';
 const { Title } = Typography;
 
 const formItemLayout = {
@@ -11,6 +11,33 @@ const formItemLayout = {
     },
 };
 
+
+const setInsurerOptions = [
+    { value: 'reliencelife', label: 'Relience Life' }, { value: 'hdfclife', label: 'HDFC Life' },
+    { value: 'iciciprudential', label: 'ICICI Prudential' }, { value: 'lic', label: 'LIC' },
+    { value: 'edelweisss', label: 'Edwlweiss' }, { value: 'religare', label: 'Religare' },
+]
+
+const setPolicyTypeOptions = [
+    { value: 'endowmentplans', label: 'Endowment Plans' }, { value: 'wholelifepolicy', label: 'Whole Life Policy' },
+    { value: 'moneybackpolicy', label: 'Money Back Policy' }, { value: 'termplan', label: 'Term Plan' },
+    { value: 'individual/familyfloater', label: 'Individual/FamilyFloater' },
+]
+
+const setPolicyStatusOptions = [
+    { value: 'inforce', label: 'Inforced' }, { value: 'applied', label: 'Applied' },
+    { value: 'declined', label: 'Declined' },
+]
+
+const setRelationOptions = [
+    { value: 'father', label: 'Father' }, { value: 'mother', label: 'Mother' },
+    { value: 'brother', label: 'Brother' }, { value: 'sister', label: 'Sister' },
+]
+
+const setHealthTypeOfPlanOptions = [
+    { value: 'individual', label: 'Individual' },
+    { value: 'familyfloater', label: 'Family Floater' },
+]
 const ProfessionalDetails = () => {
     // toggle buttons handler
 
@@ -18,15 +45,18 @@ const ProfessionalDetails = () => {
 
     const lifeInsuranceToggle = () => {
         sethaveLifeInsurece(!haveLifeInsurece)
-        console.log(haveLifeInsurece)
     }
     const [haveHealthInsurece, sethaveHealthInsurece] = useState(false)
 
     const healthInsuranceToggle = () => {
         sethaveHealthInsurece(!haveHealthInsurece)
-        console.log(haveHealthInsurece)
     }
 
+    const [haveChronicDisease, sethaveChronicDisease] = useState(false)
+
+    const haveChronicDiseaseToggle = () => {
+        sethaveChronicDisease(!haveChronicDisease)
+    }
     // life Insurance handler
 
     const [visibleLifeInsuranceMOdel, setVisibleLifeInsuranceMOdel] = useState(false);
@@ -83,14 +113,14 @@ const ProfessionalDetails = () => {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked={false} onChange={lifeInsuranceToggle} />
+                                <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={lifeInsuranceToggle} />
                             </Form.Item>
-                        </Col>
                             {haveLifeInsurece ?
-                                <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                     <Button shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
-                                </Col>: null
+                                </Col> : null
                             }
+                        </Col>
                         <>
                             <Modal
                                 title="Insurance Details"
@@ -114,85 +144,85 @@ const ProfessionalDetails = () => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Select Insurer"
+                                            label="Insurer"
                                             hasFeedback
                                             rules={[
                                                 {
-                                                    required: false,
-                                                    message: 'Set Designation',
+                                                    required: true,
+                                                    message: 'Set Insurer',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Select options={setInsurerOptions} placeholder="Set Insurer"></Select>
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Team Member"
-                                            label="Select Team Member"
+                                            name="Sum Assured"
+                                            label="Sum Assured"
                                             hasFeedback
                                             rules={[
                                                 {
-                                                    required: false,
+                                                    required: true,
                                                     message: 'Set Reminder',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Team Member"></Select>
+                                            <Input className="first-name border-bottom" placeholder="Enter Sum Assured" />
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Select Policy Type"
+                                            label="Select Policy Type"
                                             hasFeedback
                                             rules={[
                                                 {
-                                                    required: false,
-                                                    message: 'Set Designation',
+                                                    required: true,
+                                                    message: 'Select Policy Type',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Select options={setPolicyTypeOptions} placeholder="Select Policy Type"></Select>
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Select Policy Status"
+                                            label="Select Policy Status"
                                             hasFeedback
                                             rules={[
                                                 {
                                                     required: false,
-                                                    message: 'Set Designation',
+                                                    message: 'Select Policy Status',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Select options={setPolicyStatusOptions} placeholder="Select Policy Status"></Select>
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Policy Number"
+                                            label="Policy Number"
                                             hasFeedback
                                             rules={[
                                                 {
                                                     required: false,
-                                                    message: 'Set Designation',
+                                                    message: 'Enter Policy Number',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Input className="first-name border-bottom" placeholder="Enter Policy NUmber" />
                                         </Form.Item>
                                     </Col>
                                 </Row>
@@ -209,14 +239,14 @@ const ProfessionalDetails = () => {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked={false} onChange={healthInsuranceToggle} />
+                                <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={healthInsuranceToggle} />
                             </Form.Item>
-                        </Col>
                             {haveHealthInsurece ?
-                                <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                     <Button shape="round" size="large" block onClick={showHealthInsuranceModal}>Add Insurance Details</Button>
-                                </Col>: null
+                                </Col> : null
                             }
+                        </Col>
                         <>
                             <Modal
                                 title="Insurance Details"
@@ -240,87 +270,142 @@ const ProfessionalDetails = () => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Select Relation"
+                                            label="Select Relation"
                                             hasFeedback
                                             rules={[
                                                 {
                                                     required: false,
-                                                    message: 'Set Designation',
+                                                    message: 'Select Relation',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Select options={setRelationOptions} placeholder="Select Relation"></Select>
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Name"
+                                            label="Name"
                                             hasFeedback
                                             rules={[
                                                 {
                                                     required: false,
-                                                    message: 'Set Designation',
+                                                    message: 'Enter Name',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Input className="first-name border-bottom" placeholder="Enter The Name "></Input>
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Date of Birth"
+                                            label="Date of Birth"
                                             hasFeedback
                                             rules={[
                                                 {
                                                     required: false,
-                                                    message: 'Set Designation',
+                                                    message: 'Select Date of Birth',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Space direction="vertical" size={24}>
+                                                <DatePicker placeholder="dd/mm/yyyy" />
+                                            </Space>
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Designation"
-                                            label="Select Designation"
+                                            name="Types of Plan "
+                                            label="Types of Plan "
                                             hasFeedback
                                             rules={[
                                                 {
                                                     required: false,
-                                                    message: 'Set Designation',
+                                                    message: 'Types of Plan ',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Designation"></Select>
+                                            <Select options={setHealthTypeOfPlanOptions} placeholder="Select Types of Plan"></Select>
                                         </Form.Item>
                                     </Col>
                                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="Select Team Member"
-                                            label="Select Team Member"
+                                            name="Sum Assured"
+                                            label="Sum Assured"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Sum Assured',
+                                                },
+                                            ]}
+                                        >
+                                            <Input className="first-name border-bottom" placeholder="Enter Amount" />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="Risk Commencement Date"
+                                            label="Risk Commencement Date"
                                             hasFeedback
                                             rules={[
                                                 {
                                                     required: false,
-                                                    message: 'Set Reminder',
+                                                    message: 'Select Date of Birth',
                                                 },
                                             ]}
                                         >
-                                            <Select  placeholder="Set Team Member"></Select>
+                                            <Space direction="vertical" size={24}>
+                                                <DatePicker placeholder="dd/mm/yyyy" />
+                                            </Space>
                                         </Form.Item>
                                     </Col>
+                                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                        <Form.Item
+                                            className="form-item-name label-color"
+                                            name={['user', 'name']}
+                                            label="Is Insured suffering from any chronic disease "
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                },
+                                            ]}
+                                        >
+                                            <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={haveChronicDiseaseToggle} />
+                                        </Form.Item>
+                                    </Col>
+                                    {!haveChronicDisease ?
+                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name="Enter Details"
+                                                label="Enter Details"
+                                                hasFeedback
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Enter Details',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input className="first-name border-bottom" placeholder="Enter Description" />
+                                            </Form.Item>
+                                        </Col>
+                                        :null
+                                    }
                                 </Row>
                             </Modal>
                         </>

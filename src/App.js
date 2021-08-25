@@ -6,15 +6,13 @@ import PersonalDetails from './components/LeadDetails/PersonalDetails/PersonalDe
 import ContactDetails from './components/LeadDetails/ContactDetails/ContactDetails' 
 import ProfessionalDetails from './components/LeadDetails/ProfessionalDetails/ProfessionalDeatils';
 import ExistingInsurance from './components/LeadDetails/ExistingInsurance';
+import ProposedProduct from './components/LeadDetails/ProposedProduct';
+import ProposalDetails from './components/ProposalDetails/ProposalDetails';
+import DocumentsUpload from './components/DocumentsUpload/DocumentsUpload';
 import Login from './components/Login/Login'
-import Calendar from './components/Contests/CalendarEvent';
-import ClubsMaster from './components/ClubMaster/ClubsMaster';
-import Birthday from './components/Birthday/Birthday';
-import HomePage from './components/Home/HomePage';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import Sidebar from './components/SideBar/SideBar';
-import PersonalDetails from './components/LeadDetails/PersonalDetails/PersonalDetails
 // import ClubsMaster from './components/ClubMaster/ClubsMaster';
 // import Birthday from './components/Birthday/Birthday';
 // import HomePage from './components/Home/HomePage';
@@ -42,12 +40,15 @@ function App() {
             <Route path="/login"  component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>
-            <Route path="/leadmasterpage/statuslead" component={NewLead}></Route>
             <Route path="/leadMaster" component={LeadMaster}></Route>
+            <Route path="/leadmasterpage/statuslead" component={NewLead}></Route>
             <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
+            <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
+            <Route path="/leadmasterpage/leaddetails/proposal" component={ProposalDetails}></Route>
+            <Route path="/leadmasterpage/leaddetails/leaddoc" component={DocumentsUpload}></Route>
             <div>
             <Sidebar />
             {/* <Route path="/clubsMaster" component={ClubsMaster}></Route>
@@ -59,8 +60,6 @@ function App() {
               <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
               <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
               <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route> */}
-              <Route path="/leadMaster" component={LeadMaster}></Route>
-              <Route path="/calendar" component={Calendar}/>
               {/* <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route> 
               <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
               <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
