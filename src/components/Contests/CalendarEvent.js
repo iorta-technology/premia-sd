@@ -57,7 +57,7 @@ export default function CalendarEvent() {
     phone_call_customer: false,
     policy_renewal: false
   })
-
+ 
   const [prospectAppointment, setProspectAppointment] = useState(true)
   const [prospectPhoneCall, setProspectPhoneCall] = useState(false)
   const [prospectTraining, setProspectTraining] = useState(false)
@@ -69,7 +69,7 @@ export default function CalendarEvent() {
   const [eventText, setEventText] = useState("");
   const [value, setValue] = useState(moment('10:00', format));
   const [endVal, setEndVal] = useState(moment('10:00', format));
-
+ 
   const checkTeamMemberFunc = () => {
     setAdvisorCheck(true)
     setProspectCheck(false)
@@ -98,7 +98,9 @@ export default function CalendarEvent() {
       all_day: true
     })
   }
-
+  let regEmail=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  let regMobile=/^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
+  // let regMobile=/^[6-9]\d{9}/;
   const [durationStartDate, setDurationStartDate] = useState("");
   const [durationEndDate, setDurationEndDate] = useState("");
   const [durationStartTime, setDurationStartTime] = useState("");
@@ -119,6 +121,8 @@ export default function CalendarEvent() {
   const [prospectLastNameCheck, setProspectLastNameCheck] = useState(true);
   const [prospectEmailAddressCheck, setProspectEmailAddressCheck] = useState(true);
   const [prospectMobileNoCheck, setProspectMobileNoCheck] = useState(true);
+  const[prospectEmailRegCheck,setProspectEmailRegCheck]=useState(true)
+ const[prospectMobileRegCheck,setProspectMobileRegCheck]=useState(true)
 const[addManuallyButtonCheck,setAddManuallyButtonCheck]=useState(false);
 const[customerNameText,setCustomerNameText]=useState("");
 const[customerMobileNoText,setCustomerMobileNoText]=useState("");
@@ -130,36 +134,46 @@ const[customerTagVisible,setCustomerTagVisible]=useState(false);
 const[customerOnClickVal,setCustomerOnClickVal]=useState()
 const[searchCustomerText,setSearchCustomerText]=useState("");
 const[customerOnClickCheck,setCustomerOnClickCheck]=useState(false)
-useEffect(()=>{
-// axios.get(`https://sdtatadevlmsv2.iorta.in/secure/user/search/partners?csmId=60c2fdb39c78a32644d0cf63&search=${searchCustomerText}`)
-  axios.get("https://jsonplaceholder.typicode.com/users")
-  .then((res)=>{
-    console.log(res.data)
-    setCustomerArr(res.data)
-    setCustomerHelperArr(res.data)
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
-},[])
+
+const[prospectArr,setProspectArr]=useState([]);
+const[prospectHelperArr,setProspectHelperArr]=useState([]);
+const[prospectTagVisible,setProspectTagVisible]=useState(false);
+const[prospectOnClickVal,setProspectOnClickVal]=useState()
+const[searchProspectText,setSearchProspectText]=useState("");
+const[prospectOnClickCheck,setProspectOnClickCheck]=useState(false)
+
+
 const CustomerClickedTag=(value)=>{
   setCustomerOnClickVal(value)
   setCustomerTagVisible(true)
+  setCustomerOnClickVal(false)
 }
 const CustomerTagCloseFunc=()=>{
   setCustomerTagVisible(false)
 }
 
-
-
-
 const searchCustomer = (e) => {
 setCustomerOnClickCheck(true)
-  // setCustomerArr(customerArr.sort( (a, b) => a.name.localeCompare(b.name, 'fr', {ignorePunctuation: true})))  
-  if(searchCustomerText!==""){ setCustomerArr(customerArr.filter((i)=> (Object.values(i)
+axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/partners?csmId=60c2fdb39c78a32644d0cf63&search=${searchCustomerText}`)
+  // axios.get("https://jsonplaceholder.typicode.com/users")
+  .then((res)=>{
+    console.log(res.data.errMsg)
+   
+     if((searchCustomerText!=="")){ setCustomerArr(res.data.errMsg.filter((i)=> (Object.values(i)
       .join(" ").toLowerCase().includes(searchCustomerText.toLowerCase()))))}
-  }
+      else{
+        setCustomerArr(res.data.errMsg)
+      }
+    // setCustomerArr(res.data.errMsg.filter((i)=> (Object.values(i)
+    // .join(" ").toLowerCase().includes(searchCustomerText.toLowerCase()))))
+    setCustomerHelperArr(res.data)
+  })
+  .catch((err)=>{
+    console.log(err)
+  },[customerArr])
+  // setCustomerArr(customerArr.sort( (a, b) => a.name.localeCompare(b.name, 'fr', {ignorePunctuation: true})))  
 
+  }
 const searchCustomerTextFunc=(e)=>{
   setSearchCustomerText(e.target.value)
   setCustomerOnClickCheck(false)
@@ -167,6 +181,56 @@ const searchCustomerTextFunc=(e)=>{
   setCustomerArr(customerHelperArr)
   }
 }
+
+
+
+
+const ProspectClickedTag=(value)=>{
+  setProspectOnClickVal(value)
+  setProspectTagVisible(true)
+  setProspectOnClickCheck(false)
+}
+const ProspectTagCloseFunc=()=>{
+  setProspectTagVisible(false)
+}
+const searchProspect = (e) => {
+setProspectOnClickCheck(true)
+axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/prospects?csmId=60c2fdb39c78a32644d0cf63&search=${searchProspectText}`)
+  // axios.get("https://jsonplaceholder.typicode.com/users")
+  .then((res)=>{
+    console.log(res.data.errMsg)
+   
+     if((searchProspectText!=="")){ setProspectArr(res.data.errMsg.filter((i)=> (Object.values(i)
+      .join(" ").toLowerCase().includes(searchProspectText.toLowerCase()))))}
+      else{
+        setProspectArr(res.data.errMsg)
+      }
+    // setCustomerArr(res.data.errMsg.filter((i)=> (Object.values(i)
+    // .join(" ").toLowerCase().includes(searchCustomerText.toLowerCase()))))
+    setProspectHelperArr(res.data)
+  })
+  .catch((err)=>{
+    console.log(err)
+  },[prospectArr])
+  // setCustomerArr(customerArr.sort( (a, b) => a.name.localeCompare(b.name, 'fr', {ignorePunctuation: true})))  
+
+  }
+
+
+  
+
+const searchProspectTextFunc=(e)=>{
+  setSearchProspectText(e.target.value)
+  setProspectOnClickCheck(false)
+  if(searchProspectText==""){
+  setProspectArr(prospectHelperArr)
+  }
+}
+
+
+
+
+
 const AddManuallyFunc=()=>{
   setAddManuallyButtonCheck(true)
 }
@@ -202,6 +266,14 @@ const CustomerMobileNoFunc = (e) => {
     if (prospectMobileNoText == "") {
       setProspectMobileNoCheck(false)
     }
+    if(regEmail.test(prospectEmailAddressText) == false) {
+      setProspectEmailRegCheck(false)
+    }
+   
+    if(regMobile.test(prospectMobileNoText) == false) {
+     setProspectMobileRegCheck(false)
+    }
+  
   }
 
   const ProspectLastNameFunc = (e) => {
@@ -216,8 +288,24 @@ const CustomerMobileNoFunc = (e) => {
     if (prospectMobileNoText == "") {
       setProspectMobileNoCheck(false)
     }
+    
+    if(regEmail.test(prospectEmailAddressText) == false) {
+      setProspectEmailRegCheck(false)
+    }
+   
+    if(regMobile.test(prospectMobileNoText) == false) {
+     setProspectMobileRegCheck(false)
+    }
+   
+
   }
   const ProspectEmailAddressFunc = (e) => {
+
+    // if (reg.test(e.target.value) == false) 
+    // {
+    //     alert('Invalid Email Address');
+    //     // return false;
+    // }
     setProspectEmailAddressText(e.target.value)
     setProspectEmailAddressCheck(true)
     if (prospectFirstNameText == "") {
@@ -229,6 +317,13 @@ const CustomerMobileNoFunc = (e) => {
     if (prospectMobileNoText == "") {
       setProspectMobileNoCheck(false)
     }
+    if(regEmail.test(e.target.value) == true) {
+      setProspectEmailRegCheck(true)
+    }
+    if(regMobile.test(prospectMobileNoText) == false) {
+     setProspectMobileRegCheck(false)
+    }
+
   }
   const ProspectMobileNoFunc = (e) => {
     setProspectMobileNoText(e.target.value)
@@ -242,6 +337,13 @@ const CustomerMobileNoFunc = (e) => {
     if (prospectEmailAddressText == "") {
       setProspectEmailAddressCheck(false)
     }
+    if(regMobile.test(e.target.value) == true) {
+      setProspectMobileRegCheck(true)
+     }
+    if(regEmail.test(prospectEmailAddressText) == false) {
+      setProspectEmailRegCheck(false)
+    }
+   
   }
 
   const StartDateFunc = (value, dateString) => {
@@ -1036,20 +1138,61 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                     className="CalendarEvent-Modal-Card-header-type"
                   >Search Prospect</h4>
 
+<div
+                      className="CalendarEvent-Modal-Search-flex"
+                    >
+                      <div
+                        className="CalendarEvent-Modal-search-style"
+                      >
+                        <Search placeholder="Search By Name" onSearch={searchProspect}
+                       type="text"
+                       value={searchProspectText}
+                       onChange={searchProspectTextFunc}
+                          enterButton
+                          className="CalendarEvent-Modal-textinput-style"
+                        />
+                 {prospectOnClickCheck==true?
+       <div>
+     {prospectArr!==null&&Array.isArray(prospectArr)?
+      <div
+      className="CalendarEvent-Modal-search-record-style"
+      >
+      {prospectArr.map((prospect)=>{
+        return(
+          <div>
+          <div
+          className="CalendarEvent-Modal-click-record-style"
+          onClick={()=>ProspectClickedTag(prospect.fullName)}
+          >
+             <div
+            className="CalendarEvent-Modal-Card-searchbox-vertical-line"
+            ></div>
+            <h4>{prospect.fullName}</h4>
+            </div>
+           
+            </div>
+        )
+      })}
+      </div>
+     :null}
+                      
+                        </div>
+            :null}
+                      </div>
+                      
+                      <Tag
+          closable
+          visible={prospectTagVisible}
+          onClose={ProspectTagCloseFunc}
+          className="CalendarEvent-Modal-Search-tag-style"
+        >
+        {prospectOnClickVal}
+        </Tag>
 
-                  <div
-                    className="CalendarEvent-Modal-appointmenttype-button-flex"
-                  >
-                    <Search placeholder="Search By Name" onSearch={() => { }}
-                      enterButton
-                      className="CalendarEvent-Modal-textinput-style"
-                    />
 
-
-
+                    </div>
 
                   </div>
-                </div>
                 : customerCheck == true ?
                   <div>
                     {/* <div
@@ -1063,7 +1206,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
 
 
                     <div
-                      className="CalendarEvent-Modal-appointmenttype-button-flex"
+                      className="CalendarEvent-Modal-Search-flex"
                     >
                       <div
                         className="CalendarEvent-Modal-search-style"
@@ -1076,25 +1219,30 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                           className="CalendarEvent-Modal-textinput-style"
                         />
                  {customerOnClickCheck==true?
-                        <div
-                        className="CalendarEvent-Modal-search-record-style"
-                        >
-                        {customerArr.map((cust)=>{
-                          return(
-                            <div>
-                            <div
-                            className="CalendarEvent-Modal-click-record-style"
-                            onClick={()=>CustomerClickedTag(cust.username)}
-                            >
-                               <div
-                              className="CalendarEvent-Modal-Card-searchbox-vertical-line"
-                              ></div>
-                              <h4>{cust.username}</h4>
-                              </div>
-                             
-                              </div>
-                          )
-                        })}
+       <div>
+     {customerArr!==null&&Array.isArray(customerArr)?
+      <div
+      className="CalendarEvent-Modal-search-record-style"
+      >
+      {customerArr.map((cust)=>{
+        return(
+          <div>
+          <div
+          className="CalendarEvent-Modal-click-record-style"
+          onClick={()=>CustomerClickedTag(cust.partnerName)}
+          >
+             <div
+            className="CalendarEvent-Modal-Card-searchbox-vertical-line"
+            ></div>
+            <h4>{cust.partnerName}</h4>
+            </div>
+           
+            </div>
+        )
+      })}
+      </div>
+     :null}
+                      
                         </div>
             :null}
                       </div>
@@ -1161,32 +1309,37 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                     className="CalendarEvent-Modal-prospect-meeting-textbox-flex"
                   >
                     <h4
-                      className={prospectEmailAddressCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
+                      className={prospectEmailRegCheck==false||prospectEmailAddressCheck == false 
+                        ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                     >Email Address *</h4>
                     <input
                       value={prospectEmailAddressText}
                       onChange={ProspectEmailAddressFunc}
-                      className={prospectEmailAddressCheck == false ? "CalendarEvent-Modal-empty-textbox-style" : "CalendarEvent-Modal-textbox-style"}
+                      className={prospectEmailRegCheck==false||prospectEmailAddressCheck == false ? "CalendarEvent-Modal-empty-textbox-style" : "CalendarEvent-Modal-textbox-style"}
                       type="text"
                       required
                     />
-                    {prospectEmailAddressCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
+                    {prospectEmailAddressCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> :prospectEmailRegCheck==false?<h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Enter a valid Email</h4>: null}
 
                   </div>
                   <div
                     className="CalendarEvent-Modal-prospect-meeting-textbox-flex"
                   >
                     <h4
-                      className={prospectMobileNoCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
+                      className={prospectMobileRegCheck == false||prospectMobileNoCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                     >Primary Phone No *</h4>
                     <input
                       value={prospectMobileNoText}
                       onChange={ProspectMobileNoFunc}
-                      className={prospectMobileNoCheck == false ? "CalendarEvent-Modal-empty-textbox-style" : "CalendarEvent-Modal-textbox-style"}
+                      className={prospectMobileRegCheck == false||prospectMobileNoCheck == false ? "CalendarEvent-Modal-empty-textbox-style" : "CalendarEvent-Modal-textbox-style"}
                       type="text"
                       required
                     />
-                    {prospectMobileNoCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
+                    {prospectMobileNoCheck == false ?
+                     <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> 
+                     :prospectMobileRegCheck == false?
+                     <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Enter a valid Mobile No</h4> 
+                     : null}
 
                   </div>
                 </div>
