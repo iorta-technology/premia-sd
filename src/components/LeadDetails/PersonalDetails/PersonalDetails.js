@@ -109,7 +109,8 @@ const PersonalDetails = () => {
                 </Col>
                 <Col className="contact-details" xs={22} sm={24} md={15} lg={15} xl={15} >
                     <Button shape="round" size="large" style={{marginRight:'auto'}}>Previous</Button>
-                    <Button shape="round" size="large" style={{marginLeft:'auto'}}>Proceed</Button>
+                    <Button shape="round" type="primary" size="large" >Update</Button>
+                    <Button shape="round" type="primary" size="large" style={{marginLeft:'auto'}}>Proceed</Button>
                 </Col>
             </Row>
         </div>

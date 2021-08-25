@@ -261,14 +261,14 @@ const NewLead = React.memo(() => {
   const [leadSelect, setLeadSelect] = useState()
 
   // add team Member modal state control
-  const [visibleTeamMemberModal, setVisibleTeamMemberModal] = React.useState(false);
-  const [teamMemberLoading, setTeamMemberLoading] = React.useState(false);
-  // const [modalText, setModalText] = React.useState('Content of the modal');
+  const [visibleTeamMemberModal, setVisibleTeamMemberModal] = useState(false);
+  const [teamMemberLoading, setTeamMemberLoading] = useState(false);
+  // const [modalText, setModalText] = useState('Content of the modal');
 
   // change owner Member modal state control
-  const [visibleChangeOwnerMOdel, setVisibleChangeOwnerMOdel] = React.useState(false);
-  const [changeOwnerLoading, setChangeOwnerLoading] = React.useState(false);
-  // const [modalText, setModalText] = React.useState('Content of the modal');
+  const [visibleChangeOwnerMOdel, setVisibleChangeOwnerMOdel] = useState(false);
+  const [changeOwnerLoading, setChangeOwnerLoading] = useState(false);
+  // const [modalText, setModalText] = useState('Content of the modal');
 
 
   const showTeamMemeberModal = () => {
@@ -699,42 +699,41 @@ const NewLead = React.memo(() => {
               <p className="form-title">Summary</p>
               <p>Fresh Lead</p>
               <Row>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">Lead ID</p>
                   <p  className="lead-detail">L24105EC7</p>
                 </Col>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">Source</p>
                   <p className="lead-detail">-</p>
                 </Col>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">Name</p>
                   <p className="lead-detail">Azim Shaikh</p>
                 </Col>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">Mobile Number</p>
                   <p className="lead-detail">9787659980</p>
                 </Col>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">State</p>
                   <p className="lead-detail">Maharashtra</p>
                 </Col>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">City</p>
                   <p className="lead-detail">Mumbai</p>
                 </Col>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">Allocated To</p>
                   <p className="lead-detail">Himanshu</p>
                 </Col>
-                <Col xs={22} sm={12} md={12} lg={12} xl={12} span={12} >
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                   <p className="lead-summ-label">Created on</p>
                   <p className="lead-detail">21/08/2021</p>
                   <p className="lead-date">2 days ago</p>
                 </Col>
               </Row>
             </Col>
-
           </Row>
         </Col>
         <Col xs={{ order: 3 }} sm={20} md={20} lg={{ order: 3 }} xl={{ order: 3 }} span={22}>
