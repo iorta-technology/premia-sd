@@ -27,7 +27,7 @@ import Sidebar from './components/SideBar/SideBar';
 // import AllContestDetails1 from './components/Contests/AllContestDetails';
 // import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
 // import CompletedContest1 from './components/Contests/CompletedContest';
-// import Calendar from './components/Contests/CalendarEvent';
+import Calendar from './components/Contests/CalendarEvent';
 
 function App() {
   return (
@@ -51,6 +51,7 @@ function App() {
             <Route path="/leadmasterpage/leaddetails/proposal" component={ProposalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/leaddoc" component={DocumentsUpload}></Route>
             <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
+            <Route path="/calendar" component={Calendar}/>
             <div>
             <Sidebar />
             {/* <Route path="/clubsMaster" component={ClubsMaster}></Route>
