@@ -9,6 +9,7 @@ import ExistingInsurance from './components/LeadDetails/ExistingInsurance';
 import ProposedProduct from './components/LeadDetails/ProposedProduct';
 import ProposalDetails from './components/ProposalDetails/ProposalDetails';
 import DocumentsUpload from './components/DocumentsUpload/DocumentsUpload';
+import History from './components/History/History';
 import Login from './components/Login/Login'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword';
@@ -49,6 +50,7 @@ function App() {
             <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
             <Route path="/leadmasterpage/leaddetails/proposal" component={ProposalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/leaddoc" component={DocumentsUpload}></Route>
+            <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
             <div>
             <Sidebar />
             {/* <Route path="/clubsMaster" component={ClubsMaster}></Route>

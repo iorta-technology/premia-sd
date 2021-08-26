@@ -1,4 +1,4 @@
-.tab-container> .ant-tabs>.ant-tabs-nav{
+.tab-container> .ant-tabs>.ant-tabs-nav{ 
     border-bottom: none;
 }
 .tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab{
@@ -35,8 +35,7 @@
     
 }
 .tab-pane:active{
-    /*color: rgb(1, 180, 187);
-    */
+    color: rgb(1, 180, 187);
     background-color: rgb(1, 180, 187);
 
 }
@@ -45,4 +44,9 @@
     position: absolute;
     top:5px;
     right:5px;
-}
+} 
+   
+/* .tab-style{
+    color: blue;
+    box-shadow: 0,1px,3px rgba(0, 0, 0, 0.12), 0,1px,2px rgba(0, 0, 0, 0.24);
+} */
