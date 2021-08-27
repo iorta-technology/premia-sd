@@ -20,6 +20,7 @@ import AllContestDetails1 from './components/Contests/AllContestDetails';
 import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
 import CompletedContest1 from './components/Contests/CompletedContest';
 import Calendar from './components/Contests/CalendarEvent';
+import AgentMicroService from './components/AgentMicroSite/AgentMicroSite';
 
 // import cards from './components/LeadCards/LeadCards';
 function App() {
@@ -28,7 +29,7 @@ function App() {
       <div className="box-size">
         <Switch>
             <Route exact path="/">
-                <Redirect to="/login" />
+                <Redirect to="/himanshu" />
             </Route>
             
             <Route path="/login"  component={Login}></Route>
@@ -38,6 +39,7 @@ function App() {
             <Route path="/leadMaster" component={LeadMaster}></Route>
             <Route path="/clubsMaster" component={ClubsMaster}></Route>
             <Route path="/birthday" component={Birthday}></Route>
+            <Route path="/himanshu" component={AgentMicroService}></Route>
             <div>
               <Sidebar />
               <Route path="/home"  component={HomePage}></Route>
