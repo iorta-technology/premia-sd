@@ -16,14 +16,14 @@ import ChangePassword from './components/ChangePassword/ChangePassword';
 import Sidebar from './components/SideBar/SideBar';
 import ClubsMaster from './components/ClubMaster/ClubsMaster';
 import Birthday from './components/Birthday/Birthday';
-// import HomePage from './components/Home/HomePage';
-// import CompletedContest from './components/Contests/CompletedContest';
-// import ActiveContest from './components/Contests/ActiveContest';
-// import ActiveContestDetails from './components/Contests/ActiveContestDetails';
-// import AllContestDetails from './components/Contests/AllContestDetails';
-// import AllContest from './components/Contests/AllContest';
-// import CompletedContestDetails from './components/Contests/CompletedContestDetails';
-// import MyOverallRanking from './components/Contests/MyOverallRanking';
+import HomePage from './components/Home/HomePage';
+import CompletedContest from './components/Contests/CompletedContest';
+import ActiveContest from './components/Contests/ActiveContest';
+import ActiveContestDetails from './components/Contests/ActiveContestDetails';
+import AllContestDetails from './components/Contests/AllContestDetails';
+import AllContest from './components/Contests/AllContest';
+import CompletedContestDetails from './components/Contests/CompletedContestDetails';
+import MyOverallRanking from './components/Contests/MyOverallRanking';
 // import AllContestDetails1 from './components/Contests/AllContestDetails';
 // import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
 // import CompletedContest1 from './components/Contests/CompletedContest';
@@ -42,23 +42,11 @@ function App() {
             <Route path="/login"  component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>
-            <Route path="/leadMaster" component={LeadMaster}></Route>
-            <Route path="/clubsMaster" component={ClubsMaster}></Route>
-            <Route path="/birthday" component={Birthday}></Route>
             <Route path="/himanshu" component={AgentMicroService}></Route>
-            <Route path="/leadmasterpage/statuslead" component={NewLead}></Route>
-            <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
-            <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
-            <Route path="/leadmasterpage/leaddetails/proposal" component={ProposalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/leaddoc" component={DocumentsUpload}></Route>
-            <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
-            <Route path="/calendar" component={Calendar}/>
+            
             <div>
-            <Sidebar />
-            {/* <Route path="/clubsMaster" component={ClubsMaster}></Route>
+            <Sidebar>
+            <Route path="/clubsMaster" component={ClubsMaster}></Route>
             <Route path="/birthday" component={Birthday}></Route>
               
               <Route path="/home"  component={HomePage}></Route>
@@ -66,15 +54,16 @@ function App() {
               <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
               <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
               <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
-              <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route> */}
-              {/* <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route> 
+              <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
+              <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route> 
               <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
               <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
               <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
               <Route path="/rewardscorner/contests/allcontestdetails"  component={AllContestDetails}/>
               <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
               <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
-              <Route path="/calendar" component={Calendar}/> */}
+              <Route path="/calendar" component={Calendar}/>
+              </Sidebar>
             </div>
         </Switch>
       </div>
