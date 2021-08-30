@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
 import LeadMaster from './containers/LeadMaster/index';
-import NewLead from './components/NewLead/NewLead'
+import StatusLead from './components/StatusLead/StatusLead'
 import PersonalDetails from './components/LeadDetails/PersonalDetails/PersonalDetails' 
 import ContactDetails from './components/LeadDetails/ContactDetails/ContactDetails' 
 import ProfessionalDetails from './components/LeadDetails/ProfessionalDetails/ProfessionalDeatils';
@@ -41,8 +41,8 @@ function App() {
             <Route path="/login"  component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>
-            <Route path="/leadMaster" component={LeadMaster}></Route>
-            <Route path="/leadmasterpage/statuslead" component={NewLead}></Route>
+            <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
+            <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
             <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>

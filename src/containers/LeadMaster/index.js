@@ -47,10 +47,29 @@ const LeadMaster = (props) => {
         setcurrent(page)
         // console.log(page)
     }
+    const tabMenu = [
+        {
+            id:1,
+            value:"All"
+        },
+        {
+            id:2,
+            value:"Open"
+        },
+        {
+            id:3,
+            value:"Converted"
+        },
+        {
+            id:4,
+            value:"Not Interested"
+        },
+        
+    ]
 
     return (
         <div style={{backgroundColor:'#fafafa'}}>
-            <Tab/>
+            <Tab tabMenu={tabMenu} header="Lead"/>
             <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
