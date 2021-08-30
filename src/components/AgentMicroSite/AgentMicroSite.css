@@ -1,0 +1,374 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  scroll-behavior: smooth;
+}
+.main {
+  padding: 28px 7%;
+  background: transparent linear-gradient(180deg, #ffffff 0%, #eaebef 100%) 0%
+    0% no-repeat padding-box;
+  box-shadow: 0px 2px 8px #00000014;
+  height: auto;
+}
+.primary {
+  width: 150px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #1cb3bc;
+  color: #fff;
+  box-shadow: 0px 3px 8px #1cb3bc66;
+  border: none;
+}
+.header .options {
+  display: inline-block;
+  margin: 10px 30px;
+  vertical-align: top;
+}
+.header .options a {
+  margin: 20px;
+  text-decoration: none;
+  color: #18478b;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.header .options2 {
+  margin: 0 10px;
+  float: right;
+}
+.header .options2 a {
+  margin: 20px;
+  text-decoration: none;
+  color: #18478b;
+  font-size: 16px;
+}
+.social,.info,.achievements {
+  display: inline-block;
+}
+.vr {
+  width: 1px;
+  border-left: 2px solid #eaebef;
+  margin: 15px 20px;
+}
+.social img {
+  margin: 10px 5px;
+}
+.social p {
+  letter-spacing: 1.4px;
+  color: #4f5967;
+  transform: rotate(-90deg);
+  height: 100%;
+  margin-left: 11px;
+  font-size: 14px;
+}
+.info{
+    vertical-align: middle;
+    width: 200px;
+    margin-top: -130px;
+    margin-left: -70px;
+}
+.info h3{
+    font-size: 24px;
+    color: #1CB3BC;
+    font-weight: bold;
+}
+.info h3 span{
+    font-size: 16px;
+    color: #4F5967;
+    font-weight: 400;
+}
+.info .id{
+    font-size: 14px;
+    font-weight: bold;
+    color: #707070;
+}
+.tagline{
+    padding: 40px 0 ;
+    display: grid;
+    width: 400px;
+    z-index: 9;
+}
+.tagline h1{
+    font-size: 33px;
+    color: #0C5CAA;
+    text-shadow: 2px 2px 8px #00000029;
+    z-index: 12;
+}
+.info h4{
+    font-size: 16px;
+    font-weight: bold;
+    color: #4F5967;
+}
+.info p{
+    color: #707070;
+    font-size: 400;
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+.person{
+    display: inline-block;
+    background-color: #fff;
+    height: 450px;
+    width: 360px;
+    vertical-align: top;
+    margin-top: 80px;
+    padding: 10px;
+    position: relative;
+}
+.person img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.person .play{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 40%;
+    top: 55%;
+}
+.person .badgetag{
+    position: absolute;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 7px;
+    bottom: 30px;
+    right: 5px;
+}
+.person .badgetag img{
+    width: 45px;
+    height: 50px;
+}
+.person .badgetag div{
+    display: inline-block;
+    vertical-align: top;
+}
+.person .badgetag h5{
+    color: #0C5CAA;
+    font-weight: bold;
+    font-size: 18px;
+}
+.person .badgetag p{
+    color: #0C5CAA;
+    font-weight: 500;
+    font-size: 16px;
+}
+.achievements{
+    vertical-align: bottom;
+    padding: 20px;
+}
+.achievements h2{
+    color: #0C5CAA;
+    font-size: 20px;
+}
+.achievements p{
+    width: 350px;
+    color: #707070;
+    font-weight: 300;
+    margin-top: 10px;
+}
+.achievements img{
+    width: 70px;
+}
+.achievements .badge-info {
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+.achievements .badge-info div{
+display: inline-block;
+margin-right: 10px;
+}
+.achievements .badge-info .badge-title{
+    width: fit-content;
+    font-size: 12px;
+    color: #0C5CAA;
+}
+.by{
+    font-size: 12px;
+    color: #0C5CAA !important;
+}
+
+
+.section2,.section4{
+    padding: 100px 10%;
+    width: 100%;
+}
+.section2 div{
+    display: inline-block;
+}
+.family{
+    width: 100%;
+}
+.section2 h4,.section3 h4,.section4 h4,.section5 h4{
+    font-size: 16px;
+    color: #1CB3BC;
+}
+.section2 h1,.section3 h1,.section4 h1,.section5 h1{
+    font-size: 28px;
+    color: #0C5CAA;
+    width: 490px;
+}
+.section2 p{
+    width: 60%;
+    font-size: 12px;
+    font-weight: 300;
+    color: #707070;
+}
+.planHold div{
+    width: 100px;
+    text-align: center;
+    vertical-align: top;
+}
+.planHold img{
+    width: 40px;
+    vertical-align: top;
+}
+.planHold p{
+    margin-top: 10px;
+    width: 100%;
+}
+
+.section3 .imagehld{
+    min-height: 600px;
+    width: 40%;
+    background-size: contain;
+    background-image: url('../../images/lets_connect@2x.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.section3 .imgdata{
+width: 50%;
+display: inline-block;
+vertical-align: top;
+padding:100px 0 ;
+}
+.imgdata .cont{
+    display: inline-block;
+}
+.productoptions{
+    padding: 15px;
+    border-radius: 8px;
+    border: #4F596766 1px solid;
+    display: flex;
+    column-gap: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.selectedproduct{
+    background-color: #23B2BA;
+    box-shadow: 0px 6px 12px #1CB3BC4D;
+    color: #fff !important;
+    border: none;
+}
+.selectedproduct p{
+    color: #fff !important;
+}
+.productoptions img{
+    width: 20px;
+}
+.productoptions p{
+    margin-top: 5px;
+    font-size: 14px;
+    color: #0C5CAA;
+}
+.matter{
+    color: #707070;
+    font-size: 12px;
+}
+.matter span svg{
+    vertical-align: bottom;
+    margin-right: 10px;
+    fill: #0C5CAA;
+}
+.productoptions svg{
+    position: absolute;
+    right: 15px;
+    top: 20px;
+}
+
+
+.section4{
+background-color: #EDEEEF;
+}
+.cardsHolder{
+    width: 100%;
+    margin-top: 30px;
+}
+.cardsHolder .card{
+    width: 300px;
+    height: 330px;
+    border-radius: 10px;
+    border: 1px solid #4F596733;
+    box-shadow: 16px 16px 36px #0000000D;
+    background-color: #fff;
+    display: inline-block;
+    margin-right: 10px;
+}
+.cardsHolder .card img{
+    width: 100%;
+    height: 45%;
+    object-fit: cover;
+}
+.cardsHolder .card .cardCont{
+    padding: 10px;
+}
+.cardsHolder .card .cardCont h4{
+    color: #0C5CAA;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.cardsHolder .card .cardCont p{
+    color: #4F5967;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 20px;
+
+}
+.cardsHolder .card .cardCont a{
+    text-decoration: none;
+    color: #1CB3BC;
+    font-size: 12px;
+}
+.section5{
+    padding: 100px 10% 0;
+    width: 80%;
+}
+.section5 div{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.section5 .imagehld{
+    min-height: 600px;
+    background-size: contain;
+    background-image: url('../../images/lets_connect@2x.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+footer{
+    padding: 35px 10%;
+    background-color: #4F5967;
+    max-height: 70px;
+    border-top: 7px solid #000;
+    color: #fff;
+}
+.navigation{
+    float: right;
+}
+.navigation a{
+    text-decoration: none;
+    color: #fff;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 300;
+}
+.whatsapp{
+    position: fixed;
+    bottom: 20%;
+    right: 5%;
+}
+.whatsapp img{
+    width: 90px;
+}

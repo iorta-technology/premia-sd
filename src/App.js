@@ -14,8 +14,8 @@ import Login from './components/Login/Login'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import Sidebar from './components/SideBar/SideBar';
-// import ClubsMaster from './components/ClubMaster/ClubsMaster';
-// import Birthday from './components/Birthday/Birthday';
+import ClubsMaster from './components/ClubMaster/ClubsMaster';
+import Birthday from './components/Birthday/Birthday';
 // import HomePage from './components/Home/HomePage';
 // import CompletedContest from './components/Contests/CompletedContest';
 // import ActiveContest from './components/Contests/ActiveContest';
@@ -28,6 +28,7 @@ import Sidebar from './components/SideBar/SideBar';
 // import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
 // import CompletedContest1 from './components/Contests/CompletedContest';
 import Calendar from './components/Contests/CalendarEvent';
+import AgentMicroService from './components/AgentMicroSite/AgentMicroSite';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
       <div className="box-size">
         <Switch>
             <Route exact path="/">
-                <Redirect to="/login" />
+                <Redirect to="/himanshu" />
             </Route>
             
             <Route path="/login"  component={Login}></Route>
