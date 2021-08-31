@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
 import LeadMaster from './containers/LeadMaster/index';
-import NewLead from './components/NewLead/NewLead'
+import StatusLead from './components/StatusLead/StatusLead'
 import PersonalDetails from './components/LeadDetails/PersonalDetails/PersonalDetails' 
 import ContactDetails from './components/LeadDetails/ContactDetails/ContactDetails' 
 import ProfessionalDetails from './components/LeadDetails/ProfessionalDetails/ProfessionalDeatils';
@@ -44,6 +44,16 @@ function App() {
             <Route path="/changepassword" component={ChangePassword}></Route>
             <Route path="/himanshu" component={AgentMicroService}></Route>
             
+            {/* <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
+            <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
+            <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
+            <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
+            <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
+            <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
+            <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
+            <Route path="/leadmasterpage/leaddetails/proposal" component={ProposalDetails}></Route>
+            <Route path="/leadmasterpage/leaddetails/leaddoc" component={DocumentsUpload}></Route>
+            <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route> */}
             <div>
             <Sidebar>
             <Route path="/clubsMaster" component={ClubsMaster}></Route>

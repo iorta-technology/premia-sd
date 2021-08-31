@@ -31,7 +31,7 @@ const LeadCard = React.memo((props) => {
 
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
-    }, []);
+    }, [width]);
 
     // Card for desktop
     let card = 
