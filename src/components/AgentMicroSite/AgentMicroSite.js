@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import './AgentMicroSite.css';
-import mainLogo from '../../images/logo.svg';
+import mainLogo from '../../images/logo.png';
 import whatsUp from '../../images/whats_app_FAB.png';
 import LinkedIn from '../../images/LinkedIn_icon.svg';
 import twitter from '../../images/twitter_icon.svg'
@@ -20,8 +20,22 @@ import Personal_accident_insurance_icon from '../../images/Personal_accident_ins
 import blog_one from '../../images/blog_one.png'
 import blog_two from '../../images/blog_two.png'
 import blog_three from '../../images/blog_three.png'
-
+import { Modal, Button,Input,Select } from 'antd';
+const { Option } = Select;
 const AgentMicroService = ()=>{
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
     return(
         <>
         <div className="whatsapp">
@@ -38,7 +52,7 @@ const AgentMicroService = ()=>{
                 <a href="https://d2cli.iorta.in/#/instantrenew" target="_blank">Instant Renewal</a>
                 <a href="https://d2cli.iorta.in/#/policytype" target="_blank">Claims</a>
                 <a href="https://d2cli.iorta.in/#/masterRaiseReq" target="_blank">Service</a>
-                <button className="primary">LETS CONNECT</button>
+                <button className="primary" onClick={showModal} style={{cursor:'pointer'}}>LETS CONNECT</button>
             </div>
         </div>
         <div className="profile">
@@ -132,7 +146,7 @@ const AgentMicroService = ()=>{
             </div>
             <br />
             <br />
-            <button style={{borderRadius: "8px"}} className="primary">LETS CONNECT</button>
+            <button style={{borderRadius: "8px",cursor:'pointer'}} className="primary" onClick={showModal}>LETS CONNECT</button>
         </div>
         <div style={{width:"50%"}}>
             <img className="family" src={Happy_family_Health_insurance} alt="" />
@@ -236,10 +250,20 @@ const AgentMicroService = ()=>{
             <h4>LETS CONNECT</h4>
             <h1>NOT SURE WHAT INSURANCE YOU NEED? WE CAN HELP.</h1>
             <form>
-
+            <Input className="inputs" placeholder="First Name" />
+       <Input className="inputs" placeholder="Last Name" />
+       <Input className="inputs" placeholder="Mobile" />
+       <Select  className="ant-select-selector" placeholder="Select Product" allowClear>
+          <Option value="male">Health Insurance</Option>
+          <Option value="female">Motor Insurance</Option>
+          <Option value="other">Travel Insurance</Option>
+          <Option value="other">Personal Accident Insurance</Option>
+          <Option value="other">Others</Option>
+        </Select>
+       {/* <Input className="inputs" placeholder="Intrested In" /> */}
             </form>
             <br/>
-            <button style={{borderRadius: "8px"}} className="primary">LETS CONNECT</button>
+            <button style={{borderRadius: "8px",cursor:'pointer'}} className="primary">LETS CONNECT</button>
         </div>
         <div className="imagehld" style={{width: '45%'}}>
 
@@ -255,7 +279,23 @@ const AgentMicroService = ()=>{
             <a href="#">PRIVACY POLICY</a>
             <a href="#">LEGAL</a>
         </div>
-    </footer>   
+    </footer>
+    <div className="ContactUS" >
+    <Modal title="Lets connect" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+       <Input className="inputs" placeholder="First Name" />
+       <Input className="inputs" placeholder="Last Name" />
+       <Input className="inputs" placeholder="Mobile" />
+       <Select  className="ant-select-selector" placeholder="Select Product" allowClear>
+          <Option value="male">Health Insurance</Option>
+          <Option value="female">Motor Insurance</Option>
+          <Option value="other">Travel Insurance</Option>
+          <Option value="other">Personal Accident Insurance</Option>
+          <Option value="other">Others</Option>
+        </Select>
+       {/* <Input className="inputs" placeholder="Intrested In" /> */}
+      </Modal>        
+    </div>
+   
         </>
     )
 }
