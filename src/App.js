@@ -27,6 +27,9 @@ import MyOverallRanking from './components/Contests/MyOverallRanking';
 // import AllContestDetails1 from './components/Contests/AllContestDetails';
 // import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
 // import CompletedContest1 from './components/Contests/CompletedContest';
+import AllContestDetails1 from './components/Contests/AllContestDetails';
+import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
+import CompletedContest1 from './components/Contests/CompletedContest';
 import Calendar from './components/Contests/CalendarEvent';
 import AgentMicroService from './components/AgentMicroSite/AgentMicroSite';
 
