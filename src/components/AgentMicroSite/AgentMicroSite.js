@@ -43,10 +43,12 @@ const AgentMicroService = () => {
         firstName: firstName,
         lastName: lastName,
         primaryMobile: mobile,
-        leadStatus: "newleadentery"
+        leadStatus: "newleadentery",
+        lead_allocated_by: "5df77d17009e273b39cae811",
+        lead_Owner_Id: "5df77d17009e273b39cae811",
+        lead_Creator_Id: "5df77d17009e273b39cae811"
     }
     const onLetsConnect =()=>{
-        console.log(firstName,lastName,mobile,product)
         axios.post(`user/addlead`,payload).then(resp=>{
             console.log("lets connect resp",resp)
         }).catch(err=>{
@@ -134,10 +136,6 @@ const AgentMicroService = () => {
         console.log(firstName,lastName,mobile,product)
         axios.post(`user/addlead`,payload).then(resp=>{
             console.log("lets connect resp",resp)
-            setFirstName('')
-            setLastName('')
-            setProduct('')
-            setMobile('')
         }).catch(err=>{
             console.log("lets connect error",err)
         })
@@ -360,9 +358,37 @@ const AgentMicroService = () => {
                     <h1>NOT SURE WHAT INSURANCE YOU NEED? WE CAN HELP.</h1>
                     <br/>
                     <Form form={form} onFinish={onLetsConnect}>
+                    <Form.Item
+                        name="firstName"
+                        rules={[
+                            {
+                                required: true,
+                                message: "First Name is Required"
+                            }
+                        ]}>
                         <Input className="inputs" placeholder="First Name" onChange={(e)=>setFirstName(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item
+                         name="lastName"
+                         rules={[
+                             {
+                                 required: true,
+                                 message: "Last Name is Required"
+                             }
+                         ]}>
                         <Input className="inputs" placeholder="Last Name" onChange={(e)=>setLastName(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item
+                         name="mobile"
+                         rules={[
+                             {
+                                 required: true,
+                                 message: "Mobile is Required"
+                             }
+                         ]}>
                         <Input className="inputs" placeholder="Mobile" onChange={(e)=>setMobile(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item name="product" rules={[{ required: true,message: "Please select product" }]}>
                         <Select className="ant-select-selector inputs" placeholder="Select Product" onChange={setProduct} allowClear>
                             <Option value="Health Insurance">Health Insurance</Option>
                             <Option value="Motor Insurance">Motor Insurance</Option>
@@ -370,6 +396,7 @@ const AgentMicroService = () => {
                             <Option value="Personal Accident Insurance">Personal Accident Insurance</Option>
                             <Option value="Other">Others</Option>
                         </Select>
+                    </Form.Item>
                         {/* <Input className="inputs" placeholder="Intrested In" /> */}
                     <br />
                     <button style={{ borderRadius: "8px", cursor: 'pointer' }} className="primary" htmlType="submit">LETS CONNECT</button>
@@ -391,10 +418,51 @@ const AgentMicroService = () => {
                 </div>
             </footer>
             <div className="ContactUS" >
-                <Modal title="Lets connect" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <Input className="inputs" placeholder="First Name" onChange={(e)=>setFirstName(e.target.value)} />
+                <Modal title="Lets connect" visible={isModalVisible} onOk={form.submit}  onCancel={handleCancel} okText="Submit"
+        cancelButtonProps={{
+          style: {
+            display: "none",
+          },
+        }}>
+                <Form form={form} onFinish={handleOk} >  
+                <Form.Item
+                        name="firstName"
+                        rules={[
+                            {
+                                required: true,
+                                message: "First Name is Required"
+                            }
+                        ]}>
+                        <Input className="inputs" placeholder="First Name" onChange={(e)=>setFirstName(e.target.value)} />
+                </Form.Item>
+                <Form.Item
+                        name="lastName"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Last Name is Required"
+                            }
+                        ]}>
                         <Input className="inputs" placeholder="Last Name" onChange={(e)=>setLastName(e.target.value)} />
+                </Form.Item>
+                <Form.Item 
+                        name="mobile"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Mobile is Required"
+                            }
+                        ]}>
                         <Input className="inputs" placeholder="Mobile" onChange={(e)=>setMobile(e.target.value)} />
+                </Form.Item>
+                <Form.Item 
+                        name="product"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Product is Required"
+                            }
+                        ]}>
                         <Select className="ant-select-selector inputs" placeholder="Select Product" onChange={setProduct} allowClear>
                             <Option value="Health Insurance">Health Insurance</Option>
                             <Option value="Motor Insurance">Motor Insurance</Option>
@@ -402,6 +470,8 @@ const AgentMicroService = () => {
                             <Option value="Personal Accident Insurance">Personal Accident Insurance</Option>
                             <Option value="Other">Others</Option>
                         </Select>
+                </Form.Item>
+                </Form>  
                     {/* <Input className="inputs" placeholder="Intrested In" /> */}
                 </Modal>
             </div>
