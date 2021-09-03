@@ -71,16 +71,16 @@
 .info h3{
     font-size: 24px;
     color: #1CB3BC;
-    font-weight: bold;
+    font-weight: bold !important;
 }
 .info h3 span{
     font-size: 16px;
     color: #4F5967;
-    font-weight: 400;
+    font-weight: 400 !important;
 }
 .info .id{
     font-size: 14px;
-    font-weight: bold;
+    font-weight: bold !important;
     color: #707070;
 }
 .tagline{
@@ -97,7 +97,7 @@
 }
 .info h4{
     font-size: 16px;
-    font-weight: bold;
+    font-weight: bold !important;
     color: #4F5967;
 }
 .info p{
@@ -110,10 +110,10 @@
 .person{
     display: inline-block;
     background-color: #fff;
-    height: 450px;
-    width: 360px;
+    height: 530px;
+    width: 440px;
     vertical-align: top;
-    margin-top: 80px;
+    margin-top: 40px;
     padding: 10px;
     position: relative;
 }
@@ -147,12 +147,12 @@
 }
 .person .badgetag h5{
     color: #0C5CAA;
-    font-weight: bold;
+    font-weight: bold !important;
     font-size: 18px;
 }
 .person .badgetag p{
     color: #0C5CAA;
-    font-weight: 500;
+    font-weight: 500 !important;
     font-size: 16px;
 }
 .achievements{
@@ -166,7 +166,7 @@
 .achievements p{
     width: 350px;
     color: #707070;
-    font-weight: 300;
+    font-weight: 300 !important;
     margin-top: 10px;
 }
 .achievements img{
@@ -174,7 +174,7 @@
 }
 .achievements .badge-info {
     margin-top: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
 }
 .achievements .badge-info div{
 display: inline-block;
@@ -192,7 +192,7 @@ margin-right: 10px;
 
 
 .section2,.section4{
-    padding: 100px 10%;
+    padding: 70px 10%;
     width: 100%;
 }
 .section2 div{
@@ -200,6 +200,7 @@ margin-right: 10px;
 }
 .family{
     width: 100%;
+    display: flex;
 }
 .section2 h4,.section3 h4,.section4 h4,.section5 h4{
     font-size: 16px;
@@ -213,7 +214,7 @@ margin-right: 10px;
 .section2 p{
     width: 60%;
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 300 !important;
     color: #707070;
 }
 .planHold div{
@@ -233,16 +234,30 @@ margin-right: 10px;
 .section3 .imagehld{
     min-height: 600px;
     width: 40%;
-    background-size: contain;
-    background-image: url('../../images/lets_connect@2x.png');
-    background-repeat: no-repeat;
+    /* background-size: contain;
+    background-image: url('../../images/Family\ Health\ Insurance.png');
+    background-repeat: no-repeat; */
     display: inline-block;
+    position: relative;
 }
+.section3 .imagehld img{
+    width: 100%;
+    height: 600px;
+    object-fit: contain;
+}
+.section3 .imagehld .mask{
+    position: absolute;
+    right: -173px;
+    top:0;
+    width: 100%;
+    height: 600px;
+}
+
 .section3 .imgdata{
 width: 50%;
 display: inline-block;
 vertical-align: top;
-padding:100px 0 ;
+padding:70px 0 ;
 }
 .imgdata .cont{
     display: inline-block;
@@ -260,7 +275,7 @@ padding:100px 0 ;
     background-color: #23B2BA;
     box-shadow: 0px 6px 12px #1CB3BC4D;
     color: #fff !important;
-    border: none;
+    border: 1px solid transparent;
 }
 .selectedproduct p{
     color: #fff !important;
@@ -298,7 +313,7 @@ background-color: #EDEEEF;
 }
 .cardsHolder .card{
     width: 300px;
-    height: 330px;
+    min-height: 330px;
     border-radius: 10px;
     border: 1px solid #4F596733;
     box-shadow: 16px 16px 36px #0000000D;
@@ -316,13 +331,14 @@ background-color: #EDEEEF;
 }
 .cardsHolder .card .cardCont h4{
     color: #0C5CAA;
-    font-weight: 500;
+    font-weight: 500 !important;
     margin-bottom: 10px;
+    line-height: initial;
 }
 .cardsHolder .card .cardCont p{
     color: #4F5967;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 400 !important;
     margin-bottom: 20px;
 
 }
@@ -332,8 +348,8 @@ background-color: #EDEEEF;
     font-size: 12px;
 }
 .section5{
-    padding: 100px 10% 0;
-    width: 80%;
+    padding: 70px 10% 0;
+    width: 100%;
 }
 .section5 div{
     display: inline-block;
@@ -341,11 +357,26 @@ background-color: #EDEEEF;
 }
 
 .section5 .imagehld{
-    min-height: 600px;
-    background-size: contain;
+    min-height: 440px;
+    /* background-size: contain;
     background-image: url('../../images/lets_connect@2x.png');
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     display: inline-block;
+    margin-left: 41px
+}
+
+.ant-select-selector{
+    width: 100%;
+    height: 38px;
+    /* padding: 0 11px; */
+    border-radius: 4px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    border: none;
+    
+    box-shadow: none;
 }
 footer{
     padding: 35px 10%;
@@ -362,7 +393,7 @@ footer{
     color: #fff;
     margin-right: 10px;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 .whatsapp{
     position: fixed;
@@ -371,4 +402,7 @@ footer{
 }
 .whatsapp img{
     width: 90px;
+}
+.ant-form-item-control-input-content{
+    width: 434px;
 }
