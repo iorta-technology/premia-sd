@@ -1,21 +1,41 @@
 import React, { useState, useEffect } from 'react'
-import { Tabs, Card, Button, Col, Row } from 'antd'
+import { Tabs } from 'antd'
 import './Tab.css'
 import _ from "lodash";
+import { useHistory } from 'react-router-dom';
 
 const { TabPane } = Tabs
 
-const Tab = (props) => {
+const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
+    let history = useHistory()
+    // const [activeKey, setactiveKey] = useState('1')
 
-    const {tabMenu,header} =  props
+    // const onChange = (key)=>{
+
+    //     setactiveKey(key)
+    // }
+    const handler = (activeKey) => {
+        // console.log(activeKey)
+        // setactiveKey(key)
+
+        switch (activeKey) {
+            case "1": return history.push('/leadmasterpage/statuslead');
+            case "2": return history.push('/leadmasterpage/leaddetails/personallead');
+            case "3": return history.push('/leadmasterpage/proposal');
+            case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
+            case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
+            default:  return history.push('/leadmasterpage/statuslead');
+        }
+    }
     let tabPane = []
     if (tabMenu && !_.isEmpty(tabMenu)) {
 
-        tabPane = _.map(tabMenu,(value,id) => {
+        tabPane = _.map(tabMenu, (value, id) => {
             return (
                 <TabPane
                     key={value.id}
-                    tab={value.value}>
+                    tab={value.value}
+                >
                 </TabPane>
             )
         })
@@ -40,19 +60,28 @@ const Tab = (props) => {
             {width > breakpoint ?
                 <div className="header-img">
                     <p className="header-title">{header}</p>
-                    <Tabs 
-                        defaultActiveKey="1" 
-                        tabBarGutter={20} 
-                        centered={false} 
+                    <Tabs
+                        tabBarGutter={20}
+                        centered={false}
                         type="card"
-                        onChange={props.tabChangedHandler}
-                        >
-                            {tabPane}
+                        onTabClick={handler}
+                        // onChange={onChange}
+                        size="large"
+                        activeKey={activeKey}
+                        // activeKey={activeKey}
+                    >
+                        {tabPane}
                     </Tabs>
 
                 </div> :
                 <>
-                    <Tabs defaultActiveKey="1" tabBarGutter={20} centered={true} >
+                    <Tabs 
+                        tabBarGutter={20} 
+                        centered={true} 
+                        onTabClick={handler}
+                        size="large"
+                        activeKey={activeKey}
+                        >
                         {tabPane}
                     </Tabs>
                 </>

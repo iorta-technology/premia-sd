@@ -50,8 +50,8 @@ function App() {
             <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
             <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
-            <Route path="/leadmasterpage/leaddetails/proposal" component={ProposalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/leaddoc" component={DocumentsUpload}></Route>
+            <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
+            <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
             <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
             <Route path="/calendar" component={Calendar}/> */}
             <div>
@@ -69,7 +69,6 @@ function App() {
               <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
               <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
               <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
-              <Route path="/rewardscorner/contests/allcontestdetails"  component={AllContestDetails}/>
               <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
               <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
               <Route path="/calendar" component={Calendar}/>
