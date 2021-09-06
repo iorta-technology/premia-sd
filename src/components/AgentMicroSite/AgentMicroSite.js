@@ -26,7 +26,7 @@ import familyp from '../../images/Family Health Insurance.png'
 import travelp from '../../images/travel_insurance.png'
 import motorp from '../../images/motor_insurance.png'
 import personalAccp from '../../images/personnel_accident_insurance.png'
-import { Modal, Button, Input, Select,Form } from 'antd';
+import { Modal,message, Button, Input, Select,Form } from 'antd';
 // import axios from 'axios';
 import axios from '../../axios-common';
 const { Option } = Select;
@@ -51,10 +51,17 @@ const AgentMicroService = () => {
     const onLetsConnect =()=>{
         axios.post(`user/addlead`,payload).then(resp=>{
             console.log("lets connect resp",resp)
+            if(resp?.data?.errCode === 9){
+                message.error(resp.data.errMsg);
+            }
+            else if(resp?.data?.errCode === -1){
+                message.success('Thanks for providing us the details. We will connect with you shortly.');
+                form.resetFields();
+            }
+            
         }).catch(err=>{
             console.log("lets connect error",err)
         })
-        form.resetFields();
     }
     const family = {
         title:"Family Health Insurance",
@@ -136,6 +143,13 @@ const AgentMicroService = () => {
         console.log(firstName,lastName,mobile,product)
         axios.post(`user/addlead`,payload).then(resp=>{
             console.log("lets connect resp",resp)
+            if(resp?.data?.errCode === 9){
+                message.error(resp.data.errMsg);
+            }
+            else if(resp?.data?.errCode === -1){
+                message.success('Thanks for providing us the details. We will connect with you shortly.');
+                form.resetFields();
+            }
         }).catch(err=>{
             console.log("lets connect error",err)
         })
@@ -158,7 +172,7 @@ const AgentMicroService = () => {
                         <a href="#blog">Blog</a>
                     </div>
                     <div className="options2">
-                        <a href="https://d2cli.iorta.in/#/instantrenew" target="_blank">Instant Renewal</a>
+                        <a href="https://d2cli.iorta.in/instantrenew" target="_blank">Instant Renewal</a>
                         <a href="https://d2cli.iorta.in/#/policytype" target="_blank">Claims</a>
                         <a href="https://d2cli.iorta.in/#/masterRaiseReq" target="_blank">Service</a>
                         <button className="primary" onClick={showModal} style={{ cursor: 'pointer' }}>LETS CONNECT</button>
@@ -315,7 +329,7 @@ const AgentMicroService = () => {
                             </svg></span>{p.p}</p>
                             ))}
                             <br />
-                            <button style={{ borderRadius: "8px", display: "inlineBlock", marginRight: "20px" }} className="primary">LEARN MORE</button><span style={{ fontSize: '12px', color: '#0C5CAA' }}>DOWNLOAD BROCHURE</span>
+                            <button style={{ borderRadius: "8px", display: "inlineBlock", marginRight: "20px" }} className="primary" onClick={showModal} style={{ cursor: 'pointer' }}>LEARN MORE</button>&nbsp;<span style={{ fontSize: '12px', color: '#0C5CAA' }}>DOWNLOAD BROCHURE</span>
                         </div>
                     </div>
                 </div>
@@ -384,7 +398,13 @@ const AgentMicroService = () => {
                              {
                                  required: true,
                                  message: "Mobile is Required"
-                             }
+                             },
+                             {
+                                min:10,
+                                max:10,
+                                pattern: '^([-]?[1-9][0-9]*|0)$',
+                                message: "Enter a Valid Mobile Number"
+                              }
                          ]}>
                         <Input className="inputs" placeholder="Mobile" onChange={(e)=>setMobile(e.target.value)} />
                     </Form.Item>
@@ -451,7 +471,13 @@ const AgentMicroService = () => {
                             {
                                 required: true,
                                 message: "Mobile is Required"
-                            }
+                            },
+                            {
+                                min:10,
+                                max:10,
+                                pattern: '^([-]?[1-9][0-9]*|0)$',
+                                message: "Enter a Valid Mobile Number"
+                              }
                         ]}>
                         <Input className="inputs" placeholder="Mobile" onChange={(e)=>setMobile(e.target.value)} />
                 </Form.Item>

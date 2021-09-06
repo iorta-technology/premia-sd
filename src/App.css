@@ -15,6 +15,7 @@
   }
 .box-size{
     box-sizing: border-box;
+    background-color: #fafafafa;
 }
 .ContactUS{
     width: 100%;
