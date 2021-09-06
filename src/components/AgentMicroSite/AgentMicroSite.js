@@ -172,7 +172,7 @@ const AgentMicroService = () => {
                         <a href="#blog">Blog</a>
                     </div>
                     <div className="options2">
-                        <a href="https://d2cli.iorta.in/instantrenew" target="_blank">Instant Renewal</a>
+                        <a href="https://d2cli.iorta.in/#/instantrenew" target="_blank">Instant Renewal</a>
                         <a href="https://d2cli.iorta.in/#/policytype" target="_blank">Claims</a>
                         <a href="https://d2cli.iorta.in/#/masterRaiseReq" target="_blank">Service</a>
                         <button className="primary" onClick={showModal} style={{ cursor: 'pointer' }}>LETS CONNECT</button>
