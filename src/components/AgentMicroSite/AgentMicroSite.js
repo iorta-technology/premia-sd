@@ -471,7 +471,13 @@ const AgentMicroService = () => {
                             {
                                 required: true,
                                 message: "Mobile is Required"
-                            }
+                            },
+                            {
+                                min:10,
+                                max:10,
+                                pattern: '^([-]?[1-9][0-9]*|0)$',
+                                message: "Enter a Valid Mobile Number"
+                              }
                         ]}>
                         <Input className="inputs" placeholder="Mobile" onChange={(e)=>setMobile(e.target.value)} />
                 </Form.Item>
