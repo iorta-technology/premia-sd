@@ -43,17 +43,6 @@ function App() {
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>
             <Route path="/himanshu" component={AgentMicroService}></Route>
-            {/* <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
-            <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
-            <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
-            <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
-            <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
-            <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
-            <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
-            <Route path="/calendar" component={Calendar}/> */}
             <div>
             <Sidebar />
             <Route path="/clubsMaster" component={ClubsMaster}></Route>
@@ -71,6 +60,17 @@ function App() {
               <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
               <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
               <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
+              <Route path="/calendar" component={Calendar}/>
+              <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
+              <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
+              <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
+              <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
+              <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
+              <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
+              <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
+              <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
+              <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
+              <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
               <Route path="/calendar" component={Calendar}/>
             </div>
         </Switch>
