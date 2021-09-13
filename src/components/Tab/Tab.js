@@ -65,10 +65,9 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
                         centered={false}
                         type="card"
                         onTabClick={handler}
-                        // onChange={onChange}
                         size="large"
                         activeKey={activeKey}
-                        // activeKey={activeKey}
+                        style={{marginLeft:'110px'}}
                     >
                         {tabPane}
                     </Tabs>
@@ -81,6 +80,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
                         onTabClick={handler}
                         size="large"
                         activeKey={activeKey}
+                        style={{margin:'20px'}}
                         >
                         {tabPane}
                     </Tabs>

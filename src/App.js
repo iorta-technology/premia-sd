@@ -1,67 +1,55 @@
+import React from 'react'
 import './App.css';
 import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
-import LeadMaster from './containers/LeadMaster/index';
-import StatusLead from './components/StatusLead/StatusLead'
-import PersonalDetails from './components/LeadDetails/PersonalDetails/PersonalDetails' 
-import ContactDetails from './components/LeadDetails/ContactDetails/ContactDetails' 
-import ProfessionalDetails from './components/LeadDetails/ProfessionalDetails/ProfessionalDeatils';
-import ExistingInsurance from './components/LeadDetails/ExistingInsurance';
-import ProposedProduct from './components/LeadDetails/ProposedProduct';
-import ProposalDetails from './components/ProposalDetails/ProposalDetails';
-import DocumentsUpload from './components/DocumentsUpload/DocumentsUpload';
-import History from './components/History/History';
-import Login from './components/Login/Login'
-import ForgotPassword from './components/ForgotPassword/ForgotPassword'
-import ChangePassword from './components/ChangePassword/ChangePassword';
-import Sidebar from './components/SideBar/SideBar';
-import ClubsMaster from './components/ClubMaster/ClubsMaster';
-import Birthday from './components/Birthday/Birthday';
-import HomePage from './components/Home/HomePage';
-import CompletedContest from './components/Contests/CompletedContest';
-import ActiveContest from './components/Contests/ActiveContest';
-import ActiveContestDetails from './components/Contests/ActiveContestDetails';
-import AllContestDetails from './components/Contests/AllContestDetails';
-import AllContest from './components/Contests/AllContest';
-import CompletedContestDetails from './components/Contests/CompletedContestDetails';
-import MyOverallRanking from './components/Contests/MyOverallRanking';
-import AllContestDetails1 from './components/Contests/AllContestDetails';
-import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
-import CompletedContest1 from './components/Contests/CompletedContest';
-import Calendar from './components/Contests/CalendarEvent';
-import AgentMicroService from './components/AgentMicroSite/AgentMicroSite';
-import KpiDashboard from './components/KpiDashboard/KpiDashboard'
+import {Spin} from 'antd'
+
+const LeadMaster = React.lazy(()=> import('./containers/LeadMaster/index'))
+const StatusLead = React.lazy(()=> import('./components/StatusLead/StatusLead'))
+const PersonalDetails = React.lazy(()=> import('./components/LeadDetails/PersonalDetails/PersonalDetails'))
+const ContactDetails = React.lazy(()=> import('./components/LeadDetails/ContactDetails/ContactDetails'))
+const ProfessionalDetails = React.lazy(()=> import('./components/LeadDetails/ProfessionalDetails/ProfessionalDeatils'))
+const ExistingInsurance = React.lazy(()=> import('./components/LeadDetails/ExistingInsurance'))
+const ProposedProduct = React.lazy(()=> import('./components/LeadDetails/ProposedProduct'))
+const ProposalDetails = React.lazy(()=> import('./components/ProposalDetails/ProposalDetails'))
+const DocumentsUpload = React.lazy(()=> import('./components/DocumentsUpload/DocumentsUpload'))
+const History = React.lazy(()=> import('./components/History/History'))
+const Login = React.lazy(()=> import('./components/Login/Login'))
+const ForgotPassword = React.lazy(()=> import('./components/ForgotPassword/ForgotPassword'))
+const ChangePassword = React.lazy(()=> import('./components/ChangePassword/ChangePassword'))
+const Sidebar = React.lazy(()=> import('./components/SideBar/SideBar'))
+const ClubsMaster = React.lazy(()=> import('./components/ClubMaster/ClubsMaster'))
+const Birthday = React.lazy(()=> import('./components/Birthday/Birthday'))
+const HomePage = React.lazy(()=> import('./components/Home/HomePage'))
+const CompletedContest = React.lazy(()=> import('./components/Contests/CompletedContest'))
+const ActiveContest = React.lazy(()=> import('./components/Contests/ActiveContest'))
+const ActiveContestDetails = React.lazy(()=> import('./components/Contests/ActiveContestDetails'))
+const AllContestDetails = React.lazy(()=> import('./components/Contests/AllContestDetails'))
+const AllContest = React.lazy(()=> import('./components/Contests/AllContest'))
+const CompletedContestDetails = React.lazy(()=> import('./components/Contests/CompletedContestDetails'))
+const MyOverallRanking = React.lazy(()=> import('./components/Contests/MyOverallRanking'))
+const AllContestDetails1 = React.lazy(()=> import('./components/Contests/AllContestDetails'))
+const ActiveContestDetails1 = React.lazy(()=> import('./components/Contests/ActiveContestDetails'))
+const CompletedContest1 = React.lazy(()=> import('./components/Contests/CompletedContest'))
+const Calendar = React.lazy(()=> import('./components/Contests/CalendarEvent'))
+const AgentMicroService = React.lazy(()=> import('./components/AgentMicroSite/AgentMicroSite'))
+const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashboard'))
+
+
 
 function App() {
   return (
-    <Router>
-      <div className="box-size">
-        <Switch>
-            <Route exact path="/">
-                <Redirect to="/himanshu" />
-            </Route>
-            
-            <Route path="/login"  component={Login}></Route>
-            <Route path="/forgotpassword" component={ForgotPassword}></Route>
-            <Route path="/changepassword" component={ChangePassword}></Route>
-            <Route path="/himanshu" component={AgentMicroService}></Route>
-            <div>
-            <Sidebar />
-            <Route path="/clubsMaster" component={ClubsMaster}></Route>
-            <Route path="/birthday" component={Birthday}></Route>
-              
-              <Route path="/home"  component={HomePage}></Route>
-              <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route> 
-              <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
-              <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
-              <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
-              <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
-              <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route> 
-              <Route path="/rewardscorner/contests/completeddetails"  component={CompletedContestDetails}/>
-              <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
-              <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
-              <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
-              <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
-              <Route path="/calendar" component={Calendar}/>
+  <React.Suspense fallback={<Spin size="large"/>}>
+    
+      <Router>
+        <div className="box-size">
+          <Switch>
+              <Route exact path="/">
+                  <Redirect to="/himanshu" />
+              </Route>
+              <Route path="/login"  component={Login}></Route>
+              <Route path="/forgotpassword" component={ForgotPassword}></Route>
+              <Route path="/changepassword" component={ChangePassword}></Route>
+              <Route path="/himanshu" component={AgentMicroService}></Route>
               <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
               <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
               <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
@@ -72,12 +60,23 @@ function App() {
               <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
               <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
               <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
+              <div>
+              <Sidebar />
+              <Route path="/clubsMaster" component={ClubsMaster}></Route>
+              <Route path="/birthday" component={Birthday}></Route>
+              <Route path="/home"  component={HomePage}></Route>
+              <Route path="/rewardscorner/contests/completed"  component={CompletedContest}></Route>
+              <Route path="/rewardscorner/contests/allcontest"  component={AllContest}/>
+              <Route path="/rewardscorner/contests/myoverallranking"  component={MyOverallRanking}/>
+              <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
+              <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
               <Route path="/calendar" component={Calendar}/>
               <Route path="/kpi-dashboard" component={KpiDashboard}/>
-            </div>
-        </Switch>
-      </div>
-    </Router>
+              </div>
+          </Switch>
+        </div>
+      </Router>
+  </React.Suspense>
   );
 }
 

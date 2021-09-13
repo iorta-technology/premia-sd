@@ -40,7 +40,7 @@ const History = () => {
             />
             <div className="form-container">
                 <Row gutter={['', 24]}>
-                    <Col className="form-body" xs={22} sm={24} md={16} lg={16} xl={16} >
+                    <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
                         <div className="proposal">
                             <div className="bg-norecord">
                             </div>

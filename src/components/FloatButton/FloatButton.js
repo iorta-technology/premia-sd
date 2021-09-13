@@ -30,8 +30,9 @@ const FloatButton = React.memo(() => {
                     <p className={`${styles.paragraph}  ${styles.goalpg} ${styles.pgpfr}`} style={isopen?open:close}>Add Daily Goals</p>
                     <Button type="primary" shape="circle" size="large" icon={<AimOutlined />} className={`${styles.goalicon} ${styles.iconpfr}`} style={isopen?open:close}/>
                     <p className={`${styles.paragraph}  ${styles.leadpg} ${styles.pgpfr}`} style={isopen?open:close}>New Lead Creation</p>
-                    <Button type="primary" shape="circle" size="large" icon={<FileTextOutlined />} className={`${styles.leadicon} ${styles.iconpfr}`} style={isopen?open:close}/>
-                    <div className={isopen?styles.open:styles.close}>
+                    <Link to="/leadmasterpage/statuslead">
+                        <Button type="primary" shape="circle" size="large" icon={<FileTextOutlined />} className={`${styles.leadicon} ${styles.iconpfr}`} style={isopen?open:close}/>
+                    </Link><div className={isopen?styles.open:styles.close}>
                         <div className={styles.content}>
                         </div>
                         <div className={styles.content}>

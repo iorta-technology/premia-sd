@@ -191,7 +191,7 @@ const HomePage = () => {
           </div>}
       </div>
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
-        <Link to="/leadMaster">
+        <Link to="/leadMaster/all_leads">
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3367.png" alt="Opportunities" />
