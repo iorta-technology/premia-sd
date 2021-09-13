@@ -1,16 +1,95 @@
-.tab-container> .ant-tabs>.ant-tabs-nav{
+/* sdtata lms2 */
+.header-img{
+    background-image: url("https://sdtatadev.iorta.in/assets/header-tabs.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    height: 150px;
+    width: 100%;
+}
+
+.header-title{
+    font-size: 29px;
+    color: #00ACC1;
+    margin-bottom: 10px;
+
+}
+.header-img>.header-title{
+    margin-left: 110px;
+}
+
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, 
+.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
+    border: none;
+}
+.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, 
+.ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab{
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+}
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
+    font-size: 16px;
+    color: #6d8baa;
+    background-color: #d2dde8;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: #ffffff;
+}
+.ant-tabs-tab.ant-tabs-tab-active{
+    background-color: #00ACC1;
+}
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
+.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active{
+    color: #fff;
+    background-color: #00ACC1;
+}
+.ant-tabs-top > .ant-tabs-nav::before{
+    display: none;
+}
+
+@media (max-width:620px) {
+    /* .ant-tabs-tab,
+    .ant-tabs-tab-active
+    .ant-tabs-tab:hover,
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+        color: #7e95ad;
+    } */
+    .ant-tabs-tab{
+        font-size: 16px;
+    }
+    .ant-tabs{
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .ant-tabs-nav{
+        box-shadow: 0px 1px 3px 0px #0000003d;
+    }
+}
+@media (min-width:621px){
+    .ant-tabs-tab{
+        min-width: 135px;
+    }
+    /* .ant-tabs-tab-btn{
+        margin: 0  auto;
+    } */
+}
+
+
+
+/* sdrest demo new */
+/* .tab-container> .ant-tabs>.ant-tabs-nav{ 
     border-bottom: none;
 }
 .tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab{
     border: none;
 }
-.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active{
-    background-color: #fafafa;
-    color: #ffffff;
-}
 .tab-container>.ant-tabs-top > .ant-tabs-nav::before,
- .ant-tabs-bottom > .ant-tabs-nav::before, 
- .ant-tabs-top > div > .ant-tabs-nav::before, .ant-tabs-bottom > div > .ant-tabs-nav::before{
+.ant-tabs-bottom > .ant-tabs-nav::before, 
+.ant-tabs-top > div > .ant-tabs-nav::before, .ant-tabs-bottom > div > .ant-tabs-nav::before{
     border: none;
 }
 
@@ -34,15 +113,70 @@
     -o-border-radius: 10px;
     
 }
-.tab-pane:active{
-    /*color: rgb(1, 180, 187);
-    */
-    background-color: rgb(1, 180, 187);
 
+.tab-style{
+    position: relative;
 }
 
+.tab-style>.ant-btn{
+    position: absolute;
+    top:-30px;
+    right:0;
+}
+.ant-tabs-tab-btn{
+    padding: 40px;
+    color: #000;
+    background-color: #fff;
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)
+    
+}
+.ant-tabs-tab{
+    padding: 0;
+}
+.ant-tabs-tab-active{
+    background-color: rgb(1, 180, 187);
+}
+.ant-tabs-content-holder{
+    display: none ;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: #fff;
+    background-color: rgb(1, 180, 187);
+}
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
+    margin: 10px;
+    padding: 0;
+} */
+
+
+
+
+/* sdrest styling old*/
+/* 
+body::-webkit-scrollbar {
+    width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active{
+    background-color: #fafafa;
+    color: #ffffff;
+}
+.tab-pane:active{
+    color: rgb(1, 180, 187);
+    background-color: rgb(1, 180, 187);
+}
 .tab-pane>.ant-card-body>button{
     position: absolute;
     top:5px;
     right:5px;
-}
+}  */
