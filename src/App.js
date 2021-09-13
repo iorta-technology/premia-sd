@@ -32,6 +32,7 @@ const ActiveContestDetails1 = React.lazy(()=> import('./components/Contests/Acti
 const CompletedContest1 = React.lazy(()=> import('./components/Contests/CompletedContest'))
 const Calendar = React.lazy(()=> import('./components/Contests/CalendarEvent'))
 const AgentMicroService = React.lazy(()=> import('./components/AgentMicroSite/AgentMicroSite'))
+const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashboard'))
 
 
 
@@ -70,6 +71,7 @@ function App() {
               <Route path="/rewardscorner/contests/activecontest"  component={ActiveContest}/>
               <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
               <Route path="/calendar" component={Calendar}/>
+              <Route path="/kpi-dashboard" component={KpiDashboard}/>
               </div>
           </Switch>
         </div>

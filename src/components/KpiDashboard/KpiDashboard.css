@@ -1,0 +1,125 @@
+body{
+    background-color: #f7f7f7 !important;
+  }
+  .header{
+    background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
+    height: 100px;
+    padding: 25px 40px;
+    background-size: 100% 100%;
+  }
+  .header h1{
+    color: #00ACC1;
+  }
+  
+  .ant-btn.primaryBtn{
+    background-color: rgb(60, 61, 61);
+    color: #fff;
+    border-radius: 3px;
+    width: 90px;
+    border: none;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+  }
+  .ant-btn.secondaryBtn{
+    background-color: rgb(255, 255, 255);
+    color: rgb(60, 61, 61);
+    border-radius: 3px;
+    width: 90px;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+  }
+  .tabs{
+    margin: 10px 0 20px;
+  }
+  .card{
+    background-color: white;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+      border-width: unset;
+      border-style: unset;
+      border-color: unset;
+      padding: 15px;
+      height: 183px;
+  }
+  .detailsCard{
+    background-color: white;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+      border-width: unset;
+      border-style: unset;
+      border-color: unset;
+      height: 85px;
+      padding: 5px 15px !important;
+  }
+  .detailsCard .updatetitle{
+    font-weight: 300;
+    font-size: 12px;
+  }
+  .detailsCard .updatetotal{
+    font-size: 12px;
+    color: #3C3D3D;
+    font-weight: 750;
+  }
+  .detailsCard .sidehead{
+    font-weight: 500;
+    font-size: 12px;
+    padding-top: 15%;
+  }
+  .detailsCard .updatestatus{
+    font-weight: 500;
+    color: rgb(228, 106, 37);;
+    font-size: 14px;
+  }
+  
+  .detailsCard .updatecount{
+    font-weight: 600;
+    font-size: 24px;
+    color: #00ACC1;
+  }
+  .profile{
+    display: flex;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: rgb(0, 172, 193);
+      border-radius: 35px;
+      height: 45px;
+      width: 45px;
+      align-items: center;
+      justify-content: center;
+      padding-top: 2px;
+      margin: auto;
+  }
+  .userDetails{
+    text-align: center;
+  }
+  .userDetails h5{
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    margin-top: 10px;
+  }
+  .userDetails p{
+    font-size: 11px;
+    font-weight: 500;
+    color: rgb(100, 102, 102);
+  }
+  .card{
+    padding-top: 3.5%;
+  }
+  .detailsCards.ant-row{
+    margin: 0;
+    margin-left: 4px !important;
+  }
+  .graph{
+    background-color: white;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+      
+  }
+  .rms .ant-table-thead {
+    border-radius: 5px;
+  }
+  .rms .ant-table-thead > tr > th{
+    background: rgb(0, 172, 193);
+    color: #fff;
+    padding-top:5px;
+    padding-bottom:5px;
+    border: none;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+  }
