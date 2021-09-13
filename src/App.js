@@ -29,6 +29,7 @@ import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
 import CompletedContest1 from './components/Contests/CompletedContest';
 import Calendar from './components/Contests/CalendarEvent';
 import AgentMicroService from './components/AgentMicroSite/AgentMicroSite';
+import KpiDashboard from './components/KpiDashboard/KpiDashboard'
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
               <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
               <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
               <Route path="/calendar" component={Calendar}/>
+              <Route path="/kpi-dashboard" component={KpiDashboard}/>
             </div>
         </Switch>
       </div>
