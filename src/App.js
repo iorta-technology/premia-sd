@@ -14,12 +14,12 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import Sidebar from './components/SideBar/SideBar';
 // import ClubsMaster from './components/ClubMaster/ClubsMaster';
-// import Birthday from './components/Birthday/Birthday';
+import Birthday from './components/Birthday/Birthday';
 // import HomePage from './components/Home/HomePage';
 // import CompletedContest from './components/Contests/CompletedContest';
 // import ActiveContest from './components/Contests/ActiveContest';
 // import ActiveContestDetails from './components/Contests/ActiveContestDetails';
-// import AllContestDetails from './components/Contests/AllContestDetails';
+import AllContestDetails from './components/Contests/AllContestDetails';
 // import AllContest from './components/Contests/AllContest';
 // import CompletedContestDetails from './components/Contests/CompletedContestDetails';
 // import MyOverallRanking from './components/Contests/MyOverallRanking';
@@ -50,6 +50,8 @@ function App() {
             <Route path="/leadmasterpage/leaddetails/proposal" component={ProposalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/leaddoc" component={DocumentsUpload}></Route>
             <Route path="/calendar" component={Calendar}/>
+            <Route path="/rewardscorner/contests/allcontestdetails"  component={AllContestDetails}/>
+            <Route path="/birthday" component={Birthday}></Route>
             <div>
             <Sidebar />
             {/* <Route path="/clubsMaster" component={ClubsMaster}></Route>

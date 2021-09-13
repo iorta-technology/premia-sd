@@ -15,6 +15,7 @@ const AllContestDetails=()=>{
 <div
 className="AllContestDetails1-main"
 >
+    {width<="367"||width<="424"?<tab></tab>:<button>dsd</button>}
 <div
 className="AllContestDetails1-row-flex"
 >
