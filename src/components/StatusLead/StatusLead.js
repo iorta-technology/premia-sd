@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import useInput  from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal } from 'antd';
 import {ArrowRightOutlined,FileTextOutlined } from '@ant-design/icons';
-
+import { useDispatch,useSelector } from 'react-redux';
+import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
+import _ from "lodash";
+
 
 const { Option } = Select;
 const formItemLayout = {
@@ -14,7 +18,7 @@ const formItemLayout = {
     span: 24,
   },
 };
-const options = [
+const leadStatus = [
   {
     value: 'newleadentry',
     label: 'New Lead Entry',
@@ -217,60 +221,21 @@ const setReminderOptions = [
   { value: '2daysbefore', label: '2 days before' }, { value: '1weekbefore', label: '1 week before' },
 ]
 
-const setStateOptions = [
 
-  { value: "Andaman and Nicobar Islands", label: "Andaman and Nicobar Islands" },
-  { value: "Andhra Pradesh", label: "Andhra Pradesh" },
-  { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
-  { value: "Assam", label: "Assam" },
-  { value: "Bihar", label: "Bihar" },
-  { value: "Chandigarh", label: "Chandigarh" },
-  { value: "Chhattisgarh", label: "Chhattisgarh" },
-  { value: "Dadra and Nagar Haveli", label: "Dadra and Nagar Haveli" },
-  { value: "Daman and Diu", label: "Daman and Diu" },
-  { value: "Delhi", label: "Delhi" },
-  { value: "Goa", label: "Goa" },
-  { value: "Gujarat", label: "Gujarat" },
-  { value: "Haryana", label: "Haryana" },
-  { value: "Himachal Pradesh", label: "Himachal Pradesh" },
-  { value: "Jammu and Kashmir", label: "Jammu and Kashmir" },
-  { value: "Jharkhand", label: "Jharkhand" },
-  { value: "Karnataka", label: "Karnataka" },
-  { value: "Kerala", label: "Kerala" },
-  { value: "Ladakh", label: "Ladakh" },
-  { value: "Lakshadweep", label: "Lakshadweep" },
-  { value: "Madhya Pradesh", label: "Madhya Pradesh" },
-  { value: "Maharashtra", label: "Maharashtra" },
-  { value: "Manipur", label: "Manipur" },
-  { value: "Meghala", label: "Meghalaya" },
-  { value: "Mizoram", label: "Mizoram" },
-  { value: "Nagaland", label: "Nagaland" },
-  { value: "Odisha", label: "Odisha" },
-  { value: "Puducherry", label: "Puducherry" },
-  { value: "Punjab", label: "Punjab" },
-  { value: "Rajasthan", label: "Rajasthan" },
-  { value: "Sikkim", label: "Sikkim" },
-  { value: "Tamil Nadu", label: "Tamil Nadu" },
-  { value: "Telangana", label: "Telangana" },
-  { value: "Tripura", label: "Tripura" },
-  { value: "Uttar Pradesh", label: "Uttar Pradesh" },
-  { value: "Uttarakhand", label: "Uttarakhand" },
-  { value: "West Bengal", label: "West Bengal" }
 
-]
+const isNotEmpty = (value) => value.trim() !== '';
+const isEmail = (value) => value.includes('@');
+
+
 
 const NewLead = React.memo(() => {
+  const [city, setcity] = useState()
+
+  // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
-  useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth)
-    window.addEventListener("resize", handleWindowResize);
-    // Return a function from the effect that removes the event listener
-    return () => window.removeEventListener("resize", handleWindowResize);
-  }, [width]);
-
-
+  // Modal control hook
   const [leadSelect, setLeadSelect] = useState()
 
   // add team Member modal state control
@@ -282,6 +247,131 @@ const NewLead = React.memo(() => {
   const [visibleChangeOwnerMOdel, setVisibleChangeOwnerMOdel] = useState(false);
   const [changeOwnerLoading, setChangeOwnerLoading] = useState(false);
   // const [modalText, setModalText] = useState('Content of the modal');
+
+  const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(actions.fetchAllState())
+    },[dispatch]);
+  const id = useSelector((state) => state.login.id)
+  const states = useSelector((state) => state.address.states)
+  let  stateOptions = (states && !_.isEmpty(states) ) ? 
+        states.map(state=>{
+
+          const label = state.region_data.name
+          const value = state.region_data.name
+          const newState = {...state,label,value}
+          // state.push(label)
+            return newState
+        }):null
+    
+  
+    
+
+  const cities = useSelector((state) => state.address.cities)
+  let  citiesOptions = (cities && !_.isEmpty(cities) ) ? 
+        cities.map(city=>{
+
+          const label = city.name
+          const value = city.name
+          const newCities = {...city,label,value}
+            return newCities
+        }):null
+  
+  
+  // Form control hook
+  const {
+    value: firstNameValue,
+    isValid: firstNameIsValid,
+    hasError: firstNameHasError,
+    valueChangeHandler: firstNameChangeHandler,
+    reset: resetFirstName,
+    
+  } = useInput(isNotEmpty);
+  const {
+    value: lastNameValue,
+    isValid: lastNameIsValid,
+    hasError: lastNameHasError,
+    valueChangeHandler: lastNameChangeHandler,
+    reset: resetLastName,
+
+  } = useInput(isNotEmpty);
+  const {
+    value: emailValue,
+    isValid: emailIsValid,
+    hasError: emailHasError,
+    valueChangeHandler: emailChangeHandler,
+    reset: resetEmail,
+
+  } = useInput(isEmail);  
+
+  // validations 
+  const validateMessages = {
+    // required: `${label} is required!`,
+    types: {
+      email: `Email id must include @`,
+      number:'Not a valid no'
+    },
+    number: {
+      range: 'Number must be 10 digits',
+    },
+  };
+  let formIsValid = false;
+
+  if (firstNameIsValid && lastNameIsValid && emailIsValid) {
+    formIsValid = true;
+  }
+
+  const submitHandler = event => {
+    event.preventDefault();
+
+    if (!formIsValid) {
+      return;
+    }
+
+    console.log('Submitted!');
+    console.log(firstNameValue, lastNameValue, emailValue);
+
+    resetFirstName();
+    resetLastName();
+    resetEmail();
+  };
+
+  
+  const stateSelectHandler = (value,key) =>{
+    dispatch(actions.fetchAllCities(key.region_data.adminCode1))
+    
+  }
+  const stateChangetHandler = value =>{
+    console.log(value)
+  }
+
+  const cityChangeHandler = value =>{
+    console.log(value)
+
+  }
+  const leadTypeHandler = value =>{
+    console.log(value)
+  }
+  const productHandler = value =>{
+    console.log(value)
+  }
+  const insuranceCompanyHandler = value =>{
+    console.log(value)
+  }
+
+
+  
+
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth)
+    window.addEventListener("resize", handleWindowResize);
+    // Return a function from the effect that removes the event listener
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, [width]);
+
+
+
+
 
 
   const showTeamMemeberModal = () => {
@@ -319,7 +409,6 @@ const NewLead = React.memo(() => {
   //   // console.log("this")
   // }
 
-  let statusRoute = "/leadmasterpage/statuslead"
   const tabMenu = [
     {
       id: 1,
@@ -350,79 +439,107 @@ const NewLead = React.memo(() => {
       <Tabs
         tabMenu={tabMenu}
         header="New Lead"
-        detailsRouteTab={statusRoute}
         activeKey="1"
       />
       <div className="form-container">
-        <Row gutter={[0, 24]}  justify="center">
-          <Col className="form-body m0a p40" xs={{ order: width > breakpoint ? 1 : 2 }}  sm={16} md={16} lg={16} xl={16} span={22}>
+        <Row gutter={[0, 24]}  >
+          <Col className="form-body  p40"  xs={{ order: width > breakpoint ? 1 : 2 }}  sm={16} md={16} lg={16} xl={16} span={22} offset={1}>
             <p className="form-title">Contact Details</p>
-            <Form layout="horizontal" className="contact-detail-form">
+            <Form 
+              layout="horizontal" 
+              className="contact-detail-form" 
+              validateMessages={validateMessages}
+              >
               <Col >
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name={['user', 'name']}
+                  name={['firstname']}
                   label="First Name"
                   rules={[
                     {
                       required: true,
+                      message:'First Name is required'
                     },
                   ]}
                   style={{marginBottom:'1rem'}}
                 >
-                  <Input className="first-name input-box " placeholder="Enter First Name" />
+                  <Input 
+                    className="first-name input-box " 
+                    size="large" 
+                    placeholder="Enter First Name"
+                    value={firstNameValue}
+                    onChange={firstNameChangeHandler} />
                 </Form.Item>
               </Col>
               <Col >
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name={['user', 'name']}
+                  name={['lastname']}
                   label="Last Name"
                   rules={[
                     {
                       required: true,
+                      message:'Last Name is required'
                     },
                   ]}
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Input className="last-name input-box" placeholder="Enter Last Name" />
+                  <Input 
+                    className="last-name input-box" 
+                    size="large" 
+                    placeholder="Enter Last Name"
+                    value={lastNameValue}
+                    onChange={lastNameChangeHandler} /> 
                 </Form.Item>
               </Col>
               <Col >
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name={['email', 'address']}
-                  label="Email Address"
+                  name={['user','email']}
+                  label="Email"
                   rules={[
                     {
-                      required: false,
+                      type: 'email',
+                      message:'Please provide valid email address'
                     },
                   ]}
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Input className="email input-box" placeholder="Enter Email Address" />
+                  <Input 
+                    className="email input-box" 
+                    size="large" 
+                    placeholder="Enter Email Address"
+                    value={emailValue}
+                    onChange={emailChangeHandler} /> 
                 </Form.Item>
               </Col>
               <Col >
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name={['user', 'name']}
+                  name='phone'
                   label="Primary Mobile"
                   rules={[
                     {
-                      required: true,
+                      required:true,
+                      message:'Mobile No is required'
                     },
+                    {
+                      min: 10,
+                      max: 10,
+                      pattern:'^([-]?[1-9][0-9]*|0)$',
+                      message:'Enter a valid Mobile No'
+                    }
                   ]}
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Input className="phone-no input-box" placeholder="Enter Primary Mobile" />
+                  <Input className="phone-no input-box" size="large" placeholder="Enter Primary Mobile" />
                 </Form.Item>
               </Col>
               <Col >
@@ -441,7 +558,13 @@ const NewLead = React.memo(() => {
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Select options={setStateOptions} placeholder="Select Your State"></Select>
+                  <Select 
+                    size="large" 
+                    placeholder="Select Your State" 
+                    options={stateOptions} 
+                    onSelect={stateSelectHandler} 
+                    onChange={stateChangetHandler}>
+                  </Select>
                 </Form.Item>
               </Col>
               <Col >
@@ -460,9 +583,11 @@ const NewLead = React.memo(() => {
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Select placeholder="Select a city">
-                    <Option value="china">China</Option>
-                    <Option value="usa">U.S.A</Option>
+                  <Select 
+                    size="large" 
+                    placeholder="Select a city" 
+                    options={citiesOptions}
+                    onChange={cityChangeHandler}>
                   </Select>
                 </Form.Item>
               </Col>
@@ -482,7 +607,7 @@ const NewLead = React.memo(() => {
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Select placeholder="New Bussiness">
+                  <Select size="large" placeholder="New Bussiness" onChange={leadTypeHandler}>
                     <Option value="newbussiness">New Bussiness</Option>
                     <Option value="renewal">Renewal</Option>
                     <Option value="crosssell">Cross Sell</Option>
@@ -505,7 +630,7 @@ const NewLead = React.memo(() => {
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Select placeholder="Select Product">
+                  <Select size="large" placeholder="Select Product" onChange={productHandler}>
                     <Option value="health">Health</Option>
                     <Option value="motor">Motor</Option>
                     <Option value="travel">Travel</Option>
@@ -531,7 +656,7 @@ const NewLead = React.memo(() => {
                   style={{marginBottom:'1rem'}}
 
                 >
-                  <Select placeholder="Insurance">
+                  <Select size="large" placeholder="Insurance" onChange={insuranceCompanyHandler}>
                     <Option value="tataaiggeneralinsurancecompany">Tata AIG General Insurance Company</Option>
                     <Option value="icicilombardgeneralinsurancecompany">ICICI Lombard General Insurance Company</Option>
                     <Option value="iciciprudentiallifeinsurancecompany">ICICI Prudential Life Insurance Company</Option>
@@ -542,7 +667,7 @@ const NewLead = React.memo(() => {
               </Col>
             </Form>
           </Col>
-          <Col className="form-body m0a p40" xs={{ order: width > breakpoint ? 2 : 1 }}  sm={6} md={6}  span={22}>
+          <Col className="form-body  p40" style={{marginLeft:width > breakpoint ? "10px":'15px'}} xs={{ order: width > breakpoint ? 2 : 1 }}  sm={6} md={6}  span={22}>
               <Row>
                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
                   <p className="form-title">Summary</p>
@@ -585,7 +710,7 @@ const NewLead = React.memo(() => {
               </Col>
             </Row>
           </Col>
-          <Col className="form-body m0a p40" xs={{ order: 3 }} sm={16} md={16} lg={16} xl={16} span={22}>
+          <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={16} xl={16} span={22} offset={1}>
             <p className="form-title">Status</p>
             <Form >
               <Row gutter={16} className="mb-2">
@@ -595,11 +720,11 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="Lead Status"
                     label="Lead Status"
-                  style={{marginBottom:'1rem'}}
-
+                    style={{marginBottom:'1rem'}}
+                    size="large"
                   >
                     <Cascader
-                      options={options}
+                      options={leadStatus}
                       placeholder="New Contact"
                       size="medium"
                       popupClassName="popup-size"
@@ -619,7 +744,7 @@ const NewLead = React.memo(() => {
                         rules={[
                           {
                             required: true,
-                            message: 'Appointment Date',
+                            message: 'This field is required',
                           },
                         ]}
                         style={{marginBottom:'1rem'}}
@@ -646,7 +771,7 @@ const NewLead = React.memo(() => {
                         style={{marginBottom:'1rem'}}
 
                       >
-                        <Select options={setTimeOptions} placeholder="Start Time"></Select>
+                        <Select size="large" options={setTimeOptions} placeholder="Start Time"></Select>
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -665,7 +790,7 @@ const NewLead = React.memo(() => {
                         style={{marginBottom:'1rem'}}
 
                       >
-                        <Select options={setReminderOptions} placeholder="Set Reminder"></Select>
+                        <Select size="large" options={setReminderOptions} placeholder="Set Reminder"></Select>
                       </Form.Item>
                     </Col>
                   </>
@@ -674,7 +799,7 @@ const NewLead = React.memo(() => {
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color"
-                    name={['user', 'name']}
+                    name={['remarksfromsouce']}
                     label="Remark From Source "
                     rules={[
                       {
@@ -684,14 +809,14 @@ const NewLead = React.memo(() => {
                     style={{marginBottom:'1rem'}}
 
                   >
-                    <Input className="email input-box" placeholder="Enter Some Remark" />
+                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} className="mb-2">
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color"
-                    name={['user', 'name']}
+                    name={['remarksfromuser']}
                     label="Remark From User "
                     rules={[
                       {
@@ -700,7 +825,7 @@ const NewLead = React.memo(() => {
                     ]}
                     style={{marginBottom:'1rem'}}
                   >
-                    <Input className="email input-box" placeholder="Enter Some Remark" />
+                    <Input className="email input-box"  size="large" placeholder="Enter Some Remark" />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager">
@@ -734,7 +859,7 @@ const NewLead = React.memo(() => {
                           },
                         ]}
                       >
-                        <Select options={setReminderOptions} placeholder="Set Designation"></Select>
+                        <Select size="large" options={setReminderOptions} placeholder="Set Designation"></Select>
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -751,7 +876,7 @@ const NewLead = React.memo(() => {
                           },
                         ]}
                       >
-                        <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
+                        <Select size="large" options={setReminderOptions} placeholder="Set Team Member"></Select>
                       </Form.Item>
                     </Col>
                   </Modal>
@@ -785,7 +910,7 @@ const NewLead = React.memo(() => {
                           },
                         ]}
                       >
-                        <Select options={setReminderOptions} placeholder="Set Designation"></Select>
+                        <Select size="large" options={setReminderOptions} placeholder="Set Designation"></Select>
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -802,7 +927,7 @@ const NewLead = React.memo(() => {
                           },
                         ]}
                       >
-                        <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
+                        <Select size="large" options={setReminderOptions} placeholder="Set Team Member"></Select>
                       </Form.Item>
                     </Col>
                   </Modal>
@@ -810,20 +935,18 @@ const NewLead = React.memo(() => {
               </Row>
             </Form>
           </Col>
-          <Col className='m0a' xs={{ order: 4 }} sm={24} md={6} lg={6} xl={6} span={24}>
-          </Col>
-          <Col className='form-body m0a p20' xs={{ order: 5 }} sm={24} md={16} lg={16} xl={16} span={22} offset={6}>
+          <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={16} xl={16} span={22} offset={1}>
             <Row>
               <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
-                <Button type="primary" shape="round" size="large"  icon={<FileTextOutlined />} >Submit</Button>
+                <Button type="primary" shape="round" size="large" style={{backgroundColor:'rgb(0,172,193)',border:'none'}}  icon={<FileTextOutlined />} htmlType="submit"
+                  disabled={!formIsValid}
+                  onClick={submitHandler}
+                >Submit</Button>
               </Col>
               <Col xs={11} sm={12} md={4}>
-                <Button type="primary" shape="round" size="large"  icon={<ArrowRightOutlined />}>Proceed</Button>
+                <Button type="primary" shape="round" size="large" style={{backgroundColor:'rgb(228,106,37)',border:'none'}}  icon={<ArrowRightOutlined />}>Proceed</Button>
               </Col>
             </Row>
-          </Col>
-          <Col  className="m0a" xs={{ order: 6 }} sm={24} md={6} lg={6} xl={6} span={24}>
-            
           </Col>
         </Row>
       </div>
@@ -837,3 +960,44 @@ export default NewLead
 //           </Col>
 //           <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
 //           </Col> 
+// const setStateOptions = [
+
+//   { value: "Andaman and Nicobar Islands", label: "Andaman and Nicobar Islands" },
+//   { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+//   { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
+//   { value: "Assam", label: "Assam" },
+//   { value: "Bihar", label: "Bihar" },
+//   { value: "Chandigarh", label: "Chandigarh" },
+//   { value: "Chhattisgarh", label: "Chhattisgarh" },
+//   { value: "Dadra and Nagar Haveli", label: "Dadra and Nagar Haveli" },
+//   { value: "Daman and Diu", label: "Daman and Diu" },
+//   { value: "Delhi", label: "Delhi" },
+//   { value: "Goa", label: "Goa" },
+//   { value: "Gujarat", label: "Gujarat" },
+//   { value: "Haryana", label: "Haryana" },
+//   { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+//   { value: "Jammu and Kashmir", label: "Jammu and Kashmir" },
+//   { value: "Jharkhand", label: "Jharkhand" },
+//   { value: "Karnataka", label: "Karnataka" },
+//   { value: "Kerala", label: "Kerala" },
+//   { value: "Ladakh", label: "Ladakh" },
+//   { value: "Lakshadweep", label: "Lakshadweep" },
+//   { value: "Madhya Pradesh", label: "Madhya Pradesh" },
+//   { value: "Maharashtra", label: "Maharashtra" },
+//   { value: "Manipur", label: "Manipur" },
+//   { value: "Meghala", label: "Meghalaya" },
+//   { value: "Mizoram", label: "Mizoram" },
+//   { value: "Nagaland", label: "Nagaland" },
+//   { value: "Odisha", label: "Odisha" },
+//   { value: "Puducherry", label: "Puducherry" },
+//   { value: "Punjab", label: "Punjab" },
+//   { value: "Rajasthan", label: "Rajasthan" },
+//   { value: "Sikkim", label: "Sikkim" },
+//   { value: "Tamil Nadu", label: "Tamil Nadu" },
+//   { value: "Telangana", label: "Telangana" },
+//   { value: "Tripura", label: "Tripura" },
+//   { value: "Uttar Pradesh", label: "Uttar Pradesh" },
+//   { value: "Uttarakhand", label: "Uttarakhand" },
+//   { value: "West Bengal", label: "West Bengal" }
+
+// ]

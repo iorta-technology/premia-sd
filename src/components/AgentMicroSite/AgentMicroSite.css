@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +8,7 @@
 }
 .main {
   padding: 28px 7%;
+  padding-bottom: 0;
   background: transparent linear-gradient(180deg, #ffffff 0%, #eaebef 100%) 0%
     0% no-repeat padding-box;
   box-shadow: 0px 2px 8px #00000014;
@@ -23,7 +25,7 @@
 }
 .header .options {
   display: inline-block;
-  margin: 10px 30px;
+  margin: 0px 30px 10px;
   vertical-align: top;
 }
 .header .options a {
@@ -34,7 +36,7 @@
   text-transform: uppercase;
 }
 .header .options2 {
-  margin: 0 10px;
+    margin: -7px 10px 0;
   float: right;
 }
 .header .options2 a {
@@ -68,12 +70,12 @@
     margin-top: -130px;
     margin-left: -70px;
 }
-.info h3{
+.info .title{
     font-size: 24px;
     color: #1CB3BC;
     font-weight: bold !important;
 }
-.info h3 span{
+.info .title span{
     font-size: 16px;
     color: #4F5967;
     font-weight: 400 !important;
@@ -94,6 +96,7 @@
     color: #0C5CAA;
     text-shadow: 2px 2px 8px #00000029;
     z-index: 12;
+    font-family: 'Rubik', sans-serif;
 }
 .info h4{
     font-size: 16px;
@@ -104,7 +107,7 @@
     color: #707070;
     font-size: 400;
     font-size: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 14px !important;
     width: 200px;
 }
 .person{
@@ -112,8 +115,8 @@
     background-color: #fff;
     height: 530px;
     width: 440px;
-    vertical-align: top;
-    margin-top: 40px;
+    vertical-align: bottom;
+    /* margin-top: 40px; */
     padding: 10px;
     position: relative;
 }
@@ -210,6 +213,7 @@ margin-right: 10px;
     font-size: 28px;
     color: #0C5CAA;
     width: 490px;
+    font-family: 'Rubik', sans-serif;
 }
 .section2 p{
     width: 60%;
@@ -239,6 +243,7 @@ margin-right: 10px;
     background-repeat: no-repeat; */
     display: inline-block;
     position: relative;
+    
 }
 .section3 .imagehld img{
     width: 100%;
@@ -247,7 +252,8 @@ margin-right: 10px;
 }
 .section3 .imagehld .mask{
     position: absolute;
-    right: -173px;
+    right: -171px;
+    /* left:40%; */
     top:0;
     width: 100%;
     height: 600px;
@@ -290,19 +296,19 @@ padding:70px 0 ;
 }
 .matter{
     color: #707070;
-    font-size: 12px;
+    font-size: 13.7px;
 }
 .matter span svg{
     vertical-align: bottom;
     margin-right: 10px;
     fill: #0C5CAA;
 }
-.productoptions svg{
+.productoptions .bi-arrow-right{
     position: absolute;
     right: 15px;
     top: 20px;
 }
-
+.a{fill:#0c5caa;fill-rule:evenodd;}
 
 .section4{
 background-color: #EDEEEF;
@@ -312,22 +318,24 @@ background-color: #EDEEEF;
     margin-top: 30px;
 }
 .cardsHolder .card{
-    width: 300px;
+    width: 30%;
     min-height: 330px;
-    border-radius: 10px;
+    border-radius: 15px;
     border: 1px solid #4F596733;
     box-shadow: 16px 16px 36px #0000000D;
     background-color: #fff;
     display: inline-block;
     margin-right: 10px;
+    vertical-align: top;
 }
 .cardsHolder .card img{
     width: 100%;
     height: 45%;
     object-fit: cover;
+    border-radius: 10px;
 }
 .cardsHolder .card .cardCont{
-    padding: 10px;
+    padding: 10px 20px;
 }
 .cardsHolder .card .cardCont h4{
     color: #0C5CAA;
@@ -375,7 +383,6 @@ background-color: #EDEEEF;
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector{
     border: none;
-    
     box-shadow: none;
 }
 footer{
@@ -405,4 +412,33 @@ footer{
 }
 .ant-form-item-control-input-content{
     width: 434px;
+}
+
+p{
+    margin: 0;
+}
+.box-size{
+    box-sizing: border-box;
+    background-color: #fafafafa;
+}
+.ContactUS{
+    width: 100%;
+    height: 100%;
+}
+.ant-modal-mask{
+    backdrop-filter: blur(5px);
+}
+.inputs{
+    border: 1px solid #B5C1C4;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0px 3px 6px #00000014 !important;
+    height: 41px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.inputs:focus,.inputs:hover{
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid #B5C1C4;
 }
