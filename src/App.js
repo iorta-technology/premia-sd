@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
-import {Spin} from 'antd'
+import {Spin} from 'antd';
 
 const LeadMaster = React.lazy(()=> import('./containers/LeadMaster/index'))
 const StatusLead = React.lazy(()=> import('./components/StatusLead/StatusLead'))
