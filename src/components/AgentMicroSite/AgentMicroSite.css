@@ -442,3 +442,6 @@ p{
     box-shadow: none !important;
     border: 1px solid #B5C1C4;
 }
+.video-react-big-play-button {
+    display: none !important;
+  }
