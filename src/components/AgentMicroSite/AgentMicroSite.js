@@ -30,6 +30,8 @@ import motorp from '../../images/motor_insurance.png'
 import personalAccp from '../../images/personnel_accident_insurance.png'
 import { Modal,message, Button, Input, Select,Form } from 'antd';
 import {FilePdfOutlined} from '@ant-design/icons';
+import { Player } from "video-react";
+import "video-react/dist/video-react.css";
 // import axios from 'axios';
 import axios from '../../axios-common';
 const { Option } = Select;
@@ -40,6 +42,7 @@ const AgentMicroService = () => {
     const [mobile,setMobile]= useState('')
     const [product,setProduct]= useState('')
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isVideoModalVisible, setIsVideoModalVisible] = useState(false);
     const payload={
         user_id: "5df77d17009e273b39cae811",
         Product: product,
@@ -141,7 +144,7 @@ const AgentMicroService = () => {
         setIsModalVisible(true);
     };
     const showVideoModal = () => {
-        setIsModalVisible(true);
+        setIsVideoModalVisible(true);
     };
 
     const handleOk = () => {
@@ -165,6 +168,12 @@ const AgentMicroService = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    const handleVideoCancel = () => {
+        setIsVideoModalVisible(false);
+    };
+    let pause = () => {
+        this.player.pause();
+      };
     return (
         <>
             <div className="whatsapp">
@@ -217,7 +226,7 @@ const AgentMicroService = () => {
                     </div>
                     <div className="person">
                         <img src={model} />
-                        <img className="play" src={play}  />
+                        <img className="play" src={play} onClick={showVideoModal} style={{cursor:'pointer'}}/>
                         <div className="badgetag">
                             <img src={celebration_badge} />
                             <div>
@@ -520,7 +529,18 @@ const AgentMicroService = () => {
             </div>
 
             <div className="ContactUS" >
-                <Modal  visible={isModalVisible}   >
+                <Modal  visible={isVideoModalVisible}  onCancel={handleVideoCancel} width={600} footer={null} closable={false} bodyStyle={{height:'400px'}}
+          bodyStyle={{ padding: 0 }}
+                cancelButtonProps={{
+                style: {
+                    display: "none",
+                },}} >
+                    <Player autoPlay ref={ref => {const player = ref;}}>
+                        <source
+                        src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                        type="video/mp4"
+                        />
+                    </Player>
             </Modal>
             </div>
 
