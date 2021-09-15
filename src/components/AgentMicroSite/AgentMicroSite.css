@@ -25,7 +25,7 @@
 }
 .header .options {
   display: inline-block;
-  margin: 0px 30px 10px;
+  margin: -5px 30px 10px;
   vertical-align: top;
 }
 .header .options a {
@@ -36,7 +36,7 @@
   text-transform: uppercase;
 }
 .header .options2 {
-    margin: -7px 10px 0;
+    margin: -10px 10px 0;
   float: right;
 }
 .header .options2 a {
@@ -208,7 +208,7 @@ margin-right: 10px;
     width: 100%;
     display: flex;
     height: 312px;
-    margin-left: 48px;
+    /* margin-left: 48px; */
 }
 .section2 h4,.section3 h4,.section4 h4,.section5 h4{
     font-size: 16px;
@@ -241,7 +241,7 @@ margin-right: 10px;
 }
 
 .section3 .imagehld{
-    min-height: 600px;
+    /* min-height: 600px; */
     width: 40%;
     /* background-size: contain;
     background-image: url('../../images/Family\ Health\ Insurance.png');
@@ -252,8 +252,8 @@ margin-right: 10px;
 }
 .section3 .imagehld img{
     width: 100%;
-    height: 600px;
-    object-fit: contain;
+    height: 650px;
+    object-fit: cover;
 }
 /* .section3 .imagehld .mask{
     position: absolute;
@@ -265,9 +265,10 @@ margin-right: 10px;
 .section3 .imagehld .mask {
     position: absolute;
     right: -200px;
-    top: 32px;
+    top: 0px;
     width: 100%;
-    height: 535px;
+    height: 650px;
+    object-fit: contain;
 }
 
 .section3 .imgdata{
@@ -451,7 +452,7 @@ p{
     border-radius: 4px;
     /* margin-bottom: 10px; */
     box-shadow: 0px 3px 6px #00000014 !important;
-    /* height: 41px; */
+    height: 41px;
     outline: none !important;
     box-shadow: none !important;
 }
@@ -472,3 +473,6 @@ p{
 .ant-modal-wrap {
     padding-top: 4% !important;
 } 
+/* .ContactUS .ant-form{
+    margin-top: 15px;
+} */
