@@ -1,6 +1,6 @@
 import React, { useState,useRef } from 'react';
 import './AgentMicroSite.css';
-import mainLogo from '../../images/logo.png';
+import mainLogo from '../../images/logo.svg';
 import whatsUp from '../../images/whats_app_FAB.png';
 import LinkedIn from '../../images/LinkedIn_icon.svg';
 import twitter from '../../images/twitter_icon.svg'
@@ -299,7 +299,7 @@ const AgentMicroService = () => {
             </section>
 
             <section className="section3" id="products">
-                <div className="imagehld">
+                <div  className="imagehld">
                     <img src={products.image} />
                     <img className="mask" src={mask} />
                 </div>
@@ -444,8 +444,9 @@ const AgentMicroService = () => {
                         </Select>
                     </Form.Item>
                         {/* <Input className="inputs" placeholder="Intrested In" /> */}
-                    <br />
-                    <button style={{ borderRadius: "8px", cursor: 'pointer',marginTop: '10px' }} className="primary" htmlType="submit">LETS CONNECT</button>
+                    
+                    <button style={{ borderRadius: "8px", cursor: 'pointer',marginTop: '10px' }} 
+                    className="primary" htmlType="submit">LETS CONNECT</button>
                     </Form>
                 </div>
                 <div className="imagehld">
@@ -473,7 +474,7 @@ const AgentMicroService = () => {
             <div>
                 <h2 style={{color:'#0C5CAA',marginTop: '-10px', marginBottom: '10px !important'}}>Lets connect</h2>
             </div>
-                <Form form={form} onFinish={handleOk} >  
+                <Form form={form} onFinish={handleOk} style={{marginTop: '15px'}}>  
                 <Form.Item
                         name="firstName"
                         rules={[
@@ -526,7 +527,7 @@ const AgentMicroService = () => {
                             <Option value="Other">Others</Option>
                         </Select>
                 </Form.Item>
-                <Button type="primary" style={{backgroundColor:'#1CB3BC', border:'none'}} htmlType="submit" size={'large'}>Submit</Button>
+                <Button type="primary" style={{backgroundColor:'#1CB3BC', border:'none',borderRadius:'5px'}} htmlType="submit" size={'large'}>SUBMIT</Button>
                 </Form>  
                     {/* <Input className="inputs" placeholder="Intrested In" /> */}
                 </Modal>
