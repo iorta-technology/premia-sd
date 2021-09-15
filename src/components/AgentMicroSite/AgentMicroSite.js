@@ -171,10 +171,11 @@ const AgentMicroService = () => {
     const handleVideoCancel = () => {
         setIsVideoModalVisible(false);
     };
-    const player = useRef(null);
+    const playerRef = useRef(null);
+
     const pause = () => {
         console.log("pause")
-        // player.pause();
+        playerRef.current.pause();
       };
     return (
         <>
@@ -393,7 +394,7 @@ const AgentMicroService = () => {
             </section>
 
             <section className="section5">
-                <div style={{ width: "40%" }}>
+                <div style={{ width: "40%" ,marginTop: '-10px'}}>
                     <h4>LETS CONNECT</h4>
                     <h1>NOT SURE WHAT INSURANCE YOU NEED? WE CAN HELP.</h1>
                     <br/>
@@ -445,7 +446,7 @@ const AgentMicroService = () => {
                     </Form.Item>
                         {/* <Input className="inputs" placeholder="Intrested In" /> */}
                     
-                    <button style={{ borderRadius: "8px", cursor: 'pointer',marginTop: '10px' }} 
+                    <button style={{ borderRadius: "8px", cursor: 'pointer' }} 
                     className="primary" htmlType="submit">LETS CONNECT</button>
                     </Form>
                 </div>
@@ -540,7 +541,7 @@ const AgentMicroService = () => {
                 style: {
                     display: "none",
                 },}} >
-                    <Player autoPlay  ref={ref => {const player = ref;}}>
+                    <Player autoPlay  ref={playerRef}   >
                         <source
                         src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
                         type="video/mp4"
