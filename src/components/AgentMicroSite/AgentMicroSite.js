@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import './AgentMicroSite.css';
 import mainLogo from '../../images/logo.png';
 import whatsUp from '../../images/whats_app_FAB.png';
@@ -171,8 +171,10 @@ const AgentMicroService = () => {
     const handleVideoCancel = () => {
         setIsVideoModalVisible(false);
     };
-    let pause = () => {
-        this.player.pause();
+    const player = useRef(null);
+    const pause = () => {
+        console.log("pause")
+        // player.pause();
       };
     return (
         <>
@@ -203,7 +205,7 @@ const AgentMicroService = () => {
                         <img src={twitter} />
                         <br />
                         <img src={facebook} />
-                        <div style={{ height: "150px", margin: "10px 0" }}>
+                        <div style={{ height: "150px", margin: "10px 8px 0" }}>
                             <p>CONNECT WITH ME</p>
                         </div>
                         <div className="vr" style={{ height: "50px" }}></div>
@@ -254,9 +256,8 @@ const AgentMicroService = () => {
                         <p>Himanshu is a great listener. He understands my needs very well. His knowledge of insurance is at par
                             with the best in the industry</p>
                         <p className="by">- John Doe</p>
-                        <br />
-                        <br />
-                        <div style={{display:'flex',columnGap:'5px'}}>
+                        
+                        <div style={{display:'flex',columnGap:'5px',padding: '10px 0 10px'}}>
                         <hr style={{width:'20px',border:'0',borderBottom:'0.5px solid #1cb3bc'}}/>
                         <hr style={{width:'20px'}}/>
                         <hr style={{width:'20px'}}/>
@@ -343,11 +344,10 @@ const AgentMicroService = () => {
                             </div>
                         </div>
 
-                        <div className="cont" style={{ width: "50%", marginLeft: "30px" }}>
+                        <div className="cont" style={{ width: "50%", marginLeft: "30px",verticalAlign:'top' }}>
                             <p className="matter">
                                 {products.desc}
                             </p>
-                            <br />
                             <br />
                             {products.points.map((p,i)=>(
                                 <p key={i} className="matter"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check2" viewBox="0 0 16 16">
@@ -355,7 +355,7 @@ const AgentMicroService = () => {
                             </svg></span>{p.p}</p>
                             ))}
                             <br />
-                            <button style={{ borderRadius: "8px", display: "inlineBlock", marginRight: "20px" }} className="primary" onClick={showModal} style={{ cursor: 'pointer' }}>LEARN MORE</button>&nbsp;<span style={{ fontSize: '12px', color: '#0C5CAA',marginLeft:'20px' }}><FilePdfOutlined /> DOWNLOAD BROCHURE</span>
+                            <button style={{ borderRadius: "8px !important", display: "inlineBlock", marginRight: "20px" }} className="primary" onClick={showModal} style={{ cursor: 'pointer' }}>LEARN MORE</button>&nbsp;<span style={{ fontSize: '12px', color: '#0C5CAA',marginLeft:'20px' }}><FilePdfOutlined /> DOWNLOAD BROCHURE</span>
                         </div>
                     </div>
                 </div>
@@ -406,7 +406,7 @@ const AgentMicroService = () => {
                                 message: "First Name is Required"
                             }
                         ]}>
-                        <Input className="inputs" placeholder="First Name" onChange={(e)=>setFirstName(e.target.value)} />
+                        <Input className="inputs" placeholder="Enter First Name" onChange={(e)=>setFirstName(e.target.value)} />
                     </Form.Item>
                     <Form.Item
                          name="lastName"
@@ -416,7 +416,7 @@ const AgentMicroService = () => {
                                  message: "Last Name is Required"
                              }
                          ]}>
-                        <Input className="inputs" placeholder="Last Name" onChange={(e)=>setLastName(e.target.value)} />
+                        <Input className="inputs" placeholder="Enter Last Name" onChange={(e)=>setLastName(e.target.value)} />
                     </Form.Item>
                     <Form.Item
                          name="mobile"
@@ -432,7 +432,7 @@ const AgentMicroService = () => {
                                 message: "Enter a Valid Mobile Number"
                               }
                          ]}>
-                        <Input className="inputs" placeholder="Mobile" onChange={(e)=>setMobile(e.target.value)} />
+                        <Input className="inputs" placeholder="Enter Mobile" onChange={(e)=>setMobile(e.target.value)} />
                     </Form.Item>
                     <Form.Item name="product" rules={[{ required: true,message: "Please select product" }]}>
                         <Select className="ant-select-selector inputs" placeholder="Select Product" onChange={setProduct} allowClear>
@@ -445,11 +445,11 @@ const AgentMicroService = () => {
                     </Form.Item>
                         {/* <Input className="inputs" placeholder="Intrested In" /> */}
                     <br />
-                    <button style={{ borderRadius: "8px", cursor: 'pointer' }} className="primary" htmlType="submit">LETS CONNECT</button>
+                    <button style={{ borderRadius: "8px", cursor: 'pointer',marginTop: '10px' }} className="primary" htmlType="submit">LETS CONNECT</button>
                     </Form>
                 </div>
-                <div className="imagehld" style={{ width: '55%' }}>
-                                <img src={letsConect} width="100%" height="500px" style={{float:"right",objectFit:"contain"}} />
+                <div className="imagehld">
+                                <img src={letsConect} width="100%" height="504px" style={{float:"right",objectFit:"contain"}} />
                 </div>
             </section>
             <footer>
@@ -464,12 +464,15 @@ const AgentMicroService = () => {
                 </div>
             </footer>
             <div className="ContactUS" >
-                <Modal title="Lets connect" visible={isModalVisible} onOk={form.submit}  onCancel={handleCancel} okText="Submit"
+                <Modal visible={isModalVisible} onOk={handleOk}  onCancel={handleCancel} footer={null}
         cancelButtonProps={{
           style: {
             display: "none",
           },
         }}>
+            <div>
+                <h2 style={{color:'#0C5CAA',marginTop: '-10px', marginBottom: '10px !important'}}>Lets connect</h2>
+            </div>
                 <Form form={form} onFinish={handleOk} >  
                 <Form.Item
                         name="firstName"
@@ -523,19 +526,20 @@ const AgentMicroService = () => {
                             <Option value="Other">Others</Option>
                         </Select>
                 </Form.Item>
+                <Button type="primary" style={{backgroundColor:'#1CB3BC', border:'none'}} htmlType="submit" size={'large'}>Submit</Button>
                 </Form>  
                     {/* <Input className="inputs" placeholder="Intrested In" /> */}
                 </Modal>
             </div>
-
+            <center>
             <div className="ContactUS" >
-                <Modal  visible={isVideoModalVisible}  onCancel={handleVideoCancel} width={600} footer={null} closable={false} bodyStyle={{height:'400px'}}
-          bodyStyle={{ padding: 0 }}
+                <Modal  visible={isVideoModalVisible}  onCancel={handleVideoCancel} width={600} footer={null} closable={false} bodyStyle={{height:'400px',paddingTop:'4%'}} 
+                bodyStyle={{ padding: 0 }} afterClose={pause}
                 cancelButtonProps={{
                 style: {
                     display: "none",
                 },}} >
-                    <Player autoPlay ref={ref => {const player = ref;}}>
+                    <Player autoPlay  ref={ref => {const player = ref;}}>
                         <source
                         src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
                         type="video/mp4"
@@ -543,6 +547,7 @@ const AgentMicroService = () => {
                     </Player>
             </Modal>
             </div>
+            </center>
 
         </>
     )
