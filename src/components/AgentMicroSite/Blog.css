@@ -54,17 +54,25 @@
 .titlecontent p{
     font-size: 14px;
     font-weight: 300;
+    margin-bottom: 10px;
+}
+.blogcont{
+    margin-top: 10px;
+}
+.blogcont p {
+    font-size: 14px;
+    color: #3E3E3E;
 }
   .content{
-      width: 55%;
+      width: 54%;
       margin: auto;
       transform: translateY(-60px);
       position: relative;
   }
   .sideSocial{
       position: absolute;
-      top: 30%;
-      left:-60px;
+      top: 10%;
+      left:-70px;
   }
   .sideSocial img{
       margin-bottom: 10px;
@@ -236,3 +244,12 @@ footer{
 .ant-modal-wrap {
     padding-top: 4% !important;
 } 
+.whatsapp{
+    position: fixed;
+    bottom: 20%;
+    right: 5%;
+    cursor: pointer;
+}
+.whatsapp img{
+    width: 120px;
+}
