@@ -1,5 +1,6 @@
 import React, { useState,useRef } from 'react';
 import './AgentMicroSite.css';
+import { Link } from 'react-router-dom';
 import mainLogo from '../../images/logo.svg';
 import whatsUp from '../../images/whats_app_FAB.png';
 import LinkedIn from '../../images/LinkedIn_icon.svg';
@@ -28,7 +29,7 @@ import familyp from '../../images/Family Health Insurance.png'
 import travelp from '../../images/travel_insurance.png'
 import motorp from '../../images/motor_insurance.png'
 import personalAccp from '../../images/personnel_accident_insurance.png'
-import { Modal,message, Button, Input, Select,Form } from 'antd';
+import { Modal,message, Button, Input, Select,Form,Carousel } from 'antd';
 import {FilePdfOutlined} from '@ant-design/icons';
 import { Player } from "video-react";
 import "video-react/dist/video-react.css";
@@ -73,6 +74,7 @@ const AgentMicroService = () => {
         title:"Family Health Insurance",
         image: familyp,
         desc: "A family floater health insurance plan allows you to cover multiple family members under a single policy. All family members share the maximum sum insured amount. This is a great option for families where some members may require more cover than others. Typically, a family floater health insurance plan offers a higher cover limit.",
+        pdf:'https://www.tataaig.com/s3/Medicare_Plus_bc171907df.pdf',
         points: [
             {
                 p: "No Sub-Limit on Hospital Room Rent"
@@ -89,6 +91,7 @@ const AgentMicroService = () => {
         title:"Travel Insurance",
         image: travelp,
         desc: "Some accidents are more severe than others. If an accident were to be fatal or leave you disabled, a personal accident insurance policy will provide you or your family members with financial compensation. Of course, it will not help reverse the damage or loss, but it will help you and your family with financial stability at a difficult time.",
+        pdf:'https://www.tataaig.com/s3/TRAVEL_GUARD_POLICY_Prospectus_5b4b81a518.pdf',
         points: [
             {
                 p: "We Have A Wide-Reaching Network"
@@ -105,6 +108,7 @@ const AgentMicroService = () => {
         title:"Car Insurance",
         image: motorp,
         desc: "Own a car? Fed up of the way others drive? Yes, welcome to the club! Your car gives you independence and freedom of movement. Allowing the whole family to move together, it becomes a part of the family itself. So, let’s give it the care and protection it needs.",
+        pdf:'https://www.tataaig.com/s3/Brochures_3_Years_Auto_Secure_Private_Car_Package_Policy_9c237a5dd7.pdf',
         points: [
             {
                 p: "High Claim Settlement ration "
@@ -121,6 +125,7 @@ const AgentMicroService = () => {
         title:"Personal Accident Insurance",
         image: personalAccp,
         desc: "We have specialized plans that will look after you when you’re travelling domestically or abroad. Our plans will help you deal with whatever situation comes your way. We understand that students and senior citizens have unique needs. So, we’ve introduced plans engineered to meet their requirements.",
+        pdf:'https://www.tataaig.com/s3/ACCIDENT_SHIELD_POLICY_0b2cd3be15.pdf',
         points: [
             {
                 p: "COVID-19 Covered "
@@ -136,9 +141,23 @@ const AgentMicroService = () => {
             }
         ]
     }
-
+    const slide1 = {
+        description:'Himanshu is a great listener. He understands my needs very well. His knowledge of insurance is at par with the best in the industry',
+        name:'Karthik',
+        slide:0
+    }
+    const slide2 = {
+        description:'Karthik has been a great help in securing the insurance needs for my family',
+        name:'Amish Tr',
+        slide:1
+    }
+    const slide3 = {
+        description:"Karthik is equally good friend as he's a financial advisor.",
+        name:'Himanshu',
+        slide:2
+    }
+    const [slides,setSlides] = useState(slide1)
     const [products,setProducts]=useState(family)
-
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -172,15 +191,15 @@ const AgentMicroService = () => {
         setIsVideoModalVisible(false);
     };
     const playerRef = useRef(null);
-
     const pause = () => {
-        console.log("pause")
         playerRef.current.pause();
       };
     return (
         <>
             <div className="whatsapp">
+                <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat/?lang=kk" target="_blank">
                 <img src={whatsUp} alt="whatsapp" />
+                </a>
             </div>
             <section className="main">
                 <div className="header">
@@ -213,7 +232,7 @@ const AgentMicroService = () => {
                     </div>
 
                     <div className="info">
-                        <b className="title"><span>Hello i’m</span><br /> Himanshu Gupta,</b>
+                        <b className="title"><span>Hello i’m</span><br />Himanshu Gupta,</b>
                         <p className="id">ADVISOR : AD36271</p>
                         <div className="tagline">
                             <h1>
@@ -241,7 +260,7 @@ const AgentMicroService = () => {
                     </div>
                     <div className="achievements">
                         <h2>My Achievements</h2>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadi pscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                        <p>"16 years of securing people's lives, and everything that's valuable in their lives. Delivering peace of mind to over 3000 people"
                         </p>
                         <div className="badge-info">
                             <div>
@@ -254,15 +273,12 @@ const AgentMicroService = () => {
                             </div>
                         </div>
                         <h2>Clients Testimonials</h2>
-                        <p>Himanshu is a great listener. He understands my needs very well. His knowledge of insurance is at par
-                            with the best in the industry</p>
-                        <p className="by">- John Doe</p>
-                        
+                        <p>{slides.description}</p>
+                        <p className="by">- {slides.name}</p>
                         <div style={{display:'flex',columnGap:'5px',padding: '10px 0 10px'}}>
-                        <hr style={{width:'20px',border:'0',borderBottom:'0.5px solid #1cb3bc'}}/>
-                        <hr style={{width:'20px'}}/>
-                        <hr style={{width:'20px'}}/>
-                        <hr style={{width:'20px'}}/>
+                        <hr onClick={()=>setSlides(slide1)} style={{width:'20px',border:'0',borderBottom:slides.slide ===0?'0.5px solid #1cb3bc':"0.5px solid #989898",cursor:'pointer'}}/>
+                        <hr onClick={()=>setSlides(slide2)} style={{width:'20px',border:'0',borderBottom:slides.slide ===1?'0.5px solid #1cb3bc':"0.5px solid #989898",cursor:'pointer'}}/>
+                        <hr onClick={()=>setSlides(slide3)} style={{width:'20px',border:'0',borderBottom:slides.slide ===2?'0.5px solid #1cb3bc':"0.5px solid #989898",cursor:'pointer'}}/>
                         </div>
                     </div>
                 </div>
@@ -356,7 +372,7 @@ const AgentMicroService = () => {
                             </svg></span>{p.p}</p>
                             ))}
                             <br />
-                            <button style={{ borderRadius: "8px !important", display: "inlineBlock", marginRight: "20px" }} className="primary" onClick={showModal} style={{ cursor: 'pointer' }}>LEARN MORE</button>&nbsp;<span style={{ fontSize: '12px', color: '#0C5CAA',marginLeft:'20px' }}><FilePdfOutlined /> DOWNLOAD BROCHURE</span>
+                            <button style={{ borderRadius: "8px !important", display: "inlineBlock", marginRight: "20px" }} className="primary" onClick={showModal} style={{ cursor: 'pointer' }}>LEARN MORE</button>&nbsp;<span style={{ fontSize: '12px', color: '#0C5CAA',marginLeft:'20px' }}><a href={products.pdf} target="_blank"><FilePdfOutlined /> DOWNLOAD BROCHURE</a></span>
                         </div>
                     </div>
                 </div>
@@ -371,7 +387,9 @@ const AgentMicroService = () => {
                         <div className="cardCont">
                             <h4>5 Things You Did Not Know About Two Wheeler Insurance</h4>
                             <p>Tata AIG General Insurance Company Limited’s Home Secure Supreme Is A Flexible Insurance Plan</p>
-                            <a href="/blog" target="_blank">READ NOW</a>
+                            <Link to="/blog">
+                            <a>READ NOW</a>
+                            </Link>
                         </div>
                     </div>
                     <div className="card">
@@ -379,7 +397,9 @@ const AgentMicroService = () => {
                         <div className="cardCont">
                             <h4>Going For A Vacation. Here Are Five Reasons You Need Travel Insurance</h4>
                             <p>Tata AIG General Insurance Company Limited’s Home Secure Supreme Is A Flexible Travel Insurance Plan</p>
-                            <a href="/blog" target="_blank">READ NOW</a>
+                            <Link to="/blog">
+                            <a>READ NOW</a>
+                            </Link>
                         </div>
                     </div>
                     <div className="card">
@@ -387,7 +407,9 @@ const AgentMicroService = () => {
                         <div className="cardCont">
                             <h4>Why every home need a Home Insurance?</h4>
                             <p>Tata AIG General Insurance Company Limited’s Home Secure Supreme Is A Flexible Home Insurance Plan</p>
-                            <a href="/blog" target="_blank">READ NOW</a>
+                            <Link to="/blog">
+                            <a>READ NOW</a>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -473,7 +495,7 @@ const AgentMicroService = () => {
           },
         }}>
             <div>
-                <h2 style={{color:'#0C5CAA',marginTop: '-10px', marginBottom: '10px !important'}}>Lets connect</h2>
+                <h2 style={{color:'#0C5CAA',marginTop: '-12px', marginBottom: '10px !important'}}>Lets connect</h2>
             </div>
                 <Form form={form} onFinish={handleOk} style={{marginTop: '15px'}}>  
                 <Form.Item
