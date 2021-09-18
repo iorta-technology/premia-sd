@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
-import {Spin} from 'antd'
+import {Spin} from 'antd';
 
 const LeadMaster = React.lazy(()=> import('./containers/LeadMaster/index'))
 const StatusLead = React.lazy(()=> import('./components/StatusLead/StatusLead'))
@@ -33,6 +33,7 @@ const CompletedContest1 = React.lazy(()=> import('./components/Contests/Complete
 const Calendar = React.lazy(()=> import('./components/Contests/CalendarEvent'))
 const AgentMicroService = React.lazy(()=> import('./components/AgentMicroSite/AgentMicroSite'))
 const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashboard'))
+const Blog = React.lazy(()=> import('./components/AgentMicroSite/Blog'))
 
 
 
@@ -50,6 +51,7 @@ function App() {
               <Route path="/forgotpassword" component={ForgotPassword}></Route>
               <Route path="/changepassword" component={ChangePassword}></Route>
               <Route path="/himanshu" component={AgentMicroService}></Route>
+              <Route path="/blog" component={Blog}></Route>
               <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
               <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
               <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>

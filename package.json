@@ -18,6 +18,7 @@
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.16.3",
     "axios": "^0.21.1",
+    "ciqu-react-calendar": "^1.0.2",
     "fullcalendar": "^5.9.0",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
@@ -25,8 +26,10 @@
     "node_module": "^0.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
+    "react-date-picker": "^8.3.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
+    "react-player": "^2.9.0",
     "react-redux": "^7.2.4",
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
@@ -38,6 +41,7 @@
     "styled-components": "^5.3.0",
     "thunk": "^0.0.1",
     "tslib": "^2.3.0",
+    "video-react": "^0.14.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
