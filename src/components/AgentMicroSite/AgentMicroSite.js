@@ -7,7 +7,7 @@ import LinkedIn from '../../images/LinkedIn_icon.svg';
 import twitter from '../../images/twitter_icon.svg'
 import facebook from '../../images/facebook_icon.svg'
 import play from '../../images/Group 4526.svg'
-import model from '../../images/advisor@2x.png'
+import model from '../../images/advisor.png'
 import model2 from '../../images/Group 4496@2x.png'
 import celebration_badge from '../../images/celebration_badge.svg'
 import innovstion from '../../images/innovstion-badge.svg'
@@ -32,8 +32,9 @@ import personalAccp from '../../images/personnel_accident_insurance.png'
 import { Modal,message, Button, Input, Select,Form,Carousel } from 'antd';
 import {FilePdfOutlined} from '@ant-design/icons';
 import { Player } from "video-react";
+import ReactPlayer from 'react-player'
 import "video-react/dist/video-react.css";
-// import axios from 'axios';
+import { useHistory } from 'react-router';
 import axios from '../../axios-common';
 const { Option } = Select;
 const AgentMicroService = () => {
@@ -55,6 +56,7 @@ const AgentMicroService = () => {
         lead_Owner_Id: "5df77d17009e273b39cae811",
         lead_Creator_Id: "5df77d17009e273b39cae811"
     }
+    const history = useHistory()
     const onLetsConnect =()=>{
         axios.post(`user/addlead`,payload).then(resp=>{
             console.log("lets connect resp",resp)
@@ -152,8 +154,8 @@ const AgentMicroService = () => {
         slide:1
     }
     const slide3 = {
-        description:"Karthik is equally good friend as he's a financial advisor.",
-        name:'Himanshu',
+        description:"Himanshu is equally good friend as he's a financial advisor.",
+        name:'Aditya',
         slide:2
     }
     const [slides,setSlides] = useState(slide1)
@@ -188,16 +190,20 @@ const AgentMicroService = () => {
         setIsModalVisible(false);
     };
     const handleVideoCancel = () => {
+        console.log('cancel event')
         setIsVideoModalVisible(false);
     };
-    const playerRef = useRef(null);
-    const pause = () => {
-        playerRef.current.pause();
-      };
+    const toSingleBlog = (props)=>{
+        console.log("blog data",props)
+        history.push({
+            pathname: '/blog',
+            state: { id: props }
+        })
+    }
     return (
         <>
             <div className="whatsapp">
-                <a href="https://faq.whatsapp.com/general/chats/how-to-use-click-to-chat/?lang=kk" target="_blank">
+                <a href="https://api.whatsapp.com/send/?phone=9167130251&text&app_absent=0" target="_blank">
                 <img src={whatsUp} alt="whatsapp" />
                 </a>
             </div>
@@ -387,9 +393,7 @@ const AgentMicroService = () => {
                         <div className="cardCont">
                             <h4>5 Things You Did Not Know About Two Wheeler Insurance</h4>
                             <p>Tata AIG General Insurance Company Limited’s Home Secure Supreme Is A Flexible Insurance Plan</p>
-                            <Link to="/blog">
-                            <a>READ NOW</a>
-                            </Link>
+                            <a onClick={()=>toSingleBlog(1)}>READ NOW</a>
                         </div>
                     </div>
                     <div className="card">
@@ -397,9 +401,7 @@ const AgentMicroService = () => {
                         <div className="cardCont">
                             <h4>Going For A Vacation. Here Are Five Reasons You Need Travel Insurance</h4>
                             <p>Tata AIG General Insurance Company Limited’s Home Secure Supreme Is A Flexible Travel Insurance Plan</p>
-                            <Link to="/blog">
-                            <a>READ NOW</a>
-                            </Link>
+                            <a onClick={()=>toSingleBlog(2)}>READ NOW</a>
                         </div>
                     </div>
                     <div className="card">
@@ -407,9 +409,7 @@ const AgentMicroService = () => {
                         <div className="cardCont">
                             <h4>Why every home need a Home Insurance?</h4>
                             <p>Tata AIG General Insurance Company Limited’s Home Secure Supreme Is A Flexible Home Insurance Plan</p>
-                            <Link to="/blog">
-                            <a>READ NOW</a>
-                            </Link>
+                            <a onClick={()=>toSingleBlog(3)}>READ NOW</a>
                         </div>
                     </div>
                 </div>
@@ -557,19 +557,20 @@ const AgentMicroService = () => {
             </div>
             <center>
             <div className="ContactUS" >
-                <Modal  visible={isVideoModalVisible}  onCancel={handleVideoCancel} width={600} footer={null} closable={false} bodyStyle={{height:'400px',paddingTop:'4%'}} 
-                bodyStyle={{ padding: 0 }} afterClose={pause}
-                cancelButtonProps={{
-                style: {
-                    display: "none",
-                },}} >
-                    <Player autoPlay  ref={playerRef}   >
-                        <source
-                        src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-                        type="video/mp4"
-                        />
-                    </Player>
-            </Modal>
+                {isVideoModalVisible&&(
+                    <Modal  visible={isVideoModalVisible}  onCancel={handleVideoCancel} width={600} footer={null} closable={false} bodyStyle={{height:'400px',paddingTop:'4%'}} 
+                    afterClose={handleVideoCancel}
+                    
+                    bodyStyle={{ padding: 0 }} 
+                    cancelButtonProps={{
+                    style: {
+                        display: "none",
+                    },}} >
+                        <ReactPlayer controls={true} url='https://www.youtube.com/watch?v=CuX7VSgI4KQ' />
+                       
+                </Modal>
+                )}
+                
             </div>
             </center>
 
