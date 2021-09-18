@@ -12,7 +12,8 @@
 .maincon {
     padding: 28px 7%;
     padding-bottom: 0;
-    background: #0C5CAA 0% 0% no-repeat padding-box;
+    /* background: #0C5CAA 0% 0% no-repeat padding-box; */
+    background: url('../../images/blog-1-header-background.png');
     box-shadow: 0px 2px 8px #00000014;
     height: auto;
     
