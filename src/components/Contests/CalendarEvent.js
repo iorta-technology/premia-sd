@@ -74,7 +74,694 @@ export default function CalendarEvent() {
   const [eventText, setEventText] = useState("");
   const [value, setValue] = useState(moment('10:00', format));
   const [endVal, setEndVal] = useState(moment('10:00', format));
+  const [addEvents, setAddEvents] = useState([
  
+
+    //     // {
+    //     //   id:helperUpcomingArr? helperUpcomingArr._id:null,
+    //     //   start:1631750400000+helperUpcomingArr? helperUpcomingArr.start_time:null,
+    //     //   end:1631750400000+37800000,
+    //     // },
+    
+    //   { 
+    
+    //     // id:item._id,
+    //     title:"mysasd",
+    //     start:1631750400000+48600000,
+    //     end:1631750400000+52200000,
+    //   }
+    // ,
+    //     // { 
+    //     //     id:helperUpcomingArr? helperUpcomingArr._id:null,
+    //     //     title:helperUpcomingArr?  helperUpcomingArr.appointment_type:null,
+    //     //     start:start_date_assign+helperUpcomingArr?helperUpcomingArr.start_time:null,
+    //     //     end:end_date_assign+helperUpcomingArr?helperUpcomingArr.end_time:null,
+    //     //   }
+    //     {
+    //     title: eventText, start: "2021-08-11T12:00:00",
+    //     end: "2021-08-11T15:00:00Z"
+    //   },
+    //   {
+    //     id: Math.random().toString(36).slice(-6),
+    //     title: 'my event',
+    //     description: "This is the description of the event",
+    //     start: "2021-08-21T12:00:00",
+    //     end: "2021-08-21T15:00:00"
+    //   },
+    //   {
+    //     id: Math.random().toString(36).slice(-6),
+    //     title: 'my event',
+    //     description: "This is the description of the event",
+    //     start: "2021-08-11T12:00:00",
+    //     end: "2021-08-12T15:00:00"
+    //   }
+    //     ,{
+    //       id: Math.random().toString(36).slice(-6),
+    //       title: 'Timestamp',
+    //       description: "This is the description of the event",
+    //       start: 1630800000000+50400000,
+    //       end: 1630800000000+52200000
+    //     }
+    //       ,  {
+    //     id: Math.random().toString(36).slice(-6),
+    //     title: 'test',
+    //     description: "This is the description of the event",
+    //     start: "2021-09-11T11:00:00",
+    //     end: "2021-09-12T15:00:00"
+    //   }
+       ])
+ const[testArr,setTestArr]=useState([
+  {
+    "errCode": -1,
+    "errMsg": [{
+        "_id": "6135e9a3f503954f7e6bba45",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1630485000000,
+        "end_time_MS": 1630488600000,
+        "start_time": 50400000,
+        "start_date": 1630434600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 54000000,
+        "end_date": 1630434600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1630923171207
+    }, {
+        "_id": "613f05df086b7846d1313b86",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1630486800000,
+        "end_time_MS": 1630490400000,
+        "start_time": 32400000,
+        "start_date": 1630454400000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 36000000,
+        "end_date": 1630454400000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631520223602
+    }, {
+        "_id": "6138577dfbdd0b06661eda6a",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1630488600000,
+        "end_time_MS": 1630492200000,
+        "start_time": 34200000,
+        "start_date": 1630454400000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 37800000,
+        "end_date": 1630454400000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631082365286
+    }, {
+        "_id": "613ee604086b7846d1313b78",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1630569600000,
+        "end_time_MS": 1630573200000,
+        "start_time": 28800000,
+        "start_date": 1630540800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 32400000,
+        "end_date": 1630540800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631512068207
+    }, {
+        "_id": "614099c1086b7846d1313c2d",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1630571400000,
+        "end_time_MS": 1630575000000,
+        "start_time": 30600000,
+        "start_date": 1630540800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 34200000,
+        "end_date": 1630540800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631623617742
+    }, {
+        "_id": "613065f667f24402962717db",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "manuallyrenewalCustomer": [{
+            "Name": "abx",
+            "MobileNumber": "2232323131"
+        }],
+        "clientVisit": "clientmeeting",
+        "teamMember": [],
+        "manuallycustomerAdded": "true",
+        "statusType": "open",
+        "tata_appointment_type": "",
+        "durationType": "customedatetime",
+        "appointment_type": "customer",
+        "start_time_MS": 1630659600000,
+        "end_time_MS": 1630663200000,
+        "start_time": 32400000,
+        "start_date": 1630627200000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 36000000,
+        "end_date": 1630627200000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "event_description": "Suraj Shukla will have a client meeting with Abx",
+        "created_date": 1630561782490
+    }, {
+        "_id": "6130af1e67f2440296271804",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "manuallyrenewalCustomer": [{
+            "Name": "j",
+            "MobileNumber": "4654654"
+        }],
+        "clientVisit": "clientmeeting",
+        "teamMember": [],
+        "manuallycustomerAdded": "true",
+        "statusType": "open",
+        "tata_appointment_type": "",
+        "durationType": "customedatetime",
+        "appointment_type": "customer",
+        "start_time_MS": 1630832400000,
+        "end_time_MS": 1630834200000,
+        "start_time": 32400000,
+        "start_date": 1630800000000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 34200000,
+        "end_date": 1630800000000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "event_description": "Suraj Shukla will have a client meeting with J",
+        "created_date": 1630580510153
+    }, {
+        "_id": "61407fff086b7846d1313bf9",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631010600000,
+        "end_time_MS": 1631014200000,
+        "start_time": 37800000,
+        "start_date": 1630972800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 41400000,
+        "end_date": 1630972800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631617023630
+    }, {
+        "_id": "61408033086b7846d1313bfb",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631012400000,
+        "end_time_MS": 1631016000000,
+        "start_time": 39600000,
+        "start_date": 1630972800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 43200000,
+        "end_date": 1630972800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631617075128
+    }, {
+        "_id": "61408072086b7846d1313bfd",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631021400000,
+        "end_time_MS": 1631025000000,
+        "start_time": 48600000,
+        "start_date": 1630972800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 52200000,
+        "end_date": 1630972800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631617138166
+    }, {
+        "_id": "6140832a086b7846d1313c06",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631025000000,
+        "end_time_MS": 1631028600000,
+        "start_time": 52200000,
+        "start_date": 1630972800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 55800000,
+        "end_date": 1630972800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631617834223
+    }, {
+        "_id": "61409982086b7846d1313c2a",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631028600000,
+        "end_time_MS": 1631032200000,
+        "start_time": 55800000,
+        "start_date": 1630972800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 59400000,
+        "end_date": 1630972800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631623554216
+    }, {
+        "_id": "61409afb086b7846d1313c2f",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631091600000,
+        "end_time_MS": 1631095200000,
+        "start_time": 32400000,
+        "start_date": 1631059200000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 36000000,
+        "end_date": 1631059200000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631623931523
+    }, {
+        "_id": "61408c40086b7846d1313c22",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631093400000,
+        "end_time_MS": 1631183400000,
+        "start_time": 34200000,
+        "start_date": 1631059200000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 37800000,
+        "end_date": 1631145600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631620160632
+    }, {
+        "_id": "613859eefbdd0b06661eda6e",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631095200000,
+        "end_time_MS": 1631100600000,
+        "start_time": 36000000,
+        "start_date": 1631059200000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 41400000,
+        "end_date": 1631059200000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631082990184
+    }, {
+        "_id": "61370ec65866867bc1e205c1",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631097000000,
+        "end_time_MS": 1631100600000,
+        "start_time": 37800000,
+        "start_date": 1631059200000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 41400000,
+        "end_date": 1631059200000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1630998214352
+    }, {
+        "_id": "6131fc54cb41646464003cda",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631156400000,
+        "end_time_MS": 1631178000000,
+        "start_time": 30600000,
+        "start_date": 1631125800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 52200000,
+        "end_date": 1631125800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1630665812097
+    }, {
+        "_id": "613ee61c086b7846d1313b7a",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631174400000,
+        "end_time_MS": 1631178000000,
+        "start_time": 28800000,
+        "start_date": 1631145600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 32400000,
+        "end_date": 1631145600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631512092156
+    }, {
+        "_id": "6135e9aaf503954f7e6bba47",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631176200000,
+        "end_time_MS": 1631179800000,
+        "start_time": 50400000,
+        "start_date": 1631125800000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 54000000,
+        "end_date": 1631125800000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1630923178631
+    }, {
+        "_id": "6131e2af67f2440296271832",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "manuallyrenewalCustomer": [{
+            "Name": "a",
+            "MobileNumber": "212"
+        }],
+        "clientVisit": "clientmeeting",
+        "teamMember": [],
+        "manuallycustomerAdded": "true",
+        "statusType": "open",
+        "tata_appointment_type": "",
+        "durationType": "customedatetime",
+        "appointment_type": "customer",
+        "start_time_MS": 1631178000000,
+        "end_time_MS": 1631181600000,
+        "start_time": 32400000,
+        "start_date": 1631145600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 36000000,
+        "end_date": 1631145600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "event_description": "Suraj Shukla will have a client meeting with A",
+        "created_date": 1630659247668
+    }, {
+        "_id": "6138578efbdd0b06661eda6c",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631181600000,
+        "end_time_MS": 1631273400000,
+        "start_time": 36000000,
+        "start_date": 1631145600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 41400000,
+        "end_date": 1631232000000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631082382859
+    }, {
+        "_id": "6140308b086b7846d1313ba5",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631185200000,
+        "end_time_MS": 1631188800000,
+        "start_time": 39600000,
+        "start_date": 1631145600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 43200000,
+        "end_date": 1631145600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631596683014
+    }, {
+        "_id": "61406275086b7846d1313bd5",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631187000000,
+        "end_time_MS": 1631190600000,
+        "start_time": 41400000,
+        "start_date": 1631145600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 45000000,
+        "end_date": 1631145600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631609461748
+    }, {
+        "_id": "6140814f086b7846d1313bff",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631194200000,
+        "end_time_MS": 1631197800000,
+        "start_time": 48600000,
+        "start_date": 1631145600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 52200000,
+        "end_date": 1631145600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631617359478
+    }, {
+        "_id": "61408309086b7846d1313c04",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631197800000,
+        "end_time_MS": 1633879800000,
+        "start_time": 52200000,
+        "start_date": 1631145600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 55800000,
+        "end_date": 1633824000000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631617801632
+    }, {
+        "_id": "61418bcd086b7846d1313c36",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631266200000,
+        "end_time_MS": 1631269800000,
+        "start_time": 34200000,
+        "start_date": 1631232000000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 37800000,
+        "end_date": 1631232000000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631685581530
+    }, {
+        "_id": "6131df5667f2440296271824",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "manuallyrenewalCustomer": [{
+            "Name": "a",
+            "MobileNumber": "1111"
+        }],
+        "clientVisit": "clientmeeting",
+        "teamMember": [],
+        "manuallycustomerAdded": "true",
+        "statusType": "open",
+        "tata_appointment_type": "",
+        "durationType": "customedatetime",
+        "appointment_type": "customer",
+        "start_time_MS": 1631525400000,
+        "end_time_MS": 1631529000000,
+        "start_time": 34200000,
+        "start_date": 1631491200000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 37800000,
+        "end_date": 1631491200000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "event_description": "Suraj Shukla will have a client meeting with A",
+        "created_date": 1630658390537
+    }, {
+        "_id": "614055b7086b7846d1313bc5",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631613600000,
+        "end_time_MS": 1631617200000,
+        "start_time": 36000000,
+        "start_date": 1631577600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 39600000,
+        "end_date": 1631577600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631606199505
+    }, {
+        "_id": "6140827e086b7846d1313c02",
+        "showComment": false,
+        "leadId": null,
+        "partnerId": null,
+        "customerId": null,
+        "teamMember_clone": [],
+        "statusReason": "",
+        "isLeadFailed": false,
+        "appointment_type": "customer",
+        "start_time_MS": 1631626200000,
+        "end_time_MS": 1631629800000,
+        "start_time": 48600000,
+        "start_date": 1631577600000,
+        "userId": "60a61763de95b87f62856c13",
+        "end_time": 52200000,
+        "end_date": 1631577600000,
+        "event_type": "appointment",
+        "event_name": "Appointment",
+        "created_date": 1631617662522
+    }],
+    "dbDate": "Wed Sep 15 2021 13:24:29 GMT+0000 (Coordinated Universal Time)"
+}
+ ])
+
   const checkTeamMemberFunc = () => {
     setAdvisorCheck(true)
     setProspectCheck(false)
@@ -126,6 +813,10 @@ export default function CalendarEvent() {
   const[durationEndDateDiffCheck,setDurationEndDateDiffCheck]=useState(true);
   const[fetchUpcomingArr,setFetchUpcomingArr]=useState([]);
   const[helperUpcomingArr,setHelperUpcomingArr]=useState();
+  const[updateStartTime,setUpdateStartTime]=useState()
+  const[updateEndTime,setUpdateEndTime]=useState()
+
+  
   const[fetchStartDate,setFetchStartDate]=useState();
 const[fetchEndDate,setFetchEndDate]=useState();
 const[fetchStartTime,setFetchStartTime]=useState();
@@ -251,8 +942,9 @@ const[prospectTagVisible,setProspectTagVisible]=useState(false);
 const[prospectOnClickVal,setProspectOnClickVal]=useState()
 const[searchProspectText,setSearchProspectText]=useState("");
 const[prospectOnClickCheck,setProspectOnClickCheck]=useState(false)
-
-
+const[bookEventCheck,setBookEventCheck]=useState(true)
+const[updateEventCheck,setUpdateCheckEvent]=useState(false)
+const[updateEventId,setUpdateEventId]=useState()
 
 
   // axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=past
@@ -286,43 +978,138 @@ const[prospectOnClickCheck,setProspectOnClickCheck]=useState(false)
   // .catch((err)=>{
   //   console.log(err)
   // },[])
-  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=upcoming
-  `,{
-    // params:{
-    //   teamdata:"0",
-    //   filter: "09/2021",
-    //   category:"upcoming"
-    // }
-  })
-  .then((res)=>{
-    //   console.log(res.data)
-    //  setFetchEventCheck(true)
-    //   setFetchUpcomingArr(res.data)
-    // })
-    // .catch((err)=>{
-    //   console.log(err)
-    // }
-})
-.catch(()=>{})
+  const[fetchEventObject,setFetchEventObject]=useState()
+
+// useEffect(()=>{
+//   testArr[0].errMsg.map((item)=>{
+//     setAddEvents(addEvents=>[...addEvents,{
+//       id:item._id,
+//       start:parseInt(item.start_date)+parseInt(item.start_time),
+//       end:parseInt(item.end_date)+parseInt(item.end_time),
+//     }])
+//      })
+// },[testArr])
 
 useEffect(()=>{
   axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60a61763de95b87f62856c13?teamdata=0&filter=${month}&category=upcoming `)
   .then((res)=>{
     console.log(res.data.errMsg)
     setFetchEventCheck(true)
- res.data.errMsg.map((item)=>{
-      return(
-        // console.log(item)
-        setHelperUpcomingArr(item)
-      )
-    })
     setFetchUpcomingArr(res.data.errMsg)
+
+//     testArr[0].errMsg.map((item)=>{
+// setAddEvents(addEvents=>[...addEvents,
+// {
+//   id:item._id,
+//   start:item.start_date+item.start_time,
+//   end:item.end_date+item.end_time,
+// }
+// ])
+//     })
+res.data.errMsg.map((item)=>{
+  setAddEvents(addEvents=>[...addEvents,{
+          id:item._id,
+          start:parseInt(item.start_date)+parseInt(item.start_time),
+          end:parseInt(item.end_date)+parseInt(item.end_time),
+        }])
+})
+console.log(fetchEventObject)
+    // res.data.errMsg.map((item)=>{
+    //   setAddEvents([...addEvents,{
+    // id:item._id,
+    //     start:item.start_date+item.start_time,
+    // end:item.end_date+item.end_time,
+    //   }])
+    // })
+ 
+//  res.data.errMsg.map((item)=>{
+//       return(
+//         setAddEvents([...addEvents, {
+
+//           id: item._id,
+//           title: 'test 7',
+//           description: "This is the description of the event",
+    
+//           start: item.start_date+item.start_time,
+//           end: item.end_date+item.end_time
+        
+        
+//         }])   
+
+//       )
+//     })
+console.log(res.data.errMsg)
+
+// res.data.errMsg.map((item)=>{
+//   return(
+//     setAddEvents([...addEvents, {
+
+  
+//      id:item._id,
+//   start:item.start_date+item.start_time,
+//   end:item.end_date+item.end_time
+
+//       // start: item.start_date+item.start_time,
+//       // end: item.end_date+item.end_time
+    
+    
+//     }])   
+
+//   )
+  
+// })
+// res.data.errMsg.map((item)=>{
+//   return(
+//   console.log(item)
+//     // setAddEvents([...addEvents, 
+ 
+//   //   {
+  
+//   //   // {res.data.errMsg.map(()=>{})}
+//   //        id:item._id,
+//   //     start:item.start_date+item.start_time,
+//   //     end:item.end_date+item.end_time
+    
+//   //         // start: item.start_date+item.start_time,
+//   //         // end: item.end_date+item.end_time
+        
+        
+//   //       }])) 
+//   )
+
+// })
+
+
+
+
+  })
+  .catch((err)=>{
+    console.log(err.msg)
+  })
+
+
+  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60a61763de95b87f62856c13?teamdata=0&filter=${month}&category=past `)
+  .then((res)=>{
+    console.log(res.data.errMsg)
+    setFetchEventCheck(true)
+    res.data.errMsg.map((item)=>{
+      setAddEvents(addEvents=>[...addEvents,{
+              id:item._id,
+              start:parseInt(item.start_date)+parseInt(item.start_time),
+              end:parseInt(item.end_date)+parseInt(item.end_time),
+            }])
+    })
+    // setFetchUpcomingArr(res.data.errMsg)
   })
   .catch((err)=>{
     console.log(err.msg)
   })
 },[])
+
 console.log(helperUpcomingArr)
+
+
+
 const CustomerClickedTag=(value)=>{
   setCustomerOnClickVal(value)
   setCustomerTagVisible(true)
@@ -528,6 +1315,7 @@ const CustomerMobileNoFunc = (e) => {
 
   const StartDateFunc = (date, dateString) => {
     setDurationStartDate(moment(date))
+
 let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
 
 console.log(ms_date)
@@ -599,7 +1387,8 @@ if(endTimeSelect==""){
 console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
   let parseTimeCondition=parseInt()
   setDurationEndTimeCheck(true)
-  setDurationEndTimeOperation((+timeDiff)+(+"3600000"))
+  let parseTime=parseInt((+timeDiff)+(+"3600000"))
+  setDurationEndTimeOperation(parseTime)
 }
 if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
   setDurationStartTimeDiffCheck(false)
@@ -611,7 +1400,8 @@ if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
   const EndTimeChangeFunc=(e)=>{
     setEndTimeSelect(e.target.value)
     setDurationEndTimeCheck(true)
-    setDurationEndTimeOperation(e.target.value)
+    let parseTime=parseInt(e.target.value)
+    setDurationStartTimeOperation(parseTime)
     console.log(e.target.value)
     let timeDiff=e.target.value
     if(((e.target.value)==startTimeSelect)&&startTimeSelect!=""){
@@ -630,7 +1420,9 @@ console.log("TIme should be more than start time")
     }
     if(startTimeSelect==""){
       setStartTimeSelect((+timeDiff)-(+"36000000"))
-      setDurationStartTimeOperation((+timeDiff)-(+"36000000"))
+      let parseTime=parseInt((+timeDiff)-(+"36000000"))
+      
+      setDurationStartTimeOperation(parseTime)
       setDurationStartTimeCheck(true)
 
     }
@@ -721,29 +1513,75 @@ setDurationEndTime(time)
     //     setDurationTimeAlert(false)
   }
   const BookAppointmentFunc = () => {
+    if(updateEventCheck==true){
+     
+    axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
+      Appointment_id:updateEventId, 
+    userId:"60a61763de95b87f62856c13",
+        partnerId:"",
+        appointment_type:"customer",
+        event_type:"appointment",
+        start_date:durationStartDateOperation,
+        start_time:durationStartTimeOperation,
+        end_date:durationEndDateOperation,
+        end_time:durationEndTimeOperation,
+        leadId:""
+      })
+      .then((res)=>{
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+    else{
+    
+    
+    
+    axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
 
+      userId:"60a61763de95b87f62856c13",
+        partnerId:"",
+        appointment_type:"customer",
+        event_type:"appointment",
+        start_date:durationStartDateOperation,
+        start_time:durationStartTimeOperation,
+        end_date:durationEndDateOperation,
+        end_time:durationEndTimeOperation
+      })
+      .then((res)=>{
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })
+      
     // alert(durationEndTime)
-axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
+// axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
 
-userId:"60a61763de95b87f62856c13",
-  partnerId:"",
-  appointment_type:"customer",
-  event_type:"appointment",
-  start_date:durationStartDateOperation,
-  start_time:durationStartTimeOperation,
-  end_date:durationEndDateOperation,
-  end_time:durationEndTimeOperation
-})
-.then((res)=>{
-  console.log(res)
-}).catch((err)=>{
-  console.log(err)
-})
+// userId:"60a61763de95b87f62856c13",
+//   partnerId:"",
+// // appointment_type:customerCheck==true?"customer":null,
+//   appointment_type:"advisor",
+// event_type:"appointment",
+//   // event_type:advisorCollection.appointment_advisor==true||customerCollection.appointment_customer==true||
+//   // prospectCollection.appointment_prospect==true?"appointment":advisorCollection.training==true||
+//   // prospectCollection.training_prospect==true
+//   // ?"training":advisorCollection.phone_call_advisor==true||customerCollection.phone_call_customer==true||
+//   // prospectCollection.phone_call==true
+//   // ?"phone call":customerCollection.policy_renewal==true?"policy renewal":null,
+//   start_date:durationStartDateOperation,
+//   start_time:durationStartTimeOperation,
+//   end_date:durationEndDateOperation,
+//   end_time:durationEndTimeOperation
+// })
+// .then((res)=>{
+//   console.log(res)
+// }).catch((err)=>{
+//   console.log(err)
+// })
 
 // setDurationEndDate( moment(durationEndDate).format("YYYY-MM-DD"))
 setAddEvents([...addEvents, {
 
-  id: Math.random().toString(36).slice(-6),
   title: 'test 7',
   description: "This is the description of the event",
   // start:1630627200000+32400000,
@@ -798,7 +1636,7 @@ if (durationStartTime == "" && durationButton.select_time == true) {
     console.log(addEvents)
 
     console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
-  }
+}}
   const StatusTypeOpenFunc = () => {
     setStatusType({
       openStatus: true,
@@ -817,6 +1655,8 @@ if (durationStartTime == "" && durationButton.select_time == true) {
       phone_call_advisor: false,
       training: true,
     })
+
+
   }
   const AdvisorPhoneCallFunc = () => {
     setAdvisorCollection({
@@ -1076,9 +1916,44 @@ if (durationStartTime == "" && durationButton.select_time == true) {
     })
   }
   const [dateClick, setDateClick] = useState();
-  const showModal = (e) => {
+  const showModal = (e,date) => {
+    setDurationStartDate(moment(e.event.start))
+    setDurationEndDate(moment(e.event.end))
+alert(moment(e.event.start).format())
+// alert("This is date "+moment(e.event.end))
+let start_ms_date=new Date(moment(e.event.start)).setUTCHours(0, 0, 0, 0)
+let end_ms_date=new Date(moment(e.event.end)).setUTCHours(0, 0, 0, 0)
+// alert("Start Date"+start_ms_date)
+// alert("End Date"+end_ms_date)
+
+
+
+
+    setDurationStartDateOperation(start_ms_date)
+    setDurationEndDateOperation(end_ms_date)
+    setBookEventCheck(false)
+setUpdateEventId(e.event.id)
+    setUpdateCheckEvent(true)
     setIsModalVisible(true);
-    setEventText(e.event.title)
+    setEventText(JSON.stringify(e.event.title))
+    alert(e.event.id)
+
+    fetchUpcomingArr.map((item)=>{
+
+if(item._id==e.event.id){
+  // console.log(item)
+  // setDurationStartDate(item.start_date)
+  // setUpdateStartTime(JSON.stringify(item.start_time))
+  // setUpdateEndTime(JSON.stringify(item.end_time))
+  // setDurationEndDate(item.end_date)
+
+      alert("This works"+item._id)}//       return(
+// item.id==e.event.id?{
+// setHelperUpcomingArr(item)
+// }:null
+//       )
+    })
+    console.log("This works"+e.event.start)
 
   };
   const OnChangeEventText = (e) => {
@@ -1095,31 +1970,31 @@ if (durationStartTime == "" && durationButton.select_time == true) {
 
     alert(MultiSelectDate)
     // alert("This is endva;l" + endVal.format("H:mm:ss"))
-    if (MultiSelectDate == true) {
-      setAddEvents([...addEvents, {
+    // if (MultiSelectDate == true) {
+    //   setAddEvents([...addEvents, {
 
-        id: Math.random().toString(36).slice(-6), title: eventText,
-        //  start:moment("2017-08-13T12:34:00Z").format(),
-        //  end:moment("2017-08-13T13:34:00Z").format()
-        start: moment(startDuration).format('YYYY-MM-DD') + moment(value).format("T" + "H:mm:ss" + "z"),
-        end: moment(endDuration).format('YYYY-MM-DD') + moment(endVal).format("T" + "H:mm:ss" + "z"),
-        // start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
-        // end:moment(endDuration).format('YYYY-MM-DD ') + moment(endVal).format("H:mm:ss"),
-        // allDay:moment(endVal).format("H:mm:ss")>"23:59:59"?true:false
+    //     id: Math.random().toString(36).slice(-6), title: eventText,
+    //     //  start:moment("2017-08-13T12:34:00Z").format(),
+    //     //  end:moment("2017-08-13T13:34:00Z").format()
+    //     start: moment(startDuration).format('YYYY-MM-DD') + moment(value).format("T" + "H:mm:ss" + "z"),
+    //     end: moment(endDuration).format('YYYY-MM-DD') + moment(endVal).format("T" + "H:mm:ss" + "z"),
+    //     // start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
+    //     // end:moment(endDuration).format('YYYY-MM-DD ') + moment(endVal).format("H:mm:ss"),
+    //     // allDay:moment(endVal).format("H:mm:ss")>"23:59:59"?true:false
 
-      }])
-    }
-    else {
-      setAddEvents([...addEvents, {
+    //   }])
+    // }
+    // else {
+    //   setAddEvents([...addEvents, {
 
-        id: Math.random().toString(36).slice(-6), title: eventText,
-        //  date:moment(clickedDate).format('YYYY-MM-DD') + moment(value).format("T"+"H:mm:ss"+"Z"),
-        start: moment(clickedDate).format('YYYY-MM-DD') + moment(value).format("T" + "H:mm:ss" + "z"),
-        end: moment(clickedDate).format('YYYY-MM-DD') + moment(endVal).format("T" + "H:mm:ss" + "z"),
-        allDay: false
-      }])
+    //     id: Math.random().toString(36).slice(-6), title: eventText,
+    //     //  date:moment(clickedDate).format('YYYY-MM-DD') + moment(value).format("T"+"H:mm:ss"+"Z"),
+    //     start: moment(clickedDate).format('YYYY-MM-DD') + moment(value).format("T" + "H:mm:ss" + "z"),
+    //     end: moment(clickedDate).format('YYYY-MM-DD') + moment(endVal).format("T" + "H:mm:ss" + "z"),
+    //     allDay: false
+    //   }])
 
-    }
+    // }
 
 
     // alert(addEvents)
@@ -1169,58 +2044,7 @@ console.log(start_date_assign)
 console.log(end_date_assign)
 console.log(helperUpcomingArr? helperUpcomingArr.start_date:null)
 console.log(fetchUpcomingArr)
-  const [addEvents, setAddEvents] = useState([
- 
-    fetchUpcomingArr? fetchUpcomingArr.map((item)=>{
-return(
-  { 
-    userId:item.id,
-    id:item.id,
-    title:item.appointment_type,
-    start:item.start_date+item.start_time,
-    end:item.end_date+item.end_time,
-  }
-)
-    }):null
-    // { 
-    //     id:helperUpcomingArr? helperUpcomingArr._id:null,
-    //     title:helperUpcomingArr?  helperUpcomingArr.appointment_type:null,
-    //     start:start_date_assign+helperUpcomingArr?helperUpcomingArr.start_time:null,
-    //     end:end_date_assign+helperUpcomingArr?helperUpcomingArr.end_time:null,
-    //   }
-    ,{
-    title: eventText, start: "2021-08-11T12:00:00",
-    end: "2021-08-11T15:00:00Z"
-  },
-  {
-    id: Math.random().toString(36).slice(-6),
-    title: 'my event',
-    description: "This is the description of the event",
-    start: "2021-08-21T12:00:00",
-    end: "2021-08-21T15:00:00"
-  },
-  {
-    id: Math.random().toString(36).slice(-6),
-    title: 'my event',
-    description: "This is the description of the event",
-    start: "2021-08-11T12:00:00",
-    end: "2021-08-12T15:00:00"
-  }
-    ,{
-      id: Math.random().toString(36).slice(-6),
-      title: 'Timestamp',
-      description: "This is the description of the event",
-      start: 1630800000000+50400000,
-      end: 1630800000000+52200000
-    }
-      ,  {
-    id: Math.random().toString(36).slice(-6),
-    title: 'test',
-    description: "This is the description of the event",
-    start: "2021-08-11T11:00:00",
-    end: "2021-08-12T15:00:00"
-  }
-   ])
+  
   let events = [{ title: eventText, date: new Date("2021-08-11 10:00:00") },
   { title: "TEst", date: new Date("2021-08-11 10:00:00") }
 
@@ -1234,9 +2058,10 @@ return(
   const OnTimeChange = (val) => {
     setValue(val)
   }
-
+console.log("Add evebnt"+addEvents)
   const MultiSelectDateFunc=(e)=>{
-
+setUpdateCheckEvent(false)
+setBookEventCheck(true)
   setDurationStartDate(moment(e.start))
   setDurationEndDate(moment(e.end).subtract(1, "days"))
   let new_start_date = Date.parse(e.start)
@@ -1269,7 +2094,8 @@ alert(start_date)
     // setDurationStartDate(e.date)
     // setDurationEndDate(e.date)
     // let new_date =Date.parse(e.date)
- 
+    setBookEventCheck(true)
+ setUpdateCheckEvent(false)
     let ms_date = new Date(e.date).setUTCHours(0, 0, 0, 0)
       
   alert(ms_date)
@@ -1309,7 +2135,9 @@ setDurationStartDateHelper(e.dateStr)
 
       <Modal
         className="Calendar-event-modal-header-style"
-        title={durationTimeAlert == true ?
+        title={
+          updateEventCheck==true?"Update Event":
+          durationTimeAlert == true ?
           <Alert message="Start Time is Mandatory" type="warning"
             closable
 
@@ -1319,6 +2147,7 @@ setDurationStartDateHelper(e.dateStr)
             <Alert message="Start Date is Mandatory" type="warning"
               closable
               onClose={() => {
+                setUpdateCheckEvent(false)
                 setDurationDateAlert(false)
               }}
             />
@@ -1351,16 +2180,20 @@ setDurationStartDateHelper(e.dateStr)
               className="CalendarEvent-Modal-Card-button-flex"
             >
               <button
+              disabled={updateEventCheck==true?true:false}
                 onClick={checkTeamMemberFunc}
                 className={advisorCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >Advisor</button>
               <button
+                 disabled={updateEventCheck==true?true:false}
                 onClick={checkProspectFunc}
                 className={prospectCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >Prospect</button>
 
 
               <button
+                 disabled={updateEventCheck==true?true:false}
+              // updateEventCheck==true?disabled:null
                 onClick={checkCustomerFunc}
                 className={customerCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >Customer</button>
@@ -1378,16 +2211,19 @@ setDurationStartDateHelper(e.dateStr)
                 className={advisorCheck == true ? "CalendarEvent-Modal-Card-button-flex" : "CalendarEvent-Modal-Card-button-flex"}
               >
                 <button
+                   disabled={updateEventCheck==true?true:false}
                   className={advisorCollection.appointment_advisor == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   onClick={AdvisorAppointmentFunc}
 
                 >Appointment</button>
                 <button
+                   disabled={updateEventCheck==true?true:false}
                   className={advisorCollection.phone_call_advisor == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   onClick={AdvisorPhoneCallFunc}
                 >Phone Call</button>
 
                 <button
+                   disabled={updateEventCheck==true?true:false}
                   onClick={AdvisorTrainingFunc}
                   className={advisorCollection.training == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                 >Training</button>
@@ -1398,16 +2234,19 @@ setDurationStartDateHelper(e.dateStr)
                   className={prospectCheck == true ? "CalendarEvent-Modal-Card-button-flex" : "CalendarEvent-Modal-Card-button-flex"}
                 >
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     className={prospectCollection.appointment_prospect == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     onClick={ProspectAppointmentFunc}
 
                   >Appointment</button>
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     className={prospectCollection.phone_call == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     onClick={ProspectPhoneCallFunc}
                   >Phone Call</button>
 
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     onClick={ProspectTrainingFunc}
                     className={prospectCollection.training_prospect == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   >Training</button>
@@ -1418,16 +2257,19 @@ setDurationStartDateHelper(e.dateStr)
                     className={customerCheck == true ? "CalendarEvent-Modal-Card-customer-event-button-flex" : "CalendarEvent-Modal-Card-customer-event-button-flex"}
                   >
                     <button
+                       disabled={updateEventCheck==true?true:false}
                       className={customerCollection.appointment_customer == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                       onClick={CustomerAppointmentFunc}
 
                     >Appointment</button>
                     <button
+                       disabled={updateEventCheck==true?true:false}
                       className={customerCollection.phone_call_customer == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                       onClick={CustomerPhoneCallFunc}
                     >Phone Call</button>
 
                     <button
+                       disabled={updateEventCheck==true?true:false}
                       onClick={CustomerPolicyRenewalFunc}
                       className={customerCollection.policy_renewal == true ? "CalendarEvent-Modal-documentcollection-onclick-button-style" : "CalendarEvent-Modal-Card-documentcollection-static-button-style"}
                     >Policy Renewals</button>
@@ -1467,10 +2309,12 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                   className="CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex"
                 >
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     onClick={AppointmentAdvisorBusinessPlanningFunc}
                     className={advisorCollection.businessPlanning_review == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
                   >Business Planning & Review</button>
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     onClick={AppointmentAdvisorInactiveAgentFunc}
                     className={advisorCollection.inactive_agent_reactivation == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
                   >Inactive Agent re-activation</button>
@@ -1480,14 +2324,17 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                   className="CalendarEvent-Modal-appointmenttype-button-flex"
                 >
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     onClick={AppointmentAdvisorUnitMeetingFunc}
                     className={advisorCollection.unit_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   >Unit Meeting</button>
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     onClick={AppointmentAdvisorJoint_Cust_MeetingFunc}
                     className={advisorCollection.joint_customer_visit == true ? "CalendarEvent-Modal-joint-customer-onclick-button-style" : "CalendarEvent-Modal-joint-customer-static-button-style"}
                   >Joint Customer Meeting</button>
                   <button
+                     disabled={updateEventCheck==true?true:false}
                     onClick={AppointmentAdvisorServicingFunc}
                     className={advisorCollection.servicing == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   >Servicing</button>
@@ -1527,6 +2374,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                       className="CalendarEvent-Modal-appointmenttype-button-flex"
                     >
                       <button
+                         disabled={updateEventCheck==true?true:false}
                         onClick={() => { }}
                         className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
                       >Relationship Call </button>
@@ -1546,6 +2394,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                         className="CalendarEvent-Modal-appointmenttype-button-flex"
                       >
                         <button
+                           disabled={updateEventCheck==true?true:false}
                           onClick={() => { }}
                           className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
                         >Relationship Call </button>
@@ -1565,14 +2414,17 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                         >
 
                           <button
+                             disabled={updateEventCheck==true?true:false}
                             onClick={AppointmentProspectMeetingFunc}
                             className={prospectCollection.first_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                           >First Meeting</button>
                           <button
+                             disabled={updateEventCheck==true?true:false}
                             onClick={AppointmentProspectFollowUpFunc}
                             className={prospectCollection.follow_up == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                           >Follow Up</button>
                           <button
+                             disabled={updateEventCheck==true?true:false}
                             onClick={AppointmentProspectDocCollectionFunc}
                             className={prospectCollection.document_collection == true ? "CalendarEvent-Modal-documentcollection-onclick-button-style" : "CalendarEvent-Modal-Card-documentcollection-static-button-style"}
                           >Document Collection</button>
@@ -1852,6 +2704,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                         className="CalendarEvent-Modal-appointmenttype-button-flex"
                       >
                 <Button
+                   disabled={updateEventCheck==true?true:false}
                     className="CalendarEvent-Modal-Card-Addmanual-button-style"
                     onClick={AddManuallyFunc}
                 type="primary" icon={<PlusCircleOutlined />}>
@@ -1922,6 +2775,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
               className="CalendarEvent-Modal-Card-add-manual-flex"
             >
               <button
+                 disabled={updateEventCheck==true?true:false}
                 onClick={()=>{}}
                 className={ "CalendarEvent-Modal-Card-eventwith-onclick-button-style" }
               >Submit</button>
@@ -1940,6 +2794,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
               className="CalendarEvent-Modal-Card-time-duration-flex"
             >
               <button
+              
                 onClick={DurationSelectTimeFunc}
                 className={durationButton.select_time == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >Select Time</button><button
@@ -1987,10 +2842,13 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                    className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-empty-TimePicker-style" : "CalendarEvent-Modal-TimePicker-style"}
                                   // className="CalendarEvent-Modal-TimePicker-style"
                    > 
+              
                      <option value="" >Select</option>
+                    
                {timeList.map((time)=>{
                  return(
                    <option value={time.value}>{time.dispValue}</option>
+                  //  <option value="30600000">9am</option>
                  )
                })}
                    
@@ -2135,7 +2993,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
             onClick={() => { }}
             className={"CalendarEvent-Modal-book-appointment-button-style"}
             onClick={BookAppointmentFunc}
-          >Book Appointment</button>
+          >{bookEventCheck==true? "Book Appointment":"Update Appointment"}</button>
         </div>
         {/* <Card>
   <h4>jasjkhdsaj</h4>
@@ -2154,7 +3012,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
       </Modal>
 
       <FullCalendar
-height={width<"767"?"100vh":null}
+height={width<="767"?"100vh":null}
         //  defaultAllDay="false"
         //  selectOverlap={ function(event) {
         // //  alert("Doesnt work"+event.rendering)
@@ -2165,6 +3023,7 @@ height={width<"767"?"100vh":null}
         // eventOverlap={function(stillEvent, movingEvent) {
         //   return stillEvent.allDay && movingEvent.allDay;
         // }}
+
         editable="true"
         timeZone='UTC'
         droppable="true"
@@ -2173,6 +3032,15 @@ height={width<"767"?"100vh":null}
           center: "title",
           right: "dayGridMonth,dayGridWeek,dayGridDay"
         }}
+        // eventClick={ function(info) {
+        //   alert('Event: ' + info.event.start);
+        //   alert('Event: ' + info.event.end);
+        //   alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        //   alert('View: ' + info.view.type);
+      
+        //   // change the border color just for fun
+        //   info.el.style.borderColor = 'red';
+        // }}
         eventClick={showModal}
         // eventClick={
         //   function(arg){
