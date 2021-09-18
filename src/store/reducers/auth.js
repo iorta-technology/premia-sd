@@ -1,11 +1,25 @@
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
+import { stoageGetter, stoageSetter, camelCaseKeys} from '../../helpers';
 
 const initialState = {
     login_agent_data:null,
     agent_id:"",
-    id:'',
-    login_error:null
+    userId:'',
+    login_error:null,
+    channelCode:'',
+    user:null,
+
+    userDetails:{},
+    levelCode:'',
+    hierarchy:{},
+    minValue:'',
+    checkAgent:false
+}
+
+let user = stoageGetter('user') 
+if(user){
+    initialState.user = user
 }
 
 const loginStart = (state, action) => {
@@ -13,20 +27,112 @@ const loginStart = (state, action) => {
 }
 
 const loginSuccess = (state, action) => {
-    console.log("id",action.login_agent_data._id)
-    return updateObject(state, { fetch_allLeads_Loading: false, login_agent_data: action.login_agent_data,user_name: action.login_agent_data.first_name,agent_id: action.login_agent_data.agent_id,id: action.login_agent_data._id })
+    // console.log("id",action.login_agent_data._id)
+    let user= camelCaseKeys({...action.login_agent_data})
+    // localStorage.setItem('user',user)
+     stoageSetter('user', user);
+     
+    return updateObject(state,{ 
+            fetch_allLeads_Loading: false, 
+            // login_agent_data: action.login_agent_data,
+            user:user,
+            user_name: action.login_agent_data.first_name,
+            agent_id: action.login_agent_data.agent_id,
+            userId: action.login_agent_data._id,
+            channelCode:action.login_agent_data.channelCode
+         })
 }
 const loginFail = (state, action) => {
-    return updateObject(state, { fetch_allLeads_Loading: false, login_error: action.error });
+    return updateObject(state, { 
+            fetch_allLeads_Loading: false, 
+            login_error: action.error 
+        });
+}
+
+const logoutStart = (state, action) => {
+    return updateObject(state, {loading: true});
+};
+
+const logoutSuccess = (state, action) => {
+    stoageSetter('user', null);
+    stoageSetter('headers', {});
+    window.localStorage.removeItem('user')
+    window.localStorage.removeItem('headers')
+    return updateObject(state, {user: null, headers: {}, loading: false});
+};
+
+// const logoutFail = (state, action) => {
+//     stoageSetter('user', null);
+//     stoageSetter('headers', {});
+//     window.localStorage.removeItem('user')
+//     window.localStorage.removeItem('headers')
+//     return updateObject(state, {user: null, headers: {} ,loading: false, error: action.error});
+// };
+
+// Post login Reducers- Get User details
+const fetchUserDetailsStart = (state, action) => {
+    return updateObject(state, { fetch_UserDetails_Loading: true })
+}
+
+const fetchUserDetailsSuccess = (state, action) => {
+    const userDetails = action.userDetails
+    return updateObject(state, { 
+            fetch_UserDetails_Loading: false, 
+            userDetails: userDetails,
+            levelCode:userDetails.hierarchy_id.levelCode
+        })
+}
+const fetchUserDetailsFail = (state, action) => {
+    return updateObject(state, { 
+            fetch_UserDetails_Loading: false, 
+            fetch_UserDetails_Error: action.error 
+        });
+}
+
+// Get Hierarchy
+const fetchHierarchyStart = (state, action) => {
+    return updateObject(state, { fetch_Hierarchy_Loading: true })
+}
+
+const fetchHierarchySuccess = (state, action) => {
+    const hierarchyData = action.hierarchy
+    let levelCodeArray = []
+    for (let i = 0; i < hierarchyData.length; i++) {
+        let levelCode = hierarchyData[i].levelCode
+        levelCodeArray.push(levelCode)
+    }
+    levelCodeArray.sort((a, b) => a - b)
+    let minValue = Math.min(...levelCodeArray)
+    return updateObject(state, { 
+            fetch_Hierarchy_Loading: false, 
+            hierarchy: hierarchyData, 
+            minValue:minValue
+        })
+}
+const fetchHierarchyFail = (state, action) => {
+    return updateObject(state, { 
+            fetch_Hierarchy_Loading: false, 
+            fetch_Hierarchy_Error: action.error 
+        });
 }
 
 const reducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         
         case actionTypes.LOGIN_START: return loginStart(state, action)
         case actionTypes.LOGIN_SUCCESS: return loginSuccess(state, action)
         case actionTypes.LOGIN_FAIL: return loginFail(state, action)
+
+        case actionTypes.AUTH_LOGOUT_START: return logoutStart(state, action);
+        case actionTypes.AUTH_LOGOUT_SUCCESS: return logoutSuccess(state, action);
+
+        case actionTypes.FETCH_USER_DETAILS_START: return fetchUserDetailsStart(state, action)
+        case actionTypes.FETCH_USER_DETAILS_SUCCESS: return fetchUserDetailsSuccess(state, action)
+        case actionTypes.FETCH_USER_DETAILS_FAIL: return fetchUserDetailsFail(state, action)
+
+        case actionTypes.FETCH_HIERARCHY_START: return fetchHierarchyStart(state, action)
+        case actionTypes.FETCH_HIERARCHY_SUCCESS: return fetchHierarchySuccess(state, action)
+        case actionTypes.FETCH_HIERARCHY_FAIL: return fetchHierarchyFail(state, action)
 
         default: return state
     }
