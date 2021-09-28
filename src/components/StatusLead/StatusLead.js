@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table,TimePicker } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FileTextOutlined,EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
 import _ from "lodash";
 import { checkAgent } from '../../helpers'
-
+import moment from 'moment';
+import { Link,useHistory } from 'react-router-dom';
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -18,183 +19,7 @@ const formItemLayout = {
     span: 24,
   },
 };
-const leadOptions = [
-  {
-    value: 'newleadentry',
-    label: 'New Lead Entry',
-  },
-  {
-    value: 'nocontact',
-    label: 'No Contact',
-    children: [
-      {
-        value: 'notreachable',
-        label: 'Not Reachable',
-        children: [
-          {
-            value: 'notreachable',
-            label: 'Not Reachable',
-          },
-        ],
-      },
-      {
-        value: 'ringingbusy',
-        label: 'Ringing Busy',
-        children: [
-          {
-            value: 'ringingbusy',
-            label: 'Ringing Busy',
-          },
-        ],
-      },
-      {
-        value: 'wrongnumber',
-        label: 'Wrong Number',
-        children: [
-          {
-            value: 'wrongnumber',
-            label: 'Wrong Number',
-          },
-        ],
-      },
-      {
-        value: 'invalidnumber',
-        label: 'Invalid Number',
-        children: [
-          {
-            value: 'invalidnumber',
-            label: 'Invalid Number',
-          },
-        ],
-      },
-      {
-        value: 'switchedoff',
-        label: 'Switched Off',
-        children: [
-          {
-            value: 'switchedoff',
-            label: 'Switched Off',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'contact',
-    label: 'Contact',
-    children: [
-      {
-        value: 'appointment',
-        label: 'Appointment',
-        isSelected: true,
-        children: [
-          {
-            value: 'clienthasgivenappointment',
-            label: 'Client has given appointment',
-          },
-        ],
-      },
-      {
-        value: 'callback',
-        label: 'Callback',
-        isSelected: false,
-        children: [
-          {
-            value: 'customeraskedtocallbacklater',
-            label: 'Customer asked to callback later',
-          }
-        ],
-      },
-      {
-        value: 'followup',
-        label: 'Follow-up',
-        isSelected: false,
-        children: [
-          {
-            value: 'metinfollowupforclosure',
-            label: 'Met-in follow-up for closure',
-          },
-          {
-            value: 'notmetrescheduleappointment',
-            label: 'Not Met - Reschedule appointment',
-          }
-        ],
-      },
-      {
-        value: 'shorthangup',
-        label: 'Short hang up',
-        children: [
-          {
-            value: 'shorthangup',
-            label: 'Short hang up',
-          },
-        ],
-      },
-      {
-        value: 'notinterested',
-        label: 'Not interested',
-        children: [
-          {
-            value: 'clientdeniedgivingappointment',
-            label: 'Client denied giving appointment',
-          },
-          {
-            value: 'metnotinterested',
-            label: 'Met - not interested',
-          },
-        ],
-      },
-      {
-        value: 'nonservicelocation',
-        label: 'Non service location',
-        children: [
-          {
-            value: 'nonservicelocation',
-            label: 'Non service location',
-          },
-        ],
-      },
-      {
-        value: 'noteligible',
-        label: 'Not Eligible',
-        children: [
-          {
-            value: 'noteligible',
-            label: 'Not Eligible',
-          },
-        ],
-      },
-      {
-        value: 'notavailable',
-        label: 'Not Available',
-        children: [
-          {
-            value: 'notreachable',
-            label: 'Not Reachable',
-          },
-          {
-            value: 'noanswer',
-            label: 'No Answer',
-          },
-          {
-            value: 'alwayswitchedoff',
-            label: 'Alway Switched off',
-          },
-        ],
-      },
-      {
-        value: 'converted',
-        label: 'Converted',
-        children: [
-          {
-            value: 'closedwithsuccess',
-            label: 'Closed with success',
-          },
-        ],
-      },
-    ],
-  },
-];
+
 
 const setReminderOptions = [
   { value: 'none', label: 'None' }, { value: '5minbefore', label: '5 minutes before' },
@@ -250,7 +75,6 @@ const isNumberValid = (value) => value.trim() !== '' && value.length === 10
 
 
 const NewLead = React.memo(() => {
-  const [city, setcity] = useState()
 
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
@@ -269,6 +93,9 @@ const NewLead = React.memo(() => {
   const [insuranceCompany, setInsuranceComapany] = useState()
   const [stateProvince, setStateProvince] = useState()
   const [cityProvince, setCityProvince] = useState()
+  const [errorMessage, setErrorMessage] = useState()
+  const [isNewLead, setIsNewLead] = useState(true)
+
 
 
   // add team Member modal state control
@@ -279,7 +106,189 @@ const NewLead = React.memo(() => {
   const [changeOwnerLoading, setChangeOwnerLoading] = useState(false);
   // const [modalText, setModalText] = useState('Content of the modal');
 
+
+  const leadOptions = [
+    {
+      value: 'newleadentery',
+      label: 'New Lead Entry',
+      disabled:!isNewLead
+    },
+    {
+      value: 'nocontact',
+      label: 'No Contact',
+      children: [
+        {
+          value: 'notreachable',
+          label: 'Not Reachable',
+          children: [
+            {
+              value: 'Not Reachable',
+              label: 'Not reachable',
+            },
+          ],
+        },
+        {
+          value: 'ringingbusy',
+          label: 'Ringing Busy',
+          children: [
+            {
+              value: 'Ringing busy',
+              label: 'Ringing Busy',
+            },
+          ],
+        },
+        {
+          value: 'wrongnumber',
+          label: 'Wrong Number',
+          children: [
+            {
+              value: 'Wrong Number',
+              label: 'Wrong Number',
+            },
+          ],
+        },
+        {
+          value: 'invalidnumber',
+          label: 'Invalid Number',
+          children: [
+            {
+              value: 'invalidnumber',
+              label: 'Invalid Number',
+            },
+          ],
+        },
+        {
+          value: 'switchedoff',
+          label: 'Switched Off',
+          children: [
+            {
+              value: 'switchedoff',
+              label: 'Switched Off',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: 'contact',
+      label: 'Contact',
+      children: [
+        {
+          value: 'appointment',
+          label: 'Appointment',
+          isSelected: true,
+          children: [
+            {
+              value: 'Client has given appointment',
+              label: 'Client has given appointment',
+            },
+          ],
+        },
+        {
+          value: 'callback',
+          label: 'Callback',
+          isSelected: false,
+          children: [
+            {
+              value: 'Customer asked to callback later',
+              label: 'Customer asked to callback later',
+            }
+          ],
+        },
+        {
+          value: 'followup',
+          label: 'Follow-up',
+          isSelected: false,
+          children: [
+            {
+              value: 'Met-in follow-up for closure',
+              label: 'Met-in follow-up for closure',
+            },
+            {
+              value: 'Not Met - Reschedule appointment',
+              label: 'Not Met - Reschedule appointment',
+            }
+          ],
+        },
+        {
+          value: 'shorthangup',
+          label: 'Short hang up',
+          children: [
+            {
+              value: 'Short hang up',
+              label: 'Short hang up',
+            },
+          ],
+        },
+        {
+          value: 'notinterested',
+          label: 'Not interested',
+          children: [
+            {
+              value: 'Client denied giving appointment',
+              label: 'Client denied giving appointment',
+            },
+            {
+              value: 'Met - not interested',
+              label: 'Met - not interested',
+            },
+          ],
+        },
+        {
+          value: 'nonservicelocation',
+          label: 'Non service location',
+          children: [
+            {
+              value: 'Non service location',
+              label: 'Non service location',
+            },
+          ],
+        },
+        {
+          value: 'noteligible',
+          label: 'Not Eligible',
+          children: [
+            {
+              value: 'Not Eligible',
+              label: 'Not Eligible',
+            },
+          ],
+        },
+        {
+          value: 'notavailable',
+          label: 'Not Available',
+          children: [
+            {
+              value: 'Not Reachable',
+              label: 'Not Reachable',
+            },
+            {
+              value: 'No Answer',
+              label: 'No Answer',
+            },
+            {
+              value: 'Alway Switched off',
+              label: 'Alway Switched off',
+            },
+          ],
+        },
+        {
+          value: 'converted',
+          label: 'Converted',
+          children: [
+            {
+              value: 'Closed with success',
+              label: 'Closed with success',
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   const dispatch = useDispatch()
+  const history = useHistory()
+
   useEffect(() => {
     dispatch(actions.fetchAllState())
   }, [dispatch]);
@@ -288,6 +297,7 @@ const NewLead = React.memo(() => {
   const states = useSelector((state) => state.address.states)
   const minValue = useSelector((state) => state.login.minValue)
   const levelCode = useSelector((state) => state.login.levelCode)
+  let storeFormData = useSelector((state)=>state.newLead.formData)
 
   let stateOptions = (states && !_.isEmpty(states)) ?
     states.map(state => {
@@ -300,18 +310,38 @@ const NewLead = React.memo(() => {
     }) : null
 
 
-
-
-  const cities = useSelector((state) => state.address.cities)
-  let citiesOptions = (cities && !_.isEmpty(cities)) ?
+    const cities = useSelector((state) => state.address.cities)
+    let citiesOptions = (cities && !_.isEmpty(cities)) ?
     cities.map(city => {
-
+      
       const label = city.name
       const value = city.name
       const newCities = { ...city, label, value }
       return newCities
     }) : null
+    
+    const  disabledDate=(current) =>{
+      // Can not select days before today and today
+      return current && current < moment().startOf('second');
+    }
 
+   const  getDisabledHours = () => {
+      var hours = [];
+      for(var i =0; i < moment().hour(); i++){
+          hours.push(i);
+      }
+      return hours;
+  }
+  
+ const  getDisabledMinutes = (selectedHour) => {
+      var minutes= [];
+      if (selectedHour === moment().hour()){
+          for(var i =0; i < moment().minute(); i++){
+              minutes.push(i);
+          }
+      }
+      return minutes;
+  }
   const designations= useSelector((state)=>state.leads.designations)
   const designationsOptions = (designations && !_.isEmpty(designations)) ?
     designations.map(designation=>{
@@ -320,6 +350,107 @@ const NewLead = React.memo(() => {
       const newCities = { ...designation, label, value }
       return newCities
     }):null
+
+    const handleAddMember = () => {
+      // setModalText('Updating changes ');
+      visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
+      
+    };
+    const showChangeOwnerModal = () => {
+      setVisibleChangeOwnerModel(true);
+    };
+  
+    
+  
+    const handleChangeOwner = () => {
+      // setModalText('Updating changes ');
+      setChangeOwnerLoading(true);
+      setTimeout(() => {
+        setVisibleChangeOwnerModel(false);
+        setChangeOwnerLoading(false);
+      }, 2000);
+    };
+  
+    const Append = (value) => {
+      setLeadStatus(value[0])
+      setLeadDisposition(value[1])
+      setLeadSubDisposition(value[2])
+    }
+  
+    const appointmentDateHandler = (date,dateString)=>{
+      setAppointmentDate(Date.parse(dateString))
+    }
+  
+    const startTimeHandler = (time,timeString)=>{
+      const hourInMilisec = (new Date(time).getHours()+ 24) % 12 || 12
+      const minInMilisec = new Date(time).getMinutes()
+      const res =  (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
+      // console.log(res)
+      // console.log(hourInMilisec)
+      setAppointmentTime(res)
+    }
+    const remarkFromSouceHandler = (event) => {
+      setRemarkFromSource(event.target.value)
+    }
+  
+    const remarkFromUserHandler = (event) => {
+      setRemarkFromUser(event.target.value)
+    }
+
+    const onFinish = (errorMessage) => {
+      alert(errorMessage)
+      // console.log('Success:', errorMessage);
+    };
+  
+    const onFinishFailed = (errorMessage) => {
+      alert(errorMessage)
+      // console.log('Failed:', errorMessage);
+    };
+  
+    const stateSelectHandler = (value, key) => {
+      dispatch(actions.fetchAllCities(key.region_data.adminCode1))
+  
+    }
+    const stateChangetHandler = value => {
+      setStateProvince(value)
+    }
+  
+    const cityChangeHandler = value => {
+      setCityProvince(value)
+  
+    }
+    const leadTypeHandler = value => {
+      setLeadType(value)
+    }
+    const productHandler = value => {
+      setProduct(value)
+    }
+    const insuranceCompanyHandler = value => {
+      setInsuranceComapany(value)
+    }
+  
+  
+  
+  
+    useEffect(() => {
+      const handleWindowResize = () => setWidth(window.innerWidth)
+      window.addEventListener("resize", handleWindowResize);
+      // Return a function from the effect that removes the event listener
+      return () => window.removeEventListener("resize", handleWindowResize);
+    }, [width]);
+  
+  
+  
+  
+    // const getDesignation= ()=>{
+  
+    // }
+  
+    const toggleTeamMember = () => {
+      setVisibleTeamMemberModal(!visibleTeamMemberModal);
+      !visibleTeamMemberModal &&  dispatch(actions.fetchDesignation(channelCode))
+  
+    };
   // Form control hook
   const {
     value: firstNameValue,
@@ -352,7 +483,7 @@ const NewLead = React.memo(() => {
     isValid: primaryMobileIsValid,
     hasError: primaryMobileHasError,
     valueChangeHandler: primaryMobileChangeHandler,
-    reset: resetPrimaryMObileNo,
+    reset: resetPrimaryMobileNo,
 
   } = useInput(isNumberValid);
 
@@ -367,9 +498,41 @@ const NewLead = React.memo(() => {
       range: 'Number must be 10 digits',
     },
   };
+  const formData = {
+    ...storeFormData,
+    leadStatus: leadStatus,
+    start_date: appointmentDate,
+    start_time: appointmentTime,
+    remarksfromUser: remarkFromUser,
+    remarksfromSource: remarkFromSouce,
+    teamMembers: '',
+    leadsubDisposition: leadSubDisposition,
+    leadDisposition: leadDisposition,
+    leadSource: '',
+
+    appointment_status: '',
+    appointmentdisPosition: '',
+    appointmentsubdisPosition: '',
+
+
+    lead_Owner_Id: id,
+    lead_Creator_Id: id,
+    user_id: id,
+    LeadType: leadType,
+    Product: product,
+    Insurance_Company: insuranceCompany,
+
+    state: stateProvince,
+    city: cityProvince,
+    primaryMobile: primaryMobile,
+    email: emailValue,
+
+    firstName: firstNameValue,
+    lastName: lastNameValue,
+  };
   let formIsValid = false;
 
-  if (firstNameIsValid && lastNameIsValid && emailIsValid && primaryMobileIsValid) {
+  if (firstNameIsValid && lastNameIsValid  && primaryMobileIsValid) {
     formIsValid = true;
   }
 
@@ -378,125 +541,42 @@ const NewLead = React.memo(() => {
 
     if (!formIsValid) {
       return;
+    }else{
+      dispatch(actions.createLead(formData))
     }
-
-    console.log('Submitted!');
-    console.log(firstNameValue, lastNameValue, emailValue);
-    const formData = {
-      leadStatus: leadStatus,
-      start_date: appointmentDate,
-      start_time: '',
-      remarksfromUser: remarkFromUser,
-      remarksfromSource: remarkFromSouce,
-      teamMembers: '',
-      leadsubDisposition: leadSubDisposition,
-      leadDisposition: leadDisposition,
-      leadSource: '',
-
-      appointment_status: '',
-      appointmentdisPosition: '',
-      appointmentsubdisPosition: '',
+    
+    setErrorMessage('Form submitted successfully')
+    setIsNewLead(false)
+    // setErrorMessage( res.data.errMsg)
+   
 
 
-      lead_Owner_Id: id,
-      lead_Creator_Id: id,
-      user_id: id,
-      LeadType: leadType,
-      Product: product,
-      Insurance_Company: insuranceCompany,
+    // resetFirstName();
+    // resetLastName();
+    // resetEmail();
+  };
+  const proceedHandler = event => {
+    event.preventDefault();
 
-      line1: '',
-      line2: '',
-      line3: '',
-      country: '',
-      state: stateProvince,
-      city: cityProvince,
-      pincode: '',
-      primaryMobile: primaryMobile,
-      secondaryMobile: '',
-      landlineNo: '',
-      email: emailValue,
-      socialSecurityAdharNo: '',
-      mailingAddressStatus: '',
-      mailingAddressSecond: '',
-
-      firstName: firstNameValue,
-      lastName: lastNameValue,
-      dob: '',
-      gender: '',
-      maritalStatus: '',
-      childStatus: '',
-      ChildInfo: '',
+    if (!formIsValid) {
+      return;
+    }else{
+      dispatch(actions.storeLead(formData))
+      history.push('leaddetails/personallead')
+    }
+    
+    setErrorMessage('Form submitted successfully')
+    setIsNewLead(false)
+    // setErrorMessage( res.data.errMsg)
+   
 
 
-      education: '',
-      incomeGroup: '',
-      annuaLincome: '',
-      professionType: '',
-      // //
-      productCategory: '',
-      productType: '',
-      solution: '',
-      expectedPremium: '',
-      expectedclosureDate: '',
-
-      HaveLifeInsurance: '',
-      SumAssured: '',
-      Insurance: '',
-      Insurancedetails: '',
-      riskComensmentDate: '',
-      HaveLifeInsurance_details: '',
-    };
-    resetFirstName();
-    resetLastName();
-    resetEmail();
+    // resetFirstName();
+    // resetLastName();
+    // resetEmail();
   };
 
-
-  const stateSelectHandler = (value, key) => {
-    dispatch(actions.fetchAllCities(key.region_data.adminCode1))
-
-  }
-  const stateChangetHandler = value => {
-    setStateProvince(value)
-  }
-
-  const cityChangeHandler = value => {
-    setCityProvince(value)
-
-  }
-  const leadTypeHandler = value => {
-    setLeadType(value)
-  }
-  const productHandler = value => {
-    setProduct(value)
-  }
-  const insuranceCompanyHandler = value => {
-    setInsuranceComapany(value)
-  }
-
-
-
-
-  useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth)
-    window.addEventListener("resize", handleWindowResize);
-    // Return a function from the effect that removes the event listener
-    return () => window.removeEventListener("resize", handleWindowResize);
-  }, [width]);
-
-
-
-
-  const getDesignation= ()=>{
-
-  }
-
-  const toggleTeamMember = () => {
-    setVisibleTeamMemberModal(!visibleTeamMemberModal);
-    !visibleTeamMemberModal &&  dispatch(actions.fetchDesignation(channelCode))
-
-  };
+  
 
   // useEffect(() => {
   //   if(designationsOptions===undefined){
@@ -508,48 +588,7 @@ const NewLead = React.memo(() => {
     
   // }, [designationsOptions])
   
-  const handleAddMember = () => {
-    // setModalText('Updating changes ');
-    visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
-    
-  };
-  const showChangeOwnerModal = () => {
-    setVisibleChangeOwnerModel(true);
-  };
-
   
-
-  const handleChangeOwner = () => {
-    // setModalText('Updating changes ');
-    setChangeOwnerLoading(true);
-    setTimeout(() => {
-      setVisibleChangeOwnerModel(false);
-      setChangeOwnerLoading(false);
-    }, 2000);
-  };
-
-  const Append = (value) => {
-    setLeadStatus(value[0])
-    setLeadDisposition(value[1])
-    setLeadSubDisposition(value[2])
-  }
-
-  const appointmentDateHandler = (date,dateString)=>{
-    setAppointmentDate(Date.parse(dateString))
-  }
-
-  const startTimeHandler = (time,timeString)=>{
-    const timeInMilisec = new Date(time).getTime()
-    console.log(timeInMilisec)
-    setAppointmentTime((timeString))
-  }
-  const remarkFromSouceHandler = (event) => {
-    setRemarkFromSource(event.target.value)
-  }
-
-  const remarkFromUserHandler = (event) => {
-    setRemarkFromUser(event.target.value)
-  }
 
 
   return (
@@ -567,6 +606,10 @@ const NewLead = React.memo(() => {
               layout="horizontal"
               className="contact-detail-form"
               validateMessages={validateMessages}
+              scrollToFirstError
+              help={errorMessage}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
             >
               <Col >
                 <Form.Item
@@ -794,7 +837,6 @@ const NewLead = React.memo(() => {
             <Row>
               <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
                 <p className="form-title">Summary</p>
-                <p>Fresh Lead</p>
                 <Row>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">Lead ID</p>
@@ -845,6 +887,12 @@ const NewLead = React.memo(() => {
                     label="Lead Status"
                     style={{ marginBottom: '1rem' }}
                     size="large"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'This field is required',
+                      },
+                    ]}
                   >
                     <Cascader
                       options={leadOptions}
@@ -873,7 +921,11 @@ const NewLead = React.memo(() => {
                         style={{ marginBottom: '1rem' }}
 
                       >
-                      <DatePicker onChange={appointmentDateHandler} size="large" style={{ width: "100%" }}/>
+                      <DatePicker 
+                        disabledDate={disabledDate}
+                        onChange={appointmentDateHandler} 
+                        size="large" 
+                        style={{ width: "100%" }}/>
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -885,14 +937,22 @@ const NewLead = React.memo(() => {
                         hasFeedback
                         rules={[
                           {
-                            required: false,
+                            required: true,
                             message: 'Select Start Time',
                           },
                         ]}
                         style={{ marginBottom: '1rem' }}
 
                       >
-                      <TimePicker use12Hours minuteStep={30} format="h:mm" size="large" style={{ width: "100%" }} onChange={startTimeHandler}/>
+                      <TimePicker 
+                        disabledHours={getDisabledHours}
+                        disabledMinutes={getDisabledMinutes}
+                        use12Hours 
+                        minuteStep={30} 
+                        format="h:mm" 
+                        size="large" 
+                        style={{ width: "100%" }} 
+                        onChange={startTimeHandler}/>
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1070,13 +1130,39 @@ const NewLead = React.memo(() => {
           <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={16} xl={16} span={22} offset={1}>
             <Row>
               <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
-                <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<FileTextOutlined />} htmlType="submit"
+                {isNewLead?
+                <Button 
+                  type="primary" 
+                  shape="round" 
+                  size="large" 
+                  style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                  icon={<FileTextOutlined />} htmlType="submit"
                   disabled={!formIsValid}
                   onClick={submitHandler}
-                >Submit</Button>
+                >Submit</Button>:
+                <Button 
+                  type="primary" 
+                  shape="round" 
+                  size="large" 
+                  style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                  icon={<EditOutlined  />} htmlType="submit"
+                  disabled={!formIsValid}
+                  onClick={submitHandler}
+                >Update</Button>
+                }
               </Col>
               <Col xs={11} sm={12} md={4}>
-                <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }} icon={<ArrowRightOutlined />}>Proceed</Button>
+                {/* <Link to="leaddetails/personallead"> */}
+                  <Button
+                    type="primary"
+                    shape="round"
+                    size="large"
+                    htmlType="submit"
+                    style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                    icon={<ArrowRightOutlined />}
+                    onClick={proceedHandler}
+                    >Proceed</Button>
+                {/* </Link> */}
               </Col>
             </Row>
           </Col>

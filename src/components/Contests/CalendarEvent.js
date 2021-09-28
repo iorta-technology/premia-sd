@@ -817,7 +817,7 @@ export default function CalendarEvent() {
   const[updateEndTime,setUpdateEndTime]=useState()
 
   
-  const[fetchStartDate,setFetchStartDate]=useState();
+const[fetchStartDate,setFetchStartDate]=useState();
 const[fetchEndDate,setFetchEndDate]=useState();
 const[fetchStartTime,setFetchStartTime]=useState();
 const[fetchEndTime,setFetchEndTime]=useState();
@@ -1007,11 +1007,13 @@ useEffect(()=>{
 // ])
 //     })
 res.data.errMsg.map((item)=>{
-  setAddEvents(addEvents=>[...addEvents,{
+  setAddEvents(addEvents=>[
+      ...addEvents,{
           id:item._id,
           start:parseInt(item.start_date)+parseInt(item.start_time),
           end:parseInt(item.end_date)+parseInt(item.end_time),
-        }])
+        }
+      ])
 })
 console.log(fetchEventObject)
     // res.data.errMsg.map((item)=>{

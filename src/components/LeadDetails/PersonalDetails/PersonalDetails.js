@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Form, Typography, Radio, Button, Input, Select, Tabs } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Row, Col, Form, Typography, Radio, Button, Input, Select, Tabs,DatePicker } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import TabsMain from '../../Tab/Tab'
 import LeadDetailsTab from '../LeadDetailsTab';
-const { Title } = Typography;
+import '../../StatusLead/StatusLead.css'
+import * as actions from '../../../store/actions/index';
+import { useHistory } from 'react-router-dom';
+import moment, { now } from 'moment';
 
 const formItemLayout = {
     labelCol: {
@@ -16,12 +20,11 @@ const formItemLayout = {
 
 const maritalStatusOptions = [
     { value: 'single', label: 'Single' },
-    { value: 'married', label: 'Married' },
-    { value: 'divorced', label: 'Divorced' },
-    { value: 'widowed', label: 'Widowed' }
+    { value: 'Married', label: 'Married' },
+    { value: 'Divorced', label: 'Divorced' },
+    { value: 'Widowed', label: 'Widowed' }
 ]
-
-let personalRoute = "/leadmasterpage/leaddetails/personallead"
+const  personalRoute = "/leadmasterpage/leaddetails/personallead"
 const tabMenu = [
     {
         id: 1,
@@ -49,15 +52,103 @@ const tabMenu = [
 
 
 const PersonalDetails = () => {
+
+    let storeFormData = useSelector((state)=>state.newLead.formData)
+
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [width, setWidth] = useState(window.innerWidth);
+    const [firstName, setFirstName] = useState(storeFormData.firstName);
+    const [lastName, setLastName] = useState(storeFormData.lastName);
+    const [dob, setDob] = useState();
+    const [isDobValid, setIsDobValid] = useState(false);
+    const [dobErrorMessage, setDobErrorMessage] = useState();
+    const [gender, setGender] = useState('');
+    const [maritalStatus, setMaritalStatus] = useState();
     const breakpoint = 620;
 
+    const validateMessages = {
+        // required: `${label} is required!`,
+        types: {
+          email: `Age should be between 18 to 55 years`,
+          dob: dobErrorMessage
+        },
+        number: {
+          range: 'Number must be 10 digits',
+        },
+      };
+    const onChangeFirstName = (e)=>{
+        setFirstName(e.target.value)
+    }
+
+    const onChangeLastName = (e)=>{
+        setLastName(e.target.value)
+    }
+
+    
+    const onChangeDOB = (date,dateString)=>{
+        let minYear =  moment().subtract(18, 'years')
+        let maxYear =  moment().subtract(55, 'years')
+        let signal =  moment(dateString).isBetween(maxYear, minYear);
+        setIsDobValid(signal)
+    // console.log(isDobValid)
+
+        let msDate = moment(date).valueOf()
+       isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
+    }
+    console.log(isDobValid)
+    console.log('date',dob)
+    console.log(dobErrorMessage)
+
+    const onChangeGender = (e)=>{
+        setGender(e.target.value)
+        console.log(gender)
+    }
+
+    const onChangeMaritalStatus = (value)=>{
+        setMaritalStatus(value)
+        console.log(maritalStatus)
+    }
+
+    
+
+    const formData = {
+        ...storeFormData,
+        firstName: firstName,
+        lastName: lastName,
+        dob: dob,
+        gender: gender,
+        maritalStatus: maritalStatus,
+    };
+    const proceedHandler = event => {
+        event.preventDefault();
+        dispatch(actions.storeLead(formData))
+        history.push('contactlead')
+    
+        // if (!formIsValid) {
+        //   return;
+        // }else{
+        // }
+        
+        // setErrorMessage('Form submitted successfully')
+        // setIsNewLead(false)
+        // setErrorMessage( res.data.errMsg)
+       
+    
+    
+        // resetFirstName();
+        // resetLastName();
+        // resetEmail();
+      };
+    
     useEffect(() => {
+        
+        
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
-    }, [width]);
+    },[]);
 
     return (
         <>
@@ -75,63 +166,93 @@ const PersonalDetails = () => {
                     <Col className="m0a" xs={22} sm={22} md={17} offset={2}>
                         <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
                             <p className="form-title">Personal Details</p>
-                            <Form layout="horizontal" className="contact-detail-form">
+                            <Form 
+                                layout="horizontal" 
+                                className="contact-detail-form"
+                                validateMessages={validateMessages}
+                                initialValues={{
+                                    "name":firstName,
+                                    "lastname":lastName
+                                }}>
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name={['user', 'name']}
+                                        name='name'
                                         label="First Name"
                                         rules={[
                                             {
-                                                required: false,
+                                                required: true,
                                             },
                                         ]}
                                     >
-                                        <Input className="first-name input-box" placeholder="Enter First Name" />
+                                        <Input 
+                                            className="first-name input-box" 
+                                            placeholder="Enter First Name" 
+                                            // defaultValue={firstName}
+                                            // value={storeFormData.firstName}
+                                            onChange={onChangeFirstName}
+                                        />
                                     </Form.Item>
                                 </Col>
-                                <Col >
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name={['user', 'name']}
-                                        label="Middle Name"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                        ]}
-                                    >
-                                        <Input className="first-name input-box" placeholder="Enter Middle Name" />
-                                    </Form.Item>
-                                </Col>
+                                
                                 <Col>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name={['user', 'name']}
+                                        name='lastname'
                                         label="Last Name"
                                         rules={[
                                             {
-                                                required: false,
+                                                required: true,
                                             },
                                         ]}
                                     >
-                                        <Input className="first-name input-box" placeholder="Enter Last Name" />
+                                        <Input 
+                                            className="first-name input-box" 
+                                            placeholder="Enter Last Name" 
+                                            value={lastName}
+                                            onChange={onChangeLastName}
+                                        />
                                     </Form.Item>
                                 </Col>
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
-                                        name="Gender"
+                                        className="form-item-name label-color"
+                                        name="dob"
+                                        label="Date of Birth"
+                                        validateStatus='error'
+                                        help='Age should be between 18 and 55 years'
+                                        hasFeedback
+                                        rules={[
+                                            {
+                                                type:dob,
+                                                required: false,
+                                                message: dobErrorMessage,
+                                            },
+                                        ]}
+                                        // style={{ marginBottom: '1rem' }}
+                                    >
+                                    <DatePicker 
+                                        value={dob}
+                                        onChange={onChangeDOB} 
+                                        size="large" 
+                                        style={{ width: "100%" }}/>
+                                    </Form.Item>
+                                </Col>
+                                <Col >
+                                    <Form.Item
+                                        {...formItemLayout}
+                                        name="gender"
                                         label="Gender"
+                                        onChange={onChangeGender}
                                         rules={[{ required: true, message: 'Please pick gender' }]}
                                     >
                                         <Radio.Group>
-                                            <Radio.Button  value="male">Male</Radio.Button>
-                                            <Radio.Button value="female">Female</Radio.Button>
-                                            <Radio.Button value="other">Other</Radio.Button>
+                                            <Radio.Button  value="Male">Male</Radio.Button>
+                                            <Radio.Button value="Female">Female</Radio.Button>
+                                            <Radio.Button value="Other">Other</Radio.Button>
                                         </Radio.Group>
                                     </Form.Item>
                                 </Col>
@@ -149,7 +270,12 @@ const PersonalDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Select size="large" options={maritalStatusOptions} placeholder="Select Your State"></Select>
+                                        <Select 
+                                            size="large" 
+                                            options={maritalStatusOptions} 
+                                            placeholder="Select Your State"
+                                            onChange={onChangeMaritalStatus}>
+                                        </Select>
                                     </Form.Item>
                                 </Col>
                             </Form>
@@ -160,7 +286,13 @@ const PersonalDetails = () => {
                                     <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }} icon={<ArrowRightOutlined />}>Proceed</Button>
+                                    <Button 
+                                        type="primary" 
+                                        shape="round" 
+                                        size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }} 
+                                        icon={<ArrowRightOutlined />}
+                                        onClick={proceedHandler}
+                                        >Proceed</Button>
                                 </Col>
                             </Row>
                         </Col>
@@ -172,3 +304,4 @@ const PersonalDetails = () => {
 }
 
 export default PersonalDetails
+

@@ -9,9 +9,11 @@ const initialState = {
     selected_allLeads : null,
     fetch_allLeads_Error : "",
 
+    // lead form meta data
     fetchDesignationLoading:false,
     designations:[],
-    fetchDesignationError:''
+    fetchDesignationError:'',
+
 }
 // lead reducer
 const fetchAllLeadsStart = (state, action) => {

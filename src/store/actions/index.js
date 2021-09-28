@@ -3,6 +3,10 @@ export {
     fetchDesignation,
 } from './leads'
 export {
+    createLead,
+    storeLead
+}from './newLead'
+export {
     fetchAllState,
     fetchAllCities,
 } from './address'
