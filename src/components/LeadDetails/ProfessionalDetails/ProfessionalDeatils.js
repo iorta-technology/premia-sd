@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col, Form,  Button, Select } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Tabs from '../../Tab/Tab'
-import { useDispatch, useSelector } from 'react-redux';
 import LeadDetailsTab from '../LeadDetailsTab';
 import '../../StatusLead/StatusLead.css'
 

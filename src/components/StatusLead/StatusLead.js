@@ -712,7 +712,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="State"
+                  name="state"
                   label="State"
                   hasFeedback
                   rules={[
@@ -737,7 +737,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="City"
+                  name="city"
                   label="City"
                   hasFeedback
                   rules={[
@@ -761,7 +761,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="Lead Type"
+                  name="leadType"
                   label="Lead Type"
                   hasFeedback
                   rules={[
@@ -773,7 +773,7 @@ const NewLead = React.memo(() => {
                   style={{ marginBottom: '1rem' }}
 
                 >
-                  <Select size="large" placeholder="New Bussiness" onChange={leadTypeHandler}>
+                  <Select  size="large" placeholder="New Bussiness" onChange={leadTypeHandler}>
                     <Option value="newbussiness">New Bussiness</Option>
                     <Option value="renewal">Renewal</Option>
                     <Option value="crosssell">Cross Sell</Option>
@@ -784,7 +784,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="Product"
+                  name="product"
                   label="Product"
                   hasFeedback
                   rules={[
@@ -810,7 +810,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="Insurance Company"
+                  name="insurance-company"
                   label="Insurance Company"
                   hasFeedback
                   rules={[
@@ -883,7 +883,7 @@ const NewLead = React.memo(() => {
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color"
-                    name="Lead Status"
+                    name="leadStatus"
                     label="Lead Status"
                     style={{ marginBottom: '1rem' }}
                     size="large"
@@ -900,6 +900,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       popupClassName="popup-size"
                       onChange={Append}
+                      style={{height:'3rem'}}
                     />
                   </Form.Item>
                 </Col>
