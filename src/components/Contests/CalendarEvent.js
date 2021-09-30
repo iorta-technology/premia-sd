@@ -24,7 +24,7 @@ export default function CalendarEvent() {
   let{innerWidth:width,innerHeight:height}=window;
   const format = 'h:mm';
   let month=moment().format('MM/YYYY');
-  console.log(month)    
+  // console.log(month)    
   
 
   const [advisorCheck, setAdvisorCheck] = useState(true)
@@ -779,12 +779,18 @@ export default function CalendarEvent() {
     setCustomerCheck(true)
   }
   const DurationSelectTimeFunc = () => {
+    setStartTimeSelect("")
+    setEndTimeSelect("")
+    setDurationStartTimeOperation()
+    setDurationEndTimeOperation()
     setDurationButton({
       select_time: true,
       all_day: false
     })
   }
   const DurationAllDayFunc = () => {
+    setDurationStartTimeOperation(32400000)
+    setDurationEndTimeOperation(61200000)
     setDurationButton({
       select_time: false,
       all_day: true
@@ -945,8 +951,13 @@ const[prospectOnClickCheck,setProspectOnClickCheck]=useState(false)
 const[bookEventCheck,setBookEventCheck]=useState(true)
 const[updateEventCheck,setUpdateCheckEvent]=useState(false)
 const[updateEventId,setUpdateEventId]=useState()
-
-
+const[eventLoadCheck,setEventLoadCheck]=useState(false)
+const[eventBookCheck,setEventBookCheck]=useState("")
+const[updateEventType,setUpdateEventType]=useState("")
+const[eventStatus,setEventStatus]=useState("")
+const[statusReasonText,setStatusReasonText]=useState("")
+const[manualCustomerCheck,setManualCustomerCheck]=useState(false)
+const[addCustTagVisible,setAddCustTagVisible]=useState(true)
   // axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=past
   // `,{
   //   // params:{
@@ -978,7 +989,12 @@ const[updateEventId,setUpdateEventId]=useState()
   // .catch((err)=>{
   //   console.log(err)
   // },[])
-  const[fetchEventObject,setFetchEventObject]=useState()
+  const[fetchEventArray,setFetchEventArray]=useState([])
+const[fetchEventObject,setFetchEventObject]=useState()
+const[editStartTime,setEditStartTime]=useState("");
+const[editStartDisp,setEditStartDisp]=useState("");
+const[editEndDisp,setEditEndDisp]=useState("");
+const[editEndTime,setEditEndTime]=useState("");
 
 // useEffect(()=>{
 //   testArr[0].errMsg.map((item)=>{
@@ -991,12 +1007,24 @@ const[updateEventId,setUpdateEventId]=useState()
 // },[testArr])
 
 useEffect(()=>{
-  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60a61763de95b87f62856c13?teamdata=0&filter=${month}&category=upcoming `)
+  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=upcoming `)
   .then((res)=>{
     console.log(res.data.errMsg)
     setFetchEventCheck(true)
     setFetchUpcomingArr(res.data.errMsg)
-
+res.data.errMsg.map((item)=>{
+  setFetchEventArray(fetchEvents=>[...fetchEvents,{
+    id:item._id,
+    start_date:parseInt(item.start_date),
+    start_time:parseInt(item.start_time),
+    end_date:parseInt(item.end_date),
+    end_time:parseInt(item.end_time),
+    manuallyrenewalCustomer:[{
+      Name:item.Name,
+      MobileNumber:item.MobileNumber
+    }]
+  }])
+})
 //     testArr[0].errMsg.map((item)=>{
 // setAddEvents(addEvents=>[...addEvents,
 // {
@@ -1006,14 +1034,18 @@ useEffect(()=>{
 // }
 // ])
 //     })
+
 res.data.errMsg.map((item)=>{
   setAddEvents(addEvents=>[...addEvents,{
           id:item._id,
+          title:item.event_type+" with",
           start:parseInt(item.start_date)+parseInt(item.start_time),
           end:parseInt(item.end_date)+parseInt(item.end_time),
+          
         }])
 })
-console.log(fetchEventObject)
+
+console.log(res.data.errMsg)
     // res.data.errMsg.map((item)=>{
     //   setAddEvents([...addEvents,{
     // id:item._id,
@@ -1088,25 +1120,36 @@ console.log(res.data.errMsg)
   })
 
 
-  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60a61763de95b87f62856c13?teamdata=0&filter=${month}&category=past `)
+  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=past `)
   .then((res)=>{
     console.log(res.data.errMsg)
     setFetchEventCheck(true)
     res.data.errMsg.map((item)=>{
+      setFetchEventArray(fetchEvents=>[...fetchEvents,{
+        id:item._id,
+        start_date:parseInt(item.start_date),
+        start_time:parseInt(item.start_time),
+        end_date:parseInt(item.end_date),
+        end_time:parseInt(item.end_time)
+      }])
+    })
+    res.data.errMsg.map((item)=>{
       setAddEvents(addEvents=>[...addEvents,{
               id:item._id,
+              title:item.event_type+" with",
               start:parseInt(item.start_date)+parseInt(item.start_time),
               end:parseInt(item.end_date)+parseInt(item.end_time),
             }])
     })
+  
     // setFetchUpcomingArr(res.data.errMsg)
   })
   .catch((err)=>{
     console.log(err.msg)
   })
-},[])
+},[eventLoadCheck])
 
-console.log(helperUpcomingArr)
+// console.log(helperUpcomingArr)
 
 
 
@@ -1121,7 +1164,7 @@ const CustomerTagCloseFunc=()=>{
 
 const searchCustomer = (e) => {
 setCustomerOnClickCheck(true)
-axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/partners?csmId=60c2fdb39c78a32644d0cf63&search=${searchCustomerText}`)
+axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/partners?csmId=61519f9a8ce8772eab9838cb&search=${searchCustomerText}`)
   // axios.get("https://jsonplaceholder.typicode.com/users")
   .then((res)=>{
     console.log(res.data.errMsg)
@@ -1149,8 +1192,12 @@ const searchCustomerTextFunc=(e)=>{
   }
 }
 
+const AddCustomerTag=(value)=>{
 
+}
+const AddCustomerCloseFunc=()=>{
 
+}
 
 const ProspectClickedTag=(value)=>{
   setProspectOnClickVal(value)
@@ -1162,7 +1209,7 @@ const ProspectTagCloseFunc=()=>{
 }
 const searchProspect = (e) => {
 setProspectOnClickCheck(true)
-axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/prospects?csmId=60c2fdb39c78a32644d0cf63&search=${searchProspectText}`)
+axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/prospects?csmId=61519f9a8ce8772eab9838cb&search=${searchProspectText}`)
   // axios.get("https://jsonplaceholder.typicode.com/users")
   .then((res)=>{
     console.log(res.data.errMsg)
@@ -1203,8 +1250,10 @@ const AddManuallyFunc=()=>{
 }
 
 const CustomerNameFunc = (e) => {
+
 setCustomerNameText(e.target.value)
  setCustomerNameCheck(true)
+
   if (customerMobileNoText == "") {
     setCustomerMobileNoCheck(false)
     // alert("this works")
@@ -1220,6 +1269,24 @@ const CustomerMobileNoFunc = (e) => {
     }
     
   }
+  const ManualCustomerSubmitFunc=(e)=>{
+    if(customerMobileNoText==""||customerNameText==""){
+      setManualCustomerCheck(false)
+    }
+    else{
+setManualCustomerCheck(true)
+// setCustomerMobileNoText("")
+// setCustomerNameText("")
+    }
+    
+  }
+  const AddCustomerTagVisibleFunc=()=>{
+    setAddCustTagVisible(false)
+    setManualCustomerCheck(false)
+    setCustomerNameText("")
+    setCustomerMobileNoText("")
+  }
+  
   const ProspectFirstNameFunc = (e) => {
     setProspectFirstNameText(e.target.value)
     setProspectFirstNameCheck(true)
@@ -1376,12 +1443,18 @@ console.log("This is end Date"+ms_date)
   }
 
   const StartTimeChangeFunc=(e)=>{
+
+
     setStartTimeSelect(e.target.value)
+
     setDurationStartTimeCheck(true)
-    console.log("This is the start Time"+e.target.value)
-    let parseTime=parseInt(e.target.value)
-    setDurationStartTimeOperation(parseTime)
-let timeDiff=e.target.value
+        console.log("This is the start Time"+e.target.value)
+        let parseTime=parseInt(e.target.value)
+        setDurationStartTimeOperation(parseTime)
+    let timeDiff=e.target.value
+    setDurationEndTimeCheck(true)
+    setEndTimeSelect((+timeDiff)+(+"3600000"))
+    console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
 if(endTimeSelect==""){
   setEndTimeSelect((+timeDiff)+(+"3600000"))
 console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
@@ -1390,25 +1463,59 @@ console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
   let parseTime=parseInt((+timeDiff)+(+"3600000"))
   setDurationEndTimeOperation(parseTime)
 }
-if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
-  setDurationStartTimeDiffCheck(false)
-  console.log("TIme should be less than end time")
-      }
-// alert((+timeDiff)+(+"3600000")) 
-    console.log(e.target.value)
+
+// if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
+//     setDurationStartTimeDiffCheck(false)
+//     console.log("TIme should be less than end time")
+//         }
+       
+else{
+  setDurationStartTimeDiffCheck(true)
+}
+
+//     setStartTimeSelect(e.target.value)
+//     setDurationStartTimeCheck(true)
+//     console.log("This is the start Time"+e.target.value)
+//     let parseTime=parseInt(e.target.value)
+//     setDurationStartTimeOperation(parseTime)
+// let timeDiff=e.target.value
+// if(endTimeSelect==""){
+//   setEndTimeSelect((+timeDiff)+(+"3600000"))
+// console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
+//   let parseTimeCondition=parseInt()
+//   setDurationEndTimeCheck(true)
+//   let parseTime=parseInt((+timeDiff)+(+"3600000"))
+//   setDurationEndTimeOperation(parseTime)
+// }
+// if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
+//   setDurationStartTimeDiffCheck(false)
+//   console.log("TIme should be less than end time")
+//       }
+//       else if(((e.target.value)>=endTimeSelect)){
+//         setDurationStartTimeDiffCheck(false)
+//       }
+//       else{
+//         setDurationStartTimeDiffCheck(true)
+//       }
+// // alert((+timeDiff)+(+"3600000")) 
+//     console.log(e.target.value)
   }
   const EndTimeChangeFunc=(e)=>{
     setEndTimeSelect(e.target.value)
     setDurationEndTimeCheck(true)
     let parseTime=parseInt(e.target.value)
-    setDurationStartTimeOperation(parseTime)
+    setDurationEndTimeOperation(parseTime)
     console.log(e.target.value)
     let timeDiff=e.target.value
     if(((e.target.value)==startTimeSelect)&&startTimeSelect!=""){
       setDurationEndTimeSameCheck(false)
 console.log("TIme should not be same as start time")
     }
+    else if(((e.target.value)<startTimeSelect)){
+setDurationStartTimeDiffCheck(false)
+    }
     else{
+      setDurationStartTimeDiffCheck(true)
       setDurationEndTimeSameCheck(true)
     }
     if(((e.target.value)<startTimeSelect)&&startTimeSelect!=""){
@@ -1512,26 +1619,74 @@ setDurationEndTime(time)
     //     }
     //     setDurationTimeAlert(false)
   }
-  const BookAppointmentFunc = () => {
+  const BookAppointmentFunc = (e) => {
+
+
+    console.log(eventLoadCheck)
     if(updateEventCheck==true){
      
     axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
-      Appointment_id:updateEventId, 
-    userId:"60a61763de95b87f62856c13",
-        partnerId:"",
-        appointment_type:"customer",
-        event_type:"appointment",
-        start_date:durationStartDateOperation,
-        start_time:durationStartTimeOperation,
-        end_date:durationEndDateOperation,
-        end_time:durationEndTimeOperation,
-        leadId:""
+     showComment: false,
+      leadId: "",
+      partnerId: "",
+      customerId: "",
+      teamMember_clone: [],
+      statusReason: "",
+      isLeadFailed: false,
+      Appointment_id: updateEventId, 
+      manuallyrenewalCustomer: [{ "Name": "sss", "MobileNumber": "23232" }],
+      clientVisit: "clientmeeting",
+      teamMember: [],
+      manuallycustomerAdded: "true",
+      statusType: eventStatus,
+      tata_appointment_type: "",
+      durationType: "customedatetime",
+      appointment_type: "customer",
+      // start_time_MS: 1632315600000,
+      // end_time_MS: 1632319200000,
+      start_time: durationStartTimeOperation,
+      start_date: durationStartDateOperation,
+      userId: "61519f9a8ce8772eab9838cb",
+      end_time: durationEndTimeOperation,
+      end_date: durationEndDateOperation,
+      event_type: updateEventType,
+      event_name: "Appointment",
+      event_description: "Birmole Duttprasad will have a client meeting with Sss",
+      // created_date: 1631962470877,
+      advisorName: "",
+      event_repeat_on_every: "",
+      event_repeat_till_date: "",
+      reminder_prority_color: "",
+      set_reminder: "",
+      // updated_date: 1631962990266
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    //   _id:"6135e9a3f503954f7e6bba45s", 
+    // userId:"60a61763de95b87f62856c13",
+    //     partnerId:"",
+    //     appointment_type:"customer",
+    //     event_type:"appointment",
+    //     start_date:durationStartDateOperation,
+    //     start_time:durationStartTimeOperation,
+    //     end_date:durationEndDateOperation,
+    //     end_time:durationEndTimeOperation,
+    //     leadId:""
       })
       .then((res)=>{
-        console.log(res)
+setEventLoadCheck(true)  
+setAddEvents([])
+setFetchEventArray([])
+        console.log(res.data.errMsg)
       }).catch((err)=>{
         console.log(err)
       })
+ 
+      setIsModalVisible(false)
     }
     else{
     
@@ -1539,10 +1694,19 @@ setDurationEndTime(time)
     
     axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
 
-      userId:"60a61763de95b87f62856c13",
+      userId:"61519f9a8ce8772eab9838cb",
         partnerId:"",
         appointment_type:"customer",
-        event_type:"appointment",
+        manuallyrenewalCustomer: [
+          {
+              Name: customerNameText,
+              MobileNumber: customerMobileNoText
+          }
+      ],
+        event_type:customerCollection.phone_call_customer?"phonecall":customerCollection.appointment_customer?"appointment"
+        :customerCollection.policy_renewal?"policyrenewals"
+        :null,
+        status_type:eventStatus,
         start_date:durationStartDateOperation,
         start_time:durationStartTimeOperation,
         end_date:durationEndDateOperation,
@@ -1550,6 +1714,9 @@ setDurationEndTime(time)
       })
       .then((res)=>{
         console.log(res)
+        setAddEvents([])
+        setFetchEventArray([])
+        setEventLoadCheck(true)
       }).catch((err)=>{
         console.log(err)
       })
@@ -1580,23 +1747,23 @@ setDurationEndTime(time)
 // })
 
 // setDurationEndDate( moment(durationEndDate).format("YYYY-MM-DD"))
-setAddEvents([...addEvents, {
+// setAddEvents([...addEvents, {
 
-  title: 'test 7',
-  description: "This is the description of the event",
-  // start:1630627200000+32400000,
-  // end:1630627200000+36000000
-  // start:1631491200000+32400000,
-  // end:1631491200000+36000000
-  start: durationStartDateOperation+durationStartTimeOperation,
-  end: durationEndDateOperation+durationEndTimeOperation
-  // start: durationStartDateOperation+durationStartTimeOperation,
-  // end:durationEndDateOperation+durationEndTimeOperation,
-  // start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
-  // end:moment(endDuration).format('YYYY-MM-DD ') + moment(endVal).format("H:mm:ss"),
-  // allDay:moment(endVal).format("H:mm:ss")>"23:59:59"?true:false
+//   title: 'test 7',
+//   description: "This is the description of the event",
+//   // start:1630627200000+32400000,
+//   // end:1630627200000+36000000
+//   // start:1631491200000+32400000,
+//   // end:1631491200000+36000000
+//   start: durationStartDateOperation+durationStartTimeOperation,
+//   end: durationEndDateOperation+durationEndTimeOperation
+//   // start: durationStartDateOperation+durationStartTimeOperation,
+//   // end:durationEndDateOperation+durationEndTimeOperation,
+//   // start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
+//   // end:moment(endDuration).format('YYYY-MM-DD ') + moment(endVal).format("H:mm:ss"),
+//   // allDay:moment(endVal).format("H:mm:ss")>"23:59:59"?true:false
 
-}])
+// }])
 
 
 //     if (durationStartDate == "" && durationButton.select_time == true) {
@@ -1618,14 +1785,14 @@ setAddEvents([...addEvents, {
 //       return false
 //     }
 setIsModalVisible(false)
-if (durationStartTime == "" && durationButton.select_time == true) {
+if (startTimeSelect == "" && durationButton.select_time == true) {
       setDurationStartTimeCheck(false)
       setDurationTimeAlert(true)
  alert("This workd")
 
       return false
     }
- if (durationEndTime == "" && durationButton.select_time == true) {
+ if (endTimeSelect == "" && durationButton.select_time == true) {
       setDurationEndTimeCheck(false)
       setDurationTimeAlert(true)
     
@@ -1638,17 +1805,23 @@ if (durationStartTime == "" && durationButton.select_time == true) {
     console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
 }}
   const StatusTypeOpenFunc = () => {
+    setEventStatus("open")
     setStatusType({
       openStatus: true,
       closeStatus: false
     })
   }
   const StatusTypeCloseFunc = () => {
+    setEventStatus("close")
     setStatusType({
       openStatus: false,
       closeStatus: true
     })
   }
+  const StatusTypeReasonFunc=(e)=>{
+console.log(e.target.value) 
+setStatusReasonText(e.target.value)
+ }
   const AdvisorTrainingFunc = () => {
     setAdvisorCollection({
       appointment_advisor: false,
@@ -1925,9 +2098,34 @@ let start_ms_date=new Date(moment(e.event.start)).setUTCHours(0, 0, 0, 0)
 let end_ms_date=new Date(moment(e.event.end)).setUTCHours(0, 0, 0, 0)
 // alert("Start Date"+start_ms_date)
 // alert("End Date"+end_ms_date)
+         console.log(fetchEventArray)           
+               
+const greaterThanTen = fetchEventArray.find(element => element.id==e.event.id);
+setFetchEventObject(fetchEventArray.find(element => element.id==e.event.id))
+fetchEventArray.map((item)=>{
+  if(item.id==e.event.id){
+    setUpdateEventType(item.event_type)
+console.log(item)
+setDurationStartTimeOperation(parseInt(item.start_time))
+setDurationEndTimeOperation(parseInt(item.end_time))
+    timeList.map((time)=>{
+      if(time.value==item.start_time){
+        setStartTimeSelect(time.value)
+       
+        
+      }
+    if(time.value==item.end_time){
+      setEndTimeSelect(time.value)
 
+    }
+    })
+  }
+ 
+})
 
-
+console.log(greaterThanTen)//11
+let start_ms_time=new Date(moment(e.event.start)).setDate(0, 0, 0)
+alert("This is the start time"+start_ms_time)
 
     setDurationStartDateOperation(start_ms_date)
     setDurationEndDateOperation(end_ms_date)
@@ -2040,10 +2238,10 @@ let start_date_var=helperUpcomingArr? helperUpcomingArr.start_date:null
 let start_date_assign = new Date(start_date_var).setUTCHours(0, 0, 0, 0)
 let end_date_var=helperUpcomingArr? helperUpcomingArr.end_date:null
 let end_date_assign = new Date(end_date_var).setUTCHours(0, 0, 0, 0)
-console.log(start_date_assign)
-console.log(end_date_assign)
-console.log(helperUpcomingArr? helperUpcomingArr.start_date:null)
-console.log(fetchUpcomingArr)
+// console.log(start_date_assign)
+// console.log(end_date_assign)
+// console.log(helperUpcomingArr? helperUpcomingArr.start_date:null)
+// console.log(fetchUpcomingArr)
   
   let events = [{ title: eventText, date: new Date("2021-08-11 10:00:00") },
   { title: "TEst", date: new Date("2021-08-11 10:00:00") }
@@ -2058,9 +2256,12 @@ console.log(fetchUpcomingArr)
   const OnTimeChange = (val) => {
     setValue(val)
   }
-console.log("Add evebnt"+addEvents)
+// console.log("Add evebnt"+addEvents)
   const MultiSelectDateFunc=(e)=>{
+    setStartTimeSelect("")
+    setEndTimeSelect("")
 setUpdateCheckEvent(false)
+if(updateEventCheck)
 setBookEventCheck(true)
   setDurationStartDate(moment(e.start))
   setDurationEndDate(moment(e.end).subtract(1, "days"))
@@ -2086,6 +2287,8 @@ alert(start_date)
     setIsModalVisible(true)
   }
   const DateClick = (e) => {
+  setStartTimeSelect("")
+  setEndTimeSelect("")
     // alert(e.dateStr)
     // setDurationStartDate(e.dateStr)
     // setDurationEndDate(e.dateStr)
@@ -2743,6 +2946,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                       className={customerNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                     >Name *</h4>
                      <input
+                      disabled={manualCustomerCheck==true?true:false}
                       value={customerNameText}
                       onChange={CustomerNameFunc}
                       className={customerNameCheck == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
@@ -2760,6 +2964,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                       className={customerMobileNoCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                     >Mobile Number *</h4>
                       <input
+                      disabled={manualCustomerCheck==true?true:false}
                       value={customerMobileNoText}
                       onChange={CustomerMobileNoFunc}
                       className={customerMobileNoCheck == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
@@ -2776,10 +2981,22 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
             >
               <button
                  disabled={updateEventCheck==true?true:false}
-                onClick={()=>{}}
+                onClick={ManualCustomerSubmitFunc}
                 className={ "CalendarEvent-Modal-Card-eventwith-onclick-button-style" }
               >Submit</button>
+                   {manualCustomerCheck?  <Tag
+                   
+     closable={updateEventCheck==true?false:true}
+     visible={addCustTagVisible}
+     onClose={AddCustomerTagVisibleFunc}
+          
+          className="CalendarEvent-Modal-Search-tag-style"
+        >
+        {customerNameText}
+        </Tag>:null}
+          
               </div>
+          
 </div>
   
   :null}
@@ -2844,11 +3061,12 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                    > 
               
                      <option value="" >Select</option>
-                    
+    
                {timeList.map((time)=>{
                  return(
+             
                    <option value={time.value}>{time.dispValue}</option>
-                  //  <option value="30600000">9am</option>
+                  //  <option value={editStartTime} selected>{editStartDisp}</option>
                  )
                })}
                    
@@ -2891,12 +3109,13 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                         // className="CalendarEvent-Modal-Card-header-type"
                       >End Time *</h4>
       <select
-                   value={endTimeSelect}
+                    value={endTimeSelect}
                    onChange={EndTimeChangeFunc}
                    
                    className={durationEndTimeDiffCheck == false ? "CalendarEvent-Modal-empty-TimePicker-style" : "CalendarEvent-Modal-TimePicker-style"}
                    > 
                                         <option value="" >Select</option>
+                                        {/* {updateEventCheck==true?<option value={editEndTime} selected={true}>{editEndDisp}</option>:null }  */}
                {timeList.map((time)=>{
                  return(
                    <option value={time.value}>{time.dispValue}</option>
@@ -2904,7 +3123,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                })}
                    
                     </select>
-                    {durationEndTimeDiffCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Time should not the past from the Start Time</h4> :durationEndTimeSameCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Time should not be the Same from the Start Time</h4>: null}
+                    {durationEndTimeDiffCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Time should not the past from the Start Time</h4> :durationEndTimeSameCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Time should not be Same from the Start Time</h4>: null}
                   
                       {/* <TimePicker onChange={EndTimeFunc}
                         value={durationEndTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
@@ -2973,10 +3192,12 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                     className="CalendarEvent-Modal-Card-close-textbox-flex"
                   >
                     <input
+                    value={statusReasonText}
+                    onChange={StatusTypeReasonFunc}
                       className="CalendarEvent-Modal-Card-close-textbox-style"
                       type="text"
                       placeholder="Enter the reason"
-                      required
+                      
                     />
                   </div>
                   : null

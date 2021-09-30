@@ -8,6 +8,10 @@
   width: 0px; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
 }
+.fc .fc-event{
+  border-width: 1px;
+  border-style: solid;
+}
 /* .ant-btn-primary {
   background: #a4a8abfc;
   border-color: #a4a8abfc;
@@ -412,7 +416,9 @@
 }
 .CalendarEvent-Modal-Card-empty-text-bottom-type {
   color: #fa0909;
-  font-size: calc(9px + 0.18vw);
+  font-size: 10px;
+  /* overflow-wrap: break-word; */
+  /* font-size: calc(10px + 0.18vw); */
 }
 .CalendarEvent-Modal-datePicker-button-flex {
   display: flex;
@@ -453,6 +459,7 @@
   border: 0.5px solid #c1c8cc;
   height: 4.7vh;
 }
+
 .CalendarEvent-Modal-TimePicker-style:focus {
   outline: none;
   color: #666767;
