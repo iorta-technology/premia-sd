@@ -39,7 +39,7 @@ const Blog = React.lazy(()=> import('./components/AgentMicroSite/Blog'))
 
 function App() {
   return (
-  <React.Suspense fallback={<Spin size="large"/>}>
+  <React.Suspense fallback={<Spin size="large" className="loader"/>}>
     
       <Router>
         <div className="box-size">

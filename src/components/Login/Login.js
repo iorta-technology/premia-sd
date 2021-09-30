@@ -7,18 +7,23 @@ import * as actions from '../../store/actions/index';
 import { useDispatch,useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
- const Login = () => {
+ const  Login =  () => {
     const [form] = Form.useForm();
     const [email,setEmail] = useState('');
     const [password,setPassword]= useState('')
 
     const agent_data = useSelector((state) => state.login.login_agent_data)
+    // const userId =  useSelector((state) => state.login.user.id)
+
     const dispatch = useDispatch();
     const history = useHistory()
     const onLogin = () => { 
                 dispatch(actions.login(email,password))
-                if(agent_data !== 'null' && agent_data !== 'undefined' && agent_data!=="No agent registered" && agent_data !== "Email/password is incorrect"){
-                    history.push('/home')
+                if(agent_data !== 'null' && agent_data !== 'undefined'  && agent_data !== "Email/password is incorrect"  ){
+                    setTimeout(() => {
+                        history.push('/home')
+                    }, 1000);
+                    
                 }
             }
        

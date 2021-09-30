@@ -31,9 +31,9 @@ import motorp from '../../images/motor_insurance.png'
 import personalAccp from '../../images/personnel_accident_insurance.png'
 import { Modal,message, Button, Input, Select,Form,Carousel } from 'antd';
 import {FilePdfOutlined} from '@ant-design/icons';
-import { Player } from "video-react";
+// import { Player } from "video-react";
 import ReactPlayer from 'react-player'
-import "video-react/dist/video-react.css";
+// import "video-react/dist/video-react.css";
 import { useHistory } from 'react-router';
 import axios from '../../axios-common';
 const { Option } = Select;

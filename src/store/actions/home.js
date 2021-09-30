@@ -46,12 +46,12 @@ export const activitiesFail = (error) => {
 
 
 export const home = (agent_id) => {
-       console.log("agent id in",agent_id)
+    //    console.log("agent id in",agent_id)
     return dispatch => {
         dispatch(homeStart())
         return axios.get(`user/getleads_team_count/${agent_id}`)
         .then(res=>{
-            console.log("home data",res)
+            // console.log("home data",res)
             return dispatch(homeSuccess(res.data.errMsg))
         }).catch(error=>{
             console.log(error)

@@ -7,31 +7,41 @@ import * as actions from '../../store/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from "moment";
 import _ from "lodash";
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 import FloatButton from '../FloatButton/FloatButton';
 import { Column } from '@ant-design/charts';
 const HomePage = () => {
   const agent_id = useSelector((state) => state.login.agent_id)
   const logged_in_user = useSelector((state) => state.login.user_name)
   const id = useSelector((state) => state.login.id)
-  console.log("agent_id,id", agent_id, id)
+  // console.log("agent_id,id", agent_id, id)
+  const userId = useSelector((state) => state.login.user.id)
+  const channelCode = useSelector((state) => state.login.user.channelCode)
   const dispatch = useDispatch();
+  const history = useHistory()
+
   useEffect(() => {
     if (id) {
       dispatch(actions.activities(id))
     }
-
+    userId && dispatch(actions.fetchUserDetails(userId))
+    channelCode &&  dispatch(actions.fetchHierarchy(userId,channelCode)) 
     if (agent_id) {
       dispatch(actions.home(agent_id))
     }
-
   }, [dispatch, id, agent_id]);
+
   const home_data = useSelector((state) =>
     state.home.home_obj
   )
+
   const activities_data = useSelector((state) => state.activities.activities_obj)
-  console.log("Home-Data", home_data)
-  console.log("activities-data", activities_data)
+  const  onLogout=() =>{
+      dispatch(actions.logout())
+      history.push('/login')
+  }
+  // console.log("Home-Data", home_data)
+  // console.log("activities-data", activities_data)
   const data = [
     {
       name: 'London',
@@ -124,6 +134,7 @@ const HomePage = () => {
     color: ['rgb(0, 172, 193)','#fff']
   };
   return <Fragment >
+    <Button type="primary" onClick={onLogout}>Logout</Button>
     <FloatButton />
     <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>Hi {logged_in_user}</h3>
     <div className="cardHolder">
