@@ -779,6 +779,7 @@ export default function CalendarEvent() {
     setCustomerCheck(true)
   }
   const DurationSelectTimeFunc = () => {
+    setEventDurationType("customedatetime")
     setStartTimeSelect("")
     setEndTimeSelect("")
     setDurationStartTimeOperation()
@@ -789,6 +790,7 @@ export default function CalendarEvent() {
     })
   }
   const DurationAllDayFunc = () => {
+    setEventDurationType("allday")
     setDurationStartTimeOperation(32400000)
     setDurationEndTimeOperation(61200000)
     setDurationButton({
@@ -958,6 +960,7 @@ const[eventStatus,setEventStatus]=useState("")
 const[statusReasonText,setStatusReasonText]=useState("")
 const[manualCustomerCheck,setManualCustomerCheck]=useState(false)
 const[addCustTagVisible,setAddCustTagVisible]=useState(true)
+const[eventDurationType,setEventDurationType]=useState("")
   // axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=past
   // `,{
   //   // params:{
@@ -1019,6 +1022,7 @@ res.data.errMsg.map((item)=>{
     start_time:parseInt(item.start_time),
     end_date:parseInt(item.end_date),
     end_time:parseInt(item.end_time),
+    durationType: item.durationType,
     manuallyrenewalCustomer:[{
       Name:item.Name,
       MobileNumber:item.MobileNumber
@@ -1540,7 +1544,7 @@ console.log("TIme should be more than start time")
     setDurationStartTime(time)
 setDurationStartTimeOperation(timeString)
 let d=new Date()
-alert(d)
+// alert(d)
 // console.log(d.getMonth())
 
     console.log('Selected Time: ', time);
@@ -1554,7 +1558,7 @@ alert(d)
     if (durationEndTime == "") {
       setDurationEndTime(moment(time).add(1, 'hours'))
       // setDurationEndTimeOperation(moment(timeString).format("HH:mm:ss.SSSZZ"))
-      alert(timeString.split(""))
+      // alert(timeString.split(""))
       setDurationEndTimeOperation(moment(time).add(1, 'hours').format("HH:mm:ss z"))
     }
     setDurationTimeAlert(false)
@@ -1569,7 +1573,7 @@ alert(d)
    let seconds=("0"+abc.getSeconds()).slice(-2)
   // alert(hours+":"+minutes+":"+seconds)
   let compTime=hours+minutes+seconds;
-alert(abc.getTime())
+// alert(abc.getTime())
 setDurationEndTime(time)
 
     setDurationEndTimeOperation((moment(time).format("HH:mm:ss")))
@@ -1587,7 +1591,7 @@ setDurationEndTime(time)
           setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("HH:mm:ss z"))
 
           // setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("H:m:ss z"))
-          alert(moment(time).subtract(1, 'hours').format("HH:mm:ss z"))
+          // alert(moment(time).subtract(1, 'hours').format("HH:mm:ss z"))
         }
         setDurationStartTimeCheck(true)
         setDurationTimeAlert(false)
@@ -1627,12 +1631,51 @@ setDurationEndTime(time)
     if(updateEventCheck==true){
      
     axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
-     showComment: false,
+    
+     
+      // showComment: false,
+      //       leadId: "",
+      //       partnerId: "",
+      //       customerId: "",
+      //       teamMember_clone: [],
+      //       statusReason: "sdsd",
+      //       isLeadFailed: false,
+      //       Appointment_id: "6156fe9a4735ef7f94293d8c",
+      //       manuallyrenewalCustomer: [
+      //           {
+      //               Name: "sa",
+      //               MobileNumber: "2"
+      //           }
+      //       ],
+      //       clientVisit: "clientmeeting",
+      //       teamMember: [],
+      //       manuallycustomerAdded: "true",
+      //       statusType: "close",
+      //       tata_appointment_type: "",
+      //       durationType: "customedatetime",
+      //       appointment_type: "customer",
+      //       start_time_MS: 1633170600000,
+      //       end_time_MS: 1633174200000,
+      //       start_time: 37800000,
+      //       start_date: 1633132800000,
+      //       userId: "61519f9a8ce8772eab9838cb",
+      //       end_time: 41400000,
+      //       end_date: 1633132800000,
+      //       event_type: "appointment",
+      //       event_name: "Appointment",
+      //       event_description: "Singh Dhara will have a client meeting with Sa",
+      //       // created_date: 1633091226621
+    
+    
+    
+    
+    
+     showComment: "false",
       leadId: "",
       partnerId: "",
       customerId: "",
       teamMember_clone: [],
-      statusReason: "",
+      statusReason: "sasa",
       isLeadFailed: false,
       Appointment_id: updateEventId, 
       manuallyrenewalCustomer: [{ "Name": "sss", "MobileNumber": "23232" }],
@@ -1641,7 +1684,7 @@ setDurationEndTime(time)
       manuallycustomerAdded: "true",
       statusType: eventStatus,
       tata_appointment_type: "",
-      durationType: "customedatetime",
+      durationType: eventDurationType,
       appointment_type: "customer",
       // start_time_MS: 1632315600000,
       // end_time_MS: 1632319200000,
@@ -1659,7 +1702,12 @@ setDurationEndTime(time)
       event_repeat_till_date: "",
       reminder_prority_color: "",
       set_reminder: "",
-      // updated_date: 1631962990266
+      
+    
+    
+    
+    
+    // updated_date: 1631962990266
  
  
  
@@ -1698,6 +1746,7 @@ setFetchEventArray([])
       userId:"61519f9a8ce8772eab9838cb",
         partnerId:"",
         appointment_type:"customer",
+        durationType: eventDurationType,
         manuallyrenewalCustomer: [
           {
               Name: customerNameText,
@@ -1789,7 +1838,7 @@ setIsModalVisible(false)
 if (startTimeSelect == "" && durationButton.select_time == true) {
       setDurationStartTimeCheck(false)
       setDurationTimeAlert(true)
- alert("This workd")
+//  alert("This workd")
 
       return false
     }
@@ -2093,7 +2142,7 @@ setStatusReasonText(e.target.value)
   const showModal = (e,date) => {
     setDurationStartDate(moment(e.event.start))
     setDurationEndDate(moment(e.event.end))
-alert(moment(e.event.start).format())
+// alert(moment(e.event.start).format())
 // alert("This is date "+moment(e.event.end))
 let start_ms_date=new Date(moment(e.event.start)).setUTCHours(0, 0, 0, 0)
 let end_ms_date=new Date(moment(e.event.end)).setUTCHours(0, 0, 0, 0)
@@ -2109,6 +2158,7 @@ fetchEventArray.map((item)=>{
 console.log(item)
 setDurationStartTimeOperation(parseInt(item.start_time))
 setDurationEndTimeOperation(parseInt(item.end_time))
+setEventDurationType(item.durationType)
     timeList.map((time)=>{
       if(time.value==item.start_time){
         setStartTimeSelect(time.value)
@@ -2126,7 +2176,7 @@ setDurationEndTimeOperation(parseInt(item.end_time))
 
 console.log(greaterThanTen)//11
 let start_ms_time=new Date(moment(e.event.start)).setDate(0, 0, 0)
-alert("This is the start time"+start_ms_time)
+// alert("This is the start time"+start_ms_time)
 
     setDurationStartDateOperation(start_ms_date)
     setDurationEndDateOperation(end_ms_date)
@@ -2135,7 +2185,7 @@ setUpdateEventId(e.event.id)
     setUpdateCheckEvent(true)
     setIsModalVisible(true);
     setEventText(JSON.stringify(e.event.title))
-    alert(e.event.id)
+    // alert(e.event.id)
 
     fetchUpcomingArr.map((item)=>{
 
@@ -2146,7 +2196,11 @@ if(item._id==e.event.id){
   // setUpdateEndTime(JSON.stringify(item.end_time))
   // setDurationEndDate(item.end_date)
 
-      alert("This works"+item._id)}//       return(
+      // alert("This works"+item._id)
+    
+    }
+    
+    //       return(
 // item.id==e.event.id?{
 // setHelperUpcomingArr(item)
 // }:null
@@ -2167,7 +2221,7 @@ if(item._id==e.event.id){
     // alert("This is ok " + clickedDate)
     setIsModalVisible(false);
 
-    alert(MultiSelectDate)
+    // alert(MultiSelectDate)
     // alert("This is endva;l" + endVal.format("H:mm:ss"))
     // if (MultiSelectDate == true) {
     //   setAddEvents([...addEvents, {
@@ -2271,13 +2325,13 @@ setBookEventCheck(true)
 
   
   setDurationStartDateOperation(start_date)
-alert(start_date)
+// alert(start_date)
 
   let moment_end_date=moment(e.end).subtract(1, "days")
    let new_end_date = Date.parse(moment_end_date)
   let end_date = new Date(new_end_date).setUTCHours(0, 0, 0, 0)
   setDurationEndDateOperation(end_date)
-  alert(end_date)
+  // alert(end_date)
     // setDurationStartDate(moment(e.start).format("YYYY-MM-DD"))
     // setDurationStartDateOperation(moment(e.start).format("YYYY-MM-DD"))
     // alert("This is duration Start Date"+durationStartDate)
@@ -2302,7 +2356,7 @@ alert(start_date)
  setUpdateCheckEvent(false)
     let ms_date = new Date(e.date).setUTCHours(0, 0, 0, 0)
       
-  alert(ms_date)
+  // alert(ms_date)
 // console.log(new_date)
     
 // let ms_date = new Date(e.date).setHours(0, 0, 0, 0)
@@ -3044,7 +3098,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                       // className="CalendarEvent-Modal-picker-style"
                     />
                    
-                   {durationStartDateDiffCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Date should not be after the End date</h4> : null}
+                   {durationStartDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Date should not be after the End date</p> : null}
             
                   </div>
                   <div
@@ -3072,7 +3126,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                })}
                    
                     </select>
-                    {durationStartTimeDiffCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</h4> : null}
+                    {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null}
                     {/* <TimePicker onChange={StartTimeFunc}
                       value={durationStartTime}
                       defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
@@ -3100,7 +3154,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                         format="YYYY-MM-DD"
                         className="CalendarEvent-Modal-picker-style"
                       />
-                       {durationEndDateDiffCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</h4> : null}
+                       {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null}
                     </div>
                     <div
                       className="CalendarEvent-Modal-date-column-flex"
@@ -3124,7 +3178,15 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                })}
                    
                     </select>
-                    {durationEndTimeDiffCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Time should not the past from the Start Time</h4> :durationEndTimeSameCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Time should not be Same from the Start Time</h4>: null}
+                    {durationEndTimeDiffCheck == false ?
+    
+                     <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End time should not be past start time</p>
+               
+                     :durationEndTimeSameCheck == false ? 
+      
+                     <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Time should not be Same from the Start Time</p>
+                   
+                     : null}
                   
                       {/* <TimePicker onChange={EndTimeFunc}
                         value={durationEndTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
