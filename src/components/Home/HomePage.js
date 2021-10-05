@@ -7,86 +7,135 @@ import * as actions from '../../store/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from "moment";
 import _ from "lodash";
-import { Link } from 'react-router-dom';
-import Container from './Container'
+import { Link,useHistory } from 'react-router-dom';
 import FloatButton from '../FloatButton/FloatButton';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from 'recharts'
+import { Column } from '@ant-design/charts';
 const HomePage = () => {
   const agent_id = useSelector((state) => state.login.agent_id)
   const logged_in_user = useSelector((state) => state.login.user_name)
   const id = useSelector((state) => state.login.id)
-  console.log("agent_id,id", agent_id, id)
+  // console.log("agent_id,id", agent_id, id)
+  const userId = useSelector((state) => state.login.user.id)
+  const channelCode = useSelector((state) => state.login.user.channelCode)
   const dispatch = useDispatch();
+  const history = useHistory()
+
   useEffect(() => {
     if (id) {
       dispatch(actions.activities(id))
     }
-
+    userId && dispatch(actions.fetchUserDetails(userId))
+    channelCode &&  dispatch(actions.fetchHierarchy(userId,channelCode)) 
     if (agent_id) {
       dispatch(actions.home(agent_id))
     }
-
   }, [dispatch, id, agent_id]);
+
   const home_data = useSelector((state) =>
     state.home.home_obj
   )
+
   const activities_data = useSelector((state) => state.activities.activities_obj)
-  console.log("Home-Data", home_data)
-  console.log("activities-data", activities_data)
+  const  onLogout=() =>{
+      dispatch(actions.logout())
+      history.push('/login')
+  }
+  // console.log("Home-Data", home_data)
+  // console.log("activities-data", activities_data)
   const data = [
     {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+      name: 'London',
+      month: 'Sun.',
+      value: 18.9,
     },
     {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      name: 'London',
+      month: 'Mon.',
+      value: 28.8,
     },
     {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
+      name: 'London',
+      month: 'Tue.',
+      value: 39.3,
     },
     {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
+      name: 'London',
+      month: 'Wed.',
+      value: 81.4,
     },
     {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
+      name: 'London',
+      month: 'Thr',
+      value: 47,
     },
     {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
+      name: 'London',
+      month: 'Fri.',
+      value: 20.3,
     },
     {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: 'London',
+      month: 'Sat.',
+      value: 24,
     },
-  ]
+    {
+      name: 'Berlin',
+      month: 'Sun.',
+      value: 12.4,
+    },
+    {
+      name: 'Berlin',
+      month: 'Mon.',
+      value: 23.2,
+    },
+    {
+      name: 'Berlin',
+      month: 'Tue.',
+      value: 34.5,
+    },
+    {
+      name: 'Berlin',
+      month: 'Wed.',
+      value: 99.7,
+    },
+    {
+      name: 'Berlin',
+      month: 'Thr',
+      value: 52.6,
+    },
+    {
+      name: 'Berlin',
+      month: 'Fri.',
+      value: 35.5,
+    },
+    {
+      name: 'Berlin',
+      month: 'Sat.',
+      value: 37.4,
+    }
+  ];
+  const config = {
+    data: data,
+    width: 356,
+    height: 165,
+    autoFit: false,
+    isGroup: true,
+    xField: 'month',
+    yField: 'value',
+    seriesField: 'name',
+    label: {
+      position: 'middle',
+      layout: [
+        { type: 'interval-adjust-position' },
+        { type: 'interval-hide-overlap' },
+        { type: 'adjust-color' },
+      ],
+    },
+    color: ['rgb(0, 172, 193)','#fff']
+  };
   return <Fragment >
-    <FloatButton/>
+    <Button type="primary" onClick={onLogout}>Logout</Button>
+    <FloatButton />
     <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>Hi {logged_in_user}</h3>
     <div className="cardHolder">
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
@@ -101,30 +150,47 @@ const HomePage = () => {
             </div>
           </div>
         </Link>
-        {activities_data && !_.isEmpty(activities_data) ?
+        {activities_data && !_.isEmpty(activities_data) && activities_data !== 'No appointment ' ?
           (
             <div className="activity-block">
               {
-              activities_data.map((item) => {
-                return (
-                  <div className="action-cards-content-activity" key={item._id}>
-                    <div  >
+                activities_data.map((item) => {
+                  return (
+                    <div className="action-cards-content-activity" key={item._id}>
+                      <div >
                       <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
-                      <p style={{ width: "100%", margin: "0" }}>{Moment(item.start_time_MS).format("h:mm a")} <span style={{ width: "100%", margin: "40px", fontWeight: "bold" }}>{item.event_name}</span> <span style={{ float: "right" }}>{Moment(item.end_time_MS).format("h:mm a")}</span></p>
-                      <p>
-                        <b style={{ color: '#00ACC1' }}>
-                          <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
-                            {item.set_reminder_prority}
+
+                        <table>
+                          <tr>
+                            <td>{Moment(item.start_time_MS).format("h:mm a")}</td>
+                            <td>{item.event_name}</td>
+                            <td>{Moment(item.end_time_MS).format("h:mm a")}</td>
+                          </tr>
+                          <tr>
+                            <td style={{width:'85px'}}>
+                            <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
+                              {item.set_reminder_prority}
                             </Button>
-                            </b>
-                             <span style={{ fontSize: "12px", fontWeight: "400" }}>{item.event_description}</span>
-                             <span style={{ float: "right" }}>{item.leadId?.primaryMobile}</span>
-                             </p>
+                            </td>
+                            <td>{item.event_description}</td>
+                            <td>{item.leadId?.primaryMobile}</td>
+                          </tr>
+                        </table>
+                        {/* <p style={{ width: "100%", margin: "0" }}>{Moment(item.start_time_MS).format("h:mm a")} <span style={{ width: "100%", margin: "40px", fontWeight: "bold" }}>{item.event_name}</span> <span style={{ float: "right" }}>{Moment(item.end_time_MS).format("h:mm a")}</span></p>
+                        <p>
+                          <b style={{ color: '#00ACC1' }}>
+                            <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
+                              {item.set_reminder_prority}
+                            </Button>
+                          </b>
+                          <span style={{ fontSize: "12px", fontWeight: "400" }}>{item.event_description}</span>
+                          <span style={{ float: "right" }}>{item.leadId?.primaryMobile}</span>
+                        </p> */}
+                      </div>
                     </div>
-                  </div>
-                )
-              })
-            }
+                  )
+                })
+              }
             </div>
           )
           : <div className="events-body" >
@@ -136,7 +202,7 @@ const HomePage = () => {
           </div>}
       </div>
       <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
-        <Link to="/leadMaster">
+        <Link to="/leadMaster/all_leads">
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3367.png" alt="Opportunities" />
@@ -148,24 +214,7 @@ const HomePage = () => {
           </div>
         </Link>
         <div style={{ marginTop: "30px" }}>
-          {/* <Container>
-            <BarChart
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="pv" fill="#8884d8" />
-            <Bar dataKey="uv" fill="#82ca9d" />
-            </BarChart>
-        </Container> */}
+        {/* <Column {...config}/> */}
         </div>
         <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
           <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>

@@ -1,59 +1,126 @@
-import React from 'react'
-import {Tabs,Card,Button} from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Tabs } from 'antd'
 import './Tab.css'
-const {TabPane} = Tabs
+import _ from "lodash";
+import { useHistory } from 'react-router-dom';
 
-const  Tab = (props)=> {
-    // let card1 = <Card className="tab-pane">
-    //                 All leads
-    //                 <Button type="primary" danger={true} shape="circle" size="small">
-    //                     95
-    //                 </Button>
-    //             </Card>
-    // let card2 = <Card className="tab-pane">
-    //                 Open
-    //                 <Button type="primary" danger={true} shape="circle" size="small">
-    //                     10
-    //                 </Button>
-    //             </Card>
-    // let card3 = <Card className="tab-pane">
-    //                 Failed
-    //                 <Button type="primary" danger={true} shape="circle" size="small">
-    //                     12
-    //                 </Button>
-    //             </Card>
-    // const style={
-    //     color:'gray',
-    //     backgroundColor:'#ffffff'
+const { TabPane } = Tabs
+
+const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
+    let history = useHistory()
+    // const [activeKey, setactiveKey] = useState('1')
+
+    // const onChange = (key)=>{
+
+    //     setactiveKey(key)
     // }
-    const renderTabBar = (props, Card) => (
-          ({ style }) => (
-            <Card {...props} className="site-custom-tab-bar" style={{ color:'gray',backgroundColor:'#ffffff' }} />
-          )
-      );
+    const handler = (activeKey) => {
+        // console.log(activeKey)
+        // setactiveKey(key)
+
+        switch (activeKey) {
+            case "1": return history.push('/leadmasterpage/statuslead');
+            case "2": return history.push('/leadmasterpage/leaddetails/personallead');
+            case "3": return history.push('/leadmasterpage/proposal');
+            case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
+            case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
+            default:  return history.push('/leadmasterpage/statuslead');
+        }
+    }
+    let tabPane = []
+    if (tabMenu && !_.isEmpty(tabMenu)) {
+
+        tabPane = _.map(tabMenu, (value, id) => {
+            return (
+                <TabPane
+                    key={value.id}
+                    tab={value.value}
+                >
+                </TabPane>
+            )
+        })
+
+    }
+    const [width, setWidth] = useState(window.innerWidth);
+    const breakpoint = 620;
+
+    useEffect(() => {
+        const handleWindowResize = () => setWidth(window.innerWidth)
+        window.addEventListener("resize", handleWindowResize);
+
+        // Return a function from the effect that removes the event listener
+        return () => window.removeEventListener("resize", handleWindowResize);
+    }, [width]);
+
+
+
+
     return (
-        <div className="tab-container">
-                <Tabs defaultActiveKey="1" tabBarGutter={10} type="card" centered={true} renderTabBar={renderTabBar}>
-                    <TabPane  key="1">
-                    </TabPane>
-                    <TabPane  key="2">
-                    </TabPane>
-                    <TabPane  key="3">
-                    </TabPane>
-                </Tabs>
-        </div>
+        <>
+            {width > breakpoint ?
+                <div className="header-img">
+                    <p className="header-title">{header}</p>
+                    <Tabs
+                        tabBarGutter={20}
+                        centered={false}
+                        type="card"
+                        onTabClick={handler}
+                        size="large"
+                        activeKey={activeKey}
+                        style={{marginLeft:'110px'}}
+                    >
+                        {tabPane}
+                    </Tabs>
+
+                </div> :
+                <>
+                    <Tabs 
+                        tabBarGutter={20} 
+                        centered={true} 
+                        onTabClick={handler}
+                        size="large"
+                        activeKey={activeKey}
+                        style={{margin:'20px'}}
+                        >
+                        {tabPane}
+                    </Tabs>
+                </>
+            }
+
+        </>
     )
 }
 
 export default Tab
+            /* <Tabs defaultActiveKey="1" tabBarGutter={10} style={style} centered={true} type="card">
+<TabPane tab={card} key="1"  style={gridStyle}>
+</TabPane>
+<TabPane tab="All leads" key="1"  >
+</TabPane>
+<TabPane tab="All leads" key="1"  >
+</TabPane>
+</Tabs>
+<Menu  mode="horizontal">
+<Menu.Item key="mail" style={gridStyle}>
+All leads
+</Menu.Item>
+<Menu.Item key="mail" style={gridStyle}>
+All leads
+</Menu.Item>
+<Menu.Item key="mail" >
+{card}
+</Menu.Item>
+</Menu> */
 
-// function callback(key) {
-//     console.log(key);
-//   }
-// const renderTabBar = (props, DefaultTabBar) => (
-//     // <Sticky bottomOffset={80}>
-//     //   {({ style }) => (
-//         <DefaultTabBar {...props} className="site-custom-tab-bar"  />
-//     //   )}
-//     // </Sticky>
-//   );
+// let card2 = <Card className="tab-pane">
+//                     Open
+//                     <Button type="primary" danger={true} shape="circle" size="small">
+//                         10
+//                     </Button>
+//                 </Card>
+//     let card3 = <Card className="tab-pane">
+//                     Failed
+//                     <Button type="primary" danger={true} shape="circle" size="small">
+//                         12
+//                     </Button>
+//                 </Card>

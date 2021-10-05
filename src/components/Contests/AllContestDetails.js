@@ -1,13 +1,13 @@
-import { Tabs } from 'antd';
-import React,{useDebugValue, useState} from 'react';
+import { Tabs, Input } from 'antd';
+import React, { useDebugValue, useState } from 'react';
 import './AllContestDetails.css';
+const { Search } = Input;
 
-
-const AllContestDetails=()=>{
-    let{innerWidth:width,innerHeight:height}=window;
+const AllContestDetails = () => {
+    let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
-    const[tabPosition,setTabPosition]=useState(width<="374"?"top":width<="424"?"top":
-    width<="767"?"top":width<="1023"?"top":"left");
+    const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
+        width <= "767" ? "top" : width <= "1023" ? "top" : "left");
     const changeTabPosition = e => {
         setTabPosition( e.target.value );
       };
@@ -15,6 +15,7 @@ const AllContestDetails=()=>{
 <div
 className="AllContestDetails1-main"
 >
+    {width<="367"||width<="424"?<tab></tab>:<button>dsd</button>}
 <div
 className="AllContestDetails1-row-flex"
 >
@@ -188,6 +189,9 @@ className="AllContestDetails1-card-flex"
 <div
 className="AllContestDetails1-details-card-content-align"
 >
+<Search placeholder="Search By Name" onSearch={()=>{}} 
+enterButton
+/>
 <h4
 className="AllContestDetails1-details-card-title-text"
 >
