@@ -20,7 +20,14 @@ import AllContestDetails1 from './components/Contests/AllContestDetails';
 import ActiveContestDetails1 from './components/Contests/ActiveContestDetails';
 import CompletedContest1 from './components/Contests/CompletedContest';
 import Calendar from './components/Contests/CalendarEvent';
-
+import ServiceCorner from './components/ServiceCorner/ServiceCorner';
+import BenefitIllustrator from './components/BenefitIllustrator/BenefitIllustrator';
+import SalesPitch from './components/SalesPitch/SalesPitch';
+import AdvisorPitch from './components/AdvisorPitch/AdvisorPitch';
+import SalesPendency from './components/SalesPendency/SalesPendency';
+import RenewalReport from './components/RenewalReport/RenewalReport';
+import ForSelf from './components/ForSelf/ForSelf';
+import ForCustomer from './components/ForCustomer/ForCustomer';
 // import cards from './components/LeadCards/LeadCards';
 function App() {
   return (
@@ -38,6 +45,16 @@ function App() {
             <Route path="/leadMaster" component={LeadMaster}></Route>
             <Route path="/clubsMaster" component={ClubsMaster}></Route>
             <Route path="/birthday" component={Birthday}></Route>
+            <Route path="/servicecorner" component={ServiceCorner}></Route>
+            <Route path="/benefitillustrator" component={BenefitIllustrator}></Route>
+            <Route path="/salespitch" component={SalesPitch}></Route>
+            <Route path="/advisorpitch" component={AdvisorPitch}></Route>
+            <Route path="/salespendency" component={SalesPendency}></Route>
+            <Route path="/renewalreport" component={RenewalReport}></Route>
+            <Route path="/forself" component={ForSelf}></Route>
+            <Route path="/forcustomer" component={ForCustomer}></Route>
+
+            
             <div>
               <Sidebar />
               <Route path="/home"  component={HomePage}></Route>

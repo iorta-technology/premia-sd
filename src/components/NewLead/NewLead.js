@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './NewLead.css'
-import { Row, Col, Form, Typography, Button, Input, Select, Cascader, DatePicker, Space,Modal } from 'antd';
+import { Row, Col, Form, Typography, Button, Input, Select, Cascader, DatePicker, Space, Modal } from 'antd';
 const { Title } = Typography;
 
 const { Option } = Select;
@@ -168,70 +168,70 @@ const options = [
 ];
 
 const setTimeOptions = [
-  {value: '08am',label: '08:00 AM'},{value: '08:30am',label: '08:30 AM'},
-  {value: '09am',label: '09:00 AM'},{value: '09:30am',label: '09:30 AM'},
-  {value: '10am',label: '10:00 AM'},{value: '10:30am',label: '10:30 AM'},
-  {value: '11am',label: '11:00 AM'},{value: '11:30am',label: '11:30 AM'},
-  {value: '12pm',label: '12:00 PM'},{value: '12:30pm',label: '12:30 PM'},
-  {value: 'pm',label: '01:00 PM'},{value: 'pm',label: '01:30 PM'},
-  {value: 'pm',label: '02:00 PM'},{value: 'pm',label: '02:30 PM'},
-  {value: 'pm',label: '03:00 PM'},{value: 'pm',label: '03:30 PM'},
-  {value: 'pm',label: '04:00 PM'},{value: 'pm',label: '04:30 PM'},
-  {value: 'pm',label: '05:00 PM'},{value: 'pm',label: '05:30 PM'},
-  {value: 'pm',label: '06:00 PM'},{value: 'pm',label: '06:30 PM'},
-  {value: 'pm',label: '07:00 PM'},{value: 'pm',label: '07:30 PM'},
-  {value: 'pm',label: '08:00 PM'},{value: 'pm',label: '08:30 PM'},
-  {value: 'pm',label: '09:00 PM'},{value: 'pm',label: '09:30 PM'},
+  { value: '08am', label: '08:00 AM' }, { value: '08:30am', label: '08:30 AM' },
+  { value: '09am', label: '09:00 AM' }, { value: '09:30am', label: '09:30 AM' },
+  { value: '10am', label: '10:00 AM' }, { value: '10:30am', label: '10:30 AM' },
+  { value: '11am', label: '11:00 AM' }, { value: '11:30am', label: '11:30 AM' },
+  { value: '12pm', label: '12:00 PM' }, { value: '12:30pm', label: '12:30 PM' },
+  { value: 'pm', label: '01:00 PM' }, { value: 'pm', label: '01:30 PM' },
+  { value: 'pm', label: '02:00 PM' }, { value: 'pm', label: '02:30 PM' },
+  { value: 'pm', label: '03:00 PM' }, { value: 'pm', label: '03:30 PM' },
+  { value: 'pm', label: '04:00 PM' }, { value: 'pm', label: '04:30 PM' },
+  { value: 'pm', label: '05:00 PM' }, { value: 'pm', label: '05:30 PM' },
+  { value: 'pm', label: '06:00 PM' }, { value: 'pm', label: '06:30 PM' },
+  { value: 'pm', label: '07:00 PM' }, { value: 'pm', label: '07:30 PM' },
+  { value: 'pm', label: '08:00 PM' }, { value: 'pm', label: '08:30 PM' },
+  { value: 'pm', label: '09:00 PM' }, { value: 'pm', label: '09:30 PM' },
 ]
 
-const setReminderOptions=[
-  {value: 'none',label: 'None'},{value: '5minbefore',label: '5 minutes before'},
-  {value: '10minbefore',label: '10 minutes before'},{value: '15minbefore',label: '15 minutes before'},
-  {value: '30minbefore',label: '30 minutes before'},{value: '1hoursbefore',label: '1 hours before'},
-  {value: '2hoursbefore',label: '2 hours before'},{value: '1daybefore',label: '1 day before'},
-  {value: '2daysbefore',label: '2 days before'},{value: '1weekbefore',label: '1 week before'},
+const setReminderOptions = [
+  { value: 'none', label: 'None' }, { value: '5minbefore', label: '5 minutes before' },
+  { value: '10minbefore', label: '10 minutes before' }, { value: '15minbefore', label: '15 minutes before' },
+  { value: '30minbefore', label: '30 minutes before' }, { value: '1hoursbefore', label: '1 hours before' },
+  { value: '2hoursbefore', label: '2 hours before' }, { value: '1daybefore', label: '1 day before' },
+  { value: '2daysbefore', label: '2 days before' }, { value: '1weekbefore', label: '1 week before' },
 ]
 
-const setStateOptions=[
-    
-      {value:"Andaman and Nicobar Islands",label:"Andaman and Nicobar Islands"},
-      {value:"Andhra Pradesh",label:"Andhra Pradesh"},
-      {value:"Arunachal Pradesh",label:"Arunachal Pradesh"},
-      {value:"Assam",label:"Assam"},
-      {value:"Bihar",label:"Bihar"},
-      {value:"Chandigarh",label:"Chandigarh"},
-      {value:"Chhattisgarh",label:"Chhattisgarh"},
-      {value:"Dadra and Nagar Haveli",label:"Dadra and Nagar Haveli"},
-      {value:"Daman and Diu",label:"Daman and Diu"},
-      {value:"Delhi",label:"Delhi"},
-      {value:"Goa",label:"Goa"},
-      {value:"Gujarat",label:"Gujarat"},
-      {value:"Haryana",label:"Haryana"},
-      {value:"Himachal Pradesh",label:"Himachal Pradesh"},
-      {value:"Jammu and Kashmir",label:"Jammu and Kashmir"},
-      {value:"Jharkhand",label:"Jharkhand"},
-      {value:"Karnataka",label:"Karnataka"},
-      {value:"Kerala",label:"Kerala"},
-      {value:"Ladakh",label:"Ladakh"},
-      {value:"Lakshadweep",label:"Lakshadweep"},
-      {value:"Madhya Pradesh" ,label:"Madhya Pradesh"},
-      {value:"Maharashtra",label:"Maharashtra"},
-      {value:"Manipur",label:"Manipur"},
-      {value:"Meghala",label:"Meghalaya"},
-      {value:"Mizoram",label:"Mizoram"},
-      {value:"Nagaland",label:"Nagaland"},
-      {value:"Odisha",label:"Odisha"},
-      {value:"Puducherry",label:"Puducherry"},
-      {value:"Punjab",label:"Punjab"},
-      {value:"Rajasthan",label:"Rajasthan"},
-      {value:"Sikkim",label:"Sikkim"},
-      {value:"Tamil Nadu",label:"Tamil Nadu"},
-      {value:"Telangana",label:"Telangana"},
-      {value:"Tripura",label:"Tripura"},
-      {value:"Uttar Pradesh",label:"Uttar Pradesh"},
-      {value:"Uttarakhand",label:"Uttarakhand"},
-      {value:"West Bengal",label:"West Bengal"}
-  
+const setStateOptions = [
+
+  { value: "Andaman and Nicobar Islands", label: "Andaman and Nicobar Islands" },
+  { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+  { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
+  { value: "Assam", label: "Assam" },
+  { value: "Bihar", label: "Bihar" },
+  { value: "Chandigarh", label: "Chandigarh" },
+  { value: "Chhattisgarh", label: "Chhattisgarh" },
+  { value: "Dadra and Nagar Haveli", label: "Dadra and Nagar Haveli" },
+  { value: "Daman and Diu", label: "Daman and Diu" },
+  { value: "Delhi", label: "Delhi" },
+  { value: "Goa", label: "Goa" },
+  { value: "Gujarat", label: "Gujarat" },
+  { value: "Haryana", label: "Haryana" },
+  { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+  { value: "Jammu and Kashmir", label: "Jammu and Kashmir" },
+  { value: "Jharkhand", label: "Jharkhand" },
+  { value: "Karnataka", label: "Karnataka" },
+  { value: "Kerala", label: "Kerala" },
+  { value: "Ladakh", label: "Ladakh" },
+  { value: "Lakshadweep", label: "Lakshadweep" },
+  { value: "Madhya Pradesh", label: "Madhya Pradesh" },
+  { value: "Maharashtra", label: "Maharashtra" },
+  { value: "Manipur", label: "Manipur" },
+  { value: "Meghala", label: "Meghalaya" },
+  { value: "Mizoram", label: "Mizoram" },
+  { value: "Nagaland", label: "Nagaland" },
+  { value: "Odisha", label: "Odisha" },
+  { value: "Puducherry", label: "Puducherry" },
+  { value: "Punjab", label: "Punjab" },
+  { value: "Rajasthan", label: "Rajasthan" },
+  { value: "Sikkim", label: "Sikkim" },
+  { value: "Tamil Nadu", label: "Tamil Nadu" },
+  { value: "Telangana", label: "Telangana" },
+  { value: "Tripura", label: "Tripura" },
+  { value: "Uttar Pradesh", label: "Uttar Pradesh" },
+  { value: "Uttarakhand", label: "Uttarakhand" },
+  { value: "West Bengal", label: "West Bengal" }
+
 ]
 
 const NewLead = React.memo(() => {
@@ -364,7 +364,7 @@ const NewLead = React.memo(() => {
                       },
                     ]}
                   >
-                  <Select options={setStateOptions} placeholder="Select Your State"></Select>
+                    <Select options={setStateOptions} placeholder="Select Your State"></Select>
                   </Form.Item>
                 </Col>
                 <Col >
@@ -569,98 +569,98 @@ const NewLead = React.memo(() => {
                       <p className="botton-label">Select the team members you want to involve for this lead</p>
                       <Button shape="round" size="large" block={false} onClick={showTeamMemeberModal}>Add Team Member</Button>
                     </Col>
-                      <>
-                        <Modal
-                          title="Add Team Member"
-                          visible={visibleTeamMemberModal}
-                          onOk={handleAddMember}
-                          confirmLoading={teamMemberLoading}
-                          // onCancel={handleCancel}
-                        >
-                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                            <Form.Item
-                              {...formItemLayout}
-                              className="form-item-name label-color"
-                              name="Select Designation"
-                              label="Select Designation"
-                              hasFeedback
-                              rules={[
-                                {
-                                  required: false,
-                                  message: 'Set Designation',
-                                },
-                              ]}
-                            >
-                              <Select options={setReminderOptions} placeholder="Set Designation"></Select>
-                            </Form.Item>
-                          </Col>
-                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                            <Form.Item
-                              {...formItemLayout}
-                              className="form-item-name label-color"
-                              name="Select Team Member"
-                              label="Select Team Member"
-                              hasFeedback
-                              rules={[
-                                {
-                                  required: false,
-                                  message: 'Set Reminder',
-                                },
-                              ]}
-                            >
-                              <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
-                            </Form.Item>
-                          </Col>
-                        </Modal>
-                      </>
+                    <>
+                      <Modal
+                        title="Add Team Member"
+                        visible={visibleTeamMemberModal}
+                        onOk={handleAddMember}
+                        confirmLoading={teamMemberLoading}
+                      // onCancel={handleCancel}
+                      >
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                          <Form.Item
+                            {...formItemLayout}
+                            className="form-item-name label-color"
+                            name="Select Designation"
+                            label="Select Designation"
+                            hasFeedback
+                            rules={[
+                              {
+                                required: false,
+                                message: 'Set Designation',
+                              },
+                            ]}
+                          >
+                            <Select options={setReminderOptions} placeholder="Set Designation"></Select>
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                          <Form.Item
+                            {...formItemLayout}
+                            className="form-item-name label-color"
+                            name="Select Team Member"
+                            label="Select Team Member"
+                            hasFeedback
+                            rules={[
+                              {
+                                required: false,
+                                message: 'Set Reminder',
+                              },
+                            ]}
+                          >
+                            <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
+                          </Form.Item>
+                        </Col>
+                      </Modal>
+                    </>
                     <Col xs={24} sm={24} md={24} lg={12} xl={12} className="lead-manager">
                       <p className="botton-label">Currently this lead is allocated to Self</p>
                       <Button shape="round" size="large" block={false} onClick={showChangeOwnerModal}>Change Owner</Button>
                     </Col>
-                      <>
-                        <Modal
-                          title="Allocate to"
-                          visible={visibleChangeOwnerMOdel}
-                          onOk={handleChangeOwner}
-                          confirmLoading={changeOwnerLoading}
-                          // onCancel={handleCancel}
-                        >
-                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                            <Form.Item
-                              {...formItemLayout}
-                              className="form-item-name label-color"
-                              name="Select Designation"
-                              label="Select Designation"
-                              hasFeedback
-                              rules={[
-                                {
-                                  required: false,
-                                  message: 'Set Designation',
-                                },
-                              ]}
-                            >
-                              <Select options={setReminderOptions} placeholder="Set Designation"></Select>
-                            </Form.Item>
-                          </Col>
-                          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                            <Form.Item
-                              {...formItemLayout}
-                              className="form-item-name label-color"
-                              name="Select Team Member"
-                              label="Select Team Member"
-                              hasFeedback
-                              rules={[
-                                {
-                                  required: false,
-                                  message: 'Set Reminder',
-                                },
-                              ]}
-                            >
-                              <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
-                            </Form.Item>
-                          </Col>
-                        </Modal>
-                      </>
+                    <>
+                      <Modal
+                        title="Allocate to"
+                        visible={visibleChangeOwnerMOdel}
+                        onOk={handleChangeOwner}
+                        confirmLoading={changeOwnerLoading}
+                      // onCancel={handleCancel}
+                      >
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                          <Form.Item
+                            {...formItemLayout}
+                            className="form-item-name label-color"
+                            name="Select Designation"
+                            label="Select Designation"
+                            hasFeedback
+                            rules={[
+                              {
+                                required: false,
+                                message: 'Set Designation',
+                              },
+                            ]}
+                          >
+                            <Select options={setReminderOptions} placeholder="Set Designation"></Select>
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                          <Form.Item
+                            {...formItemLayout}
+                            className="form-item-name label-color"
+                            name="Select Team Member"
+                            label="Select Team Member"
+                            hasFeedback
+                            rules={[
+                              {
+                                required: false,
+                                message: 'Set Reminder',
+                              },
+                            ]}
+                          >
+                            <Select options={setReminderOptions} placeholder="Set Team Member"></Select>
+                          </Form.Item>
+                        </Col>
+                      </Modal>
+                    </>
                   </Row>
                 </Form>
               </div>
