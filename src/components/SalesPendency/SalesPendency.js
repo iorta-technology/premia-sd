@@ -74,46 +74,77 @@ const SalesPendency = () => {
     const [selectBusinessOption, setSelectBusinessOption] = useState("");
     const [fetchPendencyArr, setFetchPendencyArr] = useState([]);
     const [loading, setloading] = useState(true);
+
     const filterBusinessFunc = (e) => {
         setSelectBusinessOption(e.target.value)
-        axios.get(`https://nodemanipalcigna.iorta.in/secure/sd/admin/fetchPendencyReport?BRMCode=AB0005&bussiness_type=${e.target.value}`)
-            .then((res) => {
-                setloading(false);
-                console.log(res)
-                setSelectBusinessOption(
-                    res.data.errMsg[0].filter((fileArr) => {
-                        // if (selectBusinessOption == "") {
-                        //     return fileArr
-                        // }
-                        if (selectBusinessOption != "") {
-                            return fileArr.Type
-                                .toLowerCase()
-                                .includes(selectBusinessOption.toLowerCase());
 
-                        } else {
-                            return fileArr;
-                        }
-                    })
-                        .map(row => ({
-                            ApplicationNo: row.applicationNo,
-                            PolicyNumber: row.policyNumber,
-                            BranchCode: row.branchCode,
-                            PremiumAmount: row.PremiumAmount,
-                            CustomerName: row.customerName,
-                            MobileNumber: row.mobileNumber,
-                            Emailid: row.emailAddress,
-                            LoginDate: row.loginDate,
-                            SumInsured: row.sumInsured,
-                            PartnerAgentName: row.partner_slash_agent_name,
-                            Type: row.bussinessType,
-                            Remarks: row.remarks,
-                            RequirementDescription: row.requirementDescription,
-                            DateofFileUpdate: row.updatedDate
-                            // id: row.id
-                        }))
 
-                );
-            })
+// fetchPendencyArr
+// .filter((filterOption)=>{
+//     if(selectBusinessOption!=""){
+//         console.log( filterOption)
+//     }
+//     else{ 
+//         console.log( filterOption.Type
+//                                 .toLowerCase()
+//                                 .includes(selectBusinessOption.toLowerCase()));
+//     }
+// })
+// .map(row => ({
+//     ApplicationNo: row.applicationNo,
+//     PolicyNumber: row.policyNumber,
+//     BranchCode: row.branchCode,
+//     PremiumAmount: row.PremiumAmount,
+//     CustomerName: row.customerName,
+//     MobileNumber: row.mobileNumber,
+//     Emailid: row.emailAddress,
+//     LoginDate: row.loginDate,
+//     SumInsured: row.sumInsured,
+//     PartnerAgentName: row.partner_slash_agent_name,
+//     Type: row.bussinessType,
+//     Remarks: row.remarks,
+//     RequirementDescription: row.requirementDescription,
+//     DateofFileUpdate: row.updatedDate
+//     // id: row.id
+// }))
+//         // axios.get(`https://nodemanipalcigna.iorta.in/secure/sd/admin/fetchPendencyReport?BRMCode=AB0005&bussiness_type=${e.target.value}`)
+        //     .then((res) => {
+        //         setloading(false);
+        //         console.log(res)
+        //         setSelectBusinessOption(
+        //             res.data.errMsg[0].filter((fileArr) => {
+        //                 // if (selectBusinessOption == "") {
+        //                 //     return fileArr
+        //                 // }
+        //                 if (selectBusinessOption != "") {
+        //                     return fileArr.Type
+        //                         .toLowerCase()
+        //                         .includes(selectBusinessOption.toLowerCase());
+
+        //                 } else {
+        //                     return fileArr;
+        //                 }
+        //             })
+        //                 .map(row => ({
+        //                     ApplicationNo: row.applicationNo,
+        //                     PolicyNumber: row.policyNumber,
+        //                     BranchCode: row.branchCode,
+        //                     PremiumAmount: row.PremiumAmount,
+        //                     CustomerName: row.customerName,
+        //                     MobileNumber: row.mobileNumber,
+        //                     Emailid: row.emailAddress,
+        //                     LoginDate: row.loginDate,
+        //                     SumInsured: row.sumInsured,
+        //                     PartnerAgentName: row.partner_slash_agent_name,
+        //                     Type: row.bussinessType,
+        //                     Remarks: row.remarks,
+        //                     RequirementDescription: row.requirementDescription,
+        //                     DateofFileUpdate: row.updatedDate
+        //                     // id: row.id
+        //                 }))
+
+        //         );
+        //     })
         // console.log(e.target.value)
 
     }
@@ -124,7 +155,7 @@ const SalesPendency = () => {
     useEffect(() => {
         getData();
 
-    }, []);
+    }, [selectBusinessOption]);
     // console.log(fetchPendencyArr);
     const getData = async () => {
         await axios.get("https://nodemanipalcigna.iorta.in/secure/sd/admin/fetchPendencyReport?BRMCode=AB0005")
@@ -132,18 +163,13 @@ const SalesPendency = () => {
                 setloading(false);
                 console.log(res)
                 setFetchPendencyArr(
-                    res.data.errMsg[0].filter((fileArr) => {
-                        // if (selectBusinessOption == "") {
-                        //     return fileArr
-                        // }
-                        if (selectBusinessOption != "") {
-                            return fileArr.Type
-                                .toLowerCase()
-                                .includes(selectBusinessOption.toLowerCase());
-
-                        } else {
-                            return fileArr;
-                        }
+                    res.data.errMsg[0]
+                    .filter(filArr => {
+                        if(selectBusinessOption!==""){
+                        return filArr.bussinessType==selectBusinessOption}
+                    else{
+                        return filArr
+                    }
                     })
                         .map(row => ({
                             ApplicationNo: row.applicationNo,
