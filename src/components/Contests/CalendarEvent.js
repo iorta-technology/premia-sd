@@ -2426,7 +2426,7 @@ setDurationStartDateHelper(e.dateStr)
         <div
           // className={prospectCollection.first_meeting == true && prospectCheck == true ? "CalendarEvent-Modal-Card-height" : "CalendarEvent-Modal-Card-style"}
        
-       className="CalendarEvent-Modal-Card-style-1"
+       className="CalendarEvent-Modal-Card-style"
        >
           <div
             className="CalendarEvent-Modal-Card-content"
