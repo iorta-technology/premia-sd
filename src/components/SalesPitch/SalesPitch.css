@@ -1,0 +1,308 @@
+.Salespitch-main{
+  display: flex;
+  /* height: 350vh; */
+  background-color: #f7f7f7;
+}
+.Salespitch-row-flex{
+  display: flex;
+  width: 100%;
+  margin-top: 4vw;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  /* height: 280vh; */
+  background-color: #fff;
+  /* display: flex;
+  flex-direction: row;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%; */
+  
+}
+.Salespitch-tabs{
+  display: flex;
+  /* background-color: white; */
+}
+.Heading{
+  margin-top: 2vw;
+  font-size: 30px;
+  font-weight: bolder;
+  text-align: center;
+}
+.calculator1{
+  margin-top: 10vw !important;
+  margin: 0 auto;
+  padding: 20px 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  justify-content: space-between;
+  justify-content: center;
+  width: 25vw;
+  font-size: 26px !important;
+  height: 60vh;
+  display: flex;
+  padding: 16px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.paragraph11{
+  font-size: 26px !important;
+}
+.btnn{
+  background-color: #3b371e;
+  color: #fff;
+  justify-content: center;
+  margin-left: 7vw;
+  font-size: 24px;
+  padding: 2px 20px;
+  height: 6vh;
+  /* width: 10vw; */
+}
+.c1{
+  display: flex;
+  width: 60vw;
+}
+
+.Salespitch1{
+  display: flex;
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+.headingg{
+  font-family: 'robotobold';
+  text-align: start;
+  font-size: 24px;
+  color: #38393d;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: justify;
+}
+.headingg1{
+  font-family: 'robotoregular';
+  font-size: 18px;
+  color: #454F63;
+  line-height: 1.7;
+  /* text-align: start; */
+  text-align: justify;
+}
+.headingg2{
+  font-size: 14px;
+  color: #454F63;
+  line-height: 1.7;
+  text-align: justify;
+}
+.headingg3{
+  font-family: 'robotobold';
+  text-align: justify;
+  /* text-align: start; */
+  color: rgb(2, 175, 238);
+}
+.presentation-img{
+  margin: 0 auto;
+  padding: 20px 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  justify-content: space-between;
+  justify-content: center;
+  width: 80vw;
+  padding: 16px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.i2{
+  height: 15vh;
+}
+.Salespitch-data{
+  display: flex;
+  border: none;
+}
+.Salespitch-img1,
+.Salespitch-img2
+{
+  margin: 0 auto;
+    padding: 20px 20px;
+    border-radius: 5px;
+    background-color: #FCFDFE;
+    justify-content: space-around;
+    justify-content: center;
+    width: 80vw;
+    /* height: 65vh; */
+    padding: 16px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+
+}
+.Salespitch-details-card-style {
+  /* height: 100vh;
+  width: 90vw; */
+  /* background-color:brown; */
+  /* border-radius: 5px; */
+  overflow: hidden;
+  /* border-width: 1px;
+  border-color: grey;
+  border-style: solid;
+  box-shadow: 0.3px 0.55px 1.1px 2px rgba(0, 0, 0, 0.2); */
+  /* margin-top: 30px; */
+}
+.Salespitch-details-card-content-align {
+  margin-left: 1vw;
+  margin-right: 1vw;
+  margin-top: 1.3vw;
+  margin-bottom: 1.3vw;
+}
+.testimonial1 {
+  margin: 0 auto;
+  /* padding: 10px 10px; */
+  border-radius: 5px;
+  background-color: #FCFDFE;
+  justify-content: space-around;
+  justify-content: center;
+  /* width: 80vw; */
+  /* height: 65vh; */
+  padding: 16px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.demo-nav {
+  padding: 18px;
+    background-color: #000000;
+    position: absolute;
+    bottom: 5px;
+    color: #fff;
+    width: 90%;
+    opacity: 0.7;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  /* height: 30px;
+  margin-bottom: 16px;
+  line-height: 30px;
+  background: #f8f8f8; */
+}
+.demo-nav a {
+  color: #fff;
+  font-size: 18px;
+  padding: 0 8px;
+  line-height: 30px;
+}
+.product-head{
+  margin-top: 2vw;
+  font-size: 30px;
+}
+.product-head3{
+  display: flex;
+  font-size: 26px;
+  color: #9d9d9d;
+}
+.product-para{
+  display: flex;
+  font-size: 24px;
+}
+.Buttonn{
+  font-size: 22px;
+  padding: 0 8px;
+  }
+.product-main{
+  margin-left: 0 auto;
+  padding: 20px 20px;
+  height: 70vh;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow:  1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+@media (max-width:524px) {
+  /* .Salespitch-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  } */
+  .Salespitch-row-flex{
+    display: flex;
+    margin-top: 15px;
+    margin-left: 0 auto;
+  }
+  .product-para{
+display: flex;
+font-size: 16px;
+  }
+  .product-head3{
+    display: flex;
+font-size: 16px;
+  }
+  .Salespitch-img1{
+    display: flex;
+    /* margin-left: 1vw;
+    margin-right: 1vw; */
+    flex-direction: column;
+  }
+  .testimonial1 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
+.headingg{
+  display: flex;
+  text-align: start;
+  font-size: 20px;
+}
+  /* .testimonial1 {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    display: flex;
+    flex-direction: column;
+  } */
+  .Salespitch1{
+    display: flex;
+    flex-direction: column;
+
+  }
+  .img1.jpg{
+    visibility: hidden;
+  }
+  .Salespitch-img2 {
+    display: none;
+  }
+  .presentation-img{
+    display: flex;
+    margin-left: '5px';
+    text-align: justify;
+    flex-direction: column;
+  }
+  .presentation-img1{
+    margin: 0 auto;
+    padding: 20px 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    justify-content: space-around;
+    justify-content: center;
+    width: 80vw;
+    padding: 16px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+  }
+  .testimonial1 {
+    display: flex;
+    width: 20vw;
+    flex-direction: column;
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
+}
