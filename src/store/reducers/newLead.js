@@ -65,9 +65,9 @@ const initialState = {
         HaveLifeInsurance: '',
         SumAssured: '',
         Insurance: '',
-        Insurancedetails: '',
+        Insurancedetails: [],
         riskComensmentDate: '',
-        HaveLifeInsurance_details: '',
+        HaveLifeInsurance_details: [],
     },
     // lead form data
     
