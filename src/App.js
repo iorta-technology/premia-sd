@@ -35,6 +35,7 @@ const AgentMicroService = React.lazy(()=> import('./components/AgentMicroSite/Ag
 const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashboard'))
 const Blog = React.lazy(()=> import('./components/AgentMicroSite/Blog'))
 
+const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
 
 
 function App() {
@@ -74,6 +75,9 @@ function App() {
               <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
               <Route path="/calendar" component={Calendar}/>
               <Route path="/kpi-dashboard" component={KpiDashboard}/>
+              <Route path="/salespendency" component={SalesPendency}></Route>
+
+
               </div>
           </Switch>
         </div>
