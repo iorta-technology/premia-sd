@@ -5,6 +5,7 @@ import addressReducer from './address'
 import loginReducer from './auth';
 import homeReducer from './home';
 import activitiesReducer from './home'
+import historyReducer from './history'
 // import pendencyReducer from './penc'
 const rootReducer = combineReducers({
     leads:leadsReducer,
@@ -13,6 +14,8 @@ const rootReducer = combineReducers({
     login:loginReducer,
     home: homeReducer,
     activities: activitiesReducer,
+    history:historyReducer
+
     // pendencies:pendencyReducer
 });
 

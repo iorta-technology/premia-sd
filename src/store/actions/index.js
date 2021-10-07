@@ -16,5 +16,9 @@ export {
     fetchUserDetails,
     fetchHierarchy
 } from './auth'
-export { home } from './home'
-export { activities } from './home'
+export { 
+    home,activities 
+} from './home'
+export {
+    fetchHistory
+}from './history'
