@@ -39,11 +39,12 @@ const RenewalAll = React.lazy(()=> import('./components/RenewalCollections/AllRe
 const RenewalPaid = React.lazy(()=> import('./components/RenewalCollections/PaidRenewals'))
 const RenewalUnPaid = React.lazy(()=> import('./components/RenewalCollections/UnPaidRenewals'))
 
+const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
 
 
 function App() {
   return (
-  <React.Suspense fallback={<Spin size="large"/>}>
+  <React.Suspense fallback={<Spin size="large" className="loader"/>}>
     
       <Router>
         <div className="box-size">
@@ -82,6 +83,9 @@ function App() {
               <Route path="/renewalMaster/all" component={RenewalAll}/>
               <Route path="/renewalMaster/paidRenewals" component={RenewalPaid}/>
               <Route path="/renewalMaster/unpaidRenewals" component={RenewalUnPaid}/>
+              <Route path="/salespendency" component={SalesPendency}></Route>
+
+
               </div>
           </Switch>
         </div>

@@ -1,7 +1,9 @@
 import React from 'react'
 import { Row, Col } from 'antd';
 import './History.css'
+import '../StatusLead/StatusLead.css'
 import Tabs from '../Tab/Tab'
+import HistoryTabs from './HistoryTabs'
 
 let historyRoute = "/leadmasterpage/leadhistorymaster/leadhistory"
 const tabMenu = [
@@ -40,6 +42,9 @@ const History = () => {
             />
             <div className="form-container">
                 <Row gutter={['', 24]}>
+                    <Col xs={24} sm={22} md={4} offset={2}>
+                        <HistoryTabs  />
+                    </Col>
                     <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
                         <div className="proposal">
                             <div className="bg-norecord">

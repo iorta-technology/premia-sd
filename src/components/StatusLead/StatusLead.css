@@ -54,6 +54,9 @@
 .form-item-name{
     margin-bottom: 5px;
 }
+#leadStatus{
+    height: 49px;
+}
 
 .input-box,.input-box:focus{
     padding: 10px !important;
