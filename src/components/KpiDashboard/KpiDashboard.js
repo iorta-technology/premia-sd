@@ -1,4 +1,7 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import * as actions from '../../store/actions/index';
+import { useDispatch, useSelector } from 'react-redux';
+import Moment from "moment";
 import './KpiDashboard.css';
 import { Row, Col } from 'antd'
 import { Button } from 'antd';
@@ -8,6 +11,24 @@ import { Select } from 'antd';
 import { Column } from '@ant-design/charts';
 
 const KpiDashboard = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actions.kpiDashboard())
+  },[dispatch])
+
+  const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data)
+  const employee_data = kpi_data
+  console.log("kpi-data",kpi_data)
+  console.log("employee data",employee_data)
+  let avatar = employee_data[0]?.data.first_name.match(/\b(\w)/g) + employee_data[0]?.data.last_name.match(/\b(\w)/g)
+  let updatedDate = Moment(employee_data[1]?.data.uploadedDate).format("MM/DD/yyyy")
+  let month =  Moment(employee_data[1]?.data.uploadedDate).format("MMM")
+  let dataSource = []
+  let dataSource1 = []
+  dataSource = [... employee_data[3]?.data]
+  dataSource1 = [... employee_data[2]?.data]
+
+   
     const { Option } = Select;
     function onChange(value) {
       console.log(`selected ${value}`);
@@ -25,50 +46,10 @@ const KpiDashboard = () => {
       console.log('search:', val);
     }
   
-  
-    const dataSource = [
-      {
-        key: '1',
-        Period: 'Aug',
-        Final_Score: 32,
-        lastmonth: 123,
-      },
-      {
-        key: '2',
-        Period: 'July',
-        Final_Score: 42,
-        lastmonth: 432,
-      },
-      {
-        key: '3',
-        Period: 'June',
-        Final_Score: 42,
-        lastmonth: 432,
-      },
-      {
-        key: '4',
-        Period: 'May',
-        Final_Score: 42,
-        lastmonth: 432,
-      },
-      {
-        key: '5',
-        Period: 'April',
-        Final_Score: 42,
-        lastmonth: 432,
-      },
-      {
-        key: '6',
-        Period: 'March',
-        Final_Score: 42,
-        lastmonth: 432,
-      },
-    ];
-    
     const columns = [
       {
         title: 'Period',
-        dataIndex: 'Period',
+        dataIndex: 'month',
         key: 'Period',
       },
       {
@@ -78,10 +59,32 @@ const KpiDashboard = () => {
       },
       {
         title: '% Change over last month',
-        dataIndex: 'lastmonth',
+        dataIndex: 'change_in_percent',
         key: '% Change over last month',
       },
     ];
+    const columns1 = [
+      {
+        title: 'Period',
+        dataIndex: 'month',
+        key: 'Period',
+      },
+      {
+        title: 'GPW(in ₹ Lac) Budget',
+        dataIndex: 'sgpw_budget',
+        key: 'gpw_budget',
+      },
+      {
+        title: 'GPW(in ₹ Lac) Actual',
+        dataIndex: 'sgpw_actual',
+        key: 'gpw_actual',
+      },
+      {
+        title: '% Achievement',
+        dataIndex: 'sgpw_achievement',
+        key: 'gpw_achievement',
+      },
+    ]
     const data = [
         { year: 'Aug', value: 50 },
         { year: 'Jul', value: 10 },
@@ -216,12 +219,12 @@ const KpiDashboard = () => {
           <Row>
             <Col span={24}>
               <div className="profile">
-                <p>BP</p>
+                <h3 style={{color: '#fff',textTransform:'uppercase',fontWeight:'normal'}}>{avatar}</h3>
               </div>
             </Col>
             <Col className="userDetails" span={24}>
-              <h5>Vinaykumar A</h5>
-              <p>ID : <span>533773</span></p>
+              <h5>{employee_data[0]?.data.first_name} {employee_data[0]?.data.last_name}</h5>
+              <p style={{marginTop:'0px'}}>ID : <span>{employee_data[0]?.data.employeeCode}</span></p>
             </Col>
           </Row>
         </Col>
@@ -232,12 +235,12 @@ const KpiDashboard = () => {
                 <Col span={24} className="detailsCard">
                   <Row>
                     <Col span={12}>
-                    <p className='updatetitle' style={{margin:"0"}}>update as on 20/01/1999</p>
-                    <p className='updatecount' style={{margin:"0"}}>323</p>
+                    <p className='updatetitle' style={{margin:"0"}}>update as on {updatedDate}</p>
+                    <p className='updatecount' style={{margin:"0"}}>{employee_data[1]?.data.GPW.gpw_actual}</p>
                     <p className='updatetotal' style={{margin:"0"}}>Total GWP in ₹ Lac</p>
                     </Col>
                     <Col span={8} offset={4}>
-                    <p className="sidehead" style={{margin:"0"}}>MTD Aug 2021</p>
+                    <p className="sidehead" style={{margin:"0"}}>MTD {month} {employee_data[1]?.data.year}</p>
                     <p className="updatestatus" style={{margin:"0"}}>Actual</p>
                     </Col>
                   </Row>
@@ -245,12 +248,12 @@ const KpiDashboard = () => {
                 <Col span={24} className="detailsCard">
                   <Row>
                     <Col span={12}>
-                    <p className='updatetitle' style={{margin:"0"}}>update as on 20/01/1999</p>
-                    <p className='updatecount' style={{margin:"0"}}>32</p>
+                    <p className='updatetitle' style={{margin:"0"}}>update as on {updatedDate}</p>
+                    <p className='updatecount' style={{margin:"0"}}>{employee_data[1]?.data.parcentIssuance}</p>
                     <p className='updatetotal' style={{margin:"0"}}>% Issuance</p>
                     </Col>
                     <Col span={8} offset={4}>
-                    <p className="sidehead" style={{margin:"0"}}>MTD Aug 2021</p>
+                    <p className="sidehead" style={{margin:"0"}}>MTD {month} {employee_data[1]?.data.year}</p>
                     <p className="updatestatus" style={{margin:"0"}}>Actual</p>
                     </Col>
                   </Row>
@@ -262,12 +265,12 @@ const KpiDashboard = () => {
               <Col span={24} className="detailsCard">
                   <Row>
                     <Col span={12}>
-                    <p className='updatetitle' style={{margin:"0"}}>update as on 20/01/1999</p>
-                    <p className='updatecount' style={{margin:"0"}}>% 42</p>
+                    <p className='updatetitle' style={{margin:"0"}}>update as on {updatedDate}</p>
+                    <p className='updatecount' style={{margin:"0"}}>% {employee_data[1]?.data['Branch Activation'].branch_activation_actual}</p>
                     <p className='updatetotal' style={{margin:"0"}}>Active Branches</p>
                     </Col>
                     <Col span={8} offset={4}>
-                    <p className="sidehead" style={{margin:"0"}}>MTD Aug 2021</p>
+                    <p className="sidehead" style={{margin:"0"}}>MTD {month} {employee_data[1]?.data.year}</p>
                     <p className="updatestatus" style={{margin:"0"}}>Actual</p>
                     </Col>
                   </Row>
@@ -275,12 +278,12 @@ const KpiDashboard = () => {
                 <Col span={24} className="detailsCard">
                   <Row>
                     <Col span={19}>
-                    <p className='updatetitle' style={{margin:"0"}}>update as on 20/01/1999</p>
-                    <p className='updatecount' style={{margin:"0"}}>% 0</p>
+                    <p className='updatetitle' style={{margin:"0"}}>update as on {updatedDate}</p>
+                    <p className='updatecount' style={{margin:"0"}}>% {employee_data[1]?.data.parcentPendancy}</p>
                     <p className='updatetotal' style={{margin:"0"}}>Pendancy(GWP Pendancy vs. GWP Ach)</p>
                     </Col>
                     <Col span={5}>
-                    <p className="sidehead" style={{margin:"0",marginRight: '-7px'}}>MTD Aug 2021</p>
+                    <p className="sidehead" style={{margin:"0",marginRight: '-10px'}}>MTD {month} {employee_data[1]?.data.year}</p>
                     <p className="updatestatus" style={{margin:"0"}}>Actual</p>
                     </Col>
                   </Row>
@@ -292,12 +295,12 @@ const KpiDashboard = () => {
               <Col span={24} className="detailsCard">
                   <Row>
                     <Col span={12}>
-                    <p className='updatetitle' style={{margin:"0"}}>update as on 20/01/1999</p>
-                    <p className='updatecount' style={{margin:"0"}}>231</p>
+                    <p className='updatetitle' style={{margin:"0"}}>update as on {updatedDate}</p>
+                    <p className='updatecount' style={{margin:"0"}}>{employee_data[1]?.data['GWP Retention'].gwp_retention_actual}</p>
                     <p className='updatetotal' style={{margin:"0"}}>Total GWP Retention in ₹</p>
                     </Col>
                     <Col span={8} offset={4}>
-                    <p className="sidehead" style={{margin:"0"}}>MTD Aug 2021</p>
+                    <p className="sidehead" style={{margin:"0"}}>MTD {month} {employee_data[1]?.data.year}</p>
                     <p className="updatestatus" style={{margin:"0"}}>Actual</p>
                     </Col>
                   </Row>
@@ -305,12 +308,12 @@ const KpiDashboard = () => {
                 <Col span={24} className="detailsCard">
                   <Row>
                     <Col span={12}>
-                    <p className='updatetitle' style={{margin:"0"}}>update as on 20/01/1999</p>
-                    <p className='updatecount' style={{margin:"0"}}>24</p>
+                    <p className='updatetitle' style={{margin:"0"}}>update as on {updatedDate}</p>
+                    <p className='updatecount' style={{margin:"0"}}>{employee_data[1]?.data.parcentUnallocated}</p>
                     <p className='updatetotal' style={{margin:"0"}}>GWP Unallocated in ₹</p>
                     </Col>
                     <Col span={8} offset={4}>
-                    <p className="sidehead" style={{margin:"0"}}>MTD Aug 2021</p>
+                    <p className="sidehead" style={{margin:"0"}}>MTD {month} {employee_data[1]?.data.year}</p>
                     <p className="updatestatus" style={{margin:"0"}}>Actual</p>
                     </Col>
                   </Row>
@@ -320,7 +323,7 @@ const KpiDashboard = () => {
           </Row>
         </Col>
       </Row>
-      <Row justify="space-around" style={{marginTop:"10px"}}  gutter={10}>
+      <Row justify="space-around" style={{marginTop:"10px"}}  gutter={16}>
         <Col span={7} className="graph">
           <div style={{padding:"15px"}}>
           <h4>FINAL KPI SCORE %</h4>
@@ -330,7 +333,7 @@ const KpiDashboard = () => {
             <Column {...config} />
             </div>
             {/* graph */}
-            <Table pagination={false} columns={columns} dataSource={dataSource} />
+            <Table pagination={false} columns={columns} dataSource={dataSource1} />
         </Col>
         <Col span={8} style={{marginLeft:"10px"}} className="graph">
         <div style={{padding:"15px"}}>
@@ -348,16 +351,18 @@ const KpiDashboard = () => {
       option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
     }
   >
-    <Option value="jack">Jack</Option>
-    <Option value="lucy">Lucy</Option>
-    <Option value="tom">Tom</Option>
+    <Option value="GPW" active>GPW</Option>
+    <Option value="Branch Activation">Branch Activation</Option>
+    <Option value="NOP Retention">NOP Retention</Option>
+    <Option value="NOP Retention">GWP Retention</Option>
+    <Option value="Dummy">Dummy</Option>
   </Select>
         </div>
         {/* graph */}
         <div style={{padding:'10px'}}>
         <Column {...config1} />
         </div>
-        <Table pagination={false} columns={columns} dataSource={dataSource} />
+        <Table pagination={false} columns={columns}  />
         </Col>
         <Col span={8} style={{marginLeft:"10px"}} className="graph">
         <div style={{padding:"15px"}}>
@@ -377,9 +382,8 @@ const KpiDashboard = () => {
       option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
     }
   >
-    <Option value="jack">Jack</Option>
-    <Option value="lucy">Lucy</Option>
-    <Option value="tom">Tom</Option>
+    <Option value="Top 10">Top 10</Option>
+    <Option value="Bottom 10">Bottom 10</Option>
   </Select>
             </Col>
             </Row>

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 const { TabPane } = Tabs
 
-const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
+const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey }) => {
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
 
@@ -17,7 +17,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
     const handler = (activeKey) => {
         // console.log(activeKey)
         // setactiveKey(key)
-
+        if(activeKey){
         switch (activeKey) {
             case "1": return history.push('/leadmasterpage/statuslead');
             case "2": return history.push('/leadmasterpage/leaddetails/personallead');
@@ -27,6 +27,31 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
             default:  return history.push('/leadmasterpage/statuslead');
         }
     }
+    // if(activeKey){
+    //     switch (activeKey) {
+    //         case "1": return history.push('/renewalMaster/allRenewals');
+    //         case "2": return history.push('/renewalMaster/paidRenewals');
+    //         case "3": return history.push('/renewalMaster/unpaidRenewals');
+    //         case "4": return history.push('/renewalMaster/lapsedRenewals');
+    //     }
+    // }
+}
+    
+
+    // const handler = (activeRenewalkey) => {
+    //     // console.log(activeKey)
+    //     // setactiveKey(key)
+
+    //     switch (activeRenewalkey) {
+    //         case "1": return history.push('/renewalMaster/all');
+    //         // case "2": return history.push('/leadmasterpage/leaddetails/personallead');
+    //         // case "3": return history.push('/leadmasterpage/proposal');
+    //         // case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
+    //         // case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
+    //         default:  return history.push('/leadmasterpage/statuslead');
+    //     }
+    // }
+
     let tabPane = []
     if (tabMenu && !_.isEmpty(tabMenu)) {
 
