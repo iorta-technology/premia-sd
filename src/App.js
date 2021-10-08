@@ -34,6 +34,10 @@ const Calendar = React.lazy(()=> import('./components/Contests/CalendarEvent'))
 const AgentMicroService = React.lazy(()=> import('./components/AgentMicroSite/AgentMicroSite'))
 const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashboard'))
 const Blog = React.lazy(()=> import('./components/AgentMicroSite/Blog'))
+const Renewals = React.lazy(()=> import('./containers/RenewalMaster/index'))
+const RenewalAll = React.lazy(()=> import('./components/RenewalCollections/AllRenewals'))
+const RenewalPaid = React.lazy(()=> import('./components/RenewalCollections/PaidRenewals'))
+const RenewalUnPaid = React.lazy(()=> import('./components/RenewalCollections/UnPaidRenewals'))
 
 const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
 
@@ -75,6 +79,10 @@ function App() {
               <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
               <Route path="/calendar" component={Calendar}/>
               <Route path="/kpi-dashboard" component={KpiDashboard}/>
+              <Route path="/renewalMaster/allRenewals" component={Renewals}/>
+              <Route path="/renewalMaster/all" component={RenewalAll}/>
+              <Route path="/renewalMaster/paidRenewals" component={RenewalPaid}/>
+              <Route path="/renewalMaster/unpaidRenewals" component={RenewalUnPaid}/>
               <Route path="/salespendency" component={SalesPendency}></Route>
 
 

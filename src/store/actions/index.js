@@ -16,6 +16,10 @@ export {
     fetchUserDetails,
     fetchHierarchy
 } from './auth'
+// export { home,activities } from './home'
+// export { activities } from './home'
+export { kpiDashboard } from './kpiDashboard'
+export {fetchAllRenewals} from './renewals'
 export { 
     home,activities 
 } from './home'
