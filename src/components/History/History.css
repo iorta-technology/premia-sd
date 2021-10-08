@@ -17,3 +17,12 @@
     color:#666666;
     font-weight: 600;
 }
+.his-container{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)!important;
+}
+.his-title{
+    background-color: #fafafa;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+}
