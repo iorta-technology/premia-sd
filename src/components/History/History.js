@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col,Steps,Divider } from 'antd';
+import { Row, Col,Steps,Divider,Timeline } from 'antd';
 
 import './History.css'
 import '../StatusLead/StatusLead.css'
@@ -55,7 +55,7 @@ const History = () => {
                             <p className="norecord-title">No Records Found</p>
                         </div>
                     </Col> */}
-                    <Col xs={22} sm={22} md={16} offset={4} className="form-body m0a his-container">
+                    {/* <Col xs={22} sm={22} md={24} offset={4} className="form-body m0a his-container">
                         <h2 className="his-title m0a">Lead Data</h2>
                         <Steps progressDot current={1} direction="vertical"   className="p40" >
                             <Step title="Finished" description="This is a description." />
@@ -68,9 +68,62 @@ const History = () => {
                         </Steps>
                         <h2 className="his-title m0a">Lead Data</h2>
                         <Steps progressDot current={1} direction="vertical"  className="p40">
+                            <p>Ejaz Shaikh</p>
                             <Step title="Finished" description="This is a description." />
                             <Step title="In Progress" description="This is a description." />
                         </Steps>
+                    </Col> */}
+                    <Col xs={22} sm={22} md={14}  className="form-body  his-container m0a">
+                        <h2 className="his-title m0a">Lead Data</h2>
+                        <Timeline className="p20">
+                            <Timeline.Item color="red">
+                                <p className="ml10 timeline-title">New Lead Created</p>
+                                <Row className="timeline-desc">
+                                    <Col xs={22} sm={22} md={12} className="ml10 ">
+                                        <p>Azim shaikh  7452163985 </p>
+                                    </Col>
+                                    <Col xs={22} sm={22} md={11} className="time-content">
+                                        <p>Ashraf 7/10/2021, 3:01:14 pm</p>
+                                    </Col>
+                                </Row>
+                            </Timeline.Item>
+                            <Timeline.Item color="red">
+                                <p className="ml10 ">New Lead Created</p>
+                                <Row className="timeline-desc">
+                                    <Col xs={22} sm={22} md={12} className="ml10">
+                                        <p>Azim shaikh  7452163985 </p>
+                                    </Col>
+                                    <Col xs={22} sm={22} md={11} className="time-content">
+                                        <p>Ashraf 7/10/2021, 3:01:14 pm</p>
+                                    </Col>
+                                </Row>
+                            </Timeline.Item>
+                        </Timeline>
+                        <h2 className="his-title m0a">Appoitment</h2>
+                        <Timeline className="p20">
+                            <Timeline.Item color="red">
+                                <p className="ml10 timeline-title">New Lead Created</p>
+                                <Row className="timeline-desc">
+                                    <Col xs={22} sm={22} md={12} className="ml10">
+                                        <p>Azim shaikh  7452163985 </p>
+                                    </Col>
+                                    <Col xs={22} sm={22} md={11} className="time-content">
+                                        <p>Ashraf 7/10/2021, 3:01:14 pm</p>
+                                    </Col>
+                                </Row>
+                            </Timeline.Item>
+                            <Timeline.Item color="red">
+                                <p className="ml10 ">New Lead Created</p>
+                                <Row className="timeline-desc">
+                                    <Col xs={22} sm={22} md={12} className="ml10">
+                                        <p>Azim shaikh  7452163985 </p>
+                                    </Col>
+                                    <Col xs={22} sm={22} md={11} className="time-content">
+                                        <p>Ashraf 7/10/2021, 3:01:14 pm</p>
+                                    </Col>
+                                </Row>
+                            </Timeline.Item>
+                        </Timeline>
                     </Col>
                 </Row>
             </div>
@@ -79,3 +132,4 @@ const History = () => {
 }
 
 export default History
+
