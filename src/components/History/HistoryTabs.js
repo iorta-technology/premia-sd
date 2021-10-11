@@ -1,5 +1,7 @@
 import React, { useState, useEffect }  from 'react'
-import { Row, Col, Tabs } from 'antd';
+import { Row, Col, Tabs,Steps,Divider } from 'antd';
+
+const { Step } = Steps;
 const { TabPane } = Tabs;
 
 const style = {
@@ -28,6 +30,7 @@ const HistoryTabs = () => {
                 <TabPane key="3" tab="Proposal"></TabPane>
                 <TabPane key="4" tab="Issuance"></TabPane>
             </Tabs>
+                
         </>
     )
 }

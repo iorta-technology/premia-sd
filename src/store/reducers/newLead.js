@@ -4,7 +4,7 @@ import { updateObject } from '../utility';
 const initialState = {
     createLeadLoading:false,
     createLeadError:'',
-
+    leadId:'',
     formData:{
         leadStatus: '',
         start_date: '',
@@ -79,7 +79,11 @@ const createLeadStart = (state, action) => {
 }
 
 const createLeadSuccess = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, formData: action.formData })
+    return updateObject(state, { 
+            createLeadLoading: false, 
+            formData: action.formData,
+            leadId:action.formData[0].leadId
+         })
 }
 const createLeadFail = (state, action) => {
     return updateObject(state, { createLeadLoading: false, createLeadError: action.error });
