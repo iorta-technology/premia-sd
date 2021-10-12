@@ -17,7 +17,8 @@ const RenewalMaster = (props) => {
 
     //Accessing RenewalsCard data  from store
     // const renewalsData = useSelector((state)=>state.renewals.allRenewals)
-    const renewalsData = useSelector((state)=>state.renewals.allRenewals)
+    const renewalsData = useSelector((state)=>{
+    return state.renewals.allRenewals})
     console.log("renewalsData",renewalsData)
     //Loading Renewals data
     const leadDataLoading = useSelector((state)=>state.renewals.fetch_allRenewals_Loading)
@@ -25,6 +26,7 @@ const RenewalMaster = (props) => {
     const totalRenewals = useSelector((state)=>{
         return state.renewals.count
     })
+    console.log("totalRenewals",totalRenewals)
 
     //Pagination numbers function
     function itemRender(cur, type, originalElement) {
