@@ -75,6 +75,7 @@ const initialState = {
 }
 
 
+
 const createLeadStart = (state, action) => {
     return updateObject(state, { createLeadLoading: true })
 }
@@ -91,6 +92,23 @@ const createLeadFail = (state, action) => {
     return updateObject(state, { createLeadLoading: false, createLeadError: action.error });
 }
 
+const fetchLeadDetailsStart = (state, action) => {
+    return updateObject(state, { createLeadLoading: true })
+}
+
+const fetchLeadDetailsSuccess = (state, action) => {
+    return updateObject(state, { 
+            createLeadLoading: false, 
+            formData: action.leadDetails,
+            leadId:action.leadDetails[0].leadId._id,
+            userId:action.leadDetails[0].userId._id
+         })
+}
+const fetchLeadDetailsFail = (state, action) => {
+    return updateObject(state, { createLeadLoading: false, createLeadError: action.error });
+}
+
+
 const storeForm = (state, action) => {
     return updateObject(state, { createLeadLoading: false, formData: action.formData })
 }
@@ -101,6 +119,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.CREATE_LEAD_START: return createLeadStart(state, action)
         case actionTypes.CREATE_LEAD_SUCCESS: return createLeadSuccess(state, action)
         case actionTypes.CREATE_LEAD_FAIL: return createLeadFail(state, action)
+
+        case actionTypes.FETCH_LEAD_DETAILS_START: return fetchLeadDetailsStart(state, action)
+        case actionTypes.FETCH_LEAD_DETAILS_SUCCESS: return fetchLeadDetailsSuccess(state, action)
+        case actionTypes.FETCH_LEAD_DETAILS_FAIL: return fetchLeadDetailsFail(state, action)
 
         case actionTypes.STORE_FORM_SUCCESS: return storeForm(state, action)
 

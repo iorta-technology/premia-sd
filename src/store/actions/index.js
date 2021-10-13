@@ -4,7 +4,8 @@ export {
 } from './leads'
 export {
     createLead,
-    storeLead
+    storeLead,
+    fetchLeadDetails
 }from './newLead'
 export {
     fetchAllState,

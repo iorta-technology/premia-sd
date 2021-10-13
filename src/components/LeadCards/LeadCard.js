@@ -1,10 +1,15 @@
 import React,{useEffect,useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import {Card,Avatar,Switch} from 'antd'
 import {MoreOutlined } from '@ant-design/icons';
 import './LeadCard.css';
-const LeadCard = React.memo((props) => {
+import * as actions from '../../store/actions/index';
+import { useHistory } from 'react-router-dom';
 
-    const {lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+const LeadCard = React.memo((props) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
   const leadComponent = 
   leadStatus === 'open'
   ? 
@@ -32,10 +37,14 @@ const LeadCard = React.memo((props) => {
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
-
+    const  updateHandler=(id)=>{
+        dispatch(actions.fetchLeadDetails(id))
+        history.replace('/leadmasterpage/statuslead')
+    }
     // Card for desktop
     let card = 
             <Card
+                key={id}
                 loading={props.loading}
                 className="lead-card-desktop"
                 hoverable={true}>
@@ -79,7 +88,7 @@ const LeadCard = React.memo((props) => {
                             </Card.Grid>
                         </div>
                     </div>
-                    <button className="update-btn">Update</button>  
+                    <button className="update-btn" onClick={()=>updateHandler(id)}>Update</button>  
             </Card>
     //Card for Mobile
     if(width<breakpoint){
@@ -101,7 +110,7 @@ const LeadCard = React.memo((props) => {
         </Card>
     }
     return (
-            <div>{card}</div>
+            <div key={id}>{card}</div>
 
     )
 })

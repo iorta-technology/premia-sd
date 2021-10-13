@@ -30,7 +30,7 @@ export const fetchHistory = (leadId,userId) => {
         return axios.get(`user/leadhistory/${leadId}?user_id=${userId}`)
             .then(res => {
                 // console.log(res.data.errMsg[1][0].count)
-                return dispatch(fetchHistorySuccess(res.data.errMsg[0]))
+                return dispatch(fetchHistorySuccess(res.data.errMsg))
             })
             .catch(error => {
                 return dispatch(fetchHistoryFail(error.response.data.errors))
