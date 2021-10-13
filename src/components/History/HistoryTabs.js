@@ -20,17 +20,18 @@ const HistoryTabs = () => {
     }, [width]);
     return (
         <>
-            <Tabs
-                tabPosition={width > breakpoint ? 'left' : 'top'}
-                size={width > breakpoint ? 'large' : 'small'}
-                tabBarStyle={style}
-            >
-                <TabPane key="1" tab="Lead"></TabPane>
-                <TabPane key="2" tab="Appointment"></TabPane>
-                <TabPane key="3" tab="Proposal"></TabPane>
-                <TabPane key="4" tab="Issuance"></TabPane>
-            </Tabs>
-                
+            <Col className="internal-tab"  xs={22} sm={24} md={4} lg={4} xl={4} offset={1}>
+                <Tabs
+                    tabPosition={width > breakpoint ? 'left' : 'top'}
+                    size={width > breakpoint ? 'large' : 'small'}
+                    tabBarStyle={style}
+                >
+                    <TabPane key="1" tab="Lead"></TabPane>
+                    <TabPane key="2" tab="Appointment"></TabPane>
+                    <TabPane key="3" tab="Proposal"></TabPane>
+                    <TabPane key="4" tab="Issuance"></TabPane>
+                </Tabs>
+            </Col> 
         </>
     )
 }

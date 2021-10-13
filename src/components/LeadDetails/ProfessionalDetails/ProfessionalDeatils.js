@@ -125,9 +125,7 @@ const ProfessionalDetails = () => {
             />
             <div className="form-container">
                 <Row gutter={[0, 20]} justify="center">
-                    <Col xs={24} sm={22} md={4} offset={2}>
                         <LeadDetailsTab activeKey="3" />
-                    </Col>
                     <Col className="m0a" xs={22} sm={22} md={17} >
                         <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
                             <p className="form-title">Professional Details</p>

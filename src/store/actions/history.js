@@ -24,10 +24,10 @@ export const fetchHistoryFail = (error) => {
     }
 }
 
-export const fetchHistory = (userId,) => {
+export const fetchHistory = (leadId,userId) => {
     return dispatch => {
         dispatch(fetchHistoryStart())
-        return axios.get(`user/leadhistory/615ebe626cc6974f3da34e70?user_id=${userId}`)
+        return axios.get(`user/leadhistory/${leadId}?user_id=${userId}`)
             .then(res => {
                 // console.log(res.data.errMsg[1][0].count)
                 return dispatch(fetchHistorySuccess(res.data.errMsg[0]))

@@ -5,6 +5,7 @@ const initialState = {
     createLeadLoading:false,
     createLeadError:'',
     leadId:'',
+    userId:'',
     formData:{
         leadStatus: '',
         start_date: '',
@@ -82,7 +83,8 @@ const createLeadSuccess = (state, action) => {
     return updateObject(state, { 
             createLeadLoading: false, 
             formData: action.formData,
-            leadId:action.formData[0].leadId
+            leadId:action.formData[0]._id,
+            userId:action.formData[0].userId
          })
 }
 const createLeadFail = (state, action) => {
