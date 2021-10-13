@@ -38,7 +38,8 @@ const Renewals = React.lazy(()=> import('./containers/RenewalMaster/index'))
 const RenewalAll = React.lazy(()=> import('./components/RenewalCollections/AllRenewals'))
 const RenewalPaid = React.lazy(()=> import('./components/RenewalCollections/PaidRenewals'))
 const RenewalUnPaid = React.lazy(()=> import('./components/RenewalCollections/UnPaidRenewals'))
-
+const RenewalLapsed = React.lazy(()=> import('./components/RenewalCollections/LapsedRenewals'))
+const RenewalDetails = React.lazy(()=> import('./components/RenewalCollections/RenewalDetails'))
 const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
 
 
@@ -83,6 +84,8 @@ function App() {
               <Route path="/renewalMaster/all" component={RenewalAll}/>
               <Route path="/renewalMaster/paidRenewals" component={RenewalPaid}/>
               <Route path="/renewalMaster/unpaidRenewals" component={RenewalUnPaid}/>
+              <Route path="/renewalMaster/lapsedRenewals" component={RenewalLapsed}/>
+              <Route path="/renewalMaster/Details" component={RenewalDetails}/>
               <Route path="/salespendency" component={SalesPendency}></Route>
 
 

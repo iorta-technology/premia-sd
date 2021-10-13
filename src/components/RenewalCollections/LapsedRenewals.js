@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import './UnPaidRenewals.css'
+import './LapsedRenewals.css'
 import Tab from '../../components/Tab/Tab'
 // import LeadCards from '../../components/LeadCards/LeadCards'
 import RenewalCards from '../../components/RenewalCollections/Cards/RenewalCards'
@@ -7,7 +7,7 @@ import FloatButton from '../../components/FloatButton/FloatButton'
 import * as actions from '../../store/actions/index';
 import { Pagination } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
-const PaidRenewal = (props) => {
+const LapsedRenewal = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
     const dispatch = useDispatch()
@@ -15,8 +15,8 @@ const PaidRenewal = (props) => {
         dispatch(actions.fetchUnPaidRenewals('',current))
     },[dispatch,current]);
 
-    const unPaidRenewalsData = useSelector((state)=>state.renewals.unPaidRenewals)
-    console.log("unpaid renewalsData",unPaidRenewalsData)
+    const lapsedRenewalsData = useSelector((state)=>state.renewals.lapsedRenewals)
+    console.log("unpaid renewalsData",lapsedRenewalsData)
     //Loading Renewals data
     const leadDataLoading = useSelector((state)=>state.renewals.fetch_allRenewals_Loading)
     // renewals count of the page
@@ -71,7 +71,7 @@ const PaidRenewal = (props) => {
     return (
         <div style={{backgroundColor:'#fafafa'}}>
             <Tab tabMenu={tabMenu} header="My Renewals"/>
-            <RenewalCards renewals={unPaidRenewalsData} leadDataLoading={leadDataLoading}/>
+            <RenewalCards renewals={lapsedRenewalsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
                     size="small"
@@ -87,4 +87,4 @@ const PaidRenewal = (props) => {
 }
 
 
-export default PaidRenewal;
+export default LapsedRenewal;

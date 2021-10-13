@@ -2,29 +2,30 @@ import React,{useEffect,useState} from 'react'
 import {Card,Avatar,Switch} from 'antd'
 import {MoreOutlined } from '@ant-design/icons';
 import './Cards.css';
+import {useHistory } from 'react-router-dom';
 const Cards = React.memo((props) => {
 
-    const {lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+    const {user_Id,userStatus,fullName,annualisedPremium,end_date} = props
   const leadComponent = 
-  leadStatus === 'open'
+  userStatus === 'paid'
   ? 
-  <p className="user-status-text capitalize open">{leadStatus}</p>
+  <p className="user-status-text capitalize open">{userStatus}</p>
   :
-  leadStatus === 'converted'
+  userStatus === 'unpaid'
   ?
-  <p className="user-status-text capitalize converted">{leadStatus}</p>
+  <p className="user-status-text capitalize converted">{userStatus}</p>
   :
-  leadStatus === 'failed'
+  userStatus === 'lapsed'
   ?
-  <p className="user-status-text capitalize failed">{leadStatus}</p>
+  <p className="user-status-text capitalize failed">{userStatus}</p>
   :
-  <p className="user-status-text capitalize">{leadStatus}</p>
+  <p className="user-status-text capitalize">{userStatus}</p>
 
-    let avatar = firstName.match(/\b(\w)/g) + lastName.match(/\b(\w)/g)
+    let avatar = fullName.match(/\b(\w)/g)
 
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
-
+    const history = useHistory()
      useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
@@ -32,6 +33,10 @@ const Cards = React.memo((props) => {
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
+
+    const viewDetailsHandler=()=>{
+        history.push('/renewalMaster/Details')
+    }
 
     // Card for desktop
     let card = 
@@ -46,7 +51,7 @@ const Cards = React.memo((props) => {
                     <div className="content">
                         <div className="content-header">
                             <p className="user-name-text capitalize">
-                                {firstName} {lastName}
+                                {fullName}
                                 {/* <span className="user-id uppercase">
                                     {lead_Id}
                                 </span> */}
@@ -55,15 +60,15 @@ const Cards = React.memo((props) => {
                         <div className="content-body">
                             <Card.Grid  hoverable={false} className="grid-style">
                                 <p className="text-type">Annualised Premium</p>
-                                <p className="text-content">{primaryMobile}</p>
+                                <p className="text-content">{annualisedPremium}</p>
                             </Card.Grid>
                             <Card.Grid  hoverable={false} className="grid-style">
                                 <p className="text-type">End Date</p>
-                                <p className="text-content capitalize">{allocatedBy}</p>
+                                <p className="text-content capitalize">{end_date}</p>
                             </Card.Grid>
                         </div>
                     </div>
-                    <button className="update-btn">View Details</button>  
+                    <button className="update-btn" onClick={viewDetailsHandler}>View Details</button>  
             </Card>
     //Card for Mobile
     if(width<breakpoint){
@@ -78,7 +83,7 @@ const Cards = React.memo((props) => {
                     }}
                     style={{backgroundColor:'blue'}}>{avatar}</Avatar>
             <div className="card-content-text capitalize">
-                <p className="user-name-text">{firstName} {lastName}</p>
+                <p className="user-name-text">{fullName}</p>
                 {/* <p className="user-status-text">{leadStatus}</p> */}
             </div>
             <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>
