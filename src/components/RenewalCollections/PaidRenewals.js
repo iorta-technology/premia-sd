@@ -12,18 +12,19 @@ const PaidRenewal = (props) => {
     const [current,setcurrent] = useState(1)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(actions.fetchAllLeads('',current))
+        dispatch(actions.fetchPaidRenewals('',current))
     },[dispatch,current]);
 
-    //Accessing LeadCard data  from store
-    const leadsData = useSelector((state)=>state.leads.allLeads)
-    //Loading leads data
-    const leadDataLoading = useSelector((state)=>state.leads.fetch_allLeads_Loading)
-    // lead count of the page
-    const totalLeads = useSelector((state)=>{
-        // console.log(state.leads.count[0].count)
-        return state.leads.count
+    const paidRenewalsData = useSelector((state)=>state.renewals.paidRenewals)
+    console.log("paid renewalsData",paidRenewalsData)
+    //Loading Renewals data
+    const leadDataLoading = useSelector((state)=>state.renewals.fetch_allRenewals_Loading)
+    // renewals count of the page
+    const totalRenewals = useSelector((state)=>{
+        return state.renewals.count
     })
+    console.log("totalRenewals",totalRenewals)
+
 
     //Pagination numbers function
     function itemRender(cur, type, originalElement) {
@@ -71,13 +72,13 @@ const PaidRenewal = (props) => {
     return (
         <div style={{backgroundColor:'#fafafa'}}>
             <Tab tabMenu={tabMenu} header="My Renewals"/>
-            <RenewalCards leads={leadsData} leadDataLoading={leadDataLoading}/>
+            <RenewalCards renewals={paidRenewalsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
                     size="small"
                     current={current}
                     onChange={handlePageClick}
-                    total={totalLeads}
+                    total={totalRenewals}
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
