@@ -49,3 +49,17 @@ export const stoageGetter = (key) => {
 export const checkAgent=(levelCode,minValue)=>{
       return   levelCode === minValue ? false : true
 }
+
+export const dataFormatting =(resp, title, desc)=> {
+    // console.log("desc object check",desc);
+
+    let _obj = {};
+    _obj['date'] = new Date(parseInt(resp.created_date)).toLocaleString();
+    _obj['owner'] = 'first_name' in resp.userId ? this.doSentenceCase(resp.userId.first_name) : "";
+    // _obj['owner']       = resp.Owner;
+    _obj['desc'] = desc.replace('|undefined|', '');
+    _obj['highlight'] = true;
+    _obj['title'] = title;
+
+    return _obj;
+}
