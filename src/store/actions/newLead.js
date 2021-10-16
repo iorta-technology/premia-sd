@@ -69,15 +69,15 @@ export const fetchLeadDetails = (id) => {
         
     return dispatch => {
         dispatch(fetchLeadDetailsStart())
-        return axios.get(`user/leadhistory/${id}`)
+        return axios.get(`user/getlead_details/${id}`)
             .then(res => {
                 if(res.data.errCode===-1){
-
+                    console.log(res.data.errMsg)
                     return dispatch(fetchLeadDetailsSuccess(res.data.errMsg))
                 }
             })
             .catch(error => {
-                return dispatch(fetchLeadDetailsFail(error.response.data.errors))
+                return dispatch(fetchLeadDetailsFail(error.response))
             })
     }
 }

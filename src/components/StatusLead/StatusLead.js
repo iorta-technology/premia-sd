@@ -86,7 +86,7 @@ const NewLead = React.memo(() => {
   const [appointmentDate, setAppointmentDate] = useState()
   const [appointmentTime, setAppointmentTime] = useState()
 
-  const [remarkFromSouce, setRemarkFromSource] = useState()
+  const [remarkFromSource, setRemarkFromSource] = useState()
   const [remarkFromUser, setRemarkFromUser] = useState()
   const [leadType, setLeadType] = useState()
   const [product, setProduct] = useState()
@@ -298,6 +298,7 @@ const NewLead = React.memo(() => {
   const minValue = useSelector((state) => state.login.minValue)
   const levelCode = useSelector((state) => state.login.levelCode)
   let storeFormData = useSelector((state)=>state.newLead.formData)
+  const storeRemarkFromSourceValue = useSelector((state)=>state.newLead.formData)
 
   let stateOptions = (states && !_.isEmpty(states)) ?
     states.map(state => {
@@ -389,7 +390,7 @@ const NewLead = React.memo(() => {
       // console.log(hourInMilisec)
       setAppointmentTime(res)
     }
-    const remarkFromSouceHandler = (event) => {
+    const remarkFromSourceHandler = (event) => {
       setRemarkFromSource(event.target.value)
     }
   
@@ -504,7 +505,7 @@ const NewLead = React.memo(() => {
     start_date: appointmentDate,
     start_time: appointmentTime,
     remarksfromUser: remarkFromUser,
-    remarksfromSource: remarkFromSouce,
+    remarksfromSource: remarkFromSource,
     teamMembers: '',
     leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
@@ -610,6 +611,10 @@ const NewLead = React.memo(() => {
               help={errorMessage}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
+              initialValues={{
+                "remarksfromsource":remarkFromSource,
+                "remarksfromuser":remarkFromUser
+            }}
             >
               <Col >
                 <Form.Item
@@ -981,7 +986,7 @@ const NewLead = React.memo(() => {
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color"
-                    name={['remarksfromsouce']}
+                    name={['remarksfromsource']}
                     label="Remark From Source "
                     rules={[
                       {
@@ -991,7 +996,7 @@ const NewLead = React.memo(() => {
                     style={{ marginBottom: '1rem' }}
 
                   >
-                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromSouceHandler} />
+                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromSourceHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} className="mb-2">

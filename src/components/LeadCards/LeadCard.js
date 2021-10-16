@@ -7,6 +7,7 @@ import * as actions from '../../store/actions/index';
 import { useHistory } from 'react-router-dom';
 
 const LeadCard = React.memo((props) => {
+
     const dispatch = useDispatch()
     const history = useHistory()
     const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
@@ -39,7 +40,10 @@ const LeadCard = React.memo((props) => {
     }, [width]);
     const  updateHandler=(id)=>{
         dispatch(actions.fetchLeadDetails(id))
-        history.replace('/leadmasterpage/statuslead')
+        setTimeout(() => {
+            
+            history.replace('/leadmasterpage/statuslead')
+        }, 2000);
     }
     // Card for desktop
     let card = 

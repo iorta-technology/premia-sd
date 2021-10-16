@@ -6,70 +6,72 @@ const initialState = {
     createLeadError:'',
     leadId:'',
     userId:'',
-    formData:{
-        leadStatus: '',
-        start_date: '',
-        start_time: '',
-        leadsubDisposition: '',
-        leadDisposition: '',
-        leadSource: '',
-        remarksfromUser: '',
-        remarksfromSource: '',
-        teamMembers: [],
+    formData:[
+    //     {
+    //     leadStatus: '',
+    //     start_date: '',
+    //     start_time: '',
+    //     leadsubDisposition: '',
+    //     leadDisposition: '',
+    //     leadSource: '',
+    //     remarksfromUser: '',
+    //     remarksfromSource: '',
+    //     teamMembers: [],
 
-        appointment_status: '',
-        appointmentdisPosition: '',
-        appointmentsubdisPosition: '',
+    //     appointment_status: '',
+    //     appointmentdisPosition: '',
+    //     appointmentsubdisPosition: '',
 
 
-        lead_Owner_Id: '',
-        lead_Creator_Id: '',
-        user_id: '',
-        LeadType: '',
-        Product: '',
-        Insurance_Company: '',
+    //     lead_Owner_Id: '',
+    //     lead_Creator_Id: '',
+    //     user_id: '',
+    //     LeadType: '',
+    //     Product: '',
+    //     Insurance_Company: '',
 
-        line1: '',
-        line2: '',
-        line3: '',
-        country: '',
-        state: '',
-        city: '',
-        pincode: '',
-        primaryMobile: '',
-        secondaryMobile: '',
-        landlineNo: '',
-        email: '',
-        socialSecurityAdharNo: '',
-        mailingAddressStatus: '',
-        mailingAddressSecond: '',
+    //     line1: '',
+    //     line2: '',
+    //     line3: '',
+    //     country: '',
+    //     state: '',
+    //     city: '',
+    //     pincode: '',
+    //     primaryMobile: '',
+    //     secondaryMobile: '',
+    //     landlineNo: '',
+    //     email: '',
+    //     socialSecurityAdharNo: '',
+    //     mailingAddressStatus: '',
+    //     mailingAddressSecond: '',
 
-        firstName: '',
-        lastName: '',
-        dob: '',
-        gender: '',
-        maritalStatus: '',
-        childStatus: '',
-        ChildInfo: '',
+    //     firstName: '',
+    //     lastName: '',
+    //     dob: '',
+    //     gender: '',
+    //     maritalStatus: '',
+    //     childStatus: '',
+    //     ChildInfo: '',
 
-        education: '',
-        incomeGroup: '',
-        annuaLincome: '',
-        professionType: '',
+    //     education: '',
+    //     incomeGroup: '',
+    //     annuaLincome: '',
+    //     professionType: '',
         
-        productCategory: '',
-        productType: '',
-        solution: '',
-        expectedPremium: '',
-        expectedclosureDate: '',
+    //     productCategory: '',
+    //     productType: '',
+    //     solution: '',
+    //     expectedPremium: '',
+    //     expectedclosureDate: '',
 
-        HaveLifeInsurance: '',
-        SumAssured: '',
-        Insurance: '',
-        Insurancedetails: [],
-        riskComensmentDate: '',
-        HaveLifeInsurance_details: [],
-    },
+    //     HaveLifeInsurance: '',
+    //     SumAssured: '',
+    //     Insurance: '',
+    //     Insurancedetails: [],
+    //     riskComensmentDate: '',
+    //     HaveLifeInsurance_details: [],
+    // }
+],
     // lead form data
     
 }
@@ -97,6 +99,7 @@ const fetchLeadDetailsStart = (state, action) => {
 }
 
 const fetchLeadDetailsSuccess = (state, action) => {
+    console.log(action.leadDetails)
     return updateObject(state, { 
             createLeadLoading: false, 
             formData: action.leadDetails,
@@ -111,7 +114,7 @@ const fetchLeadDetailsFail = (state, action) => {
 
 const storeForm = (state, action) => {
     return updateObject(state, { createLeadLoading: false, formData: action.formData })
-}
+}   
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {

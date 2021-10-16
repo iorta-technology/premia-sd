@@ -53,10 +53,17 @@ const tabMenu = [
 
 const PersonalDetails = () => {
 
-    let storeFormData = useSelector((state)=>state.newLead.formData)
-
     const dispatch = useDispatch()
     const history = useHistory()
+
+    let storeFormData = useSelector((state)=>state.newLead.formData)
+    // const id = useSelector((state)=>state.newLead.leadId)
+    // useEffect(() => {
+    //     dispatch(actions.fetchLeadDetails(id))
+        
+    // }, [dispatch,id])
+    
+    const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [firstName, setFirstName] = useState(storeFormData.firstName);
     const [lastName, setLastName] = useState(storeFormData.lastName);
@@ -76,6 +83,12 @@ const PersonalDetails = () => {
         number: {
           range: 'Number must be 10 digits',
         },
+    };
+    
+    const onFill = () => {
+        form.setFieldsValue({
+          name: 'Hello world!',
+        });
       };
     const onChangeFirstName = (e)=>{
         setFirstName(e.target.value)
@@ -167,6 +180,7 @@ const PersonalDetails = () => {
                             <Form 
                                 layout="horizontal" 
                                 className="contact-detail-form"
+                                form={form}
                                 validateMessages={validateMessages}
                                 initialValues={{
                                     "name":firstName,

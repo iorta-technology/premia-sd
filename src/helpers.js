@@ -61,5 +61,6 @@ export const dataFormatting =(resp, title, desc)=> {
     _obj['highlight'] = true;
     _obj['title'] = title;
 
+    console.log(_obj)
     return _obj;
 }
