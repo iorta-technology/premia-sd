@@ -99,11 +99,11 @@ const fetchLeadDetailsStart = (state, action) => {
 }
 
 const fetchLeadDetailsSuccess = (state, action) => {
-    console.log(action.leadDetails)
+    console.log(action.leadDetails[0])
     return updateObject(state, { 
             createLeadLoading: false, 
-            formData: action.leadDetails,
-            leadId:action.leadDetails[0].leadId._id,
+            formData: action.leadDetails[0],
+            leadId:action.leadDetails[0]._id,
             userId:action.leadDetails[0].userId._id
          })
 }

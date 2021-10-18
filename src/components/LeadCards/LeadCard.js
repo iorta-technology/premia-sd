@@ -11,11 +11,14 @@ const LeadCard = React.memo((props) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+    
   const leadComponent = 
-  leadStatus === 'open'
-  ? 
-  <p className="user-status-text capitalize open">{leadStatus}</p>
-  :
+
+
+  leadStatus === 'newleadentery'
+                        ? 
+    <p className="user-status-text capitalize open">Open</p>
+    :
   leadStatus === 'converted'
   ?
   <p className="user-status-text capitalize converted">{leadStatus}</p>
@@ -40,10 +43,7 @@ const LeadCard = React.memo((props) => {
     }, [width]);
     const  updateHandler=(id)=>{
         dispatch(actions.fetchLeadDetails(id))
-        setTimeout(() => {
-            
-            history.replace('/leadmasterpage/statuslead')
-        }, 2000);
+        history.replace('/leadmasterpage/statuslead')
     }
     // Card for desktop
     let card = 

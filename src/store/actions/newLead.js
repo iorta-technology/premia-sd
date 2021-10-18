@@ -71,13 +71,15 @@ export const fetchLeadDetails = (id) => {
         dispatch(fetchLeadDetailsStart())
         return axios.get(`user/getlead_details/${id}`)
             .then(res => {
-                if(res.data.errCode===-1){
-                    console.log(res.data.errMsg)
-                    return dispatch(fetchLeadDetailsSuccess(res.data.errMsg))
-                }
+                    console.log(res.data)
+                    let response = res.data.errMsg
+                    return dispatch(fetchLeadDetailsSuccess(response))
+                // if(res.data.errCode===-1){
+                // }
             })
             .catch(error => {
-                return dispatch(fetchLeadDetailsFail(error.response))
+                console.log(error)
+                return dispatch(fetchLeadDetailsFail(error))
             })
     }
 }
