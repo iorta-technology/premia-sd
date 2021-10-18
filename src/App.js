@@ -34,9 +34,15 @@ const Calendar = React.lazy(()=> import('./components/Contests/CalendarEvent'))
 const AgentMicroService = React.lazy(()=> import('./components/AgentMicroSite/AgentMicroSite'))
 const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashboard'))
 const Blog = React.lazy(()=> import('./components/AgentMicroSite/Blog'))
-
+const AdvisorPitch = React.lazy(()=> import('./components/AdvisorPitch/AdvisorPitch'))
+const BenefitIllustrator = React.lazy(()=> import('./components/BenefitIllustrator/BenefitIllustrator'))
+const ForCustomer = React.lazy(()=> import('./components/ForCustomer/ForCustomer'))
+const ForSelf = React.lazy(()=> import('./components/ForSelf/ForSelf'))
+const RenewalReport = React.lazy(()=> import('./components/RenewalReport/RenewalReport'))
+const SalesPitch = React.lazy(()=> import('./components/SalesPitch/SalesPitch'))
+const ServiceCorner = React.lazy(()=> import('./components/ServiceCorner/ServiceCorner'))
 const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
-
+const MappedBranches = React.lazy(()=> import('./components/MappedBranches/MappedBranches'))
 
 function App() {
   return (
@@ -75,7 +81,15 @@ function App() {
               <Route path="/rewardscorner/contests/activecontestdetails"  component={ActiveContestDetails}/>
               <Route path="/calendar" component={Calendar}/>
               <Route path="/kpi-dashboard" component={KpiDashboard}/>
+              <Route path="/advisorpitch" component={AdvisorPitch}></Route>
+              <Route path="/benefitillustrator" component={BenefitIllustrator}></Route>
+              <Route path="/forcustomer" component={ForCustomer}></Route>
+              <Route path="/forself" component={ForSelf}></Route>
+              <Route path="/renewalreport" component={RenewalReport}></Route>
+              <Route path="/salespitch" component={SalesPitch}></Route>
+              <Route path="/servicecorner" component={ServiceCorner}></Route>
               <Route path="/salespendency" component={SalesPendency}></Route>
+              <Route path="/mappedbranches" component={MappedBranches}></Route>
 
 
               </div>
