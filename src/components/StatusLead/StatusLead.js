@@ -75,7 +75,40 @@ const isNumberValid = (value) => value.trim() !== '' && value.length === 10
 
 
 const NewLead = React.memo(() => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const [form] = Form.useForm();
+  useEffect(() => {
+    dispatch(actions.fetchAllState())
+  }, [dispatch]);
+  const id = useSelector((state) => state.login.user.id)
+  const channelCode = useSelector((state) => state.login.user.channelCode)
+  const states = useSelector((state) => state.address.states)
+  const minValue = useSelector((state) => state.login.minValue)
+  const levelCode = useSelector((state) => state.login.levelCode)
 
+  // store form data 
+  let storeFormData = useSelector((state)=>state.newLead.formData)
+  const storeLeadId = useSelector((state) => state.newLead.leadId)
+  const storefirstNameValue = useSelector((state)=>state.newLead.formData.firstName)
+  const storelastNameValue = useSelector((state)=>state.newLead.formData.lastName)
+  const storeEmailValue = useSelector((state)=>state.newLead.formData.email)
+  const storePrimaryMobileValue = useSelector((state)=>state.newLead.formData.primaryMobile)
+  const storeStateValue = useSelector((state)=>state.newLead.formData.state)
+  const storeCityValue = useSelector((state)=>state.newLead.formData.city)
+  const storeLeadTypeValue = useSelector((state)=>state.newLead.formData.LeadType)
+  const storeProductValue = useSelector((state)=>state.newLead.formData.Product)
+  const storeInsuranceCompanyValue = useSelector((state)=>state.newLead.formData.Insurance_Company)
+  const storeLeadStatusValue = useSelector((state)=>state.newLead.formData.leadStatus)
+  const storeLeadDispositionValue = useSelector((state)=>state.newLead.formData.leadDisposition)
+  const storeLeadSubDispositionValue = useSelector((state)=>state.newLead.formData.leadSubDisposition)
+  const storeRemarkFromSourceValue = useSelector((state)=>state.newLead.formData.remarksfromSource)
+
+  const leadArr = [storeLeadStatusValue,storeLeadDispositionValue,storeLeadSubDispositionValue]
+
+  // lead summary
+  const leadIdValue = useSelector((state)=>state.newLead.formData.lead_Id)
+  const createdDateValue = useSelector((state)=>state.newLead.formData.created_date)
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
@@ -86,18 +119,45 @@ const NewLead = React.memo(() => {
   const [appointmentDate, setAppointmentDate] = useState()
   const [appointmentTime, setAppointmentTime] = useState()
 
-  const [remarkFromSouce, setRemarkFromSource] = useState()
+  const [remarkFromSource, setRemarkFromSource] = useState(storeRemarkFromSourceValue)
   const [remarkFromUser, setRemarkFromUser] = useState()
-  const [leadType, setLeadType] = useState()
-  const [product, setProduct] = useState()
-  const [insuranceCompany, setInsuranceComapany] = useState()
-  const [stateProvince, setStateProvince] = useState()
-  const [cityProvince, setCityProvince] = useState()
+  const [leadType, setLeadType] = useState(storeLeadTypeValue)
+  const [product, setProduct] = useState(storeProductValue)
+  const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
+  const [stateProvince, setStateProvince] = useState(storeStateValue)
+  const [cityProvince, setCityProvince] = useState(storeCityValue)
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(true)
 
 
-
+useEffect(() => {
+  if(storeLeadId!==''){
+    setIsNewLead(false)
+  }
+  form.setFieldsValue({
+    "remarksfromsource":remarkFromSource,
+    "firstname":storefirstNameValue,
+    "lastname":storelastNameValue,
+    "email":storeEmailValue,
+    "phone":storePrimaryMobileValue,
+    "state":stateProvince,
+    "city":cityProvince,
+    "leadType":leadType,
+    "product":product,
+    "insuranceCompany":insuranceCompany,
+    "leadStatus":leadSubDisposition
+  })
+}, [
+  storeLeadId,
+  form,
+  storeRemarkFromSourceValue,
+  storefirstNameValue,
+  storelastNameValue,
+  storeEmailValue,
+  storePrimaryMobileValue,
+  stateProvince,
+  leadArr
+])
   // add team Member modal state control
   const [visibleTeamMemberModal, setVisibleTeamMemberModal] = useState(false);
 
@@ -286,18 +346,7 @@ const NewLead = React.memo(() => {
     },
   ];
 
-  const dispatch = useDispatch()
-  const history = useHistory()
-
-  useEffect(() => {
-    dispatch(actions.fetchAllState())
-  }, [dispatch]);
-  const id = useSelector((state) => state.login.user.id)
-  const channelCode = useSelector((state) => state.login.user.channelCode)
-  const states = useSelector((state) => state.address.states)
-  const minValue = useSelector((state) => state.login.minValue)
-  const levelCode = useSelector((state) => state.login.levelCode)
-  let storeFormData = useSelector((state)=>state.newLead.formData)
+  
 
   let stateOptions = (states && !_.isEmpty(states)) ?
     states.map(state => {
@@ -389,7 +438,7 @@ const NewLead = React.memo(() => {
       // console.log(hourInMilisec)
       setAppointmentTime(res)
     }
-    const remarkFromSouceHandler = (event) => {
+    const remarkFromSourceHandler = (event) => {
       setRemarkFromSource(event.target.value)
     }
   
@@ -504,7 +553,7 @@ const NewLead = React.memo(() => {
     start_date: appointmentDate,
     start_time: appointmentTime,
     remarksfromUser: remarkFromUser,
-    remarksfromSource: remarkFromSouce,
+    remarksfromSource: remarkFromSource,
     teamMembers: '',
     leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
@@ -607,6 +656,7 @@ const NewLead = React.memo(() => {
               className="contact-detail-form"
               validateMessages={validateMessages}
               scrollToFirstError
+              form={form}
               help={errorMessage}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
@@ -615,7 +665,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name={['firstname']}
+                  name='firstname'
                   label="First Name"
                   rules={[
                     {
@@ -637,7 +687,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name={['lastname']}
+                  name='lastname'
                   label="Last Name"
                   rules={[
                     {
@@ -660,7 +710,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name={['user', 'email']}
+                  name='email'
                   label="Email"
                   rules={[
                     {
@@ -729,6 +779,7 @@ const NewLead = React.memo(() => {
                     placeholder="Select Your State"
                     options={stateOptions}
                     onSelect={stateSelectHandler}
+                    value={stateProvince}
                     onChange={stateChangetHandler}>
                   </Select>
                 </Form.Item>
@@ -753,6 +804,7 @@ const NewLead = React.memo(() => {
                     size="large"
                     placeholder="Select a city"
                     options={citiesOptions}
+                    value={cityProvince}
                     onChange={cityChangeHandler}>
                   </Select>
                 </Form.Item>
@@ -810,7 +862,7 @@ const NewLead = React.memo(() => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="insurance-company"
+                  name="insuranceCompany"
                   label="Insurance Company"
                   hasFeedback
                   rules={[
@@ -840,7 +892,7 @@ const NewLead = React.memo(() => {
                 <Row>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">Lead ID</p>
-                    <p className="lead-detail">L24105EC7</p>
+                    <p className="lead-detail">{leadIdValue}</p>
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">Source</p>
@@ -848,19 +900,19 @@ const NewLead = React.memo(() => {
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">Name</p>
-                    <p className="lead-detail">Azim Shaikh</p>
+                    <p className="lead-detail">{storefirstNameValue} {storelastNameValue}</p>
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">Mobile Number</p>
-                    <p className="lead-detail">9787659980</p>
+                    <p className="lead-detail">{storePrimaryMobileValue}</p>
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">State</p>
-                    <p className="lead-detail">Maharashtra</p>
+                    <p className="lead-detail">{storeStateValue}</p>
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">City</p>
-                    <p className="lead-detail">Mumbai</p>
+                    <p className="lead-detail">{storeCityValue}</p>
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">Allocated To</p>
@@ -868,7 +920,7 @@ const NewLead = React.memo(() => {
                   </Col>
                   <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                     <p className="lead-summ-label">Created on</p>
-                    <p className="lead-detail">21/08/2021</p>
+                    <p className="lead-detail">{new Date(createdDateValue).toLocaleDateString('in')}</p>
                     <p className="lead-date">2 days ago</p>
                   </Col>
                 </Row>
@@ -877,7 +929,11 @@ const NewLead = React.memo(() => {
           </Col>
           <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={16} xl={16} span={22} offset={1}>
             <p className="form-title">Status</p>
-            <Form >
+            <Form 
+              form={form}
+              initialValues={{
+                "remarksfromsource":remarkFromSource,
+            }}>
               <Row gutter={16} className="mb-2">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} >
                   <Form.Item
@@ -981,7 +1037,7 @@ const NewLead = React.memo(() => {
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color"
-                    name={['remarksfromsouce']}
+                    name='remarksfromsource'
                     label="Remark From Source "
                     rules={[
                       {
@@ -991,7 +1047,7 @@ const NewLead = React.memo(() => {
                     style={{ marginBottom: '1rem' }}
 
                   >
-                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromSouceHandler} />
+                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromSourceHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} className="mb-2">

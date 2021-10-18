@@ -3,8 +3,9 @@ export {
     fetchDesignation,
 } from './leads'
 export {
+    fetchLeadDetails,
     createLead,
-    storeLead
+    storeLead,
 }from './newLead'
 export {
     fetchAllState,

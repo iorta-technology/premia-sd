@@ -1,0 +1,113 @@
+.form-container{
+  background-color: #fafafa;
+  margin: 0 auto;
+  /* overflow-x: hidden; */
+  /* overflow-y: visible; */
+}
+
+
+.MappedBranches {
+  background-color: #fafafa;
+  margin: 0 auto;
+}
+.section1 {
+  justify-content: space-between;
+  margin-left: 0 auto;
+  padding: 20px 20px;
+  border-radius: 5px;
+  box-shadow:  1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  background-image: url('../../images/Bgimage.png');
+  height: 15vh;
+  
+}
+.mapped-head {
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  color: #00ACC1;
+  margin-left: 3vw;
+}
+.mapped-button {
+  display: flex;
+  flex-direction: row;
+  background-color: #3b371e;
+  color: #fff;
+  width: 10vw;
+}
+.mapped-btn {
+  display: flex;
+  flex-direction: row;
+  background-color: #00ACC1;
+  color: #fff;
+  margin-left: 3vw;
+  padding-left: 52px !important;
+  width: 10vw;
+}
+.mapped-btn2{
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  color: #000;
+  /* margin-left: 3vw;
+  padding-left: 52px !important; */
+  width: 10vw;
+  }
+.mapped-head4 {
+  display: flex;
+  font-size: 14px;
+  margin-left: 10vw;
+  /* color: #000; */
+}
+.section2{
+  margin-left: 0 auto;
+  padding: 20px 20px;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  /* box-shadow:  1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); */
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* background-image: url('../../images/Bgimage.png'); */
+  /* box-shadow:  1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); */
+  /* height: 15vh; */
+}
+.mapped1{
+    margin: 0 auto; 
+    padding: 20px 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow:  1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-box-pack: justify;
+    -webkit-box-align: center;
+}
+
+@media (max-width:524px) {
+  .MappedBranches {
+    display: flex;
+    flex-direction: row;
+  }
+  .section1 {
+    display: flex;
+    flex-direction: row;
+  }
+  .section2{
+    display: flex;
+    flex-direction: row;
+  }
+}

@@ -53,30 +53,55 @@ const tabMenu = [
 
 const PersonalDetails = () => {
 
-    let storeFormData = useSelector((state)=>state.newLead.formData)
-
     const dispatch = useDispatch()
     const history = useHistory()
+
+    let storeFormData = useSelector((state)=>state.newLead.formData)
+    // const id = useSelector((state)=>state.newLead.leadId)
+    // useEffect(() => {
+    //     dispatch(actions.fetchLeadDetails(id))
+        
+    // }, [dispatch,id])
+    
+    const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [firstName, setFirstName] = useState(storeFormData.firstName);
     const [lastName, setLastName] = useState(storeFormData.lastName);
-    const [dob, setDob] = useState();
+    const [dob, setDob] = useState(storeFormData.dob);
     const [isDobValid, setIsDobValid] = useState(false);
     const [dobErrorMessage, setDobErrorMessage] = useState();
     const [gender, setGender] = useState('');
     const [maritalStatus, setMaritalStatus] = useState();
+    const [appendChildComponent, setappendChildComponent] = useState(false)
+    const [haveChildren, sethaveChildren] = useState(false)
     const breakpoint = 620;
 
-    const validateMessages = {
-        // required: `${label} is required!`,
-        types: {
-          email: `Age should be between 18 to 55 years`,
-          dob: dobErrorMessage
-        },
-        number: {
-          range: 'Number must be 10 digits',
-        },
-      };
+    // const validateMessages = {
+    //     // required: `${label} is required!`,
+    //     types: {
+    //       email: `Age should be between 18 to 55 years`,
+    //       dob: dobErrorMessage
+    //     },
+    //     number: {
+    //       range: 'Number must be 10 digits',
+    //     },
+    // };
+    
+    useEffect(() => {
+        form.setFieldsValue({
+          "firstname":firstName,
+          "lastname":lastName,
+          "gender":gender,
+          "dob":dob,
+          "maritalstatus":maritalStatus
+        })
+      }, [
+        firstName,
+        lastName,
+        dob,
+        maritalStatusOptions,
+        form
+      ])
     const onChangeFirstName = (e)=>{
         setFirstName(e.target.value)
     }
@@ -94,7 +119,7 @@ const PersonalDetails = () => {
     // console.log(isDobValid)
 
         let msDate = moment(date).valueOf()
-       isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
+    //    isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
     }
     console.log(isDobValid)
     console.log('date',dob)
@@ -107,10 +132,17 @@ const PersonalDetails = () => {
 
     const onChangeMaritalStatus = (value)=>{
         setMaritalStatus(value)
+        if(value==='Married'||value==='Divorced'||value==='Widowed'){
+            setappendChildComponent(true)
+        }else{
+            setappendChildComponent(false)
+        }
         console.log(maritalStatus)
     }
 
-    
+    const haveChildrenHandler =(value)=>{
+        sethaveChildren(true)
+    }
 
     const formData = {
         ...storeFormData,
@@ -167,7 +199,8 @@ const PersonalDetails = () => {
                             <Form 
                                 layout="horizontal" 
                                 className="contact-detail-form"
-                                validateMessages={validateMessages}
+                                form={form}
+                                // validateMessages={validateMessages}
                                 initialValues={{
                                     "name":firstName,
                                     "lastname":lastName
@@ -176,7 +209,7 @@ const PersonalDetails = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name='name'
+                                        name='firstname'
                                         label="First Name"
                                         rules={[
                                             {
@@ -220,16 +253,16 @@ const PersonalDetails = () => {
                                         className="form-item-name label-color"
                                         name="dob"
                                         label="Date of Birth"
-                                        validateStatus='error'
-                                        help='Age should be between 18 and 55 years'
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                type:dob,
-                                                required: false,
-                                                message: dobErrorMessage,
-                                            },
-                                        ]}
+                                        // validateStatus='error'
+                                        // help='Age should be between 18 and 55 years'
+                                        // hasFeedback
+                                        // rules={[
+                                        //     {
+                                        //         type:dob,
+                                        //         required: false,
+                                        //         message: dobErrorMessage,
+                                        //     },
+                                        // ]}
                                         // style={{ marginBottom: '1rem' }}
                                     >
                                     <DatePicker 
@@ -246,8 +279,9 @@ const PersonalDetails = () => {
                                         label="Gender"
                                         onChange={onChangeGender}
                                         rules={[{ required: true, message: 'Please pick gender' }]}
+                                        value={gender}
                                     >
-                                        <Radio.Group>
+                                        <Radio.Group size="large">
                                             <Radio.Button  value="Male">Male</Radio.Button>
                                             <Radio.Button value="Female">Female</Radio.Button>
                                             <Radio.Button value="Other">Other</Radio.Button>
@@ -258,7 +292,7 @@ const PersonalDetails = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Marital Status"
+                                        name="maritalstatus"
                                         label="Marital Status"
                                         hasFeedback
                                         rules={[
@@ -272,10 +306,35 @@ const PersonalDetails = () => {
                                             size="large" 
                                             options={maritalStatusOptions} 
                                             placeholder="Select Your State"
-                                            onChange={onChangeMaritalStatus}>
+                                            onChange={onChangeMaritalStatus}
+                                            value={maritalStatus}
+                                            defaultValue={maritalStatus}>
                                         </Select>
                                     </Form.Item>
                                 </Col>
+                                {appendChildComponent &&
+                                    <Col >
+                                    <Form.Item
+                                        {...formItemLayout}
+                                        className="form-item-name label-color"
+                                        name="Children"
+                                        label="Children"
+                                        onChange={haveChildrenHandler}
+                                        hasFeedback
+                                        rules={[
+                                            {
+                                                required: false,
+                                                message: 'Select Children',
+                                            },
+                                        ]}
+                                    >
+                                        <Radio.Group size='large'>
+                                            <Radio.Button  value="Yes">Yes</Radio.Button>
+                                            <Radio.Button value="No">No</Radio.Button>
+                                        </Radio.Group>
+                                    </Form.Item>
+                                </Col>
+                                }
                             </Form>
                         </Col>
                         <Col className='form-body  p20' style={{margin:"20px 0"}} xs={{ order: 5 }} sm={24} md={20} lg={20} xl={20} span={24} >

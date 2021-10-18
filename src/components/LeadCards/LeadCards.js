@@ -10,6 +10,7 @@ const LeadCards = (props)=> {
        return ( <React.Fragment>
             <LeadCard 
                 key={lead._id}
+                id={lead._id}
                 lead_Id={lead.lead_Id}
                 leadStatus={lead.leadStatus}
                 firstName={lead.firstName}
