@@ -1,29 +1,30 @@
 import React,{useEffect,useState} from 'react'
-import './index.css'
+import './PaidRenewals.css'
 import Tab from '../../components/Tab/Tab'
-import LeadCards from '../../components/LeadCards/LeadCards'
+// import LeadCards from '../../components/LeadCards/LeadCards'
+import RenewalCards from '../../components/RenewalCollections/Cards/RenewalCards'
 import FloatButton from '../../components/FloatButton/FloatButton'
 import * as actions from '../../store/actions/index';
 import { Pagination } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
-const LeadMaster = (props) => {
+const PaidRenewal = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
     const dispatch = useDispatch()
     useEffect(() => {
-
-        dispatch(actions.fetchAllLeads('',current))
+        dispatch(actions.fetchPaidRenewals('',current))
     },[dispatch,current]);
 
-    //Accessing LeadCard data  from store
-    const leadsData = useSelector((state)=>state.leads.allLeads)
-    //Loading leads data
-    const leadDataLoading = useSelector((state)=>state.leads.fetch_allLeads_Loading)
-    // lead count of the page
-    const totalLeads = useSelector((state)=>{
-        // console.log(state.leads.count[0].count)
-        return state.leads.count
+    const paidRenewalsData = useSelector((state)=>state.renewals.paidRenewals)
+    console.log("paid renewalsData",paidRenewalsData)
+    //Loading Renewals data
+    const leadDataLoading = useSelector((state)=>state.renewals.fetch_allRenewals_Loading)
+    // renewals count of the page
+    const totalRenewals = useSelector((state)=>{
+        return state.renewals.count
     })
+    console.log("totalRenewals",totalRenewals)
+
 
     //Pagination numbers function
     function itemRender(cur, type, originalElement) {
@@ -55,29 +56,29 @@ const LeadMaster = (props) => {
         },
         {
             id:2,
-            value:"Open"
+            value:"Paid"
         },
         {
             id:3,
-            value:"Converted"
+            value:"UnPaid"
         },
         {
             id:4,
-            value:"Not Interested"
+            value:"Lapsed"
         },
         
     ]
 
     return (
         <div style={{backgroundColor:'#fafafa'}}>
-            <Tab tabMenu={tabMenu} header="Lead"/>
-            <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
+            <Tab tabMenu={tabMenu} header="My Renewals"/>
+            <RenewalCards renewals={paidRenewalsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
                     size="small"
                     current={current}
                     onChange={handlePageClick}
-                    total={totalLeads}
+                    total={totalRenewals}
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
@@ -87,4 +88,4 @@ const LeadMaster = (props) => {
 }
 
 
-export default LeadMaster;
+export default PaidRenewal;

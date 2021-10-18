@@ -41,6 +41,12 @@ const ForSelf = React.lazy(()=> import('./components/ForSelf/ForSelf'))
 const RenewalReport = React.lazy(()=> import('./components/RenewalReport/RenewalReport'))
 const SalesPitch = React.lazy(()=> import('./components/SalesPitch/SalesPitch'))
 const ServiceCorner = React.lazy(()=> import('./components/ServiceCorner/ServiceCorner'))
+const Renewals = React.lazy(()=> import('./containers/RenewalMaster/index'))
+const RenewalAll = React.lazy(()=> import('./components/RenewalCollections/AllRenewals'))
+const RenewalPaid = React.lazy(()=> import('./components/RenewalCollections/PaidRenewals'))
+const RenewalUnPaid = React.lazy(()=> import('./components/RenewalCollections/UnPaidRenewals'))
+const RenewalLapsed = React.lazy(()=> import('./components/RenewalCollections/LapsedRenewals'))
+const RenewalDetails = React.lazy(()=> import('./components/RenewalCollections/RenewalDetails'))
 const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
 const MappedBranches = React.lazy(()=> import('./components/MappedBranches/MappedBranches'))
 
@@ -88,6 +94,12 @@ function App() {
               <Route path="/renewalreport" component={RenewalReport}></Route>
               <Route path="/salespitch" component={SalesPitch}></Route>
               <Route path="/servicecorner" component={ServiceCorner}></Route>
+              <Route path="/renewalMaster/allRenewals" component={Renewals}/>
+              <Route path="/renewalMaster/all" component={RenewalAll}/>
+              <Route path="/renewalMaster/paidRenewals" component={RenewalPaid}/>
+              <Route path="/renewalMaster/unpaidRenewals" component={RenewalUnPaid}/>
+              <Route path="/renewalMaster/lapsedRenewals" component={RenewalLapsed}/>
+              <Route path="/renewalMaster/Details" component={RenewalDetails}/>
               <Route path="/salespendency" component={SalesPendency}></Route>
               <Route path="/mappedbranches" component={MappedBranches}></Route>
 

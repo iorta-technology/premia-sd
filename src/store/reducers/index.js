@@ -4,7 +4,11 @@ import createLeadReducer from './newLead'
 import addressReducer from './address'
 import loginReducer from './auth';
 import homeReducer from './home';
-import activitiesReducer from './home'
+import activitiesReducer from './home';
+import kpiDashboardReducer from './kpiDashboard'
+import renewalReducer from './renewals'
+// import activitiesReducer from './home'
+import historyReducer from './history'
 // import pendencyReducer from './penc'
 const rootReducer = combineReducers({
     leads:leadsReducer,
@@ -13,6 +17,10 @@ const rootReducer = combineReducers({
     login:loginReducer,
     home: homeReducer,
     activities: activitiesReducer,
+    kpiDashboard: kpiDashboardReducer,
+    renewals: renewalReducer,
+    history:historyReducer
+
     // pendencies:pendencyReducer
 });
 

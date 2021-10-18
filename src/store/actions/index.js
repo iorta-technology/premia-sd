@@ -3,8 +3,9 @@ export {
     fetchDesignation,
 } from './leads'
 export {
+    fetchLeadDetails,
     createLead,
-    storeLead
+    storeLead,
 }from './newLead'
 export {
     fetchAllState,
@@ -16,5 +17,13 @@ export {
     fetchUserDetails,
     fetchHierarchy
 } from './auth'
-export { home } from './home'
-export { activities } from './home'
+// export { home,activities } from './home'
+// export { activities } from './home'
+export { kpiDashboard } from './kpiDashboard'
+export {fetchAllRenewals,fetchPaidRenewals,fetchUnPaidRenewals, fetchLapsedRenewals} from './renewals'
+export { 
+    home,activities 
+} from './home'
+export {
+    fetchHistory
+}from './history'
