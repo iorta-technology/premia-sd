@@ -15,7 +15,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey }) =>
     //     setactiveKey(key)
     // }
     const handler = (activeKey) => {
-        // console.log(activeKey)
+        // console.log(activeKey)   
         // setactiveKey(key)
         if(activeKey){
         switch (activeKey) {

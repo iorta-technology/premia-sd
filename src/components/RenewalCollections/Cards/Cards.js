@@ -3,6 +3,7 @@ import {Card,Avatar,Switch} from 'antd'
 import {MoreOutlined } from '@ant-design/icons';
 import './Cards.css';
 import {useHistory } from 'react-router-dom';
+import RenewalDetails from '../RenewalDetails';
 const Cards = React.memo((props) => {
 
     const {user_Id,userStatus,fullName,annualisedPremium,end_date} = props
@@ -26,6 +27,8 @@ const Cards = React.memo((props) => {
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
     const history = useHistory()
+    const details = React.lazy(()=>{import('../RenewalDetails')})
+    let detailsRoute = "/renewalMaster/Details"
      useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
@@ -34,7 +37,7 @@ const Cards = React.memo((props) => {
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
 
-    const viewDetailsHandler=()=>{
+    const viewDetailsHandler =()=>{
         history.push('/renewalMaster/Details')
     }
 

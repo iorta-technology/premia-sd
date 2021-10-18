@@ -14,7 +14,7 @@ const RenewalCards = (props)=> {
                 user_Id={user.proposer_ID}
                 userStatus={user.policy_status}
                 fullName={user.proposerName}
-                annualisedPremium={user.lastYearNetPremium}
+                annualisedPremium={user.PremiumOneYear}
                 end_date={user.policyEndDate}
                 loading={props.renewalsDataLoading}
             />
