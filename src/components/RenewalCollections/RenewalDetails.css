@@ -47,6 +47,10 @@ body{
 .nameInfo{
   margin: 10px;
 }
+.card-heading{
+  color: #454F63;
+  font-size: 14px;
+}
 /* .shareIcon {
   margin-left:'50px' !important;
   border-radius:'50px';
