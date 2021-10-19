@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
-import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table,TimePicker } from 'antd';
+import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table,TimePicker,Spin } from 'antd';
 import { ArrowRightOutlined, FileTextOutlined,EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -90,6 +90,7 @@ const NewLead = React.memo(() => {
   // store form data 
   let storeFormData = useSelector((state)=>state.newLead.formData)
   const storeLeadId = useSelector((state) => state.newLead.leadId)
+  const leadDataloading = useSelector((state) => state.newLead.leadDataloading)
   const storefirstNameValue = useSelector((state)=>state.newLead.formData.firstName)
   const storelastNameValue = useSelector((state)=>state.newLead.formData.lastName)
   const storeEmailValue = useSelector((state)=>state.newLead.formData.email)
@@ -125,7 +126,7 @@ const NewLead = React.memo(() => {
   const [product, setProduct] = useState(storeProductValue)
   const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
   const [stateProvince, setStateProvince] = useState(storeStateValue)
-  const [cityProvince, setCityProvince] = useState(storeCityValue)
+  const [cityProvince, setCityProvince] = useState(storeRemarkFromSourceValue)
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(true)
 
@@ -145,7 +146,7 @@ useEffect(() => {
     "leadType":leadType,
     "product":product,
     "insuranceCompany":insuranceCompany,
-    "leadStatus":leadSubDisposition
+    // "leadStatus":leadSubDisposition
   })
 }, [
   storeLeadId,
@@ -156,7 +157,10 @@ useEffect(() => {
   storeEmailValue,
   storePrimaryMobileValue,
   stateProvince,
-  leadArr
+  leadArr,
+  leadDataloading,
+  storeCityValue,
+  storeStateValue
 ])
   // add team Member modal state control
   const [visibleTeamMemberModal, setVisibleTeamMemberModal] = useState(false);
@@ -647,6 +651,11 @@ useEffect(() => {
         header="New Lead"
         activeKey="1"
       />
+    {/* <div>
+    </div> */}
+    
+    { leadDataloading ? <div><Spin/></div>:
+    
       <div className="form-container">
         <Row gutter={[0, 24]}  >
           <Col className="form-body  p40" xs={{ order: width > breakpoint ? 1 : 2 }} sm={16} md={16} lg={16} xl={16} span={22} offset={1}>
@@ -659,6 +668,11 @@ useEffect(() => {
               form={form}
               help={errorMessage}
               onFinish={onFinish}
+              initialValues={{
+                // "name": firstName,
+                // "lastname": lastName,
+                "state":stateProvince
+            }}
               onFinishFailed={onFinishFailed}
             >
               <Col >
@@ -1225,54 +1239,9 @@ useEffect(() => {
           </Col>
         </Row>
       </div>
-    </>
+   }
+   </>
   )
 })
 
 export default NewLead
-
-// <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
-//           </Col>
-//           <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
-//           </Col> 
-// const setStateOptions = [
-
-//   { value: "Andaman and Nicobar Islands", label: "Andaman and Nicobar Islands" },
-//   { value: "Andhra Pradesh", label: "Andhra Pradesh" },
-//   { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
-//   { value: "Assam", label: "Assam" },
-//   { value: "Bihar", label: "Bihar" },
-//   { value: "Chandigarh", label: "Chandigarh" },
-//   { value: "Chhattisgarh", label: "Chhattisgarh" },
-//   { value: "Dadra and Nagar Haveli", label: "Dadra and Nagar Haveli" },
-//   { value: "Daman and Diu", label: "Daman and Diu" },
-//   { value: "Delhi", label: "Delhi" },
-//   { value: "Goa", label: "Goa" },
-//   { value: "Gujarat", label: "Gujarat" },
-//   { value: "Haryana", label: "Haryana" },
-//   { value: "Himachal Pradesh", label: "Himachal Pradesh" },
-//   { value: "Jammu and Kashmir", label: "Jammu and Kashmir" },
-//   { value: "Jharkhand", label: "Jharkhand" },
-//   { value: "Karnataka", label: "Karnataka" },
-//   { value: "Kerala", label: "Kerala" },
-//   { value: "Ladakh", label: "Ladakh" },
-//   { value: "Lakshadweep", label: "Lakshadweep" },
-//   { value: "Madhya Pradesh", label: "Madhya Pradesh" },
-//   { value: "Maharashtra", label: "Maharashtra" },
-//   { value: "Manipur", label: "Manipur" },
-//   { value: "Meghala", label: "Meghalaya" },
-//   { value: "Mizoram", label: "Mizoram" },
-//   { value: "Nagaland", label: "Nagaland" },
-//   { value: "Odisha", label: "Odisha" },
-//   { value: "Puducherry", label: "Puducherry" },
-//   { value: "Punjab", label: "Punjab" },
-//   { value: "Rajasthan", label: "Rajasthan" },
-//   { value: "Sikkim", label: "Sikkim" },
-//   { value: "Tamil Nadu", label: "Tamil Nadu" },
-//   { value: "Telangana", label: "Telangana" },
-//   { value: "Tripura", label: "Tripura" },
-//   { value: "Uttar Pradesh", label: "Uttar Pradesh" },
-//   { value: "Uttarakhand", label: "Uttarakhand" },
-//   { value: "West Bengal", label: "West Bengal" }
-
-// ]
