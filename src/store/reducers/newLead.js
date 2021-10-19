@@ -4,6 +4,7 @@ import { updateObject } from '../utility';
 const initialState = {
     createLeadLoading:false,
     createLeadError:'',
+    leadDataloading:false,
     leadId:'',
     userId:'',
     formData:[
@@ -51,7 +52,7 @@ const initialState = {
     //     gender: '',
     //     maritalStatus: '',
     //     childStatus: '',
-    //     ChildInfo: '',
+    //     ChildInfo: [],
 
     //     education: '',
     //     incomeGroup: '',
@@ -79,11 +80,12 @@ const initialState = {
 
 
 const createLeadStart = (state, action) => {
-    return updateObject(state, { createLeadLoading: true })
+    return updateObject(state, { createLeadLoading: true,leadDataloading:false })
 }
 
 const createLeadSuccess = (state, action) => {
     return updateObject(state, { 
+            leadDataloading:true,
             createLeadLoading: false, 
             formData: action.formData,
             leadId:action.formData[0]._id,
@@ -91,16 +93,17 @@ const createLeadSuccess = (state, action) => {
          })
 }
 const createLeadFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error });
+    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false });
 }
 
 const fetchLeadDetailsStart = (state, action) => {
-    return updateObject(state, { createLeadLoading: true })
+    return updateObject(state, { createLeadLoading: true,leadDataloading:true })
 }
 
 const fetchLeadDetailsSuccess = (state, action) => {
     console.log(action.leadDetails[0])
     return updateObject(state, { 
+            leadDataloading:false,
             createLeadLoading: false, 
             formData: action.leadDetails[0],
             leadId:action.leadDetails[0]._id,
@@ -108,7 +111,7 @@ const fetchLeadDetailsSuccess = (state, action) => {
          })
 }
 const fetchLeadDetailsFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error });
+    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false  });
 }
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Form, Typography, Radio, Button, Input, Select, Tabs,DatePicker } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { Row, Col, Form, Typography, Radio, Button, Input, Select, Tabs, DatePicker, Table, Modal } from 'antd';
+import { ArrowLeftOutlined, ArrowRightOutlined,CloseCircleOutlined } from '@ant-design/icons';
 import TabsMain from '../../Tab/Tab'
 import LeadDetailsTab from '../LeadDetailsTab';
 import '../../StatusLead/StatusLead.css'
@@ -24,7 +24,7 @@ const maritalStatusOptions = [
     { value: 'Divorced', label: 'Divorced' },
     { value: 'Widowed', label: 'Widowed' }
 ]
-const  personalRoute = "/leadmasterpage/leaddetails/personallead"
+const personalRoute = "/leadmasterpage/leaddetails/personallead"
 const tabMenu = [
     {
         id: 1,
@@ -56,13 +56,14 @@ const PersonalDetails = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    let storeFormData = useSelector((state)=>state.newLead.formData)
+    let storeFormData = useSelector((state) => state.newLead.formData)
+    let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
     // const id = useSelector((state)=>state.newLead.leadId)
     // useEffect(() => {
     //     dispatch(actions.fetchLeadDetails(id))
-        
+
     // }, [dispatch,id])
-    
+
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [firstName, setFirstName] = useState(storeFormData.firstName);
@@ -73,7 +74,16 @@ const PersonalDetails = () => {
     const [gender, setGender] = useState('');
     const [maritalStatus, setMaritalStatus] = useState();
     const [appendChildComponent, setappendChildComponent] = useState(false)
-    const [haveChildren, sethaveChildren] = useState(false)
+    const [haveChildren, sethaveChildren] = useState()
+    const [childStatus, setChildStatus] = useState()
+    const [childModel, setChildModel] = useState(false);
+    const [childInfoObj, setChildInfoObj] = useState([])
+    const [childName, setChildName] = useState()
+    const [childAge, setChildAge] = useState()
+    const [childGender, setChildGender] = useState()
+
+
+
     const breakpoint = 620;
 
     // const validateMessages = {
@@ -86,64 +96,132 @@ const PersonalDetails = () => {
     //       range: 'Number must be 10 digits',
     //     },
     // };
-    
+
     useEffect(() => {
         form.setFieldsValue({
-          "firstname":firstName,
-          "lastname":lastName,
-          "gender":gender,
-          "dob":dob,
-          "maritalstatus":maritalStatus
+            "firstname": firstName,
+            "lastname": lastName,
+            "gender": gender,
+            "dob": dob,
+            "maritalstatus": maritalStatus
         })
-      }, [
+    }, [
         firstName,
         lastName,
         dob,
         maritalStatusOptions,
         form
-      ])
-    const onChangeFirstName = (e)=>{
+    ])
+    const onChangeFirstName = (e) => {
         setFirstName(e.target.value)
     }
 
-    const onChangeLastName = (e)=>{
+    const onChangeLastName = (e) => {
         setLastName(e.target.value)
     }
 
-    
-    const onChangeDOB = (date,dateString)=>{
-        let minYear =  moment().subtract(18, 'years')
-        let maxYear =  moment().subtract(55, 'years')
-        let signal =  moment(dateString).isBetween(maxYear, minYear);
+
+    const onChangeDOB = (date, dateString) => {
+        let minYear = moment().subtract(18, 'years')
+        let maxYear = moment().subtract(55, 'years')
+        let signal = moment(dateString).isBetween(maxYear, minYear);
         setIsDobValid(signal)
-    // console.log(isDobValid)
+        // console.log(isDobValid)
 
         let msDate = moment(date).valueOf()
-    //    isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
+        //    isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
     }
-    console.log(isDobValid)
-    console.log('date',dob)
-    console.log(dobErrorMessage)
+    // console.log(isDobValid)
+    // console.log('date', dob)
+    // console.log(dobErrorMessage)
 
-    const onChangeGender = (e)=>{
+    const onChangeGender = (e) => {
         setGender(e.target.value)
-        console.log(gender)
+        // console.log(gender)
     }
 
-    const onChangeMaritalStatus = (value)=>{
+    const onChangeMaritalStatus = (value) => {
         setMaritalStatus(value)
-        if(value==='Married'||value==='Divorced'||value==='Widowed'){
+        if (value === 'Married' || value === 'Divorced' || value === 'Widowed') {
             setappendChildComponent(true)
-        }else{
+        } else {
             setappendChildComponent(false)
         }
         console.log(maritalStatus)
     }
 
-    const haveChildrenHandler =(value)=>{
-        sethaveChildren(true)
+
+    const haveChildrenHandler = (event) => {
+        setChildStatus(event.target.value)
+        sethaveChildren(!haveChildren)
     }
 
+    const childNameHandler = (event)=>{
+        const name = event.target.value
+        setChildName(name)
+    }
+    const childGenderHandler = (e)=>{
+        setChildGender(e.target.value)
+    }
+    const childDOBHandler = (date, dateString) => {
+        setChildAge(moment(date).valueOf())
+
+    }
+    const randomId =()=>{
+        let randomChars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for ( let i = 0; i < 6; i++ ) {
+            result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+        }
+        return result;
+    }
+    
+    
+    const handleChildModal = () => {
+        setChildModel(!childModel)
+    }
+    const saveChildInfo = (event) => {
+        event.preventDefault();
+
+        storeChildInfo.push({
+            id:"ch"+randomId(),
+            childName: childName,
+            childAge: childAge,
+            childGender: childGender,
+        })
+        setChildInfoObj(storeChildInfo)
+        const formData = {
+            ...storeFormData,
+            ChildInfo:[
+                ...storeChildInfo
+            ]
+        }
+        dispatch(actions.storeLead(formData))
+        setChildModel(!childModel);
+    }
+    const childColumn = [
+        {
+            title: 'Name',
+            dataIndex: 'childName',
+        },
+        {
+            title: 'Date of Birth',
+            dataIndex: 'DateofBirth',
+            render:(dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>)}
+
+        },
+        {
+            title: 'Gender',
+            dataIndex: 'childGender',
+        },
+        {
+            title: 'Action',
+            render:()=><CloseCircleOutlined />
+        },
+    ]
+    useEffect(() => {
+    }, [storeChildInfo])
+ 
     const formData = {
         ...storeFormData,
         firstName: firstName,
@@ -156,31 +234,31 @@ const PersonalDetails = () => {
         event.preventDefault();
         dispatch(actions.storeLead(formData))
         history.push('contactlead')
-    
+
         // if (!formIsValid) {
         //   return;
         // }else{
         // }
-        
+
         // setErrorMessage('Form submitted successfully')
         // setIsNewLead(false)
         // setErrorMessage( res.data.errMsg)
-       
-    
-    
+
+
+
         // resetFirstName();
         // resetLastName();
         // resetEmail();
-      };
-    
+    };
+
     useEffect(() => {
-        
-        
+
+
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
-    },[]);
+    }, []);
 
     return (
         <>
@@ -192,18 +270,18 @@ const PersonalDetails = () => {
             />
             <div className="form-container">
                 <Row className="m0a" gutter={[0, 30]} justify="center">
-                        <LeadDetailsTab activeKey="1" />
+                    <LeadDetailsTab activeKey="1" />
                     <Col className="m0a" xs={22} sm={22} md={17} offset={2}>
                         <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
                             <p className="form-title">Personal Details</p>
-                            <Form 
-                                layout="horizontal" 
+                            <Form
+                                layout="horizontal"
                                 className="contact-detail-form"
                                 form={form}
                                 // validateMessages={validateMessages}
                                 initialValues={{
-                                    "name":firstName,
-                                    "lastname":lastName
+                                    "name": firstName,
+                                    "lastname": lastName
                                 }}>
                                 <Col >
                                     <Form.Item
@@ -217,16 +295,15 @@ const PersonalDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Input 
-                                            className="first-name input-box" 
-                                            placeholder="Enter First Name" 
+                                        <Input
+                                            className="first-name input-box"
+                                            placeholder="Enter First Name"
                                             // defaultValue={firstName}
                                             // value={storeFormData.firstName}
                                             onChange={onChangeFirstName}
                                         />
                                     </Form.Item>
                                 </Col>
-                                
                                 <Col>
                                     <Form.Item
                                         {...formItemLayout}
@@ -239,9 +316,9 @@ const PersonalDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Input 
-                                            className="first-name input-box" 
-                                            placeholder="Enter Last Name" 
+                                        <Input
+                                            className="first-name input-box"
+                                            placeholder="Enter Last Name"
                                             value={lastName}
                                             onChange={onChangeLastName}
                                         />
@@ -253,23 +330,23 @@ const PersonalDetails = () => {
                                         className="form-item-name label-color"
                                         name="dob"
                                         label="Date of Birth"
-                                        // validateStatus='error'
-                                        // help='Age should be between 18 and 55 years'
-                                        // hasFeedback
-                                        // rules={[
-                                        //     {
-                                        //         type:dob,
-                                        //         required: false,
-                                        //         message: dobErrorMessage,
-                                        //     },
-                                        // ]}
-                                        // style={{ marginBottom: '1rem' }}
+                                    // validateStatus='error'
+                                    // help='Age should be between 18 and 55 years'
+                                    // hasFeedback
+                                    // rules={[
+                                    //     {
+                                    //         type:dob,
+                                    //         required: false,
+                                    //         message: dobErrorMessage,
+                                    //     },
+                                    // ]}
+                                    // style={{ marginBottom: '1rem' }}
                                     >
-                                    <DatePicker 
-                                        value={dob}
-                                        onChange={onChangeDOB} 
-                                        size="large" 
-                                        style={{ width: "100%" }}/>
+                                        <DatePicker
+                                            value={dob}
+                                            onChange={onChangeDOB}
+                                            size="large"
+                                            style={{ width: "100%" }} />
                                     </Form.Item>
                                 </Col>
                                 <Col >
@@ -282,7 +359,7 @@ const PersonalDetails = () => {
                                         value={gender}
                                     >
                                         <Radio.Group size="large">
-                                            <Radio.Button  value="Male">Male</Radio.Button>
+                                            <Radio.Button value="Male">Male</Radio.Button>
                                             <Radio.Button value="Female">Female</Radio.Button>
                                             <Radio.Button value="Other">Other</Radio.Button>
                                         </Radio.Group>
@@ -302,9 +379,9 @@ const PersonalDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Select 
-                                            size="large" 
-                                            options={maritalStatusOptions} 
+                                        <Select
+                                            size="large"
+                                            options={maritalStatusOptions}
                                             placeholder="Select Your State"
                                             onChange={onChangeMaritalStatus}
                                             value={maritalStatus}
@@ -314,42 +391,134 @@ const PersonalDetails = () => {
                                 </Col>
                                 {appendChildComponent &&
                                     <Col >
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="Children"
-                                        label="Children"
-                                        onChange={haveChildrenHandler}
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select Children',
-                                            },
-                                        ]}
-                                    >
-                                        <Radio.Group size='large'>
-                                            <Radio.Button  value="Yes">Yes</Radio.Button>
-                                            <Radio.Button value="No">No</Radio.Button>
-                                        </Radio.Group>
-                                    </Form.Item>
-                                </Col>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="Children"
+                                            label="Children"
+                                            onChange={haveChildrenHandler}
+                                            value={childStatus}
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select Children',
+                                                },
+                                            ]}
+                                        >
+                                            <Radio.Group size='large'>
+                                                <Radio.Button value="Yes">Yes</Radio.Button>
+                                                <Radio.Button value="No">No</Radio.Button>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </Col>
                                 }
+                                {
+                                    haveChildren &&
+                                    <>
+                                        <Col xs={24} sm={24} md={6} lg={6} xl={6} style={{ marginTop: '1rem' }}>
+                                            <Button shape="round" size="large" block onClick={handleChildModal}>Add Child</Button>
+                                        </Col>
+                                        <Table
+                                            style={{marginTop:'1rem'}}
+                                            dataSource={childInfoObj}
+                                            columns={childColumn}
+                                            scroll={{ x: 600 }}
+                                        />
+                                    </>
+                                        
+                                }
+                                <>
+                                    <Modal
+                                        title="Insurance Details"
+                                        centered={true}
+                                        visible={childModel}
+                                        onOk={handleChildModal}
+                                        footer={[
+                                            <Button key="cancel" onClick={handleChildModal}>
+                                                Cancel
+                                            </Button>,
+                                            <Button
+                                                key="save"
+                                                type="primary"
+                                                onClick={saveChildInfo}
+                                            >
+                                                Save</Button>
+                                        ]}
+                                        onCancel={handleChildModal}
+                                        width={700}
+                                    >
+                                        <Row gutter={[12, 10]}>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name='childname'
+                                                    label="Child Name"
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input
+                                                        className="first-name input-box"
+                                                        placeholder="Enter Child Name"
+                                                    value={childName}
+                                                    onChange={childNameHandler}
+                                                    />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="dobOfChild"
+                                                    label="Date of Birth"
+                                                    rules={[{ required: true}]}
+
+                                                >
+                                                    <DatePicker
+                                                        value={childAge}
+                                                        onChange={childDOBHandler}
+                                                        size="large"
+                                                        style={{ width: "100%" }} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    name="gender"
+                                                    label="Gender"
+                                                    onChange={childGenderHandler}
+                                                    rules={[{ required: true, message: 'Please pick gender' }]}
+                                                    value={childGender}
+                                                >
+                                                    <Radio.Group size="large">
+                                                        <Radio.Button value="Male">Male</Radio.Button>
+                                                        <Radio.Button value="Female">Female</Radio.Button>
+                                                        <Radio.Button value="Other">Other</Radio.Button>
+                                                    </Radio.Group>
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+                                    </Modal>
+                                </>
                             </Form>
                         </Col>
-                        <Col className='form-body  p20' style={{margin:"20px 0"}} xs={{ order: 5 }} sm={24} md={20} lg={20} xl={20} span={24} >
+                        <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={20} lg={20} xl={20} span={24} >
                             <Row>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
                                     <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
-                                    <Button 
-                                        type="primary" 
-                                        shape="round" 
-                                        size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }} 
+                                    <Button
+                                        type="primary"
+                                        shape="round"
+                                        size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                                         icon={<ArrowRightOutlined />}
                                         onClick={proceedHandler}
-                                        >Proceed</Button>
+                                    >Proceed</Button>
                                 </Col>
                             </Row>
                         </Col>
