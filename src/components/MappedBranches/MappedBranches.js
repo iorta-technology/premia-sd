@@ -37,6 +37,9 @@ const MappedBranches = () => {
                                     <Button className={ selectBtnOption== true ? "mapped-button " : "mapped-btn2"}  value= {selectBtnOption}  onClick={selectBtnFunc} icon={<UsergroupAddOutlined />}>Team</Button>
                                 </Col>
                                 <Col>
+                                {selectButtonOption?<p>Self</p>:<p>Teams</p>}
+                                </Col>
+                                <Col>
                                     <select style={{ width: 150, color: '#000', fontSize: '14px' }} bordered={false} >
                                         <option value="">Select</option>
                                         <option value="Mumbai Main">Mumbai Main</option>

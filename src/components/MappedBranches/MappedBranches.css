@@ -37,6 +37,17 @@
   background-color: #3b371e;
   color: #fff;
   width: 10vw;
+  border-color:#3b371e ;
+}
+.mapped-button:focus{
+  background-color: #3b371e;
+  color: #fff;
+  border-color:#3b371e ;
+}
+.mapped-button:hover{
+  background-color: #3b371e;
+  color: #fff;
+  border-color:#3b371e ;
 }
 .mapped-btn {
   display: flex;
