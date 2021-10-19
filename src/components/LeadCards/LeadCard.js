@@ -1,15 +1,24 @@
 import React,{useEffect,useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import {Card,Avatar,Switch} from 'antd'
 import {MoreOutlined } from '@ant-design/icons';
 import './LeadCard.css';
+import * as actions from '../../store/actions/index';
+import { useHistory } from 'react-router-dom';
+
 const LeadCard = React.memo((props) => {
 
-    const {lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+    
   const leadComponent = 
-  leadStatus === 'open'
-  ? 
-  <p className="user-status-text capitalize open">{leadStatus}</p>
-  :
+
+
+  leadStatus === 'newleadentery'
+                        ? 
+    <p className="user-status-text capitalize open">Open</p>
+    :
   leadStatus === 'converted'
   ?
   <p className="user-status-text capitalize converted">{leadStatus}</p>
@@ -32,10 +41,14 @@ const LeadCard = React.memo((props) => {
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
-
+    const  updateHandler=(id)=>{
+        dispatch(actions.fetchLeadDetails(id))
+        history.replace('/leadmasterpage/statuslead')
+    }
     // Card for desktop
     let card = 
             <Card
+                key={id}
                 loading={props.loading}
                 className="lead-card-desktop"
                 hoverable={true}>
@@ -79,7 +92,7 @@ const LeadCard = React.memo((props) => {
                             </Card.Grid>
                         </div>
                     </div>
-                    <button className="update-btn">Update</button>  
+                    <button className="update-btn" onClick={()=>updateHandler(id)}>Update</button>  
             </Card>
     //Card for Mobile
     if(width<breakpoint){
@@ -101,7 +114,7 @@ const LeadCard = React.memo((props) => {
         </Card>
     }
     return (
-            <div>{card}</div>
+            <div key={id}>{card}</div>
 
     )
 })

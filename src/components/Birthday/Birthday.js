@@ -25,6 +25,7 @@ const Birthday = () => {
                     <div className="card">
                         <Row gutter={[16, 16]} >
                             <Col span={16}>
+                            {/* {width <= "374" ? <h4>It works</h4> : <h4>It doesnt</h4>} */}
                                 <h1 className="Head1">Birthday</h1>
                                 <div className="gutter-example">
                                     <Row gutter={16} justify="center">
@@ -57,7 +58,7 @@ const Birthday = () => {
                             </Col>
                         </Row>
                     </div>}
-                {/* {width <= "374" ? <h4>It works</h4> : <h4>It doesnt</h4>} */}
+                
             </div >
         </div >
     </useState >

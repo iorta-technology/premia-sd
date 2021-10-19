@@ -43,7 +43,8 @@ const ServiceCorner = () => {
         </div> */}
 
         <div className="form-container">
-            {width <= "374" ? <Row gutter={[40, 24]} justify="center">
+            {width <= "374" ? 
+            <Row gutter={[40, 24]} justify="center">
                 <Col xs={{ order: 1 }} sm={6} md={6} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                     <Row gutter={['', 24]}>
                         <Col className="service-corner1" xs={6} sm={6} md={6} lg={6} xl={6} span={6}>

@@ -43,6 +43,47 @@ export const createLead = (formData) => {
     }
 }
 
+
+export const fetchLeadDetailsStart = () => {
+    return {
+        type: actionTypes.FETCH_LEAD_DETAILS_START
+    }
+}
+
+export const fetchLeadDetailsSuccess = (leadDetails) => {
+    return {
+        type: actionTypes.FETCH_LEAD_DETAILS_SUCCESS,
+        leadDetails: leadDetails,
+    }
+} 
+
+
+export const fetchLeadDetailsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_LEAD_DETAILS_FAIL,
+        error: error
+    }
+}
+
+export const fetchLeadDetails = (id) => {
+        
+    return dispatch => {
+        dispatch(fetchLeadDetailsStart())
+        return axios.get(`user/getlead_details/${id}`)
+            .then(res => {
+                    console.log(res.data)
+                    let response = res.data.errMsg
+                    return dispatch(fetchLeadDetailsSuccess(response))
+                // if(res.data.errCode===-1){
+                // }
+            })
+            .catch(error => {
+                console.log(error)
+                return dispatch(fetchLeadDetailsFail(error))
+            })
+    }
+}
+
 export const storeForm = (formData) => {
     return {
         type: actionTypes.STORE_FORM_SUCCESS,

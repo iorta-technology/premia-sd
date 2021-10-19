@@ -71,106 +71,43 @@ const columns = [
 ];
 
 const SalesPendency = () => {
+    // const [testState, setTestState] = useState(true)
+    // let { innerWidth: width, innerHeight: height } = window;
+    // console.log(width)
+    const [selectRemarkOption, setSelectRemarkOption] = useState("");
     const [selectBusinessOption, setSelectBusinessOption] = useState("");
     const [fetchPendencyArr, setFetchPendencyArr] = useState([]);
     const [loading, setloading] = useState(true);
 
     const filterBusinessFunc = (e) => {
         setSelectBusinessOption(e.target.value)
-
-
-// fetchPendencyArr
-// .filter((filterOption)=>{
-//     if(selectBusinessOption!=""){
-//         console.log( filterOption)
-//     }
-//     else{ 
-//         console.log( filterOption.Type
-//                                 .toLowerCase()
-//                                 .includes(selectBusinessOption.toLowerCase()));
-//     }
-// })
-// .map(row => ({
-//     ApplicationNo: row.applicationNo,
-//     PolicyNumber: row.policyNumber,
-//     BranchCode: row.branchCode,
-//     PremiumAmount: row.PremiumAmount,
-//     CustomerName: row.customerName,
-//     MobileNumber: row.mobileNumber,
-//     Emailid: row.emailAddress,
-//     LoginDate: row.loginDate,
-//     SumInsured: row.sumInsured,
-//     PartnerAgentName: row.partner_slash_agent_name,
-//     Type: row.bussinessType,
-//     Remarks: row.remarks,
-//     RequirementDescription: row.requirementDescription,
-//     DateofFileUpdate: row.updatedDate
-//     // id: row.id
-// }))
-//         // axios.get(`https://nodemanipalcigna.iorta.in/secure/sd/admin/fetchPendencyReport?BRMCode=AB0005&bussiness_type=${e.target.value}`)
-        //     .then((res) => {
-        //         setloading(false);
-        //         console.log(res)
-        //         setSelectBusinessOption(
-        //             res.data.errMsg[0].filter((fileArr) => {
-        //                 // if (selectBusinessOption == "") {
-        //                 //     return fileArr
-        //                 // }
-        //                 if (selectBusinessOption != "") {
-        //                     return fileArr.Type
-        //                         .toLowerCase()
-        //                         .includes(selectBusinessOption.toLowerCase());
-
-        //                 } else {
-        //                     return fileArr;
-        //                 }
-        //             })
-        //                 .map(row => ({
-        //                     ApplicationNo: row.applicationNo,
-        //                     PolicyNumber: row.policyNumber,
-        //                     BranchCode: row.branchCode,
-        //                     PremiumAmount: row.PremiumAmount,
-        //                     CustomerName: row.customerName,
-        //                     MobileNumber: row.mobileNumber,
-        //                     Emailid: row.emailAddress,
-        //                     LoginDate: row.loginDate,
-        //                     SumInsured: row.sumInsured,
-        //                     PartnerAgentName: row.partner_slash_agent_name,
-        //                     Type: row.bussinessType,
-        //                     Remarks: row.remarks,
-        //                     RequirementDescription: row.requirementDescription,
-        //                     DateofFileUpdate: row.updatedDate
-        //                     // id: row.id
-        //                 }))
-
-        //         );
-        //     })
-        // console.log(e.target.value)
-
+    }
+    const filterRemarkFunc = (e) => {
+        setSelectRemarkOption(e.target.value)
     }
 
-    // const businessTypeFun = (setSelectBusinessOption) => {
-
-    // }
     useEffect(() => {
         getData();
 
-    }, [selectBusinessOption]);
-    // console.log(fetchPendencyArr);
+    }, [selectBusinessOption, selectRemarkOption]);
     const getData = async () => {
-        await axios.get("https://nodemanipalcigna.iorta.in/secure/sd/admin/fetchPendencyReport?BRMCode=AB0005")
+        await axios.get("https://nodemanipalcigna.iorta.in/secure/sd/admin/fetchPendencyReport?BRMCode=82290")
             .then((res) => {
                 setloading(false);
                 console.log(res)
                 setFetchPendencyArr(
                     res.data.errMsg[0]
-                    .filter(filArr => {
-                        if(selectBusinessOption!==""){
-                        return filArr.bussinessType==selectBusinessOption}
-                    else{
-                        return filArr
-                    }
-                    })
+                        .filter(filArr => {
+                            if (selectBusinessOption !== "") {
+                                return filArr.bussinessType == selectBusinessOption
+                            }
+                            else if (selectRemarkOption !== "") {
+                                return filArr.remarks == selectRemarkOption
+                            }
+                            else {
+                                return filArr
+                            }
+                        })
                         .map(row => ({
                             ApplicationNo: row.applicationNo,
                             PolicyNumber: row.policyNumber,
@@ -186,7 +123,6 @@ const SalesPendency = () => {
                             Remarks: row.remarks,
                             RequirementDescription: row.requirementDescription,
                             DateofFileUpdate: row.updatedDate
-                            // id: row.id
                         }))
 
                 );
@@ -194,44 +130,20 @@ const SalesPendency = () => {
             );
     };
     console.log(fetchPendencyArr);
-    // fetchPendencyArr.filter((fileArr) => {
-
-    //     if (selectRemarkOption != "All Remarks") {
-    //         return fileArr.remarks
-    //             .toLowerCase()
-    //             .includes(selectRemarkOption.toLowerCase());
-    //     } else {
-    //         return fileArr;
-    //     }
-    // }).map((mapArr) => {
-
-    // })
     function refreshPage() {
         window.location.reload(false);
-      }
+    }
     return (
-
+        // {width <= "375" ? <div className="tabs">
+        // <Tabs defaultActiveKey="1" onChange={callback}>
+        //     <TabPane tab="Upcoming" key="1"></TabPane>
+        //     <TabPane tab="Recent" key="2"></TabPane>
+        //     <TabPane tab="Later" key="3"></TabPane>
+        // </Tabs></div> :
         <Row type="flex" gutter={['', 24]}>
-            {/* <div>
-                {loading ? (
-                    "Loading"
-                ) : (
-                    <Table
-                        columns={columns}
-                        dataSource={fetchPendencyArr}
-                        pagination={{ pageSize: 50 }}
-                        scroll={{ y: 240 }}
-                    />
-                )}
-            </div> */}
-            {/* <div>
-                {fetchPendencyArr.map((arr) => {
-                    return <h4 key={arr.id}>{arr.policyNumber}</h4>;
-                })}
-            </div> */}
             <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                 <Row type="flex" gutter={['', 24]}>
-                    <Col className="card1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                    <Col className="sales-pendency" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                         <div className="Card">
                             <div className="pendency-main">
                                 <Card style={contentStyle} >
@@ -243,26 +155,16 @@ const SalesPendency = () => {
                                                 <select value={selectBusinessOption} style={{ width: 150, color: '#000', fontSize: '20px' }} bordered={false} onChange={filterBusinessFunc}>
                                                     <option value="">Select</option>
                                                     <option value="New Business">New Business</option>
-                                                    <option value="Renewal">Renewal</option>
-                                                    {/* <option value="audi">Audi</option> */}
                                                 </select>
-                                                {/* <Select defaultValue="Select" style={{ width: 150, color: '#fff', fontSize: '20px' }} bordered={false} onChange={FilterRemarkFunc}>
-                                                    <Option value="Select">Select</Option>
-                                                    <Option value="New Business">New Business</Option>
-                                                    <Option value="Renewal">Renewal</Option>
-                                                </Select> */}
                                             </div><hr />
                                         </Col>
                                         <Col xs={24} sm={12} md={4}>
                                             <div >
                                                 <h4 className="pendency-head4">Filter by Remark</h4>
-                                                <Select defaultValue="Select" style={{ width: 150, color: '#fff', fontSize: '20px' }} bordered={false}>
-                                                    <Option value="Select">Select</Option>
-                                                    <Option value="Customer Consent">Customer Consent</Option>
-                                                    <Option value="UW Approval Require">UW Approval Require</Option>
-                                                    <Option value="Add info Pending">Add info Pending</Option>
-                                                    <Option value="Deficit Pending">Deficit Pending</Option>
-                                                </Select>
+                                                <select value={selectRemarkOption} style={{ width: 150, color: '#000', fontSize: '20px' }} bordered={false} onChange={filterRemarkFunc}>
+                                                    <option value="">Select</option>
+                                                    <option value="Consent Pending-Sales">Consent Pending-Sales</option>
+                                                </select>
                                             </div><hr />
                                         </Col>
                                         <Col xs={24} sm={12} md={4}>
@@ -285,9 +187,6 @@ const SalesPendency = () => {
                                     />
                                 )}
                             </div>
-                            {/* <div >
-                                <Table columns={columns} size="middle" scroll={{ x: '150vw' }} />
-                            </div> */}
                         </div>
                     </Col>
                 </Row>

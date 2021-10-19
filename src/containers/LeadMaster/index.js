@@ -11,6 +11,7 @@ const LeadMaster = (props) => {
     const [current,setcurrent] = useState(1)
     const dispatch = useDispatch()
     useEffect(() => {
+
         dispatch(actions.fetchAllLeads('',current))
     },[dispatch,current]);
 

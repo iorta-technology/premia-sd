@@ -414,7 +414,7 @@ const BenefitIllustrator = () => {
                     <Row>
                         <Col className="benefitillustrator3" xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
                             {/* <div className="form-title"> */}
-                            <Title className="heading">benefitillustrator3</Title>
+                            <Title className="heading">Summary</Title><br/>
                             {/* </div> */}
                             <p>Plan Option</p>
                             <h2>Home Loan</h2>
