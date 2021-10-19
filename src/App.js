@@ -36,7 +36,7 @@ const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashbo
 const Blog = React.lazy(()=> import('./components/AgentMicroSite/Blog'))
 
 const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
-
+const ExistingPartner = React.lazy(()=> import('./components/Partners/ExistingPartner'))
 
 function App() {
   return (
@@ -76,6 +76,7 @@ function App() {
               <Route path="/calendar" component={Calendar}/>
               <Route path="/kpi-dashboard" component={KpiDashboard}/>
               <Route path="/salespendency" component={SalesPendency}></Route>
+              <Route path="/existingpartner" component={ExistingPartner}/>
 
 
               </div>
