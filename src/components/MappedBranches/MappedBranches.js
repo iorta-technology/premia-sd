@@ -31,10 +31,13 @@ const MappedBranches = () => {
                             <h4 className="mapped-head4">Regions</h4>
                             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                 <Col>
-                                    <Button className= "mapped-button "   value= {selectButtonOption}  onClick={selectButtonFunc}  icon={<UserOutlined />}>Self</Button>
+                                    <Button className={ selectButtonOption== true ? "mapped-button " : "mapped-btn2"}  value= {selectButtonOption}  onClick={selectButtonFunc}  icon={<UserOutlined />}>Self</Button>
                                 </Col>
                                 <Col>
-                                    <Button className="mapped-btn2" value= {selectBtnOption}  onClick={selectBtnFunc} icon={<UsergroupAddOutlined />}>Team</Button>
+                                    <Button className={ selectBtnOption== true ? "mapped-button " : "mapped-btn2"}  value= {selectBtnOption}  onClick={selectBtnFunc} icon={<UsergroupAddOutlined />}>Team</Button>
+                                </Col>
+                                <Col>
+                                {selectButtonOption?<p>Self</p>:<p>Teams</p>}
                                 </Col>
                                 <Col>
                                     <select style={{ width: 150, color: '#000', fontSize: '14px' }} bordered={false} >
