@@ -5,7 +5,7 @@ import Tab from '../../components/Tab/Tab'
 import RenewalCards from '../../components/RenewalCollections/Cards/RenewalCards'
 import FloatButton from '../../components/FloatButton/FloatButton'
 import * as actions from '../../store/actions/index';
-import { Pagination } from 'antd';
+import { Pagination,Row,Col } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
 const PaidRenewal = (props) => {
     //Set current page no of the page
@@ -50,19 +50,19 @@ const PaidRenewal = (props) => {
     }
     const tabMenu = [
         {
-            id:1,
+            id:6,
             value:"All"
         },
         {
-            id:2,
+            id:7,
             value:"Paid"
         },
         {
-            id:3,
+            id:8,
             value:"UnPaid"
         },
         {
-            id:4,
+            id:9,
             value:"Lapsed"
         },
         
@@ -71,7 +71,8 @@ const PaidRenewal = (props) => {
     return (
         <div style={{backgroundColor:'#fafafa'}}>
             <Tab tabMenu={tabMenu} header="My Renewals"/>
-            <RenewalCards renewals={unPaidRenewalsData} leadDataLoading={leadDataLoading}/>
+            {unPaidRenewalsData?(<>
+                <RenewalCards renewals={unPaidRenewalsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
                     size="small"
@@ -81,6 +82,18 @@ const PaidRenewal = (props) => {
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
+            </>):<>
+            <Row gutter={['', 20]} justify="center">
+                    <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
+                        <div className="proposal">
+                            <div className="bg-norecord">
+                            </div>
+                            <p className="norecord-title">No Records Found</p>
+                        </div>
+                    </Col> 
+                </Row>
+            </>}
+           
             <FloatButton/>
         </div>
     )

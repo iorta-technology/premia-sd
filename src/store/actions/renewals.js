@@ -178,3 +178,40 @@ export const fetchLapsedRenewals = (leads,pageNo) => {
             })
     }
 }
+
+
+// Fetch renewal details data
+export const fetchRenewalDetailsStart = () => {
+    return {
+        type: actionTypes.FETCH_DETAILS_RENEWALS_START
+    }
+}
+
+export const fetchRenewalDetailsSuccess = (RenewalDetails) => {
+    return {
+        type: actionTypes.FETCH_DETAILS_RENEWALS_SUCCESS,
+        RenewalDetails: RenewalDetails
+    }
+} 
+
+
+export const fetchRenewalDetailsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_DETAILS_RENEWALS_FAIL,
+        error: error
+    }
+}
+
+export const fetchRenewalDetails = (id) => {
+    return dispatch => {
+        dispatch(fetchRenewalDetailsStart())
+        return axios.get(`getPolicyDetails/610a50ec85eac609e29061e3?proposer_ID_refs=${id}`)
+            .then(res => {
+                console.log('fetch renewal details',res.data.errMsg[0])
+                return dispatch(fetchRenewalDetailsSuccess(res.data.errMsg[0]))
+            })
+            .catch(error => {
+                return dispatch(fetchRenewalDetailsFail(error.response.data.errors))
+            })
+    }
+}

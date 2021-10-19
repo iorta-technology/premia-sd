@@ -33,6 +33,10 @@ body{
     padding: 5px;
     text-align: left;
 }
+.name {
+  display: flex;
+  align-items: center;
+}
 .avatar-and-status>span>span{
     font-size: 25px;
     text-transform: uppercase;
@@ -40,3 +44,14 @@ body{
 .main-cards{
     border: 1px solid grey;
 }
+.nameInfo{
+  margin: 10px;
+}
+/* .shareIcon {
+  margin-left:'50px' !important;
+  border-radius:'50px';
+  background-color:'#00ACC1' !important;
+  padding:'8px';
+  color:'#fff';
+  cursor:'pointer';
+} */

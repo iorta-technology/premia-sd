@@ -24,6 +24,11 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey }) =>
             case "3": return history.push('/leadmasterpage/proposal');
             case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
             case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
+
+            case "6": return history.push('/renewalMaster/allRenewals');
+            case "7": return history.push('/renewalMaster/paidRenewals');
+            case "8": return history.push('/renewalMaster/unpaidRenewals');
+            case "9": return history.push('/renewalMaster/lapsedRenewals');
             default:  return history.push('/leadmasterpage/statuslead');
         }
     }

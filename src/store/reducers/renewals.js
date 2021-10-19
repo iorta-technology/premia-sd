@@ -7,6 +7,7 @@ const initialState = {
     paidRenewals:[],
     unPaidRenewals:[],
     lapsedRenewals:[],
+    details: null,
     paidRenewals_Loading : false,
     fetch_paidRenewals_Loading : false,
     unPaidRenewals_Loading : false,
@@ -52,6 +53,17 @@ const fetchUnPaidRenewalsFail = (state, action) => {
     return updateObject(state, { fetch_unPaidRenewals_Loading: false, fetch_unPaidRenewals_Error: action.error });
 }
 
+const fetchRenewalDetailsStart = (state, action) => {
+    return updateObject(state, { fetch_unPaidRenewals_Loading: true })
+}
+
+const fetchRenewalDetailsSuccess = (state, action) => {
+    return updateObject(state, { fetch_unPaidRenewals_Loading: false, details: action.RenewalDetails })
+}
+const fetchRenewalDetailsFail = (state, action) => {
+    return updateObject(state, { fetch_unPaidRenewals_Loading: false, fetch_unPaidRenewals_Error: action.error });
+}
+
 
 
 
@@ -69,6 +81,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_UNPAID_RENEWALS_START: return fetchUnPaidRenewalsStart(state, action)
         case actionTypes.FETCH_UNPAID_RENEWALS_SUCCESS: return fetchUnPaidRenewalsSuccess(state, action)
         case actionTypes.FETCH_UNPAID_RENEWALS_FAIL: return fetchUnPaidRenewalsFail(state, action)
+
+        case actionTypes.FETCH_DETAILS_RENEWALS_START: return fetchRenewalDetailsStart(state, action)
+        case actionTypes.FETCH_DETAILS_RENEWALS_SUCCESS: return fetchRenewalDetailsSuccess(state, action)
+        case actionTypes.FETCH_DETAILS_RENEWALS_FAIL: return fetchRenewalDetailsFail(state, action)
         default: return state
     }
 }
