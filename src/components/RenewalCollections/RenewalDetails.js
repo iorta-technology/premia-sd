@@ -10,6 +10,7 @@ import './RenewalDetails.css';
 import axios from '../../axios-manipal';
 const RenewalDetails = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [show, setShow] = useState(false);
     const location = useLocation();
     const history = useHistory()
     const dispatch = useDispatch()
@@ -22,7 +23,12 @@ const RenewalDetails = () => {
     console.log("renewalsDetails",renewalDetails)
     let avatar = renewalDetails?.proposerName.match(/\b(\w)/g)
     const showContent = ()=>{
-
+        if(!show) {
+            setShow(true);
+        }
+        else {
+            setShow(false);
+        }
         console.log("content hide and show")
     }
     const addLeadHandler = ()=>{
@@ -83,7 +89,7 @@ const RenewalDetails = () => {
                 <Row gutter={16}>
                 <Col span={8}>
                     <Card className="main-cards">
-                    <p>Personal Details</p>
+                    <p className="card-heading">Personal Details</p>
                     <div className="avatar-and-status name">
                         <Avatar style={{backgroundColor:'#007F8F'}} size={{xl: 50}}>{avatar}</Avatar>
                        <div className="nameInfo">
@@ -102,7 +108,7 @@ const RenewalDetails = () => {
                 </Col>
                 <Col span={8}>
                     <Card className="main-cards">
-                    <p>Policy Details</p>
+                    <p className="card-heading">Policy Details</p>
                     <p>BRM_Code  : {renewalDetails.BRM_Code.agent_id}</p>
                     <p>Partners / Distributor Name : {renewalDetails.partnersDistributorName}</p>
                     <p>Policy Servicing Branch : {renewalDetails.policyServicingBranch}</p>
@@ -116,26 +122,30 @@ const RenewalDetails = () => {
                     <p>Current Sum Assured : {renewalDetails.currentSumAssured}</p>
                     <p>Cumulative Bonus : {renewalDetails.cumulativeBonus}</p>
                     <p>Renewal Time : {renewalDetails.renewalTime}</p>
-                    <p>Payment Link : <a href={renewalDetails.paymentLink} target="_blank">{renewalDetails.paymentLink}</a> <span onClick={showModal} style={{marginLeft:'50px',borderRadius:'50px',backgroundColor:'#00ACC1',padding:'8px',color:'#fff',cursor:'pointer'}}><ShareAltOutlined  /></span></p> 
-                    <p>Last Yr - Net Premium : {renewalDetails.lastYearNetPremium}</p>
-                    <p>Policy Start Date : {renewalDetails.policyStartDate}</p>
-                    <p>Policy End Date : {renewalDetails.policyEndDate}</p>
-                    <p>Renewal Start Date : { Moment(renewalDetails.renewalStartDate).format("D MMM YYYY")}</p>
-                    <p>Grace End Date : { Moment(renewalDetails.graceEndDate).format("D MMM YYYY")}</p>
-                    <p>Recurring payment flag :  {renewalDetails.RecurringPaymentFlag}</p>
-                    <p>Premium for 1 Year : {renewalDetails.PremiumOneYear}</p>
-                    <p>Premium for 2 Years : {renewalDetails.PremiumTwoYear}</p>
-                    <p>Premium for 3 Year : {renewalDetails.PremiumThreeYear}</p>
-                    <p>Upsell flag : {renewalDetails.upsellFlag}</p>
-                    <p>Premium for level 1 Upsell : {renewalDetails.UPSELLOnePRM}</p>
-                    <p>Premium for level 2 Upsell : {renewalDetails.UPSELLTwoPRM}</p>
-                    <p>Next best offer : {renewalDetails.nextBestOffer}</p>
-                    <a onClick={showContent}>show less</a>
+                    <p>Payment Link : <a href={renewalDetails.paymentLink} target="_blank">{renewalDetails.paymentLink}</a> <span onClick={showModal} style={{marginLeft:'50px',borderRadius:'50px',backgroundColor:'#00ACC1',padding:'8px',color:'#fff',cursor:'pointer'}}><ShareAltOutlined  /></span></p>
+                    {show && (
+                        <span>
+                        <p>Last Yr - Net Premium : {renewalDetails.lastYearNetPremium}</p>
+                        <p>Policy Start Date : {renewalDetails.policyStartDate}</p>
+                        <p>Policy End Date : {renewalDetails.policyEndDate}</p>
+                        <p>Renewal Start Date : { Moment(renewalDetails.renewalStartDate).format("D MMM YYYY")}</p>
+                        <p>Grace End Date : { Moment(renewalDetails.graceEndDate).format("D MMM YYYY")}</p>
+                        <p>Recurring payment flag :  {renewalDetails.RecurringPaymentFlag}</p>
+                        <p>Premium for 1 Year : {renewalDetails.PremiumOneYear}</p>
+                        <p>Premium for 2 Years : {renewalDetails.PremiumTwoYear}</p>
+                        <p>Premium for 3 Year : {renewalDetails.PremiumThreeYear}</p>
+                        <p>Upsell flag : {renewalDetails.upsellFlag}</p>
+                        <p>Premium for level 1 Upsell : {renewalDetails.UPSELLOnePRM}</p>
+                        <p>Premium for level 2 Upsell : {renewalDetails.UPSELLTwoPRM}</p>
+                        <p>Next best offer : {renewalDetails.nextBestOffer}</p>
+                        </span> 
+                    )}
+                    <p style={{textAlign:'center',cursor:'pointer',marginBottom:'-18px',backgroundColor:'#F7F7F7'}} onClick={showContent}>{show === false?'Show More ↓':'Show Less ↑'} </p>
                     </Card>
                 </Col>
                 <Col span={8}>
                     <Card className="main-cards">
-                    <p>Recommended Products</p>
+                    <p className="card-heading">Recommended Products</p>
                     <p>Recommended Product 1 : {renewalDetails.proposer_ID_refs.recommendedProduct1}</p>
                     <p>Recommended Product 2 : {renewalDetails.proposer_ID_refs.recommendedProduct2}</p>
                     </Card>
