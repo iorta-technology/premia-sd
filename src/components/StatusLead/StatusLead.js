@@ -6,8 +6,10 @@ import { ArrowRightOutlined, FileTextOutlined,EditOutlined } from '@ant-design/i
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
+import FloatButton from '../FloatButton/FloatButton'
+
 import _ from "lodash";
-import { checkAgent } from '../../helpers'
+import { checkAgent,milToDateString } from '../../helpers'
 import moment from 'moment';
 import { Link,useHistory } from 'react-router-dom';
 const { Option } = Select;
@@ -103,49 +105,61 @@ const NewLead = React.memo(() => {
   const storeLeadStatusValue = useSelector((state)=>state.newLead.formData.leadStatus)
   const storeLeadDispositionValue = useSelector((state)=>state.newLead.formData.leadDisposition)
   const storeLeadSubDispositionValue = useSelector((state)=>state.newLead.formData.leadSubDisposition)
+  // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
   const storeRemarkFromSourceValue = useSelector((state)=>state.newLead.formData.remarksfromSource)
-
-  const leadArr = [storeLeadStatusValue,storeLeadDispositionValue,storeLeadSubDispositionValue]
+  const storeRemarkFromUserValue = useSelector((state)=>state.newLead.formData.remarksfromUser)
 
   // lead summary
   const leadIdValue = useSelector((state)=>state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state)=>state.newLead.formData.created_date)
+
+  
+  const leadArr = [storeLeadStatusValue,storeLeadDispositionValue,storeLeadSubDispositionValue]
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
-  const [leadStatus, setLeadStatus] = useState()
-  const [leadDisposition, setLeadDisposition] = useState()
-  const [leadSubDisposition, setLeadSubDisposition] = useState()
+
+  const [firstName, setFirstName] = useState(storefirstNameValue)
+  const [lastName, setLastName] = useState(storelastNameValue)
+  const [email, setEmail] = useState(storeEmailValue)
+  const [primaryNo, setPrimaryNo] = useState(storePrimaryMobileValue)
+  const [leadStatus, setLeadStatus] = useState(storeLeadStatusValue)
+  const [leadDisposition, setLeadDisposition] = useState(storeLeadDispositionValue)
+  const [leadSubDisposition, setLeadSubDisposition] = useState(storeLeadSubDispositionValue)
+  const [reminder, setReminder] = useState()
   const [appointmentDate, setAppointmentDate] = useState()
   const [appointmentTime, setAppointmentTime] = useState()
 
   const [remarkFromSource, setRemarkFromSource] = useState(storeRemarkFromSourceValue)
-  const [remarkFromUser, setRemarkFromUser] = useState()
+  const [remarkFromUser, setRemarkFromUser] = useState(storeRemarkFromUserValue)
   const [leadType, setLeadType] = useState(storeLeadTypeValue)
   const [product, setProduct] = useState(storeProductValue)
   const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
   const [stateProvince, setStateProvince] = useState(storeStateValue)
-  const [cityProvince, setCityProvince] = useState(storeRemarkFromSourceValue)
+  const [cityProvince, setCityProvince] = useState(storeCityValue)
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(true)
 
 
 useEffect(() => {
+  console.log(storeCityValue)
   if(storeLeadId!==''){
     setIsNewLead(false)
   }
   form.setFieldsValue({
-    "remarksfromsource":remarkFromSource,
-    "firstname":storefirstNameValue,
-    "lastname":storelastNameValue,
-    "email":storeEmailValue,
-    "phone":storePrimaryMobileValue,
+    "firstname":firstName,
+    "lastname":lastName,
+    "email":email,
+    "phone":primaryNo,
     "state":stateProvince,
     "city":cityProvince,
     "leadType":leadType,
     "product":product,
     "insuranceCompany":insuranceCompany,
+    "appointmentDate":appointmentDate,
+    "remarksfromsource":remarkFromSource,
+    "remarksfromuser":remarkFromUser,
     // "leadStatus":leadSubDisposition
   })
 }, [
@@ -350,11 +364,22 @@ useEffect(() => {
     },
   ];
 
-  
+  const onChangeFirstName = (e) => {
+    setFirstName(e.target.value)
+}
+
+const onChangeLastName = (e) => {
+    setLastName(e.target.value)
+}
+const primaryNoHandler = (event) => {
+  setPrimaryNo(event.target.value)
+}
+const emailAddressHandler = (event) => {
+  setEmail(event.target.value)
+}
 
   let stateOptions = (states && !_.isEmpty(states)) ?
     states.map(state => {
-
       const label = state.region_data.name
       const value = state.region_data.name
       const newState = { ...state, label, value }
@@ -558,14 +583,14 @@ useEffect(() => {
     start_time: appointmentTime,
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    teamMembers: '',
+    // teamMembers: '',
     leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
-    leadSource: '',
+    // leadSource: '',
 
-    appointment_status: '',
-    appointmentdisPosition: '',
-    appointmentsubdisPosition: '',
+    // appointment_status: '',
+    // appointmentdisPosition: '',
+    // appointmentsubdisPosition: '',
 
 
     lead_Owner_Id: id,
@@ -577,11 +602,11 @@ useEffect(() => {
 
     state: stateProvince,
     city: cityProvince,
-    primaryMobile: primaryMobile,
-    email: emailValue,
+    primaryMobile: primaryNo,
+    email: email,
 
-    firstName: firstNameValue,
-    lastName: lastNameValue,
+    firstName: firstName,
+    lastName: lastName,
   };
   let formIsValid = false;
 
@@ -592,11 +617,11 @@ useEffect(() => {
   const submitHandler = event => {
     event.preventDefault();
 
-    if (!formIsValid) {
-      return;
-    }else{
-      dispatch(actions.createLead(formData))
-    }
+    dispatch(actions.createLead(formData))
+    // if (!formIsValid) {
+    //   return;
+    // }else{
+    // }
     
     setErrorMessage('Form submitted successfully')
     setIsNewLead(false)
@@ -629,7 +654,19 @@ useEffect(() => {
     // resetEmail();
   };
 
-  
+  const updateLeadHandler = event=>{
+    event.preventDefault();
+
+    dispatch(actions.editLead(formData,storeLeadId))
+    // if (!formIsValid) {
+    //   return;
+    // }else{
+    // }
+    
+    setErrorMessage('Form updated successfully')
+    setIsNewLead(false)
+  }
+
 
   // useEffect(() => {
   //   if(designationsOptions===undefined){
@@ -654,7 +691,7 @@ useEffect(() => {
     {/* <div>
     </div> */}
     
-    { leadDataloading ? <div><Spin/></div>:
+    { !storeFormData ? <div><Spin/></div>:
     
       <div className="form-container">
         <Row gutter={[0, 24]}  >
@@ -669,9 +706,19 @@ useEffect(() => {
               help={errorMessage}
               onFinish={onFinish}
               initialValues={{
-                // "name": firstName,
-                // "lastname": lastName,
-                "state":stateProvince
+                "firstname": firstName,
+                "lastname": lastName,
+                "email":email,
+                "phone":primaryNo,
+                "state":stateProvince,
+                "city":cityProvince,
+                "leadType":leadType,
+                "product":product,
+                "insuranceCompany":insuranceCompany,
+                "appointmentDate":appointmentDate,
+                "remarksfromsource":remarkFromSource,
+                "remarksfromuser":remarkFromUser,
+                "reminder":reminder
             }}
               onFinishFailed={onFinishFailed}
             >
@@ -694,7 +741,7 @@ useEffect(() => {
                     size="large"
                     placeholder="Enter First Name"
                     value={firstNameValue}
-                    onChange={firstNameChangeHandler} />
+                    onChange={onChangeFirstName} />
                 </Form.Item>
               </Col>
               <Col >
@@ -717,7 +764,7 @@ useEffect(() => {
                     size="large"
                     placeholder="Enter Last Name"
                     value={lastNameValue}
-                    onChange={lastNameChangeHandler} />
+                    onChange={onChangeLastName} />
                 </Form.Item>
               </Col>
               <Col >
@@ -740,7 +787,7 @@ useEffect(() => {
                     size="large"
                     placeholder="Enter Email Address"
                     value={emailValue}
-                    onChange={emailChangeHandler} />
+                    onChange={emailAddressHandler} />
                 </Form.Item>
               </Col>
               <Col >
@@ -769,7 +816,7 @@ useEffect(() => {
                     size="large"
                     placeholder="Enter Primary Mobile"
                     value={primaryMobile}
-                    onChange={primaryMobileChangeHandler} />
+                    onChange={primaryNoHandler} />
                 </Form.Item>
               </Col>
               <Col >
@@ -837,9 +884,8 @@ useEffect(() => {
                     },
                   ]}
                   style={{ marginBottom: '1rem' }}
-
                 >
-                  <Select  size="large" placeholder="New Bussiness" onChange={leadTypeHandler}>
+                  <Select value={leadType} size="large" placeholder="Select Lead Type" onChange={leadTypeHandler}>
                     <Option value="newbussiness">New Bussiness</Option>
                     <Option value="renewal">Renewal</Option>
                     <Option value="crosssell">Cross Sell</Option>
@@ -862,7 +908,7 @@ useEffect(() => {
                   style={{ marginBottom: '1rem' }}
 
                 >
-                  <Select size="large" placeholder="Select Product" onChange={productHandler}>
+                  <Select value={product} size="large" placeholder="Select Product" onChange={productHandler}>
                     <Option value="health">Health</Option>
                     <Option value="motor">Motor</Option>
                     <Option value="travel">Travel</Option>
@@ -888,7 +934,7 @@ useEffect(() => {
                   style={{ marginBottom: '1rem' }}
 
                 >
-                  <Select size="large" placeholder="Insurance" onChange={insuranceCompanyHandler}>
+                  <Select value={insuranceCompany} size="large" placeholder="Select Insurance" onChange={insuranceCompanyHandler}>
                     <Option value="tataaiggeneralinsurancecompany">Tata AIG General Insurance Company</Option>
                     <Option value="icicilombardgeneralinsurancecompany">ICICI Lombard General Insurance Company</Option>
                     <Option value="iciciprudentiallifeinsurancecompany">ICICI Prudential Life Insurance Company</Option>
@@ -980,7 +1026,7 @@ useEffect(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Appointment Date"
+                        name="appointmentDate"
                         label="Appointment Date"
                         hasFeedback
                         rules={[
@@ -1030,7 +1076,7 @@ useEffect(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Set Reminder"
+                        name="reminder"
                         label="Set Reminder"
                         hasFeedback
                         rules={[
@@ -1042,7 +1088,12 @@ useEffect(() => {
                         style={{ marginBottom: '1rem' }}
 
                       >
-                        <Select size="large" options={setReminderOptions} placeholder="Set Reminder"></Select>
+                        <Select 
+                          // onChange={reminderHandler} 
+                          value={reminder} size="large" 
+                          options={setReminderOptions} 
+                          placeholder="Set Reminder">
+                        </Select>
                       </Form.Item>
                     </Col>
                   </>
@@ -1061,14 +1112,19 @@ useEffect(() => {
                     style={{ marginBottom: '1rem' }}
 
                   >
-                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromSourceHandler} />
+                    <Input 
+                      className="email input-box" 
+                      size="large" 
+                      placeholder="Enter Some Remark" 
+                      value={remarkFromSource}
+                      onChange={remarkFromSourceHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} className="mb-2">
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color"
-                    name={['remarksfromuser']}
+                    name='remarksfromuser'
                     label="Remark From User "
                     rules={[
                       {
@@ -1077,7 +1133,12 @@ useEffect(() => {
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
-                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromUserHandler} />
+                    <Input 
+                      className="email input-box" 
+                      size="large" 
+                      placeholder="Enter Some Remark" 
+                      value={remarkFromUser}
+                      onChange={remarkFromUserHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager" style={(leadDisposition === "appointment" || leadDisposition === "callback") && { display: 'none' }}>
@@ -1162,7 +1223,7 @@ useEffect(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Select Designation"
+                        name="designation"
                         label="Select Designation"
                         hasFeedback
                         rules={[
@@ -1179,7 +1240,7 @@ useEffect(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Select Team Member"
+                        name="teamMember"
                         label="Select Team Member"
                         hasFeedback
                         rules={[
@@ -1208,7 +1269,7 @@ useEffect(() => {
                   size="large" 
                   style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
                   icon={<FileTextOutlined />} htmlType="submit"
-                  disabled={!formIsValid}
+                  // disabled={!formIsValid}
                   onClick={submitHandler}
                 >Submit</Button>:
                 <Button 
@@ -1217,8 +1278,8 @@ useEffect(() => {
                   size="large" 
                   style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
                   icon={<EditOutlined  />} htmlType="submit"
-                  disabled={!formIsValid}
-                  onClick={submitHandler}
+                  // disabled={!formIsValid}
+                  onClick={updateLeadHandler}
                 >Update</Button>
                 }
               </Col>
@@ -1238,6 +1299,7 @@ useEffect(() => {
             </Row>
           </Col>
         </Row>
+        <FloatButton/>
       </div>
    }
    </>
