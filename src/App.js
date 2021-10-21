@@ -39,7 +39,7 @@ const BenefitIllustrator = React.lazy(()=> import('./components/BenefitIllustrat
 const ForCustomer = React.lazy(()=> import('./components/ForCustomer/ForCustomer'))
 const ForSelf = React.lazy(()=> import('./components/ForSelf/ForSelf'))
 const RenewalReport = React.lazy(()=> import('./components/RenewalReport/RenewalReport'))
-const SalesPitch = React.lazy(()=> import('./components/SalesPitch/SalesPitch'))
+// const SalesPitch = React.lazy(()=> import('./components/SalesPitch/SalesPitch'))
 const ServiceCorner = React.lazy(()=> import('./components/ServiceCorner/ServiceCorner'))
 const Renewals = React.lazy(()=> import('./containers/RenewalMaster/index'))
 const RenewalAll = React.lazy(()=> import('./components/RenewalCollections/AllRenewals'))
@@ -48,7 +48,7 @@ const RenewalUnPaid = React.lazy(()=> import('./components/RenewalCollections/Un
 const RenewalLapsed = React.lazy(()=> import('./components/RenewalCollections/LapsedRenewals'))
 const RenewalMasterDetails = React.lazy(()=> import('./components/RenewalCollections/RenewalDetails'))
 const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
-const ExistingPartner = React.lazy(()=> import('./components/Partners/ExistingPartner'))
+// const ExistingPartner = React.lazy(()=> import('./components/Partners/ExistingPartner'))
 const MappedBranches = React.lazy(()=> import('./components/MappedBranches/MappedBranches'))
 
 function App() {
@@ -93,7 +93,7 @@ function App() {
               <Route path="/forcustomer" component={ForCustomer}></Route>
               <Route path="/forself" component={ForSelf}></Route>
               <Route path="/renewalreport" component={RenewalReport}></Route>
-              <Route path="/salespitch" component={SalesPitch}></Route>
+              {/* <Route path="/salespitch" component={SalesPitch}></Route> */}
               <Route path="/servicecorner" component={ServiceCorner}></Route>
               <Route path="/renewalMaster/allRenewals" component={Renewals}/>
               <Route path="/renewalMaster/all" component={RenewalAll}/>
@@ -102,7 +102,7 @@ function App() {
               <Route path="/renewalMaster/lapsedRenewals" component={RenewalLapsed}/>
               <Route path="/renewalMaster/Details" component={RenewalMasterDetails}/>
               <Route path="/salespendency" component={SalesPendency}></Route>
-              <Route path="/existingpartner" component={ExistingPartner}/>
+              {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
               <Route path="/mappedbranches" component={MappedBranches}></Route>
 
 

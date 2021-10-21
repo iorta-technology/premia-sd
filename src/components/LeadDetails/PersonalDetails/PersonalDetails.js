@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Form, Typography, Radio, Button, Input, Select, Tabs, DatePicker, Table, Modal } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined,CloseCircleOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined,CloseCircleOutlined,FileTextOutlined } from '@ant-design/icons';
 import TabsMain from '../../Tab/Tab'
 import LeadDetailsTab from '../LeadDetailsTab';
 import '../../StatusLead/StatusLead.css'
@@ -57,6 +57,7 @@ const PersonalDetails = () => {
     const history = useHistory()
 
     let storeFormData = useSelector((state) => state.newLead.formData)
+    const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
     // const id = useSelector((state)=>state.newLead.leadId)
     // useEffect(() => {
@@ -251,6 +252,26 @@ const PersonalDetails = () => {
         // resetEmail();
     };
 
+    const updateHandler = event => {
+        event.preventDefault();
+        dispatch(actions.editLead(formData,storeLeadId))
+        history.push('contactlead')
+
+        // if (!formIsValid) {
+        //   return;
+        // }else{
+        // }
+
+        // setErrorMessage('Form submitted successfully')
+        // setIsNewLead(false)
+        // setErrorMessage( res.data.errMsg)
+
+
+
+        // resetFirstName();
+        // resetLastName();
+        // resetEmail();
+    };
     useEffect(() => {
 
 
@@ -508,8 +529,19 @@ const PersonalDetails = () => {
                         </Col>
                         <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={20} lg={20} xl={20} span={24} >
                             <Row>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
+                                <Col xs={11} sm={12} md={4} offset={ width > breakpoint ? 12 : 2} >
                                     <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                </Col>
+                                <Col xs={11} sm={12} md={4} >
+                                    <Button 
+                                        type="primary" 
+                                        shape="round" 
+                                        size="large" 
+                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                                        icon={<FileTextOutlined />} htmlType="submit"
+                                        // disabled={!formIsValid}
+                                        onClick={updateHandler}
+                                    >Update</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
                                     <Button

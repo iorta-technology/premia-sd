@@ -64,3 +64,8 @@ export const dataFormatting =(resp, title, desc)=> {
     console.log(_obj)
     return _obj;
 }
+
+export const milToDateString =(milisec)=>{
+    const date = new Date(milisec).toLocaleDateString('in')
+    return date
+}

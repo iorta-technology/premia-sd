@@ -3,6 +3,10 @@ import { Row, Col, Form, Button, Input, Select, Space, DatePicker } from 'antd';
 import { ArrowLeftOutlined, FileTextOutlined } from '@ant-design/icons';
 import Tabs from '../Tab/Tab'
 import LeadDetailsTab from './LeadDetailsTab';
+import * as actions from '../../store/actions/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+
 
 const formItemLayout = {
     labelCol: {
@@ -38,6 +42,12 @@ const tabMenu = [
 
 ]
 const ProposedProduct = () => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    let storeFormData = useSelector((state) => state.newLead.formData)
+    const storeLeadId = useSelector((state) => state.newLead.leadId)
+
+
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
 
@@ -47,6 +57,19 @@ const ProposedProduct = () => {
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
+    const formData = {
+        ...storeFormData,
+        // education:educationDetails,
+        // professionType:professionType,
+        // incomeGroup:incomeGroup
+
+    };
+    const submitHandler = event => {
+        event.preventDefault();
+        
+        dispatch(actions.storeLead(formData,storeLeadId))
+        history.replace('statuslead')
+    };
     return (
         <>
             <Tabs
@@ -138,10 +161,18 @@ const ProposedProduct = () => {
                         <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={24} sm={24} md={16} lg={20} xl={20} span={24} offset={1}>
                             <Row>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                    <Button 
+                                        type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }} icon={<FileTextOutlined />}>Submit</Button>
+                                    <Button 
+                                        type="primary" 
+                                        shape="round" 
+                                        size="large" 
+                                        style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }} 
+                                        icon={<FileTextOutlined />}
+                                        onClick={submitHandler}
+                                        >Submit</Button>
                                 </Col>
                             </Row>
                         </Col>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Form, Switch, Button, Input, Select, Modal, Space, DatePicker,Table } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined,CloseCircleOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined,CloseCircleOutlined,FileTextOutlined } from '@ant-design/icons';
 import Tabs from '../Tab/Tab'
 import LeadDetailsTab from './LeadDetailsTab';
 import '../StatusLead/StatusLead.css'
@@ -73,6 +73,7 @@ const tabMenu = [
 
 const ExistingInsurenceDetails = () => {
     let storeFormData = useSelector((state) => state.newLead.formData)
+    const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeLifeInsArr = useSelector((state) => state.newLead.formData.HaveLifeInsurance_details)
     let storeHealthInsArr = useSelector((state) => state.newLead.formData.Insurancedetails)
 
@@ -215,19 +216,19 @@ const ExistingInsurenceDetails = () => {
     const formData = {
 
         ...storeFormData,
-        // HaveLifeInsurance_details: [
+        HaveLifeInsurance_details: [
             
-        //     {
-        //         id: 'insu'+randomId(),
-        //         Insurer: insurer,
-        //         sum_Assured: lifeSumAssured,
-        //         policy_Type: policyType,
-        //         policy_Status: policyStatus,
-        //         Comencedate: commencementDate,
-        //         Appdate: applicationDate,
-        //         policynumber: policyNumber
-        //     },
-        // ],
+            {
+                id: 'insu'+randomId(),
+                Insurer: insurer,
+                sum_Assured: lifeSumAssured,
+                policy_Type: policyType,
+                policy_Status: policyStatus,
+                Comencedate: commencementDate,
+                Appdate: applicationDate,
+                policynumber: policyNumber
+            },
+        ],
         Insurancedetails:[
             {
                 id:"insu"+randomId(),
@@ -253,6 +254,12 @@ const ExistingInsurenceDetails = () => {
         history.push('productlead')
     };
 
+    const updateHandler = event => {
+        event.preventDefault();
+        
+        dispatch(actions.storeLead(formData,storeLeadId))
+        history.push('productlead')
+    };
     const saveLifeInsurane = event => {
         event.preventDefault();
 
@@ -861,8 +868,19 @@ const ExistingInsurenceDetails = () => {
                         </Col>
                         <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={24} lg={20} xl={20} span={24} >
                             <Row>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
+                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 2} >
                                     <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                </Col>
+                                <Col xs={11} sm={12} md={4} >
+                                    <Button 
+                                        type="primary" 
+                                        shape="round" 
+                                        size="large" 
+                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                                        icon={<FileTextOutlined />} htmlType="submit"
+                                        // disabled={!formIsValid}
+                                        onClick={updateHandler}
+                                    >Update</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
                                     <Button

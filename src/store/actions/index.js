@@ -6,6 +6,7 @@ export {
     fetchLeadDetails,
     createLead,
     storeLead,
+    editLead
 }from './newLead'
 export {
     fetchAllState,
