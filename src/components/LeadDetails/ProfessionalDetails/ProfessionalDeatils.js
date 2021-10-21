@@ -79,15 +79,35 @@ const tabMenu = [
 const ProfessionalDetails = () => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const [form] = Form.useForm();
     let storeFormData = useSelector((state) => state.newLead.formData)
+    let storeEducation = useSelector((state) => state.newLead.formData.education)
+    let storeProfessionType = useSelector((state) => state.newLead.formData.professionType)
+    let storeIncomeGroup = useSelector((state) => state.newLead.formData.incomeGroup)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
 
 
     const [width, setWidth] = useState(window.innerWidth);
-    const [educationDetails, setEducationDetails] = useState()
-    const [professionType, setProfessionType] = useState()
-    const [incomeGroup, setIncomeGroup] = useState()
+    const [educationDetails, setEducationDetails] = useState(storeEducation)
+    const [professionType, setProfessionType] = useState(storeProfessionType)
+    const [incomeGroup, setIncomeGroup] = useState(storeIncomeGroup)
     const breakpoint = 620;
+
+    useEffect(() => {
+        // console.log(storeMailingAddress)
+        // console.log(storeMailingAddress.mailingaddress.line1)
+    
+            form.setFieldsValue({
+                "education":educationDetails,
+                "professionType":professionType,
+                "incomeGroup":incomeGroup,
+            })
+        }, [
+            educationDetails,
+            professionType,
+            incomeGroup,
+            form
+        ])
 
     const educationDetailsHandler = value => {
         setEducationDetails(value)
@@ -152,12 +172,20 @@ const ProfessionalDetails = () => {
                     <Col className="m0a" xs={22} sm={22} md={17} >
                         <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
                             <p className="form-title">Professional Details</p>
-                            <Form layout="horizontal" className="contact-detail-form">
+                            <Form 
+                                layout="horizontal" 
+                                className="contact-detail-form"
+                                initialValues={{
+                                    "education":educationDetails,
+                                    "professionType":professionType,
+                                    "incomeGroup":incomeGroup,
+                                }}
+                                >
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Education"
+                                        name="education"
                                         label="Education"
                                         hasFeedback
                                     >
@@ -173,7 +201,7 @@ const ProfessionalDetails = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Profession Type"
+                                        name="professionType"
                                         label="Profession Type"
                                         hasFeedback
                                         rules={[
@@ -195,7 +223,7 @@ const ProfessionalDetails = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Income Group"
+                                        name="incomeGroup"
                                         label="Income Group"
                                         hasFeedback
                                         rules={[

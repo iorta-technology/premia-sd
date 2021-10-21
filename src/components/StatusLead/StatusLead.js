@@ -143,7 +143,6 @@ const NewLead = React.memo(() => {
 
 
 useEffect(() => {
-  console.log(storeCityValue)
   if(storeLeadId!==''){
     setIsNewLead(false)
   }

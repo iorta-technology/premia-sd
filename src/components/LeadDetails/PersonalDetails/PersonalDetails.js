@@ -302,7 +302,10 @@ const PersonalDetails = () => {
                                 // validateMessages={validateMessages}
                                 initialValues={{
                                     "name": firstName,
-                                    "lastname": lastName
+                                    "lastname": lastName,
+                                    "gender": gender,
+                                    "dob": dob,
+                                    "maritalstatus": maritalStatus
                                 }}>
                                 <Col >
                                     <Form.Item

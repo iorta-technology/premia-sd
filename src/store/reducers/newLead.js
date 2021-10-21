@@ -9,75 +9,72 @@ const initialState = {
     leadDataloading:false,
     leadId:'',
     userId:'',
-    formData:[
-    //     {
-    //     leadStatus: '',
-    //     start_date: '',
-    //     start_time: '',
-    //     leadsubDisposition: '',
-    //     leadDisposition: '',
-    //     leadSource: '',
-    //     remarksfromUser: '',
-    //     remarksfromSource: '',
-    //     teamMembers: [],
-
-    //     appointment_status: '',
-    //     appointmentdisPosition: '',
-    //     appointmentsubdisPosition: '',
-
-
-    //     lead_Owner_Id: '',
-    //     lead_Creator_Id: '',
-    //     user_id: '',
-    //     LeadType: '',
-    //     Product: '',
-    //     Insurance_Company: '',
-
-    //     line1: '',
-    //     line2: '',
-    //     line3: '',
-    //     country: '',
-    //     state: '',
-    //     city: '',
-    //     pincode: '',
-    //     primaryMobile: '',
-    //     secondaryMobile: '',
-    //     landlineNo: '',
-    //     email: '',
-    //     socialSecurityAdharNo: '',
-    //     mailingAddressStatus: '',
-    //     mailingAddressSecond: '',
-
-    //     firstName: '',
-    //     lastName: '',
-    //     dob: '',
-    //     gender: '',
-    //     maritalStatus: '',
-    //     childStatus: '',
-    //     ChildInfo: [],
-
-    //     education: '',
-    //     incomeGroup: '',
-    //     annuaLincome: '',
-    //     professionType: '',
-        
-    //     productCategory: '',
-    //     productType: '',
-    //     solution: '',
-    //     expectedPremium: '',
-    //     expectedclosureDate: '',
-
-    //     HaveLifeInsurance: '',
-    //     SumAssured: '',
-    //     Insurance: '',
-    //     Insurancedetails: [],
-    //     riskComensmentDate: '',
-    //     HaveLifeInsurance_details: [],
-    // }
-],
-    // lead form data
-    
+    mailingAddress:{},
+    mailingAddressSecond:{},
+    formData:{},
+     payloadFormData :{
+        // statusLeadData: {
+            leadStatus: '',
+            leadDisposition: '',
+            leadsubDisposition: '',
+            appointment_status: '',
+            appointmentdisPosition: '',
+            appointmentsubdisPosition: '',
+            lead_Owner_Id: '',
+            user_id: '',
+            lead_Creator_Id: '',
+            start_date: '',
+            start_time:  '',
+            remarksfromSource: '',
+            remarksfromUser: '',
+            teamMembers: '',
+            productId: '',
+            proposalId: '',
+            leadSource: '',
+            LeadType:'',
+            Product:'',
+            Insurance_Company:'',
+        // },
+        // personalLeadData: {
+            firstName:'',
+            lastName:'',
+            dob: '',
+            gender: '',
+            maritalStatus: '',
+            childStatus: '',
+            ChildInfo: '',
+        // },
+        // contactLeadData: {
+            primaryMobile:'', 
+            state: '',
+            city: '',
+            email: '',
+            address: {
+                line1: '',
+                line2: '',
+                line3: '',
+            },
+            country: '',
+            pincode: '',
+            secondaryMobile: '',
+            landlineNo: '',
+            socialSecurityAdharNo: '',
+            mailingAddressStatus: '',
+            mailingAddressSecond: {
+                mailingaddress: {
+                    line1: '',
+                    line2: '',
+                    line3: '',
+                },
+                state: '',
+                city:'', 
+                country: '',
+                pincode: '',
+            }
+        // }
+    }
 }
+
 
 
 
@@ -86,6 +83,7 @@ const createLeadStart = (state, action) => {
 }
 
 const createLeadSuccess = (state, action) => {
+    
     return updateObject(state, { 
             leadDataloading:true,
             createLeadLoading: false, 
@@ -125,14 +123,33 @@ const fetchLeadDetailsStart = (state, action) => {
 }
 
 const fetchLeadDetailsSuccess = (state, action) => {
-    console.log(action.leadDetails)
+    // let address1 
+    // let address2
+    // const {mailingAddressStatus} = action.leadDetails
+    // console.log(mailingAddressStatus)
+    // if(action.leadDetails.mailingAddressStatus==='Yes'){
+    //      address1 = action.leadDetails.mailingAddressSecond
+    //     //  addObj1 = JSON.parse(address1)
+    //      address2 = address1
+            
+   
+    //     }else{
+    //          address1 = action.leadDetails.mailingAddress
+    //         //  addObj1 = JSON.parse(address1)
+    //          address2 = action.leadDetails.mailingAddressSecond
+    //         //  addObj2 = JSON.parse(address2)
+    // }
+    // const {mailingaddress:{line1}={line1:'hello'}} = action.leadDetails.mailingAddress
+    // console.log(line1)
     return updateObject(state, { 
-            leadDataloading:false,
-            createLeadLoading: false, 
-            formData: action.leadDetails,
-            leadId:action.leadDetails._id,
-            userId:action.leadDetails.userId._id
-         })
+        leadDataloading:false,
+        createLeadLoading: false, 
+        formData: action.leadDetails,
+        // mailingAddress:address1,
+        // mailingAddressSecond:address2,
+        leadId:action.leadDetails._id,
+        userId:action.leadDetails.userId._id
+    })
 }
 const fetchLeadDetailsFail = (state, action) => {
     return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false  });
