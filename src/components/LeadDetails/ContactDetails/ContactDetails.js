@@ -50,26 +50,32 @@ const tabMenu = [
 
 
 const ContactDetails = React.memo(() => {
+    const storeFormData = useSelector((state) => state.newLead.formData)
+    // let storeMailingAddress
+    // let storeMailingAddressSecond
+    // if(storeFormData.mailingAddress && storeFormData.mailingAddressSecond){
+    // }
+    // storeMailingAddress = useSelector((state) => state.newLead.mailingAddress)
+    // storeMailingAddressSecond = useSelector((state) => state.newLead.mailingAddressSecond)
     const states = useSelector((state) => state.address.states)
     const cities = useSelector((state) => state.address.cities)
-    const storeFormData = useSelector((state) => state.newLead.formData)
     const storeSecondaryMobile = useSelector((state) => state.newLead.formData.secondaryMobile)
     const storeLandLine = useSelector((state) => state.newLead.formData.landlineNo)
     const storeAadharNo = useSelector((state) => state.newLead.formData.socialSecurityAdharNo)
     const  storeMailingAddressStatus = useSelector((state) => state.newLead.formData.mailingAddressStatus)
-    const  storeMailingAddress = useSelector((state) => state.newLead.mailingAddress)
-    const  storeMailingAddressSecond = useSelector((state) => state.newLead.mailingAddressSecond)
-    const {mailingAddressSecond:{mailingaddress:{line1}}={mailingaddress:{line1:'hello'}}}  = storeFormData
+    
+    const {line1,line2,line3}  = storeFormData.address[0]
+
     const storeLeadId = useSelector((state) => state.newLead.leadId)
 
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
-    const [addressLine1, setAddressLine1] = useState(storeMailingAddress.mailingaddress.line1)
-    const [addressLine2, setAddressLine2] = useState(storeMailingAddress.mailingaddress.line2)
-    const [addressLine3, setAddressLine3] = useState(storeMailingAddress.mailingaddress.line3)
-    const [stateProvince, setStateProvince] = useState(storeMailingAddress.state)
-    const [cityProvince, setCityProvince] = useState(storeMailingAddress.city)
-    const [pincode, setPinCode] = useState(storeMailingAddress.pincode)
+    const [addressLine1, setAddressLine1] = useState()
+    const [addressLine2, setAddressLine2] = useState()
+    const [addressLine3, setAddressLine3] = useState()
+    const [stateProvince, setStateProvince] = useState()
+    const [cityProvince, setCityProvince] = useState()
+    const [pincode, setPinCode] = useState()
     const [isPincodeValid, setIsPinCodeValid] = useState()
     const [primaryMobile, setPrimaryMobile] = useState(storeFormData.primaryMobile)
     const [secondaryMobile, setSecondaryMobile] = useState(storeSecondaryMobile)
@@ -77,13 +83,13 @@ const ContactDetails = React.memo(() => {
     const [aadharNo, setAadharNo] = useState(storeAadharNo)
     const [email, setEmailAddress] = useState(storeFormData.email)
     const [isSameAddress, setIsSameAddress] = useState(storeMailingAddressStatus)
-    const [secaddressLine1, setSecAddressLine1] = useState(storeMailingAddressSecond.mailingaddress.line1)
-    const [secaddressLine2, setSecAddressLine2] = useState(storeMailingAddressSecond.mailingaddress.line2)
-    const [secaddressLine3, setSecAddressLine3] = useState(storeMailingAddressSecond.mailingaddress.line3)
-    const [secstateProvince, setSecStateProvince] = useState(storeMailingAddressSecond.state)
-    const [seccityProvince, setSecCityProvince] = useState(storeMailingAddressSecond.city)
+    const [secaddressLine1, setSecAddressLine1] = useState()
+    const [secaddressLine2, setSecAddressLine2] = useState()
+    const [secaddressLine3, setSecAddressLine3] = useState()
+    const [secstateProvince, setSecStateProvince] = useState()
+    const [seccityProvince, setSecCityProvince] = useState()
     const [isSecPincodeValid, setIsSecPinCodeValid] = useState()
-    const [secpinCode, setSecPinCode] = useState(storeMailingAddressSecond.pincode)
+    const [secpinCode, setSecPinCode] = useState()
     const [isFormValid, setIsFormValid] = useState()
     const breakpoint = 620;
 
@@ -91,7 +97,8 @@ const ContactDetails = React.memo(() => {
     const history = useHistory()
 
     useEffect(() => {
-        console.log(line1)
+        console.log(line1,line2,line3)
+        console.log(storeFormData)
         dispatch(actions.fetchAllState())
     }, [dispatch]);
 

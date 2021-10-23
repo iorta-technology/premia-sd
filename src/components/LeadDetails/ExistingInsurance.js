@@ -73,6 +73,8 @@ const tabMenu = [
 
 const ExistingInsurenceDetails = () => {
     let storeFormData = useSelector((state) => state.newLead.formData)
+    let lifeObjDisplay = useSelector((state) => state.newLead.HaveLifeInsurance_details)
+    let healthObjDisplay = useSelector((state) => state.newLead.Insurancedetails)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeLifeInsArr = useSelector((state) => state.newLead.formData.HaveLifeInsurance_details)
     let storeHealthInsArr = useSelector((state) => state.newLead.formData.Insurancedetails)
@@ -106,11 +108,13 @@ const ExistingInsurenceDetails = () => {
     const [healthRiskDate, setHealthRiskDate] = useState('')
     const [haveChronicDisease, sethaveChronicDisease] = useState(false)
     const [diseaseDescription, setDiseaseDescription] = useState('')
-    const [lifeInsObj, setlifeInsObj] = useState([])
-    const [healthInsObj, setHealthInsObj] = useState([])
+    const [lifeInsObj, setlifeInsObj] = useState(lifeObjDisplay)
+    const [healthInsObj, setHealthInsObj] = useState(healthObjDisplay)
     const breakpoint = 620;
 
     useEffect(() => {
+        console.log(healthInsObj)
+        console.log(lifeInsObj)
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
         // Return a function from the effect that removes the event listener
@@ -318,7 +322,9 @@ const ExistingInsurenceDetails = () => {
         },
         {
             title: 'Action',
-            render:()=><CloseCircleOutlined />
+            render:(record)=>{
+                return <CloseCircleOutlined  onClick={()=>console.log(record)}/>   
+            }
         },
     ]
     const saveHealthInsurance = event => {
@@ -379,7 +385,9 @@ const ExistingInsurenceDetails = () => {
         },
         {
             title: 'Action',
-            render:()=><CloseCircleOutlined />
+            render:(record)=>{
+                return <CloseCircleOutlined  onClick={()=>console.log(record)}/>   
+            }
         },
     ]
 
@@ -463,6 +471,7 @@ const ExistingInsurenceDetails = () => {
                             <Table 
                                 dataSource={lifeInsObj}
                                 columns={lifeInsColumn}
+                                rowKey={record => record.id}
                                 scroll={{x:1500}}
                                 />
                             <>
@@ -669,6 +678,7 @@ const ExistingInsurenceDetails = () => {
                             <Table 
                                 dataSource={healthInsObj}
                                 columns={healthInsColumn}
+                                rowKey={record => record.id}
                                 scroll={{x:1500}}
                                 />
                             <>

@@ -91,6 +91,7 @@ const NewLead = React.memo(() => {
 
   // store form data 
   let storeFormData = useSelector((state)=>state.newLead.formData)
+  let payloadFormData = useSelector((state)=>state.newLead.payloadFormData)
   const storeLeadId = useSelector((state) => state.newLead.leadId)
   const leadDataloading = useSelector((state) => state.newLead.leadDataloading)
   const storefirstNameValue = useSelector((state)=>state.newLead.formData.firstName)
@@ -143,6 +144,8 @@ const NewLead = React.memo(() => {
 
 
 useEffect(() => {
+  // console.log('payload',payloadFormData)
+  // console.log('nonpayload',storeFormData)
   if(storeLeadId!==''){
     setIsNewLead(false)
   }

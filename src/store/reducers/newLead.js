@@ -11,6 +11,8 @@ const initialState = {
     userId:'',
     mailingAddress:{},
     mailingAddressSecond:{},
+    HaveLifeInsurance_details:{},
+    Insurancedetails:{},
     formData:{},
      payloadFormData :{
         // statusLeadData: {
@@ -140,15 +142,22 @@ const fetchLeadDetailsSuccess = (state, action) => {
     //         //  addObj2 = JSON.parse(address2)
     // }
     // const {mailingaddress:{line1}={line1:'hello'}} = action.leadDetails.mailingAddress
-    // console.log(line1)
+        // const  {Insurancedetails} = action.leadDetails
+        // const  healthInsObject = JSON.parse(Insurancedetails)
+
+        // const  {HaveLifeInsurance_details} = action.leadDetails
+        // const  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
     return updateObject(state, { 
         leadDataloading:false,
         createLeadLoading: false, 
         formData: action.leadDetails,
+        payloadFormData: action.leadDetails,
         // mailingAddress:address1,
         // mailingAddressSecond:address2,
         leadId:action.leadDetails._id,
-        userId:action.leadDetails.userId._id
+        userId:action.leadDetails.userId._id,
+        Insurancedetails:action.leadDetails.Insurancedetails,
+        HaveLifeInsurance_details:action.leadDetails.Insurancedetails.HaveLifeInsurance_details
     })
 }
 const fetchLeadDetailsFail = (state, action) => {
