@@ -149,6 +149,7 @@ useEffect(() => {
   if(storeLeadId!==''){
     setIsNewLead(false)
   }
+  form.resetFields()
   form.setFieldsValue({
     "firstname":firstName,
     "lastname":lastName,
@@ -165,18 +166,30 @@ useEffect(() => {
     // "leadStatus":leadSubDisposition
   })
 }, [
-  storeLeadId,
-  form,
-  storeRemarkFromSourceValue,
-  storefirstNameValue,
-  storelastNameValue,
-  storeEmailValue,
-  storePrimaryMobileValue,
-  stateProvince,
-  leadArr,
-  leadDataloading,
-  storeCityValue,
-  storeStateValue
+  // firstName,
+  // lastName,
+  // email,
+  // primaryNo,
+  // stateProvince,
+  // cityProvince,
+  // leadType,
+  // product,
+  // insuranceCompany,
+  // appointmentDate,
+  // remarkFromSource,
+  // remarkFromUser,
+  // storeLeadId,
+  // form,
+  // storeRemarkFromSourceValue,
+  // storefirstNameValue,
+  // storelastNameValue,
+  // storeEmailValue,
+  // storePrimaryMobileValue,
+  // stateProvince,
+  // leadArr,
+  // leadDataloading,
+  // storeCityValue,
+  // storeStateValue
 ])
   // add team Member modal state control
   const [visibleTeamMemberModal, setVisibleTeamMemberModal] = useState(false);
@@ -388,7 +401,7 @@ const emailAddressHandler = (event) => {
       // state.push(label)
       return newState
     }) : null
-
+    console.log(stateOptions)
 
     const cities = useSelector((state) => state.address.cities)
     let citiesOptions = (cities && !_.isEmpty(cities)) ?

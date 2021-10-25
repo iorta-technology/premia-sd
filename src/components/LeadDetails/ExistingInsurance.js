@@ -81,6 +81,7 @@ const ExistingInsurenceDetails = () => {
 
     const dispatch = useDispatch()
     const history = useHistory()
+    const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [haveLifeInsurence, sethaveLifeInsurece] = useState(false)
     const [haveHealthInsurece, sethaveHealthInsurece] = useState(false)
@@ -113,13 +114,38 @@ const ExistingInsurenceDetails = () => {
     const breakpoint = 620;
 
     useEffect(() => {
+        form.resetFields()
+        form.setFieldsValue({
+            // life ins
+            "insurer":insurer,
+            "lifeSumAssured":lifeSumAssured,
+            "policyType":policyType,
+            "policyStatus":policyStatus,
+            "policyNumber":policyNumber,
+            "lifeApplicationDate":applicationDate,
+            "lifeRiskCommencementDate":commencementDate,
+
+            // health Ins
+            "relation":relation,
+            "Name":insurername,
+            "dateOfBirth":dobOfInsurer,
+            "typeOfPlan":typeOfPlan,
+            "sumAssured":healthSumInsured,
+            "riskCommencementDate":healthRiskDate,
+            "chronicDisease":haveChronicDisease,
+            "diseaseDesc":diseaseDescription,
+        })
         console.log(healthInsObj)
         console.log(lifeInsObj)
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
-    }, [width]);
+    }, [
+        insurer,
+        lifeSumAssured,
+        width,
+    ]);
 
 
     const lifeInsuranceToggle = () => {
@@ -187,7 +213,67 @@ const ExistingInsurenceDetails = () => {
 
     }
 
-
+    const updateHealthModalObject=(record)=>{
+        const {
+            SelectRelation,
+            Name,
+            DateofBirth,
+            IsInsuredsufferingfromanychronicdisease,
+            Description,
+            planName,
+            sumInsured,
+            riskDate
+        } = record
+        form.setFieldsValue({
+            "relation":relation,
+            "Name":insurername,
+            "dateOfBirth":dobOfInsurer,
+            "typeOfPlan":typeOfPlan,
+            "sumAssured":healthSumInsured,
+            "riskCommencementDate":healthRiskDate,
+            "chronicDisease":haveChronicDisease,
+            "diseaseDesc":diseaseDescription,
+        })
+        setRelation(SelectRelation)
+        setInsurerName(Name)
+        setDobOfInsurer(DateofBirth)
+        setTypeOfPlan(planName)
+        setHealthSumInsured(sumInsured)
+        setHealthRiskDate(riskDate)
+        setDiseaseDescription(Description)
+        sethaveChronicDisease(IsInsuredsufferingfromanychronicdisease)
+        setVisibleHealthInsuranceModel(true)
+    }
+    const updateLifeModalObject=(record)=>{
+        const {
+            Insurer,
+            sum_Assured,
+            policy_Type,
+            policy_Status,
+            Comencedate,
+            Appdate,
+            policynumber,
+        } = record
+        form.setFieldsValue({
+            "insurer":insurer,
+            "lifeSumAssured":lifeSumAssured,
+            "policyType":policyType,
+            "policyStatus":policyStatus,
+            "policyNumber":policyNumber,
+            "lifeApplicationDate":applicationDate,
+            "lifeRiskCommencementDate":commencementDate,
+        })
+        setInsurer(Insurer)
+        setLifeSumAssured(sum_Assured)
+        setPolicyType(policy_Type)
+        setPolicyStatus(policy_Status)
+        setCommencementDate(Comencedate)
+        setApplicationDate(Appdate)
+        setPolicyNumber(policynumber)
+        setVisibleLifeInsuranceModel(true)
+    }
+    
+    // console.log(relation)
     // Health Insurance handlers modal
 
     const relationshipHandler = (value) => {
@@ -323,7 +409,7 @@ const ExistingInsurenceDetails = () => {
         {
             title: 'Action',
             render:(record)=>{
-                return <CloseCircleOutlined  onClick={()=>console.log(record)}/>   
+                return <CloseCircleOutlined  onClick={()=>updateLifeModalObject(record)}/>   
             }
         },
     ]
@@ -386,7 +472,7 @@ const ExistingInsurenceDetails = () => {
         {
             title: 'Action',
             render:(record)=>{
-                return <CloseCircleOutlined  onClick={()=>console.log(record)}/>   
+                return <CloseCircleOutlined  onClick={()=>updateHealthModalObject(record)}/>   
             }
         },
     ]
@@ -442,7 +528,29 @@ const ExistingInsurenceDetails = () => {
                         <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
 
                         <p className="form-title">Existing Insurance</p>
-                        <Form layout="horizontal" >
+                        <Form 
+                            layout="horizontal" 
+                            initialValues={{
+                                // life insurance
+                                "insurer":insurer,
+                                "lifeSumAssured":lifeSumAssured,
+                                "policyType":policyType,
+                                "policyStatus":policyStatus,
+                                "policyNumber":policyNumber,
+                                "lifeApplicationDate":applicationDate,
+                                "lifeRiskCommencementDate":commencementDate,
+                                // health insurance
+
+                                "relation":relation,
+                                "Name":insurername,
+                                "dateOfBirth":dobOfInsurer,
+                                "typeOfPlan":typeOfPlan,
+                                "sumAssured":healthSumInsured,
+                                "riskCommencementDate":healthRiskDate,
+                                "chronicDisease":haveChronicDisease,
+                                "diseaseDesc":diseaseDescription,
+                            }}
+                            >
                             <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ marginBottom: '1rem' }}>
                                 <Form.Item
                                     className="form-item-name label-color"
@@ -500,7 +608,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Select Insurer"
+                                                name="insurer"
                                                 label="Insurer"
                                                 hasFeedback
                                                 rules={[
@@ -511,6 +619,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Select
+                                                    value={insurer}
                                                     size="large"
                                                     options={setInsurerOptions}
                                                     placeholder="Set Insurer"
@@ -523,7 +632,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Sum Assured"
+                                                name="lifeSumAssured"
                                                 label="Sum Assured"
                                                 hasFeedback
                                                 rules={[
@@ -535,6 +644,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Input
+                                                    value={lifeSumAssured}
                                                     className="first-name input-box"
                                                     placeholder="Enter Sum Assured"
                                                     onChange={LifeSumAssuredHandler} />
@@ -544,7 +654,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Select Policy Type"
+                                                name="policyType"
                                                 label="Select Policy Type"
                                                 hasFeedback
                                                 rules={[
@@ -556,6 +666,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Select
+                                                    value={policyType}
                                                     size="large"
                                                     options={setPolicyTypeOptions}
                                                     placeholder="Select Policy Type"
@@ -567,7 +678,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Select Policy Status"
+                                                name="policyStatus"
                                                 label="Select Policy Status"
                                                 hasFeedback
                                                 rules={[
@@ -578,6 +689,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Select
+                                                    value={policyStatus}
                                                     size="large"
                                                     options={setPolicyStatusOptions}
                                                     placeholder="Select Policy Status"
@@ -589,7 +701,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Policy Number"
+                                                name="policyNumber"
                                                 label="Policy Number"
                                                 hasFeedback
                                                 rules={[
@@ -600,6 +712,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Input
+                                                    value={policyNumber}
                                                     className="first-name input-box"
                                                     placeholder="Enter Policy NUmber"
                                                     onChange={policyNumberHandler} />
@@ -610,7 +723,7 @@ const ExistingInsurenceDetails = () => {
                                                 <Form.Item
                                                     {...formItemLayout}
                                                     className="form-item-name label-color datepicker"
-                                                    name="Risk Commencement Date"
+                                                    name="lifeRiskCommencementDate"
                                                     label="Risk Commencement Date"
                                                     hasFeedback
                                                     rules={[
@@ -621,6 +734,7 @@ const ExistingInsurenceDetails = () => {
                                                     ]}
                                                 >
                                                     <DatePicker 
+                                                        value={commencementDate}
                                                         placeholder="dd/mm/yyyy"
                                                         size="large" 
                                                         style={{ width: "100%" }} 
@@ -633,7 +747,7 @@ const ExistingInsurenceDetails = () => {
                                                 <Form.Item
                                                     {...formItemLayout}
                                                     className="form-item-name label-color"
-                                                    name="Application Date"
+                                                    name="lifeApplicationDate"
                                                     label="Application Date"
                                                     hasFeedback
                                                     rules={[
@@ -644,6 +758,7 @@ const ExistingInsurenceDetails = () => {
                                                     ]}
                                                 >
                                                     <DatePicker 
+                                                        value={applicationDate}
                                                         placeholder="dd/mm/yyyy" 
                                                         size="large" 
                                                         style={{ width: "100%" }}
@@ -706,7 +821,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Select Relation"
+                                                name="relation"
                                                 label="Select Relation"
                                                 hasFeedback
                                                 rules={[
@@ -717,6 +832,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Select
+                                                    value={relation}
                                                     size="large"
                                                     options={setRelationOptions}
                                                     placeholder="Select Relation"
@@ -739,6 +855,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Input
+                                                    value={insurername}
                                                     className="first-name input-box"
                                                     placeholder="Enter The Name "
                                                     onChange={nameHandler}>
@@ -749,7 +866,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Date of Birth"
+                                                name="dateOfBirth"
                                                 label="Date of Birth"
                                                 hasFeedback
                                                 rules={[
@@ -760,6 +877,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <DatePicker 
+                                                    value={dobOfInsurer}
                                                     placeholder="dd/mm/yyyy"
                                                     size="large" 
                                                     style={{ width: "100%" }} 
@@ -770,7 +888,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Types of Plan "
+                                                name="typeOfPlan"
                                                 label="Types of Plan "
                                                 hasFeedback
                                                 rules={[
@@ -781,6 +899,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Select
+                                                    value={typeOfPlan}
                                                     size="large"
                                                     options={setHealthTypeOfPlanOptions}
                                                     placeholder="Select Types of Plan"
@@ -792,7 +911,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Sum Assured"
+                                                name="sumAssured"
                                                 label="Sum Assured"
                                                 hasFeedback
                                                 rules={[
@@ -804,6 +923,7 @@ const ExistingInsurenceDetails = () => {
                                                 ]}
                                             >
                                                 <Input
+                                                    value={healthSumInsured}
                                                     className="first-name input-box"
                                                     placeholder="Enter Amount"
                                                     onChange={healthSumInsuredHandler}
@@ -814,7 +934,7 @@ const ExistingInsurenceDetails = () => {
                                             <Form.Item
                                                 {...formItemLayout}
                                                 className="form-item-name label-color"
-                                                name="Risk Commencement Date"
+                                                name="riskCommencementDate"
                                                 label="Risk Commencement Date"
                                                 hasFeedback
                                                 rules={[
@@ -824,7 +944,8 @@ const ExistingInsurenceDetails = () => {
                                                     },
                                                 ]}
                                             >
-                                                <DatePicker 
+                                                <DatePicker
+                                                    value={healthRiskDate} 
                                                     placeholder="dd/mm/yyyy"
                                                     size="large" 
                                                     style={{ width: "100%" }} 
@@ -834,7 +955,7 @@ const ExistingInsurenceDetails = () => {
                                         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
                                             <Form.Item
                                                 className="form-item-name label-color"
-                                                name={['yes', 'no']}
+                                                name='chronicDisease'
                                                 label="Is Insured suffering from any chronic disease "
                                                 rules={[
                                                     {
@@ -844,7 +965,7 @@ const ExistingInsurenceDetails = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={haveChronicDiseaseToggle} />
+                                                <Switch value={haveChronicDisease} checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={haveChronicDiseaseToggle} />
                                             </Form.Item>
                                         </Col>
                                         {haveChronicDisease ?
@@ -852,7 +973,7 @@ const ExistingInsurenceDetails = () => {
                                                 <Form.Item
                                                     {...formItemLayout}
                                                     className="form-item-name label-color"
-                                                    name="Enter Details"
+                                                    name="diseaseDesc"
                                                     label="Enter Details"
                                                     hasFeedback
                                                     rules={[
@@ -864,6 +985,7 @@ const ExistingInsurenceDetails = () => {
                                                     ]}
                                                 >
                                                     <Input
+                                                        value={diseaseDescription}
                                                         className="first-name input-box"
                                                         placeholder="Enter Description"
                                                         onChange={descriptionHandler} />

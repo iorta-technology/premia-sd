@@ -21,6 +21,7 @@ const HomePage = () => {
   const history = useHistory()
 
   useEffect(() => {
+
     if (id) {
       dispatch(actions.activities(id))
     }
