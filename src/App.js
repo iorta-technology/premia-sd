@@ -50,6 +50,7 @@ const RenewalMasterDetails = React.lazy(()=> import('./components/RenewalCollect
 const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
 // const ExistingPartner = React.lazy(()=> import('./components/Partners/ExistingPartner'))
 const MappedBranches = React.lazy(()=> import('./components/MappedBranches/MappedBranches'))
+const LoanProducts = React.lazy(()=> import('./components/Products/LoanProducts'))
 
 function App() {
   return (
@@ -104,6 +105,7 @@ function App() {
               <Route path="/salespendency" component={SalesPendency}></Route>
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
               <Route path="/mappedbranches" component={MappedBranches}></Route>
+              <Route path="/products/loanproducts" component={LoanProducts}/>
 
 
               </div>
