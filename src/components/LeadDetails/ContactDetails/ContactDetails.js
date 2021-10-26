@@ -50,29 +50,37 @@ const tabMenu = [
 
 
 const ContactDetails = React.memo(() => {
+    const storeFormData = useSelector((state) => state.newLead.formData)
+        
     const states = useSelector((state) => state.address.states)
     const cities = useSelector((state) => state.address.cities)
-    let storeFormData = useSelector((state) => state.newLead.formData)
+    const storeSecondaryMobile = useSelector((state) => state.newLead.formData.secondaryMobile)
+    const storeLandLine = useSelector((state) => state.newLead.formData.landlineNo)
+    const storeAadharNo = useSelector((state) => state.newLead.formData.socialSecurityAdharNo)
+    const storeMailingAddressStatus = useSelector((state) => state.newLead.formData.mailingAddressStatus)
+    
+    const {line1,line2,line3}  = useSelector((state) => state.newLead.address)
+    const {mailingaddress:{secAddline1,secAddline2,secAddline3}}  = useSelector((state) => state.newLead.mailingAddressSecond)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
 
-
+    const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
-    const [addressLine1, setAddressLine1] = useState()
-    const [addressLine2, setAddressLine2] = useState()
-    const [addressLine3, setAddressLine3] = useState()
+    const [addressLine1, setAddressLine1] = useState(line1)
+    const [addressLine2, setAddressLine2] = useState(line2)
+    const [addressLine3, setAddressLine3] = useState(line3)
     const [stateProvince, setStateProvince] = useState()
     const [cityProvince, setCityProvince] = useState()
     const [pincode, setPinCode] = useState()
     const [isPincodeValid, setIsPinCodeValid] = useState()
-    const [primaryPhoneNumber, setPrimaryPhoneNumber] = useState(storeFormData.primaryMobile)
-    const [secondaryMobile, setSecondaryMobile] = useState()
-    const [landlineNo, setLandlineNo] = useState()
-    const [aadharNo, setAadharNo] = useState()
+    const [primaryMobile, setPrimaryMobile] = useState(storeFormData.primaryMobile)
+    const [secondaryMobile, setSecondaryMobile] = useState(storeSecondaryMobile)
+    const [landlineNo, setLandlineNo] = useState(storeLandLine)
+    const [aadharNo, setAadharNo] = useState(storeAadharNo)
     const [email, setEmailAddress] = useState(storeFormData.email)
-    const [isSameAddress, setIsSameAddress] = useState(true)
-    const [secaddressLine1, setSecAddressLine1] = useState()
-    const [secaddressLine2, setSecAddressLine2] = useState()
-    const [secaddressLine3, setSecAddressLine3] = useState()
+    const [isSameAddress, setIsSameAddress] = useState(storeMailingAddressStatus)
+    const [secaddressLine1, setSecAddressLine1] = useState(secAddline1)
+    const [secaddressLine2, setSecAddressLine2] = useState(secAddline2)
+    const [secaddressLine3, setSecAddressLine3] = useState(secAddline3)
     const [secstateProvince, setSecStateProvince] = useState()
     const [seccityProvince, setSecCityProvince] = useState()
     const [isSecPincodeValid, setIsSecPinCodeValid] = useState()
@@ -84,8 +92,61 @@ const ContactDetails = React.memo(() => {
     const history = useHistory()
 
     useEffect(() => {
+        // console.log(line1,line2,line3)
+        // console.log(storeFormData)
         dispatch(actions.fetchAllState())
     }, [dispatch]);
+
+    useEffect(() => {
+    // console.log(storeMailingAddress)
+    // console.log(storeMailingAddress.mailingaddress.line1)
+
+        form.setFieldsValue({
+            "addline1":addressLine1,
+            "addline2":addressLine2,
+            "addline3":addressLine3,
+            "country":'India',
+            "state":stateProvince,
+            "city":cityProvince,
+            "pincode":pincode,
+            "primaryNo": primaryMobile,
+            "secondaryNo": secondaryMobile,
+            "landlineNo": landlineNo,
+            "aadharNo": aadharNo,
+            "email": email,
+            "addStatus":isSameAddress,
+            "secAddLine1":secaddressLine1,
+            "secAddLine2":secaddressLine2,
+            "secAddLine3":secaddressLine3,
+            "secAddCountry":'India',
+            "secAddState":secstateProvince,
+            "secAddCity":seccityProvince,
+            "secAddPin":secpinCode,
+        })
+    }, [
+        addressLine1,
+        addressLine2,
+        addressLine3,
+        'India',
+        stateProvince,
+        cityProvince,
+        pincode,
+        primaryMobile,
+        secondaryMobile,
+        landlineNo,
+        aadharNo,
+        email,
+        isSameAddress,
+        secaddressLine1,
+        secaddressLine2,
+        secaddressLine3,
+        'India',
+        secstateProvince,
+        seccityProvince,
+        secpinCode,
+        form
+    ])
+                                    
 
     let stateOptions = (states && !_.isEmpty(states)) ?
         states.map(state => {
@@ -124,7 +185,7 @@ const ContactDetails = React.memo(() => {
         }  
     }
     const primaryNoHandler = (event) => {
-        setPrimaryPhoneNumber(event.target.value)
+        setPrimaryMobile(event.target.value)
     }
     const secondaryNoHandler = (event) => {
         setSecondaryMobile(event.target.value)
@@ -191,7 +252,7 @@ const ContactDetails = React.memo(() => {
         state: stateProvince,
         city: cityProvince,
         pincode: pincode,
-        primaryMobile: primaryPhoneNumber,
+        primaryMobile: primaryMobile,
         secondaryMobile: secondaryMobile,
         landlineNo: landlineNo,
         socialSecurityAdharNo: aadharNo,
@@ -290,8 +351,26 @@ const ContactDetails = React.memo(() => {
                                 layout="horizontal"
                                 className="contact-detail-form"
                                 initialValues={{
-                                    "primaryNo": primaryPhoneNumber,
-                                    "email": email
+                                    "addline1":addressLine1,
+                                    "addline2":addressLine2,
+                                    "addline3":addressLine3,
+                                    "country":'India',
+                                    "state":stateProvince,
+                                    "city":cityProvince,
+                                    "pincode":pincode,
+                                    "primaryNo": primaryMobile,
+                                    "secondaryNo": secondaryMobile,
+                                    "landlineNo": landlineNo,
+                                    "aadharNo": aadharNo,
+                                    "email": email,
+                                    "addStatus":isSameAddress,
+                                    "secAddLine1":secaddressLine1,
+                                    "secAddLine2":secaddressLine2,
+                                    "secAddLine3":secaddressLine3,
+                                    "secAddCountry":'India',
+                                    "secAddState":secstateProvince,
+                                    "secAddCity":seccityProvince,
+                                    "secAddPin":secpinCode,
                                 }}>
                                 <Col >
                                     <Form.Item
@@ -333,7 +412,7 @@ const ContactDetails = React.memo(() => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name='landmark'
+                                        name='addline3'
                                         label="Landmark"
                                         rules={[
                                             {
@@ -372,7 +451,7 @@ const ContactDetails = React.memo(() => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="State"
+                                        name="state"
                                         label="State"
                                         hasFeedback
                                         rules={[
@@ -397,7 +476,7 @@ const ContactDetails = React.memo(() => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="City"
+                                        name="city"
                                         label="City"
                                         hasFeedback
                                         rules={[
@@ -558,7 +637,7 @@ const ContactDetails = React.memo(() => {
                             <Col >
                                 <Form.Item
                                     className="form-item-name label-color"
-                                    name={['user', 'name']}
+                                    name='addStatus'
                                     label="Is your permarent address same as mailing address?"
                                     rules={[
                                         {
@@ -580,7 +659,7 @@ const ContactDetails = React.memo(() => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name={['user', 'name']}
+                                            name='secAddLine1'
                                             label="Address line 1"
                                             rules={[
                                                 {
@@ -598,7 +677,7 @@ const ContactDetails = React.memo(() => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name={['user', 'name']}
+                                            name='secAddLine2'
                                             label="Address line 2"
                                             rules={[
                                                 {
@@ -616,7 +695,7 @@ const ContactDetails = React.memo(() => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name={['user', 'name']}
+                                            name='secAddLine3'
                                             label="Landmark"
                                             rules={[
                                                 {
@@ -634,7 +713,7 @@ const ContactDetails = React.memo(() => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="country"
+                                            name="secAddCountry"
                                             label="Country"
                                             hasFeedback
                                             rules={[
@@ -655,7 +734,7 @@ const ContactDetails = React.memo(() => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="State"
+                                            name="secAddState"
                                             label="State"
                                             hasFeedback
                                             rules={[
@@ -680,7 +759,7 @@ const ContactDetails = React.memo(() => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name="City"
+                                            name="secAddCity"
                                             label="City"
                                             hasFeedback
                                             rules={[
@@ -704,7 +783,7 @@ const ContactDetails = React.memo(() => {
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
-                                            name={['user', 'name']}
+                                            name='secAddPin'
                                             label="Pincode"
                                             rules={[
                                                 {

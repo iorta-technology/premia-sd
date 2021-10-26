@@ -28,3 +28,8 @@ export {
 export {
     fetchHistory
 }from './history'
+
+export {
+    fetchProduct,
+    fetchPlanName
+}from './product'

@@ -80,28 +80,7 @@ const History = () => {
     )
 
 
-    if(!_.isEmpty(historyDetailsArr)){
-        for(let historydetail of historyDetailsArr ){
-            if('AppointmetData' in historydetail){
-                console.log('true')
-                if(historydetail.leadleadDisposition ==='callback'){
-                  let  desc = 'Callback date ' + new Date(parseInt(historydetail.AppointmetData.start_date)).toLocaleDateString() + '  Callback time ' + (historydetail.AppointmetData.start_time)
-                  if (historydetail.allocated === false) {
-                    (dataFormatting(historydetail, 'Updated - ' + (historydetail.leadDisposition), desc + ' ' + (historydetail.Details2) + ' ' + (historydetail.Details3)));
-                } else {
-                   (dataFormatting(historydetail, 'Lead Allocated', desc + ' ' + (historydetail.Details2) + ' ' + (historydetail.Details3)));
-
-                }
-                }
-            }else{
-                if(historydetail.status==='newleadentery'){
-                    console.log(historydetail.status)
-                    let desc = historydetail.Details1 + ' '+ historydetail.Details2.split('|')[0]
-                    historydetail.allocated ? console.log(dataFormatting(historydetail, 'Lead Allocated', desc)) : dataFormatting(historydetail, 'New Lead Created', desc)
-                }
-            }
-        }
-    }
+    
     useEffect(() => {
         dispatch(actions.fetchHistory(leadId, userId))
     }, [dispatch]);

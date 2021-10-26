@@ -91,6 +91,7 @@ const NewLead = React.memo(() => {
 
   // store form data 
   let storeFormData = useSelector((state)=>state.newLead.formData)
+  let payloadFormData = useSelector((state)=>state.newLead.payloadFormData)
   const storeLeadId = useSelector((state) => state.newLead.leadId)
   const leadDataloading = useSelector((state) => state.newLead.leadDataloading)
   const storefirstNameValue = useSelector((state)=>state.newLead.formData.firstName)
@@ -108,7 +109,8 @@ const NewLead = React.memo(() => {
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
   const storeRemarkFromSourceValue = useSelector((state)=>state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state)=>state.newLead.formData.remarksfromUser)
-
+  const {lastupdatedOn} = storeFormData
+  console.log(lastupdatedOn)
   // lead summary
   const leadIdValue = useSelector((state)=>state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state)=>state.newLead.formData.created_date)
@@ -143,10 +145,12 @@ const NewLead = React.memo(() => {
 
 
 useEffect(() => {
-  console.log(storeCityValue)
+  // console.log('payload',payloadFormData)
+  // console.log('nonpayload',storeFormData)
   if(storeLeadId!==''){
     setIsNewLead(false)
   }
+  form.resetFields()
   form.setFieldsValue({
     "firstname":firstName,
     "lastname":lastName,
@@ -163,18 +167,30 @@ useEffect(() => {
     // "leadStatus":leadSubDisposition
   })
 }, [
-  storeLeadId,
-  form,
-  storeRemarkFromSourceValue,
-  storefirstNameValue,
-  storelastNameValue,
-  storeEmailValue,
-  storePrimaryMobileValue,
-  stateProvince,
-  leadArr,
-  leadDataloading,
-  storeCityValue,
-  storeStateValue
+  // firstName,
+  // lastName,
+  // email,
+  // primaryNo,
+  // stateProvince,
+  // cityProvince,
+  // leadType,
+  // product,
+  // insuranceCompany,
+  // appointmentDate,
+  // remarkFromSource,
+  // remarkFromUser,
+  // storeLeadId,
+  // form,
+  // storeRemarkFromSourceValue,
+  // storefirstNameValue,
+  // storelastNameValue,
+  // storeEmailValue,
+  // storePrimaryMobileValue,
+  // stateProvince,
+  // leadArr,
+  // leadDataloading,
+  // storeCityValue,
+  // storeStateValue
 ])
   // add team Member modal state control
   const [visibleTeamMemberModal, setVisibleTeamMemberModal] = useState(false);
@@ -386,7 +402,7 @@ const emailAddressHandler = (event) => {
       // state.push(label)
       return newState
     }) : null
-
+    console.log(stateOptions)
 
     const cities = useSelector((state) => state.address.cities)
     let citiesOptions = (cities && !_.isEmpty(cities)) ?
@@ -456,7 +472,13 @@ const emailAddressHandler = (event) => {
     }
   
     const appointmentDateHandler = (date,dateString)=>{
-      setAppointmentDate(Date.parse(dateString))
+      // setAppointmentDate(Date.parse(dateString))
+      setAppointmentDate(moment(date))
+    }
+
+    const updateDateHandler = (date,dateString)=>{
+      // setAppointmentDate(Date.parse(dateString))
+      setAppointmentDate(moment(1635070237883))
     }
   
     const startTimeHandler = (time,timeString)=>{
@@ -1041,7 +1063,9 @@ const emailAddressHandler = (event) => {
                       <DatePicker 
                         disabledDate={disabledDate}
                         onChange={appointmentDateHandler} 
+                        value={appointmentDate}
                         size="large" 
+                        format="YYYY-MM-DD"
                         style={{ width: "100%" }}/>
                       </Form.Item>
                     </Col>

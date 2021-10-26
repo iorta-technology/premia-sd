@@ -112,9 +112,11 @@ export const fetchLeadDetails = (id) => {
             .then(res => {
                     console.log(...res.data.errMsg)
                     let response = res.data.errMsg
-                    return dispatch(fetchLeadDetailsSuccess(...response))
-                // if(res.data.errCode===-1){
-                // }
+                    if(res.data.errCode===-1){
+                        return dispatch(fetchLeadDetailsSuccess(...response))
+                    }else{
+                        throw response
+                    }
             })
             .catch(error => {
                 console.log(error)

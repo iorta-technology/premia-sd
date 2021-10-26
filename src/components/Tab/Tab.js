@@ -97,7 +97,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey }) =>
                         onTabClick={handler}
                         size="large"
                         activeKey={activeKey}
-                        style={{marginLeft:'110px'}}
+                        style={{marginLeft:'120px'}}
                     >
                         {tabPane}
                     </Tabs>

@@ -39,7 +39,7 @@ const loginSuccess = (state, action) => {
             user_name: action.login_agent_data.first_name,
             agent_id: action.login_agent_data.agent_id,
             userId: action.login_agent_data._id,
-            channelCode:action.login_agent_data.channelCode
+            // channelCode:action.login_agent_data.channelCode
          })
 }
 const loginFail = (state, action) => {
@@ -79,7 +79,8 @@ const fetchUserDetailsSuccess = (state, action) => {
     return updateObject(state, { 
             fetch_UserDetails_Loading: false, 
             userDetails: userDetails,
-            levelCode:userDetails.hierarchy_id.levelCode
+            levelCode:userDetails.hierarchy_id.levelCode,
+            channelCode:userDetails.channelCode._id
         })
 }
 const fetchUserDetailsFail = (state, action) => {
