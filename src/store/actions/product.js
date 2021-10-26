@@ -73,7 +73,7 @@ export const fetchPlanName = (productId) => {
                     console.log(res.data.errMsg)
                     let response = res.data.errMsg
                     if(res.data.errCode===-1){
-                        return dispatch(fetchPlanNameSuccess(...response))
+                        return dispatch(fetchPlanNameSuccess(response))
                     }else{
                         throw response
                     }

@@ -56,7 +56,7 @@ const ProposedProduct = () => {
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     const channelCode = useSelector(state => state.login.channelCode)
     const productCategories = useSelector(state => state.product.productCategory)
-    const planName = useSelector(state => state.product.planName)
+    const planOptions = useSelector(state => state.product.planName)
 
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
@@ -105,13 +105,9 @@ const ProposedProduct = () => {
                  label, value }
             return newProductCategories
         }) : null
-        console.log(productCategoryOptions)
 
     const formData = {
         ...storeFormData,
-        // education:educationDetails,
-        // professionType:professionType,
-        // incomeGroup:incomeGroup
 
     };
     const submitHandler = event => {
@@ -155,6 +151,7 @@ const ProposedProduct = () => {
                                         ]}
                                     >
                                         <Select 
+                                            value={product}
                                             options={productCategoryOptions} 
                                             size="large" 
                                             placeholder="Select Product"
@@ -178,7 +175,8 @@ const ProposedProduct = () => {
                                         ]}
                                     >
                                         <Select  
-                                            // options={planNameOptions}
+                                            value={planNameValue}
+                                            options={planOptions}
                                             size="large" 
                                             placeholder="Select"
                                             onChange={planNameHandler}
@@ -201,6 +199,7 @@ const ProposedProduct = () => {
                                         ]}
                                     >
                                         <DatePicker 
+                                            value={closureDate}
                                             onChange={closureDateHandler}
                                             size="large" 
                                             style={{ width: "100%" }} 
@@ -222,6 +221,7 @@ const ProposedProduct = () => {
                                         ]}
                                     >
                                         <Input 
+                                            value={expectedMoney}
                                             onChange={expectedMoneyHandler}
                                             className="first-name input-box" 
                                             placeholder="Expected Premium Amount1">

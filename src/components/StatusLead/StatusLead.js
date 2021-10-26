@@ -109,7 +109,8 @@ const NewLead = React.memo(() => {
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
   const storeRemarkFromSourceValue = useSelector((state)=>state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state)=>state.newLead.formData.remarksfromUser)
-
+  const {lastupdatedOn} = storeFormData
+  console.log(lastupdatedOn)
   // lead summary
   const leadIdValue = useSelector((state)=>state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state)=>state.newLead.formData.created_date)
@@ -471,7 +472,13 @@ const emailAddressHandler = (event) => {
     }
   
     const appointmentDateHandler = (date,dateString)=>{
-      setAppointmentDate(Date.parse(dateString))
+      // setAppointmentDate(Date.parse(dateString))
+      setAppointmentDate(moment(date))
+    }
+
+    const updateDateHandler = (date,dateString)=>{
+      // setAppointmentDate(Date.parse(dateString))
+      setAppointmentDate(moment(1635070237883))
     }
   
     const startTimeHandler = (time,timeString)=>{
@@ -1056,7 +1063,9 @@ const emailAddressHandler = (event) => {
                       <DatePicker 
                         disabledDate={disabledDate}
                         onChange={appointmentDateHandler} 
+                        value={appointmentDate}
                         size="large" 
+                        format="YYYY-MM-DD"
                         style={{ width: "100%" }}/>
                       </Form.Item>
                     </Col>

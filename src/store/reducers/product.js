@@ -33,25 +33,22 @@ const fetchPlanNameStart = (state, action) => {
 
 const fetchPlanNameSuccess = (state, action) => {
     const planNames = action.planName
-    console.log(planNames)
-    let planNameOptions = (planNames && !_.isEmpty(planNames)) ?
-        planNames.map(planName => {
-            const {productName,_id,
-                // channelCode:{channelCode}
-            }= planName
-            const label = productName
-            const value = productName
-            // const chCode = channelCode
-            const newProductCategories = { 
-                // chCode,
-                _id,
-                 label, value }
-            return newProductCategories
-        }) :null
-    console.log(planNameOptions)
+    let planNameOptions = planNames.map(planName => {
+                            const {productName,_id,
+                                // channelCode:{channelCode}
+                            }= planName
+                            const label = productName
+                            const value = productName
+                            // const chCode = channelCode
+                            const newProductCategories = { 
+                                // chCode,
+                                _id,
+                                label, value }
+                            return newProductCategories
+                        })
     return updateObject(state, { 
         fetchPlanLoading: false, 
-        // planName: planNameOptions
+        planName: planNameOptions
     })
 }
 const fetchPlanNameFail = (state, action) => {
