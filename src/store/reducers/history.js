@@ -1,12 +1,14 @@
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
-import {dataFormatting} from '../../helpers'
+import { dataFormatting, getLabel, doSentenceCase, idFilter, respDetails, milisecondToTime } from '../../helpers'
 import _ from 'lodash'
 const initialState = {
-    history:[],
-    fetchHistoryLoading:false,
-    fetchHistoryError:''
-    
+    history: [],
+    fetchHistoryLoading: false,
+    fetchHistoryError: '',
+    proposalData: [],
+    leadData: []
+
 }
 const fetchHistoryStart = (state, action) => {
     return updateObject(state, { fetchHistoryLoading: true })
@@ -14,42 +16,115 @@ const fetchHistoryStart = (state, action) => {
 
 const fetchHistorySuccess = (state, action) => {
     const historyDetailsArr = action.history
-   const newArr =  historyDetailsArr.map((historydetail)=>{
-        if('AppointmetData' in historydetail){
-            if(historydetail.leadleadDisposition ==='callback'){
-              let  desc = 'Callback date ' + new Date(parseInt(historydetail.AppointmetData.start_date)).toLocaleDateString() + '  Callback time ' + (historydetail.AppointmetData.start_time)
-              if (historydetail.allocated === false) {
-                 dataFormatting(historydetail, 'Updated - ' + (historydetail.leadDisposition), desc + ' ' + (historydetail.Details2) + ' ' + (historydetail.Details3));
-            } else {
-                dataFormatting(historydetail, 'Lead Allocated', desc + ' ' + (historydetail.Details2) + ' ' + (historydetail.Details3));
-            }
-            }
-        }else{
-            
-            if(historydetail.Status==='newleadentery'){
-                let desc = historydetail.Details1 + ' '+ historydetail.Details2.split('|')[0]
-                return  historydetail.allocated ? dataFormatting(historydetail, 'Lead Allocated', desc) : dataFormatting(historydetail, 'New Lead Created', desc)
+    let proposalArr = []
+    let leadArr = []
+    let appointmentArr = []
+    let issuanceArr = []
+    let desc = null
+    const newArr = historyDetailsArr.map((historydetail) => {
+        console.log(historydetail)
+        if (historydetail.AppointmetData !== undefined ) {
+            console.log(historydetail)
+            // if (historydetail.leadleadDisposition === 'callback') {
+            //     desc = 'Callback date ' + new Date(parseInt(historydetail.AppointmetData.start_date)).toLocaleDateString() + '  Callback time ' + milisecondToTime(historydetail.AppointmetData.start_time)
+            //     if (historydetail.allocated === false) {
+            //         console.log('callback false')
+            //         appointmentArr.push(dataFormatting(historydetail, 'Updated - ' + getLabel(historydetail.leadDisposition), desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)));
+            //     } else {
+            //         console.log('callback true')
+
+            //         appointmentArr.push(dataFormatting(historydetail, 'Lead Allocated', desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)));
+            //     }
+            // } 
+            // else if (historydetail.leadDisposition === "appointment") {
+            //     // Appointment  10/28/2018
+            //     if (Array.isArray(historydetail.AppointmetData)) {
+            //         console.log('apointment false')
+
+            //         // moment(historydetail.AppointmetData[0].start_time).format('LT');
+            //         desc = 'Appointment date ' + new Date(parseInt(historydetail.AppointmetData[0].start_date)).toLocaleDateString() + '  Appointment time ' + milisecondToTime(historydetail.AppointmetData[0].start_time)
+            //     } else {
+            //         console.log('apointment true')
+
+            //         // moment(historydetail.AppointmetData.start_time).format('LT');
+            //         desc = 'Appointment date ' + new Date(parseInt(historydetail.AppointmetData.start_date)).toLocaleDateString() + '  Appointment time ' + milisecondToTime(historydetail.AppointmetData.start_time)
+            //     }
+            //     appointmentArr.push(historydetail.allocated === false ?
+            //         dataFormatting(historydetail, 'New Appointment Created', desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)) :
+            //         dataFormatting(historydetail, 'Appointment Allocated', desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)))
+            // }
+
+        } else {
+
+            if (historydetail.Status === 'newleadentery') {
+                desc = historydetail.Details1 + ' ' + historydetail.Details2.split('|')[0]
+                leadArr.push(historydetail.allocated ? dataFormatting(historydetail, 'Lead Allocated', desc) : dataFormatting(historydetail, 'New Lead Created', desc))
             }
             else if (historydetail.AppointmentStatus !== "") {
-    
-                let desc = doSentenceCase(historydetail.Details1) + '  ' + this.respDetails(historydetail.Details2);
-                historydetail.allocated == false ? historyList[1].data.push(dataFormatting(historydetail, 'Updated - ' + util.get_R_Text(historydetail.AppointmentStatus), desc)) : historyList[1].data.push(dataFormatting(historydetail, 'Lead Allocated', desc))
-    
+
+                desc = historydetail.Details1 + '  ' + historydetail.Details2;
+                leadArr.push(historydetail.allocated === false ? dataFormatting(historydetail, 'Updated - ' + getLabel(historydetail.AppointmentStatus), desc) : dataFormatting(historydetail, 'Lead Allocated', desc))
+
             } else if (historydetail.Status === 'Proposalstarted') {
-    
-    
                 /**
                  * When proposal is generated then that code is executed
                  */
-               let  desc = (historydetail.Status === 'Proposalstarted' ? 'Proposal Started' : historydetail.Status) + ' | ' + idFilter(historydetail.proposal_Id.productId, 'P');
-                historyList[2].data.push(dataFormatting(historydetail, 'New BI Created', desc));
-    
+                desc = (historydetail.Status === 'Proposalstarted' ? 'Proposal Started' : historydetail.Status) + ' | ' + (historydetail.proposal_Id.productId, 'P');
+                proposalArr.push(dataFormatting(historydetail, 'New BI Created', desc));
+
+            // } else if (historydetail.Status === 'login') {
+            //     if (typeof (historydetail.Details1) === "object") {
+
+            //         let _obj = {};
+            //         _obj['date'] = new Date(parseInt(historydetail.created_date)).toLocaleString();
+            //         _obj['owner'] = historydetail.Details1.AdvisorName;
+            //         _obj['desc'] = 'Type of Life: ' + historydetail.Details2[0].requestType + ' | Category of issue :' + historydetail.Details2[0].categoryofIssue + ' | Type of issue: ' + historydetail.Details2[0].typeofIssue;
+            //         _obj['highlight'] = true;
+            //         _obj['title'] = 'Requirement Raised';
+
+            //         issuanceArr.push(_obj);
+
+            //     } else {
+
+            //         // desc = self.doSentenceCase(historydetail.Details1)+' | '+this.respDetails(historydetail.Details2);
+            //         // self.historyList[2].data.push(self.dataFormatting(historydetail, 'Document Uploaded', desc)); 
+
+            //         desc = historydetail.Details1 + ' | ' + (historydetail.Status === 'login' ? 'Login' : historydetail.Status) + ' | ' + idFilter(historydetail.proposal_Id.productId, 'P');
+            //         issuanceArr.push(dataFormatting(historydetail, 'Document Uploaded', desc));
+            //     }
+            // } else if (historydetail.Status === 'issued') {
+            //     desc = historydetail.Details1 + ' | ' + (historydetail.Status === 'issued' ? 'Issued' : historydetail.Status) + ' | ' + idFilter(historydetail.proposal_Id.productId, 'P');
+            //     issuanceArr.push(dataFormatting(historydetail, 'Policy Issued', desc));
+
+            // } else if (historydetail.Status === 'rejected') {
+            //     desc = historydetail.Details1 + ' | ' + (historydetail.Status === 'rejected' ? 'Rejected' : historydetail.Status) + ' | ' + idFilter(historydetail.proposal_Id.productId, 'P');
+            //     issuanceArr.push(dataFormatting(historydetail, 'Policy Rejected', desc));
+            // } else {
+            //     /**
+            //      * No contact section code eexecuted from here
+            //      */
+            //     desc = doSentenceCase(historydetail.Details1) + ' ' + respDetails(historydetail.Details2)
+
+            //     if (historydetail.allocated == false) {
+            //         issuanceArr.push(dataFormatting(historydetail, 'Updated - ' + getLabel(historydetail.leadDisposition), desc))
+            //     } else {
+            //         issuanceArr.push(dataFormatting(historydetail, 'Lead Allocated', desc))
+            //     }
             }
         }
 
     })
-    console.log(newArr)
-    return updateObject(state, { fetchHistoryLoading: false, history: action.history})
+console.log(historyDetailsArr)
+console.log(proposalArr)
+console.log(leadArr)
+console.log(appointmentArr)
+console.log(issuanceArr)
+return updateObject(state, {
+    fetchHistoryLoading: false,
+    history: action.history,
+    proposalData: proposalArr,
+    leadData: leadArr
+})
 }
 const fetchHistoryFail = (state, action) => {
     return updateObject(state, { fetchHistoryLoading: false, fetchHistoryError: action.error });
@@ -57,7 +132,7 @@ const fetchHistoryFail = (state, action) => {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-      
+
         //state
         case actionTypes.FETCH_HISTORY_START: return fetchHistoryStart(state, action)
         case actionTypes.FETCH_HISTORY_SUCCESS: return fetchHistorySuccess(state, action)

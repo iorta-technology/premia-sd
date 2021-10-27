@@ -1,10 +1,13 @@
 import _ from 'lodash';
+import dataLibrary from './dataLibrary'
+
+let nonContact = dataLibrary.nonContact;
+let contact = dataLibrary.contact;
+let _apStatusList = dataLibrary.appointmentStatus;
+let _appointDispoList = dataLibrary._appointDispoList;
 
 
-
-
-export const stoageSetter = (key, value) => 
-{
+export const stoageSetter = (key, value) =>{
     let stringify = JSON.stringify(value)
     window.localStorage.setItem(key, encryptDecrypt(stringify, 'encrypt'))
     return value;
@@ -65,6 +68,106 @@ export const dataFormatting =(resp, title, desc)=> {
     return _obj;
 }
 
+export function getLabel(item) {
+    let result = compare_C(item, contact, 'value', 'dispValue');  
+
+    console.log('Here the Result of Dipsositions : ', result);
+
+    // Comparision purpos
+    return (
+        result == "" ? 
+        (compare_C(item, nonContact, 'value', 'dispValue') == "" ? 
+        (compare_C(item, _apStatusList, 'value', 'dispValue') == "" ? (compare_C(item, _appointDispoList, 'value', 'dispValue') == "" ? "" : compare_C(item, _appointDispoList, 'value', 'dispValue')) : compare_C(item, _apStatusList, 'value', 'dispValue')): compare_C(item, nonContact, 'value', 'dispValue')) 
+        : result
+    );
+
+}
+export function doSentenceCase(strText) {
+    try {
+        var _str = strText.toLowerCase();
+        var collection = _str.split(" ");
+        var modifyStrigs = [];
+        _str = '';
+        for (var i = 0; i < collection.length; i++) {
+            modifyStrigs[i] = collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+            _str = _str + modifyStrigs[i] + ' ';
+
+        }
+        return _str.trim();
+    } catch (err) {}
+}
+
+export function milisecondToTime(milisecond) {
+    try {
+        console.log("MILESECOND :::::", milisecond);
+        let index = dataLibrary.timeList.findIndex(e => e.value === milisecond.toString());
+
+        console.log("current Index : ", index);
+
+
+        if (index === -1) {
+            return "";
+        } else {
+            console.log("Result:::", dataLibrary.timeList[index].dispValue);
+            return dataLibrary.timeList[index].dispValue;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+export function respDetails(respData) {
+    // console.log("Response Details object",respData)
+    try {
+        if (typeof(respData) == "string") {
+            respData = respData.split("|");
+            let makeString = "";
+            for (let i = 0; i < respData.length; i++) {
+                let value = respData[i].trim();
+                if (value !== "") {
+                    makeString = makeString + value + "|";
+                } else {
+                    makeString = ''
+                }
+            }
+            return makeString;
+        } else {
+            return ""
+        }
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+export function idFilter(id, initial = null) {
+    try {
+        if (id !== '') {
+            if (initial === null || initial === undefined || initial === "") {
+                initial = 'L';
+            }
+            if (typeof(id) !== undefined) {
+                id = initial + id.slice(16, 25).toUpperCase();
+            }
+        }
+        return id;
+    } catch (err) {}
+}
+
+var compare_C = function(item, _array, _with, key) {
+    // return new Promise((resolve, reject) => {
+    //     for(let i = 0; i < _array.length; i++) {
+    //         item == _array[i][_with] ? resolve(_array[i][_with]) : reject(false)
+    //     }
+    // });
+
+    let result = "";
+    for(let i = 0; i < _array.length; i++) {
+        if(item == _array[i][_with]) {
+            result = _array[i][key];
+            break;
+        } else {result = "";}
+    }
+    return result;
+}
 export const milToDateString =(milisec)=>{
     const date = new Date(milisec).toLocaleDateString('in')
     return date
