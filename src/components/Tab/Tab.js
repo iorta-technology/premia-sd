@@ -3,10 +3,18 @@ import { Tabs } from 'antd'
 import './Tab.css'
 import _ from "lodash";
 import { useHistory } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 const { TabPane } = Tabs
 
-const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey }) => {
+const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,current }) => {
+    const dispatch = useDispatch()
+    const [activeTab, setactiveTab] = useState()
+    useEffect(() => {
+
+        dispatch(actions.fetchAllLeads(activeTab,current))
+    },[dispatch,current,activeTab]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
 
@@ -15,10 +23,20 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey }) =>
     //     setactiveKey(key)
     // }
     const handler = (activeKey) => {
-        // console.log(activeKey)   
+        setactiveTab(activeKey)
+        console.log(activeTab)   
+        console.log(current)
+        dispatch(actions.fetchAllLeads(activeTab,current))
+
         // setactiveKey(key)
         if(activeKey){
         switch (activeKey) {
+            case "all": return history.push('/leadMaster/all_leads');
+            case "fortoday": return history.push('/leadMaster/fortoday');
+            case "open": return history.push('/leadMaster/openlead');
+            case "converted": return history.push('/leadMaster/convertedleads');
+            case "failed": return history.push('/leadMaster/pendingproposal');
+
             case "1": return history.push('/leadmasterpage/statuslead');
             case "2": return history.push('/leadmasterpage/leaddetails/personallead');
             case "3": return history.push('/leadmasterpage/proposal');
@@ -30,6 +48,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey }) =>
             case "8": return history.push('/renewalMaster/unpaidRenewals');
             case "9": return history.push('/renewalMaster/lapsedRenewals');
             default:  return history.push('/leadmasterpage/statuslead');
+
         }
     }
     // if(activeKey){

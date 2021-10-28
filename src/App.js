@@ -68,6 +68,10 @@ function App() {
               <Route path="/himanshu" component={AgentMicroService}></Route>
               <Route path="/blog" component={Blog}></Route>
               <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
+              <Route path="/leadMaster/fortoday" component={LeadMaster}></Route>
+              <Route path="/leadMaster/openleads" component={LeadMaster}></Route>
+              <Route path="/leadMaster/convertedleads" component={LeadMaster}></Route>
+              <Route path="/leadMaster/pendingproposal" component={LeadMaster}></Route>
               <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
               <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
               <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
