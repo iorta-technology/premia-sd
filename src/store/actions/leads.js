@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
-
+import { getLeadFilter } from '../../helpers';
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -26,6 +26,7 @@ export const fetchAllLeadsFail = (error) => {
 }
 
 export const fetchAllLeads = (leads,pageNo) => {
+       const leadFilter =  getLeadFilter(leads)
         let skipVal 
         if(pageNo===1){
             skipVal = 0
@@ -35,13 +36,20 @@ export const fetchAllLeads = (leads,pageNo) => {
         }
     return dispatch => {
         dispatch(fetchAllLeadsStart())
-        return axios.get(`user/v2/getLead/5df782ab2b5ffa6c72ae1a25?leadfilter=all&skip=${skipVal}`)
+        return axios.get(`user/v2/getLead/5df782ab2b5ffa6c72ae1a25?leadfilter=${leadFilter}&skip=${skipVal}`)
             .then(res => {
                 // console.log(res.data.errMsg[1][0].count)
-                return dispatch(fetchAllLeadsSuccess(res.data.errMsg[0],res.data.errMsg[1][0].count))
+                const response = res.data.errMsg
+                const errorCode = res.data.errCode
+                if(errorCode===-1){
+
+                    return dispatch(fetchAllLeadsSuccess(response[0],response[1][0].count))
+                }else{
+                    throw response
+                }
             })
             .catch(error => {
-                return dispatch(fetchAllLeadsFail(error.response.data.errors))
+                return dispatch(fetchAllLeadsFail(error))
             })
     }
 }

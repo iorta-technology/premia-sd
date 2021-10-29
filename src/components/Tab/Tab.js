@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Tabs } from 'antd'
 import './Tab.css'
 import _ from "lodash";
-import { useHistory } from 'react-router-dom';
+import { useHistory,useParams } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
@@ -10,10 +10,11 @@ const { TabPane } = Tabs
 
 const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,current }) => {
     const dispatch = useDispatch()
+    const {leadType} = useParams()
     const [activeTab, setactiveTab] = useState()
     useEffect(() => {
-
-        dispatch(actions.fetchAllLeads(activeTab,current))
+        console.log(typeof(leadType))
+        dispatch(actions.fetchAllLeads(leadType,current))
     },[dispatch,current,activeTab]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
@@ -24,9 +25,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     // }
     const handler = (activeKey) => {
         setactiveTab(activeKey)
-        console.log(activeTab)   
-        console.log(current)
-        dispatch(actions.fetchAllLeads(activeTab,current))
+        // dispatch(actions.fetchAllLeads(activeTab,current))
 
         // setactiveKey(key)
         if(activeKey){

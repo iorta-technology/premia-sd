@@ -3,6 +3,7 @@ import LeadCard from './LeadCard'
 import './LeadCards.css'
 import _ from "lodash";
 import { Row, Col,Avatar,Card } from 'antd'
+import NoRecordsFound from '../NoRcordsFound/NoRecordsFound';
 const LeadCards = (props) => {
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
@@ -15,7 +16,8 @@ const LeadCards = (props) => {
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
     let card = [];
-    if (props.leads && !_.isEmpty(props.leads)) {
+    if(_.isEmpty(props.leads)){return <NoRecordsFound/>    }
+    if (!_.isEmpty(props.leads)) {
         card = _.map(props.leads, (lead, index) => {
             return (
                 <>

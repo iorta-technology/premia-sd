@@ -175,3 +175,25 @@ export const milToDateString =(milisec)=>{
     const date = new Date(milisec).toLocaleDateString('in')
     return date
 }
+
+export const getLeadFilter=(leadFilter)=>{
+    const leadFilterObj = {
+        all_lead:'all',
+        fortoday:'fortoday',
+        openlead:'open',
+        convertedleads:'converted',
+        pendingproposal:'failed'
+    }
+    switch(leadFilter){
+        case "all_lead":return 'all';
+        case "fortoday":return 'fortoday';
+        case "openlead":return 'open';
+        case "convertedleads":return 'converted';
+        case "pendingproposal":return 'failed';
+
+        default:  return 'all';
+
+    }
+    // console.log(leadFilterObj.leadFilter)
+    // return leadFilterObj.leadFilter
+}
