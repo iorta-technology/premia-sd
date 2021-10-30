@@ -15,6 +15,11 @@ const LoanProducts = () => {
                             <Col span={4}><Button  className="secondaryBtn">General Insurance</Button></Col>
                             <Col span={4}><Button  className="secondaryBtn">Group Health</Button></Col>
                         </Row>
+                        {/* <Row className="tabs">
+                            <Col span={4}><Button  className="primaryBtn">Loan Products</Button></Col>
+                            <Col span={4}><Button  className="secondaryBtn">General Insurance</Button></Col>
+                            <Col span={4}><Button  className="secondaryBtn">Group Health</Button></Col>
+                        </Row> */}
                 </div>
             </div>
         </>
