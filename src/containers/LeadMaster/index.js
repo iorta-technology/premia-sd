@@ -35,11 +35,11 @@ const LeadMaster = (props) => {
         }
 
         if (type === 'prev') {
-            return <button current={current} onClick={onPrev}>Prev</button>;
+            return <a current={current} onClick={onPrev} style={{color:'#545454'}}>Prev</a>;
           }
         if (type === 'next') {
             // console.log(current)
-          return <button current={current} onClick={onNext}>Next</button>;
+          return <a current={current} onClick={onNext}style={{color:'#545454'}}>Next</a>;
         }
         return originalElement;
     }
@@ -50,31 +50,39 @@ const LeadMaster = (props) => {
     }
     const tabMenu = [
         {
-            id:1,
+            id:'all',
             value:"All"
         },
         {
-            id:2,
+            id:'fortoday',
+            value:"For Today"
+        },
+        {
+            id:'open',
             value:"Open"
         },
         {
-            id:3,
+            id:'converted',
             value:"Converted"
         },
         {
-            id:4,
-            value:"Not Interested"
+            id:'failed',
+            value:"Failed"
         },
         
     ]
 
     return (
         <div style={{backgroundColor:'#fafafa'}}>
-            <Tab tabMenu={tabMenu} header="Lead"/>
+            <Tab 
+                tabMenu={tabMenu} 
+                header="Lead" 
+                current={current}
+                />
             <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination
-                    size="small"
+                    responsive
                     current={current}
                     onChange={handlePageClick}
                     total={totalLeads}

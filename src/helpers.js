@@ -58,7 +58,8 @@ export const dataFormatting =(resp, title, desc)=> {
 
     let _obj = {};
     _obj['date'] = new Date(parseInt(resp.created_date)).toLocaleString();
-    _obj['owner'] = 'first_name' in resp.userId ?resp.userId.first_name : "";
+    // _obj['owner'] = resp.userId.first_name
+    _obj['owner'] = resp.userId !== null ? doSentenceCase(resp.userId.first_name) : "";
     // _obj['owner']       = resp.Owner;
     _obj['desc'] = desc.replace('|undefined|', '');
     _obj['highlight'] = true;
@@ -75,9 +76,9 @@ export function getLabel(item) {
 
     // Comparision purpos
     return (
-        result == "" ? 
-        (compare_C(item, nonContact, 'value', 'dispValue') == "" ? 
-        (compare_C(item, _apStatusList, 'value', 'dispValue') == "" ? (compare_C(item, _appointDispoList, 'value', 'dispValue') == "" ? "" : compare_C(item, _appointDispoList, 'value', 'dispValue')) : compare_C(item, _apStatusList, 'value', 'dispValue')): compare_C(item, nonContact, 'value', 'dispValue')) 
+        result === "" ? 
+        (compare_C(item, nonContact, 'value', 'dispValue') === "" ? 
+        (compare_C(item, _apStatusList, 'value', 'dispValue') === "" ? (compare_C(item, _appointDispoList, 'value', 'dispValue') === "" ? "" : compare_C(item, _appointDispoList, 'value', 'dispValue')) : compare_C(item, _apStatusList, 'value', 'dispValue')): compare_C(item, nonContact, 'value', 'dispValue')) 
         : result
     );
 
@@ -116,7 +117,7 @@ export function milisecondToTime(milisecond) {
     }
 }
 export function respDetails(respData) {
-    // console.log("Response Details object",respData)
+    console.log("Response Details object",respData)
     try {
         if (typeof(respData) == "string") {
             respData = respData.split("|");
@@ -146,8 +147,10 @@ export function idFilter(id, initial = null) {
             }
             if (typeof(id) !== undefined) {
                 id = initial + id.slice(16, 25).toUpperCase();
+
             }
         }
+        console.log(id)
         return id;
     } catch (err) {}
 }
@@ -161,7 +164,7 @@ var compare_C = function(item, _array, _with, key) {
 
     let result = "";
     for(let i = 0; i < _array.length; i++) {
-        if(item == _array[i][_with]) {
+        if(item === _array[i][_with]) {
             result = _array[i][key];
             break;
         } else {result = "";}
@@ -171,4 +174,26 @@ var compare_C = function(item, _array, _with, key) {
 export const milToDateString =(milisec)=>{
     const date = new Date(milisec).toLocaleDateString('in')
     return date
+}
+
+export const getLeadFilter=(leadFilter)=>{
+    const leadFilterObj = {
+        all_lead:'all',
+        fortoday:'fortoday',
+        openlead:'open',
+        convertedleads:'converted',
+        pendingproposal:'failed'
+    }
+    switch(leadFilter){
+        case "all_lead":return 'all';
+        case "fortoday":return 'fortoday';
+        case "openlead":return 'open';
+        case "convertedleads":return 'converted';
+        case "pendingproposal":return 'failed';
+
+        default:  return 'all';
+
+    }
+    // console.log(leadFilterObj.leadFilter)
+    // return leadFilterObj.leadFilter
 }

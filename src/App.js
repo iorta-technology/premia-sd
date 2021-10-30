@@ -67,7 +67,7 @@ function App() {
               <Route path="/changepassword" component={ChangePassword}></Route>
               <Route path="/himanshu" component={AgentMicroService}></Route>
               <Route path="/blog" component={Blog}></Route>
-              <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
+              <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
               <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
               <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
               <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>

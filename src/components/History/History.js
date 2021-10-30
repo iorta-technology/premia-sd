@@ -41,8 +41,9 @@ const History = () => {
 
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     const storeUserId = useSelector((state) => state.newLead.userId)
-    const proposalArrObject = useSelector((state) => state.history.proposalData)
     const leadArrObject = useSelector((state) => state.history.leadData)
+    const appointmentArrObject = useSelector((state) => state.history.appointmentData)
+    const proposalArrObject = useSelector((state) => state.history.proposalData)
 
     const [leadId, setleadId] = useState(storeLeadId)
     const [userId, setuserId] = useState(storeUserId)
@@ -53,6 +54,31 @@ const History = () => {
             // proposalArrObject !== null &&
             <>
                 <h2 className="his-title m0a">Lead Data</h2>
+                <Timeline className="p20">
+                    {leadArrObject.map((leadData) =>
+                        <Timeline.Item color="red">
+                            <p className="ml10 timeline-title">{leadData.title}</p>
+                            <Row className="timeline-desc">
+                                <Col xs={22} sm={22} md={12} className="ml10 ">
+                                    <p>{leadData.desc}</p>
+                                </Col>
+                                <Col xs={22} sm={22} md={11} className="time-content">
+                                    <p>{leadData.owner}</p>
+                                    <p>{leadData.date}</p>
+                                </Col>
+                            </Row>
+                        </Timeline.Item>
+                    )}
+                </Timeline>
+            </>
+        // }
+    )
+
+    let appointmentElement = (
+        // {
+            // proposalArrObject !== null &&
+            <>
+                <h2 className="his-title m0a">Appointment Data</h2>
                 <Timeline className="p20">
                     {leadArrObject.map((leadData) =>
                         <Timeline.Item color="red">
@@ -127,6 +153,7 @@ return (
                     <HistoryTabs />
                     <Col xs={22} sm={22} md={17} className="form-body his-container m0a">
                         {leadElement}
+                        {appointmentElement}
                         {proposalElement}
                     </Col>
                 </Row>
