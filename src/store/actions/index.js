@@ -33,3 +33,7 @@ export {
     fetchProduct,
     fetchPlanName
 }from './product'
+
+export {
+    fetchAgentDetails
+}from './agentMicrosite'
