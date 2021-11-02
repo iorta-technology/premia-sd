@@ -26,3 +26,15 @@
   .tabs{
     margin: 10px 0 20px;
   }
+  .main-card1{
+    padding: 30px;
+    background: rgb(247, 251, 255);
+  }
+  .main-card2{
+    padding: 30px;
+    background: rgb(236, 242, 249);
+  }
+  .main-card3{
+    padding: 30px;
+    background: #E0E9F3;
+  }
