@@ -59,13 +59,12 @@ function App() {
       <Router>
         <div className="box-size">
           <Switch>
-              <Route exact path="/">
-                  <Redirect to="/himanshu" />
-              </Route>
+              {/* <Route exact path="/">
+                  <Redirect to="/" />
+              </Route> */}
               <Route path="/login"  component={Login}></Route>
               <Route path="/forgotpassword" component={ForgotPassword}></Route>
               <Route path="/changepassword" component={ChangePassword}></Route>
-              <Route path="/" component={AgentMicroService}></Route>
               <Route path="/blog" component={Blog}></Route>
               <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
               <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
@@ -77,6 +76,8 @@ function App() {
               <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
               <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
               <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
+              {/* Make this route at the end only. */}
+              <Route  path="/agentMicroSite" component={AgentMicroService}></Route>
               <div>
               <Sidebar />
               <Route path="/clubsMaster" component={ClubsMaster}></Route>
@@ -106,9 +107,8 @@ function App() {
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
               <Route path="/mappedbranches" component={MappedBranches}></Route>
               <Route path="/products/loanproducts" component={LoanProducts}/>
-
-
               </div>
+              
           </Switch>
         </div>
       </Router>

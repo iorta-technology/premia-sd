@@ -735,7 +735,7 @@ const NewLead = React.memo(() => {
           scrollToFirstError
           form={form}
           help={errorMessage}
-          onFinish={onFinish}
+          onFinish={submitHandler}
           initialValues={{
             "firstname": firstName,
             "lastname": lastName,
@@ -1029,7 +1029,7 @@ const NewLead = React.memo(() => {
                     rules={[
                       {
                         required: true,
-                        message: 'This field is required',
+                        message: 'Please Select Lead Status',
                       },
                     ]}
                   >
@@ -1301,18 +1301,20 @@ const NewLead = React.memo(() => {
                       style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
                       shape="round"
                       size="large"
-                      icon={<FileTextOutlined />} htmlType="submit"
+                      icon={<FileTextOutlined />} 
+                      htmlType="submit"
                       // disabled={!formIsValid}
-                      onClick={submitHandler}
+                      // onClick={submitHandler}
                     >Submit</Button> :
                     <Button
                       type="primary"
                       shape="round"
                       size="large"
                       style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                      icon={<EditOutlined />} htmlType="submit"
+                      icon={<EditOutlined />} 
+                      htmlType="submit"
                       // disabled={!formIsValid}
-                      onClick={updateLeadHandler}
+                      // onClick={updateLeadHandler}
                     >Update</Button>
                   }
                 </Col>
