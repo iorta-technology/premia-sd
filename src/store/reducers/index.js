@@ -8,7 +8,7 @@ import activitiesReducer from './home';
 import kpiDashboardReducer from './kpiDashboard'
 import renewalReducer from './renewals'
 import productReducer from './product'
-
+import agentReducer from './agentMicroSite'
 // import activitiesReducer from './home'
 import historyReducer from './history'
 // import pendencyReducer from './penc'
@@ -23,6 +23,7 @@ const rootReducer = combineReducers({
     renewals: renewalReducer,
     history:historyReducer,
     product:productReducer,
+    agent:agentReducer,
     // pendencies:pendencyReducer
 });
 

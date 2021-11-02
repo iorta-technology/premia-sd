@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import './AgentMicroSite.css';
 import { Link } from 'react-router-dom';
 import mainLogo from '../../images/logo.svg';
@@ -34,17 +34,40 @@ import {FilePdfOutlined} from '@ant-design/icons';
 // import { Player } from "video-react";
 import ReactPlayer from 'react-player'
 // import "video-react/dist/video-react.css";
-import { useHistory } from 'react-router';
+import { useHistory,useParams,useLocation } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
+import * as actions from '../../store/actions/index';
+
 import axios from '../../axios-common';
 const { Option } = Select;
+function useQuery() {
+    // new URLSearchParams(useLocation().search).get('name')
+    return new URLSearchParams(useLocation().search);
+}
 const AgentMicroService = () => {
+
     const [form] = Form.useForm();
     const [firstName,setFirstName] = useState('');
     const [lastName,setLastName]= useState('')
     const [mobile,setMobile]= useState('')
     const [product,setProduct]= useState('')
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [isVideoModalVisible, setIsVideoModalVisible] = useState(false);
+    const [isVideoModalVisible, setIsVideoModalVisible] = useState(false)
+    const dispatch = useDispatch()
+    // let query = useQuery();
+    const search = useLocation().search;
+  const name = new URLSearchParams(search).get('name');  
+  const agentId = new URLSearchParams(search).get('agent_id');
+    // const {name,agent_id} = useParams()
+    // const {first_name,last_name,agent_id,} = useSelector((state)=>state.agent.agentDetails)
+    // query.get('name')
+    // query.get('agent_id')
+    console.log(name)
+    console.log(agentId)
+    useEffect(() => {
+        dispatch(actions.fetchAgentDetails(name,agentId))
+        
+    }, [dispatch])
     const payload={
         user_id: "5df77d17009e273b39cae811",
         Product: product,
