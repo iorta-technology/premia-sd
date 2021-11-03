@@ -23,12 +23,13 @@ const fetchAgentDetailsFail = (state, action) => {
 
 
 const reducer = (state = initialState, action) => {
+
     switch (action.type) {
       
         //state
-        case actionTypes.FETCH_STATES_START: return fetchAgentDetailsStart(state, action)
-        case actionTypes.FETCH_STATES_SUCCESS: return fetchAgentDetailsSuccess(state, action)
-        case actionTypes.FETCH_STATES_FAIL: return fetchAgentDetailsFail(state, action)
+        case actionTypes.FETCH_AGENT_DETAILS_START: return fetchAgentDetailsStart(state, action)
+        case actionTypes.FETCH_AGENT_DETAILS_SUCCESS: return fetchAgentDetailsSuccess(state, action)
+        case actionTypes.FETCH_AGENT_DETAILS_FAIL: return fetchAgentDetailsFail(state, action)
 
         default: return state
     }

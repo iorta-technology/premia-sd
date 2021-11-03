@@ -24,22 +24,22 @@ export const fetchAgentDetailsFail = (error) => {
 }
 
 export const fetchAgentDetails = (name,agentId) => {
-       
+       let noAgent = 'No agent exist'
     return dispatch => {
         dispatch(fetchAgentDetailsStart())
-        return axios.get(`profile?name=${name}&agent_id=${agentId}`)
+        return axios.get(`user/get-microsite-settings/${agentId}`)
             .then(res => {
-                // console.log(res.data.errMsg[1][0].count)
-                const response = res.data.errMsg
-                const errorCode = res.data.errCode
-                if(errorCode===-1){
+                // console.log(res.data)
+                const response = res.data
+                if(response.status===200){
+                    return dispatch(fetchAgentDetailsSuccess(response.data[0]))
 
-                    return dispatch(fetchAgentDetailsSuccess(response[0],response[1][0].count))
                 }else{
-                    throw response
+                    throw noAgent
                 }
             })
             .catch(error => {
+                // console.log(error)
                 return dispatch(fetchAgentDetailsFail(error))
             })
     }
