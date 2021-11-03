@@ -38,3 +38,9 @@
     padding: 30px;
     background: #E0E9F3;
   }
+  .slNo{
+    background:'#00ACC1';
+    color:'#fff';
+    border-radius:'80px';
+    padding:'5px'
+  }
