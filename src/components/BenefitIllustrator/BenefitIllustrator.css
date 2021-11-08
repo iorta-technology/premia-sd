@@ -1,25 +1,13 @@
 .form-container{
     background-color: #fafafa;
-    margin: 0 auto;
-    /* overflow-x: hidden; */
-    /* overflow-y: visible; */
-}
-
-/* .benefitillustrator1,.benefitillustrator2{
-    height: 20vh;
-} */
-
-/* .benefitillustrator3{
-    height: 50vh;
-} */
-
+    margin: 3vw;
+    }
 .benefitillustrator1,
 .benefitillustrator2,
 .benefitillustrator3,
 .btn-container{
     margin-left: 0 auto;
     padding: 20px 20px;
-    /* height: 200vh; */
     border-radius: 5px;
     background-color: #fff;
     box-shadow:  1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
@@ -28,9 +16,25 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
-.heading {
+.labels {
+    display: flex;
+    line-height: 1.5;
+    flex-direction: row;
+    color: rgb(153, 153, 153);
+    font-size: 16px;
+}
+.head2 {
+    display: flex;
+    flex-direction: row;
+    color: #565656;
+    font-family: robotobold;
+    font-size: 20px;
+    padding: 10px 0px;
+}
+.bi-heading {
+    display: flex;
     font-size: 18px !important;
-    text-decoration: underline;
+    text-decoration: underline !important;
 }
 .contact-detail-form{
     display: flex;
@@ -38,6 +42,11 @@
     gap:0 10px;
 }
 .para {
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: bold;
     background-color: #fafafa;
 }
 .contact-detail-form>.ant-col{
@@ -85,6 +94,21 @@
     cursor: pointer;
   }
   
+  .radio{
+    background-color: #fff;
+    color: black !important;
+    border: 1px solid #3b371e !important;
+    }
+  .radio:focus {
+    color: #fff;
+    background-color: #3b371e !important;
+    border: 1px solid #3b371e !important; 
+  }
+  .radio:hover {
+    background-color: #3b371e; 
+    color: white !important; 
+    border: 2px solid #3b371e !important;
+  }
   .button1 {
     background-color: white !important; 
     color: black; 
@@ -107,6 +131,12 @@
     width: 10vw;
     text-align: center;
 } */
+.bi-btn1{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    color: #000;
+}
 .btn2{
     display: flex;
     justify-content: space-between;
@@ -122,10 +152,7 @@
     background-color: #3b371e;
     color: #fff; 
 }
-/* .radio{
-    background-color: #3b371e;
-    color: #fff;  
-} */
+
 .label-color>.ant-form-item-label{
     color: rgb(159, 159, 159);
 }

@@ -6,6 +6,7 @@ export {
     fetchLeadDetails,
     createLead,
     storeLead,
+    editLead
 }from './newLead'
 export {
     fetchAllState,
@@ -20,10 +21,19 @@ export {
 // export { home,activities } from './home'
 // export { activities } from './home'
 export { kpiDashboard } from './kpiDashboard'
-export {fetchAllRenewals,fetchPaidRenewals,fetchUnPaidRenewals, fetchLapsedRenewals} from './renewals'
+export {fetchAllRenewals,fetchPaidRenewals,fetchUnPaidRenewals, fetchLapsedRenewals,fetchRenewalDetails} from './renewals'
 export { 
     home,activities 
 } from './home'
 export {
     fetchHistory
 }from './history'
+
+export {
+    fetchProduct,
+    fetchPlanName
+}from './product'
+
+export {
+    fetchAgentDetails
+}from './agentMicrosite'

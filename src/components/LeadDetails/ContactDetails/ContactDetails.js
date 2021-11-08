@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Form, Typography, Cascader, Button, Input, Switch, Select } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined, FileTextOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import _, { add } from "lodash";
@@ -50,27 +50,37 @@ const tabMenu = [
 
 
 const ContactDetails = React.memo(() => {
+    const storeFormData = useSelector((state) => state.newLead.formData)
+
     const states = useSelector((state) => state.address.states)
     const cities = useSelector((state) => state.address.cities)
-    let storeFormData = useSelector((state) => state.newLead.formData)
+    const storeSecondaryMobile = useSelector((state) => state.newLead.formData.secondaryMobile)
+    const storeLandLine = useSelector((state) => state.newLead.formData.landlineNo)
+    const storeAadharNo = useSelector((state) => state.newLead.formData.socialSecurityAdharNo)
+    const storeMailingAddressStatus = useSelector((state) => state.newLead.formData.mailingAddressStatus)
 
+    const { line1, line2, line3 } = useSelector((state) => state.newLead.address)
+    const { mailingaddress: { secAddline1, secAddline2, secAddline3 } } = useSelector((state) => state.newLead.mailingAddressSecond)
+    const storeLeadId = useSelector((state) => state.newLead.leadId)
+
+    const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
-    const [addressLine1, setAddressLine1] = useState()
-    const [addressLine2, setAddressLine2] = useState()
-    const [addressLine3, setAddressLine3] = useState()
+    const [addressLine1, setAddressLine1] = useState(line1)
+    const [addressLine2, setAddressLine2] = useState(line2)
+    const [addressLine3, setAddressLine3] = useState(line3)
     const [stateProvince, setStateProvince] = useState()
     const [cityProvince, setCityProvince] = useState()
     const [pincode, setPinCode] = useState()
     const [isPincodeValid, setIsPinCodeValid] = useState()
-    const [primaryPhoneNumber, setPrimaryPhoneNumber] = useState(storeFormData.primaryMobile)
-    const [secondaryMobile, setSecondaryMobile] = useState()
-    const [landlineNo, setLandlineNo] = useState()
-    const [aadharNo, setAadharNo] = useState()
+    const [primaryMobile, setPrimaryMobile] = useState(storeFormData.primaryMobile)
+    const [secondaryMobile, setSecondaryMobile] = useState(storeSecondaryMobile)
+    const [landlineNo, setLandlineNo] = useState(storeLandLine)
+    const [aadharNo, setAadharNo] = useState(storeAadharNo)
     const [email, setEmailAddress] = useState(storeFormData.email)
-    const [isSameAddress, setIsSameAddress] = useState(true)
-    const [secaddressLine1, setSecAddressLine1] = useState()
-    const [secaddressLine2, setSecAddressLine2] = useState()
-    const [secaddressLine3, setSecAddressLine3] = useState()
+    const [isSameAddress, setIsSameAddress] = useState(storeMailingAddressStatus)
+    const [secaddressLine1, setSecAddressLine1] = useState(secAddline1)
+    const [secaddressLine2, setSecAddressLine2] = useState(secAddline2)
+    const [secaddressLine3, setSecAddressLine3] = useState(secAddline3)
     const [secstateProvince, setSecStateProvince] = useState()
     const [seccityProvince, setSecCityProvince] = useState()
     const [isSecPincodeValid, setIsSecPinCodeValid] = useState()
@@ -82,8 +92,61 @@ const ContactDetails = React.memo(() => {
     const history = useHistory()
 
     useEffect(() => {
+        // console.log(line1,line2,line3)
+        // console.log(storeFormData)
         dispatch(actions.fetchAllState())
     }, [dispatch]);
+
+    useEffect(() => {
+        // console.log(storeMailingAddress)
+        // console.log(storeMailingAddress.mailingaddress.line1)
+
+        form.setFieldsValue({
+            "addline1": addressLine1,
+            "addline2": addressLine2,
+            "addline3": addressLine3,
+            "country": 'India',
+            "state": stateProvince,
+            "city": cityProvince,
+            "pincode": pincode,
+            "primaryNo": primaryMobile,
+            "secondaryNo": secondaryMobile,
+            "landlineNo": landlineNo,
+            "aadharNo": aadharNo,
+            "email": email,
+            "addStatus": isSameAddress,
+            "secAddLine1": secaddressLine1,
+            "secAddLine2": secaddressLine2,
+            "secAddLine3": secaddressLine3,
+            "secAddCountry": 'India',
+            "secAddState": secstateProvince,
+            "secAddCity": seccityProvince,
+            "secAddPin": secpinCode,
+        })
+    }, [
+        addressLine1,
+        addressLine2,
+        addressLine3,
+        'India',
+        stateProvince,
+        cityProvince,
+        pincode,
+        primaryMobile,
+        secondaryMobile,
+        landlineNo,
+        aadharNo,
+        email,
+        isSameAddress,
+        secaddressLine1,
+        secaddressLine2,
+        secaddressLine3,
+        'India',
+        secstateProvince,
+        seccityProvince,
+        secpinCode,
+        form
+    ])
+
 
     let stateOptions = (states && !_.isEmpty(states)) ?
         states.map(state => {
@@ -116,13 +179,13 @@ const ContactDetails = React.memo(() => {
     }
     const pincodeHandler = (event) => {
         let value = event.target.value
-        if(value.trim() !== '' && value.length === 6){
+        if (value.trim() !== '' && value.length === 6) {
             setIsPinCodeValid(true)
             setPinCode(event.target.value)
-        }  
+        }
     }
     const primaryNoHandler = (event) => {
-        setPrimaryPhoneNumber(event.target.value)
+        setPrimaryMobile(event.target.value)
     }
     const secondaryNoHandler = (event) => {
         setSecondaryMobile(event.target.value)
@@ -189,7 +252,7 @@ const ContactDetails = React.memo(() => {
         state: stateProvince,
         city: cityProvince,
         pincode: pincode,
-        primaryMobile: primaryPhoneNumber,
+        primaryMobile: primaryMobile,
         secondaryMobile: secondaryMobile,
         landlineNo: landlineNo,
         socialSecurityAdharNo: aadharNo,
@@ -207,14 +270,14 @@ const ContactDetails = React.memo(() => {
         }
 
     };
-  let formIsValid = false;
+    let formIsValid = false;
 
     const proceedHandler = event => {
         event.preventDefault();
 
         if (isSameAddress) {
 
-             formIsValid = isPincodeValid
+            formIsValid = isPincodeValid
             if (!formIsValid) {
                 return;
             } else {
@@ -231,6 +294,26 @@ const ContactDetails = React.memo(() => {
             }
         }
 
+
+        // setErrorMessage('Form submitted successfully')
+        // setIsNewLead(false)
+        // setErrorMessage( res.data.errMsg)
+
+
+
+        // resetFirstName();
+        // resetLastName();
+        // resetEmail();
+    };
+    const updateHandler = event => {
+        event.preventDefault();
+        dispatch(actions.editLead(formData, storeLeadId))
+        history.push('professionallead')
+
+        // if (!formIsValid) {
+        //   return;
+        // }else{
+        // }
 
         // setErrorMessage('Form submitted successfully')
         // setIsNewLead(false)
@@ -259,19 +342,37 @@ const ContactDetails = React.memo(() => {
 
             />
             <div className="form-container">
-                <Row gutter={[0, 10]} justify="center">
+                <Form
+                    layout="horizontal"
+                    className="contact-detail-form"
+                    initialValues={{
+                        "addline1": addressLine1,
+                        "addline2": addressLine2,
+                        "addline3": addressLine3,
+                        "country": 'India',
+                        "state": stateProvince,
+                        "city": cityProvince,
+                        "pincode": pincode,
+                        "primaryNo": primaryMobile,
+                        "secondaryNo": secondaryMobile,
+                        "landlineNo": landlineNo,
+                        "aadharNo": aadharNo,
+                        "email": email,
+                        "addStatus": isSameAddress,
+                        "secAddLine1": secaddressLine1,
+                        "secAddLine2": secaddressLine2,
+                        "secAddLine3": secaddressLine3,
+                        "secAddCountry": 'India',
+                        "secAddState": secstateProvince,
+                        "secAddCity": seccityProvince,
+                        "secAddPin": secpinCode,
+                    }}>
+                    <Row gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="2" />
-                    <Col className="m0a" xs={22} sm={22} md={17} >
-                        <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
+                        <Col className=" form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
                             <p className="form-title">Contact Details</p>
-                            <Form
-                                layout="horizontal"
-                                className="contact-detail-form"
-                                initialValues={{
-                                    "primaryNo": primaryPhoneNumber,
-                                    "email": email
-                                }}>
-                                <Col >
+                            <Row gutter={16} className="mb2"  >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -289,7 +390,7 @@ const ContactDetails = React.memo(() => {
                                             onChange={addLine1Handler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -307,11 +408,11 @@ const ContactDetails = React.memo(() => {
                                             onChange={addLine2Handler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name='landmark'
+                                        name='addline3'
                                         label="Landmark"
                                         rules={[
                                             {
@@ -325,7 +426,7 @@ const ContactDetails = React.memo(() => {
                                             onChange={addLine3Handler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -346,11 +447,11 @@ const ContactDetails = React.memo(() => {
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="State"
+                                        name="state"
                                         label="State"
                                         hasFeedback
                                         rules={[
@@ -371,11 +472,11 @@ const ContactDetails = React.memo(() => {
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="City"
+                                        name="city"
                                         label="City"
                                         hasFeedback
                                         rules={[
@@ -395,7 +496,7 @@ const ContactDetails = React.memo(() => {
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -419,7 +520,7 @@ const ContactDetails = React.memo(() => {
                                             onChange={pincodeHandler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -443,7 +544,7 @@ const ContactDetails = React.memo(() => {
                                             onChange={primaryNoHandler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -467,7 +568,7 @@ const ContactDetails = React.memo(() => {
                                             onChange={secondaryNoHandler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -485,7 +586,7 @@ const ContactDetails = React.memo(() => {
                                             onChange={landlineNoHandler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -509,7 +610,7 @@ const ContactDetails = React.memo(() => {
                                             onChange={aadharNoHandler} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -529,185 +630,199 @@ const ContactDetails = React.memo(() => {
                                             onChange={emailAddressHandler} />
                                     </Form.Item>
                                 </Col>
-                            </Form>
-                            <div className="form-title">
-                                <Title level={5} style={{ marginTop: '1rem' }}>Permanent Address</Title>
-                            </div>
-                            <Col >
-                                <Form.Item
-                                    className="form-item-name label-color"
-                                    name={['user', 'name']}
-                                    label="Is your permarent address same as mailing address?"
-                                    rules={[
-                                        {
-                                            required: false,
-                                        },
-                                    ]}
-                                >
-                                    <Switch
-                                        size="large"
-                                        checkedChildren="Yes"
-                                        unCheckedChildren="NO"
-                                        defaultChecked={true}
-                                        onChange={CheckMailingAddSameAsPermanentAdd} />
-                                </Form.Item>
-                            </Col>
-                            {!isSameAddress &&
-                                <Form layout="horizontal" className="contact-detail-form">
-                                    <Col >
-                                        <Form.Item
-                                            {...formItemLayout}
-                                            className="form-item-name label-color"
-                                            name={['user', 'name']}
-                                            label="Address line 1"
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                },
-                                            ]}
-                                        >
-                                            <Input
-                                                className="first-name input-box"
-                                                placeholder="Enter Address line 1"
-                                                onChange={secAddLine1Handler} />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col >
-                                        <Form.Item
-                                            {...formItemLayout}
-                                            className="form-item-name label-color"
-                                            name={['user', 'name']}
-                                            label="Address line 2"
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                },
-                                            ]}
-                                        >
-                                            <Input
-                                                className="first-name input-box"
-                                                placeholder="Enter Address line 2"
-                                                onChange={secAddLine2Handler} />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col >
-                                        <Form.Item
-                                            {...formItemLayout}
-                                            className="form-item-name label-color"
-                                            name={['user', 'name']}
-                                            label="Landmark"
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                },
-                                            ]}
-                                        >
-                                            <Input
-                                                className="first-name input-box"
-                                                placeholder="Enter Landmark"
-                                                onChange={secAddLine3Handler} />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col >
-                                        <Form.Item
-                                            {...formItemLayout}
-                                            className="form-item-name label-color"
-                                            name="country"
-                                            label="Country"
-                                            hasFeedback
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                    message: 'Please select your city!',
-                                                },
-                                            ]}
-                                            style={{ marginBottom: '1rem' }}
-                                        >
-                                            <Select
-                                                size="large"
-                                                placeholder="India">
-                                            </Select>
-                                        </Form.Item>
-                                    </Col>
-                                    <Col >
-                                        <Form.Item
-                                            {...formItemLayout}
-                                            className="form-item-name label-color"
-                                            name="State"
-                                            label="State"
-                                            hasFeedback
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                    message: 'Select your State!',
-                                                },
-                                            ]}
-                                            style={{ marginBottom: '1rem' }}
 
-                                        >
-                                            <Select
-                                                size="large"
-                                                placeholder="Select Your State"
-                                                options={stateOptions}
-                                                onSelect={secStateSelectHandler}
-                                                onChange={secStateChangedHandler}>
-                                            </Select>
-                                        </Form.Item>
-                                    </Col>
-                                    <Col >
-                                        <Form.Item
-                                            {...formItemLayout}
-                                            className="form-item-name label-color"
-                                            name="City"
-                                            label="City"
-                                            hasFeedback
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                    message: 'Please select your city!',
-                                                },
-                                            ]}
-                                            style={{ marginBottom: '1rem' }}
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                    <Form.Item
+                                        className="form-item-name label-color"
+                                        name='addStatus'
+                                        label="Is your permarent address same as mailing address?"
+                                        rules={[
+                                            {
+                                                required: false,
+                                            },
+                                        ]}
+                                    >
+                                        <Switch
+                                            size="large"
+                                            checkedChildren="Yes"
+                                            unCheckedChildren="NO"
+                                            defaultChecked={true}
+                                            onChange={CheckMailingAddSameAsPermanentAdd} />
+                                    </Form.Item>
+                                </Col>
+                                {!isSameAddress &&
+                                    // <Form layout="horizontal" className="contact-detail-form">
+                                    <>
+                                        <Col xs={24} sm={24} md={24} lg={24} xl={24} className="form-title">
+                                            <Title level={5} style={{ marginTop: '1rem' }}>Permanent Address</Title>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name='secAddLine1'
+                                                label="Address line 1"
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                    },
+                                                ]}
+                                            >
+                                                <Input
+                                                    className="first-name input-box"
+                                                    placeholder="Enter Address line 1"
+                                                    onChange={secAddLine1Handler} />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name='secAddLine2'
+                                                label="Address line 2"
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                    },
+                                                ]}
+                                            >
+                                                <Input
+                                                    className="first-name input-box"
+                                                    placeholder="Enter Address line 2"
+                                                    onChange={secAddLine2Handler} />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name='secAddLine3'
+                                                label="Landmark"
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                    },
+                                                ]}
+                                            >
+                                                <Input
+                                                    className="first-name input-box"
+                                                    placeholder="Enter Landmark"
+                                                    onChange={secAddLine3Handler} />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name="secAddCountry"
+                                                label="Country"
+                                                hasFeedback
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                        message: 'Please select your city!',
+                                                    },
+                                                ]}
+                                                style={{ marginBottom: '1rem' }}
+                                            >
+                                                <Select
+                                                    size="large"
+                                                    placeholder="India">
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name="secAddState"
+                                                label="State"
+                                                hasFeedback
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                        message: 'Select your State!',
+                                                    },
+                                                ]}
+                                                style={{ marginBottom: '1rem' }}
 
-                                        >
-                                            <Select
-                                                size="large"
-                                                placeholder="Select a city"
-                                                options={citiesOptions}
-                                                onChange={secCityChangedHandler}>
-                                            </Select>
-                                        </Form.Item>
-                                    </Col>
-                                    <Col >
-                                        <Form.Item
-                                            {...formItemLayout}
-                                            className="form-item-name label-color"
-                                            name={['user', 'name']}
-                                            label="Pincode"
-                                            rules={[
-                                                {
-                                                    required: false,
-                                                },
-                                                {
-                                                    min: 6,
-                                                    max: 6,
-                                                    pattern: '^([-]?[1-9][0-9]*|0)$',
-                                                    message: 'Pincode must be 6 characters'
-                                                }
-                                            ]}
-                                        >
-                                            <Input
-                                                className="first-name input-box"
-                                                placeholder="Enter Pincode"
-                                                onChange={secPincodeHandler} />
-                                        </Form.Item>
-                                    </Col>
-                                </Form>}
+                                            >
+                                                <Select
+                                                    size="large"
+                                                    placeholder="Select Your State"
+                                                    options={stateOptions}
+                                                    onSelect={secStateSelectHandler}
+                                                    onChange={secStateChangedHandler}>
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name="secAddCity"
+                                                label="City"
+                                                hasFeedback
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                        message: 'Please select your city!',
+                                                    },
+                                                ]}
+                                                style={{ marginBottom: '1rem' }}
+
+                                            >
+                                                <Select
+                                                    size="large"
+                                                    placeholder="Select a city"
+                                                    options={citiesOptions}
+                                                    onChange={secCityChangedHandler}>
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                            <Form.Item
+                                                {...formItemLayout}
+                                                className="form-item-name label-color"
+                                                name='secAddPin'
+                                                label="Pincode"
+                                                rules={[
+                                                    {
+                                                        required: false,
+                                                    },
+                                                    {
+                                                        min: 6,
+                                                        max: 6,
+                                                        pattern: '^([-]?[1-9][0-9]*|0)$',
+                                                        message: 'Pincode must be 6 characters'
+                                                    }
+                                                ]}
+                                            >
+                                                <Input
+                                                    className="first-name input-box"
+                                                    placeholder="Enter Pincode"
+                                                    onChange={secPincodeHandler} />
+                                            </Form.Item>
+                                        </Col>
+                                    </>
+                                }
+                            </Row>
                         </Col>
-                        <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={20} lg={20} xl={20} span={24} >
-                            <Row>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
+                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6:0}>
+                            <Row gutter={[8,8]}>
+                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
                                     <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                </Col>
+                                <Col xs={11} sm={12} md={4} >
+                                    <Button
+                                        type="primary"
+                                        shape="round"
+                                        size="large"
+                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                        icon={<FileTextOutlined />} htmlType="submit"
+                                        // disabled={!formIsValid}
+                                        onClick={updateHandler}
+                                    >Update</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
                                     <Button
@@ -720,9 +835,10 @@ const ContactDetails = React.memo(() => {
                                 </Col>
                             </Row>
                         </Col>
-                    </Col>
-                </Row>
+                    </Row>
+                </Form>
             </div>
+
         </>
     )
 })

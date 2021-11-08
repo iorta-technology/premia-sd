@@ -6,17 +6,17 @@ import {useHistory } from 'react-router-dom';
 import RenewalDetails from '../RenewalDetails';
 const Cards = React.memo((props) => {
 
-    const {user_Id,userStatus,fullName,annualisedPremium,end_date} = props
+    const {user_Id,userStatus,fullName,annualisedPremium,end_date,proposer_ID_refs} = props
   const leadComponent = 
-  userStatus === 'paid'
+  userStatus === 'Paid'
   ? 
   <p className="user-status-text capitalize open">{userStatus}</p>
   :
-  userStatus === 'unpaid'
+  userStatus === 'unPaid'
   ?
   <p className="user-status-text capitalize converted">{userStatus}</p>
   :
-  userStatus === 'lapsed'
+  userStatus === 'Lapsed'
   ?
   <p className="user-status-text capitalize failed">{userStatus}</p>
   :
@@ -27,8 +27,6 @@ const Cards = React.memo((props) => {
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
     const history = useHistory()
-    const details = React.lazy(()=>{import('../RenewalDetails')})
-    let detailsRoute = "/renewalMaster/Details"
      useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
@@ -38,7 +36,8 @@ const Cards = React.memo((props) => {
     }, [width]);
 
     const viewDetailsHandler =()=>{
-        history.push('/renewalMaster/Details')
+        console.log("proposer id",proposer_ID_refs)
+        history.push({pathname:'/renewalMaster/Details',state: { proposer_ID_refs: proposer_ID_refs }})
     }
 
     // Card for desktop
@@ -48,7 +47,7 @@ const Cards = React.memo((props) => {
                 className="lead-card-desktop"
                 hoverable={true}>
                     <div className="avatar-and-status">
-                        <Avatar size={{xl: 50}}>{avatar}</Avatar>
+                        <Avatar style={{backgroundColor:'blueviolet'}} size={{xl: 50}}>{avatar}</Avatar>
                         {leadComponent}
                     </div>
                     <div className="content">

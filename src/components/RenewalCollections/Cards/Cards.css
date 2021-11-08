@@ -19,10 +19,10 @@
     color: red;
 }
 .converted{
-    color: green;
+    color: #00ACC1;
 }
 .open{
-    color: yellow;
+    color: green;
 }
 .capitalize{
     text-transform: capitalize;

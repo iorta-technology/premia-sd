@@ -56,3 +56,22 @@
     left: 90vw;
     bottom: 5vh;
 }
+.bg-norecord{
+    margin-top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url('https://sdrestdemo.iorta.in/assets/078e54aa9d.png');
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 220px;
+    height: 240px;
+}
+.norecord-title{
+    margin-bottom: 90px;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+    color:#666666;
+    font-weight: 600;
+}
