@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar,Tabs,Button ,Popover,Drawer} from 'antd';
+import { Avatar,Tabs,Button ,Popover,Drawer,Input,Tag} from 'antd';
 import './ExistingPartner.css';
 import {
    PhoneFilled,
@@ -14,15 +14,15 @@ import axios from 'axios';
 const UserList = ['U', 'L', 'To', 'Ed'];
 const ColorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 const GapList = [4, 3, 2, 1];
-
+const { Search } = Input;
 const ExistingPartner=()=>{
     const [user, setUser] = useState(UserList[0]);
     const [color, setColor] = useState(ColorList[0]);
     const [gap, setGap] = useState(GapList[0]);
-    const [visible, setVisible] = useState(false);
+    const [drawerVisible, setDrawerVisible] = useState(false);
  
-
-
+const[filterTagVisible,setFilterTagVisible]=useState(false)
+const[searchFilterValue,setSearchFilterValue]=useState("")
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState("top");
@@ -33,11 +33,17 @@ not_met_tab:false,
 active_tab:false,
 inactive_tab:false
 })
+
+const[searchTypeTabCheck,setSearchTypeTabCheck]=useState({
+  name:true,
+  mobile:false,
+  partnerId:false
+})
 const showDrawer = () => {
-    setVisible(true);
+    setDrawerVisible(true);
   };
   const onClose = () => {
-    setVisible(false);
+    setDrawerVisible(false);
   };
 const changeUser = () => {
     const index = UserList.indexOf(user);
@@ -50,7 +56,7 @@ const changeUser = () => {
     setGap(index < GapList.length - 1 ? GapList[index + 1] : GapList[0]);
   };
   const ButtonDrawerVisibleFunc=()=>{
-    setVisible(true);
+    setDrawerVisible(true);
   }
 const AllTabClickFunc=()=>{
     setExistingPartnerTabCheck({
@@ -98,8 +104,37 @@ const InactiveTabClickFunc=()=>{
         inactive_tab:true ,
     })
 }
-
-
+const SearchFilterNameFunc=()=>{
+setSearchTypeTabCheck({
+  name:true,
+  mobile:false,
+  partnerId:false
+})
+}
+const SearchFilterMobileFunc=()=>{
+  setSearchTypeTabCheck({
+    name:false,
+    mobile:true,
+    partnerId:false
+  })
+}
+const SearchFilterPartnerIdFunc=()=>{
+  setSearchTypeTabCheck({
+    name:false,
+    mobile:false,
+    partnerId:true
+  })
+}
+const FilterTagCloseFunc=()=>{
+  setFilterTagVisible(false)
+}
+const ApplyFilterButtonFunc=()=>{
+  setFilterTagVisible(true)
+  setDrawerVisible(false)
+}
+const SearchFilterValueFunc=(e)=>{
+setSearchFilterValue(e.target.value)
+}
 
     return(
         <div
@@ -109,12 +144,13 @@ const InactiveTabClickFunc=()=>{
 className="Existingpartner-topview-flex"
 >
     <div
-    className="Exisitngpartner-main-heading-flex"
+    className={width>"767"?"Exisitngpartner-main-heading-flex":""}
     >
+      <div className="Existingpartner-heading-content-style">
     <p
     className="Existingpartner-main-heading"
     >Existing Partner</p>
-    </div>
+
    
 
     {width>"769"?   <div
@@ -199,7 +235,7 @@ onClick={AllTabClickFunc}
 
 
   
-    </div>
+    </div>  
     :
     <div
     className="Existingpartner-tab-mobile-view-box"
@@ -231,13 +267,28 @@ key="6"
 
   </div>
   }
+   </div>
+   </div>
     <div
     className="Existingpartner-content-area-style"
     >
-     
+      <div
+      className="Existingpartner-Tag-area-flex"
+      >
+      <Tag
+          closable
+          visible={filterTagVisible}
+          onClose={FilterTagCloseFunc}
+          className="Existingpartner-filter-tag-style"
+        >
+        {searchFilterValue}
+        </Tag>
+      </div>
+        
     <div
     className="Existingpartner-card-flex"
     >
+      
         <div
         className="Existingpartner-card-style"
         >
@@ -650,13 +701,86 @@ className="Existingpartner-bottomview-flex"
     className="Existingpartner-bottomview-row-flex"
     >
               <Drawer
-                 width="500"
+                 width={width>"767"?"500":"315"}
                  height="50"
               className="Existingpartner-drawer-style"
-              title="Select Filter" placement="right" onClose={onClose} visible={visible}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+              title={<p  className="Existingpartner-drawer-sortby-text-style">Select Filter</p>} placement="right" onClose={onClose} visible={drawerVisible}>
+      <div
+      className="Existingpartner-drawer-card-style"
+      >
+        <div
+        className="Existingpartner-drawer-sort-flex"
+        >
+        <p
+        className="Existingpartner-drawer-sortby-text-style"
+        >Sort By</p>
+
+        <select
+        className="Existingpartner-drawer-select-dropdown-style"
+        >
+
+          <option>Date of Joining-Newest First</option>
+          <option>Date of Joining-Oldest First</option>
+        </select>
+        </div>
+     
+      </div>
+
+      <div
+      className="Existingpartner-drawer-card-style"
+      >
+        <div
+        className="Existingpartner-drawer-sort-flex"
+        >
+        <p
+        className="Existingpartner-drawer-sortby-text-style"
+        >Search Type Selection</p>
+<div
+className="Existingpartner-drawer-button-flex"
+>
+<button
+onClick={SearchFilterNameFunc}
+        className={searchTypeTabCheck.name==true? "Existingpartner-drawer-selected-button-tab-style":"Existingpartner-drawer-notselected-button-tab-style"}
+        >Name
+        </button>
+        <button
+        onClick={SearchFilterMobileFunc}
+        className={searchTypeTabCheck.mobile==true? "Existingpartner-drawer-selected-button-tab-style":"Existingpartner-drawer-notselected-button-tab-style"}
+
+        >Mobile
+        </button>
+        <button
+        onClick={SearchFilterPartnerIdFunc}
+        className={searchTypeTabCheck.partnerId==true? "Existingpartner-drawer-selected-button-tab-style":"Existingpartner-drawer-notselected-button-tab-style"}
+
+        >Partner Id
+        </button>
+</div>
+<Search placeholder="Search By Name" allowClear
+value={searchFilterValue}
+onChange={SearchFilterValueFunc}
+className="Existingpartner-drawer-searchbox-style"
+/>
+        </div>
+     
+      </div>
+
+      <div
+      className="Existingpartner-drawer-card-style"
+      >
+     <div
+     className="Existingpartner-drawer-applybutton-flex"
+     >
+
+     <button
+        onClick={ApplyFilterButtonFunc}
+        className="Existingpartner-drawer-selected-button-tab-style"
+
+        >Apply
+        </button>
+     </div>
+      </div>
+       
       </Drawer>
 
         
