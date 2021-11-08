@@ -2,11 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { Tabs } from 'antd'
 import './Tab.css'
 import _ from "lodash";
-import { useHistory } from 'react-router-dom';
+import { useHistory,useParams } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 const { TabPane } = Tabs
 
-const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
+const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,current }) => {
+    const dispatch = useDispatch()
+    const {leadType} = useParams()
+    const [activeTab, setactiveTab] = useState()
+    useEffect(() => {
+        console.log(typeof(leadType))
+        dispatch(actions.fetchAllLeads(leadType,current))
+    },[dispatch,current,activeTab]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
 
@@ -15,18 +24,57 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
     //     setactiveKey(key)
     // }
     const handler = (activeKey) => {
-        // console.log(activeKey)
-        // setactiveKey(key)
+        setactiveTab(activeKey)
+        // dispatch(actions.fetchAllLeads(activeTab,current))
 
+        // setactiveKey(key)
+        if(activeKey){
         switch (activeKey) {
+            case "all": return history.push('/leadMaster/all_leads');
+            case "fortoday": return history.push('/leadMaster/fortoday');
+            case "open": return history.push('/leadMaster/openlead');
+            case "converted": return history.push('/leadMaster/convertedleads');
+            case "failed": return history.push('/leadMaster/pendingproposal');
+
             case "1": return history.push('/leadmasterpage/statuslead');
             case "2": return history.push('/leadmasterpage/leaddetails/personallead');
             case "3": return history.push('/leadmasterpage/proposal');
             case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
             case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
+
+            case "6": return history.push('/renewalMaster/allRenewals');
+            case "7": return history.push('/renewalMaster/paidRenewals');
+            case "8": return history.push('/renewalMaster/unpaidRenewals');
+            case "9": return history.push('/renewalMaster/lapsedRenewals');
             default:  return history.push('/leadmasterpage/statuslead');
+
         }
     }
+    // if(activeKey){
+    //     switch (activeKey) {
+    //         case "1": return history.push('/renewalMaster/allRenewals');
+    //         case "2": return history.push('/renewalMaster/paidRenewals');
+    //         case "3": return history.push('/renewalMaster/unpaidRenewals');
+    //         case "4": return history.push('/renewalMaster/lapsedRenewals');
+    //     }
+    // }
+}
+    
+
+    // const handler = (activeRenewalkey) => {
+    //     // console.log(activeKey)
+    //     // setactiveKey(key)
+
+    //     switch (activeRenewalkey) {
+    //         case "1": return history.push('/renewalMaster/all');
+    //         // case "2": return history.push('/leadmasterpage/leaddetails/personallead');
+    //         // case "3": return history.push('/leadmasterpage/proposal');
+    //         // case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
+    //         // case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
+    //         default:  return history.push('/leadmasterpage/statuslead');
+    //     }
+    // }
+
     let tabPane = []
     if (tabMenu && !_.isEmpty(tabMenu)) {
 
@@ -67,7 +115,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey }) => {
                         onTabClick={handler}
                         size="large"
                         activeKey={activeKey}
-                        style={{marginLeft:'110px'}}
+                        style={{marginLeft:'120px'}}
                     >
                         {tabPane}
                     </Tabs>

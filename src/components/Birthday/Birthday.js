@@ -1,53 +1,66 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Birthday.css';
+import { Tabs } from 'antd';
 import { Row, Col } from 'antd';
 import { Button } from 'antd';
 import Title from 'antd/lib/typography/Title';
+const { TabPane } = Tabs;
+function callback(key) {
+    console.log(key);
+}
+
 const Birthday = () => {
-
-
-return <Fragment >
-        {/* <div className="main-container">
-            <Row gutter={[40, 24]} justify="center">
-                <Col xs={{ order: 2 }} sm={14} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
-                    <Row gutter={['', 24]}>
-                        <Col className="contact-details" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                            <div className="form-title">
-                                <Title level={6}>Birthday</Title>
-                            </div>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        </div> */}
+    const [testState, setTestState] = useState(true)
+    let { innerWidth: width, innerHeight: height } = window;
+    console.log(width)
+    return <useState >
         <div className="main-container">
-            
-            <Row gutter={[40, 24]} >
-                <Col span={24}>
-
-                    <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                        <Col span={2}>
-                            <Button className="btn" shape="round" size="large" block={false} >Upcoming</Button>
-                        </Col>
-                        <Col span={2}>
-                            <Button className="btn" shape="round" size="large" block={false} >Recent</Button>
-                        </Col>
-                        <Col span={2}>
-                            <Button className="btn" shape="round" size="large" block={false} >Later</Button>
-                        </Col>
-                    </Row>
-
-
-
-                </Col>
-            </Row>
-
-
-
-
-
-            {/* </div> */}
-        </div>
-    </Fragment>
+            <div className="btn-section">
+                {width <= "375" ? <div className="tabs">
+                    <Tabs defaultActiveKey="1" onChange={callback}>
+                        <TabPane tab="Upcoming" key="1"></TabPane>
+                        <TabPane tab="Recent" key="2"></TabPane>
+                        <TabPane tab="Later" key="3"></TabPane>
+                    </Tabs></div> :
+                    <div className="card">
+                        <Row gutter={[16, 16]} >
+                            <Col span={16}>
+                            {/* {width <= "374" ? <h4>It works</h4> : <h4>It doesnt</h4>} */}
+                                <h1 className="Head1">Birthday</h1>
+                                <div className="gutter-example">
+                                    <Row gutter={16} justify="center">
+                                        <Col className="gutter-row" span={4}>
+                                            <div className="gutter-box">
+                                                <Button className="btn" shape="round" size="large" block={false} onChange={callback}>Upcoming</Button>
+                                            </div>
+                                        </Col>
+                                        <Col className="gutter-row" span={4}>
+                                            <div className="gutter-box">
+                                                <Button className="btn" shape="round" size="large" block={false} >Recent</Button>
+                                            </div>
+                                        </Col>
+                                        <Col className="gutter-row" span={4}>
+                                            <div className="gutter-box">
+                                                <Button className="btn" shape="round" size="large" block={false} >Later</Button>
+                                            </div>
+                                        </Col>
+                                        <Col className="gutter-row" span={4}>
+                                            <div className="gutter-box"></div>
+                                        </Col>
+                                        <Col className="gutter-row" span={4}>
+                                            <div className="gutter-box"></div>
+                                        </Col>
+                                        <Col className="gutter-row" span={4}>
+                                            <div className="gutter-box"></div>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>}
+                
+            </div >
+        </div >
+    </useState >
 }
 export default Birthday;

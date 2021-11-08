@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons'
 import './ProposalDetails.css'
 import Tabs from '../../components/Tab/Tab'
-
+import {Link} from 'react-router-dom'
 
 let proposalRoute = "/leadmasterpage/proposal"
 const tabMenu = [
@@ -47,7 +47,7 @@ const ProposalDetails = () => {
                             <p className="proposal-title">Proposal Not Created Yet</p>
                             <div className="bg-proposal">
                             </div>
-                            <Button type="primary" className="product-btn" size="large" icon={<PlusCircleOutlined size="large" />}>Go To Product</Button>
+                            <Link to="/productmaster/protection"><Button type="primary" className="product-btn" size="large" icon={<PlusCircleOutlined size="large" />}>Go To Product</Button></Link>
                         </div>
                     </Col>
                 </Row>

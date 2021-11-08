@@ -42,7 +42,7 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
-.contact-detail-form{
+/* .contact-detail-form{
     display: flex;
     flex-wrap: wrap;
     gap:0 10px;
@@ -50,9 +50,12 @@
 .contact-detail-form>.ant-col{
     flex:0 1 49%;
 
-}
+} */
 .form-item-name{
     margin-bottom: 5px;
+}
+#leadStatus{
+    height: 49px;
 }
 
 .input-box,.input-box:focus{
