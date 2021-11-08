@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Form,  Button, Select } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined,FileTextOutlined} from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../../store/actions/index';
@@ -79,12 +79,35 @@ const tabMenu = [
 const ProfessionalDetails = () => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const [form] = Form.useForm();
     let storeFormData = useSelector((state) => state.newLead.formData)
+    let storeEducation = useSelector((state) => state.newLead.formData.education)
+    let storeProfessionType = useSelector((state) => state.newLead.formData.professionType)
+    let storeIncomeGroup = useSelector((state) => state.newLead.formData.incomeGroup)
+    const storeLeadId = useSelector((state) => state.newLead.leadId)
+
+
     const [width, setWidth] = useState(window.innerWidth);
-    const [educationDetails, setEducationDetails] = useState()
-    const [professionType, setProfessionType] = useState()
-    const [incomeGroup, setIncomeGroup] = useState()
+    const [educationDetails, setEducationDetails] = useState(storeEducation)
+    const [professionType, setProfessionType] = useState(storeProfessionType)
+    const [incomeGroup, setIncomeGroup] = useState(storeIncomeGroup)
     const breakpoint = 620;
+
+    useEffect(() => {
+        // console.log(storeMailingAddress)
+        // console.log(storeMailingAddress.mailingaddress.line1)
+    
+            form.setFieldsValue({
+                "education":educationDetails,
+                "professionType":professionType,
+                "incomeGroup":incomeGroup,
+            })
+        }, [
+            educationDetails,
+            professionType,
+            incomeGroup,
+            form
+        ])
 
     const educationDetailsHandler = value => {
         setEducationDetails(value)
@@ -108,6 +131,26 @@ const ProfessionalDetails = () => {
                 dispatch(actions.storeLead(formData))
                 history.push('existingLead')
     };
+    const updateHandler = event => {
+        event.preventDefault();
+        dispatch(actions.editLead(formData,storeLeadId))
+        history.push('existingLead')
+
+        // if (!formIsValid) {
+        //   return;
+        // }else{
+        // }
+
+        // setErrorMessage('Form submitted successfully')
+        // setIsNewLead(false)
+        // setErrorMessage( res.data.errMsg)
+
+
+
+        // resetFirstName();
+        // resetLastName();
+        // resetEmail();
+    };
     useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
@@ -129,12 +172,20 @@ const ProfessionalDetails = () => {
                     <Col className="m0a" xs={22} sm={22} md={17} >
                         <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
                             <p className="form-title">Professional Details</p>
-                            <Form layout="horizontal" className="contact-detail-form">
+                            <Form 
+                                layout="horizontal" 
+                                className="contact-detail-form"
+                                initialValues={{
+                                    "education":educationDetails,
+                                    "professionType":professionType,
+                                    "incomeGroup":incomeGroup,
+                                }}
+                                >
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Education"
+                                        name="education"
                                         label="Education"
                                         hasFeedback
                                     >
@@ -150,7 +201,7 @@ const ProfessionalDetails = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Profession Type"
+                                        name="professionType"
                                         label="Profession Type"
                                         hasFeedback
                                         rules={[
@@ -172,7 +223,7 @@ const ProfessionalDetails = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Income Group"
+                                        name="incomeGroup"
                                         label="Income Group"
                                         hasFeedback
                                         rules={[
@@ -194,8 +245,19 @@ const ProfessionalDetails = () => {
                         </Col>
                         <Col className='form-body  p20' style={{margin:"20px 0"}} xs={{ order: 5 }} sm={24} md={20} lg={20} xl={20} span={24} >
                             <Row>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
+                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 2} >
                                     <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                </Col>
+                                <Col xs={11} sm={12} md={4} >
+                                    <Button 
+                                        type="primary" 
+                                        shape="round" 
+                                        size="large" 
+                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                                        icon={<FileTextOutlined />} htmlType="submit"
+                                        // disabled={!formIsValid}
+                                        onClick={updateHandler}
+                                    >Update</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
                                     <Button 

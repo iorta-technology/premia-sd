@@ -24,7 +24,11 @@ const fetchAllLeadsSuccess = (state, action) => {
     return updateObject(state, { fetch_allLeads_Loading: false, allLeads: action.allLeads, count:action.count, selected_all_leads: action.selected_allLeads })
 }
 const fetchAllLeadsFail = (state, action) => {
-    return updateObject(state, { fetch_allLeads_Loading: false, fetch_allLeads_Error: action.error });
+    return updateObject(state, { 
+        fetch_allLeads_Loading: false, 
+        fetch_allLeads_Error: action.error,
+        allLeads:[]
+    });
 }
 
 const fetchDesignationStart = (state, action) => {

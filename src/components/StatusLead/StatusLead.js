@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
-import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table,TimePicker } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined,EditOutlined } from '@ant-design/icons';
+import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
+import { ArrowRightOutlined, FileTextOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
+import FloatButton from '../FloatButton/FloatButton'
+
 import _ from "lodash";
-import { checkAgent } from '../../helpers'
+import { checkAgent, milToDateString } from '../../helpers'
 import moment from 'moment';
-import { Link,useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -88,39 +90,52 @@ const NewLead = React.memo(() => {
   const levelCode = useSelector((state) => state.login.levelCode)
 
   // store form data 
-  let storeFormData = useSelector((state)=>state.newLead.formData)
+  let storeFormData = useSelector((state) => state.newLead.formData)
+  let leadDataLoading = useSelector((state) => state.newLead.leadDataloading)
+  let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
   const storeLeadId = useSelector((state) => state.newLead.leadId)
-  const storefirstNameValue = useSelector((state)=>state.newLead.formData.firstName)
-  const storelastNameValue = useSelector((state)=>state.newLead.formData.lastName)
-  const storeEmailValue = useSelector((state)=>state.newLead.formData.email)
-  const storePrimaryMobileValue = useSelector((state)=>state.newLead.formData.primaryMobile)
-  const storeStateValue = useSelector((state)=>state.newLead.formData.state)
-  const storeCityValue = useSelector((state)=>state.newLead.formData.city)
-  const storeLeadTypeValue = useSelector((state)=>state.newLead.formData.LeadType)
-  const storeProductValue = useSelector((state)=>state.newLead.formData.Product)
-  const storeInsuranceCompanyValue = useSelector((state)=>state.newLead.formData.Insurance_Company)
-  const storeLeadStatusValue = useSelector((state)=>state.newLead.formData.leadStatus)
-  const storeLeadDispositionValue = useSelector((state)=>state.newLead.formData.leadDisposition)
-  const storeLeadSubDispositionValue = useSelector((state)=>state.newLead.formData.leadSubDisposition)
-  const storeRemarkFromSourceValue = useSelector((state)=>state.newLead.formData.remarksfromSource)
-
-  const leadArr = [storeLeadStatusValue,storeLeadDispositionValue,storeLeadSubDispositionValue]
-
+  const leadDataloading = useSelector((state) => state.newLead.leadDataloading)
+  const storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
+  const storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
+  const storeEmailValue = useSelector((state) => state.newLead.formData.email)
+  const storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
+  const storeStateValue = useSelector((state) => state.newLead.formData.state)
+  const storeCityValue = useSelector((state) => state.newLead.formData.city)
+  const storeLeadTypeValue = useSelector((state) => state.newLead.formData.LeadType)
+  const storeProductValue = useSelector((state) => state.newLead.formData.Product)
+  const storeInsuranceCompanyValue = useSelector((state) => state.newLead.formData.Insurance_Company)
+  const storeLeadStatusValue = useSelector((state) => state.newLead.formData.leadStatus)
+  const storeLeadDispositionValue = useSelector((state) => state.newLead.formData.leadDisposition)
+  const storeLeadSubDispositionValue = useSelector((state) => state.newLead.formData.leadSubDisposition)
+  // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
+  const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
+  const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
+  const { lastupdatedOn } = storeFormData
+  console.log(lastupdatedOn)
   // lead summary
-  const leadIdValue = useSelector((state)=>state.newLead.formData.lead_Id)
-  const createdDateValue = useSelector((state)=>state.newLead.formData.created_date)
+  const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
+  const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
+
+
+  const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
-  const [leadStatus, setLeadStatus] = useState()
-  const [leadDisposition, setLeadDisposition] = useState()
-  const [leadSubDisposition, setLeadSubDisposition] = useState()
+
+  const [firstName, setFirstName] = useState(storefirstNameValue)
+  const [lastName, setLastName] = useState(storelastNameValue)
+  const [email, setEmail] = useState(storeEmailValue)
+  const [primaryNo, setPrimaryNo] = useState(storePrimaryMobileValue)
+  const [leadStatus, setLeadStatus] = useState(storeLeadStatusValue)
+  const [leadDisposition, setLeadDisposition] = useState(storeLeadDispositionValue)
+  const [leadSubDisposition, setLeadSubDisposition] = useState(storeLeadSubDispositionValue)
+  const [reminder, setReminder] = useState()
   const [appointmentDate, setAppointmentDate] = useState()
   const [appointmentTime, setAppointmentTime] = useState()
 
   const [remarkFromSource, setRemarkFromSource] = useState(storeRemarkFromSourceValue)
-  const [remarkFromUser, setRemarkFromUser] = useState()
+  const [remarkFromUser, setRemarkFromUser] = useState(storeRemarkFromUserValue)
   const [leadType, setLeadType] = useState(storeLeadTypeValue)
   const [product, setProduct] = useState(storeProductValue)
   const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
@@ -130,34 +145,67 @@ const NewLead = React.memo(() => {
   const [isNewLead, setIsNewLead] = useState(true)
 
 
-useEffect(() => {
-  if(storeLeadId!==''){
-    setIsNewLead(false)
-  }
-  form.setFieldsValue({
-    "remarksfromsource":remarkFromSource,
-    "firstname":storefirstNameValue,
-    "lastname":storelastNameValue,
-    "email":storeEmailValue,
-    "phone":storePrimaryMobileValue,
-    "state":stateProvince,
-    "city":cityProvince,
-    "leadType":leadType,
-    "product":product,
-    "insuranceCompany":insuranceCompany,
-    "leadStatus":leadSubDisposition
-  })
-}, [
-  storeLeadId,
-  form,
-  storeRemarkFromSourceValue,
-  storefirstNameValue,
-  storelastNameValue,
-  storeEmailValue,
-  storePrimaryMobileValue,
-  stateProvince,
-  leadArr
-])
+  useEffect(() => {
+    // console.log('payload',payloadFormData)
+    // console.log('nonpayload',storeFormData)
+    if (storeLeadId !== '') {
+      setIsNewLead(false)
+    }
+    // form.resetFields({
+    //   "firstname":firstName,
+    //   "lastname":lastName,
+    //   "email":email,
+    //   "phone":primaryNo,
+    //   "state":stateProvince,
+    //   "city":cityProvince,
+    //   "leadType":leadType,
+    //   "product":product,
+    //   "insuranceCompany":insuranceCompany,
+    //   "appointmentDate":appointmentDate,
+    //   "remarksfromsource":remarkFromSource,
+    //   "remarksfromuser":remarkFromUser,
+    // })
+    form.setFieldsValue({
+      "firstname": firstName,
+      "lastname": lastName,
+      "email": email,
+      "phone": primaryNo,
+      "state": stateProvince,
+      "city": cityProvince,
+      "leadType": leadType,
+      "product": product,
+      "insuranceCompany": insuranceCompany,
+      "appointmentDate": appointmentDate,
+      "remarksfromsource": remarkFromSource,
+      "remarksfromuser": remarkFromUser,
+      // "leadStatus":leadSubDisposition
+    })
+  }, [
+    firstName,
+    lastName,
+    email,
+    primaryNo,
+    stateProvince,
+    cityProvince,
+    leadType,
+    product,
+    insuranceCompany,
+    appointmentDate,
+    remarkFromSource,
+    remarkFromUser,
+    storeLeadId,
+    form,
+    storeRemarkFromSourceValue,
+    storefirstNameValue,
+    storelastNameValue,
+    storeEmailValue,
+    storePrimaryMobileValue,
+    stateProvince,
+    leadArr,
+    leadDataloading,
+    storeCityValue,
+    storeStateValue
+  ])
   // add team Member modal state control
   const [visibleTeamMemberModal, setVisibleTeamMemberModal] = useState(false);
 
@@ -171,7 +219,7 @@ useEffect(() => {
     {
       value: 'newleadentery',
       label: 'New Lead Entry',
-      disabled:!isNewLead
+      disabled: !isNewLead
     },
     {
       value: 'nocontact',
@@ -346,160 +394,177 @@ useEffect(() => {
     },
   ];
 
-  
+  const onChangeFirstName = (e) => {
+    setFirstName(e.target.value)
+  }
+
+  const onChangeLastName = (e) => {
+    setLastName(e.target.value)
+  }
+  const primaryNoHandler = (event) => {
+    setPrimaryNo(event.target.value)
+  }
+  const emailAddressHandler = (event) => {
+    setEmail(event.target.value)
+  }
 
   let stateOptions = (states && !_.isEmpty(states)) ?
     states.map(state => {
-
       const label = state.region_data.name
       const value = state.region_data.name
       const newState = { ...state, label, value }
       // state.push(label)
       return newState
     }) : null
+  console.log(stateOptions)
 
-
-    const cities = useSelector((state) => state.address.cities)
-    let citiesOptions = (cities && !_.isEmpty(cities)) ?
+  const cities = useSelector((state) => state.address.cities)
+  let citiesOptions = (cities && !_.isEmpty(cities)) ?
     cities.map(city => {
-      
+
       const label = city.name
       const value = city.name
       const newCities = { ...city, label, value }
       return newCities
     }) : null
-    
-    const  disabledDate=(current) =>{
-      // Can not select days before today and today
-      return current && current < moment().startOf('second');
-    }
 
-   const  getDisabledHours = () => {
-      var hours = [];
-      for(var i =0; i < moment().hour(); i++){
-          hours.push(i);
-      }
-      return hours;
+  const disabledDate = (current) => {
+    // Can not select days before today and today
+    return current && current < moment().startOf('second');
   }
-  
- const  getDisabledMinutes = (selectedHour) => {
-      var minutes= [];
-      if (selectedHour === moment().hour()){
-          for(var i =0; i < moment().minute(); i++){
-              minutes.push(i);
-          }
-      }
-      return minutes;
+
+  const getDisabledHours = () => {
+    var hours = [];
+    for (var i = 0; i < moment().hour(); i++) {
+      hours.push(i);
+    }
+    return hours;
   }
-  const designations= useSelector((state)=>state.leads.designations)
+
+  const getDisabledMinutes = (selectedHour) => {
+    var minutes = [];
+    if (selectedHour === moment().hour()) {
+      for (var i = 0; i < moment().minute(); i++) {
+        minutes.push(i);
+      }
+    }
+    return minutes;
+  }
+  const designations = useSelector((state) => state.leads.designations)
   const designationsOptions = (designations && !_.isEmpty(designations)) ?
-    designations.map(designation=>{
+    designations.map(designation => {
       const label = designation.designatioName
       const value = designation.designatioName
       const newCities = { ...designation, label, value }
       return newCities
-    }):null
+    }) : null
 
-    const handleAddMember = () => {
-      // setModalText('Updating changes ');
-      visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
-      
-    };
-    const showChangeOwnerModal = () => {
-      setVisibleChangeOwnerModel(true);
-    };
-  
-    
-  
-    const handleChangeOwner = () => {
-      // setModalText('Updating changes ');
-      setChangeOwnerLoading(true);
-      setTimeout(() => {
-        setVisibleChangeOwnerModel(false);
-        setChangeOwnerLoading(false);
-      }, 2000);
-    };
-  
-    const Append = (value) => {
-      setLeadStatus(value[0])
-      setLeadDisposition(value[1])
-      setLeadSubDisposition(value[2])
-    }
-  
-    const appointmentDateHandler = (date,dateString)=>{
-      setAppointmentDate(Date.parse(dateString))
-    }
-  
-    const startTimeHandler = (time,timeString)=>{
-      const hourInMilisec = (new Date(time).getHours()+ 24) % 12 || 12
-      const minInMilisec = new Date(time).getMinutes()
-      const res =  (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
-      // console.log(res)
-      // console.log(hourInMilisec)
-      setAppointmentTime(res)
-    }
-    const remarkFromSourceHandler = (event) => {
-      setRemarkFromSource(event.target.value)
-    }
-  
-    const remarkFromUserHandler = (event) => {
-      setRemarkFromUser(event.target.value)
-    }
+  const handleAddMember = () => {
+    // setModalText('Updating changes ');
+    visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
 
-    const onFinish = (errorMessage) => {
-      alert(errorMessage)
-      // console.log('Success:', errorMessage);
-    };
-  
-    const onFinishFailed = (errorMessage) => {
-      alert(errorMessage)
-      // console.log('Failed:', errorMessage);
-    };
-  
-    const stateSelectHandler = (value, key) => {
-      dispatch(actions.fetchAllCities(key.region_data.adminCode1))
-  
-    }
-    const stateChangetHandler = value => {
-      setStateProvince(value)
-    }
-  
-    const cityChangeHandler = value => {
-      setCityProvince(value)
-  
-    }
-    const leadTypeHandler = value => {
-      setLeadType(value)
-    }
-    const productHandler = value => {
-      setProduct(value)
-    }
-    const insuranceCompanyHandler = value => {
-      setInsuranceComapany(value)
-    }
-  
-  
-  
-  
-    useEffect(() => {
-      const handleWindowResize = () => setWidth(window.innerWidth)
-      window.addEventListener("resize", handleWindowResize);
-      // Return a function from the effect that removes the event listener
-      return () => window.removeEventListener("resize", handleWindowResize);
-    }, [width]);
-  
-  
-  
-  
-    // const getDesignation= ()=>{
-  
-    // }
-  
-    const toggleTeamMember = () => {
-      setVisibleTeamMemberModal(!visibleTeamMemberModal);
-      !visibleTeamMemberModal &&  dispatch(actions.fetchDesignation(channelCode))
-  
-    };
+  };
+  const showChangeOwnerModal = () => {
+    setVisibleChangeOwnerModel(true);
+  };
+
+
+
+  const handleChangeOwner = () => {
+    // setModalText('Updating changes ');
+    setChangeOwnerLoading(true);
+    setTimeout(() => {
+      setVisibleChangeOwnerModel(false);
+      setChangeOwnerLoading(false);
+    }, 2000);
+  };
+
+  const Append = (value) => {
+    setLeadStatus(value[0])
+    setLeadDisposition(value[1])
+    setLeadSubDisposition(value[2])
+  }
+
+  const appointmentDateHandler = (date, dateString) => {
+    // setAppointmentDate(Date.parse(dateString))
+    setAppointmentDate(moment(date))
+  }
+
+  const updateDateHandler = (date, dateString) => {
+    // setAppointmentDate(Date.parse(dateString))
+    setAppointmentDate(moment(1635070237883))
+  }
+
+  const startTimeHandler = (time, timeString) => {
+    const hourInMilisec = (new Date(time).getHours() + 24) % 12 || 12
+    const minInMilisec = new Date(time).getMinutes()
+    const res = (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
+    // console.log(res)
+    // console.log(hourInMilisec)
+    setAppointmentTime(res)
+  }
+  const remarkFromSourceHandler = (event) => {
+    setRemarkFromSource(event.target.value)
+  }
+
+  const remarkFromUserHandler = (event) => {
+    setRemarkFromUser(event.target.value)
+  }
+
+  const onFinish = (errorMessage) => {
+    alert(errorMessage)
+    // console.log('Success:', errorMessage);
+  };
+
+  const onFinishFailed = (errorMessage) => {
+    alert(errorMessage)
+    // console.log('Failed:', errorMessage);
+  };
+
+  const stateSelectHandler = (value, key) => {
+    dispatch(actions.fetchAllCities(key.region_data.adminCode1))
+
+  }
+  const stateChangetHandler = value => {
+    setStateProvince(value)
+  }
+
+  const cityChangeHandler = value => {
+    setCityProvince(value)
+
+  }
+  const leadTypeHandler = value => {
+    setLeadType(value)
+  }
+  const productHandler = value => {
+    setProduct(value)
+  }
+  const insuranceCompanyHandler = value => {
+    setInsuranceComapany(value)
+  }
+
+
+
+
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth)
+    window.addEventListener("resize", handleWindowResize);
+    // Return a function from the effect that removes the event listener
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, [width]);
+
+
+
+
+  // const getDesignation= ()=>{
+
+  // }
+
+  const toggleTeamMember = () => {
+    setVisibleTeamMemberModal(!visibleTeamMemberModal);
+    !visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
+
+  };
   // Form control hook
   const {
     value: firstNameValue,
@@ -554,14 +619,14 @@ useEffect(() => {
     start_time: appointmentTime,
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    teamMembers: '',
+    // teamMembers: '',
     leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
-    leadSource: '',
+    // leadSource: '',
 
-    appointment_status: '',
-    appointmentdisPosition: '',
-    appointmentsubdisPosition: '',
+    // appointment_status: '',
+    // appointmentdisPosition: '',
+    // appointmentsubdisPosition: '',
 
 
     lead_Owner_Id: id,
@@ -573,31 +638,31 @@ useEffect(() => {
 
     state: stateProvince,
     city: cityProvince,
-    primaryMobile: primaryMobile,
-    email: emailValue,
+    primaryMobile: primaryNo,
+    email: email,
 
-    firstName: firstNameValue,
-    lastName: lastNameValue,
+    firstName: firstName,
+    lastName: lastName,
   };
   let formIsValid = false;
 
-  if (firstNameIsValid && lastNameIsValid  && primaryMobileIsValid) {
+  if (firstNameIsValid && lastNameIsValid && primaryMobileIsValid) {
     formIsValid = true;
   }
 
   const submitHandler = event => {
     event.preventDefault();
 
-    if (!formIsValid) {
-      return;
-    }else{
-      dispatch(actions.createLead(formData))
-    }
-    
+    dispatch(actions.createLead(formData))
+    // if (!formIsValid) {
+    //   return;
+    // }else{
+    // }
+
     setErrorMessage('Form submitted successfully')
     setIsNewLead(false)
     // setErrorMessage( res.data.errMsg)
-   
+
 
 
     // resetFirstName();
@@ -609,15 +674,15 @@ useEffect(() => {
 
     if (!formIsValid) {
       return;
-    }else{
+    } else {
       dispatch(actions.storeLead(formData))
       history.push('leaddetails/personallead')
     }
-    
+
     setErrorMessage('Form submitted successfully')
     setIsNewLead(false)
     // setErrorMessage( res.data.errMsg)
-   
+
 
 
     // resetFirstName();
@@ -625,7 +690,19 @@ useEffect(() => {
     // resetEmail();
   };
 
-  
+  const updateLeadHandler = event => {
+    event.preventDefault();
+
+    dispatch(actions.editLead(formData, storeLeadId))
+    // if (!formIsValid) {
+    //   return;
+    // }else{
+    // }
+
+    setErrorMessage('Form updated successfully')
+    setIsNewLead(false)
+  }
+
 
   // useEffect(() => {
   //   if(designationsOptions===undefined){
@@ -634,11 +711,11 @@ useEffect(() => {
   //     const getDesignation= designationsOptions
 
   //   }
-    
-  // }, [designationsOptions])
-  
-  
 
+  // }, [designationsOptions])
+
+
+  if (leadDataLoading && _.isEmpty(storeFormData)) { return <Spin /> }
 
   return (
     <>
@@ -647,293 +724,299 @@ useEffect(() => {
         header="New Lead"
         activeKey="1"
       />
+
+
+
       <div className="form-container">
-        <Row gutter={[0, 24]}  >
-          <Col className="form-body  p40" xs={{ order: width > breakpoint ? 1 : 2 }} sm={16} md={16} lg={16} xl={16} span={22} offset={1}>
-            <p className="form-title">Contact Details</p>
-            <Form
-              layout="horizontal"
-              className="contact-detail-form"
-              validateMessages={validateMessages}
-              scrollToFirstError
-              form={form}
-              help={errorMessage}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-            >
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name='firstname'
-                  label="First Name"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'First Name is required'
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-                >
-                  <Input
-                    className="first-name input-box "
-                    size="large"
-                    placeholder="Enter First Name"
-                    value={firstNameValue}
-                    onChange={firstNameChangeHandler} />
-                </Form.Item>
-              </Col>
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name='lastname'
-                  label="Last Name"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Last Name is required'
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Input
-                    className="last-name input-box"
-                    size="large"
-                    placeholder="Enter Last Name"
-                    value={lastNameValue}
-                    onChange={lastNameChangeHandler} />
-                </Form.Item>
-              </Col>
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name='email'
-                  label="Email"
-                  rules={[
-                    {
-                      type: 'email',
-                      message: 'Please provide valid email address'
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Input
-                    className="email input-box"
-                    size="large"
-                    placeholder="Enter Email Address"
-                    value={emailValue}
-                    onChange={emailChangeHandler} />
-                </Form.Item>
-              </Col>
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name='phone'
-                  label="Primary Mobile"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Mobile No is required'
-                    },
-                    {
-                      min: 10,
-                      max: 10,
-                      pattern: '^([-]?[1-9][0-9]*|0)$',
-                      message: 'Enter a valid Mobile No'
-                    }
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Input
-                    className="phone-no input-box"
-                    size="large"
-                    placeholder="Enter Primary Mobile"
-                    value={primaryMobile}
-                    onChange={primaryMobileChangeHandler} />
-                </Form.Item>
-              </Col>
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="state"
-                  label="State"
-                  hasFeedback
-                  rules={[
-                    {
-                      required: false,
-                      message: 'Select your State!',
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Select
-                    size="large"
-                    placeholder="Select Your State"
-                    options={stateOptions}
-                    onSelect={stateSelectHandler}
-                    value={stateProvince}
-                    onChange={stateChangetHandler}>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="city"
-                  label="City"
-                  hasFeedback
-                  rules={[
-                    {
-                      required: false,
-                      message: 'Please select your city!',
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Select
-                    size="large"
-                    placeholder="Select a city"
-                    options={citiesOptions}
-                    value={cityProvince}
-                    onChange={cityChangeHandler}>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="leadType"
-                  label="Lead Type"
-                  hasFeedback
-                  rules={[
-                    {
-                      required: false,
-                      message: 'Select Lead Type',
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Select  size="large" placeholder="New Bussiness" onChange={leadTypeHandler}>
-                    <Option value="newbussiness">New Bussiness</Option>
-                    <Option value="renewal">Renewal</Option>
-                    <Option value="crosssell">Cross Sell</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="product"
-                  label="Product"
-                  hasFeedback
-                  rules={[
-                    {
-                      required: false,
-                      message: 'Select Product',
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Select size="large" placeholder="Select Product" onChange={productHandler}>
-                    <Option value="health">Health</Option>
-                    <Option value="motor">Motor</Option>
-                    <Option value="travel">Travel</Option>
-                    <Option value="personalaccident">Personal Accident</Option>
-                    <Option value="term">Term</Option>
-                    <Option value="ulip">ULIP</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col >
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="insuranceCompany"
-                  label="Insurance Company"
-                  hasFeedback
-                  rules={[
-                    {
-                      required: false,
-                      message: 'Insurance Company',
-                    },
-                  ]}
-                  style={{ marginBottom: '1rem' }}
-
-                >
-                  <Select size="large" placeholder="Insurance" onChange={insuranceCompanyHandler}>
-                    <Option value="tataaiggeneralinsurancecompany">Tata AIG General Insurance Company</Option>
-                    <Option value="icicilombardgeneralinsurancecompany">ICICI Lombard General Insurance Company</Option>
-                    <Option value="iciciprudentiallifeinsurancecompany">ICICI Prudential Life Insurance Company</Option>
-                    <Option value="manipalcignahealthinsurancecompany">Manipal Cigna Health Insurance Company</Option>
-                    <Option value="exidelifeinsurancecompanylimited">Exide Life Insurance Company Limited</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Form>
-          </Col>
-          <Col className="form-body  p40" style={{ marginLeft: width > breakpoint ? "10px" : '15px' }} xs={{ order: width > breakpoint ? 2 : 1 }} sm={6} md={6} span={22}>
-            <Row>
-              <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
-                <p className="form-title">Summary</p>
-                <Row>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">Lead ID</p>
-                    <p className="lead-detail">{leadIdValue}</p>
-                  </Col>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">Source</p>
-                    <p className="lead-detail">-</p>
-                  </Col>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">Name</p>
-                    <p className="lead-detail">{storefirstNameValue} {storelastNameValue}</p>
-                  </Col>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">Mobile Number</p>
-                    <p className="lead-detail">{storePrimaryMobileValue}</p>
-                  </Col>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">State</p>
-                    <p className="lead-detail">{storeStateValue}</p>
-                  </Col>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">City</p>
-                    <p className="lead-detail">{storeCityValue}</p>
-                  </Col>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">Allocated To</p>
-                    <p className="lead-detail">Himanshu</p>
-                  </Col>
-                  <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                    <p className="lead-summ-label">Created on</p>
-                    <p className="lead-detail">{new Date(createdDateValue).toLocaleDateString('in')}</p>
-                    <p className="lead-date">2 days ago</p>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-          <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={16} xl={16} span={22} offset={1}>
-            <p className="form-title">Status</p>
-            <Form 
-              form={form}
-              initialValues={{
-                "remarksfromsource":remarkFromSource,
-            }}>
+        <Form
+          layout="horizontal"
+          className="contact-detail-form"
+          validateMessages={validateMessages}
+          scrollToFirstError
+          form={form}
+          help={errorMessage}
+          onFinish={submitHandler}
+          initialValues={{
+            "firstname": firstName,
+            "lastname": lastName,
+            "email": email,
+            "phone": primaryNo,
+            "state": stateProvince,
+            "city": cityProvince,
+            "leadType": leadType,
+            "product": product,
+            "insuranceCompany": insuranceCompany,
+            "appointmentDate": appointmentDate,
+            "remarksfromsource": remarkFromSource,
+            "remarksfromuser": remarkFromUser,
+            "reminder": reminder
+          }}
+          onFinishFailed={onFinishFailed}
+        >
+          <Row justify={width > breakpoint ? "":"center"} gutter={[0, 24]}  >
+            <Col className="form-body  p40 mb-2" xs={24,{ order: width > breakpoint ? 1 : 2 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2:0}>
+              <p className="form-title">Contact Details</p>
+              <Row gutter={16} className="mb-2">
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name='firstname'
+                    label="First Name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'First Name is required'
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Input
+                      className="first-name input-box "
+                      size="large"
+                      placeholder="Enter First Name"
+                      value={firstNameValue}
+                      onChange={onChangeFirstName} />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name='lastname'
+                    label="Last Name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Last Name is required'
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Input
+                      className="last-name input-box"
+                      size="large"
+                      placeholder="Enter Last Name"
+                      value={lastNameValue}
+                      onChange={onChangeLastName} />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name='email'
+                    label="Email"
+                    rules={[
+                      {
+                        type: 'email',
+                        message: 'Please provide valid email address'
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Input
+                      className="email input-box"
+                      size="large"
+                      placeholder="Enter Email Address"
+                      value={emailValue}
+                      onChange={emailAddressHandler} />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name='phone'
+                    label="Primary Mobile"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Mobile No is required'
+                      },
+                      {
+                        min: 10,
+                        max: 10,
+                        pattern: '^([-]?[1-9][0-9]*|0)$',
+                        message: 'Enter a valid Mobile No'
+                      }
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Input
+                      className="phone-no input-box"
+                      size="large"
+                      placeholder="Enter Primary Mobile"
+                      value={primaryMobile}
+                      onChange={primaryNoHandler} />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="state"
+                    label="State"
+                    hasFeedback
+                    rules={[
+                      {
+                        required: false,
+                        message: 'Select your State!',
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Select
+                      size="large"
+                      placeholder="Select Your State"
+                      options={stateOptions}
+                      onSelect={stateSelectHandler}
+                      value={stateProvince}
+                      onChange={stateChangetHandler}>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="city"
+                    label="City"
+                    hasFeedback
+                    rules={[
+                      {
+                        required: false,
+                        message: 'Please select your city!',
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Select
+                      size="large"
+                      placeholder="Select a city"
+                      options={citiesOptions}
+                      value={cityProvince}
+                      onChange={cityChangeHandler}>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="leadType"
+                    label="Lead Type"
+                    hasFeedback
+                    rules={[
+                      {
+                        required: false,
+                        message: 'Select Lead Type',
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Select value={leadType} size="large" placeholder="Select Lead Type" onChange={leadTypeHandler}>
+                      <Option value="newbussiness">New Bussiness</Option>
+                      <Option value="renewal">Renewal</Option>
+                      <Option value="crosssell">Cross Sell</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="product"
+                    label="Product"
+                    hasFeedback
+                    rules={[
+                      {
+                        required: false,
+                        message: 'Select Product',
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Select value={product} size="large" placeholder="Select Product" onChange={productHandler}>
+                      <Option value="health">Health</Option>
+                      <Option value="motor">Motor</Option>
+                      <Option value="travel">Travel</Option>
+                      <Option value="personalaccident">Personal Accident</Option>
+                      <Option value="term">Term</Option>
+                      <Option value="ulip">ULIP</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="insuranceCompany"
+                    label="Insurance Company"
+                    hasFeedback
+                    rules={[
+                      {
+                        required: false,
+                        message: 'Insurance Company',
+                      },
+                    ]}
+                    style={{ marginBottom: '1rem' }}
+                  >
+                    <Select value={insuranceCompany} size="large" placeholder="Select Insurance" onChange={insuranceCompanyHandler}>
+                      <Option value="tataaiggeneralinsurancecompany">Tata AIG General Insurance Company</Option>
+                      <Option value="icicilombardgeneralinsurancecompany">ICICI Lombard General Insurance Company</Option>
+                      <Option value="iciciprudentiallifeinsurancecompany">ICICI Prudential Life Insurance Company</Option>
+                      <Option value="manipalcignahealthinsurancecompany">Manipal Cigna Health Insurance Company</Option>
+                      <Option value="exidelifeinsurancecompanylimited">Exide Life Insurance Company Limited</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Col>
+            <Col className="form-body  p40" style={{ marginLeft: width > breakpoint ? "20px" : '0' }} xs={{ order: width > breakpoint ? 2 : 1 }} sm={6} md={6} lg={6} xl={6} span={23} >
+              <Row>
+                <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
+                  <p className="form-title">Summary</p>
+                  <Row>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">Lead ID</p>
+                      <p className="lead-detail">{leadIdValue}</p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">Source</p>
+                      <p className="lead-detail">-</p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">Name</p>
+                      <p className="lead-detail">{storefirstNameValue} {storelastNameValue}</p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">Mobile Number</p>
+                      <p className="lead-detail">{storePrimaryMobileValue}</p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">State</p>
+                      <p className="lead-detail">{storeStateValue}</p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">City</p>
+                      <p className="lead-detail">{storeCityValue}</p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">Allocated To</p>
+                      <p className="lead-detail">Himanshu</p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
+                      <p className="lead-summ-label">Created on</p>
+                      <p className="lead-detail">{new Date(createdDateValue).toLocaleDateString('in')}</p>
+                      <p className="lead-date">2 days ago</p>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+            <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2:0}>
+              <p className="form-title">Status</p>
               <Row gutter={16} className="mb-2">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} >
                   <Form.Item
@@ -946,7 +1029,7 @@ useEffect(() => {
                     rules={[
                       {
                         required: true,
-                        message: 'This field is required',
+                        message: 'Please Select Lead Status',
                       },
                     ]}
                   >
@@ -956,7 +1039,7 @@ useEffect(() => {
                       size="large"
                       popupClassName="popup-size"
                       onChange={Append}
-                      style={{height:'3rem'}}
+                      style={{ height: '3rem' }}
                     />
                   </Form.Item>
                 </Col>
@@ -966,7 +1049,7 @@ useEffect(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Appointment Date"
+                        name="appointmentDate"
                         label="Appointment Date"
                         hasFeedback
                         rules={[
@@ -978,11 +1061,13 @@ useEffect(() => {
                         style={{ marginBottom: '1rem' }}
 
                       >
-                      <DatePicker 
-                        disabledDate={disabledDate}
-                        onChange={appointmentDateHandler} 
-                        size="large" 
-                        style={{ width: "100%" }}/>
+                        <DatePicker
+                          disabledDate={disabledDate}
+                          onChange={appointmentDateHandler}
+                          value={appointmentDate}
+                          size="large"
+                          format="YYYY-MM-DD"
+                          style={{ width: "100%" }} />
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1001,22 +1086,22 @@ useEffect(() => {
                         style={{ marginBottom: '1rem' }}
 
                       >
-                      <TimePicker 
-                        disabledHours={getDisabledHours}
-                        disabledMinutes={getDisabledMinutes}
-                        use12Hours 
-                        minuteStep={30} 
-                        format="h:mm" 
-                        size="large" 
-                        style={{ width: "100%" }} 
-                        onChange={startTimeHandler}/>
+                        <TimePicker
+                          disabledHours={getDisabledHours}
+                          disabledMinutes={getDisabledMinutes}
+                          use12Hours
+                          minuteStep={30}
+                          format="h:mm"
+                          size="large"
+                          style={{ width: "100%" }}
+                          onChange={startTimeHandler} />
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Set Reminder"
+                        name="reminder"
                         label="Set Reminder"
                         hasFeedback
                         rules={[
@@ -1028,7 +1113,12 @@ useEffect(() => {
                         style={{ marginBottom: '1rem' }}
 
                       >
-                        <Select size="large" options={setReminderOptions} placeholder="Set Reminder"></Select>
+                        <Select
+                          // onChange={reminderHandler} 
+                          value={reminder} size="large"
+                          options={setReminderOptions}
+                          placeholder="Set Reminder">
+                        </Select>
                       </Form.Item>
                     </Col>
                   </>
@@ -1047,14 +1137,19 @@ useEffect(() => {
                     style={{ marginBottom: '1rem' }}
 
                   >
-                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromSourceHandler} />
+                    <Input
+                      className="email input-box"
+                      size="large"
+                      placeholder="Enter Some Remark"
+                      value={remarkFromSource}
+                      onChange={remarkFromSourceHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} className="mb-2">
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color"
-                    name={['remarksfromuser']}
+                    name='remarksfromuser'
                     label="Remark From User "
                     rules={[
                       {
@@ -1063,7 +1158,12 @@ useEffect(() => {
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
-                    <Input className="email input-box" size="large" placeholder="Enter Some Remark" onChange={remarkFromUserHandler} />
+                    <Input
+                      className="email input-box"
+                      size="large"
+                      placeholder="Enter Some Remark"
+                      value={remarkFromUser}
+                      onChange={remarkFromUserHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager" style={(leadDisposition === "appointment" || leadDisposition === "callback") && { display: 'none' }}>
@@ -1071,8 +1171,15 @@ useEffect(() => {
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager">
                   <p className="botton-label">Select the team members you want to involve for this lead</p>
                 </Col>
-                <Col xs={24} sm={24} md={5} lg={5} xl={5} className="lead-manager" offset={width > breakpoint ? 7 : 0}>
-                  <Button shape="round" size="large" block onClick={toggleTeamMember}>Add Team Member</Button>
+                <Col xs={24} sm={24} md={6} lg={6} xl={6} className="lead-manager" offset={width > breakpoint ? 6 : 0}>
+                  <Button 
+                    shape="round" 
+                    size="large" 
+                    block 
+                    onClick={toggleTeamMember}
+                    type="primary"
+                    style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                    >Add Team Member</Button>
                 </Col>
                 <>
                   <Modal
@@ -1148,7 +1255,7 @@ useEffect(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Select Designation"
+                        name="designation"
                         label="Select Designation"
                         hasFeedback
                         rules={[
@@ -1165,7 +1272,7 @@ useEffect(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Select Team Member"
+                        name="teamMember"
                         label="Select Team Member"
                         hasFeedback
                         rules={[
@@ -1182,34 +1289,37 @@ useEffect(() => {
                 </>}
                 <Table columns={columns} />
               </Row>
-            </Form>
-          </Col>
-          <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={16} xl={16} span={22} offset={1}>
-            <Row>
-              <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
-                {isNewLead?
-                <Button 
-                  type="primary" 
-                  shape="round" 
-                  size="large" 
-                  style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
-                  icon={<FileTextOutlined />} htmlType="submit"
-                  disabled={!formIsValid}
-                  onClick={submitHandler}
-                >Submit</Button>:
-                <Button 
-                  type="primary" 
-                  shape="round" 
-                  size="large" 
-                  style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
-                  icon={<EditOutlined  />} htmlType="submit"
-                  disabled={!formIsValid}
-                  onClick={submitHandler}
-                >Update</Button>
-                }
-              </Col>
-              <Col xs={11} sm={12} md={4}>
-                {/* <Link to="leaddetails/personallead"> */}
+
+              {/* </Form> */}
+            </Col>
+            <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2:0}>
+              <Row>
+                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
+                  {isNewLead ?
+                    <Button
+                      type="primary"
+                      style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                      shape="round"
+                      size="large"
+                      icon={<FileTextOutlined />} 
+                      htmlType="submit"
+                      // disabled={!formIsValid}
+                      // onClick={submitHandler}
+                    >Submit</Button> :
+                    <Button
+                      type="primary"
+                      shape="round"
+                      size="large"
+                      style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                      icon={<EditOutlined />} 
+                      htmlType="submit"
+                      // disabled={!formIsValid}
+                      // onClick={updateLeadHandler}
+                    >Update</Button>
+                  }
+                </Col>
+                <Col xs={11} sm={12} md={4}>
+                  {/* <Link to="leaddetails/personallead"> */}
                   <Button
                     type="primary"
                     shape="round"
@@ -1218,61 +1328,18 @@ useEffect(() => {
                     style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                     icon={<ArrowRightOutlined />}
                     onClick={proceedHandler}
-                    >Proceed</Button>
-                {/* </Link> */}
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+                  >Proceed</Button>
+                  {/* </Link> */}
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Form>
+        <FloatButton />
       </div>
+
     </>
   )
 })
 
 export default NewLead
-
-// <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
-//           </Col>
-//           <Col className="btn-container" xs={22} sm={24} md={24} lg={24} xl={24}  span={24}>
-//           </Col> 
-// const setStateOptions = [
-
-//   { value: "Andaman and Nicobar Islands", label: "Andaman and Nicobar Islands" },
-//   { value: "Andhra Pradesh", label: "Andhra Pradesh" },
-//   { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
-//   { value: "Assam", label: "Assam" },
-//   { value: "Bihar", label: "Bihar" },
-//   { value: "Chandigarh", label: "Chandigarh" },
-//   { value: "Chhattisgarh", label: "Chhattisgarh" },
-//   { value: "Dadra and Nagar Haveli", label: "Dadra and Nagar Haveli" },
-//   { value: "Daman and Diu", label: "Daman and Diu" },
-//   { value: "Delhi", label: "Delhi" },
-//   { value: "Goa", label: "Goa" },
-//   { value: "Gujarat", label: "Gujarat" },
-//   { value: "Haryana", label: "Haryana" },
-//   { value: "Himachal Pradesh", label: "Himachal Pradesh" },
-//   { value: "Jammu and Kashmir", label: "Jammu and Kashmir" },
-//   { value: "Jharkhand", label: "Jharkhand" },
-//   { value: "Karnataka", label: "Karnataka" },
-//   { value: "Kerala", label: "Kerala" },
-//   { value: "Ladakh", label: "Ladakh" },
-//   { value: "Lakshadweep", label: "Lakshadweep" },
-//   { value: "Madhya Pradesh", label: "Madhya Pradesh" },
-//   { value: "Maharashtra", label: "Maharashtra" },
-//   { value: "Manipur", label: "Manipur" },
-//   { value: "Meghala", label: "Meghalaya" },
-//   { value: "Mizoram", label: "Mizoram" },
-//   { value: "Nagaland", label: "Nagaland" },
-//   { value: "Odisha", label: "Odisha" },
-//   { value: "Puducherry", label: "Puducherry" },
-//   { value: "Punjab", label: "Punjab" },
-//   { value: "Rajasthan", label: "Rajasthan" },
-//   { value: "Sikkim", label: "Sikkim" },
-//   { value: "Tamil Nadu", label: "Tamil Nadu" },
-//   { value: "Telangana", label: "Telangana" },
-//   { value: "Tripura", label: "Tripura" },
-//   { value: "Uttar Pradesh", label: "Uttar Pradesh" },
-//   { value: "Uttarakhand", label: "Uttarakhand" },
-//   { value: "West Bengal", label: "West Bengal" }
-
-// ]

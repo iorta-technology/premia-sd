@@ -117,11 +117,18 @@ export const fetchUserDetails = (userId) => {
         dispatch(fetchUserDetailsStart())
         return axios.get(`user/getuserDetails?user_id=${userId}`)
             .then(res => {
-                console.log('post login userdetails',res.data.errMsg[0])
-                return dispatch(fetchUserDetailsSuccess(res.data.errMsg[0]))
+                let response = res.data.errMsg
+                if(res.data.errCode===-1){
+
+                    console.log('post login userdetails',res.data.errMsg[0])
+                    return dispatch(fetchUserDetailsSuccess(res.data.errMsg[0]))
+                }else{
+                    throw response
+                }
             })
             .catch(error => {
                 // return dispatch(fetchUserDetailsFail(error.response.data.errors))
+                console.log(error)
                 return dispatch(fetchUserDetailsFail(error))
             })
     }

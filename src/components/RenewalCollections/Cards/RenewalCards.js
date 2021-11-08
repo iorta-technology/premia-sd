@@ -16,6 +16,7 @@ const RenewalCards = (props)=> {
                 fullName={user.proposerName}
                 annualisedPremium={user.PremiumOneYear}
                 end_date={user.policyEndDate}
+                proposer_ID_refs={user.proposer_ID_refs}
                 loading={props.renewalsDataLoading}
             />
         </React.Fragment>

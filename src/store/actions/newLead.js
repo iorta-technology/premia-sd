@@ -33,16 +33,55 @@ export const createLead = (formData) => {
         return axios.post(`user/addlead`,formData)
             .then(res => {
                 if(res.data.errCode===-1){
-
-                    return dispatch(createLeadSuccess(res.data.errMsg))
+                    const response = res.data.errMsg
+                    // console.log(...response)
+                    return dispatch(createLeadSuccess(...response))
                 }
             })
             .catch(error => {
-                return dispatch(createLeadFail(error.response.data.errors))
+                console.log(error)
+                return dispatch(createLeadFail(error))
             })
     }
 }
 
+export const editLeadStart = () => {
+    return {
+        type: actionTypes.CREATE_LEAD_START
+    }
+}
+
+export const editLeadSuccess = (formData) => {
+    return {
+        type: actionTypes.CREATE_LEAD_SUCCESS,
+        formData: formData,
+    }
+} 
+
+
+export const editLeadFail = (error) => {
+    return {
+        type: actionTypes.CREATE_LEAD_FAIL,
+        error: error
+    }
+}
+
+export const editLead = (formData,id) => {
+        
+    return dispatch => {
+        dispatch(editLeadStart())
+        return axios.put(`user/updateLead/${id}`,formData)
+            .then(res => {
+                if(res.data.errCode===-1){
+
+                    return dispatch(editLeadSuccess(res.data.errMsg))
+                }
+            })
+            .catch(error => {
+                return dispatch(editLeadFail(error.response.data.errors))
+            })
+    }
+}
 
 export const fetchLeadDetailsStart = () => {
     return {
@@ -71,11 +110,13 @@ export const fetchLeadDetails = (id) => {
         dispatch(fetchLeadDetailsStart())
         return axios.get(`user/getlead_details/${id}`)
             .then(res => {
-                    console.log(res.data)
+                    console.log(...res.data.errMsg)
                     let response = res.data.errMsg
-                    return dispatch(fetchLeadDetailsSuccess(response))
-                // if(res.data.errCode===-1){
-                // }
+                    if(res.data.errCode===-1){
+                        return dispatch(fetchLeadDetailsSuccess(...response))
+                    }else{
+                        throw response
+                    }
             })
             .catch(error => {
                 console.log(error)
