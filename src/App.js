@@ -81,7 +81,7 @@ function App() {
 
 
               {/* Make this route at the end only. */}
-              <Route  path="/" component={AgentMicroService}></Route>
+              <Route exact path="/" component={AgentMicroService}></Route>
               <div>
               <Sidebar />
               <Route path="/clubsMaster" component={ClubsMaster}></Route>
