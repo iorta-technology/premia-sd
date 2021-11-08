@@ -37,7 +37,7 @@ import ReactPlayer from 'react-player'
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
-
+import _, { isEmpty } from 'lodash'
 import axios from '../../axios-common';
 const { Option } = Select;
 function useQuery() {
@@ -49,6 +49,8 @@ const AgentMicroService = () => {
     const [form] = Form.useForm();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('')
+    const [Testimonials, setTestimonials] = useState()
+    const [Achievements, setAchievements] = useState()
     const [mobile, setMobile] = useState('')
     const [product, setProduct] = useState('')
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -58,19 +60,27 @@ const AgentMicroService = () => {
     const search = useLocation().search;
     const name = new URLSearchParams(search).get('name');
     const agentId = new URLSearchParams(search).get('agent_id');
-    const { first_name, last_name, agent_id } = useSelector((state) => state.agent.agentDetails)
+    const { first_name, last_name,testimonials,achievements } = useSelector((state) => state.agent)
+    // const { micrositeId} = useSelector((state) => state.agent.agentDetails)
     const fetchAgentDetailsLoading = useSelector((state) => state.agent.fetchAgentDetailsLoading)
 
-    console.log(fetchAgentDetailsLoading)
+    // console.log(fetchAgentDetailsLoading)
     // const [...testimonialsArr.Testimonials] = [microsite_settings]
     // query.get('name')
     // query.get('agent_id')
     // console.log(name)
     // console.log(agentId)
     useEffect(() => {
-        dispatch(actions.fetchAgentDetails(name, agentId))
-
+        dispatch(actions.fetchAgentDetails(agentId))
+        
     }, [dispatch, agentId])
+    useEffect(()=>{
+        // console.log(testimonials)
+        setTestimonials(testimonials)
+        setAchievements(achievements)
+    },[testimonials,achievements])
+        
+
     const payload = {
         user_id: "5df77d17009e273b39cae811",
         Product: product,
@@ -226,7 +236,7 @@ const AgentMicroService = () => {
             state: { id: props }
         })
     }
-    if (fetchAgentDetailsLoading) { return <Spin /> }
+    if (fetchAgentDetailsLoading && isEmpty(testimonials) ) {return <Spin /> }
     return (
         <>
             <div className="whatsapp">
@@ -266,7 +276,7 @@ const AgentMicroService = () => {
 
                     <div className="info">
                         <b className="title"><span>Hello i’m</span><br />{first_name} {last_name}</b>
-                        <p className="id">ADVISOR : {agent_id}</p>
+                        <p className="id">ADVISOR : {agentId}</p>
                         <div className="tagline">
                             <h1>
                                 GET SOLUTION FOR HEALTH INSURANCE
@@ -293,7 +303,7 @@ const AgentMicroService = () => {
                     </div>
                     <div className="achievements">
                         <h2>My Achievements</h2>
-                        <p>"16 years of securing people's lives, and everything that's valuable in their lives. Delivering peace of mind to over 3000 people"
+                        <p>"{achievements.info}"
                         </p>
                         <div className="badge-info">
                             <div>
