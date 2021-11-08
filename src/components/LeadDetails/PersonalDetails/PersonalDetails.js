@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Form, Typography, Radio, Button, Input, Select, Tabs, DatePicker, Table, Modal } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined,CloseCircleOutlined,FileTextOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined, CloseCircleOutlined, FileTextOutlined } from '@ant-design/icons';
 import TabsMain from '../../Tab/Tab'
 import LeadDetailsTab from '../LeadDetailsTab';
 import '../../StatusLead/StatusLead.css'
@@ -157,27 +157,27 @@ const PersonalDetails = () => {
         sethaveChildren(!haveChildren)
     }
 
-    const childNameHandler = (event)=>{
+    const childNameHandler = (event) => {
         const name = event.target.value
         setChildName(name)
     }
-    const childGenderHandler = (e)=>{
+    const childGenderHandler = (e) => {
         setChildGender(e.target.value)
     }
     const childDOBHandler = (date, dateString) => {
         setChildAge(moment(date).valueOf())
 
     }
-    const randomId =()=>{
+    const randomId = () => {
         let randomChars = 'abcdefghijklmnopqrstuvwxyz0123456789';
         let result = '';
-        for ( let i = 0; i < 6; i++ ) {
+        for (let i = 0; i < 6; i++) {
             result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
         }
         return result;
     }
-    
-    
+
+
     const handleChildModal = () => {
         setChildModel(!childModel)
     }
@@ -185,7 +185,7 @@ const PersonalDetails = () => {
         event.preventDefault();
 
         storeChildInfo.push({
-            id:"ch"+randomId(),
+            id: "ch" + randomId(),
             childName: childName,
             childAge: childAge,
             childGender: childGender,
@@ -193,7 +193,7 @@ const PersonalDetails = () => {
         setChildInfoObj(storeChildInfo)
         const formData = {
             ...storeFormData,
-            ChildInfo:[
+            ChildInfo: [
                 ...storeChildInfo
             ]
         }
@@ -208,7 +208,7 @@ const PersonalDetails = () => {
         {
             title: 'Date of Birth',
             dataIndex: 'DateofBirth',
-            render:(dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>)}
+            render: (dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>) }
 
         },
         {
@@ -217,12 +217,12 @@ const PersonalDetails = () => {
         },
         {
             title: 'Action',
-            render:()=><CloseCircleOutlined />
+            render: () => <CloseCircleOutlined />
         },
     ]
     useEffect(() => {
     }, [storeChildInfo])
- 
+
     const formData = {
         ...storeFormData,
         firstName: firstName,
@@ -254,7 +254,7 @@ const PersonalDetails = () => {
 
     const updateHandler = event => {
         event.preventDefault();
-        dispatch(actions.editLead(formData,storeLeadId))
+        dispatch(actions.editLead(formData, storeLeadId))
         history.push('contactlead')
 
         // if (!formIsValid) {
@@ -290,24 +290,25 @@ const PersonalDetails = () => {
                 activeKey="2"
             />
             <div className="form-container">
-                <Row className="m0a" gutter={[0, 30]} justify="center">
-                    <LeadDetailsTab activeKey="1" />
-                    <Col className="m0a" xs={22} sm={22} md={17} offset={2}>
-                        <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
+                <Form
+                    layout="horizontal"
+                    className="contact-detail-form"
+                    form={form}
+                    // validateMessages={validateMessages}
+                    initialValues={{
+                        "name": firstName,
+                        "lastname": lastName,
+                        "gender": gender,
+                        "dob": dob,
+                        "maritalstatus": maritalStatus
+                    }}>
+                    <Row className="m0a" gutter={[0, 30]} justify="center">
+                        <LeadDetailsTab activeKey="1" />
+                        <Col className="form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
                             <p className="form-title">Personal Details</p>
-                            <Form
-                                layout="horizontal"
-                                className="contact-detail-form"
-                                form={form}
-                                // validateMessages={validateMessages}
-                                initialValues={{
-                                    "name": firstName,
-                                    "lastname": lastName,
-                                    "gender": gender,
-                                    "dob": dob,
-                                    "maritalstatus": maritalStatus
-                                }}>
-                                <Col >
+                            <Row gutter={16} className="mb-2">
+                                {/* <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} > */}
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -328,7 +329,7 @@ const PersonalDetails = () => {
                                         />
                                     </Form.Item>
                                 </Col>
-                                <Col>
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -348,7 +349,7 @@ const PersonalDetails = () => {
                                         />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -373,7 +374,7 @@ const PersonalDetails = () => {
                                             style={{ width: "100%" }} />
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         name="gender"
@@ -389,7 +390,7 @@ const PersonalDetails = () => {
                                         </Radio.Group>
                                     </Form.Item>
                                 </Col>
-                                <Col >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -414,7 +415,7 @@ const PersonalDetails = () => {
                                     </Form.Item>
                                 </Col>
                                 {appendChildComponent &&
-                                    <Col >
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                         <Form.Item
                                             {...formItemLayout}
                                             className="form-item-name label-color"
@@ -444,13 +445,13 @@ const PersonalDetails = () => {
                                             <Button shape="round" size="large" block onClick={handleChildModal}>Add Child</Button>
                                         </Col>
                                         <Table
-                                            style={{marginTop:'1rem'}}
+                                            style={{ marginTop: '1rem' }}
                                             dataSource={childInfoObj}
                                             columns={childColumn}
                                             scroll={{ x: 600 }}
                                         />
                                     </>
-                                        
+
                                 }
                                 <>
                                     <Modal
@@ -488,8 +489,8 @@ const PersonalDetails = () => {
                                                     <Input
                                                         className="first-name input-box"
                                                         placeholder="Enter Child Name"
-                                                    value={childName}
-                                                    onChange={childNameHandler}
+                                                        value={childName}
+                                                        onChange={childNameHandler}
                                                     />
                                                 </Form.Item>
                                             </Col>
@@ -499,8 +500,7 @@ const PersonalDetails = () => {
                                                     className="form-item-name label-color"
                                                     name="dobOfChild"
                                                     label="Date of Birth"
-                                                    rules={[{ required: true}]}
-
+                                                    rules={[{ required: true }]}
                                                 >
                                                     <DatePicker
                                                         value={childAge}
@@ -528,25 +528,33 @@ const PersonalDetails = () => {
                                         </Row>
                                     </Modal>
                                 </>
-                            </Form>
+                                {/* </Col> */}
+                            </Row>
                         </Col>
-                        <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={20} lg={20} xl={20} span={24} >
-                            <Row>
-                                <Col xs={11} sm={12} md={4} offset={ width > breakpoint ? 12 : 2} >
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
-                                </Col>
-                                <Col xs={11} sm={12} md={4} >
+
+                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6:0}>
+                            <Row gutter={[8,8]}>
+                                <Col xs={10} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
                                     <Button 
                                         type="primary" 
                                         shape="round" 
                                         size="large" 
                                         style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                                        icon={<ArrowLeftOutlined />} 
+                                        >Previous</Button>
+                                </Col>
+                                <Col xs={10} sm={12} md={4} >
+                                    <Button
+                                        type="primary"
+                                        shape="round"
+                                        size="large"
+                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
                                         icon={<FileTextOutlined />} htmlType="submit"
                                         // disabled={!formIsValid}
                                         onClick={updateHandler}
                                     >Update</Button>
                                 </Col>
-                                <Col xs={11} sm={12} md={4}>
+                                <Col xs={10} sm={12} md={4}>
                                     <Button
                                         type="primary"
                                         shape="round"
@@ -557,9 +565,9 @@ const PersonalDetails = () => {
                                 </Col>
                             </Row>
                         </Col>
-                    </Col>
-                </Row>
-            </div>
+                    </Row>
+                </Form>
+            </div >
         </>
     )
 }

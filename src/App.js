@@ -76,8 +76,12 @@ function App() {
               <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
               <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
               <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
+
+
+
+
               {/* Make this route at the end only. */}
-              <Route  path="/agentMicroSite" component={AgentMicroService}></Route>
+              <Route  path="/" component={AgentMicroService}></Route>
               <div>
               <Sidebar />
               <Route path="/clubsMaster" component={ClubsMaster}></Route>
