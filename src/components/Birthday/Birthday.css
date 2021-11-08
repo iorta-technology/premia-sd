@@ -23,13 +23,13 @@
 .main-tab{
     margin-left: 0vw;
 }
-.btn {
+.birthday-btn {
     display: flex;
     width: 10vw;
-    height: 4vh !important;
-    padding-left: 40px !important;
-    padding-top: 8px !important;
-    font-size: 20px !important;
+    height: 4vh;
+    padding-left: 3vw !important;
+    padding-top: 3px;
+    font-size: 20px;
     background-color: #D2DDE8;
     color: #7E95AD;
     border-width: 0px;
