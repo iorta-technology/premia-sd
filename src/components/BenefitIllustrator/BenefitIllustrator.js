@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import './BenefitIllustrator.css';
 import { Row, Col, Form, Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal } from 'antd';
 import { Divider, Card } from 'antd';
-import { Descriptions } from 'antd';
+import { ArrowRightOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
-
 function onChange(date, dateString) {
     console.log(date, dateString);
 }
@@ -13,9 +12,6 @@ const { Option } = Select;
 const contentStyle = {
     height: '100px',
     color: '#fff',
-    // lineHeight: '180px',
-    // textAlign: 'center',
-    // background: '#364d79',
 };
 const formItemLayout = {
     labelCol: {
@@ -33,7 +29,6 @@ const setStateOptions = [
     { value: "Premium to Sum Assured", label: "Premium to Sum Assured" },
 ]
 const BenefitIllustrator = () => {
-    // const [leadSelect, setLeadSelect] = useState()
     const [value, setValue] = React.useState(1);
     return (
         <div className="form-container">
@@ -41,55 +36,31 @@ const BenefitIllustrator = () => {
                 <Col xs={{ order: 1 }} sm={16} md={16} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                     <Row gutter={['', 24]}>
                         <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                            {/* <div className="form-title"> */}
-                            <Title className="heading">Enter Details</Title>
-                            {/* </div> */}
+                            <Title className="bi-heading">Enter Details</Title><br />
                             <Form layout="horizontal" className="contact-detail-form">
                                 <Col >
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name={['user', 'name']}
-                                        label="Advisor Name"
-                                        rules={[
-                                            {
-                                                required: true,
-                                            },
-                                        ]}
-                                    >
-                                        <p className="para">ashraf khan</p><hr />
-                                    </Form.Item>
+                                    <span className="labels">Advisor Name</span>
+                                    <p className="para">ashraf khan</p><hr />
                                 </Col>
+                                <Col >
+                                    <span className="labels">Advisor Name</span>
+                                    <p className="para">AGQFLXYR</p><hr />
+                                </Col><br />
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name={['user', 'name']}
-                                        label="Advisor Code"
-                                        rules={[
-                                            {
-                                                required: true,
-                                            },
-                                        ]}
-                                    >
-                                        <p className="para">AGQFLXYR</p><hr />
-                                    </Form.Item>
-                                </Col>
-                                <Col >
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="State"
+                                        name="City"
                                         label="Select Calculator Type"
                                         hasFeedback
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Select Calculator Type!',
+                                                message: 'Please select calculator type',
                                             },
                                         ]}
                                     >
-                                        <Select options={setStateOptions} placeholder="Select Type"></Select>
+                                        <Select options={setStateOptions} placeholder="Select Type" style={{ width: '28vw' }}></Select>
                                     </Form.Item>
                                 </Col>
                                 <Col >
@@ -98,11 +69,13 @@ const BenefitIllustrator = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name={['user', 'name']}
-                                        label="Name of Life Assured"
+                                        name="City"
+                                        label="Name Of Life  Assured"
+                                        hasFeedback
                                         rules={[
                                             {
-                                                required: true,
+                                                required: false,
+                                                message: 'Please enter name of life assured',
                                             },
                                         ]}
                                     >
@@ -113,41 +86,38 @@ const BenefitIllustrator = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name={['user', 'name']}
-                                        label="Gender of Life Assured"
+                                        name="City"
+                                        label="Gender Of Life Assured"
+                                        hasFeedback
                                         rules={[
                                             {
-                                                required: true,
+                                                required: false,
+                                                message: 'Please select gender of life assured',
                                             },
                                         ]}
                                     >
-                                        <div>
-                                            <Radio.Group defaultValue="a" buttonStyle="solid">
-                                                <Radio.Button value="a" className="radio">Male</Radio.Button>
-                                                <Radio.Button value="b" className="radio">Female</Radio.Button>
-                                                <Radio.Button value="c" className="radio">Other</Radio.Button>
-                                            </Radio.Group>
-                                        </div>
+                                        <Radio.Group defaultValue="a">
+                                            <Radio.Button value="a" className="radio">Male</Radio.Button>
+                                            <Radio.Button value="b" className="radio">Female</Radio.Button>
+                                            <Radio.Button value="c" className="radio">Other</Radio.Button>
+                                        </Radio.Group>
                                     </Form.Item>
                                 </Col>
                                 <Col >
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Insurance Company"
-                                        label="Date of Birth of Life Assured"
+                                        name="City"
+                                        label="Date of Birth Of Life Assured"
                                         hasFeedback
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Date of Birth of Life Assured',
+                                                message: 'Please select date of birth of life assured',
                                             },
                                         ]}
                                     >
-                                        <div>
-                                            <DatePicker onChange={onChange} />
-
-                                        </div>,
+                                        <DatePicker onChange={onChange} style={{ width: '28vw' }} />
                                     </Form.Item>
                                 </Col>
                                 <Col>
@@ -155,16 +125,16 @@ const BenefitIllustrator = () => {
                                         {...formItemLayout}
                                         className="form-item-name label-color"
                                         name="City"
-                                        label="Martial benefitillustrator2"
+                                        label="Martial Status"
                                         hasFeedback
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Please martial benefitillustrator2!',
+                                                message: 'Please select martial status',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Select a martial benefitillustrator2">
+                                        <Select placeholder="Select Martial Status" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="Single">Single</Option>
                                             <Option value="Married">Married</Option>
@@ -183,11 +153,11 @@ const BenefitIllustrator = () => {
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Please select policy term!',
+                                                message: 'Please select policy term',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Select a policy term">
+                                        <Select placeholder="Select Policy Term" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="5">5</Option>
                                             <Option value="10">10</Option>
@@ -207,11 +177,11 @@ const BenefitIllustrator = () => {
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Please martial benefitillustrator2!',
+                                                message: 'Please select premium paying term',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Select a martial benefitillustrator2">
+                                        <Select placeholder="Select Premium Paying Term" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="5">5</Option>
                                             <Option value="10">10</Option>
@@ -225,23 +195,22 @@ const BenefitIllustrator = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Insurance Company"
+                                        name="City"
                                         label="Premium Mode"
                                         hasFeedback
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Date of Birth of Life Assured',
+                                                message: 'Please select premium mode',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Yearly">
+                                        <Select placeholder="Yearly" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="Yearly">Yearly</Option>
                                             <Option value="Half-Yearly">Half-Yearly</Option>
                                             <Option value="Quarterly">Quarterly</Option>
                                             <Option value="Monthly">Monthly</Option>
-                                            {/* <Option value="25">25</Option> */}
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -255,11 +224,11 @@ const BenefitIllustrator = () => {
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Please martial benefitillustrator2!',
+                                                message: 'Please select premium type',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Regular">
+                                        <Select placeholder="Regular" style={{ width: '28vw' }}>
                                             <Option value="Single">Single</Option>
                                             <Option value="Limited">Limited</Option>
                                             <Option value="Regular">Regular</Option>
@@ -270,11 +239,13 @@ const BenefitIllustrator = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name={['user', 'name']}
+                                        name="City"
                                         label="Sum Assured"
+                                        hasFeedback
                                         rules={[
                                             {
-                                                required: true,
+                                                required: false,
+                                                message: 'Please enter sum assured',
                                             },
                                         ]}
                                     >
@@ -287,17 +258,17 @@ const BenefitIllustrator = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Insurance Company"
+                                        name="City"
                                         label="Death Benefit Option"
                                         hasFeedback
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Date of Birth of Life Assured',
+                                                message: 'Please select death benefit option',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Yearly">
+                                        <Select placeholder="Yearly" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="Option1">Option 1</Option>
                                             <Option value="Option2">Option 2</Option>
@@ -315,11 +286,11 @@ const BenefitIllustrator = () => {
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Please martial benefitillustrator2!',
+                                                message: 'Please select age proof',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Regular">
+                                        <Select placeholder="Regular" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="Standard">Standard</Option>
                                             <Option value="Non-Standard">Non-Standard</Option>
@@ -331,23 +302,22 @@ const BenefitIllustrator = () => {
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
-                                        name="Insurance Company"
+                                        name="City"
                                         label="Annuity Frequency"
                                         hasFeedback
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Date of Birth of Life Assured',
+                                                message: 'Please select annuity frequency',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Yearly">
+                                        <Select placeholder="Yearly" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="Yearly">Yearly</Option>
                                             <Option value="Half-Yearly">Half-Yearly</Option>
                                             <Option value="Quarterly">Quarterly</Option>
                                             <Option value="Monthly">Monthly</Option>
-                                            {/* <Option value="25">25</Option> */}
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -361,15 +331,14 @@ const BenefitIllustrator = () => {
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Please martial benefitillustrator2!',
+                                                message: 'Please select annuity option',
                                             },
                                         ]}
                                     >
-                                        <Select placeholder="Regular">
+                                        <Select placeholder="Regular" style={{ width: '28vw' }}>
                                             <Option value="Select">Select</Option>
                                             <Option value="Life Annunity">Life Annunity</Option>
                                             <Option value="Life Annunity with ROP">Life Annunity with ROP</Option>
-
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -383,7 +352,7 @@ const BenefitIllustrator = () => {
                                         rules={[
                                             {
                                                 required: false,
-                                                message: 'Please martial benefitillustrator2!',
+                                                message: 'Please select riders plan',
                                             },
                                         ]}
                                     >
@@ -400,7 +369,7 @@ const BenefitIllustrator = () => {
                             <Form >
                                 <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                     <Col  >
-                                        <Button className="btn2">Generate BI</Button>
+                                        <Button className="bi-btn1">Generate BI</Button>
                                     </Col>
                                     <Col >
                                         <Button className="btn2">Generate BI</Button><br />
@@ -413,43 +382,34 @@ const BenefitIllustrator = () => {
                 <Col xs={{ order: 2 }} sm={8} md={8} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                     <Row>
                         <Col className="benefitillustrator3" xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
-                            {/* <div className="form-title"> */}
-                            <Title className="heading">Summary</Title><br/>
-                            {/* </div> */}
-                            <p>Plan Option</p>
-                            <h2>Home Loan</h2>
+                            <Title className="bi-heading">Summary</Title><br />
+                            <span className="labels">Plan Option</span>
+                            <h2 className="head2">Home Loan</h2>
                             <Divider />
-                            <p>Policy Term</p>
-                            <h2>years</h2>
+                            <span className="labels">Policy Term</span>
+                            <h2 className="head2">years</h2>
                             <Divider />
-                            <p>Premium Paying Term</p>
-                            <h2>years</h2>
+                            <span className="labels">Premium Paying Term</span>
+                            <h2 className="head2">years</h2>
                             <Divider />
-                            <p>Annualised Premium</p>
-                            <h2>₹ 0</h2>
+                            <span className="labels">Annualised Premium</span>
+                            <h2 className="head2">₹ 0</h2>
                             <Divider />
-                            <p>Sum Assured</p>
-                            <h2>₹ </h2>
+                            <span className="labels">Sum Assured</span>
+                            <h2 className="head2">₹ </h2>
                             <Divider />
-                            <p>Payout at Maturity</p>
-                            <h2>₹ 0</h2>
+                            <span className="labels">Payout at Maturity</span>
+                            <h2 className="head2">₹ 0</h2>
                             <Divider />
-                            <p>Minimum Payout on Death</p>
-                            <h2>₹ 0</h2><Divider />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
+                            <span className="labels">Minimum Payout on Death</span>
+                            <h2 className="head2">₹ 0</h2><Divider />
                         </Col>
                     </Row>
                 </Col>
                 <Col xs={{ order: 3 }} sm={24} md={24} lg={{ order: 3 }} xl={{ order: 3 }} span={22}>
                     <Row gutter={['', 24]}>
                         <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                            {/* <div className="form-title"> */}
-                            <Title className="heading">Benefit Illustration</Title>
-                            {/* </div> */}
+                            <Title className="bi-heading">Benefit Illustration</Title>
                             <Form layout="horizontal" className="contact-detail-form">
                                 <Col >
                                     <Form.Item
@@ -463,21 +423,17 @@ const BenefitIllustrator = () => {
                                             },
                                         ]}
                                     >
-                                        <div>
-                                            <Radio.Group defaultValue="a" buttonStyle="solid">
-                                                <Radio.Button value="a" className="radio">Maturity</Radio.Button>
-                                                <Radio.Button value="b" className="radio">Events</Radio.Button>
-                                                <Radio.Button value="c" className="radio">BI</Radio.Button>
-                                            </Radio.Group>
-                                        </div>
+                                        <Radio.Group defaultValue="a">
+                                            <Radio.Button value="a" className="radio">Maturity</Radio.Button>
+                                            <Radio.Button value="b" className="radio">Events</Radio.Button>
+                                            <Radio.Button value="c" className="radio">BI</Radio.Button>
+                                        </Radio.Group>
                                     </Form.Item>
                                 </Col>
                             </Form>
                             <Col>
-                                {/* <div className="Image"> */}
                                 <Card className="img" cover={<img alt="example" src="base-plan.jpg" />}>
                                 </Card>
-                                {/* </div> */}
                             </Col>
                         </Col>
                     </Row>
@@ -485,7 +441,13 @@ const BenefitIllustrator = () => {
                 <Col xs={{ order: 4 }} sm={24} md={24} lg={{ order: 4 }} xl={{ order: 4 }} span={22}>
                     <Row gutter={['', 24]}>
                         <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                            <Button className="btn3">Proceed</Button>
+                            <Button className="btn3" >Proceed
+                                <ArrowRightOutlined
+                                    style={{
+                                        marginTop: "7px"
+                                    }}
+                                />
+                            </Button>
                         </Col>
                     </Row>
                 </Col>

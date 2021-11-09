@@ -63,9 +63,7 @@ export default function CalendarEvent() {
     policy_renewal: false
   })
 
-  const [prospectAppointment, setProspectAppointment] = useState(true)
-  const [prospectPhoneCall, setProspectPhoneCall] = useState(false)
-  const [prospectTraining, setProspectTraining] = useState(false)
+  
   const [startDuration, setStartDuration] = useState();
   const [endDuration, setEndDuration] = useState();
   const [MultiSelectDate, setMultiSelectDate] = useState(false)
@@ -2391,7 +2389,7 @@ setDurationStartDateHelper(e.dateStr)
   return (
     <div className="CalendarEvent-main-class">
 
-      <Modal
+     <Modal
         className="Calendar-event-modal-header-style"
         title={
           updateEventCheck==true?"Update Event":
@@ -2419,7 +2417,7 @@ setDurationStartDateHelper(e.dateStr)
           // display:"flex",
           // flexDirection:"column"
           overflowY: "scroll"
-
+ 
         }}
       >
 
