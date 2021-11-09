@@ -4,6 +4,7 @@ import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
 import {Spin} from 'antd';
 
 const LeadMaster = React.lazy(()=> import('./containers/LeadMaster/index'))
+const AdvisorList = React.lazy(()=> import('./components/AdvisorOnboarding/AdvisorCard'))
 const StatusLead = React.lazy(()=> import('./components/StatusLead/StatusLead'))
 const PersonalDetails = React.lazy(()=> import('./components/LeadDetails/PersonalDetails/PersonalDetails'))
 const ContactDetails = React.lazy(()=> import('./components/LeadDetails/ContactDetails/ContactDetails'))
@@ -76,7 +77,8 @@ function App() {
               <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
               <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
               <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
-
+              <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
+              
 
 
 
