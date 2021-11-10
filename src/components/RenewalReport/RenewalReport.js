@@ -50,14 +50,11 @@ const RenewalReport = () => {
     const filterMonthFunc = (e) => {
         setSelectMonthOption(e.target.value)
     }
-//    useEffect(() => {
-//         getData();
-
-//     }, [selectMonthOption]);
-    useEffect(() => {
+     useEffect(() => {
         axios.get(`https://nodemanipalcigna.iorta.in/secure/sd/admin/fetchRenewalReport/615d9024439d4731f410e65d?skip=0&month=${selectMonthOption}&BRMCode=82290`)
             .then((res) => {
                 console.log(res)
+                setloading(false)
                 setFetchRenewalArr(
                     res.data ? res.data.errMsg[0]
                         .map(row => ({

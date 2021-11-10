@@ -31,17 +31,17 @@ const Birthday = () => {
                                     <Row gutter={16} justify="center">
                                         <Col className="gutter-row" span={4}>
                                             <div className="gutter-box">
-                                                <Button className="btn" shape="round" size="large" block={false} onChange={callback}>Upcoming</Button>
+                                                <Button className="birthday-btn" shape="round" size="large" block={false} onChange={callback}>Upcoming</Button>
                                             </div>
                                         </Col>
                                         <Col className="gutter-row" span={4}>
                                             <div className="gutter-box">
-                                                <Button className="btn" shape="round" size="large" block={false} >Recent</Button>
+                                                <Button className="birthday-btn" shape="round" size="large" block={false} >Recent</Button>
                                             </div>
                                         </Col>
                                         <Col className="gutter-row" span={4}>
                                             <div className="gutter-box">
-                                                <Button className="btn" shape="round" size="large" block={false} >Later</Button>
+                                                <Button className="birthday-btn" shape="round" size="large" block={false} >Later</Button>
                                             </div>
                                         </Col>
                                         <Col className="gutter-row" span={4}>

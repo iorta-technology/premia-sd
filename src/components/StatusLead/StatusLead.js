@@ -1304,7 +1304,7 @@ const NewLead = React.memo(() => {
                       icon={<FileTextOutlined />} 
                       htmlType="submit"
                       // disabled={!formIsValid}
-                      // onClick={submitHandler}
+                      onClick={submitHandler}
                     >Submit</Button> :
                     <Button
                       type="primary"
