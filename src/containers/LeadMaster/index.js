@@ -4,7 +4,7 @@ import Tab from '../../components/Tab/Tab'
 import LeadCards from '../../components/LeadCards/LeadCards'
 import FloatButton from '../../components/FloatButton/FloatButton'
 import * as actions from '../../store/actions/index';
-import { Pagination } from 'antd';
+import { Pagination,Button } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
 const LeadMaster = (props) => {
     //Set current page no of the page
@@ -79,6 +79,9 @@ const LeadMaster = (props) => {
                 header="Lead" 
                 current={current}
                 />
+                <Button type='primary' className="export-btn">Export</Button>
+            {/* <div className="export-btn-holder">
+            </div> */}
             <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
             <div className="page-holder">
                 <Pagination

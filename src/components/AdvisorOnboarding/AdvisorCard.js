@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, Avatar, Switch, Divider, Row, Col,Button } from 'antd'
-import { MoreOutlined,ExclamationCircleOutlined  } from '@ant-design/icons';
+import { Card, Avatar, Switch, Divider, Row, Col,Button,Popover } from 'antd'
+import { MoreOutlined,ExclamationCircleOutlined,CalendarOutlined,MailFilled,PhoneFilled} from '@ant-design/icons';
 import '../LeadCards/LeadCard.css';
 import './AdvisorCard.scss'
 import * as actions from '../../store/actions/index';
@@ -46,7 +46,37 @@ const LeadCard = React.memo((props) => {
         dispatch(actions.fetchLeadDetails(id))
         history.replace('/leadmasterpage/statuslead')
     }
+    const text = <span>Title</span>;
+    const content = (
+        <Row>
+            <Col span={6}>
+                <CalendarOutlined  style={{ fontSize: '16px', color: '#08c' }}/>
+            </Col>
+            <Col span={18}>
+                <p>Create an Event</p>
+            </Col>
+            <Col span={24}>
+                <Divider className="popover-divider"/>
+            </Col>
+            <Col span={6}>
+                 <MailFilled />
+            </Col>
+            <Col span={18}>
+                <p>Mail</p>
+            </Col>
+            <Col span={24}>
+                <Divider className="popover-divider"/>
+            </Col>
+            <Col span={6}>
+                <PhoneFilled />
+            </Col>
+            <Col span={18}>
+                <p>Call</p>
+            </Col>
+        </Row>
+      );
     // Card for desktop
+    
     let card =
         // <Card
         //     // key={id}
@@ -56,13 +86,19 @@ const LeadCard = React.memo((props) => {
         //     style={{ width: 610 }}>
         <Row className="advisor-card-desktop" align="top">
             <Col span={2}>
-                <Avatar size={{ xl: 40 }}>AV</Avatar>
+                <Avatar 
+                    size={{ xl: 40 }}
+                    style={{
+                        color: '#ffffff',
+                        backgroundColor: '#00ACC1',
+                      }}
+                >AV</Avatar>
                 {/* <Card.Grid hoverable={false} className="grid-style">
                         </Card.Grid> */}
             </Col>
             <Col span={12}>
-                <p className="paragraph capitalize">Azim Shaikh</p>
-                <p className="paragraph capitalize">App ID AGIN_202111_000420</p>
+                <p className="paragraph capitalize advisor-name">Azim Shaikh</p>
+                <p className="paragraph capitalize app-id-label">App ID <span className="app-id">AGIN_202111_000420</span></p>
             </Col>
             <Col span={10}>
                 <Row justify="center" align="middle">
@@ -104,7 +140,9 @@ const LeadCard = React.memo((props) => {
                                 <Divider className="divider" type="vertical" />
                             </Col>
                             <Col span={19} offset={1}>
-                                <MoreOutlined style={{ fontSize: '30px', marginLeft: 'auto', fontWeight:'bold' }} />
+                            <Popover placement="leftTop"  content={content} trigger="click" style={{width:'135px'}}>
+                                <MoreOutlined className="more-icon" style={{ fontSize: '30px', marginLeft: 'auto', fontWeight:'bold' }} />
+                            </Popover>
                             </Col>
                         </Row>
                     </Col>
@@ -116,28 +154,28 @@ const LeadCard = React.memo((props) => {
                     <Col span={18}>
                         <Row gutter={[16, 24]}>
                             <Col span={8} >
-                                <p className="paragraph text-type ">Created on</p>
-                                <p className="paragraph text-content">Date</p>
+                                <p className="paragraph adv-detail-label ">Created on</p>
+                                <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph text-type">Created on</p>
-                                <p className="paragraph text-content">Date</p>
+                                <p className="paragraph adv-detail-label">Created on</p>
+                                <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph text-type">Created on</p>
-                                <p className="paragraph text-content">Date</p>
+                                <p className="paragraph adv-detail-label">Created on</p>
+                                <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph text-type">Created on</p>
-                                <p className="paragraph text-content">Date</p>
+                                <p className="paragraph adv-detail-label">Created on</p>
+                                <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph text-type">Created on</p>
-                                <p className="paragraph text-content">Date</p>
+                                <p className="paragraph adv-detail-label">Created on</p>
+                                <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph text-type">Created on</p>
-                                <p className="paragraph text-content">Date</p>
+                                <p className="paragraph adv-detail-label">Created on</p>
+                                <p className="paragraph adv-text">Date</p>
                             </Col>
                         </Row>
                     </Col>
@@ -150,9 +188,7 @@ const LeadCard = React.memo((props) => {
                         >Update</Button>
                     </Col>
                 </Row>
-
             </Col>
-
         </Row>
     {/* <div className="avatar-and-status">
                 <Avatar size={{ xl: 50 }}>AV</Avatar>
