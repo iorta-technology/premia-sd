@@ -134,6 +134,7 @@ const HomePage = () => {
     },
     color: ['rgb(0, 172, 193)','#fff']
   };
+  
   return <Fragment >
     <Button type="primary" onClick={onLogout}>Logout</Button>
     <FloatButton />
@@ -269,6 +270,7 @@ const HomePage = () => {
 
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+        <Link to="/kpi-dashboard">
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3366.png" alt="Business" />
@@ -278,6 +280,7 @@ const HomePage = () => {
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
             </div>
           </div>
+          </Link>
           <div style={{ marginTop: "50px" }}>
             <div style={{ float: "right" }}>
               <select style={{ backgroundColor: "transparent", border: "none", borderBottom: "1px solid #fff", outline: "none", boxShadow: "none", color: "#fff", appearance: 'none' }}>
@@ -371,15 +374,17 @@ const HomePage = () => {
 
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <Link to="/renewalMaster/allRenewals">
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
             </div>
             <div className="activities-text">
-              <p style={{ fontSize: '15px', color: '#fff' }}>Customers</p>
+              <p style={{ fontSize: '15px', color: '#fff' }}>Renewals</p>
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} />
             </div>
           </div>
+          </Link>
           <div className='rewardscorner-text'>
             <div style={{ display: 'flex', justifyContent: "center" }}>
               <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
