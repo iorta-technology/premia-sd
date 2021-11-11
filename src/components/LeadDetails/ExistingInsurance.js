@@ -76,8 +76,8 @@ const ExistingInsurenceDetails = () => {
     let lifeObjDisplay = useSelector((state) => state.newLead.HaveLifeInsurance_details)
     let healthObjDisplay = useSelector((state) => state.newLead.Insurancedetails)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
-    let storeLifeInsArr = useSelector((state) => state.newLead.formData.HaveLifeInsurance_details)
-    let storeHealthInsArr = useSelector((state) => state.newLead.formData.Insurancedetails)
+    let storeLifeInsArr = useSelector((state) => state.newLead.HaveLifeInsurance_details)
+    let storeHealthInsArr = useSelector((state) => state.newLead.Insurancedetails)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -109,8 +109,8 @@ const ExistingInsurenceDetails = () => {
     const [healthRiskDate, setHealthRiskDate] = useState('')
     const [haveChronicDisease, sethaveChronicDisease] = useState(false)
     const [diseaseDescription, setDiseaseDescription] = useState('')
-    const [lifeInsObj, setlifeInsObj] = useState(lifeObjDisplay)
-    const [healthInsObj, setHealthInsObj] = useState(healthObjDisplay)
+    const [lifeInsObj, setlifeInsObj] = useState()
+    const [healthInsObj, setHealthInsObj] = useState()
     const breakpoint = 620;
 
     useEffect(() => {
@@ -374,7 +374,9 @@ const ExistingInsurenceDetails = () => {
         setVisibleLifeInsuranceModel(false);
     };
     useEffect(() => {
-    }, [storeLifeInsArr,storeHealthInsArr])
+        console.log(lifeInsObj)
+        console.log(storeLifeInsArr)
+    }, [storeLifeInsArr,storeHealthInsArr,lifeInsObj])
     const lifeInsColumn = [
         {
             title: 'Insurer',

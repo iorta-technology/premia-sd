@@ -120,7 +120,7 @@ function App() {
             <Route path="/changepassword" component={ChangePassword}></Route>
             <Route path="/himanshu" component={AgentMicroService}></Route>
             <Route path="/blog" component={Blog}></Route>
-            <Route path="/leadMaster/all_leads" component={LeadMaster}></Route>
+            <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
             <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
             <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
             <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
@@ -132,26 +132,6 @@ function App() {
             <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
             <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>
-              {/* <Route exact path="/">
-                  <Redirect to="/" />
-              </Route> */}
-              {/* <Route path="/login"  component={Login}></Route>
-              <Route path="/forgotpassword" component={ForgotPassword}></Route>
-              <Route path="/changepassword" component={ChangePassword}></Route>
-              <Route path="/blog" component={Blog}></Route>
-              <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
-              <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
-              <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
-              <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
-              <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
-              <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
-              <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
-              <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
-              <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
-              <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route> */}
-              
-
-
 
               {/* Make this route at the end only. */}
               <Route  path="/agentMicrosite" component={AgentMicroService}></Route>

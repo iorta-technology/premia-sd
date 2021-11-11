@@ -7,6 +7,7 @@ const initialState = {
     editLeadLoading:false,
     editLeadError:'',
     leadDataloading:false,
+    successMsg:'',
     leadId:'',
     userId:'',
     address:{
@@ -101,7 +102,8 @@ const createLeadSuccess = (state, action) => {
             createLeadLoading: false, 
             formData: action.formData,
             leadId:action.formData._id,
-            userId:action.formData.userId
+            userId:action.formData.userId,
+            successMsg:action.succMsg,
          })
 }
 const createLeadFail = (state, action) => {

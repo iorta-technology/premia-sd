@@ -59,6 +59,7 @@ const PersonalDetails = () => {
     let storeFormData = useSelector((state) => state.newLead.formData)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
+
     // const id = useSelector((state)=>state.newLead.leadId)
     // useEffect(() => {
     //     dispatch(actions.fetchLeadDetails(id))
@@ -82,6 +83,7 @@ const PersonalDetails = () => {
     const [childName, setChildName] = useState()
     const [childAge, setChildAge] = useState()
     const [childGender, setChildGender] = useState()
+    const [isNewLead, setIsNewLead] = useState(true)
 
 
 
@@ -99,6 +101,9 @@ const PersonalDetails = () => {
     // };
 
     useEffect(() => {
+        if (storeLeadId !== '') {
+            setIsNewLead(false)
+        }
         form.setFieldsValue({
             "firstname": firstName,
             "lastname": lastName,
@@ -231,25 +236,21 @@ const PersonalDetails = () => {
         gender: gender,
         maritalStatus: maritalStatus,
     };
-    const proceedHandler = event => {
-        event.preventDefault();
-        dispatch(actions.storeLead(formData))
-        history.push('contactlead')
+    const submitHandler = event => {
+        if(isNewLead){
+            dispatch(actions.storeLead(formData))
 
-        // if (!formIsValid) {
-        //   return;
-        // }else{
-        // }
-
-        // setErrorMessage('Form submitted successfully')
-        // setIsNewLead(false)
-        // setErrorMessage( res.data.errMsg)
-
-
-
-        // resetFirstName();
-        // resetLastName();
-        // resetEmail();
+            alert('New Lead Updated Successfully')
+            history.push('contactlead')
+            
+            setIsNewLead(false)
+        }else{
+      
+            dispatch(actions.editLead(formData, storeLeadId))
+            alert(' Lead Updated Successfully')
+            history.push('contactlead')
+            
+        }
     };
 
     const updateHandler = event => {
@@ -301,7 +302,10 @@ const PersonalDetails = () => {
                         "gender": gender,
                         "dob": dob,
                         "maritalstatus": maritalStatus
-                    }}>
+                    }}
+                    onFinish={submitHandler}
+
+                    >
                     <Row className="m0a" gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="1" />
                         <Col className="form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
@@ -532,36 +536,41 @@ const PersonalDetails = () => {
                             </Row>
                         </Col>
 
-                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6:0}>
-                            <Row gutter={[8,8]}>
+                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
+                            <Row gutter={[8, 8]}>
                                 <Col xs={10} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button 
-                                        type="primary" 
-                                        shape="round" 
-                                        size="large" 
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
-                                        icon={<ArrowLeftOutlined />} 
-                                        >Previous</Button>
-                                </Col>
-                                <Col xs={10} sm={12} md={4} >
                                     <Button
                                         type="primary"
                                         shape="round"
                                         size="large"
                                         style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                                        icon={<FileTextOutlined />} htmlType="submit"
-                                        // disabled={!formIsValid}
-                                        onClick={updateHandler}
-                                    >Update</Button>
+                                        icon={<ArrowLeftOutlined />}
+                                    >Previous</Button>
+                                </Col>
+                                <Col xs={10} sm={12} md={4} >
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                            icon={<FileTextOutlined />} htmlType="submit"
+                                            // disabled={!formIsValid}
+                                            // onClick={updateHandler}
+                                        >Update</Button>
+                                    </Form.Item>
                                 </Col>
                                 <Col xs={10} sm={12} md={4}>
-                                    <Button
-                                        type="primary"
-                                        shape="round"
-                                        size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
-                                        icon={<ArrowRightOutlined />}
-                                        onClick={proceedHandler}
-                                    >Proceed</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            shape="round"
+                                            size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                            icon={<ArrowRightOutlined />}
+                                            htmlType="submit"
+                                            // onClick={proceedHandler}
+                                        >Proceed</Button>
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         </Col>

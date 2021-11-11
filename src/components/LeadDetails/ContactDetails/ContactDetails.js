@@ -51,7 +51,7 @@ const tabMenu = [
 
 const ContactDetails = React.memo(() => {
     const storeFormData = useSelector((state) => state.newLead.formData)
-
+    
     const states = useSelector((state) => state.address.states)
     const cities = useSelector((state) => state.address.cities)
     const storeSecondaryMobile = useSelector((state) => state.newLead.formData.secondaryMobile)
@@ -86,12 +86,17 @@ const ContactDetails = React.memo(() => {
     const [isSecPincodeValid, setIsSecPinCodeValid] = useState()
     const [secpinCode, setSecPinCode] = useState()
     const [isFormValid, setIsFormValid] = useState()
+    const [isNewLead, setIsNewLead] = useState(true)
+
     const breakpoint = 620;
 
     const dispatch = useDispatch()
     const history = useHistory()
 
     useEffect(() => {
+        if (storeLeadId !== '') {
+            setIsNewLead(false)
+        }
         // console.log(line1,line2,line3)
         // console.log(storeFormData)
         dispatch(actions.fetchAllState())
@@ -271,28 +276,59 @@ const ContactDetails = React.memo(() => {
 
     };
     let formIsValid = false;
+    const submitHandler = event => {
 
-    const proceedHandler = event => {
-        event.preventDefault();
+        if(isNewLead){
+            dispatch(actions.storeLead(formData))
 
-        if (isSameAddress) {
-
-            formIsValid = isPincodeValid
-            if (!formIsValid) {
-                return;
-            } else {
-                dispatch(actions.storeLead(formData))
-                history.push('professionallead')
-            }
-        } else {
-            const formIsValid = isPincodeValid && isSecPincodeValid
-            if (!formIsValid) {
-                return;
-            } else {
-                dispatch(actions.storeLead(formData))
-                history.push('professionallead')
-            }
+            alert('New Lead Updated Successfully')
+            history.push('professionallead')
+            
+            setIsNewLead(false)
+        }else{
+      
+            dispatch(actions.editLead(formData, storeLeadId))
+            alert(' Lead Updated Successfully')
+            history.push('professionallead')
+            
         }
+        // if (isSameAddress) {
+    
+        //     // formIsValid = isPincodeValid
+        //     if (!formIsValid) {
+        //         return;
+        //     } else {
+        //         // dispatch(actions.storeLead(formData))
+        //         // history.push('professionallead')
+        //     }
+        // } 
+        // else {
+        //     // const formIsValid = isPincodeValid && isSecPincodeValid
+        //     if (!formIsValid) {
+        //         return;
+        //     } else {
+        //         if(isNewLead){
+        //             dispatch(actions.storeLead(formData))
+        
+        //             alert('New Lead Updated Successfully')
+        //             history.push('professionallead')
+                    
+        //             setIsNewLead(false)
+        //         }else{
+              
+        //             dispatch(actions.editLead(formData, storeLeadId))
+        //             alert(' Lead Updated Successfully')
+        //             history.push('professionallead')
+                    
+        //         }
+        //         // dispatch(actions.storeLead(formData))
+        //         // history.push('professionallead')
+        //     }
+        // }
+    };
+    // const submitHandler = event => {
+    //     event.preventDefault();
+
 
 
         // setErrorMessage('Form submitted successfully')
@@ -304,7 +340,7 @@ const ContactDetails = React.memo(() => {
         // resetFirstName();
         // resetLastName();
         // resetEmail();
-    };
+    // };
     const updateHandler = event => {
         event.preventDefault();
         dispatch(actions.editLead(formData, storeLeadId))
@@ -366,7 +402,9 @@ const ContactDetails = React.memo(() => {
                         "secAddState": secstateProvince,
                         "secAddCity": seccityProvince,
                         "secAddPin": secpinCode,
-                    }}>
+                    }}
+                    onFinish={submitHandler}
+                    >
                     <Row gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="2" />
                         <Col className=" form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
@@ -644,9 +682,9 @@ const ContactDetails = React.memo(() => {
                                     >
                                         <Switch
                                             size="large"
-                                            checkedChildren="Yes"
-                                            unCheckedChildren="NO"
-                                            defaultChecked={true}
+                                            checkedChildren="No"
+                                            unCheckedChildren="Yes"
+                                            // defaultChecked={true}
                                             onChange={CheckMailingAddSameAsPermanentAdd} />
                                     </Form.Item>
                                 </Col>
@@ -811,27 +849,39 @@ const ContactDetails = React.memo(() => {
                         <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6:0}>
                             <Row gutter={[8,8]}>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                    <Button 
+                                        type="primary" 
+                                        // shape="round" 
+                                        size="large" 
+                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                                        icon={<ArrowLeftOutlined />} 
+                                        >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4} >
-                                    <Button
-                                        type="primary"
-                                        shape="round"
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                                        icon={<FileTextOutlined />} htmlType="submit"
-                                        // disabled={!formIsValid}
-                                        onClick={updateHandler}
-                                    >Update</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            // shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                            icon={<FileTextOutlined />} htmlType="submit"
+                                            // disabled={!formIsValid}
+                                            // onClick={updateHandler}
+                                        >Update</Button>
+                                    </Form.Item>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
-                                    <Button
-                                        type="primary"
-                                        shape="round"
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
-                                        icon={<ArrowRightOutlined />}
-                                        onClick={proceedHandler}>Proceed</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            // shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                            icon={<ArrowRightOutlined />}
+                                            htmlType="submit"
+                                            // onClick={proceedHandler}
+                                            >Proceed</Button>
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         </Col>

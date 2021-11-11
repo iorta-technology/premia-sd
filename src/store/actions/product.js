@@ -23,7 +23,7 @@ export const fetchProductFail = (error) => {
 }
 
 export const fetchProduct = (channelCode) => {
-        
+        console.log(channelCode)
     return dispatch => {
         dispatch(fetchProductStart())
         return axios.get(`admin/getprodCategory?filter=23&channel=${channelCode}`)
