@@ -480,7 +480,7 @@ const HomePage = () => {
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
               </div>
               <div className="b1-content">
-                <p className="sales-content" style={{ height: 35, width: 100 }}>Product</p>
+                <Link to="/products"><p className="sales-content" style={{ height: 35, width: 100 }}>Product</p></Link>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Need Analysis</p>
               </div>
               <div className="b1-content">

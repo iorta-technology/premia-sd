@@ -7,6 +7,19 @@
   .header h1{
     color: #00ACC1;
   }
+  .product-brochure{
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+  .product-brochure>div{
+    margin-right: 5px;
+  }
+  .product-brochure button{
+    font-size: 12px;
+    margin-top: 10px;
+    display: block;
+  }
   .ant-btn.primaryBtn{
     /* background-color: rgb(255, 255, 255); */
     background-color: transparent;
