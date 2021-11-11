@@ -13,8 +13,10 @@ import { Column } from '@ant-design/charts';
 const KpiDashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actions.kpiDashboard())
+    dispatch(actions.kpiDashboard(finalKpiDataDropdown))
   }, [dispatch])
+
+  const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(['GPW']);
 
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data)
   const employee_data = kpi_data
@@ -90,7 +92,10 @@ const KpiDashboard = () => {
 
   const { Option } = Select;
   function onChange(value) {
+    setFinalKpiDataDropdown(value)
+    dispatch(actions.kpiDashboard(finalKpiDataDropdown))
     console.log(`selected ${value}`);
+
   }
 
   function onBlur() {
@@ -200,7 +205,7 @@ const KpiDashboard = () => {
                     <Row>
                       <Col span={12}>
                         <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data.GPW.gpw_actual}</p>
+                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data?.GPW?.gpw_actual}</p>
                         <p className='updatetotal' style={{ margin: "0" }}>Total GWP in ₹ Lac</p>
                       </Col>
                       <Col span={8} offset={4}>
@@ -316,10 +321,10 @@ const KpiDashboard = () => {
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
               >
-                <Option value="GPW" active>GPW</Option>
+                <Option value="GPW" active={true}>GPW</Option>
                 <Option value="Branch Activation">Branch Activation</Option>
                 <Option value="NOP Retention">NOP Retention</Option>
-                <Option value="NOP Retention">GWP Retention</Option>
+                <Option value="GWP Retention">GWP Retention</Option>
                 <Option value="Dummy">Dummy</Option>
               </Select>
             </div>
