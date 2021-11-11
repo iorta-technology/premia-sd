@@ -12,7 +12,7 @@ const RenewalCards = (props)=> {
         card = _.map(props.renewals, (user, index) => {
             console.log("cards",user)
        return ( <>
-           <Col sm={18}  md={18} lg={11} xl={10}>
+            {user == 'N'?'':<Col sm={18}  md={18} lg={11} xl={10}>
             <Cards 
                 key={user._id}
                 user_Id={user.proposer_ID}
@@ -23,7 +23,8 @@ const RenewalCards = (props)=> {
                 proposer_ID_refs={user.proposer_ID_refs}
                 loading={props.renewalsDataLoading}
             />
-            </Col>
+            </Col>}
+           
         </>
        )
         })
