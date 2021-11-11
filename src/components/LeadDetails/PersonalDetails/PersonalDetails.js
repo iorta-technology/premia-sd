@@ -541,7 +541,7 @@ const PersonalDetails = () => {
                                 <Col xs={10} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
                                     <Button
                                         type="primary"
-                                        shape="round"
+                                        // shape="round"
                                         size="large"
                                         style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
                                         icon={<ArrowLeftOutlined />}
@@ -551,7 +551,7 @@ const PersonalDetails = () => {
                                     <Form.Item>
                                         <Button
                                             type="primary"
-                                            shape="round"
+                                            // shape="round"
                                             size="large"
                                             style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
                                             icon={<FileTextOutlined />} htmlType="submit"
@@ -564,7 +564,7 @@ const PersonalDetails = () => {
                                     <Form.Item>
                                         <Button
                                             type="primary"
-                                            shape="round"
+                                            // shape="round"
                                             size="large" style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                                             icon={<ArrowRightOutlined />}
                                             htmlType="submit"

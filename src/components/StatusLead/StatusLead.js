@@ -1312,7 +1312,7 @@ const NewLead = React.memo(() => {
                       <Button
                         type="primary"
                         style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                        shape="round"
+                        // shape="round"
                         size="large"
                         icon={<FileTextOutlined />}
                         htmlType="submit"
@@ -1323,7 +1323,7 @@ const NewLead = React.memo(() => {
                     <Form.Item>
                       <Button
                         type="primary"
-                        shape="round"
+                        // shape="round"
                         size="large"
                         style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
                         icon={<EditOutlined />}
@@ -1339,7 +1339,7 @@ const NewLead = React.memo(() => {
                   <Form.Item>
                     <Button
                       type="primary"
-                      shape="round"
+                      // shape="round"
                       size="large"
                       htmlType="submit"
                       style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}

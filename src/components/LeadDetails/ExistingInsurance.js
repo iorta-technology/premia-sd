@@ -1003,12 +1003,15 @@ const ExistingInsurenceDetails = () => {
                         <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={24} lg={20} xl={20} span={24} >
                             <Row>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 2} >
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                    <Button 
+                                        type="primary" 
+                                        // shape="round" 
+                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4} >
                                     <Button 
                                         type="primary" 
-                                        shape="round" 
+                                        // shape="round" 
                                         size="large" 
                                         style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
                                         icon={<FileTextOutlined />} htmlType="submit"
@@ -1019,7 +1022,7 @@ const ExistingInsurenceDetails = () => {
                                 <Col xs={11} sm={12} md={4}>
                                     <Button
                                         type="primary"
-                                        shape="round"
+                                        // shape="round"
                                         size="large"
                                         style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                                         icon={<ArrowRightOutlined />}
