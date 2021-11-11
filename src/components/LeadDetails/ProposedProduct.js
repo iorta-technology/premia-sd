@@ -47,7 +47,7 @@ const tabMenu = [
 
 const productTypeOptions = [
     { value: 'Relience Life', label: 'Relience Life' }, { value: 'HDFC Life', label: 'HDFC Life' },
-    { value: 'Edwlweiss', label: 'Edwlweiss' }, 
+    { value: 'Edwlweiss', label: 'Edwlweiss' },
 ]
 const ProposedProduct = () => {
     const dispatch = useDispatch()
@@ -75,8 +75,8 @@ const ProposedProduct = () => {
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
 
-    const productHandler = (value,object) => {
-        const {_id} = object
+    const productHandler = (value, object) => {
+        const { _id } = object
         dispatch(actions.fetchPlanName(_id))
 
         setProduct(value)
@@ -93,16 +93,17 @@ const ProposedProduct = () => {
     }
     let productCategoryOptions = (productCategories && !_.isEmpty(productCategories)) ?
         productCategories.map(productCategory => {
-            const {productCategoryName,_id,
+            const { productCategoryName, _id,
                 // channelCode:{channelCode}
-            }= productCategory
+            } = productCategory
             const label = productCategoryName
             const value = productCategoryName
             // const chCode = channelCode
-            const newProductCategories = { 
+            const newProductCategories = {
                 // chCode,
                 _id,
-                 label, value }
+                label, value
+            }
             return newProductCategories
         }) : null
 
@@ -112,8 +113,8 @@ const ProposedProduct = () => {
     };
     const submitHandler = event => {
         event.preventDefault();
-        
-        dispatch(actions.storeLead(formData,storeLeadId))
+
+        dispatch(actions.storeLead(formData, storeLeadId))
         history.replace('statuslead')
     };
     return (
@@ -126,17 +127,17 @@ const ProposedProduct = () => {
 
             />
             <div className="form-container">
-                <Row gutter={['', 20]} justify="center">
-                        <LeadDetailsTab activeKey="5" />
-                    <Col className="m0a" xs={22} sm={22} md={17} >
-                        <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
-                            <p className="form-title">Proposed Product</p>
-                            <Form 
-                                layout="horizontal" 
-                                className="contact-detail-form"
+                <Form
+                    layout="horizontal"
+                    className="contact-detail-form"
 
-                                >
-                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                >
+                    <Row gutter={['', 20]} justify="center">
+                        <LeadDetailsTab activeKey="5" />
+                        <Col className="form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
+                            <p className="form-title">Proposed Product</p>
+                            <Row gutter={16} className="mb-2" >
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -150,17 +151,17 @@ const ProposedProduct = () => {
                                             },
                                         ]}
                                     >
-                                        <Select 
+                                        <Select
                                             value={product}
-                                            options={productCategoryOptions} 
-                                            size="large" 
+                                            options={productCategoryOptions}
+                                            size="large"
                                             placeholder="Select Product"
                                             onChange={productHandler}
-                                            >
+                                        >
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -174,17 +175,17 @@ const ProposedProduct = () => {
                                             },
                                         ]}
                                     >
-                                        <Select  
+                                        <Select
                                             value={planNameValue}
                                             options={planOptions}
-                                            size="large" 
+                                            size="large"
                                             placeholder="Select"
                                             onChange={planNameHandler}
-                                            >
+                                        >
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -198,15 +199,15 @@ const ProposedProduct = () => {
                                             },
                                         ]}
                                     >
-                                        <DatePicker 
+                                        <DatePicker
                                             value={closureDate}
                                             onChange={closureDateHandler}
-                                            size="large" 
-                                            style={{ width: "100%" }} 
+                                            size="large"
+                                            style={{ width: "100%" }}
                                             placeholder="dd/mm/yyyy" />
                                     </Form.Item>
                                 </Col>
-                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                     <Form.Item
                                         {...formItemLayout}
                                         className="form-item-name label-color"
@@ -220,36 +221,37 @@ const ProposedProduct = () => {
                                             },
                                         ]}
                                     >
-                                        <Input 
+                                        <Input
                                             value={expectedMoney}
                                             onChange={expectedMoneyHandler}
-                                            className="first-name input-box" 
+                                            className="first-name input-box"
                                             placeholder="Expected Premium Amount1">
                                         </Input>
                                     </Form.Item>
                                 </Col>
-                            </Form>
+                            </Row>
                         </Col>
-                        <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={24} sm={24} md={16} lg={20} xl={20} span={24} offset={1}>
-                            <Row>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
-                                    <Button 
+
+                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6:0}>
+                            <Row gutter={[8,8]}>
+                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 0} >
+                                    <Button
                                         type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
-                                    <Button 
-                                        type="primary" 
-                                        shape="round" 
-                                        size="large" 
-                                        style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }} 
+                                    <Button
+                                        type="primary"
+                                        shape="round"
+                                        size="large"
+                                        style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                                         icon={<FileTextOutlined />}
                                         onClick={submitHandler}
-                                        >Submit</Button>
+                                    >Submit</Button>
                                 </Col>
                             </Row>
                         </Col>
-                    </Col>
-                </Row>
+                    </Row>
+                </Form>
             </div>
         </>
     )

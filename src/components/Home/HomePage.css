@@ -1,10 +1,16 @@
 .cardHolder{
+  margin-bottom: 30px;
+  /* margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 20px;
  padding: 30px 0px;
- justify-content: center;
+ justify-content: center; */
+}
+.dummy-home-card{
+  width: 408px !important;
+
 }
 .cardHolder .dataCard{
   width: 390px !important;

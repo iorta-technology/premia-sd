@@ -4,7 +4,10 @@ import { updateObject } from '../utility';
 const initialState = {
     
     // states 
-    agentDetails:{},
+    first_name:'',
+    last_name:'',
+    testimonials:[],
+    achievements:{},
     fetchAgentDetailsLoading:false,
     fetchAgentDetailsError:"",
 
@@ -15,7 +18,18 @@ const fetchAgentDetailsStart = (state, action) => {
 }
 
 const fetchAgentDetailsSuccess = (state, action) => {
-    return updateObject(state, { fetchAgentDetailsLoading: false, agentDetails: action.agentDetails})
+    const { first_name, last_name,micrositeId:{achievements,Testimonials} } = action.agentDetails
+    // console.log(achievements,Testimonials)
+    // const {}
+
+    return updateObject(state, { 
+        fetchAgentDetailsLoading: false, 
+        agentDetails: action.agentDetails,
+        first_name:first_name,
+        last_name:last_name,
+        achievements:achievements,
+        testimonials:Testimonials
+    })
 }
 const fetchAgentDetailsFail = (state, action) => {
     return updateObject(state, { fetchAgentDetailsLoading: false, fetchAgentDetailsError: action.error });
