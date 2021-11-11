@@ -76,8 +76,8 @@ const ExistingInsurenceDetails = () => {
     let lifeObjDisplay = useSelector((state) => state.newLead.HaveLifeInsurance_details)
     let healthObjDisplay = useSelector((state) => state.newLead.Insurancedetails)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
-    let storeLifeInsArr = useSelector((state) => state.newLead.formData.HaveLifeInsurance_details)
-    let storeHealthInsArr = useSelector((state) => state.newLead.formData.Insurancedetails)
+    let storeLifeInsArr = useSelector((state) => state.newLead.HaveLifeInsurance_details)
+    let storeHealthInsArr = useSelector((state) => state.newLead.Insurancedetails)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -109,8 +109,8 @@ const ExistingInsurenceDetails = () => {
     const [healthRiskDate, setHealthRiskDate] = useState('')
     const [haveChronicDisease, sethaveChronicDisease] = useState(false)
     const [diseaseDescription, setDiseaseDescription] = useState('')
-    const [lifeInsObj, setlifeInsObj] = useState(lifeObjDisplay)
-    const [healthInsObj, setHealthInsObj] = useState(healthObjDisplay)
+    const [lifeInsObj, setlifeInsObj] = useState()
+    const [healthInsObj, setHealthInsObj] = useState()
     const breakpoint = 620;
 
     useEffect(() => {
@@ -374,7 +374,9 @@ const ExistingInsurenceDetails = () => {
         setVisibleLifeInsuranceModel(false);
     };
     useEffect(() => {
-    }, [storeLifeInsArr,storeHealthInsArr])
+        console.log(lifeInsObj)
+        console.log(storeLifeInsArr)
+    }, [storeLifeInsArr,storeHealthInsArr,lifeInsObj])
     const lifeInsColumn = [
         {
             title: 'Insurer',
@@ -1001,12 +1003,15 @@ const ExistingInsurenceDetails = () => {
                         <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={24} lg={20} xl={20} span={24} >
                             <Row>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 2} >
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                    <Button 
+                                        type="primary" 
+                                        // shape="round" 
+                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4} >
                                     <Button 
                                         type="primary" 
-                                        shape="round" 
+                                        // shape="round" 
                                         size="large" 
                                         style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
                                         icon={<FileTextOutlined />} htmlType="submit"
@@ -1017,7 +1022,7 @@ const ExistingInsurenceDetails = () => {
                                 <Col xs={11} sm={12} md={4}>
                                     <Button
                                         type="primary"
-                                        shape="round"
+                                        // shape="round"
                                         size="large"
                                         style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                                         icon={<ArrowRightOutlined />}
