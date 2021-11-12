@@ -110,6 +110,7 @@ const NewLead = React.memo(() => {
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
+  const fetchLeadId = useSelector((state) => state.newLead.fetcLeadId)
   const errorMsg = useSelector((state) => state.newLead.createLeadError)
   const successMsg = useSelector((state) => state.newLead.successMsg)
   const { lastupdatedOn } = storeFormData
@@ -150,6 +151,8 @@ const NewLead = React.memo(() => {
   useEffect(() => {
     // console.log('payload',payloadFormData)
     // console.log('nonpayload',storeFormData)
+    // dispatch(actions.fetchLeadDetails(fetchLeadId))
+
     if (storeLeadId !== '') {
       setIsNewLead(false)
     }

@@ -115,7 +115,8 @@ const ProposedProduct = () => {
         // event.preventDefault();
 
         dispatch(actions.editLead(formData, storeLeadId))
-        // history.replace('statuslead')
+        alert('New Lead Updated Successfully')
+        // history.replace('leadmasterpage/statuslead')
     };
     return (
         <>
