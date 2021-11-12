@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import * as actions from '../../store/actions/index';
 import { useDispatch,useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import loginLogo from '../../images/loginlogo20years.png'
 
  const  Login =  () => {
     const [form] = Form.useForm();
@@ -33,7 +34,7 @@ import { useHistory } from 'react-router';
                 <div className="login-card">
                     <Card className="main-card">
                         <div className="logo">
-                            <Image preview={false} width={350} src="https://sdtatadev.iorta.in/assets/loginlogo20years.png" alt="login-logo" />
+                            <Image preview={false} width={350} src={loginLogo} alt="login-logo" />
                         </div>
                         <br /><br />
                         <Form.Item

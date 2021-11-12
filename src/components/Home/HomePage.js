@@ -136,7 +136,7 @@ const HomePage = () => {
   };
   
   return <Fragment >
-    <Button type="primary" onClick={onLogout}>Logout</Button>
+    {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
     <FloatButton />
     <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold',marginLeft:'75px' }}>Hi {logged_in_user}</h3>
     <Row gutter={[18,{ xs: 8, sm: 10, md: 10, lg:18 }]} justify="center" className="cardHolder ">
@@ -422,10 +422,12 @@ const HomePage = () => {
                     <p>Contests</p>
                   </div>
                 </Link>
+                <Link to="/clubsmaster">
                 <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
                   <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
                   <p>Clubs</p>
                 </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -476,7 +478,9 @@ const HomePage = () => {
             </div>
             <div className="sales-guide-content">
               <div className="b1-content">
+                <Link to="/salespitch">
                 <p className="sales-content" style={{ height: 35, width: 100 }}>sales pitch</p>
+                </Link>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
               </div>
               <div className="b1-content">
@@ -484,7 +488,9 @@ const HomePage = () => {
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Need Analysis</p>
               </div>
               <div className="b1-content">
+                <Link to="advisorpitch">
                 <p className="sales-content" style={{ height: 35, width: 200 }}>Advisor OnBoarding</p>
+                </Link>
               </div>
               <div className="b1-content">
                 <p className="sales-content" style={{ height: 35, width: 200 }}>Recruitment Presentation</p>
@@ -497,6 +503,7 @@ const HomePage = () => {
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <div className="card-content">
+            <Link to="/birthday">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3376.png" alt="Birthday" />
             </div>
@@ -504,6 +511,7 @@ const HomePage = () => {
               <p style={{ fontSize: '15px', color: '#fff' }}>Birthday</p>
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
             </div>
+            </Link>
             <div className="birthday-slides">
               <Image preview={false} width={32} height={32} src="https://sdrestdemo.iorta.in/assets/Subtraction10.png" alt="left arrow" />
               <Image preview={false} width={32} height={32} src="https://sdrestdemo.iorta.in/assets/Subtraction9.png" alt="right arrow" />
