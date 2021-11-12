@@ -1,13 +1,39 @@
 export {
-    fetchAllLeads
+    fetchAllLeads,
+    fetchDesignation,
 } from './leads'
+export {
+    fetchLeadDetails,
+    createLead,
+    storeLead,
+    editLead
+}from './newLead'
 export {
     fetchAllState,
     fetchAllCities,
 } from './address'
 export {
-    login
-
+    login,
+    logout,
+    fetchUserDetails,
+    fetchHierarchy
 } from './auth'
-export { home } from './home'
-export { activities } from './home'
+// export { home,activities } from './home'
+// export { activities } from './home'
+export { kpiDashboard } from './kpiDashboard'
+export {fetchAllRenewals,fetchPaidRenewals,fetchUnPaidRenewals, fetchLapsedRenewals,fetchRenewalDetails} from './renewals'
+export { 
+    home,activities 
+} from './home'
+export {
+    fetchHistory
+}from './history'
+
+export {
+    fetchProduct,
+    fetchPlanName
+}from './product'
+
+export {
+    fetchAgentDetails
+}from './agentMicrosite'

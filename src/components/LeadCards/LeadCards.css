@@ -1,8 +1,14 @@
 .cards-container{
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap:1rem;
-    margin: 0 auto;
+    gap:1rem; */
+    margin: 20px 0;
     background-color: #fafafa;
+}
+.dummy-card-mobile{
+    display: none;
+}
+.dummy-card-desktop{
+    opacity: 0;
 }

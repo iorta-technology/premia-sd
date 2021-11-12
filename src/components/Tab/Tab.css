@@ -1,22 +1,24 @@
 /* sdtata lms2 */
 .header-img{
-    background-image: url("https://sdtatadev.iorta.in/assets/header-tabs.png");
+    background-image: url('../../assets/header-tabs.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
     height: 150px;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .header-title{
     font-size: 29px;
     color: #00ACC1;
-    margin-bottom: 10px;
+    margin: 10px 0 10px 120px;
+    font-weight:bold ;
 
 }
-.header-img>.header-title{
-    margin-left: 110px;
-}
+/* .header-img>.header-title{
+    margin-left: 120px;
+} */
 
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, 
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
@@ -32,11 +34,15 @@
 }
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
-    font-size: 16px;
+    font-size: 14px;
     color: #6d8baa;
     background-color: #d2dde8;
 }
+.ant-tabs-tab-btn{
+    margin: 0 auto;
+}
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    margin: 0 auto !important;
     color: #ffffff;
 }
 .ant-tabs-tab.ant-tabs-tab-active{

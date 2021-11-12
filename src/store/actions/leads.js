@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
-
+import { getLeadFilter } from '../../helpers';
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -26,6 +26,7 @@ export const fetchAllLeadsFail = (error) => {
 }
 
 export const fetchAllLeads = (leads,pageNo) => {
+       const leadFilter =  getLeadFilter(leads)
         let skipVal 
         if(pageNo===1){
             skipVal = 0
@@ -35,87 +36,61 @@ export const fetchAllLeads = (leads,pageNo) => {
         }
     return dispatch => {
         dispatch(fetchAllLeadsStart())
-        return axios.get(`user/v2/getLead/5df782ab2b5ffa6c72ae1a25?leadfilter=all&skip=${skipVal}`)
+        return axios.get(`user/v2/getLead/5df782ab2b5ffa6c72ae1a25?leadfilter=${leadFilter}&skip=${skipVal}`)
             .then(res => {
                 // console.log(res.data.errMsg[1][0].count)
-                return dispatch(fetchAllLeadsSuccess(res.data.errMsg[0],res.data.errMsg[1][0].count))
+                const response = res.data.errMsg
+                const errorCode = res.data.errCode
+                if(errorCode===-1){
+
+                    return dispatch(fetchAllLeadsSuccess(response[0],response[1][0].count))
+                }else{
+                    throw response
+                }
             })
             .catch(error => {
-                return dispatch(fetchAllLeadsFail(error.response.data.errors))
+                return dispatch(fetchAllLeadsFail(error))
             })
     }
 }
 
-// Fetch States
-export const fetchStatesStart = () => {
+// Fetch Designation
+
+export const fetchDesignationStart = () => {
     return {
-        type: actionTypes.FETCH_STATES_START
+        type: actionTypes.FETCH_DESIGNATION_START
     }
 }
 
-export const fetchStatesSuccess = (states) => {
+export const fetchDesignationSuccess = (designations) => {
     return {
-        type: actionTypes.FETCH_STATES_SUCCESS,
-        states: states,
+        type: actionTypes.FETCH_DESIGNATION_SUCCESS,
+        designations: designations,
     }
 } 
 
 
-export const fetchStatesFail = (error) => {
+export const fetchDesignationFail = (error) => {
     return {
-        type: actionTypes.FETCH_STATES_FAIL,
+        type: actionTypes.FETCH_DESIGNATION_FAIL,
         error: error
     }
 }
 
-export const fetchStates = () => {
+export const fetchDesignation = (channelCode) => {
         
     return dispatch => {
-        dispatch(fetchStatesStart())
-        return axios.get(`admin/getState_city?userId=5b3b4cc28fa96d39870443e3&getstate=allstate`)
+        dispatch(fetchDesignationStart())
+        return axios.get(`admin/getDesignationMaster?userId=5b3b4cc28fa96d39870443e3&channelCode=5dbfdfa8e51cd5522249ba70`)
             .then(res => {
-                // console.log(res.data.errMsg[1][0].count)
-                return dispatch(fetchStatesSuccess(res.data.errMsg[0],res.data.errMsg[1][0].count))
+                
+                if(res.data.errCode === -1){
+                    return dispatch(fetchDesignationSuccess(res.data.errMsg[0]))
+                } 
             })
             .catch(error => {
-                return dispatch(fetchStatesFail(error.response.data.errors))
+                return dispatch(fetchDesignationFail(error.response.data.errors))
             })
     }
 }
 
-// Fetch cities
-export const fetchCitiesStart = () => {
-    return {
-        type: actionTypes.FETCH_CITIES_START
-    }
-}
-
-export const fetchCitiesSuccess = (cities) => {
-    return {
-        type: actionTypes.FETCH_CITIES_SUCCESS,
-        cities: cities,
-    }
-} 
-
-
-export const fetchCitiesFail = (error) => {
-    return {
-        type: actionTypes.FETCH_CITIES_FAIL,
-        error: error
-    }
-}
-
-export const fetchCities = () => {
-        
-    return dispatch => {
-        dispatch(fetchCitiesStart())
-        return axios.get(`admin/getState_city?userId=5b3b4cc28fa96d39870443e3&getstate=allstate`)
-            .then(res => {
-                // console.log(res.data.errMsg[1][0].count)
-                return dispatch(fetchCitiesSuccess(res.data.errMsg[0],res.data.errMsg[1][0].count))
-            })
-            .catch(error => {
-                return dispatch(fetchCitiesFail(error.response.data.errors))
-            })
-    }
-}

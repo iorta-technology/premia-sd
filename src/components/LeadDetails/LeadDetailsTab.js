@@ -38,7 +38,7 @@ const LeadDetailsTab = (props) => {
 
     return (
         <>
-            <Col className="internal-tab"  xs={22} sm={24} md={24} lg={24} xl={24}>
+            <Col className="internal-tab"  xs={22} sm={24} md={4} lg={4} xl={4} offset={2}>
                 <Tabs
                     tabPosition={width > breakpoint ? 'left' : 'top'}
                     size={width > breakpoint ? 'large' : 'small'}

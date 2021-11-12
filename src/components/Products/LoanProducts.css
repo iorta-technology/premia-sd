@@ -1,0 +1,143 @@
+.header{
+    background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
+    height: 150px;
+    padding: 25px 40px;
+    background-size: 100% 100%;
+  }
+  .header h1{
+    color: #00ACC1;
+  }
+  .product-brochure{
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+  .product-brochure>div{
+    margin-right: 5px;
+  }
+  .product-brochure button{
+    font-size: 12px;
+    margin-top: 10px;
+    display: block;
+  }
+  .ant-btn.primaryBtn{
+    /* background-color: rgb(255, 255, 255); */
+    background-color: transparent;
+    color: rgb(60, 61, 61);
+    border-radius: 20px;
+    width: 190px;
+    border: none;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+  }
+  .ant-btn.secondaryBtn{
+    background-color: transparent;
+    color: rgb(60, 61, 61);
+    border-radius: 20px;
+    width: 190px;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+  }
+  .tabs{
+    margin: 10px 0 20px;
+  }
+  .main-card1{
+    padding: 30px;
+    background: rgb(247, 251, 255);
+  }
+  .main-card2{
+    padding: 0px 30px;
+    background: rgb(236, 242, 249);
+  }
+  .main-card3{
+    padding: 30px;
+    background: #E0E9F3;
+  }
+  .slNo{
+    background:'#00ACC1';
+    color:'#fff';
+    border-radius:'80px';
+    padding:'5px'
+  }
+  .MainContent{
+    display: flex;
+  }
+  .image-slide{
+    background-color: #fff;
+    color: black;
+  }
+  .top-tab-header-active{
+    background-color: #00ACC1 !important;
+    color: #fff !important;
+  }
+
+  .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab{
+    padding: 8px 24px;
+    /* text-align: center; */
+    box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
+    /* background-color: #F7FBFF; */
+    /* padding-left: 10px; */
+    /* padding-top: 19px; */
+    width: 260px;
+    display: flex;
+    align-items: stretch;
+    font-size: 18px;
+  }
+  .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab{
+    margin: 2px 0 0 0;
+  }
+  .loan-product-tabs .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane{
+    padding-left: 0px;
+  }
+  .loan-product-tabs .first-card{
+padding-left: 0px !important;
+padding-right: 0px !important;
+
+  }
+  @media only screen and (min-width: 992px){
+    .loan-product-tabs .circle-point {
+      background-color: #5EA5C0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      padding-top: 5px;
+      display: inline-block;
+      text-align: center;
+    
+    color: #FFFFFF;
+    font-family: robotobold;
+    font-size: 14px;
+    text-align: center;
+
+  }
+  .loan-product-tabs {
+    width: 1280px;
+    margin: 0 auto;
+  }
+  .loan-product-tabs .bullet-points{
+    margin-left: 20px;
+    width: 384px;
+  }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 992px){
+    .loan-product-tabs .circle-point {
+      background-color: #5EA5C0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      padding-top: 2px;
+      display: inline-block;
+      text-align: center;
+      color: #FFFFFF;
+      font-family: robotobold;
+      font-size: 10px;
+      text-align: center;
+
+
+  }
+  .loan-product-tabs .bullet-points{
+    margin-left: 11px;
+    width: 276px;
+  }
+  }
+
+
+ 
