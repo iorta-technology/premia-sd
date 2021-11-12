@@ -50,8 +50,8 @@ const MappedBranches = () => {
                                         Self
                                     </p>
                                 </div>
-                                <div onClick={selectBtnFunc} className={selectBtnOption == true ? "mapped-button" : "mapped-btn2"}>
-                                    <p className={selectBtnOption == true ? "Mappedbranches-tab-active-text-style" : "Mappedbranches-tab-text-style"} value={selectBtnOption}>
+                                <div onClick={selectBtnFunc} className={selectBtnOption == true ? "mapped-button" : "mapped-btn2"} >
+                                    <p className={selectBtnOption == true ? "Mappedbranches-tab-active-text-style" : "Mappedbranches-tab-text-style"} >
                                         <UsergroupAddOutlined
                                             rotate="0"
                                             style={{
