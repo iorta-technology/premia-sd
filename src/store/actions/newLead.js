@@ -11,10 +11,11 @@ export const createLeadStart = () => {
     }
 }
 
-export const createLeadSuccess = (formData) => {
+export const createLeadSuccess = (formData,succMsg) => {
     return {
         type: actionTypes.CREATE_LEAD_SUCCESS,
         formData: formData,
+        succMsg:succMsg
     }
 } 
 
@@ -34,13 +35,18 @@ export const createLead = (formData) => {
             .then(res => {
                 if(res.data.errCode===-1){
                     const response = res.data.errMsg
+                    const succMsg = 'Lead Created Successfully'
                     // console.log(...response)
-                    return dispatch(createLeadSuccess(...response))
+                    return dispatch(createLeadSuccess(...response,succMsg))
+
+                }else{
+                    throw res
                 }
             })
             .catch(error => {
                 console.log(error)
-                return dispatch(createLeadFail(error))
+                const errorMessage = error.data.errMsg
+                return dispatch(createLeadFail(errorMessage))
             })
     }
 }
@@ -89,10 +95,11 @@ export const fetchLeadDetailsStart = () => {
     }
 }
 
-export const fetchLeadDetailsSuccess = (leadDetails) => {
+export const fetchLeadDetailsSuccess = (leadDetails,id) => {
     return {
         type: actionTypes.FETCH_LEAD_DETAILS_SUCCESS,
         leadDetails: leadDetails,
+        fetchLeadId:id
     }
 } 
 
@@ -113,7 +120,7 @@ export const fetchLeadDetails = (id) => {
                     console.log(...res.data.errMsg)
                     let response = res.data.errMsg
                     if(res.data.errCode===-1){
-                        return dispatch(fetchLeadDetailsSuccess(...response))
+                        return dispatch(fetchLeadDetailsSuccess(...response,id))
                     }else{
                         throw response
                     }

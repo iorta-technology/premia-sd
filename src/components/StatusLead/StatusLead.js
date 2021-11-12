@@ -110,6 +110,9 @@ const NewLead = React.memo(() => {
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
+  const fetchLeadId = useSelector((state) => state.newLead.fetcLeadId)
+  const errorMsg = useSelector((state) => state.newLead.createLeadError)
+  const successMsg = useSelector((state) => state.newLead.successMsg)
   const { lastupdatedOn } = storeFormData
   console.log(lastupdatedOn)
   // lead summary
@@ -141,13 +144,15 @@ const NewLead = React.memo(() => {
   const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
   const [stateProvince, setStateProvince] = useState(storeStateValue)
   const [cityProvince, setCityProvince] = useState(storeCityValue)
-  const [errorMessage, setErrorMessage] = useState()
+  const [errorMessage, setErrorMessage] = useState(successMsg)
   const [isNewLead, setIsNewLead] = useState(true)
 
 
   useEffect(() => {
     // console.log('payload',payloadFormData)
     // console.log('nonpayload',storeFormData)
+    // dispatch(actions.fetchLeadDetails(fetchLeadId))
+
     if (storeLeadId !== '') {
       setIsNewLead(false)
     }
@@ -516,9 +521,9 @@ const NewLead = React.memo(() => {
     // console.log('Success:', errorMessage);
   };
 
-  const onFinishFailed = (errorMessage) => {
-    alert(errorMessage)
-    // console.log('Failed:', errorMessage);
+  const onFinishFailed = (errorMsg) => {
+    alert(errorMsg)
+    console.log('Failed:', errorMsg);
   };
 
   const stateSelectHandler = (value, key) => {
@@ -651,16 +656,26 @@ const NewLead = React.memo(() => {
   }
 
   const submitHandler = event => {
-    event.preventDefault();
+    // event.preventDefault();
 
-    dispatch(actions.createLead(formData))
-    // if (!formIsValid) {
-    //   return;
-    // }else{
-    // }
+    if(isNewLead){
+      dispatch(actions.createLead(formData))
+      // if (!formIsValid) {
+      //   return;
+      // }else{
+      // }
+      setErrorMessage(successMsg)
+      console.log(errorMessage)
+      alert('New Lead Created Successfully')
+  
+      setIsNewLead(false)
+    }else{
 
-    setErrorMessage('Form submitted successfully')
-    setIsNewLead(false)
+      dispatch(actions.editLead(formData, storeLeadId))
+      alert(' Lead Updated Successfully')
+      
+      
+    }
     // setErrorMessage( res.data.errMsg)
 
 
@@ -1296,39 +1311,45 @@ const NewLead = React.memo(() => {
               <Row>
                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
                   {isNewLead ?
-                    <Button
-                      type="primary"
-                      style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                      shape="round"
-                      size="large"
-                      icon={<FileTextOutlined />} 
-                      htmlType="submit"
-                      // disabled={!formIsValid}
-                      // onClick={submitHandler}
-                    >Submit</Button> :
-                    <Button
-                      type="primary"
-                      shape="round"
-                      size="large"
-                      style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                      icon={<EditOutlined />} 
-                      htmlType="submit"
-                      // disabled={!formIsValid}
-                      // onClick={updateLeadHandler}
-                    >Update</Button>
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                        // shape="round"
+                        size="large"
+                        icon={<FileTextOutlined />}
+                        htmlType="submit"
+                        // disabled={!formIsValid}
+                        // onClick={submitHandler}
+                      >Submit</Button>
+                    </Form.Item> :
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        // shape="round"
+                        size="large"
+                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                        icon={<EditOutlined />}
+                        htmlType="submit"
+                        // disabled={!formIsValid}
+                        // onClick={updateLeadHandler}
+                      >Update</Button>
+                    </Form.Item>
                   }
                 </Col>
                 <Col xs={11} sm={12} md={4}>
                   {/* <Link to="leaddetails/personallead"> */}
-                  <Button
-                    type="primary"
-                    shape="round"
-                    size="large"
-                    htmlType="submit"
-                    style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
-                    icon={<ArrowRightOutlined />}
-                    onClick={proceedHandler}
-                  >Proceed</Button>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      // shape="round"
+                      size="large"
+                      htmlType="submit"
+                      style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                      icon={<ArrowRightOutlined />}
+                      // onClick={proceedHandler}
+                    >Proceed</Button>
+                  </Form.Item>
                   {/* </Link> */}
                 </Col>
               </Row>

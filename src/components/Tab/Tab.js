@@ -29,6 +29,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
 
         // setactiveKey(key)
         if(activeKey){
+            console.log("active key",activeKey)
         switch (activeKey) {
             case "all": return history.push('/leadMaster/all_leads');
             case "fortoday": return history.push('/leadMaster/fortoday');
@@ -42,11 +43,11 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
             case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
             case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
 
-            case "6": return history.push('/renewalMaster/allRenewals');
-            case "7": return history.push('/renewalMaster/paidRenewals');
-            case "8": return history.push('/renewalMaster/unpaidRenewals');
-            case "9": return history.push('/renewalMaster/lapsedRenewals');
-            default:  return history.push('/leadmasterpage/statuslead');
+            case "allrenewals": return history.push('/renewalMaster/allRenewals');
+            case "paidrenewals": return history.push('/renewalMaster/paidRenewals');
+            case "unpaidrenewals": return history.push('/renewalMaster/unpaidRenewals');
+            case "lapsedrenewals": return history.push('/renewalMaster/lapsedRenewals');
+            // default:  return history.push('/leadmasterpage/statuslead');
 
         }
     }
@@ -79,6 +80,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     if (tabMenu && !_.isEmpty(tabMenu)) {
 
         tabPane = _.map(tabMenu, (value, id) => {
+            console.log("value",value)
             return (
                 <TabPane
                     key={value.id}

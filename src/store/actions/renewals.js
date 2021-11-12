@@ -126,11 +126,11 @@ export const fetchUnPaidRenewals = (leads,pageNo) => {
         dispatch(fetchUnPaidRenewalsStart())
         return axios.get(`getPolicy/610a50ec85eac609e29061e3?policy_filter=Unpaid&sortBy=-1&skip=${skipVal}`)
             .then(res => {
-                console.log('fetch unpaid renewals',res.data.errMsg[0],res.data.errMsg[1][0].count)
-                return dispatch(fetchUnPaidRenewalsSuccess(res.data.errMsg[0],res.data.errMsg[1][0].count))
+                console.log('fetch unpaid renewals',res?.data?.errMsg[0],res?.data?.errMsg[1][0].count)
+                return dispatch(fetchUnPaidRenewalsSuccess(res?.data?.errMsg[0],res?.data?.errMsg[1][0].count))
             })
             .catch(error => {
-                return dispatch(fetchUnPaidRenewalsFail(error.response.data.errors))
+                return dispatch(fetchUnPaidRenewalsFail(error?.response?.data?.errors))
             })
     }
 }

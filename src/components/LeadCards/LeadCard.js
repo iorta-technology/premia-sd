@@ -1,3 +1,4 @@
+
 import React,{useEffect,useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {Card,Avatar,Switch} from 'antd'
@@ -110,7 +111,7 @@ const LeadCard = React.memo((props) => {
                 <p className="user-name-text">{firstName} {lastName}</p>
                 <p className="user-status-text">{leadStatus}</p>
             </div>
-            <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>
+            <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>p
         </Card>
     }
     return (

@@ -50,19 +50,19 @@ const PaidRenewal = (props) => {
     }
     const tabMenu = [
         {
-            id:6,
+            id:'allrenewals',
             value:"All"
         },
         {
-            id:7,
+            id:'paidrenewals',
             value:"Paid"
         },
         {
-            id:8,
+            id:'unpaidrenewals',
             value:"UnPaid"
         },
         {
-            id:9,
+            id:'lapsedrenewals',
             value:"Lapsed"
         },
         

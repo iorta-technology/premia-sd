@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import {Card,Avatar,Switch} from 'antd'
+import {Card,Avatar,Switch, Col,Row} from 'antd'
 import {MoreOutlined } from '@ant-design/icons';
 import './Cards.css';
 import {useHistory } from 'react-router-dom';
@@ -22,7 +22,7 @@ const Cards = React.memo((props) => {
   :
   <p className="user-status-text capitalize">{userStatus}</p>
 
-    let avatar = fullName.match(/\b(\w)/g)
+    let avatar = fullName?.match(/\b(\w)/g)
 
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
@@ -60,17 +60,23 @@ const Cards = React.memo((props) => {
                             </p>
                         </div>
                         <div className="content-body">
-                            <Card.Grid  hoverable={false} className="grid-style">
-                                <p className="text-type">Annualised Premium</p>
-                                <p className="text-content">{annualisedPremium}</p>
-                            </Card.Grid>
-                            <Card.Grid  hoverable={false} className="grid-style">
+                            {/* <Card.Grid  hoverable={false} className="renewal-card "> */}
+                                <Row className="renewal-card">
+                                    <Col span={12}>
+                                    <p className="text-type">Annualised Premium</p>
+                                    <p className="text-content">{annualisedPremium}</p>
+                                    </Col>
+                            {/* </Card.Grid> */}
+                            {/* <Card.Grid  hoverable={false} className="renewal-card"> */}
+                                <Col span={12}>
                                 <p className="text-type">End Date</p>
                                 <p className="text-content capitalize">{end_date}</p>
-                            </Card.Grid>
+                                </Col>
+                            {/* </Card.Grid> */}
+                            </Row>
                         </div>
                     </div>
-                    <button className="update-btn" onClick={viewDetailsHandler}>View Details</button>  
+                    <button className="renewal-update-btn" onClick={viewDetailsHandler}>View Details</button>  
             </Card>
     //Card for Mobile
     if(width<breakpoint){

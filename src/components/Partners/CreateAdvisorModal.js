@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React,{useState,useEffect} from 'react';
+import './CreateAdvisorModal.css';
+import {  Button, Modal, DatePicker, Alert ,Tag,Input} from 'antd';
 import moment from 'moment';
-import FullCalendar, { formatDate } from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import './CalendarEvent.css';
-import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag} from 'antd';
-import { CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { PresetStatusColorTypes } from "antd/lib/_util/colors";
-import { NavItem } from "react-bootstrap";
-import Icon from '@ant-design/icons';
-
-
+import { PlusCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import { times } from "lodash";
-import Form from "antd/lib/form/Form";
 const { Search } = Input;
+
+
 
 let dateFormat = 'YYYY/MM/DD';
 
 let addEvent = [];
-export default function CalendarEvent() {
-  
-  let{innerWidth:width,innerHeight:height}=window;
+const CreateAdvisorModal=({advisorModalVisible})=>{
+    let{innerWidth:width,innerHeight:height}=window;
   const format = 'h:mm';
   let month=moment().format('MM/YYYY');
   // console.log(month)    
@@ -63,70 +54,19 @@ export default function CalendarEvent() {
     policy_renewal: false
   })
 
-  
+  const[fetchEventObject,setFetchEventObject]=useState()
   const [startDuration, setStartDuration] = useState();
   const [endDuration, setEndDuration] = useState();
   const [MultiSelectDate, setMultiSelectDate] = useState(false)
   const [clickedDate, setClickedDate] = useState();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(advisorModalVisible);
   const [eventText, setEventText] = useState("");
   const [value, setValue] = useState(moment('10:00', format));
   const [endVal, setEndVal] = useState(moment('10:00', format));
   const [addEvents, setAddEvents] = useState([
  
 
-    //     // {
-    //     //   id:helperUpcomingArr? helperUpcomingArr._id:null,
-    //     //   start:1631750400000+helperUpcomingArr? helperUpcomingArr.start_time:null,
-    //     //   end:1631750400000+37800000,
-    //     // },
-    
-    //   { 
-    
-    //     // id:item._id,
-    //     title:"mysasd",
-    //     start:1631750400000+48600000,
-    //     end:1631750400000+52200000,
-    //   }
-    // ,
-    //     // { 
-    //     //     id:helperUpcomingArr? helperUpcomingArr._id:null,
-    //     //     title:helperUpcomingArr?  helperUpcomingArr.appointment_type:null,
-    //     //     start:start_date_assign+helperUpcomingArr?helperUpcomingArr.start_time:null,
-    //     //     end:end_date_assign+helperUpcomingArr?helperUpcomingArr.end_time:null,
-    //     //   }
-    //     {
-    //     title: eventText, start: "2021-08-11T12:00:00",
-    //     end: "2021-08-11T15:00:00Z"
-    //   },
-    //   {
-    //     id: Math.random().toString(36).slice(-6),
-    //     title: 'my event',
-    //     description: "This is the description of the event",
-    //     start: "2021-08-21T12:00:00",
-    //     end: "2021-08-21T15:00:00"
-    //   },
-    //   {
-    //     id: Math.random().toString(36).slice(-6),
-    //     title: 'my event',
-    //     description: "This is the description of the event",
-    //     start: "2021-08-11T12:00:00",
-    //     end: "2021-08-12T15:00:00"
-    //   }
-    //     ,{
-    //       id: Math.random().toString(36).slice(-6),
-    //       title: 'Timestamp',
-    //       description: "This is the description of the event",
-    //       start: 1630800000000+50400000,
-    //       end: 1630800000000+52200000
-    //     }
-    //       ,  {
-    //     id: Math.random().toString(36).slice(-6),
-    //     title: 'test',
-    //     description: "This is the description of the event",
-    //     start: "2021-09-11T11:00:00",
-    //     end: "2021-09-12T15:00:00"
-    //   }
+
        ])
  const[testArr,setTestArr]=useState([
   {
@@ -819,15 +759,7 @@ export default function CalendarEvent() {
   const[durationEndDateDiffCheck,setDurationEndDateDiffCheck]=useState(true);
   const[fetchUpcomingArr,setFetchUpcomingArr]=useState([]);
   const[helperUpcomingArr,setHelperUpcomingArr]=useState();
-  const[updateStartTime,setUpdateStartTime]=useState()
-  const[updateEndTime,setUpdateEndTime]=useState()
-
-  
-const[fetchStartDate,setFetchStartDate]=useState();
-const[fetchEndDate,setFetchEndDate]=useState();
-const[fetchStartTime,setFetchStartTime]=useState();
-const[fetchEndTime,setFetchEndTime]=useState();
-const[fetchedEventId,setFetchedEventId]=useState();
+ 
 const[fetchEventCheck,setFetchEventCheck]=useState(false)
 const[timeList,setTimeList]=useState( [{
   dispValue: "8:00 AM",
@@ -959,53 +891,9 @@ const[statusReasonText,setStatusReasonText]=useState("")
 const[manualCustomerCheck,setManualCustomerCheck]=useState(false)
 const[addCustTagVisible,setAddCustTagVisible]=useState(true)
 const[eventDurationType,setEventDurationType]=useState("")
-  // axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=past
-  // `,{
-  //   // params:{
-  //   //   teamdata:"0",
-  //   //   filter: "09/2021",
-  //   //   category:"upcoming"
-  //   // }
-  // })
-  // .then((res)=>{
-  //   console.log(res)
-  // })
-  // .catch((err)=>{
-  //   console.log(err)
-  // },[])
-
-  // axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=upcoming
-  // `,{
-  //   // params:{
-  //   //   teamdata:"0",
-  //   //   filter: "09/2021",
-  //   //   category:"upcoming"
-  //   // }
-  // })
-  // .then((res)=>{
-  //   console.log(res.data)
-  //  setFetchEventCheck(true)
-  //   setFetchUpcomingArr(res.data)
-  // })
-  // .catch((err)=>{
-  //   console.log(err)
-  // },[])
+ 
   const[fetchEventArray,setFetchEventArray]=useState([])
-const[fetchEventObject,setFetchEventObject]=useState()
-const[editStartTime,setEditStartTime]=useState("");
-const[editStartDisp,setEditStartDisp]=useState("");
-const[editEndDisp,setEditEndDisp]=useState("");
-const[editEndTime,setEditEndTime]=useState("");
 
-// useEffect(()=>{
-//   testArr[0].errMsg.map((item)=>{
-//     setAddEvents(addEvents=>[...addEvents,{
-//       id:item._id,
-//       start:parseInt(item.start_date)+parseInt(item.start_time),
-//       end:parseInt(item.end_date)+parseInt(item.end_time),
-//     }])
-//      })
-// },[testArr])
 
 useEffect(()=>{
   axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=upcoming `)
@@ -1027,15 +915,7 @@ res.data.errMsg.map((item)=>{
     }]
   }])
 })
-//     testArr[0].errMsg.map((item)=>{
-// setAddEvents(addEvents=>[...addEvents,
-// {
-//   id:item._id,
-//   start:item.start_date+item.start_time,
-//   end:item.end_date+item.end_time,
-// }
-// ])
-//     })
+
 
 res.data.errMsg.map((item)=>{
   setAddEvents(addEvents=>[
@@ -1049,70 +929,11 @@ res.data.errMsg.map((item)=>{
 })
 
 console.log(res.data.errMsg)
-    // res.data.errMsg.map((item)=>{
-    //   setAddEvents([...addEvents,{
-    // id:item._id,
-    //     start:item.start_date+item.start_time,
-    // end:item.end_date+item.end_time,
-    //   }])
-    // })
- 
-//  res.data.errMsg.map((item)=>{
-//       return(
-//         setAddEvents([...addEvents, {
 
-//           id: item._id,
-//           title: 'test 7',
-//           description: "This is the description of the event",
-    
-//           start: item.start_date+item.start_time,
-//           end: item.end_date+item.end_time
-        
-        
-//         }])   
 
-//       )
-//     })
 console.log(res.data.errMsg)
 
-// res.data.errMsg.map((item)=>{
-//   return(
-//     setAddEvents([...addEvents, {
 
-  
-//      id:item._id,
-//   start:item.start_date+item.start_time,
-//   end:item.end_date+item.end_time
-
-//       // start: item.start_date+item.start_time,
-//       // end: item.end_date+item.end_time
-    
-    
-//     }])   
-
-//   )
-  
-// })
-// res.data.errMsg.map((item)=>{
-//   return(
-//   console.log(item)
-//     // setAddEvents([...addEvents, 
- 
-//   //   {
-  
-//   //   // {res.data.errMsg.map(()=>{})}
-//   //        id:item._id,
-//   //     start:item.start_date+item.start_time,
-//   //     end:item.end_date+item.end_time
-    
-//   //         // start: item.start_date+item.start_time,
-//   //         // end: item.end_date+item.end_time
-        
-        
-//   //       }])) 
-//   )
-
-// })
 
 
 
@@ -1145,14 +966,13 @@ console.log(res.data.errMsg)
             }])
     })
   
-    // setFetchUpcomingArr(res.data.errMsg)
+
   })
   .catch((err)=>{
     console.log(err.msg)
   })
 },[eventLoadCheck])
 
-// console.log(helperUpcomingArr)
 
 
 
@@ -1177,15 +997,13 @@ axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/partners?csmId=61519
       else{
         setCustomerArr(res.data.errMsg)
       }
-    // setCustomerArr(res.data.errMsg.filter((i)=> (Object.values(i)
-    // .join(" ").toLowerCase().includes(searchCustomerText.toLowerCase()))))
+  
     setCustomerHelperArr(res.data)
   })
   .catch((err)=>{
     console.log(err)
   })
-  // setCustomerArr(customerArr.sort( (a, b) => a.name.localeCompare(b.name, 'fr', {ignorePunctuation: true})))  
-
+  
   }
 const searchCustomerTextFunc=(e)=>{
   setSearchCustomerText(e.target.value)
@@ -1195,12 +1013,7 @@ const searchCustomerTextFunc=(e)=>{
   }
 }
 
-const AddCustomerTag=(value)=>{
 
-}
-const AddCustomerCloseFunc=()=>{
-
-}
 
 const ProspectClickedTag=(value)=>{
   setProspectOnClickVal(value)
@@ -1222,15 +1035,13 @@ axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/prospects?csmId=6151
       else{
         setProspectArr(res.data.errMsg)
       }
-    // setCustomerArr(res.data.errMsg.filter((i)=> (Object.values(i)
-    // .join(" ").toLowerCase().includes(searchCustomerText.toLowerCase()))))
+   
     setProspectHelperArr(res.data)
   })
   .catch((err)=>{
     console.log(err)
   },[prospectArr])
-  // setCustomerArr(customerArr.sort( (a, b) => a.name.localeCompare(b.name, 'fr', {ignorePunctuation: true})))  
-
+  
   }
 
 
@@ -1338,11 +1149,7 @@ setManualCustomerCheck(true)
   }
   const ProspectEmailAddressFunc = (e) => {
 
-    // if (reg.test(e.target.value) == false) 
-    // {
-    //     alert('Invalid Email Address');
-    //     // return false;
-    // }
+  
     setProspectEmailAddressText(e.target.value)
     setProspectEmailAddressCheck(true)
     if (prospectFirstNameText == "") {
@@ -1397,20 +1204,7 @@ console.log(ms_date)
       console.log("Start Date should we after end date")
       return false
     }
-    // setDurationStartDateOperation(dateString,"YYYY-MM-DD")
-    // setDurationStartDateCheck(true)
-    // alert(moment(date).format("X"))
-    // console.log('Selected Time: ', date);
-    // console.log('Formatted Selected Time: ', date);
-    // console.log(timeList.dispValue)
-    // // alert("This is st"+date,"YYYY-MM-DD")
-    // if (durationEndDate == "") {
 
-    //   setDurationEndDate(date)
-    //   setDurationEndDateOperation(dateString,"YYYY-MM-DD")
-    //   setDurationEndDateCheck(true)
-
-    // }
     setDurationDateAlert(false)
   }
   const EndDateFunc = (e,date,dateString) => {
@@ -1427,20 +1221,7 @@ setDurationEndDate(moment(date))
 console.log("This is end Date"+ms_date)
 
 
-//     setDurationEndDate(moment(date).format("YYYY-MM-DD"))
-// console.log(moment(date).format("x"))
-//     setDurationEndDateCheck(true)
-//     setDurationEndDateOperation(dateString,"YYYY-MM-DD")
-// // alert(moment(durationEndDate,"YYYY-MM-DD"))
-//     console.log('Selected Time: ', date);
-//     console.log('Formatted Selected Time: ', date);
-//     if (durationStartDate == "") {
 
-//       setDurationStartDate(moment(date).format("X"))
-//       setDurationStartDateOperation(dateString,"YYYY-MM-DD")
-//       setDurationStartDateCheck(true)
-
-//     }
 
     setDurationDateAlert(false)
   }
@@ -1467,41 +1248,13 @@ console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
   setDurationEndTimeOperation(parseTime)
 }
 
-// if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
-//     setDurationStartTimeDiffCheck(false)
-//     console.log("TIme should be less than end time")
-//         }
+
        
 else{
   setDurationStartTimeDiffCheck(true)
 }
 
-//     setStartTimeSelect(e.target.value)
-//     setDurationStartTimeCheck(true)
-//     console.log("This is the start Time"+e.target.value)
-//     let parseTime=parseInt(e.target.value)
-//     setDurationStartTimeOperation(parseTime)
-// let timeDiff=e.target.value
-// if(endTimeSelect==""){
-//   setEndTimeSelect((+timeDiff)+(+"3600000"))
-// console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
-//   let parseTimeCondition=parseInt()
-//   setDurationEndTimeCheck(true)
-//   let parseTime=parseInt((+timeDiff)+(+"3600000"))
-//   setDurationEndTimeOperation(parseTime)
-// }
-// if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
-//   setDurationStartTimeDiffCheck(false)
-//   console.log("TIme should be less than end time")
-//       }
-//       else if(((e.target.value)>=endTimeSelect)){
-//         setDurationStartTimeDiffCheck(false)
-//       }
-//       else{
-//         setDurationStartTimeDiffCheck(true)
-//       }
-// // alert((+timeDiff)+(+"3600000")) 
-//     console.log(e.target.value)
+
   }
   const EndTimeChangeFunc=(e)=>{
     setEndTimeSelect(e.target.value)
@@ -1588,8 +1341,7 @@ setDurationEndTime(time)
          setDurationEndTimeCheck(true)
           setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("HH:mm:ss z"))
 
-          // setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("H:m:ss z"))
-          // alert(moment(time).subtract(1, 'hours').format("HH:mm:ss z"))
+       
         }
         setDurationStartTimeCheck(true)
         setDurationTimeAlert(false)
@@ -1602,25 +1354,9 @@ setDurationEndTime(time)
    
    
    
-    // setDurationEndTime(moment(time))
 
-    // setDurationEndTimeOperation(timeString,"H:mm:ss")
-    //     console.log('Selected Time: ', time);
-    //     console.log('Formatted Selected Time: ', time);
-    //     if(time<durationStartTime){
-    //       setDurationStartTime(moment(time).subtract(1, 'hours'))
-    //       setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("T H:mm:ss z"))
-    //     }
-    // //  if(durationEndTime<time){
-    // //   setDurationStartTime(moment(time).subtract(1, 'hours'))
-    // //   setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("T H:mm:ss z"))
-    // // }
-    //     if (durationStartTime == "") {
-    //       setDurationStartTime(moment(time).subtract(1, 'hours'))
-    //       setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("T H:mm:ss z"))
-    //       alert("Start Time "+moment(time).subtract(1, 'hours').format("H:mm:ss z"))
-    //     }
-    //     setDurationTimeAlert(false)
+
+   
   }
   const BookAppointmentFunc = (e) => {
 
@@ -2277,25 +2013,12 @@ if(item._id==e.event.id){
   };
 
 
-// let EventFetch=fetchEventCheck==true? fetchUpcomingArr.map((item)=>{
-//   return(
-//     setHelperUpcomingArr(item)
-//   )
-// }):null
-// let startDateParse=helperUpcomingArr? JSON.parse(helperUpcomingArr.start_date):null;
-// let startTimeParse=helperUpcomingArr?JSON.parse(helperUpcomingArr.start_time):null;
-// let endDateParse=helperUpcomingArr?JSON.parse(helperUpcomingArr.end_date):null;
-// let endTimeParse=helperUpcomingArr? JSON.parse(helperUpcomingArr.end_time):null
-// let idParse=helperUpcomingArr? JSON.parse(helperUpcomingArr._id):null;
+
 let start_date_var=helperUpcomingArr? helperUpcomingArr.start_date:null
 let start_date_assign = new Date(start_date_var).setUTCHours(0, 0, 0, 0)
 let end_date_var=helperUpcomingArr? helperUpcomingArr.end_date:null
 let end_date_assign = new Date(end_date_var).setUTCHours(0, 0, 0, 0)
-// console.log(start_date_assign)
-// console.log(end_date_assign)
-// console.log(helperUpcomingArr? helperUpcomingArr.start_date:null)
-// console.log(fetchUpcomingArr)
-  
+ 
   let events = [{ title: eventText, date: new Date("2021-08-11 10:00:00") },
   { title: "TEst", date: new Date("2021-08-11 10:00:00") }
 
@@ -2329,46 +2052,18 @@ setBookEventCheck(true)
    let new_end_date = Date.parse(moment_end_date)
   let end_date = new Date(new_end_date).setUTCHours(0, 0, 0, 0)
   setDurationEndDateOperation(end_date)
-  // alert(end_date)
-    // setDurationStartDate(moment(e.start).format("YYYY-MM-DD"))
-    // setDurationStartDateOperation(moment(e.start).format("YYYY-MM-DD"))
-    // alert("This is duration Start Date"+durationStartDate)
-    // // alert(e.start,dateFormat)
-    // setDurationEndDate(moment(e.end).subtract(1, "days").format("YYYY-MM-DD"))
-    // setDurationEndDateOperation(moment(e.end).subtract(1, "days").format("YYYY-MM-DD"))
-    // alert("This is duration End Date"+durationEndDate)
+  
     setIsModalVisible(true)
   }
   const DateClick = (e) => {
   setStartTimeSelect("")
   setEndTimeSelect("")
-    // alert(e.dateStr)
-    // setDurationStartDate(e.dateStr)
-    // setDurationEndDate(e.dateStr)
-    // alert("this is the start" + e.startStr)
-    // alert("this si the end" + e.endStr)
-    // setDurationStartDate(e.date)
-    // setDurationEndDate(e.date)
-    // let new_date =Date.parse(e.date)
+   
     setBookEventCheck(true)
  setUpdateCheckEvent(false)
     let ms_date = new Date(e.date).setUTCHours(0, 0, 0, 0)
       
-  // alert(ms_date)
-// console.log(new_date)
-    
-// let ms_date = new Date(e.date).setHours(0, 0, 0, 0)
-// if (typeof e.date === 'string' || e.date instanceof String)
-// {
-//   alert("It is a string")
-// }
 
-// // it's a string
-// else{
-//   alert("It is not")
-// }
-// it's something else
-// console.log(test_date)
 setDurationStartDate( moment(e.date))
 setDurationEndDate( moment(e.date))
 
@@ -2379,17 +2074,13 @@ setDurationStartDateHelper(e.dateStr)
     setClickedDate(e.dateStr)
     setIsModalVisible(true)
     setMultiSelectDate(false)
-    // alert(value)
-    // setAddEvents([...addEvents{title:eventText,date:moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")}])
-    // setAddEvents([addEvents,{title:eventText,date:moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")}])
+    
+    
   }
-  const datecl = () => {
-    console.log('it works')
-  }
-  return (
-    <div className="CalendarEvent-main-class">
-
-     <Modal
+  
+    return(
+        <div>
+                 <Modal
         className="Calendar-event-modal-header-style"
         title={
           updateEventCheck==true?"Update Event":
@@ -2441,14 +2132,14 @@ setDurationStartDateHelper(e.dateStr)
                 className={advisorCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >Advisor</button>
               <button
-                 disabled={updateEventCheck==true?true:false}
+                 disabled={true}
                 onClick={checkProspectFunc}
                 className={prospectCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >Prospect</button>
 
 
               <button
-                 disabled={updateEventCheck==true?true:false}
+                 disabled={true}
               // updateEventCheck==true?disabled:null
                 onClick={checkCustomerFunc}
                 className={customerCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
@@ -2532,25 +2223,7 @@ setDurationStartDateHelper(e.dateStr)
 
                   </div>
                   : null}
-            {/* <div
-className={advisorCheck==true||prospectCheck==true?"CalendarEvent-Modal-Card-button-flex":"CalendarEvent-Modal-Card-button-flex"}
->
-<button
-className={prospectCollection.appointment_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.appointment_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":customerCollection.appointment_customer==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
-onClick={ProspectCollectionAppointmentFunc}
-
->Appointment</button>
-<button
-className={prospectCollection.phone_call==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.phone_call_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
-onClick={ProspectPhoneCallFunc}
->Phone Call</button>
-
-  <button
-onClick={ProspectTrainingFunc}
-className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.training==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
->{advisorCheck==true||prospectCheck==true?"Training":customerCheck==true?"Policy Renewals":null}</button>
-
-</div> */}
+        
             <div
               className="CalendarEvent-Modal-Card-vertical-line"
             >
@@ -2699,10 +2372,13 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                 >
 
                 </div>
+            
                 <h4
                   className="CalendarEvent-Modal-Card-header-type"
                 >Search Advisor</h4>
-
+       
+           
+   
 
                 <div
                   className="CalendarEvent-Modal-appointmenttype-button-flex"
@@ -2711,7 +2387,14 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                     enterButton
                     className="CalendarEvent-Modal-textinput-style"
                   />
-
+       <Tag
+          closable
+          visible={true}
+          onClose={ProspectTagCloseFunc}
+          className="CalendarEvent-Modal-Search-tag-style"
+        >
+        Test
+        </Tag>
 
 
 
@@ -2785,11 +2468,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                   </div>
                 : customerCheck == true ?
                   <div>
-                    {/* <div
-                      className="CalendarEvent-Modal-Card-vertical-line"
-                    >
-
-                    </div> */}
+                  
                     <h4
                       className="CalendarEvent-Modal-Card-header-type"
                     >Search Customer</h4>
@@ -2850,16 +2529,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                     </div>
 
                   </div> : null}
-            {/* 
-            {customerCheck == true ?
-              <div>
-                <div
-                  className="CalendarEvent-Modal-Card-vertical-line"
-                >
-                </div>
-                <h4>ljskjdkj</h4>
-              </div>
-              : null} */}
+          
             {
               prospectCollection.first_meeting == true && prospectCheck == true ?
                 <div>
@@ -2935,21 +2605,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                 </div>
                 : null
             }
-            {/* <div
-className="CalendarEvent-Modal-appointmenttype-button-flex"
->
-<button
-className="CalendarEvent-Modal-Card-eventwith-onclick-button-style"
->First Meeting</button>
-<button
-className="CalendarEvent-Modal-Card-eventwith-static-button-style"
->Follow Up</button>
-<button
-className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
->Document Collection</button>
-
-
-</div> */}{customerCheck == true ?
+           {customerCheck == true ?
               <div>
                 <div
                   className="CalendarEvent-Modal-Card-vertical-line"
@@ -2969,22 +2625,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
 
     </Button>
     </div>
-                {/* <div
-                  className="CalendarEvent-Modal-Card-add-manually-button"
-                >
-                  <div
-                    className="CalendarEvent-Modal-Card-add-manually-flex"
-                onClick={AddManuallyFunc}
-                >
-                    <PlusCircleOutlined
-                      className="CalendarEvent-Modal-Card-add-manually-icon-style"
-                      style={{ fontSize: '12px', color: 'white', alignSelf: "center" }}
-                    />
-                    <h4
-                      className="CalendarEvent-Modal-Card-add-button-text"
-                    >Add Manually</h4>
-                  </div> 
-                </div>*/}
+            
               </div>
               : null}
 {customerCheck == true&&addManuallyButtonCheck==true?
@@ -3125,11 +2766,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                    
                     </select>
                     {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null}
-                    {/* <TimePicker onChange={StartTimeFunc}
-                      value={durationStartTime}
-                      defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                      className="CalendarEvent-Modal-picker-style"
-                    /> */}
+             
                   </div>
 
                 </div>
@@ -3186,10 +2823,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                    
                      : null}
                   
-                      {/* <TimePicker onChange={EndTimeFunc}
-                        value={durationEndTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                        className="CalendarEvent-Modal-picker-style"
-                      /> */}
+                   
                     </div>
 
                   </div>
@@ -3277,81 +2911,10 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
             onClick={BookAppointmentFunc}
           >{bookEventCheck==true? "Book Appointment":"Update Appointment"}</button>
         </div>
-        {/* <Card>
-  <h4>jasjkhdsaj</h4>
-</Card> */}
-        {/* <input type="text" value={eventText} onChange={OnChangeEventText}/>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <TimePicker 
-       value={moment(value, format)}
-       onChange={OnTimeChange}
-      defaultValue={moment('12:00', format)} format={format} />
-      <TimePicker 
-       value={moment(endVal, format)}
-       onChange={OnEndTimeChange}
-      defaultValue={moment('12:00', format)} format={format} /> */}
+       
       </Modal>
 
-      <FullCalendar
-height={width<="767"?"100vh":null}
-        //  defaultAllDay="false"
-        //  selectOverlap={ function(event) {
-        // //  alert("Doesnt work"+event.rendering)
-        //   // return event.rendering === 'background';
-        // }}
-        select={MultiSelect}
-        // eventOverlap="false"
-        // eventOverlap={function(stillEvent, movingEvent) {
-        //   return stillEvent.allDay && movingEvent.allDay;
-        // }}
-
-        editable="true"
-        timeZone='UTC'
-        droppable="true"
-        headerToolbar={{
-          left: "prev,next,today",
-          center: "title",
-          right: "dayGridMonth,dayGridWeek,dayGridDay"
-        }}
-        // eventClick={ function(info) {
-        //   alert('Event: ' + info.event.start);
-        //   alert('Event: ' + info.event.end);
-        //   alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-        //   alert('View: ' + info.view.type);
-      
-        //   // change the border color just for fun
-        //   info.el.style.borderColor = 'red';
-        // }}
-        eventClick={showModal}
-        // eventClick={
-        //   function(arg){
-        //     alert(arg.event.title)
-        //     alert(arg.event.start)
-        //   }
-        // }
-        select={ 
-          MultiSelectDateFunc
-        //   function(info) {
-        //   alert('selected ' + info.startStr + ' to ' + info.endStr);
-        // }
-      }
-    
-forceEventDuration="true"
-        dateClick={DateClick}
-        selectable="true"
-        // selectMirror="true"
-
-        // function(arg) {
-        // $("#myModal").modal("show");
-        // $(".modal-body").html("");
-        // $(".modal-body").html("<h3>"+arg.dateStr+"</h3>");
-
-        defaultView="dayGridMonth"
-        plugins={[dayGridPlugin, interactionPlugin]}
-        events={addEvents}
-      />
- 
-    </div>
-  );
+        </div>
+    )
 }
+export default CreateAdvisorModal;

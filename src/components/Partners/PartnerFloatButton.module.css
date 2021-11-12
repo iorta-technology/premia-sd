@@ -23,10 +23,6 @@
     bottom: 120px;
     background-color: #4caf50;
 }
-.newrecuirement{
-    bottom: 80px;
-    background-color: #4caf50;
-}
 .pgpfr{
     position: fixed;
     right: 83px;
@@ -42,10 +38,6 @@
 .leadpg{
     
     bottom: 113px;
-}
-.recuirementpg{
-    
-    bottom: 70px;
 }
 .popover-icon{
     font-size: 30px;

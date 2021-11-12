@@ -112,10 +112,11 @@ const ProposedProduct = () => {
 
     };
     const submitHandler = event => {
-        event.preventDefault();
+        // event.preventDefault();
 
-        dispatch(actions.storeLead(formData, storeLeadId))
-        history.replace('statuslead')
+        dispatch(actions.editLead(formData, storeLeadId))
+        alert('New Lead Updated Successfully')
+        // history.replace('leadmasterpage/statuslead')
     };
     return (
         <>
@@ -130,7 +131,7 @@ const ProposedProduct = () => {
                 <Form
                     layout="horizontal"
                     className="contact-detail-form"
-
+                    onFinish={submitHandler}
                 >
                     <Row gutter={['', 20]} justify="center">
                         <LeadDetailsTab activeKey="5" />
@@ -236,17 +237,22 @@ const ProposedProduct = () => {
                             <Row gutter={[8,8]}>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 0} >
                                     <Button
-                                        type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                        type="primary" 
+                                        // shape="round" 
+                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
-                                    <Button
-                                        type="primary"
-                                        shape="round"
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
-                                        icon={<FileTextOutlined />}
-                                        onClick={submitHandler}
-                                    >Submit</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            // shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                            icon={<FileTextOutlined />}
+                                            // onClick={submitHandler}
+                                            htmlType="submit"
+                                        >Submit</Button>
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         </Col>
