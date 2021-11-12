@@ -172,7 +172,7 @@ function App() {
             </div>
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
               <Route path="/mappedbranches" component={MappedBranches}></Route>
-              <Route path="/products/loanproducts" component={LoanProducts}/>
+              <Route path="/products" component={LoanProducts}/>
               </div>
               
           </Switch>

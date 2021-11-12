@@ -45,74 +45,74 @@ const HomePage = () => {
   // console.log("activities-data", activities_data)
   const data = [
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Sun.',
-      value: 18.9,
+      value: 7,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Mon.',
-      value: 28.8,
+      value: 3,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Tue.',
-      value: 39.3,
+      value: 4,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Wed.',
-      value: 81.4,
+      value: 2,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Thr',
-      value: 47,
+      value: 15,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Fri.',
-      value: 20.3,
+      value: 10,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Sat.',
-      value: 24,
+      value: 11,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Sun.',
-      value: 12.4,
+      value: 6,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Mon.',
-      value: 23.2,
+      value: 1,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Tue.',
-      value: 34.5,
+      value: 5,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Wed.',
-      value: 99.7,
+      value: 7,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Thr',
-      value: 52.6,
+      value: 16,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Fri.',
-      value: 35.5,
+      value: 18,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Sat.',
-      value: 37.4,
+      value: 15,
     }
   ];
   const config = {
@@ -132,13 +132,13 @@ const HomePage = () => {
         { type: 'adjust-color' },
       ],
     },
-    color: ['rgb(0, 172, 193)','#fff']
+    color: ['#ADD8E6','#fff']
   };
   
   return <Fragment >
     <Button type="primary" onClick={onLogout}>Logout</Button>
     <FloatButton />
-    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>Hi {logged_in_user}</h3>
+    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold',marginLeft:'75px' }}>Hi {logged_in_user}</h3>
     <Row gutter={[18,{ xs: 8, sm: 10, md: 10, lg:18 }]} justify="center" className="cardHolder ">
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
@@ -218,7 +218,7 @@ const HomePage = () => {
             </div>
           </Link>
           <div style={{ marginTop: "30px" }}>
-          {/* <Column {...config}/> */}
+          <Column {...config}/>
           </div>
           <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
             <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
@@ -480,7 +480,7 @@ const HomePage = () => {
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
               </div>
               <div className="b1-content">
-                <p className="sales-content" style={{ height: 35, width: 100 }}>Product</p>
+                <Link to="/products"><p className="sales-content" style={{ height: 35, width: 100 }}>Product</p></Link>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Need Analysis</p>
               </div>
               <div className="b1-content">
