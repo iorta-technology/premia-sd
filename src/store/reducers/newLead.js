@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
 
@@ -10,6 +11,7 @@ const initialState = {
     successMsg:'',
     leadId:'',
     userId:'',
+    fetchLeadId:'',
     address:{
         line1:'',
         line2:'',
@@ -157,11 +159,15 @@ const fetchLeadDetailsSuccess = (state, action) => {
     //         //  addObj2 = JSON.parse(address2)
     // }
     // const {mailingaddress:{line1}={line1:'hello'}} = action.leadDetails.mailingAddress
-        const  {Insurancedetails} = action.leadDetails
-        const  healthInsObject = JSON.parse(Insurancedetails)
+    const fetchLeadId = action.fetchLeadId
+    const  {Insurancedetails} = action.leadDetails
+    const  {HaveLifeInsurance_details} = action.leadDetails
+        if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){
 
-        const  {HaveLifeInsurance_details} = action.leadDetails
-        const  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
+            var  healthInsObject = JSON.parse(Insurancedetails)
+    
+            var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
+        }
     return updateObject(state, { 
         leadDataloading:false,
         createLeadLoading: false, 
@@ -175,6 +181,7 @@ const fetchLeadDetailsSuccess = (state, action) => {
         HaveLifeInsurance_details:lifeInsObject,
         address:action.leadDetails.address[0],
         mailingAddressSecond:addSecond,
+        fetchLeadId:fetchLeadId
     })
 }
 const fetchLeadDetailsFail = (state, action) => {
