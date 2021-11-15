@@ -33,7 +33,7 @@
 }
 .bi-heading {
     display: flex;
-    font-size: 18px !important;
+    font-size: 14px !important;
     text-decoration: underline !important;
 }
 .contact-detail-form{
@@ -44,7 +44,7 @@
 .para {
     display: flex;
     flex-direction: row;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
     font-weight: bold;
     background-color: #fafafa;
@@ -148,7 +148,7 @@
     margin-left: 70vw;
     height: 5vh;
     padding: 10px 50px;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #3b371e;
     color: #fff; 
 }

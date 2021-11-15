@@ -58,6 +58,7 @@ const PrePaymentReview = React.lazy(() => import('./components/PrePaymentReview/
 const PaymentOptions = React.lazy(() => import('./components/PaymentOptions/PaymentOptions'))
 const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/ProposalHistory'))
 const ProofAddress = React.lazy(() => import('./components/UploadDocuments/AddressProof'))
+const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 function App() {
   return (
     <React.Suspense fallback={<Spin size="large" className="loader" />}>

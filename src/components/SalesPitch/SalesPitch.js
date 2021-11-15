@@ -66,10 +66,10 @@ const SalesPitch = () => {
                                             <Col className="Salespitch-img2" xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
                                                 <Card>
                                                     <div className="c2">
-                                                        <Image src="img1.jpg" style={{ width: '25vw', height: '23vh' }} />
+                                                        <Image src="img1.jpg" style={{ width: '21vw', height: '23vh' }} />
                                                     </div>
                                                     <div className="c2">
-                                                        <Image src="img2.jpg" style={{ width: '25vw', height: '23vh' }} />
+                                                        <Image src="img2.jpg" style={{ width: '21vw', height: '23vh' }} />
                                                     </div>
                                                 </Card>
                                             </Col>
@@ -224,7 +224,7 @@ const SalesPitch = () => {
                                 <Col xs={{ order: 1 }} sm={12} md={12} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                     <Row gutter={['', 24]}>
                                         <Col className="testimonial1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <VideoPlayer src={videoSrc} poster={poster} width="720" height="420" playbackRates={[0.5, 1, 3.85, 16]} />
+                                            <VideoPlayer src={videoSrc} poster={poster} width="520" height="420" playbackRates={[0.5, 1, 3.85, 16]} />
                                         </Col>
                                     </Row>
                                 </Col>
@@ -369,7 +369,7 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="MUTUAL_FUND.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="MUTUAL_FUND.jpg" style={{ width: '20vw', height: '30vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
@@ -822,7 +822,7 @@ const SalesPitch = () => {
 
                                                 Calculator</h1>
                                             <p className="paragraph11">The retirement calculator helps you to create a secure retirement plan.View retirement savings balance...</p>
-                                            <Button className="btnn">Calculate</Button>
+                                            <Button className="btnn">Calculate</Button><br /><br />
                                         </div>
                                     </Card>
                                 </div>
@@ -833,7 +833,7 @@ const SalesPitch = () => {
                                         <div>
                                             <h1 className="Heading">Human Life Value Calculator</h1>
                                             <p className="paragraph11">The Human Life Value (HLV) Calculator helps you identify you life insurance needs on basis of income, expenses...</p>
-                                            <Button className="btnn">Calculate</Button>
+                                            <Button className="btnn">Calculate</Button><br /><br />
                                         </div>
                                     </Card>
                                 </div>
