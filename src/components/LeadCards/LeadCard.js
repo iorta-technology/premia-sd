@@ -111,7 +111,7 @@ const LeadCard = React.memo((props) => {
                 <p className="user-name-text">{firstName} {lastName}</p>
                 <p className="user-status-text">{leadStatus}</p>
             </div>
-            <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>p
+            <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>
         </Card>
     }
     return (

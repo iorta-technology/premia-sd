@@ -5,6 +5,7 @@ import _ from "lodash";
 import { useHistory,useParams } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import {stoageGetter} from '../../helpers'
 
 const { TabPane } = Tabs
 
@@ -13,8 +14,9 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     const {leadType} = useParams()
     const [activeTab, setactiveTab] = useState()
     useEffect(() => {
-        console.log(typeof(leadType))
-        dispatch(actions.fetchAllLeads(leadType,current))
+        const {id} = stoageGetter('user')
+        // console.log(typeof(leadType))
+        dispatch(actions.fetchAllLeads(id,leadType,current))
     },[dispatch,current,activeTab]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
@@ -29,7 +31,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
 
         // setactiveKey(key)
         if(activeKey){
-            console.log("active key",activeKey)
+            // console.log("active key",activeKey)
         switch (activeKey) {
             case "all": return history.push('/leadMaster/all_leads');
             case "fortoday": return history.push('/leadMaster/fortoday');
@@ -47,7 +49,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
             case "paidrenewals": return history.push('/renewalMaster/paidRenewals');
             case "unpaidrenewals": return history.push('/renewalMaster/unpaidRenewals');
             case "lapsedrenewals": return history.push('/renewalMaster/lapsedRenewals');
-            // default:  return history.push('/leadmasterpage/statuslead');
+            default:  return history.push('/leadmasterpage/statuslead');
 
         }
     }
@@ -80,7 +82,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     if (tabMenu && !_.isEmpty(tabMenu)) {
 
         tabPane = _.map(tabMenu, (value, id) => {
-            console.log("value",value)
+            // console.log("value",value)
             return (
                 <TabPane
                     key={value.id}
