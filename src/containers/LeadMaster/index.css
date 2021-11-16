@@ -56,3 +56,14 @@
     left: 90vw;
     bottom: 5vh;
 }
+.export-btn{
+    position: absolute;
+    top: 135px;
+    right: 200px;
+    background-color: orange;
+    border: none;
+}
+.export-btn:hover{
+
+    background-color: pink;
+}

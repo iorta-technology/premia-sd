@@ -25,7 +25,8 @@ export const fetchAllLeadsFail = (error) => {
     }
 }
 
-export const fetchAllLeads = (leads,pageNo) => {
+export const fetchAllLeads = (id,leads,pageNo) => {
+    console.log(id)
        const leadFilter =  getLeadFilter(leads)
         let skipVal 
         if(pageNo===1){
@@ -36,7 +37,7 @@ export const fetchAllLeads = (leads,pageNo) => {
         }
     return dispatch => {
         dispatch(fetchAllLeadsStart())
-        return axios.get(`user/v2/getLead/5df782ab2b5ffa6c72ae1a25?leadfilter=${leadFilter}&skip=${skipVal}`)
+        return axios.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`)
             .then(res => {
                 // console.log(res.data.errMsg[1][0].count)
                 const response = res.data.errMsg

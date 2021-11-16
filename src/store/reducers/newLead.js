@@ -1,7 +1,9 @@
 import { isEmpty } from 'lodash';
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
-
+import {stoageGetter} from '../../helpers'
+const {id} = stoageGetter('user')
+console.log(id)
 const initialState = {
     createLeadLoading:false,
     createLeadError:'',
@@ -10,7 +12,7 @@ const initialState = {
     leadDataloading:false,
     successMsg:'',
     leadId:'',
-    userId:'',
+    user_Id:id,
     fetchLeadId:'',
     address:{
         line1:'',
@@ -104,7 +106,7 @@ const createLeadSuccess = (state, action) => {
             createLeadLoading: false, 
             formData: action.formData,
             leadId:action.formData._id,
-            userId:action.formData.userId,
+            // userId:action.formData.userId,
             successMsg:action.succMsg,
          })
 }
@@ -124,7 +126,7 @@ const editLeadSuccess = (state, action) => {
             createLeadLoading: false, 
             formData: action.formData,
             leadId:action.formData[0]._id,
-            userId:action.formData[0].userId
+            // userId:action.formData[0].userId
          })
 }
 const editLeadFail = (state, action) => {
@@ -168,11 +170,12 @@ const fetchLeadDetailsSuccess = (state, action) => {
     
             var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
         }
+        const payload = {...state.payloadFormData,...action.leadDetails}
     return updateObject(state, { 
         leadDataloading:false,
         createLeadLoading: false, 
-        formData: action.leadDetails,
-        payloadFormData: action.leadDetails,
+        formData: payload,
+        // payloadFormData: payload,
         // mailingAddress:address1,
         // mailingAddressSecond:address2,
         leadId:action.leadDetails._id,

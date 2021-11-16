@@ -52,54 +52,7 @@ const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPe
 const ExistingPartner = React.lazy(()=> import('./components/Partners/ExistingPartner'))
 const ExistingPartnerDetails=React.lazy(()=> import('./components/Partners/ExistingPartnerDetails'))
 const MappedBranches = React.lazy(()=> import('./components/MappedBranches/MappedBranches'))
-// const StatusLead = React.lazy(()=> import('./components/StatusLead/StatusLead'))
-// const PersonalDetails = React.lazy(()=> import('./components/LeadDetails/PersonalDetails/PersonalDetails'))
-// const ContactDetails = React.lazy(()=> import('./components/LeadDetails/ContactDetails/ContactDetails'))
-// const ProfessionalDetails = React.lazy(()=> import('./components/LeadDetails/ProfessionalDetails/ProfessionalDeatils'))
-// const ExistingInsurance = React.lazy(()=> import('./components/LeadDetails/ExistingInsurance'))
-// const ProposedProduct = React.lazy(()=> import('./components/LeadDetails/ProposedProduct'))
-// const ProposalDetails = React.lazy(()=> import('./components/ProposalDetails/ProposalDetails'))
-// const DocumentsUpload = React.lazy(()=> import('./components/DocumentsUpload/DocumentsUpload'))
-// const History = React.lazy(()=> import('./components/History/History'))
-// const Login = React.lazy(()=> import('./components/Login/Login'))
-// const ForgotPassword = React.lazy(()=> import('./components/ForgotPassword/ForgotPassword'))
-// const ChangePassword = React.lazy(()=> import('./components/ChangePassword/ChangePassword'))
-// const Sidebar = React.lazy(()=> import('./components/SideBar/SideBar'))
-// const ClubsMaster = React.lazy(()=> import('./components/ClubMaster/ClubsMaster'))
-// const Birthday = React.lazy(()=> import('./components/Birthday/Birthday'))
-// const HomePage = React.lazy(()=> import('./components/Home/HomePage'))
-// const CompletedContest = React.lazy(()=> import('./components/Contests/CompletedContest'))
-// const ActiveContest = React.lazy(()=> import('./components/Contests/ActiveContest'))
-// const ActiveContestDetails = React.lazy(()=> import('./components/Contests/ActiveContestDetails'))
-// const AllContestDetails = React.lazy(()=> import('./components/Contests/AllContestDetails'))
-// const AllContest = React.lazy(()=> import('./components/Contests/AllContest'))
-// const CompletedContestDetails = React.lazy(()=> import('./components/Contests/CompletedContestDetails'))
-// const MyOverallRanking = React.lazy(()=> import('./components/Contests/MyOverallRanking'))
-// const AllContestDetails1 = React.lazy(()=> import('./components/Contests/AllContestDetails'))
-// const ActiveContestDetails1 = React.lazy(()=> import('./components/Contests/ActiveContestDetails'))
-// const CompletedContest1 = React.lazy(()=> import('./components/Contests/CompletedContest'))
-// const Calendar = React.lazy(()=> import('./components/Contests/CalendarEvent'))
-// const AgentMicroService = React.lazy(()=> import('./components/AgentMicroSite/AgentMicroSite'))
-// const KpiDashboard = React.lazy(()=> import('./components/KpiDashboard/KpiDashboard'))
-// const Blog = React.lazy(()=> import('./components/AgentMicroSite/Blog'))
-// const AdvisorPitch = React.lazy(()=> import('./components/AdvisorPitch/AdvisorPitch'))
-// const BenefitIllustrator = React.lazy(()=> import('./components/BenefitIllustrator/BenefitIllustrator'))
-// const ForCustomer = React.lazy(()=> import('./components/ForCustomer/ForCustomer'))
-// const ForSelf = React.lazy(()=> import('./components/ForSelf/ForSelf'))
-// const RenewalReport = React.lazy(()=> import('./components/RenewalReport/RenewalReport'))
-// const SalesPitch = React.lazy(()=> import('./components/SalesPitch/SalesPitch'))
-// const ServiceCorner = React.lazy(()=> import('./components/ServiceCorner/ServiceCorner'))
-// const Renewals = React.lazy(()=> import('./containers/RenewalMaster/index'))
-// const RenewalAll = React.lazy(()=> import('./components/RenewalCollections/AllRenewals'))
-// const RenewalPaid = React.lazy(()=> import('./components/RenewalCollections/PaidRenewals'))
-// const RenewalUnPaid = React.lazy(()=> import('./components/RenewalCollections/UnPaidRenewals'))
-// const RenewalLapsed = React.lazy(()=> import('./components/RenewalCollections/LapsedRenewals'))
-// const RenewalMasterDetails = React.lazy(()=> import('./components/RenewalCollections/RenewalDetails'))
-// const SalesPendency = React.lazy(()=> import('./components/SalesPendency/SalesPendency'))
-// const ExistingPartner = React.lazy(()=> import('./components/Partners/ExistingPartner'))
-// const MappedBranches = React.lazy(()=> import('./components/MappedBranches/MappedBranches'))
 const LoanProducts = React.lazy(()=> import('./components/Products/LoanProducts'))
-
 const ProposalFulfilment = React.lazy(() => import('./components/ProposalFulfilment/ProposalFulfilment'))
 const PrePaymentReview = React.lazy(() => import('./components/PrePaymentReview/PrePaymentReview'))
 const PaymentOptions = React.lazy(() => import('./components/PaymentOptions/PaymentOptions'))
@@ -121,16 +74,6 @@ function App() {
             <Route path="/changepassword" component={ChangePassword}></Route>
             <Route path="/himanshu" component={AgentMicroService}></Route>
             <Route path="/blog" component={Blog}></Route>
-            <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
-            <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
-            <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
-            <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
-            <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
-            <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
-            <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
             <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>
 
@@ -138,6 +81,16 @@ function App() {
               <Route  path="/agentMicrosite" component={AgentMicroService}></Route>
               <div>
               <Sidebar />
+              <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
+              <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
+              <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
+              <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
+              <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
+              <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
+              <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
+              <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
+              <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
+              <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
               <Route path="/clubsMaster" component={ClubsMaster}></Route>
               <Route path="/birthday" component={Birthday}></Route>
               <Route path="/home" component={HomePage}></Route>
