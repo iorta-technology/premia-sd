@@ -29,6 +29,15 @@ const KpiDashboard = () => {
   const [finalBudgetData, setFinalBudgetData] = useState([]);
   const [finalBudgetConfig, setFinalBudgetConfig] = useState(null);
 
+const budgetKeys=
+  {
+    "Branch Activation":['branch_activation_budget','branch_activation_actual','branch_activation_achievement'],
+    "GPW":['gpw_budget','gpw_actual','gpw_achievement'],
+    "NOP Retention":['nop_retention_budget','nop_retention_actual','nop_retention_achievement'],
+    "GWP Retention":['gwp_retention_budget','gwp_retention_actual','gwp_retention_achievement'],
+    "Dummy":['dummy_budget','dummy_actual','dummy_achievement']
+  }
+ 
 
   useEffect(() => {
     setTimeout(() => {
@@ -52,24 +61,24 @@ const KpiDashboard = () => {
 
 
 
-      const kpiBudget = employee_data ? employee_data.filter((item => item.id == "GPW_last_two_month")) : [];
+      const kpiBudget = employee_data ? employee_data.filter((item => item.category == finalKpiDataDropdown)) : [];
       let data = kpiBudget[0]?.data ? [...kpiBudget[0]?.data] : [];
 
       data = data.map((item => ({
         ...item,
-        ...item.GPW
+        ...item[finalKpiDataDropdown]
       })))
       console.log(data)
       const budgetConfigDat=[];
       data.forEach((item=>{
         budgetConfigDat.push({
-          name:'gpw_budget',
-          val:parseInt(item.gpw_budget),
+          name:'Budget',
+          val:parseInt(item[budgetKeys[finalKpiDataDropdown][0]]||0),
           month:item.month
         })
         budgetConfigDat.push({
-          name:'gpw_actual',
-          val:parseInt(item.gpw_actual),
+          name:'Actual',
+          val:parseInt(item[budgetKeys[finalKpiDataDropdown][1]||0]),
           month:item.month
         })
        
@@ -93,9 +102,14 @@ const KpiDashboard = () => {
   const { Option } = Select;
   function onChange(value) {
     setFinalKpiDataDropdown(value)
-    dispatch(actions.kpiDashboard(finalKpiDataDropdown))
+    dispatch(actions.kpiDashboard(value))
     console.log(`selected ${value}`);
 
+  }
+  const onChangeKPIBudgetHandler=(value) => {
+    console.log(value)
+    setFinalKpiDataDropdown(value)
+    dispatch(actions.kpiDashboard(value))
   }
 
   function onBlur() {
@@ -134,19 +148,19 @@ const KpiDashboard = () => {
       key: 'month',
     },
     {
-      title: 'GPW(in ₹ Lac) Budget',
-      dataIndex: 'gpw_budget',
-      key: 'gpw_budget',
+      title: `${finalKpiDataDropdown}(in ₹ Lac) Budget`,
+      dataIndex: budgetKeys[finalKpiDataDropdown][0],
+      key: budgetKeys[finalKpiDataDropdown][0],
     },
     {
-      title: 'GPW(in ₹ Lac) Actual',
-      dataIndex: 'gpw_actual',
-      key: 'gpw_actual',
+      title: `${finalKpiDataDropdown}(in ₹ Lac) Actual`,
+      dataIndex: budgetKeys[finalKpiDataDropdown][1],
+      key: budgetKeys[finalKpiDataDropdown][1],
     },
     {
       title: '% Achievement',
-      dataIndex: 'gpw_achievement',
-      key: 'gpw_achievement',
+      dataIndex: budgetKeys[finalKpiDataDropdown][2],
+      key: budgetKeys[finalKpiDataDropdown][2],
     },
   ]
   const columns2 = [
@@ -235,7 +249,7 @@ const KpiDashboard = () => {
                     <Row>
                       <Col span={12}>
                         <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>% {employee_data[1]?.data['Branch Activation'].branch_activation_actual}</p>
+                        <p className='updatecount' style={{ margin: "0" }}>% {employee_data[1]?.data['Branch Activation']?.branch_activation_actual}</p>
                         <p className='updatetotal' style={{ margin: "0" }}>Active Branches</p>
                       </Col>
                       <Col span={8} offset={4}>
@@ -265,7 +279,7 @@ const KpiDashboard = () => {
                     <Row>
                       <Col span={12}>
                         <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data['GWP Retention'].gwp_retention_actual}</p>
+                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data['GWP Retention']?.gwp_retention_actual}</p>
                         <p className='updatetotal' style={{ margin: "0" }}>Total GWP Retention in ₹</p>
                       </Col>
                       <Col span={8} offset={4}>
@@ -313,15 +327,16 @@ const KpiDashboard = () => {
                 style={{ width: 200 }}
                 placeholder="Select a person"
                 optionFilterProp="children"
-                onChange={onChange}
+                onChange={onChangeKPIBudgetHandler}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onSearch={onSearch}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
+                value={finalKpiDataDropdown}
               >
-                <Option value="GPW" active={true}>GPW</Option>
+                <Option value="GPW" >GPW</Option>
                 <Option value="Branch Activation">Branch Activation</Option>
                 <Option value="NOP Retention">NOP Retention</Option>
                 <Option value="GWP Retention">GWP Retention</Option>
