@@ -42,7 +42,7 @@ const HomePage = () => {
       history.push('/login')
   }
   // console.log("Home-Data", home_data)
-  // console.log("activities-data", activities_data)
+  console.log("activities-data", activities_data)
   const data = [
     {
       name: 'For Today',
