@@ -15,7 +15,7 @@ const RenewalDetails = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
-        let proposer_ID_refs = location.state.proposer_ID_refs
+        let proposer_ID_refs = location?.state?.proposer_ID_refs
         dispatch(actions.fetchRenewalDetails(proposer_ID_refs))
         // console.log(location.state.proposer_ID_refs);
      }, [location,dispatch]);
@@ -31,9 +31,48 @@ const RenewalDetails = () => {
         }
         console.log("content hide and show")
     }
+    
     const addLeadHandler = ()=>{
         console.log('add lead clicked')
-        history.push('/leadmasterpage/statuslead')
+        axios.get(`cross_sell_check/${renewalDetails?.BRM_Code?._id}?PolicyNumber=${renewalDetails?.proposer_ID}&CustomerId=${renewalDetails.proposer_ID_refs?._id}`).then(resp=>{
+            console.log("cross_sell_check----",resp)
+            if(resp?.data?.errCode === -1){
+                let f_name = renewalDetails?.proposerName.split(' ')[0]
+                let l_name = renewalDetails?.proposerName.substring(f_name.length).trim()
+                let payload = {
+                    CustomerId: renewalDetails.proposer_ID_refs?._id,
+                    PolicyNumber: renewalDetails?.proposer_ID,
+                    city: renewalDetails.proposer_ID_refs?.City,
+                    customerId: renewalDetails.proposer_ID_refs?._id,
+                    dob: renewalDetails.proposer_ID_refs?.date_of_birth,
+                    email: renewalDetails.proposer_ID_refs?.customer_email_id,
+                    existingCustomerFlag: "yes",
+                    firstName: f_name,
+                    lastName: l_name,
+                    leadStatus: "newleadentery",
+                    leadType: "New Business",
+                    lead_Creator_Id: renewalDetails?.BRM_Code?._id,
+                    lead_Owner_Id: renewalDetails?.BRM_Code?._id,
+                    line1: renewalDetails.proposer_ID_refs.customerAddress,
+                    line2: renewalDetails.proposer_ID_refs.address_2,
+                    maritalStatus: renewalDetails.proposer_ID_refs?.marital_status,
+                    pincode: renewalDetails.proposer_ID_refs?.marital_status,
+                    primaryMobile: renewalDetails.proposer_ID_refs?.customerContactNumber,
+                    secondaryMobile: renewalDetails.proposer_ID_refs?.secondaryTelephone,
+                    user_id: renewalDetails?.BRM_Code?._id                                                                    
+                }
+                axios.post(`addlead`,payload).then(resp=>{
+                    console.log("added lead",resp)
+                    if (resp?.data?.errCode === -1){
+                        message.success("Lead Added Successfully")
+                        history.push('/leadmasterpage/statuslead')
+                    }
+                    else{
+                        message.warning("Please Update The Lead Status")
+                    }
+                })
+            }
+        })
     }
    const updateRenewalHandler = ()=>{
        console.log("status",renewalDetails.policy_status)
