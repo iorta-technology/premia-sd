@@ -28,8 +28,8 @@ const initialState = {
     },
     HaveLifeInsurance_details:[],
     Insurancedetails:[],
-    formData:{},
-     payloadFormData :{
+    payloadFormData:{},
+     formData :{
         // statusLeadData: {
             leadStatus: '',
             leadDisposition: '',
@@ -38,7 +38,7 @@ const initialState = {
             appointmentdisPosition: '',
             appointmentsubdisPosition: '',
             lead_Owner_Id: '',
-            user_id: '',
+            user_id: id,
             lead_Creator_Id: '',
             start_date: '',
             start_time:  '',
@@ -59,7 +59,7 @@ const initialState = {
             gender: '',
             maritalStatus: '',
             childStatus: '',
-            ChildInfo: '',
+            ChildInfo: [],
         // },
         // contactLeadData: {
             primaryMobile:'', 
@@ -88,8 +88,12 @@ const initialState = {
                 country: '',
                 pincode: '',
             }
+
         // }
-    }
+    },
+    appointmentData:{}
+
+
 }
 
 
@@ -100,11 +104,13 @@ const createLeadStart = (state, action) => {
 }
 
 const createLeadSuccess = (state, action) => {
-    
+    const payload = {...state.payloadFormData,...action.leadDetails}
+    console.log(payload)
     return updateObject(state, { 
             leadDataloading:true,
             createLeadLoading: false, 
-            formData: action.formData,
+            formData: payload,
+            payloadFormData: payload,
             leadId:action.formData._id,
             // userId:action.formData.userId,
             successMsg:action.succMsg,
@@ -175,7 +181,7 @@ const fetchLeadDetailsSuccess = (state, action) => {
         leadDataloading:false,
         createLeadLoading: false, 
         formData: payload,
-        // payloadFormData: payload,
+        payloadFormData: payload,
         // mailingAddress:address1,
         // mailingAddressSecond:address2,
         leadId:action.leadDetails._id,
@@ -184,7 +190,9 @@ const fetchLeadDetailsSuccess = (state, action) => {
         HaveLifeInsurance_details:lifeInsObject,
         address:action.leadDetails.address[0],
         mailingAddressSecond:addSecond,
-        fetchLeadId:fetchLeadId
+        fetchLeadId:fetchLeadId,
+        appointmentData:action.appointmentDetails
+
     })
 }
 const fetchLeadDetailsFail = (state, action) => {

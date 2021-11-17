@@ -3148,8 +3148,8 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                       >End Date *</h4>
                       <DatePicker onChange={EndDateFunc}
                         defaultValue={'2015/01/01'}
-                        value={durationEndDate}
                         format="YYYY-MM-DD"
+                        value={durationEndDate}
                         className="CalendarEvent-Modal-picker-style"
                       />
                        {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null}

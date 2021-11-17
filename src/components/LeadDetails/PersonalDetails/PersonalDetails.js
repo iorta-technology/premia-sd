@@ -24,6 +24,11 @@ const maritalStatusOptions = [
     { value: 'Divorced', label: 'Divorced' },
     { value: 'Widowed', label: 'Widowed' }
 ]
+const genderOptions = [
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' },
+    { label: 'Other', value: 'Other' },
+  ];
 const personalRoute = "/leadmasterpage/leaddetails/personallead"
 const tabMenu = [
     {
@@ -70,10 +75,11 @@ const PersonalDetails = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const [firstName, setFirstName] = useState(storeFormData.firstName);
     const [lastName, setLastName] = useState(storeFormData.lastName);
-    const [dob, setDob] = useState(storeFormData.dob);
+    const [dob, setDob] = useState();
+    const [dobPost, setDobPost] = useState();
     const [isDobValid, setIsDobValid] = useState(false);
     const [dobErrorMessage, setDobErrorMessage] = useState();
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState(storeFormData.gender);
     const [maritalStatus, setMaritalStatus] = useState();
     const [appendChildComponent, setappendChildComponent] = useState(false)
     const [haveChildren, sethaveChildren] = useState()
@@ -82,6 +88,7 @@ const PersonalDetails = () => {
     const [childInfoObj, setChildInfoObj] = useState([])
     const [childName, setChildName] = useState()
     const [childAge, setChildAge] = useState()
+    const [childAgePost, setChildAgePost] = useState()
     const [childGender, setChildGender] = useState()
     const [isNewLead, setIsNewLead] = useState(true)
 
@@ -101,6 +108,7 @@ const PersonalDetails = () => {
     // };
 
     useEffect(() => {
+        console.log(gender)
         if (storeLeadId !== '') {
             setIsNewLead(false)
         }
@@ -128,17 +136,22 @@ const PersonalDetails = () => {
 
 
     const onChangeDOB = (date, dateString) => {
-        let minYear = moment().subtract(18, 'years')
-        let maxYear = moment().subtract(55, 'years')
-        let signal = moment(dateString).isBetween(maxYear, minYear);
-        setIsDobValid(signal)
+        // let minYear = moment().subtract(18, 'years')
+        // let maxYear = moment().subtract(55, 'years')
+        // let signal = moment(dateString).isBetween(maxYear, minYear);
+        // setIsDobValid(signal)
         // console.log(isDobValid)
 
-        let msDate = moment(date).valueOf()
+        // let msDate = moment(date).valueOf()
         //    isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
     }
+    const dobHandler = (date,dateString)=>{
+
+        setDob(date)
+        setDobPost(dateString)
+        console.log('date', dateString)
+    }
     // console.log(isDobValid)
-    // console.log('date', dob)
     // console.log(dobErrorMessage)
 
     const onChangeGender = (e) => {
@@ -170,7 +183,10 @@ const PersonalDetails = () => {
         setChildGender(e.target.value)
     }
     const childDOBHandler = (date, dateString) => {
-        setChildAge(moment(date).valueOf())
+        setChildAge(date)
+        setChildAgePost(dateString)
+        console.log('date', dateString)
+
 
     }
     const randomId = () => {
@@ -192,10 +208,12 @@ const PersonalDetails = () => {
         storeChildInfo.push({
             id: "ch" + randomId(),
             childName: childName,
-            childAge: childAge,
+            childAge: childAgePost,
             childGender: childGender,
         })
         setChildInfoObj(storeChildInfo)
+
+        console.log(childInfoObj)
         const formData = {
             ...storeFormData,
             ChildInfo: [
@@ -205,6 +223,7 @@ const PersonalDetails = () => {
         dispatch(actions.storeLead(formData))
         setChildModel(!childModel);
     }
+    console.log(storeChildInfo)
     const childColumn = [
         {
             title: 'Name',
@@ -212,8 +231,8 @@ const PersonalDetails = () => {
         },
         {
             title: 'Date of Birth',
-            dataIndex: 'DateofBirth',
-            render: (dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>) }
+            dataIndex: 'childAge',
+            // render: (dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>) }
 
         },
         {
@@ -232,23 +251,24 @@ const PersonalDetails = () => {
         ...storeFormData,
         firstName: firstName,
         lastName: lastName,
-        dob: dob,
+        dob: dobPost,
         gender: gender,
         maritalStatus: maritalStatus,
+        ChildInfo:JSON.stringify(storeChildInfo)
     };
     const submitHandler = event => {
         if(isNewLead){
             dispatch(actions.storeLead(formData))
 
-            alert('New Lead Updated Successfully')
-            history.push('contactlead')
+            // alert('New Lead Updated Successfully')
+            // history.push('contactlead')
             
             setIsNewLead(false)
         }else{
       
             dispatch(actions.editLead(formData, storeLeadId))
-            alert(' Lead Updated Successfully')
-            history.push('contactlead')
+            // alert(' Lead Updated Successfully')
+            // history.push('contactlead')
             
         }
     };
@@ -275,13 +295,13 @@ const PersonalDetails = () => {
     };
     useEffect(() => {
 
-
+        console.log(gender)
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, []);
-
+    const dateFormat = 'YYYY/MM/DD'
     return (
         <>
             <TabsMain
@@ -373,9 +393,15 @@ const PersonalDetails = () => {
                                     >
                                         <DatePicker
                                             value={dob}
-                                            onChange={onChangeDOB}
+                                            onChange={dobHandler}
                                             size="large"
-                                            style={{ width: "100%" }} />
+                                            style={{ width: "100%" }}
+                                            format="YYYY-MM-DD"
+                                            // defaultValue={'2015/01/01'}
+                                            // defaultValue={moment('01/01/2015',dateFormat)} 
+                                            // format={dateFormat}
+                                            // format={ 'DD/MM/YYYY'} 
+                                            />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -387,10 +413,10 @@ const PersonalDetails = () => {
                                         rules={[{ required: true, message: 'Please pick gender' }]}
                                         value={gender}
                                     >
-                                        <Radio.Group size="large">
-                                            <Radio.Button value="Male">Male</Radio.Button>
+                                        <Radio.Group size="large" options={genderOptions} value={gender} optionType="button">
+                                            {/* <Radio.Button value="Male">Male</Radio.Button>
                                             <Radio.Button value="Female">Female</Radio.Button>
-                                            <Radio.Button value="Other">Other</Radio.Button>
+                                            <Radio.Button value="Other">Other</Radio.Button> */}
                                         </Radio.Group>
                                     </Form.Item>
                                 </Col>

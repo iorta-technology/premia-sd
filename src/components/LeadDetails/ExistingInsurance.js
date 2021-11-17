@@ -370,6 +370,7 @@ const ExistingInsurenceDetails = () => {
                 ...storeLifeInsArr
             ]
         }
+        console.log(storeLifeInsArr)
         dispatch(actions.storeLead(formData))
         setVisibleLifeInsuranceModel(false);
     };

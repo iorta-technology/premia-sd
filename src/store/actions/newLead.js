@@ -95,11 +95,13 @@ export const fetchLeadDetailsStart = () => {
     }
 }
 
-export const fetchLeadDetailsSuccess = (leadDetails,id) => {
+export const fetchLeadDetailsSuccess = (leadDetails,appointmentDetails,id) => {
     return {
         type: actionTypes.FETCH_LEAD_DETAILS_SUCCESS,
         leadDetails: leadDetails,
-        fetchLeadId:id
+        appointmentDetails: appointmentDetails,
+        fetchLeadId:id,
+
     }
 } 
 
@@ -117,12 +119,13 @@ export const fetchLeadDetails = (id) => {
         dispatch(fetchLeadDetailsStart())
         return axios.get(`user/getlead_details/${id}`)
             .then(res => {
-                    console.log(...res.data.errMsg)
-                    let response = res.data.errMsg
+                    console.log(res.data.errMsg)
+                    let formData = res.data.errMsg[0]
+                    let appointmentData = res.data.errMsg[1]
                     if(res.data.errCode===-1){
-                        return dispatch(fetchLeadDetailsSuccess(...response,id))
+                        return dispatch(fetchLeadDetailsSuccess(formData,appointmentData,id))
                     }else{
-                        throw response
+                        throw formData
                     }
             })
             .catch(error => {
