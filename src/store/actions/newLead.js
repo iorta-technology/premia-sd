@@ -142,7 +142,7 @@ export const storeForm = (formData) => {
     }
 }
 export const storeLead = (formData) => {
-        
+        console.log(formData)
     return dispatch => {
         dispatch(storeForm(formData))
     }

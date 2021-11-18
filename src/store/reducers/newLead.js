@@ -28,6 +28,7 @@ const initialState = {
     },
     HaveLifeInsurance_details:[],
     Insurancedetails:[],
+    childParsedData:[],
     payloadFormData:{},
      formData :{
         // statusLeadData: {
@@ -87,7 +88,11 @@ const initialState = {
                 city:'', 
                 country: '',
                 pincode: '',
-            }
+            },
+            //professional data
+            education:'',
+            professionType:'',
+            incomeGroup:'',
 
         // }
     },
@@ -201,7 +206,20 @@ const fetchLeadDetailsFail = (state, action) => {
 
 
 const storeForm = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, formData: action.formData })
+    const  {ChildInfo} = action.formData
+    //     if(!isEmpty(ChildInfo)){
+
+    
+    //         var childParsedData = JSON.parse(action.formData.ChildInfo)
+    //     }
+    // console.log(childParsedData)
+    const payload = {...state.formData,...action.formData}
+    
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        formData: payload,
+        // childParsedData:childParsedData,
+    })
 }   
 
 const reducer = (state = initialState, action) => {

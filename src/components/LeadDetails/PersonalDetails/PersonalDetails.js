@@ -8,6 +8,7 @@ import '../../StatusLead/StatusLead.css'
 import * as actions from '../../../store/actions/index';
 import { useHistory } from 'react-router-dom';
 import moment, { now } from 'moment';
+import { isElement, isEmpty } from 'lodash';
 
 const formItemLayout = {
     labelCol: {
@@ -64,12 +65,13 @@ const PersonalDetails = () => {
     let storeFormData = useSelector((state) => state.newLead.formData)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
-
+    let childTableArr = useSelector((state) => state.newLead.childParsedData)
     // const id = useSelector((state)=>state.newLead.leadId)
     // useEffect(() => {
     //     dispatch(actions.fetchLeadDetails(id))
 
     // }, [dispatch,id])
+    console.log('store',storeChildInfo)
 
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
@@ -80,12 +82,29 @@ const PersonalDetails = () => {
     const [isDobValid, setIsDobValid] = useState(false);
     const [dobErrorMessage, setDobErrorMessage] = useState();
     const [gender, setGender] = useState(storeFormData.gender);
-    const [maritalStatus, setMaritalStatus] = useState();
-    const [appendChildComponent, setappendChildComponent] = useState(false)
-    const [haveChildren, sethaveChildren] = useState()
-    const [childStatus, setChildStatus] = useState()
-    const [childModel, setChildModel] = useState(false);
-    const [childInfoObj, setChildInfoObj] = useState([])
+    const [maritalStatus, setMaritalStatus] = useState(storeFormData.maritalStatus);
+    const [appendChildComponent, setappendChildComponent] = useState(()=>{
+        if (maritalStatus === 'Married' || maritalStatus === 'Divorced' || maritalStatus === 'Widowed') {
+            return true
+        } else {
+            return false
+        }
+    })
+    const [childStatus, setChildStatus] = useState(storeFormData.childStatus)
+    const [haveChildren, sethaveChildren] = useState(()=>{
+        if (childStatus === 'Yes') {
+            return true
+        } else {
+            return false
+        }
+    })
+    const [childModel, setChildModel] = useState();
+    const [childInfoObj, setChildInfoObj] = useState(()=>{
+        if(!isEmpty(storeChildInfo)){
+            return JSON.parse(storeChildInfo)
+        }
+    })
+    const [childParsedArr, setChildParsedArr] = useState(childTableArr)
     const [childName, setChildName] = useState()
     const [childAge, setChildAge] = useState()
     const [childAgePost, setChildAgePost] = useState()
@@ -108,7 +127,7 @@ const PersonalDetails = () => {
     // };
 
     useEffect(() => {
-        console.log(gender)
+        // console.log(gender)
         if (storeLeadId !== '') {
             setIsNewLead(false)
         }
@@ -149,7 +168,7 @@ const PersonalDetails = () => {
 
         setDob(date)
         setDobPost(dateString)
-        console.log('date', dateString)
+        // console.log('date', dateString)
     }
     // console.log(isDobValid)
     // console.log(dobErrorMessage)
@@ -220,10 +239,12 @@ const PersonalDetails = () => {
                 ...storeChildInfo
             ]
         }
+
         dispatch(actions.storeLead(formData))
-        setChildModel(!childModel);
+
+        setChildModel(false);
     }
-    console.log(storeChildInfo)
+    console.log(childModel)
     const childColumn = [
         {
             title: 'Name',
@@ -245,6 +266,7 @@ const PersonalDetails = () => {
         },
     ]
     useEffect(() => {
+        console.log(childModel)
     }, [storeChildInfo])
 
     const formData = {
@@ -254,6 +276,7 @@ const PersonalDetails = () => {
         dob: dobPost,
         gender: gender,
         maritalStatus: maritalStatus,
+        childStatus:childStatus,
         ChildInfo:JSON.stringify(storeChildInfo)
     };
     const submitHandler = event => {
@@ -295,7 +318,7 @@ const PersonalDetails = () => {
     };
     useEffect(() => {
 
-        console.log(gender)
+        console.log(appendChildComponent)
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
         // Return a function from the effect that removes the event listener
@@ -321,7 +344,8 @@ const PersonalDetails = () => {
                         "lastname": lastName,
                         "gender": gender,
                         "dob": dob,
-                        "maritalstatus": maritalStatus
+                        "maritalstatus": maritalStatus,
+                        "Children":childStatus,
                     }}
                     onFinish={submitHandler}
 
@@ -452,7 +476,6 @@ const PersonalDetails = () => {
                                             name="Children"
                                             label="Children"
                                             onChange={haveChildrenHandler}
-                                            value={childStatus}
                                             hasFeedback
                                             rules={[
                                                 {
@@ -461,7 +484,10 @@ const PersonalDetails = () => {
                                                 },
                                             ]}
                                         >
-                                            <Radio.Group size='large'>
+                                            <Radio.Group 
+                                                size='large' 
+                                                value={childStatus}
+                                            >
                                                 <Radio.Button value="Yes">Yes</Radio.Button>
                                                 <Radio.Button value="No">No</Radio.Button>
                                             </Radio.Group>
@@ -472,7 +498,7 @@ const PersonalDetails = () => {
                                     haveChildren &&
                                     <>
                                         <Col xs={24} sm={24} md={6} lg={6} xl={6} style={{ marginTop: '1rem' }}>
-                                            <Button shape="round" size="large" block onClick={handleChildModal}>Add Child</Button>
+                                            <Button primary size="large" block onClick={handleChildModal}>Add Child</Button>
                                         </Col>
                                         <Table
                                             style={{ marginTop: '1rem' }}
