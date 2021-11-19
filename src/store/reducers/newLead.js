@@ -88,6 +88,8 @@ const initialState = {
                 city:'', 
                 country: '',
                 pincode: '',
+                user_Id:id,
+
             },
             //professional data
             education:'',
@@ -105,11 +107,14 @@ const initialState = {
 
 
 const createLeadStart = (state, action) => {
-    return updateObject(state, { createLeadLoading: true,leadDataloading:false })
+    return updateObject(state, { 
+        createLeadLoading: true,
+        leadDataloading:false 
+    })
 }
 
 const createLeadSuccess = (state, action) => {
-    const payload = {...state.payloadFormData,...action.leadDetails}
+    const payload = {...state.formData,...action.formData}
     console.log(payload)
     return updateObject(state, { 
             leadDataloading:true,
@@ -122,7 +127,11 @@ const createLeadSuccess = (state, action) => {
          })
 }
 const createLeadFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false });
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        createLeadError: action.error,
+        leadDataloading:false 
+    });
 }
 
 const editLeadStart = (state, action) => {
@@ -132,10 +141,12 @@ const editLeadStart = (state, action) => {
 }
 
 const editLeadSuccess = (state, action) => {
+    const payload = {...state.formData,...action.formData}
+
     return updateObject(state, { 
             editLeadLoading:false,
             createLeadLoading: false, 
-            formData: action.formData,
+            formData: payload,
             leadId:action.formData[0]._id,
             // userId:action.formData[0].userId
          })
@@ -181,7 +192,7 @@ const fetchLeadDetailsSuccess = (state, action) => {
     
             var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
         }
-        const payload = {...state.payloadFormData,...action.leadDetails}
+        const payload = {...state.formData,...action.leadDetails}
     return updateObject(state, { 
         leadDataloading:false,
         createLeadLoading: false, 
@@ -201,12 +212,15 @@ const fetchLeadDetailsSuccess = (state, action) => {
     })
 }
 const fetchLeadDetailsFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false  });
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        createLeadError: action.error,
+        leadDataloading:false  
+    });
 }
 
 
 const storeForm = (state, action) => {
-    const  {ChildInfo} = action.formData
     //     if(!isEmpty(ChildInfo)){
 
     

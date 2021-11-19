@@ -65,6 +65,9 @@ const PersonalDetails = () => {
     let storeFormData = useSelector((state) => state.newLead.formData)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
+    if(storeChildInfo==='' || storeChildInfo==='[]' || storeChildInfo===undefined){
+        storeChildInfo = []
+    }
     let childTableArr = useSelector((state) => state.newLead.childParsedData)
     // const id = useSelector((state)=>state.newLead.leadId)
     // useEffect(() => {
@@ -72,13 +75,14 @@ const PersonalDetails = () => {
 
     // }, [dispatch,id])
     console.log('store',storeChildInfo)
+    console.log('dob',storeFormData.dob)
 
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [firstName, setFirstName] = useState(storeFormData.firstName);
     const [lastName, setLastName] = useState(storeFormData.lastName);
     const [dob, setDob] = useState();
-    const [dobPost, setDobPost] = useState();
+    const [dobPost, setDobPost] = useState(storeFormData.dob);
     const [isDobValid, setIsDobValid] = useState(false);
     const [dobErrorMessage, setDobErrorMessage] = useState();
     const [gender, setGender] = useState(storeFormData.gender);
@@ -101,7 +105,10 @@ const PersonalDetails = () => {
     const [childModel, setChildModel] = useState();
     const [childInfoObj, setChildInfoObj] = useState(()=>{
         if(!isEmpty(storeChildInfo)){
+            console.log('child details',storeChildInfo,childStatus,maritalStatus)
             return JSON.parse(storeChildInfo)
+        }else{
+            return []
         }
     })
     const [childParsedArr, setChildParsedArr] = useState(childTableArr)
@@ -416,10 +423,12 @@ const PersonalDetails = () => {
                                     // style={{ marginBottom: '1rem' }}
                                     >
                                         <DatePicker
-                                            value={dob}
+                                            // value={dob}
                                             onChange={dobHandler}
                                             size="large"
                                             style={{ width: "100%" }}
+                                            selected={(dob !== "")? moment(dob, 'YYYY-MM-DD'):moment()} 
+                                            value={(dob !== "")? moment(dob, 'YYYY-MM-DD'):""} 
                                             format="YYYY-MM-DD"
                                             // defaultValue={'2015/01/01'}
                                             // defaultValue={moment('01/01/2015',dateFormat)} 
@@ -591,13 +600,15 @@ const PersonalDetails = () => {
                         <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
                             <Row gutter={[8, 8]}>
                                 <Col xs={10} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button
-                                        type="primary"
-                                        // shape="round"
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                                        icon={<ArrowLeftOutlined />}
-                                    >Previous</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            // shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                            icon={<ArrowLeftOutlined />}
+                                        >Previous</Button>
+                                    </Form.Item>
                                 </Col>
                                 <Col xs={10} sm={12} md={4} >
                                     <Form.Item>

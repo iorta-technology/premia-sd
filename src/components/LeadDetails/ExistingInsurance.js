@@ -77,7 +77,15 @@ const ExistingInsurenceDetails = () => {
     let healthObjDisplay = useSelector((state) => state.newLead.Insurancedetails)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeLifeInsArr = useSelector((state) => state.newLead.HaveLifeInsurance_details)
+    console.log(storeLifeInsArr)
+    if(storeLifeInsArr==='' || storeLifeInsArr==='[]' || storeLifeInsArr===undefined){
+        storeLifeInsArr = []
+    }
     let storeHealthInsArr = useSelector((state) => state.newLead.Insurancedetails)
+    console.log(storeHealthInsArr)
+    if(storeHealthInsArr==='' || storeHealthInsArr==='[]' || storeHealthInsArr===undefined){
+        storeHealthInsArr = []
+    }
 
     const dispatch = useDispatch()
     const history = useHistory()

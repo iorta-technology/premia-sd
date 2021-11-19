@@ -36,7 +36,7 @@ export const createLead = (formData) => {
                 if(res.data.errCode===-1){
                     const response = res.data.errMsg
                     const succMsg = 'Lead Created Successfully'
-                    // console.log(...response)
+                    console.log('creat action',response)
                     return dispatch(createLeadSuccess(...response,succMsg))
 
                 }else{
@@ -79,8 +79,10 @@ export const editLead = (formData,id) => {
         return axios.put(`user/updateLead/${id}`,formData)
             .then(res => {
                 if(res.data.errCode===-1){
+                    const response = res.data.errMsg
+                    console.log('edit action',response)
 
-                    return dispatch(editLeadSuccess(res.data.errMsg))
+                    return dispatch(editLeadSuccess(response))
                 }
             })
             .catch(error => {

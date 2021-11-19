@@ -127,25 +127,25 @@ const leadTypeOptions =[
 const insuranceCompanyOptions = [
   {
       label:'TATA AIG General Insurance Company',
-      value:'TATAAIGGeneralInsuranceCompany'
+      value:'TATA AIG General Insurance Company'
   },
 
   {
       label:'ICICI Lombard Genral Insurance Company',
-      value:'ICICILombardGenralInsuranceCompany'
+      value:'ICICI Lombard Genral Insurance Company'
   },
 
   {
       label:'ICICI Prudential Life Insurance Company',
-      value:'ICICIPrudentialLifeInsuranceCompany'
+      value:'ICICI Prudential Life Insurance Company'
   },
   {
       label:'Manipal Cigna Health Insurance Company',
-      value:'ManipalCignaHealthInsuranceCompany'
+      value:'Manipal Cigna Health Insurance Company'
   },
   {
       label:'Exide Life Insurance Company Limited',
-      value:'ExideLifeInsuranceCompanyLimited'
+      value:'Exide Life Insurance Company Limited'
   }
 ]
 const leadProductOptions = [
@@ -801,8 +801,8 @@ const NewLead = React.memo(() => {
     }else{
 
       dispatch(actions.editLead(formData, storeLeadId))
-      alert(' Lead Updated Successfully')
-      history.push('leaddetails/personallead')
+      // alert(' Lead Updated Successfully')
+      // history.push('leaddetails/personallead')
 
       
       
@@ -983,6 +983,14 @@ const NewLead = React.memo(() => {
                         required: true,
                         message: 'Mobile No is required'
                       },
+                      ({ getFieldValue }) => ({
+                        validator() {
+                          if ((getFieldValue('phone').length!==10)) {
+                            return Promise.reject(new Error("Number must be 10 digits"))
+                          }
+                          return Promise.resolve();
+                        }
+                      }),
                       // !mobileNoCheck || {
                       //   // type:'phone',
                       //   min: 10,

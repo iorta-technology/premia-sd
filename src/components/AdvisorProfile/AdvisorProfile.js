@@ -3,7 +3,7 @@ import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, C
 import { Upload, message } from 'antd';
 import { Table, Tag } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import './AdvisorProfile.css';
+// import './AdvisorProfile.css';
 const formItemLayout = {
     labelCol: {
         span: 24,
