@@ -2,7 +2,8 @@ import { isEmpty } from 'lodash';
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
 import {stoageGetter} from '../../helpers'
-const {id} = stoageGetter('user')
+const logindata = stoageGetter('user')
+const {id} = logindata
 console.log(id)
 const initialState = {
     createLeadLoading:false,
