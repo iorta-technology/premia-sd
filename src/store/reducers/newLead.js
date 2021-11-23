@@ -2,8 +2,14 @@ import { isEmpty } from 'lodash';
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
 import {stoageGetter} from '../../helpers'
-const {id} = stoageGetter('user')
-console.log(id)
+
+const logindata = stoageGetter('user')
+let id = ''
+if(logindata){
+id = logindata.id
+
+}
+// console.log(id)
 const initialState = {
     createLeadLoading:false,
     createLeadError:'',
@@ -30,6 +36,7 @@ const initialState = {
     Insurancedetails:[],
     childParsedData:[],
     payloadFormData:{},
+    appointmentData:{},
      formData :{
         // statusLeadData: {
             leadStatus: '',
@@ -98,7 +105,6 @@ const initialState = {
 
         // }
     },
-    appointmentData:{}
 
 
 }
@@ -148,6 +154,8 @@ const editLeadSuccess = (state, action) => {
             createLeadLoading: false, 
             formData: payload,
             leadId:action.formData[0]._id,
+            appointmentData:action.appointmentDetails
+
             // userId:action.formData[0].userId
          })
 }

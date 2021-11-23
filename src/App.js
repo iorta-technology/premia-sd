@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Spin } from 'antd';
+import {stoageGetter} from './helpers'
 
 const LeadMaster = React.lazy(()=> import('./containers/LeadMaster/index'))
 const AdvisorList = React.lazy(()=> import('./components/AdvisorOnboarding/AdvisorCard'))
@@ -59,7 +60,38 @@ const PaymentOptions = React.lazy(() => import('./components/PaymentOptions/Paym
 const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/ProposalHistory'))
 const ProofAddress = React.lazy(() => import('./components/UploadDocuments/AddressProof'))
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
+
+const ShopGuardRoute = ({ component: Component, ...props }) => (
+  <Route
+    {...props}
+    render={routeProps => {
+      const logindata = stoageGetter('user')
+      
+      // Do all your conditional tests here
+      return logindata === null ? (
+        <Redirect to="/himanshu" />
+        ) : (
+          <Component {...routeProps} />
+        );
+    }}
+  />
+);
+
 function App() {
+  // const logindata = stoageGetter('user')
+  // if(!logindata){
+  //   console.log(true)
+
+  //   return (
+  //     <Router>
+  //       <Switch>
+  //         <Route exact path="/">
+  //                 <Redirect to="/himanshu" />
+  //         </Route>
+  //       </Switch>
+  //     </Router>
+  //   )
+  // }
   return (
     <React.Suspense fallback={<Spin size="large" className="loader" />}>
 
@@ -69,10 +101,10 @@ function App() {
             <Route exact path="/">
               <Redirect to="/himanshu" />
             </Route>
+            <Route path="/himanshu" component={AgentMicroService}></Route>
             <Route path="/login" component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>
-            <Route path="/himanshu" component={AgentMicroService}></Route>
             <Route path="/blog" component={Blog}></Route>
             <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>

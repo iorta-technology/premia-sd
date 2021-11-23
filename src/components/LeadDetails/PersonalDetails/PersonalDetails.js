@@ -9,7 +9,7 @@ import * as actions from '../../../store/actions/index';
 import { useHistory } from 'react-router-dom';
 import moment, { now } from 'moment';
 import { isElement, isEmpty } from 'lodash';
-
+import { msToDateString } from '../../../helpers';
 const formItemLayout = {
     labelCol: {
         span: 24,
@@ -118,7 +118,15 @@ const PersonalDetails = () => {
     const [childGender, setChildGender] = useState()
     const [isNewLead, setIsNewLead] = useState(true)
 
-
+    const config = {
+        rules: [
+          {
+            type: 'object',
+            required: true,
+            message: 'Please select time!',
+          },
+        ],
+      };
 
     const breakpoint = 620;
 
@@ -422,19 +430,20 @@ const PersonalDetails = () => {
                                     // ]}
                                     // style={{ marginBottom: '1rem' }}
                                     >
-                                        <DatePicker
-                                            // value={dob}
-                                            onChange={dobHandler}
-                                            size="large"
-                                            style={{ width: "100%" }}
-                                            selected={(dob !== "")? moment(dob, 'YYYY-MM-DD'):moment()} 
-                                            value={(dob !== "")? moment(dob, 'YYYY-MM-DD'):""} 
-                                            format="YYYY-MM-DD"
-                                            // defaultValue={'2015/01/01'}
-                                            // defaultValue={moment('01/01/2015',dateFormat)} 
-                                            // format={dateFormat}
-                                            // format={ 'DD/MM/YYYY'} 
-                                            />
+                                            <DatePicker
+                                                // value={dob}
+                                                {...config}
+                                                onChange={dobHandler}
+                                                size="large"
+                                                style={{ width: "100%" }}
+                                                // selected={(dob !== "")? moment(dob, 'YYYY-MM-DD'):moment()}
+                                                // value={(dob !== "")? moment(dob, 'YYYY-MM-DD'):""}
+                                                format="YYYY-MM-DD"
+                                                // defaultValue={'2015/01/01'}
+                                                // defaultValue={moment('01/01/2015',dateFormat)}
+                                                // format={dateFormat}
+                                                // format={ 'DD/MM/YYYY'}
+                                                />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>

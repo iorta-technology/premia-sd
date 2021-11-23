@@ -79,10 +79,10 @@ export const editLead = (formData,id) => {
         return axios.put(`user/updateLead/${id}`,formData)
             .then(res => {
                 if(res.data.errCode===-1){
-                    const response = res.data.errMsg
-                    console.log('edit action',response)
+                    let formData = res.data.errMsg[0]
+                    let appointmentData = res.data.errMsg[1]
 
-                    return dispatch(editLeadSuccess(response))
+                    return dispatch(editLeadSuccess(formData,appointmentData))
                 }
             })
             .catch(error => {
