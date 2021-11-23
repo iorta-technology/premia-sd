@@ -8,6 +8,7 @@ import '../../StatusLead/StatusLead.css'
 import * as actions from '../../../store/actions/index';
 import { useHistory } from 'react-router-dom';
 import moment, { now } from 'moment';
+import { isElement, isEmpty } from 'lodash';
 
 const formItemLayout = {
     labelCol: {
@@ -24,6 +25,11 @@ const maritalStatusOptions = [
     { value: 'Divorced', label: 'Divorced' },
     { value: 'Widowed', label: 'Widowed' }
 ]
+const genderOptions = [
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' },
+    { label: 'Other', value: 'Other' },
+  ];
 const personalRoute = "/leadmasterpage/leaddetails/personallead"
 const tabMenu = [
     {
@@ -59,29 +65,56 @@ const PersonalDetails = () => {
     let storeFormData = useSelector((state) => state.newLead.formData)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
-
+    if(storeChildInfo==='' || storeChildInfo==='[]' || storeChildInfo===undefined){
+        storeChildInfo = []
+    }
+    let childTableArr = useSelector((state) => state.newLead.childParsedData)
     // const id = useSelector((state)=>state.newLead.leadId)
     // useEffect(() => {
     //     dispatch(actions.fetchLeadDetails(id))
 
     // }, [dispatch,id])
+    console.log('store',storeChildInfo)
+    console.log('dob',storeFormData.dob)
 
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [firstName, setFirstName] = useState(storeFormData.firstName);
     const [lastName, setLastName] = useState(storeFormData.lastName);
-    const [dob, setDob] = useState(storeFormData.dob);
+    const [dob, setDob] = useState();
+    const [dobPost, setDobPost] = useState(storeFormData.dob);
     const [isDobValid, setIsDobValid] = useState(false);
     const [dobErrorMessage, setDobErrorMessage] = useState();
-    const [gender, setGender] = useState('');
-    const [maritalStatus, setMaritalStatus] = useState();
-    const [appendChildComponent, setappendChildComponent] = useState(false)
-    const [haveChildren, sethaveChildren] = useState()
-    const [childStatus, setChildStatus] = useState()
-    const [childModel, setChildModel] = useState(false);
-    const [childInfoObj, setChildInfoObj] = useState([])
+    const [gender, setGender] = useState(storeFormData.gender);
+    const [maritalStatus, setMaritalStatus] = useState(storeFormData.maritalStatus);
+    const [appendChildComponent, setappendChildComponent] = useState(()=>{
+        if (maritalStatus === 'Married' || maritalStatus === 'Divorced' || maritalStatus === 'Widowed') {
+            return true
+        } else {
+            return false
+        }
+    })
+    const [childStatus, setChildStatus] = useState(storeFormData.childStatus)
+    const [haveChildren, sethaveChildren] = useState(()=>{
+        if (childStatus === 'Yes') {
+            return true
+        } else {
+            return false
+        }
+    })
+    const [childModel, setChildModel] = useState();
+    const [childInfoObj, setChildInfoObj] = useState(()=>{
+        if(!isEmpty(storeChildInfo)){
+            console.log('child details',storeChildInfo,childStatus,maritalStatus)
+            return JSON.parse(storeChildInfo)
+        }else{
+            return []
+        }
+    })
+    const [childParsedArr, setChildParsedArr] = useState(childTableArr)
     const [childName, setChildName] = useState()
     const [childAge, setChildAge] = useState()
+    const [childAgePost, setChildAgePost] = useState()
     const [childGender, setChildGender] = useState()
     const [isNewLead, setIsNewLead] = useState(true)
 
@@ -101,6 +134,7 @@ const PersonalDetails = () => {
     // };
 
     useEffect(() => {
+        // console.log(gender)
         if (storeLeadId !== '') {
             setIsNewLead(false)
         }
@@ -128,17 +162,22 @@ const PersonalDetails = () => {
 
 
     const onChangeDOB = (date, dateString) => {
-        let minYear = moment().subtract(18, 'years')
-        let maxYear = moment().subtract(55, 'years')
-        let signal = moment(dateString).isBetween(maxYear, minYear);
-        setIsDobValid(signal)
+        // let minYear = moment().subtract(18, 'years')
+        // let maxYear = moment().subtract(55, 'years')
+        // let signal = moment(dateString).isBetween(maxYear, minYear);
+        // setIsDobValid(signal)
         // console.log(isDobValid)
 
-        let msDate = moment(date).valueOf()
+        // let msDate = moment(date).valueOf()
         //    isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
     }
+    const dobHandler = (date,dateString)=>{
+
+        setDob(date)
+        setDobPost(dateString)
+        // console.log('date', dateString)
+    }
     // console.log(isDobValid)
-    // console.log('date', dob)
     // console.log(dobErrorMessage)
 
     const onChangeGender = (e) => {
@@ -170,7 +209,10 @@ const PersonalDetails = () => {
         setChildGender(e.target.value)
     }
     const childDOBHandler = (date, dateString) => {
-        setChildAge(moment(date).valueOf())
+        setChildAge(date)
+        setChildAgePost(dateString)
+        console.log('date', dateString)
+
 
     }
     const randomId = () => {
@@ -192,19 +234,24 @@ const PersonalDetails = () => {
         storeChildInfo.push({
             id: "ch" + randomId(),
             childName: childName,
-            childAge: childAge,
+            childAge: childAgePost,
             childGender: childGender,
         })
         setChildInfoObj(storeChildInfo)
+
+        console.log(childInfoObj)
         const formData = {
             ...storeFormData,
             ChildInfo: [
                 ...storeChildInfo
             ]
         }
+
         dispatch(actions.storeLead(formData))
-        setChildModel(!childModel);
+
+        setChildModel(false);
     }
+    console.log(childModel)
     const childColumn = [
         {
             title: 'Name',
@@ -212,8 +259,8 @@ const PersonalDetails = () => {
         },
         {
             title: 'Date of Birth',
-            dataIndex: 'DateofBirth',
-            render: (dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>) }
+            dataIndex: 'childAge',
+            // render: (dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>) }
 
         },
         {
@@ -226,29 +273,32 @@ const PersonalDetails = () => {
         },
     ]
     useEffect(() => {
+        console.log(childModel)
     }, [storeChildInfo])
 
     const formData = {
         ...storeFormData,
         firstName: firstName,
         lastName: lastName,
-        dob: dob,
+        dob: dobPost,
         gender: gender,
         maritalStatus: maritalStatus,
+        childStatus:childStatus,
+        ChildInfo:JSON.stringify(storeChildInfo)
     };
     const submitHandler = event => {
         if(isNewLead){
             dispatch(actions.storeLead(formData))
 
-            alert('New Lead Updated Successfully')
-            history.push('contactlead')
+            // alert('New Lead Updated Successfully')
+            // history.push('contactlead')
             
             setIsNewLead(false)
         }else{
       
             dispatch(actions.editLead(formData, storeLeadId))
-            alert(' Lead Updated Successfully')
-            history.push('contactlead')
+            // alert(' Lead Updated Successfully')
+            // history.push('contactlead')
             
         }
     };
@@ -275,13 +325,13 @@ const PersonalDetails = () => {
     };
     useEffect(() => {
 
-
+        console.log(appendChildComponent)
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, []);
-
+    const dateFormat = 'YYYY/MM/DD'
     return (
         <>
             <TabsMain
@@ -301,7 +351,8 @@ const PersonalDetails = () => {
                         "lastname": lastName,
                         "gender": gender,
                         "dob": dob,
-                        "maritalstatus": maritalStatus
+                        "maritalstatus": maritalStatus,
+                        "Children":childStatus,
                     }}
                     onFinish={submitHandler}
 
@@ -372,10 +423,18 @@ const PersonalDetails = () => {
                                     // style={{ marginBottom: '1rem' }}
                                     >
                                         <DatePicker
-                                            value={dob}
-                                            onChange={onChangeDOB}
+                                            // value={dob}
+                                            onChange={dobHandler}
                                             size="large"
-                                            style={{ width: "100%" }} />
+                                            style={{ width: "100%" }}
+                                            selected={(dob !== "")? moment(dob, 'YYYY-MM-DD'):moment()} 
+                                            value={(dob !== "")? moment(dob, 'YYYY-MM-DD'):""} 
+                                            format="YYYY-MM-DD"
+                                            // defaultValue={'2015/01/01'}
+                                            // defaultValue={moment('01/01/2015',dateFormat)} 
+                                            // format={dateFormat}
+                                            // format={ 'DD/MM/YYYY'} 
+                                            />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -387,10 +446,10 @@ const PersonalDetails = () => {
                                         rules={[{ required: true, message: 'Please pick gender' }]}
                                         value={gender}
                                     >
-                                        <Radio.Group size="large">
-                                            <Radio.Button value="Male">Male</Radio.Button>
+                                        <Radio.Group size="large" options={genderOptions} value={gender} optionType="button">
+                                            {/* <Radio.Button value="Male">Male</Radio.Button>
                                             <Radio.Button value="Female">Female</Radio.Button>
-                                            <Radio.Button value="Other">Other</Radio.Button>
+                                            <Radio.Button value="Other">Other</Radio.Button> */}
                                         </Radio.Group>
                                     </Form.Item>
                                 </Col>
@@ -426,7 +485,6 @@ const PersonalDetails = () => {
                                             name="Children"
                                             label="Children"
                                             onChange={haveChildrenHandler}
-                                            value={childStatus}
                                             hasFeedback
                                             rules={[
                                                 {
@@ -435,7 +493,10 @@ const PersonalDetails = () => {
                                                 },
                                             ]}
                                         >
-                                            <Radio.Group size='large'>
+                                            <Radio.Group 
+                                                size='large' 
+                                                value={childStatus}
+                                            >
                                                 <Radio.Button value="Yes">Yes</Radio.Button>
                                                 <Radio.Button value="No">No</Radio.Button>
                                             </Radio.Group>
@@ -446,7 +507,7 @@ const PersonalDetails = () => {
                                     haveChildren &&
                                     <>
                                         <Col xs={24} sm={24} md={6} lg={6} xl={6} style={{ marginTop: '1rem' }}>
-                                            <Button shape="round" size="large" block onClick={handleChildModal}>Add Child</Button>
+                                            <Button primary size="large" block onClick={handleChildModal}>Add Child</Button>
                                         </Col>
                                         <Table
                                             style={{ marginTop: '1rem' }}
@@ -539,13 +600,15 @@ const PersonalDetails = () => {
                         <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
                             <Row gutter={[8, 8]}>
                                 <Col xs={10} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button
-                                        type="primary"
-                                        // shape="round"
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                                        icon={<ArrowLeftOutlined />}
-                                    >Previous</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            // shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                            icon={<ArrowLeftOutlined />}
+                                        >Previous</Button>
+                                    </Form.Item>
                                 </Col>
                                 <Col xs={10} sm={12} md={4} >
                                     <Form.Item>

@@ -36,7 +36,7 @@ export const createLead = (formData) => {
                 if(res.data.errCode===-1){
                     const response = res.data.errMsg
                     const succMsg = 'Lead Created Successfully'
-                    // console.log(...response)
+                    console.log('creat action',response)
                     return dispatch(createLeadSuccess(...response,succMsg))
 
                 }else{
@@ -79,8 +79,10 @@ export const editLead = (formData,id) => {
         return axios.put(`user/updateLead/${id}`,formData)
             .then(res => {
                 if(res.data.errCode===-1){
+                    const response = res.data.errMsg
+                    console.log('edit action',response)
 
-                    return dispatch(editLeadSuccess(res.data.errMsg))
+                    return dispatch(editLeadSuccess(response))
                 }
             })
             .catch(error => {
@@ -95,11 +97,13 @@ export const fetchLeadDetailsStart = () => {
     }
 }
 
-export const fetchLeadDetailsSuccess = (leadDetails,id) => {
+export const fetchLeadDetailsSuccess = (leadDetails,appointmentDetails,id) => {
     return {
         type: actionTypes.FETCH_LEAD_DETAILS_SUCCESS,
         leadDetails: leadDetails,
-        fetchLeadId:id
+        appointmentDetails: appointmentDetails,
+        fetchLeadId:id,
+
     }
 } 
 
@@ -117,12 +121,13 @@ export const fetchLeadDetails = (id) => {
         dispatch(fetchLeadDetailsStart())
         return axios.get(`user/getlead_details/${id}`)
             .then(res => {
-                    console.log(...res.data.errMsg)
-                    let response = res.data.errMsg
+                    console.log(res.data.errMsg)
+                    let formData = res.data.errMsg[0]
+                    let appointmentData = res.data.errMsg[1]
                     if(res.data.errCode===-1){
-                        return dispatch(fetchLeadDetailsSuccess(...response,id))
+                        return dispatch(fetchLeadDetailsSuccess(formData,appointmentData,id))
                     }else{
-                        throw response
+                        throw formData
                     }
             })
             .catch(error => {
@@ -139,7 +144,7 @@ export const storeForm = (formData) => {
     }
 }
 export const storeLead = (formData) => {
-        
+        console.log(formData)
     return dispatch => {
         dispatch(storeForm(formData))
     }

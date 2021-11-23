@@ -28,8 +28,9 @@ const initialState = {
     },
     HaveLifeInsurance_details:[],
     Insurancedetails:[],
-    formData:{},
-     payloadFormData :{
+    childParsedData:[],
+    payloadFormData:{},
+     formData :{
         // statusLeadData: {
             leadStatus: '',
             leadDisposition: '',
@@ -38,7 +39,7 @@ const initialState = {
             appointmentdisPosition: '',
             appointmentsubdisPosition: '',
             lead_Owner_Id: '',
-            user_id: '',
+            user_id: id,
             lead_Creator_Id: '',
             start_date: '',
             start_time:  '',
@@ -59,7 +60,7 @@ const initialState = {
             gender: '',
             maritalStatus: '',
             childStatus: '',
-            ChildInfo: '',
+            ChildInfo: [],
         // },
         // contactLeadData: {
             primaryMobile:'', 
@@ -87,31 +88,50 @@ const initialState = {
                 city:'', 
                 country: '',
                 pincode: '',
-            }
+                user_Id:id,
+
+            },
+            //professional data
+            education:'',
+            professionType:'',
+            incomeGroup:'',
+
         // }
-    }
+    },
+    appointmentData:{}
+
+
 }
 
 
 
 
 const createLeadStart = (state, action) => {
-    return updateObject(state, { createLeadLoading: true,leadDataloading:false })
+    return updateObject(state, { 
+        createLeadLoading: true,
+        leadDataloading:false 
+    })
 }
 
 const createLeadSuccess = (state, action) => {
-    
+    const payload = {...state.formData,...action.formData}
+    console.log(payload)
     return updateObject(state, { 
             leadDataloading:true,
             createLeadLoading: false, 
-            formData: action.formData,
+            formData: payload,
+            payloadFormData: payload,
             leadId:action.formData._id,
             // userId:action.formData.userId,
             successMsg:action.succMsg,
          })
 }
 const createLeadFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false });
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        createLeadError: action.error,
+        leadDataloading:false 
+    });
 }
 
 const editLeadStart = (state, action) => {
@@ -121,10 +141,12 @@ const editLeadStart = (state, action) => {
 }
 
 const editLeadSuccess = (state, action) => {
+    const payload = {...state.formData,...action.formData}
+
     return updateObject(state, { 
             editLeadLoading:false,
             createLeadLoading: false, 
-            formData: action.formData,
+            formData: payload,
             leadId:action.formData[0]._id,
             // userId:action.formData[0].userId
          })
@@ -170,12 +192,12 @@ const fetchLeadDetailsSuccess = (state, action) => {
     
             var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
         }
-        const payload = {...state.payloadFormData,...action.leadDetails}
+        const payload = {...state.formData,...action.leadDetails}
     return updateObject(state, { 
         leadDataloading:false,
         createLeadLoading: false, 
         formData: payload,
-        // payloadFormData: payload,
+        payloadFormData: payload,
         // mailingAddress:address1,
         // mailingAddressSecond:address2,
         leadId:action.leadDetails._id,
@@ -184,16 +206,34 @@ const fetchLeadDetailsSuccess = (state, action) => {
         HaveLifeInsurance_details:lifeInsObject,
         address:action.leadDetails.address[0],
         mailingAddressSecond:addSecond,
-        fetchLeadId:fetchLeadId
+        fetchLeadId:fetchLeadId,
+        appointmentData:action.appointmentDetails
+
     })
 }
 const fetchLeadDetailsFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false  });
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        createLeadError: action.error,
+        leadDataloading:false  
+    });
 }
 
 
 const storeForm = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, formData: action.formData })
+    //     if(!isEmpty(ChildInfo)){
+
+    
+    //         var childParsedData = JSON.parse(action.formData.ChildInfo)
+    //     }
+    // console.log(childParsedData)
+    const payload = {...state.formData,...action.formData}
+    
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        formData: payload,
+        // childParsedData:childParsedData,
+    })
 }   
 
 const reducer = (state = initialState, action) => {
