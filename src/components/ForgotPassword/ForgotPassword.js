@@ -48,7 +48,7 @@ const ForgotPassword = () => {
                         <Link to="/login">
                             <p className="Logintext" style={{color: '#fff', textDecoration: 'underline'}}>Back To Login</p>
                         </Link>
-                        <Button type="primary" style={{background:'#1FB3AB',color:'#fff'}} htmlType="submit" className="sendlinkbtn" block>Send Link</Button>
+                        <Button type="primary" htmlType="submit" className="sendlinkbtn" block>Send Link</Button>
                     </Card>
                 </div>
             </Form>
