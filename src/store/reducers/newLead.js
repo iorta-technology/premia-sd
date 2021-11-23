@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
 import {stoageGetter} from '../../helpers'
 const logindata = stoageGetter('user')
-const {id} = logindata
+const id = logindata
 console.log(id)
 const initialState = {
     createLeadLoading:false,
