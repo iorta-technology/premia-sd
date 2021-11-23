@@ -32,8 +32,8 @@ const LeadCards = (props) => {
                             created_date={lead.created_date}
                             allocatedDate={lead.allocatedDate}
                             primaryMobile={lead.primaryMobile}
-                            allocatedBy={lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
-                            allocatedTo={lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+                            allocatedBy={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+                            allocatedTo={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
                             loading={props.leadDataLoading}
                         />
                     </Col>

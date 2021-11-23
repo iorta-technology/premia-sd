@@ -18,7 +18,8 @@ const AdvisorPitch = () => {
         <>
             <div className="Advisor-main">
                 <div className="Advisorpitch-row-flex">
-                    <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
+                    <Tabs tabPosition={tabPosition} tabBarGutter="5vw" >
+                    {/* style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }} */}
                         <TabPane tab="About Us" key="1" >
                             <div className="Advisorpitch-details-card-style ">
                                 <div className="Advisorpitch-details-card-content-align">

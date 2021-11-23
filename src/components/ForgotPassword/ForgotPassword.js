@@ -1,6 +1,6 @@
 import React ,{useState} from 'react';
 // import './ForgotPassword.css';
-import { Card, Input, Button, Image, Form } from 'antd';
+import { Card, Input, Button, Image, Form,message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
@@ -11,6 +11,12 @@ const ForgotPassword = () => {
     const onForgotPassword = () => { 
         axios.post('https://sdrestnode.iorta.in/secure/sd/user/forgotPasscode',{email:email}).then(resp=>{
             console.log("forgotpassword resp data",resp)
+            if(resp?.data?.errCode === -1){
+                message.success(resp?.data?.errMsg?.msg)
+            }
+            else if (resp?.data?.errCode === -10){
+                message.error(resp?.data?.errMsg)
+            }
         }).catch(error=>{
             console.log(error)
         })

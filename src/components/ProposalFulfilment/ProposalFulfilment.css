@@ -32,19 +32,19 @@
 
 .proposal-label{
     display: flex;
-    font-size: 14px;
+    font-size: 15px;
     color: #9d9d9d;
     line-height: 1.6;
     font-family: robotoregular;
 }
 .proposal-head3{
     display: flex;
-    font-size: 18px !important;
+    font-size: 15px !important;
     text-decoration: underline !important;
 }
 .proposal-head3{
     display: flex;
-    font-size: 18px !important;
+    font-size: 15px !important;
     text-decoration: underline !important;
 }
 .proposal-paragraph{
@@ -59,35 +59,35 @@
     line-height: 1.5;
     flex-direction: row;
     color: rgb(153, 153, 153);
-    font-size: 16px;
+    font-size: 15px;
 }
 .proposal-head2{
     display: flex;
     font-weight: bold;
-    font-size: 18px !important;
+    font-size: 15px !important;
 }
 .proposal-head4{
     display: flex;
-    font-size: 18px !important;
+    font-size: 15px !important;
 }
 .proposal-paragraph{
     display: flex;
     line-height: 1.5;
     flex-direction: row;
     color: rgb(153, 153, 153);
-    font-size: 16px;
+    font-size: 14px;
 }
 .proposal-checkbox{
     display: flex;
     color: rgb(153, 153, 153);
-    font-size: 16px;
+    font-size: 14px;
 }
 .proposalfulfilment-title{
     display: flex;
     line-height: 1.5;
     flex-direction: row;
     color: rgb(153, 153, 153);
-    font-size: 16px;
+    font-size: 15px;
 }
 .proposal-btn1{
     display: flex;
@@ -102,7 +102,7 @@
     background-color: rgb(59, 55, 30);
     color: white;
     width: 10vw;
-    font-size: 16px;
+    font-size: 15px;
     height: 4vh;
     padding-left: 3vw;
 }
@@ -129,13 +129,13 @@
   }
   .success-head{
       display: flex;
-      font-size: 24px !important;
+      font-size: 15px !important;
       font-weight: bold !important;
 }
 .success-heading1{
     display: flex;
     text-align: justify;
-    font-size: 22px !important;
+    font-size: 15px !important;
     font-weight: bold !important; 
 }
 .success-story{
@@ -160,13 +160,13 @@
 }
 .about-heading{
 display: flex;
-font-size: 28px;
+font-size: 15px;
 font-weight: bold;
 /* font-family: 'robotoregular'; */
 }
 .about-paragraph{
     display: flex;
-    font-size: 20px;
+    font-size: 14px;
     /* font-family: 'robotoregular'; */
     padding-top: 10px;
     color: #565656;
@@ -175,16 +175,16 @@ font-weight: bold;
 }
 .about-head2{
 display: flex;
-font-size: 24px;
+font-size: 15px;
 font-weight: bold;
 }
 .process{
-    font-size: 20px;
+    font-size: 14px;
     color: #9d9d9d;
     display: flex;
 }
 .success-comments{
-    font-size: 20px;
+    font-size: 14px;
     color: #9d9d9d;
     display: flex;
     text-align: justify;

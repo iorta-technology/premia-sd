@@ -13,10 +13,7 @@
   background-image: url('../../images/Bgimage.png');
 
 }
-.Mappedbranches{
-  display: flex;
-  flex-direction: row;
-}
+
 .Mappedbranches-main-head1{
   padding-left: 2vw;
   display: flex;
