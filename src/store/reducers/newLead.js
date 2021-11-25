@@ -2,7 +2,7 @@ import { isEmpty } from 'lodash';
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
 import {stoageGetter} from '../../helpers'
-
+import _ from 'lodash'
 const logindata = stoageGetter('user')
 let id = ''
 if(logindata){
@@ -36,7 +36,10 @@ const initialState = {
     Insurancedetails:[],
     childParsedData:[],
     payloadFormData:{},
-    appointmentData:{},
+    appointmentData:{
+        start_date:'',
+        start_time:''
+    },
      formData :{
         // statusLeadData: {
             leadStatus: '',
@@ -98,6 +101,12 @@ const initialState = {
                 user_Id:id,
 
             },
+            HaveLifeInsurance:{
+                ExistHealthInsur:'',
+                ExistInsur:''
+            },
+            HaveLifeInsurance_details:[],
+            Insurancedetails:[],
             //professional data
             education:'',
             professionType:'',
@@ -148,7 +157,7 @@ const editLeadStart = (state, action) => {
 
 const editLeadSuccess = (state, action) => {
     const payload = {...state.formData,...action.formData}
-
+    
     return updateObject(state, { 
             editLeadLoading:false,
             createLeadLoading: false, 
@@ -200,7 +209,7 @@ const fetchLeadDetailsSuccess = (state, action) => {
     
             var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
         }
-        const payload = {...state.formData,...action.leadDetails}
+        const payload = {...state.formData,...action.leadDetails,...state.appointmentData,...action.appointmentDetails}
     return updateObject(state, { 
         leadDataloading:false,
         createLeadLoading: false, 
@@ -229,13 +238,14 @@ const fetchLeadDetailsFail = (state, action) => {
 
 
 const storeForm = (state, action) => {
-    //     if(!isEmpty(ChildInfo)){
+    // let childParsedData = action.formData.ChildInfo
+    //     if(!_.isEmpty(childParsedData)){
 
     
-    //         var childParsedData = JSON.parse(action.formData.ChildInfo)
+    //         childParsedData = JSON.parse(childParsedData)
     //     }
     // console.log(childParsedData)
-    const payload = {...state.formData,...action.formData}
+    const payload = {...state.formData,...action.formData }
     
     return updateObject(state, { 
         createLeadLoading: false, 

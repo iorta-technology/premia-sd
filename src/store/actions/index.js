@@ -1,12 +1,13 @@
 export {
     fetchAllLeads,
     fetchDesignation,
+    fetchTeamMember
 } from './leads'
 export {
     fetchLeadDetails,
     createLead,
     storeLead,
-    editLead
+    editLead,
 }from './newLead'
 export {
     fetchAllState,

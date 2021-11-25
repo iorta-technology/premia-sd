@@ -287,6 +287,7 @@ const NewLead = React.memo(() => {
   const history = useHistory()
   const [form] = Form.useForm();
   useEffect(() => {
+    dispatch(actions.fetchTeamMember())
     dispatch(actions.fetchAllState())
   }, [dispatch]);
   const id = useSelector((state) => state.login.user.id)
@@ -313,10 +314,11 @@ const NewLead = React.memo(() => {
   const storeLeadStatusValue = useSelector((state) => state.newLead.formData.leadStatus)
   const storeLeadDispositionValue = useSelector((state) => state.newLead.formData.leadDisposition)
   const storeLeadSubDispositionValue = useSelector((state) => state.newLead.formData.leadDisposition)
-  const storeAppointmentData = useSelector((state) => state.newLead.appointmentData)
-  const {start_date,start_time} = storeAppointmentData
+  const start_date = useSelector((state) => state.newLead.formData.start_date)
+  const start_time = useSelector((state) => state.newLead.formData.start_time)
+  // const {start_date,start_time} = storeAppointmentData
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
-  console.log(start_date,start_time)
+  console.log(typeof(start_time))
   // console.log(parseInt(start_date))
   // msToDateString(1637605800000)  
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
@@ -343,6 +345,7 @@ const NewLead = React.memo(() => {
   const [lastName, setLastName] = useState(storelastNameValue)
   const [email, setEmail] = useState(storeEmailValue)
   const [primaryNo, setPrimaryNo] = useState(storePrimaryMobileValue)
+  const [mobileNoValid, setmobileNoValid] = useState()
   const [leadStatus, setLeadStatus] = useState(storeLeadStatusValue)
   const [leadDisposition, setLeadDisposition] = useState(storeLeadDispositionValue)
   const [leadSubDisposition, setLeadSubDisposition] = useState(storeLeadSubDispositionValue)
@@ -350,10 +353,10 @@ const NewLead = React.memo(() => {
   const [appointmentDisposition, setAppointmentDisposition] = useState()
   const [appointmentSubDisposition, setAppointmentSubDisposition] = useState()
   const [reminder, setReminder] = useState()
-  const [appointmentDate, setAppointmentDate] = useState(moment(start_date))
+  const [appointmentDate, setAppointmentDate] = useState(()=>start_date!=='' && moment(start_date))
   // moment(start_date)
   const [appointmentDatePost, setAppointmentDatePost] = useState()
-  const [appointmentTime, setAppointmentTime] = useState(start_time)
+  const [appointmentTime, setAppointmentTime] = useState(()=>start_time!==undefined ? start_time.toString():'')
   // parseInt(start_time)
   const [remarkFromSource, setRemarkFromSource] = useState(storeRemarkFromSourceValue)
   const [remarkFromUser, setRemarkFromUser] = useState(storeRemarkFromUserValue)
@@ -370,11 +373,19 @@ const NewLead = React.memo(() => {
     // console.log('payload',payloadFormData)
     // console.log('nonpayload',storeFormData)
     // dispatch(actions.fetchLeadDetails(fetchLeadId))
-
-    console.log('mobile', leadArr)
+    // console.log(leadDisposition === "appointment" || leadDisposition === "callback" || !appointmentStatus)
+    // console.log(appointmentStatus)
+    // console.log('mobile', leadArr)
     if (storeLeadId !== '') {
       setIsNewLead(false)
     }
+    if(primaryNo.length===10){
+      setmobileNoValid(true)
+    }else{
+      setmobileNoValid(false)
+    }
+    // console.log(_.isEmpty(storeAppointmentData))
+    // console.log(storeAppointmentData)
     // form.resetFields({
     //   "firstname":firstName,
     //   "lastname":lastName,
@@ -686,7 +697,7 @@ const NewLead = React.memo(() => {
 
   const handleAddMember = () => {
     // setModalText('Updating changes ');
-    visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
+    visibleTeamMemberModal && dispatch(actions.fetchTeamMember(channelCode))
 
   };
   const showChangeOwnerModal = () => {
@@ -742,6 +753,7 @@ const NewLead = React.memo(() => {
     // const res = (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
     // console.log(res)
     // console.log(hourInMilisec)
+    console.log(typeof(value))
     setAppointmentTime(value)
   }
   const remarkFromSourceHandler = (event) => {
@@ -821,8 +833,8 @@ const NewLead = React.memo(() => {
   const formData = {
     ...storeFormData,
     leadStatus: leadStatus,
-    start_date: appointmentDate,
-    start_time: appointmentTime,
+    start_date: appointmentDatePost,
+    start_time: parseInt(appointmentTime),
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
     leadsubDisposition: 'Client has given appointment',
@@ -972,6 +984,7 @@ const NewLead = React.memo(() => {
             "remarksfromuser": remarkFromUser,
             "reminder": reminder,
             "leadStatus": leadArr,
+            "appointmentStatus":['newappointment','newApptmnt']
           }}
           onFinishFailed={onFinishFailed}
         >
@@ -1059,7 +1072,7 @@ const NewLead = React.memo(() => {
                       ({ getFieldValue }) => ({
                         validator(_, value) {
                           console.log(value)
-                          if ((getFieldValue('phone').length !== 10)) {
+                          if (primaryNo.toString().length!==10) {
                             return Promise.reject(new Error("Number must be 10 digits"))
                           }
                           return Promise.resolve();
@@ -1252,7 +1265,7 @@ const NewLead = React.memo(() => {
             <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <p className="form-title">Status</p>
               <Row gutter={16} className="mb-2">
-                {_.isEmpty(storeAppointmentData) ?
+                {start_date===''&& start_time==='' ?
                   <Col xs={24} sm={12} md={24} lg={12} xl={12} >
                     <Form.Item
                       {...formItemLayout}
@@ -1284,7 +1297,7 @@ const NewLead = React.memo(() => {
                     <Form.Item
                       {...formItemLayout}
                       className="form-item-name label-color"
-                      name="appointment"
+                      name="appointmentStatus"
                       label="Appointment Status"
                       style={{ marginBottom: '1rem' }}
                       size="large"
@@ -1307,7 +1320,7 @@ const NewLead = React.memo(() => {
                       />
                     </Form.Item>
                   </Col>} 
-                {leadDisposition === "appointment" || leadDisposition === "callback" || appointmentStatus !=='' ?
+                {leadDisposition === "appointment" || leadDisposition === "callback"  ?
                   <>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                       <Form.Item
