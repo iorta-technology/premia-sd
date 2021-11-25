@@ -6,12 +6,12 @@ import {MoreOutlined } from '@ant-design/icons';
 import './LeadCard.css';
 import * as actions from '../../store/actions/index';
 import { useHistory } from 'react-router-dom';
-
+import moment from 'moment'
 const LeadCard = React.memo((props) => {
 
     const dispatch = useDispatch()
     const history = useHistory()
-    const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+    const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo,appointmentOn} = props
     
   const leadComponent = 
 
@@ -36,6 +36,7 @@ const LeadCard = React.memo((props) => {
     const breakpoint = 620;
 
      useEffect(() => {
+        //  console.log(moment(appointmentOn).format('DD-MM-YYYY'))
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
 
@@ -77,7 +78,7 @@ const LeadCard = React.memo((props) => {
                             </Card.Grid>
                             <Card.Grid  hoverable={false} className="grid-style">
                                 <p className="text-type">Appointment on</p>
-                                <p className="text-content">-</p>
+                                <p className="text-content">{!appointmentOn?'-':new Date(appointmentOn).toLocaleDateString('in')}</p>
                             </Card.Grid>
                             <Card.Grid  hoverable={false} className="grid-style">
                                 <p className="text-type">Mobile No.</p>

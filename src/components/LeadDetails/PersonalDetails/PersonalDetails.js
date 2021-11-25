@@ -9,7 +9,8 @@ import * as actions from '../../../store/actions/index';
 import { useHistory } from 'react-router-dom';
 import moment, { now } from 'moment';
 import { isElement, isEmpty } from 'lodash';
-
+import { msToDateString } from '../../../helpers';
+import _ from 'lodash'
 const formItemLayout = {
     labelCol: {
         span: 24,
@@ -58,32 +59,47 @@ const tabMenu = [
 
 
 const PersonalDetails = () => {
-
+    
     const dispatch = useDispatch()
     const history = useHistory()
-
+    
     let storeFormData = useSelector((state) => state.newLead.formData)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
     if(storeChildInfo==='' || storeChildInfo==='[]' || storeChildInfo===undefined){
         storeChildInfo = []
     }
+    
     let childTableArr = useSelector((state) => state.newLead.childParsedData)
     // const id = useSelector((state)=>state.newLead.leadId)
     // useEffect(() => {
     //     dispatch(actions.fetchLeadDetails(id))
 
     // }, [dispatch,id])
+    // if(!_.isEmpty(storeChildInfo)){
+    //         // console.log('child details',storeChildInfo,childStatus,maritalStatus)
+    //         // console.log('child details',JSON.parse(...storeChildInfo))
+    //         console.log('not empty')
+
+    //         // return storeChildInfo
+    //     }else{
+    //         return []
+    //     }
+    // if(!_.isEmpty(storeChildInfo)){
+    //     return storeChildInfo
+    // }else{
+    //     return []
+    // }
     console.log('store',storeChildInfo)
-    console.log('dob',storeFormData.dob)
+    // console.log('dob',storeFormData.dob)
 
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [firstName, setFirstName] = useState(storeFormData.firstName);
     const [lastName, setLastName] = useState(storeFormData.lastName);
-    const [dob, setDob] = useState();
-    const [dobPost, setDobPost] = useState(storeFormData.dob);
-    const [isDobValid, setIsDobValid] = useState(false);
+    const [dob, setDob] = useState(()=>storeFormData.dob!=='' && moment(storeFormData.dob));
+    const [dobPost, setDobPost] = useState();
+    const [isDobValid, setIsDobValid] = useState(()=>storeFormData.dob!=='' && true);
     const [dobErrorMessage, setDobErrorMessage] = useState();
     const [gender, setGender] = useState(storeFormData.gender);
     const [maritalStatus, setMaritalStatus] = useState(storeFormData.maritalStatus);
@@ -97,15 +113,21 @@ const PersonalDetails = () => {
     const [childStatus, setChildStatus] = useState(storeFormData.childStatus)
     const [haveChildren, sethaveChildren] = useState(()=>{
         if (childStatus === 'Yes') {
+            console.log('have children')
             return true
         } else {
             return false
         }
     })
+
     const [childModel, setChildModel] = useState();
-    const [childInfoObj, setChildInfoObj] = useState(()=>{
-        if(!isEmpty(storeChildInfo)){
-            console.log('child details',storeChildInfo,childStatus,maritalStatus)
+    const [childInfoObj, setChildInfoObj] = useState(
+        ()=>{
+        if(!_.isEmpty(storeChildInfo)){
+            // console.log('child details',storeChildInfo,childStatus,maritalStatus)
+            // console.log('child details',JSON.parse(...storeChildInfo))
+            console.log('not empty')
+
             return JSON.parse(storeChildInfo)
         }else{
             return []
@@ -118,7 +140,15 @@ const PersonalDetails = () => {
     const [childGender, setChildGender] = useState()
     const [isNewLead, setIsNewLead] = useState(true)
 
-
+    const config = {
+        rules: [
+          {
+            type: 'object',
+            required: true,
+            message: 'Please select time!',
+          },
+        ],
+      };
 
     const breakpoint = 620;
 
@@ -162,17 +192,18 @@ const PersonalDetails = () => {
 
 
     const onChangeDOB = (date, dateString) => {
-        // let minYear = moment().subtract(18, 'years')
-        // let maxYear = moment().subtract(55, 'years')
-        // let signal = moment(dateString).isBetween(maxYear, minYear);
-        // setIsDobValid(signal)
-        // console.log(isDobValid)
-
-        // let msDate = moment(date).valueOf()
-        //    isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
+        
+        let msDate = moment(date).valueOf()
+        isDobValid? setDob(msDate):setDobErrorMessage('Age should be between 18 and 55 years')
     }
     const dobHandler = (date,dateString)=>{
-
+        
+        let minYear = moment().subtract(18, 'years')
+        let maxYear = moment().subtract(55, 'years')
+        let signal = moment(dateString).isBetween(maxYear, minYear);
+        // console.log(signal)
+        setIsDobValid(signal)
+        // console.log(isDobValid)
         setDob(date)
         setDobPost(dateString)
         // console.log('date', dateString)
@@ -200,7 +231,7 @@ const PersonalDetails = () => {
         setChildStatus(event.target.value)
         sethaveChildren(!haveChildren)
     }
-
+    console.log(childStatus)
     const childNameHandler = (event) => {
         const name = event.target.value
         setChildName(name)
@@ -211,7 +242,7 @@ const PersonalDetails = () => {
     const childDOBHandler = (date, dateString) => {
         setChildAge(date)
         setChildAgePost(dateString)
-        console.log('date', dateString)
+        // console.log('date', dateString)
 
 
     }
@@ -237,6 +268,7 @@ const PersonalDetails = () => {
             childAge: childAgePost,
             childGender: childGender,
         })
+
         setChildInfoObj(storeChildInfo)
 
         console.log(childInfoObj)
@@ -251,7 +283,7 @@ const PersonalDetails = () => {
 
         setChildModel(false);
     }
-    console.log(childModel)
+    // console.log(childModel)
     const childColumn = [
         {
             title: 'Name',
@@ -273,7 +305,7 @@ const PersonalDetails = () => {
         },
     ]
     useEffect(() => {
-        console.log(childModel)
+        // console.log(childModel)
     }, [storeChildInfo])
 
     const formData = {
@@ -287,7 +319,8 @@ const PersonalDetails = () => {
         ChildInfo:JSON.stringify(storeChildInfo)
     };
     const submitHandler = event => {
-        if(isNewLead){
+        if(!storeLeadId){
+
             dispatch(actions.storeLead(formData))
 
             // alert('New Lead Updated Successfully')
@@ -410,6 +443,17 @@ const PersonalDetails = () => {
                                         className="form-item-name label-color"
                                         name="dob"
                                         label="Date of Birth"
+                                        rules={[
+                                            ({ getFieldValue }) => ({
+                                                validator(_, value) {
+                                                  console.log(value)
+                                                  if (!isDobValid) {
+                                                    return Promise.reject(new Error("Age should be between 18 and 55 years"))
+                                                  }
+                                                  return Promise.resolve();
+                                                }
+                                              }),
+                                        ]}
                                     // validateStatus='error'
                                     // help='Age should be between 18 and 55 years'
                                     // hasFeedback
@@ -422,19 +466,20 @@ const PersonalDetails = () => {
                                     // ]}
                                     // style={{ marginBottom: '1rem' }}
                                     >
-                                        <DatePicker
-                                            // value={dob}
-                                            onChange={dobHandler}
-                                            size="large"
-                                            style={{ width: "100%" }}
-                                            selected={(dob !== "")? moment(dob, 'YYYY-MM-DD'):moment()} 
-                                            value={(dob !== "")? moment(dob, 'YYYY-MM-DD'):""} 
-                                            format="YYYY-MM-DD"
-                                            // defaultValue={'2015/01/01'}
-                                            // defaultValue={moment('01/01/2015',dateFormat)} 
-                                            // format={dateFormat}
-                                            // format={ 'DD/MM/YYYY'} 
-                                            />
+                                            <DatePicker
+                                                // value={dob}
+                                                {...config}
+                                                onChange={dobHandler}
+                                                size="large"
+                                                style={{ width: "100%" }}
+                                                // selected={(dob !== "")? moment(dob, 'YYYY-MM-DD'):moment()}
+                                                // value={(dob !== "")? moment(dob, 'YYYY-MM-DD'):""}
+                                                format="YYYY-MM-DD"
+                                                // defaultValue={'2015/01/01'}
+                                                // defaultValue={moment('01/01/2015',dateFormat)}
+                                                // format={dateFormat}
+                                                // format={ 'DD/MM/YYYY'}
+                                                />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -509,6 +554,7 @@ const PersonalDetails = () => {
                                         <Col xs={24} sm={24} md={6} lg={6} xl={6} style={{ marginTop: '1rem' }}>
                                             <Button primary size="large" block onClick={handleChildModal}>Add Child</Button>
                                         </Col>
+
                                         <Table
                                             style={{ marginTop: '1rem' }}
                                             dataSource={childInfoObj}

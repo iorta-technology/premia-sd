@@ -34,6 +34,7 @@ const LeadCards = (props) => {
                             primaryMobile={lead.primaryMobile}
                             allocatedBy={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
                             allocatedTo={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+                            appointmentOn={lead?.appointmentId?.start_date}
                             loading={props.leadDataLoading}
                         />
                     </Col>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Form, Switch, Button, Input, Select, Modal, Space, DatePicker, Table } from 'antd';
+import { Row, Col, Form, Switch, Button, Input, Select, Modal, Space, DatePicker, Table,Radio } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined, CloseCircleOutlined, FileTextOutlined } from '@ant-design/icons';
 import Tabs from '../Tab/Tab'
 import LeadDetailsTab from './LeadDetailsTab';
@@ -91,8 +91,26 @@ const ExistingInsurenceDetails = () => {
     const history = useHistory()
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
-    const [haveLifeInsurence, sethaveLifeInsurece] = useState(false)
-    const [haveHealthInsurece, sethaveHealthInsurece] = useState(false)
+    const [haveLifeInsurence, sethaveLifeInsurece] = useState(storeFormData.HaveLifeInsurance.ExistInsur)
+    const [lifeInsToggle,setLifeInsToggle] = useState(()=>{
+        if (storeFormData.HaveLifeInsurance.ExistInsur === 'Yes') {
+            // console.log('have children')
+            return true
+        } else {
+            return false
+        }
+    })
+    const [haveHealthInsurece, sethaveHealthInsurece] = useState(storeFormData.HaveLifeInsurance.ExistInsur)
+    const [healthInsToggle, setHealthInsToggle] = useState(()=>{
+        if (storeFormData.HaveLifeInsurance.ExistHealthInsur === 'Yes') {
+            // console.log('have children')
+            return true
+        } else {
+            return false
+        }
+        
+    })
+
     const [lifeInsuranceYes, setLifeInsuranceYes] = useState()
     const [healthInsuranceYes, setHealthInsuranceYes] = useState()
     const [visibleHealthInsuranceMOdel, setVisibleHealthInsuranceModel] = useState(false);
@@ -156,23 +174,35 @@ const ExistingInsurenceDetails = () => {
     ]);
 
 
-    const lifeInsuranceToggle = (value) => {
-        console.log(value)
-        sethaveLifeInsurece(!haveLifeInsurence)
-        if (haveHealthInsurece) {
-            setLifeInsuranceYes('Yes')
-        } else {
-            setLifeInsuranceYes('No')
-        }
+    const lifeInsuranceToggle = (event) => {
+        console.log(event.target.value)
+        // sethaveLifeInsurece(!haveLifeInsurence)
+        const val = event.target.value
+        sethaveLifeInsurece(val)
+        val==='Yes'?  setLifeInsToggle(true):setLifeInsToggle(false)
+        // if (value) {
+        //     console.log(haveLifeInsurence)
+        // } else {
+        //     console.log(haveLifeInsurence)
+
+        //     sethaveLifeInsurece('No')
+        // }
     }
 
-    const healthInsuranceToggle = () => {
-        sethaveHealthInsurece(!haveHealthInsurece)
-        if (haveHealthInsurece) {
-            setHealthInsuranceYes('Yes')
-        } else {
-            setHealthInsuranceYes('No')
-        }
+    const healthInsuranceToggle = (event) => {
+        // sethaveHealthInsurece(!haveHealthInsurece)
+        const val = event.target.value
+        sethaveHealthInsurece(val)
+        val==="Yes" ? setHealthInsToggle(true):setHealthInsToggle(false)
+        // if (value) {
+        //     console.log(haveHealthInsurece)
+
+
+        // } else {
+        //     console.log(haveHealthInsurece)
+
+        //     sethaveHealthInsurece('No')
+        // }
     }
 
 
@@ -315,6 +345,10 @@ const ExistingInsurenceDetails = () => {
     const formData = {
 
         ...storeFormData,
+        HaveLifeInsurance:{
+            ExistHealthInsur:haveHealthInsurece,
+            ExistInsur:haveLifeInsurence
+        },
         HaveLifeInsurance_details: [
 
             {
@@ -395,8 +429,9 @@ const ExistingInsurenceDetails = () => {
         setVisibleLifeInsuranceModel(false);
     };
     useEffect(() => {
-        console.log(lifeInsObj)
-        console.log(storeLifeInsArr)
+        // setlifeInsObj(storeLifeInsArr)
+        // console.log(lifeInsObj)
+        // console.log(storeLifeInsArr)
     }, [storeLifeInsArr, storeHealthInsArr, lifeInsObj])
     const lifeInsColumn = [
         {
@@ -404,8 +439,8 @@ const ExistingInsurenceDetails = () => {
             dataIndex: 'Insurer',
         },
         {
-            title: 'Sum Assured',
             dataIndex: 'sum_Assured',
+            title: 'Sum Assured',
         },
         {
             title: 'Policy Type',
@@ -548,6 +583,8 @@ const ExistingInsurenceDetails = () => {
                 <Form
                     layout="horizontal"
                     initialValues={{
+                        "healthInsuranceSwitch":haveHealthInsurece,
+                        "lifeInsuranceSwitch":haveLifeInsurence,
                         // life insurance
                         "insurer": insurer,
                         "lifeSumAssured": lifeSumAssured,
@@ -578,7 +615,7 @@ const ExistingInsurenceDetails = () => {
                                 <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ marginBottom: '1rem' }}>
                                     <Form.Item
                                         className="form-item-name label-color"
-                                        name={['yes', 'no']}
+                                        name='lifeInsuranceSwitch'
                                         label="Have life Insurance?"
                                         rules={[
                                             {
@@ -588,14 +625,22 @@ const ExistingInsurenceDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Switch
+                                        <Radio.Group 
+                                                size='large' 
+                                                value={haveLifeInsurence}
+                                                onChange={lifeInsuranceToggle}
+                                            >
+                                                <Radio.Button value="Yes">Yes</Radio.Button>
+                                                <Radio.Button value="No">No</Radio.Button>
+                                        </Radio.Group>
+                                        {/* <Switch
                                             checkedChildren="No"
                                             unCheckedChildren="Yes"
-                                            defaultChecked={false}
+                                            // defaultChecked={false}
                                             value={lifeInsuranceYes}
-                                            onChange={lifeInsuranceToggle} />
+                                             /> */}
                                     </Form.Item>
-                                    {haveLifeInsurence ?
+                                    {lifeInsToggle ?
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} >
                                             <Button shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
                                         </Col> : null
@@ -797,7 +842,7 @@ const ExistingInsurenceDetails = () => {
                                 <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ marginBottom: '1rem' }}>
                                     <Form.Item
                                         className="form-item-name label-color"
-                                        name={['yes', 'no']}
+                                        name='healthInsuranceSwitch'
                                         label="Have health Insurance?"
                                         rules={[
                                             {
@@ -807,9 +852,17 @@ const ExistingInsurenceDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={healthInsuranceToggle} />
+                                        <Radio.Group 
+                                            size='large' 
+                                            value={haveHealthInsurece}
+                                            onChange={healthInsuranceToggle}
+                                            >
+                                            <Radio.Button value="Yes">Yes</Radio.Button>
+                                            <Radio.Button value="No">No</Radio.Button>
+                                        </Radio.Group>
+                                        {/* <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false}  /> */}
                                     </Form.Item>
-                                    {haveHealthInsurece ?
+                                    {healthInsToggle ?
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                             <Button shape="round" size="large" block onClick={showHealthInsuranceModal}>Add Insurance Details</Button>
                                         </Col> : null

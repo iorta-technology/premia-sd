@@ -4,7 +4,6 @@ import axios from '../../axios-common';
 
 
 
-
 export const createLeadStart = () => {
     return {
         type: actionTypes.CREATE_LEAD_START
@@ -79,14 +78,16 @@ export const editLead = (formData,id) => {
         return axios.put(`user/updateLead/${id}`,formData)
             .then(res => {
                 if(res.data.errCode===-1){
-                    const response = res.data.errMsg
-                    console.log('edit action',response)
+                    let formData = res.data.errMsg[0]
+                    let appointmentData = res.data.errMsg[1]
 
-                    return dispatch(editLeadSuccess(response))
+                    return dispatch(editLeadSuccess(formData,appointmentData))
+                }else{
+                    throw res
                 }
             })
             .catch(error => {
-                return dispatch(editLeadFail(error.response.data.errors))
+                return dispatch(editLeadFail(error))
             })
     }
 }
@@ -149,3 +150,6 @@ export const storeLead = (formData) => {
         dispatch(storeForm(formData))
     }
 }
+
+
+

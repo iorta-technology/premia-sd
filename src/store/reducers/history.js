@@ -40,6 +40,7 @@ const fetchHistorySuccess = (state, action) => {
                 }
             } 
             else if (historydetail.leadDisposition === "appointment") {
+                console.log(historyDetailsArr)
                 // Appointment  10/28/2018
                 if (Array.isArray(historydetail.AppointmetData)) {
                     console.log('apointment false')
@@ -51,10 +52,10 @@ const fetchHistorySuccess = (state, action) => {
 
                     // moment(historydetail.AppointmetData.start_time).format('LT');
                     desc = 'Appointment date ' + new Date(parseInt(historydetail.AppointmetData.start_date)).toLocaleDateString() + '  Appointment time ' + milisecondToTime(historydetail.AppointmetData.start_time)
+                    appointmentArr.push(historydetail.allocated === false ?
+                        dataFormatting(historydetail, 'New Appointment Created', desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)) :
+                        dataFormatting(historydetail, 'Appointment Allocated', desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)))
                 }
-                appointmentArr.push(historydetail.allocated === false ?
-                    dataFormatting(historydetail, 'New Appointment Created', desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)) :
-                    dataFormatting(historydetail, 'Appointment Allocated', desc + ' ' + respDetails(historydetail.Details2) + ' ' + respDetails(historydetail.Details3)))
             }
 
         } else {

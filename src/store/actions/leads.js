@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
 import { getLeadFilter } from '../../helpers';
+import axiosLms from '../../axios-lmsv2';
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -95,3 +96,45 @@ export const fetchDesignation = (channelCode) => {
     }
 }
 
+// Fetch Team Member
+
+export const fetchTeamMemberStart = () => {
+    return {
+        type: actionTypes.FETCH_TEAM_MEMBER_START
+    }
+}
+
+export const fetchTeamMemberSuccess = (teamMember) => {
+    return {
+        type: actionTypes.FETCH_TEAM_MEMBER_SUCCESS,
+        teamMember:teamMember
+    }
+} 
+
+
+export const fetchTeamMemberFail = (error) => {
+    return {
+        type: actionTypes.FETCH_TEAM_MEMBER_FAIL,
+        error: error
+    }
+}
+
+export const fetchTeamMember = (id) => {
+        
+    return dispatch => {
+        dispatch(fetchTeamMemberStart())
+        return axiosLms.get(`user_tree?userId=6153f1ec4735ef7f942926e3`)
+            .then(res => {
+                    console.log(res.data.errMsg)
+                    if(res.data.errCode===-1){
+                        return dispatch(fetchTeamMemberSuccess())
+                    }else{
+                        throw res
+                    }
+            })
+            .catch(error => {
+                console.log(error)
+                return dispatch(fetchTeamMemberFail(error))
+            })
+    }
+}

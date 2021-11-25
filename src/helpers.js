@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import dataLibrary from './dataLibrary'
-
+import dataLibrary from './dataLibrary';
+import moment from 'moment'
+import { type } from 'jquery';
 let nonContact = dataLibrary.nonContact;
 let contact = dataLibrary.contact;
 let _apStatusList = dataLibrary.appointmentStatus;
@@ -31,9 +32,14 @@ export const stoageGetter = (key) => {
     {
         value = {};
         _.map(key, function(k){
-            temp = window.localStorage.getItem(k);
-            temp = (temp) ? JSON.parse(encryptDecrypt(temp, 'decrypt')) : temp
-            value[k] = temp
+            if(window.localStorage === null){
+                value[k]=null
+            }else{
+
+                temp = window.localStorage.getItem(k);
+                temp = (temp) ? JSON.parse(encryptDecrypt(temp, 'decrypt')) : temp
+                value[k] = temp
+            }
         })    
     }
     else if (typeof key === "string")
@@ -196,4 +202,12 @@ export const getLeadFilter=(leadFilter)=>{
     }
     // console.log(leadFilterObj.leadFilter)
     // return leadFilterObj.leadFilter
+}
+
+export const msToDateString= (msDate)=>{
+    console.log('mstodate',moment(msDate).format('YYYY/MM/DD'))
+    // return moment(msDate).format('YYYY/MM/DD')
+    // console.log(typeof(new Date(msDate).toLocaleDateString('in')))
+    // return (moment(msDate).format("YYYY MM DD"))
+    // return (new Date(msDate).toLocaleDateString('in'))
 }
