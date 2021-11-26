@@ -65,12 +65,17 @@ const RenewalDetails = () => {
                     console.log("added lead",resp)
                     if (resp?.data?.errCode === -1){
                         message.success("Lead Added Successfully")
+                        dispatch(actions.storeLead(resp?.data?.errMsg[0]))
                         history.push('/leadmasterpage/statuslead')
                     }
                     else{
                         message.warning("Please Update The Lead Status")
                     }
                 })
+            }
+            else if (resp?.data?.errCode === 3721){
+                dispatch(actions.storeLead(resp?.data?.errMsg[0]))
+                history.push('/leadmasterpage/statuslead')
             }
         })
     }
