@@ -109,7 +109,6 @@ function App() {
             <Route exact path="/blog" component={Blog}></Route>
             <Route exact path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>
-
               {/* Make this route at the end only. */}
               <Route exact  path="/agentMicrosite" component={AgentMicroService}></Route>
               {/* <div> */}

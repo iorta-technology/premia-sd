@@ -324,8 +324,9 @@ const NewLead = React.memo(() => {
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
   const fetchLeadId = useSelector((state) => state.newLead.fetcLeadId)
-  const errorMsg = useSelector((state) => state.newLead.createLeadError)
+  // const errorMsg = useSelector((state) => state.newLead.createLeadError)
   const successMsg = useSelector((state) => state.newLead.successMsg)
+  const errorMsg = useSelector((state) => state.newLead.errorMessage)
   const { lastupdatedOn } = storeFormData
   // let MobRegex='^([-]?[1-9][0-9]*|0)$';
   // const [mobileNoCheck,setMobileNoCheck]=useState(storePrimaryMobileValue?true:false)
@@ -365,7 +366,7 @@ const NewLead = React.memo(() => {
   const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
   const [stateProvince, setStateProvince] = useState(storeStateValue)
   const [cityProvince, setCityProvince] = useState(storeCityValue)
-  const [errorMessage, setErrorMessage] = useState(successMsg)
+  const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(true)
 
 
@@ -868,24 +869,57 @@ const NewLead = React.memo(() => {
   //   formIsValid = true;
   // }
 
+  const failedHandler = (error)=>{
+    alert(error)
+    console.log(error)
+  }
+
   const submitHandler = event => {
     // event.preventDefault();
 
     if (isNewLead) {
-      console.log(formData)
-      dispatch(actions.createLead(formData))
+      // console.log(formData)
+   
+        // const values = await form.validateFields();
+        // console.log('Success:', values);
+        dispatch(actions.createLead(formData))
+        .then((res)=>{
+          if (res.type === "CREATE_LEAD_SUCCESS") {
+            console.log('success:', res);
+            setErrorMessage(successMsg)
+            setIsNewLead(false)
+            
+          }else if(res.type==='CREATE_LEAD_FAIL'){
+            console.log('failed:', res);
+
+            failedHandler(res.error)
+            console.log(res)
+          }
+        })
+    
       // if (!formIsValid) {
       //   return;
       // }else{
       // }
-      setErrorMessage(successMsg)
       // console.log(errorMessage)
       // alert('New Lead Created Successfully')
 
-      setIsNewLead(false)
     } else {
 
       dispatch(actions.editLead(formData, storeLeadId))
+      .then((res)=>{
+        if (res.type === "EDIT_LEAD_SUCCESS") {
+          console.log('success:', res);
+          setErrorMessage(successMsg)
+          setIsNewLead(false)
+          
+        }else if(res.type==='EDIT_LEAD_FAIL'){
+          console.log('failed:', res);
+
+          failedHandler(res.error)
+          console.log(res)
+        }
+      })
       // alert(' Lead Updated Successfully')
       // history.push('leaddetails/personallead')
 
@@ -967,6 +1001,7 @@ const NewLead = React.memo(() => {
           form={form}
           help={errorMessage}
           onFinish={submitHandler}
+          onFinishFailed={failedHandler}
           initialValues={{
             "firstname": firstName,
             "lastname": lastName,

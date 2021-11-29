@@ -87,6 +87,8 @@ const ContactDetails = React.memo(() => {
     const [secpinCode, setSecPinCode] = useState()
     const [isFormValid, setIsFormValid] = useState()
     const [isNewLead, setIsNewLead] = useState(true)
+    const [errorMessage, setErrorMessage] = useState()
+
 
     const breakpoint = 620;
 
@@ -276,20 +278,33 @@ const ContactDetails = React.memo(() => {
 
     };
     let formIsValid = false;
+    const failedHandler = (error)=>{
+        alert(error)
+        console.log(error)
+    }
     const submitHandler = event => {
 
-        if(isNewLead){
+        if(!storeLeadId){
             dispatch(actions.storeLead(formData))
 
-            alert('New Lead Updated Successfully')
-            history.push('professionallead')
-            
-            setIsNewLead(false)
         }else{
       
             dispatch(actions.editLead(formData, storeLeadId))
-            alert(' Lead Updated Successfully')
-            history.push('professionallead')
+            .then((res)=>{
+                if (res.type === "EDIT_LEAD_SUCCESS") {
+                  console.log('success:', res);
+                  setErrorMessage()
+                  setIsNewLead(false)
+                  
+                }else if(res.type==='EDIT_LEAD_FAIL'){
+                  console.log('failed:', res);
+        
+                  failedHandler(res.error)
+                  console.log(res)
+                }
+              })
+            // alert(' Lead Updated Successfully')
+            // history.push('professionallead')
             
         }
         // if (isSameAddress) {
@@ -404,6 +419,8 @@ const ContactDetails = React.memo(() => {
                         "secAddPin": secpinCode,
                     }}
                     onFinish={submitHandler}
+                    onFinishFailed={failedHandler}
+
                     >
                     <Row gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="2" />
