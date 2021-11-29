@@ -39,9 +39,10 @@
     border: 1px solid #B5C1C4;
 } */
 h1,h2,h3,h4,h5,h6{
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-bottom: 0px !important;
-    line-height: 40px;
+    /* line-height: 40px; */
+    cursor: pointer;
 }
 /* p{
     margin: 0 !important;
