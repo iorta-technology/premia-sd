@@ -11,20 +11,20 @@
     right: 34px;
 }
 .eventicon{
-    bottom: 230px;
+    bottom: 250px;
     background-color: #00ACC1;
 
 }
 .goalicon{
-    bottom:175px;
+    bottom:200px;
     background-color: red;
 }
 .leadicon{
-    bottom: 120px;
+    bottom: 170px;
     background-color: #4caf50;
 }
 .newrecuirement{
-    bottom: 80px;
+    bottom: 70px;
     background-color: #4caf50;
 }
 .pgpfr{
