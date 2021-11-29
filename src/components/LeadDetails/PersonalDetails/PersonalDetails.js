@@ -95,6 +95,8 @@ const PersonalDetails = () => {
 
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
+    const [errorMessage, setErrorMessage] = useState()
+
     const [firstName, setFirstName] = useState(storeFormData.firstName);
     const [lastName, setLastName] = useState(storeFormData.lastName);
     const [dob, setDob] = useState(()=>storeFormData.dob!=='' && moment(storeFormData.dob));
@@ -128,7 +130,7 @@ const PersonalDetails = () => {
             // console.log('child details',JSON.parse(...storeChildInfo))
             console.log('not empty')
 
-            return JSON.parse(storeChildInfo)
+            return storeChildInfo
         }else{
             return []
         }
@@ -138,7 +140,7 @@ const PersonalDetails = () => {
     const [childAge, setChildAge] = useState()
     const [childAgePost, setChildAgePost] = useState()
     const [childGender, setChildGender] = useState()
-    const [isNewLead, setIsNewLead] = useState(true)
+    const [isNewLead, setIsNewLead] = useState()
 
     const config = {
         rules: [
@@ -316,8 +318,12 @@ const PersonalDetails = () => {
         gender: gender,
         maritalStatus: maritalStatus,
         childStatus:childStatus,
-        ChildInfo:JSON.stringify(storeChildInfo)
+        ChildInfo:storeChildInfo
     };
+    const failedHandler = (error)=>{
+        alert(error)
+        console.log(error)
+    }
     const submitHandler = event => {
         if(!storeLeadId){
 
@@ -330,6 +336,19 @@ const PersonalDetails = () => {
         }else{
       
             dispatch(actions.editLead(formData, storeLeadId))
+            .then((res)=>{
+                if (res.type === "EDIT_LEAD_SUCCESS") {
+                  console.log('success:', res);
+                  setErrorMessage()
+                  setIsNewLead(false)
+                  
+                }else if(res.type==='EDIT_LEAD_FAIL'){
+                  console.log('failed:', res);
+        
+                  failedHandler(res.error)
+                  console.log(res)
+                }
+              })
             // alert(' Lead Updated Successfully')
             // history.push('contactlead')
             
@@ -388,7 +407,7 @@ const PersonalDetails = () => {
                         "Children":childStatus,
                     }}
                     onFinish={submitHandler}
-
+                    onFinishFailed={failedHandler}
                     >
                     <Row className="m0a" gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="1" />
