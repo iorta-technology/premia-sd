@@ -6,6 +6,7 @@
     background-position: 50% 50%;
     height: 150px;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .header-title{
@@ -42,10 +43,10 @@
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     margin: 0 auto !important;
-    color: #ffffff;
+    /* color: #ffffff; */
 }
 .ant-tabs-tab.ant-tabs-tab-active{
-    background-color: #00ACC1;
+    /* background-color: #00ACC1; */
 }
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active{
@@ -75,6 +76,13 @@
     }
 }
 @media (min-width:621px){
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+        margin: 0 auto !important;
+        color: #ffffff;
+    }
+    .ant-tabs-tab.ant-tabs-tab-active{
+        background-color: #00ACC1;
+    }
     .ant-tabs-tab{
         min-width: 135px;
     }

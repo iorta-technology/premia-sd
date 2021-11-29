@@ -86,7 +86,9 @@ const ProfessionalDetails = () => {
     let storeIncomeGroup = useSelector((state) => state.newLead.formData.incomeGroup)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
 
+    console.log(storeEducation,storeProfessionType,storeIncomeGroup)
 
+    const [isNewLead, setIsNewLead] = useState(true)
     const [width, setWidth] = useState(window.innerWidth);
     const [educationDetails, setEducationDetails] = useState(storeEducation)
     const [professionType, setProfessionType] = useState(storeProfessionType)
@@ -96,7 +98,9 @@ const ProfessionalDetails = () => {
     useEffect(() => {
         // console.log(storeMailingAddress)
         // console.log(storeMailingAddress.mailingaddress.line1)
-
+        if (storeLeadId !== '') {
+            setIsNewLead(false)
+        }
         form.setFieldsValue({
             "education": educationDetails,
             "professionType": professionType,
@@ -126,6 +130,23 @@ const ProfessionalDetails = () => {
 
     };
 
+    const submitHandler = event => {
+        console.log('hello')
+        dispatch(actions.storeLead(formData))
+        // if(isNewLead){
+
+        //     alert('New Lead Updated Successfully')
+        //     dispatch(actions.editLead(formData, storeLeadId))
+        //     history.push('existingLead')
+            
+        //     setIsNewLead(false)
+        // }else{
+      
+        //     alert(' Lead Updated Successfully')
+        //     history.push('existingLead')
+            
+        // }
+    };
     const proceedHandler = event => {
         event.preventDefault();
         dispatch(actions.storeLead(formData))
@@ -175,6 +196,8 @@ const ProfessionalDetails = () => {
                         "professionType": professionType,
                         "incomeGroup": incomeGroup,
                     }}
+                    onFinish={submitHandler}
+
                 >
                     <Row gutter={[0, 20]} justify="center">
                         <LeadDetailsTab activeKey="3" />
@@ -247,27 +270,36 @@ const ProfessionalDetails = () => {
                         <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0} >
                             <Row gutter={[8, 8]}>
                                 <Col xs={12} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                    <Button 
+                                        type="primary" 
+                                        // shape="round" 
+                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={12} sm={12} md={4} >
-                                    <Button
-                                        type="primary"
-                                        shape="round"
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                                        icon={<FileTextOutlined />} htmlType="submit"
-                                        // disabled={!formIsValid}
-                                        onClick={updateHandler}
-                                    >Update</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            // shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                            icon={<FileTextOutlined />} htmlType="submit"
+                                            // disabled={!formIsValid}
+                                            // onClick={updateHandler}
+                                        >Update</Button>
+                                    </Form.Item>
                                 </Col>
                                 <Col xs={12} sm={12} md={4}>
-                                    <Button
-                                        type="primary"
-                                        shape="round"
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
-                                        icon={<ArrowRightOutlined />}
-                                        onClick={proceedHandler}>Proceed</Button>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            // shape="round"
+                                            size="large"
+                                            style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                            icon={<ArrowRightOutlined />}
+                                            htmlType="submit"
+                                            // onClick={proceedHandler}
+                                            >Proceed</Button>
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         </Col>

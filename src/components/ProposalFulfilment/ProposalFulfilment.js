@@ -1849,8 +1849,15 @@ const ProposalFulfilment = () => {
                                                             >
                                                                 <Select placeholder="Select">
                                                                     <Option value="Select">Select</Option>
-                                                                    <Option value="Life Annunity">Life Annunity</Option>
-                                                                    <Option value="Life Annunity with ROP">Life Annunity with ROP</Option>
+                                                                    <Option value="Andra Pradesh">Andra Pradesh</Option>
+                                                                    <Option value="Himachal Pradesh">Himachal Pradesh</Option>
+                                                                    <Option value="Karnataka">Karnataka</Option>
+                                                                    <Option value="Kerala">Kerala</Option>
+                                                                    <Option value="Madhya Pradesh">Madhya Pradesh</Option>
+                                                                    <Option value="Maharashtra">Maharashtra</Option>
+                                                                    <Option value="Manipur">Manipur</Option>
+                                                                    <Option value="Odisa">Odisa</Option>
+                                                                    <Option value="Rajasthan">Rajasthan</Option>
 
                                                                 </Select>
                                                             </Form.Item>

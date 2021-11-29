@@ -22,7 +22,7 @@ const Cards = React.memo((props) => {
   :
   <p className="user-status-text capitalize">{userStatus}</p>
 
-    let avatar = fullName.match(/\b(\w)/g)
+    let avatar = fullName?.match(/\b(\w)/g)
 
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;

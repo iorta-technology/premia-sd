@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Form, Switch, Button, Input, Select, Modal, Space, DatePicker,Table } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined,CloseCircleOutlined,FileTextOutlined } from '@ant-design/icons';
+import { Row, Col, Form, Switch, Button, Input, Select, Modal, Space, DatePicker, Table,Radio } from 'antd';
+import { ArrowLeftOutlined, ArrowRightOutlined, CloseCircleOutlined, FileTextOutlined } from '@ant-design/icons';
 import Tabs from '../Tab/Tab'
 import LeadDetailsTab from './LeadDetailsTab';
 import '../StatusLead/StatusLead.css'
@@ -76,15 +76,41 @@ const ExistingInsurenceDetails = () => {
     let lifeObjDisplay = useSelector((state) => state.newLead.HaveLifeInsurance_details)
     let healthObjDisplay = useSelector((state) => state.newLead.Insurancedetails)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
-    let storeLifeInsArr = useSelector((state) => state.newLead.formData.HaveLifeInsurance_details)
-    let storeHealthInsArr = useSelector((state) => state.newLead.formData.Insurancedetails)
+    let storeLifeInsArr = useSelector((state) => state.newLead.HaveLifeInsurance_details)
+    console.log(storeLifeInsArr)
+    if(storeLifeInsArr==='' || storeLifeInsArr==='[]' || storeLifeInsArr===undefined){
+        storeLifeInsArr = []
+    }
+    let storeHealthInsArr = useSelector((state) => state.newLead.Insurancedetails)
+    console.log(storeHealthInsArr)
+    if(storeHealthInsArr==='' || storeHealthInsArr==='[]' || storeHealthInsArr===undefined){
+        storeHealthInsArr = []
+    }
 
     const dispatch = useDispatch()
     const history = useHistory()
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
-    const [haveLifeInsurence, sethaveLifeInsurece] = useState(false)
-    const [haveHealthInsurece, sethaveHealthInsurece] = useState(false)
+    const [haveLifeInsurence, sethaveLifeInsurece] = useState(storeFormData.HaveLifeInsurance.ExistInsur)
+    const [lifeInsToggle,setLifeInsToggle] = useState(()=>{
+        if (storeFormData.HaveLifeInsurance.ExistInsur === 'Yes') {
+            // console.log('have children')
+            return true
+        } else {
+            return false
+        }
+    })
+    const [haveHealthInsurece, sethaveHealthInsurece] = useState(storeFormData.HaveLifeInsurance.ExistInsur)
+    const [healthInsToggle, setHealthInsToggle] = useState(()=>{
+        if (storeFormData.HaveLifeInsurance.ExistHealthInsur === 'Yes') {
+            // console.log('have children')
+            return true
+        } else {
+            return false
+        }
+        
+    })
+
     const [lifeInsuranceYes, setLifeInsuranceYes] = useState()
     const [healthInsuranceYes, setHealthInsuranceYes] = useState()
     const [visibleHealthInsuranceMOdel, setVisibleHealthInsuranceModel] = useState(false);
@@ -109,31 +135,31 @@ const ExistingInsurenceDetails = () => {
     const [healthRiskDate, setHealthRiskDate] = useState('')
     const [haveChronicDisease, sethaveChronicDisease] = useState(false)
     const [diseaseDescription, setDiseaseDescription] = useState('')
-    const [lifeInsObj, setlifeInsObj] = useState(lifeObjDisplay)
-    const [healthInsObj, setHealthInsObj] = useState(healthObjDisplay)
+    const [lifeInsObj, setlifeInsObj] = useState(storeLifeInsArr)
+    const [healthInsObj, setHealthInsObj] = useState(storeHealthInsArr)
     const breakpoint = 620;
 
     useEffect(() => {
         form.resetFields()
         form.setFieldsValue({
             // life ins
-            "insurer":insurer,
-            "lifeSumAssured":lifeSumAssured,
-            "policyType":policyType,
-            "policyStatus":policyStatus,
-            "policyNumber":policyNumber,
-            "lifeApplicationDate":applicationDate,
-            "lifeRiskCommencementDate":commencementDate,
+            "insurer": insurer,
+            "lifeSumAssured": lifeSumAssured,
+            "policyType": policyType,
+            "policyStatus": policyStatus,
+            "policyNumber": policyNumber,
+            "lifeApplicationDate": applicationDate,
+            "lifeRiskCommencementDate": commencementDate,
 
             // health Ins
-            "relation":relation,
-            "Name":insurername,
-            "dateOfBirth":dobOfInsurer,
-            "typeOfPlan":typeOfPlan,
-            "sumAssured":healthSumInsured,
-            "riskCommencementDate":healthRiskDate,
-            "chronicDisease":haveChronicDisease,
-            "diseaseDesc":diseaseDescription,
+            "relation": relation,
+            "Name": insurername,
+            "dateOfBirth": dobOfInsurer,
+            "typeOfPlan": typeOfPlan,
+            "sumAssured": healthSumInsured,
+            "riskCommencementDate": healthRiskDate,
+            "chronicDisease": haveChronicDisease,
+            "diseaseDesc": diseaseDescription,
         })
         console.log(healthInsObj)
         console.log(lifeInsObj)
@@ -148,22 +174,35 @@ const ExistingInsurenceDetails = () => {
     ]);
 
 
-    const lifeInsuranceToggle = () => {
-        sethaveLifeInsurece(!haveLifeInsurence)
-        if(haveHealthInsurece){
-            setLifeInsuranceYes('Yes')
-        }else{
-            setLifeInsuranceYes('No')
-        }
+    const lifeInsuranceToggle = (event) => {
+        console.log(event.target.value)
+        // sethaveLifeInsurece(!haveLifeInsurence)
+        const val = event.target.value
+        sethaveLifeInsurece(val)
+        val==='Yes'?  setLifeInsToggle(true):setLifeInsToggle(false)
+        // if (value) {
+        //     console.log(haveLifeInsurence)
+        // } else {
+        //     console.log(haveLifeInsurence)
+
+        //     sethaveLifeInsurece('No')
+        // }
     }
 
-    const healthInsuranceToggle = () => {
-        sethaveHealthInsurece(!haveHealthInsurece)
-        if(haveHealthInsurece){
-            setHealthInsuranceYes('Yes')
-        }else{
-            setHealthInsuranceYes('No')
-        }
+    const healthInsuranceToggle = (event) => {
+        // sethaveHealthInsurece(!haveHealthInsurece)
+        const val = event.target.value
+        sethaveHealthInsurece(val)
+        val==="Yes" ? setHealthInsToggle(true):setHealthInsToggle(false)
+        // if (value) {
+        //     console.log(haveHealthInsurece)
+
+
+        // } else {
+        //     console.log(haveHealthInsurece)
+
+        //     sethaveHealthInsurece('No')
+        // }
     }
 
 
@@ -213,7 +252,7 @@ const ExistingInsurenceDetails = () => {
 
     }
 
-    const updateHealthModalObject=(record)=>{
+    const updateHealthModalObject = (record) => {
         const {
             SelectRelation,
             Name,
@@ -225,14 +264,14 @@ const ExistingInsurenceDetails = () => {
             riskDate
         } = record
         form.setFieldsValue({
-            "relation":relation,
-            "Name":insurername,
-            "dateOfBirth":dobOfInsurer,
-            "typeOfPlan":typeOfPlan,
-            "sumAssured":healthSumInsured,
-            "riskCommencementDate":healthRiskDate,
-            "chronicDisease":haveChronicDisease,
-            "diseaseDesc":diseaseDescription,
+            "relation": relation,
+            "Name": insurername,
+            "dateOfBirth": dobOfInsurer,
+            "typeOfPlan": typeOfPlan,
+            "sumAssured": healthSumInsured,
+            "riskCommencementDate": healthRiskDate,
+            "chronicDisease": haveChronicDisease,
+            "diseaseDesc": diseaseDescription,
         })
         setRelation(SelectRelation)
         setInsurerName(Name)
@@ -244,7 +283,7 @@ const ExistingInsurenceDetails = () => {
         sethaveChronicDisease(IsInsuredsufferingfromanychronicdisease)
         setVisibleHealthInsuranceModel(true)
     }
-    const updateLifeModalObject=(record)=>{
+    const updateLifeModalObject = (record) => {
         const {
             Insurer,
             sum_Assured,
@@ -255,13 +294,13 @@ const ExistingInsurenceDetails = () => {
             policynumber,
         } = record
         form.setFieldsValue({
-            "insurer":insurer,
-            "lifeSumAssured":lifeSumAssured,
-            "policyType":policyType,
-            "policyStatus":policyStatus,
-            "policyNumber":policyNumber,
-            "lifeApplicationDate":applicationDate,
-            "lifeRiskCommencementDate":commencementDate,
+            "insurer": insurer,
+            "lifeSumAssured": lifeSumAssured,
+            "policyType": policyType,
+            "policyStatus": policyStatus,
+            "policyNumber": policyNumber,
+            "lifeApplicationDate": applicationDate,
+            "lifeRiskCommencementDate": commencementDate,
         })
         setInsurer(Insurer)
         setLifeSumAssured(sum_Assured)
@@ -272,7 +311,7 @@ const ExistingInsurenceDetails = () => {
         setPolicyNumber(policynumber)
         setVisibleLifeInsuranceModel(true)
     }
-    
+
     // console.log(relation)
     // Health Insurance handlers modal
 
@@ -294,10 +333,10 @@ const ExistingInsurenceDetails = () => {
         setDiseaseDescription(e.target.value)
     }
 
-    const randomId =()=>{
+    const randomId = () => {
         let randomChars = 'abcdefghijklmnopqrstuvwxyz0123456789';
         let result = '';
-        for ( let i = 0; i < 6; i++ ) {
+        for (let i = 0; i < 6; i++) {
             result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
         }
         return result;
@@ -306,10 +345,14 @@ const ExistingInsurenceDetails = () => {
     const formData = {
 
         ...storeFormData,
+        HaveLifeInsurance:{
+            ExistHealthInsur:haveHealthInsurece,
+            ExistInsur:haveLifeInsurence
+        },
         HaveLifeInsurance_details: [
-            
+
             {
-                id: 'insu'+randomId(),
+                id: 'insu' + randomId(),
                 Insurer: insurer,
                 sum_Assured: lifeSumAssured,
                 policy_Type: policyType,
@@ -319,42 +362,53 @@ const ExistingInsurenceDetails = () => {
                 policynumber: policyNumber
             },
         ],
-        Insurancedetails:[
+        Insurancedetails: [
             {
-                id:"insu"+randomId(),
-                SelectRelation:relation,
-                Name:insurername,
-                DateofBirth:dobOfInsurer,
-                IsInsuredsufferingfromanychronicdisease:healthInsuranceYes,
-                Description:diseaseDescription,
-                planName:typeOfPlan,
-                sumInsured:healthSumInsured,
-                riskDate:healthRiskDate
+                id: "insu" + randomId(),
+                SelectRelation: relation,
+                Name: insurername,
+                DateofBirth: dobOfInsurer,
+                IsInsuredsufferingfromanychronicdisease: healthInsuranceYes,
+                Description: diseaseDescription,
+                planName: typeOfPlan,
+                sumInsured: healthSumInsured,
+                riskDate: healthRiskDate
             }
         ]
 
     };
 
-   
+
 
     const proceedHandler = event => {
         event.preventDefault();
-        
+
         dispatch(actions.storeLead(formData))
         history.push('productlead')
     };
 
-    const updateHandler = event => {
-        event.preventDefault();
-        
-        dispatch(actions.storeLead(formData,storeLeadId))
-        history.push('productlead')
+    const submitHandler = event => {
+        if (!storeLeadId) {
+            dispatch(actions.storeLead(formData))
+
+            // alert('New Lead Updated Successfully')
+            // history.push('contactlead')
+
+            // setIsNewLead(false)
+        } else {
+
+            dispatch(actions.editLead(formData, storeLeadId))
+            // alert(' Lead Updated Successfully')
+            // history.push('contactlead')
+
+        }
+        // history.push('productlead')
     };
     const saveLifeInsurane = event => {
         event.preventDefault();
 
-       storeLifeInsArr.push({
-            id: 'insu'+ randomId(),
+        storeLifeInsArr.push({
+            id: 'insu' + randomId(),
             Insurer: insurer,
             sum_Assured: lifeSumAssured,
             policy_Type: policyType,
@@ -366,23 +420,27 @@ const ExistingInsurenceDetails = () => {
         setlifeInsObj(storeLifeInsArr)
         const formData = {
             ...storeFormData,
-            HaveLifeInsurance_details:[
+            HaveLifeInsurance_details: [
                 ...storeLifeInsArr
             ]
         }
+        console.log(storeLifeInsArr)
         dispatch(actions.storeLead(formData))
         setVisibleLifeInsuranceModel(false);
     };
     useEffect(() => {
-    }, [storeLifeInsArr,storeHealthInsArr])
+        // setlifeInsObj(storeLifeInsArr)
+        // console.log(lifeInsObj)
+        // console.log(storeLifeInsArr)
+    }, [storeLifeInsArr, storeHealthInsArr, lifeInsObj])
     const lifeInsColumn = [
         {
             title: 'Insurer',
             dataIndex: 'Insurer',
         },
         {
-            title: 'Sum Assured',
             dataIndex: 'sum_Assured',
+            title: 'Sum Assured',
         },
         {
             title: 'Policy Type',
@@ -395,12 +453,12 @@ const ExistingInsurenceDetails = () => {
         {
             title: 'Risk',
             dataIndex: 'Comencedate',
-            render:(Comencedate) => { return (<p>{moment(Comencedate).format('DD-MM-YYYY')}</p>)}
+            render: (Comencedate) => { return (<p>{moment(Comencedate).format('DD-MM-YYYY')}</p>) }
         },
         {
             title: 'Application Date',
             dataIndex: 'Appdate',
-            render:(Appdate) => { return (<p>{moment(Appdate).format('DD-MM-YYYY')}</p>)}
+            render: (Appdate) => { return (<p>{moment(Appdate).format('DD-MM-YYYY')}</p>) }
         },
         {
             title: 'Policy Number',
@@ -408,35 +466,35 @@ const ExistingInsurenceDetails = () => {
         },
         {
             title: 'Action',
-            render:(record)=>{
-                return <CloseCircleOutlined  onClick={()=>updateLifeModalObject(record)}/>   
+            render: (record) => {
+                return <CloseCircleOutlined onClick={() => updateLifeModalObject(record)} />
             }
         },
     ]
     const saveHealthInsurance = event => {
         event.preventDefault();
         storeHealthInsArr.push({
-            id: 'insu'+ randomId(),
-            SelectRelation:relation,
-            Name:insurername,
-            DateofBirth:dobOfInsurer,
-            IsInsuredsufferingfromanychronicdisease:healthInsuranceYes,
-            Description:diseaseDescription,
-            planName:typeOfPlan,
-            sumInsured:healthSumInsured,
-            riskDate:healthRiskDate
+            id: 'insu' + randomId(),
+            SelectRelation: relation,
+            Name: insurername,
+            DateofBirth: dobOfInsurer,
+            IsInsuredsufferingfromanychronicdisease: healthInsuranceYes,
+            Description: diseaseDescription,
+            planName: typeOfPlan,
+            sumInsured: healthSumInsured,
+            riskDate: healthRiskDate
         })
         setHealthInsObj(storeHealthInsArr)
         const formData = {
             ...storeFormData,
-            Insurancedetails:[
+            Insurancedetails: [
                 ...storeHealthInsArr
             ]
         }
         dispatch(actions.storeLead(formData))
         setVisibleHealthInsuranceModel(false);
     };
-    
+
     const healthInsColumn = [
         {
             title: 'Relation',
@@ -449,7 +507,7 @@ const ExistingInsurenceDetails = () => {
         {
             title: 'Date of Birth',
             dataIndex: 'DateofBirth',
-            render:(dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>)}
+            render: (dobOfInsurer) => { return (<p>{moment(dobOfInsurer).format('DD-MM-YYYY')}</p>) }
 
         },
         {
@@ -463,7 +521,7 @@ const ExistingInsurenceDetails = () => {
         {
             title: 'Risk Date',
             dataIndex: 'riskDate',
-            render:(Appdate) => { return (<p>{moment(Appdate).format('DD-MM-YYYY')}</p>)}
+            render: (Appdate) => { return (<p>{moment(Appdate).format('DD-MM-YYYY')}</p>) }
         },
         {
             title: 'Any Chronic Disease',
@@ -471,8 +529,8 @@ const ExistingInsurenceDetails = () => {
         },
         {
             title: 'Action',
-            render:(record)=>{
-                return <CloseCircleOutlined  onClick={()=>updateHealthModalObject(record)}/>   
+            render: (record) => {
+                return <CloseCircleOutlined onClick={() => updateHealthModalObject(record)} />
             }
         },
     ]
@@ -522,459 +580,130 @@ const ExistingInsurenceDetails = () => {
 
             />
             <div className="form-container">
-                <Row gutter={[0, 20]} justify="center">
+                <Form
+                    layout="horizontal"
+                    initialValues={{
+                        "healthInsuranceSwitch":haveHealthInsurece,
+                        "lifeInsuranceSwitch":haveLifeInsurence,
+                        // life insurance
+                        "insurer": insurer,
+                        "lifeSumAssured": lifeSumAssured,
+                        "policyType": policyType,
+                        "policyStatus": policyStatus,
+                        "policyNumber": policyNumber,
+                        "lifeApplicationDate": applicationDate,
+                        "lifeRiskCommencementDate": commencementDate,
+                        // health insurance
+
+                        "relation": relation,
+                        "Name": insurername,
+                        "dateOfBirth": dobOfInsurer,
+                        "typeOfPlan": typeOfPlan,
+                        "sumAssured": healthSumInsured,
+                        "riskCommencementDate": healthRiskDate,
+                        "chronicDisease": haveChronicDisease,
+                        "diseaseDesc": diseaseDescription,
+                    }}
+                    onFinish={submitHandler}
+                >
+                    <Row gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="4" />
-                    <Col className="m0a" xs={22} sm={22} md={17} >
-                        <Col className="form-body p40" xs={24} sm={24} md={20} lg={20} xl={20} >
+                        <Col className="form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 1 : 0}>
+                            <p className="form-title">Existing Insurance</p>
+                            <Row xs={24} sm={24} md={20} lg={20} xl={20} >
 
-                        <p className="form-title">Existing Insurance</p>
-                        <Form 
-                            layout="horizontal" 
-                            initialValues={{
-                                // life insurance
-                                "insurer":insurer,
-                                "lifeSumAssured":lifeSumAssured,
-                                "policyType":policyType,
-                                "policyStatus":policyStatus,
-                                "policyNumber":policyNumber,
-                                "lifeApplicationDate":applicationDate,
-                                "lifeRiskCommencementDate":commencementDate,
-                                // health insurance
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ marginBottom: '1rem' }}>
+                                    <Form.Item
+                                        className="form-item-name label-color"
+                                        name='lifeInsuranceSwitch'
+                                        label="Have life Insurance?"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'This field is required',
 
-                                "relation":relation,
-                                "Name":insurername,
-                                "dateOfBirth":dobOfInsurer,
-                                "typeOfPlan":typeOfPlan,
-                                "sumAssured":healthSumInsured,
-                                "riskCommencementDate":healthRiskDate,
-                                "chronicDisease":haveChronicDisease,
-                                "diseaseDesc":diseaseDescription,
-                            }}
-                            >
-                            <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ marginBottom: '1rem' }}>
-                                <Form.Item
-                                    className="form-item-name label-color"
-                                    name={['yes', 'no']}
-                                    label="Have life Insurance?"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'This field is required',
-
-                                        },
-                                    ]}
-                                >
-                                    <Switch
-                                        checkedChildren="No"
-                                        unCheckedChildren="Yes"
-                                        defaultChecked={false}
-                                        onChange={lifeInsuranceToggle} />
-                                </Form.Item>
-                                {haveLifeInsurence ?
-                                    <Col xs={24} sm={24} md={12} lg={12} xl={12} >
-                                        <Button shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
-                                    </Col> : null
-                                }
-                            </Col>
-                            <Table 
-                                dataSource={lifeInsObj}
-                                columns={lifeInsColumn}
-                                rowKey={record => record.id}
-                                scroll={{x:1500}}
+                                            },
+                                        ]}
+                                    >
+                                        <Radio.Group 
+                                                size='large' 
+                                                value={haveLifeInsurence}
+                                                onChange={lifeInsuranceToggle}
+                                            >
+                                                <Radio.Button value="Yes">Yes</Radio.Button>
+                                                <Radio.Button value="No">No</Radio.Button>
+                                        </Radio.Group>
+                                        {/* <Switch
+                                            checkedChildren="No"
+                                            unCheckedChildren="Yes"
+                                            // defaultChecked={false}
+                                            value={lifeInsuranceYes}
+                                             /> */}
+                                    </Form.Item>
+                                    {lifeInsToggle ?
+                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} >
+                                            <Button shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
+                                        </Col> : null
+                                    }
+                                </Col>
+                                <Table
+                                    dataSource={lifeInsObj}
+                                    columns={lifeInsColumn}
+                                    rowKey={record => record.id}
+                                    scroll={{ x: 1500 }}
                                 />
-                            <>
-                                <Modal
-                                    title="Insurance Details"
-                                    centered={true}
-                                    visible={visibleLifeInsuranceMOdel}
-                                    onOk={handleLifeInsurance}
-                                    confirmLoading={lifeInsuranceLoading}
-                                    footer={[
-                                        <Button key="cancel" onClick={lifeInsurancerCancel}>
-                                            Cancel
-                                        </Button>,
-                                        <Button 
-                                            key="save" 
-                                            type="primary" 
-                                            onClick={saveLifeInsurane}
+                                <>
+                                    <Modal
+                                        title="Insurance Details"
+                                        centered={true}
+                                        visible={visibleLifeInsuranceMOdel}
+                                        onOk={handleLifeInsurance}
+                                        confirmLoading={lifeInsuranceLoading}
+                                        footer={[
+                                            <Button key="cancel" onClick={lifeInsurancerCancel}>
+                                                Cancel
+                                            </Button>,
+                                            <Button
+                                                key="save"
+                                                type="primary"
+                                                onClick={saveLifeInsurane}
                                             >
-                                            Save</Button>
-                                    ]}
-                                    onCancel={lifeInsurancerCancel}
-                                    width={700}
-                                >
-                                    <Row gutter={[12, 10]}>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="insurer"
-                                                label="Insurer"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'This field is required',
-                                                    },
-                                                ]}
-                                            >
-                                                <Select
-                                                    value={insurer}
-                                                    size="large"
-                                                    options={setInsurerOptions}
-                                                    placeholder="Set Insurer"
-                                                    onChange={insurerHandler}
-                                                >
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="lifeSumAssured"
-                                                label="Sum Assured"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'This field is required',
-
-                                                    },
-                                                ]}
-                                            >
-                                                <Input
-                                                    value={lifeSumAssured}
-                                                    className="first-name input-box"
-                                                    placeholder="Enter Sum Assured"
-                                                    onChange={LifeSumAssuredHandler} />
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="policyType"
-                                                label="Select Policy Type"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'This field is required',
-
-                                                    },
-                                                ]}
-                                            >
-                                                <Select
-                                                    value={policyType}
-                                                    size="large"
-                                                    options={setPolicyTypeOptions}
-                                                    placeholder="Select Policy Type"
-                                                    onChange={policyTypeHandler}>
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="policyStatus"
-                                                label="Select Policy Status"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Select Policy Status',
-                                                    },
-                                                ]}
-                                            >
-                                                <Select
-                                                    value={policyStatus}
-                                                    size="large"
-                                                    options={setPolicyStatusOptions}
-                                                    placeholder="Select Policy Status"
-                                                    onChange={policyStatusHandler}>
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="policyNumber"
-                                                label="Policy Number"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Enter Policy Number',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input
-                                                    value={policyNumber}
-                                                    className="first-name input-box"
-                                                    placeholder="Enter Policy NUmber"
-                                                    onChange={policyNumberHandler} />
-                                            </Form.Item>
-                                        </Col>
-                                        {policyStatusInforce &&
-                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                                <Form.Item
-                                                    {...formItemLayout}
-                                                    className="form-item-name label-color datepicker"
-                                                    name="lifeRiskCommencementDate"
-                                                    label="Risk Commencement Date"
-                                                    hasFeedback
-                                                    rules={[
-                                                        {
-                                                            required: false,
-                                                            message: 'Risk Commencement Date',
-                                                        },
-                                                    ]}
-                                                >
-                                                    <DatePicker 
-                                                        value={commencementDate}
-                                                        placeholder="dd/mm/yyyy"
-                                                        size="large" 
-                                                        style={{ width: "100%" }} 
-                                                        onChange={commencementDateHandler}/>
-                                                </Form.Item>
-                                            </Col>
-                                        }
-                                        {(policyStatusApplied || policyStatusDeclined) &&
+                                                Save</Button>
+                                        ]}
+                                        onCancel={lifeInsurancerCancel}
+                                        width={700}
+                                    >
+                                        <Row gutter={[12, 10]}>
                                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                                 <Form.Item
                                                     {...formItemLayout}
                                                     className="form-item-name label-color"
-                                                    name="lifeApplicationDate"
-                                                    label="Application Date"
+                                                    name="insurer"
+                                                    label="Insurer"
                                                     hasFeedback
                                                     rules={[
                                                         {
-                                                            required: false,
-                                                            message: 'Application Date',
+                                                            required: true,
+                                                            message: 'This field is required',
                                                         },
                                                     ]}
                                                 >
-                                                    <DatePicker 
-                                                        value={applicationDate}
-                                                        placeholder="dd/mm/yyyy" 
-                                                        size="large" 
-                                                        style={{ width: "100%" }}
-                                                        onChange={applicationDateHandler}/>
+                                                    <Select
+                                                        value={insurer}
+                                                        size="large"
+                                                        options={setInsurerOptions}
+                                                        placeholder="Set Insurer"
+                                                        onChange={insurerHandler}
+                                                    >
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
-                                        }
-                                    </Row>
-                                </Modal>
-                            </>
-                            <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ marginBottom: '1rem' }}>
-                                <Form.Item
-                                    className="form-item-name label-color"
-                                    name={['yes', 'no']}
-                                    label="Have health Insurance?"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'This field is required',
-
-                                        },
-                                    ]}
-                                >
-                                    <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={healthInsuranceToggle} />
-                                </Form.Item>
-                                {haveHealthInsurece ?
-                                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                        <Button shape="round" size="large" block onClick={showHealthInsuranceModal}>Add Insurance Details</Button>
-                                    </Col> : null
-                                }
-                            </Col>
-                            <Table 
-                                dataSource={healthInsObj}
-                                columns={healthInsColumn}
-                                rowKey={record => record.id}
-                                scroll={{x:1500}}
-                                />
-                            <>
-                                <Modal
-                                    title="Insurance Details"
-                                    centered={true}
-                                    visible={visibleHealthInsuranceMOdel}
-                                    onOk={handleHealthInsurance}
-                                    confirmLoading={healthInsuranceLoading}
-                                    footer={[
-                                        <Button key="cancel" onClick={healthInsuranceCancel}>
-                                            Cancel
-                                        </Button>,
-                                        <Button 
-                                            key="save" 
-                                            type="primary" 
-                                            onClick={saveHealthInsurance}
-                                            >Save</Button>
-                                    ]}
-                                    onCancel={healthInsuranceCancel}
-                                    width={700}
-                                >
-                                    <Row gutter={[12, 10]}>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="relation"
-                                                label="Select Relation"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Select Relation',
-                                                    },
-                                                ]}
-                                            >
-                                                <Select
-                                                    value={relation}
-                                                    size="large"
-                                                    options={setRelationOptions}
-                                                    placeholder="Select Relation"
-                                                    onChange={relationshipHandler}>
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="Name"
-                                                label="Name"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Enter Name',
-                                                    },
-                                                ]}
-                                            >
-                                                <Input
-                                                    value={insurername}
-                                                    className="first-name input-box"
-                                                    placeholder="Enter The Name "
-                                                    onChange={nameHandler}>
-                                                </Input>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="dateOfBirth"
-                                                label="Date of Birth"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Select Date of Birth',
-                                                    },
-                                                ]}
-                                            >
-                                                <DatePicker 
-                                                    value={dobOfInsurer}
-                                                    placeholder="dd/mm/yyyy"
-                                                    size="large" 
-                                                    style={{ width: "100%" }} 
-                                                    onChange={insurerDObHandler}/>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="typeOfPlan"
-                                                label="Types of Plan "
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Types of Plan ',
-                                                    },
-                                                ]}
-                                            >
-                                                <Select
-                                                    value={typeOfPlan}
-                                                    size="large"
-                                                    options={setHealthTypeOfPlanOptions}
-                                                    placeholder="Select Types of Plan"
-                                                    onChange={typeOfPlanHandler}>
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="sumAssured"
-                                                label="Sum Assured"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'This field is required',
-
-                                                    },
-                                                ]}
-                                            >
-                                                <Input
-                                                    value={healthSumInsured}
-                                                    className="first-name input-box"
-                                                    placeholder="Enter Amount"
-                                                    onChange={healthSumInsuredHandler}
-                                                />
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="riskCommencementDate"
-                                                label="Risk Commencement Date"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Select Date of Birth',
-                                                    },
-                                                ]}
-                                            >
-                                                <DatePicker
-                                                    value={healthRiskDate} 
-                                                    placeholder="dd/mm/yyyy"
-                                                    size="large" 
-                                                    style={{ width: "100%" }} 
-                                                    onChange={healthRiskDateHandler}/>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                className="form-item-name label-color"
-                                                name='chronicDisease'
-                                                label="Is Insured suffering from any chronic disease "
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message: 'This field is required',
-
-                                                    },
-                                                ]}
-                                            >
-                                                <Switch value={haveChronicDisease} checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={haveChronicDiseaseToggle} />
-                                            </Form.Item>
-                                        </Col>
-                                        {haveChronicDisease ?
                                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                                 <Form.Item
                                                     {...formItemLayout}
                                                     className="form-item-name label-color"
-                                                    name="diseaseDesc"
-                                                    label="Enter Details"
+                                                    name="lifeSumAssured"
+                                                    label="Sum Assured"
                                                     hasFeedback
                                                     rules={[
                                                         {
@@ -985,39 +714,391 @@ const ExistingInsurenceDetails = () => {
                                                     ]}
                                                 >
                                                     <Input
-                                                        value={diseaseDescription}
+                                                        value={lifeSumAssured}
                                                         className="first-name input-box"
-                                                        placeholder="Enter Description"
-                                                        onChange={descriptionHandler} />
+                                                        placeholder="Enter Sum Assured"
+                                                        onChange={LifeSumAssuredHandler} />
                                                 </Form.Item>
                                             </Col>
-                                            : null
-                                        }
-                                    </Row>
-                                </Modal>
-                            </>
-                        </Form>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="policyType"
+                                                    label="Select Policy Type"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: 'This field is required',
+
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Select
+                                                        value={policyType}
+                                                        size="large"
+                                                        options={setPolicyTypeOptions}
+                                                        placeholder="Select Policy Type"
+                                                        onChange={policyTypeHandler}>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="policyStatus"
+                                                    label="Select Policy Status"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Select Policy Status',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Select
+                                                        value={policyStatus}
+                                                        size="large"
+                                                        options={setPolicyStatusOptions}
+                                                        placeholder="Select Policy Status"
+                                                        onChange={policyStatusHandler}>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="policyNumber"
+                                                    label="Policy Number"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Enter Policy Number',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input
+                                                        value={policyNumber}
+                                                        className="first-name input-box"
+                                                        placeholder="Enter Policy NUmber"
+                                                        onChange={policyNumberHandler} />
+                                                </Form.Item>
+                                            </Col>
+                                            {policyStatusInforce &&
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color datepicker"
+                                                        name="lifeRiskCommencementDate"
+                                                        label="Risk Commencement Date"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Risk Commencement Date',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <DatePicker
+                                                            value={commencementDate}
+                                                            placeholder="dd/mm/yyyy"
+                                                            size="large"
+                                                            style={{ width: "100%" }}
+                                                            onChange={commencementDateHandler} />
+                                                    </Form.Item>
+                                                </Col>
+                                            }
+                                            {(policyStatusApplied || policyStatusDeclined) &&
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="lifeApplicationDate"
+                                                        label="Application Date"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Application Date',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <DatePicker
+                                                            value={applicationDate}
+                                                            placeholder="dd/mm/yyyy"
+                                                            size="large"
+                                                            style={{ width: "100%" }}
+                                                            onChange={applicationDateHandler} />
+                                                    </Form.Item>
+                                                </Col>
+                                            }
+                                        </Row>
+                                    </Modal>
+                                </>
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ marginBottom: '1rem' }}>
+                                    <Form.Item
+                                        className="form-item-name label-color"
+                                        name='healthInsuranceSwitch'
+                                        label="Have health Insurance?"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'This field is required',
+
+                                            },
+                                        ]}
+                                    >
+                                        <Radio.Group 
+                                            size='large' 
+                                            value={haveHealthInsurece}
+                                            onChange={healthInsuranceToggle}
+                                            >
+                                            <Radio.Button value="Yes">Yes</Radio.Button>
+                                            <Radio.Button value="No">No</Radio.Button>
+                                        </Radio.Group>
+                                        {/* <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false}  /> */}
+                                    </Form.Item>
+                                    {healthInsToggle ?
+                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                            <Button shape="round" size="large" block onClick={showHealthInsuranceModal}>Add Insurance Details</Button>
+                                        </Col> : null
+                                    }
+                                </Col>
+                                <Table
+                                    dataSource={healthInsObj}
+                                    columns={healthInsColumn}
+                                    rowKey={record => record.id}
+                                    scroll={{ x: 1500 }}
+                                />
+                                <>
+                                    <Modal
+                                        title="Insurance Details"
+                                        centered={true}
+                                        visible={visibleHealthInsuranceMOdel}
+                                        onOk={handleHealthInsurance}
+                                        confirmLoading={healthInsuranceLoading}
+                                        footer={[
+                                            <Button key="cancel" onClick={healthInsuranceCancel}>
+                                                Cancel
+                                            </Button>,
+                                            <Button
+                                                key="save"
+                                                type="primary"
+                                                onClick={saveHealthInsurance}
+                                            >Save</Button>
+                                        ]}
+                                        onCancel={healthInsuranceCancel}
+                                        width={700}
+                                    >
+                                        <Row gutter={[12, 10]}>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="relation"
+                                                    label="Select Relation"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Select Relation',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Select
+                                                        value={relation}
+                                                        size="large"
+                                                        options={setRelationOptions}
+                                                        placeholder="Select Relation"
+                                                        onChange={relationshipHandler}>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="Name"
+                                                    label="Name"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Enter Name',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input
+                                                        value={insurername}
+                                                        className="first-name input-box"
+                                                        placeholder="Enter The Name "
+                                                        onChange={nameHandler}>
+                                                    </Input>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="dateOfBirth"
+                                                    label="Date of Birth"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Select Date of Birth',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <DatePicker
+                                                        value={dobOfInsurer}
+                                                        placeholder="dd/mm/yyyy"
+                                                        size="large"
+                                                        style={{ width: "100%" }}
+                                                        onChange={insurerDObHandler} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="typeOfPlan"
+                                                    label="Types of Plan "
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Types of Plan ',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Select
+                                                        value={typeOfPlan}
+                                                        size="large"
+                                                        options={setHealthTypeOfPlanOptions}
+                                                        placeholder="Select Types of Plan"
+                                                        onChange={typeOfPlanHandler}>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="sumAssured"
+                                                    label="Sum Assured"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: 'This field is required',
+
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input
+                                                        value={healthSumInsured}
+                                                        className="first-name input-box"
+                                                        placeholder="Enter Amount"
+                                                        onChange={healthSumInsuredHandler}
+                                                    />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="riskCommencementDate"
+                                                    label="Risk Commencement Date"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Select Date of Birth',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <DatePicker
+                                                        value={healthRiskDate}
+                                                        placeholder="dd/mm/yyyy"
+                                                        size="large"
+                                                        style={{ width: "100%" }}
+                                                        onChange={healthRiskDateHandler} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    className="form-item-name label-color"
+                                                    name='chronicDisease'
+                                                    label="Is Insured suffering from any chronic disease "
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: 'This field is required',
+
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Switch value={haveChronicDisease} checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false} onChange={haveChronicDiseaseToggle} />
+                                                </Form.Item>
+                                            </Col>
+                                            {haveChronicDisease ?
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="diseaseDesc"
+                                                        label="Enter Details"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                message: 'This field is required',
+
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input
+                                                            value={diseaseDescription}
+                                                            className="first-name input-box"
+                                                            placeholder="Enter Description"
+                                                            onChange={descriptionHandler} />
+                                                    </Form.Item>
+                                                </Col>
+                                                : null
+                                            }
+                                        </Row>
+                                    </Modal>
+                                </>
+                            </Row>
                         </Col>
-                        <Col className='form-body  p20' style={{ margin: "20px 0" }} xs={{ order: 5 }} sm={24} md={24} lg={20} xl={20} span={24} >
-                            <Row>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 2} >
-                                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                        <Col className='form-body  p20' style={{ marginBottom: "20px" }}  sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 7 : 0}>
+                            <Row gutter={[8, 8]}>
+                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
+                                    <Button
+                                        type="primary"
+                                        // shape="round" 
+                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4} >
-                                    <Button 
-                                        type="primary" 
-                                        shape="round" 
-                                        size="large" 
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
+                                    <Button
+                                        type="primary"
+                                        // shape="round" 
+                                        size="large"
+                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
                                         icon={<FileTextOutlined />} htmlType="submit"
-                                        // disabled={!formIsValid}
-                                        onClick={updateHandler}
+                                    // disabled={!formIsValid}
+                                    // onClick={updateHandler}
                                     >Update</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
                                     <Button
                                         type="primary"
-                                        shape="round"
+                                        // shape="round"
                                         size="large"
                                         style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                                         icon={<ArrowRightOutlined />}
@@ -1025,8 +1106,8 @@ const ExistingInsurenceDetails = () => {
                                 </Col>
                             </Row>
                         </Col>
-                    </Col>
-                </Row>
+                    </Row>
+                </Form>
             </div>
         </>
     )

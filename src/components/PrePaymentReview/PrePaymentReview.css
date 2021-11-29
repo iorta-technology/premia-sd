@@ -12,7 +12,7 @@
 .prepayment-title{
     display: flex;
     flex-direction: row;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     color: white;
     padding-top: 5px;
@@ -30,7 +30,7 @@
     background-color: rgb(59, 55, 30);
     color: white;
     width: 10vw;
-    font-size: 16px;
+    font-size: 15px;
     height: 4vh;
     padding-left: 3vw;
 }
@@ -75,5 +75,5 @@
     box-sizing: border-box;
 }
 .prepayment-text{
-    font-size: 16px;
+    font-size: 14px;
 }

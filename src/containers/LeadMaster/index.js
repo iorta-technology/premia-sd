@@ -6,12 +6,14 @@ import FloatButton from '../../components/FloatButton/FloatButton'
 import * as actions from '../../store/actions/index';
 import { Pagination,Button } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
+import {stoageGetter} from '../../helpers'
 const LeadMaster = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
     const dispatch = useDispatch()
     useEffect(() => {
-
+        const {id} = stoageGetter('user')
+        // console.log(id)
         dispatch(actions.fetchAllLeads('',current))
     },[dispatch,current]);
 

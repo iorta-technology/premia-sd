@@ -97,7 +97,7 @@ const AddressProof = () => {
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                         <Row gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <h3 className="addressproof-head3">Upload Address Proof</h3>
                                                 <p className="addressproof-paragraph">Please select the document type you would like to upload for your Address Proof</p>
                                                 <Col>
@@ -154,7 +154,7 @@ const AddressProof = () => {
                                     </Col>
                                     <Col xs={{ order: 2 }} sm={24} md={24} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                                         <Row justify="space-around" gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Form >
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                         <Col  >
@@ -178,7 +178,7 @@ const AddressProof = () => {
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                         <Row gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <h3 className="addressproof-head3">Upload Photo ID</h3>
                                                 <p className="addressproof-paragraph">Please select the document type you would like to upload for your Address Proof</p>
                                                 <Col>
@@ -233,7 +233,7 @@ const AddressProof = () => {
                                     </Col>
                                     <Col xs={{ order: 2 }} sm={24} md={24} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                                         <Row justify="space-around" gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Form >
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                     <Col  >
@@ -257,7 +257,7 @@ const AddressProof = () => {
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                         <Row gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <h3 className="addressproof-head3">Upload ID Proof</h3>
                                                 <p className="addressproof-paragraph">Please select the document type you would like to upload for your ID Proof</p>
                                                 <Col>
@@ -312,7 +312,7 @@ const AddressProof = () => {
                                     </Col>
                                     <Col xs={{ order: 2 }} sm={24} md={24} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                                         <Row justify="space-around" gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Form >
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                     <Col  >
@@ -336,7 +336,7 @@ const AddressProof = () => {
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                         <Row gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <h3 className="addressproof-head3">Upload Income Proof</h3>
                                                 <p className="addressproof-paragraph">Please select the document type you would like to upload for your Income Proof</p>
                                                 <Col>
@@ -391,7 +391,7 @@ const AddressProof = () => {
                                     </Col>
                                     <Col xs={{ order: 2 }} sm={24} md={24} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                                         <Row justify="space-around" gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Form >
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                     <Col  >
@@ -415,7 +415,7 @@ const AddressProof = () => {
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                         <Row gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <h3 className="addressproof-head3">Upload Age Proof</h3>
                                                 <p className="addressproof-paragraph">Please select the document type you would like to upload for your Age Proof</p>
                                                 <Col>
@@ -470,7 +470,7 @@ const AddressProof = () => {
                                     </Col>
                                     <Col xs={{ order: 2 }} sm={24} md={24} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                                         <Row justify="space-around" gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Form >
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                     <Col  >
@@ -494,7 +494,7 @@ const AddressProof = () => {
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                         <Row gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <h3 className="addressproof-head3">Customer Declaration Capture</h3>
                                                 <p className="addressproof-paragraph">Please select the document type you would like to upload for your Address Proof</p>
                                                 <Col>
@@ -549,7 +549,7 @@ const AddressProof = () => {
                                     </Col>
                                     <Col xs={{ order: 2 }} sm={24} md={24} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                                         <Row justify="space-around" gutter={['', 24]}>
-                                            <Col className="benefitillustrator1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="addressproof-card" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Form >
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                     <Col  >

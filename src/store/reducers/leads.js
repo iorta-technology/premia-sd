@@ -10,9 +10,11 @@ const initialState = {
     fetch_allLeads_Error : "",
 
     // lead form meta data
-    fetchDesignationLoading:false,
+    fetchTeamMemberLoading:false,
     designations:[],
-    fetchDesignationError:'',
+    fetchTeamMemberError:'',
+
+    teamMember:{}
 
 }
 // lead reducer
@@ -21,7 +23,12 @@ const fetchAllLeadsStart = (state, action) => {
 }
 
 const fetchAllLeadsSuccess = (state, action) => {
-    return updateObject(state, { fetch_allLeads_Loading: false, allLeads: action.allLeads, count:action.count, selected_all_leads: action.selected_allLeads })
+    return updateObject(state, { 
+        fetch_allLeads_Loading: false, 
+        allLeads: action.allLeads, 
+        count:action.count, 
+        selected_all_leads: action.selected_allLeads 
+    })
 }
 const fetchAllLeadsFail = (state, action) => {
     return updateObject(state, { 
@@ -31,15 +38,23 @@ const fetchAllLeadsFail = (state, action) => {
     });
 }
 
-const fetchDesignationStart = (state, action) => {
-    return updateObject(state, { fetchDesignationLoading: true })
+const fetchTeamMemberStart = (state, action) => {
+    return updateObject(state, { 
+        fetchTeamMemberLoading: true 
+    })
 }
 
-const fetchDesignationSuccess = (state, action) => {
-    return updateObject(state, { fetchDesignationLoading: false, designations: action.designations })
+const fetchTeamMemberSuccess = (state, action) => {
+    return updateObject(state, { 
+        fetchTeamMemberLoading: false, 
+        designations: action.designations 
+    })
 }
-const fetchDesignationFail = (state, action) => {
-    return updateObject(state, { fetchDesignationLoading: false, fetchDesignationError: action.error });
+const fetchTeamMemberFail = (state, action) => {
+    return updateObject(state, { 
+        fetchTeamMemberLoading: false, 
+        fetchTeamMemberError: action.error 
+    });
 }
 
 
@@ -50,9 +65,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_ALL_LEADS_SUCCESS: return fetchAllLeadsSuccess(state, action)
         case actionTypes.FETCH_ALL_LEADS_FAIL: return fetchAllLeadsFail(state, action)
 
-        case actionTypes.FETCH_DESIGNATION_START: return fetchDesignationStart(state, action)
-        case actionTypes.FETCH_DESIGNATION_SUCCESS: return fetchDesignationSuccess(state, action)
-        case actionTypes.FETCH_DESIGNATION_FAIL: return fetchDesignationFail(state, action)
+        case actionTypes.FETCH_DESIGNATION_START: return fetchTeamMemberStart(state, action)
+        case actionTypes.FETCH_DESIGNATION_SUCCESS: return fetchTeamMemberSuccess(state, action)
+        case actionTypes.FETCH_DESIGNATION_FAIL: return fetchTeamMemberFail(state, action)
         default: return state
     }
 }

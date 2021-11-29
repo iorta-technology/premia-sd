@@ -42,77 +42,77 @@ const HomePage = () => {
       history.push('/login')
   }
   // console.log("Home-Data", home_data)
-  // console.log("activities-data", activities_data)
+  console.log("activities-data", activities_data)
   const data = [
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Sun.',
-      value: 18.9,
+      value: 7,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Mon.',
-      value: 28.8,
+      value: 3,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Tue.',
-      value: 39.3,
+      value: 4,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Wed.',
-      value: 81.4,
+      value: 2,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Thr',
-      value: 47,
+      value: 15,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Fri.',
-      value: 20.3,
+      value: 10,
     },
     {
-      name: 'London',
+      name: 'For Today',
       month: 'Sat.',
-      value: 24,
+      value: 11,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Sun.',
-      value: 12.4,
+      value: 6,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Mon.',
-      value: 23.2,
+      value: 1,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Tue.',
-      value: 34.5,
+      value: 5,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Wed.',
-      value: 99.7,
+      value: 7,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Thr',
-      value: 52.6,
+      value: 16,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Fri.',
-      value: 35.5,
+      value: 18,
     },
     {
-      name: 'Berlin',
+      name: 'Open',
       month: 'Sat.',
-      value: 37.4,
+      value: 15,
     }
   ];
   const config = {
@@ -132,12 +132,13 @@ const HomePage = () => {
         { type: 'adjust-color' },
       ],
     },
-    color: ['rgb(0, 172, 193)','#fff']
+    color: ['#ADD8E6','#fff']
   };
+  
   return <Fragment >
-    <Button type="primary" onClick={onLogout}>Logout</Button>
+    {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
     <FloatButton />
-    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>Hi {logged_in_user}</h3>
+    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold',marginLeft:'10.5rem' }}>Hi {logged_in_user}</h3>
     <Row gutter={[18,{ xs: 8, sm: 10, md: 10, lg:18 }]} justify="center" className="cardHolder ">
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
@@ -217,7 +218,7 @@ const HomePage = () => {
             </div>
           </Link>
           <div style={{ marginTop: "30px" }}>
-          {/* <Column {...config}/> */}
+          <Column {...config}/>
           </div>
           <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
             <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
@@ -269,6 +270,7 @@ const HomePage = () => {
 
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+        <Link to="/kpi-dashboard">
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3366.png" alt="Business" />
@@ -278,6 +280,7 @@ const HomePage = () => {
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
             </div>
           </div>
+          </Link>
           <div style={{ marginTop: "50px" }}>
             <div style={{ float: "right" }}>
               <select style={{ backgroundColor: "transparent", border: "none", borderBottom: "1px solid #fff", outline: "none", boxShadow: "none", color: "#fff", appearance: 'none' }}>
@@ -371,15 +374,17 @@ const HomePage = () => {
 
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <Link to="/renewalMaster/allRenewals">
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
             </div>
             <div className="activities-text">
-              <p style={{ fontSize: '15px', color: '#fff' }}>Customers</p>
+              <p style={{ fontSize: '15px', color: '#fff' }}>Renewals</p>
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} />
             </div>
           </div>
+          </Link>
           <div className='rewardscorner-text'>
             <div style={{ display: 'flex', justifyContent: "center" }}>
               <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
@@ -417,10 +422,12 @@ const HomePage = () => {
                     <p>Contests</p>
                   </div>
                 </Link>
+                <Link to="/clubsmaster">
                 <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
                   <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
                   <p>Clubs</p>
                 </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -462,6 +469,7 @@ const HomePage = () => {
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <div className="card-content">
+            <Link to='/products'>
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3369.png" alt="Sales Guide" />
             </div>
@@ -469,17 +477,22 @@ const HomePage = () => {
               <p style={{ fontSize: '15px', color: '#fff' }}>Sales Guide</p>
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} />
             </div>
+            </Link>
             <div className="sales-guide-content">
               <div className="b1-content">
+                <Link to="/salespitch">
                 <p className="sales-content" style={{ height: 35, width: 100 }}>sales pitch</p>
+                </Link>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
               </div>
               <div className="b1-content">
-                <p className="sales-content" style={{ height: 35, width: 100 }}>Product</p>
+                <Link to="/products"><p className="sales-content" style={{ height: 35, width: 100 }}>Product</p></Link>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Need Analysis</p>
               </div>
               <div className="b1-content">
+                <Link to="advisorpitch">
                 <p className="sales-content" style={{ height: 35, width: 200 }}>Advisor OnBoarding</p>
+                </Link>
               </div>
               <div className="b1-content">
                 <p className="sales-content" style={{ height: 35, width: 200 }}>Recruitment Presentation</p>
@@ -492,6 +505,7 @@ const HomePage = () => {
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <div className="card-content">
+            <Link to="/birthday">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3376.png" alt="Birthday" />
             </div>
@@ -499,6 +513,7 @@ const HomePage = () => {
               <p style={{ fontSize: '15px', color: '#fff' }}>Birthday</p>
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
             </div>
+            </Link>
             <div className="birthday-slides">
               <Image preview={false} width={32} height={32} src="https://sdrestdemo.iorta.in/assets/Subtraction10.png" alt="left arrow" />
               <Image preview={false} width={32} height={32} src="https://sdrestdemo.iorta.in/assets/Subtraction9.png" alt="right arrow" />

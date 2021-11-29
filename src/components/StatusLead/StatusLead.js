@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
 import FloatButton from '../FloatButton/FloatButton'
-
+import { msToDateString } from '../../helpers';
 import _ from "lodash";
 import { checkAgent, milToDateString } from '../../helpers'
 import moment from 'moment';
@@ -23,13 +23,9 @@ const formItemLayout = {
 };
 
 
-const setReminderOptions = [
-  { value: 'none', label: 'None' }, { value: '5minbefore', label: '5 minutes before' },
-  { value: '10minbefore', label: '10 minutes before' }, { value: '15minbefore', label: '15 minutes before' },
-  { value: '30minbefore', label: '30 minutes before' }, { value: '1hoursbefore', label: '1 hours before' },
-  { value: '2hoursbefore', label: '2 hours before' }, { value: '1daybefore', label: '1 day before' },
-  { value: '2daysbefore', label: '2 days before' }, { value: '1weekbefore', label: '1 week before' },
-]
+
+
+
 
 const columns = [
   {
@@ -77,10 +73,221 @@ const isNumberValid = (value) => value.trim() !== '' && value.length === 10
 
 
 const NewLead = React.memo(() => {
+  const appointmentOptions = [
+    {
+      value: "newappointment",
+      label: "New Appointment",
+      children: [
+        { value: "newApptmnt", label: "New Appointment" }
+      ]
+    },
+    {
+      value: "followup",
+      label: "Follow Up",
+      children: [
+        {
+          value: 'metcustomer',
+          label: 'Met Customer, in follow up for closure'
+        }, {
+          value: 'notmet',
+          label: 'Not Met - Reschedule Appt'
+        }
+      ]
+    }, {
+      value: "notintrested",
+      label: "Not Interested",
+      children: [
+        {
+          value: 'apptDenies',
+          label: 'Client denies giving appointment'
+        }, {
+          value: 'metFollowupNotIntrested',
+          label: 'Met, followed up, then not interested'
+        }
+      ]
+    }, {
+      value: "notavailable",
+      label: "Not Available",
+      children: [
+        { value: 'phoneNtAvailble', label: 'Phone not available always' }
+      ]
+    }, {
+      value: "wrngnumber",
+      label: "Wrong Number",
+      children: [
+        { value: 'Wrong_Number', label: 'Wrong Number' }
+      ]
+    }, {
+      value: "convertd",
+      label: "Converted",
+      children: [
+        { value: "leadconverted", label: "Convinced for a new policy" }
+        ]
+  }, {
+      value: "renewalcollected",
+      label: "Renewal Collected",
+      children: [
+        { value: "ConvinceRenPay", label: "Convinced for renewal payment" }
+      ]
+  }]
+  const setReminderOptions = [
+    { value: '5 minutes before', label: '5 minutes before' }, { value: '10 minutes before', label: '10 minutes before' },
+    { value: '15 minutes before', label: '15 minutes before' }, { value: '30 minutes before', label: '30 minutes before' },
+    { value: '1 hours before', label: '1 hours before' }, { value: '2 hours before', label: '2 hours before' },
+    { value: '1 day before', label: '1 day before' }, { value: '2 days before', label: '2 days before' },
+    { value: '1 week before', label: '1 week before' },
+  ]
+  const leadTypeOptions = [
+    {
+      label: 'New Business',
+      value: 'NewBusiness'
+    },
+    {
+      label: 'Renewal',
+      value: 'Renewal'
+    },
+    {
+      label: 'Cross Sell',
+      value: 'CrossSell'
+    }
+  ]
+  const insuranceCompanyOptions = [
+    {
+      label: 'TATA AIG General Insurance Company',
+      value: 'TATA AIG General Insurance Company'
+    },
+  
+    {
+      label: 'ICICI Lombard Genral Insurance Company',
+      value: 'ICICI Lombard Genral Insurance Company'
+    },
+  
+    {
+      label: 'ICICI Prudential Life Insurance Company',
+      value: 'ICICI Prudential Life Insurance Company'
+    },
+    {
+      label: 'Manipal Cigna Health Insurance Company',
+      value: 'Manipal Cigna Health Insurance Company'
+    },
+    {
+      label: 'Exide Life Insurance Company Limited',
+      value: 'Exide Life Insurance Company Limited'
+    }
+  ]
+  const leadProductOptions = [
+    {
+      label: 'Health',
+      value: 'Health'
+    },
+    {
+      label: 'Motor',
+      value: 'Motor'
+    },
+    {
+      label: 'Travel',
+      value: 'Travel'
+    },
+    {
+      label: 'Personal Accident',
+      value: 'Personal Accident'
+    },
+    {
+      label: 'Term',
+      value: 'Term'
+    },
+    {
+      label: 'ULIP',
+      value: 'ULIP'
+    }
+  ]
+  const appointmentTimeOptions = [
+    { label: "8:00 AM", value: "28800000" }, { label: "8:30 AM", value: "30600000" },
+    {
+      label: "9:00 AM",
+      value: "32400000"
+    }, {
+      label: "9:30 AM",
+      value: "34200000"
+    }, {
+      label: "10:00 AM",
+      value: "36000000"
+    }, {
+      label: "10:30 AM",
+      value: "37800000"
+    }, {
+      label: "11:00 AM",
+      value: "39600000"
+    }, {
+      label: "11:30 AM",
+      value: "41400000"
+    }, {
+      label: "12:00 PM",
+      value: "43200000"
+    }, {
+      label: "12:30 PM",
+      value: "45000000"
+    }, {
+      label: "1:00 PM",
+      value: "46800000"
+    }, {
+      label: "1:30 PM",
+      value: "48600000"
+    }, {
+      value: '50400000',
+      label: '2:00 PM'
+    }, {
+      label: "2:30 PM",
+      value: "52200000"
+    }, {
+      label: "3:00 PM",
+      value: "54000000"
+    }, {
+      label: "3:30 PM",
+      value: "55800000"
+    }, {
+      label: "4:00 PM",
+      value: "57600000"
+    }, {
+      label: "4:30 PM",
+      value: "59400000"
+    }, {
+      label: "5:00 PM",
+      value: "61200000"
+    }, {
+      label: "5:30 PM",
+      value: "63000000"
+    }, {
+      label: "6:00 PM",
+      value: "64800000"
+    }, {
+      label: "6:30 PM",
+      value: "66600000"
+    }, {
+      label: "7:00 PM",
+      value: "68400000"
+    }, {
+      label: "7:30 PM",
+      value: "70200000"
+    }, {
+      label: "8:00 PM",
+      value: "72000000"
+    }, {
+      label: "8:30 PM",
+      value: "73800000"
+    }, {
+      label: "9:00 PM",
+      value: "75600000"
+    }, {
+      label: "9:30 PM",
+      value: "77400000"
+  }]
+  
   const dispatch = useDispatch()
   const history = useHistory()
   const [form] = Form.useForm();
   useEffect(() => {
+    dispatch(actions.fetchTeamMember())
     dispatch(actions.fetchAllState())
   }, [dispatch]);
   const id = useSelector((state) => state.login.user.id)
@@ -106,12 +313,23 @@ const NewLead = React.memo(() => {
   const storeInsuranceCompanyValue = useSelector((state) => state.newLead.formData.Insurance_Company)
   const storeLeadStatusValue = useSelector((state) => state.newLead.formData.leadStatus)
   const storeLeadDispositionValue = useSelector((state) => state.newLead.formData.leadDisposition)
-  const storeLeadSubDispositionValue = useSelector((state) => state.newLead.formData.leadSubDisposition)
+  const storeLeadSubDispositionValue = useSelector((state) => state.newLead.formData.leadDisposition)
+  const start_date = useSelector((state) => state.newLead.formData.start_date)
+  const start_time = useSelector((state) => state.newLead.formData.start_time)
+  // const {start_date,start_time} = storeAppointmentData
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
+  console.log(typeof(start_time))
+  // console.log(parseInt(start_date))
+  // msToDateString(1637605800000)  
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
+  const fetchLeadId = useSelector((state) => state.newLead.fetcLeadId)
+  const errorMsg = useSelector((state) => state.newLead.createLeadError)
+  const successMsg = useSelector((state) => state.newLead.successMsg)
   const { lastupdatedOn } = storeFormData
-  console.log(lastupdatedOn)
+  // let MobRegex='^([-]?[1-9][0-9]*|0)$';
+  // const [mobileNoCheck,setMobileNoCheck]=useState(storePrimaryMobileValue?true:false)
+
   // lead summary
   const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
@@ -127,13 +345,19 @@ const NewLead = React.memo(() => {
   const [lastName, setLastName] = useState(storelastNameValue)
   const [email, setEmail] = useState(storeEmailValue)
   const [primaryNo, setPrimaryNo] = useState(storePrimaryMobileValue)
+  const [mobileNoValid, setmobileNoValid] = useState()
   const [leadStatus, setLeadStatus] = useState(storeLeadStatusValue)
   const [leadDisposition, setLeadDisposition] = useState(storeLeadDispositionValue)
   const [leadSubDisposition, setLeadSubDisposition] = useState(storeLeadSubDispositionValue)
+  const [appointmentStatus, setAppointmentStatus] = useState()
+  const [appointmentDisposition, setAppointmentDisposition] = useState()
+  const [appointmentSubDisposition, setAppointmentSubDisposition] = useState()
   const [reminder, setReminder] = useState()
-  const [appointmentDate, setAppointmentDate] = useState()
-  const [appointmentTime, setAppointmentTime] = useState()
-
+  const [appointmentDate, setAppointmentDate] = useState(()=>start_date!=='' && moment(start_date))
+  // moment(start_date)
+  const [appointmentDatePost, setAppointmentDatePost] = useState()
+  const [appointmentTime, setAppointmentTime] = useState(()=>start_time!==undefined ? start_time.toString():'')
+  // parseInt(start_time)
   const [remarkFromSource, setRemarkFromSource] = useState(storeRemarkFromSourceValue)
   const [remarkFromUser, setRemarkFromUser] = useState(storeRemarkFromUserValue)
   const [leadType, setLeadType] = useState(storeLeadTypeValue)
@@ -141,16 +365,27 @@ const NewLead = React.memo(() => {
   const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
   const [stateProvince, setStateProvince] = useState(storeStateValue)
   const [cityProvince, setCityProvince] = useState(storeCityValue)
-  const [errorMessage, setErrorMessage] = useState()
+  const [errorMessage, setErrorMessage] = useState(successMsg)
   const [isNewLead, setIsNewLead] = useState(true)
 
 
   useEffect(() => {
     // console.log('payload',payloadFormData)
     // console.log('nonpayload',storeFormData)
+    // dispatch(actions.fetchLeadDetails(fetchLeadId))
+    // console.log(leadDisposition === "appointment" || leadDisposition === "callback" || !appointmentStatus)
+    // console.log(appointmentStatus)
+    // console.log('mobile', leadArr)
     if (storeLeadId !== '') {
       setIsNewLead(false)
     }
+    if(primaryNo.length===10){
+      setmobileNoValid(true)
+    }else{
+      setmobileNoValid(false)
+    }
+    // console.log(_.isEmpty(storeAppointmentData))
+    // console.log(storeAppointmentData)
     // form.resetFields({
     //   "firstname":firstName,
     //   "lastname":lastName,
@@ -219,7 +454,7 @@ const NewLead = React.memo(() => {
     {
       value: 'newleadentery',
       label: 'New Lead Entry',
-      disabled: !isNewLead
+      // disabled: !isNewLead
     },
     {
       value: 'nocontact',
@@ -228,52 +463,52 @@ const NewLead = React.memo(() => {
         {
           value: 'notreachable',
           label: 'Not Reachable',
-          children: [
-            {
-              value: 'Not Reachable',
-              label: 'Not reachable',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Not reachable',
+          //     label: 'Not reachable',
+          //   },
+          // ],
         },
         {
           value: 'ringingbusy',
           label: 'Ringing Busy',
-          children: [
-            {
-              value: 'Ringing busy',
-              label: 'Ringing Busy',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Ringing Busy',
+          //     label: 'Ringing Busy',
+          //   },
+          // ],
         },
         {
           value: 'wrongnumber',
           label: 'Wrong Number',
-          children: [
-            {
-              value: 'Wrong Number',
-              label: 'Wrong Number',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Wrong Number',
+          //     label: 'Wrong Number',
+          //   },
+          // ],
         },
         {
-          value: 'invalidnumber',
+          value: 'invalid',
           label: 'Invalid Number',
-          children: [
-            {
-              value: 'invalidnumber',
-              label: 'Invalid Number',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Invalid Number',
+          //     label: 'Invalid Number',
+          //   },
+          // ],
         },
         {
-          value: 'switchedoff',
+          value: 'switchoff',
           label: 'Switched Off',
-          children: [
-            {
-              value: 'switchedoff',
-              label: 'Switched Off',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Switched Off',
+          //     label: 'Switched Off',
+          //   },
+          // ],
         },
       ],
     },
@@ -285,111 +520,111 @@ const NewLead = React.memo(() => {
           value: 'appointment',
           label: 'Appointment',
           isSelected: true,
-          children: [
-            {
-              value: 'Client has given appointment',
-              label: 'Client has given appointment',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'New Appointment',
+          //     label: 'New Appointment',
+          //   },
+          // ],
         },
         {
           value: 'callback',
           label: 'Callback',
           isSelected: false,
-          children: [
-            {
-              value: 'Customer asked to callback later',
-              label: 'Customer asked to callback later',
-            }
-          ],
+          // children: [
+          //   {
+          //     value: 'Customer asked for callback',
+          //     label: 'Customer asked for callback',
+          //   }
+          // ],
         },
-        {
-          value: 'followup',
-          label: 'Follow-up',
-          isSelected: false,
-          children: [
-            {
-              value: 'Met-in follow-up for closure',
-              label: 'Met-in follow-up for closure',
-            },
-            {
-              value: 'Not Met - Reschedule appointment',
-              label: 'Not Met - Reschedule appointment',
-            }
-          ],
-        },
+        // {
+        //   value: 'followup',
+        //   label: 'Follow-up',
+        //   isSelected: false,
+        //   children: [
+        //     {
+        //       value: 'Met-in follow-up for closure',
+        //       label: 'Met-in follow-up for closure',
+        //     },
+        //     {
+        //       value: 'Not Met - Reschedule appointment',
+        //       label: 'Not Met - Reschedule appointment',
+        //     }
+        //   ],
+        // },
         {
           value: 'shorthangup',
           label: 'Short hang up',
-          children: [
-            {
-              value: 'Short hang up',
-              label: 'Short hang up',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'shorthangup',
+          //     label: 'Short hang up',
+          //   },
+          // ],
         },
         {
           value: 'notinterested',
           label: 'Not interested',
-          children: [
-            {
-              value: 'Client denied giving appointment',
-              label: 'Client denied giving appointment',
-            },
-            {
-              value: 'Met - not interested',
-              label: 'Met - not interested',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Client denied giving appointment',
+          //     label: 'Client denied giving appointment',
+          //   },
+          //   {
+          //     value: 'Met - not interested',
+          //     label: 'Met - not interested',
+          //   },
+          // ],
         },
         {
-          value: 'nonservicelocation',
+          value: 'nonserviceloc',
           label: 'Non service location',
-          children: [
-            {
-              value: 'Non service location',
-              label: 'Non service location',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Non service location',
+          //     label: 'Non service location',
+          //   },
+          // ],
         },
         {
           value: 'noteligible',
           label: 'Not Eligible',
-          children: [
-            {
-              value: 'Not Eligible',
-              label: 'Not Eligible',
-            },
-          ],
+          // children: [
+          //   {
+          //     value: 'Not Eligible',
+          //     label: 'Not Eligible',
+          //   },
+          // ],
         },
-        {
-          value: 'notavailable',
-          label: 'Not Available',
-          children: [
-            {
-              value: 'Not Reachable',
-              label: 'Not Reachable',
-            },
-            {
-              value: 'No Answer',
-              label: 'No Answer',
-            },
-            {
-              value: 'Alway Switched off',
-              label: 'Alway Switched off',
-            },
-          ],
-        },
-        {
-          value: 'converted',
-          label: 'Converted',
-          children: [
-            {
-              value: 'Closed with success',
-              label: 'Closed with success',
-            },
-          ],
-        },
+        // {
+        //   value: 'notavailable',
+        //   label: 'Not Available',
+        //   children: [
+        //     {
+        //       value: 'Not Reachable',
+        //       label: 'Not Reachable',
+        //     },
+        //     {
+        //       value: 'No Answer',
+        //       label: 'No Answer',
+        //     },
+        //     {
+        //       value: 'Alway Switched off',
+        //       label: 'Alway Switched off',
+        //     },
+        //   ],
+        // },
+        // {
+        //   value: 'converted',
+        //   label: 'Converted',
+        //   children: [
+        //     {
+        //       value: 'Closed with success',
+        //       label: 'Closed with success',
+        //     },
+        //   ],
+        // },
       ],
     },
   ];
@@ -402,6 +637,7 @@ const NewLead = React.memo(() => {
     setLastName(e.target.value)
   }
   const primaryNoHandler = (event) => {
+
     setPrimaryNo(event.target.value)
   }
   const emailAddressHandler = (event) => {
@@ -416,7 +652,7 @@ const NewLead = React.memo(() => {
       // state.push(label)
       return newState
     }) : null
-  console.log(stateOptions)
+  // console.log(stateOptions)
 
   const cities = useSelector((state) => state.address.cities)
   let citiesOptions = (cities && !_.isEmpty(cities)) ?
@@ -461,7 +697,7 @@ const NewLead = React.memo(() => {
 
   const handleAddMember = () => {
     // setModalText('Updating changes ');
-    visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
+    visibleTeamMemberModal && dispatch(actions.fetchTeamMember(channelCode))
 
   };
   const showChangeOwnerModal = () => {
@@ -479,29 +715,46 @@ const NewLead = React.memo(() => {
     }, 2000);
   };
 
-  const Append = (value) => {
+  const leadHandler = (value) => {
     setLeadStatus(value[0])
     setLeadDisposition(value[1])
     setLeadSubDisposition(value[2])
   }
+  const appointmentStatusHandler =(value)=>{
+    setAppointmentStatus(value[0])
+    setAppointmentDisposition(value[1])
+    setAppointmentSubDisposition(value[2])
+  }
 
   const appointmentDateHandler = (date, dateString) => {
+
     // setAppointmentDate(Date.parse(dateString))
-    setAppointmentDate(moment(date))
+    let newDate = moment(date).valueOf()
+    // let ms_date = new Date(newDate).setUTCHours(0, 0, 0, 0)
+    // console.log('old',ms_date)
+    console.log('new moment',newDate)
+    setAppointmentDate(date)
+    setAppointmentDatePost(newDate)
+
   }
+  console.log(appointmentDatePost)
+  // const newDate = moment.unix(appointmentDate/1000).format("DD MM YYYY ")
+  // console.log(appointmentDate)
 
   const updateDateHandler = (date, dateString) => {
     // setAppointmentDate(Date.parse(dateString))
     setAppointmentDate(moment(1635070237883))
   }
 
-  const startTimeHandler = (time, timeString) => {
-    const hourInMilisec = (new Date(time).getHours() + 24) % 12 || 12
-    const minInMilisec = new Date(time).getMinutes()
-    const res = (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
+  const startTimeHandler = (value) => {
+
+    // const hourInMilisec = (new Date(time).getHours() + 24) % 12 || 12
+    // const minInMilisec = new Date(time).getMinutes()
+    // const res = (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
     // console.log(res)
     // console.log(hourInMilisec)
-    setAppointmentTime(res)
+    console.log(typeof(value))
+    setAppointmentTime(value)
   }
   const remarkFromSourceHandler = (event) => {
     setRemarkFromSource(event.target.value)
@@ -516,9 +769,9 @@ const NewLead = React.memo(() => {
     // console.log('Success:', errorMessage);
   };
 
-  const onFinishFailed = (errorMessage) => {
-    alert(errorMessage)
-    // console.log('Failed:', errorMessage);
+  const onFinishFailed = (errorMsg) => {
+    alert(errorMsg)
+    // console.log('Failed:', errorMsg);
   };
 
   const stateSelectHandler = (value, key) => {
@@ -565,68 +818,33 @@ const NewLead = React.memo(() => {
     !visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
 
   };
-  // Form control hook
-  const {
-    value: firstNameValue,
-    isValid: firstNameIsValid,
-    // hasError: firstNameHasError,
-    valueChangeHandler: firstNameChangeHandler,
-    reset: resetFirstName,
-
-  } = useInput(isNotEmpty);
-  const {
-    value: lastNameValue,
-    isValid: lastNameIsValid,
-    hasError: lastNameHasError,
-    valueChangeHandler: lastNameChangeHandler,
-    reset: resetLastName,
-
-  } = useInput(isNotEmpty);
-
-  const {
-    value: emailValue,
-    isValid: emailIsValid,
-    hasError: emailHasError,
-    valueChangeHandler: emailChangeHandler,
-    reset: resetEmail,
-
-  } = useInput(isEmail);
-
-  const {
-    value: primaryMobile,
-    isValid: primaryMobileIsValid,
-    hasError: primaryMobileHasError,
-    valueChangeHandler: primaryMobileChangeHandler,
-    reset: resetPrimaryMobileNo,
-
-  } = useInput(isNumberValid);
 
   // validations 
   const validateMessages = {
     // required: `${label} is required!`,
     types: {
       email: `Email id must include @`,
-      number: 'Not a valid no'
     },
-    number: {
-      range: 'Number must be 10 digits',
-    },
+    // number: {
+    //   phone: 'Not a valid no'
+    //   range: 'Number must be 10 digits',
+    // },
   };
   const formData = {
     ...storeFormData,
     leadStatus: leadStatus,
-    start_date: appointmentDate,
-    start_time: appointmentTime,
+    start_date: appointmentDatePost,
+    start_time: parseInt(appointmentTime),
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    // teamMembers: '',
-    leadsubDisposition: leadSubDisposition,
+    leadsubDisposition: 'Client has given appointment',
     leadDisposition: leadDisposition,
-    // leadSource: '',
+    teamMembers: '',
+    leadSource: '',
 
-    // appointment_status: '',
-    // appointmentdisPosition: '',
-    // appointmentsubdisPosition: '',
+    appointment_status: appointmentStatus,
+    appointmentdisPosition: appointmentDisposition,
+    appointmentsubdisPosition: appointmentSubDisposition,
 
 
     lead_Owner_Id: id,
@@ -646,41 +864,34 @@ const NewLead = React.memo(() => {
   };
   let formIsValid = false;
 
-  if (firstNameIsValid && lastNameIsValid && primaryMobileIsValid) {
-    formIsValid = true;
-  }
+  // if (firstNameIsValid && lastNameIsValid && primaryMobileIsValid) {
+  //   formIsValid = true;
+  // }
 
   const submitHandler = event => {
-    event.preventDefault();
+    // event.preventDefault();
 
-    dispatch(actions.createLead(formData))
-    // if (!formIsValid) {
-    //   return;
-    // }else{
-    // }
+    if (isNewLead) {
+      console.log(formData)
+      dispatch(actions.createLead(formData))
+      // if (!formIsValid) {
+      //   return;
+      // }else{
+      // }
+      setErrorMessage(successMsg)
+      // console.log(errorMessage)
+      // alert('New Lead Created Successfully')
 
-    setErrorMessage('Form submitted successfully')
-    setIsNewLead(false)
-    // setErrorMessage( res.data.errMsg)
-
-
-
-    // resetFirstName();
-    // resetLastName();
-    // resetEmail();
-  };
-  const proceedHandler = event => {
-    event.preventDefault();
-
-    if (!formIsValid) {
-      return;
+      setIsNewLead(false)
     } else {
-      dispatch(actions.storeLead(formData))
-      history.push('leaddetails/personallead')
-    }
 
-    setErrorMessage('Form submitted successfully')
-    setIsNewLead(false)
+      dispatch(actions.editLead(formData, storeLeadId))
+      // alert(' Lead Updated Successfully')
+      // history.push('leaddetails/personallead')
+
+
+
+    }
     // setErrorMessage( res.data.errMsg)
 
 
@@ -689,19 +900,39 @@ const NewLead = React.memo(() => {
     // resetLastName();
     // resetEmail();
   };
+  // const proceedHandler = event => {
+  //   event.preventDefault();
 
-  const updateLeadHandler = event => {
-    event.preventDefault();
+  //   if (!formIsValid) {
+  //     return;
+  //   } else {
+  //     dispatch(actions.storeLead(formData))
+  //     history.push('leaddetails/personallead')
+  //   }
 
-    dispatch(actions.editLead(formData, storeLeadId))
-    // if (!formIsValid) {
-    //   return;
-    // }else{
-    // }
+  //   setErrorMessage('Form submitted successfully')
+  //   setIsNewLead(false)
+  //   // setErrorMessage( res.data.errMsg)
 
-    setErrorMessage('Form updated successfully')
-    setIsNewLead(false)
-  }
+
+
+  //   // resetFirstName();
+  //   // resetLastName();
+  //   // resetEmail();
+  // };
+
+  // const updateLeadHandler = event => {
+  //   event.preventDefault();
+
+  //   dispatch(actions.editLead(formData, storeLeadId))
+  //   // if (!formIsValid) {
+  //   //   return;
+  //   // }else{
+  //   // }
+
+  //   setErrorMessage('Form updated successfully')
+  //   setIsNewLead(false)
+  // }
 
 
   // useEffect(() => {
@@ -740,6 +971,7 @@ const NewLead = React.memo(() => {
             "firstname": firstName,
             "lastname": lastName,
             "email": email,
+
             "phone": primaryNo,
             "state": stateProvince,
             "city": cityProvince,
@@ -747,14 +979,17 @@ const NewLead = React.memo(() => {
             "product": product,
             "insuranceCompany": insuranceCompany,
             "appointmentDate": appointmentDate,
+            "appointmentTime": appointmentTime,
             "remarksfromsource": remarkFromSource,
             "remarksfromuser": remarkFromUser,
-            "reminder": reminder
+            "reminder": reminder,
+            "leadStatus": leadArr,
+            "appointmentStatus":['newappointment','newApptmnt']
           }}
           onFinishFailed={onFinishFailed}
         >
-          <Row justify={width > breakpoint ? "":"center"} gutter={[0, 24]}  >
-            <Col className="form-body  p40 mb-2" xs={24,{ order: width > breakpoint ? 1 : 2 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2:0}>
+          <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}  >
+            <Col className="form-body  p40 mb-2" xs={24, { order: width > breakpoint ? 1 : 2 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <p className="form-title">Contact Details</p>
               <Row gutter={16} className="mb-2">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -775,7 +1010,7 @@ const NewLead = React.memo(() => {
                       className="first-name input-box "
                       size="large"
                       placeholder="Enter First Name"
-                      value={firstNameValue}
+                      value={firstName}
                       onChange={onChangeFirstName} />
                   </Form.Item>
                 </Col>
@@ -797,7 +1032,7 @@ const NewLead = React.memo(() => {
                       className="last-name input-box"
                       size="large"
                       placeholder="Enter Last Name"
-                      value={lastNameValue}
+                      value={lastName}
                       onChange={onChangeLastName} />
                   </Form.Item>
                 </Col>
@@ -819,7 +1054,7 @@ const NewLead = React.memo(() => {
                       className="email input-box"
                       size="large"
                       placeholder="Enter Email Address"
-                      value={emailValue}
+                      value={email}
                       onChange={emailAddressHandler} />
                   </Form.Item>
                 </Col>
@@ -834,12 +1069,22 @@ const NewLead = React.memo(() => {
                         required: true,
                         message: 'Mobile No is required'
                       },
-                      {
-                        min: 10,
-                        max: 10,
-                        pattern: '^([-]?[1-9][0-9]*|0)$',
-                        message: 'Enter a valid Mobile No'
-                      }
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          console.log(value)
+                          if (primaryNo.toString().length!==10) {
+                            return Promise.reject(new Error("Number must be 10 digits"))
+                          }
+                          return Promise.resolve();
+                        }
+                      }),
+                      // !mobileNoCheck || {
+                      //   // type:'phone',
+                      //   min: 10,
+                      //   max: 10,
+                      //   pattern: '^([-]?[1-9][0-9]*|0)$',
+                      //   message: 'Enter a valid Mobile No'
+                      // }
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
@@ -847,7 +1092,7 @@ const NewLead = React.memo(() => {
                       className="phone-no input-box"
                       size="large"
                       placeholder="Enter Primary Mobile"
-                      value={primaryMobile}
+                      value={primaryNo}
                       onChange={primaryNoHandler} />
                   </Form.Item>
                 </Col>
@@ -915,10 +1160,12 @@ const NewLead = React.memo(() => {
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
-                    <Select value={leadType} size="large" placeholder="Select Lead Type" onChange={leadTypeHandler}>
-                      <Option value="newbussiness">New Bussiness</Option>
-                      <Option value="renewal">Renewal</Option>
-                      <Option value="crosssell">Cross Sell</Option>
+                    <Select
+                      options={leadTypeOptions}
+                      value={leadType}
+                      size="large"
+                      placeholder="Select Lead Type"
+                      onChange={leadTypeHandler}>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -937,13 +1184,13 @@ const NewLead = React.memo(() => {
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
-                    <Select value={product} size="large" placeholder="Select Product" onChange={productHandler}>
-                      <Option value="health">Health</Option>
-                      <Option value="motor">Motor</Option>
-                      <Option value="travel">Travel</Option>
-                      <Option value="personalaccident">Personal Accident</Option>
-                      <Option value="term">Term</Option>
-                      <Option value="ulip">ULIP</Option>
+                    <Select
+                      value={product}
+                      size="large"
+                      options={leadProductOptions}
+                      placeholder="Select Product"
+                      onChange={productHandler}>
+
                     </Select>
                   </Form.Item>
                 </Col>
@@ -962,12 +1209,12 @@ const NewLead = React.memo(() => {
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
-                    <Select value={insuranceCompany} size="large" placeholder="Select Insurance" onChange={insuranceCompanyHandler}>
-                      <Option value="tataaiggeneralinsurancecompany">Tata AIG General Insurance Company</Option>
-                      <Option value="icicilombardgeneralinsurancecompany">ICICI Lombard General Insurance Company</Option>
-                      <Option value="iciciprudentiallifeinsurancecompany">ICICI Prudential Life Insurance Company</Option>
-                      <Option value="manipalcignahealthinsurancecompany">Manipal Cigna Health Insurance Company</Option>
-                      <Option value="exidelifeinsurancecompanylimited">Exide Life Insurance Company Limited</Option>
+                    <Select
+                      value={insuranceCompany}
+                      size="large"
+                      placeholder="Select Insurance"
+                      onChange={insuranceCompanyHandler}
+                      options={insuranceCompanyOptions}>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -1015,35 +1262,65 @@ const NewLead = React.memo(() => {
                 </Col>
               </Row>
             </Col>
-            <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2:0}>
+            <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <p className="form-title">Status</p>
               <Row gutter={16} className="mb-2">
-                <Col xs={24} sm={12} md={24} lg={12} xl={12} >
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="leadStatus"
-                    label="Lead Status"
-                    style={{ marginBottom: '1rem' }}
-                    size="large"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please Select Lead Status',
-                      },
-                    ]}
-                  >
-                    <Cascader
-                      options={leadOptions}
-                      placeholder="New Contact"
+                {start_date===''&& start_time==='' ?
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12} >
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="leadStatus"
+                      label="Lead Status"
+                      style={{ marginBottom: '1rem' }}
                       size="large"
-                      popupClassName="popup-size"
-                      onChange={Append}
-                      style={{ height: '3rem' }}
-                    />
-                  </Form.Item>
-                </Col>
-                {leadDisposition === "appointment" || leadDisposition === "callback" ?
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please Select Lead Status',
+                        },
+                      ]}
+                    >
+                      <Cascader
+                        options={leadOptions}
+                        placeholder="New Contact"
+                        size="large"
+                        popupClassName="popup-size"
+                        onChange={leadHandler}
+                        style={{ height: '3rem' }}
+                        value={leadArr}
+                      />
+                    </Form.Item>
+                  </Col>
+                  :
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12} >
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="appointmentStatus"
+                      label="Appointment Status"
+                      style={{ marginBottom: '1rem' }}
+                      size="large"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please Select Appointment Status',
+                        },
+                      ]}
+                    >
+                      <Cascader
+                        
+                        options={appointmentOptions}
+                        placeholder="New Contact"
+                        size="large"
+                        popupClassName="popup-size"
+                        onChange={appointmentStatusHandler}
+                        style={{ height: '3rem' }}
+                        value={leadArr}
+                      />
+                    </Form.Item>
+                  </Col>} 
+                {leadDisposition === "appointment" || leadDisposition === "callback"  ?
                   <>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                       <Form.Item
@@ -1053,7 +1330,8 @@ const NewLead = React.memo(() => {
                         label="Appointment Date"
                         hasFeedback
                         rules={[
-                          {
+                          { 
+                            type:'object',
                             required: true,
                             message: 'This field is required',
                           },
@@ -1062,11 +1340,11 @@ const NewLead = React.memo(() => {
 
                       >
                         <DatePicker
-                          disabledDate={disabledDate}
+                          // disabledDate={disabledDate}
                           onChange={appointmentDateHandler}
                           value={appointmentDate}
                           size="large"
-                          format="YYYY-MM-DD"
+                          format="YYYY/MM/DD"
                           style={{ width: "100%" }} />
                       </Form.Item>
                     </Col>
@@ -1074,7 +1352,7 @@ const NewLead = React.memo(() => {
                       <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
-                        name="Select Start Time"
+                        name="appointmentTime"
                         label="Select Start Time"
                         hasFeedback
                         rules={[
@@ -1086,7 +1364,7 @@ const NewLead = React.memo(() => {
                         style={{ marginBottom: '1rem' }}
 
                       >
-                        <TimePicker
+                        {/* <TimePicker
                           disabledHours={getDisabledHours}
                           disabledMinutes={getDisabledMinutes}
                           use12Hours
@@ -1094,7 +1372,14 @@ const NewLead = React.memo(() => {
                           format="h:mm"
                           size="large"
                           style={{ width: "100%" }}
-                          onChange={startTimeHandler} />
+                          onChange={startTimeHandler} /> */}
+                        <Select
+                          value={appointmentTime}
+                          onChange={startTimeHandler}
+                          size="large"
+                          options={appointmentTimeOptions}
+                          placeholder="Start Time">
+                        </Select>
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1111,7 +1396,6 @@ const NewLead = React.memo(() => {
                           },
                         ]}
                         style={{ marginBottom: '1rem' }}
-
                       >
                         <Select
                           // onChange={reminderHandler} 
@@ -1172,14 +1456,14 @@ const NewLead = React.memo(() => {
                   <p className="botton-label">Select the team members you want to involve for this lead</p>
                 </Col>
                 <Col xs={24} sm={24} md={6} lg={6} xl={6} className="lead-manager" offset={width > breakpoint ? 6 : 0}>
-                  <Button 
-                    shape="round" 
-                    size="large" 
-                    block 
+                  <Button
+                    shape="round"
+                    size="large"
+                    block
                     onClick={toggleTeamMember}
                     type="primary"
                     style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                    >Add Team Member</Button>
+                  >Add Team Member</Button>
                 </Col>
                 <>
                   <Modal
@@ -1292,43 +1576,49 @@ const NewLead = React.memo(() => {
 
               {/* </Form> */}
             </Col>
-            <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2:0}>
+            <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <Row>
                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
                   {isNewLead ?
-                    <Button
-                      type="primary"
-                      style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                      shape="round"
-                      size="large"
-                      icon={<FileTextOutlined />} 
-                      htmlType="submit"
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                        // shape="round"
+                        size="large"
+                        icon={<FileTextOutlined />}
+                        htmlType="submit"
                       // disabled={!formIsValid}
-                      onClick={submitHandler}
-                    >Submit</Button> :
-                    <Button
-                      type="primary"
-                      shape="round"
-                      size="large"
-                      style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
-                      icon={<EditOutlined />} 
-                      htmlType="submit"
+                      // onClick={submitHandler}
+                      >Submit</Button>
+                    </Form.Item> :
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        // shape="round"
+                        size="large"
+                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                        icon={<EditOutlined />}
+                        htmlType="submit"
                       // disabled={!formIsValid}
                       // onClick={updateLeadHandler}
-                    >Update</Button>
+                      >Update</Button>
+                    </Form.Item>
                   }
                 </Col>
                 <Col xs={11} sm={12} md={4}>
                   {/* <Link to="leaddetails/personallead"> */}
-                  <Button
-                    type="primary"
-                    shape="round"
-                    size="large"
-                    htmlType="submit"
-                    style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
-                    icon={<ArrowRightOutlined />}
-                    onClick={proceedHandler}
-                  >Proceed</Button>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      // shape="round"
+                      size="large"
+                      htmlType="submit"
+                      style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                      icon={<ArrowRightOutlined />}
+                    // onClick={proceedHandler}
+                    >Proceed</Button>
+                  </Form.Item>
                   {/* </Link> */}
                 </Col>
               </Row>

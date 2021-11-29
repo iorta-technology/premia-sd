@@ -27,6 +27,7 @@
   .card-content{
     display: block;
     margin-top: 10px;
+    cursor: pointer;
   }
   /* .ant-card-body {
     justify-content: center;
@@ -106,7 +107,7 @@
 }
 .salesGuideCont div h1{
   color: #fff !important;
-font-size: 50px;
+  font-size: 50px;
 }
 .salesGuideCont div:first-child{
   text-align: left;
@@ -129,6 +130,7 @@ font-size: 50px;
   padding: 5px;
   text-align: center;
   color: #fff;
+  cursor: pointer;
 }
 .birthday-slides{
   text-align: center;
