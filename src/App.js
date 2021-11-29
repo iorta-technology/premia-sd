@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Spin } from 'antd';
 
 const LeadMaster = React.lazy(()=> import('./containers/LeadMaster/index'))
+const AdvisorList = React.lazy(()=> import('./components/AdvisorOnboarding/AdvisorCard'))
 const StatusLead = React.lazy(()=> import('./components/StatusLead/StatusLead'))
 const PersonalDetails = React.lazy(()=> import('./components/LeadDetails/PersonalDetails/PersonalDetails'))
 const ContactDetails = React.lazy(()=> import('./components/LeadDetails/ContactDetails/ContactDetails'))
@@ -99,13 +100,9 @@ const MappedBranches = React.lazy(()=> import('./components/MappedBranches/Mappe
 // const MappedBranches = React.lazy(()=> import('./components/MappedBranches/MappedBranches'))
 const LoanProducts = React.lazy(()=> import('./components/Products/LoanProducts'))
 
-
-
-
 const ProposalFulfilment = React.lazy(() => import('./components/ProposalFulfilment/ProposalFulfilment'))
 const PrePaymentReview = React.lazy(() => import('./components/PrePaymentReview/PrePaymentReview'))
 const PaymentOptions = React.lazy(() => import('./components/PaymentOptions/PaymentOptions'))
-
 const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/ProposalHistory'))
 const ProofAddress = React.lazy(() => import('./components/UploadDocuments/AddressProof'))
 function App() {
@@ -133,6 +130,7 @@ function App() {
             <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
             <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
             <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
+            <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>
               {/* <Route exact path="/">
                   <Redirect to="/" />
@@ -151,19 +149,20 @@ function App() {
               <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
               <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
               <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
-
-
-
-
+              
+             
+              
               {/* Make this route at the end only. */}
-              <Route  path="/" component={AgentMicroService}></Route>
+              <Route  path="/agentMicrosite" component={AgentMicroService}></Route>
               <div>
               <Sidebar />
               <Route path="/clubsMaster" component={ClubsMaster}></Route>
               <Route path="/birthday" component={Birthday}></Route>
               <Route path="/home" component={HomePage}></Route>
               <Route path="/rewardscorner/contests/completed" component={CompletedContest}></Route>
+              <Route path="/rewardscorner/contests/completeddetails" component={CompletedContestDetails}></Route>
               <Route path="/rewardscorner/contests/allcontest" component={AllContest} />
+              <Route path="/rewardscorner/contests/allcontestdetails" component={AllContestDetails} />
               <Route path="/rewardscorner/contests/myoverallranking" component={MyOverallRanking} />
               <Route path="/rewardscorner/contests/activecontest" component={ActiveContest} />
               <Route path="/rewardscorner/contests/activecontestdetails" component={ActiveContestDetails} />

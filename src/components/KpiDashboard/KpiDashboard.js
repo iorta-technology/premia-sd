@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import * as actions from '../../store/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from "moment";
@@ -18,15 +18,36 @@ const KpiDashboard = () => {
 
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data)
   const employee_data = kpi_data
-  console.log("kpi-data",kpi_data)
-  console.log("employee data",employee_data)
   let avatar = employee_data[0]?.data.first_name.match(/\b(\w)/g) + employee_data[0]?.data.last_name.match(/\b(\w)/g)
   let updatedDate = Moment(employee_data[1]?.data.uploadedDate).format("MM/DD/yyyy")
   let month =  Moment(employee_data[1]?.data.uploadedDate).format("MMM")
   let dataSource = []
   let dataSource1 = []
-  dataSource = [... employee_data[3]?.data]
-  dataSource1 = [... employee_data[2]?.data]
+  const[finalKpiData,setFinalKpiData]=useState([]);
+  const[finalBudgetData,setFinalBudgetData]=useState([]);
+  
+  useEffect(()=>{
+setTimeout(()=>{
+  console.log(employee_data)
+  const kpiData=employee_data?employee_data.filter((item=>item.id=="final_score_last_two_month")):[];
+  console.log(kpiData)
+  config.data=kpiData[0]?.data?[... kpiData[0]?.data]:[];
+  setFinalKpiData(kpiData[0]?.data?[... kpiData[0]?.data]:[]);
+
+  const kpiBudget=employee_data?employee_data.filter((item=>item.id=="GPW_last_two_month")):[];
+  let data=kpiBudget[0]?.data?[... kpiBudget[0]?.data]:[];
+
+  data=data.map((item=>({
+    ...item,
+    ...item.GPW
+  })))
+  console.log(data)
+  //config.data=kpiBudget[0]?.data?[... kpiBudget[0]?.data]:[];
+  setFinalBudgetData(data);
+
+})
+  },[employee_data])
+  // dataSource = [... employee_data[3]?.data]
 
    
     const { Option } = Select;
@@ -50,7 +71,7 @@ const KpiDashboard = () => {
       {
         title: 'Period',
         dataIndex: 'month',
-        key: 'Period',
+        key: 'month',
       },
       {
         title: 'Final Score',
@@ -60,29 +81,46 @@ const KpiDashboard = () => {
       {
         title: '% Change over last month',
         dataIndex: 'change_in_percent',
-        key: '% Change over last month',
+        key: 'change_in_percent',
       },
     ];
     const columns1 = [
       {
         title: 'Period',
         dataIndex: 'month',
-        key: 'Period',
+        key: 'month',
       },
       {
         title: 'GPW(in ₹ Lac) Budget',
-        dataIndex: 'sgpw_budget',
+        dataIndex: 'gpw_budget',
         key: 'gpw_budget',
       },
       {
         title: 'GPW(in ₹ Lac) Actual',
-        dataIndex: 'sgpw_actual',
+        dataIndex: 'gpw_actual',
         key: 'gpw_actual',
       },
       {
         title: '% Achievement',
-        dataIndex: 'sgpw_achievement',
+        dataIndex: 'gpw_achievement',
         key: 'gpw_achievement',
+      },
+    ]
+    const columns2 = [
+      {
+        title: 'CSM Name',
+        dataIndex: 'csmName',
+        key: 'csmName',
+      },
+      {
+        title: 'City',
+        dataIndex: 'city',
+        key: 'city',
+      },
+      {
+        title: 'Final KPI Score %',
+        dataIndex: 'value',
+        key: 'value',
       },
     ]
     const data = [
@@ -95,8 +133,8 @@ const KpiDashboard = () => {
       ];
       const config = {
         data,
-        xField: 'year',
-        yField: 'value',
+        xField: 'month',
+        yField: 'Final_Score',
         point: {
           size: 5,
           shape: 'diamond',
@@ -201,6 +239,9 @@ const KpiDashboard = () => {
         },
         color: ['rgb(228, 106, 37)','#00ACC1']
       };
+      const data2 = [
+        { csmName: 'Calvin Robert',city:'Mumbai', value: 56 },
+      ];
     return(
         <>
       <Row className="header">
@@ -333,7 +374,7 @@ const KpiDashboard = () => {
             <Column {...config} />
             </div>
             {/* graph */}
-            <Table pagination={false} columns={columns} dataSource={dataSource1} />
+            <Table pagination={false} columns={columns} dataSource={finalKpiData} />
         </Col>
         <Col span={8} style={{marginLeft:"10px"}} className="graph">
         <div style={{padding:"15px"}}>
@@ -362,7 +403,7 @@ const KpiDashboard = () => {
         <div style={{padding:'10px'}}>
         <Column {...config1} />
         </div>
-        <Table pagination={false} columns={columns}  />
+        <Table pagination={false} columns={columns1}  dataSource={finalBudgetData}/>
         </Col>
         <Col span={8} style={{marginLeft:"10px"}} className="graph">
         <div style={{padding:"15px"}}>
@@ -390,7 +431,7 @@ const KpiDashboard = () => {
        
         </div>
 
-        <Table className="rms" pagination={false} columns={columns} dataSource={dataSource} />
+        <Table className="rms" pagination={false} columns={columns2} dataSource={data2} />
 
         </Col>
       </Row>

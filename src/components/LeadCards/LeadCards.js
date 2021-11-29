@@ -47,7 +47,7 @@ const LeadCards = (props) => {
                 {card}
                 {/* this is just a presentational card  */}
                 <Col sm={18}  md={18} lg={11} xl={10} className={width<breakpoint? "dummy-card-mobile":'dummy-card-desktop'} >
-                    <div  >
+                    <  >
                         <Card
                             // key={id}
                             // loading={props.loading}
@@ -92,7 +92,7 @@ const LeadCards = (props) => {
                             </div>
                             <button className="update-btn" >Update</button>
                         </Card>
-                    </div>
+                    </>
                 </Col>
             </Row>
         </div>

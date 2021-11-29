@@ -1,0 +1,28 @@
+0: {_id: "618e1723ec9bcc5892344b99", showComment: false,…}
+appointment_type: "existingapplication"
+clientVisit: "relationshipcall"
+created_date: 1636701987226
+customerId: null
+durationType: "customedatetime"
+end_date: 1636761600000
+end_time: 34200000
+end_time_MS: 1636795800000
+event_description: "Duttprasad Birmole will  have a relationship call with Anusha"
+event_name: "phonecall"
+event_type: "phonecall"
+isLeadFailed: false
+leadId: {_id: "618ba9fb881d494838430560", salutation: "", firstName: "anusha", primaryMobile: 6823899091}
+manuallycustomerAdded: "false"
+manuallyrenewalCustomer: []
+partnerId: null
+showComment: false
+start_date: 1636761600000
+start_time: 30600000
+start_time_MS: 1636792200000
+statusReason: ""
+statusType: "open"
+tata_appointment_type: ""
+teamMember: []
+teamMember_clone: []
+userId: {_id: "616e908c43ed727bbac8d2d4", primary_email: "Duttprasad.Birmole@tataaig.com"}
+_id: "618e1723ec9bcc5892344b99"
