@@ -367,10 +367,11 @@ const NewLead = React.memo(() => {
   const [stateProvince, setStateProvince] = useState(storeStateValue)
   const [cityProvince, setCityProvince] = useState(storeCityValue)
   const [errorMessage, setErrorMessage] = useState()
-  const [isNewLead, setIsNewLead] = useState(true)
+  const [isNewLead, setIsNewLead] = useState()
 
 
   useEffect(() => {
+
     // console.log('payload',payloadFormData)
     // console.log('nonpayload',storeFormData)
     // dispatch(actions.fetchLeadDetails(fetchLeadId))
@@ -378,6 +379,7 @@ const NewLead = React.memo(() => {
     // console.log(appointmentStatus)
     // console.log('mobile', leadArr)
     if (storeLeadId !== '') {
+
       setIsNewLead(false)
     }
     if(primaryNo.length===10){
