@@ -10,7 +10,9 @@ const initialState = {
     achievements:{},
     fetchAgentDetailsLoading:false,
     fetchAgentDetailsError:"",
-
+    profileImage:'',
+    socialLinks:{},
+    products:[],
 }
 // states reducer
 const fetchAgentDetailsStart = (state, action) => {
@@ -18,7 +20,15 @@ const fetchAgentDetailsStart = (state, action) => {
 }
 
 const fetchAgentDetailsSuccess = (state, action) => {
-    const { first_name, last_name,micrositeId:{achievements,Testimonials} } = action.agentDetails
+    const { 
+        first_name, 
+        last_name,
+        microsite_settings:{achievements:{badges}} ,
+        microsite_settings:{testimonials}, 
+        microsite_settings:{profileImage}, 
+        microsite_settings:{connectWithMe}, 
+        products,
+    } = action.agentDetails
     // console.log(achievements,Testimonials)
     // const {}
 
@@ -27,12 +37,18 @@ const fetchAgentDetailsSuccess = (state, action) => {
         agentDetails: action.agentDetails,
         first_name:first_name,
         last_name:last_name,
-        achievements:achievements,
-        testimonials:Testimonials
+        achievements:badges,
+        testimonials:testimonials,
+        profileImage:profileImage,
+        socialLinks:connectWithMe,
+        products:products,
     })
 }
 const fetchAgentDetailsFail = (state, action) => {
-    return updateObject(state, { fetchAgentDetailsLoading: false, fetchAgentDetailsError: action.error });
+    return updateObject(state, { 
+        fetchAgentDetailsLoading: false, 
+        fetchAgentDetailsError: action.error 
+    });
 }
 
 

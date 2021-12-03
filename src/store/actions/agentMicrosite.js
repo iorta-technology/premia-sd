@@ -28,9 +28,9 @@ export const fetchAgentDetails = (agentId) => {
         dispatch(fetchAgentDetailsStart())
         return axios.get(`user/get-microsite-settings/${agentId}`)
             .then(res => {
-                // console.log(res.data.data)
-                const response = res.data
-                return dispatch(fetchAgentDetailsSuccess(response.data))
+                console.log(res.data.data[0])
+                const response = res.data.data[0]
+                return dispatch(fetchAgentDetailsSuccess(response))
                 // if(response.status===200){
                 // }
             })
