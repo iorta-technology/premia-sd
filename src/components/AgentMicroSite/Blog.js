@@ -28,11 +28,11 @@ const Blog = () => {
     const [mobile,setMobile]= useState('')
     const [product,setProduct]= useState('')
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [cblogId, setCblogId] = useState("")
+    const [cblogId, setCblogId] = useState()
     const location = useLocation()
     useEffect(() => {
-        setCblogId(location.state.id)
-        console.log("blog-id",cblogId)
+        setCblogId(location?.state?.id)
+        console.log("blog-id",location)
         }, [location]);
     const payload={
         user_id: "5df77d17009e273b39cae811",
@@ -62,7 +62,7 @@ const Blog = () => {
     }
     const history = useHistory()
     const backToLanding=()=>{
-        history.push('/himanshu')
+        history.push('/profile')
     }
     const showModal = () => {
         setIsModalVisible(true);
