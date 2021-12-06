@@ -16,8 +16,8 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     useEffect(() => {
         const {id} = stoageGetter('user')
         // console.log(typeof(leadType))
-        dispatch(actions.fetchAllLeads(id,leadType,current))
-    },[dispatch,current,activeTab]);
+        dispatch(actions.fetchAllLeads(id,leadType,1))
+    },[dispatch,current,activeTab,leadType]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
 

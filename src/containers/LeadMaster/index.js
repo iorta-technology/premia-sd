@@ -14,7 +14,7 @@ const LeadMaster = (props) => {
     useEffect(() => {
         const {id} = stoageGetter('user')
         // console.log(id)
-        dispatch(actions.fetchAllLeads('',current))
+        dispatch(actions.fetchAllLeads(id,'',current))
     },[dispatch,current]);
 
     //Accessing LeadCard data  from store
@@ -48,7 +48,7 @@ const LeadMaster = (props) => {
 
     const handlePageClick = (page)=>{
         setcurrent(page)
-        // console.log(page)
+        console.log(page)
     }
     const tabMenu = [
         {
@@ -79,7 +79,7 @@ const LeadMaster = (props) => {
             <Tab 
                 tabMenu={tabMenu} 
                 header="Lead" 
-                current={current}
+                // current={current}
                 />
                 <Button type='primary' className="export-btn">Export</Button>
             {/* <div className="export-btn-holder">

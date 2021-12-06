@@ -8,7 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import moment from 'moment';
-import { random } from 'lodash';
+import _ from 'lodash';
 const formItemLayout = {
     labelCol: {
         span: 24,
@@ -76,12 +76,12 @@ const ExistingInsurenceDetails = () => {
     let lifeObjDisplay = useSelector((state) => state.newLead.HaveLifeInsurance_details)
     let healthObjDisplay = useSelector((state) => state.newLead.Insurancedetails)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
-    let storeLifeInsArr = useSelector((state) => state.newLead.HaveLifeInsurance_details)
+    let storeLifeInsArr = useSelector((state) => state.newLead.formData.HaveLifeInsurance_details)
     console.log(storeLifeInsArr)
     if(storeLifeInsArr==='' || storeLifeInsArr==='[]' || storeLifeInsArr===undefined){
         storeLifeInsArr = []
     }
-    let storeHealthInsArr = useSelector((state) => state.newLead.Insurancedetails)
+    let storeHealthInsArr = useSelector((state) => state.newLead.formData.Insurancedetails)
     console.log(storeHealthInsArr)
     if(storeHealthInsArr==='' || storeHealthInsArr==='[]' || storeHealthInsArr===undefined){
         storeHealthInsArr = []
@@ -135,14 +135,28 @@ const ExistingInsurenceDetails = () => {
     const [healthRiskDate, setHealthRiskDate] = useState('')
     const [haveChronicDisease, sethaveChronicDisease] = useState(false)
     const [diseaseDescription, setDiseaseDescription] = useState('')
-    const [lifeInsObj, setlifeInsObj] = useState(storeLifeInsArr)
-    const [healthInsObj, setHealthInsObj] = useState(storeHealthInsArr)
+    const [errorMessage, setErrorMessage] = useState()
+    const [lifeInsObj, setlifeInsObj] = useState(()=>{
+        if(!_.isEmpty(storeLifeInsArr)){
+            return storeLifeInsArr
+        }else{
+            return []
+        }
+    })
+    const [healthInsObj, setHealthInsObj] = useState(()=>{
+        if(!_.isEmpty(storeHealthInsArr)){
+            return storeHealthInsArr
+        }else{
+            return []
+        }
+    })
     const breakpoint = 620;
 
     useEffect(() => {
-        form.resetFields()
         form.setFieldsValue({
             // life ins
+            "healthInsuranceSwitch":haveHealthInsurece,
+            "lifeInsuranceSwitch":haveLifeInsurence,
             "insurer": insurer,
             "lifeSumAssured": lifeSumAssured,
             "policyType": policyType,
@@ -171,6 +185,7 @@ const ExistingInsurenceDetails = () => {
         insurer,
         lifeSumAssured,
         width,
+        form
     ]);
 
 
@@ -342,54 +357,57 @@ const ExistingInsurenceDetails = () => {
         return result;
     }
 
-    const formData = {
+    // const formData = {
 
-        ...storeFormData,
-        HaveLifeInsurance:{
-            ExistHealthInsur:haveHealthInsurece,
-            ExistInsur:haveLifeInsurence
-        },
-        HaveLifeInsurance_details: [
+    //     ...storeFormData,
+    //     HaveLifeInsurance:{
+    //         ExistHealthInsur:haveHealthInsurece,
+    //         ExistInsur:haveLifeInsurence
+    //     },
+    //     HaveLifeInsurance_details: [
 
-            {
-                id: 'insu' + randomId(),
-                Insurer: insurer,
-                sum_Assured: lifeSumAssured,
-                policy_Type: policyType,
-                policy_Status: policyStatus,
-                Comencedate: commencementDate,
-                Appdate: applicationDate,
-                policynumber: policyNumber
-            },
-        ],
-        Insurancedetails: [
-            {
-                id: "insu" + randomId(),
-                SelectRelation: relation,
-                Name: insurername,
-                DateofBirth: dobOfInsurer,
-                IsInsuredsufferingfromanychronicdisease: healthInsuranceYes,
-                Description: diseaseDescription,
-                planName: typeOfPlan,
-                sumInsured: healthSumInsured,
-                riskDate: healthRiskDate
-            }
-        ]
+    //         {
+    //             id: 'insu' + randomId(),
+    //             Insurer: insurer,
+    //             sum_Assured: lifeSumAssured,
+    //             policy_Type: policyType,
+    //             policy_Status: policyStatus,
+    //             Comencedate: commencementDate,
+    //             Appdate: applicationDate,
+    //             policynumber: policyNumber
+    //         },
+    //     ],
+    //     Insurancedetails: [
+    //         {
+    //             id: "insu" + randomId(),
+    //             SelectRelation: relation,
+    //             Name: insurername,
+    //             DateofBirth: dobOfInsurer,
+    //             IsInsuredsufferingfromanychronicdisease: healthInsuranceYes,
+    //             Description: diseaseDescription,
+    //             planName: typeOfPlan,
+    //             sumInsured: healthSumInsured,
+    //             riskDate: healthRiskDate
+    //         }
+    //     ]
 
-    };
+    // };
 
 
 
     const proceedHandler = event => {
         event.preventDefault();
 
-        dispatch(actions.storeLead(formData))
+        dispatch(actions.storeLead(storeFormData))
         history.push('productlead')
     };
-
+    const failedHandler = (error)=>{
+        alert(error)
+        console.log(error)
+    }
     const submitHandler = event => {
         if (!storeLeadId) {
-            dispatch(actions.storeLead(formData))
+            dispatch(actions.storeLead(storeFormData))
 
             // alert('New Lead Updated Successfully')
             // history.push('contactlead')
@@ -397,7 +415,20 @@ const ExistingInsurenceDetails = () => {
             // setIsNewLead(false)
         } else {
 
-            dispatch(actions.editLead(formData, storeLeadId))
+            dispatch(actions.editLead(storeFormData, storeLeadId))
+            .then((res)=>{
+                if (res.type === "EDIT_LEAD_SUCCESS") {
+                  console.log('success:', res);
+                  setErrorMessage()
+                //   setIsNewLead(false)
+                  
+                }else if(res.type==='EDIT_LEAD_FAIL'){
+                  console.log('failed:', res);
+        
+                  failedHandler(res.error)
+                  console.log(res)
+                }
+            })
             // alert(' Lead Updated Successfully')
             // history.push('contactlead')
 
@@ -605,6 +636,8 @@ const ExistingInsurenceDetails = () => {
                         "diseaseDesc": diseaseDescription,
                     }}
                     onFinish={submitHandler}
+                    onFinishFailed={failedHandler}
+
                 >
                     <Row gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="4" />
@@ -640,18 +673,19 @@ const ExistingInsurenceDetails = () => {
                                             value={lifeInsuranceYes}
                                              /> */}
                                     </Form.Item>
-                                    {lifeInsToggle ?
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} >
-                                            <Button shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
-                                        </Col> : null
-                                    }
                                 </Col>
+                                    {lifeInsToggle &&
+                                        <><Col xs={24} sm={24} md={12} lg={12} xl={12} >
+                                            <Button shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
+                                        </Col> 
                                 <Table
                                     dataSource={lifeInsObj}
                                     columns={lifeInsColumn}
                                     rowKey={record => record.id}
                                     scroll={{ x: 1500 }}
                                 />
+                                </>
+                                    }
                                 <>
                                     <Modal
                                         title="Insurance Details"
@@ -862,18 +896,19 @@ const ExistingInsurenceDetails = () => {
                                         </Radio.Group>
                                         {/* <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false}  /> */}
                                     </Form.Item>
-                                    {healthInsToggle ?
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                    </Col>
+                                    {healthInsToggle &&
+                                      <>  <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                             <Button shape="round" size="large" block onClick={showHealthInsuranceModal}>Add Insurance Details</Button>
-                                        </Col> : null
+                                        </Col> 
+                                    <Table
+                                        dataSource={healthInsObj}
+                                        columns={healthInsColumn}
+                                        rowKey={record => record.id}
+                                        scroll={{ x: 1500 }}
+                                    />
+                                    </>
                                     }
-                                </Col>
-                                <Table
-                                    dataSource={healthInsObj}
-                                    columns={healthInsColumn}
-                                    rowKey={record => record.id}
-                                    scroll={{ x: 1500 }}
-                                />
                                 <>
                                     <Modal
                                         title="Insurance Details"

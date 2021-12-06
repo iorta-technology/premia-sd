@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
 import {stoageGetter} from '../../helpers'
 import _ from 'lodash'
+
 const logindata = stoageGetter('user')
 let id = ''
 if(logindata){
@@ -114,6 +115,7 @@ const initialState = {
 
         // }
     },
+    errorMessage:''
 
 
 }
@@ -145,7 +147,8 @@ const createLeadFail = (state, action) => {
     return updateObject(state, { 
         createLeadLoading: false, 
         createLeadError: action.error,
-        leadDataloading:false 
+        leadDataloading:false,
+        errorMessage:action.error
     });
 }
 
@@ -171,7 +174,9 @@ const editLeadSuccess = (state, action) => {
 const editLeadFail = (state, action) => {
     return updateObject(state, { 
         editLeadError: action.error,
-        leadDataloading:false 
+        leadDataloading:false,
+        errorMessage:action.error
+
     });
 }
 
@@ -203,12 +208,12 @@ const fetchLeadDetailsSuccess = (state, action) => {
     const fetchLeadId = action.fetchLeadId
     const  {Insurancedetails} = action.leadDetails
     const  {HaveLifeInsurance_details} = action.leadDetails
-        if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){
+        // if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){
 
-            var  healthInsObject = JSON.parse(Insurancedetails)
+        //     var  healthInsObject = JSON.parse(Insurancedetails)
     
-            var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
-        }
+        //     var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
+        // }
         const payload = {...state.formData,...action.leadDetails,...state.appointmentData,...action.appointmentDetails}
     return updateObject(state, { 
         leadDataloading:false,
@@ -219,8 +224,8 @@ const fetchLeadDetailsSuccess = (state, action) => {
         // mailingAddressSecond:address2,
         leadId:action.leadDetails._id,
         userId:action.leadDetails.userId._id,
-        Insurancedetails:healthInsObject,
-        HaveLifeInsurance_details:lifeInsObject,
+        // Insurancedetails:healthInsObject,
+        // HaveLifeInsurance_details:lifeInsObject,
         address:action.leadDetails.address[0],
         mailingAddressSecond:addSecond,
         fetchLeadId:fetchLeadId,

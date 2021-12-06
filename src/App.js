@@ -100,19 +100,19 @@ function App() {
         <div className="box-size">
           <Switch>
             <Route exact path="/">
-              <Redirect to="/himanshu" />
+              <Redirect to="/profile" />
             </Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/forgotpassword" component={ForgotPassword}></Route>
             <Route exact path="/changepassword" component={ChangePassword}></Route>
-            <Route exact path="/himanshu" component={AgentMicroService}></Route>
+            <Route exact path="/profile" component={AgentMicroService}></Route>
             <Route exact path="/blog" component={Blog}></Route>
-            <Route exact path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>
               {/* Make this route at the end only. */}
               <Route exact  path="/agentMicrosite" component={AgentMicroService}></Route>
               {/* <div> */}
               <Sidebar />
+              <Route exact path="/advisorOnboarding/:type" component={AdvisorList}></Route>
               <Route exact path="/leadMaster/:leadType" component={LeadMaster}></Route>
               <Route exact path="/leadmasterpage/statuslead" component={StatusLead}></Route>
               <Route exact path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>

@@ -89,6 +89,8 @@ const ProfessionalDetails = () => {
     console.log(storeEducation,storeProfessionType,storeIncomeGroup)
 
     const [isNewLead, setIsNewLead] = useState(true)
+    const [errorMessage, setErrorMessage] = useState()
+
     const [width, setWidth] = useState(window.innerWidth);
     const [educationDetails, setEducationDetails] = useState(storeEducation)
     const [professionType, setProfessionType] = useState(storeProfessionType)
@@ -129,10 +131,41 @@ const ProfessionalDetails = () => {
         incomeGroup: incomeGroup
 
     };
-
+    const failedHandler = (error)=>{
+        alert(error)
+        console.log(error)
+    }
     const submitHandler = event => {
         console.log('hello')
-        dispatch(actions.storeLead(formData))
+        if(!storeLeadId){
+
+            dispatch(actions.storeLead(formData))
+
+            // alert('New Lead Updated Successfully')
+            // history.push('contactlead')
+            
+            setIsNewLead(false)
+        }else{
+      
+            dispatch(actions.editLead(formData, storeLeadId))
+            .then((res)=>{
+                if (res.type === "EDIT_LEAD_SUCCESS") {
+                  console.log('success:', res);
+                  setErrorMessage()
+                  setIsNewLead(false)
+                  
+                }else if(res.type==='EDIT_LEAD_FAIL'){
+                  console.log('failed:', res);
+        
+                  failedHandler(res.error)
+                  console.log(res)
+                }
+              })
+            // alert(' Lead Updated Successfully')
+            // history.push('contactlead')
+            
+        }
+        // dispatch(actions.storeLead(formData))
         // if(isNewLead){
 
         //     alert('New Lead Updated Successfully')
@@ -197,6 +230,7 @@ const ProfessionalDetails = () => {
                         "incomeGroup": incomeGroup,
                     }}
                     onFinish={submitHandler}
+                    onFinishFailed={failedHandler}
 
                 >
                     <Row gutter={[0, 20]} justify="center">

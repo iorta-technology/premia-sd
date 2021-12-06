@@ -52,13 +52,13 @@ export const createLead = (formData) => {
 
 export const editLeadStart = () => {
     return {
-        type: actionTypes.CREATE_LEAD_START
+        type: actionTypes.EDIT_LEAD_START
     }
 }
 
 export const editLeadSuccess = (formData) => {
     return {
-        type: actionTypes.CREATE_LEAD_SUCCESS,
+        type: actionTypes.EDIT_LEAD_SUCCESS,
         formData: formData,
     }
 } 
@@ -66,7 +66,7 @@ export const editLeadSuccess = (formData) => {
 
 export const editLeadFail = (error) => {
     return {
-        type: actionTypes.CREATE_LEAD_FAIL,
+        type: actionTypes.EDIT_LEAD_FAIL,
         error: error
     }
 }
@@ -87,7 +87,9 @@ export const editLead = (formData,id) => {
                 }
             })
             .catch(error => {
-                return dispatch(editLeadFail(error))
+                const errorMessage = error.data.errMsg
+
+                return dispatch(editLeadFail(errorMessage))
             })
     }
 }

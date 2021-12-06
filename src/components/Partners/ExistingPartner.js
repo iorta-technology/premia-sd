@@ -13,13 +13,14 @@ import {
   } from '@ant-design/icons';
   import {
     BrowserRouter as Router,
-    Link
+    Link,useHistory
   } from "react-router-dom";
 import axios from 'axios';
 import NoRecord from './NoRecord';
 import './NoRecord.css';
 const { Search } = Input;
 const ExistingPartner=()=>{
+  const history=useHistory();
   const UserList = ['U', 'L', 'To', 'Ed'];
 const ColorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 const GapList = [4, 3, 2, 1];
@@ -350,6 +351,9 @@ const SearchFilterValueFunc=(e)=>{
 setSearchFilterValue(e.target.value)
 setPostSearchValue(JSON.stringify(e.target.value))
 }
+const RedirectFunc=()=>{
+  history.push('leadMaster/all_leads')
+}
 
     return(
         <div
@@ -434,6 +438,7 @@ onClick={AllTabClickFunc}
        className="Existingpartner-lead-button-flex"
        >
        <div
+       onClick={RedirectFunc}
        className="Existingpartner-lead-button-style"
        >
        
