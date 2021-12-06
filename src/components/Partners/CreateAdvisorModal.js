@@ -11,12 +11,12 @@ const { Search } = Input;
 let dateFormat = 'YYYY/MM/DD';
 
 let addEvent = [];
-const CreateAdvisorModal=({advisorModalVisible})=>{
+const CreateAdvisorModal=({advisorModalVisible,advisorName})=>{
     let{innerWidth:width,innerHeight:height}=window;
   const format = 'h:mm';
   let month=moment().format('MM/YYYY');
   // console.log(month)    
-  
+
 
   const [advisorCheck, setAdvisorCheck] = useState(true)
   const [prospectCheck, setProspectCheck] = useState(false)
@@ -2393,7 +2393,7 @@ setDurationStartDateHelper(e.dateStr)
           onClose={ProspectTagCloseFunc}
           className="CalendarEvent-Modal-Search-tag-style"
         >
-        Test
+        {advisorName}
         </Tag>
 
 
