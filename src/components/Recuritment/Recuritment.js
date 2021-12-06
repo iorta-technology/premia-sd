@@ -4,6 +4,11 @@ import { Modal, Button ,Checkbox,Form, Input} from 'antd';
 import { MessageFilled } from '@ant-design/icons';
 
 const Recruitment = ({hideModal}) => {
+  const [form] = Form.useForm();
+  const [cName, setcName] = useState('');
+  const [mobile, setMobile] = useState('')
+  const [cemail, setCemail] = useState('')
+  const [pan, setPan] = useState('')
     const [isModalVisible, setIsModalVisible] = useState(true);
     const [show, setShow] = useState(false);
    useEffect(() => {
@@ -26,6 +31,22 @@ const Recruitment = ({hideModal}) => {
           setShow(false);
       }
       }
+      const onAddProposal = () => {
+        console.log('object',cName,mobile,cemail,pan)
+        // axios.post(`user/addlead`, payload).then(resp => {
+        //     // console.log("lets connect resp",resp)
+        //     if (resp?.data?.errCode === 9) {
+        //         message.error(resp.data.errMsg);
+        //     }
+        //     else if (resp?.data?.errCode === -1) {
+        //         message.success('Thanks for providing us the details. We will connect with you shortly.');
+        //         form.resetFields();
+        //     }
+
+        // }).catch(err => {
+        //     console.log("lets connect error", err)
+        // })
+    }
     return(<div className="main">
          <Modal title="New Recruitment" visible={true} onOk={handleOk} onCancel={handleCancel} footer={null} cancelButtonProps={{
                         style: {
@@ -65,18 +86,51 @@ const Recruitment = ({hideModal}) => {
                     
                     <h3>Agent Details</h3>
                     <hr></hr>
-                    <Form layout="vertical">
-                    <Form.Item label="Candidate Name as per PAN*" required >
-                      <Input placeholder="Enter Candidate Name as per PAN" />
+                    <Form layout="vertical" form={form} onFinish={onAddProposal}>
+                    <Form.Item label="Candidate Name as per PAN*" rules={[
+                        {
+                          required: true,
+                          message: "Enter valid Candidate Name as per PAN"
+                        }
+                        ]}>
+                      <Input placeholder="Enter Candidate Name as per PAN" onChange={(e) => setcName(e.target.value)} />
                     </Form.Item>
-                    <Form.Item label="Mobile No. *" required >
-                      <Input placeholder="Enter Mobile No" />
+                    <Form.Item label="Mobile No. *"  rules={[
+                            {
+                              required: true,
+                              message: "Mobile is Required"
+                            },
+                          {
+                            min: 10,
+                            max: 10,
+                            pattern: '^([-]?[1-9][0-9]*|0)$',
+                            message: "Enter a Valid Mobile Number"
+                          }
+                          ]}>
+                      <Input placeholder="Enter Mobile No" onChange={(e) => setMobile(e.target.value)} />
                     </Form.Item>
-                    <Form.Item label="Email *" required >
-                      <Input placeholder="Enter Email" />
+                    <Form.Item label="Email *" 
+                    rules={[
+                      {
+                        type: 'email',
+                        required: true
+                      },
+                    ]}>
+                      <Input placeholder="Enter Email" onChange={(e) => setCemail(e.target.value)} />
                     </Form.Item>
-                    <Form.Item label="PAN Number *" required >
-                      <Input placeholder="Enter PAN Number" />
+                    <Form.Item label="PAN Number *" rules={[
+                            {
+                              required: true,
+                              message: "PAN is Required"
+                            },
+                          {
+                            min: 10,
+                            max: 10,
+                            pattern: '/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/',
+                            message: "Enter a Valid PAN Number"
+                          }
+                          ]}>
+                      <Input placeholder="Enter PAN Number" onChange={(e) => setPan(e.target.value)} />
                     </Form.Item>
                     </Form>
               </div>
