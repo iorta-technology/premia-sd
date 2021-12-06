@@ -126,7 +126,27 @@ width: 100%;
 }
 .Existingpartner-Tag-area-flex{
     display: flex;
+    flex-direction: row;
     margin-top: 1vw;
+    margin-left: 3vw;
+}
+.Existingpartner-selectedfilter-text-style{
+    font-weight: bold;
+    margin-right: 0.8vw;
+}
+.Existingpartner-recordnumber-style{
+    margin-left: 3vw;
+}
+.Existingpartnerdetails-recordtext-bold-orange-style{
+    font-size:15px;
+    color:black;
+    font-weight: bold;
+    font-family: robotobold;
+}
+.Existingpartnerdetails-recordtext-bold-black-style{
+    font-size:15px;
+    color:#E46A25;
+    font-family: robotobold;
 }
 .Existingpartner-filter-tag-style{
     background-color:#00ACC1 ; /* Green */
@@ -146,23 +166,77 @@ width: 100%;
     color: white;
     padding-left: 1vw;
   }
-.Existingpartner-card-flex{
+.Existingpartner-card-flex-area{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* flex-wrap: wrap; */
+flex:1;
+    /* flex-direction: column; */
+    /* justify-content: space-around; */
+    /* margin-top: 3vw;
+    margin-right: 2vw;
+    margin-left: 2vw; */
+    width: 100%;
+    /* background-color: black; */
+
+}
+.Existingpartner-cardbutton-flex{
+    display: flex;
+    flex-direction: row;
+  
+    /* background-color: yellow; */
+    /* height: 100vh; */
+}
+.Existingpartner-card-flex{
+    /* flex: 9.3; */
+    display: flex;
+    /* background-color: blue; */
+    flex-direction: row;
+    width: 93%;
+    
+}
+.Existingpartner-button-flex{
+    /* flex: 0.7; */
+    display: flex;
+    /* background-color: brown; */
+    flex-direction: row;
+    width: 7%;
+
+}
+.Existingpartner-button-column-flex{
+    display: flex;
+    flex-direction: column;
+    /* height: 100vh; */
+ margin-left: 1vw;
+
+    justify-content:center;
+}
+.Existingpartner-floater-button-alignment-style{
+    display: flex;
+    /* flex-direction: row; */
+    /* justify-content: flex-end; */
+}
+.Existingpartner-card-wrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    /* flex-direction: column; */
+    /* justify-content: space-around; */
     margin-top: 3vw;
     margin-right: 2vw;
     margin-left: 2vw;
+    width: 100%;
 }
-
 .Existingpartner-card-style{
-
 
     box-shadow: 0px 2px 3px 0px #8181817a;
     /* padding: 0px; */
     border-radius: 3px;
     background-color: #ffffff;
-    width: 48%;
+    width: 47%;
+  margin-bottom:3vw;
+  margin-right: 2vw;
     /* height: 30vh; */
     /* margin-left: 10px;
     margin-right: 10px;
@@ -374,6 +448,13 @@ margin-top: -0.8vw;
     margin-top: 0.5vw;
     width: 9vw;
     margin-bottom: 0.6vw;
+    color:white;
+    display: flex;
+    justify-content: center;
+
+}
+.Existingpartner-card-bottom-button-style:hover{
+    color: white;
 }
 .Existingpartner-card-bottom-button-style>span{
     color: white;
@@ -395,9 +476,10 @@ margin-top: -0.8vw;
     margin-left: 2vw;
 }
 .Existingpartner-floater-button-style{
+
     position:fixed;
-    width: 5vw;
-    height: 5vw;
+    width: 4vw;
+    height: 4vw;
     border-radius: 50%;
     box-shadow: 0 6px 10px 0 #666;
     transition: all 0.1s ease-in-out;
@@ -546,7 +628,7 @@ margin-left: 50px;
       .Existingpartner-filter-tag-style > .ant-tag-close-icon {
         padding-left: 1vw;
       }
-    .Existingpartner-card-flex{
+    .Existingpartner-card-flex-area{
         flex-direction: column;
       
     }

@@ -61,7 +61,7 @@ const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/Pr
 const ProofAddress = React.lazy(() => import('./components/UploadDocuments/AddressProof'))
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 const NotFound = React.lazy(()=> import('./components/ComponentNotFound/ComponentNotFound'))
-
+const NoRecord=React.lazy(()=> import('./components/Partners/NoRecord'))
 const ShopGuardRoute = ({ component: Component, ...props }) => (
   <Route
     {...props}
@@ -100,19 +100,19 @@ function App() {
         <div className="box-size">
           <Switch>
             <Route exact path="/">
-              <Redirect to="/himanshu" />
+              <Redirect to="/profile" />
             </Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/forgotpassword" component={ForgotPassword}></Route>
             <Route exact path="/changepassword" component={ChangePassword}></Route>
-            <Route exact path="/himanshu" component={AgentMicroService}></Route>
+            <Route exact path="/profile" component={AgentMicroService}></Route>
             <Route exact path="/blog" component={Blog}></Route>
-            <Route exact path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>
               {/* Make this route at the end only. */}
               <Route exact  path="/agentMicrosite" component={AgentMicroService}></Route>
               {/* <div> */}
               <Sidebar />
+              <Route exact path="/advisorOnboarding/:type" component={AdvisorList}></Route>
               <Route exact path="/leadMaster/:leadType" component={LeadMaster}></Route>
               <Route exact path="/leadmasterpage/statuslead" component={StatusLead}></Route>
               <Route exact path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
@@ -152,6 +152,7 @@ function App() {
               <Route exact path="/salespendency" component={SalesPendency}></Route>
               <Route exact path="/existingpartner" component={ExistingPartner}/>
               <Route exact path="/existingpartnerdetails" component={ExistingPartnerDetails}/>
+              {/* <Route exact path="/norecord" component={NoRecord}></Route> */}
               <Route exact path="/mappedbranches" component={MappedBranches}></Route>
               <Route exact path="/uploadMaster/addressProof" component={ProofAddress}></Route>
               <Route exact path="/proposalhistory" component={ProposalHistory}></Route>

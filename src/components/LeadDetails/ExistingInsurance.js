@@ -8,7 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import moment from 'moment';
-import { random } from 'lodash';
+import _ from 'lodash';
 const formItemLayout = {
     labelCol: {
         span: 24,
@@ -136,8 +136,20 @@ const ExistingInsurenceDetails = () => {
     const [haveChronicDisease, sethaveChronicDisease] = useState(false)
     const [diseaseDescription, setDiseaseDescription] = useState('')
     const [errorMessage, setErrorMessage] = useState()
-    const [lifeInsObj, setlifeInsObj] = useState(storeLifeInsArr)
-    const [healthInsObj, setHealthInsObj] = useState(storeHealthInsArr)
+    const [lifeInsObj, setlifeInsObj] = useState(()=>{
+        if(!_.isEmpty(storeLifeInsArr)){
+            return storeLifeInsArr
+        }else{
+            return []
+        }
+    })
+    const [healthInsObj, setHealthInsObj] = useState(()=>{
+        if(!_.isEmpty(storeHealthInsArr)){
+            return storeHealthInsArr
+        }else{
+            return []
+        }
+    })
     const breakpoint = 620;
 
     useEffect(() => {
@@ -173,6 +185,7 @@ const ExistingInsurenceDetails = () => {
         insurer,
         lifeSumAssured,
         width,
+        form
     ]);
 
 
@@ -344,48 +357,48 @@ const ExistingInsurenceDetails = () => {
         return result;
     }
 
-    const formData = {
+    // const formData = {
 
-        ...storeFormData,
-        HaveLifeInsurance:{
-            ExistHealthInsur:haveHealthInsurece,
-            ExistInsur:haveLifeInsurence
-        },
-        HaveLifeInsurance_details: [
+    //     ...storeFormData,
+    //     HaveLifeInsurance:{
+    //         ExistHealthInsur:haveHealthInsurece,
+    //         ExistInsur:haveLifeInsurence
+    //     },
+    //     HaveLifeInsurance_details: [
 
-            {
-                id: 'insu' + randomId(),
-                Insurer: insurer,
-                sum_Assured: lifeSumAssured,
-                policy_Type: policyType,
-                policy_Status: policyStatus,
-                Comencedate: commencementDate,
-                Appdate: applicationDate,
-                policynumber: policyNumber
-            },
-        ],
-        Insurancedetails: [
-            {
-                id: "insu" + randomId(),
-                SelectRelation: relation,
-                Name: insurername,
-                DateofBirth: dobOfInsurer,
-                IsInsuredsufferingfromanychronicdisease: healthInsuranceYes,
-                Description: diseaseDescription,
-                planName: typeOfPlan,
-                sumInsured: healthSumInsured,
-                riskDate: healthRiskDate
-            }
-        ]
+    //         {
+    //             id: 'insu' + randomId(),
+    //             Insurer: insurer,
+    //             sum_Assured: lifeSumAssured,
+    //             policy_Type: policyType,
+    //             policy_Status: policyStatus,
+    //             Comencedate: commencementDate,
+    //             Appdate: applicationDate,
+    //             policynumber: policyNumber
+    //         },
+    //     ],
+    //     Insurancedetails: [
+    //         {
+    //             id: "insu" + randomId(),
+    //             SelectRelation: relation,
+    //             Name: insurername,
+    //             DateofBirth: dobOfInsurer,
+    //             IsInsuredsufferingfromanychronicdisease: healthInsuranceYes,
+    //             Description: diseaseDescription,
+    //             planName: typeOfPlan,
+    //             sumInsured: healthSumInsured,
+    //             riskDate: healthRiskDate
+    //         }
+    //     ]
 
-    };
+    // };
 
 
 
     const proceedHandler = event => {
         event.preventDefault();
 
-        dispatch(actions.storeLead(formData))
+        dispatch(actions.storeLead(storeFormData))
         history.push('productlead')
     };
     const failedHandler = (error)=>{
@@ -394,7 +407,7 @@ const ExistingInsurenceDetails = () => {
     }
     const submitHandler = event => {
         if (!storeLeadId) {
-            dispatch(actions.storeLead(formData))
+            dispatch(actions.storeLead(storeFormData))
 
             // alert('New Lead Updated Successfully')
             // history.push('contactlead')
@@ -402,7 +415,7 @@ const ExistingInsurenceDetails = () => {
             // setIsNewLead(false)
         } else {
 
-            dispatch(actions.editLead(formData, storeLeadId))
+            dispatch(actions.editLead(storeFormData, storeLeadId))
             .then((res)=>{
                 if (res.type === "EDIT_LEAD_SUCCESS") {
                   console.log('success:', res);

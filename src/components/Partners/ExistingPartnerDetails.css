@@ -232,6 +232,18 @@ font-size: 20px;
     justify-content: center;
     /* background-color: blue;  */
 }
+.Existingpartnerdetails-birthdate-row-flex{
+    display: flex;
+    flex-direction: row;
+  
+}
+.Existingpartnerdetails-birthdate-text-style{
+    font-family: robotobold;
+    color: #646666;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 1vw;
+}
 .Existingpartnerdetails-inner-card-flex{
     display: flex;
     flex-direction: column;
