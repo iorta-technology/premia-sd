@@ -61,7 +61,7 @@ const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/Pr
 const ProofAddress = React.lazy(() => import('./components/UploadDocuments/AddressProof'))
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 const NotFound = React.lazy(()=> import('./components/ComponentNotFound/ComponentNotFound'))
-
+const NoRecord=React.lazy(()=> import('./components/Partners/NoRecord'))
 const ShopGuardRoute = ({ component: Component, ...props }) => (
   <Route
     {...props}
@@ -152,6 +152,7 @@ function App() {
               <Route exact path="/salespendency" component={SalesPendency}></Route>
               <Route exact path="/existingpartner" component={ExistingPartner}/>
               <Route exact path="/existingpartnerdetails" component={ExistingPartnerDetails}/>
+              {/* <Route exact path="/norecord" component={NoRecord}></Route> */}
               <Route exact path="/mappedbranches" component={MappedBranches}></Route>
               <Route exact path="/uploadMaster/addressProof" component={ProofAddress}></Route>
               <Route exact path="/proposalhistory" component={ProposalHistory}></Route>
