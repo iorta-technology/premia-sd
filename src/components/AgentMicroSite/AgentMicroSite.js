@@ -50,6 +50,7 @@ const AgentMicroService = () => {
     const search = useLocation().search;
     const name = new URLSearchParams(search).get('name');
     const agentId = new URLSearchParams(search).get('agent_id');
+    const agentDetailsStore = useSelector((state)=>state.agent.agentDetails)
     const fetchAgentDetailsLoading = useSelector((state) => state.agent.fetchAgentDetailsLoading)
     const { first_name, last_name} = useSelector((state) => state.agent)
     const achievements = useSelector((state) => state.agent.achievements)
@@ -62,10 +63,11 @@ const AgentMicroService = () => {
     const benefits = useSelector((state) => state.agent.aboutCompany?.aboutProduct?.benefits)
     // const imgTg = benefits?.[0]?.logoLink
     // const achievementsArr = agentDetails?.microsite_settings?.achievements?.badges
-    const agentDetails = useSelector((state) => state.agent.agentDetails)
+    // const agentDetails = useSelector((state) => state.agent.agentDetails)
     const [form] = Form.useForm();
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('')
+    const [agentDetails, setAgentDetails] = useState();
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState()
     const [Testimonials, setTestimonials] = useState()
     const [Achievements, setAchievements] = useState()
     const [mobile, setMobile] = useState('')
@@ -73,64 +75,49 @@ const AgentMicroService = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isVideoModalVisible, setIsVideoModalVisible] = useState(false)
     const [slides, setSlides] = useState()
+    const [activeProductIndex, setActiveProductIndex] = useState(0)
+    const activeProductHandler=(productObj,activeIndex)=>{
+        console.log(productObj)
+        setActiveProductIndex(activeIndex)
+        const productBulletReasons = Object.keys(productObj?.productReasons).map((key) => {
+
+            // console.log(key)
+            return productObj?.productReasons[key] || null;
+        }) 
+        // console.log(productBulletReasons)
+        const newProductObject = {...productObj,productBulletReasons}
+        // console.log(productBulletReasons)
+        // console.log(newProductObject)
+        setActiveProduct(newProductObject)
+    }
     const [products, setProducts] = useState()
     const [activeProduct, setActiveProduct] = useState()
-    const [activeProductIndex, setActiveProductIndex] = useState(0)
     
-    // console.log(fetchAgentDetailsLoading)
-    // const [...testimonialsArr.Testimonials] = [microsite_settings]
-    // query.get('name')
-    // query.get('agent_id')
-    // console.log(name)
-    // console.log(agentId)
     useEffect(() => {
-        dispatch(actions.fetchAgentDetails(agentId))
         dispatch(actions.fetchCompany(agentId))
-        dispatch(actions.fetchBlogs(agentId))
+        dispatch(actions.fetchBlogs(agentId,1))
+        dispatch(actions.fetchAgentDetails(agentId))
         .then((res)=>{
-            const test = res?.agentDetails?.microsite_settings?.testimonials
+            // const test = res?.agentDetails?.microsite_settings?.testimonials
 
             // setSlides(test)
-        // if (res.type === "FETCH_AGENT_DETAILS_SUCCESS") {
-        //     // console.log('success:', res);
-        //     // setErrorMessage(successMsg)
-        //     // setIsNewLead(false)
-        //     // setAchievements(achievements)
-        //     // if(!_.isEmpty(res?.agentDetails?.microsite_settings?.testimonials)){
-        //     //     // return null
-        //     //     console.log('testimonials',testimonials[0])
-        //     //     // setSlides(testimonials[0])
-        //     // }else{
-        //     //     console.log('test',testimonials)
-        //     // }
+        if (res.type === "FETCH_AGENT_DETAILS_SUCCESS") {
+            console.log('success:', res);
             
-        // }
+            
+            // setAgentDetails(agentDetailsStore)
+            setSlides(res?.agentDetails?.microsite_settings?.testimonials[0])
+            activeProductHandler(res?.agentDetails?.products[0],0)
+        }
     })
-    setSlides(testimonials[0])
-    // let productBulletReasons
-    // if(!_.isEmpty(fetchedProducts)){
-
-    //      productBulletReasons = Object.keys(fetchedProducts[0]?.productReasons).map((key) => {
+    console.log(agentDetails)
+    console.log(slides)
+    console.log(activeProduct)
+    console.log(fetchedProducts?.products)
+    // console.log(!agentDetails)
+//    fetchedProducts && setActiveProduct(activeProductHandler(fetchedProducts?.products[0],0))
     
-    //         // console.log(key)
-    //         return fetchedProducts[0]?.productReasons[key] || null;
-    //     }) 
-    // }
-    // console.log(productBulletReasons)
-    // const newProductObject = {...fetchedProducts[0],productBulletReasons}
-    // setProducts(newProductObject)
-    // console.log(products)
-    // console.log(products?.productBulletReasons.length)
-
-    // console.log(slides)
-        // console.log(achievements)
-        // console.log(_.isEmpty(agentDetails))
     }, [dispatch, agentId])
-    // useEffect(()=>{
-    //     // console.log(testimonials)
-    //     // setTestimonials(testimonials)
-    //     // setAchievements(achievements)
-    // },[testimonials,achievements])
         
 
     const payload = {
@@ -291,21 +278,7 @@ const AgentMicroService = () => {
             state: props
         })
     }
-    const activeProductHandler=(productObj,activeIndex)=>{
-        
-        setActiveProductIndex(activeIndex)
-        const productBulletReasons = Object.keys(productObj?.productReasons).map((key) => {
-
-            console.log(key)
-            return productObj?.productReasons[key] || null;
-        }) 
-        console.log(productBulletReasons)
-        const newProductObject = {...productObj,productBulletReasons}
-        // console.log(productBulletReasons)
-        // console.log(newProductObject)
-        setProducts(newProductObject)
-        setActiveProduct(true)
-    }
+    
     let achievementsElements = []
       if (!_.isEmpty(achievements)) {
         achievementsElements = _.map(achievements, (badge, index) => {
@@ -381,7 +354,10 @@ const AgentMicroService = () => {
                             <p>{blog?.content}</p>
                             <Link to={{
                                 pathname: "/blog",
-                                state: blog
+                                state: {
+                                    blog:blog,
+                                    agentId:agentId
+                                }
                                 }} 
                                 // onClick={() => toSingleBlog(blog)}
                                 >READ NOW</Link>
@@ -393,7 +369,7 @@ const AgentMicroService = () => {
     }
     
 
-    if (fetchAgentDetailsLoading && _.isEmpty(agentDetails)  ) {return <Spin /> }else{
+    if (!agentDetails && !slides && !activeProduct) {return <Spin /> }else{
     
     return (
         <>
@@ -521,7 +497,7 @@ const AgentMicroService = () => {
 
             <section className="section3" id="products">
                 <div className="imagehld">
-                    <img src={!_.isEmpty(products) && products?.productImages[0]?.location} alt="product-img" />
+                    <img src={!_.isEmpty(activeProduct) && activeProduct?.productImages[0]?.location} alt="product-img" />
                     {/* <img className="mask" src={mask}  alt="mask-img"/> */}
                 </div>
                 <div className="imgdata">
@@ -568,10 +544,10 @@ const AgentMicroService = () => {
 
                         <div className="cont" style={{ width: "50%", marginLeft: "30px", verticalAlign: 'top' }}>
                             <p className="matter">
-                                {products?.productDescription}
+                                {activeProduct?.productDescription}
                             </p>
                             <br />
-                            {products?.productBulletReasons.map((p, i) => {
+                            {activeProduct?.productBulletReasons.map((p, i) => {
                               return   p !== null ? 
                                  (
                                     <p key={i} className="matter">
@@ -593,7 +569,7 @@ const AgentMicroService = () => {
                                 <span 
                                     style={{ fontSize: '12px', color: '#0C5CAA', marginLeft: '20px' }}>
                                     {
-                                    <a href={products?.productBrochure.map((link, i) => link?.location )}><FilePdfOutlined /> DOWNLOAD BROCHURE</a>}
+                                    <a href={activeProduct?.productBrochure.map((link, i) => link?.location )}><FilePdfOutlined /> DOWNLOAD BROCHURE</a>}
                                 </span>
                         </div>
                     </div>

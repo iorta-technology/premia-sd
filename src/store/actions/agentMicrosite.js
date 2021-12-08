@@ -104,10 +104,17 @@ export const fetchBlogsFail = (error) => {
     }
 }
 
-export const fetchBlogs = (agentId) => {
+export const fetchBlogs = (agentId,pageNo) => {
+    let skipVal 
+        if(pageNo===1){
+            skipVal = 0
+        }else{
+            skipVal = (pageNo-1)*3
+
+        }
     return dispatch => {
         dispatch(fetchBlogsStart())
-        return axios.get(`user/microsite/fetch_blogs/${agentId}?skip=0&limit=3`)
+        return axios.get(`user/microsite/fetch_blogs/${agentId}?skip=${skipVal}&limit=3`)
             .then(res => {
                 console.log(res)
                 const response = res.data.errMsg
