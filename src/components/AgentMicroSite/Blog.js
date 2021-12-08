@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { Link } from 'react-router-dom';
 import _ from 'lodash'
+import moment from 'moment';
 // import  useLocation  from 'react-router-dom';
 const { Option } = Select;
 const Blog = () => {
@@ -46,7 +47,7 @@ const Blog = () => {
         setAgentId(location?.state?.agentId)
         agentId && dispatch(actions.fetchBlogs(agentId,1))
         agentId && dispatch(actions.fetchAgentDetails(agentId))
-        
+        console.log(new Date( activeBlog?.publishedDate).toDateString())
         console.log("blog-id", location)
     }, [location,agentId]);
     const payload = {
@@ -159,7 +160,7 @@ const Blog = () => {
                             {/* {cblogId === 1? <h3>5 Things You Did Not Know About Two<br/> Wheeler Insurance</h3>:''}
                         {cblogId === 2? <h3>Going For A Vacation. Here Are Five<br/> Reasons You Need Travel Insurance</h3>:''}
                         {cblogId === 3? <h3>Why every home need a Home<br/> Insurance?</h3>:''} */}
-                            <p>{activeBlog?.publishedDate}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 5 min read</p>
+                            <p>{new Date( activeBlog?.publishedDate).toDateString()}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 5 min read</p>
                         </div>
                     </div>
                 </section>
