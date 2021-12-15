@@ -40,3 +40,91 @@ export const fetchAgentDetails = (agentId) => {
             })
     }
 }
+
+
+// fetch company
+export const fetchCompanyStart = () => {
+    return {
+        type: actionTypes.FETCH_COMPANY_START
+    }
+}
+
+export const fetchCompanySuccess = (aboutCompany) => {
+    return {
+        type: actionTypes.FETCH_COMPANY_SUCCESS,
+        aboutCompany: aboutCompany,
+    }
+} 
+
+
+export const fetchCompanyFail = (error) => {
+    return {
+        type: actionTypes.FETCH_COMPANY_FAIL,
+        error: error
+    }
+}
+
+export const fetchCompany = (agentId) => {
+    return dispatch => {
+        dispatch(fetchCompanyStart())
+        return axios.get(`user/microsite/get-about-company-details/${agentId}`)
+            .then(res => {
+                console.log(res)
+                const response = res.data.errMsg
+                return dispatch(fetchCompanySuccess(response))
+                // if(response.status===200){
+                // }
+            })
+            .catch(error => {
+                console.log(error)
+                return dispatch(fetchCompanyFail(error))
+            })
+    }
+}
+
+// fetch blogs
+export const fetchBlogsStart = () => {
+    return {
+        type: actionTypes.FETCH_BLOGS_START
+    }
+}
+
+export const fetchBlogsSuccess = (blogs) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_SUCCESS,
+        blogs: blogs,
+    }
+} 
+
+
+export const fetchBlogsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_FAIL,
+        error: error
+    }
+}
+
+export const fetchBlogs = (agentId,pageNo) => {
+    let skipVal 
+        if(pageNo===1){
+            skipVal = 0
+        }else{
+            skipVal = (pageNo-1)*3
+
+        }
+    return dispatch => {
+        dispatch(fetchBlogsStart())
+        return axios.get(`user/microsite/fetch_blogs/${agentId}?skip=${skipVal}&limit=3`)
+            .then(res => {
+                console.log(res)
+                const response = res.data.errMsg
+                return dispatch(fetchBlogsSuccess(response))
+                // if(response.status===200){
+                // }
+            })
+            .catch(error => {
+                console.log(error)
+                return dispatch(fetchBlogsFail(error))
+            })
+    }
+}

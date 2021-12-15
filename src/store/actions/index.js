@@ -36,5 +36,11 @@ export {
 }from './product'
 
 export {
-    fetchAgentDetails
+    fetchAgentDetails,
+    fetchBlogs,
+    fetchCompany,
 }from './agentMicrosite'
+
+export {
+    fetchAdvisorList
+}from './advisor'
