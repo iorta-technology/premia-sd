@@ -2,7 +2,7 @@
 import React,{useEffect,useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {Card,Avatar,Switch} from 'antd'
-import {MoreOutlined } from '@ant-design/icons';
+import {MoreOutlined,PhoneOutlined } from '@ant-design/icons';
 import './LeadCard.css';
 import * as actions from '../../store/actions/index';
 import { useHistory } from 'react-router-dom';
@@ -66,6 +66,8 @@ const LeadCard = React.memo((props) => {
                                     {lead_Id}
                                 </span>
                             </p>
+                            <a href={`tel:${primaryMobile}`}><PhoneOutlined className="phoneicon"></PhoneOutlined></a>
+                            
                         </div>
                         <div className="content-body">
                             <Card.Grid hoverable={false} className="grid-style">
@@ -111,6 +113,7 @@ const LeadCard = React.memo((props) => {
             <div className="card-content-text capitalize">
                 <p className="user-name-text">{firstName} {lastName}</p>
                 <p className="user-status-text">{leadStatus}</p>
+                <PhoneOutlined style={{color:'green',cursor:'pointer'}}></PhoneOutlined>
             </div>
             <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>
         </Card>

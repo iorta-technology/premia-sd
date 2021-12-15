@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined, EditOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FileTextOutlined, EditOutlined,PhoneOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
@@ -1275,8 +1275,8 @@ const NewLead = React.memo(() => {
                       <p className="lead-detail">{storefirstNameValue} {storelastNameValue}</p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
-                      <p className="lead-summ-label">Mobile Number</p>
-                      <p className="lead-detail">{storePrimaryMobileValue}</p>
+                      <p className="lead-summ-label"> Mobile Number </p>
+                      <p className="lead-detail"><a href={`tel:${storePrimaryMobileValue}`}><PhoneOutlined style={{color:'green',cursor:'pointer'}}></PhoneOutlined></a> {storePrimaryMobileValue}</p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">State</p>

@@ -56,6 +56,12 @@
     border-left-color: #ffffff;
     border-right-color: #ffffff;
     border-bottom-color: #e8e8e8;
+    display: flex;
+    align-items: center;
+}
+.phoneicon{
+    cursor:'pointer';
+    justify-self: end;
 }
 
 .card-content-text{
