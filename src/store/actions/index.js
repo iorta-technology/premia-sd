@@ -40,3 +40,7 @@ export {
     fetchBlogs,
     fetchCompany,
 }from './agentMicrosite'
+
+export {
+    fetchAdvisorList
+}from './advisor'

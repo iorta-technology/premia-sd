@@ -8,7 +8,17 @@ import * as actions from '../../store/actions/index';
 import { useHistory } from 'react-router-dom';
 
 const LeadCard = React.memo((props) => {
-
+    const {
+        key,
+        id,
+        policyId,
+        proposalType,
+        proposalStatus,
+        firstName,
+        createdDate,
+        submittedDate,
+        primaryMobile
+    } =props
     const dispatch = useDispatch()
     const history = useHistory()
     //     const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
@@ -16,7 +26,7 @@ const LeadCard = React.memo((props) => {
     const [width, setWidth] = useState(window.innerWidth);
     const [showMoreToggle, setShowMoreToggle] = useState(false);
     const breakpoint = 620;
-
+    let avatar = firstName.match(/\b(\w)/g)
     useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
@@ -77,13 +87,13 @@ const LeadCard = React.memo((props) => {
                         color: '#ffffff',
                         backgroundColor: '#00ACC1',
                     }}
-                >AV</Avatar>
+                >{avatar}</Avatar>
                 {/* <Card.Grid hoverable={false} className="grid-style">
                         </Card.Grid> */}
             </Col>
             <Col span={12}>
-                <p className="paragraph capitalize advisor-name font-bold">Azim Shaikh</p>
-                <p className="paragraph capitalize app-id-label font-bold">App ID <span className="app-id">AGIN_202111_000420</span></p>
+                <p className="paragraph capitalize advisor-name font-bold">{firstName}</p>
+                <p className="paragraph capitalize app-id-label font-bold">App ID <span className="app-id">{policyId}</span></p>
             </Col>
             <Col span={10}>
                 <Row justify="center" align="middle">
@@ -103,7 +113,7 @@ const LeadCard = React.memo((props) => {
                                 <Divider className="divider" type="vertical" />
                             </Col>
                             <Col span={20}>
-                                <p className="paragraph capitalize lead-status font-bold">Failed</p>
+                                <p className="paragraph capitalize lead-status font-bold">{proposalStatus}</p>
                             </Col>
                         </Row>
                     </Col>
@@ -114,7 +124,7 @@ const LeadCard = React.memo((props) => {
                             </Col>
                             <Col span={20}>
                                 <div className="lead-box">
-                                    <p className="paragraph capitalize lead-agent font-bold">AGENT</p>
+                                    <p className="paragraph capitalize lead-agent font-bold">{proposalType}</p>
                                 </div>
                             </Col>
                         </Row>
@@ -143,23 +153,23 @@ const LeadCard = React.memo((props) => {
                                 <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph adv-detail-label font-bold">Created on</p>
+                                <p className="paragraph adv-detail-label font-bold">Submitted on</p>
                                 <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph adv-detail-label font-bold">Created on</p>
+                                <p className="paragraph adv-detail-label font-bold">Status Updated on</p>
                                 <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph adv-detail-label font-bold">Created on</p>
+                                <p className="paragraph adv-detail-label font-bold">MObile No</p>
                                 <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph adv-detail-label font-bold">Created on</p>
+                                <p className="paragraph adv-detail-label font-bold">Location</p>
                                 <p className="paragraph adv-text">Date</p>
                             </Col>
                             <Col span={8} >
-                                <p className="paragraph adv-detail-label font-bold">Created on</p>
+                                <p className="paragraph adv-detail-label font-bold">Status</p>
                                 <p className="paragraph adv-text">Date</p>
                             </Col>
                         </Row>
