@@ -63,6 +63,7 @@ const LeadCards = (props) => {
                                         <span className="user-id uppercase">
                                         </span>
                                     </p>
+                                    
                                 </div>
                                 <div className="content-body">
                                     <Card.Grid hoverable={false} className="grid-style">
@@ -93,6 +94,7 @@ const LeadCards = (props) => {
                             </div>
                             <button className="update-btn" >Update</button>
                         </Card>
+                        
                     </>
                 </Col>
             </Row>
