@@ -50,6 +50,7 @@ const AgentMicroService = () => {
     const search = useLocation().search;
     const name = new URLSearchParams(search).get('name');
     const agentId = new URLSearchParams(search).get('agent_id');
+    const agentDetailsStore = useSelector((state)=>state.agent.agentDetails)
     const fetchAgentDetailsLoading = useSelector((state) => state.agent.fetchAgentDetailsLoading)
     const { first_name, last_name} = useSelector((state) => state.agent)
     const achievements = useSelector((state) => state.agent.achievements)
@@ -57,11 +58,16 @@ const AgentMicroService = () => {
     const fetchedProducts = useSelector((state) => state.agent.products)
     const profileImage = useSelector((state) => state.agent.profileImage)
     const {linkedIn,facebook,twitter} = useSelector((state) => state.agent.socialLinks)
+    const aboutCompany = useSelector((state) => state.agent.aboutCompany)
+    const blogs = useSelector((state) => state.agent.blogs?.paginationResult)
+    const benefits = useSelector((state) => state.agent.aboutCompany?.aboutProduct?.benefits)
+    // const imgTg = benefits?.[0]?.logoLink
     // const achievementsArr = agentDetails?.microsite_settings?.achievements?.badges
-    const agentDetails = useSelector((state) => state.agent.agentDetails)
+    // const agentDetails = useSelector((state) => state.agent.agentDetails)
     const [form] = Form.useForm();
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('')
+    const [agentDetails, setAgentDetails] = useState();
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState()
     const [Testimonials, setTestimonials] = useState()
     const [Achievements, setAchievements] = useState()
     const [mobile, setMobile] = useState('')
@@ -69,47 +75,49 @@ const AgentMicroService = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isVideoModalVisible, setIsVideoModalVisible] = useState(false)
     const [slides, setSlides] = useState()
+    const [activeProductIndex, setActiveProductIndex] = useState(0)
+    const activeProductHandler=(productObj,activeIndex)=>{
+        console.log(productObj)
+        setActiveProductIndex(activeIndex)
+        const productBulletReasons = Object.keys(productObj?.productReasons).map((key) => {
+
+            // console.log(key)
+            return productObj?.productReasons[key] || null;
+        }) 
+        // console.log(productBulletReasons)
+        const newProductObject = {...productObj,productBulletReasons}
+        // console.log(productBulletReasons)
+        // console.log(newProductObject)
+        setActiveProduct(newProductObject)
+    }
     const [products, setProducts] = useState()
     const [activeProduct, setActiveProduct] = useState()
-    const [activeProductBol, setActiveProductBol] = useState()
     
-    // console.log(fetchAgentDetailsLoading)
-    // const [...testimonialsArr.Testimonials] = [microsite_settings]
-    // query.get('name')
-    // query.get('agent_id')
-    // console.log(name)
-    // console.log(agentId)
     useEffect(() => {
+        dispatch(actions.fetchCompany(agentId))
+        dispatch(actions.fetchBlogs(agentId,1))
         dispatch(actions.fetchAgentDetails(agentId))
         .then((res)=>{
-            const test = res?.agentDetails?.microsite_settings?.testimonials
+            // const test = res?.agentDetails?.microsite_settings?.testimonials
 
-            setSlides(test)
-        // if (res.type === "FETCH_AGENT_DETAILS_SUCCESS") {
-        //     // console.log('success:', res);
-        //     // setErrorMessage(successMsg)
-        //     // setIsNewLead(false)
-        //     // setAchievements(achievements)
-        //     // if(!_.isEmpty(res?.agentDetails?.microsite_settings?.testimonials)){
-        //     //     // return null
-        //     //     console.log('testimonials',testimonials[0])
-        //     //     // setSlides(testimonials[0])
-        //     // }else{
-        //     //     console.log('test',testimonials)
-        //     // }
+            // setSlides(test)
+        if (res.type === "FETCH_AGENT_DETAILS_SUCCESS") {
+            console.log('success:', res);
             
-        // }
+            
+            // setAgentDetails(agentDetailsStore)
+            setSlides(res?.agentDetails?.microsite_settings?.testimonials[0])
+            activeProductHandler(res?.agentDetails?.products[0],0)
+        }
     })
-    console.log(products)
+    console.log(agentDetails)
     console.log(slides)
-        // console.log(achievements)
-        // console.log(_.isEmpty(agentDetails))
+    console.log(activeProduct)
+    console.log(fetchedProducts?.products)
+    // console.log(!agentDetails)
+//    fetchedProducts && setActiveProduct(activeProductHandler(fetchedProducts?.products[0],0))
+    
     }, [dispatch, agentId])
-    // useEffect(()=>{
-    //     // console.log(testimonials)
-    //     // setTestimonials(testimonials)
-    //     // setAchievements(achievements)
-    // },[testimonials,achievements])
         
 
     const payload = {
@@ -267,24 +275,10 @@ const AgentMicroService = () => {
         console.log("blog data", props)
         history.push({
             pathname: '/blog',
-            state: { id: props }
+            state: props
         })
     }
-    const activeProductHandler=(productObj,bool)=>{
-        console.log(bool)
-        const newActiveBol = fetchedProducts.filter((p,i)=>{
-            console.log(i)
-            return p?.productName === productObj?.productName ? true :false
-        })
-        setActiveProductBol(bool)
-        console.log(newActiveBol)
-        var productBulletReasons = Object.keys(productObj?.productReasons).map((key) =>  productObj?.productReasons[key]);
-        const newProductObject = {...productObj,productBulletReasons}
-        // console.log(productBulletReasons)
-        // console.log(newProductObject)
-        setProducts(newProductObject)
-        setActiveProduct(true)
-    }
+    
     let achievementsElements = []
       if (!_.isEmpty(achievements)) {
         achievementsElements = _.map(achievements, (badge, index) => {
@@ -301,7 +295,7 @@ const AgentMicroService = () => {
         testimonialElementHandler = _.map(testimonials, (testimonial, index) => {
             return (
                 <>
-                    <hr onClick={() => setSlides(testimonial)} 
+                    <hr onClick={() => setSlides(testimonial,index)} 
                     style={{ width: '20px', border: '0', cursor: 'pointer', 
                             borderBottom: testimonials[0] ? '0.5px solid #1cb3bc' : "0.5px solid #989898"
                         }} 
@@ -316,14 +310,14 @@ const AgentMicroService = () => {
 
             return (
                 <>
-                    <div onClick={() => activeProductHandler(product,true)} 
-                    className={activeProductBol ? "productoptions selectedproduct" : "productoptions"}
+                    <div onClick={() => activeProductHandler(product,index)} 
+                    className={activeProductIndex === index ? "productoptions selectedproduct" : "productoptions"}
                     // style={{backgroundColor:activeProductBol.map((item)=>item?"white":"black")}}
                     >
                         {/* <img src={family_Health_insurance} /> */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="29.672" height="29.19" viewBox="0 0 29.672 29.19"><defs></defs>
                         <path 
-                            style={{ fill: activeProduct ? '#fff' : '#0c5caa' }} 
+                            style={{ fill: activeProductIndex === index ? '#fff' : '#0c5caa' }} 
                             className="a" d="M14.4.249a2.965,2.965,0,0,1,1.581,1.541,2.639,2.639,0,0,1-1.3,3.246A2.564,2.564,0,0,1,11.2,3.844,2.578,2.578,0,0,1,11.98.622a3.538,3.538,0,0,1,.678-.378A3.291,3.291,0,0,1,14.4.249Zm9.125,2.542A2.464,2.464,0,0,1,24.9,4.211a2.187,2.187,0,0,1-.006,1.46,2.3,2.3,0,0,1-2.847,1.446,2.392,2.392,0,0,1-1.474-1.429A2.3,2.3,0,0,1,23.523,2.791ZM16.94,6.525a1.5,1.5,0,0,1,.512.452c.156.267,2.671,8.206,2.619,8.267-.016.018-.095-.026-.175-.1a2.794,2.794,0,0,0-1.184-.47A2.765,2.765,0,0,0,17,14.965l-.416.209.055-.391c.03-.215.09-1.09.134-1.945s.088-1.664.1-1.8l.021-.245-1.005-.218a12.078,12.078,0,0,1-3.207-1.1A11.643,11.643,0,0,1,9.492,7.247c0-.194.329-.583.638-.747.281-.149.494-.159,3.375-.162C16.569,6.335,16.582,6.336,16.94,6.525ZM9.9,9.113a13.9,13.9,0,0,0,4.839,2.372l.923.232-.024.969c-.139,5.52-2.517,9.652-6.822,11.854l-.915.468-.914-.464A12.012,12.012,0,0,1,.657,16.509a14.508,14.508,0,0,1-.474-3.837l.023-.965.87-.227a14.763,14.763,0,0,0,6-3.331L7.9,7.425l.621.563C8.857,8.3,9.48,8.8,9.9,9.113Zm15.442-.782a1.417,1.417,0,0,1,.353.266c.072.083,1.038,1.867,2.147,3.964,2.154,4.075,2.166,4.106,1.881,4.706a1.24,1.24,0,0,1-1.078.6c-.6,0-.783-.215-1.707-1.963-.464-.877-.843-1.558-.842-1.513s.255,1.535.567,3.311.556,3.24.543,3.252-1.314.013-2.892,0l-2.869-.021.914-.736c1.04-.837,1.366-1.315,1.362-2a2.263,2.263,0,0,0-.515-1.3,2.282,2.282,0,0,0-1.375-.581h-.378l-.038-.429c-.021-.236-.487-1.859-1.035-3.606l-1-3.177.177-.287c.365-.591.395-.6,3.123-.6A10.836,10.836,0,0,1,25.342,8.331ZM7.4,9.782A18.019,18.019,0,0,1,2.374,12.6a6.056,6.056,0,0,0-.762.282,3.186,3.186,0,0,0,.025.906c.472,4.373,2.3,7.387,5.62,9.281l.619.353.384-.195a12.121,12.121,0,0,0,2.57-1.876,11.235,11.235,0,0,0,3.032-5.723,11.252,11.252,0,0,0,.292-2.741,3.771,3.771,0,0,0-.738-.292,16.3,16.3,0,0,1-4.7-2.574l-.829-.64Zm1.714,2.98a8.676,8.676,0,0,1,.05,1.186v1.057h1.084a6.324,6.324,0,0,1,1.188.068c.079.05.1.357.082,1.246l-.023,1.18-1.166.023-1.166.023v1.14c0,1.043-.013,1.147-.158,1.225a7.5,7.5,0,0,1-2.219,0c-.145-.078-.158-.181-.158-1.225v-1.14l-1.166-.023L4.3,17.5l-.023-1.18c-.017-.889,0-1.2.082-1.246a6.324,6.324,0,0,1,1.188-.068H6.627V13.874a7.092,7.092,0,0,1,.055-1.186A7.453,7.453,0,0,1,7.9,12.633C8.886,12.633,9.071,12.653,9.113,12.763Zm9.835,3.148a1.9,1.9,0,0,1,.894.939,1.652,1.652,0,0,1-2.215,2.092,1.694,1.694,0,0,1-.946-1.87A1.668,1.668,0,0,1,18.949,15.911ZM22.338,17.7a.667.667,0,0,1,.156.826,13.247,13.247,0,0,1-1.309,1.149,10.423,10.423,0,0,0-1.229,1.087c0,.051,0,1.849,0,4,.007,4.18,0,4.262-.4,4.478a.823.823,0,0,1-.834-.072c-.19-.153-.194-.187-.234-1.942-.037-1.616-.054-1.788-.184-1.813s-.143.1-.146,1.717c0,1.826-.017,1.905-.38,2.1a.691.691,0,0,1-.819-.1l-.23-.2L16.688,24.8l-.041-4.128-.682-.551c-.481-.389-.669-.59-.639-.685a6.625,6.625,0,0,1,.549-1.238,7.241,7.241,0,0,1,.772.573l.716.573h1.876l1.183-.941C21.752,17.342,21.92,17.28,22.338,17.7Zm-7.157,3.247.361.3v3.774c0,2.082.034,3.893.076,4.039.071.248.063.265-.125.265a1.542,1.542,0,0,1-1.254-.926,33.252,33.252,0,0,1-.087-3.573V21.478l.258-.414a1.3,1.3,0,0,1,.334-.414A1.8,1.8,0,0,1,15.181,20.945Zm7.068,4.346c0,3.018-.008,3.182-.163,3.436a1.263,1.263,0,0,1-.929.592c-.195,0-.222-.023-.164-.143.039-.079.081-1.7.094-3.6l.024-3.456H22.25Zm3.272.041c0,3.612.007,3.565-.615,3.86a1.13,1.13,0,0,1-1.337-.233l-.3-.3-.023-3.271-.023-3.27h2.3Zm-12.6.245c0,2.31-.016,2.588-.153,2.883a1.428,1.428,0,0,1-.771.772,1.453,1.453,0,0,1-1.749-.646c-.177-.335-.188-.447-.188-1.886v-1.53l.495-.306a14.246,14.246,0,0,0,1.959-1.542,1.713,1.713,0,0,1,.348-.293C12.9,23.025,12.925,24.171,12.924,25.577Z" transform="translate(-0.18 -0.129)" /></svg>
                         <p>{product.productName}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
@@ -334,11 +328,52 @@ const AgentMicroService = () => {
             )
         })
     }
+    let companyProducts = []
+      if (!_.isEmpty(benefits)) {
+        companyProducts = _.map(benefits, (benefit, index) => {
+            return (
+                <>
+                    <div>
+                        <img src={benefit?.logoLink}  alt="benefit-icon"/>
+                        <p>{benefit?.logoName}</p>
+                    </div>
+                </>
+            )
+        })
+    }
+    let blogCards = []
+      if (!_.isEmpty(blogs)) {
+        blogCards = _.map(blogs, (blog, index) => {
 
-    if (fetchAgentDetailsLoading && _.isEmpty(agentDetails)  ) {return <Spin /> }else{
+            return (
+                <>
+                    <div className="card">
+                        <img src={blog?.blogImages[0]?.link} alt="blog1" />
+                        <div className="cardCont">
+                            <h4>{blog?.title}</h4>
+                            <p>{blog?.content}</p>
+                            <Link to={{
+                                pathname: "/blog",
+                                state: {
+                                    blog:blog,
+                                    agentId:agentId
+                                }
+                                }} 
+                                // onClick={() => toSingleBlog(blog)}
+                                >READ NOW</Link>
+                        </div>
+                    </div>
+                </>
+            )
+        })
+    }
+    
+
+    if (!agentDetails && !slides && !activeProduct) {return <Spin /> }else{
     
     return (
         <>
+        {/* <img src={imgTg}/> */}
             <div className="whatsapp">
                 <a href="https://api.whatsapp.com/send/?phone=9167130251&text&app_absent=0" target="_blank">
                     <img src={whatsUp} alt="whatsapp" />
@@ -417,7 +452,7 @@ const AgentMicroService = () => {
                             </div> */}
                         </div>
                         <h2>Clients Testimonials</h2>
-                        <p>{slides?.info}</p>
+                        {slides?.info ?  <p>{slides?.info}</p> :null}
                         <p className="by">- {slides?.name}</p>
                         <div style={{ display: 'flex', columnGap: '5px', padding: '10px 0 10px' }}>
                             {testimonialElementHandler}
@@ -431,14 +466,14 @@ const AgentMicroService = () => {
 
             <section className="section2">
                 <div style={{ width: '48%', position: 'relative' }}>
-                    <h4>WHY TATA AIG INSURANCE</h4>
-                    <h1 style={{ textShadow: '0 0 5px white' }}>SIMPLER, SMARTER,<br /> MORE REWARDING HEALTH COVER</h1>
+                    <h4>{aboutCompany?.companyName}</h4>
+                    <h1 style={{ textShadow: '0 0 5px white' }}>{aboutCompany?.aboutProduct?.tagLine}</h1>
                     <br />
-                    <p>Medical inflation is rising at an unprecedented rate. Something as simple as a regular medical exam could
-                        set you back a few thousand. This is precisely why having health insurance is so critical..</p>
+                    <p>{aboutCompany?.aboutProduct?.summary}</p>
                     <br />
                     <div className="planHold">
-                        <div>
+                        {companyProducts}
+                        {/* <div>
                             <img src={low_premiums_iocn} />
                             <p>Incredibly <br />low premiums</p>
                         </div>
@@ -449,21 +484,21 @@ const AgentMicroService = () => {
                         <div>
                             <img src={hassel_free_icon} />
                             <p>Hassle-free <br />claims</p>
-                        </div>
+                        </div> */}
                     </div>
                     <br />
                     <br />
                     <button style={{ borderRadius: "8px", cursor: 'pointer' }} className="primary" onClick={showModal}>LETS CONNECT</button>
                 </div>
                 <div style={{ width: "50%", marginLeft: '-120px' }}>
-                    <img className="family" src={Happy_family_Health_insurance} alt="" />
+                    <img className="family" src={aboutCompany?.aboutProduct?.productImageLink} alt="comapny-img" />
                 </div>
             </section>
 
             <section className="section3" id="products">
                 <div className="imagehld">
-                    <img src={products?.productImages[0]?.location} alt="product-img" />
-                    <img className="mask" src={mask}  alt="mask-img"/>
+                    <img src={!_.isEmpty(activeProduct) && activeProduct?.productImages[0]?.location} alt="product-img" />
+                    {/* <img className="mask" src={mask}  alt="mask-img"/> */}
                 </div>
                 <div className="imgdata">
                     <h4>OUR PRODUCTS</h4>
@@ -509,14 +544,22 @@ const AgentMicroService = () => {
 
                         <div className="cont" style={{ width: "50%", marginLeft: "30px", verticalAlign: 'top' }}>
                             <p className="matter">
-                                {products?.productDescription}
+                                {activeProduct?.productDescription}
                             </p>
                             <br />
-                            {products?.productBulletReasons.map((p, i) => (
-                                <p key={i} className="matter"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check2" viewBox="0 0 16 16">
-                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                                </svg></span>{p}</p>
-                            ))}
+                            {activeProduct?.productBulletReasons.map((p, i) => {
+                              return   p !== null ? 
+                                 (
+                                    <p key={i} className="matter">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check2" viewBox="0 0 16 16">
+                                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                            </svg>
+                                        </span>{p}
+                                    </p>
+                                    ):  null
+                                }
+                            )}
                             <br />
                             <button 
                                 style={{ borderRadius: "8px !important", display: "inlineBlock", marginRight: "20px" }} 
@@ -526,7 +569,7 @@ const AgentMicroService = () => {
                                 <span 
                                     style={{ fontSize: '12px', color: '#0C5CAA', marginLeft: '20px' }}>
                                     {
-                                    <a href={products?.productBrochure.map((link, i) => link?.location )}><FilePdfOutlined /> DOWNLOAD BROCHURE</a>}
+                                    <a href={activeProduct?.productBrochure.map((link, i) => link?.location )}><FilePdfOutlined /> DOWNLOAD BROCHURE</a>}
                                 </span>
                         </div>
                     </div>
@@ -537,7 +580,8 @@ const AgentMicroService = () => {
                 <h4>BLOG</h4>
                 <h1>EVERYTHING ABOUT INSURANCE YOU NEED TO KNOW</h1>
                 <div className="cardsHolder">
-                    <div className="card">
+                    {blogCards}
+                    {/* <div className="card">
                         <img src={blog_one} alt="blog1" />
                         <div className="cardCont">
                             <h4>5 Things You Did Not Know About Two Wheeler Insurance</h4>
@@ -560,7 +604,7 @@ const AgentMicroService = () => {
                             <p>Tata AIG General Insurance Company Limited’s Home Secure Supreme Is A Flexible Home Insurance Plan</p>
                             <a onClick={() => toSingleBlog(3)}>READ NOW</a>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </section>
 

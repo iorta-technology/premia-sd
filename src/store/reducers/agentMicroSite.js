@@ -13,6 +13,14 @@ const initialState = {
     profileImage:'',
     socialLinks:{},
     products:[],
+
+    fetchCompanyLoading:false,
+    fetchCompanyError:"",
+
+    fetchBlogsLoading:false,
+    fetchBlogsError:"",
+    blogs:[],
+    aboutCompany:{},
 }
 // states reducer
 const fetchAgentDetailsStart = (state, action) => {
@@ -51,6 +59,48 @@ const fetchAgentDetailsFail = (state, action) => {
     });
 }
 
+// Company
+const fetchComapanyStart = (state, action) => {
+    return updateObject(state, {
+         fetchComapanyLoading: true 
+    })
+}
+
+const fetchComapanySuccess = (state, action) => {
+    
+    return updateObject(state, { 
+        fetchComapanyLoading: false, 
+        aboutCompany:action.aboutCompany
+    })
+}
+const fetchComapanyFail = (state, action) => {
+    return updateObject(state, { 
+        fetchComapanyLoading: false, 
+        fetchComapanyError: action.error 
+    });
+}
+
+// Blog
+
+const fetchBlogsStart = (state, action) => {
+    return updateObject(state, {
+         fetchBlogsLoading: true 
+    })
+}
+
+const fetchBlogsSuccess = (state, action) => {
+    
+    return updateObject(state, { 
+        fetchBlogsLoading: false, 
+        blogs:action.blogs
+    })
+}
+const fetchBlogsFail = (state, action) => {
+    return updateObject(state, { 
+        fetchBlogsLoading: false, 
+        fetchBlogsError: action.error 
+    });
+}
 
 const reducer = (state = initialState, action) => {
 
@@ -60,6 +110,14 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_AGENT_DETAILS_START: return fetchAgentDetailsStart(state, action)
         case actionTypes.FETCH_AGENT_DETAILS_SUCCESS: return fetchAgentDetailsSuccess(state, action)
         case actionTypes.FETCH_AGENT_DETAILS_FAIL: return fetchAgentDetailsFail(state, action)
+
+        case actionTypes.FETCH_COMPANY_START: return fetchComapanyStart(state, action)
+        case actionTypes.FETCH_COMPANY_SUCCESS: return fetchComapanySuccess(state, action)
+        case actionTypes.FETCH_COMPANY_FAIL: return fetchComapanyFail(state, action)
+
+        case actionTypes.FETCH_BLOGS_START: return fetchBlogsStart(state, action)
+        case actionTypes.FETCH_BLOGS_SUCCESS: return fetchBlogsSuccess(state, action)
+        case actionTypes.FETCH_BLOGS_FAIL: return fetchBlogsFail(state, action)
 
         default: return state
     }

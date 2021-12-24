@@ -5,7 +5,7 @@ import { Spin } from 'antd';
 import {stoageGetter} from './helpers'
 
 const LeadMaster = React.lazy(()=> import('./containers/LeadMaster/index'))
-const AdvisorList = React.lazy(()=> import('./components/AdvisorOnboarding/AdvisorCard'))
+const AdvisorList = React.lazy(()=> import('./components/AdvisorOnboarding/AdvisorList'))
 const StatusLead = React.lazy(()=> import('./components/StatusLead/StatusLead'))
 const PersonalDetails = React.lazy(()=> import('./components/LeadDetails/PersonalDetails/PersonalDetails'))
 const ContactDetails = React.lazy(()=> import('./components/LeadDetails/ContactDetails/ContactDetails'))
