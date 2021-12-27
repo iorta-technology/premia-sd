@@ -161,10 +161,11 @@ function App() {
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
               <Route exact path="/mappedbranches" component={MappedBranches}></Route>
               <Route exact path="/products" component={LoanProducts}/>
-              
               </div>
               <Route path="*" component={NotFound} />
+              
           </Switch>
+          
         </div>
       </Router>
     </React.Suspense>

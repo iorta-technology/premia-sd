@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
 import { Redirect, Route } from "react-router";
+import { useHistory } from 'react-router';
 
 
 export const loginStart = () => {
@@ -25,15 +26,17 @@ export const loginFail = (error) => {
 }
 
 export  const login = (email,password) => {
+  
        
     return async  dispatch => {
         dispatch(loginStart())
-        // const response = await  axios.post(`user/user_login_v2`,{email,password})
+        // const response = await  axios.post(`user/user_login_v3`,{email,password,reCaptchaToken:'09ABBMTcOWGCPi5gGdXSFjLJrmXpZmWHVBL90OBJYwMihpNXsNYJtrBhwYI3nr1J6CXWhcy6Jo2BffxPOH9a4tf88'}})
         // return await   dispatch(loginSuccess(response.data.errMsg));
         return axios.post(`user/user_login_v2`,{email,password})
         .then( res=>{
-            
+                console.log("logged in data",res)
             if(res.data.errCode===-1){
+                // history.push('/home')
                 return    dispatch(loginSuccess(res.data.errMsg));
                 
             }
