@@ -146,7 +146,7 @@ const LeadCard = React.memo((props) => {
             <Divider className="middle-divider" />
             <Col span={24}>
                 <Row justify="center" align="middle">
-                    <Col span={18}>
+                    {/* <Col span={18}>
                         <Row gutter={[16, 24]}>
                             <Col span={8} >
                                 <p className="paragraph adv-detail-label font-bold ">Created on</p>
@@ -173,7 +173,7 @@ const LeadCard = React.memo((props) => {
                                 <p className="paragraph adv-text">{proposalStatus}</p>
                             </Col>
                         </Row>
-                    </Col>
+                    </Col> */}
                     <Col span={1}>
                         <Divider className="upd-divider" type="vertical" />
                     </Col>
@@ -258,7 +258,7 @@ const LeadCard = React.memo((props) => {
                 <Col span={24}>
                     <Row justify="center" align="middle">
                         <Col span={24}>
-                            <Row gutter={[16, 24]}>
+                            {/* <Row gutter={[16, 24]}>
                                 <Col span={8} >
                                     <p className="paragraph adv-detail-label font-bold ">Created on</p>
                                     <p className="paragraph adv-text">{created_date}</p>
@@ -287,7 +287,7 @@ const LeadCard = React.memo((props) => {
                                         </Col>
                                     </>
                                 }
-                            </Row>
+                            </Row> */}
                         </Col>
                         <Col span={18} >
                             {!showMoreToggle ?
