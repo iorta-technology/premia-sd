@@ -1,2 +1,0 @@
-(this["webpackJsonpsd-v3"]=this["webpackJsonpsd-v3"]||[]).push([[66],{613:function(s,e,c){},642:function(s,e,c){"use strict";c.r(e);c(0);var t=c(14),a=(c(613),c(2));e.default=function(){return Object(a.jsx)("div",{className:"NoRecord-main-class",children:Object(a.jsx)("div",{className:"NoRecord-card-style",children:Object(a.jsx)(t.a,{imageStyle:{height:"500px"}})})})}}}]);
-//# sourceMappingURL=66.7c5185c7.chunk.js.map
