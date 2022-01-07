@@ -66,6 +66,7 @@ const NoRecord=React.lazy(()=> import('./components/Partners/NoRecord'))
 const ListCreationMaster = React.lazy(()=> import('./components/ListCreation/ListCreationMaster'))
 const CreateOpporCustData = React.lazy(()=> import('./components/ListCreation/CreateOpporCustData'))
 // const NoRecord=React.lazy(()=> import('./components/Partners/NoRecord'))
+const MyTeams=React.lazy(()=>import('./components/MyTeams/MyTeams'))
 const ShopGuardRoute = ({ component: Component, ...props }) => (
   <Route
     {...props}
@@ -164,14 +165,16 @@ function App() {
               <Route exact path="/create-list" component={CreateOpporCustData}></Route>
               
               
+              <Route exact path="/myteams" component={MyTeams}></Route>
             {/* </div> */}
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
               <Route exact path="/mappedbranches" component={MappedBranches}></Route>
               <Route exact path="/products" component={LoanProducts}/>
-              
               </div>
               <Route path="*" component={NotFound} />
+              
           </Switch>
+          
         </div>
       </Router>
     </React.Suspense>

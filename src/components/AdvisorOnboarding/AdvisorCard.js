@@ -148,7 +148,7 @@ const LeadCard = React.memo((props) => {
                 <Row justify="center" align="middle">
                     <Col span={18}>
                         <Row gutter={[16, 24]}>
-                            {/* <Col span={8} >
+                             {/* <Col span={8} >
                                 <p className="paragraph adv-detail-label font-bold ">Created on</p>
                                 <p className="paragraph adv-text">{created_date}</p>
                             </Col>
