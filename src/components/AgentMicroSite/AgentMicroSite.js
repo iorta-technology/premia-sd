@@ -53,6 +53,7 @@ const AgentMicroService = () => {
     const agentDetailsStore = useSelector((state)=>state.agent.agentDetails)
     const fetchAgentDetailsLoading = useSelector((state) => state.agent.fetchAgentDetailsLoading)
     const { first_name, last_name} = useSelector((state) => state.agent)
+    const tagLine = useSelector((state) => state.agent.agentDetails?.microsite_settings?.tagline)
     const achievements = useSelector((state) => state.agent.achievements)
     const testimonials = useSelector((state) => state.agent.testimonials)
     const fetchedProducts = useSelector((state) => state.agent.products)
@@ -285,7 +286,7 @@ const AgentMicroService = () => {
             return (
                 <>
                     <img src={badge.badge} alt="achievemntbadge"/>
-                    <p className="badge-title">INNOVATOR</p>
+                    <p className="badge-title">{badge.badgeName}</p>
                 </>
             )
         })
@@ -414,7 +415,8 @@ const AgentMicroService = () => {
                         <p className="id">ADVISOR : {agentId}</p>
                         <div className="tagline">
                             <h1>
-                                GET SOLUTION FOR HEALTH INSURANCE
+                                {tagLine}
+                                {/* GET SOLUTION FOR HEALTH INSURANCE */}
                             </h1>
                         </div>
                         <b>CHAKALA BRANCH </b>

@@ -7,9 +7,11 @@ import * as actions from '../../store/actions/index';
 import { Pagination,Button } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
 import {stoageGetter} from '../../helpers'
+import { useHistory } from 'react-router';
 const LeadMaster = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
+    const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
         const {id} = stoageGetter('user')
@@ -82,6 +84,7 @@ const LeadMaster = (props) => {
                 // current={current}
                 />
                 <Button type='primary' className="export-btn">Export</Button>
+                <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button>
             {/* <div className="export-btn-holder">
             </div> */}
             <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>

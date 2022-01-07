@@ -62,6 +62,10 @@ const ProofAddress = React.lazy(() => import('./components/UploadDocuments/Addre
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 const NotFound = React.lazy(()=> import('./components/ComponentNotFound/ComponentNotFound'))
 const NoRecord=React.lazy(()=> import('./components/Partners/NoRecord'))
+
+const ListCreationMaster = React.lazy(()=> import('./components/ListCreation/ListCreationMaster'))
+const CreateOpporCustData = React.lazy(()=> import('./components/ListCreation/CreateOpporCustData'))
+// const NoRecord=React.lazy(()=> import('./components/Partners/NoRecord'))
 const ShopGuardRoute = ({ component: Component, ...props }) => (
   <Route
     {...props}
@@ -156,6 +160,9 @@ function App() {
               <Route exact path="/mappedbranches" component={MappedBranches}></Route>
               <Route exact path="/uploadMaster/addressProof" component={ProofAddress}></Route>
               <Route exact path="/proposalhistory" component={ProposalHistory}></Route>
+              <Route exact path="/list-creation-master" component={ListCreationMaster}></Route>
+              <Route exact path="/create-list" component={CreateOpporCustData}></Route>
+              
               
             {/* </div> */}
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}

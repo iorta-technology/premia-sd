@@ -148,7 +148,7 @@ const LeadCard = React.memo((props) => {
                 <Row justify="center" align="middle">
                     <Col span={18}>
                         <Row gutter={[16, 24]}>
-                            <Col span={8} >
+                            {/* <Col span={8} >
                                 <p className="paragraph adv-detail-label font-bold ">Created on</p>
                                 <p className="paragraph adv-text">{created_date}</p>
                             </Col>
@@ -159,7 +159,7 @@ const LeadCard = React.memo((props) => {
                             <Col span={8} >
                                 <p className="paragraph adv-detail-label font-bold">Status Updated on</p>
                                 <p className="paragraph adv-text">{last_updated}</p>
-                            </Col>
+                            </Col> */}
                             <Col span={8} >
                                 <p className="paragraph adv-detail-label font-bold">MObile No</p>
                                 <p className="paragraph adv-text">{primaryMobile}</p>
@@ -259,7 +259,7 @@ const LeadCard = React.memo((props) => {
                     <Row justify="center" align="middle">
                         <Col span={24}>
                             <Row gutter={[16, 24]}>
-                                <Col span={8} >
+                                {/* <Col span={8} >
                                     <p className="paragraph adv-detail-label font-bold ">Created on</p>
                                     <p className="paragraph adv-text">{created_date}</p>
                                 </Col>
@@ -270,7 +270,7 @@ const LeadCard = React.memo((props) => {
                                 <Col span={8} >
                                     <p className="paragraph adv-detail-label font-bold">Status Updated on</p>
                                     <p className="paragraph adv-text">{last_updated}</p>
-                                </Col>
+                                </Col> */}
                                 {showMoreToggle &&
                                     <>
                                         <Col span={8} >
