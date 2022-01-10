@@ -54,7 +54,7 @@ const AgentMicroService = () => {
     const fetchAgentDetailsLoading = useSelector((state) => state.agent.fetchAgentDetailsLoading)
     const { first_name, last_name} = useSelector((state) => state.agent)
     const tagLine = useSelector((state) => state.agent.agentDetails?.microsite_settings?.tagline)
-    const achievements = useSelector((state) => state.agent.achievements)
+    const achievements = useSelector((state) => state.agent.agentDetails?.microsite_settings?.achievements)
     const testimonials = useSelector((state) => state.agent.testimonials)
     const fetchedProducts = useSelector((state) => state.agent.products)
     const profileImage = useSelector((state) => state.agent.profileImage)
@@ -77,6 +77,7 @@ const AgentMicroService = () => {
     const [isVideoModalVisible, setIsVideoModalVisible] = useState(false)
     const [slides, setSlides] = useState()
     const [activeProductIndex, setActiveProductIndex] = useState(0)
+    // console.warn('(((((((((((agentDetailsStore)))))))))))',agentDetailsStore)
     const activeProductHandler=(productObj,activeIndex)=>{
         console.log(productObj)
         setActiveProductIndex(activeIndex)
@@ -279,15 +280,34 @@ const AgentMicroService = () => {
             state: props
         })
     }
+    const toCapitalize = (strText) => {
+        try {
+            if (strText === '' || strText === null || typeof(strText) === 'undefined') {
+                return strText;
+            } else {
+                let _str = strText.toLowerCase();
+                let collection = _str.split(" ");
+                let modifyStrigs = [];
+                _str = '';
+                for (let i = 0; i < collection.length; i++) {
+                    modifyStrigs[i] = collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+                    _str = _str + modifyStrigs[i] + ' ';
+                }
+                return _str;
+            }
+        } catch (Exception) {
+            return strText;
+        }
+    }
     
     let achievementsElements = []
       if (!_.isEmpty(achievements)) {
-        achievementsElements = _.map(achievements, (badge, index) => {
+        achievementsElements = _.map(achievements.badges, (badge, index) => {
             return (
-                <>
+                <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
                     <img src={badge.badge} alt="achievemntbadge"/>
-                    <p className="badge-title">{badge.badgeName}</p>
-                </>
+                    <p className="badge-title">{badge.badgeName.toUpperCase()}</p>
+                </div>
             )
         })
     }
@@ -415,14 +435,14 @@ const AgentMicroService = () => {
                         <p className="id">ADVISOR : {agentId}</p>
                         <div className="tagline">
                             <h1>
-                                {tagLine}
+                                {tagLine.toUpperCase()}
                                 {/* GET SOLUTION FOR HEALTH INSURANCE */}
                             </h1>
                         </div>
                         <b>CHAKALA BRANCH </b>
                         <p >Chakala Industrial Estate (MIDC) Andheri East, Mumbai, 400093</p>
-                        <b>BRANCH MANAGER </b>
-                        <p >Vishy Ganeshan (BM197523)</p>
+                        <b>{agentDetailsStore.reporting_manager_hirarchy.hierarchyName.toUpperCase()}</b>
+                        <p >{toCapitalize(agentDetailsStore.reporting_manager.name)} ({agentDetailsStore.reporting_manager.agent_id})</p>
                         <b>SALES MANAGER </b>
                         <p>Amol Khedekar (SM197682)</p>
                     </div>
@@ -440,9 +460,8 @@ const AgentMicroService = () => {
                     </div>
                     <div className="achievements">
                         <h2>My Achievements</h2>
-                        {/* <p>"{achievements.info}"
-                        </p> */}
-                        <div className="badge-info">
+                        <p>{achievements.info}</p>
+                        <div className="badge-info badge-align">
                             {achievementsElements}
                             {/* <div>
                                 <img src={innovstion} />
@@ -468,8 +487,8 @@ const AgentMicroService = () => {
 
             <section className="section2">
                 <div style={{ width: '48%', position: 'relative' }}>
-                    <h4>{aboutCompany?.companyName}</h4>
-                    <h1 style={{ textShadow: '0 0 5px white' }}>{aboutCompany?.aboutProduct?.tagLine}</h1>
+                    <h4>{aboutCompany?.companyName.toUpperCase()}</h4>
+                    <h1 style={{ textShadow: '0 0 5px white' }}>{aboutCompany?.aboutProduct?.tagLine.toUpperCase()}</h1>
                     <br />
                     <p>{aboutCompany?.aboutProduct?.summary}</p>
                     <br />

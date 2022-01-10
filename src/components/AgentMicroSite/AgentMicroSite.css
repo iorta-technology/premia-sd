@@ -115,17 +115,20 @@
 .person{
     display: inline-block;
     background-color: #fff;
-    height: 530px;
-    width: 440px;
+    height: 510px;
+    width: 420px;
     vertical-align: bottom;
     /* margin-top: 40px; */
     padding: 10px;
+    margin-left: 30px;
     position: relative;
 }
 .person img{
-    width: 100%;
+    width: 400px;
     height: 100%;
-    object-fit: cover;
+    /* width: 420px; */
+    /* height: 510px; */
+    /* object-fit: cover; */
 }
 .person .play{
     width: 80px;
@@ -174,24 +177,33 @@
 .achievements p{
     width: 350px;
     color: #707070;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     margin-top: 10px;
 }
 .achievements img{
-    width: 70px;
+    width: 60px;
+    height: 60px;
+    border-radius: 40px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 .achievements .badge-info {
     margin-top: 20px;
     margin-bottom: 40px;
 }
 .achievements .badge-info div{
-display: inline-block;
-margin-right: 10px;
+    display: inline-block;
+    margin-right: 20px;
 }
 .achievements .badge-info .badge-title{
     width: fit-content;
     font-size: 12px;
     color: #0C5CAA;
+}
+
+.badge-align{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 .by{
     font-size: 12px;
@@ -235,7 +247,9 @@ margin-right: 10px;
 }
 .planHold img{
     width: 40px;
-    height: 20px;
+    height: 40px;
+    border-radius: 40px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.05);
     vertical-align: top;
 }
 .planHold p{
@@ -254,9 +268,9 @@ margin-right: 10px;
     
 }
 .section3 .imagehld img{
-    width: 100%;
-    height: 650px;
-    object-fit: cover;
+    width: 80%;
+    height: 350px;
+    /* object-fit: cover; */
 }
 /* .section3 .imagehld .mask{
     position: absolute;
@@ -279,7 +293,7 @@ margin-right: 10px;
 width: 50%;
 display: inline-block;
 vertical-align: top;
-padding:70px 0 ;
+padding:0px 0px 50px 0px ;
 position: relative;
 margin-left: -50px;
 }
@@ -348,7 +362,7 @@ background-color: #EDEEEF;
 }
 .cardsHolder .card img{
     width: 100%;
-    height: 45%;
+    height: 230px;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
 }
@@ -368,6 +382,13 @@ background-color: #EDEEEF;
     margin-bottom: 20px;
     margin-top: 7px !important;
     margin-bottom: 7px !important;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
+    -webkit-box-orient: vertical;
 
 }
 .cardsHolder .card .cardCont a{
