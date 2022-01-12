@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './AgentMicroSite.css';
 import { Link } from 'react-router-dom';
 import mainLogo from '../../images/logo.svg';
-import whatsUp from '../../images/whats_app_FAB@2x.png';
+import whatsUp from '../../images/Whatsapp.png';
 import emailIcon from '../../images/Gmail.png';
 import linkedInIcon from '../../images/LinkedIn_icon.svg';
 import twitterIcon from '../../images/twitter_icon.svg'
