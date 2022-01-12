@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import './AgentMicroSite.css';
 import { Link } from 'react-router-dom';
 import mainLogo from '../../images/logo.svg';
-import whatsUp from '../../images/whats_app_FAB.png';
+import whatsUp from '../../images/whats_app_FAB@2x.png';
+import emailIcon from '../../images/Gmail.png';
 import linkedInIcon from '../../images/LinkedIn_icon.svg';
 import twitterIcon from '../../images/twitter_icon.svg'
 import facebookIcon from '../../images/facebook_icon.svg'
@@ -399,6 +400,11 @@ const AgentMicroService = () => {
             <div className="whatsapp">
                 <a href="https://api.whatsapp.com/send/?phone=9167130251&text&app_absent=0" target="_blank">
                     <img src={whatsUp} alt="whatsapp" />
+                </a>
+            </div>
+            <div className="microEmail">
+                <a href={`mailto:${agentDetailsStore.primary_email}`} target="_blank">
+                    <img src={emailIcon} alt="email" />
                 </a>
             </div>
             <section className="main">

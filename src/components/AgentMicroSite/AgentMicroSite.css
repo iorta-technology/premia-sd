@@ -236,7 +236,7 @@
 }
 .section2 p{
     width: 60%;
-    font-size: 12px;
+    font-size: 13.7px;
     font-weight: 400 !important;
     color: #707070;
 }
@@ -255,6 +255,7 @@
 .planHold p{
     margin-top: 10px;
     width: 100%;
+    font-size: 12px;
 }
 
 .section3 .imagehld{
@@ -446,6 +447,15 @@ footer{
     margin-right: 10px;
     font-size: 14px;
     font-weight: 300 !important;
+}
+.microEmail{
+    position: fixed;
+    bottom: 22%;
+    right: 0%;
+    cursor: pointer;
+}
+.microEmail img{
+    width: 120px;
 }
 .whatsapp{
     position: fixed;
