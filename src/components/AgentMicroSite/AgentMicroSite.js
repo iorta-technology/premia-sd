@@ -62,6 +62,7 @@ const AgentMicroService = () => {
     const aboutCompany = useSelector((state) => state.agent.aboutCompany)
     const blogs = useSelector((state) => state.agent.blogs?.paginationResult)
     const benefits = useSelector((state) => state.agent.aboutCompany?.aboutProduct?.benefits)
+    const branchData = useSelector((state) => state.agent.agentDetails?.branch[0])
     // const imgTg = benefits?.[0]?.logoLink
     // const achievementsArr = agentDetails?.microsite_settings?.achievements?.badges
     // const agentDetails = useSelector((state) => state.agent.agentDetails)
@@ -439,12 +440,13 @@ const AgentMicroService = () => {
                                 {/* GET SOLUTION FOR HEALTH INSURANCE */}
                             </h1>
                         </div>
-                        <b>CHAKALA BRANCH </b>
-                        <p >Chakala Industrial Estate (MIDC) Andheri East, Mumbai, 400093</p>
+                        <b>{branchData.branchName + ' ' +'Branch'} </b>
+                        {/* <p >Chakala Industrial Estate (MIDC) Andheri East, Mumbai, 400093</p> */}
+                        <p >{branchData.zoneName + ', ' +branchData.Area+ ', ' +branchData.cityName+ ', ' +branchData.stateName}</p>
                         <b>{agentDetailsStore.reporting_manager_hirarchy.hierarchyName.toUpperCase()}</b>
                         <p >{toCapitalize(agentDetailsStore.reporting_manager.name)} ({agentDetailsStore.reporting_manager.agent_id})</p>
-                        <b>SALES MANAGER </b>
-                        <p>Amol Khedekar (SM197682)</p>
+                        {/* <b>SALES MANAGER </b>
+                        <p>Amol Khedekar (SM197682)</p> */}
                     </div>
                     <div className="person">
                         <img src={profileImage} />

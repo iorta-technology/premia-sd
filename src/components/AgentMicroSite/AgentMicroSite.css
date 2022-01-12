@@ -237,7 +237,7 @@
 .section2 p{
     width: 60%;
     font-size: 12px;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     color: #707070;
 }
 .planHold div{
@@ -246,8 +246,8 @@
     vertical-align: top;
 }
 .planHold img{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 40px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.05);
     vertical-align: top;
