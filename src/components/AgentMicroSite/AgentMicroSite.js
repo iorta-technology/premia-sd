@@ -396,9 +396,8 @@ const AgentMicroService = () => {
     
     return (
         <>
-        {/* <img src={imgTg}/> */}
             <div className="whatsapp">
-                <a href="https://api.whatsapp.com/send/?phone=9167130251&text&app_absent=0" target="_blank">
+                <a href={`https://api.whatsapp.com/send?phone=+91${agentDetailsStore.mobile_no}`} target="_blank">
                     <img src={whatsUp} alt="whatsapp" />
                 </a>
             </div>
