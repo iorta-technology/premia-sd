@@ -1,5 +1,5 @@
 .prepayment-main{
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     height:100vh
 }
@@ -31,7 +31,7 @@
     color: white;
     width: 10vw;
     font-size: 15px;
-    height: 4vh;
+    height: 5vh;
     padding-left: 3vw;
 }
 .prepayment-card{
@@ -67,7 +67,7 @@
     padding-top: 1vw;
     padding-left: 1vw;
     width: 30vw;
-    height: 28vh; 
+    height: 32vh; 
     background-color: #fff;
     color: #000;
     border-radius: 5px;

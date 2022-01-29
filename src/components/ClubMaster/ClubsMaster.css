@@ -7,7 +7,8 @@
   .Clubmaster-buttons{
     display: flex;
     flex-direction: row;
-    width: 50vw;
+    width: 40vw;
+    height: 5vh;
     flex: 1;
     flex-grow: 1;
     flex-shrink: 1;
@@ -25,20 +26,34 @@
     display: table;
     width: 100%;
     margin-top: 2vw;
-    margin-left: 1vw;
-    margin-right: 1vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
     height: 280vh;
     background-color: #fff;
 }
 .Main-content {
     display: flex;
 }
+.club-wrapper{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* .Card{
+  background-color: white;
+    margin: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 70vw;
+    height: 80vh;
+    margin-left: 10px;
+} */
 .Head-tag1 {
     font-family: 'robotoregular';
-    margin-left: 1vw;
-    padding-top: 5vw;
+    margin-left: 2vw;
+    padding-top: 3vw;
     font-size: calc(15px + 0.4vw);
     font-weight: bold;
 }
@@ -52,31 +67,30 @@
 .card1,
 .card2,
 .card3{
-    margin: 0 auto;
-    padding: 20px 20px;
-    border-radius: 5px;
-    background-color: #fff;
-    justify-content: space-around;
-    justify-content: center;
-    width: 90vw;
-    padding: 16px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 4px;
+  width: 88vw;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
 }
 table, td, th {  
     border: 1px solid #ddd;
-    text-align: left;
+    text-align: start;
   }
   
   table {
     border-collapse: collapse;
     width: 100%;
+    
   }
   
   th, td {
     padding: 15px;
+    height: 2vh;
   }
 .button {
     padding-left: 1vw;
@@ -88,16 +102,169 @@ table, td, th {
     justify-content: start;
     
 }
+.button:hover{
+  padding-left: 1vw;
+  margin-top: 2vw;
+  margin-bottom: 1vw;
+  flex-direction: column;
+  background-color: #3b371e;
+  color: #fff;
+  justify-content: start;
+}
+.button:focus{
+  padding-left: 1vw;
+  margin-top: 2vw;
+  margin-bottom: 1vw;
+  flex-direction: column;
+  background-color: #3b371e;
+  color: #fff;
+  justify-content: start;
+}
+.modal-text{
+  display: flex;
+  font-family: robotoregular;
+  color: #565656;
+  font-size: 15px;
+}
+.grid-container {
+  display: grid;
+  grid-column-gap: 20px;
+  height: 70vh;
+  grid-template-columns: auto auto ;
+  padding: 10px;
+}
+.grid-item {
+  padding: 10px;
+  font-size: 15px;
+  text-align: start;
+}
+.clubmaster-data{
+  height: 5vh;
+}
+.clubmaster-reward{
+  height: 20vh;
+}
+.clubmaster-rewards{
+  height: 43vh;
+  padding-top: 1vw !important;
+}
 .Paragraph {
     flex-direction: column;
     font-size: calc(14px + 0.3vw);
     color: #9d9d9d;
     line-height: 15px;
 }
+.clubparagraph{
+  flex-direction: column;
+  font-size: calc(14px + 0.3vw);
+  color: #565656;
+  font-weight: bold;
+  line-height: 15px;
+}
 .Head-tag2 {
     font-size: calc(12px + 0.4vw);
     margin-top: 0px;
-    line-height: 1.6;   
+    line-height: 15px;   
+}
+
+.Clubsmaster-modal-style{
+  width: 200px;
+}
+.Clubsmaster-modal-join-button-style{
+  background-color: #3b371e;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 4px;
+ color: white;
+ border: 0 solid black;
+ box-sizing: border-box;
+}
+.Clubsmaster-modal-join-button-style:hover{
+  background-color: #3b371e;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 4px;
+ color: white;
+ border: 0 solid black;
+ box-sizing: border-box;
+}
+.Clubsmaster-modal-cancel-button-style{
+  color: #3b371e;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 4px;
+ background-color: white;
+ border-color:#3b371e ;
+ /* border: 0 solid black; */
+ box-sizing: border-box;
+}
+.Clubsmaster-modal-cancel-button-style:hover{
+  color: #3b371e;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 4px;
+ background-color: white;
+ border-color:#3b371e ;
+ /* border: 0 solid black; */
+ box-sizing: border-box;
+}
+.Clubsmaster-modal-row-flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  /* background-color: #00ACC1 */
+}
+.Clubsmaster-modal-title-text-style{
+  font-size: 15px;
+  color: #999999;    
+  margin-bottom: 0vw;
+  /* font-weight: bold; */
+}
+.Clubsmaster-modal-input-style{
+  width: 22vw;
+  border-width: 2px;
+  height: 6vh;
+  border-style: solid;
+  border-color: #E6E9EB;
+  color: #646666;
+  box-shadow: 0px 2px 2px #00000029; 
+  margin-bottom: 1.5vw;
+}
+.Clubsmaster-modal-row-flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  /* background-color: #00ACC1 */
+}
+.Clubsmaster-modal-style > div > .ant-modal-header{
+  justify-content: space-between;
+  background-color: #3b371e;
+  -webkit-box-pack: justify;
+}
+.Clubsmaster-modal-style > div > div > .ant-modal-title 
+    {
+    color:white
+}
+.Clubsmaster-modal-style > div > .ant-modal-close{
+    color: white;
 }
 .club-button {
     display: flex;
@@ -117,9 +284,9 @@ table, td, th {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
-    padding-top: 7vw;
-    width: 15vw;
-    height: 20vh;
+    padding-top: 5vw;
+    width: 20vw;
+    height: 15vh;
     cursor: pointer;
     justify-content: center;
   }
@@ -141,19 +308,22 @@ table, td, th {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
-    padding-top: 7vw;
-    width: 15vw;
-    height: 20vh;
+    padding-top: 5vw;
+    width: 20vw;
+    height: 15vh;
     cursor: pointer;
     justify-content: center;
     }
     .Clubmaster-tab-active-text-style{
       color: white;
       font-size: 15px;
+      
+
     }
     .Clubmaster-tab-text-style{
         color: #000;
         font-size: 15px;
+        
 }
 @media (max-width:524px) {
     .Main-content {
@@ -167,8 +337,9 @@ table, td, th {
         justify-content: space-around;
         }
     .Head-tag1 {
-        display: flex;
-        margin-left: 6vw;
+      padding-bottom: 13px;
+      margin-top: 10px;
+      padding-left: 15px;
     }
     .club-container{
         display: flex;

@@ -1,8 +1,35 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Table, Radio, Select, Cascader, DatePicker, Space, Modal, Checkbox } from 'antd';
+import { Row, Col, Form, Menu, Typography, Tabs, Button, Input, Table, Radio, Select, Cascader, DatePicker, Space, Modal, Checkbox } from 'antd';
 import { Timeline } from 'antd';
+import MainTabs from '../../components/MainTabs/MainTabs';
 import './ProposalHistory.css';
+const tabMenu = [
+    {
+        id: 'benefitillustrator',
+        value: "Benefit Illustrator",
+    },
+    {
+        id: 'proposalfulfilment',
+        value: "Proposal Fulfilment"
+    },
+    {
+        id: 'prepaymentreview',
+        value: "Pre-payment Review"
+    },
+    {
+        id: 'paymentoptions',
+        value: "Payment Options"
+    },
+    {
+        id: 'uploaddocuments',
+        value: "Upload Documents"
+    },
+    {
+        id: 'proposalhistory',
+        value: "Proposal History"
+    },
 
+]
 const ProposalHistory = () => {
     const [value, setValue] = React.useState(1);
     let { innerWidth: width, innerHeight: height } = window;
@@ -11,6 +38,11 @@ const ProposalHistory = () => {
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
     return (
         <div className="proposalhistory">
+            <MainTabs
+                tabMenu={tabMenu}
+                // header="New Lead"
+                activeKey="5"
+            />
             <div className="proposalhistory-row-flex">
                 <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
                     <TabPane tab="Lead" key="1" >

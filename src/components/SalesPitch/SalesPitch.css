@@ -1,11 +1,11 @@
 .Salespitch-main{
-  display: flex;
+  /* display: flex; */
   /* height: 350vh; */
   background-color: #f7f7f7;
 }
 .Salespitch-row-flex{
   display: flex;
-  width: 100%;
+  width: 96%;
   margin-top: 4vw;
   margin-left: 2vw;
   margin-right: 2vw;
@@ -190,7 +190,10 @@
 
 }
 .success-head{
+  padding-top: 1vw;
   display: flex;
+  font-weight: bold;
+  font-family: robotobold;
   font-size: 15px !important;
 }
 .demo-nav {

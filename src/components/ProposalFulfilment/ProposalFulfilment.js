@@ -1,10 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal, Checkbox } from 'antd';
 import { Divider, Image, Card, Table } from 'antd';
+import MainTabs from '../../components/MainTabs/MainTabs';
 import {
     ArrowRightOutlined
 } from '@ant-design/icons';
 import './ProposalFulfilment.css';
+// import axios from 'axios';
+import {
+    BrowserRouter as Router,
+    Link, useLocation, useHistory
+} from "react-router-dom";
+const tabMenu = [
+    {
+        id: 'benefitillustrator',
+        value: "Benefit Illustrator",
+    },
+    {
+        id: 'proposalfulfilment',
+        value: "Proposal Fulfilment"
+    },
+    {
+        id: 'prepaymentreview',
+        value: "Pre-payment Review"
+    },
+    {
+        id: 'paymentoptions',
+        value: "Payment Options"
+    },
+    {
+        id: 'uploaddocuments',
+        value: "Upload Documents"
+    },
+    {
+        id: 'proposalhistory',
+        value: "Proposal History"
+    },
+
+]
+// import Tabs from '../Tab';
 const { Title } = Typography;
 function onChange(date, dateString) {
     console.log(date, dateString);
@@ -72,15 +106,64 @@ const setStateOptions = [
     { value: "Prof", label: "Prof" }
 ]
 const ProposalFulfilment = () => {
+    const [selectAllGenderOption, setSelectAllGenderOption] = useState(true);
+    const [selectViewGenderOption, setSelectViewGenderOption] = useState(false);
+    const [selectDisplayGenderOption, setSelectDisplayGenderOption] = useState(false);
+    const selectAllGenderFunc = () => {
+        setSelectAllGenderOption(true)
+        setSelectViewGenderOption(false)
+        setSelectDisplayGenderOption(false)
+    }
+    const selectViewGenderFunc = () => {
+        setSelectAllGenderOption(false)
+        setSelectViewGenderOption(true)
+        setSelectDisplayGenderOption(false)
+    }
+    const selectDisplayGenderFunc = () => {
+        setSelectAllGenderOption(false)
+        setSelectViewGenderOption(false)
+        setSelectDisplayGenderOption(true)
+    }
+    // const location = useLocation();
+    // const { recorddata } = location.state;
+    // console.log(recorddata);
+    const [biArr, setBIArr] = useState([]);
     const [value, setValue] = React.useState(1);
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
 
+    // constructor(props) {
+    //     super(props);
+    //     this.state = { value: '' };
+    //     this.handleChange = this.handleChange.bind(this);
+
+    // }
+
+    // handleChange(event) {
+    //     this.setState({ value: event.target.value });
+    // }
+    // useEffect(() => {
+    //    axios.get("https://sdrestnode.iorta.in/secure/sd/user/getProposal/61974af11dca6c56f4d380d9")
+    //         .then((res) => {
+    //             console.log(res.data.errMsg[0])
+    //             setBIArr(
+    //                 res.data.errMsg[0]
+    //             );
+    //         });
+
+
+    // }, []);
+    // console.log(biArr);
     return (
         <>
             <div className="proposal-main">
+                <MainTabs
+                    tabMenu={tabMenu}
+                    // header="New Lead"
+                    activeKey="proposalfulfilment"
+                />
                 <div className="proposalfulfilment-row-flex">
                     <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
                         <TabPane tab="Personal" key="1" >
@@ -114,7 +197,7 @@ const ProposalFulfilment = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="City"
+                                                                name="Aadhar Card Number"
                                                                 label="Aadhar Card Number"
                                                                 hasFeedback
                                                                 rules={[
@@ -125,6 +208,7 @@ const ProposalFulfilment = () => {
                                                                 ]}
                                                             >
                                                                 <Input className="first-name border-bottom" placeholder="Enter Aadhar Card Number" />
+                                                                {/* value={this.state.value} onChange={this.handleChange} */}
                                                             </Form.Item>
                                                         </Col>
                                                     </Form>
@@ -146,7 +230,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Title"
                                                                     label="Title"
                                                                     hasFeedback
                                                                     rules={[
@@ -163,7 +247,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Full Name"
                                                                     label="Full Name"
                                                                     hasFeedback
                                                                     rules={[
@@ -180,7 +264,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Fathers Full Name"
                                                                     label="Fathers Full Name"
                                                                     hasFeedback
                                                                     rules={[
@@ -197,7 +281,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="gender"
                                                                     label="Gender"
                                                                     hasFeedback
                                                                     rules={[
@@ -219,7 +303,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="martial status"
                                                                     label="Martial Status"
                                                                     hasFeedback
                                                                     rules={[
@@ -242,7 +326,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="dob"
                                                                     label="Date Of Birth Of Life Assured"
                                                                     hasFeedback
                                                                     rules={[
@@ -258,7 +342,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Nationality"
                                                                     label="Nationality"
                                                                     hasFeedback
                                                                     rules={[
@@ -275,7 +359,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Education"
                                                                     label="Education"
                                                                     hasFeedback
                                                                     rules={[
@@ -292,7 +376,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Source Of Income"
                                                                     label="Source Of Income"
                                                                     hasFeedback
                                                                     rules={[
@@ -309,7 +393,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Annual Income"
                                                                     label="Annual Income"
                                                                     hasFeedback
                                                                     rules={[
@@ -325,7 +409,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Purpose Of Insurance"
                                                                     label="Purpose Of Insurance"
                                                                     hasFeedback
                                                                     rules={[
@@ -346,7 +430,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Occupation"
                                                                     label="Occupation"
                                                                     hasFeedback
                                                                     rules={[
@@ -382,7 +466,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Job Description"
                                                                     label="Job Description"
                                                                     hasFeedback
                                                                     rules={[
@@ -399,7 +483,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Nature Of Duties"
                                                                     label="Nature Of Duties"
                                                                     hasFeedback
                                                                     rules={[
@@ -416,7 +500,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Are you ABC Group employee"
                                                                     label="Are you ABC Group employee"
                                                                     hasFeedback
                                                                     rules={[
@@ -437,7 +521,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Opting for ECS?"
                                                                     label="Opting for ECS?"
                                                                     hasFeedback
                                                                     rules={[
@@ -458,7 +542,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="PAN Card"
                                                                     label="PAN Card"
                                                                     hasFeedback
                                                                     rules={[
@@ -482,7 +566,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Bank Account No"
                                                                     label="Bank Account No"
                                                                     hasFeedback
                                                                     rules={[
@@ -499,7 +583,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="IFSC Code"
                                                                     label="IFSC Code"
                                                                     hasFeedback
                                                                     rules={[
@@ -516,7 +600,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Bank Name"
                                                                     label="Bank Name"
                                                                     hasFeedback
                                                                     rules={[
@@ -533,7 +617,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Bank Branch"
                                                                     label="Bank Branch"
                                                                     hasFeedback
                                                                     rules={[
@@ -550,7 +634,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Bank Account Proof"
                                                                     label="Bank Account Proof"
                                                                     hasFeedback
                                                                     rules={[
@@ -578,7 +662,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Address Line 1"
                                                                     label="Address Line 1"
                                                                     hasFeedback
                                                                     rules={[
@@ -594,7 +678,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Address Line 2"
                                                                     label="Address Line 2"
                                                                     hasFeedback
                                                                     rules={[
@@ -611,7 +695,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="State"
                                                                     label="State"
                                                                     hasFeedback
                                                                     rules={[
@@ -659,7 +743,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Pin Code"
                                                                     label="Pin Code"
                                                                     hasFeedback
                                                                     rules={[
@@ -676,7 +760,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Email ID"
                                                                     label="Email ID"
                                                                     hasFeedback
                                                                     rules={[
@@ -693,7 +777,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Mobile No"
                                                                     label="Mobile No"
                                                                     hasFeedback
                                                                     rules={[
@@ -710,7 +794,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Landline No"
                                                                     label="Landline No"
                                                                     hasFeedback
                                                                     rules={[
@@ -730,7 +814,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="permanent address"
                                                                     label="Is Your Permanent address same as Mailing address?"
                                                                     hasFeedback
                                                                     rules={[
@@ -751,7 +835,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Address Line 1"
                                                                     label="Address Line 1"
                                                                     hasFeedback
                                                                     rules={[
@@ -768,7 +852,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Address Line 2"
                                                                     label="Address Line 2"
                                                                     hasFeedback
                                                                     rules={[
@@ -785,7 +869,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="State"
                                                                     label="State"
                                                                     hasFeedback
                                                                     rules={[
@@ -832,7 +916,7 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="City"
+                                                                    name="Pin Code"
                                                                     label="Pin Code"
                                                                     hasFeedback
                                                                     rules={[
@@ -861,7 +945,7 @@ const ProposalFulfilment = () => {
                                                                 <Button className="proposal-btn">Proceed
                                                                     <ArrowRightOutlined
                                                                         style={{
-                                                                            marginTop: "7px"
+                                                                            marginTop: "6px"
                                                                         }}
                                                                     />
                                                                 </Button><br />
@@ -887,7 +971,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="gender"
                                                         label="Gender"
                                                         hasFeedback
                                                         rules={[
@@ -897,18 +981,33 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group defaultValue="a">
+                                                        <div onClick={selectAllGenderFunc} className={selectAllGenderOption == true ? "proposalfulfilment-button" : "proposalfulfilment-btn2"} value={selectAllGenderOption}>
+                                                            <p className={selectAllGenderOption == true ? "proposalfulfilment-tab-active-text-style" : "proposalfulfilment-tab-text-style"}>
+                                                                Male
+                                                            </p>
+                                                        </div>
+                                                        <div onClick={selectViewGenderFunc} className={selectViewGenderOption == true ? "proposalfulfilment-button" : "proposalfulfilment-btn2"} value={selectViewGenderOption}>
+                                                            <p className={selectViewGenderOption == true ? "proposalfulfilment-tab-active-text-style" : "proposalfulfilment-tab-text-style"} >
+                                                                Female
+                                                            </p>
+                                                        </div>
+                                                        <div onClick={selectDisplayGenderFunc} className={selectDisplayGenderOption == true ? "proposalfulfilment-button" : "proposalfulfilment-btn2"} value={selectDisplayGenderOption}>
+                                                            <p className={selectDisplayGenderOption == true ? "proposalfulfilment-tab-active-text-style" : "proposalfulfilment-tab-text-style"}>
+                                                                Other
+                                                            </p>
+                                                        </div>
+                                                        {/* <Radio.Group defaultValue="a">
                                                             <Radio.Button value="a" className="radio">Male</Radio.Button>
                                                             <Radio.Button value="b" className="radio">Female</Radio.Button>
                                                             <Radio.Button value="c" className="radio">Other</Radio.Button>
-                                                        </Radio.Group>
+                                                        </Radio.Group> */}
                                                     </Form.Item>
                                                 </Col>
                                                 <Col >
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="title"
                                                         label="Title"
                                                         hasFeedback
                                                         rules={[
@@ -931,7 +1030,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Nominee Name"
                                                         label="Nominee Name"
                                                         hasFeedback
                                                         rules={[
@@ -949,7 +1048,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="dob"
                                                         label="Date Of Birth"
                                                         hasFeedback
                                                         rules={[
@@ -966,7 +1065,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Relationship of nominee with LA"
                                                         label="Relationship of nominee with LA"
                                                         hasFeedback
                                                         rules={[
@@ -1004,7 +1103,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Mobile No"
                                                         label="Mobile No"
                                                         hasFeedback
                                                         rules={[
@@ -1022,7 +1121,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Email ID"
                                                         label="Email ID"
                                                         hasFeedback
                                                         rules={[
@@ -1044,7 +1143,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Is the Nominee address same as LA?"
                                                         label="Is the Nominee address same as LA?"
                                                         hasFeedback
                                                         rules={[
@@ -1065,7 +1164,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Do you want to add another nomiee??"
                                                         label="Do you want to add another nomiee??"
                                                         hasFeedback
                                                         rules={[
@@ -1091,7 +1190,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Gender"
                                                         label="Gender"
                                                         hasFeedback
                                                         rules={[
@@ -1113,7 +1212,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Title"
                                                         label="Title"
                                                         hasFeedback
                                                         rules={[
@@ -1136,7 +1235,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Nominee Name"
                                                         label="Nominee Name"
                                                         hasFeedback
                                                         rules={[
@@ -1153,7 +1252,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="dob"
                                                         label="Date Of Birth"
                                                         hasFeedback
                                                         rules={[
@@ -1171,7 +1270,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Relationship of nominee with LA"
                                                         label="Relationship of nominee with LA"
                                                         hasFeedback
                                                         rules={[
@@ -1214,7 +1313,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Is the Appointee address same as Nominee"
                                                         label="Is the Appointee address same as Nominee"
                                                         hasFeedback
                                                         rules={[
@@ -1235,7 +1334,7 @@ const ProposalFulfilment = () => {
                                                     <Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Do you want to add another Appointee"
                                                         label="Do you want to add another Appointee"
                                                         hasFeedback
                                                         rules={[
@@ -1294,7 +1393,7 @@ const ProposalFulfilment = () => {
                                                     <Col><Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Have either of your parents or any brother or sister suffered from or died under the age of 60 due to the following conditions: Heart problem, diabetes, stroke, hypertension, raised cholestrol, cancer or any hereditary disease?"
                                                         label="Have either of your parents or any brother or sister suffered from or died under the age of 60 due to the following conditions: Heart problem, diabetes, stroke, hypertension, raised cholestrol, cancer or any hereditary disease?"
                                                         hasFeedback
                                                         rules={[
@@ -1353,7 +1452,7 @@ const ProposalFulfilment = () => {
                                                     <Col><Form.Item
                                                         {...formItemLayout}
                                                         className="form-item-name label-color"
-                                                        name="City"
+                                                        name="Are you currently insured or applying for Life insurance cover, Critical illness cover, Accident benefit cover, not covered above?"
                                                         label="Are you currently insured or applying for Life insurance cover, Critical illness cover, Accident benefit cover, not covered above?"
                                                         hasFeedback
                                                         rules={[
@@ -1528,7 +1627,7 @@ const ProposalFulfilment = () => {
                                                         <Form.Item
                                                             {...formItemLayout}
                                                             className="form-item-name label-color"
-                                                            name="City"
+                                                            name="Height in Inches"
                                                             label="Height in Inches"
                                                             hasFeedback
                                                             rules={[

@@ -1,19 +1,19 @@
 import React,{useEffect,useState} from 'react';
 import './index.css';
-import Tab from '../../components/Tab/Tab';
-import LeadCards from '../../components/LeadCards/LeadCards';
+import MainTabs from '../../components/MainTabs/MainTabs';
+// import LeadCards from '../../components/LeadCards/LeadCards';
 import FloatButton from '../../components/FloatButton/FloatButton';
-import * as actions from '../../store/actions/index';
+// import * as actions from '../../store/actions/index';
 import { Pagination,Button } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
-const LeadMaster = (props) => {
+const Master = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
     const dispatch = useDispatch()
-    useEffect(() => {
+    // useEffect(() => {
 
-        dispatch(actions.fetchAllLeads('',current))
-    },[dispatch,current]);
+    //     dispatch(actions.fetchAllLeads('',current))
+    // },[dispatch,current]);
 
     //Accessing LeadCard data  from store
     const leadsData = useSelector((state)=>state.leads.allLeads)
@@ -50,31 +50,35 @@ const LeadMaster = (props) => {
     }
     const tabMenu = [
         {
-            id:'all',
-            value:"All"
+            id:'benefitillustrator',
+            value:"benefitillustrator"
         },
         {
-            id:'fortoday',
-            value:"For Today"
+            id:'proposalfulfilment',
+            value:"proposalfulfilment"
         },
         {
-            id:'open',
-            value:"Open"
+            id:'prepaymentreview',
+            value:"prepaymentreview"
         },
         {
-            id:'converted',
-            value:"Converted"
+            id:'paymentoptions',
+            value:"paymentoptions"
         },
         {
-            id:'failed',
-            value:"Failed"
+            id:'uploaddocuments',
+            value:"uploaddocuments"
         },
+        {
+            id: 'proposalhistory',
+            value:"proposalhistory"
+        }
         
     ]
 
     return (
-        <div style={{backgroundColor:'#fafafa'}}>
-            <Tab 
+        <div style={{backgroundColor:'#fafafa', }}>
+            <MainTabs 
                 tabMenu={tabMenu} 
                 header="Lead" 
                 current={current}
@@ -82,7 +86,7 @@ const LeadMaster = (props) => {
                 <Button type='primary' className="export-btn">Export</Button>
             {/* <div className="export-btn-holder">
             </div> */}
-            <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
+            {/* <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/> */}
             <div className="page-holder">
                 <Pagination
                     responsive
@@ -98,4 +102,4 @@ const LeadMaster = (props) => {
 }
 
 
-export default LeadMaster;
+export default Master;

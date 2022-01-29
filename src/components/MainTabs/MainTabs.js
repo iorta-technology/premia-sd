@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Tabs } from 'antd'
-import './Tab.css'
+import './MainTabs.css'
 import _ from "lodash";
-import { useHistory,useParams } from 'react-router-dom';
-import { useDispatch,useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 const { TabPane } = Tabs
 
-const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,current }) => {
+const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalkey, current }) => {
     const dispatch = useDispatch()
-    const {leadType} = useParams()
-    const {masterType} = useParams()
+    const { leadType } = useParams()
+    const { masterType } = useParams()
     const [activeTab, setactiveTab] = useState()
     useEffect(() => {
-        console.log(typeof(leadType))
-        dispatch(actions.fetchAllLeads(leadType,current))
-    },[dispatch,current,activeTab]);
+        console.log(typeof (leadType))
+        dispatch(actions.fetchAllLeads(leadType, current))
+    }, [dispatch, current, activeTab]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
 
@@ -29,46 +29,45 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
         // dispatch(actions.fetchAllLeads(activeTab,current))
 
         // setactiveKey(key)
-        if(activeKey){
-            console.log("active key",activeKey)
-        switch (activeKey) {
-            case "all": return history.push('/leadMaster/all_leads');
-            case "fortoday": return history.push('/leadMaster/fortoday');
-            case "open": return history.push('/leadMaster/openlead');
-            case "converted": return history.push('/leadMaster/convertedleads');
-            case "failed": return history.push('/leadMaster/pendingproposal');
+        if (activeKey) {
+            console.log("active key", activeKey)
+            switch (activeKey) {
+                // case "all": return history.push('/leadMaster/all_leads');
+                // case "fortoday": return history.push('/leadMaster/fortoday');
+                // case "open": return history.push('/leadMaster/openlead');
+                // case "converted": return history.push('/leadMaster/convertedleads');
+                // case "failed": return history.push('/leadMaster/pendingproposal');
 
-            case "1": return history.push('/leadmasterpage/statuslead');
-            case "2": return history.push('/leadmasterpage/leaddetails/personallead');
-            case "3": return history.push('/leadmasterpage/proposal');
-            case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
-            case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
+                // case "1": return history.push('/leadmasterpage/statuslead');
+                // case "2": return history.push('/leadmasterpage/leaddetails/personallead');
+                // case "3": return history.push('/leadmasterpage/proposal');
+                // case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
+                // case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
 
-            case "allrenewals": return history.push('/renewalMaster/allRenewals');
-            case "paidrenewals": return history.push('/renewalMaster/paidRenewals');
-            case "unpaidrenewals": return history.push('/renewalMaster/unpaidRenewals');
-            case "lapsedrenewals": return history.push('/renewalMaster/lapsedRenewals');
+                case "customerpitch": return history.push('/masterpresales/customerdetails/salespitch');
+                case "advisorpitch": return history.push('/masterpresales/advisordetail/advisorpitch');
+                
 
-            case "benefitillustrator": return history.push('/master/benefitillustrator');
-            case "proposalfulfilment": return history.push('/master/proposalfulfilment');
-            case "prepaymentreview": return history.push('/master/prepaymentreview');
-            case "paymentoptions": return history.push('/master/paymentoptions');
-            case "uploaddocuments": return history.push('/master/uploaddocuments');
-            case "proposalhistory": return history.push('/master/proposalhistory');
-            // default:  return history.push('/leadmasterpage/statuslead');
+                case "benefitillustrator": return history.push('/master/benefitillustrator');
+                case "proposalfulfilment": return history.push('/master/proposalfulfilment');
+                case "prepaymentreview": return history.push('/master/prepaymentreview');
+                case "paymentoptions": return history.push('/master/paymentoptions');
+                case "uploaddocuments": return history.push('/master/uploaddocuments');
+                case "proposalhistory": return history.push('/master/proposalhistory');
+                // default:  return history.push('/leadmasterpage/statuslead');
 
+            }
         }
+        // if(activeKey){
+        //     switch (activeKey) {
+        //         case "1": return history.push('/renewalMaster/allRenewals');
+        //         case "2": return history.push('/renewalMaster/paidRenewals');
+        //         case "3": return history.push('/renewalMaster/unpaidRenewals');
+        //         case "4": return history.push('/renewalMaster/lapsedRenewals');
+        //     }
+        // }
     }
-    // if(activeKey){
-    //     switch (activeKey) {
-    //         case "1": return history.push('/renewalMaster/allRenewals');
-    //         case "2": return history.push('/renewalMaster/paidRenewals');
-    //         case "3": return history.push('/renewalMaster/unpaidRenewals');
-    //         case "4": return history.push('/renewalMaster/lapsedRenewals');
-    //     }
-    // }
-}
-    
+
 
     // const handler = (activeRenewalkey) => {
     //     // console.log(activeKey)
@@ -88,7 +87,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     if (tabMenu && !_.isEmpty(tabMenu)) {
 
         tabPane = _.map(tabMenu, (value, id) => {
-            console.log("value",value)
+            console.log("value", value)
             return (
                 <TabPane
                     key={value.id}
@@ -118,28 +117,30 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
             {width > breakpoint ?
                 <div className="header-img">
                     <p className="header-title">{header}</p>
-                    <Tabs
-                        tabBarGutter={20}
-                        centered={false}
-                        type="card"
-                        onTabClick={handler}
-                        size="large"
-                        activeKey={activeKey}
-                        style={{marginLeft:'120px'}}
-                    >
-                        {tabPane}
-                    </Tabs>
+                    <div className="tab-section">
+                        <Tabs
+                            tabBarGutter={20}
+                            centered={false}
+                            type="card"
+                            onTabClick={handler}
+                            size="large"
+                            activeKey={activeKey}
+                            style={{ marginLeft: '120px' }}
+                        >
 
+                            {tabPane}
+                        </Tabs>
+                    </div>
                 </div> :
                 <>
-                    <Tabs 
-                        tabBarGutter={20} 
-                        centered={true} 
+                    <Tabs
+                        tabBarGutter={20}
+                        centered={true}
                         onTabClick={handler}
                         size="large"
                         activeKey={activeKey}
-                        style={{margin:'20px'}}
-                        >
+                        style={{ margin: '20px' }}
+                    >
                         {tabPane}
                     </Tabs>
                 </>
@@ -149,7 +150,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     )
 }
 
-export default Tab
+export default MainTabs
             /* <Tabs defaultActiveKey="1" tabBarGutter={10} style={style} centered={true} type="card">
 <TabPane tab={card} key="1"  style={gridStyle}>
 </TabPane>

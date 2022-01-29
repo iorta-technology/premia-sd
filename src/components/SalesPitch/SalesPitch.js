@@ -9,7 +9,19 @@ import video from './video.mp4';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import VideoPlayer from 'react-video-js-player';
+import MainTabs from '../../components/MainTabs/MainTabs'
 
+const tabMenu = [
+    {
+      id: 'customerpitch',
+      value: "Customer Pitch",
+    },
+    {
+      id: 'advisorpitch',
+      value: "Advisor Pitch"
+    },
+    
+  ]
 
 const { Text } = Typography;
 const { SubMenu } = Menu;
@@ -36,6 +48,11 @@ const SalesPitch = () => {
     const poster = "video.mp4";
     return (
         <div className="Salespitch-main">
+            <MainTabs
+                tabMenu={tabMenu}
+                // header="New Lead"
+                activeKey="customerpitch"
+            />
             <div className="Salespitch-row-flex">
                 <Tabs tabPosition={tabPosition} tabBarGutter="5vw" >
                     <TabPane tab="Presentation" key="1" >
@@ -50,10 +67,10 @@ const SalesPitch = () => {
                                                     <Card>
                                                         <Carousel effect="fade">
                                                             <div className="c1">
-                                                                <Image src="img1.jpg" style={{ width: '55vw' }} />
+                                                                <Image src="../../img1.jpg" style={{ width: '55vw' }} />
                                                             </div>
                                                             <div className="c1">
-                                                                <Image src="img2.jpg" style={{ width: '55vw' }} />
+                                                                <Image src="../../img2.jpg" style={{ width: '55vw' }} />
                                                             </div>
                                                         </Carousel>
                                                     </Card>
@@ -66,10 +83,10 @@ const SalesPitch = () => {
                                             <Col className="Salespitch-img2" xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
                                                 <Card>
                                                     <div className="c2">
-                                                        <Image src="img1.jpg" style={{ width: '21vw', height: '23vh' }} />
+                                                        <Image src="../../img1.jpg" style={{ width: '21vw', height: '23vh' }} />
                                                     </div>
                                                     <div className="c2">
-                                                        <Image src="img2.jpg" style={{ width: '21vw', height: '23vh' }} />
+                                                        <Image src="../../img2.jpg" style={{ width: '21vw', height: '23vh' }} />
                                                     </div>
                                                 </Card>
                                             </Col>
@@ -99,7 +116,7 @@ const SalesPitch = () => {
                                                 <div >
                                                     <Card bordered={true} >
                                                         <div className="i1">
-                                                            <Image src="img1.jpg" />
+                                                            <Image src="../../img1.jpg" />
                                                             {/* <Text className="text">Ant Design (mark)</Text> */}
                                                             <div className="demo-nav">
                                                                 <Link>Mahindra Insurance Brokers</Link>
@@ -112,7 +129,7 @@ const SalesPitch = () => {
                                                 <div >
                                                     <Card bordered={true} >
                                                         <div className="i1">
-                                                            <Image src="i2.jpg" />
+                                                            <Image src="../../i2.jpg" />
                                                             <div className="demo-nav">
                                                                 <Link>Indostar - About Company</Link>
                                                             </div>
@@ -124,7 +141,7 @@ const SalesPitch = () => {
                                                 <div >
                                                     <Card bordered={true} >
                                                         <div className="i1">
-                                                            <Image src="i3.JPG" />
+                                                            <Image src="../../i3.JPG" />
                                                             <div className="demo-nav">
                                                                 <Link>Orange Retail Finance</Link>
                                                             </div>
@@ -136,7 +153,7 @@ const SalesPitch = () => {
                                                 <div >
                                                     <Card bordered={true} >
                                                         <div className="i1">
-                                                            <Image src="i4.JPG" />
+                                                            <Image src="../../i4.JPG" />
                                                             <div className="demo-nav">
                                                                 <Link>Tata AIG General Insurance Com...</Link>
                                                             </div>
@@ -148,7 +165,7 @@ const SalesPitch = () => {
                                                 <div >
                                                     <Card bordered={true} >
                                                         <div className="i1">
-                                                            <Image src="i5.JPG" />
+                                                            <Image src="../../i5.JPG" />
                                                             <div className="demo-nav">
                                                                 <Link>Bajaj Capital Company Presenta...</Link>
                                                             </div>
@@ -159,7 +176,7 @@ const SalesPitch = () => {
                                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                                 <div ><Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i6.png" />
+                                                        <Image src="../../i6.png" />
                                                         <div className="demo-nav">
                                                             <Link>About The Company</Link>
                                                         </div>
@@ -170,7 +187,7 @@ const SalesPitch = () => {
                                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                                 <div ><Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i7.jpg" />
+                                                        <Image src="../../i7.jpg" />
                                                         <div className="demo-nav">
                                                             <Link>Edelweiss Tokio Life Insurance...</Link>
                                                         </div>
@@ -181,7 +198,7 @@ const SalesPitch = () => {
                                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                                 <div ><Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i8.png" style={{ width: '24vw', height: '20vh' }} />
+                                                        <Image src="../../i8.png" style={{ width: '24vw', height: '20vh' }} />
                                                         <div className="demo-nav">
                                                             <Link>National Life Group</Link>
                                                         </div>
@@ -192,7 +209,7 @@ const SalesPitch = () => {
                                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                                 <div ><Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i9.JPG" />
+                                                        <Image src="../../i9.JPG" />
                                                         <div className="demo-nav">
                                                             <Link>THAI PATTANA INSURANCE PUBLIC ...</Link>
                                                         </div>
@@ -203,7 +220,7 @@ const SalesPitch = () => {
                                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                                 <div ><Card bordered={true} >
                                                     <div className="i1" >
-                                                        <Image src="i10.png" style={{ width: '24vw', height: '20vh' }} />
+                                                        <Image src="../../i10.png" style={{ width: '24vw', height: '20vh' }} />
                                                         <div className="demo-nav">
                                                             <Link>TATA AIG</Link>
                                                         </div>
@@ -244,7 +261,7 @@ const SalesPitch = () => {
                                             <div >
                                                 <Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i11.jpg" />
+                                                        <Image src="../../i11.jpg" />
                                                         <div className="demo-nav">
                                                             <Link>Mahindra Insurance Brokers</Link>
                                                         </div>
@@ -256,7 +273,7 @@ const SalesPitch = () => {
                                             <div >
                                                 <Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i3.JPG" />
+                                                        <Image src="../../i3.JPG" />
                                                         <div className="demo-nav">
                                                             <Link>Customer Video</Link>
                                                         </div>
@@ -268,7 +285,7 @@ const SalesPitch = () => {
                                             <div >
                                                 <Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i5.JPG" />
+                                                        <Image src="../../i5.JPG" />
                                                         <div className="demo-nav">
                                                             <Link>Bajaj Capital - Always Acting in Your Interest</Link>
                                                         </div>
@@ -280,7 +297,7 @@ const SalesPitch = () => {
                                             <div >
                                                 <Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i12.JPG" />
+                                                        <Image src="../../i12.JPG" />
                                                         <div className="demo-nav">
                                                             <Link>Customer Video</Link>
                                                         </div>
@@ -292,7 +309,7 @@ const SalesPitch = () => {
                                             <div >
                                                 <Card bordered={true} >
                                                     <div className="i1">
-                                                        <Image src="i13.JPG" />
+                                                        <Image src="../../i13.JPG" />
                                                         <div className="demo-nav">
                                                             <Link>Standard Life</Link>
                                                         </div>
@@ -303,7 +320,7 @@ const SalesPitch = () => {
                                         <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                             <div ><Card bordered={true} >
                                                 <div className="i1">
-                                                    <Image src="i14.jpg" />
+                                                    <Image src="../../i14.jpg" />
                                                     <div className="demo-nav">
                                                         <Link>Customer Stories</Link>
                                                     </div>
@@ -314,7 +331,7 @@ const SalesPitch = () => {
                                         <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                             <div ><Card bordered={true} >
                                                 <div className="i1">
-                                                    <Image src="i15.png" />
+                                                    <Image src="../../i15.png" />
                                                     <div className="demo-nav">
                                                         <Link>JIGAR ROHITBHAI MEHTA</Link>
                                                     </div>
@@ -325,7 +342,7 @@ const SalesPitch = () => {
                                         <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                             <div ><Card bordered={true} >
                                                 <div className="i1">
-                                                    <Image src="i14.jpg" />
+                                                    <Image src="../../i14.jpg" />
                                                     <div className="demo-nav">
                                                         <Link>Our Customer Stories</Link>
                                                     </div>
@@ -336,7 +353,7 @@ const SalesPitch = () => {
                                         <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
                                             <div ><Card bordered={true} >
                                                 <div className="i1">
-                                                    <Image src="i16.JPG" />
+                                                    <Image src="../../i16.JPG" />
                                                     <div className="demo-nav">
                                                         <Link>Testimonial by Merlinda Teodoro, PhilPla...
                                                         </Link>
@@ -358,8 +375,7 @@ const SalesPitch = () => {
                                 <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                     <Row gutter={['', 24]}>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Mutual Fund</Title>
-                                            <Form layout="horizontal" className="success-story-form">
+                                            <Title className="success-head">Mutual Fund</Title><hr />                                            <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
                                                     <p className="product-para">Mutual Funds are among the hottest favourites with all types of investors.Investing in mutual funds ranks among one of the preferred ways of creating wealth over the long term.In fact, mutual funds represent the hands-off approach to entering the equity market.There are a wide variety of mutual funds that are viable investment avenues to meet a wide variety of financial goals.This section explains the various aspects of Mutual Funds.</p>
@@ -369,13 +385,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="MUTUAL_FUND.jpg" style={{ width: '20vw', height: '30vh' }} />
+                                                        <Image src="../../MUTUAL_FUND.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Mutual Funds India - NFO Latest</Title>
+                                            <Title className="success-head">Mutual Funds India - NFO Latest</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -388,13 +404,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="NFO.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../NFO.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Fixed Deposite Scheme</Title>
+                                            <Title className="success-head">Fixed Deposite Scheme</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -409,13 +425,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="fixed_deposit.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../fixed_deposit.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">National Pension System</Title>
+                                            <Title className="success-head">National Pension System</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -426,13 +442,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="National_Pension_System.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../National_Pension_System.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">BONDS</Title>
+                                            <Title className="success-head">BONDS</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -443,13 +459,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="BOnds.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../BOnds.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Term Insurance Plans</Title>
+                                            <Title className="success-head">Term Insurance Plans</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -464,13 +480,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="term-insurance-plans-mobile.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../term-insurance-plans-mobile.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Life Health Plans</Title>
+                                            <Title className="success-head">Life Health Plans</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -482,13 +498,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="images.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../images.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Retirement Planning</Title>
+                                            <Title className="success-head">Retirement Planning</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -499,13 +515,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="retirement-catpage-mob.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../retirement-catpage-mob.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Child's Education Planning</Title>
+                                            <Title className="success-head">Child's Education Planning</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -517,13 +533,13 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="Child_Plans_Mobile_Banner.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../Child_Plans_Mobile_Banner.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>
                                         </Col>
                                         <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                            <Title className="success-head">Savings & Income Plans</Title>
+                                            <Title className="success-head">Savings & Income Plans</Title><hr />
                                             <Form layout="horizontal" className="success-story-form">
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <h3 className="product-head3">Description</h3>
@@ -535,7 +551,7 @@ const SalesPitch = () => {
                                                 </Col>
                                                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                     <div>
-                                                        <Image src="group-plans-mob-new.jpg" style={{ width: '40vw', height: '50vh' }} />
+                                                        <Image src="../../group-plans-mob-new.jpg" style={{ width: '40vw', height: '50vh' }} />
                                                     </div>
                                                 </Col>
                                             </Form>

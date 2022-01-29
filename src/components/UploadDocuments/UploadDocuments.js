@@ -1,10 +1,39 @@
 import React, { useState } from 'react';
-import './AddressProof.css';
+import './UploadDocuments.css';
 import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal, Checkbox } from 'antd';
 import { Divider, Image, Card } from 'antd';
 import { Upload, message } from 'antd';
 import { Table, Tag } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import MainTabs from '../../components/MainTabs/MainTabs'
+
+const tabMenu = [
+    {
+      id: 'benefitillustrator',
+      value: "Benefit Illustrator",
+    },
+    {
+      id: 'proposalfulfilment',
+      value: "Proposal Fulfilment"
+    },
+    {
+      id: 'prepaymentreview',
+      value: "Pre-payment Review"
+    },
+    {
+      id: 'paymentoptions',
+      value: "Payment Options"
+    },
+    {
+        id: 'uploaddocuments',
+        value: "Upload Documents"
+    },
+    {
+        id: 'proposalhistory',
+        value: "Proposal History"
+    },
+  
+  ]
 const { Title } = Typography;
 function onChange(date, dateString) {
     console.log(date, dateString);
@@ -81,7 +110,7 @@ const setStateOptions = [
     { value: "", label: "Letter from any recognized public authority or public servant" },
     { value: "", label: "Credit Card Statement" }
 ]
-const AddressProof = () => {
+const UploadDocuments = () => {
     const [value, setValue] = React.useState(1);
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
@@ -89,6 +118,11 @@ const AddressProof = () => {
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
     return (
         <div className="addressproof">
+            <MainTabs
+                tabMenu={tabMenu}
+                // header="New Lead"
+                activeKey="uploaddocuments"
+            />
             <div className="addressProof-row-flex">
                 <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
                     <TabPane tab="Address Proof" key="1" >
@@ -106,7 +140,7 @@ const AddressProof = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="State"
+                                                                name="Select Document Type"
                                                                 label="Select Document Type"
                                                                 hasFeedback
                                                                 rules={[
@@ -187,7 +221,7 @@ const AddressProof = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="State"
+                                                                name="Select Document Type"
                                                                 label="Select Document Type"
                                                                 hasFeedback
                                                                 rules={[
@@ -266,7 +300,7 @@ const AddressProof = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="State"
+                                                                name="Select Document Type"
                                                                 label="Select Document Type"
                                                                 hasFeedback
                                                                 rules={[
@@ -345,7 +379,7 @@ const AddressProof = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="State"
+                                                                name="Select Document Type"
                                                                 label="Select Document Type"
                                                                 hasFeedback
                                                                 rules={[
@@ -424,7 +458,7 @@ const AddressProof = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="State"
+                                                                name="Select Document Type"
                                                                 label="Select Document Type"
                                                                 hasFeedback
                                                                 rules={[
@@ -503,7 +537,7 @@ const AddressProof = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="State"
+                                                                name="Select Document Type"
                                                                 label="Select Document Type"
                                                                 hasFeedback
                                                                 rules={[
@@ -573,4 +607,4 @@ const AddressProof = () => {
         </div>
     )
 }
-export default AddressProof;
+export default UploadDocuments;

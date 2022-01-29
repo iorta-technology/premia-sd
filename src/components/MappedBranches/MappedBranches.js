@@ -96,9 +96,9 @@ const MappedBranches = () => {
                     <div>
 
                         <div className="Mappedbranches-content-area-style" >
-                            <div className="pagination">
+                            {/* <div className="pagination">
                                 <Pagination defaultCurrent={1} total={50} />
-                            </div>
+                            </div> */}
                             <div className="Mappedbranches-card-flex">
                                 <div className="Mappedbranches-card-style" >
                                     <div className="Mappedbranches-card-content-flex">

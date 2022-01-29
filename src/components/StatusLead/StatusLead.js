@@ -736,7 +736,7 @@ const NewLead = React.memo(() => {
     <>
       <Tabs
         tabMenu={tabMenu}
-        header="New Lead"
+        // header="New Lead"
         activeKey="1"
       />
 

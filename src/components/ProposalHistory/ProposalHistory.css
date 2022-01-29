@@ -1,5 +1,5 @@
 .proposalhistory{
-    display: flex;
+    /* display: flex; */
     height: 700vh;
     /* margin:  0 auto;
     margin-left: 1vw; */
@@ -7,7 +7,7 @@
 }
 .proposalhistory-row-flex{
     display: flex;
-    width: 100%;
+    width: 96%;
     margin-top: 4vw;
     margin-bottom: 10vw;
     margin-left: 2vw;

@@ -1,12 +1,40 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal } from 'antd';
+import { Row, Col, Form, Menu, Tabs,Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal } from 'antd';
 import { Divider, Image, Card } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import './PaymentOptions.css';
+import MainTabs from '../../components/MainTabs/MainTabs';
 const { Title } = Typography;
 function onChange(date, dateString) {
     console.log(date, dateString);
 }
+const tabMenu = [
+    {
+      id: 'benefitillustrator',
+      value: "Benefit Illustrator",
+    },
+    {
+      id: 'proposalfulfilment',
+      value: "Proposal Fulfilment"
+    },
+    {
+      id: 'prepaymentreview',
+      value: "Pre-payment Review"
+    },
+    {
+      id: 'paymentoptions',
+      value: "Payment Options"
+    },
+    {
+        id: 'uploaddocuments',
+        value: "Upload Documents"
+    },
+    {
+        id: 'proposalhistory',
+        value: "Proposal History"
+    },
+  
+  ]
 const { Option } = Select;
 const contentStyle = {
     height: '120px',
@@ -31,6 +59,11 @@ const PaymentOptions = () => {
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
     return (
         <div className="paymentoption-main">
+            <MainTabs
+                tabMenu={tabMenu}
+                // header="New Lead"
+                activeKey="paymentoptions"
+            />
             <div className="paymentoption-row-flex">
                 <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
                     <TabPane tab="Personal" key="1" >
@@ -58,7 +91,7 @@ const PaymentOptions = () => {
                                                         </Col>
                                                     </Row><br />
                                                     <Col>
-                                                        <Button className="paymentoption-btn" style={{ marginLeft: '65vw' }}>Pay Now</Button>
+                                                        <Button className="paymentoption-btn" style={{ marginLeft: '60vw' }}>Pay Now</Button>
                                                     </Col>
                                                 </Form>
                                             </Col>
@@ -134,7 +167,7 @@ const PaymentOptions = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name="City"
+                                                                name="Payment Mode"
                                                                 label="Payment Mode"
                                                                 hasFeedback
                                                                 rules={[
@@ -156,7 +189,7 @@ const PaymentOptions = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name={['user', 'name']}
+                                                                name='Recored Amount'
                                                                 label="Recored Amount"
                                                                 rules={[
                                                                     {
@@ -172,7 +205,7 @@ const PaymentOptions = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name={['user', 'name']}
+                                                                name="Bank Name"
                                                                 label="Bank Name
 "
                                                                 rules={[
@@ -189,7 +222,7 @@ const PaymentOptions = () => {
                                                             <Form.Item
                                                                 {...formItemLayout}
                                                                 className="form-item-name label-color"
-                                                                name={['user', 'name']}
+                                                                name={['Branch Name']}
                                                                 label="Branch Name"
                                                                 rules={[
                                                                     {
@@ -221,7 +254,7 @@ const PaymentOptions = () => {
                                                             <Button className="paymentoption-btn">Proceed
                                                                 <ArrowRightOutlined
                                                                     style={{
-                                                                        marginTop: "7px"
+                                                                        marginTop: "6px"
                                                                     }}
                                                                 />
                                                             </Button><br />
@@ -264,7 +297,7 @@ const PaymentOptions = () => {
                                                         <Form.Item
                                                             {...formItemLayout}
                                                             className="form-item-name label-color"
-                                                            name={['user', 'name']}
+                                                            name={['Email ID']}
                                                             label="Email ID
 "
                                                             rules={[
@@ -281,7 +314,7 @@ const PaymentOptions = () => {
                                                         <Form.Item
                                                             {...formItemLayout}
                                                             className="form-item-name label-color"
-                                                            name={['user', 'name']}
+                                                            name={['Mobile No']}
                                                             label="Mobile No"
                                                             rules={[
                                                                 {

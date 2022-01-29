@@ -1,5 +1,5 @@
 .Advisor-main{
-    display: flex;
+    /* display: flex; */
     height: 300vh;
     /* margin:  0 auto;
     margin-left: 1vw; */
@@ -7,7 +7,7 @@
 }
 .paymentoption-row-flex{
     display: flex;
-    width: 100%;
+    width: 96%;
     margin-top: 4vw;
     margin-bottom: 10vw;
     margin-left: 2vw;
@@ -64,8 +64,8 @@
     background-color: rgb(59, 55, 30);
     color: white;
     width: 10vw;
-    font-size: 16px;
-    height: 4vh;
+    font-size: 15px;
+    height: 5vh;
     padding-left: 3vw;
 }
 .contact-detail-form{
@@ -169,7 +169,7 @@ font-weight: bold;
         flex-direction: column;
         margin-top: 1vw;
         margin-left: 1vw;
-        font-size: 18px;
+        font-size: 15px;
         text-align: start;
         font-family: 'robotoregular';
     }
@@ -187,7 +187,7 @@ font-weight: bold;
     .about-head2{
         display: flex;
         flex-direction: column;
-        font-size: 16px;
+        font-size: 15px;
         font-family: 'robotoregular';
         text-align: start;
         /* line-height: 2.0; */
@@ -200,7 +200,7 @@ font-size: 14px;
     
     .success-head{
         display: flex;
-        font-size: 18px !important;
+        font-size: 15px !important;
     }
     .success-comments{
         display: flex;
@@ -210,6 +210,6 @@ font-size: 14px;
     .success-heading1{
         display: flex;
         text-align: justify;
-        font-size: 16px !important;
+        font-size: 15px !important;
     }
 }

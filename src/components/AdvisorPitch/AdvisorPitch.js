@@ -3,23 +3,38 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal } from 'antd';
 import { Divider, Image, Card } from 'antd';
 import './AdvisorPitch.css';
+import MainTabs from '../../components/MainTabs/MainTabs'
 
-
+const tabMenu = [
+    {
+      id: 'customerpitch',
+      value: "Customer Pitch",
+    },
+    {
+      id: 'customerpitch',
+      value: "Advisor Pitch"
+    },
+    
+  ]
 const { Title } = Typography;
-
 
 const AdvisorPitch = () => {
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
-    
+
     return (
         <>
             <div className="Advisor-main">
+            <MainTabs
+                tabMenu={tabMenu}
+                // header="New Lead"
+                activeKey="advisorpitch"
+            />
                 <div className="Advisorpitch-row-flex">
-                    <Tabs tabPosition={tabPosition} tabBarGutter="5vw" >
-                    {/* style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }} */}
+                    <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ fontSize: '14px', backgroundColor: 'white', fontWeight: 'bold' }}>
+                        {/* style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }} */}
                         <TabPane tab="About Us" key="1" >
                             <div className="Advisorpitch-details-card-style ">
                                 <div className="Advisorpitch-details-card-content-align">
@@ -84,7 +99,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div >
-                                                            <Image src="Amit.jpg" style={{ width: '35vw'}}/>
+                                                            <Image src="../../Amit.jpg" style={{ width: '35vw' }} />
                                                         </div>
                                                         <h3 className="success-comments">- Amit Kumar, Construction Office Engineer</h3>
                                                     </Col>
@@ -102,7 +117,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="Deepak.jpg" style={{ width: '35vw'}}/>
+                                                            <Image src="../../Deepak.jpg" style={{ width: '35vw' }} />
                                                         </div>
                                                         <h3 className="success-comments">- Deepak Dhadotti , Construction Office Engineer</h3>
                                                     </Col>
@@ -120,7 +135,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="Jagjit.jpg" style={{ width: '35vw'}}/>
+                                                            <Image src="../../Jagjit.jpg" style={{ width: '35vw' }} />
                                                         </div>
                                                         <h3 className="success-comments">- Jagjit Singh , Construction Office </h3>
                                                     </Col>
@@ -138,7 +153,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="Chandubhai.jpg" style={{ width: '35vw'}}/>
+                                                            <Image src="../../Chandubhai.jpg" style={{ width: '35vw' }} />
                                                         </div>
                                                         <h3 className="success-comments">- Chandubhai Virani , Construction Office Engineer</h3>
                                                     </Col>
@@ -156,7 +171,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="Sandeep.jpg" style={{ width: '35vw'}}/>
+                                                            <Image src="../../Sandeep.jpg" style={{ width: '35vw' }} />
                                                         </div>
                                                         <h3 className="success-comments">- Sandeep Kapoor , Construction Office Engineer</h3>
                                                     </Col>

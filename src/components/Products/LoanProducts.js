@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import './LoanProducts.css'
-import { Row, Col, Button, Card, Carousel, Modal } from 'antd'
+import { Row, Col, Button, Card, Carousel, Modal, Form, Input } from 'antd'
 import { ShareAltOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import axios from '../../axios-common';
 import { map } from 'lodash';
+import moment from 'moment';
 import Brocher from '../../images/brochrewhite.png'
-
+import {
+    BrowserRouter as Router,
+    Link, useLocation, useHistory
+} from "react-router-dom";
 const LoanProducts = () => {
     const contentStyle = {
         height: '160px',
@@ -33,21 +37,32 @@ const LoanProducts = () => {
         }, []).catch(error => {
             console.log(error)
         })
+        axios.get("https://sdrestnode.iorta.in/secure/sd/user/getLead/5df77d17009e273b39cae811?leadfilter=all")
+            .then((res) => {
+                console.log(res.data.errMsg)
+                setBenefitIllustratorArr(
+                    res.data.errMsg
+                );
+            });
+
+
+
     }, [])
     const { TabPane } = Tabs;
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
+    // const showModal = () => {
+    //     setIsModalVisible(true);
+    // };
 
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
+    // const handleOk = () => {
+    //     setIsModalVisible(false);
+    // };
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
+    // const handleCancel = () => {
+    //     setIsModalVisible(false);
+    // };
+    const [benefitIllustratorArr, setBenefitIllustratorArr] = useState([]);
     const topBtnClickHandler = (item) => {
         console.log(item)
         SetActiveId(item._id)
@@ -58,7 +73,25 @@ const LoanProducts = () => {
             console.log(error)
         })
     }
+    const [isJoinModalVisible, setIsJoinModalVisible] = useState(false);
+    const [isDisplayVisible, setIsDisplayModalVisible] = useState(false);
+    const [isPassingData, setIsPassingData] = useState();
+    const [benefitillArr, setBIArr] = useState();
+    const [buttonValue, setButtonValue] = useState();
 
+    const showModal = () => {
+        setIsJoinModalVisible(true);
+    };
+    const SelectedButtonFunc = (value) => {
+        setBIArr(value)
+        console.log(value)
+    }
+    const handleOk = () => {
+        setIsJoinModalVisible(false);
+    };
+    const handleCancel = () => {
+        setIsJoinModalVisible(false);
+    };
     return (
         <>
             <div className="header">
@@ -79,14 +112,77 @@ const LoanProducts = () => {
             <div className="loan-product-tabs">
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                     <Tabs tabPosition='left'>
-                        {productTabs.map((item, i) => {
+                        {productTabs.map((item) => {
                             return <TabPane tab={item.productName} key={item._id} className="MainContent">
                                 <Col className="gutter-row first-card" span={12}>
                                     <div>
                                         <div className="main-card2" bordered={false} >
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
                                                 <h1 style={{ color: '#5EA5C0' }}>{item.productName}</h1>
-                                                <Button style={{ backgroundColor: 'transparent', border: '1px solid #5EA5C0', borderRadius: '10px' }}>Benefit Illustration</Button>
+                                                <Button style={{ backgroundColor: 'transparent', border: '1px solid #5EA5C0', borderRadius: '10px' }} onClick={showModal}>Benefit Illustration</Button>
+                                                <Modal
+                                                    className="Clubsmaster-modal-style"
+                                                    title="Select the proposer" visible={isJoinModalVisible} onOk={handleOk}
+
+                                                    footer={[
+                                                        <Button type="primary" className="bi-cancelbtn" onClick={handleCancel}>Cancel</Button>,
+                                                        <Link to={{
+                                                            pathname: "/master/benefitillustrator",
+                                                            state: { recorddata: benefitIllustratorArr },
+                                                            
+
+                                                        }} className="link-btn">Proceed</Link>
+                                                    ]}
+                                                    // ClassName="link-btn"
+                                                    width="50%"
+                                                    bodyStyle={{
+                                                        height: "auto",
+                                                    }}
+
+
+                                                >
+                                                    <Form.Item
+                                                        // label="Username"
+                                                        name="username"
+                                                        rules={[{ required: false, message: 'Please input your username!' }]}
+                                                    >
+                                                        <Input type="text" placeholder="Search Here" />
+                                                    </Form.Item>
+
+                                                    <table >
+                                                        <tr>
+                                                            <th className='table-heading1'>Action</th>
+                                                            <th className='table-heading2'>Lead ID</th>
+                                                            <th className='table-heading2'>Name</th>
+                                                            <th className='table-heading2'>Mobile</th>
+                                                            <th className='table-heading2'>Created Date</th>
+                                                        </tr>
+
+
+
+                                                        {benefitIllustratorArr.map((item) => {
+                                                            return (
+                                                                <tr>
+                                                                    <td><Button className='select-btn' onClick={() => SelectedButtonFunc(item)}>Select</Button></td>
+                                                                    <td className='table-subdata'>{item.lead_Id}</td>
+                                                                    <td className='table-subdata'>{item.firstName + " " + item.lastName}</td>
+                                                                    <td className='table-subdata'>{item.primaryMobile}</td>
+                                                                    <td className='table-subdata'>{moment(item.created_date).format("DD-MM-YYYY")}</td>
+                                                                </tr>
+                                                            )
+                                                        })}
+
+
+                                                    </table>
+                                                    {/* </div> */}
+                                                    {/* <Table
+                        columns={columns}
+                        dataSource={benefitIllustratorArr}
+                        pagination={{ pageSize: 50 }}
+                        scroll={{ x: '150vw' }}
+                    /> */}
+
+                                                </Modal>
                                             </div>
                                             <p>{item.productDescription}</p>
                                             <h1 style={{ color: '#5EA5C0' }}>5 Reasons to buy:</h1>
@@ -144,8 +240,8 @@ const LoanProducts = () => {
                                                             <img src={Brocher} height="100px" width="90px"></img>
                                                             <Button size="small" style={{ backgroundColor: '#5EA5C0', color: '#fff', border: '1px solid #5EA5C0', borderRadius: '10px' }}>
                                                                 <a href={item.location} download><DownloadOutlined />
-                                                                English</a>
-                                                                </Button>
+                                                                    English</a>
+                                                            </Button>
 
                                                         </div>
                                                     )

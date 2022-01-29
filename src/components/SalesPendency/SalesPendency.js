@@ -4,6 +4,7 @@ import { Row, Col, Typography, Divider, Card, Descriptions, Button, Carousel } f
 import { Select } from 'antd';
 import axios from 'axios';
 import { Table } from 'antd';
+import moment from 'moment';
 const contentStyle = {
     height: '230px',
     width: '100%',
@@ -68,6 +69,12 @@ const columns = [
         title: 'Date of File Update',
         dataIndex: 'DateofFileUpdate',
     },
+    {
+        title: 'Action',
+        dataIndex: '',
+        key: 'x',
+        render: () => <Button>Delete</Button>,
+      },
 ];
 
 const SalesPendency = () => {
@@ -78,6 +85,7 @@ const SalesPendency = () => {
     const [selectBusinessOption, setSelectBusinessOption] = useState("");
     const [fetchPendencyArr, setFetchPendencyArr] = useState([]);
     const [loading, setloading] = useState(true);
+    const[resetArray,setResetArray]=useState([])
 
     const filterBusinessFunc = (e) => {
         setSelectBusinessOption(e.target.value)
@@ -95,6 +103,7 @@ const SalesPendency = () => {
             .then((res) => {
                 setloading(false);
                 console.log(res)
+                setResetArray(res.data.errMsg[0])
                 setFetchPendencyArr(
                     res.data.errMsg[0]
                         .filter(filArr => {
@@ -122,7 +131,7 @@ const SalesPendency = () => {
                             Type: row.bussinessType,
                             Remarks: row.remarks,
                             RequirementDescription: row.requirementDescription,
-                            DateofFileUpdate: row.updatedDate
+                            DateofFileUpdate: moment(row.updatedDate).format("DD-MM-YYYY")
                         }))
 
                 );
@@ -132,6 +141,7 @@ const SalesPendency = () => {
     console.log(fetchPendencyArr);
     function refreshPage() {
         window.location.reload(false);
+   setFetchPendencyArr(resetArray)
     }
     return (
         // {width <= "375" ? <div className="tabs">
@@ -140,58 +150,62 @@ const SalesPendency = () => {
         //     <TabPane tab="Recent" key="2"></TabPane>
         //     <TabPane tab="Later" key="3"></TabPane>
         // </Tabs></div> :
-        <Row type="flex" gutter={['', 24]}>
-            <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
-                <Row type="flex" gutter={['', 24]}>
-                    <Col className="sales-pendency" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                        <div className="Card">
-                            <div className="pendency-main">
-                                <Card style={contentStyle} >
-                                    <h3 className="pendency-head3">BRM Code AB0005</h3><br />
-                                    <Row gutter={[16, 16]}>
-                                        <Col xs={24} sm={12} md={4}>
-                                            <div >
-                                                <h4 className="pendency-head4">Filter by BusinessType</h4>
-                                                <select value={selectBusinessOption} style={{ width: 150, color: '#000', fontSize: '20px' }} bordered={false} onChange={filterBusinessFunc}>
-                                                    <option value="">Select</option>
-                                                    <option value="New Business">New Business</option>
-                                                </select>
-                                            </div><hr />
-                                        </Col>
-                                        <Col xs={24} sm={12} md={4}>
-                                            <div >
-                                                <h4 className="pendency-head4">Filter by Remark</h4>
-                                                <select value={selectRemarkOption} style={{ width: 150, color: '#000', fontSize: '20px' }} bordered={false} onChange={filterRemarkFunc}>
-                                                    <option value="">Select</option>
-                                                    <option value="Consent Pending-Sales">Consent Pending-Sales</option>
-                                                </select>
-                                            </div><hr />
-                                        </Col>
-                                        <Col xs={24} sm={12} md={4}>
-                                            <div >
-                                                <Button className="pendency-btn" shape="round" onClick={refreshPage}>Reset Filter</Button>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Card>
+        <div className="wrapper">
+            <Row type="flex" gutter={['', 24]}>
+                <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
+                    <Row type="flex" gutter={['', 24]}>
+                        <Col className="sales-pendency" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                            <div className="Card">
+                                <div className="pendency-main">
+                                    <Card style={contentStyle} >
+                                        <h3 className="pendency-head3">BRM Code AB0005</h3><br />
+                                        <Row gutter={[16, 16]}>
+                                            <Col xs={24} sm={12} md={4}>
+                                                <div >
+                                                    <h4 className="pendency-head4">Filter by BusinessType</h4>
+                                                    <select value={selectBusinessOption} style={{ width: 150, color: '#000', fontSize: '15px' }} bordered={false} onChange={filterBusinessFunc}>
+                                                        <option value="">Select</option>
+                                                        <option value="New Business">New Business</option>
+                                                    </select>
+                                                </div><hr />
+                                            </Col>
+                                            <Col xs={24} sm={12} md={4}>
+                                                <div >
+                                                    <h4 className="pendency-head4">Filter by Remark</h4>
+                                                    <select value={selectRemarkOption} style={{ width: 150, color: '#000', fontSize: '15px' }} bordered={false} onChange={filterRemarkFunc}>
+                                                        <option value="">Select</option>
+                                                        <option value="Consent Pending-Sales">Consent Pending-Sales</option>
+                                                    </select>
+                                                </div><hr />
+                                            </Col>
+                                            <Col xs={24} sm={12} md={4}>
+                                                <div >
+                                                    <Button className="pendency-btn" shape="round" onClick={refreshPage}>Reset Filter</Button>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Card>
+                                </div>
+                                <div>
+                                    {loading ? (
+                                        "Loading"
+                                    ) : (
+                                        <div className="wrapper">
+                                        <Table
+                                            columns={columns}
+                                            dataSource={fetchPendencyArr}
+                                            pagination={{ pageSize: 50 }}
+                                            scroll={{ x: '150vw' }}
+                                        />
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                            <div>
-                                {loading ? (
-                                    "Loading"
-                                ) : (
-                                    <Table
-                                        columns={columns}
-                                        dataSource={fetchPendencyArr}
-                                        pagination={{ pageSize: 50 }}
-                                        scroll={{ x: '150vw' }}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Col>
-        </Row>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+        </div>
     )
 }
 

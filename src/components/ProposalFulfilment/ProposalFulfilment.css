@@ -1,5 +1,5 @@
 .proposal-main{
-    display: flex;
+    /* display: flex; */
     height: 700vh;
     /* margin:  0 auto;
     margin-left: 1vw; */
@@ -7,7 +7,7 @@
 }
 .proposalfulfilment-row-flex{
     display: flex;
-    width: 100%;
+    width: 96%;
     margin-top: 4vw;
     margin-bottom: 10vw;
     margin-left: 2vw;
@@ -18,7 +18,8 @@
     }
 .proposal-personal1,
 .btn-container{
-    margin-left: 0 auto;
+    margin-left: 1vw;
+    margin-right: 1vw;
     padding: 20px 20px;
     /* height: 200vh; */
     border-radius: 5px;
@@ -52,7 +53,7 @@
     line-height: 1.5;
     flex-direction: row;
     color: rgb(153, 153, 153);
-    font-size: 16px;
+    font-size: 14px;
 }
 .proposal-title{
     display: flex;
@@ -103,8 +104,106 @@
     color: white;
     width: 10vw;
     font-size: 15px;
-    height: 4vh;
+    height: 5vh;
     padding-left: 3vw;
+}
+.proposalfulfilment-button {
+    background-color: #3b371e; /* Green */
+    border: none;
+    /* margin-left: 70vw !important; */
+    color: white;
+    padding: 2px 25px;
+    height: 5vh;
+    /* box-shadow: 0px 5px 7px #00000029;
+    border-radius: 5px;
+    border: black; */
+    /* -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px; */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    justify-content: center;
+            /* display: flex;
+            flex-direction: column;
+            margin-left: 1vw;
+            margin-right: 1vw;
+            margin-top: 1vw;
+            margin-bottom: 1vw;
+            font-weight: bold;
+            font-size: 14px;
+            justify-content: space-between;
+            background-color: #00ACC1;
+            color: #fff;
+            box-shadow: 0px 5px 7px #00000029;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            padding-top: 7vw;
+            width: 20vw;
+            height: 15vh;
+            cursor: pointer;
+            justify-content: center; */
+          }
+          .proposalfulfilment-btn2{
+            background-color: #fff;
+            /* border: none; */
+            /* box-shadow: 0px 5px 7px #00000029; */
+            /* border-radius: 5px; */
+            /* border: black; */
+            border: 1px solid #3b371e !important;
+            /* -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px; */
+            color: black;
+            padding: 2px 30px;
+            height: 5vh;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            justify-content: center;
+            /* display: flex;
+            flex-direction: column;
+            margin-left: 1vw;
+            margin-right: 1vw;
+            margin-top: 1vw;
+            margin-bottom: 1vw;
+            font-weight: bold;
+            font-size: 14px;
+            justify-content: space-between;
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0px 5px 7px #413d3d29;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            padding-top: 7vw;
+            width: 20vw;
+            height: 15vh;
+            cursor: pointer;
+            justify-content: center; */
+            }
+.proposalfulfilment-tab-active-text-style{
+    /* color: white; */
+    font-size: 15px
+}
+.proposalfulfilment-tab-text-style{
+    /* color: #000; */
+    font-size: 15px;
 }
 .contact-detail-form{
     display: flex;
@@ -252,6 +351,6 @@ font-size: 14px;
     .success-heading1{
         display: flex;
         text-align: justify;
-        font-size: 16px !important;
+        font-size: 15px !important;
     }
 }

@@ -1,10 +1,45 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Button, Form } from 'antd';
+import { Row, Col, Card, Button, Form, Tabs } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import './PrePaymentReview.css';
+import MainTabs from '../../components/MainTabs/MainTabs'
+
+const tabMenu = [
+    {
+      id: 'benefitillustrator',
+      value: "Benefit Illustrator",
+    },
+    {
+      id: 'proposalfulfilment',
+      value: "Proposal Fulfilment"
+    },
+    {
+      id: 'prepaymentreview',
+      value: "Pre-payment Review"
+    },
+    {
+      id: 'paymentoptions',
+      value: "Payment Options"
+    },
+    {
+        id: 'uploaddocuments',
+        value: "Upload Documents"
+    },
+    {
+        id: 'proposalhistory',
+        value: "Proposal History"
+    },
+  
+  ]
 const PrePaymentReview = () => {
     return (
+
         <div className="prepayment-main">
+            <MainTabs
+                tabMenu={tabMenu}
+                // header="New Lead"
+                activeKey="prepaymentreview"
+            />
             <div className="prepayment-body">
                 <Row gutter={[16, 16]} justify="start">
                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
@@ -181,7 +216,7 @@ const PrePaymentReview = () => {
                                             <Button className="prepaymentreview-btn">Proceed
                                                 <ArrowRightOutlined
                                                     style={{
-                                                        marginTop: "7px"
+                                                        marginTop: "6px"
                                                     }}
                                                 />
                                             </Button><br />
