@@ -1,12 +1,13 @@
 export {
     fetchAllLeads,
     fetchDesignation,
+    fetchTeamMember
 } from './leads'
 export {
     fetchLeadDetails,
     createLead,
     storeLead,
-    editLead
+    editLead,
 }from './newLead'
 export {
     fetchAllState,
@@ -35,5 +36,11 @@ export {
 }from './product'
 
 export {
-    fetchAgentDetails
+    fetchAgentDetails,
+    fetchBlogs,
+    fetchCompany,
 }from './agentMicrosite'
+
+export {
+    fetchAdvisorList
+}from './advisor'

@@ -65,7 +65,7 @@ const ProposedProduct = () => {
     const [planNameValue, setPlanNameValue] = useState()
     const [closureDate, setClosureDate] = useState()
     const [expectedMoney, setExpectedMoney] = useState()
-
+    const [errorMessage, setErrorMessage] = useState()
     useEffect(() => {
         console.log(productCategories)
         dispatch(actions.fetchProduct(channelCode))
@@ -111,10 +111,27 @@ const ProposedProduct = () => {
         ...storeFormData,
 
     };
+    const failedHandler = (error)=>{
+        alert(error)
+        console.log(error)
+    }
     const submitHandler = event => {
         // event.preventDefault();
 
         dispatch(actions.editLead(formData, storeLeadId))
+        .then((res)=>{
+            if (res.type === "EDIT_LEAD_SUCCESS") {
+              console.log('success:', res);
+              setErrorMessage()
+            //   setIsNewLead(false)
+              
+            }else if(res.type==='EDIT_LEAD_FAIL'){
+              console.log('failed:', res);
+    
+              failedHandler(res.error)
+              console.log(res)
+            }
+          })
         alert('New Lead Updated Successfully')
         // history.replace('leadmasterpage/statuslead')
     };

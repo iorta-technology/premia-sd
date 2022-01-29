@@ -14,6 +14,7 @@ import Icon from '@ant-design/icons';
 import axios from 'axios';
 import { times } from "lodash";
 import Form from "antd/lib/form/Form";
+import Item from "antd/lib/list/Item";
 const { Search } = Input;
 
 let dateFormat = 'YYYY/MM/DD';
@@ -45,7 +46,7 @@ export default function CalendarEvent() {
     inactive_agent_reactivation: false
 
   })
-  const [status_type, setStatusType] = useState({
+  const [statusType, setStatusType] = useState({
     openStatus: true,
     closeStatus: false
   })
@@ -939,9 +940,20 @@ const[customerArr,setCustomerArr]=useState([]);
 const[customerHelperArr,setCustomerHelperArr]=useState([]);
 const[customerTagVisible,setCustomerTagVisible]=useState(false);
 const[customerOnClickVal,setCustomerOnClickVal]=useState()
+const[searchCustomerArr,setSearchCustomerArr]=useState([])
+const[searchCustomerObject,setSearchCustomerObject]=useState()
 const[searchCustomerText,setSearchCustomerText]=useState("");
 const[customerOnClickCheck,setCustomerOnClickCheck]=useState(false)
-
+const[searchAdvisorText,setSearchAdvisorText]=useState("");
+const[advisorOnClickCheck,setAdvisorOnClickCheck]=useState(false)
+const[advisorArr,setAdvisorArr]=useState([]);
+const[advisorHelperArr,setAdvisorHelperArr]=useState([]);
+const[advisorTagVisible,setAdvisorTagVisible]=useState(false);
+const[advisorOnClickVal,setAdvisorOnClickVal]=useState()
+const[searchAdvisorArr,setSearchAdvisorArr]=useState([])
+const[searchAdvisorObject,setSearchAdvisorObject]=useState()
+const[searchProspectArr,setSearchProspectArr]=useState([])
+const[searchProspectObject,setSearchProspectObject]=useState()
 const[prospectArr,setProspectArr]=useState([]);
 const[prospectHelperArr,setProspectHelperArr]=useState([]);
 const[prospectTagVisible,setProspectTagVisible]=useState(false);
@@ -954,11 +966,22 @@ const[updateEventId,setUpdateEventId]=useState()
 const[eventLoadCheck,setEventLoadCheck]=useState(false)
 const[eventBookCheck,setEventBookCheck]=useState("")
 const[updateEventType,setUpdateEventType]=useState("")
+const[appointmentTypeFetched,setAppointmentTypeFetched]=useState();
+const[eventTypeFetched,setEventTypeFetched]=useState();
 const[eventStatus,setEventStatus]=useState("")
 const[statusReasonText,setStatusReasonText]=useState("")
 const[manualCustomerCheck,setManualCustomerCheck]=useState(false)
 const[addCustTagVisible,setAddCustTagVisible]=useState(true)
 const[eventDurationType,setEventDurationType]=useState("")
+const[searchTeamArr,setSearchTeamArr]=useState([])
+const[searchTeamObject,setSearchTeamObject]=useState()
+const[teamArr,setTeamArr]=useState([]);
+const[teamHelperArr,setTeamHelperArr]=useState([]);
+const[teamTagVisible,setTeamTagVisible]=useState(false);
+const[teamOnClickVal,setTeamOnClickVal]=useState()
+const[searchTeamText,setSearchTeamText]=useState("");
+const[teamOnClickCheck,setTeamOnClickCheck]=useState(false)
+
   // axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=past
   // `,{
   //   // params:{
@@ -1008,23 +1031,60 @@ const[editEndTime,setEditEndTime]=useState("");
 // },[testArr])
 
 useEffect(()=>{
-  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=upcoming `)
+
+  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/616e908c43ed727bbac8d2d4?teamdata=0&filter=${month}&category=upcoming `)
   .then((res)=>{
     console.log(res.data.errMsg)
     setFetchEventCheck(true)
     setFetchUpcomingArr(res.data.errMsg)
 res.data.errMsg.map((item)=>{
   setFetchEventArray(fetchEvents=>[...fetchEvents,{
-    id:item._id,
+    // id:item._id,
+    // start_date:parseInt(item.start_date),
+    // start_time:parseInt(item.start_time),
+    // end_date:parseInt(item.end_date),
+    // end_time:parseInt(item.end_time),
+    // durationType: item.durationType,
+    // manuallyrenewalCustomer:[{
+    //   Name:item.manuallyrenewalCustomer.Name,
+    //   MobileNumber:item.manuallyrenewalCustomer.MobileNumber
+    // }]
+
+    advisorName: item.advisorName,
+    appointment_type: item.appointment_type,
+    clientVisit: item.clientVisit,
+    
+    customerId: item.customerId,
+    durationType: item.durationType,
     start_date:parseInt(item.start_date),
     start_time:parseInt(item.start_time),
     end_date:parseInt(item.end_date),
     end_time:parseInt(item.end_time),
-    durationType: item.durationType,
-    manuallyrenewalCustomer:[{
-      Name:item.Name,
-      MobileNumber:item.MobileNumber
-    }]
+    
+    event_name: item.event_name,
+    event_repeat_on_every: item.event_repeat_on_every,
+    event_repeat_till_date: item.event_repeat_till_date,
+    event_type: item.event_type,
+    isLeadFailed: item.isLeadFailed,
+    leadId: item.leadId!==null||undefined? {_id: item.leadId._id, lead_Id: item.leadId.lead_id, firstName: item.leadId.firstName, lastName: item.leadId.lastName}:"",
+    manuallycustomerAdded: item.manuallycustomerAdded,
+    // manuallyrenewalCustomer: item.manuallyrenewalCustomer,
+    manuallyrenewalCustomer:item.manuallyrenewalCustomer!==0?item.manuallycustomerAdded:[],
+    partnerId: item.partnerId,
+    partnerId: item.partnerId!==null||undefined? {_id: item.partnerId._id, partnerId: item.partnerId.partnerId, partnerName: item.partnerId.partnerName, contactNo: item.partnerId.partnerName}:"",
+    
+    reminder_prority_color: item.reminder_prority_color,
+    set_reminder: item.set_reminder,
+    showComment: item.showComment,
+    
+    statusReason: item.statusReason,
+    statusType: item.statusType,
+    tata_appointment_type: item.tata_appointment_type,
+    teamMember: [],
+    teamMember_clone: [],
+    userId: item.userId,
+    id: item._id,
+
   }])
 })
 //     testArr[0].errMsg.map((item)=>{
@@ -1037,18 +1097,24 @@ res.data.errMsg.map((item)=>{
 // ])
 //     })
 
-res.data.errMsg.map((item)=>{
+ res.data.errMsg.map((item)=>{
   setAddEvents(addEvents=>[
       ...addEvents,{
           id:item._id,
-          title:item.event_type+" with",
+          title:item.leadId!==null||undefined?item.event_type+" with "+item.leadId.firstName:
+          item.partnerId!==null||undefined?item.event_type+" with "+item.partnerId.partnerName:
+          item.manuallyrenewalCustomer!==null||undefined?item.event_type+" with "+item.manuallyrenewalCustomer[0].Name:"",
           start:parseInt(item.start_date)+parseInt(item.start_time),
           end:parseInt(item.end_date)+parseInt(item.end_time),
           
         }])
 })
 
-console.log(res.data.errMsg)
+res.data.errMsg.map((item)=>{
+if(item.leadId._id==item.leadId._id){
+  console.log(item.leadId.firstName)
+}
+})
     // res.data.errMsg.map((item)=>{
     //   setAddEvents([...addEvents,{
     // id:item._id,
@@ -1123,23 +1189,62 @@ console.log(res.data.errMsg)
   })
 
 
-  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=past `)
+  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/616e908c43ed727bbac8d2d4?teamdata=0&filter=${month}&category=past `)
   .then((res)=>{
     console.log(res.data.errMsg)
+    setFetchUpcomingArr(res.data.errMsg)
     setFetchEventCheck(true)
     res.data.errMsg.map((item)=>{
       setFetchEventArray(fetchEvents=>[...fetchEvents,{
-        id:item._id,
-        start_date:parseInt(item.start_date),
-        start_time:parseInt(item.start_time),
-        end_date:parseInt(item.end_date),
-        end_time:parseInt(item.end_time)
+        advisorName: item.advisorName,
+appointment_type: item.appointment_type,
+clientVisit: item.clientVisit,
+
+customerId: item.customerId,
+durationType: item.durationType,
+start_date:parseInt(item.start_date),
+start_time:parseInt(item.start_time),
+end_date:parseInt(item.end_date),
+end_time:parseInt(item.end_time),
+
+event_name: item.event_name,
+event_repeat_on_every: item.event_repeat_on_every,
+event_repeat_till_date: item.event_repeat_till_date,
+event_type: item.event_type,
+isLeadFailed: item.isLeadFailed,
+leadId: item.leadId!==null||undefined? {_id: item.leadId._id, lead_Id: item.leadId.lead_id, firstName: item.leadId.firstName, lastName: item.leadId.lastName}:"",
+manuallycustomerAdded: item.manuallycustomerAdded,
+manuallyrenewalCustomer: item.manuallyrenewalCustomer,
+manuallyrenewalCustomer:item.manuallyrenewalCustomer!==0?item.manuallycustomerAdded:[],
+partnerId: item.partnerId,
+partnerId: item.partnerId!==null||undefined?{_id: item.partnerId._id, partnerId: item.partnerId.partnerId, partnerName: item.partnerId.partnerName, contactNo: item.partnerId.partnerName}:"",
+
+reminder_prority_color: item.reminder_prority_color,
+set_reminder: item.set_reminder,
+showComment: item.showComment,
+
+statusReason: item.statusReason,
+statusType: item.statusType,
+tata_appointment_type: item.tata_appointment_type,
+teamMember: [],
+teamMember_clone: [],
+userId: item.userId,
+id: item._id,
+        // id:item._id,
+        // start_date:parseInt(item.start_date),
+        // start_time:parseInt(item.start_time),
+        // end_date:parseInt(item.end_date),
+        // end_time:parseInt(item.end_time)
       }])
     })
     res.data.errMsg.map((item)=>{
       setAddEvents(addEvents=>[...addEvents,{
               id:item._id,
-              title:item.event_type+" with",
+              title:item.leadId!==null||undefined?item.event_type+" with "+item.leadId.firstName:
+              item.partnerId!==null||undefined?item.event_type+" with "+item.partnerId.partnerName:
+              item.manuallyrenewalCustomer!==null||undefined?item.event_type+" with "+item.manuallyrenewalCustomer[0].Name:"",
+    
+    
               start:parseInt(item.start_date)+parseInt(item.start_time),
               end:parseInt(item.end_date)+parseInt(item.end_time),
             }])
@@ -1155,23 +1260,56 @@ console.log(res.data.errMsg)
 // console.log(helperUpcomingArr)
 
 
+const AdvisorClickedTag=(id,value)=>{
+  setAdvisorOnClickVal(value)
+  alert(value)
 
-const CustomerClickedTag=(value)=>{
-  setCustomerOnClickVal(value)
-  setCustomerTagVisible(true)
-  setCustomerOnClickVal(false)
+    searchAdvisorArr.map((item)=>{
+     if(item._id==id){
+       setSearchAdvisorObject(item)
+     }
+    })
+  
+  setAdvisorTagVisible(true)
+  setAdvisorOnClickCheck(false)
 }
-const CustomerTagCloseFunc=()=>{
-  setCustomerTagVisible(false)
+const AdvisorTagCloseFunc=()=>{
+  setAdvisorTagVisible(false)
+}
+const searchAdvisorTextFunc=(e)=>{
+  setSearchAdvisorText(e.target.value)
+  setAdvisorOnClickCheck(false)
+  if(searchAdvisorText==""){
+  setAdvisorArr(advisorHelperArr)
+  }
 }
 
-const searchCustomer = (e) => {
-setCustomerOnClickCheck(true)
-axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/partners?csmId=61519f9a8ce8772eab9838cb&search=${searchCustomerText}`)
+const searchAdvisorFunc=()=>{
+  setAdvisorOnClickCheck(true)
+axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/partners?csmId=616e908c43ed727bbac8d2d4&search=${searchAdvisorText}`)
   // axios.get("https://jsonplaceholder.typicode.com/users")
   .then((res)=>{
     console.log(res.data.errMsg)
+  setSearchAdvisorArr(res.data.errMsg)
+     if((searchAdvisorText!=="")){ setAdvisorArr(res.data.errMsg.filter((i)=> (Object.values(i)
+      .join(" ").toLowerCase().includes(searchAdvisorText.toLowerCase()))))}
+      else{
+        setAdvisorArr(res.data.errMsg)
+      }
    
+    setAdvisorHelperArr(res.data)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+}
+const searchCustomer = (e) => {
+setCustomerOnClickCheck(true)
+axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/customers?csmId=616e908c43ed727bbac8d2d4&search=${searchCustomerText}`)
+  // axios.get("https://jsonplaceholder.typicode.com/users")
+  .then((res)=>{
+    console.log(res.data.errMsg)
+   setSearchCustomerArr(res.data.errMsg)
      if((searchCustomerText!=="")){ setCustomerArr(res.data.errMsg.filter((i)=> (Object.values(i)
       .join(" ").toLowerCase().includes(searchCustomerText.toLowerCase()))))}
       else{
@@ -1187,6 +1325,21 @@ axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/partners?csmId=61519
   // setCustomerArr(customerArr.sort( (a, b) => a.name.localeCompare(b.name, 'fr', {ignorePunctuation: true})))  
 
   }
+
+
+const CustomerClickedTag=(id,value)=>{
+  setCustomerOnClickVal(value)
+  searchCustomerArr.map((item)=>{
+    if(item._id==id){
+      setSearchCustomerObject(item)
+    }
+   })
+  setCustomerTagVisible(true)
+  setCustomerOnClickVal(false)
+}
+const CustomerTagCloseFunc=()=>{
+  setCustomerTagVisible(false)
+}
 const searchCustomerTextFunc=(e)=>{
   setSearchCustomerText(e.target.value)
   setCustomerOnClickCheck(false)
@@ -1202,8 +1355,14 @@ const AddCustomerCloseFunc=()=>{
 
 }
 
-const ProspectClickedTag=(value)=>{
+const ProspectClickedTag=(id,value)=>{
   setProspectOnClickVal(value)
+
+searchProspectArr.map((item)=>{
+    if(item._id==id){
+      setSearchProspectObject(item)
+    }
+   })
   setProspectTagVisible(true)
   setProspectOnClickCheck(false)
 }
@@ -1212,11 +1371,11 @@ const ProspectTagCloseFunc=()=>{
 }
 const searchProspect = (e) => {
 setProspectOnClickCheck(true)
-axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/prospects?csmId=61519f9a8ce8772eab9838cb&search=${searchProspectText}`)
+axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/prospects?csmId=616e908c43ed727bbac8d2d4&search=${searchProspectText}`)
   // axios.get("https://jsonplaceholder.typicode.com/users")
   .then((res)=>{
     console.log(res.data.errMsg)
-   
+   setSearchProspectArr(res.data.errMsg)
      if((searchProspectText!=="")){ setProspectArr(res.data.errMsg.filter((i)=> (Object.values(i)
       .join(" ").toLowerCase().includes(searchProspectText.toLowerCase()))))}
       else{
@@ -1382,7 +1541,29 @@ setManualCustomerCheck(true)
     }
    
   }
+const searchTeamTextFunc=(e)=>{
+  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/getTeam?agentCode=616e908c43ed727bbac8d2d4`)
+  
+  .then((res)=>{
+    console.log(res.data.errMsg)
+   setSearchTeamArr(res.data.errMsg)
+     if(((searchTeamText!=="")&&(searchTeamText.length>=3))){ setTeamArr(res.data.errMsg.filter((i)=> (Object.values(i)
+      .join(" ").toLowerCase().includes(searchTeamText.toLowerCase()))))}
+      else{
+        setTeamArr(res.data.errMsg)
+      }
 
+    setTeamHelperArr(res.data)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+
+  setSearchTeamText(e.target.value)
+}
+const TeamTagCloseFunc=()=>{
+  setTeamTagVisible(false)
+}
   const StartDateFunc = (date, dateString) => {
     setDurationStartDate(moment(date))
 
@@ -1673,33 +1854,34 @@ setDurationEndTime(time)
       partnerId: "",
       customerId: "",
       teamMember_clone: [],
-      statusReason: "sasa",
+      statusReason: statusReasonText,
       isLeadFailed: false,
       Appointment_id: updateEventId, 
-      manuallyrenewalCustomer: [{ "Name": "sss", "MobileNumber": "23232" }],
+      manuallyrenewalCustomer: [],
       clientVisit: "clientmeeting",
       teamMember: [],
-      manuallycustomerAdded: "true",
-      statusType: eventStatus,
+      manuallycustomerAdded:addManuallyButtonCheck,
+      statusType: statusType.openStatus==true?"open":"close",
       tata_appointment_type: "",
       durationType: eventDurationType,
-      appointment_type: "customer",
+      appointment_type: "",
       // start_time_MS: 1632315600000,
       // end_time_MS: 1632319200000,
       start_time: durationStartTimeOperation,
       start_date: durationStartDateOperation,
-      userId: "61519f9a8ce8772eab9838cb",
+      userId: "616e908c43ed727bbac8d2d4",
       end_time: durationEndTimeOperation,
       end_date: durationEndDateOperation,
       event_type: updateEventType,
-      event_name: "Appointment",
-      event_description: "Birmole Duttprasad will have a client meeting with Sss",
+      event_name: "",
+      event_description: "",
       // created_date: 1631962470877,
       advisorName: "",
       event_repeat_on_every: "",
       event_repeat_till_date: "",
       reminder_prority_color: "",
       set_reminder: "",
+
       
     
     
@@ -1740,25 +1922,74 @@ setFetchEventArray([])
     
     
     axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
-
-      userId:"61519f9a8ce8772eab9838cb",
-        partnerId:"",
-        appointment_type:"customer",
-        durationType: eventDurationType,
-        manuallyrenewalCustomer: [
-          {
-              Name: customerNameText,
-              MobileNumber: customerMobileNoText
-          }
-      ],
-        event_type:customerCollection.phone_call_customer?"phonecall":customerCollection.appointment_customer?"appointment"
-        :customerCollection.policy_renewal?"policyrenewals"
+      userId:"616e908c43ed727bbac8d2d4",
+      appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+      event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+        :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+        :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
         :null,
-        status_type:eventStatus,
-        start_date:durationStartDateOperation,
+      tata_appointment_type:"businesspalnrevie",
+      partnerId:  advisorCheck?{
+      
+        contactNo: searchAdvisorObject.contactNo,
+partnerId: searchAdvisorObject.partnerId,
+partnerName: searchAdvisorObject.partnerName,
+_id: searchAdvisorObject._id,
+
+      }:"",
+      partnerId:advisorCheck?searchAdvisorObject._id:"",
+      leadId: prospectCheck? searchProspectObject._id:"", 
+      durationType:"customedatetime",
+      start_date:durationStartDateOperation,
         start_time:durationStartTimeOperation,
         end_date:durationEndDateOperation,
-        end_time:durationEndTimeOperation
+        end_time:durationEndTimeOperation,
+      teamMember:[
+         
+      ],
+      statusType:"open",
+      statusreason:statusReasonText,
+      manuallycustomerAdded:addManuallyButtonCheck?true:false,
+      manuallyrenewalCustomer:addManuallyButtonCheck? [
+         {
+           Name:customerNameText,
+           MobileNumber:customerMobileNoText,
+         }
+      ]:[],
+      clientVisit:"",
+      customerId:"",
+      teamMember_clone:[
+         
+      ],
+  
+      // userId:"616e908c43ed727bbac8d2d4",
+      //   partnerId:"",
+      //   appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+      //   durationType: eventDurationType,
+      //    partnerId:advisorCheck?searchAdvisorObject._id:"",
+      //   leadId: prospectCheck? searchProspectObject._id:"", 
+    
+      //   manuallyrenewalCustomer: [
+      //     {
+      //         Name: customerNameText,
+      //         MobileNumber: customerMobileNoText
+      //     }
+      // ],
+      //   event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+      //   :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+      //   :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+      //   :null,
+      //   statusType:eventStatus,
+      //   start_date:durationStartDateOperation,
+      //   start_time:durationStartTimeOperation,
+      //   end_date:durationEndDateOperation,
+      //   end_time:durationEndTimeOperation,
+      //   event_name:"appointment",
+      //   event_description:"Test",
+        // customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+        // :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+        // :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+        // :+" with "+advisorCheck?advisorOnClickVal:prospectCheck?prospectOnClickVal:"",
       })
       .then((res)=>{
         console.log(res)
@@ -2138,6 +2369,7 @@ setStatusReasonText(e.target.value)
   }
   const [dateClick, setDateClick] = useState();
   const showModal = (e,date) => {
+    setUpdateCheckEvent(true)
     setDurationStartDate(moment(e.event.start))
     setDurationEndDate(moment(e.event.end))
 // alert(moment(e.event.start).format())
@@ -2153,7 +2385,166 @@ setFetchEventObject(fetchEventArray.find(element => element.id==e.event.id))
 fetchEventArray.map((item)=>{
   if(item.id==e.event.id){
     setUpdateEventType(item.event_type)
+   if(item.statusType=="open") {
+    setStatusType({
+      openStatus: true,
+      closeStatus: false
+    })
+  }
+  else{
+    setStatusType({
+      openStatus: false,
+      closeStatus: true
+    })
+  }
 console.log(item)
+setAppointmentTypeFetched(item.appointment_type)
+setEventTypeFetched(item.event_type)
+
+if(item.appointment_type=="customer"){
+  setCustomerCheck(true)
+  setAdvisorCheck(false)
+  setCustomerTagVisible(true)
+  setCustomerOnClickVal(item.manuallyrenewalCustomer[0].Name)
+  setProspectCheck(false)
+  setAddManuallyButtonCheck(true)
+}
+else if(item.appointment_type=="existingapplication"){
+  setCustomerCheck(false)
+  setAdvisorCheck(false)
+  setProspectCheck(true)
+  setProspectOnClickVal(item.leadId.firstName)
+ 
+  setProspectTagVisible(true)
+}
+else{
+  setCustomerCheck(false)
+  setAdvisorCheck(true)
+  setProspectCheck(false)
+  setAdvisorOnClickVal(item.partnerId.partnerName)
+  console.log(item.partnerId)
+  setAdvisorTagVisible(true)
+}
+if(item.appointment_type=="existingpartner"){
+  setProspectCollection({
+    appointment_prospect: false,
+    phone_call: false,
+    training_prospect: false
+  })
+  setCustomerCollection({
+    appointment_customer: false,
+    phone_call_customer: false,
+    policy_renewal: false
+  })
+
+  if(item.event_type=="appointment"){
+
+  
+  
+    setAdvisorCollection({
+      appointment_advisor: true,
+      phone_call_advisor: false,
+      training: false,
+    })
+  
+}
+
+else if(item.event_type=="training"){
+
+
+  setAdvisorCollection({
+    appointment_advisor: false,
+    phone_call_advisor: false,
+    training: true,
+  })
+
+}
+else{
+
+
+  setAdvisorCollection({
+    appointment_advisor: false,
+    phone_call_advisor: true,
+    training: false,
+  })
+
+}
+}
+
+
+
+if(item.appointment_type=="existingapplication"){
+  setAdvisorCollection({
+    appointment_advisor: false,
+    phone_call_advisor: false,
+    training: false,
+  })
+  setCustomerCollection({
+    appointment_customer: false,
+    phone_call_customer: false,
+    policy_renewal: false
+  })
+
+  if(item.event_type=="phonecall"){
+    setProspectCollection({
+      appointment_prospect: false,
+      phone_call: true,
+      training_prospect: false
+    })
+  }
+  if(item.event_type=="training"){
+    setProspectCollection({
+      appointment_prospect: false,
+      phone_call: false,
+      training_prospect: true
+    })
+  }
+  if(item.event_type=="appointment"){
+    setProspectCollection({
+      appointment_prospect: true,
+      phone_call: false,
+      training_prospect: false
+    })
+  }
+}
+  if(item.appointment_type=="customer"){
+    setAdvisorCollection({
+      appointment_advisor: false,
+      phone_call_advisor: false,
+      training: false,
+    })
+    setProspectCollection({
+      appointment_prospect: false,
+      phone_call: false,
+      training_prospect: false
+    })
+    if(item.event_type=="appointment"){
+
+        setCustomerCollection({
+          appointment_customer: true,
+          phone_call_customer: false,
+          policy_renewal: false
+        })
+
+    }
+  else if(item.event_type=="phonecall"){
+      setCustomerCollection({
+        appointment_customer: false,
+        phone_call_customer: true,
+        policy_renewal: false
+      })
+    }
+    else{
+    setCustomerCollection({
+      appointment_customer: false,
+      phone_call_customer: false,
+      policy_renewal: true
+    })
+  
+
+  }
+}
+
 setDurationStartTimeOperation(parseInt(item.start_time))
 setDurationEndTimeOperation(parseInt(item.end_time))
 setEventDurationType(item.durationType)
@@ -2264,6 +2655,35 @@ if(item._id==e.event.id){
 
 
   const MultiSelect = (e) => {
+    setAddManuallyButtonCheck(false)
+    setProspectTagVisible(false)
+setAdvisorTagVisible(false)
+setCustomerTagVisible(false)
+setSearchAdvisorText("")
+setSearchProspectText("")
+setSearchCustomerText("")
+setSearchTeamText("")
+setTeamTagVisible(false)
+setAdvisorCheck(true)
+setProspectCheck(false)
+setCustomerCheck(false)
+setAdvisorCollection({
+  appointment_advisor: true,
+  phone_call_advisor: false,
+  training: false,
+  businessPlanning_review:true,
+})
+setProspectCollection({
+  appointment_prospect: true,
+  first_meeting: true,
+  follow_up: false,
+  document_collection: false
+})
+setCustomerCollection({
+  appointment_customer: true,
+  phone_call_customer: false,
+  policy_renewal: false
+})
     setStartDuration(e.startStr)
     // alert("This is the end str" + e.endStr)
     setEndDuration(e.endStr)
@@ -2311,9 +2731,40 @@ let end_date_assign = new Date(end_date_var).setUTCHours(0, 0, 0, 0)
   }
 // console.log("Add evebnt"+addEvents)
   const MultiSelectDateFunc=(e)=>{
+    setAddManuallyButtonCheck(false)
     setStartTimeSelect("")
     setEndTimeSelect("")
 setUpdateCheckEvent(false)
+setProspectTagVisible(false)
+setAdvisorTagVisible(false)
+setCustomerTagVisible(false)
+setCustomerNameText("")
+setCustomerMobileNoText("")
+setSearchAdvisorText("")
+setSearchProspectText("")
+setSearchCustomerText("")
+setSearchTeamText("")
+setTeamTagVisible(false)
+setAdvisorCheck(true)
+setProspectCheck(false)
+setCustomerCheck(false)
+setAdvisorCollection({
+  appointment_advisor: true,
+  phone_call_advisor: false,
+  training: false,
+  businessPlanning_review:true,
+})
+setProspectCollection({
+  appointment_prospect: true,
+  first_meeting: true,
+  follow_up: false,
+  document_collection: false
+})
+setCustomerCollection({
+  appointment_customer: true,
+  phone_call_customer: false,
+  policy_renewal: false
+})
 if(updateEventCheck)
 setBookEventCheck(true)
   setDurationStartDate(moment(e.start))
@@ -2340,6 +2791,7 @@ setBookEventCheck(true)
     setIsModalVisible(true)
   }
   const DateClick = (e) => {
+    setAddManuallyButtonCheck(false)
   setStartTimeSelect("")
   setEndTimeSelect("")
     // alert(e.dateStr)
@@ -2690,9 +3142,75 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
 
                       : null}
 
+{advisorCheck==true ?
+                <div>
+                  <div
+                    className="CalendarEvent-Modal-Card-vertical-line"
+                  >
+
+                  </div>
+                  <h4
+                    className="CalendarEvent-Modal-Card-header-type"
+                  >Search Advisor</h4>
+
+<div
+                      className="CalendarEvent-Modal-Search-flex"
+                    >
+                      <div
+                        className="CalendarEvent-Modal-search-style"
+                      >
+                        <Search placeholder="Search By Name" onSearch={searchAdvisorFunc}
+                        disabled={updateEventCheck?true:false}
+                       type="text"
+                       value={searchAdvisorText}
+                       onChange={searchAdvisorTextFunc}
+                          enterButton
+                          className="CalendarEvent-Modal-textinput-style"
+                        />
+                 {advisorOnClickCheck==true?
+       <div>
+     {advisorArr!==null&&Array.isArray(advisorArr)?
+      <div
+      className="CalendarEvent-Modal-search-record-style"
+      >
+      {advisorArr.map((advisor)=>{
+        return(
+          <div>
+          <div
+          className="CalendarEvent-Modal-click-record-style"
+          onClick={()=>AdvisorClickedTag(advisor._id,advisor.partnerName)}
+          >
+             <div
+            className="CalendarEvent-Modal-Card-searchbox-vertical-line"
+            ></div>
+            <h4>{advisor.partnerName}</h4>
+            </div>
+           
+            </div>
+        )
+      })}
+      </div>
+     :null}
+                      
+                        </div>
+            :null}
+                      </div>
+                      
+                      <Tag
+ closable={updateEventCheck?false: true}
+          visible={advisorTagVisible}
+          onClose={AdvisorTagCloseFunc}
+          className="CalendarEvent-Modal-Search-tag-style"
+        >
+        {advisorOnClickVal}
+        </Tag>
 
 
-            {advisorCheck == true ?
+                    </div>
+
+                  </div>
+
+            /* {advisorCheck == true ?
               <div>
                 <div
                   className="CalendarEvent-Modal-Card-vertical-line"
@@ -2712,12 +3230,38 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                     className="CalendarEvent-Modal-textinput-style"
                   />
 
-
+{advisorOnClickCheck==true?
+       <div>
+     {advisorArr!==null&&Array.isArray(advisorArr)?
+      <div
+      className="CalendarEvent-Modal-search-record-style"
+      >
+      {advisorArr.map((cust)=>{
+        return(
+          <div>
+          <div
+          className="CalendarEvent-Modal-click-record-style"
+          onClick={()=>CustomerClickedTag(cust.partnerName)}
+          >
+             <div
+            className="CalendarEvent-Modal-Card-searchbox-vertical-line"
+            ></div>
+            <h4>{cust.partnerName}</h4>
+            </div>
+           
+            </div>
+        )
+      })}
+      </div>
+     :null}
+                      
+                        </div>
+            :null}
 
 
                 </div>
-              </div>
-              : prospectCollection.phone_call == true || prospectCollection.training_prospect == true || prospectCollection.follow_up == true || prospectCollection.document_collection == true ?
+              </div> */
+              : (prospectCollection.phone_call == true || prospectCollection.training_prospect == true || prospectCollection.follow_up == true || prospectCollection.document_collection == true)&&prospectCheck==true ?
                 <div>
                   <div
                     className="CalendarEvent-Modal-Card-vertical-line"
@@ -2735,6 +3279,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                         className="CalendarEvent-Modal-search-style"
                       >
                         <Search placeholder="Search By Name" onSearch={searchProspect}
+                        disabled={updateEventCheck?true:false}
                        type="text"
                        value={searchProspectText}
                        onChange={searchProspectTextFunc}
@@ -2752,7 +3297,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
           <div>
           <div
           className="CalendarEvent-Modal-click-record-style"
-          onClick={()=>ProspectClickedTag(prospect.fullName)}
+          onClick={()=>ProspectClickedTag(prospect._id,prospect.firstName)}
           >
              <div
             className="CalendarEvent-Modal-Card-searchbox-vertical-line"
@@ -2771,7 +3316,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                       </div>
                       
                       <Tag
-          closable
+          closable={updateEventCheck?false: true}
           visible={prospectTagVisible}
           onClose={ProspectTagCloseFunc}
           className="CalendarEvent-Modal-Search-tag-style"
@@ -2802,6 +3347,7 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
                         className="CalendarEvent-Modal-search-style"
                       >
                         <Search placeholder="Search By Name" onSearch={searchCustomer}
+                        disabled={updateEventCheck?true:false}
                        type="text"
                        value={searchCustomerText}
                        onChange={searchCustomerTextFunc}
@@ -2819,12 +3365,12 @@ className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-
           <div>
           <div
           className="CalendarEvent-Modal-click-record-style"
-          onClick={()=>CustomerClickedTag(cust.partnerName)}
+          onClick={()=>CustomerClickedTag(cust._id,cust.custName)}
           >
              <div
             className="CalendarEvent-Modal-Card-searchbox-vertical-line"
             ></div>
-            <h4>{cust.partnerName}</h4>
+            <h4>{cust.custName}</h4>
             </div>
            
             </div>
@@ -3039,7 +3585,7 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
               >Submit</button>
                    {manualCustomerCheck?  <Tag
                    
-     closable={updateEventCheck==true?false:true}
+                   closable={updateEventCheck?false: true}
      visible={addCustTagVisible}
      onClose={AddCustomerTagVisibleFunc}
           
@@ -3088,8 +3634,8 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                     >Start Date *</h4>
        
                     <DatePicker onChange={StartDateFunc}
-                    defaultValue={'2015/01/01'}
-                       value={durationStartDate}
+         
+                       defaultValue={durationStartDate}
                      
                       format="YYYY-MM-DD"
                       className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-empty-picker-style" : "CalendarEvent-Modal-picker-style"}
@@ -3147,9 +3693,10 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
                         // className="CalendarEvent-Modal-Card-header-type"
                       >End Date *</h4>
                       <DatePicker onChange={EndDateFunc}
-                        defaultValue={'2015/01/01'}
-                        value={durationEndDate}
+                  
+                        defaultValue={durationEndDate}
                         format="YYYY-MM-DD"
+                        value={durationEndDate}
                         className="CalendarEvent-Modal-picker-style"
                       />
                        {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null}
@@ -3224,10 +3771,48 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
             <h4
               className="CalendarEvent-Modal-Card-header-type"
             >Add Team Member</h4>
-            <Search placeholder="Search By Name" onSearch={() => { }}
+            <Search placeholder="Search By Name" 
+            disabled={updateEventCheck?true:false}
+           value={searchTeamText}
+           onChange={searchTeamTextFunc}
               enterButton
               className="CalendarEvent-Modal-textinput-style"
             />
+             {searchTeamText!==""&&searchTeamText.length>=3?
+       <div>
+     {teamArr!==null&&Array.isArray(teamArr)?
+      <div
+      className="CalendarEvent-Modal-search-record-style"
+      >
+      {teamArr.map((team)=>{
+        return(
+          <div>
+          <div
+          className="CalendarEvent-Modal-click-record-style"
+          onClick={()=>{}}
+          >
+             <div
+            className="CalendarEvent-Modal-Card-searchbox-vertical-line"
+            ></div>
+            <h4>{team.name}</h4>
+            </div>
+           
+            </div>
+        )
+      })}
+      </div>
+     :null}
+                      
+                        </div>
+            :null}
+                       <Tag
+          closable={updateEventCheck?false: true}
+          visible={teamTagVisible}
+          onClose={TeamTagCloseFunc}
+          className="CalendarEvent-Modal-Search-tag-style"
+        >
+        {teamOnClickVal}
+        </Tag>
             <div
               className="CalendarEvent-Modal-Card-vertical-line"
             >
@@ -3240,15 +3825,15 @@ className="CalendarEvent-Modal-Card-documentcollection-static-button-style"
               >
                 <button
                   onClick={StatusTypeOpenFunc}
-                  className={status_type.openStatus == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
+                  className={statusType.openStatus == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                 >Open</button>
                 <button
                   onClick={StatusTypeCloseFunc}
-                  className={status_type.closeStatus == true ? "CalendarEvent-Modal-Card-status-onclick-button-style" : "CalendarEvent-Modal-Card-status-static-button-style"}
+                  className={statusType.closeStatus == true ? "CalendarEvent-Modal-Card-status-onclick-button-style" : "CalendarEvent-Modal-Card-status-static-button-style"}
                 >Close</button>
               </div>
               {
-                status_type.closeStatus == true ?
+                statusType.closeStatus == true ?
                   <div
                     className="CalendarEvent-Modal-Card-close-textbox-flex"
                   >

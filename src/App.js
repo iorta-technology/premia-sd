@@ -61,6 +61,20 @@ const UploadDocuments = React.lazy(() => import('./components/UploadDocuments/Up
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 const Dashboard = React.lazy(() => import('./components/Dashboard/Dashboard'))
 function App() {
+  // const logindata = stoageGetter('user')
+  // if(!logindata){
+  //   console.log(true)
+
+  //   return (
+  //     <Router>
+  //       <Switch>
+  //         <Route exact path="/">
+  //                 <Redirect to="/himanshu" />
+  //         </Route>
+  //       </Switch>
+  //     </Router>
+  //   )
+  // }
   return (
     <React.Suspense fallback={<Spin size="large" className="loader" />}>
 
@@ -68,7 +82,7 @@ function App() {
         <div className="box-size">
           <Switch>
             <Route exact path="/">
-              <Redirect to="/himanshu" />
+              <Redirect to="/profile" />
             </Route>
             <Route path="/login" component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
@@ -88,7 +102,6 @@ function App() {
             <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
             <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
             <div>
-
               {/* Make this route at the end only. */}
               <Route path="/agentMicrosite" component={AgentMicroService}></Route>
               <div>
@@ -133,6 +146,7 @@ function App() {
             </div>
 
           </Switch>
+          
         </div>
       </Router>
     </React.Suspense>

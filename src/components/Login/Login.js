@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import './Login.css';
 import { Card, Input, Button, Image, Form } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined,KeyOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import * as actions from '../../store/actions/index';
 import { useDispatch,useSelector } from 'react-redux';
@@ -65,7 +65,7 @@ import loginLogo from '../../images/loginlogo20years.png'
                                 }
                             ]}
                         >
-                            <Input.Password size="large" placeholder="Enter your Password" prefix={<UserOutlined />} onChange={(e)=>setPassword(e.target.value)}/>
+                            <Input.Password size="large" placeholder="Enter your Password" prefix={<KeyOutlined />} onChange={(e)=>setPassword(e.target.value)}/>
                         </Form.Item>
                         <Link to="/forgotpassword">
                             <p className="forgotpasswordtext">Forgot Password</p>

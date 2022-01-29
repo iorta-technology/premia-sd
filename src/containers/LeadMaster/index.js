@@ -6,13 +6,17 @@ import FloatButton from '../../components/FloatButton/FloatButton';
 import * as actions from '../../store/actions/index';
 import { Pagination,Button } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
+import {stoageGetter} from '../../helpers'
+import { useHistory } from 'react-router';
 const LeadMaster = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
+    const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
-
-        dispatch(actions.fetchAllLeads('',current))
+        const {id} = stoageGetter('user')
+        // console.log(id)
+        dispatch(actions.fetchAllLeads(id,'',current))
     },[dispatch,current]);
 
     //Accessing LeadCard data  from store
@@ -46,7 +50,7 @@ const LeadMaster = (props) => {
 
     const handlePageClick = (page)=>{
         setcurrent(page)
-        // console.log(page)
+        console.log(page)
     }
     const tabMenu = [
         {
@@ -77,9 +81,10 @@ const LeadMaster = (props) => {
             <Tab 
                 tabMenu={tabMenu} 
                 header="Lead" 
-                current={current}
+                // current={current}
                 />
                 <Button type='primary' className="export-btn">Export</Button>
+                <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button>
             {/* <div className="export-btn-holder">
             </div> */}
             <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>

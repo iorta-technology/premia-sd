@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import './ChangePassword.css';
 import { Card, Input, Button, Image, Form } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { KeyOutlined } from '@ant-design/icons';
 import axios from 'axios';
 const ChangePassword = () => {
     const [form] = Form.useForm();
@@ -36,7 +36,7 @@ const ChangePassword = () => {
                         }
                     ]}
                     >
-                    <Input.Password size="large" placeholder="Enter New Password" prefix={<UserOutlined />} onChange={(e)=>setnewPassword(e.target.value)} />
+                    <Input.Password size="large" placeholder="Enter New Password" prefix={<KeyOutlined />} onChange={(e)=>setnewPassword(e.target.value)} />
                     </Form.Item>
                     <Form.Item
                     name="confirmpwd"
@@ -58,7 +58,7 @@ const ChangePassword = () => {
                           })
                     ]}
                     >
-                    <Input.Password size="large" placeholder="Enter Confirm Password" prefix={<UserOutlined />} />
+                    <Input.Password size="large" placeholder="Enter Confirm Password" prefix={<KeyOutlined />} />
                     </Form.Item>
                     <p className="changepassnote">Note: Password length should be of minimum 6 characters</p>
                     <br />

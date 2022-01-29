@@ -2,16 +2,16 @@
 import React,{useEffect,useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {Card,Avatar,Switch} from 'antd'
-import {MoreOutlined } from '@ant-design/icons';
+import {MoreOutlined,PhoneOutlined } from '@ant-design/icons';
 import './LeadCard.css';
 import * as actions from '../../store/actions/index';
 import { useHistory } from 'react-router-dom';
-
+import moment from 'moment'
 const LeadCard = React.memo((props) => {
 
     const dispatch = useDispatch()
     const history = useHistory()
-    const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo} = props
+    const {id,lead_Id,leadStatus,firstName,lastName,created_date,allocatedDate,primaryMobile,allocatedBy,allocatedTo,appointmentOn} = props
     
   const leadComponent = 
 
@@ -36,6 +36,7 @@ const LeadCard = React.memo((props) => {
     const breakpoint = 620;
 
      useEffect(() => {
+        //  console.log(moment(appointmentOn).format('DD-MM-YYYY'))
         const handleWindowResize = () => setWidth(window.innerWidth)
         window.addEventListener("resize", handleWindowResize);
 
@@ -65,6 +66,8 @@ const LeadCard = React.memo((props) => {
                                     {lead_Id}
                                 </span>
                             </p>
+                            <a href={`tel:${primaryMobile}`}><PhoneOutlined className="phoneicon"></PhoneOutlined></a>
+                            
                         </div>
                         <div className="content-body">
                             <Card.Grid hoverable={false} className="grid-style">
@@ -77,7 +80,7 @@ const LeadCard = React.memo((props) => {
                             </Card.Grid>
                             <Card.Grid  hoverable={false} className="grid-style">
                                 <p className="text-type">Appointment on</p>
-                                <p className="text-content">-</p>
+                                <p className="text-content">{!appointmentOn?'-':new Date(appointmentOn).toLocaleDateString('in')}</p>
                             </Card.Grid>
                             <Card.Grid  hoverable={false} className="grid-style">
                                 <p className="text-type">Mobile No.</p>
@@ -110,8 +113,9 @@ const LeadCard = React.memo((props) => {
             <div className="card-content-text capitalize">
                 <p className="user-name-text">{firstName} {lastName}</p>
                 <p className="user-status-text">{leadStatus}</p>
+                <PhoneOutlined style={{color:'green',cursor:'pointer'}}></PhoneOutlined>
             </div>
-            <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>p
+            <MoreOutlined  style={{fontSize:'25px',marginLeft:'auto',color:'grey'}}/>
         </Card>
     }
     return (

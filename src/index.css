@@ -2,14 +2,3 @@
 /* .export-btn-holder{
     position: relative;
 } */
-.export-btn{
-    position: absolute;
-    top: 65px;
-    right: 200px;
-    background-color: orange;
-    border: none;
-}
-.export-btn:hover{
-
-    background-color: pink;
-}

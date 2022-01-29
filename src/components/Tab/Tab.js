@@ -5,6 +5,7 @@ import _ from "lodash";
 import { useHistory,useParams } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import {stoageGetter} from '../../helpers'
 
 const { TabPane } = Tabs
 
@@ -14,9 +15,10 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     const {masterType} = useParams()
     const [activeTab, setactiveTab] = useState()
     useEffect(() => {
-        console.log(typeof(leadType))
-        dispatch(actions.fetchAllLeads(leadType,current))
-    },[dispatch,current,activeTab]);
+        const {id} = stoageGetter('user')
+        // console.log(typeof(leadType))
+        dispatch(actions.fetchAllLeads(id,leadType,1))
+    },[dispatch,current,activeTab,leadType]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')
 
@@ -30,7 +32,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
 
         // setactiveKey(key)
         if(activeKey){
-            console.log("active key",activeKey)
+            // console.log("active key",activeKey)
         switch (activeKey) {
             case "all": return history.push('/leadMaster/all_leads');
             case "fortoday": return history.push('/leadMaster/fortoday');
@@ -88,7 +90,7 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
     if (tabMenu && !_.isEmpty(tabMenu)) {
 
         tabPane = _.map(tabMenu, (value, id) => {
-            console.log("value",value)
+            // console.log("value",value)
             return (
                 <TabPane
                     key={value.id}

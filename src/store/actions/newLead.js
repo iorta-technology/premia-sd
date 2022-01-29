@@ -4,7 +4,6 @@ import axios from '../../axios-common';
 
 
 
-
 export const createLeadStart = () => {
     return {
         type: actionTypes.CREATE_LEAD_START
@@ -36,7 +35,7 @@ export const createLead = (formData) => {
                 if(res.data.errCode===-1){
                     const response = res.data.errMsg
                     const succMsg = 'Lead Created Successfully'
-                    // console.log(...response)
+                    console.log('creat action',response)
                     return dispatch(createLeadSuccess(...response,succMsg))
 
                 }else{
@@ -53,13 +52,13 @@ export const createLead = (formData) => {
 
 export const editLeadStart = () => {
     return {
-        type: actionTypes.CREATE_LEAD_START
+        type: actionTypes.EDIT_LEAD_START
     }
 }
 
 export const editLeadSuccess = (formData) => {
     return {
-        type: actionTypes.CREATE_LEAD_SUCCESS,
+        type: actionTypes.EDIT_LEAD_SUCCESS,
         formData: formData,
     }
 } 
@@ -67,7 +66,7 @@ export const editLeadSuccess = (formData) => {
 
 export const editLeadFail = (error) => {
     return {
-        type: actionTypes.CREATE_LEAD_FAIL,
+        type: actionTypes.EDIT_LEAD_FAIL,
         error: error
     }
 }
@@ -79,12 +78,18 @@ export const editLead = (formData,id) => {
         return axios.put(`user/updateLead/${id}`,formData)
             .then(res => {
                 if(res.data.errCode===-1){
+                    let formData = res.data.errMsg[0]
+                    let appointmentData = res.data.errMsg[1]
 
-                    return dispatch(editLeadSuccess(res.data.errMsg))
+                    return dispatch(editLeadSuccess(formData,appointmentData))
+                }else{
+                    throw res
                 }
             })
             .catch(error => {
-                return dispatch(editLeadFail(error.response.data.errors))
+                const errorMessage = error.data.errMsg
+
+                return dispatch(editLeadFail(errorMessage))
             })
     }
 }
@@ -95,11 +100,13 @@ export const fetchLeadDetailsStart = () => {
     }
 }
 
-export const fetchLeadDetailsSuccess = (leadDetails,id) => {
+export const fetchLeadDetailsSuccess = (leadDetails,appointmentDetails,id) => {
     return {
         type: actionTypes.FETCH_LEAD_DETAILS_SUCCESS,
         leadDetails: leadDetails,
-        fetchLeadId:id
+        appointmentDetails: appointmentDetails,
+        fetchLeadId:id,
+
     }
 } 
 
@@ -117,12 +124,13 @@ export const fetchLeadDetails = (id) => {
         dispatch(fetchLeadDetailsStart())
         return axios.get(`user/getlead_details/${id}`)
             .then(res => {
-                    console.log(...res.data.errMsg)
-                    let response = res.data.errMsg
+                    console.log(res.data.errMsg)
+                    let formData = res.data.errMsg[0]
+                    let appointmentData = res.data.errMsg[1]
                     if(res.data.errCode===-1){
-                        return dispatch(fetchLeadDetailsSuccess(...response,id))
+                        return dispatch(fetchLeadDetailsSuccess(formData,appointmentData,id))
                     }else{
-                        throw response
+                        throw formData
                     }
             })
             .catch(error => {
@@ -139,8 +147,11 @@ export const storeForm = (formData) => {
     }
 }
 export const storeLead = (formData) => {
-        
+        console.log(formData)
     return dispatch => {
         dispatch(storeForm(formData))
     }
 }
+
+
+

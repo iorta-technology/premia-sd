@@ -85,8 +85,11 @@ const ProfessionalDetails = () => {
     let storeProfessionType = useSelector((state) => state.newLead.formData.professionType)
     let storeIncomeGroup = useSelector((state) => state.newLead.formData.incomeGroup)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
-    const [isNewLead, setIsNewLead] = useState(true)
 
+    console.log(storeEducation,storeProfessionType,storeIncomeGroup)
+
+    const [isNewLead, setIsNewLead] = useState(true)
+    const [errorMessage, setErrorMessage] = useState()
 
     const [width, setWidth] = useState(window.innerWidth);
     const [educationDetails, setEducationDetails] = useState(storeEducation)
@@ -128,22 +131,54 @@ const ProfessionalDetails = () => {
         incomeGroup: incomeGroup
 
     };
-
+    const failedHandler = (error)=>{
+        alert(error)
+        console.log(error)
+    }
     const submitHandler = event => {
-        if(isNewLead){
+        console.log('hello')
+        if(!storeLeadId){
+
             dispatch(actions.storeLead(formData))
 
-            alert('New Lead Updated Successfully')
-            history.push('existingLead')
+            // alert('New Lead Updated Successfully')
+            // history.push('contactlead')
             
             setIsNewLead(false)
         }else{
       
             dispatch(actions.editLead(formData, storeLeadId))
-            alert(' Lead Updated Successfully')
-            history.push('existingLead')
+            .then((res)=>{
+                if (res.type === "EDIT_LEAD_SUCCESS") {
+                  console.log('success:', res);
+                  setErrorMessage()
+                  setIsNewLead(false)
+                  
+                }else if(res.type==='EDIT_LEAD_FAIL'){
+                  console.log('failed:', res);
+        
+                  failedHandler(res.error)
+                  console.log(res)
+                }
+              })
+            // alert(' Lead Updated Successfully')
+            // history.push('contactlead')
             
         }
+        // dispatch(actions.storeLead(formData))
+        // if(isNewLead){
+
+        //     alert('New Lead Updated Successfully')
+        //     dispatch(actions.editLead(formData, storeLeadId))
+        //     history.push('existingLead')
+            
+        //     setIsNewLead(false)
+        // }else{
+      
+        //     alert(' Lead Updated Successfully')
+        //     history.push('existingLead')
+            
+        // }
     };
     const proceedHandler = event => {
         event.preventDefault();
@@ -195,6 +230,7 @@ const ProfessionalDetails = () => {
                         "incomeGroup": incomeGroup,
                     }}
                     onFinish={submitHandler}
+                    onFinishFailed={failedHandler}
 
                 >
                     <Row gutter={[0, 20]} justify="center">
@@ -294,6 +330,7 @@ const ProfessionalDetails = () => {
                                             size="large"
                                             style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
                                             icon={<ArrowRightOutlined />}
+                                            htmlType="submit"
                                             // onClick={proceedHandler}
                                             >Proceed</Button>
                                     </Form.Item>

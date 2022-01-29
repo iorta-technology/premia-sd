@@ -32,8 +32,9 @@ const LeadCards = (props) => {
                             created_date={lead.created_date}
                             allocatedDate={lead.allocatedDate}
                             primaryMobile={lead.primaryMobile}
-                            allocatedBy={lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
-                            allocatedTo={lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+                            allocatedBy={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+                            allocatedTo={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+                            appointmentOn={lead?.appointmentId?.start_date}
                             loading={props.leadDataLoading}
                         />
                     </Col>
@@ -62,6 +63,7 @@ const LeadCards = (props) => {
                                         <span className="user-id uppercase">
                                         </span>
                                     </p>
+                                    
                                 </div>
                                 <div className="content-body">
                                     <Card.Grid hoverable={false} className="grid-style">
@@ -92,6 +94,7 @@ const LeadCards = (props) => {
                             </div>
                             <button className="update-btn" >Update</button>
                         </Card>
+                        
                     </>
                 </Col>
             </Row>

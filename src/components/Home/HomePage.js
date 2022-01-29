@@ -42,7 +42,7 @@ const HomePage = () => {
       history.push('/login')
   }
   // console.log("Home-Data", home_data)
-  // console.log("activities-data", activities_data)
+  console.log("activities-data", activities_data)
   const data = [
     {
       name: 'For Today',
@@ -138,7 +138,7 @@ const HomePage = () => {
   return <Fragment >
     {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
     <FloatButton />
-    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold',marginLeft:'75px' }}>Hi {logged_in_user}</h3>
+    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold',marginLeft:'10.5rem' }}>Hi {logged_in_user}</h3>
     <Row gutter={[18,{ xs: 8, sm: 10, md: 10, lg:18 }]} justify="center" className="cardHolder ">
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>

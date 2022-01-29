@@ -1,7 +1,16 @@
 import { isEmpty } from 'lodash';
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
+import {stoageGetter} from '../../helpers'
+import _ from 'lodash'
 
+const logindata = stoageGetter('user')
+let id = ''
+if(logindata){
+id = logindata.id
+
+}
+// console.log(id)
 const initialState = {
     createLeadLoading:false,
     createLeadError:'',
@@ -10,7 +19,7 @@ const initialState = {
     leadDataloading:false,
     successMsg:'',
     leadId:'',
-    userId:'',
+    user_Id:id,
     fetchLeadId:'',
     address:{
         line1:'',
@@ -26,8 +35,13 @@ const initialState = {
     },
     HaveLifeInsurance_details:[],
     Insurancedetails:[],
-    formData:{},
-     payloadFormData :{
+    childParsedData:[],
+    payloadFormData:{},
+    appointmentData:{
+        start_date:'',
+        start_time:''
+    },
+     formData :{
         // statusLeadData: {
             leadStatus: '',
             leadDisposition: '',
@@ -36,7 +50,7 @@ const initialState = {
             appointmentdisPosition: '',
             appointmentsubdisPosition: '',
             lead_Owner_Id: '',
-            user_id: '',
+            user_id: id,
             lead_Creator_Id: '',
             start_date: '',
             start_time:  '',
@@ -57,7 +71,7 @@ const initialState = {
             gender: '',
             maritalStatus: '',
             childStatus: '',
-            ChildInfo: '',
+            ChildInfo: [],
         // },
         // contactLeadData: {
             primaryMobile:'', 
@@ -85,31 +99,57 @@ const initialState = {
                 city:'', 
                 country: '',
                 pincode: '',
-            }
+                user_Id:id,
+
+            },
+            HaveLifeInsurance:{
+                ExistHealthInsur:'',
+                ExistInsur:''
+            },
+            HaveLifeInsurance_details:[],
+            Insurancedetails:[],
+            //professional data
+            education:'',
+            professionType:'',
+            incomeGroup:'',
+
         // }
-    }
+    },
+    errorMessage:''
+
+
 }
 
 
 
 
 const createLeadStart = (state, action) => {
-    return updateObject(state, { createLeadLoading: true,leadDataloading:false })
+    return updateObject(state, { 
+        createLeadLoading: true,
+        leadDataloading:false 
+    })
 }
 
 const createLeadSuccess = (state, action) => {
-    
+    const payload = {...state.formData,...action.formData}
+    console.log(payload)
     return updateObject(state, { 
             leadDataloading:true,
             createLeadLoading: false, 
-            formData: action.formData,
+            formData: payload,
+            payloadFormData: payload,
             leadId:action.formData._id,
-            userId:action.formData.userId,
+            // userId:action.formData.userId,
             successMsg:action.succMsg,
          })
 }
 const createLeadFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false });
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        createLeadError: action.error,
+        leadDataloading:false,
+        errorMessage:action.error
+    });
 }
 
 const editLeadStart = (state, action) => {
@@ -119,18 +159,24 @@ const editLeadStart = (state, action) => {
 }
 
 const editLeadSuccess = (state, action) => {
+    const payload = {...state.formData,...action.formData}
+    
     return updateObject(state, { 
             editLeadLoading:false,
             createLeadLoading: false, 
-            formData: action.formData,
+            formData: payload,
             leadId:action.formData[0]._id,
-            userId:action.formData[0].userId
+            appointmentData:action.appointmentDetails
+
+            // userId:action.formData[0].userId
          })
 }
 const editLeadFail = (state, action) => {
     return updateObject(state, { 
         editLeadError: action.error,
-        leadDataloading:false 
+        leadDataloading:false,
+        errorMessage:action.error
+
     });
 }
 
@@ -162,35 +208,55 @@ const fetchLeadDetailsSuccess = (state, action) => {
     const fetchLeadId = action.fetchLeadId
     const  {Insurancedetails} = action.leadDetails
     const  {HaveLifeInsurance_details} = action.leadDetails
-        if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){
+        // if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){
 
-            var  healthInsObject = JSON.parse(Insurancedetails)
+        //     var  healthInsObject = JSON.parse(Insurancedetails)
     
-            var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
-        }
+        //     var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
+        // }
+        const payload = {...state.formData,...action.leadDetails,...state.appointmentData,...action.appointmentDetails}
     return updateObject(state, { 
         leadDataloading:false,
         createLeadLoading: false, 
-        formData: action.leadDetails,
-        payloadFormData: action.leadDetails,
+        formData: payload,
+        payloadFormData: payload,
         // mailingAddress:address1,
         // mailingAddressSecond:address2,
         leadId:action.leadDetails._id,
         userId:action.leadDetails.userId._id,
-        Insurancedetails:healthInsObject,
-        HaveLifeInsurance_details:lifeInsObject,
+        // Insurancedetails:healthInsObject,
+        // HaveLifeInsurance_details:lifeInsObject,
         address:action.leadDetails.address[0],
         mailingAddressSecond:addSecond,
-        fetchLeadId:fetchLeadId
+        fetchLeadId:fetchLeadId,
+        appointmentData:action.appointmentDetails
+
     })
 }
 const fetchLeadDetailsFail = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, createLeadError: action.error,leadDataloading:false  });
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        createLeadError: action.error,
+        leadDataloading:false  
+    });
 }
 
 
 const storeForm = (state, action) => {
-    return updateObject(state, { createLeadLoading: false, formData: action.formData })
+    // let childParsedData = action.formData.ChildInfo
+    //     if(!_.isEmpty(childParsedData)){
+
+    
+    //         childParsedData = JSON.parse(childParsedData)
+    //     }
+    // console.log(childParsedData)
+    const payload = {...state.formData,...action.formData }
+    
+    return updateObject(state, { 
+        createLeadLoading: false, 
+        formData: payload,
+        // childParsedData:childParsedData,
+    })
 }   
 
 const reducer = (state = initialState, action) => {
