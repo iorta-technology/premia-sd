@@ -112,7 +112,7 @@ const ClubsMaster = () => {
                                                     </Card>
                                                 </div>
                                             </Carousel>
-                                            <table>
+                                            <table className="clubmaster-table">
                                                 <tr>
                                                     <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                                 </tr>
@@ -229,7 +229,7 @@ const ClubsMaster = () => {
                                                     </Card>
                                                 </div>
                                             </Carousel>
-                                            <table>
+                                            <table className="clubmaster-table">
                                                 <tr>
                                                     <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                                 </tr>
@@ -262,7 +262,7 @@ const ClubsMaster = () => {
                                                             </div>
                                                             <div class="grid-item">
                                                                 <p className="Paragraph">25th Month Persistency</p>
-                                                                <h2 className="Head-tag2">65%</h2><Divider />
+                                                                <h2 className="Head-tag2">65%</h2>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -339,7 +339,7 @@ const ClubsMaster = () => {
                                                     </Card>
                                                 </div>
                                             </Carousel>
-                                            <table>
+                                            <table className="clubmaster-table">
                                                 <tr>
                                                     <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                                 </tr>
@@ -430,7 +430,7 @@ const ClubsMaster = () => {
                                                     </Card>
                                                 </div>
                                             </Carousel>
-                                            <table>
+                                            <table className="clubmaster-table">
                                                 <tr>
                                                     <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                                 </tr>
@@ -463,7 +463,7 @@ const ClubsMaster = () => {
                                                             </div>
                                                             <div class="grid-item">
                                                                 <p className="Paragraph">25th Month Persistency</p>
-                                                                <h2 className="Head-tag2">65%</h2><Divider />
+                                                                <h2 className="Head-tag2">65%</h2>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -540,7 +540,7 @@ const ClubsMaster = () => {
                                                     </Card>
                                                 </div>
                                             </Carousel>
-                                            <table>
+                                            <table className="clubmaster-table">
                                                 <tr>
                                                     <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                                 </tr>
@@ -630,7 +630,7 @@ const ClubsMaster = () => {
                                                     </Card>
                                                 </div>
                                             </Carousel>
-                                            <table>
+                                            <table className="clubmaster-table">
                                                 <tr>
                                                     <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                                 </tr>
@@ -663,7 +663,7 @@ const ClubsMaster = () => {
                                                             </div>
                                                             <div class="grid-item">
                                                                 <p className="Paragraph">25th Month Persistency</p>
-                                                                <h2 className="Head-tag2">65%</h2><Divider />
+                                                                <h2 className="Head-tag2">65%</h2>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -747,7 +747,7 @@ const ClubsMaster = () => {
                                                 </Card>
                                             </div>
                                         </Carousel>
-                                        <table>
+                                        <table className="clubmaster-table">
                                             <tr>
                                                 <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                             </tr>
@@ -857,7 +857,7 @@ const ClubsMaster = () => {
                                                 </Card>
                                             </div>
                                         </Carousel>
-                                        <table>
+                                        <table className="clubmaster-table">
                                             <tr>
                                                 <th className="clubmaster-head">TOP OF TABLE CLUB (TOT)</th>
                                             </tr>
@@ -890,7 +890,7 @@ const ClubsMaster = () => {
                                                         </div>
                                                         <div class="grid-item">
                                                             <p className="Paragraph">25th Month Persistency</p>
-                                                            <h2 className="Head-tag2">65%</h2><Divider />
+                                                            <h2 className="Head-tag2">65%</h2>
                                                         </div>
                                                     </div>
                                                 </td>

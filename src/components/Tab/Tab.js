@@ -51,12 +51,12 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
             case "unpaidrenewals": return history.push('/renewalMaster/unpaidRenewals');
             case "lapsedrenewals": return history.push('/renewalMaster/lapsedRenewals');
 
-            case "benefitillustrator": return history.push('/master/benefitillustrator');
-            case "proposalfulfilment": return history.push('/master/proposalfulfilment');
-            case "prepaymentreview": return history.push('/master/prepaymentreview');
-            case "paymentoptions": return history.push('/master/paymentoptions');
-            case "uploaddocuments": return history.push('/master/uploaddocuments');
-            case "proposalhistory": return history.push('/master/proposalhistory');
+            // case "benefitillustrator": return history.push('/master/benefitillustrator');
+            // case "proposalfulfilment": return history.push('/master/proposalfulfilment');
+            // case "prepaymentreview": return history.push('/master/prepaymentreview');
+            // case "paymentoptions": return history.push('/master/paymentoptions');
+            // case "uploaddocuments": return history.push('/master/uploaddocuments');
+            // case "proposalhistory": return history.push('/master/proposalhistory');
             // default:  return history.push('/leadmasterpage/statuslead');
 
         }

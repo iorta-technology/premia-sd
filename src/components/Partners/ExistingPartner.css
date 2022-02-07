@@ -387,10 +387,6 @@ margin-top: -0.8vw;
     width: 100%;
     align-items: stretch;
     height: 1px;
-    
-    /* height: 0.1vw; */
-  
-    /* margin-bottom: 0.4vw; */
     background-color: #E6E9EB;
 }
 
@@ -398,12 +394,10 @@ margin-top: -0.8vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* align-items: center; */
     margin-left: 0.7vw;
     margin-right: 0.7vw;
     margin-top: 0.34vw;
-    /* margin-top: 0.3vw; */
-   
+    
 }
 .Existingpartner-card-middle-content-text-style{
     font-size: 13px;

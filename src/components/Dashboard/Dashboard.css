@@ -31,8 +31,10 @@
 }
 .export-button{
     padding-left: 1px;
+    
 }
 .export-btn{
     color: #fff;
+    margin-top: 3vw;
     background-color: orangered;
 }

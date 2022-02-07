@@ -26,6 +26,7 @@
   display: flex;
   /* background-color: white; */
 }
+
 .Heading{
   margin-top: 2vw;
   font-size: 15px;
@@ -55,6 +56,7 @@
 .paragraph11{
   font-size: 14px !important;
   font-family: robotoregular;
+  text-align: center;
 }
 .btnn{
   font-family: robotoregular;
@@ -125,6 +127,9 @@
 .i2{
   height: 15vh;
 }
+.calculator-main{
+  margin-top: 5vw;
+}
 .Salespitch-data{
   display: flex;
   border: none;
@@ -167,13 +172,10 @@
 }
 .testimonial1 {
   margin: 0 auto;
-  /* padding: 10px 10px; */
   border-radius: 5px;
   background-color: #FCFDFE;
   justify-content: space-around;
   justify-content: center;
-  /* width: 80vw; */
-  /* height: 65vh; */
   padding: 16px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -260,6 +262,17 @@
     flex:0 1 100%;
     
 }
+.btnn{
+  font-family: robotoregular;
+  background-color: #3b371e;
+  color: #fff;
+  justify-content: center;
+  margin-left: 25vw;
+  font-size: 15px;
+  /* padding: 2px 20px; */
+  height: 6vh;
+  /* width: 10vw; */
+}
   .Salespitch-row-flex{
     display: flex;
     margin-top: 15px;
@@ -279,12 +292,12 @@ font-size: 15px;
     margin-right: 1vw; */
     flex-direction: column;
   }
-  .testimonial1 {
+  /* .testimonial1 {
     display: flex;
     flex-direction: column;
     margin-left: 1vw;
     margin-right: 1vw;
-  }
+  } */
 .headingg{
   display: flex;
   text-align: start;

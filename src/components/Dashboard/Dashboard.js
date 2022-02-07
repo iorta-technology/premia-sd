@@ -17,13 +17,13 @@ function onChange(date, dateString) {
 const Dashboard = () => {
     const [progressChartArr, setProgressChartArr] = useState([]);
     useEffect(() => {
-        // axios.get("https://sdrestdemo.iorta.in/secure/user/leads-dashboard-ratio/5dbfe0cce51cd5522249ba8a?fromDate="24/01/2021"&toDate="25/01/2021"")
-        //     .then((res) => {
-        //         console.log(res.data, 'response here')
-        //         setProgressChartArr(
-        //             res.data.errMsg
-        //         );
-        //     });
+        axios.get("https://sdrestnode.iorta.in/secure/sd/user/leads-dashboard-ratio/5df77e6a2b5ffa6c72ae1a0e?fromDate=01/01/2021&toDate=01/01/2022")
+            .then((res) => {
+                console.log(res.data, 'response here')
+                setProgressChartArr(
+                    res.data.errMsg
+                );
+            });
     }, []);
     console.log(progressChartArr);
     return (

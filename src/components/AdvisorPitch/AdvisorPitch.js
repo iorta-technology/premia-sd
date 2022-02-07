@@ -11,7 +11,7 @@ const tabMenu = [
       value: "Customer Pitch",
     },
     {
-      id: 'customerpitch',
+      id: 'advisorpitch',
       value: "Advisor Pitch"
     },
     
@@ -27,13 +27,13 @@ const AdvisorPitch = () => {
     return (
         <>
             <div className="Advisor-main">
-            <MainTabs
+            <MainTabs style
                 tabMenu={tabMenu}
                 // header="New Lead"
                 activeKey="advisorpitch"
             />
                 <div className="Advisorpitch-row-flex">
-                    <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ fontSize: '14px', backgroundColor: 'white', fontWeight: 'bold' }}>
+                    <Tabs tabPosition={tabPosition} tabBarGutter="3vw" style={{ fontSize: '12px', backgroundColor: 'white' }}>
                         {/* style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }} */}
                         <TabPane tab="About Us" key="1" >
                             <div className="Advisorpitch-details-card-style ">
