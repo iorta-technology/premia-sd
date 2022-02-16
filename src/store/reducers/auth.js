@@ -36,7 +36,7 @@ const loginSuccess = (state, action) => {
             fetch_allLeads_Loading: false, 
             // login_agent_data: action.login_agent_data,
             user:user,
-            user_name: action.login_agent_data.first_name,
+            user_name: action.login_agent_data.first_name + " " + action.login_agent_data.last_name,
             agent_id: action.login_agent_data.agent_id,
             userId: action.login_agent_data._id,
             // channelCode:action.login_agent_data.channelCode
