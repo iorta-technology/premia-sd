@@ -64,7 +64,7 @@ const Sidebar = () => {
 
   const showSidebar = () => setSidebar(!sidebar);
   const logged_in_user = useSelector((state) => state.login.user_name)
-  let avatar = logged_in_user.match(/\b(\w)/g)
+  let avatar = logged_in_user?.match(/\b(\w)/g)
   const agent_id = useSelector((state) => state.login.agent_id)
   const dispatch = useDispatch();
   const  onLogout=() =>{
