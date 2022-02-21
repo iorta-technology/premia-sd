@@ -115,16 +115,16 @@
   }
 
   .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab{
-    padding: 8px 24px;
+    padding: 4px 24px;
     /* text-align: center; */
     box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
     /* background-color: #F7FBFF; */
     /* padding-left: 10px; */
     /* padding-top: 19px; */
-    width: 260px;
+    width: 280px;
     display: flex;
     align-items: stretch;
-    font-size: 18px;
+    font-size: 16px;
   }
   .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab{
     margin: 2px 0 0 0;
