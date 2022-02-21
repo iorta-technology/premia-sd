@@ -60,6 +60,7 @@ const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/Pr
 const UploadDocuments = React.lazy(() => import('./components/UploadDocuments/UploadDocuments'))
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 const Dashboard = React.lazy(() => import('./components/Dashboard/Dashboard'))
+const BulkAction = React.lazy(() => import('./components/BulkAction/BulkAction'))
 function App() {
   // const logindata = stoageGetter('user')
   // if(!logindata){
@@ -90,22 +91,13 @@ function App() {
             <Route path="/himanshu" component={AgentMicroService}></Route>
             <Route path="/blog" component={Blog}></Route>
             {/* <Route path="/Master/:masterType" component={Master}></Route> */}
-            <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
-            <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
-            <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
-            <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
-            <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
-            <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
-            <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
-            <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
-            <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
+            
             <div>
               {/* Make this route at the end only. */}
               <Route path="/agentMicrosite" component={AgentMicroService}></Route>
               <div>
                 <Sidebar />
+                <div style={{marginTop:"75px"}}>
                 <Route path="/clubsMaster" component={ClubsMaster}></Route>
                 <Route path="/birthday" component={Birthday}></Route>
                 <Route path="/home" component={HomePage}></Route>
@@ -139,10 +131,23 @@ function App() {
                 <Route path="/master/uploaddocuments" component={UploadDocuments}></Route>
                 <Route path="/master/proposalhistory" component={ProposalHistory}></Route>
                 <Route path="/dashboard" component={Dashboard} />
+                <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
+                <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
+                <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>
+                <Route path="/leadmasterpage/leaddetails/contactlead" component={ContactDetails}></Route>
+                <Route path="/leadmasterpage/leaddetails/professionallead" component={ProfessionalDetails}></Route>
+                <Route path="/leadmasterpage/leaddetails/existingLead" component={ExistingInsurance}></Route>
+                <Route path="/leadmasterpage/leaddetails/productLead" component={ProposedProduct}></Route>
+                <Route path="/leadmasterpage/proposal" component={ProposalDetails}></Route>
+                <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
+                <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
+                <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
+              </div>
               </div>
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
               {/* <Route path="/mappedbranches" component={MappedBranches}></Route> */}
               <Route path="/products" component={LoanProducts} />
+              <Route path="/bulkaction" component={BulkAction} />
             </div>
 
           </Switch>
