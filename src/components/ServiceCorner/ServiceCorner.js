@@ -101,7 +101,7 @@ const ServiceCorner = () => {
                                         <h1 className="headtag1">WIP</h1>
                                     </Col>
                                     <Col xs={12} sm={8} md={8} lg={6}>
-                                        <h3 className="head3">Profile</h3>
+                                        <h3 className="head3">Profile</h3><br />
                                         <p className="paragraph">0012TRA166</p>
                                     </Col>
                                     <Col xs={12} sm={8} md={8} lg={6}>
@@ -161,7 +161,7 @@ const ServiceCorner = () => {
                                         <h1 className="head1">Close</h1>
                                     </Col>
                                     <Col xs={12} sm={8} md={8} lg={6}>
-                                        <h3 className="head3">Profile</h3>
+                                        <h3 className="head3">Profile</h3><br />
                                         <p className="paragraph">0012TRA145</p>
                                     </Col>
                                     <Col xs={12} sm={8} md={8} lg={6}>
@@ -217,7 +217,7 @@ const ServiceCorner = () => {
                                         <h1 className="headtag1">WIP</h1>
                                     </Col>
                                     <Col xs={12} sm={8} md={8} lg={6}>
-                                        <h3 className="head3">Profile</h3>
+                                        <h3 className="head3">Profile</h3><br />
                                         <p className="paragraph">0012TRA123</p>
                                     </Col>
                                     <Col xs={12} sm={8} md={8} lg={6}>
@@ -273,7 +273,7 @@ const ServiceCorner = () => {
                                             <h1 className="head1">Close</h1>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
-                                            <h3 className="head3">Profile</h3>
+                                            <h3 className="head3">Profile</h3><br />
                                             <p className="paragraph">0012TRA111</p>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
@@ -329,7 +329,7 @@ const ServiceCorner = () => {
                                             <h1 className="headtag1">WIP</h1>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
-                                            <h3 className="head3">Profile</h3>
+                                            <h3 className="head3">Profile</h3><br />
                                             <p className="paragraph">0012TRA166</p>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
@@ -383,7 +383,7 @@ const ServiceCorner = () => {
                                             <h1 className="head1">Close</h1>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
-                                            <h3 className="head3">Profile</h3>
+                                            <h3 className="head3">Profile</h3><br />
                                             <p className="paragraph">0012TRA145</p>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
@@ -433,7 +433,7 @@ const ServiceCorner = () => {
                                             <h1 className="headtag1">WIP</h1>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
-                                            <h3 className="head3">Profile</h3>
+                                            <h3 className="head3">Profile</h3><br />
                                             <p className="paragraph">0012TRA123</p>
                                         </Col>
                                         <Col xs={12} sm={8} md={8} lg={6}>
