@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 import './HomePage.css';
-import { Image, Button,Row,Col } from 'antd';
+import { Image, Button, Row, Col } from 'antd';
 // import { Bar } from '@ant-design/charts';
 import 'antd/dist/antd.css';
 import * as actions from '../../store/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from "moment";
 import _ from "lodash";
-import { Link,useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import FloatButton from '../FloatButton/FloatButton';
 import { Column } from '@ant-design/charts';
 const HomePage = () => {
@@ -26,7 +26,7 @@ const HomePage = () => {
       dispatch(actions.activities(id))
     }
     userId && dispatch(actions.fetchUserDetails(userId))
-    channelCode &&  dispatch(actions.fetchHierarchy(userId,channelCode)) 
+    channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
     if (agent_id) {
       dispatch(actions.home(agent_id))
     }
@@ -37,9 +37,9 @@ const HomePage = () => {
   )
 
   const activities_data = useSelector((state) => state.activities.activities_obj)
-  const  onLogout=() =>{
-      dispatch(actions.logout())
-      history.push('/login')
+  const onLogout = () => {
+    dispatch(actions.logout())
+    history.push('/login')
   }
   // console.log("Home-Data", home_data)
   console.log("activities-data", activities_data)
@@ -132,14 +132,14 @@ const HomePage = () => {
         { type: 'adjust-color' },
       ],
     },
-    color: ['#ADD8E6','#fff']
+    color: ['#ADD8E6', '#fff']
   };
-  
+
   return <Fragment >
     {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
     <FloatButton />
-    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold',marginLeft:'10.5rem' }}>Hi {logged_in_user}</h3>
-    <Row gutter={[18,{ xs: 8, sm: 10, md: 10, lg:18 }]} justify="center" className="cardHolder ">
+    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold', marginLeft: '10.5rem' }}>Hi {logged_in_user}</h3>
+    <Row gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]} justify="center" className="cardHolder ">
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <Link to="/calendar">
@@ -161,7 +161,7 @@ const HomePage = () => {
                     return (
                       <div className="action-cards-content-activity" key={item._id}>
                         <div >
-                        <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
+                          <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
                           <table>
                             <tr>
                               <td>{Moment(item.start_time_MS).format("h:mm a")}</td>
@@ -169,25 +169,15 @@ const HomePage = () => {
                               <td>{Moment(item.end_time_MS).format("h:mm a")}</td>
                             </tr>
                             <tr>
-                              <td style={{width:'85px'}}>
-                              <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
-                                {item.set_reminder_prority}
-                              </Button>
+                              <td style={{ width: '85px' }}>
+                                <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
+                                  {item.set_reminder_prority}
+                                </Button>
                               </td>
                               <td>{item.event_description}</td>
                               <td>{item.leadId?.primaryMobile}</td>
                             </tr>
                           </table>
-                          {/* <p style={{ width: "100%", margin: "0" }}>{Moment(item.start_time_MS).format("h:mm a")} <span style={{ width: "100%", margin: "40px", fontWeight: "bold" }}>{item.event_name}</span> <span style={{ float: "right" }}>{Moment(item.end_time_MS).format("h:mm a")}</span></p>
-                          <p>
-                            <b style={{ color: '#00ACC1' }}>
-                              <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
-                                {item.set_reminder_prority}
-                              </Button>
-                            </b>
-                            <span style={{ fontSize: "12px", fontWeight: "400" }}>{item.event_description}</span>
-                            <span style={{ float: "right" }}>{item.leadId?.primaryMobile}</span>
-                          </p> */}
                         </div>
                       </div>
                     )
@@ -218,7 +208,7 @@ const HomePage = () => {
             </div>
           </Link>
           <div style={{ marginTop: "30px" }}>
-          <Column {...config}/>
+            <Column {...config} />
           </div>
           <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
             <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
@@ -270,16 +260,16 @@ const HomePage = () => {
 
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
-        <Link to="/kpi-dashboard">
-          <div className="card-content">
-            <div className="activity-icon">
-              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3366.png" alt="Business" />
+          <Link to="/kpi-dashboard">
+            <div className="card-content">
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3366.png" alt="Business" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Business</p>
+                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
+              </div>
             </div>
-            <div className="activities-text">
-              <p style={{ fontSize: '15px', color: '#fff' }}>Business</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
-            </div>
-          </div>
           </Link>
           <div style={{ marginTop: "50px" }}>
             <div style={{ float: "right" }}>
@@ -375,15 +365,15 @@ const HomePage = () => {
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
           <Link to="/renewalMaster/allRenewals">
-          <div className="card-content">
-            <div className="activity-icon">
-              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+            <div className="card-content">
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Renewals</p>
+                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} />
+              </div>
             </div>
-            <div className="activities-text">
-              <p style={{ fontSize: '15px', color: '#fff' }}>Renewals</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} />
-            </div>
-          </div>
           </Link>
           <div className='rewardscorner-text'>
             <div style={{ display: 'flex', justifyContent: "center" }}>
@@ -423,10 +413,10 @@ const HomePage = () => {
                   </div>
                 </Link>
                 <Link to="/clubsmaster">
-                <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
-                  <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
-                  <p>Clubs</p>
-                </div>
+                  <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
+                    <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
+                    <p>Clubs</p>
+                  </div>
                 </Link>
               </div>
             </div>
@@ -470,18 +460,18 @@ const HomePage = () => {
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <div className="card-content">
             <Link to='/products'>
-            <div className="activity-icon">
-              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3369.png" alt="Sales Guide" />
-            </div>
-            <div className="activities-text">
-              <p style={{ fontSize: '15px', color: '#fff' }}>Sales Guide</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} />
-            </div>
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3369.png" alt="Sales Guide" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Sales Guide</p>
+                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} />
+              </div>
             </Link>
             <div className="sales-guide-content">
               <div className="b1-content">
-                <Link to="/salespitch">
-                <p className="sales-content" style={{ height: 35, width: 100 }}>sales pitch</p>
+                <Link to="/masterpresales/customerdetails/salespitch">
+                  <p className="sales-content" style={{ height: 35, width: 100 }}>sales pitch</p>
                 </Link>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
               </div>
@@ -491,7 +481,7 @@ const HomePage = () => {
               </div>
               <div className="b1-content">
                 <Link to="advisorpitch">
-                <p className="sales-content" style={{ height: 35, width: 200 }}>Advisor OnBoarding</p>
+                  <p className="sales-content" style={{ height: 35, width: 200 }}>Advisor OnBoarding</p>
                 </Link>
               </div>
               <div className="b1-content">
@@ -506,13 +496,13 @@ const HomePage = () => {
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <div className="card-content">
             <Link to="/birthday">
-            <div className="activity-icon">
-              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3376.png" alt="Birthday" />
-            </div>
-            <div className="activities-text">
-              <p style={{ fontSize: '15px', color: '#fff' }}>Birthday</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
-            </div>
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3376.png" alt="Birthday" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Birthday</p>
+                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
+              </div>
             </Link>
             <div className="birthday-slides">
               <Image preview={false} width={32} height={32} src="https://sdrestdemo.iorta.in/assets/Subtraction10.png" alt="left arrow" />
@@ -521,6 +511,98 @@ const HomePage = () => {
           </div>
         </div>
       </Col>
+
+      {/* <Col>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <Link to="/mappedbranches">
+            <div className="card-content">
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Mapped Branches</p>
+                <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} />
+              </div>
+            </div>
+          </Link>
+          <div className="events-body">
+            <Image className="stars" preview={false} src="https://pocbanca.iorta.in/assets/Actionnodata.png" alt="Events" />
+            <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Branches Found</p>
+            <p style={{ color: '#CEA0E1', fontSize: '20px', width: "fit-content", margin: "auto" }}>No Events Exist</p>
+          </div>
+        </div>
+      </Col> */}
+
+      <Col>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <Link to="/mappedbranches">
+            <div className="card-content">
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Mapped Branches</p>
+                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '200%', margin: '-6px' }} />
+              </div>
+            </div>
+          </Link>
+          <div className="events-body" >
+            <Image className="stars" preview={false} src="https://pocbanca.iorta.in/assets/Actionnodata.png" alt="Events" />
+            <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content" }}>No Branches Found</p>
+          </div>
+        </div>
+      </Col>
+
+      <Col>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <Link to="/existingpartner">
+            <div className="card-content">
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Existing Partner</p>
+                <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} />
+              </div>
+            </div>
+          </Link>
+          <div style={{ height: "75%" }} className="events-body">
+            <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Branches Found</p>
+          </div>
+          {/* <div className='rewardscorner-text'>
+            <div style={{ display: 'flex', justifyContent: "center" }}>
+              <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+                <p>Renewals</p>
+                <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.Renewal_count_team ? home_data.Renewal_count_team : '00'}</h1>
+                <p><b>New</b></p>
+              </div>
+              <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
+                <p>Customers</p>
+                <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.customer_count_team ? home_data.customer_count_team : '00'}</h1>
+                <p><b>New</b></p>
+              </div>
+            </div>
+          </div> */}
+        </div>
+      </Col>
+
+      {/* <Col>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <div className="card-content">
+            <div className="activity-icon">
+              <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3375.png" alt="ToDo" />
+            </div>
+            <div className="activities-text">
+              <p style={{ fontSize: '15px', color: '#fff' }}>To Do</p>
+              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} />
+            </div>
+          </div>
+          <div style={{ height: "75%" }} className="events-body">
+            <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Active Task</p>
+          </div>
+        </div>
+      </Col> */}
+
       <Col className="dummy-home-card"></Col>
     </ Row>
   </Fragment>

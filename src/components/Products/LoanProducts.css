@@ -250,9 +250,9 @@ padding-right: 0px !important;
   display: none;
 }
 .benefit-btn{
-  margin-top: 400vh;
+  margin-top: 3vh;
   font-size: 12px;
-  padding-left: 1px;
+  /* padding-left: 1px; */
 }
 .product-para{
   display: flex;

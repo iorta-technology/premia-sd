@@ -124,7 +124,7 @@ const LoanProducts = () => {
                                             <div className="main-card2" bordered={false} >
                                                 <div className="benefit-main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
                                                     <h1 style={{ color: '#5EA5C0' }} className="benefit-head">{item.productName}</h1>
-                                                    <Button style={{ backgroundColor: 'transparent', border: '1px solid #5EA5C0', borderRadius: '10px' }} onClick={showModal}>Benefit Illustration</Button>
+                                                    <Button className="benefit-btn" style={{ backgroundColor: 'transparent', border: '1px solid #5EA5C0', borderRadius: '10px' }} onClick={showModal}>Benefit Illustration</Button>
                                                     <Modal
                                                         className="Clubsmaster-modal-style"
                                                         title="Select the proposer" visible={isJoinModalVisible} onOk={handleOk}
