@@ -50,14 +50,14 @@
 .Mappedbranches-buttons{
   display: flex;
   flex-direction: row;
-  width: 95vw;
-  justify-content: space-around;
+  margin-left: 25vw;
+  /* justify-content: space-between; */
   }
 .Mappedbranches-buttons-display{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  width:70%;
+  justify-content: space-between;
+  /* width:100%; */
   }
   .mapped-button {
     display: flex;
@@ -107,7 +107,7 @@
     width: 8vw;
     height: 30px;
     color: '#000';
-    font-size: 14px;
+    font-size: 12px;
     
   }
   .reset-btn {
@@ -132,12 +132,13 @@
     
   }
   .Mappedbranches-content-area-style{
-    margin-top: 3vw;
+    margin-top: 1vw;
     display: flex;
   }
   .Mappedbranches-card-flex{
     display: flex;
     flex-direction: row;
+    height: 27vh;
     justify-content: space-between;
     width: 93%;
   }
@@ -175,18 +176,18 @@
   
 }
 .Mappedbranches-card-name-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #E46A25;
   font-weight: bold;
   /* margin-top: 3px; */
 }
 .Mappedbranches-cards-name-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #00ACC1;
   font-weight: bold;
-  margin-top: 3px;
+  margin-top: 1px;
 }
 .Mappedbranches-card-id-row-flex{
   display: flex;
@@ -196,7 +197,7 @@
   margin-top: -0.6vw;
 }
 .Mappedbranches-card-id-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   font-weight: bold;
@@ -205,39 +206,39 @@
   padding-bottom: 2px; */
 }
 .Mappedbranches-cards-id-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   font-weight: bold;
-  padding-top: 14px;
+  padding-top: 10px;
 }
 .Mappedbranches-card1-id-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   font-weight: bolder;
-  
+  padding-top: 10px;
 }
 .Mappedbranches-card-id-number-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   margin-left: 0.4vw;
-  padding-top: 3px;
+  /* padding-top: 1px; */
 }
 .Mappedbranches-cards-id-number-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   margin-left: 0.4vw;
-  padding-top: 14px;
+  padding-top: 10px;
 }
 .Mappedbranches-card1-id-number-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   margin-left: 0.4vw;
-  
+  padding-top: 10px;
 }
 /* .Mappedbranches-card-bottom-vertical-line-style{
   display: flex;
@@ -298,15 +299,17 @@
     flex-direction: row;
     justify-content: flex-end;
     margin-left: 0.7vw;
+    /* padding-top: 2px; */
     margin-right: 0.7vw;
 }
 .Mappedbranches-card-bottom-vertical-line-column-flex{
   display:flex;
+  padding-top: 1px;
   flex-direction: row;
 }
 .Mappedbranches-card-bottom-para-style{
   border-radius: 3px;
-  margin-top: 0.5vw;
+  margin-top: 1px;
   text-align: center;
   width: 9vw;
   font-weight: bold;
@@ -316,7 +319,7 @@
 .Mappedbranches-card-bottom-button-style{
   background-color: #00ACC1;
   border-radius: 3px;
-  margin-top: 0.5vw;
+  /* margin-top: 2px; */
   width: 9vw;
   margin-bottom: 0.6vw;
   color:white;
@@ -437,12 +440,12 @@
   margin-top: 3vw;
 } */
 
-.Mappedbranches-card-style{
+/* .Mappedbranches-card-style{
   box-shadow: 0px 2px 3px 0px #8181817a;
   border-radius: 3px;
   background-color: #ffffff;
   width: 48%;
-}
+} */
 .Mappedbranches-card-content-style{
   display: flex;
   flex-direction: row;
@@ -468,7 +471,7 @@
 
 
 .Mappedbranches-card-id-number-text{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   /* color
   : #646666;
@@ -523,14 +526,14 @@ font-weight:normal;
 }
 
 .Mappedbranches-info-id-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   font-weight: bold;
 }
 
 .Mappedbranches-info-id-number-text-style{
-  font-size: 14px;
+  font-size: 12px;
   font-family: robotobold;
   color: #646666;
   margin-left: 1vw;
@@ -556,7 +559,7 @@ font-weight:normal;
 
 .mapped-head4 {
   display: flex;
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 10vw;
   
 }
@@ -655,27 +658,27 @@ font-weight:normal;
   } 
   .Mappedbranches-card-style{
     width: 100%;
-    margin-bottom: 3vw;
+    margin-bottom: 2px;
     }
-  .Mappedbranches-card-id-row-flex{
-    margin-bottom: -2vw;
-    }
+  /* .Mappedbranches-card-id-row-flex{
+    margin-bottom: 2px;
+    } */
   .Mappedbranches-card-bottom-button-style{
     width: 20vw;
   }
   .Mappedbranches{
     display: flex;
-  flex-direction: row;
-  flex:1;
-  height: 20vh;
-  width: 100%;
-  box-shadow: 0px 5px 7px #00000029;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  background-image: url('../../images/Bgimage.png');
+   flex-direction: row;
+   flex:1;
+   height: 20vh;
+   width: 100%;
+   box-shadow: 0px 5px 7px #00000029;
+   border-radius: 5px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   -ms-border-radius: 5px;
+   -o-border-radius: 5px;
+   background-image: url('../../images/Bgimage.png');
   }
   .mapped-btn {
     display: flex;

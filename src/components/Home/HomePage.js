@@ -603,6 +603,38 @@ const HomePage = () => {
         </div>
       </Col> */}
 
+      <Col>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <div className="card-content">
+            <Link to="/renewalreport">
+              <div className="activity-icon">
+                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3379.png" alt="dashboards" />
+              </div>
+              <div className="activities-text">
+                <p style={{ fontSize: '15px', color: '#fff' }}>Dashboards</p>
+                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} />
+              </div>
+            </Link>
+            <div className='rewardscorner-text'>
+              <div style={{ display: 'flex', justifyContent: "center" }}>
+                <Link to="/renewalreport">
+                  <div style={{ padding: "0 20px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+                    <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
+                    <p>Renewal Report</p>
+                  </div>
+                </Link>
+                <Link to="/salespendency">
+                  <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
+                    <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
+                    <p>Sales Pendency</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Col>
+
       <Col className="dummy-home-card"></Col>
     </ Row>
   </Fragment>

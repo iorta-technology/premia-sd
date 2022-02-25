@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Tabs, Button, Popover, Drawer, Image, Input, Tag } from 'antd';
+import { Avatar, Tabs, Button, Popover, Drawer, Image, Input, Tag, Row, Col } from 'antd';
 import { Pagination } from 'antd';
 import {
     UsergroupAddOutlined,
@@ -36,49 +36,59 @@ const MappedBranches = () => {
 
                 {width > "769" ?
                     <div className="Mapped-head">
-                        <h4>Region</h4>
+                        <h4>Region</h4><br />
                         <div className="Mappedbranches-buttons">
                             <div className="Mappedbranches-buttons-display">
-                                <div onClick={selectButtonFunc} className={selectButtonOption == true ? "mapped-button" : "mapped-btn2"} value={selectButtonOption}>
-                                    <p className={selectButtonOption == true ? "Mappedbranches-tab-active-text-style" : "Mappedbranches-tab-text-style"}>
-                                        <UserOutlined
-                                            rotate="0"
-                                            style={{
-                                                fontSize: "18px",
-                                                marginRight: "8px"
-                                            }} />
-                                        Self
-                                    </p>
-                                </div>
-                                <div onClick={selectBtnFunc} className={selectBtnOption == true ? "mapped-button" : "mapped-btn2"} >
-                                    <p className={selectBtnOption == true ? "Mappedbranches-tab-active-text-style" : "Mappedbranches-tab-text-style"} >
-                                        <UsergroupAddOutlined
-                                            rotate="0"
-                                            style={{
-                                                fontSize: "18px",
-                                                marginRight: "8px"
-                                            }} />
-                                        Team
-                                    </p>
-                                </div>
-                                <div>
-                                    <select className="dropdown" >
-                                        <option value="">Select</option>
-                                        <option value="Mumbai Main">Mumbai Main</option>
-                                        <option value="East">East</option>
-                                        <option value="Mumbai 1">Mumbai 1</option>
-                                        <option value="North 1">North 1</option>
-                                        <option value="North 3">North 3</option>
-                                        <option value="North 2">North 2</option>
-                                        <option value="South 2">South 2</option>
-                                        <option value="South 1">South 1</option>
-                                        <option value="West 2">West 2</option>
-                                        <option value="West 1">West 1</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <Button className="reset-btn">Reset</Button>
-                                </div>
+                                <Row gutter={[40, 16]} >
+                                    <Col span={6} order={1}>
+                                        <div onClick={selectButtonFunc} className={selectButtonOption == true ? "mapped-button" : "mapped-btn2"} value={selectButtonOption}>
+                                            <p className={selectButtonOption == true ? "Mappedbranches-tab-active-text-style" : "Mappedbranches-tab-text-style"}>
+                                                <UserOutlined
+                                                    rotate="0"
+                                                    style={{
+                                                        fontSize: "18px",
+                                                        marginRight: "8px"
+                                                    }} />
+                                                Self
+                                            </p>
+                                        </div>
+                                    </Col>
+                                    <Col span={6} order={2}>
+                                        <div onClick={selectBtnFunc} className={selectBtnOption == true ? "mapped-button" : "mapped-btn2"} >
+                                            <p className={selectBtnOption == true ? "Mappedbranches-tab-active-text-style" : "Mappedbranches-tab-text-style"} >
+                                                <UsergroupAddOutlined
+                                                    rotate="0"
+                                                    style={{
+                                                        fontSize: "18px",
+                                                        marginRight: "8px"
+                                                    }} />
+                                                Team
+                                            </p>
+                                        </div>
+                                    </Col>
+                                    <Col span={6} order={3}>
+                                        <div>
+                                            <select className="dropdown" >
+                                                <option value="">Select</option>
+                                                <option value="Mumbai Main">Mumbai Main</option>
+                                                <option value="East">East</option>
+                                                <option value="Mumbai 1">Mumbai 1</option>
+                                                <option value="North 1">North 1</option>
+                                                <option value="North 3">North 3</option>
+                                                <option value="North 2">North 2</option>
+                                                <option value="South 2">South 2</option>
+                                                <option value="South 1">South 1</option>
+                                                <option value="West 2">West 2</option>
+                                                <option value="West 1">West 1</option>
+                                            </select>
+                                        </div>
+                                    </Col>
+                                    <Col span={6} order={4}>
+                                        <div>
+                                            <Button className="reset-btn">Reset</Button>
+                                        </div>
+                                    </Col>
+                                </Row>
                             </div>
                             <hr />
                         </div>
@@ -96,10 +106,7 @@ const MappedBranches = () => {
                     <div>
 
                         <div className="Mappedbranches-content-area-style" >
-                            {/* <div className="pagination">
-                                <Pagination defaultCurrent={1} total={50} />
-                            </div> */}
-                            <div className="Mappedbranches-card-flex">
+                           <div className="Mappedbranches-card-flex">
                                 <div className="Mappedbranches-card-style" >
                                     <div className="Mappedbranches-card-content-flex">
                                         <div className="Mappedbranches-card-top-content-flex">
