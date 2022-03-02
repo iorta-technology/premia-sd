@@ -1,7 +1,11 @@
+/* .product-content{
+  display: flex;
+  height: 300vh;
+} */
 .header{
     background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
-    height: 150px;
-    padding: 25px 40px;
+    height: 200px;
+    padding: 10px 20px;
     background-size: 100% 100%;
   }
   .header h1{
@@ -83,12 +87,14 @@
   }
   .tabs{
     margin: 10px 0 20px;
+    /* justify-content: space-around; */
   }
   .main-card1{
     padding: 30px;
     background: rgb(247, 251, 255);
   }
   .main-card2{
+
     padding: 0px 30px;
     background: rgb(236, 242, 249);
   }
@@ -96,6 +102,16 @@
     padding: 30px;
     background: #E0E9F3;
   }
+  .benefit-head{
+    display: flex;
+    font-size: 24px;
+  }
+  
+  /* .product-para{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+  } */
   .slNo{
     background:'#00ACC1';
     color:'#fff';
@@ -104,6 +120,7 @@
   }
   .MainContent{
     display: flex;
+    
   }
   .image-slide{
     background-color: #fff;
@@ -116,13 +133,10 @@
 
   .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab{
     padding: 4px 24px;
-    /* text-align: center; */
     box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
-    /* background-color: #F7FBFF; */
-    /* padding-left: 10px; */
-    /* padding-top: 19px; */
     width: 280px;
     display: flex;
+    flex-direction: row;
     align-items: stretch;
     font-size: 16px;
   }
@@ -182,6 +196,107 @@ padding-right: 0px !important;
     margin-left: 11px;
     width: 276px;
   }
+  
+  .tabs{
+    margin-left: 2px;
+    width: 2vw;
+    justify-content: space-between;
+  }
+  .ant-btn.primaryBtn{
+    /* background-color: rgb(255, 255, 255); */
+    background-color: transparent;
+    color: rgb(60, 61, 61);
+    border-radius: 20px;
+    width: 150px;
+    border: none;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    justify-content: space-between;
+    /* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%); */
+  }
+  .top-tab-header-active{
+    background-color: #00ACC1 !important;
+    color: #fff !important;
+    
+  }
+  .main-card2{
+    padding-left: 1vw;
+    width: 150vw;
+    height: 120vh;
+    background: rgb(236, 242, 249);
+  }
+  .loan-product-tabs {
+    padding: 4px 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
+    width: 300px;
+    display: flex;
+    align-items: stretch;
+    font-size: 16px;
+  }
+  .loan-product-tabs {
+    margin: 2px 0 0 0;
+    
+  }
+  .loan-product-tabs {
+    padding-left: 5vw;
+  }
+  .loan-product-tabs .first-card{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.main-card3 {
+  display: none;
+}
+.benefit-btn{
+  margin-top: 3vh;
+  font-size: 12px;
+  /* padding-left: 1px; */
+}
+.product-para{
+  display: flex;
+  width: 85vw;
+  text-align: justify;
+  flex-direction: column;
+  font-size: 14px;
+  margin-left: 1vw;
+}
+.benefit-main{
+  display: flex;
+  height: 200vh;
+  padding-top: 1vw;
+}
+.benefit-head{
+  display: flex;
+  font-size: 18px;
+  padding-left: 1vw;
+}
+.product_heading{
+  display: flex;
+  width: 100%;
+  font-size: 16px;
+  margin-left: 1vw;
+}
+/* .bullet-points {
+  display: flex;
+  text-align: justify;
+  font-size: 14px;
+
+} */
+.loan-product-tabs .bullet-points{
+  display: flex;
+  text-align: left;
+  font-size: 14px;
+  margin-left: 1vw;
+  
+}
+.header h1{
+  color: #00ACC1;
+}
+.product-title{
+padding-top: 1vw;
+}
   }
 
 
