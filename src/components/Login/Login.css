@@ -1,16 +1,16 @@
 .main-body{
-    padding: 200px;
     background-image: url('../../images/Bgimage.png');
     overflow: hidden;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /* .ant-btn-primary {
     background-color: #1FB3AB;
 } */
 .login-card{
    width: 400px;
-   margin: auto;
-   justify-content: center;
    background-color: #3e3e3e;
 }
 .logo{
@@ -31,4 +31,10 @@
 }
 .main-card{
     background-color: transparent;
+}
+
+@media screen and (max-width:420px){
+    .login-card{
+        width: 100% !important;
+    }
 }

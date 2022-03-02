@@ -1,5 +1,5 @@
 import React ,{useState} from 'react';
-// import './ForgotPassword.css';
+import './ForgotPassword.css';
 import { Card, Input, Button, Image, Form,message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
                             <Image preview={false} width={130} src="https://sdrestdemo.iorta.in/assets/salesDrivelogo.png" alt="login-logo" />
                         </div>
                         <hr className="horline" />
-                        <p className="forgotpasstext" style={{margin:20}}>Forgot Password</p>
+                        <p style={{margin:20,fontSize:"28px",textAlign:'center',color: "#1FB3AB"}}>Forgot Password</p>
                         <Form.Item
                             name="email"
                             rules={[

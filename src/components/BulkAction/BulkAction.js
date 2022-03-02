@@ -25,8 +25,8 @@ const BulkAction = () => {
         console.log(value.format('YYYY-MM-DD'), mode);
       }
     return (
-        <Tabs defaultActiveKey="1" onChange={callback}>
-            <TabPane tab="Bulk Action" key="1">
+        <Tabs className='main-content' defaultActiveKey="1" onChange={callback}>
+            <TabPane tabBarStyle={{width: '35%'}} className='subtab1' tab="Bulk Action" key="1">
                 <Tabs defaultActiveKey="1" onChange={callback}>
                     <TabPane tab="EMAIL" key="1">
                     Content of EMAIL
