@@ -41,7 +41,10 @@ const ForCustomer = React.lazy(() => import('./components/ForCustomer/ForCustome
 const ForSelf = React.lazy(() => import('./components/ForSelf/ForSelf'))
 const RenewalReport = React.lazy(() => import('./components/RenewalReport/RenewalReport'))
 const SalesPitch = React.lazy(() => import('./components/SalesPitch/SalesPitch'))
-const ServiceCorner = React.lazy(() => import('./components/ServiceCorner/ServiceCorner'))
+const ServiceCorner = React.lazy(() => import('./containers/ServiceCorner/index'))
+const ServiceCornerAll = React.lazy(() => import('./components/ServiceCorner/ServiceCorner'))
+const ServiceCornerSelf = React.lazy(() => import('./components/ServiceCorner/ServiceSelf'))
+const ServiceCornerCustomers = React.lazy(() => import('./components/ServiceCorner/ServiceCustomer'))
 const Renewals = React.lazy(() => import('./containers/RenewalMaster/index'))
 const RenewalAll = React.lazy(() => import('./components/RenewalCollections/AllRenewals'))
 const RenewalPaid = React.lazy(() => import('./components/RenewalCollections/PaidRenewals'))
@@ -117,7 +120,9 @@ function App() {
                 <Route path="/forself" component={ForSelf}></Route>
                 <Route path="/renewalreport" component={RenewalReport}></Route>
                 <Route path="/masterpresales/customerdetails/salespitch" component={SalesPitch}></Route>
-                <Route path="/servicecorner" component={ServiceCorner}></Route>
+                <Route path="/servicecorner/all" component={ServiceCorner}></Route>
+                <Route path="/servicecorner/self" component={ServiceCornerSelf}></Route>
+                <Route path="/servicecorner/customers" component={ServiceCornerCustomers}></Route>
                 <Route path="/renewalMaster/allRenewals" component={Renewals} />
                 <Route path="/renewalMaster/all" component={RenewalAll} />
                 <Route path="/renewalMaster/paidRenewals" component={RenewalPaid} />
