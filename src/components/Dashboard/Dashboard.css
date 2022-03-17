@@ -12,10 +12,39 @@
     -o-border-radius: 5px;
     /* margin-bottom: 3vw;   */
 }
+.dashboard-select {
+    width: 12vw;
+    font-size: 16px;
+    border: none;
+   
+}
+.dashboard-title {
+    background-color: #191970;
+    color: #fff;
+    height: 4vh;
+}
 .dashboard-head4{
     margin-top: 1vw;
     font-size: 12px;
 }
+.table-main {
+ margin-top: 1vw;
+ margin-left: 1vw;
+ margin-right: 1vw;
+ width: 80%;
+ padding: 10px 10px;
+ border-radius: 5px;
+ background-color: #fff;
+ }
+
+.table {
+ border-collapse: collapse;
+ width: 100%;
+}
+.th, td {
+padding: 15px;
+}
+    
 .contact-detail-form{
     display: flex;
     flex-wrap: wrap;
