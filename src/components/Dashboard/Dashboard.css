@@ -18,6 +18,7 @@
     margin-right: 4vw;
     padding: 5px 5px;
     border-radius: 5px;
+    height: 60vh;
     background-color: #fff;
     box-shadow:  1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
     -webkit-border-radius: 5px;
@@ -35,13 +36,14 @@
 .dashboard-title {
     background-color: #191970;
     color: #fff;
-    height: 4vh;
     width: 90%;
+    height: 6vh;
 }
 .dashboard-head4{
     padding-left: 2vw;
     margin-top: 1vw;
     font-size: 14px;
+    padding-left: 2vw;
     font-weight: bold;
 }
 .table-main {
@@ -88,9 +90,10 @@
 }
 .export-btn{
     color: #fff;
-    margin-top: 3px;
+    margin-top: 1px;
     margin-left: 1px;
-    width: 10vw;
+    width: 8vw;
+    font-size: 12px;
     background-color: orangered;
 }
 .vl {
@@ -98,7 +101,7 @@
     border-left: 2px solid Gainsboro;
     height: 300px;
   }
-.chart-main {
+  .chart-main {
   padding-top: 25px;
   padding-bottom: 25px;
   padding-left: 5px;
@@ -110,8 +113,7 @@
 }
 .div1 {
     margin-top: 3vw;
-    width: 140px;
-    height: 40px;
+    width: 114px;
+    height: 36px;
     border: 1px solid #ddd;
   }
-  
