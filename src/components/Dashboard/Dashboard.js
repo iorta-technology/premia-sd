@@ -222,9 +222,9 @@ const Dashboard = () => {
                             datasets: [{
                                 data: keyValuesArr,
                                 backgroundColor: [
-                                    'red',
-                                    'blue',
-                                    'yellow',
+                                    'navy',
+                                    'brown',
+                                    'gold',
                                     'pink',
                                     'green'
                                 ]
@@ -272,11 +272,11 @@ const Dashboard = () => {
                             datasets: [{
                                 data: keyValueArr,
                                 backgroundColor: [
-                                    'red',
+                                    'orange',
+                                    'brown',
                                     'blue',
-                                    'yellow',
-                                    'pink',
-                                    'green'
+                                    'green',
+                                    
                                 ]
                             }],
                             labels: keyNameArr,
@@ -320,11 +320,11 @@ const Dashboard = () => {
                             datasets: [{
                                 data: keyValueArray,
                                 backgroundColor: [
-                                    'red',
-                                    'blue',
-                                    'yellow',
+                                    'gold',
                                     'pink',
-                                    'green'
+                                    'brown',
+                                    'green',
+                                    'blue'
                                 ]
                             }],
                             labels: keyNameArray,
@@ -377,7 +377,7 @@ const Dashboard = () => {
                                     <DatePicker onChange={onChange} style={{ width: '25vw' }} placeholder="dd/mm/yyyy" />
                                 </Form.Item>
                             </Col>
-                            <div>
+                            <div className='div1'>
                                 <Button className='export-btn'>Export To Excel</Button>
                             </div>
                         </Form>
@@ -386,31 +386,95 @@ const Dashboard = () => {
             </Col>
             <Col xs={{ order: 2 }} sm={22} md={22} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                 <Row gutter={['', 10]}>
-                    <Col className="dashboard-main" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-
+                    <Col className="dashboard-mains" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                         <Form layout="horizontal" className="contact-detail-form">
-
-                            {/* <Col>
-                                <div className='App' style={{ width: '100%', height: '100%' }}>
-                                    <Doughnut data={chart} />
-                                </div>
-                            </Col> */}
                             <Col>
                                 <h4 className='dashboard-head4'>LEAD</h4>
-                                <div className='App' style={{ width: '100%', height: '100%' }}>
-                                    <Doughnut data={lead} />
+                                <div style={{ width: '80%', height: '80%' }}>
+                                    <Doughnut data={lead}
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    labels: {
+                                                        color: "black",
+                                                        font: {
+                                                            size: 11
+                                                        },
+
+                                                        padding: 10,
+                                                        usePointStyle: true,
+                                                    },
+
+                                                    position: "right"
+
+                                                },
+
+                                            },
+
+                                        }}
+
+
+                                    />
                                 </div>
                             </Col>
+                            <div class="vl"></div>
                             <Col>
                                 <h4 className='dashboard-head4'>CONTACTED</h4>
-                                <div className='App' style={{ width: '100%', height: '100%' }}>
-                                    <Doughnut data={contacted} />
+                                <div style={{ width: '80%', height: '80%' }}>
+                                    <Doughnut data={contacted}
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    labels: {
+                                                        color: "black",
+                                                        font: {
+                                                            size: 11
+                                                        },
+
+                                                        padding: 10,
+                                                        usePointStyle: true,
+                                                    },
+
+                                                    position: "right"
+
+                                                },
+
+                                            },
+
+                                        }}
+
+
+                                    />
                                 </div>
                             </Col>
+                            <div class="vl"></div>
                             <Col>
                                 <h4 className='dashboard-head4'>MET</h4>
-                                <div className='App' style={{ width: '100%', height: '100%' }}>
-                                    <Doughnut data={metlead} />
+                                <div style={{ width: '80%', height: '80%' }}>
+                                    <Doughnut data={metlead}
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    labels: {
+                                                        color: "black",
+                                                        font: {
+                                                            size: 11
+                                                        },
+
+                                                        padding: 10,
+                                                        usePointStyle: true,
+                                                    },
+
+                                                    position: "right"
+
+                                                },
+
+                                            },
+
+                                        }}
+
+
+                                    />
                                 </div>
                             </Col>
                         </Form>
