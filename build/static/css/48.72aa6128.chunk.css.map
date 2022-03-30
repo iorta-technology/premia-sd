@@ -1,5 +1,1 @@
-<<<<<<<< HEAD:build/static/css/45.72aa6128.chunk.css.map
-{"version":3,"sources":["webpack://src/components/BulkAction/BulkAction.css"],"names":[],"mappings":"AAAA,uBACI,YAAa,CACb,iBACJ","file":"45.72aa6128.chunk.css","sourcesContent":[".subtab1 .ant-tabs-tab {\r\n    width: 33.33%;\r\n    text-align: center;\r\n}\r\n"]}
-========
 {"version":3,"sources":["webpack://src/components/BulkAction/BulkAction.css"],"names":[],"mappings":"AAAA,uBACI,YAAa,CACb,iBACJ","file":"48.72aa6128.chunk.css","sourcesContent":[".subtab1 .ant-tabs-tab {\r\n    width: 33.33%;\r\n    text-align: center;\r\n}\r\n"]}
->>>>>>>> fcb827fa91429e6be9d5c61b09e363b3ccb6ac6f:build/static/css/48.72aa6128.chunk.css.map
