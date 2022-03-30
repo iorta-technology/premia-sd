@@ -379,17 +379,17 @@ const Dashboard = () => {
                                 </Form.Item>
                             </div></Col>
                             <Col xs={12} sm={8} md={6} lg={4}><div >
-                                <div className='div1'>
-                                    <Button className='export-btn'>
-                                        <CloudUploadOutlined
-                                            rotate="0"
-                                            style={{
-                                                fontSize: "16px",
+                                {/* <div className='div1'> */}
+                                <Button className='export-btn'>
+                                    <CloudUploadOutlined
+                                        rotate="0"
+                                        style={{
+                                            fontSize: "16px",
+                                            paddingTop: "2px"
 
-
-                                            }}
-                                        />Export To Excel</Button>
-                                </div>
+                                        }}
+                                    />Export To Excel</Button>
+                                {/* </div> */}
                             </div></Col>
                         </Form>
                     </Col>
@@ -402,7 +402,7 @@ const Dashboard = () => {
                         <Form layout="horizontal" className="contact-detail-form">
                             <Col>
                                 <h4 className='dashboard-head4'>LEAD</h4>
-                                <div style={{ width: '80%', height: '80%' }}>
+                                <div style={{ width: '75%', height: '75%' }}>
                                     <Doughnut data={lead}
                                         options={{
                                             plugins: {

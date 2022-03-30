@@ -110,11 +110,11 @@
 .export-btn{
     color: #fff;
     border-color: orange;
-    margin-top: 1px;
+    margin-top: 3vw;
     margin-left: 1px;
     width: 10vw;
-    font-weight: bold;
-    font-size: 10px;
+    /* font-weight: bold; */
+    font-size: 12px;
     background-color: orangered;
 }
 .export-btn:hover {
