@@ -67,8 +67,13 @@
     position: absolute;
     top: 135px;
     right: 80px;
-    /* background-color: orange; */
     border: none;
+}
+.dashboard-btn {
+    position: absolute;
+    top: 135px;
+    right: 285px;
+    border: none;   
 }
 .export-btn:hover{
 

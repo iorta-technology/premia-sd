@@ -83,6 +83,7 @@ const LeadMaster = (props) => {
                 header="Lead" 
                 // current={current}
                 />
+                <Button type='primary' className='dashboard-btn' onClick={ ()=> history.push('/dashboard') }>Dashboard</Button>
                 <Button type='primary' className="export-btn">Export</Button>
                 <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button>
             {/* <div className="export-btn-holder">

@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import './Dashboard.css';
+import { Row, Col, Form, Select, Button, DatePicker, Divider } from 'antd';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
+import { CloudUploadOutlined } from '@ant-design/icons';
 import './Dashboard.css';
 import axios from 'axios';
-import moment from 'moment';
-import { Typography, Divider, Card, Descriptions, Carousel } from 'antd';
-import { Select, Table } from 'antd';
-import { Row, Col, Form, Button, DatePicker } from 'antd';
-import { get } from 'lodash';
 ChartJS.register(
     ArcElement,
     Tooltip,
     Legend,
     Title
 );
-const contentStyle = {
-    height: '230px',
-    width: '100%',
-    background: 'rgb(206, 160, 225)',
-};
-const { option } = Select;
-// const { Title } = Typography;
 const formItemLayout = {
     labelCol: {
         span: 24,
@@ -100,7 +91,12 @@ const Dashboard = () => {
                 'pink'
             ]
         }],
-        labels: ["Red", "Yellow", "Blue", "pink"],
+        labels: [
+            "Red",
+            "Yellow",
+            "Blue",
+            "pink"
+        ],
     });
     const [metlead, setMetLead] = useState({
         datasets: [{
@@ -199,7 +195,6 @@ const Dashboard = () => {
 
             .catch((error) => console.log(error));
     }, []);
-
     useEffect(() => {
         const getData = () => {
             axios.get("https://sdrestnode.iorta.in/secure/sd/user/leads-dashboard-ratio/5df77e6a2b5ffa6c72ae1a0e?fromDate=01/01/2021&toDate=01/01/2022")
@@ -225,22 +220,18 @@ const Dashboard = () => {
                     console.log(oneLead, twoLead);
                     setLead(
                         {
-                            datasets: [
-                                {
-                                    data: keyValuesArr,
-                                    backgroundColor: [
-                                        'navy',
-                                        'red',
-                                        'Gold',
-                                        'pink',
-                                        'green'
-                                    ]
-                                }
-                            ],
-
+                            datasets: [{
+                                data: keyValuesArr,
+                                backgroundColor: [
+                                    'navy',
+                                    'blue',
+                                    'gold',
+                                    'pink',
+                                    'green'
+                                ]
+                            }],
                             labels: keyNamesArr,
-                        },
-
+                        }
                     )
 
                 }).catch(e => {
@@ -282,11 +273,10 @@ const Dashboard = () => {
                             datasets: [{
                                 data: keyValueArr,
                                 backgroundColor: [
-                                    'orange',
-                                    'blue',
-                                    'yellow',
-                                    'green',
-                                    'pink'
+                                    'brown',
+                                    'gold',
+                                    'pink',
+                                    'green'
                                 ]
                             }],
                             labels: keyNameArr,
@@ -330,11 +320,12 @@ const Dashboard = () => {
                             datasets: [{
                                 data: keyValueArray,
                                 backgroundColor: [
-                                    'red',
-                                    'blue',
-                                    'yellow',
+                                    'brown',
+                                    'gold',
                                     'pink',
-                                    'green'
+                                    'brown',
+                                    'green',
+                                    'blue'
                                 ]
                             }],
                             labels: keyNameArray,
@@ -346,14 +337,14 @@ const Dashboard = () => {
         }
         listData();
     }, [])
-    return (
-        <Row type="flex" gutter={[40, 14]}>
 
-            <Col xs={{ order: 1 }} sm={22} md={22} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
-                <Row gutter={['', 10]}>
+    return (
+        <Row type="flex" gutter={[20, 14]}>
+            <Col xs={{ order: 1 }} sm={22} md={22} lg={{ order: 1 }} xl={{ order: 1 }} span={24}>
+                <Row type="flex" gutter={[8, 8]}>
                     <Col className="dashboard-main" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                        <Form layout="horizontal" className="contact-detail-form">
-                            <Col>
+                        <Form layout='horizontal' className='contact-detail-form'>
+                            <Col xs={12} sm={8} md={6} lg={4}><div >
                                 <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
@@ -367,12 +358,10 @@ const Dashboard = () => {
                                         },
                                     ]}
                                 >
-                                    <DatePicker onChange={onChange} style={{ width: '25vw' }} placeholder="dd/mm/yyyy" />
+                                    <DatePicker onChange={onChange} style={{ width: '15vw' }} placeholder="dd/mm/yyyy" />
                                 </Form.Item>
-
-                            </Col>
-
-                            <Col>
+                            </div></Col>
+                            <Col xs={12} sm={8} md={6} lg={4}><div >
                                 <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
@@ -386,24 +375,34 @@ const Dashboard = () => {
                                         },
                                     ]}
                                 >
-                                    <DatePicker onChange={onChange} style={{ width: '25vw' }} placeholder="dd/mm/yyyy" />
+                                    <DatePicker onChange={onChange} style={{ width: '15vw' }} placeholder="dd/mm/yyyy" />
                                 </Form.Item>
-                            </Col>
-                            <div className='div1'>
-                                <Button className='export-btn'>Export To Excel</Button>
-                            </div>
+                            </div></Col>
+                            <Col xs={12} sm={8} md={6} lg={4}><div >
+                                <div className='div1'>
+                                    <Button className='export-btn'>
+                                        <CloudUploadOutlined
+                                            rotate="0"
+                                            style={{
+                                                fontSize: "16px",
+
+
+                                            }}
+                                        />Export To Excel</Button>
+                                </div>
+                            </div></Col>
                         </Form>
                     </Col>
                 </Row>
             </Col>
             <Col xs={{ order: 2 }} sm={22} md={22} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
-                <Row type="flex" gutter={[ , 24]}>
+                <Row type="flex" gutter={['', 10]}>
                     <Col className="dashboard-mains" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
 
                         <Form layout="horizontal" className="contact-detail-form">
                             <Col>
                                 <h4 className='dashboard-head4'>LEAD</h4>
-                                <div style={{ width: '20vw', height: '30vh' }}>
+                                <div style={{ width: '80%', height: '80%' }}>
                                     <Doughnut data={lead}
                                         options={{
                                             plugins: {
@@ -413,6 +412,35 @@ const Dashboard = () => {
                                                         font: {
                                                             size: 11
                                                         },
+                                                        padding: 25,
+                                                        usePointStyle: true,
+                                                    },
+
+                                                    position: "right"
+
+                                                },
+
+                                            },
+
+                                        }}
+
+
+                                    />
+                                </div>
+                            </Col>
+                            <div class="vl"></div>
+                            <Col>
+                                <h4 className='dashboard-head4'>CONTACTED</h4>
+                                <div style={{ width: '80%', height: '80%' }}>
+                                    <Doughnut data={contacted}
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    labels: {
+                                                        color: "black",
+                                                        font: {
+                                                            size: 11
+                                                        },
 
                                                         padding: 25,
                                                         usePointStyle: true,
@@ -426,73 +454,14 @@ const Dashboard = () => {
 
                                         }}
 
-                                    />
 
-                                </div>
-                            </Col>
-                            <div class="vl"></div>
-                            <Col >
-                                <h4 className='dashboard-head4'>CONTACTED</h4>
-                                <div style={{ width: '20vw', height: '30vh' }}>
-                                    <Doughnut data={contacted}
-                                        options={
-                                            {
-                                                plugins: {
-                                                    legend: {
-                                                        labels: {
-                                                            color: "black",
-                                                            font: {
-                                                                size: 11
-                                                            },
-                                                            padding: 25,
-                                                            usePointStyle: true,
-                                                        },
-
-                                                        position: "right"
-                                                         
-                                                    },
-                                                    // this is the id that is specified below
-                                                    legendDistance: {
-                                                        padding: 120 // dictates the space
-                                                    }
-                                                },
-                                                elements: {
-                                                    arc: {
-                                                        borderWidth: 0
-                                                    }
-                                                },
-                                                responsive: true,
-                                                maintainAspectRatio: true,
-
-                                            }
-                                        }
-
-                                    // options={{
-                                    //     plugins: {
-                                    //         legend: {
-                                    //             labels: {
-                                    //                 color: "black",
-                                    //                 font: {
-                                    //                     size: 11
-                                    //                 },
-                                    //                 padding: 20,
-                                    //                 usePointStyle: true,
-                                    //             },
-
-                                    //             position: "left"
-
-                                    //         },
-
-                                    //     },
-
-                                    // }}
                                     />
                                 </div>
                             </Col>
                             <div class="vl"></div>
-                            <Col >
+                            <Col>
                                 <h4 className='dashboard-head4'>MET</h4>
-                                <div style={{ width: '20vw', height: '30vh' }}>
+                                <div style={{ width: '80%', height: '80%' }}>
                                     <Doughnut data={metlead}
                                         options={{
                                             plugins: {
@@ -502,6 +471,7 @@ const Dashboard = () => {
                                                         font: {
                                                             size: 11
                                                         },
+
                                                         padding: 25,
                                                         usePointStyle: true,
                                                     },
@@ -511,7 +481,10 @@ const Dashboard = () => {
                                                 },
 
                                             },
+
                                         }}
+
+
                                     />
                                 </div>
                             </Col>
@@ -609,12 +582,58 @@ const Dashboard = () => {
                     </Col>
                 </Row>
             </Col>
-        </Row>
+            {/* <Col xs={{ order: 3 }} sm={24} md={24} lg={{ order: 3 }} xl={{ order: 3 }} span={24}>
+                <Row type="flex" gutter={[8, 8]}>
+                    <Col className="dashboard-main" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                        <Form layout='horizontal' className='contact-detail-form'>
+                            <Col xs={12} sm={8} md={6} lg={4}><div >
+                                <Form.Item
+                                    {...formItemLayout}
+                                    className="form-item-name label-color"
+                                    name="City"
+                                    label="To"
+                                    hasFeedback
+                                    rules={[
+                                        {
+                                            required: false,
+                                            message: 'Please select date',
+                                        },
+                                    ]}
+                                >
+                                    <DatePicker onChange={onChange} style={{ width: '15vw' }} placeholder="dd/mm/yyyy" />
+                                </Form.Item>
+                            </div></Col>
+                            <Col xs={12} sm={8} md={6} lg={4}><div >
+                                <Form.Item
+                                    {...formItemLayout}
+                                    className="form-item-name label-color"
+                                    name="City"
+                                    label="To"
+                                    hasFeedback
+                                    rules={[
+                                        {
+                                            required: false,
+                                            message: 'Please select date',
+                                        },
+                                    ]}
+                                >
+                                    <DatePicker onChange={onChange} style={{ width: '15vw' }} placeholder="dd/mm/yyyy" />
+                                </Form.Item>
+                            </div></Col>
+                            <Col xs={12} sm={8} md={6} lg={4}><div >
+                                <div className='div1'>
+                                    <Button className='export-btn'>Export To Excel</Button>
+                                </div>
+                            </div></Col>
+                        </Form>
+                    </Col>
+                </Row>
+            </Col> */}
+        </Row >
 
     )
 
 }
 
+
 export default Dashboard;
-
-

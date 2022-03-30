@@ -430,10 +430,12 @@ const HomePage = () => {
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3369.png" alt="Sales Guide" />
             </div>
+            <Link to ='/servicecorner/all'>
             <div className="activities-text">
               <p style={{ fontSize: '15px', color: '#fff' }}>Service Corner</p>
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} />
             </div>
+            </Link>
             <div className="salesGuideCont">
               < div >
                 <p>WIP</p>

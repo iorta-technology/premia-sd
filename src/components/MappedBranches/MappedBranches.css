@@ -47,10 +47,16 @@
   font-size: 12px;
   text-align: center;
 }
+.Mapped-heading{
+  display: flex;
+  flex-direction: column;
+  margin-left: 25vw;
+  text-align: left;
+}
 .Mappedbranches-buttons{
   display: flex;
   flex-direction: row;
-  margin-left: 25vw;
+  margin-left: 5vw;
   /* justify-content: space-between; */
   }
 .Mappedbranches-buttons-display{

@@ -51,6 +51,10 @@ const Tab = ({ tabMenu, header, detailsRouteTab,activeKey,activeRenewalkey,curre
             case "unpaidrenewals": return history.push('/renewalMaster/unpaidRenewals');
             case "lapsedrenewals": return history.push('/renewalMaster/lapsedRenewals');
 
+            case "allservicecorners": return history.push('/servicecorner/all');
+            case "forself": return history.push('/servicecorner/self');
+            case "forcustomers": return history.push('/servicecorner/customers');
+
             // case "benefitillustrator": return history.push('/master/benefitillustrator');
             // case "proposalfulfilment": return history.push('/master/proposalfulfilment');
             // case "prepaymentreview": return history.push('/master/prepaymentreview');
