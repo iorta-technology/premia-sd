@@ -21,7 +21,9 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
-
+.renewal-table{
+  margin-left: 2vw;
+}
   .renewal-head3{
       display: flex;
       color: #fff;

@@ -189,7 +189,7 @@ const RenewalReport = () => {
                                         "Loading"
                                     ) : (
                                         <div className="wrapper">
-                                            <Table
+                                            <Table className='renewal-table'
                                                 columns={columns}
                                                 dataSource={arrayEmptyCheck ? <p>No Records Found</p> : fetchRenewalArr}
                                                 pagination={{ pageSize: 50 }}

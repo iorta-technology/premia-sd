@@ -70,7 +70,6 @@ const tabMenu = [
     },
 
 ]
-
 const ExistingInsurenceDetails = () => {
     let storeFormData = useSelector((state) => state.newLead.formData)
     let lifeObjDisplay = useSelector((state) => state.newLead.HaveLifeInsurance_details)
@@ -730,6 +729,7 @@ const ExistingInsurenceDetails = () => {
                                                         onChange={insurerHandler}
                                                     >
                                                     </Select>
+                                                    
                                                 </Form.Item>
                                             </Col>
                                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
