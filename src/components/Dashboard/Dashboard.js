@@ -402,7 +402,7 @@ const Dashboard = () => {
                         <Form layout="horizontal" className="contact-detail-form">
                             <Col>
                                 <h4 className='dashboard-head4'>LEAD</h4>
-                                <div style={{ width: '75%', height: '75%' }}>
+                                <div style={{ width: '80%', height: '80%' }}>
                                     <Doughnut data={lead}
                                         options={{
                                             plugins: {
