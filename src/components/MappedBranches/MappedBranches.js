@@ -104,2499 +104,2505 @@ const MappedBranches = () => {
                     </div>
                 }
                 {selectButtonOption ?
-                    <div>
-                        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                            <div className="Mappedbranches-content-area-style" >
-                                <div className="Mappedbranches-card-flex">
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
+                    <div className='mapped-main'>
+                        <div className="Mappedbranches-content-area-style" >
+                            <div className="Mappedbranches-card-flex">
+                                <Row gutter={[16, 16]}>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
                                                         <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
                                                             <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
                                                 </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
                                                         <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
                                                             <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
                                                 </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
 
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
                             </div>
-                            <div className="Mappedbranches-content-area-style" >
-                                <div className="Mappedbranches-card-flex">
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="Mappedbranches-content-area-style" >
-                                <div className="Mappedbranches-card-flex">
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="Mappedbranches-content-area-style" >
-                                <div className="Mappedbranches-card-flex">
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </Row>
-                    </div>
-                    :
-                    <div className="Mappedbranches-content-area-style" >
-                        <div className="Mappedbranches-card-flex">
-                            <Row gutter={[16, 16]}>
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col xs={24} sm={12} md={12}>
-                                    <div className="Mappedbranches-card-style" >
-                                        <div className="Mappedbranches-card-content-flex">
-                                            <div className="Mappedbranches-card-top-content-flex">
-                                                <div className="Mappedbranches-card-top-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-content-flex">
-                                                        <Avatar
-                                                            style={{
-                                                                verticalAlign: 'middle',
-                                                                marginRight: "10px",
-                                                                marginTop: "3px"
-                                                            }}
-                                                            size="large"
-                                                            src={<Image src="Group90162x.png" />}
-                                                        >
-                                                        </Avatar>
-                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                            <p className="Mappedbranches-card-name-text-style">Axis</p>
-                                                            <div className="Mappedbranches-card-id-row-flex">
-                                                                <p className="Mappedbranches-card-id-text-style">Branch:</p>
-                                                                <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-id-text-style">Region:</p>
-                                                            <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
-                                                        </div>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
-                                                            <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-card-icon-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <div className="Mappedbranches-popover-mainstyle">
-                                                            <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
-                                                                content={
-                                                                    <div className="Mappedbranches-popover-main-flex">
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <ScheduleFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }} />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <MailFilled
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
-                                                                        </div>
-                                                                        <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                                        <div className="Mappedbranches-card-popover-icon-text-flex">
-                                                                            <PhoneFilled
-                                                                                rotate="90"
-                                                                                style={{
-                                                                                    fontSize: "18px",
-                                                                                    marginRight: "6px"
-
-                                                                                }}
-                                                                            />
-                                                                            <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                } trigger="click">
-                                                                <MoreOutlined
-                                                                    style={{
-                                                                        fontSize: "18px",
-                                                                        marginTop: "15px",
-
-                                                                    }}
-                                                                />
-                                                            </Popover>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-bottom-content-flex" >
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-bottom-content-text-flex">
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <p className="Mappedbranches-card-bottom-para-style">-</p>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
-                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
-                                                        <Button className="Mappedbranches-card-bottom-button-style">View</Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="Mappedbranches-card-middle-content-flex">
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                                <div className="Mappedbranches-card-middle-content-text-flex">
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">Month</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">-</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="Mappedbranches-card-top-avatar-name-column-flex">
-                                                        <p className="Mappedbranches-card-id-text-style">0.000</p>
-                                                        <div className="Mappedbranches-card-id-row-flex">
-                                                            <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </Col>
-                            </Row>
                         </div>
                     </div>
+                    :
+                    <div className='mapped-main'>
+                        <div className="Mappedbranches-content-area-style" >
+                            <div className="Mappedbranches-card-flex">
+                                <Row gutter={[16, 16]}>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
 
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={12}>
+                                        <div className="Mappedbranches-card-style" >
+                                            <div className="Mappedbranches-card-content-flex">
+                                                <div className="Mappedbranches-card-top-content-flex">
+                                                    <div className="Mappedbranches-card-top-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-content-flex">
+                                                            <Avatar
+                                                                style={{
+                                                                    verticalAlign: 'middle',
+                                                                    marginRight: "10px",
+                                                                    marginTop: "3px"
+                                                                }}
+                                                                size="large"
+                                                                src={<Image src="Group90162x.png" />}
+                                                            >
+                                                            </Avatar>
+                                                            <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                                <p className="Mappedbranches-card-name-text-style">Axis</p>
+                                                                <div className="Mappedbranches-card-id-row-flex">
+                                                                    <p className="Mappedbranches-card-id-text-style">Branch:</p>
+                                                                    <p className="Mappedbranches-card-id-number-text-style">Jaipur</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-id-text-style">Region:</p>
+                                                                <p className="Mappedbranches-cards-id-number-text-style">North 1</p>
+                                                            </div>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card1-id-text-style">Cluster:</p>
+                                                                <p className="Mappedbranches-card1-id-number-text-style">Strategic Br - Jaipur</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">Meeting Scheduled on</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-cards-name-text-style">10/20/2021</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-card-icon-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <div className="Mappedbranches-popover-mainstyle">
+                                                                <Popover placement="leftTop" className="Mappedbranches-popover-mainstyle"
+                                                                    content={
+                                                                        <div className="Mappedbranches-popover-main-flex">
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <ScheduleFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }} />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">create an event</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <MailFilled
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style" >Mail</h6>
+                                                                            </div>
+                                                                            <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                                            <div className="Mappedbranches-card-popover-icon-text-flex">
+                                                                                <PhoneFilled
+                                                                                    rotate="90"
+                                                                                    style={{
+                                                                                        fontSize: "18px",
+                                                                                        marginRight: "6px"
+
+                                                                                    }}
+                                                                                />
+                                                                                <h6 className="Mappedbranches-card-popover-text-style">Call</h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    } trigger="click">
+                                                                    <MoreOutlined
+                                                                        style={{
+                                                                            fontSize: "18px",
+                                                                            marginTop: "15px",
+
+                                                                        }}
+                                                                    />
+                                                                </Popover>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-bottom-content-flex" >
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-bottom-content-text-flex">
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <p className="Mappedbranches-card-bottom-para-style">-</p>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-bottom-vertical-line-column-flex">
+                                                            <div className="Mappedbranches-card-bottom-vertical-line-style"></div>
+                                                            <Button className="Mappedbranches-card-bottom-button-style">View</Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="Mappedbranches-card-middle-content-flex">
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                    <div className="Mappedbranches-card-middle-content-text-flex">
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">JUL 2021</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">Month</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">-</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% MTD YOY Growth</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% GWP Achieved</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Renewed Policy</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="Mappedbranches-card-top-avatar-name-column-flex">
+                                                            <p className="Mappedbranches-card-id-text-style">0.000</p>
+                                                            <div className="Mappedbranches-card-id-row-flex">
+                                                                <p className="Mappedbranches-card-id-number-text-style">% Retention GWP</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="Mappedbranches-card-middle-horizontal-line-style"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </div>
+                    </div>
 
                 }
             </div>

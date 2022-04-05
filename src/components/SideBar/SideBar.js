@@ -80,7 +80,7 @@ const Sidebar = () => {
           {/* <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon> */}
-          <img onClick={() => { history.push('/home') }} src= "https://tataadv2devadmin.iorta.in/web/assets/sdlogo.png" style={{width:'180px',marginRight:'450px',cursor:'pointer'}}/>
+          <img onClick={() => { history.push('/home') }} src= "https://tataadv2devadmin.iorta.in/web/assets/sdlogo.png" style={{width:'180px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
             <FaIcons.FaBell />
