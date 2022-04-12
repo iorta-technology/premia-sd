@@ -139,12 +139,6 @@ const ClubsMaster = () => {
                                                 <tr>
                                                     <td>
                                                         <Button className="button" onClick={showModal}>Join Club</Button>
-                                                        {/* <Modal title="Join Club" visible={isModalVisible} width={800} onOk={handleOk} onCancel={handleCancel}>
-                                                            <p className="modal-text">Confirmation will be sent through Email</p>
-                                                            <p className="Paragraph">EMDRT Club</p>
-                                                            <p className="Paragraph">Power to Empower</p>
-                                                            <p className="Paragraph">Apply to this club to avail Benefits?</p>
-                                                        </Modal> */}
                                                         <Modal
                                                             className="Clubsmaster-modal-style"
                                                             title="Join Club" visible={isJoinModalVisible} onOk={handleOk}
@@ -775,45 +769,45 @@ const ClubsMaster = () => {
                                                 <td>
                                                     <Button className="button" onClick={showModal}>Join Club</Button>
                                                     <Modal
+                                                        className="Clubsmaster-modal-style"
+                                                        title="Join Club" visible={isJoinModalVisible} onOk={handleOk}
+                                                        footer={[
+                                                            <Button type="primary" className="Clubsmaster-modal-cancel-button-style" onClick={handleCancel}>Cancel</Button>,
+                                                            <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>Join Now</Button>,
+                                                        ]}
+                                                        width="50%"
+                                                        bodyStyle={{
+                                                            height: "auto",
+                                                            // display:"flex",
+                                                            // flexDirection:"column"
+                                                            // overflowY: "scroll"
+
+                                                        }}
+
+                                                    >
+                                                        <Modal
                                                             className="Clubsmaster-modal-style"
-                                                            title="Join Club" visible={isJoinModalVisible} onOk={handleOk}
+                                                            title="Join Club" visible={isDisplayVisible} onOk={handleOk}
                                                             footer={[
                                                                 <Button type="primary" className="Clubsmaster-modal-cancel-button-style" onClick={handleCancel}>Cancel</Button>,
-                                                                <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>Join Now</Button>,
+                                                                <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>OK</Button>,
                                                             ]}
                                                             width="50%"
                                                             bodyStyle={{
                                                                 height: "auto",
-                                                                // display:"flex",
-                                                                // flexDirection:"column"
-                                                                // overflowY: "scroll"
 
                                                             }}
-
                                                         >
-                                                            <Modal
-                                                                className="Clubsmaster-modal-style"
-                                                                title="Join Club" visible={isDisplayVisible} onOk={handleOk}
-                                                                footer={[
-                                                                    <Button type="primary" className="Clubsmaster-modal-cancel-button-style" onClick={handleCancel}>Cancel</Button>,
-                                                                    <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>OK</Button>,
-                                                                ]}
-                                                                width="50%"
-                                                                bodyStyle={{
-                                                                    height: "auto",
+                                                            <p className="Paragraph">Details of Digital East (1st to 30th June) has been shared with the selected 7 people via Email</p>
 
-                                                                }}
-                                                            >
-                                                                <p className="Paragraph">Details of Digital East (1st to 30th June) has been shared with the selected 7 people via Email</p>
-
-
-                                                            </Modal>
-                                                            <p className="Paragraph">Confirmation will be sent through Email</p>
-                                                            <p className="clubparagraph">EMDRT Club</p>
-                                                            <p className="Paragraph">Power to Empower</p>
-                                                            <p className="Paragraph">Apply to this club to avail Benefits?</p>
 
                                                         </Modal>
+                                                        <p className="Paragraph">Confirmation will be sent through Email</p>
+                                                        <p className="clubparagraph">EMDRT Club</p>
+                                                        <p className="Paragraph">Power to Empower</p>
+                                                        <p className="Paragraph">Apply to this club to avail Benefits?</p>
+
+                                                    </Modal>
                                                 </td>
                                             </tr>
                                         </table>
@@ -899,45 +893,45 @@ const ClubsMaster = () => {
                                                 <td>
                                                     <Button className="button" onClick={showModal}>Join Club</Button>
                                                     <Modal
+                                                        className="Clubsmaster-modal-style"
+                                                        title="Join Club" visible={isJoinModalVisible} onOk={handleOk}
+                                                        footer={[
+                                                            <Button type="primary" className="Clubsmaster-modal-cancel-button-style" onClick={handleCancel}>Cancel</Button>,
+                                                            <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>Join Now</Button>,
+                                                        ]}
+                                                        width="50%"
+                                                        bodyStyle={{
+                                                            height: "auto",
+                                                            // display:"flex",
+                                                            // flexDirection:"column"
+                                                            // overflowY: "scroll"
+
+                                                        }}
+
+                                                    >
+                                                        <Modal
                                                             className="Clubsmaster-modal-style"
-                                                            title="Join Club" visible={isJoinModalVisible} onOk={handleOk}
+                                                            title="Join Club" visible={isDisplayVisible} onOk={handleOk}
                                                             footer={[
                                                                 <Button type="primary" className="Clubsmaster-modal-cancel-button-style" onClick={handleCancel}>Cancel</Button>,
-                                                                <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>Join Now</Button>,
+                                                                <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>OK</Button>,
                                                             ]}
                                                             width="50%"
                                                             bodyStyle={{
                                                                 height: "auto",
-                                                                // display:"flex",
-                                                                // flexDirection:"column"
-                                                                // overflowY: "scroll"
 
                                                             }}
-
                                                         >
-                                                            <Modal
-                                                                className="Clubsmaster-modal-style"
-                                                                title="Join Club" visible={isDisplayVisible} onOk={handleOk}
-                                                                footer={[
-                                                                    <Button type="primary" className="Clubsmaster-modal-cancel-button-style" onClick={handleCancel}>Cancel</Button>,
-                                                                    <Button type="primary" className="Clubsmaster-modal-join-button-style" onClick={displayModal}>OK</Button>,
-                                                                ]}
-                                                                width="50%"
-                                                                bodyStyle={{
-                                                                    height: "auto",
+                                                            <p className="Paragraph">Details of Digital East (1st to 30th June) has been shared with the selected 7 people via Email</p>
 
-                                                                }}
-                                                            >
-                                                                <p className="Paragraph">Details of Digital East (1st to 30th June) has been shared with the selected 7 people via Email</p>
-
-
-                                                            </Modal>
-                                                            <p className="Paragraph">Confirmation will be sent through Email</p>
-                                                            <p className="clubparagraph">EMDRT Club</p>
-                                                            <p className="Paragraph">Power to Empower</p>
-                                                            <p className="Paragraph">Apply to this club to avail Benefits?</p>
 
                                                         </Modal>
+                                                        <p className="Paragraph">Confirmation will be sent through Email</p>
+                                                        <p className="clubparagraph">EMDRT Club</p>
+                                                        <p className="Paragraph">Power to Empower</p>
+                                                        <p className="Paragraph">Apply to this club to avail Benefits?</p>
+
+                                                    </Modal>
                                                     {/* <Modal title="Join Club" visible={isModalVisible} width={800} onOk={handleOk} onCancel={handleCancel}>
                                                         <p className="modal-text">Confirmation will be sent through Email</p>
                                                         <p className="Paragraph">EMDRT Club</p>

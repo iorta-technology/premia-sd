@@ -60,6 +60,8 @@ const ProposalFulfilment = React.lazy(() => import('./components/ProposalFulfilm
 const PrePaymentReview = React.lazy(() => import('./components/PrePaymentReview/PrePaymentReview'))
 const PaymentOptions = React.lazy(() => import('./components/PaymentOptions/PaymentOptions'))
 const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/ProposalHistory'))
+const CreateTask = React.lazy(() => import('./components/Calender/CreateTask'))
+const CreateNewTask = React.lazy(() => import('./components/Calender/CreateNewTask'))
 const UploadDocuments = React.lazy(() => import('./components/UploadDocuments/UploadDocuments'))
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 const Dashboard = React.lazy(() => import('./components/Dashboard/Dashboard'))
@@ -136,6 +138,8 @@ function App() {
                 <Route path="/master/uploaddocuments" component={UploadDocuments}></Route>
                 <Route path="/master/proposalhistory" component={ProposalHistory}></Route>
                 <Route path="/dashboard" component={Dashboard} />
+                <Route path="/createtask" component={CreateTask} />
+                <Route path="/createnewtask" component={CreateNewTask} />
                 <Route path="/leadMaster/:leadType" component={LeadMaster}></Route>
                 <Route path="/leadmasterpage/statuslead" component={StatusLead}></Route>
                 <Route path="/leadmasterpage/leaddetails/personallead" component={PersonalDetails}></Route>

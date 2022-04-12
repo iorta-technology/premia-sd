@@ -5,7 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 import { CloudUploadOutlined } from '@ant-design/icons';
-import './Dashboard.css';
+
 import axios from 'axios';
 ChartJS.register(
     ArcElement,
