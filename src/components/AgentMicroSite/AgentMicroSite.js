@@ -48,12 +48,13 @@ function useQuery() {
 const AgentMicroService = () => {
     const dispatch = useDispatch()
     // let query = useQuery();
-    const _dataStore = useSelector((state) => state)
-    // console.log("STORE___DATA___", _dataStore)
+    // const _dataStore = useSelector((state) => state)
+    // console.log("STORE___DATA___", new URLSearchParams(search).get('agent_id'))
     const search = useLocation().search;
+    console.log("STORE___DATA___", useLocation())
     const name = new URLSearchParams(search).get('name');
-    // const agentId = new URLSearchParams(search).get('agent_id');
-    const agentId = _dataStore.login.user.agentId;
+    const agentId = new URLSearchParams(search).get('agent_id');
+    // const agentId = _dataStore.login.user.agentId;
     const agentDetailsStore = useSelector((state)=>state.agent.agentDetails)
     const fetchAgentDetailsLoading = useSelector((state) => state.agent.fetchAgentDetailsLoading)
     const { first_name, last_name} = useSelector((state) => state.agent)
