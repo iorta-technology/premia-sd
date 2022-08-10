@@ -244,7 +244,7 @@ const HomePage = () => {
               <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.cfr_count_team ? home_data.cfr_count_team : '00'}</h1>
             </div>
           </div>
-          <hr style={{ border: "none", borderBottom: "1px solid #fff", width: "200px" }} />
+          <hr style={{ border: "none", borderBottom: "1px solid #fff", width: "200px"}} />
           <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
             <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
               <p>Draft</p>
@@ -325,19 +325,19 @@ const HomePage = () => {
               <hr style={{ backgroundColor: '#ececec', height: '1px', width: '480%', margin: '-6px' }} />
             </div>
             <div className="action-cards-content">
-              <div style={{ width: 300 }}>
+              <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
                 <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
               </div>
-              <div style={{ width: 300 }}>
+              <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
                 <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
               </div>
-              <div style={{ width: 300 }}>
+              <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
                 <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
               </div>
-              <div style={{ width: 300 }}>
+              <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
                 <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
               </div>
@@ -347,6 +347,7 @@ const HomePage = () => {
       </Col>
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <Link to='/calendar'>
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3375.png" alt="ToDo" />
@@ -359,6 +360,7 @@ const HomePage = () => {
           <div style={{ height: "75%" }} className="events-body">
             <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Active Task</p>
           </div>
+          </Link>
         </div>
       </Col>
 
@@ -482,12 +484,14 @@ const HomePage = () => {
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Need Analysis</p>
               </div>
               <div className="b1-content">
-                <Link to="advisorpitch">
+                <Link to="/advisorpitch">
                   <p className="sales-content" style={{ height: 35, width: 200 }}>Advisor OnBoarding</p>
                 </Link>
               </div>
               <div className="b1-content">
+              <Link to="/advisorpitch">
                 <p className="sales-content" style={{ height: 35, width: 200 }}>Recruitment Presentation</p>
+              </Link>
               </div>
             </div>
           </div>

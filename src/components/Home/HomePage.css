@@ -21,7 +21,7 @@
 .dataCard .events-body .stars{
   width:120px !important;
   height: 120px !important;
-  margin: 30px 60px 10px;
+  margin: 30px 60px 10px 110px;
 }
 
   .card-content{
@@ -59,8 +59,8 @@
 .action-cards-content{
   padding: 20px;
   margin-top: 50px;
- overflow-y: scroll;
- height: 220px;
+  overflow-y: scroll;
+  height: 220px;
 }
 .activity-block{
   margin-top: 50px;
