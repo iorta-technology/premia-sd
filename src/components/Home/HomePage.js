@@ -10,13 +10,20 @@ import _ from "lodash";
 import { Link, useHistory } from 'react-router-dom';
 import FloatButton from '../FloatButton/FloatButton';
 import { Column } from '@ant-design/charts';
+
+// import { PowerBIEmbed } from 'powerbi-client-react';
+// import { models } from "powerbi-client";
+
+
+
+
 const HomePage = () => {
   const agent_id = useSelector((state) => state.login.agent_id)
   const logged_in_user = useSelector((state) => state.login.user_name)
   const id = useSelector((state) => state.login.id)
   // console.log("agent_id,id", agent_id, id)
-  const userId = useSelector((state) => state.login.user.id)
-  const channelCode = useSelector((state) => state.login.user.channelCode)
+  const userId = useSelector((state) => state.login ?.user ?.id)
+  const channelCode = useSelector((state) => state.login ?.user ?.channelCode)
   const dispatch = useDispatch();
   const history = useHistory()
 
@@ -127,32 +134,32 @@ const HomePage = () => {
     label: {
       position: 'middle',
       layout: [
-        { type: 'interval-adjust-position' },
-        { type: 'interval-hide-overlap' },
+        // { type: 'interval-adjust-position' },
+        // { type: 'interval-hide-overlap' },
         { type: 'adjust-color' },
+        
       ],
     },
     color: ['#ADD8E6', '#fff']
   };
 
-  return <Fragment >
+  return <Fragment  >
     {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
     <FloatButton />
-    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold', marginLeft: '10.5rem' }}>Hi {logged_in_user}</h3>
+    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold',marginLeft:'4rem' }}>Hi, {logged_in_user}</h3>
     <Row gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]} justify="center" className="cardHolder ">
       <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
-          <Link to="/calendar">
             <div className="card-content">
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3371.png" alt="Activities" />
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '420%', margin: '-6px' }} ></div>
               </div>
             </div>
-          </Link>
           {activities_data && !_.isEmpty(activities_data) && activities_data !== 'No appointment ' ?
             (
               <div className="activity-block">
@@ -203,63 +210,69 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Opportunities</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '280%', margin: '-6px' }} />
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '280%', margin: '-6px' }} ></div>
               </div>
             </div>
           </Link>
           <div style={{ marginTop: "30px" }}>
             <Column {...config} />
           </div>
-          <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
-            <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+          <div style={{ display: 'flex', justifyContent: "center", alignItems:'center', marginTop: "10px" }}>
+            <div style={{ padding: "0 30px", borderRight: "1px solid #fff",  textAlign: "center", color: "#fff" }}>
               <p>For Today</p>
-              <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.today ? home_data.today : '00'}</h1>
+              <span style={{ color: "#fff", fontSize: "50px", }}>{home_data?.today ? home_data.today : '00'}</span>
             </div>
-            <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
+            <div style={{ padding: "0 30px", textAlign: "center", color: "#fff" }}>
               <p>Open</p>
-              <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.open_lead ? home_data.open_lead : '00'}</h1>
+              <span style={{ color: "#fff", fontSize: "50px" }}>{home_data?.open_lead ? home_data.open_lead : '00'}</span>
             </div>
           </div>
         </div>
       </Col>
 
-      <Col>
+      <Col style={{display:'none'}}>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
           <div className="card-content">
+              <Link to={"/applications"}>
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3373.png" alt="Opportunities" />
             </div>
             <div className="activities-text">
               <p style={{ fontSize: '15px', color: '#fff' }}>Applications</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} />
+              {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
+              <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '280%', margin: '-6px' }} ></div>
             </div>
+              </Link>
           </div>
           <div style={{ display: 'flex', justifyContent: "center", marginTop: "40px", marginRight: "36px" }}>
-            <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+            <div style={{ padding: "0px 60px 20px 20px", borderRight: "1px solid #fff ",  textAlign: "center", color: "#fff" }}>
               <p>Login</p>
-              <h1 style={{ color: "#fff", fontSize: "35px" }}>00</h1>
+              <span style={{ color: "#fff", fontSize: "50px" }}>00</span>
             </div>
-            <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
+            <div style={{ padding: "0px 0px 20px 45px", textAlign: "center", color: "#fff" }}>
               <p>CFR</p>
-              <h1 style={{ color: "#fff", fontSize: "35px" }}>{home_data?.cfr_count_team ? home_data.cfr_count_team : '00'}</h1>
+              <span style={{ color: "#fff", fontSize: "50px" }}>{home_data?.cfr_count_team ? home_data.cfr_count_team : '23'}</span>
             </div>
           </div>
-          <hr style={{ border: "none", borderBottom: "1px solid #fff", width: "200px"}} />
+
+          <hr style={{ border: "none", borderBottom: "2px solid #fff", opacity:'0.5', width: "240px", margin:"10px 0px 0px 60px" }} />
+          {/* <hr style={{ border: "none", borderBottom: "1px solid #fff", width: "200px"}} /> */}
+
           <div style={{ display: 'flex', justifyContent: "center", marginTop: "10px" }}>
-            <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+            <div style={{ padding: "2px 60px 20px 0px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
               <p>Draft</p>
-              <h1 style={{ color: "#fff", fontSize: "35px" }}>00</h1>
+              <span style={{ color: "#fff", fontSize: "50px" }}>00</span>
             </div>
-            <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
+            <div style={{ padding: "0px 0px 20px 40px", textAlign: "center", color: "#fff" }}>
               <p>Recruitment</p>
-              <h1 style={{ color: "#fff", fontSize: "35px" }}>00</h1>
+              <span style={{ color: "#fff", fontSize: "50px" }}>00</span>
             </div>
           </div>
         </div>
       </Col>
 
-      <Col>
-        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+      <Col style={{display:'none'}}>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD'}}>
           <Link to="/kpi-dashboard">
             <div className="card-content">
               <div className="activity-icon">
@@ -267,7 +280,8 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Business</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '420%', margin: '-6px' }} ></div>
               </div>
             </div>
           </Link>
@@ -280,8 +294,8 @@ const HomePage = () => {
                 <option style={{ color: "#000" }} value="data1">Goal Sheet to Date</option>
               </select>
             </div>
-            <p style={{ color: "#fff" }}>Logins</p>
-            <div style={{ display: "flex", color: "#fff" }}>
+            <p style={{ color: "#fff", }}>Logins</p>
+            <div style={{ display: "flex", color: "#fff",lineHeight:'5px',marginTop:'2rem' }}>
               <div style={{ width: "120px" }}>
                 <p>12400</p>
                 <p>Target</p>
@@ -295,8 +309,8 @@ const HomePage = () => {
                 <p>Shortfall</p>
               </div>
             </div>
-            <p style={{ color: "#fff" }}>Issuance</p>
-            <div style={{ display: "flex", color: "#fff" }}>
+            <p style={{ color: "#fff",marginTop:'1rem' }}>Issuance</p>
+            <div style={{ display: "flex", color: "#fff",lineHeight:'5px',marginTop:'2rem' }}>
               <div style={{ width: "120px" }}>
                 <p>12400</p>
                 <p>Target</p>
@@ -314,7 +328,7 @@ const HomePage = () => {
         </div>
       </Col>
 
-      <Col>
+      <Col style={{display:'none'}} >
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1', overflow: "hidden" }}>
           <div className="card-content">
             <div className="activity-icon">
@@ -322,24 +336,25 @@ const HomePage = () => {
             </div>
             <div className="activities-text">
               <p style={{ fontSize: '15px', color: '#fff' }}>Actions</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '480%', margin: '-6px' }} />
+              {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '480%', margin: '-6px' }} /> */}
+              <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '480%', margin: '-6px' }} ></div>
             </div>
             <div className="action-cards-content">
               <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
-                <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
+                <h1 style={{marginTop:'-10px'}} ><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400",fontFamily:'robotoregular' }}>Unallocated leads in the list</span></h1>
               </div>
               <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
-                <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
+                <h1 style={{marginTop:'-10px'}} ><b style={{ color: '#00ACC1', }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400",fontFamily:'robotoregular' }}>Unallocated leads in the list</span></h1>
               </div>
               <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
-                <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
+                <h1 style={{marginTop:'-10px'}} ><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400",fontFamily:'robotoregular' }}>Unallocated leads in the list</span></h1>
               </div>
               <div style={{ width: "100%", padding:"10px"}}>
                 <p style={{ width: "100%", margin: "0" }}>New Leads <span style={{ float: "right", color: '#00ACC1', cursor: "pointer", textDecoration: 'underline' }}>Dismiss</span></p>
-                <h1><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400" }}>Unallocated leads in the list</span></h1>
+                <h1 style={{marginTop:'-10px'}} ><b style={{ color: '#00ACC1' }}>10</b> <span style={{ fontSize: "12px", fontWeight: "400",fontFamily:'robotoregular' }}>Unallocated leads in the list</span></h1>
               </div>
             </div>
           </div>
@@ -354,17 +369,19 @@ const HomePage = () => {
             </div>
             <div className="activities-text">
               <p style={{ fontSize: '15px', color: '#fff' }}>To Do</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} />
+              {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} /> */}
+              <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '590%', margin: '-6px' }} ></div>
             </div>
           </div>
           <div style={{ height: "75%" }} className="events-body">
-            <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Active Task</p>
+            <Image className='stars1'  src='https://sdrestdemo.iorta.in/assets/Actionnodata.png' preview={false} ></Image>
+            <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content",  }}>No Active Task</p>
           </div>
           </Link>
         </div>
       </Col>
 
-      <Col>
+      <Col style={{display:'none'}}>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
           <Link to="/renewalMaster/allRenewals">
             <div className="card-content">
@@ -373,20 +390,21 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Renewals</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '380%', margin: '-6px' }} ></div>
               </div>
             </div>
           </Link>
           <div className='rewardscorner-text'>
-            <div style={{ display: 'flex', justifyContent: "center" }}>
-              <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+            <div style={{ display: 'flex', justifyContent: "center",marginTop:'1rem' }}>
+              <div style={{ padding: "0 50px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
                 <p>Renewals</p>
-                <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.Renewal_count_team ? home_data.Renewal_count_team : '00'}</h1>
+                <h1 style={{ color: "#fff", fontSize: "50px" }}>{home_data?.Renewal_count_team ? home_data.Renewal_count_team : '00'}</h1>
                 <p><b>New</b></p>
               </div>
-              <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
+              <div style={{ padding: "0 50px", textAlign: "center", color: "#fff" }}>
                 <p>Customers</p>
-                <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.customer_count_team ? home_data.customer_count_team : '00'}</h1>
+                <h1 style={{ color: "#fff", fontSize: "50px" }}>{home_data?.customer_count_team ? home_data.customer_count_team : '00'}</h1>
                 <p><b>New</b></p>
               </div>
             </div>
@@ -394,8 +412,8 @@ const HomePage = () => {
         </div>
       </Col>
 
-      <Col>
-        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+      <Col style={{display:'none'}}>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1'  }}>
           <div className="card-content">
             <Link to="/rewardscorner/contests/allcontest">
               <div className="activity-icon">
@@ -403,19 +421,20 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Rewards Corner</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '240%', margin: '-6px' }} ></div>
               </div>
             </Link>
             <div className='rewardscorner-text'>
-              <div style={{ display: 'flex', justifyContent: "center" }}>
+              <div style={{ display: 'flex', justifyContent: "center",marginTop:'1rem' }}>
                 <Link to="/rewardscorner/contests/allcontest">
-                  <div style={{ padding: "0 20px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+                  <div style={{ padding: "0 50px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
                     <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
                     <p>Contests</p>
                   </div>
                 </Link>
                 <Link to="/clubsmaster">
-                  <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
+                  <div style={{ padding: "0 50px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
                     <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
                     <p>Clubs</p>
                   </div>
@@ -426,8 +445,8 @@ const HomePage = () => {
         </div>
       </Col>
 
-      <Col>
-        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
+      <Col style={{display:'none'}}>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC'  }}>
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3369.png" alt="Sales Guide" />
@@ -435,12 +454,13 @@ const HomePage = () => {
             <Link to ='/servicecorner/all'>
             <div className="activities-text">
               <p style={{ fontSize: '15px', color: '#fff' }}>Service Corner</p>
-              <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} />
+              {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
+              <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '300%', margin: '-6px' }} ></div>
             </div>
             </Link>
             <div className="salesGuideCont">
               < div >
-                <p>WIP</p>
+                <p >WIP</p>
                 <h1>00</h1>
               </ div>
               < div>
@@ -469,7 +489,8 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Sales Guide</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '300%', margin: '-6px' }} ></div>
               </div>
             </Link>
             <div className="sales-guide-content">
@@ -498,8 +519,8 @@ const HomePage = () => {
         </div>
       </Col>
 
-      <Col>
-        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
+      <Col style={{display:'none'}}>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1'  }}>
           <div className="card-content">
             <Link to="/birthday">
               <div className="activity-icon">
@@ -507,7 +528,8 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Birthday</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '420%', margin: '-6px' }} ></div>
               </div>
             </Link>
             <div className="birthday-slides">
@@ -539,8 +561,8 @@ const HomePage = () => {
         </div>
       </Col> */}
 
-      <Col>
-        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+      <Col style={{display:'none'}}>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD'  }}>
           <Link to="/mappedbranches">
             <div className="card-content">
               <div className="activity-icon">
@@ -548,7 +570,8 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Mapped Branches</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '200%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '200%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '200%', margin: '-6px' }} ></div>
               </div>
             </div>
           </Link>
@@ -559,7 +582,7 @@ const HomePage = () => {
         </div>
       </Col>
 
-      <Col>
+      <Col style={{display:'none'}} >
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
           <Link to="/existingpartner">
             <div className="card-content">
@@ -568,27 +591,14 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Existing Partner</p>
-                <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} />
+                {/* <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} /> */}
+                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity:0.5, width: '240%', margin: '-6px' }} ></div>
               </div>
             </div>
           </Link>
           <div style={{ height: "75%" }} className="events-body">
             <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Branches Found</p>
           </div>
-          {/* <div className='rewardscorner-text'>
-            <div style={{ display: 'flex', justifyContent: "center" }}>
-              <div style={{ padding: "0 20px", borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
-                <p>Renewals</p>
-                <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.Renewal_count_team ? home_data.Renewal_count_team : '00'}</h1>
-                <p><b>New</b></p>
-              </div>
-              <div style={{ padding: "0 20px", textAlign: "center", color: "#fff" }}>
-                <p>Customers</p>
-                <h1 style={{ color: "#fff", fontSize: "40px" }}>{home_data?.customer_count_team ? home_data.customer_count_team : '00'}</h1>
-                <p><b>New</b></p>
-              </div>
-            </div>
-          </div> */}
         </div>
       </Col>
 
@@ -609,8 +619,14 @@ const HomePage = () => {
         </div>
       </Col> */}
 
-      <Col>
-        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+
+      {/* <Col className="dummy-home-card"></Col> */}
+
+              
+            
+              
+      <Col style={{display:'none'}}>
+        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1'  }}>
           <div className="card-content">
             <Link to="/renewalreport">
               <div className="activity-icon">
@@ -618,19 +634,19 @@ const HomePage = () => {
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Dashboards</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} />
+                <hr style={{ backgroundColor: '#ececec', height: '1px', opacity:'0.5', width: '300%', margin: '-6px' }} />
               </div>
             </Link>
             <div className='rewardscorner-text'>
-              <div style={{ display: 'flex', justifyContent: "center" }}>
+              <div style={{ display: 'flex', justifyContent: "center",marginTop:'1rem' }}>
                 <Link to="/renewalreport">
-                  <div style={{ padding: "0 20px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
+                  <div style={{ padding: "0 50px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
                     <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
                     <p>Renewal Report</p>
                   </div>
                 </Link>
                 <Link to="/salespendency">
-                  <div style={{ padding: "0 20px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
+                  <div style={{ padding: "0 50px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
                     <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
                     <p>Sales Pendency</p>
                   </div>
@@ -641,6 +657,7 @@ const HomePage = () => {
         </div>
       </Col>
 
+      <Col className="dummy-home-card"></Col>
       <Col className="dummy-home-card"></Col>
     </ Row>
   </Fragment>
