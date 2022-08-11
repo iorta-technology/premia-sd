@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
 import { Redirect, Route } from "react-router";
 import { useHistory } from 'react-router';
+import axiosRequest from '../../axios-request/request.methods';
 
 
 export const loginStart = () => {
@@ -13,7 +14,7 @@ export const loginStart = () => {
 export const loginSuccess = (payload) => {
     return {
         type: actionTypes.LOGIN_SUCCESS,
-        login_agent_data:payload
+        login_agent_data: payload
     }
 } 
 
@@ -32,17 +33,23 @@ export  const login = (email,password) => {
         dispatch(loginStart())
         // const response = await  axios.post(`user/user_login_v3`,{email,password,reCaptchaToken:'09ABBMTcOWGCPi5gGdXSFjLJrmXpZmWHVBL90OBJYwMihpNXsNYJtrBhwYI3nr1J6CXWhcy6Jo2BffxPOH9a4tf88'}})
         // return await   dispatch(loginSuccess(response.data.errMsg));
-        return axios.post(`user/user_login_v2`,{email,password})
-        .then( res=>{
-                console.log("logged in data",res)
-            if(res.data.errCode===-1){
-                // history.push('/home')
-                return    dispatch(loginSuccess(res.data.errMsg));
+        // return axios.post(`user/user_login_v2`,{email,password})
+        // .then( res=>{
+        //         console.log("logged in data",res)
+        //     if(res.data.errCode===-1){
+        //         // history.push('/home')
+        //         return    dispatch(loginSuccess(res.data.errMsg));
                 
-            }
-        }).catch(error=>{
-            console.log(error)
-        })
+        //     }
+        // }).catch(error=>{
+        //     console.log(error)
+        // })
+
+        const credentials = { email, password }
+        let result = await axiosRequest.post('user/login', credentials, { secure: false });
+        if (result.length > 0) {
+            dispatch(loginSuccess(result));
+        }
     }
 }
 
