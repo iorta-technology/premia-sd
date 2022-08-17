@@ -116,16 +116,18 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
         <>
             {width > breakpoint ?
                 <div className="header-img">
+                    <div className='sales-Header'>
+                        <p>Presales Tools</p>
+                   </div>
                     <p className="header-title">{header}</p>
                     <div className="tab-section">
                         <Tabs
                             tabBarGutter={20}
-                            centered={false}
-                            type="card"
+                            centered={true}
                             onTabClick={handler}
                             size="large"
                             activeKey={activeKey}
-                            style={{ marginLeft: '120px' }}
+                            style={{ margin: '20px' }}
                         >
 
                             {tabPane}

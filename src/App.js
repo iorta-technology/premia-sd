@@ -33,6 +33,7 @@ const CompletedContest = React.lazy(() => import('./components/Contests/Complete
 const ActiveContest = React.lazy(() => import('./components/Contests/ActiveContest'))
 const ActiveContestDetails = React.lazy(() => import('./components/Contests/ActiveContestDetails'))
 const AllContestDetails = React.lazy(() => import('./components/Contests/AllContestDetails'))
+const Calendar1=React.lazy(()=> import('./components/Activitity Tracker/ActivityCalender'))
 const AllContest = React.lazy(() => import('./components/Contests/AllContest'))
 const CompletedContestDetails = React.lazy(() => import('./components/Contests/CompletedContestDetails'))
 const MyOverallRanking = React.lazy(() => import('./components/Contests/MyOverallRanking'))
@@ -124,7 +125,7 @@ function App() {
                 <Route path="/rewardscorner/contests/myoverallranking" component={MyOverallRanking} />
                 <Route path="/rewardscorner/contests/activecontest" component={ActiveContest} />
                 <Route path="/rewardscorner/contests/activecontestdetails" component={ActiveContestDetails} />
-                <Route path="/calendar" component={Calendar} />
+                <Route path="/calendar" component={Calendar1} />
                 <Route path="/kpi-dashboard" component={KpiDashboard} />
                 <Route path="/masterpresales/advisordetail/advisorpitch" component={AdvisorPitch}></Route>
                 <Route path="/master/benefitillustrator" component={BenefitIllustrator}></Route>
