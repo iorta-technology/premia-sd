@@ -19,6 +19,7 @@
 
 .Calendar-event-modal-header-style > div > .ant-modal-header {
   box-shadow: 0px 5px 7px #00000029;
+  /* height: 100vh !important; */
 }
 .CalendarEvent-Modal-textinput-style > span > span > .ant-btn-primary {
   background: #a4a8abfc;
@@ -114,14 +115,16 @@ height: 40px;
 
 .CalendarEvent-Modal-Card-header-type {
   font-weight: bold;
-  color: #6f7274;
+  /* color: #6f7274; */
   font-size: calc(9px +0.6vw);
+  margin-top: 10px;
 }
 
 .CalendarEvent-Modal-Card-button-flex {
   display: flex;
   flex-direction: row;
   width: 75%;
+  margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
 
@@ -133,6 +136,8 @@ height: 40px;
   display: flex;
   flex-direction: row;
   width: 85%;
+  margin-top: 10px;
+  background-color: #f7f7f7 !important;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
 
@@ -176,6 +181,7 @@ height: 40px;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
+  background-color: #F7F7F7;
 }
 .CalendarEvent-Modal-Card-status-onclick-button-style {
   background-color: #e46a25; /* Green */
@@ -216,6 +222,7 @@ height: 40px;
   height: 0.1vw;
   margin-top: 20px;
   margin-bottom:20px;
+  opacity: .4;
 
 }
 .CalendarEvent-Modal-Card-searchbox-vertical-line {
@@ -229,6 +236,7 @@ height: 40px;
   display: flex;
   flex-direction: row;
   width: 87%;
+  margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
 }
@@ -281,15 +289,17 @@ height: 40px;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
+  background-color: #F7F7F7;
 }
 .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
   display: flex;
   flex-direction: row;
-  width: 87%;
+  width: 80%;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
   margin-bottom: 0.7vw;
   padding-bottom: 15px;
+  margin-top: 11px;
 }
 
 .CalendarEvent-Modal-businessPlanning-onclick-button-style {
@@ -319,7 +329,7 @@ height: 40px;
 .CalendarEvent-Modal-joint-customer-onclick-button-style {
   background-color: #00acc1; /* Green */
   color: white;
-
+  /* background-color: #f7f7f7 !important; */
   text-align: center;
   border: none;
   width: 12vw;
@@ -333,7 +343,7 @@ height: 40px;
 .CalendarEvent-Modal-joint-customer-static-button-style {
   border: 0.5px solid #c1c8cc;
   text-align: center;
-
+  background-color: #f7f7f7 !important;
   width: 12vw;
   border-radius: 0.4vw;
   height: 2vw;
@@ -438,7 +448,8 @@ height: 40px;
 .CalendarEvent-Modal-Card-time-duration-flex {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 48%;
+  margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
   margin-bottom: 0.7vw;
@@ -457,6 +468,7 @@ height: 40px;
   border-radius: 0.4vw;
   border: 0.5px solid #c1c8cc;
   height: 40px;
+  margin-top: 10px;
 }
 .CalendarEvent-Modal-empty-picker-style {
   width: 15vw;
@@ -472,6 +484,7 @@ height: 40px;
   border-radius: 0.4vw;
   border: 0.5px solid #c1c8cc;
   height: 40px;
+  margin-top: 10px;
 }
 
 .CalendarEvent-Modal-TimePicker-style:focus {
@@ -673,6 +686,7 @@ height: 40px;
   display: flex;
   flex-direction: row;
   width: 87%;
+  margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
 }
@@ -698,7 +712,11 @@ height: 40px;
   cursor: pointer;
 }
 
-
+.CalendarEvent-Modal-textinput-style,
+.CalendarEvent-Modal-Card-status-flex
+{
+  margin-top: 10px;
+}
 
 @media (min-width: 300px) and (max-width: 374px) {
   
@@ -728,7 +746,7 @@ height: 40px;
     width: 100%;
   }
   .CalendarEvent-Modal-Card-customer-event-button-flex {
-    width: 100%;
+    width:65%;
   }
   .CalendarEvent-Modal-Card-eventwith-onclick-button-style {
     width: 24.3vw;
@@ -874,7 +892,41 @@ height: 40px;
     font-size: 10.5px;
   }
 }
-
+/* @media (max-width:820px){
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style,
+  .CalendarEvent-Modal-businessPlanning-static-button-style  {
+    width: 25vw !important;
+    height: 3vh !important;
+    font-size: 13px !important;
+}
+.CalendarEvent-Modal-Card-eventwith-onclick-button-style,
+.CalendarEvent-Modal-Card-eventwith-static-button-style{
+  width: 16vw !important;
+  height: 3vh !important;
+  font-size: 14px !important;
+}
+.CalendarEvent-Modal-joint-customer-static-button-style,
+.CalendarEvent-Modal-joint-customer-onclick-button-style {
+  width: 25vw !important;
+  height: 3vh !important;
+  font-size: 14px !important;
+}
+.CalendarEvent-Modal-textinput-style,
+.CalendarEvent-Modal-textinput-style > span > .ant-input,
+.CalendarEvent-Modal-textinput-style > span > span > .ant-btn-primary,
+.CalendarEvent-Modal-picker-style,
+.CalendarEvent-Modal-TimePicker-style,
+.CalendarEvent-Modal-Card-status-onclick-button-style,
+.CalendarEvent-Modal-Card-status-static-button-style{
+  height: 3vh !important;
+}
+.CalendarEvent-Modal-TimePicker-style{
+  width: 100% !important;
+}
+.Calendar-event-modal-header-style{
+  top: 61px;
+}
+} */
 @media (min-width: 375px) and (max-width: 424px) {
   .fc .fc-toolbar-chunk {
     width: 50%;
@@ -890,7 +942,7 @@ height: 40px;
     height: 110vh;
   }
   .CalendarEvent-Modal-Card-header-type {
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 3vw;
   }
   .CalendarEvent-Modal-Card-vertical-line {
@@ -900,28 +952,28 @@ height: 40px;
     width: 100%;
   }
   .CalendarEvent-Modal-Card-customer-event-button-flex {
-    width: 100%;
+    width: 65%;
   }
   .CalendarEvent-Modal-Card-eventwith-onclick-button-style {
     width: 23vw;
     height: 4vh;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .CalendarEvent-Modal-Card-eventwith-static-button-style {
     width: 23vw;
     height: 4vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-status-onclick-button-style {
     width: 23vw;
     height: 4vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-status-static-button-style {
     width: 23vw;
     height: 4vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-appointmenttype-button-flex {
     width: 100%;
@@ -929,12 +981,12 @@ height: 40px;
   .CalendarEvent-Modal-documentcollection-onclick-button-style {
     width: 23vw;
     height: 6vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-documentcollection-static-button-style {
     width: 23vw;
     height: 6vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
     width: 100%;
@@ -944,32 +996,32 @@ height: 40px;
   .CalendarEvent-Modal-businessPlanning-onclick-button-style {
     width: 25vw;
     height: 9vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-businessPlanning-static-button-style {
     width: 25vw;
     height: 9vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-joint-customer-onclick-button-style {
     width: 23vw;
     height: 6vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-joint-customer-static-button-style {
     width: 23vw;
     height: 6vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
     width: 25vw;
     height: 5.3vh;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-Addmanual-button-style {
     width: 32vw;
     height: 4vh;
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 1.3vw;
   }
   .CalendarEvent-Modal-textinput-style {
@@ -993,7 +1045,7 @@ height: 40px;
   }
 
   .CalendarEvent-Modal-Card-empty-text-header-type {
-    font-size: 11px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-textinput-style {
     font-size: 10px;
@@ -1010,7 +1062,7 @@ height: 40px;
     width: 30vw;
     height: max-content;
     margin-top: 2vw;
-    font-size: 13px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-picker-style {
     width: 100%;
@@ -1039,15 +1091,18 @@ height: 40px;
   .CalendarEvent-Modal-book-appointment-button-style {
     width: 40vw;
     height: 5.3vh;
-    font-size: 13px;
+    font-size: 14px;
     border-radius: 1.5vw;
   }
   .CalendarEvent-Modal-Card-close-textbox-style {
    height:10vh;
   }
 }
-
-@media (min-width: 425px) and (max-width: 767px) {
+/* (min-width: 425px) and */
+@media  (min-width: 425px) and (max-width: 767px) {
+  .CalendarEvent-Modal-date-column-flex {
+    width: 100%;
+  }
   .fc .fc-toolbar-chunk {
     width: 50%;
     /* justify-content: flex-start; */
@@ -1060,7 +1115,7 @@ height: 40px;
     height: 143vh;
   }
   .CalendarEvent-Modal-Card-header-type {
-    font-size: 12px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-style {
     height: 116vh;
@@ -1068,84 +1123,86 @@ height: 40px;
   .CalendarEvent-Modal-Card-vertical-line {
     margin-top: 2vw;
   }
-  .CalendarEvent-Modal-Card-button-flex {
-    width: 100%;
+  .CalendarEvent-Modal-Card-button-flex{
+    width: 55% !important;
   }
-  .CalendarEvent-Modal-Card-customer-event-button-flex {
-    width: 100%;
+  .CalendarEvent-Modal-Card-style {
+    margin-left: 0 !important;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body{
+    padding: 10px !important;
   }
   .CalendarEvent-Modal-Card-eventwith-onclick-button-style {
-    width: 23vw;
-    height: 4vh;
-    font-size: 11px;
+    width: 17vw;
+    height: 6vh;
+    font-size: 14px;
+    border-radius: 5px;
   }
 
   .CalendarEvent-Modal-Card-eventwith-static-button-style {
-    width: 23vw;
-    height: 4vh;
-    font-size: 11px;
+    width: 17vw;
+    height: 6vh;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-status-onclick-button-style {
-    width: 23vw;
-    height: 4vh;
-    font-size: 11px;
+    width: 17vw;
+    height: 6vh;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-status-static-button-style {
-    width: 23vw;
-    height: 4vh;
-    font-size: 11px;
+    width: 17vw;
+    height: 6vh;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-appointmenttype-button-flex {
-    width: 100%;
+    width: 60%;
   }
   .CalendarEvent-Modal-documentcollection-onclick-button-style {
     width: 23vw;
     height: 6.1vh;
-    font-size: 11px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-documentcollection-static-button-style {
     width: 23vw;
     height: 6.1vh;
-    font-size: 11px;
+    font-size: 14px;
   }
-  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
-    width: 100%;
-    margin-bottom: 1.5vw;
-  }
-
   .CalendarEvent-Modal-businessPlanning-onclick-button-style {
-    width: 23vw;
-    height: 5vh;
-    font-size: 11px;
+    width: 26vw;
+    height: 6vh;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-businessPlanning-static-button-style {
-    width: 23vw;
-    height: 5vh;
-    font-size: 11px;
+    width: 26vw;
+    height: 6vh;
+    font-size: 14px;
+    background-color: #F7F7F7 !important;
   }
   .CalendarEvent-Modal-joint-customer-onclick-button-style {
     width: 23vw;
-    height: 6.3vh;
-    font-size: 11px;
+    height: 6vh;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-joint-customer-static-button-style {
     width: 23vw;
-    height: 6.3vh;
-    font-size: 11px;
+    height: 6vh;
+    font-size: 14px;
+    background-color: #F7F7F7 !important;
   }
   .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
     width: 23vw;
-    height: 4.3vh;
-    font-size: 11px;
+    height: 6vh;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-Card-Addmanual-button-style {
-    width: 32vw;
-    height: 4vh;
-    font-size: 11px;
+    width: 50vw;
+    height: 6vh;
+    font-size: 14px;
+    font-weight: bold;
     margin-top: 1.3vw;
   }
   .CalendarEvent-Modal-textinput-style {
-    font-size: 11px;
+    font-size: 14px;
     width: 100%;
   }
   .CalendarEvent-Modal-textbox-style {
@@ -1163,10 +1220,10 @@ height: 40px;
   }
 
   .CalendarEvent-Modal-Card-empty-text-header-type {
-    font-size: 11px;
+    font-size: 14px;
   }
   .CalendarEvent-Modal-textinput-style {
-    font-size: 11px;
+    font-size: 14px;
     width: 65vw;
   }
   .CalendarEvent-Modal-textinput-style {
@@ -1179,7 +1236,7 @@ height: 40px;
   .CalendarEvent-Modal-Search-tag-style {
     width: 28vw;
     height: max-content;
-    font-size: 11px;
+    font-size: 14px;
     margin-top: 2vw;
   }
   .CalendarEvent-Modal-picker-style {
@@ -1198,28 +1255,559 @@ height: 40px;
     flex-direction: column;
   }
   .CalendarEvent-Modal-textinput-style {
-    font-size: 11px;
+    font-size: 14px;
     width: 60vw;
   }
   .CalendarEvent-Modal-search-record-style {
     width: 70.5%;
   }
   .CalendarEvent-Modal-Card-time-duration-flex {
-    width: 70%;
+    width: 37%;
   }
   .CalendarEvent-Modal-Card-status-flex {
-    width: 70%;
+    width: 37%;
   }
   .CalendarEvent-Modal-book-appointment-flex {
     margin-top: 2vw;
   }
   .CalendarEvent-Modal-book-appointment-button-style {
-    width: 30vw;
-    height: 5.3vh;
-    font-size: 11px;
-    border-radius: 1.5vw;
+    width: 50vw;
+    height: 6vh;
+    font-size: 14px;
+    border-radius: 5px;
   }
 }
+@media (max-width:660px){
+  .CalendarEvent-Modal-Card-header-type{
+    font-size: 16px;
+  }
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style,
+  .CalendarEvent-Modal-Card-eventwith-static-button-style{
+    font-size: 20px;
+  }
+}
+@media (max-width:840px){
+  .CalendarEvent-Modal-Card-button-flex{
+    width: 60% !important;
+  }
+  .CalendarEvent-Modal-appointmenttype-button-flex {
+    width: 80% !important;
+  }
+  .CalendarEvent-Modal-Card-Addmanual-button-style {
+    width: 36vw !important;
+    height: 3vh !important;
+  }
+  .Calendar-event-modal-header-style{
+    width: 100% !important;
+    height: 100vh;
+    margin: 0;
+    top: 62px;
+  }
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
+    width: 55%;
+    margin-bottom: 1.5vw;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content{
+    width: 100% !important;
+    height: 100vh;
+  }
+  .CalendarEvent-Modal-Card-eventwith-static-button-style,
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style{
+    width: 16vw !important;
+    height: 3vh !important;
+  }
+  
+  .CalendarEvent-Modal-joint-customer-static-button-style,
+  .CalendarEvent-Modal-joint-customer-onclick-button-style{
+    height: 3vh !important;
+    width: 32vw !important;
+  }
+  .CalendarEvent-Modal-Card-documentcollection-static-button-style,
+  .CalendarEvent-Modal-documentcollection-onclick-button-style{
+    width: 21vw !important;
+    height: 3vh !important;
+    font-size: 14px !important;
+  }
+  .CalendarEvent-Modal-businessPlanning-static-button-style,
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style{
+    width: 28vw !important;
+    height: 3vh !important;
+  }
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex{
+    width: 70% !important;
+  }
+  .ant-modal{
+    max-width: none;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body{
+    height: 50vh !important;
+  }
+  .CalendarEvent-Modal-Card-customer-event-button-flex{
+    width: 60%;
+  }
+  .CalendarEvent-Modal-textinput-style > span > .ant-input,
+  .CalendarEvent-Modal-textinput-style > span > span > .ant-btn-primary,
+  .CalendarEvent-Modal-textinput-style,
+  .CalendarEvent-Modal-picker-style,
+  .CalendarEvent-Modal-TimePicker-style,
+  .CalendarEvent-Modal-Card-status-onclick-button-style{
+    height: 4vh !important;
+  }
+  .CalendarEvent-Modal-Card-status-static-button-style{
+    height: 3vh !important;
+  }
+  .CalendarEvent-Modal-Card-time-duration-flex,
+  .CalendarEvent-Modal-Card-status-flex{
+    width: 40% !important;
+  }
+  .CalendarEvent-Modal-date-column-flex{
+    width: 100% !important;
+  }
+  .CalendarEvent-Modal-book-appointment-button-style {
+    width: 45vw !important;
+    height: 4vh !important;
+    border-radius: 0.5vw !important;
+}
+}
+@media (max-width:700px){
+  .CalendarEvent-Modal-businessPlanning-static-button-style,
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style,
+  .CalendarEvent-Modal-joint-customer-static-button-style,
+  .CalendarEvent-Modal-joint-customer-onclick-button-style
+  {
+    width: 28vw;
+    /* height: 7vh; */
+  }
+  .CalendarEvent-Modal-book-appointment-button-style{
+    height: 7vh;
+  }
+}
+
+@media (max-width:630px){
+  .CalendarEvent-Modal-Card-button-flex{
+    width: 51% !important;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content{
+    height:195vh;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body{
+    height: 180vh !important;
+  }
+  .Calendar-event-modal-header-style{
+    height: 190vh;
+  }
+  .CalendarEvent-Modal-Card-style{
+    height: 160vh;
+  }
+}
+@media (max-width:600px){
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex{
+    width: 65%;
+  }
+  .CalendarEvent-Modal-Card-time-duration-flex{
+    width:30% !important;
+  }
+}
+@media (max-width:580px){
+  .CalendarEvent-Modal-Card-status-flex{
+    width: 30%;
+  }
+  .CalendarEvent-Modal-textinput-style{
+    width: 70vw;
+  }
+}
+@media (max-width:650px){
+  .CalendarEvent-Modal-businessPlanning-static-button-style,
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style,
+  .CalendarEvent-Modal-joint-customer-static-button-style,
+  .CalendarEvent-Modal-joint-customer-onclick-button-style
+  {
+    width: 40vw;
+  }
+  .CalenderEvent-AppFirst-Meeting{
+    width: 80%;
+  }
+  .CalendarEvent-Modal-Card-documentcollection-static-button-style,
+  .CalendarEvent-Modal-documentcollection-onclick-button-style
+  {
+    height: 7vh;
+    width: 28vw;
+  }
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style,
+  .CalendarEvent-Modal-Card-eventwith-static-button-style
+  {
+    width: 28vw;
+    height: 7vh;
+    font-size: 16px;
+  }
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style,
+  .CalendarEvent-Modal-businessPlanning-static-button-style ,
+  .CalendarEvent-Modal-Card-documentcollection-static-button-style,
+  .CalendarEvent-Modal-documentcollection-onclick-button-style
+  {
+    font-size: 15px;
+  }
+  .CalendarEvent-Modal-Unit{
+    width: 90%;
+  }
+  .CalendarEvent-Modal-joint-customer-static-button-style{
+    height: 7vh !important;
+  }
+  .CalendarEvent-Modal-Card-button-flex {
+    width: 80% !important;
+  }
+  .CalendarEvent-Modal-Card-time-duration-flex {
+    width: 51% !important;
+  }
+  .CalendarEvent-Modal-Card-status-flex {
+    width: 42%;
+  }
+  .CalendarEvent-Modal-Card-status-onclick-button-style,
+  .CalendarEvent-Modal-Card-status-static-button-style
+  {
+    height: 7vh;
+  }
+  .CalendarEvent-Modal-Card-customer-event-button-flex{
+    width: 75%;
+  }
+}
+@media (max-width:560px){
+  .CalendarEvent-Modal-businessPlanning-static-button-style,
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style
+  {
+    font-size: 18px !important;
+    width: 50vw !important;
+    height: 8vh !important;
+  }
+  .CalendarEvent-Modal-Card-header-type{
+    font-size: 17px !important;
+    margin-bottom: 10px !important;
+    margin-top: 5px !important;
+  }
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex{
+    width: 75%;
+  }
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style,
+  .CalendarEvent-Modal-Card-eventwith-static-button-style {
+    width: 30vw;
+    height: 8vh;
+    font-size: 18px;
+  }
+    .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
+      width: 29vw;
+      height: 7vh;
+      font-size: 18px;
+    }
+    .CalendarEvent-Modal-joint-customer-static-button-style{
+      height: 8vh !important;
+      font-size: 18px;
+      width: 45vw;
+    }
+    .CalendarEvent-Modal-Card-documentcollection-static-button-style, 
+    .CalendarEvent-Modal-documentcollection-onclick-button-style {
+      font-size: 18px !important;
+      width: 44vw !important;
+      height: 8vh !important;
+    }
+      .CalendarEvent-Modal-Card-eventwith-onclick-button-style,
+      .CalendarEvent-Modal-Card-eventwith-static-button-style {
+        width: 30vw !important;
+        height: 8vh !important;
+        font-size: 18px !important;
+    }
+    .CalendarEvent-Modal-Card-customer-event-button-flex {
+      width: 85% !important;
+    }
+  }
+  @media (max-width:540px){
+    .CalendarEvent-Modal-textinput-style > span > .ant-input, 
+    .CalendarEvent-Modal-textinput-style > span > span > .ant-btn-primary,
+     .CalendarEvent-Modal-textinput-style, 
+     .CalendarEvent-Modal-picker-style, 
+     .CalendarEvent-Modal-TimePicker-style, 
+     .CalendarEvent-Modal-Card-status-onclick-button-style {
+      height: 7vh !important;
+  }
+  .CalendarEvent-Modal-joint-customer-static-button-style, 
+  .CalendarEvent-Modal-joint-customer-onclick-button-style {
+    width: 50vw !important;
+  }
+  .CalendarEvent-Modal-textinput-style {
+    width: 100%;
+  }
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
+    width: 75% !important;
+}
+.CalendarEvent-Modal-Card-eventwith-onclick-button-style, 
+.CalendarEvent-Modal-Card-eventwith-static-button-style,
+.CalendarEvent-Modal-businessPlanning-static-button-style, 
+.CalendarEvent-Modal-businessPlanning-onclick-button-style,
+.CalendarEvent-Modal-joint-customer-static-button-style,
+.CalendarEvent-Modal-joint-customer-static-button-style {
+  height: 6vh !important;
+}
+  .Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body{
+    height: 100vh !important;
+  }
+  .CalendarEvent-Modal-book-appointment-button-style {
+    width: 60vw !important;
+    height: 6vh !important;
+}
+.CalendarEvent-Modal-Card-status-static-button-style,
+.CalendarEvent-Modal-Card-status-onclick-button-style {
+  height: 6vh !important;
+  width: 20vw !important;
+  font-size: 18px !important;
+}
+}
+@media (max-width:420px){
+  .CalendarEvent-Modal-Card-style {
+    height: 101vh !important;
+}
+  .CalendarEvent-Modal-textinput-style > span > .ant-input, 
+  .CalendarEvent-Modal-textinput-style > span > span > .ant-btn-primary,
+   .CalendarEvent-Modal-textinput-style, 
+   .CalendarEvent-Modal-picker-style, 
+   .CalendarEvent-Modal-TimePicker-style, 
+   .CalendarEvent-Modal-Card-status-onclick-button-style {
+    height: 7vh !important;
+  }
+  .CalendarEvent-Modal-appointmenttype-button-flex {
+    width: 90% !important;
+  }
+  .CalenderEvent-AppFirst-Meeting {
+    width: 85% !important;
+  }
+  .CalendarEvent-Modal-Card-documentcollection-static-button-style, 
+  .CalendarEvent-Modal-documentcollection-onclick-button-style {
+    font-size: 20px !important;
+    width: 55vw !important;
+    height: 5vh !important;
+  }
+  .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
+    width: 75vw !important;
+    height: 6vh !important;
+    font-size: 21px !important;
+  }
+  .CalendarEvent-Modal-businessPlanning-static-button-style, 
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style{
+    width: 90vw !important;
+    font-size: 21px !important;
+    margin-bottom: 15px;
+  }
+  .CalendarEvent-Modal-joint-customer-static-button-style, 
+  .CalendarEvent-Modal-joint-customer-onclick-button-style {
+    width: 60vw !important;
+    height: 6vh !important;
+    font-size: 20px !important;
+  }
+  .CalendarEvent-Modal-textinput-style {
+    width: 100%;
+  }
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
+    width: 100% !important;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+  }
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style, 
+  .CalendarEvent-Modal-Card-eventwith-static-button-style{
+    height: 5vh !important;
+    font-size: 20px !important;
+    width: 43vw !important;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body{
+    height: 130vh !important;
+  }
+  .CalendarEvent-Modal-book-appointment-button-style {
+    width: 75vw !important;
+    height: 6vh !important;
+  }
+  .CalendarEvent-Modal-Card-status-static-button-style,
+  .CalendarEvent-Modal-Card-status-onclick-button-style {
+    height: 5vh !important;
+    width: 25vw !important;
+    font-size: 20px !important;
+  }
+  .CalendarEvent-Modal-book-appointment-flex {
+    margin-top: 6vw !important;
+  }
+}
+@media (max-width:393px ){
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
+    width: 83% !important;
+  }
+  .CalendarEvent-Modal-Card-button-flex{
+    width: 90% !important;
+  }
+  .CalendarEvent-Modal-textinput-style > span > .ant-input, 
+  .CalendarEvent-Modal-textinput-style > span > span > .ant-btn-primary,
+   .CalendarEvent-Modal-textinput-style, 
+   .CalendarEvent-Modal-picker-style, 
+   .CalendarEvent-Modal-TimePicker-style, 
+   .CalendarEvent-Modal-Card-status-onclick-button-style {
+    height: 7vh !important;
+  }
+  .CalendarEvent-Modal-Card-Addmanual-button-style {
+    width: 47vw !important;
+    height: 6vh !important;
+  }
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style, 
+  .CalendarEvent-Modal-Card-eventwith-static-button-style {
+    height: 6vh !important;
+    font-size: 25px !important;
+    width: 48vw !important;
+}
+  .CalendarEvent-Modal-Card-documentcollection-static-button-style, 
+  .CalendarEvent-Modal-documentcollection-onclick-button-style {
+    width: 60vw !important;
+    height: 6vh !important;
+}
+  /* .CalendarEvent-Modal-businessPlanning-static-button-style, 
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style{
+    width: 75vw !important;
+    font-size: 20px !important
+  } */
+  .CalendarEvent-Modal-joint-customer-static-button-style, 
+  .CalendarEvent-Modal-joint-customer-onclick-button-style {
+    width: 65vw !important;
+    height: 6vh !important;
+    font-size: 21px !important;
+  }
+  .CalendarEvent-Modal-textinput-style {
+    width: 100%;
+  }
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style, 
+  .CalendarEvent-Modal-Card-eventwith-static-button-style{
+    height: 6vh !important;
+    font-size: 21px !important;
+    width: 47vw !important;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body{
+    height: 130vh !important;
+  }
+  .CalendarEvent-Modal-book-appointment-button-style {
+    width: 100vw !important;
+    font-size: 21px !important;
+  }
+  .CalendarEvent-Modal-Card-status-static-button-style,
+  .CalendarEvent-Modal-Card-status-onclick-button-style {
+    height: 6vh !important;
+    width: 31vw !important;
+    font-size: 20px !important;
+  }
+  .CalendarEvent-Modal-Card-time-duration-flex{
+    width: 53% !important;
+  }
+  .CalendarEvent-Modal-Card-status-flex {
+    width: 45% !important;
+}
+.CalendarEvent-Modal-book-appointment-flex {
+  margin-top: 7vw !important;
+}
+}
+@media (max-width:380px){
+  .CalendarEvent-Modal-Card-style {
+    height: 129vh !important;
+}
+.Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body {
+  height: 160vh !important;
+}
+.Calendar-event-modal-header-style>.ant-modal-content {
+  height: 185vh !important;
+}
+}
+@media (min-width:520px){
+  .Calendar-event-modal-header-style>.ant-modal-content>.ant-modal-body {
+    height: 110vh;
+}
+}
+/* @media (max-width:500px){
+  .CalendarEvent-Modal-joint-customer-static-button-style,
+  .CalendarEvent-Modal-joint-customer-onclick-button-style {
+    height: 8vh !important;
+    font-size: 20px !important;
+    width: 50vw !important;
+}
+  .CalendarEvent-Modal-businessPlanning-static-button-style, 
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style 
+  {
+    font-size: 20px !important;
+    width: 60vw!important;
+    height: 9vh !important;
+  }
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
+    width: 83% !important;
+  } 
+  .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
+    width: 40vw;
+    height: 8vh;
+    font-size: 20px;
+}
+} */
+
+@media (max-width:460px) and (max-height:560px){
+  .CalendarEvent-Modal-businessPlanning-static-button-style,
+  .CalendarEvent-Modal-businessPlanning-onclick-button-style
+  {
+    font-size: 18px !important;
+    width: 50vw !important;
+    height: 8vh !important;
+  }
+  .CalendarEvent-Modal-Card-header-type{
+    font-size: 17px !important;
+  }
+  .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex{
+    width: 75%;
+  }
+  .CalendarEvent-Modal-Card-eventwith-onclick-button-style,
+  .CalendarEvent-Modal-Card-eventwith-static-button-style {
+    width: 30vw;
+    height: 8vh;
+    font-size: 18px;
+  }
+    .CalendarEvent-Modal-Card-clientVisit-onclick-button-style {
+      width: 29vw;
+      height: 7vh;
+      font-size: 18px;
+    }
+    .CalendarEvent-Modal-joint-customer-static-button-style{
+      height: 8vh !important;
+      font-size: 18px;
+      width: 45vw;
+    }
+    .CalendarEvent-Modal-Card-documentcollection-static-button-style, 
+    .CalendarEvent-Modal-documentcollection-onclick-button-style {
+      font-size: 18px !important;
+      width: 44vw !important;
+      height: 8vh !important;
+    }
+      .CalendarEvent-Modal-Card-eventwith-onclick-button-style,
+      .CalendarEvent-Modal-Card-eventwith-static-button-style {
+        width: 30vw !important;
+        height: 8vh !important;
+        font-size: 18px !important;
+    }
+    .CalendarEvent-Modal-Card-customer-event-button-flex {
+      width: 85% !important;
+    }
+}
+@media(max-width:400px){
+  .Calendar-event-modal-header-style>.ant-modal-content{
+    height: 200vh;
+  }
+}
+ @media(max-width:320px){
+  .Calendar-event-modal-header-style{
+    width: 730px !important;
+    height: 100vh;
+    margin: 0;
+    top: 62px;
+  }
+  .Calendar-event-modal-header-style>.ant-modal-content{
+    width: 114% !important;
+  }
+ }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .fc .fc-toolbar-chunk {
@@ -1245,7 +1833,7 @@ height: 40px;
     width: 100%;
   }
   .CalendarEvent-Modal-Card-customer-event-button-flex {
-    width: 100%;
+    width: 65%;
   }
   .CalendarEvent-Modal-Card-eventwith-onclick-button-style {
     width: 15vw;
