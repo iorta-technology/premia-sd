@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined, EditOutlined,PhoneOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
@@ -122,14 +122,14 @@ const NewLead = React.memo(() => {
       label: "Converted",
       children: [
         { value: "leadconverted", label: "Convinced for a new policy" }
-        ]
-  }, {
+      ]
+    }, {
       value: "renewalcollected",
       label: "Renewal Collected",
       children: [
         { value: "ConvinceRenPay", label: "Convinced for renewal payment" }
       ]
-  }]
+    }]
   const setReminderOptions = [
     { value: '5 minutes before', label: '5 minutes before' }, { value: '10 minutes before', label: '10 minutes before' },
     { value: '15 minutes before', label: '15 minutes before' }, { value: '30 minutes before', label: '30 minutes before' },
@@ -156,12 +156,12 @@ const NewLead = React.memo(() => {
       label: 'TATA AIG General Insurance Company',
       value: 'TATA AIG General Insurance Company'
     },
-  
+
     {
       label: 'ICICI Lombard Genral Insurance Company',
       value: 'ICICI Lombard Genral Insurance Company'
     },
-  
+
     {
       label: 'ICICI Prudential Life Insurance Company',
       value: 'ICICI Prudential Life Insurance Company'
@@ -281,8 +281,8 @@ const NewLead = React.memo(() => {
     }, {
       label: "9:30 PM",
       value: "77400000"
-  }]
-  
+    }]
+
   const dispatch = useDispatch()
   const history = useHistory()
   const [form] = Form.useForm();
@@ -318,7 +318,7 @@ const NewLead = React.memo(() => {
   const start_time = useSelector((state) => state.newLead.formData.start_time)
   // const {start_date,start_time} = storeAppointmentData
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
-  console.log(typeof(start_time))
+  console.log(typeof (start_time))
   // console.log(parseInt(start_date))
   // msToDateString(1637605800000)  
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
@@ -354,10 +354,10 @@ const NewLead = React.memo(() => {
   const [appointmentDisposition, setAppointmentDisposition] = useState()
   const [appointmentSubDisposition, setAppointmentSubDisposition] = useState()
   const [reminder, setReminder] = useState()
-  const [appointmentDate, setAppointmentDate] = useState(()=>start_date!=='' && moment(start_date))
+  const [appointmentDate, setAppointmentDate] = useState(() => start_date !== '' && moment(start_date))
   // moment(start_date)
   const [appointmentDatePost, setAppointmentDatePost] = useState()
-  const [appointmentTime, setAppointmentTime] = useState(()=>start_time!==undefined ? start_time.toString():'')
+  const [appointmentTime, setAppointmentTime] = useState(() => start_time !== undefined ? start_time.toString() : '')
   // parseInt(start_time)
   const [remarkFromSource, setRemarkFromSource] = useState(storeRemarkFromSourceValue)
   const [remarkFromUser, setRemarkFromUser] = useState(storeRemarkFromUserValue)
@@ -382,9 +382,9 @@ const NewLead = React.memo(() => {
 
       setIsNewLead(false)
     }
-    if(primaryNo.length===10){
+    if (primaryNo.length === 10) {
       setmobileNoValid(true)
-    }else{
+    } else {
       setmobileNoValid(false)
     }
     // console.log(_.isEmpty(storeAppointmentData))
@@ -452,6 +452,9 @@ const NewLead = React.memo(() => {
   const [changeOwnerLoading, setChangeOwnerLoading] = useState(false);
   // const [modalText, setModalText] = useState('Content of the modal');
 
+  const handleCancel = () => {
+    setVisibleChangeOwnerModel(false)
+  }
 
   const leadOptions = [
     {
@@ -723,7 +726,7 @@ const NewLead = React.memo(() => {
     setLeadDisposition(value[1])
     setLeadSubDisposition(value[2])
   }
-  const appointmentStatusHandler =(value)=>{
+  const appointmentStatusHandler = (value) => {
     setAppointmentStatus(value[0])
     setAppointmentDisposition(value[1])
     setAppointmentSubDisposition(value[2])
@@ -735,7 +738,7 @@ const NewLead = React.memo(() => {
     let newDate = moment(date).valueOf()
     // let ms_date = new Date(newDate).setUTCHours(0, 0, 0, 0)
     // console.log('old',ms_date)
-    console.log('new moment',newDate)
+    console.log('new moment', newDate)
     setAppointmentDate(date)
     setAppointmentDatePost(newDate)
 
@@ -756,7 +759,7 @@ const NewLead = React.memo(() => {
     // const res = (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
     // console.log(res)
     // console.log(hourInMilisec)
-    console.log(typeof(value))
+    console.log(typeof (value))
     setAppointmentTime(value)
   }
   const remarkFromSourceHandler = (event) => {
@@ -772,7 +775,7 @@ const NewLead = React.memo(() => {
     // console.log('Success:', errorMessage);
   };
 
-  const onFinishFailed = (errorMsg) => {
+  const onFinishFailedFucn = (errorMsg) => {
     alert(errorMsg)
     // console.log('Failed:', errorMsg);
   };
@@ -871,7 +874,7 @@ const NewLead = React.memo(() => {
   //   formIsValid = true;
   // }
 
-  const failedHandler = (error)=>{
+  const failedHandler = (error) => {
     alert(error)
     console.log(error)
   }
@@ -881,24 +884,24 @@ const NewLead = React.memo(() => {
 
     if (isNewLead) {
       // console.log(formData)
-   
-        // const values = await form.validateFields();
-        // console.log('Success:', values);
-        dispatch(actions.createLead(formData))
-        .then((res)=>{
+
+      // const values = await form.validateFields();
+      // console.log('Success:', values);
+      dispatch(actions.createLead(formData))
+        .then((res) => {
           if (res.type === "CREATE_LEAD_SUCCESS") {
             console.log('success:', res);
             setErrorMessage(successMsg)
             setIsNewLead(false)
-            
-          }else if(res.type==='CREATE_LEAD_FAIL'){
+
+          } else if (res.type === 'CREATE_LEAD_FAIL') {
             console.log('failed:', res);
 
             failedHandler(res.error)
             console.log(res)
           }
         })
-    
+
       // if (!formIsValid) {
       //   return;
       // }else{
@@ -909,19 +912,19 @@ const NewLead = React.memo(() => {
     } else {
 
       dispatch(actions.editLead(formData, storeLeadId))
-      .then((res)=>{
-        if (res.type === "EDIT_LEAD_SUCCESS") {
-          console.log('success:', res);
-          setErrorMessage(successMsg)
-          setIsNewLead(false)
-          
-        }else if(res.type==='EDIT_LEAD_FAIL'){
-          console.log('failed:', res);
+        .then((res) => {
+          if (res.type === "EDIT_LEAD_SUCCESS") {
+            console.log('success:', res);
+            setErrorMessage(successMsg)
+            setIsNewLead(false)
 
-          failedHandler(res.error)
-          console.log(res)
-        }
-      })
+          } else if (res.type === 'EDIT_LEAD_FAIL') {
+            console.log('failed:', res);
+
+            failedHandler(res.error)
+            console.log(res)
+          }
+        })
       // alert(' Lead Updated Successfully')
       // history.push('leaddetails/personallead')
 
@@ -988,7 +991,7 @@ const NewLead = React.memo(() => {
     <>
       <Tabs
         tabMenu={tabMenu}
-        // header="New Lead"
+        header="New Lead"
         activeKey="1"
       />
 
@@ -1003,7 +1006,7 @@ const NewLead = React.memo(() => {
           form={form}
           help={errorMessage}
           onFinish={submitHandler}
-          onFinishFailed={failedHandler}
+          onFinishFailedFucn={failedHandler}
           initialValues={{
             "firstname": firstName,
             "lastname": lastName,
@@ -1021,12 +1024,12 @@ const NewLead = React.memo(() => {
             "remarksfromuser": remarkFromUser,
             "reminder": reminder,
             "leadStatus": leadArr,
-            "appointmentStatus":['newappointment','newApptmnt']
+            "appointmentStatus": ['newappointment', 'newApptmnt']
           }}
-          onFinishFailed={onFinishFailed}
+          onFinishFailed={onFinishFailedFucn}
         >
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}  >
-            <Col className="form-body  p40 mb-2" xs={24, { order: width > breakpoint ? 1 : 2 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
+            <Col className="form-body  p50 mb-2" xs={24} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <p className="form-title">Contact Details</p>
               <Row gutter={16} className="mb-2">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1109,7 +1112,7 @@ const NewLead = React.memo(() => {
                       ({ getFieldValue }) => ({
                         validator(_, value) {
                           console.log(value)
-                          if (primaryNo.toString().length!==10) {
+                          if (primaryNo.toString().length !== 10) {
                             return Promise.reject(new Error("Number must be 10 digits"))
                           }
                           return Promise.resolve();
@@ -1149,6 +1152,8 @@ const NewLead = React.memo(() => {
                     style={{ marginBottom: '1rem' }}
                   >
                     <Select
+                      bordered={false}
+                      className='select-box'
                       size="large"
                       placeholder="Select Your State"
                       options={stateOptions}
@@ -1174,6 +1179,8 @@ const NewLead = React.memo(() => {
                     style={{ marginBottom: '1rem' }}
                   >
                     <Select
+                      bordered={false}
+                      className='select-box'
                       size="large"
                       placeholder="Select a city"
                       options={citiesOptions}
@@ -1198,6 +1205,8 @@ const NewLead = React.memo(() => {
                     style={{ marginBottom: '1rem' }}
                   >
                     <Select
+                      bordered={false}
+                      className='select-box'
                       options={leadTypeOptions}
                       value={leadType}
                       size="large"
@@ -1222,6 +1231,8 @@ const NewLead = React.memo(() => {
                     style={{ marginBottom: '1rem' }}
                   >
                     <Select
+                      bordered={false}
+                      className='select-box'
                       value={product}
                       size="large"
                       options={leadProductOptions}
@@ -1247,6 +1258,8 @@ const NewLead = React.memo(() => {
                     style={{ marginBottom: '1rem' }}
                   >
                     <Select
+                      bordered={false}
+                      className='select-box'
                       value={insuranceCompany}
                       size="large"
                       placeholder="Select Insurance"
@@ -1264,28 +1277,40 @@ const NewLead = React.memo(() => {
                   <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Lead ID</p>
-                      <p className="lead-detail">{leadIdValue}</p>
+                      <p className="lead-detail">{leadIdValue} <br /> </p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Source</p>
-                      <p className="lead-detail">-</p>
+                      <p className="lead-detail"></p>
                     </Col>
+                  </Row>
+                  <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
+
+                  <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Name</p>
-                      <p className="lead-detail">{storefirstNameValue} {storelastNameValue}</p>
+                      <p className="lead-detail">{storefirstNameValue} {storelastNameValue} <br /></p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label"> Mobile Number </p>
-                      <p className="lead-detail"><a href={`tel:${storePrimaryMobileValue}`}><PhoneOutlined style={{color:'green',cursor:'pointer'}}></PhoneOutlined></a> {storePrimaryMobileValue}</p>
+                      <p className="lead-detail"><a href={`tel:${storePrimaryMobileValue}`}></a> {storePrimaryMobileValue}</p>
                     </Col>
+                  </Row>
+                  <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
+
+                  <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">State</p>
-                      <p className="lead-detail">{storeStateValue}</p>
+                      <p className="lead-detail">{storeStateValue} <br /> </p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">City</p>
                       <p className="lead-detail">{storeCityValue}</p>
                     </Col>
+                  </Row>
+                  <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
+
+                  <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Allocated To</p>
                       <p className="lead-detail">Himanshu</p>
@@ -1296,13 +1321,16 @@ const NewLead = React.memo(() => {
                       <p className="lead-date">2 days ago</p>
                     </Col>
                   </Row>
+                  <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
+
+
                 </Col>
               </Row>
             </Col>
-            <Col className="form-body  p40" xs={{ order: 3 }} sm={16} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
+            <Col className="form-body  p50" xs={{ order: 3 }} sm={16} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <p className="form-title">Status</p>
               <Row gutter={16} className="mb-2">
-                {start_date===''&& start_time==='' ?
+                {start_date === '' && start_time === '' ?
                   <Col xs={24} sm={12} md={24} lg={12} xl={12} >
                     <Form.Item
                       {...formItemLayout}
@@ -1319,12 +1347,14 @@ const NewLead = React.memo(() => {
                       ]}
                     >
                       <Cascader
+                        bordered={false}
+                        className='select-box'
                         options={leadOptions}
                         placeholder="New Contact"
                         size="large"
                         popupClassName="popup-size"
                         onChange={leadHandler}
-                        style={{ height: '3rem' }}
+                        style={{ height: '2.45rem' }}
                         value={leadArr}
                       />
                     </Form.Item>
@@ -1346,18 +1376,19 @@ const NewLead = React.memo(() => {
                       ]}
                     >
                       <Cascader
-                        
+                        bordered={false}
+                        className='select-box'
                         options={appointmentOptions}
                         placeholder="New Contact"
                         size="large"
                         popupClassName="popup-size"
                         onChange={appointmentStatusHandler}
-                        style={{ height: '3rem' }}
+                        style={{ height: '2.45rem' }}
                         value={leadArr}
                       />
                     </Form.Item>
-                  </Col>} 
-                {leadDisposition === "appointment" || leadDisposition === "callback"  ?
+                  </Col>}
+                {leadDisposition === "appointment" || leadDisposition === "callback" ?
                   <>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                       <Form.Item
@@ -1367,8 +1398,8 @@ const NewLead = React.memo(() => {
                         label="Appointment Date"
                         hasFeedback
                         rules={[
-                          { 
-                            type:'object',
+                          {
+                            type: 'object',
                             required: true,
                             message: 'This field is required',
                           },
@@ -1499,7 +1530,7 @@ const NewLead = React.memo(() => {
                     block
                     onClick={toggleTeamMember}
                     type="primary"
-                    style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                    style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                   >Add Team Member</Button>
                 </Col>
                 <>
@@ -1512,9 +1543,9 @@ const NewLead = React.memo(() => {
                       <Button key="cancel" onClick={toggleTeamMember}>
                         Cancel
                       </Button>,
-                      <Button key="save" type="primary" >
+                      <Button key="save" type="primary" style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
                         Save
-                      </Button>,
+                      </Button>
                     ]}
                   // onCancel={handleCancel}
                   >
@@ -1562,7 +1593,7 @@ const NewLead = React.memo(() => {
                     <p className="botton-label">Currently this lead is allocated to Self</p>
                   </Col>
                   <Col xs={24} sm={24} md={5} lg={5} xl={5} className="lead-manager" offset={width > breakpoint ? 7 : 0}>
-                    <Button shape="round" size="large" block onClick={showChangeOwnerModal}>Change Owner</Button>
+                    <Button shape="round" size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', color: '#ffff' }} block onClick={showChangeOwnerModal}>Change Owner</Button>
                   </Col>
                   <Modal
                     title="Allocate to"
@@ -1570,7 +1601,7 @@ const NewLead = React.memo(() => {
                     visible={visibleChangeOwnerModel}
                     onOk={handleChangeOwner}
                     confirmLoading={changeOwnerLoading}
-                  // onCancel={handleCancel}
+                    onCancel={handleCancel}
                   >
                     <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                       <Form.Item
@@ -1613,14 +1644,14 @@ const NewLead = React.memo(() => {
 
               {/* </Form> */}
             </Col>
-            <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
-              <Row>
+            <Col className='form-body  p30' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
+              <Row  >
                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
                   {isNewLead ?
                     <Form.Item>
                       <Button
                         type="primary"
-                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                         // shape="round"
                         size="large"
                         icon={<FileTextOutlined />}
@@ -1634,7 +1665,7 @@ const NewLead = React.memo(() => {
                         type="primary"
                         // shape="round"
                         size="large"
-                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                         icon={<EditOutlined />}
                         htmlType="submit"
                       // disabled={!formIsValid}
@@ -1651,7 +1682,7 @@ const NewLead = React.memo(() => {
                       // shape="round"
                       size="large"
                       htmlType="submit"
-                      style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                       icon={<ArrowRightOutlined />}
                     // onClick={proceedHandler}
                     >Proceed</Button>

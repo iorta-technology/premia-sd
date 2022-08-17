@@ -51,7 +51,7 @@ const tabMenu = [
 
 const ContactDetails = React.memo(() => {
     const storeFormData = useSelector((state) => state.newLead.formData)
-    
+
     const states = useSelector((state) => state.address.states)
     const cities = useSelector((state) => state.address.cities)
     const storeSecondaryMobile = useSelector((state) => state.newLead.formData.secondaryMobile)
@@ -278,37 +278,37 @@ const ContactDetails = React.memo(() => {
 
     };
     let formIsValid = false;
-    const failedHandler = (error)=>{
+    const failedHandler = (error) => {
         alert(error)
         console.log(error)
     }
     const submitHandler = event => {
 
-        if(!storeLeadId){
+        if (!storeLeadId) {
             dispatch(actions.storeLead(formData))
 
-        }else{
-      
+        } else {
+
             dispatch(actions.editLead(formData, storeLeadId))
-            .then((res)=>{
-                if (res.type === "EDIT_LEAD_SUCCESS") {
-                  console.log('success:', res);
-                  setErrorMessage()
-                  setIsNewLead(false)
-                  
-                }else if(res.type==='EDIT_LEAD_FAIL'){
-                  console.log('failed:', res);
-        
-                  failedHandler(res.error)
-                  console.log(res)
-                }
-              })
+                .then((res) => {
+                    if (res.type === "EDIT_LEAD_SUCCESS") {
+                        console.log('success:', res);
+                        setErrorMessage()
+                        setIsNewLead(false)
+
+                    } else if (res.type === 'EDIT_LEAD_FAIL') {
+                        console.log('failed:', res);
+
+                        failedHandler(res.error)
+                        console.log(res)
+                    }
+                })
             // alert(' Lead Updated Successfully')
             // history.push('professionallead')
-            
+
         }
         // if (isSameAddress) {
-    
+
         //     // formIsValid = isPincodeValid
         //     if (!formIsValid) {
         //         return;
@@ -324,17 +324,17 @@ const ContactDetails = React.memo(() => {
         //     } else {
         //         if(isNewLead){
         //             dispatch(actions.storeLead(formData))
-        
+
         //             alert('New Lead Updated Successfully')
         //             history.push('professionallead')
-                    
+
         //             setIsNewLead(false)
         //         }else{
-              
+
         //             dispatch(actions.editLead(formData, storeLeadId))
         //             alert(' Lead Updated Successfully')
         //             history.push('professionallead')
-                    
+
         //         }
         //         // dispatch(actions.storeLead(formData))
         //         // history.push('professionallead')
@@ -346,15 +346,15 @@ const ContactDetails = React.memo(() => {
 
 
 
-        // setErrorMessage('Form submitted successfully')
-        // setIsNewLead(false)
-        // setErrorMessage( res.data.errMsg)
+    // setErrorMessage('Form submitted successfully')
+    // setIsNewLead(false)
+    // setErrorMessage( res.data.errMsg)
 
 
 
-        // resetFirstName();
-        // resetLastName();
-        // resetEmail();
+    // resetFirstName();
+    // resetLastName();
+    // resetEmail();
     // };
     const updateHandler = event => {
         event.preventDefault();
@@ -421,10 +421,10 @@ const ContactDetails = React.memo(() => {
                     onFinish={submitHandler}
                     onFinishFailed={failedHandler}
 
-                    >
-                    <Row gutter={[0, 30]} justify="center">
+                >
+                    <Row className='m0a' gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="2" />
-                        <Col className=" form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
+                        <Col className=" form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
                             <p className="form-title">Contact Details</p>
                             <Row gutter={16} className="mb2"  >
                                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -497,6 +497,9 @@ const ContactDetails = React.memo(() => {
                                         style={{ marginBottom: '1rem' }}
                                     >
                                         <Select
+                                            bordered={false}
+                                            style={{ marginTop: '-10px' }}
+                                            className='select-box'
                                             size="large"
                                             placeholder="India">
                                         </Select>
@@ -519,6 +522,9 @@ const ContactDetails = React.memo(() => {
 
                                     >
                                         <Select
+                                            style={{ marginTop: '-10px' }}
+                                            bordered={false}
+                                            className='select-box'
                                             size="large"
                                             placeholder="Select Your State"
                                             options={stateOptions}
@@ -544,6 +550,9 @@ const ContactDetails = React.memo(() => {
 
                                     >
                                         <Select
+                                            style={{ marginTop: '-10px' }}
+                                            bordered={false}
+                                            className='select-box'
                                             size="large"
                                             placeholder="Select a city"
                                             options={citiesOptions}
@@ -568,6 +577,7 @@ const ContactDetails = React.memo(() => {
                                                 message: 'Pincode must be of 6 characters'
                                             }
                                         ]}
+                                        style={{ marginBottom: '1rem' }}
                                     >
                                         <Input
                                             className="first-name input-box"
@@ -592,6 +602,7 @@ const ContactDetails = React.memo(() => {
                                                 message: 'Mobile No must be of 10 characters'
                                             }
                                         ]}
+                                        style={{ marginBottom: '1rem' }}
                                     >
                                         <Input
                                             className="first-name input-box"
@@ -616,6 +627,7 @@ const ContactDetails = React.memo(() => {
                                                 message: 'Mobile No must be of 10 characters'
                                             }
                                         ]}
+                                        style={{ marginBottom: '1rem' }}
                                     >
                                         <Input
                                             className="first-name input-box"
@@ -634,6 +646,7 @@ const ContactDetails = React.memo(() => {
                                                 required: false,
                                             },
                                         ]}
+                                        style={{ marginBottom: '1rem' }}
                                     >
                                         <Input
                                             className="first-name input-box"
@@ -658,6 +671,7 @@ const ContactDetails = React.memo(() => {
                                                 message: 'Aadhar No must be of 12 characters'
                                             }
                                         ]}
+                                        style={{ marginBottom: '1rem' }}
                                     >
                                         <Input
                                             className="first-name input-box"
@@ -678,6 +692,7 @@ const ContactDetails = React.memo(() => {
                                                 message: 'Please provide valid email'
                                             },
                                         ]}
+                                        style={{ marginBottom: '1rem' }}
                                     >
                                         <Input
                                             className="first-name input-box"
@@ -696,6 +711,7 @@ const ContactDetails = React.memo(() => {
                                                 required: false,
                                             },
                                         ]}
+                                        style={{ marginBottom: '1rem' }}
                                     >
                                         <Switch
                                             size="large"
@@ -722,6 +738,7 @@ const ContactDetails = React.memo(() => {
                                                         required: false,
                                                     },
                                                 ]}
+                                                style={{ marginBottom: '1rem' }}
                                             >
                                                 <Input
                                                     className="first-name input-box"
@@ -740,6 +757,7 @@ const ContactDetails = React.memo(() => {
                                                         required: false,
                                                     },
                                                 ]}
+                                                style={{ marginBottom: '1rem' }}
                                             >
                                                 <Input
                                                     className="first-name input-box"
@@ -758,6 +776,7 @@ const ContactDetails = React.memo(() => {
                                                         required: false,
                                                     },
                                                 ]}
+                                                style={{ marginBottom: '1rem' }}
                                             >
                                                 <Input
                                                     className="first-name input-box"
@@ -778,11 +797,13 @@ const ContactDetails = React.memo(() => {
                                                         message: 'Please select your city!',
                                                     },
                                                 ]}
-                                                style={{ marginBottom: '1rem' }}
+                                            style={{ marginBottom: '1rem' }}
                                             >
                                                 <Select
+                                                    bordered={false}
+                                                    style={{ width: '100%', boxShadow: 'none', borderBottom: 'rgb(153, 153, 153) 1px solid', height: '2.5rem', marginTop: '-10px' }}
                                                     size="large"
-                                                    placeholder="India">
+                                                    placeholder="Select Your Country">
                                                 </Select>
                                             </Form.Item>
                                         </Col>
@@ -799,10 +820,13 @@ const ContactDetails = React.memo(() => {
                                                         message: 'Select your State!',
                                                     },
                                                 ]}
-                                                style={{ marginBottom: '1rem' }}
+                                            style={{ marginBottom: '1rem' }}
 
                                             >
                                                 <Select
+                                                    style={{ marginTop: '-10px' }}
+                                                    bordered={false}
+                                                    className='select-box'
                                                     size="large"
                                                     placeholder="Select Your State"
                                                     options={stateOptions}
@@ -824,10 +848,13 @@ const ContactDetails = React.memo(() => {
                                                         message: 'Please select your city!',
                                                     },
                                                 ]}
-                                                style={{ marginBottom: '1rem' }}
+                                            style={{ marginBottom: '1rem' }}
 
                                             >
                                                 <Select
+                                                    style={{ marginTop: '-10px' }}
+                                                    bordered={false}
+                                                    className='select-box'
                                                     size="large"
                                                     placeholder="Select a city"
                                                     options={citiesOptions}
@@ -852,6 +879,7 @@ const ContactDetails = React.memo(() => {
                                                         message: 'Pincode must be 6 characters'
                                                     }
                                                 ]}
+                                                style={{ marginBottom: '1rem' }}
                                             >
                                                 <Input
                                                     className="first-name input-box"
@@ -863,41 +891,44 @@ const ContactDetails = React.memo(() => {
                                 }
                             </Row>
                         </Col>
-                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6:0}>
-                            <Row gutter={[8,8]}>
+                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
+                            <Row gutter={[8, 8]}>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button 
-                                        type="primary" 
+                                    <Button
+                                    className="last-btn-1"
+                                        type="primary"
                                         // shape="round" 
-                                        size="large" 
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} 
-                                        icon={<ArrowLeftOutlined />} 
-                                        >Previous</Button>
+                                        size="large"
+                                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                                        icon={<ArrowLeftOutlined />}
+                                    >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4} >
                                     <Form.Item>
                                         <Button
+                                        className="last-ss-btn-2"
                                             type="primary"
                                             // shape="round"
                                             size="large"
-                                            style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                                             icon={<FileTextOutlined />} htmlType="submit"
-                                            // disabled={!formIsValid}
-                                            // onClick={updateHandler}
+                                        // disabled={!formIsValid}
+                                        // onClick={updateHandler}
                                         >Update</Button>
                                     </Form.Item>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
                                     <Form.Item>
                                         <Button
+                                        className="last-btn-3"
                                             type="primary"
                                             // shape="round"
                                             size="large"
-                                            style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                                             icon={<ArrowRightOutlined />}
                                             htmlType="submit"
-                                            // onClick={proceedHandler}
-                                            >Proceed</Button>
+                                        // onClick={proceedHandler}
+                                        >Proceed</Button>
                                     </Form.Item>
                                 </Col>
                             </Row>

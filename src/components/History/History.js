@@ -53,7 +53,7 @@ const History = () => {
         // {
             // proposalArrObject !== null &&
             <>
-                <h2 className="his-title m0a">Lead Data</h2>
+                <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}} >Lead Data</h2>
                 <Timeline className="p20">
                     {leadArrObject.map((leadData) =>
                         <Timeline.Item color="red">
@@ -78,7 +78,7 @@ const History = () => {
         // {
             // proposalArrObject !== null &&
             <>
-                <h2 className="his-title m0a">Appointment Data</h2>
+                <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Appointment Data</h2>
                 <Timeline className="p20">
                     {appointmentArrObject.map((leadData) =>
                         <Timeline.Item color="red">
@@ -101,7 +101,7 @@ const History = () => {
 
 let proposalElement = (
     <>
-        <h2 className="his-title m0a">Proposal Data</h2>
+        <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Proposal Data</h2>
         <Timeline className="p20">
             {proposalArrObject.map((leadData) =>
                 <Timeline.Item color="red">
@@ -131,6 +131,7 @@ useEffect(() => {
 return (
     <>
         <Tabs
+            tabBarGutter={0}
             tabMenu={tabMenu}
             header="New Lead"
             detailsRouteTab={historyRoute}

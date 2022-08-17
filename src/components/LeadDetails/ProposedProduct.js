@@ -111,7 +111,7 @@ const ProposedProduct = () => {
         ...storeFormData,
 
     };
-    const failedHandler = (error)=>{
+    const failedHandler = (error) => {
         alert(error)
         console.log(error)
     }
@@ -119,19 +119,19 @@ const ProposedProduct = () => {
         // event.preventDefault();
 
         dispatch(actions.editLead(formData, storeLeadId))
-        .then((res)=>{
-            if (res.type === "EDIT_LEAD_SUCCESS") {
-              console.log('success:', res);
-              setErrorMessage()
-            //   setIsNewLead(false)
-              
-            }else if(res.type==='EDIT_LEAD_FAIL'){
-              console.log('failed:', res);
-    
-              failedHandler(res.error)
-              console.log(res)
-            }
-          })
+            .then((res) => {
+                if (res.type === "EDIT_LEAD_SUCCESS") {
+                    console.log('success:', res);
+                    setErrorMessage()
+                    //   setIsNewLead(false)
+
+                } else if (res.type === 'EDIT_LEAD_FAIL') {
+                    console.log('failed:', res);
+
+                    failedHandler(res.error)
+                    console.log(res)
+                }
+            })
         alert('New Lead Updated Successfully')
         // history.replace('leadmasterpage/statuslead')
     };
@@ -150,7 +150,7 @@ const ProposedProduct = () => {
                     className="contact-detail-form"
                     onFinish={submitHandler}
                 >
-                    <Row gutter={['', 20]} justify="center">
+                    <Row className='m0b' gutter={['', 20]} justify="center">
                         <LeadDetailsTab activeKey="5" />
                         <Col className="form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
                             <p className="form-title">Proposed Product</p>
@@ -170,6 +170,9 @@ const ProposedProduct = () => {
                                         ]}
                                     >
                                         <Select
+                                            bordered={false}
+                                            style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid' }}
+                                            className='form-input-box'
                                             value={product}
                                             options={productCategoryOptions}
                                             size="large"
@@ -194,6 +197,9 @@ const ProposedProduct = () => {
                                         ]}
                                     >
                                         <Select
+                                            bordered={false}
+                                            style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid' }}
+                                            className='form-input-box'
                                             value={planNameValue}
                                             options={planOptions}
                                             size="large"
@@ -216,12 +222,13 @@ const ProposedProduct = () => {
                                                 message: 'Select Closure Date',
                                             },
                                         ]}
+                                        style={{marginBlock:'1rem'}}
                                     >
                                         <DatePicker
                                             value={closureDate}
                                             onChange={closureDateHandler}
                                             size="large"
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%", boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid', height: '2.7rem' }}
                                             placeholder="dd/mm/yyyy" />
                                     </Form.Item>
                                 </Col>
@@ -238,8 +245,10 @@ const ProposedProduct = () => {
                                                 message: 'Select plan name',
                                             },
                                         ]}
+                                        style={{marginBlock:'1rem'}}
                                     >
                                         <Input
+                                            style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid',height:'2.7rem' }}
                                             value={expectedMoney}
                                             onChange={expectedMoneyHandler}
                                             className="first-name input-box"
@@ -250,13 +259,13 @@ const ProposedProduct = () => {
                             </Row>
                         </Col>
 
-                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6:0}>
-                            <Row gutter={[8,8]}>
+                        <Col className='form-body  p10' style={{ marginBottom: "20px" }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
+                            <Row gutter={[8, 8]}>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 0} >
                                     <Button
-                                        type="primary" 
+                                        type="primary"
                                         // shape="round" 
-                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                        size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4}>
                                     <Form.Item>
@@ -264,7 +273,7 @@ const ProposedProduct = () => {
                                             type="primary"
                                             // shape="round"
                                             size="large"
-                                            style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                                             icon={<FileTextOutlined />}
                                             // onClick={submitHandler}
                                             htmlType="submit"

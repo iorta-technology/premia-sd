@@ -1,6 +1,14 @@
 import React from 'react'
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Applications } from './components/Applications/Applications';
+import { ProposalTabs } from './components/Applications/Proposals';
+import  BenefitIllustrator from './components/BenefitIllustrator/BenefitIllustrator'
+import ProposalFulfilment from './components/ProposalFulfilment/ProposalFulfilment';
+import { LeadReport } from './components/LeadReport/LeadReport';
+import { LeadReport2 } from './components/LeadReport/LeadReport2';
+
+
 import { Spin } from 'antd';
 const Master = React.lazy(() => import('./containers/Master/index'))
 const LeadMaster = React.lazy(() => import('./containers/LeadMaster/index'))
@@ -36,7 +44,7 @@ const AgentMicroService = React.lazy(() => import('./components/AgentMicroSite/A
 const KpiDashboard = React.lazy(() => import('./components/KpiDashboard/KpiDashboard'))
 const Blog = React.lazy(() => import('./components/AgentMicroSite/Blog'))
 const AdvisorPitch = React.lazy(() => import('./components/AdvisorPitch/AdvisorPitch'))
-const BenefitIllustrator = React.lazy(() => import('./components/BenefitIllustrator/BenefitIllustrator'))
+// const BenefitIllustrator = React.lazy(() => import('./components/BenefitIllustrator/BenefitIllustrator'))
 const ForCustomer = React.lazy(() => import('./components/ForCustomer/ForCustomer'))
 const ForSelf = React.lazy(() => import('./components/ForSelf/ForSelf'))
 const RenewalReport = React.lazy(() => import('./components/RenewalReport/RenewalReport'))
@@ -56,7 +64,7 @@ const ExistingPartner = React.lazy(() => import('./components/Partners/ExistingP
 const ExistingPartnerDetails = React.lazy(() => import('./components/Partners/ExistingPartnerDetails'))
 const MappedBranches = React.lazy(() => import('./components/MappedBranches/MappedBranches'))
 const LoanProducts = React.lazy(() => import('./components/Products/LoanProducts'))
-const ProposalFulfilment = React.lazy(() => import('./components/ProposalFulfilment/ProposalFulfilment'))
+// const ProposalFulfilment = React.lazy(() => import('./components/ProposalFulfilment/ProposalFulfilment'))
 const PrePaymentReview = React.lazy(() => import('./components/PrePaymentReview/PrePaymentReview'))
 const PaymentOptions = React.lazy(() => import('./components/PaymentOptions/PaymentOptions'))
 const ProposalHistory = React.lazy(() => import('./components/ProposalHistory/ProposalHistory'))
@@ -66,6 +74,8 @@ const UploadDocuments = React.lazy(() => import('./components/UploadDocuments/Up
 const AdvisorProfile = React.lazy(() => import('./components/AdvisorProfile/AdvisorProfile'))
 const Dashboard = React.lazy(() => import('./components/Dashboard/Dashboard'))
 const BulkAction = React.lazy(() => import('./components/BulkAction/BulkAction'))
+
+
 function App() {
   // const logindata = stoageGetter('user')
   // if(!logindata){
@@ -82,6 +92,8 @@ function App() {
   //   )
   // }
   return (
+
+
     <React.Suspense fallback={<Spin size="large" className="loader" />}>
 
       <Router>
@@ -152,6 +164,25 @@ function App() {
                 <Route path="/leadmasterpage/leadmasterdoc/leaddoc" component={DocumentsUpload}></Route>
                 <Route path="/leadmasterpage/leadhistorymaster/leadhistory" component={History}></Route>
                 <Route path="/advisorOnboarding/:type" component={AdvisorList}></Route>
+                
+
+                <Route path="/master/proposalTabs" component={ProposalTabs}></Route>
+                {/* <Route path="/master/benefitillustrator" component={ProposalTabs}></Route> */}
+                <Route path="/applications" component={Applications}></Route>
+                <Route path="/PropsalFulfilment" component={ProposalFulfilment}></Route>
+                <Route path="/leads-report" component={LeadReport}></Route>
+                <Route path="/leads-report2" component={LeadReport2}></Route>
+                {/* <Route path="/Applications" component={Applications}></Route> */}
+                {/* <Route path="/BenefitIllustrator" component={BenefitIllustrator}></Route> */}
+
+
+
+              
+                
+
+
+                
+                
               </div>
               </div>
               {/* <Route path="/existingpartner" component={ExistingPartner}/> */}

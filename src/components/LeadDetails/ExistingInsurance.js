@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Form, Switch, Button, Input, Select, Modal, Space, DatePicker, Table,Radio } from 'antd';
+import { Row, Col, Form, Switch, Button, Input, Select, Modal, Space, DatePicker, Table, Radio } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined, CloseCircleOutlined, FileTextOutlined } from '@ant-design/icons';
 import Tabs from '../Tab/Tab'
 import LeadDetailsTab from './LeadDetailsTab';
@@ -77,12 +77,12 @@ const ExistingInsurenceDetails = () => {
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeLifeInsArr = useSelector((state) => state.newLead.formData.HaveLifeInsurance_details)
     console.log(storeLifeInsArr)
-    if(storeLifeInsArr==='' || storeLifeInsArr==='[]' || storeLifeInsArr===undefined){
+    if (storeLifeInsArr === '' || storeLifeInsArr === '[]' || storeLifeInsArr === undefined) {
         storeLifeInsArr = []
     }
     let storeHealthInsArr = useSelector((state) => state.newLead.formData.Insurancedetails)
     console.log(storeHealthInsArr)
-    if(storeHealthInsArr==='' || storeHealthInsArr==='[]' || storeHealthInsArr===undefined){
+    if (storeHealthInsArr === '' || storeHealthInsArr === '[]' || storeHealthInsArr === undefined) {
         storeHealthInsArr = []
     }
 
@@ -91,7 +91,7 @@ const ExistingInsurenceDetails = () => {
     const [form] = Form.useForm();
     const [width, setWidth] = useState(window.innerWidth);
     const [haveLifeInsurence, sethaveLifeInsurece] = useState(storeFormData.HaveLifeInsurance.ExistInsur)
-    const [lifeInsToggle,setLifeInsToggle] = useState(()=>{
+    const [lifeInsToggle, setLifeInsToggle] = useState(() => {
         if (storeFormData.HaveLifeInsurance.ExistInsur === 'Yes') {
             // console.log('have children')
             return true
@@ -100,14 +100,14 @@ const ExistingInsurenceDetails = () => {
         }
     })
     const [haveHealthInsurece, sethaveHealthInsurece] = useState(storeFormData.HaveLifeInsurance.ExistInsur)
-    const [healthInsToggle, setHealthInsToggle] = useState(()=>{
+    const [healthInsToggle, setHealthInsToggle] = useState(() => {
         if (storeFormData.HaveLifeInsurance.ExistHealthInsur === 'Yes') {
             // console.log('have children')
             return true
         } else {
             return false
         }
-        
+
     })
 
     const [lifeInsuranceYes, setLifeInsuranceYes] = useState()
@@ -135,17 +135,17 @@ const ExistingInsurenceDetails = () => {
     const [haveChronicDisease, sethaveChronicDisease] = useState(false)
     const [diseaseDescription, setDiseaseDescription] = useState('')
     const [errorMessage, setErrorMessage] = useState()
-    const [lifeInsObj, setlifeInsObj] = useState(()=>{
-        if(!_.isEmpty(storeLifeInsArr)){
+    const [lifeInsObj, setlifeInsObj] = useState(() => {
+        if (!_.isEmpty(storeLifeInsArr)) {
             return storeLifeInsArr
-        }else{
+        } else {
             return []
         }
     })
-    const [healthInsObj, setHealthInsObj] = useState(()=>{
-        if(!_.isEmpty(storeHealthInsArr)){
+    const [healthInsObj, setHealthInsObj] = useState(() => {
+        if (!_.isEmpty(storeHealthInsArr)) {
             return storeHealthInsArr
-        }else{
+        } else {
             return []
         }
     })
@@ -154,8 +154,8 @@ const ExistingInsurenceDetails = () => {
     useEffect(() => {
         form.setFieldsValue({
             // life ins
-            "healthInsuranceSwitch":haveHealthInsurece,
-            "lifeInsuranceSwitch":haveLifeInsurence,
+            "healthInsuranceSwitch": haveHealthInsurece,
+            "lifeInsuranceSwitch": haveLifeInsurence,
             "insurer": insurer,
             "lifeSumAssured": lifeSumAssured,
             "policyType": policyType,
@@ -193,7 +193,7 @@ const ExistingInsurenceDetails = () => {
         // sethaveLifeInsurece(!haveLifeInsurence)
         const val = event.target.value
         sethaveLifeInsurece(val)
-        val==='Yes'?  setLifeInsToggle(true):setLifeInsToggle(false)
+        val === 'Yes' ? setLifeInsToggle(true) : setLifeInsToggle(false)
         // if (value) {
         //     console.log(haveLifeInsurence)
         // } else {
@@ -207,7 +207,7 @@ const ExistingInsurenceDetails = () => {
         // sethaveHealthInsurece(!haveHealthInsurece)
         const val = event.target.value
         sethaveHealthInsurece(val)
-        val==="Yes" ? setHealthInsToggle(true):setHealthInsToggle(false)
+        val === "Yes" ? setHealthInsToggle(true) : setHealthInsToggle(false)
         // if (value) {
         //     console.log(haveHealthInsurece)
 
@@ -400,7 +400,7 @@ const ExistingInsurenceDetails = () => {
         dispatch(actions.storeLead(storeFormData))
         history.push('productlead')
     };
-    const failedHandler = (error)=>{
+    const failedHandler = (error) => {
         alert(error)
         console.log(error)
     }
@@ -415,19 +415,19 @@ const ExistingInsurenceDetails = () => {
         } else {
 
             dispatch(actions.editLead(storeFormData, storeLeadId))
-            .then((res)=>{
-                if (res.type === "EDIT_LEAD_SUCCESS") {
-                  console.log('success:', res);
-                  setErrorMessage()
-                //   setIsNewLead(false)
-                  
-                }else if(res.type==='EDIT_LEAD_FAIL'){
-                  console.log('failed:', res);
-        
-                  failedHandler(res.error)
-                  console.log(res)
-                }
-            })
+                .then((res) => {
+                    if (res.type === "EDIT_LEAD_SUCCESS") {
+                        console.log('success:', res);
+                        setErrorMessage()
+                        //   setIsNewLead(false)
+
+                    } else if (res.type === 'EDIT_LEAD_FAIL') {
+                        console.log('failed:', res);
+
+                        failedHandler(res.error)
+                        console.log(res)
+                    }
+                })
             // alert(' Lead Updated Successfully')
             // history.push('contactlead')
 
@@ -613,8 +613,8 @@ const ExistingInsurenceDetails = () => {
                 <Form
                     layout="horizontal"
                     initialValues={{
-                        "healthInsuranceSwitch":haveHealthInsurece,
-                        "lifeInsuranceSwitch":haveLifeInsurence,
+                        "healthInsuranceSwitch": haveHealthInsurece,
+                        "lifeInsuranceSwitch": haveLifeInsurence,
                         // life insurance
                         "insurer": insurer,
                         "lifeSumAssured": lifeSumAssured,
@@ -638,7 +638,7 @@ const ExistingInsurenceDetails = () => {
                     onFinishFailed={failedHandler}
 
                 >
-                    <Row gutter={[0, 30]} justify="center">
+                    <Row className='m0a' gutter={[0, 30]} justify="center">
                         <LeadDetailsTab activeKey="4" />
                         <Col className="form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 1 : 0}>
                             <p className="form-title">Existing Insurance</p>
@@ -657,13 +657,13 @@ const ExistingInsurenceDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Radio.Group 
-                                                size='large' 
-                                                value={haveLifeInsurence}
-                                                onChange={lifeInsuranceToggle}
-                                            >
-                                                <Radio.Button value="Yes">Yes</Radio.Button>
-                                                <Radio.Button value="No">No</Radio.Button>
+                                        <Radio.Group
+                                            size='large'
+                                            value={haveLifeInsurence}
+                                            onChange={lifeInsuranceToggle}
+                                        >
+                                            <Radio.Button style={{ paddingTop: '6px', paddingLeft: '20px', height: '2rem', width: '4rem' }} value="Yes">Yes</Radio.Button>
+                                            <Radio.Button style={{ paddingTop: '6px', paddingLeft: '20px', height: '2rem', width: '4rem' }} value="No">No</Radio.Button>
                                         </Radio.Group>
                                         {/* <Switch
                                             checkedChildren="No"
@@ -673,18 +673,18 @@ const ExistingInsurenceDetails = () => {
                                              /> */}
                                     </Form.Item>
                                 </Col>
-                                    {lifeInsToggle &&
-                                        <><Col xs={24} sm={24} md={12} lg={12} xl={12} >
-                                            <Button shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
-                                        </Col> 
-                                <Table
-                                    dataSource={lifeInsObj}
-                                    columns={lifeInsColumn}
-                                    rowKey={record => record.id}
-                                    scroll={{ x: 1500 }}
-                                />
-                                </>
-                                    }
+                                {lifeInsToggle &&
+                                    <><Col xs={24} sm={24} md={12} lg={12} xl={5} style={{ marginLeft: '15rem' }} >
+                                        <Button style={{ backgroundColor: 'rgb(59, 55, 30)', color: '#ffff' }} shape="round" size="large" block onClick={showLifeInsurancerModal}>Add Insurance Details</Button>
+                                    </Col>
+                                        <Table
+                                            dataSource={lifeInsObj}
+                                            columns={lifeInsColumn}
+                                            rowKey={record => record.id}
+                                            scroll={{ x: 1500 }}
+                                        />
+                                    </>
+                                }
                                 <>
                                     <Modal
                                         title="Insurance Details"
@@ -729,7 +729,7 @@ const ExistingInsurenceDetails = () => {
                                                         onChange={insurerHandler}
                                                     >
                                                     </Select>
-                                                    
+
                                                 </Form.Item>
                                             </Col>
                                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -886,29 +886,29 @@ const ExistingInsurenceDetails = () => {
                                             },
                                         ]}
                                     >
-                                        <Radio.Group 
-                                            size='large' 
+                                        <Radio.Group
+                                            size='large'
                                             value={haveHealthInsurece}
                                             onChange={healthInsuranceToggle}
-                                            >
-                                            <Radio.Button value="Yes">Yes</Radio.Button>
-                                            <Radio.Button value="No">No</Radio.Button>
+                                        >
+                                            <Radio.Button style={{ paddingTop: '6px', paddingLeft: '20px', height: '2rem', width: '4rem' }} value="Yes">Yes</Radio.Button>
+                                            <Radio.Button style={{ paddingTop: '6px', paddingLeft: '20px', height: '2rem', width: '4rem' }} value="No">No</Radio.Button>
                                         </Radio.Group>
                                         {/* <Switch checkedChildren="No" unCheckedChildren="Yes" defaultChecked={false}  /> */}
                                     </Form.Item>
+                                </Col>
+                                {healthInsToggle &&
+                                    <>  <Col xs={24} sm={24} md={12} lg={12} xl={5} style={{ marginLeft: '42rem', marginBottom: '1rem' }}>
+                                        <Button style={{ backgroundColor: 'rgb(59, 55, 30)', color: '#ffff' }} shape="round" size="large" block onClick={showHealthInsuranceModal}>Add Insurance Details</Button>
                                     </Col>
-                                    {healthInsToggle &&
-                                      <>  <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                            <Button shape="round" size="large" block onClick={showHealthInsuranceModal}>Add Insurance Details</Button>
-                                        </Col> 
-                                    <Table
-                                        dataSource={healthInsObj}
-                                        columns={healthInsColumn}
-                                        rowKey={record => record.id}
-                                        scroll={{ x: 1500 }}
-                                    />
+                                        <Table
+                                            dataSource={healthInsObj}
+                                            columns={healthInsColumn}
+                                            rowKey={record => record.id}
+                                            scroll={{ x: 1500 }}
+                                        />
                                     </>
-                                    }
+                                }
                                 <>
                                     <Modal
                                         title="Insurance Details"
@@ -1111,20 +1111,20 @@ const ExistingInsurenceDetails = () => {
                                 </>
                             </Row>
                         </Col>
-                        <Col className='form-body  p20' style={{ marginBottom: "20px" }}  sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 7 : 0}>
+                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 7 : 0}>
                             <Row gutter={[8, 8]}>
                                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
                                     <Button
                                         type="primary"
                                         // shape="round" 
-                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                        size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={11} sm={12} md={4} >
                                     <Button
                                         type="primary"
                                         // shape="round" 
                                         size="large"
-                                        style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                                         icon={<FileTextOutlined />} htmlType="submit"
                                     // disabled={!formIsValid}
                                     // onClick={updateHandler}
@@ -1135,7 +1135,7 @@ const ExistingInsurenceDetails = () => {
                                         type="primary"
                                         // shape="round"
                                         size="large"
-                                        style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                                         icon={<ArrowRightOutlined />}
                                         onClick={proceedHandler}>Proceed</Button>
                                 </Col>

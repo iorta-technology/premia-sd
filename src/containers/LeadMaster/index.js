@@ -8,6 +8,7 @@ import { Pagination,Button } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
 import {stoageGetter} from '../../helpers'
 import { useHistory } from 'react-router';
+
 const LeadMaster = (props) => {
     //Set current page no of the page
     const [current,setcurrent] = useState(1)
@@ -75,7 +76,7 @@ const LeadMaster = (props) => {
         },
         
     ]
-
+console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
     return (
         <div style={{backgroundColor:'#fafafa'}}>
             <Tab 
@@ -83,13 +84,15 @@ const LeadMaster = (props) => {
                 header="Lead" 
                 // current={current}
                 />
-                <Button type='primary' className='dashboard-btn' onClick={ ()=> history.push('/dashboard') }>Dashboard</Button>
+                {/* <Button type='primary' className="export-btn">Export</Button>
+                <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button> */}
+                {/* <Button type='primary' className='dashboard-btn' onClick={ ()=> history.push('/dashboard') }>Dashboard</Button>
                 <Button type='primary' className="export-btn">Export</Button>
-                <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button>
+                <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button> */}
             {/* <div className="export-btn-holder">
             </div> */}
             <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
-            <div className="page-holder">
+            <div className="page-holder Pagination-Mapbranch">
                 <Pagination
                     responsive
                     current={current}

@@ -138,3 +138,11 @@ export const fetchTeamMember = (id) => {
             })
     }
 }
+
+//----- ACTION FOR CHANGE TAB
+export const updateTabOfDashboard = (globalTab) => {
+    return {
+        type: actionTypes.UPDATE_TAB_POSSITION,
+        globalTab: globalTab,
+    }
+} 

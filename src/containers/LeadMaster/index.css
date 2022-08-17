@@ -47,6 +47,9 @@
 .page-holder>ul>.ant-pagination-options{
     display: none;
 }
+.Pagination-Mapbranch{
+    margin-top: 15rem;
+}
 
 .icon-size{
     font-size: 50px;

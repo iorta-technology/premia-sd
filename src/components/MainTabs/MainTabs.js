@@ -48,7 +48,7 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
                 case "advisorpitch": return history.push('/masterpresales/advisordetail/advisorpitch');
                 
 
-                case "benefitillustrator": return history.push('/master/benefitillustrator');
+                case "benefitillustrator": return history.push('/master/proposalTabs');
                 case "proposalfulfilment": return history.push('/master/proposalfulfilment');
                 case "prepaymentreview": return history.push('/master/prepaymentreview');
                 case "paymentoptions": return history.push('/master/paymentoptions');

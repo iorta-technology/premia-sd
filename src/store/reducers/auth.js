@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility';
 import { stoageGetter, stoageSetter, camelCaseKeys} from '../../helpers';
+import instance from '../../axios-banca';
 
 const initialState = {
     login_agent_data:null,
@@ -14,7 +15,9 @@ const initialState = {
     levelCode:'',
     hierarchy:{},
     minValue:'',
-    checkAgent:false
+    checkAgent:false,
+
+   
 }
 
 let user = stoageGetter('user') 
@@ -40,6 +43,7 @@ const loginSuccess = (state, action) => {
             agent_id: action.login_agent_data.agent_id,
             userId: action.login_agent_data._id,
             // channelCode:action.login_agent_data.channelCode
+            
          })
 }
 const loginFail = (state, action) => {
@@ -80,7 +84,8 @@ const fetchUserDetailsSuccess = (state, action) => {
             fetch_UserDetails_Loading: false, 
             userDetails: userDetails,
             levelCode:userDetails.hierarchy_id.levelCode,
-            channelCode:userDetails.channelCode._id
+            channelCode:userDetails.channelCode._id,
+            
         })
 }
 const fetchUserDetailsFail = (state, action) => {

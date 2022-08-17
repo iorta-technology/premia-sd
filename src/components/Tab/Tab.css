@@ -4,17 +4,116 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    height: 150px;
+    height: 11rem;
     width: 100%;
     margin-bottom: 10px;
+    margin-top: -1rem;
 }
 
 .header-title{
-    font-size: 29px;
+    font-size: 25px;
     color: #00ACC1;
-    margin: 10px 0 10px 120px;
+    margin: 0px 0px 30px 84px !important;
+    padding-top: 20px !important;
     font-weight:bold ;
 
+}
+.round-card-main{
+    display: flex;
+    float: right;
+    width: 15.5rem;
+    margin-right: 5rem !important;
+    margin-top: -50px !important;
+    
+
+   
+    
+}
+.round-cards1{
+    height: 3.3rem;
+    width: 3.3rem;
+    cursor: pointer;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_6_4.png);
+}
+.round-cards1-active{
+    height: 3.3rem;
+    width: 3.3rem;
+    cursor: pointer;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_6_5.png);
+}
+
+.round-cards2{
+    height: 3.3rem;
+    width: 3.3rem;
+    cursor: pointer;
+    margin-left: 0.8rem;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_5_3.png);
+
+}
+.round-cards2-active{
+    height: 3.3rem;
+    width: 3.3rem;
+    cursor: pointer;
+    margin-left: 0.8rem;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_5_4.png);
+
+}
+.round-cards3{
+
+    height: 3.3rem;
+    width: 3.3rem;
+    cursor: pointer;
+    margin-left: 0.8rem;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_7_2.png);
+}
+.round-cards3-active{
+
+    height: 3.3rem;
+    width: 3.3rem;
+    cursor: pointer;
+    margin-left: 0.8rem;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_7_3.png);
+}
+.round-cards43{
+    height: 3.3rem;
+    width: 3.3rem;
+    cursor: pointer;
+    border: none;
+    margin-left: 0.8rem;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_8_4.png);
+
+}
+.card-caption{
+    font-size: 15px;
+    text-align: center;
+    margin-top: 3.3rem;
+    color: black;
+}
+
+ 
+
+.main-lead-tabs{
+    margin-top: 0px;
+    padding-top: 0px;
+    text-align: center;
+    justify-content: center;
+}
+.ant-modal-body1{
+    height: 200rem;
 }
 /* .header-img>.header-title{
     margin-left: 120px;
@@ -40,14 +139,15 @@
 }
 .ant-tabs-tab-btn{
     margin: 0 auto;
+    /* padding: 10px; */
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     margin: 0 auto !important;
     /* color: #ffffff; */
 }
-.ant-tabs-tab.ant-tabs-tab-active{
-    /* background-color: #00ACC1; */
-}
+/* .ant-tabs-tab.ant-tabs-tab-active{
+    background-color: #00ACC1;
+} */
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active{
     color: #fff;
@@ -74,6 +174,19 @@
     .ant-tabs-nav{
         box-shadow: 0px 1px 3px 0px #0000003d;
     }
+    .round-card-main{
+        width: 200px;
+        height: 200px;
+        left: 600px;
+    }
+    .header-img{
+        width: 800px;
+    }
+    .ant-tabs-tab-btn{
+        margin: 0 auto;
+        padding: 10px;
+    }
+  
 }
 @media (min-width:621px){
     .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
@@ -89,7 +202,10 @@
     /* .ant-tabs-tab-btn{
         margin: 0  auto;
     } */
+    
 }
+
+
 
 
 

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import './LeadDetailsTab.css'
 const style = {
     color:"#000",
-    background:'#fff'
+    background:'#fff',
 }
 
 const LeadDetailsTab = (props) => {
@@ -40,13 +40,14 @@ const LeadDetailsTab = (props) => {
         <>
             <Col className="internal-tab"  xs={22} sm={24} md={4} lg={4} xl={4} offset={2}>
                 <Tabs
+                    tabBarGutter={0}
                     tabPosition={width > breakpoint ? 'left' : 'top'}
                     size={width > breakpoint ? 'large' : 'small'}
                     tabBarStyle={style}
                     onTabClick={tabClick}
                     activeKey={props.activeKey}
                 >
-                    <TabPane key="1" tab="Personal Details"></TabPane>
+                    <TabPane key="1" tab="Personal Details" ></TabPane>
                     <TabPane key="2" tab="Contact Details"></TabPane>
                     <TabPane key="3" tab="Professional Details"></TabPane>
                     <TabPane key="4" tab="Existing Insurance"></TabPane>

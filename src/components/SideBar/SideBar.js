@@ -7,6 +7,7 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import './SideBar.css'
 import { IconContext } from 'react-icons/lib';
+import { BarChartOutlined } from '@ant-design/icons';
 import { createBrowserHistory } from "history";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -135,6 +136,18 @@ const Sidebar = () => {
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/rdone.png'/> &nbsp;<span>Recruited</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/failed.png'/> &nbsp;<span>Failed Recruitments</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
               </ul>
+              <h3>Dashboards</h3>
+              <Link to="/leads-report" >
+              <ul>
+              <li> <div> <img src={<BarChartOutlined />}/>&nbsp; <span>Lead Dashboard</span></div></li>
+              </ul>
+              </Link>
+              <Link to="/leads-report2" >
+              <ul>
+              <li> <div><img src='./public/LeadsDashboard'/> &nbsp; <span>Lead Dashboard 2</span></div></li>
+              </ul>
+              </Link>
+              
               <h3>Need Help?</h3>
               <ul>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/needhelp.png'/> &nbsp;<span>Help &amp; FAQs</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>

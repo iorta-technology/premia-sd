@@ -1,105 +1,241 @@
-import {useEffect,useState} from 'react'
+import { useEffect, useState } from 'react'
 import LeadCard from './LeadCard'
 import './LeadCards.css'
 import _ from "lodash";
-import { Row, Col,Avatar,Card } from 'antd'
+import { Row, Col, Avatar, Card, Select } from 'antd'
 import NoRecordsFound from '../NoRcordsFound/NoRecordsFound';
+import { useDispatch, useSelector } from "react-redux";
+
+
+
+import {
+  getTeamMainTabApi,
+  getFirstDropdownValueApi,
+  getSecondDropdownValueApi,
+  getFormByIdApi
+} from "../../components/actions/allleadAction"
+
+import {fetchAllLeadsSuccess} from '../../store/actions/leads'
+
+
 const LeadCards = (props) => {
-    const [width, setWidth] = useState(window.innerWidth);
-    const breakpoint = 620;
+  const leadsData = useSelector((state) => state.leads)
+  // console.warn("leadsData", leadsData)
+  const dispatch = useDispatch()
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint = 620;
 
-     useEffect(() => {
-        const handleWindowResize = () => setWidth(window.innerWidth)
-        window.addEventListener("resize", handleWindowResize);
+  const [firsrDrop, setFirstDrop] = useState([])
+  const [openSecond, setOpenSecond] = useState(false)
+  const [firstValue, setFirstValue] = useState('')
+  const [secondDropData, setSecondDropData] = useState([])
+  const [secondValue, setSecondValue] = useState('')
 
-        // Return a function from the effect that removes the event listener
-        return () => window.removeEventListener("resize", handleWindowResize);
-    }, [width]);
-    let card = [];
-    if(_.isEmpty(props.leads)){return <NoRecordsFound/>    }
-    if (!_.isEmpty(props.leads)) {
-        card = _.map(props.leads, (lead, index) => {
-            return (
-                <>
-                    <Col sm={18}  md={18} lg={11} xl={10}>
-                        <LeadCard
-                            key={lead._id}
-                            id={lead._id}
-                            lead_Id={lead.lead_Id}
-                            leadStatus={lead.leadStatus}
-                            firstName={lead.firstName}
-                            lastName={lead.lastName}
-                            created_date={lead.created_date}
-                            allocatedDate={lead.allocatedDate}
-                            primaryMobile={lead.primaryMobile}
-                            allocatedBy={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
-                            allocatedTo={lead.lead_allocated_by === null? '' :lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
-                            appointmentOn={lead?.appointmentId?.start_date}
-                            loading={props.leadDataLoading}
-                        />
-                    </Col>
-                </>
-            )
-        })
+  useEffect(() => {
+    if (leadsData?.globalTab?.toString() === "team") {
+      getDataForFirstDropdownTeam()
     }
-    return (
-        <div className="cards-container">
-            <Row justify="center" gutter={[18,{ xs: 8, sm: 10, md: 10, lg:18 }]}>
-                {card}
-                {/* this is just a presentational card  */}
-                <Col sm={18}  md={18} lg={11} xl={10} className={width<breakpoint? "dummy-card-mobile":'dummy-card-desktop'} >
-                    <  >
-                        <Card
-                            // key={id}
-                            // loading={props.loading}
-                            className="lead-card-desktop"
-                            hoverable={true}>
-                            <div className="avatar-and-status">
-                                <Avatar size={{ xl: 50 }}></Avatar>
-                            </div>
-                            <div className="content">
-                                <div className="content-header">
-                                    <p className="user-name-text capitalize">
-                                        <span className="user-id uppercase">
-                                        </span>
-                                    </p>
-                                    
-                                </div>
-                                <div className="content-body">
-                                    <Card.Grid hoverable={false} className="grid-style">
-                                        <p className="text-type">Created on</p>
-                                        <p className="text-content"></p>
-                                    </Card.Grid>
-                                    <Card.Grid hoverable={false} className="grid-style">
-                                        <p className="text-type">Created on</p>
-                                        <p className="text-content"></p>
-                                    </Card.Grid>
-                                    <Card.Grid hoverable={false} className="grid-style">
-                                        <p className="text-type">Appointment on</p>
-                                        <p className="text-content">-</p>
-                                    </Card.Grid>
-                                    <Card.Grid hoverable={false} className="grid-style">
-                                        <p className="text-type">Mobile No.</p>
-                                        <p className="text-content"></p>
-                                    </Card.Grid>
-                                    <Card.Grid hoverable={false} className="grid-style">
-                                        <p className="text-type">Allocated by</p>
-                                        <p className="text-content capitalize"></p>
-                                    </Card.Grid>
-                                    <Card.Grid hoverable={false} className="grid-style">
-                                        <p className="text-type">Allocated to</p>
-                                        <p className="text-content capitalize"></p>
-                                    </Card.Grid>
-                                </div>
-                            </div>
-                            <button className="update-btn" >Update</button>
-                        </Card>
-                        
-                    </>
-                </Col>
-            </Row>
+  }, [leadsData])
+
+  const getDataForFirstDropdownTeam = async () => {
+    const response = await getFirstDropdownValueApi()
+    if (response.status == 200) {
+      if (response?.data?.errMsg) {
+        setFirstDrop(response?.data?.errMsg[0])
+      }
+    } else {
+      throw response?.data?.errMsg
+    }
+  }
+
+  useEffect(() => {
+    if(openSecond){
+    getDataForSecondDropdownTeam()
+    }
+  }, [openSecond])
+
+  useEffect(() => {
+    if(secondValue){
+    getDataAfterFilterTeam()
+    }
+  }, [secondValue])
+
+  const getDataForSecondDropdownTeam = async () => {
+    const response = await getSecondDropdownValueApi()
+    if (response.status == 200) {
+      if (response?.data?.errMsg) {
+        const filterValue = []
+        const dropDownData = []
+        _.map(response.data.errMsg, function (layar) {
+          return _.map(layar, function (layarTwo) {
+            filterValue.push(layarTwo[0])
+          })
+        })
+        filterValue &&
+          _.map(filterValue, function (layar) {
+            _.map(layar.subCategories, function (data) {
+              dropDownData.push(data)
+            })
+          })
+        setSecondDropData(dropDownData)
+      }
+    } else {
+      throw response?.data?.errMsg
+    }
+  }
+
+  // console.log("secondDropData", secondDropData)
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth)
+    window.addEventListener("resize", handleWindowResize);
+
+    // Return a function from the effect that removes the event listener
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, [width]);
+  let card = [];
+  if (_.isEmpty(props.leads)) { return <NoRecordsFound /> }
+  if (!_.isEmpty(props.leads)) {
+    card = _.map(props.leads, (lead, index) => {
+      return (
+        <>
+          <Col sm={18} md={18} lg={11} xl={11} >
+            <LeadCard className='lead-agent-card'
+              key={lead._id}
+              id={lead._id}
+              lead_Id={lead.lead_Id}
+              leadStatus={lead.leadStatus}
+              firstName={lead.firstName}
+              lastName={lead.lastName}
+              created_date={lead.created_date}
+              allocatedDate={lead.allocatedDate}
+              primaryMobile={lead.primaryMobile}
+              allocatedBy={lead.lead_allocated_by === null ? '' : lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+              allocatedTo={lead.leadOwnerId === null ? '' : lead.leadOwnerId.first_name + ' ' + lead.leadOwnerId.last_name}
+              appointmentOn={lead?.appointmentId?.start_date}
+              loading={props.leadDataLoading}
+            />
+          </Col>
+        </>
+      )
+    })
+  }
+
+  const handleFirstDropdown = (e) => {
+    e.target.value ? setOpenSecond(true) : setOpenSecond(false)
+    setFirstValue(e.target.value)
+  }
+
+  const getDataAfterFilterTeam = async () => {
+    const response = await getFormByIdApi({id: secondValue})
+    if (response.status == 200) {
+      if (response?.data?.errMsg) {
+        console.log("data *******",response?.data?.errMsg[0])
+        dispatch(fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
+      }
+    } else {
+      throw response?.data?.errMsg
+    }
+  }
+
+
+  return (
+    <div className="cards-container">
+      <div className='dropdown-container' >
+      {leadsData?.globalTab?.toString() === "team" &&
+        <div >
+          <p style={{marginLeft:'3.8rem', marginBottom:'-10px'}}>Select Hierarchy</p>
+          
+          <select
+            className='firstdropdown'
+            name="firstValue"
+            placeholder='Select Hierarchy'
+            value={firstValue}
+            style={{ margin: "10px", marginLeft: "60px", width: "150px",height:'30px',outline:'none' }}
+            onChange={handleFirstDropdown}
+          >
+            <option value="">All</option>
+            {firsrDrop && firsrDrop.length && firsrDrop.map((data) =>
+              <option key={data._id} value={data._id} >{data.hierarchyName}</option>
+            )}
+          </select>
         </div>
-    )
+      }
+      {openSecond && leadsData?.globalTab?.toString() === "team" &&
+        <div >
+           <p style={{marginLeft:'1.3rem', marginBottom:'-10px'}}>Select Team Member</p>
+
+          <select
+          className='seconddropdown'
+            name="secondValue"
+            value={secondValue}
+            style={{ margin: "10px", marginLeft: "20px", width: "150px",height:'30px',outline:'none', }}
+            onChange={e => setSecondValue(e.target.value)} >
+            <option value="">All</option>
+            {secondDropData && secondDropData.length && secondDropData.map((data) =>
+              data.hierarchy_id === firstValue &&
+              <option key={data._id} value={data._id} >{data.name}</option>
+            )}
+          </select>
+        </div>
+      }
+
+      </div>
+      <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
+        {card}
+        {/* this is just a presentational card  */}
+        <Col sm={18} md={18} lg={11} xl={10} className={width < breakpoint ? "dummy-card-mobile" : 'dummy-card-desktop'} >
+          <  >
+            <Card
+              // key={id}
+              // loading={props.loading}
+              className="lead-card-desktop"
+              hoverable={true}>
+              <div className="avatar-and-status">
+                <Avatar size={{ xl: 50 }}></Avatar>
+              </div>
+              <div className="content">
+                <div className="content-header">
+                  <p className="user-name-text capitalize">
+                    <span className="user-id uppercase">
+                    </span>
+                  </p>
+
+                </div>
+                <div className="content-body">
+                  <Card.Grid hoverable={false} className="grid-style">
+                    <p className="text-type">Created on</p>
+                    <p className="text-content"></p>
+                  </Card.Grid>
+                  <Card.Grid hoverable={false} className="grid-style">
+                    <p className="text-type">Created on</p>
+                    <p className="text-content"></p>
+                  </Card.Grid>
+                  <Card.Grid hoverable={false} className="grid-style">
+                    <p className="text-type">Appointment on</p>
+                    <p className="text-content">-</p>
+                  </Card.Grid>
+                  <Card.Grid hoverable={false} className="grid-style">
+                    <p className="text-type">Mobile No.</p>
+                    <p className="text-content"></p>
+                  </Card.Grid>
+                  <Card.Grid hoverable={false} className="grid-style">
+                    <p className="text-type">Allocated by</p>
+                    <p className="text-content capitalize"></p>
+                  </Card.Grid>
+                  <Card.Grid hoverable={false} className="grid-style">
+                    <p className="text-type">Allocated to</p>
+                    <p className="text-content capitalize"></p>
+                  </Card.Grid>
+                </div>
+              </div>
+              <button className="update-btn" >Update</button>
+            </Card>
+
+          </>
+        </Col>
+      </Row>
+    </div>
+  )
 }
 
 export default LeadCards

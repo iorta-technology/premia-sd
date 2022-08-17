@@ -14,7 +14,8 @@ const initialState = {
     designations:[],
     fetchTeamMemberError:'',
 
-    teamMember:{}
+    teamMember:{},
+    globalTab: "self",
 
 }
 // lead reducer
@@ -57,6 +58,13 @@ const fetchTeamMemberFail = (state, action) => {
     });
 }
 
+const updateTabOfDashboard = (state, action) => {
+    return updateObject(state, { 
+        fetchTeamMemberLoading: false, 
+        globalTab: action.globalTab 
+    });
+}
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -68,6 +76,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_DESIGNATION_START: return fetchTeamMemberStart(state, action)
         case actionTypes.FETCH_DESIGNATION_SUCCESS: return fetchTeamMemberSuccess(state, action)
         case actionTypes.FETCH_DESIGNATION_FAIL: return fetchTeamMemberFail(state, action)
+        case actionTypes.UPDATE_TAB_POSSITION: return updateTabOfDashboard(state, action)
         default: return state
     }
 }

@@ -12,3 +12,17 @@
 .dummy-card-desktop{
     opacity: 0;
 }
+.firstdropdown{
+    border: none;
+    border-bottom: gray 1px solid;
+
+}
+.seconddropdown{
+    border: none;
+    border-bottom: gray 1px solid;
+    
+}
+.dropdown-container{
+    display: flex;
+    
+}

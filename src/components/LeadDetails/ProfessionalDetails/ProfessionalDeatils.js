@@ -214,13 +214,15 @@ const ProfessionalDetails = () => {
     return (
         <>
             <Tabs
+                className='tabs'
                 tabMenu={tabMenu}
                 header="New Lead"
                 detailsRouteTab={personalRoute}
                 activeKey="2"
 
             />
-            <div className="form-container">
+    
+            <div className="form-container " >
                 <Form
                     layout="horizontal"
                     className="contact-detail-form"
@@ -233,9 +235,9 @@ const ProfessionalDetails = () => {
                     onFinishFailed={failedHandler}
 
                 >
-                    <Row gutter={[0, 20]} justify="center">
-                        <LeadDetailsTab activeKey="3" />
-                        <Col className="form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
+                    <Row className='m0b' gutter={[0, 20]} >
+                    <LeadDetailsTab activeKey="3"  />
+                        <Col className="form-body d0a " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
                             <p className="form-title">Professional Details</p>
                             <Row gutter={16} className="mb-2">
                                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -247,6 +249,8 @@ const ProfessionalDetails = () => {
                                         hasFeedback
                                     >
                                         <Select
+                                            bordered={false}
+                                            className='select-box'
                                             size="large"
                                             options={educationOptions}
                                             placeholder="Select"
@@ -269,6 +273,8 @@ const ProfessionalDetails = () => {
                                         ]}
                                     >
                                         <Select
+                                            bordered={false}
+                                            className='select-box'
                                             size="large"
                                             options={professionOptions}
                                             placeholder="Select"
@@ -291,6 +297,8 @@ const ProfessionalDetails = () => {
                                         ]}
                                     >
                                         <Select
+                                            bordered={false}
+                                            className='select-box'
                                             size="large"
                                             options={incomeGroupOptions}
                                             placeholder="Select "
@@ -301,21 +309,23 @@ const ProfessionalDetails = () => {
                             </Row>
                         </Col>
 
-                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0} >
+                        <Col className='form-body d0b' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0} >
                             <Row gutter={[8, 8]}>
                                 <Col xs={12} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
                                     <Button 
+                                        className="last-btn-11"
                                         type="primary" 
                                         // shape="round" 
-                                        size="large" style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                        size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
                                 <Col xs={12} sm={12} md={4} >
                                     <Form.Item>
                                         <Button
+                                            className="last-btn-22"
                                             type="primary"
                                             // shape="round"
                                             size="large"
-                                            style={{ backgroundColor: 'rgb(0,172,193)', border: 'none' }}
+                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                                             icon={<FileTextOutlined />} htmlType="submit"
                                             // disabled={!formIsValid}
                                             // onClick={updateHandler}
@@ -325,10 +335,11 @@ const ProfessionalDetails = () => {
                                 <Col xs={12} sm={12} md={4}>
                                     <Form.Item>
                                         <Button
+                                            className="last-btn-33"
                                             type="primary"
                                             // shape="round"
                                             size="large"
-                                            style={{ backgroundColor: 'rgb(228,106,37)', border: 'none' }}
+                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
                                             icon={<ArrowRightOutlined />}
                                             htmlType="submit"
                                             // onClick={proceedHandler}
