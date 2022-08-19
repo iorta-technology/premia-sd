@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined ,SaveOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
@@ -49,20 +49,20 @@ const tabMenu = [
     id: 1,
     value: "Status",
   },
+  // {
+  //   id: 2,
+  //   value: "Lead Details"
+  // },
+  // {
+  //   id: 3,
+  //   value: "Proposal Details"
+  // },
+  // {
+  //   id: 4,
+  //   value: "Documents Upload"
+  // },
   {
     id: 2,
-    value: "Lead Details"
-  },
-  {
-    id: 3,
-    value: "Proposal Details"
-  },
-  {
-    id: 4,
-    value: "Documents Upload"
-  },
-  {
-    id: 5,
     value: "History"
   },
 
@@ -1665,12 +1665,12 @@ const NewLead = React.memo(() => {
                         type="primary"
                         // shape="round"
                         size="large"
-                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                        icon={<EditOutlined />}
+                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
+                        icon={<SaveOutlined />}
                         htmlType="submit"
                       // disabled={!formIsValid}
                       // onClick={updateLeadHandler}
-                      >Update</Button>
+                      >Submit</Button>
                     </Form.Item>
                   }
                 </Col>
@@ -1682,10 +1682,10 @@ const NewLead = React.memo(() => {
                       // shape="round"
                       size="large"
                       htmlType="submit"
-                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                      icon={<ArrowRightOutlined />}
+                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
+                      // icon={<ArrowRightOutlined />}
                     // onClick={proceedHandler}
-                    >Proceed</Button>
+                    >Proceed <ArrowRightOutlined /></Button>
                   </Form.Item>
                   {/* </Link> */}
                 </Col>

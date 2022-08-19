@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
 import { getLeadFilter } from '../../helpers';
 import axiosLms from '../../axios-lmsv2';
+// import axiosRequest from '../../axios-request/request.methods';
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -53,6 +54,16 @@ export const fetchAllLeads = (id,leads,pageNo) => {
             .catch(error => {
                 return dispatch(fetchAllLeadsFail(error))
             })
+
+        // let res = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`, { secure: true });
+        // const response = res.data.errMsg
+        // const errorCode = res.data.errCode
+        // if(errorCode===-1){
+
+        //     return dispatch(fetchAllLeadsSuccess(response[0],response[1][0].count))
+        // }else{
+        //     throw response
+        // }
     }
 }
 
@@ -140,9 +151,9 @@ export const fetchTeamMember = (id) => {
 }
 
 //----- ACTION FOR CHANGE TAB
-export const updateTabOfDashboard = (globalTab) => {
-    return {
-        type: actionTypes.UPDATE_TAB_POSSITION,
-        globalTab: globalTab,
-    }
-} 
+// export const updateTabOfDashboard = (globalTab) => {
+//     return {
+//         type: actionTypes.UPDATE_TAB_POSSITION,
+//         globalTab: globalTab,
+//     }
+// } 

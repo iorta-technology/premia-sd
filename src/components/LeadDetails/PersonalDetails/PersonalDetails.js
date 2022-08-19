@@ -37,20 +37,20 @@ const tabMenu = [
         id: 1,
         value: "Status",
     },
+    // {
+    //     id: 2,
+    //     value: "Lead Details"
+    // },
+    // {
+    //     id: 3,
+    //     value: "Proposal Details"
+    // },
+    // {
+    //     id: 4,
+    //     value: "Documents Upload"
+    // },
     {
         id: 2,
-        value: "Lead Details"
-    },
-    {
-        id: 3,
-        value: "Proposal Details"
-    },
-    {
-        id: 4,
-        value: "Documents Upload"
-    },
-    {
-        id: 5,
         value: "History"
     },
 
@@ -62,6 +62,7 @@ const PersonalDetails = () => {
 
     const dispatch = useDispatch()
     const history = useHistory()
+    const [genderRadio, setGenderRadio] = useState('Apple');
 
     let storeFormData = useSelector((state) => state.newLead.formData)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
@@ -385,6 +386,12 @@ const PersonalDetails = () => {
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, []);
+      
+
+    const onChange3 = ({ target: { value } }) => {
+        console.log('radio3 checked', value);
+        setGenderRadio(value);
+    };
     const dateFormat = 'YYYY/MM/DD'
     return (
         <>
@@ -412,8 +419,9 @@ const PersonalDetails = () => {
                     onFinishFailed={failedHandler}
                 >
                     <div className='form-container2'>
+                    <LeadDetailsTab activeKey="1" />
                         <Row className="m0a" gutter={[0, 30]} justify="center">
-                            <LeadDetailsTab activeKey="1" />
+                            
                             <Col className="form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
                                 <p className="form-title">Personal Details</p>
                                 <Row gutter={16} className="mb-2">
@@ -514,11 +522,12 @@ const PersonalDetails = () => {
                                             value={gender}
                                         >
 
-                                            <Radio.Group value={size} onChange={(e) => setSize(e.target.value)}  >
+                                            {/* <Radio.Group value={size} onChange={(e) => setSize(e.target.value)}  >
                                                 <Radio.Button style={{ paddingTop: '6px' }} value="Male">Male</Radio.Button>
                                                 <Radio.Button style={{ paddingTop: '6px' }} value="Female">Female</Radio.Button>
                                                 <Radio.Button style={{ paddingTop: '6px' }} value="Other">Other</Radio.Button>
-                                            </Radio.Group>
+                                            </Radio.Group> */}
+                                            <Radio.Group options={genderOptions} onChange={onChange3} value={genderRadio} optionType="button" />
                                             {/* <Radio.Group size="large" options={genderOptions} value={gender} style={{display:'flex',textAlign:'center'}} optionType="button"> */}
                                             {/* <Radio.Button value="Male">Male</Radio.Button>
                                             <Radio.Button value="Female">Female</Radio.Button>
@@ -659,11 +668,12 @@ const PersonalDetails = () => {
                                                         rules={[{ required: true, message: 'Please pick gender' }]}
                                                         value={childGender}
                                                     >
-                                                        <Radio.Group size="large">
+                                                        {/* <Radio.Group size="large">
                                                             <Radio.Button value="Male">Male</Radio.Button>
                                                             <Radio.Button value="Female">Female</Radio.Button>
                                                             <Radio.Button value="Other">Other</Radio.Button>
-                                                        </Radio.Group>
+                                                        </Radio.Group> */}
+                                                        <Radio.Group options={genderOptions} onChange={onChange3} value={genderRadio} optionType="button" />
                                                     </Form.Item>
                                                 </Col>
                                             </Row>
@@ -682,12 +692,24 @@ const PersonalDetails = () => {
                                                 type="primary"
                                                 // shape="round"
                                                 size="large"
-                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
                                                 icon={<ArrowLeftOutlined />}
                                             >Previous</Button>
                                         </Form.Item>
                                     </Col>
-                                    <Col xs={10} sm={12} md={4} >
+                                    <Col xs={10} sm={12} md={4}  >
+                                        <Form.Item>
+                                            <Button
+                                                className="last-btn-1"
+                                                type="primary"
+                                                // shape="round"
+                                                size="large"
+                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
+                                                icon={<ArrowRightOutlined />}
+                                            >Proceed</Button>
+                                        </Form.Item>
+                                    </Col>
+                                    {/* <Col xs={10} sm={12} md={4} >
                                         <Form.Item>
                                             <Button
                                                 className="last-btn-2"
@@ -700,8 +722,8 @@ const PersonalDetails = () => {
                                             // onClick={updateHandler}
                                             >Update</Button>
                                         </Form.Item>
-                                    </Col>
-                                    <Col xs={10} sm={12} md={4}>
+                                    </Col> */}
+                                    {/* <Col xs={10} sm={12} md={4}>
                                         <Form.Item>
                                             <Button
                                                 className="last-btn-3"
@@ -713,7 +735,7 @@ const PersonalDetails = () => {
                                             // onClick={proceedHandler}
                                             >Proceed</Button>
                                         </Form.Item>
-                                    </Col>
+                                    </Col> */}
                                 </Row>
                             </Col>
                         </Row>

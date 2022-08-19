@@ -11,20 +11,20 @@ const tabMenu = [
         id: 1,
         value: "Status",
     },
+    // {
+    //     id: 2,
+    //     value: "Lead Details"
+    // },
+    // {
+    //     id: 3,
+    //     value: "Proposal Details"
+    // },
+    // {
+    //     id: 4,
+    //     value: "Documents Upload"
+    // },
     {
         id: 2,
-        value: "Lead Details"
-    },
-    {
-        id: 3,
-        value: "Proposal Details"
-    },
-    {
-        id: 4,
-        value: "Documents Upload"
-    },
-    {
-        id: 5,
         value: "History"
     },
 

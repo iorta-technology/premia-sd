@@ -58,20 +58,20 @@ const tabMenu = [
         id: 1,
         value: "Status",
     },
+    // {
+    //     id: 2,
+    //     value: "Lead Details"
+    // },
+    // {
+    //     id: 3,
+    //     value: "Proposal Details"
+    // },
+    // {
+    //     id: 4,
+    //     value: "Documents Upload"
+    // },
     {
         id: 2,
-        value: "Lead Details"
-    },
-    {
-        id: 3,
-        value: "Proposal Details"
-    },
-    {
-        id: 4,
-        value: "Documents Upload"
-    },
-    {
-        id: 5,
         value: "History"
     },
 
@@ -235,120 +235,129 @@ const ProfessionalDetails = () => {
                     onFinishFailed={failedHandler}
 
                 >
-                    <Row className='m0b' gutter={[0, 20]} >
-                    <LeadDetailsTab activeKey="3"  />
-                        <Col className="form-body d0a " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
-                            <p className="form-title">Professional Details</p>
-                            <Row gutter={16} className="mb-2">
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="education"
-                                        label="Education"
-                                        hasFeedback
-                                    >
-                                        <Select
-                                            bordered={false}
-                                            className='select-box'
-                                            size="large"
-                                            options={educationOptions}
-                                            placeholder="Select"
-                                            onChange={educationDetailsHandler}>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="professionType"
-                                        label="Profession Type"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select your Marital Status!',
-                                            },
-                                        ]}
-                                    >
-                                        <Select
-                                            bordered={false}
-                                            className='select-box'
-                                            size="large"
-                                            options={professionOptions}
-                                            placeholder="Select"
-                                            onChange={professionTypeHandler}>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="incomeGroup"
-                                        label="Income Group"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select your Marital Status!',
-                                            },
-                                        ]}
-                                    >
-                                        <Select
-                                            bordered={false}
-                                            className='select-box'
-                                            size="large"
-                                            options={incomeGroupOptions}
-                                            placeholder="Select "
-                                            onChange={incomeGroupHandler}>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Col>
+                    <div className='form-container2'>
+                        <Row className='m0b' gutter={[0, 20]}  justify="center">
+                        <LeadDetailsTab activeKey="3"  />
+                            <Col className="form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
+                                <p className="form-title">Professional Details</p>
+                                <Row gutter={16} className="mb-2">
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="education"
+                                            label="Education"
+                                            hasFeedback
+                                        >
+                                            <Select
+                                                bordered={false}
+                                                className='select-box'
+                                                size="large"
+                                                options={educationOptions}
+                                                placeholder="Select"
+                                                onChange={educationDetailsHandler}>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="professionType"
+                                            label="Profession Type"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select your Marital Status!',
+                                                },
+                                            ]}
+                                        >
+                                            <Select
+                                                bordered={false}
+                                                className='select-box'
+                                                size="large"
+                                                options={professionOptions}
+                                                placeholder="Select"
+                                                onChange={professionTypeHandler}>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="incomeGroup"
+                                            label="Income Group"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select your Marital Status!',
+                                                },
+                                            ]}
+                                        >
+                                            <Select
+                                                bordered={false}
+                                                className='select-box'
+                                                size="large"
+                                                options={incomeGroupOptions}
+                                                placeholder="Select "
+                                                onChange={incomeGroupHandler}>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Col>
 
-                        <Col className='form-body d0b' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0} >
-                            <Row gutter={[8, 8]}>
-                                <Col xs={12} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button 
-                                        className="last-btn-11"
-                                        type="primary" 
-                                        // shape="round" 
-                                        size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
-                                </Col>
-                                <Col xs={12} sm={12} md={4} >
-                                    <Form.Item>
-                                        <Button
-                                            className="last-btn-22"
-                                            type="primary"
-                                            // shape="round"
-                                            size="large"
-                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                                            icon={<FileTextOutlined />} htmlType="submit"
-                                            // disabled={!formIsValid}
-                                            // onClick={updateHandler}
-                                        >Update</Button>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={12} sm={12} md={4}>
-                                    <Form.Item>
-                                        <Button
-                                            className="last-btn-33"
-                                            type="primary"
-                                            // shape="round"
-                                            size="large"
-                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                                            icon={<ArrowRightOutlined />}
-                                            htmlType="submit"
-                                            // onClick={proceedHandler}
-                                            >Proceed</Button>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                            <Col className='form-body d0b' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0} >
+                                <Row gutter={[8, 8]}>
+                                    <Col xs={12} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
+                                        <Button 
+                                            className="last-btn-11"
+                                            type="primary" 
+                                            // shape="round" 
+                                            size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                    </Col>
+                                    <Col xs={12} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
+                                        <Button 
+                                            className="last-btn-11"
+                                            type="primary" 
+                                            // shape="round" 
+                                            size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }} icon={<ArrowRightOutlined />} >Proceed</Button>
+                                    </Col>
+                                    {/* <Col xs={12} sm={12} md={4} >
+                                        <Form.Item>
+                                            <Button
+                                                className="last-btn-22"
+                                                type="primary"
+                                                // shape="round"
+                                                size="large"
+                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                                                icon={<FileTextOutlined />} htmlType="submit"
+                                                // disabled={!formIsValid}
+                                                // onClick={updateHandler}
+                                            >Update</Button>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={12} sm={12} md={4}>
+                                        <Form.Item>
+                                            <Button
+                                                className="last-btn-33"
+                                                type="primary"
+                                                // shape="round"
+                                                size="large"
+                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                                                icon={<ArrowRightOutlined />}
+                                                htmlType="submit"
+                                                // onClick={proceedHandler}
+                                                >Proceed</Button>
+                                        </Form.Item>
+                                    </Col> */}
+                                </Row>
+                            </Col>
+                        </Row>
+                    </div>
                 </Form>
             </div>
         </>

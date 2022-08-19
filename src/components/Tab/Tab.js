@@ -10,7 +10,7 @@ import { stoageGetter } from '../../helpers'
 import { Button } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import LeadCard from '../LeadCards/LeadCard'
-import OffCanvasComp from '../Modal Component/Modal'
+// import OffCanvasComp from '../Modal Component/Modal'
 
 // api's
 import {
@@ -50,6 +50,7 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self")
 
   useEffect(() => {
+    
     const { id } = stoageGetter('user')
     // console.log(typeof(leadType))
     dispatch(actions.fetchAllLeads(id, leadType, 1))
@@ -111,7 +112,7 @@ const Tab = ({
 
     // setactiveKey(key)
     if (activeKey) {
-      // console.log("active key",activeKey)
+      console.log("active key",activeKey)
       switch (activeKey) {
         case 'all':
           return history.push('/leadMaster/all_leads')
@@ -126,15 +127,22 @@ const Tab = ({
 
         case '1':
           return history.push('/leadmasterpage/statuslead')
+        // case '2':
+        //   return history.push('/leadmasterpage/leaddetails/personallead')
+        // case '3':
+        //   return history.push('/leadmasterpage/proposal')
+        // case '4':
+        //   return history.push('/leadmasterpage/leadmasterdoc/leaddoc')
         case '2':
-          return history.push('/leadmasterpage/leaddetails/personallead')
-        case '3':
-          return history.push('/leadmasterpage/proposal')
-        case '4':
-          return history.push('/leadmasterpage/leadmasterdoc/leaddoc')
-        case '5':
-          return history.push('/leadmasterpage/leadhistorymaster/leadhistory')
+          return history.push('/leadmasterpage/leadhistory')
 
+        case 'calendar':
+          return history.push('/calendar')
+
+        case 'todo':
+          return history.push('/todo')
+          
+          
         case 'allrenewals':
           return history.push('/renewalMaster/allRenewals')
         case 'paidrenewals':
@@ -183,6 +191,7 @@ const Tab = ({
       console.log("value", value)
       return <TabPane key={value.id} tab={value.value}></TabPane>
     })
+    // console.warn("tabPane", tabPane)
   }
 
   const [width, setWidth] = useState(window.innerWidth)
@@ -198,7 +207,7 @@ const Tab = ({
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
-    dispatch(actions.updateTabOfDashboard(currentTab))
+    // dispatch(actions.updateTabOfDashboard(currentTab))
     setCurrentActiveTab(currentTab)
     if (currentTab == "team") {
       getAlldataofTeamMainTab()
@@ -218,13 +227,13 @@ const Tab = ({
         <div className="header-img">
           <span className="header-title">{header}</span>
 
-          <div style={{ display: 'flex' }}>
+          <div >
             <Tabs
               tabBarGutter={20}
               centered={false}
               type="card"
               onTabClick={handler}
-              size="large"
+              size="small"
               activeKey={activeKey}
               className="main-lead-tabs"
               style={{ marginLeft: '80px' }}
@@ -346,16 +355,17 @@ const Tab = ({
         </div>
       ) : (
         <>
-          <div className="header-img">
+          <div>
             <Tabs
               tabBarGutter={20}
               centered={true}
               onTabClick={handler}
-              size="large"
+              size="small"
               activeKey={activeKey}
-              style={{ margin: '20px' }}
+              style={{backgroundColor:'#f7f7f7',boxShadow: '0px 1px 10px 0px #0000003d' }}
             >
               {tabPane}
+             
             </Tabs>
           </div>
         </>

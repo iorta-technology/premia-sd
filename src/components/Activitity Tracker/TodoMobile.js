@@ -60,43 +60,15 @@ const App = () => {
             </div>:""
             } */}
             { windowWidth < breakpoint &&
-                <Tabs tabMenu={tabMenu} header="Calendar" activeKey="calendar"/>
+                <Tabs tabMenu={tabMenu} header="To Do" activeKey="todo"/>
             }
             <Row style={{color:"#f7f7f7",marginTop:'20px'}} justify="center">
-                <Col xl={14} md={14} sm={23} xs={22}
-                    // className='Activity-Right'
-                    style={{boxShadow: '0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)',
-                    borderRadius:"2px"}}>
-                    <Card bordered={false}>
-                        <div className='CardBody' style={{marginLeft:'-10px'}}>
-                            <button  className={TeamSelf ? "activate":" "}
-                                onClick={(e)=>{
-                                    setTeamSelf(true)
-                                }}>
-                                <img src={TeamSelf ?person_white:person_black} className='person' alt='person_png'/>Self
-                            </button>
-                            <button 
-                                className={!TeamSelf ? "activate":""}
-                                onClick={(e)=>{
-                                    setTeamSelf(false)
-                                }}
-                            >
-                                <img src={TeamSelf ? group_black:group_white} className='person' alt='group_png'/>Team
-                            </button>
-                        </div>    
-                        {
-                            TeamSelf ? <Self/>:<Team/>
-                        }
+                <Col xl={7} md={8}
+                    className="ActivityCalender-container-TodoCard">
+                    <Card>
+                        <Todo/>
                     </Card>
                 </Col>
-                {windowWidth > breakpoint &&
-                    <Col xl={7} md={8}
-                        className="ActivityCalender-container-TodoCard">
-                        <Card>
-                            <Todo/>
-                        </Card>
-                    </Col>
-                }
             </Row>
         </div>
     );

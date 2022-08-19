@@ -16,7 +16,7 @@ const LeadMaster = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
         const {id} = stoageGetter('user')
-        // console.log(id)
+        // console.log('USER___IDDDD',id)
         dispatch(actions.fetchAllLeads(id,'',current))
     },[dispatch,current]);
 
@@ -83,7 +83,7 @@ console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
                 tabMenu={tabMenu} 
                 header="Lead" 
                 // current={current}
-                />
+            />
                 {/* <Button type='primary' className="export-btn">Export</Button>
                 <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button> */}
                 {/* <Button type='primary' className='dashboard-btn' onClick={ ()=> history.push('/dashboard') }>Dashboard</Button>

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect ,useState } from 'react';
 import './HomePage.css';
 import { Image, Button, Row, Col } from 'antd';
 // import { Bar } from '@ant-design/charts';
@@ -26,6 +26,7 @@ const HomePage = () => {
   const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const dispatch = useDispatch();
   const history = useHistory()
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
 
@@ -122,9 +123,10 @@ const HomePage = () => {
       value: 15,
     }
   ];
+  const breakpoint = 620;
   const config = {
     data: data,
-    width: 356,
+    width: width > breakpoint ? 356 : 333,
     height: 165,
     autoFit: false,
     isGroup: true,
@@ -146,9 +148,11 @@ const HomePage = () => {
   return <Fragment  >
     {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
     <FloatButton />
-    <h3 style={{ textTransform: 'capitalize', fontWeight: 'bold', marginLeft: '4rem', fontSize: '16px' }}>Hi, {logged_in_user}</h3>
-    <Row gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]} justify="center" className="cardHolder ">
-      <Col>
+    {/* <h3 className='ml10' style={{ textTransform: 'capitalize', fontWeight: 'bold', fontSize: '16px',}}>Hi, {logged_in_user}</h3> */}
+    <p className='ml10' style={{ textTransform: 'capitalize', fontWeight: 'bold',fontSize: '16px',marginBottom:'8px'}}>Hi, {logged_in_user}</p>
+    
+    <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" className="cardHolder">
+      <Col >
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <div className="card-content">
             <div className="activity-icon">
@@ -496,7 +500,7 @@ const HomePage = () => {
             <div className="sales-guide-content">
               <div className="b1-content">
                 <Link to="/masterpresales/customerdetails/salespitch">
-                  <p className="sales-content" style={{ height: 35, width: 100 }}>sales pitch</p>
+                  <p className="sales-content" style={{ height: 35, width: 100 }}>Sales Pitch</p>
                 </Link>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
               </div>
