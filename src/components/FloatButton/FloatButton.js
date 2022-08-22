@@ -131,8 +131,8 @@ const FloatButton = React.memo(() => {
                         <Button onClick={addNewLead} type="primary" shape="circle" size="large" icon={<FileTextOutlined />} className={`${styles.leadicon} ${styles.iconpfr}`} style={isopen?open:close}/>
                     </Link>
 
-                    <p className={`${styles.paragraph}  ${styles.recuirementpg} ${styles.pgpfr}`} style={isopen?open:close}>New Recruitment</p>
-                        <Button onClick={showModal} type="primary" shape="circle" size="large" icon={<FileTextOutlined />} className={`${styles.newrecuirement} ${styles.iconpfr}`} style={isopen?open:close}/>
+                    {/* <p className={`${styles.paragraph}  ${styles.recuirementpg} ${styles.pgpfr}`} style={isopen?open:close}>New Recruitment</p> */}
+                        {/* <Button onClick={showModal} type="primary" shape="circle" size="large" icon={<FileTextOutlined />} className={`${styles.newrecuirement} ${styles.iconpfr}`} style={isopen?open:close}/> */}
                        
                        {isModalVisible&&(<Recruitment hideModal={hideModal} />)}
                         

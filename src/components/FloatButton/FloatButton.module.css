@@ -55,6 +55,25 @@
     color: rgb(1, 180, 187);
 }
 
+@media (min-width:320px) {
+    .leadpg{
+        bottom: 107px;
+    }
+    .leadicon{
+        bottom: 115px;
+        background-color: #4caf50;
+    }
+    .eventicon{
+        bottom: 170px;
+        background-color: #00ACC1;
+    
+    }
+    .eventpg{
+    
+        bottom: 164px;
+    }
+}
+
 @media (min-width:992px) {
     .icon{
         bottom: 40px;

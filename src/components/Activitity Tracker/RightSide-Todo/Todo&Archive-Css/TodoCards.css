@@ -9,7 +9,8 @@
 .TodoCards-TimedateArchive{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
+    padding: 8px;
 }
 .TodoCards-TimedateArchive>img{
     height: 14px;
@@ -38,7 +39,7 @@
 }
 .Todo-Footer p{
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 11px;
 }
 
@@ -99,17 +100,27 @@
 .TodoCard-Container-Hamburger{
     position: absolute;
     left: 62%;
-    margin-top: 70px;
+    margin-top: 120px;
     width: 100px;
 }
 .textDecoration{
     text-decoration: line-through;
 }
+hr {
+    margin: 0rem 0;
+    color: inherit;
+    border: 0;
+    border-top: 1px solid;
+    opacity: .25;
+}
 
 @media (min-width: 320px){
+    .todoCard-mr15{
+        margin-right: 15px;
+    }
     .TodoCards-TopClock img{
-         height: 15px;
-        width: 15px;
+         height: 20px;
+        width: 20px;
     }
     .TodoCard-Body-CheckBox >img{
         height: 20px !important;

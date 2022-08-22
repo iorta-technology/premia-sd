@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState , useRef} from 'react'
 import { Typography } from 'antd'
 import {PlusCircleFilled} from '@ant-design/icons'
 import TodoCards from '../RightSide-Todo/Todo-Event-Cards/TodoCards'
@@ -9,9 +9,14 @@ import './Todo.css'
 const Todo = () => {
   const [isActive,setIsActive]=useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const childRef = useRef(null);
   const showModal = () => {
     setIsModalVisible(true);
   };
+  const getTodo = () => {
+    childRef.current.getTodoData(0)
+  }
   return (
     <div className='Todo-Container'>
         <div className='Todo-Top'>
@@ -19,7 +24,7 @@ const Todo = () => {
             <div className='Todo-CreateBtn'>
                 <Typography>Create new Task</Typography>
                 <PlusCircleFilled onClick={showModal}/>
-                <TodoTab isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
+                <TodoTab getTodoData={ getTodo } button={'Create'} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
             </div>
         </div>
         <div className='Todo-Button'>
@@ -47,7 +52,7 @@ const Todo = () => {
         <div className='TodoCards'>
           {
             isActive ?
-            <TodoCards/>
+            <TodoCards ref={childRef}/>
             :
             <Archive/>
           }

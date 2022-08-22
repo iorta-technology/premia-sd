@@ -1,5 +1,6 @@
 import axios from 'axios';
 import apiConfig from '../config/api.config';
+import {  message } from 'antd';
 
 const { baseURL, auth, secure, NODE_ENV} = apiConfig;
 
@@ -22,20 +23,25 @@ function _execRequest(config, options = {secure: true, multipart: false}) {
       const data = res.data;
       if (errCode === -1) {
         if (typeof data.errMsg === 'string') {
-          alert(data.errMsg)
+          // alert(data.errMsg)
+          message.warning(data.errMsg);
         } else {
-          alert('Your request has been resolved successfully');
+          // alert('Your request has been resolved successfully');
+          if(config.method !== 'get') message.success('Your data fetched successfully');
+          
         }
         resolve(data.errMsg);
       } else {
-        alert(data.errMsg);
+        // alert(data.errMsg);
+        message.error(data.errMsg);
         resolve(null);
       }
     })
     .catch(error => {
       if (error.response) {
         console.log(error.response);
-        alert(error.response.data.errMsg);
+        // alert(error.response.data.errMsg);
+        message.error(error.response.data.errMsg);
         if (error.response.status === 400 || error.response.status === 401) {
           try {
             // validation error is comes in 400
@@ -57,19 +63,22 @@ function _execRequest(config, options = {secure: true, multipart: false}) {
               // }, 3000);
             }
           } catch (error) {
-            alert(error.response.data.errMsg);
+            // alert(error.response.data.errMsg);
+            message.error(error.response.data.errMsg);
           }
         }
       } else if (error.request) {
-        alert('Request failed')
+        // alert('Request failed')
+        message.error('Request failed');
       } else {
         console.error(error);
-        alert(`${error.name}: ${error.message}`)
+        // alert(`${error.name}: ${error.message}`)
+        message.error(`${error.name}: ${error.message}`);
       }
       resolve(null);
     })
   }
-  return new Promise(promiseCallback.bind(this));
+  return new Promise(promiseCallback);
 }
 
 export default {

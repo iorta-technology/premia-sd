@@ -358,7 +358,7 @@ const Tab = ({
           <div>
             <Tabs
               tabBarGutter={20}
-              centered={true}
+              centered={false}
               onTabClick={handler}
               size="small"
               activeKey={activeKey}

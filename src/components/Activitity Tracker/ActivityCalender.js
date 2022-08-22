@@ -63,7 +63,7 @@ const App = () => {
                 <Tabs tabMenu={tabMenu} header="Calendar" activeKey="calendar"/>
             }
             <Row style={{color:"#f7f7f7",marginTop:'20px'}} justify="center">
-                <Col xl={14} md={14} sm={23} xs={22}
+                <Col xl={14} md={14} sm={23} xs={23}
                     // className='Activity-Right'
                     style={{boxShadow: '0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)',
                     borderRadius:"2px"}}>

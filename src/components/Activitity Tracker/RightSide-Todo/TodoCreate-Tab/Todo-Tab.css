@@ -31,6 +31,8 @@
 }
 .Todo-Create-Container{
     background-color: rgb(247, 247, 247);
+    padding: 20px;
+    margin-top: -23px;
 }
 .Todo-Col-shadow-box{
     padding: 10px;
@@ -44,12 +46,12 @@
     display: none;
 }
 .Todo-Create-SearchBox{
-    margin-left: 5px;
-    background-color: #a5a9ac;
+    /* margin-left: 5px; */
+    /* background-color: #a5a9ac; */
     width: 55%;
-    border: 0.5px solid #C1C8CC;
-    border-radius: 5px;
-    box-shadow: 0px 2px 2px #00000024;
+    /* border: 0.5px solid #C1C8CC; */
+    /* border-radius: 5px; */
+    /* box-shadow: 0px 2px 2px #00000024; */
 }
 .Todo-Create-SearchBox>input{
     padding: 7px;
@@ -64,12 +66,12 @@
     outline: none;
 }
 .Todo-Create-SearchBox>span{
-    margin-left: 10px;
+    margin-left: 0px;
     color: #fff;
 }
 .Todo-Create-TextBox{
     /* margin: 15px 0; */
-    border: 1px solid #f4f4f4;
+    border: none;
 }
 .Todo-Create-TextBox>input{
     padding: 5px;
@@ -80,7 +82,7 @@
 }
 .Todo-Create-Priority>p,.Todo-Create-Header>p{
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
 }
 .Todo-Create-Priority>button{
     margin: 5px;
@@ -88,16 +90,16 @@
     border-radius: 5px;
 }
 .Todo-Create-FooterReminder{
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
 }
 .Todo-Create-FooterReminder>p{
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
-    margin-bottom: -5px;
-    margin-left: -20px;
+    margin-bottom: 5px;
+    margin-left: 5px;
 }
 .Todo-Create-FooterReminder>input{
     border: 1px solid #C1C8CC;
@@ -119,26 +121,96 @@
 .buttonOpacity{
     opacity: .5 !important;
 }
+.ant-modal-body {
+    padding: 24px;
+    font-size: 14px;
+    line-height: 1.5715;
+    word-wrap: break-word;
+}
+
+
 @media (min-width:320px){
+    .Todo-Create-FooterReminder-Button{
+        display: flex;
+        width: auto;
+        background-color: #e46a25;
+        color: #fff;
+        padding: 6px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+    }
+    .Todo-Create-FooterReminder-mob{
+        /* display: flex; */
+        flex-direction: column;
+        /* justify-content: space-evenly; */
+        /* align-items: center; */
+    }
     .Todo-Create-Container{
-        padding: 20px;
-        margin-top: -23px;
+        padding: 0px;
+        margin-top: 0px;
     }
     .Todo-Col-shadow-box{
         padding: 10px;
     }
+    .ant-modal-body {
+        padding: 0px;
+        font-size: 14px;
+        line-height: 1.5715;
+        word-wrap: break-word;
+    }
+    .Todo-Create-SearchBox{
+        /* margin-left: 5px; */
+        /* background-color: #a5a9ac; */
+        width: 100%;
+        /* border: 0.5px solid #C1C8CC; */
+        /* border-radius: 5px; */
+        /* box-shadow: 0px 2px 2px #00000024; */
+    }
+    .todo-mb20{
+        margin-bottom: 20px;
+    }
+    .todo-ml10{
+        margin-left: 0px;
+    }
+}
+@media (min-width:920px){
+    .todo-ml10{
+        margin-left: 10px;
+    }
+    .Todo-Create-SearchBox{
+        /* margin-left: 5px; */
+        /* background-color: #a5a9ac; */
+        width: 55%;
+        /* border: 0.5px solid #C1C8CC; */
+        /* border-radius: 5px; */
+        /* box-shadow: 0px 2px 2px #00000024; */
+    }
+    .todo-mb20{
+        margin-bottom: 10px;
+    }
+    .Todo-Create-FooterReminder-Button{
+        display: flex;
+        width: 180px;
+        background-color: #e46a25;
+        color: #fff;
+        padding: 6px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+    }
 }
 
-@media (max-width:980px){
+/* @media (max-width:980px){
     .Todo-Create-SearchBox{
         display: flex;
         align-items: center;
     }
     .Todo-Create-SearchBox>span{
         margin-left:0;
-        width: 15%;
+        width: 10%;
     }
-}
+} */
 @media (max-width:1140px){
     .todo-popup-container-width{
         width: 60% !important;
