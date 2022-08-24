@@ -10,6 +10,8 @@ import _ from "lodash";
 import { Link, useHistory } from 'react-router-dom';
 import FloatButton from '../FloatButton/FloatButton';
 import { Column } from '@ant-design/charts';
+import axiosRequest from '../../axios-request/request.methods';
+import {stoageGetter} from '../../helpers'
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
@@ -33,7 +35,8 @@ const HomePage = () => {
     if (id) {
       dispatch(actions.activities(id))
     }
-    userId && dispatch(actions.fetchUserDetails(userId))
+    dispatch(actions.getUserTreeAPI(userId))
+    // userId && dispatch(actions.fetchUserDetails(userId))
     channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
     if (agent_id) {
       dispatch(actions.home(agent_id))

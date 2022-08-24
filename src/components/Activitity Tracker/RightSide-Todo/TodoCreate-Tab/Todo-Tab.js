@@ -1,11 +1,12 @@
-import { Button, Modal,TimePicker,DatePicker,Input ,Select ,message  } from 'antd';
+import { Button, Modal,TimePicker,DatePicker,Input ,Select ,message , AutoComplete  } from 'antd';
 import React, { useEffect, useState } from 'react';
-import {SearchOutlined} from '@ant-design/icons'
+import {SearchOutlined , CloseOutlined} from '@ant-design/icons'
 import moment from 'moment';
 import './Todo-Tab.css'
 import axiosRequest from '../../../../axios-request/request.methods';
 
 import {stoageGetter} from '../../../../helpers'
+import { useDispatch, useSelector } from 'react-redux';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -13,29 +14,63 @@ const { Search } = Input;
 
 const TodoTab = (props) => {  
   // console.log('editData ____________',props)
-
+  
   const [isHighButtonClick ,setIsHighButtonClick]=useState(false)
   const [isMediumButtonClick ,setIsMediumButtonClick]=useState(false)
   const [isLowButtonClick ,setIsLowButtonClick]=useState(false)
   const [priorityBtn ,setPriorityBtn]=useState('')
   const [priorityBtnColr ,setPriorityBtnColr]=useState('')
   const [reminderDate ,setReminderDate]=useState('')
+  const [reminderDateString ,setReminderDateString]=useState('')
   const [todoDesc ,setTodoDesc]=useState('')
   const [selectedTime ,setSelectedTime]=useState('select')
   const [buttonName ,setButtonName]=useState('')
+  const [hierarAgentList ,setHierarAgentList]=useState([])
+  const [teamMemberChip ,setTeamMemberChip]=useState([])
+  const [ownerCollectn ,setOwnerCollectn]=useState([])
+  const [teamMemberData ,setTeamMemberData]=useState('')
+
+  
+  const _dataStore = useSelector((state) => state?.home?.user_tree)
+  
 
   
 
   useEffect(() => {
-    // console.log('Calling func',props.editData);
+    try{
+    // console.log('USER HIERARCHYY ___DATA__',_dataStore)
+    // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
+    let _teamMember = []
+    _dataStore.reporting_users.map(el => {
+          let sortarray = {
+              FullName: el.full_name,
+              ShortId: el.hierarchy_details.hierarchyName,
+              firstname: el.first_name,
+              lastname: el.last_name,
+              employecode: el.employeeCode,
+              designation: el.hierarchy_details.hierarchyName,
+              _Id: el._id,
+              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchy_details.hierarchyName+')'
+          }
+          _teamMember.push(sortarray)
+          sortarray = {};
+
+      })
+      setHierarAgentList(_teamMember)
+
+    // console.log('Calling func',Object.keys(props.editData));
     if(props.button === 'Create' && props.isModalVisible === true) {
       setButtonName(props.button)
       clearData()
     }
 
     if(props.button === 'Update' && props.isModalVisible === true) setButtonName(props.button)
-    if(props.editData !== undefined){
+
+    if(Object.keys(props.editData).length !== 0 || props.editData !== undefined){
       // console.log('I AM HEREEEE',props);
+      let _teamMember = props.editData.searchdata.map(el =>{ return el.value })
+      setTeamMemberChip(_teamMember)
+      setOwnerCollectn(props.editData.searchdata)
       
       let _data = moment(moment(props.editData.dateofreminder).format("YYYY-MM-DD"), "YYYY-MM-DD")
       if(props.editData.taskPriority === 'low'){
@@ -55,13 +90,34 @@ const TodoTab = (props) => {
       setPriorityBtn(props.editData.taskPriority)
       setPriorityBtnColr(props.editData.priorityIndicatorColor)
       setReminderDate(_data)
+      setReminderDateString(moment(props.editData.dateofreminder).format("YYYY-MM-DD"))
       setTodoDesc(props.editData.content)
       setSelectedTime(props.editData.stringtimeofreminder)
       setTodoDesc(props.editData.content)
-
     }
+  }catch(err){}
     
   },[props]);
+
+  let toCapitalize = (strText) =>{
+    try {
+        if (strText !== '' && strText !== null && typeof(strText) !== undefined) {
+            var _str = strText.toLowerCase();
+            var collection = _str.split(" ");
+            var modifyStrigs = [];
+            _str = '';
+            for (var i = 0; i < collection.length; i++) {
+                modifyStrigs[i] = collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+                _str = _str + modifyStrigs[i] + ' ';
+            }
+            return _str;
+        } else {
+            return "";
+        }
+    } catch (err) {
+
+    }
+};
 
   let timeListText = [
     {
@@ -279,7 +335,9 @@ const TodoTab = (props) => {
   const breakpoint = 620;
 
   const onChangeDatePick = (date, dateString) => {
-    console.log(date);
+    // console.log(date);
+    // console.log(dateString);
+    setReminderDateString(dateString)
     setReminderDate(date)
   };
   const submitTodoData = async () =>{
@@ -305,13 +363,22 @@ const TodoTab = (props) => {
             return
         }
 
+        let allocationdata = [];
+        if(ownerCollectn === null || ownerCollectn === undefined || ownerCollectn === ""){
+            allocationdata.push(id);
+
+        }else{
+            ownerCollectn.map(x => { allocationdata.push(x._Id) });
+            allocationdata.push(id);
+        }
+
         let formData ={
-          dateOfReminder: reminderDate,
+          dateOfReminder: reminderDateString,
           description: todoDesc,
-          owernersCollectionDetails: [],
+          owernersCollectionDetails: ownerCollectn,
           priorityIndicatorColor: priorityBtnColr,
           taskOwner: id,
-          taskOwners: ["60069a18579be233d2decf04"],
+          taskOwners:allocationdata,
           taskPriority: priorityBtn,
           timeOfReminder: selectedTime,
           userId: id
@@ -328,13 +395,21 @@ const TodoTab = (props) => {
 
       }else{
 
+        let allocationdata = [];
+        if(ownerCollectn === null || ownerCollectn === undefined || ownerCollectn === ""){
+            allocationdata.push(id);
+
+        }else{
+            ownerCollectn.map(x => { allocationdata.push(x._Id) });
+            allocationdata.push(id);
+        }
         let formData ={
-          dateOfReminder: reminderDate,
+          dateOfReminder: reminderDateString,
           description: todoDesc,
-          owernersCollectionDetails: [],
+          owernersCollectionDetails: ownerCollectn,
           priorityIndicatorColor: priorityBtnColr,
           taskOwner: id,
-          taskOwners: ["60069a18579be233d2decf04"],
+          taskOwners: allocationdata,
           taskPriority: priorityBtn,
           timeOfReminder: selectedTime,
           taskId:props.editData.todoid,
@@ -367,7 +442,37 @@ const TodoTab = (props) => {
     setSelectedTime(value)
     console.log(`selected ${value}`);
   };
-  const onSearch = (value) => console.log(value);
+  
+  const onChangeTeam = (text,data) => {
+    
+    setTeamMemberData('')
+    console.log('onSelect___text', text);
+    console.log('onSelect___data', data);
+    // const [ownerCollectn ,setOwnerCollectn]=useState([])
+    setOwnerCollectn([...ownerCollectn,data])
+  };
+  
+
+  const onSelectTeam = (value) => {
+    // let _chipData = []
+    // _chipData.push(value)
+    // console.log('teamMemberChip ______________', teamMemberChip);
+    let _data = [...new Set([...teamMemberChip,value])]
+    // console.log('_data ______________', _data);
+    setTeamMemberChip(_data)
+    // console.log('TeamMemberChip ______________', teamMemberChip);
+  }
+
+  const removeTeamMember = (data,ind) => {
+    console.log('removeTeamMember', data);
+    console.log('ownerCollectn=====>>', ownerCollectn);
+    let _arrayOwner = ownerCollectn.filter((item,index) => item.value !== data)
+    setOwnerCollectn(_arrayOwner)
+    let _array = teamMemberChip.filter((item,index) => index !== ind)
+    setTeamMemberChip(_array)
+  }
+  
+  
   return (
     <>
       <Modal title="To Do" 
@@ -387,8 +492,33 @@ const TodoTab = (props) => {
                         {/* <input type='text' placeholder='Search by Name'/> */}
                         {/* <SearchOutlined /> */}
                         {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
-                        <Search placeholder="Search by Name" onSearch={onSearch}  />
+                        {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
+                        <AutoComplete
+                          value={teamMemberData}
+                          style={{width: '100%'}}
+                          options={hierarAgentList}
+                          onChange={(text,data)=> onChangeTeam(text,data) }
+                          onSelect={onSelectTeam}
+                          filterOption={(inputValue, option) =>
+                            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                          }>
+                            <Search  placeholder="input here" />
+                          </AutoComplete>
                     </div>
+                    { teamMemberChip.length !== 0 &&
+                        <div style={{display:'flex',flexFlow:'wrap',alignItems:'center'}}>
+                          {
+                            teamMemberChip.map((item,index) =>{
+                              return(
+                                <div style={{marginRight:10,marginTop:10,}}>
+                                  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
+                                </div>
+                              )
+                          })
+                          }
+                        </div>
+                      }
+                    
                     <hr style={{margin:"10px 0", color:"#f4f4f4",opacity:"0.2"}}/>
                     <div className='Todo-Create-TextBox'>
                         <Input value={todoDesc} onChange={(e) => setTodoDesc(e.target.value)} type='text' placeholder='What do you need to remember To Do'/>

@@ -94,6 +94,8 @@ export const FORGOT_PASSWORD_FAIL =  'FORGOT_PASSWORD_FAIL'
 export const HOME_START =  'HOME_START'
 export const HOME_SUCCESS =  'HOME_SUCCESS'
 export const HOME_FAIL =  'HOME_FAIL'
+export const USER_TREE =  'USER_TREE'
+
 
 export const ACTIVITIES_START =  'ACTIVITIES_START'
 export const ACTIVITIES_SUCCESS =  'ACTIVITIES_SUCCESS'

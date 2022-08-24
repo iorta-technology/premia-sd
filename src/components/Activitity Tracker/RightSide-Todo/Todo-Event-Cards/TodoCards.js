@@ -52,7 +52,6 @@ const TodoCards = forwardRef((props, ref) => {
     //     setisEditModalIndex(index)
     // }
     useEffect(()=> {
-        // setSkipVal(0)
         getTodoData(0)
     },[])
 
@@ -457,6 +456,15 @@ const TodoCards = forwardRef((props, ref) => {
                             onChange={onChangePagination}
                         />
                      </div>
+                </div>
+            </div>
+        }
+
+        {showData === false  &&
+            <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center',padding:50}} >  
+                <img src={'https://sdrestdemo.iorta.in/assets/078e54aa9d.png'} style={{height:150,width:100}}/>
+                <div style={{marginTop:10}}>
+                    <text  style={{  textAlign:'center',fontSize:14}} > No records found </text>
                 </div>
             </div>
         }
