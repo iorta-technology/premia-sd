@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 let axiosConfig = {
-    baseURL: "https://sdrestnode.iorta.in/secure/sd/",
+    baseURL: "https://abinsurancenode.salesdrive.app/sdx-api/secure/user/v2/",
     headers: {
         'Content-Type': 'application/json' ,
     }

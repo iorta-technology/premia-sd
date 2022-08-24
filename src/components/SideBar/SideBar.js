@@ -139,12 +139,12 @@ const Sidebar = () => {
               <h3>Dashboards</h3>
               <Link to="/leads-report" >
               <ul>
-              <li> <div> <img src={<BarChartOutlined />}/>&nbsp; <span>Lead Dashboard</span></div></li>
+              <li onClick={()=>setSidebar(false)}> <div> <div className='lead-icon' > </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard</span></div></li>
               </ul>
               </Link>
               <Link to="/leads-report2" >
               <ul>
-              <li> <div><img src='./public/LeadsDashboard'/> &nbsp; <span>Lead Dashboard 2</span></div></li>
+              <li onClick={()=>setSidebar(false)}> <div> <div  className='lead-icon'> </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard 2</span></div></li>
               </ul>
               </Link>
               

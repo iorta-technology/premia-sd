@@ -50,17 +50,28 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self")
 
   useEffect(() => {
-    const { id } = stoageGetter('user')
+    // const { id } = stoageGetter('user')
     // console.log(typeof(leadType))
-    dispatch(actions.fetchAllLeads(id, leadType, 1))
+    // dispatch(actions.fetchAllLeads(id, leadType, 1))
+
+    const ids = stoageGetter('user')
+    // ids && 
+    dispatch(actions.fetchAllLeads(ids[0][0]._id, leadType, 1))
   }, [dispatch, current, activeTab, leadType])
 
   useEffect(() => {
     if (currentActiveTab == 'self') {
-      const { id } = stoageGetter('user')
-      dispatch(actions.fetchAllLeads(id, leadType, 1))
+      // const { id } = stoageGetter('user')
+      // dispatch(actions.fetchAllLeads(id, leadType, 1))
+
+      const ids = stoageGetter('user')
+      // ids && 
+      dispatch(actions.fetchAllLeads(ids[0][0]._id, leadType, 1))
     }
   }, [currentActiveTab])
+
+  // const ids = stoageGetter('user')
+  console.log("--------------------------",leadType)
 
   // ************************Api *********************
 
@@ -87,6 +98,7 @@ const Tab = ({
       if (response?.data?.errMsg) {
         // setAllData(response?.data?.errMsg[0])
         dispatch(actions.fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
+
       }
     } else {
       throw response?.data?.errMsg
@@ -111,7 +123,7 @@ const Tab = ({
 
     // setactiveKey(key)
     if (activeKey) {
-      // console.log("active key",activeKey)
+      console.log("active key",activeKey)
       switch (activeKey) {
         case 'all':
           return history.push('/leadMaster/all_leads')

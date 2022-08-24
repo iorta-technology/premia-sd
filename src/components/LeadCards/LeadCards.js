@@ -15,11 +15,14 @@ import {
   getFormByIdApi
 } from "../../components/actions/allleadAction"
 
-import {fetchAllLeadsSuccess} from '../../store/actions/leads'
+import { fetchAllLeadsSuccess } from '../../store/actions/leads'
 
 
 const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads)
+  const loginState = useSelector((state) => state.login)
+  const { user } = loginState
+  console.log("all**", user[0][0]._id)
   // console.warn("leadsData", leadsData)
   const dispatch = useDispatch()
   const [width, setWidth] = useState(window.innerWidth);
@@ -31,6 +34,8 @@ const LeadCards = (props) => {
   const [secondDropData, setSecondDropData] = useState([])
   const [secondValue, setSecondValue] = useState('')
 
+  const [cards, setcard] = useState([])
+
   useEffect(() => {
     if (leadsData?.globalTab?.toString() === "team") {
       getDataForFirstDropdownTeam()
@@ -38,51 +43,63 @@ const LeadCards = (props) => {
   }, [leadsData])
 
   const getDataForFirstDropdownTeam = async () => {
-    const response = await getFirstDropdownValueApi()
+    const response = await getFirstDropdownValueApi(user && user[0] && user[0][0] && user[0][0]._id)
     if (response.status == 200) {
-      if (response?.data?.errMsg) {
-        setFirstDrop(response?.data?.errMsg[0])
+      if (response?.data?.errMsg?.reporting_hierarchies) {
+        console.log("all*******", response?.data?.errMsg)
+        setFirstDrop(response?.data?.errMsg.reporting_hierarchies)
+        setSecondDropData(response?.data?.errMsg.reporting_users)
       }
     } else {
       throw response?.data?.errMsg
     }
   }
 
-  useEffect(() => {
-    if(openSecond){
-    getDataForSecondDropdownTeam()
-    }
-  }, [openSecond])
+  // useEffect(() => {
+  //   if(openSecond){
+  //   getDataForSecondDropdownTeam()
+  //   }
+  // }, [openSecond])
 
   useEffect(() => {
-    if(secondValue){
-    getDataAfterFilterTeam()
+    if (secondValue) {
+      // getDataAfterFilterTeam()
+      cardShow()
     }
-  }, [secondValue])
+  }, [secondValue,props])
 
-  const getDataForSecondDropdownTeam = async () => {
-    const response = await getSecondDropdownValueApi()
-    if (response.status == 200) {
-      if (response?.data?.errMsg) {
-        const filterValue = []
-        const dropDownData = []
-        _.map(response.data.errMsg, function (layar) {
-          return _.map(layar, function (layarTwo) {
-            filterValue.push(layarTwo[0])
-          })
-        })
-        filterValue &&
-          _.map(filterValue, function (layar) {
-            _.map(layar.subCategories, function (data) {
-              dropDownData.push(data)
-            })
-          })
-        setSecondDropData(dropDownData)
-      }
-    } else {
-      throw response?.data?.errMsg
-    }
-  }
+  useEffect(() => {
+    // if (secondValue) {
+      // getDataAfterFilterTeam()
+      cardShow()
+    // }
+  }, [])
+
+  console.log("****secondValue", secondValue)
+
+  // const getDataForSecondDropdownTeam = async () => {
+  //   const response = await getSecondDropdownValueApi()
+  //   if (response.status == 200) {
+  //     if (response?.data?.errMsg) {
+  //       const filterValue = []
+  //       const dropDownData = []
+  //       _.map(response.data.errMsg, function (layar) {
+  //         return _.map(layar, function (layarTwo) {
+  //           filterValue.push(layarTwo[0])
+  //         })
+  //       })
+  //       filterValue &&
+  //         _.map(filterValue, function (layar) {
+  //           _.map(layar.subCategories, function (data) {
+  //             dropDownData.push(data)
+  //           })
+  //         })
+  //       setSecondDropData(dropDownData)
+  //     }
+  //   } else {
+  //     throw response?.data?.errMsg
+  //   }
+  // }
 
   // console.log("secondDropData", secondDropData)
   useEffect(() => {
@@ -92,33 +109,117 @@ const LeadCards = (props) => {
     // Return a function from the effect that removes the event listener
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
-  let card = [];
-  if (_.isEmpty(props.leads)) { return <NoRecordsFound /> }
-  if (!_.isEmpty(props.leads)) {
-    card = _.map(props.leads, (lead, index) => {
-      return (
-        <>
-          <Col sm={18} md={18} lg={11} xl={11} >
-            <LeadCard className='lead-agent-card'
-              key={lead._id}
-              id={lead._id}
-              lead_Id={lead.lead_Id}
-              leadStatus={lead.leadStatus}
-              firstName={lead.firstName}
-              lastName={lead.lastName}
-              created_date={lead.created_date}
-              allocatedDate={lead.allocatedDate}
-              primaryMobile={lead.primaryMobile}
-              allocatedBy={lead.lead_allocated_by === null ? '' : lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
-              allocatedTo={lead.leadOwnerId === null ? '' : lead.leadOwnerId.first_name + ' ' + lead.leadOwnerId.last_name}
-              appointmentOn={lead?.appointmentId?.start_date}
-              loading={props.leadDataLoading}
-            />
-          </Col>
-        </>
-      )
-    })
+
+
+  const cardShow = () => {
+
+
+
+
+    if (secondValue) {
+      console.log("********data",secondDropData)
+      let newCards = secondDropData.filter(data =>
+        data.reporting_manager === secondValue)
+
+        if (_.isEmpty(newCards)) { return <NoRecordsFound /> }
+        if (!_.isEmpty(newCards)) {
+        let card = [];
+        card = _.map(newCards, (lead, index) => {
+          return (
+            <>
+              <Col sm={18} md={18} lg={11} xl={11} >
+                <LeadCard className='lead-agent-card'
+                  key={lead._id}
+                  id={lead._id}
+                  lead_Id={""}
+                  leadStatus={lead.leadStatus}
+                  firstName={lead.first_name}
+                  lastName={lead.last_name}
+                  created_date={""}
+                  allocatedDate={""}
+                  primaryMobile={""}
+                  allocatedBy={""}
+                  allocatedTo={""}
+                  appointmentOn={""}
+                  loading={props.leadDataLoading}
+                />
+              </Col>
+            </>
+          )
+        })
+        setcard(card)
+      }
+
+    }
+    //  else {
+
+    //   let card = [];
+    //   if (_.isEmpty(props.leads)) { return <NoRecordsFound /> }
+    //   if (!_.isEmpty(props.leads)) {
+    //     card = _.map(props.leads, (lead, index) => {
+    //       return (
+    //         <>
+    //           <Col sm={18} md={18} lg={11} xl={11} >
+    //             <LeadCard className='lead-agent-card'
+    //               key={lead._id}
+    //               id={lead._id}
+    //               lead_Id={lead.lead_Id}
+    //               leadStatus={lead.leadStatus}
+    //               firstName={lead.firstName}
+    //               lastName={lead.lastName}
+    //               created_date={lead.created_date}
+    //               allocatedDate={lead.allocatedDate}
+    //               primaryMobile={lead.primaryMobile}
+    //               allocatedBy={lead.lead_allocated_by === null ? '' : lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+    //               allocatedTo={lead.leadOwnerId === null ? '' : lead.leadOwnerId.first_name + ' ' + lead.leadOwnerId.last_name}
+    //               appointmentOn={lead?.appointmentId?.start_date}
+    //               loading={props.leadDataLoading}
+    //             />
+    //           </Col>
+    //         </>
+    //       )
+    //     })
+    //     setcard(card)
+    //   }
+    // }
+
   }
+
+
+  // secondValue ? 
+  // "hi"
+  // :
+  // (
+    let card = [];
+      if (_.isEmpty(props.leads)) { return <NoRecordsFound /> }
+      if (!_.isEmpty(props.leads)) {
+        card = _.map(props.leads, (lead, index) => {
+          return (
+            <>
+              <Col sm={18} md={18} lg={11} xl={11} >
+                <LeadCard className='lead-agent-card'
+                  key={lead._id}
+                  id={lead._id}
+                  lead_Id={lead.lead_Id}
+                  leadStatus={lead.leadStatus}
+                  firstName={lead.firstName}
+                  lastName={lead.lastName}
+                  created_date={lead.created_date}
+                  allocatedDate={lead.allocatedDate}
+                  primaryMobile={lead.primaryMobile}
+                  allocatedBy={lead.lead_allocated_by === null ? '' : lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+                  allocatedTo={lead.leadOwnerId === null ? '' : lead.leadOwnerId.first_name + ' ' + lead.leadOwnerId.last_name}
+                  appointmentOn={lead?.appointmentId?.start_date}
+                  loading={props.leadDataLoading}
+                />
+              </Col>
+            </>
+          )
+        })
+      }
+  // )
+
+  
 
   const handleFirstDropdown = (e) => {
     e.target.value ? setOpenSecond(true) : setOpenSecond(false)
@@ -126,10 +227,10 @@ const LeadCards = (props) => {
   }
 
   const getDataAfterFilterTeam = async () => {
-    const response = await getFormByIdApi({id: secondValue})
+    const response = await getFormByIdApi({ id: secondValue })
     if (response.status == 200) {
       if (response?.data?.errMsg) {
-        console.log("data *******",response?.data?.errMsg[0])
+        console.log("data *******", response?.data?.errMsg[0])
         dispatch(fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
       }
     } else {
@@ -141,47 +242,47 @@ const LeadCards = (props) => {
   return (
     <div className="cards-container">
       <div className='dropdown-container' >
-      {leadsData?.globalTab?.toString() === "team" &&
-        <div >
-          <p style={{marginLeft:'3.8rem', marginBottom:'-10px'}}>Select Hierarchy</p>
-          
-          <select
-            className='firstdropdown'
-            name="firstValue"
-            placeholder='Select Hierarchy'
-            value={firstValue}
-            style={{ margin: "10px", marginLeft: "60px", width: "150px",height:'30px',outline:'none' }}
-            onChange={handleFirstDropdown}
-          >
-            <option value="">All</option>
-            {firsrDrop && firsrDrop.length && firsrDrop.map((data) =>
-              <option key={data._id} value={data._id} >{data.hierarchyName}</option>
-            )}
-          </select>
-        </div>
-      }
-      {openSecond && leadsData?.globalTab?.toString() === "team" &&
-        <div >
-           <p style={{marginLeft:'1.3rem', marginBottom:'-10px'}}>Select Team Member</p>
+        {leadsData?.globalTab?.toString() === "team" &&
+          <div >
+            <p style={{ marginLeft: '3.8rem', marginBottom: '-10px' }}>Select Hierarchy</p>
 
-          <select
-          className='seconddropdown'
-            name="secondValue"
-            value={secondValue}
-            style={{ margin: "10px", marginLeft: "20px", width: "150px",height:'30px',outline:'none', }}
-            onChange={e => setSecondValue(e.target.value)} >
-            <option value="">All</option>
-            {secondDropData && secondDropData.length && secondDropData.map((data) =>
-              data.hierarchy_id === firstValue &&
-              <option key={data._id} value={data._id} >{data.name}</option>
-            )}
-          </select>
-        </div>
-      }
+            <select
+              className='firstdropdown'
+              name="firstValue"
+              placeholder='Select Hierarchy'
+              value={firstValue}
+              style={{ margin: "10px", marginLeft: "60px", width: "150px", height: '30px', outline: 'none' }}
+              onChange={handleFirstDropdown}
+            >
+              <option value="">All</option>
+              {firsrDrop && firsrDrop.length && firsrDrop.map((data) =>
+                <option key={data.value} value={data.value} >{data.dispValue}</option>
+              )}
+            </select>
+          </div>
+        }
+        {openSecond && leadsData?.globalTab?.toString() === "team" &&
+          <div >
+            <p style={{ marginLeft: '1.3rem', marginBottom: '-10px' }}>Select Team Member</p>
+
+            <select
+              className='seconddropdown'
+              name="secondValue"
+              value={secondValue}
+              style={{ margin: "10px", marginLeft: "20px", width: "150px", height: '30px', outline: 'none', }}
+              onChange={e => setSecondValue(e.target.value)} >
+              <option value="">All</option>
+              {secondDropData && secondDropData.length && secondDropData.map((data) =>
+                data.hierarchy_id === firstValue &&
+                <option key={data._id} value={data._id} >{data.full_name}</option>
+              )}
+            </select>
+          </div>
+        }
 
       </div>
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
-        {card}
+        {!secondValue ? card : cards}
         {/* this is just a presentational card  */}
         <Col sm={18} md={18} lg={11} xl={10} className={width < breakpoint ? "dummy-card-mobile" : 'dummy-card-desktop'} >
           <  >
