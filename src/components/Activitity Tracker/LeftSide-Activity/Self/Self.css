@@ -9,6 +9,10 @@
     font-weight: bold;
     color: #585454;
 }
+.Self-Container>.dataField>.dataField-Card>.head-cad-text{
+    margin-left: 5PX;
+    margin-top: 25px;
+}
 .eventChange span p{
     background-color: #545454;
     color: #fff;
@@ -21,7 +25,10 @@
     font-size: 15px;
     font-weight: bold;
     color: #585454;
-    margin: 20px;
+    /* display: none; */
+}
+.remove{
+    display: none;
 }
 @media (max-width:1370px){
     .upcoming{

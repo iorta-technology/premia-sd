@@ -668,7 +668,7 @@ const SalesPitch = () => {
 
 
 
-                            {/* <Row gutter={[40, 24]} justify="start">
+                            <Row gutter={[40, 24]} justify="start">
                             <Col className="product-main" xs={{ order: 1 }} sm={12} md={12} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                 <Row gutter={['', 24]}>
                                     <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -919,7 +919,7 @@ const SalesPitch = () => {
                                     </Col>
                                 </Row>
                             </Col>
-                        </Row> */}
+                        </Row>
                         </TabPane>
                         <TabPane tab="Calculator" key="4">
                             <Row gutter={[16, 16]} className='Calculator-Container'>

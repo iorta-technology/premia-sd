@@ -38,36 +38,19 @@ const tabMenu = [
 
 const App = () => {
     const [TeamSelf,setTeamSelf]=useState(true);
-    // const api=async ()=>{
-    //     await axios.get('https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getAppointment/')
-    //     .then((response)=>{
-    //         console.log(response.data,"hi");
-    //     });
-    // }
-    // useEffect(()=>{
-    //     api();
-    // },[])
  const [width,height]=useWidowsSize();
  const [windowWidth, setWidth] = useState(window.innerWidth);
  const breakpoint = 620;
     return(
 
         <div className="ActivityCalender-container">
-            {/* {
-                width<=1000?<div className='ActivityCalender-Header'>
-                <img className='ActivityCalender-Header-img' src={headerTabs} alt='png'/>
-                <p>width:{width}</p>
-            </div>:""
-            } */}
             { windowWidth < breakpoint &&
                 <Tabs tabMenu={tabMenu} header="Calendar" activeKey="calendar"/>
             }
             <Row style={{color:"#f7f7f7",marginTop:'20px'}} justify="center">
                 <Col xl={14} md={14} sm={23} xs={23}
-                    // className='Activity-Right'
-                    style={{boxShadow: '0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)',
-                    borderRadius:"2px"}}>
-                    <Card bordered={false}>
+                className='Activity-Right'>
+                    <Card bordered={false} className='Activity-Right-Card'>
                         <div className='CardBody' style={{marginLeft:'-10px'}}>
                             <button  className={TeamSelf ? "activate":" "}
                                 onClick={(e)=>{
