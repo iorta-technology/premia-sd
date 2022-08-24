@@ -3,8 +3,24 @@
     height: 700vh;
     /* margin:  0 auto;
     margin-left: 1vw; */
-    background-color: #f7f7f7;
+    /* background-color: #f7f7f7; */
 }
+.label-color label{
+    color:#7c7a7a;
+    font-weight: normal;
+}
+.border-bottom{
+    border: none;
+    border-bottom: 2px solid rgb(153, 153, 153);
+    /* background-color: #EFEFEF4D; */
+}
+.label-color .select-input{
+    border: none;
+    border-bottom: 2px solid rgb(153, 153, 153);
+    width: 31rem;
+
+}
+
 .proposalfulfilment-row-flex{
     display: flex;
     width: 96%;
@@ -42,6 +58,7 @@
     display: flex;
     font-size: 15px !important;
     text-decoration: underline !important;
+    font-weight: bold;
 }
 .proposal-head3{
     display: flex;
@@ -54,6 +71,7 @@
     flex-direction: row;
     color: rgb(153, 153, 153);
     font-size: 14px;
+    font-weight: normal;
 }
 .proposal-title{
     display: flex;
@@ -69,6 +87,7 @@
 }
 .proposal-head4{
     display: flex;
+    font-weight: bold;
     font-size: 15px !important;
 }
 .proposal-paragraph{

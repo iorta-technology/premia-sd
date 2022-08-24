@@ -6,6 +6,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
+import { stoageGetter } from '../../helpers'
+
 const { TabPane } = Tabs
 
 const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalkey, current }) => {
@@ -15,7 +17,11 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
     const [activeTab, setactiveTab] = useState()
     useEffect(() => {
         console.log(typeof (leadType))
-        dispatch(actions.fetchAllLeads(leadType, current))
+        // dispatch(actions.fetchAllLeads(leadType, current))
+
+    
+        const ids = stoageGetter('user')
+        dispatch(actions.fetchAllLeads(ids[0][0]._id, leadType, current))
     }, [dispatch, current, activeTab]);
     let history = useHistory()
     // const [activeKey, setactiveKey] = useState('1')

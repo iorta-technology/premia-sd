@@ -65,11 +65,13 @@
   }
   .addressproof-head3{
     display: flex;
+    font-weight: bold;
     font-size: 15px !important;
     text-decoration: underline !important;
 }
 .addressproof-paragraph{
     display: flex;
+    font-weight: normal;
     font-size: 14px;
 }
 .addressproof-btn1{

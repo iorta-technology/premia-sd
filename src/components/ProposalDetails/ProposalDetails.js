@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons'
 import './ProposalDetails.css'
 import Tabs from '../../components/Tab/Tab'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 let proposalRoute = "/leadmasterpage/proposal"
 const tabMenu = [
@@ -40,9 +40,9 @@ const ProposalDetails = () => {
                 activeKey="3"
 
             />
-            <div className="form-container">
+            <div className="form-container ">
                 <Row gutter={['', 24]}>
-                    <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
+                    <Col className="form-body m0c" xs={22} sm={24} md={16} lg={16} xl={16} >
                         <div className="proposal">
                             <p className="proposal-title">Proposal Not Created Yet</p>
                             <div className="bg-proposal">

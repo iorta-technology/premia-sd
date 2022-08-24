@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Row, Col, Form, Menu, Tabs,Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal } from 'antd';
 import { Divider, Image, Card } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
@@ -57,6 +58,12 @@ const PaymentOptions = () => {
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
+
+
+
+        const selector = useSelector((state)=>state.applicationReducer.singleCardData)
+        console.log('PAYMENTOPTION KA DATA',selector)
+
     return (
         <div className="paymentoption-main">
             <MainTabs
@@ -65,7 +72,7 @@ const PaymentOptions = () => {
                 activeKey="paymentoptions"
             />
             <div className="paymentoption-row-flex">
-                <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
+                <Tabs tabPosition={tabPosition} style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
                     <TabPane tab="Personal" key="1" >
                         <div className="paymentoption-details-card-style ">
                             <div className="paymentoption-details-card-content-align">
@@ -79,15 +86,15 @@ const PaymentOptions = () => {
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                         <Col  >
                                                             <span className="paymentoption-title">Installment Premium</span>
-                                                            <span className="paymentoption-title">₹ 0.00</span>
+                                                            <span className="paymentoption-title"> {selector.benefitIllustration.annualisedPremium} </span>
                                                         </Col>
                                                         <Col >
                                                             <span className="paymentoption-title">Premium Frequency</span>
-                                                            <span className="paymentoption-title">Select</span>
+                                                            <span className="paymentoption-title"> {selector.benefitIllustration.PremiumMode} </span>
                                                         </Col>
                                                         <Col >
                                                             <span className="paymentoption-title">Premium Paying Term</span>
-                                                            <span className="paymentoption-title">15</span>
+                                                            <span className="paymentoption-title"> {selector.benefitIllustration.PremiumPayingTerm} </span>
                                                         </Col>
                                                     </Row><br />
                                                     <Col>
@@ -137,7 +144,7 @@ const PaymentOptions = () => {
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                         <Col>
                                                             <span className="paymentoption-title">Installment Premium</span>
-                                                            <span className="paymentoption-title">₹ 0.00</span>
+                                                            <span className="paymentoption-title"> {selector.benefitIllustration.annualisedPremium}</span>
                                                         </Col>
                                                         <Col >
                                                             <span className="paymentoption-title">Amount</span>
@@ -151,11 +158,11 @@ const PaymentOptions = () => {
                                                     <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                         <Col  >
                                                             <span className="paymentoption-title">Premium Frequency</span>
-                                                            <span className="paymentoption-title">Select</span>
+                                                            <span className="paymentoption-title">{selector.benefitIllustration.PremiumMode}</span>
                                                         </Col>
                                                         <Col >
                                                             <span className="paymentoption-title">Premium Paying Term</span>
-                                                            <span className="paymentoption-title">15</span>
+                                                            <span className="paymentoption-title">{selector.benefitIllustration.PremiumPayingTerm}</span>
                                                         </Col>
                                                         <Col >
 
@@ -177,12 +184,12 @@ const PaymentOptions = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select placeholder="Select a payment mode">
-                                                                    <Option value="Select">Select</Option>
-                                                                    <Option value="Cash">Cash</Option>
-                                                                    <Option value="Cheque">Cheque</Option>
-                                                                    <Option value="DD">DD</Option>
-                                                                </Select>
+                                                                <select defaultValue={selector.paymentOptions.Cheque_method} placeholder="Select a payment mode" className='select-input'>
+                                                                    <option value="Select">Select</option>
+                                                                    <option value="Cash">Cash</option>
+                                                                    <option value="Cheque">Cheque</option>
+                                                                    <option value="DD">DD</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col >
@@ -197,7 +204,7 @@ const PaymentOptions = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="first-name border-bottom" type="number" placeholder="Enter Recored Amount" />
+                                                                <Input defaultValue={selector.paymentOptions.online_method.InstallmentPremium_calc} className="first-name border-bottom" type="number" placeholder="Enter Recored Amount" />
 
                                                             </Form.Item>
                                                         </Col>
@@ -214,7 +221,7 @@ const PaymentOptions = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="first-name border-bottom" type="text" placeholder="Enter Bank Name" />
+                                                                <Input defaultValue={selector.personalDetails.BankName} className="first-name border-bottom" type="text" placeholder="Enter Bank Name" />
 
                                                             </Form.Item>
                                                         </Col>
@@ -230,13 +237,13 @@ const PaymentOptions = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="first-name border-bottom" type="text" placeholder="Enter Branch Name" />
+                                                                <Input defaultValue={selector.personalDetails.BankBranch} className="first-name border-bottom" type="text" placeholder="Enter Branch Name" />
 
                                                             </Form.Item>
                                                         </Col>
                                                     </Form>
                                                     <Col>
-                                                        <Button className="paymentoption-btn" style={{ marginLeft: '65vw' }}>Submit</Button>
+                                                        <Button className="paymentoption-btn" style={{ marginLeft: '61vw' }}>Submit</Button>
                                                     </Col>
                                                 </Form>
                                             </Col>
@@ -280,15 +287,15 @@ const PaymentOptions = () => {
                                                 <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                     <Col  >
                                                         <span className="paymentoption-title">Installment Premium</span>
-                                                        <span className="paymentoption-title">₹ 0.00</span>
+                                                        <span className="paymentoption-title">{selector.benefitIllustration.annualisedPremium}</span>
                                                     </Col>
                                                     <Col >
                                                         <span className="paymentoption-title">Premium Frequency</span>
-                                                        <span className="paymentoption-title">Select</span>
+                                                        <span className="paymentoption-title">{selector.benefitIllustration.PremiumMode}</span>
                                                     </Col>
                                                     <Col>
                                                         <span className="paymentoption-title">Premium Paying Term</span>
-                                                        <span className="paymentoption-title">15</span>
+                                                        <span className="paymentoption-title">{selector.benefitIllustration.PremiumPayingTerm}</span>
                                                     </Col>
                                                 </Row><br />
                                                 <p className="paymentoption-paragraph">Please enter the Mobile No on which you want to send the link</p>
@@ -306,7 +313,7 @@ const PaymentOptions = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input className="first-name border-bottom" type="text" placeholder="Enter Email ID" />
+                                                            <Input defaultValue={selector.paymentOptions.payment_link_method.EmailID} className="first-name border-bottom" type="text" placeholder="Enter Email ID" />
 
                                                         </Form.Item>
                                                     </Col>
@@ -322,7 +329,7 @@ const PaymentOptions = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input className="first-name border-bottom" type="text" placeholder="Enter Mobile No" />
+                                                            <Input defaultValue={selector.paymentOptions.payment_link_method.MobileNo} className="first-name border-bottom" type="text" placeholder="Enter Mobile No" />
 
                                                         </Form.Item>
                                                     </Col>
@@ -366,4 +373,4 @@ const PaymentOptions = () => {
     )
 }
 
-export default PaymentOptions
+export default PaymentOptions;
