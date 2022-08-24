@@ -48,7 +48,7 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
                 case "advisorpitch": return history.push('/masterpresales/advisordetail/advisorpitch');
                 
 
-                case "benefitillustrator": return history.push('/master/proposalTabs');
+                case "benefitillustrator": return history.push('/master/benefitillustrator');
                 case "proposalfulfilment": return history.push('/master/proposalfulfilment');
                 case "prepaymentreview": return history.push('/master/prepaymentreview');
                 case "paymentoptions": return history.push('/master/paymentoptions');
@@ -118,18 +118,18 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
                 <div className="header-img">
                     <div className='sales-Header'>
                         <p>Presales Tools</p>
-                   </div>
+                    </div>
                     <p className="header-title">{header}</p>
                     <div className="tab-section">
                         <Tabs
                             tabBarGutter={20}
-                            centered={true}
+                            centered={false}
+                            type="card"
                             onTabClick={handler}
                             size="large"
                             activeKey={activeKey}
-                            style={{ margin: '20px' }}
+                            style={{ marginLeft: '120px' }}
                         >
-
                             {tabPane}
                         </Tabs>
                     </div>
@@ -137,9 +137,9 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
                 <>
                     <Tabs
                         tabBarGutter={20}
-                        centered={true}
+                        className='TabMenu-Card'
                         onTabClick={handler}
-                        size="large"
+                        size="medium"
                         activeKey={activeKey}
                         style={{ margin: '20px' }}
                     >

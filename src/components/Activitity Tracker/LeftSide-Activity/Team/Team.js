@@ -5,7 +5,7 @@ import DataField from '../DataField/DataField'
 import './Team.css'
 import EventCreate from '../EventCreate/EventCreate'
 import HistoryTab from '../History-showedData/index'
-
+import axios from 'axios'
 
 const Team = () => {
   const [isActive,setActive] =useState(false);
@@ -14,6 +14,18 @@ const Team = () => {
   const [selected, setSelected]=useState("");
   const [selected1, setSelected1]=useState("");
 
+  const [month,setMonth]=useState()
+  const [year,setyear]=useState()
+  const [ApiDataContainer,setApiDataContainer]=useState();
+  const [CurentOrPast,setCurentOrPast]=useState()
+
+  const api = async ()=>{
+      let {data}=await axios.get(`https://pocbancanode.iorta.in/secure/user/fetch_appointments/60e5d6056b18e8309da3fa49?teamdata=0&filter=${month}/${year}`);
+      setApiDataContainer(data.errMsg);
+  }
+  useEffect(()=>{
+      api();
+  },[month,year])
 
   const options=["All","Zonal Manager","Area Manager","Sales Manager"];
   const options2=["Ankit Singh","Rahul Patali","Otter","Sawa"];
@@ -109,10 +121,25 @@ const Team = () => {
                 </Col>
             </Row>
         </div>
-        <EventCreate/>
-        <HistoryTab Remove={RemoveData}/>
+        <EventCreate monthData={setMonth} yearData={setyear} />
+        <div className=''>
+
+        </div>
+        {   
+            ((month) == ( 1 + new Date().getMonth()) && (year) == (new Date().getFullYear())) 
+            ?
+            <HistoryTab Remove={RemoveData} CurentOrPast={setCurentOrPast} teamPast= '0'/>
+            :((month) >= ( 1 + new Date().getMonth()) && (year) >= (new Date().getFullYear())) ||
+            (month < (1+ new Date().getMonth()) && year > (new Date().getFullYear()))
+            ?
+            <Typography className='Team-Past'>UPCOMING</Typography>    
+            :
+            <Typography className='Team-Past'>PAST</Typography>
+        }
         <div className='Team-Information'>
-        <DataField/>
+            <DataField TeamData={month +'/'+year}
+            TeamHere={(month) ==(1 + new Date().getMonth()) && (year) ==(new Date().getFullYear())}
+            />
         </div>
     </div>
   )

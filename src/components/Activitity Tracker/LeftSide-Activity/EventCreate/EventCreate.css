@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: -10px;
 }
 .EventCreate-btn article{
     color: #5ea5c0;

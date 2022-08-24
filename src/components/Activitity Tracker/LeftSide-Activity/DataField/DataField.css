@@ -1,11 +1,7 @@
-
 .bodyData{
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.bodyData>div{
-    margin: 0 5px;
 }
 .dataField-Card{
     border-bottom: 1px solid #efeded;
@@ -15,6 +11,11 @@
     font-weight: bold;
     margin: 0;
     font-size: 12px;
+   color:rgb(60, 61, 61);
+}
+.bodyData-Date span{
+    margin-left: 5px;
+    color:rgb(60, 61, 61);
 }
 .bodyData-Date p:nth-child(2){
     background-color: #5da5c0;
@@ -26,9 +27,15 @@
 .bodyData-centerContent{
     display: flex;
     justify-content: space-between;
+    width: 70%;
 }
-.bodyData-centerContent div{
-    padding: 0 10px;
+@media (min-width: 320px){
+.head-cad-text>p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #545454;
+    margin-top: 10px;
+}
 }
 .TimeToEnd{
     display: flex;
@@ -37,17 +44,56 @@
     align-items: center;
     font-size: 12px;
     font-weight: bold;
+    width: 75px;
+    padding: 5px;
+    margin-left: 5px;
 }
 .TimeToEnd article{
-    color: #acacb4;
+    color: #ACACAC;
+    letter-spacing: 1px;
+}
+.Event-CenterBody{
+    width: 100%;
+}
+.Event-CenterBody-BranchName{
+    color:#189eb4;
+    font-size:12px;
+    font-weight: bold;
+    /* margin-bottom: 5px; */
+}
+.Event-Type-Name{
+    display: flex;
+}
+.EventType article{
+    font-size: 12px;
 }
 .EventType{
-    font-size: 12px;
+    padding-right: 25px;
+    margin-top: 10px;
     font-weight: bold;
 }
-.EventName article{
-    font-size: 12px;
+.EventName-Description{
+    padding-left: 25px;
+    margin-top: 10px;
     font-weight: bold;
+}
+.EventType article:nth-child(2){
+    font-size:12px;
+    color:#ACACAC;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-top: 5px;
+    
+}
+.EventName-Description article{
+    font-size: 12px;
+}
+.EventName-Description article:nth-child(2){
+    color: #969999;
+    font-size:12px;
+    font-weight: 500;
+    width: 300px;
+    margin-top: 5px;
 }
 .bodyData-side{
     font-size: 14px;
@@ -78,17 +124,35 @@
 }
 .footer>.ant-typography{
     margin-left: -325px !important;
+    font-size: 12px;
+    color: #ACACAC;
+    font-weight: 500;
+    text-transform: capitalize;
 }
+
 .dataContainer{
     margin-top: 20px;
+}
+.bodyData-Date>p{
+    padding: 4px;
+    text-align: center;
+    width: 85px;
+    height: 26px;
 }
 @media (min-width:320px){
     .bodyData-Date{
         width: 100px;
     }
     .bodyData-Date>p{
-        padding: 8px;
+        padding: 4px;
         text-align: center;
+        width: 85px;
+        height: 26px;
+    }
+    .footerPng{
+        height: 15px;
+        width: 15px;
+        margin-right: 10px;
     }
 }
 @media (max-width:1256px){
@@ -143,4 +207,3 @@
         width: 120%;
     }
 }
-/* @media () */

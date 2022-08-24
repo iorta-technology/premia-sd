@@ -19,6 +19,10 @@
 .Team{
     margin: 20px 0 0 5px;
 }
+.Team>.PastFuture{
+    padding: 8px;
+    font-weight: bold;
+}
 .Circle-manager{
     position: relative;
 }
@@ -59,6 +63,15 @@
 .dropdown-item:hover{
     background-color: #f4f4f4;
 }
+.Team-Past{
+    font-size: 14px;
+    font-weight: bold;
+    color: #545454;
+}
+.UpcomingOrPast{
+    margin-left: 10px;
+    margin-top: 20px;
+}
 .Team-Calender-row input{
     border-style: solid;
     border-color: #E6E9EB;
@@ -67,6 +80,13 @@
 }
 .Team-Calender-Export{
     margin-top: 25px;
+}
+.Team-Information>.dataField>.dataField-Card>.dataContainer>.bodyData>.bodyData-side>span{
+    visibility: hidden;
+}
+.Team-Information>.dataField>.dataField-Card>.head-cad-text{
+    margin-top: 25px;
+    margin-left: 5px;
 }
 @media (min-width: 320px){
     .Team-Calender-row input{
