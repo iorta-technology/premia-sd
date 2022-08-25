@@ -53,12 +53,14 @@ const App = () => {
                     <Card bordered={false} className='Activity-Right-Card'>
                         <div className='CardBody' style={{marginLeft:'-10px'}}>
                             <button  className={TeamSelf ? "activate":" "}
-                                onClick={(e)=>{
+                             style={{width : 75}}
+                             onClick={(e)=>{
                                     setTeamSelf(true)
                                 }}>
                                 <img src={TeamSelf ?person_white:person_black} className='person' alt='person_png'/>Self
                             </button>
                             <button 
+                                style={{width : 75}}
                                 className={!TeamSelf ? "activate":""}
                                 onClick={(e)=>{
                                     setTeamSelf(false)

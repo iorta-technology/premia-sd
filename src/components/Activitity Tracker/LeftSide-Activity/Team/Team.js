@@ -108,15 +108,15 @@ const Team = () => {
         </div>
         <div className="Team-Calender">
             <Row className='Team-Calender-row'>
-                <Col span={6} className='Team-Calender-first'>
+                <Col span={9} className='Team-Calender-first'>
                     <Typography>From Date</Typography>
                     <input type="date"/>
                 </Col>
-                <Col span={6} offset={1}className='Team-Calender-second'>
+                <Col span={9} offset={1}className='Team-Calender-second'>
                     <Typography>To Date</Typography>
                     <input type='date'/>
                 </Col>
-                <Col span={6} offset={2} className='Team-Calender-Export'>
+                <Col span={2} offset={1} className='Team-Calender-Export'>
                     <Button> <CloudUploadOutlined /> Export</Button>
                 </Col>
             </Row>
