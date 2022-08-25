@@ -134,7 +134,7 @@ const LoanProducts = () => {
                         <Tabs tabPosition={tabPosition}>
                             {productTabs.map((item) => {
                                 return <TabPane tab={item.productName} key={item._id} className="MainContent">
-                                    <Col className="gutter-row first-card" xs={12} sm={12} md={12} lg={12} xl={12}>
+                                    <Col className="gutter-row first-card" xs={24} sm={24} md={12} lg={12} xl={12}>
                                         <div>
                                             <div className="main-card2" bordered={false} >
                                                 <div className="benefit-main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
@@ -205,10 +205,7 @@ const LoanProducts = () => {
                                                 </div>
                                                 <p className="product-para">{item.productDescription}</p>
                                                 <h1 style={{ color: '#5EA5C0' }} className="product_heading">5 Reasons to buy:</h1>
-                                                <p><span className="slNo circle-point">1</span>
-                                                    <span className="bullet-points">
-                                                        {item.productReasons.reason1}
-                                                    </span>
+                                                <p style={{margintop : 10}}><span className="slNo circle-point">1</span><span className="bullet-points">{item.productReasons.reason1}</span>
                                                 </p>
                                                 <p><span className="slNo circle-point">2</span>
                                                     <span className="bullet-points">
@@ -234,7 +231,7 @@ const LoanProducts = () => {
 
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row  first-card" xs={12} sm={12} md={12} lg={12} xl={12}>
+                                    <Col className="gutter-row  first-card" xs={24} sm={24} md={12} lg={12} xl={12}>
 
                                         <div className="main-card3" bordered={false} >
                                             <h4 style={{ textAlign: 'center', fontWeight:"bold"}}>{item.imageTitle}</h4>

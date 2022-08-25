@@ -36,6 +36,18 @@
     border-radius: 2px;
     margin-bottom: 2px;
 }
+
+@media(max-width:767px){
+    .AdvisorPitch-Container>.ant-tabs-nav{
+        width: 100%;
+        background-color: #fff;
+        /* box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%); */
+        border-radius: 2px;
+        margin-bottom: 2px;
+        overflow-x: scroll;
+    }
+}
+
 .AdvisorPitch-Container>.ant-tabs-nav>.ant-tabs-nav-wrap{
     margin-top: 20px;
 }
@@ -138,7 +150,7 @@ color: #565656;
     text-align: justify;
     margin-top: 15px;
 }
-@media (max-width:375px) {
+@media (max-width:420px) {
     .success-story-form>.ant-col{
         flex:0 1 100%;
         
@@ -157,24 +169,24 @@ color: #565656;
         margin-left: 1vw;
         font-size: 15px;
         text-align: start;
-        /* font-family: 'robotoregular'; */
+        font-family: 'robotoregular';
     }
     .about-paragraph{
         display: flex;
         flex-direction: column;
         font-size: 14px;
-        /* font-family: 'robotoregular'; */
+        font-family: 'robotoregular';
         text-align: justify;
-        margin-left: 2vw;
-        margin-right: 2vw;
+        /* margin-left: 2vw;
+        margin-right: 2vw; */
         line-height: 1.7;
-        /* text-align: justify; */
+        text-align: justify;
     }
     .about-head2{
         display: flex;
         flex-direction: column;
         font-size: 14px;
-        /* font-family: 'robotoregular'; */
+        font-family: 'robotoregular';
         text-align: start;
         /* line-height: 2.0; */
     }
@@ -186,16 +198,33 @@ font-size: 14px;
     
     .success-head{
         display: flex;
-        font-size: 14px !important;
+        font-size: 15px !important;
+        font-family: 'robotoregular';
     }
     .success-comments{
         display: flex;
         text-align: justify;
         font-size: 14px !important;
+        font-family: 'robotoregular';
     }
     .success-heading1{
         display: flex;
         text-align: justify;
         font-size: 15px !important;
+        font-family: 'robotoregular';
+        padding-top: 10px;
+    }
+}
+
+@media (max-width: 420px){
+    .AdvisorPitch,.AdvisorPitch-Licensing-Container{
+        margin-top: 10px;
+    }
+
+    .Advisorpitch-details-card-style {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 25px;
+        padding-bottom: 25px;
     }
 }
