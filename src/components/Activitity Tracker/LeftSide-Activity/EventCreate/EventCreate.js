@@ -2,10 +2,10 @@ import {Typography} from 'antd'
 import React,{useState,useEffect} from 'react'
 import LeftButton from '../../icons/leftcalenderarrow.png'
 import RightButton from '../../icons/rightcalenderarrow.png'
-import Create from '../../ModalBox/ModalBox-Open'
 import EventCreateComponent from '../../../Contests/CalendarEvent'
 import Addactivity from '../../icons/Addactivity.png'
 // import axios from '../../../../axios-request/request.methods'
+import {stoageGetter} from '../../../../helpers'
 import axios from 'axios'
 import './EventCreate.css'
 
@@ -40,13 +40,9 @@ const EventCreate = ({monthData,yearData}) => {
       setYear(year+1)
     }
   }
-
-  // useEffect(()=>{ console.log(month,count)},[count,month])
-
   const api = async ()=>{
-    // await axios.get('https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getAppointment/60069a18579be233d2decf04')
-    // let data = await axiosRequest.get('user/getAppointment/60069a18579be233d2decf04');
-    const {data}= await axios.get(`https://pocbancanode.iorta.in/secure/user/fetch_appointments/60e5d6056b18e8309da3fa49?teamdata=0&filter=0${count}/${year}`);  
+    let {id} =stoageGetter('user')
+    const {data}= await axios.get(`user/fetch_appointments/${id}?teamdata=0&filter=0${count}/${year}`);  
     setRequestData(data.errMsg)
     // console.log(data);
   }

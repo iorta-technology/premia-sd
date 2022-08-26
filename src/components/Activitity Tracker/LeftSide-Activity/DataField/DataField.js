@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react'
-import {Card, Typography} from 'antd'
+import {Typography} from 'antd'
 import {FormOutlined, MessageOutlined} from '@ant-design/icons';
 import EventCreateButton from '../EventCreateButton/EventCreateButton';
-import JSONData from '../../JSON/json'
-import {errMsg} from '../../JSON/Ac.json'
 import EventCreateComponent from '../../../Contests/CalendarEvent'
 import axios from 'axios'
+import axiosRequest from '../../../../axios-request/request.methods'
+import {stoageGetter} from '../../../../helpers'
 import commentIcon from '../../icons/comment.png'
 import './DataField.css';
 import { Col, Row } from 'antd';
@@ -23,45 +23,60 @@ const useWidowsSize = () => {
 }
 
 const DataField = ({Self,history,TeamData,TeamHere}) => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(
+    {
+      check:false,
+      Data:null
+    }
+  );
     const [windowWidth, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
     const showModal = (e) => {
-    setIsModalVisible(true);
+    setIsModalVisible({
+      check:true,
+      Data:e
+    });
   };
 
   const [DataContainer,setDataContainer]=useState();
 
-    useEffect(()=>{
-      const api = async ()=>{
-        const currentMonth =(1 + new Date().getMonth());
-        const currentYear =new Date().getFullYear();
-        const monthYear=currentMonth+'/'+currentYear;
-        const {data}= await axios.get(`https://pocbancanode.iorta.in/secure/user/fetch_appointments/60e5d6056b18e8309da3fa49?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`);            
-        const dM= 1+new Date().getMonth() +"/"+ new Date().getFullYear() == Self;
-        if(dM && history || TeamHere){
-          const filterCurrentData={
-            ["errMsg"]:data?.errMsg?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()))),
-            ["errCode"]:-1
-          }
-          console.log(filterCurrentData);
-          setDataContainer(filterCurrentData)
-         }
-        else{
-          setDataContainer(data);
-        }
-      // console.log(`https://pocbancanode.iorta.in/secure/user/fetch_appointments/60e5d6056b18e8309da3fa49?teamdata=0&filter=${Self || TeamData? Self ||TeamData : monthYear}`);
-      }
-    //   console.log(DataContainer);
-      api();
-    },[Self,TeamData,history]);
+  useEffect(()=>{
+    let {id}=stoageGetter('user')
+    const api = async ()=>{
+      const currentMonth =(1 + new Date().getMonth());
+      const currentYear =new Date().getFullYear();
+      const monthYear=currentMonth+'/'+currentYear;
+      const dM = monthYear == Self;
+      if(dM && history || TeamHere){
+        let result = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=upcoming`)
+        setDataContainer(result?.data)
+        console.log(result.data);
+       }else if(TeamHere == true){
+        let result1 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
+        console.log(result1.data);
+        console.log(Self||TeamData?Self||TeamData : monthYear);
+        setDataContainer(result1.data)
+       }else if(dM && history== false){
+        let result2 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
+        setDataContainer(result2.data)
+       }else if(monthYear != Self){
+        let result3 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
+        setDataContainer(result3.data)
+       }
+       else{
+        let result4 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=past`)
+        setDataContainer(result4.data)
+       }
+    }
+    api();
+  },[Self,TeamData,history]);
 
     const dateFun=(time)=>{
       var dt = new Date(time);
-      var hours = dt.getHours() ; // gives the value in 24 hours format
+      var hours = dt.getUTCHours() ; // gives the value in 24 hours format
       var AmOrPm = hours >= 12 ? 'PM' : 'AM';
       hours = (hours % 12) || 12;
-      var minutes = dt.getMinutes() ;
+      var minutes = dt.getUTCMinutes() ;
       var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm; 
       return finalTime;
     }
@@ -120,7 +135,7 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
                       <div className='TimeToEnd' style={{fontWeight : 'bold'}}>
                               <Typography>
                                 {
-                                  dateFun(element.start_time_MS)
+                                  dateFun(element.start_time)
                                 } 
                               </Typography>
                               <Typography style={{padding:'5px 0'}}>
@@ -128,10 +143,10 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
                               </Typography>
                               <Typography>
                               {
-                                dateFun(element.end_time_MS)
+                                dateFun(element.end_time)
                               }
                               </Typography>
-                          </div>
+                      </div>
                       <div className='bodyData-centerContent'>
                           <div className='Event-CenterBody'>
                               <Typography className='Event-CenterBody-BranchName'>
@@ -161,7 +176,7 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
                           <Typography className={`closeOpen ${element.statusType =='open' ?'Open':"Close"}`}>
                               {element.statusType}
                           </Typography>
-                          <FormOutlined onClick={(e)=>showModal(e)}/>
+                          <FormOutlined onClick={()=>showModal(element)}/>
                       </div>
                   </div>
                   <div className='footer'>
@@ -185,17 +200,15 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
     DataContainer?.errCode == -1 ? DataContainer?.errMsg.map((element,index)=>{
         return(
             <div className='dataField-Card-mbl' key={index}>
-              {
-               ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
-               && element== DataContainer?.errMsg?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
-               && (1+ new Date(element?.start_time_MS).getMonth()) >= (1+new Date().getMonth())))[0]
-               ?
-                <div className='head-cad-text'>
-                  <p>UPCOMING</p>
-                </div>:""
-              }
-               
-
+                {
+                ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
+                && element== DataContainer?.errMsg?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
+                && (1+ new Date(element?.start_time_MS).getMonth()) >= (1+new Date().getMonth())))[0]
+                ?
+                  <div className='head-cad-text'>
+                    <p>UPCOMING</p>
+                  </div>:""
+                }
                         <Row>
                                 <Col sm={22} xs={22} md={22}>
                                 <div className='TimeToEnd-mbl'>
@@ -205,7 +218,7 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
                             </div>
                             </Col>
                             <Col sm={2} xs={2} md={2}>
-                                <FormOutlined onClick={() => showModal()} />
+                                <FormOutlined onClick={() => showModal(element)} />
                                 </Col>
                               </Row>
                               <Row>
@@ -281,19 +294,20 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
                                 </Col>
                               </Row>
                               <Row>
-                              <div className='footer'>
-                        {element.remarkHistory?.length >0 ?
-                            <Typography>
-                                <img src={commentIcon} className='footerPng'/>
-                                {
-                                  element.remarkHistory.map((element)=>{
-                                    return element.remark;
-                                  })
-                                }
-                            </Typography>
-                            :""
-                        }
-                    </div>
+                                <div className='footer'>
+                                  {
+                                    element.remarkHistory?.length >0 ?
+                                      <Typography>
+                                        <img src={commentIcon} className='footerPng'/>
+                                        {
+                                          element.remarkHistory.map((element)=>{
+                                            return element.remark;
+                                        })
+                                        }
+                                      </Typography>
+                                    :""
+                                  }
+                                </div>
                               </Row>
                               <hr />
                     </div>
@@ -304,8 +318,8 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
     :<EventCreateButton/>
   }
   {
-    isModalVisible == true ?
-      <EventCreateComponent click={'data'}/>
+    isModalVisible.check == true ?
+    <EventCreateComponent click={'UPDATE EVENT'} Data={isModalVisible.Data}/>
     :""
   }
   </div>

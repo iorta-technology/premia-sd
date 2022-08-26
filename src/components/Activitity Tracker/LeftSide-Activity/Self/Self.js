@@ -2,10 +2,11 @@ import React,{useState,useEffect} from 'react'
 import {Typography} from 'antd'
 import './Self.css'
 import PastFutureData from '../History-showedData'
-import JSONData from '../../JSON/json'
 import DataField from '../DataField/DataField'
 import EventCreate from '../EventCreate/EventCreate'
 import axios from 'axios';
+import axiosRequest from '../../../../axios-request/request.methods'
+import {stoageGetter} from '../../../../helpers'
 
 const Self = () => {
   const [month,setMonth]=useState()
@@ -15,9 +16,9 @@ const Self = () => {
   const [pastEventLenght,setPastEventLength]=useState();
 
   const api = async ()=>{
-    let {data} = await axios.get(`https://pocbancanode.iorta.in/secure/user/fetch_appointments/60e5d6056b18e8309da3fa49?teamdata=0&filter=${month}/${year}`);
+    let {id}=stoageGetter('user')
+    let {data} = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=past`);
     setApiDataContainer(data);
-
   }
   useEffect(()=>{
     if(ApiDataContainer){
@@ -25,10 +26,7 @@ const Self = () => {
         let a = 1+new Date(ApiDataContainer.errMsg[i].start_time_MS).getMonth();
         let b = 1+ new Date().getMonth();
         if(a==b){
-          const filterCurrentData= ApiDataContainer?.errMsg.filter((element,index,arr)=>((1 + new Date(element?.start_time_MS).getDate()) < (1 + new Date().getDate())))
-          if(filterCurrentData){
-            setPastEventLength(filterCurrentData?.length);
-          }
+          setPastEventLength(ApiDataContainer?.errMsg?.length)
         }
       }
     }  

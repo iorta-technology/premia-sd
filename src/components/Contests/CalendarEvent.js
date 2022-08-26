@@ -66,11 +66,21 @@ export default function CalendarEvent(props) {
 
   useEffect(()=>{
     console.log(props.click)
-    if(props.click == 'data'){
-      // showModal()
-      setIsModalVisible(true)
+    if(props.click == 'data'||"UPDATE EVENT"){
+      console.log(props.Data);
+      setIsModalVisible(true);
+    }
+    if(props.click=='UPDATE EVENT'){
+      setUpdateCheckEvent(true)
+    }//1661472000000
+    if(props.Data){
+      let date=moment(1661472000000).format("YYYY-MM-DD")
+      setDurationStartDateOperation(props.Data.start_date);
+      setDurationStartDate(date)
+      console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
   },[])
+
   const [startDuration, setStartDuration] = useState();
   const [endDuration, setEndDuration] = useState();
   const [MultiSelectDate, setMultiSelectDate] = useState(false)
@@ -2378,7 +2388,7 @@ export default function CalendarEvent(props) {
     }
 
     const onChangeDate = (date, dateString) => {
-      // console.log(date, dateString);
+      console.log(date, dateString);
       setDurationStartDate(moment(date).format("YYYY-MM-DD"))
     console.log( moment(date).format("YYYY-MM-DD"))
     }
@@ -3007,7 +3017,7 @@ export default function CalendarEvent(props) {
           title={
             updateEventCheck==true?"Update Event":
            
-               <div style={{fontWeight:"bold",fontSize:'16px', }}>CREATE EVENT</div>
+               <div style={{fontWeight:"bold",fontSize:'16px', }}>{props.click =="UPDATE EVENT"?"UPDATE EVENT":"CREATE EVENT"}</div>
             } visible={isModalVisible} onOk={handleOk}
           closable={durationDateAlert == true || durationTimeAlert == true ? false : true}
           onCancel={handleCancel}
