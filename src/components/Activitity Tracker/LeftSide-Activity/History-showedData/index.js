@@ -18,7 +18,6 @@ useEffect(()=>{
   console.log(pastData);
 },[])
 
-  const currentEvent=`Past Date Show ${pastData||teamPast} Events from past`
   const historyEvent='Hide all past events for the month'
   return (
     <div className='PastFuture'>

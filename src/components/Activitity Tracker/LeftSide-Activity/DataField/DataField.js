@@ -48,24 +48,24 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
       const monthYear=currentMonth+'/'+currentYear;
       const dM = monthYear == Self;
       if(dM && history || TeamHere){
-        let result = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=upcoming`)
-        setDataContainer(result?.data)
+        let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=upcoming`)
+        setDataContainer(result)
         console.log(result.data);
        }else if(TeamHere == true){
-        let result1 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
-        console.log(result1.data);
+        let result1 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
+        console.log(result1);
         console.log(Self||TeamData?Self||TeamData : monthYear);
-        setDataContainer(result1.data)
+        setDataContainer(result1)
        }else if(dM && history== false){
-        let result2 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
-        setDataContainer(result2.data)
+        let result2 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
+        setDataContainer(result2)
        }else if(monthYear != Self){
-        let result3 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
+        let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
         setDataContainer(result3.data)
        }
        else{
-        let result4 = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=past`)
-        setDataContainer(result4.data)
+        let result4 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=past`)
+        setDataContainer(result4)
        }
     }
     api();
@@ -88,12 +88,12 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
     {
         windowWidth > breakpoint &&
 
-    DataContainer?.errCode == -1 ? DataContainer?.errMsg.map((element,index)=>{
+    DataContainer?.length>0 ? DataContainer?.map((element,index)=>{
       return(
           <div className='dataField-Card' key={index}>
             {
             ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
-            && element== DataContainer?.errMsg?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
+            && element== DataContainer?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
             && (1+ new Date(element?.start_time_MS).getMonth()) >= (1+new Date().getMonth())))[0]
             ?
               <div className='head-cad-text'>
@@ -197,12 +197,12 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
       )
     }): 
      windowWidth < breakpoint &&
-    DataContainer?.errCode == -1 ? DataContainer?.errMsg.map((element,index)=>{
+    DataContainer?.length >0 ? DataContainer?.map((element,index)=>{
         return(
             <div className='dataField-Card-mbl' key={index}>
                 {
                 ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
-                && element== DataContainer?.errMsg?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
+                && element== DataContainer?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
                 && (1+ new Date(element?.start_time_MS).getMonth()) >= (1+new Date().getMonth())))[0]
                 ?
                   <div className='head-cad-text'>
