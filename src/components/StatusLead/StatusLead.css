@@ -1,6 +1,7 @@
 .form-container{
     background-color: #fafafa;
     /* margin-left: -50px; */
+
     
 }
 
@@ -21,7 +22,7 @@
 }
 .m0a{
     margin: 0 auto;
-    margin-left: -150px;
+    /* margin-left: -150px; */
     /* position: relative; */
     /* left: 10rem; */
 }
@@ -158,11 +159,48 @@
 
 
 @media (max-width:524px) {
+    .p10{
+        padding: 20px;
+        height: 5rem;
+        margin-left: 0rem;
+    }
+    .m0b{
+        margin: 0;
+        margin-left: 0px;
+    
+    }
+    .p30{
+        padding: 20px;
+        height: 5rem;
+        margin-left: 0rem;
+    }
+    .form-container2{
+        width: 100%;
+    }
+    .p50{
+        padding: 20px;
+        margin-left: 0rem;
+    }
+    .p20{
+        padding: 20px;
+        height: 5rem;
+        margin-left: 0rem;
+    }
+    .m0a{
+        margin: 0;
+        /* margin-left: -150px; */
+        /* position: relative; */
+        /* left: 10rem; */
+    }
     .p40{
         padding: 20px;
+        margin-left: 0px;
     }
     .d0a{
         margin-left: 0px;
+        padding: 20px;
+        width: none;
+        height: auto;
     }
     .d0b{
         margin-left: 0px;
@@ -224,4 +262,25 @@ position: relative;
     left: 550px;
     bottom: 70px;
    }
+}
+
+@media (max-width:320px) {
+    .p40{
+        padding: 20px;
+        margin-left: 0px;
+    }
+    .p30{
+        padding: 20px;
+        height: 5rem;
+        margin-left: 0rem;
+    }
+    .form-container2{
+        width: 100%;
+    }
+    .m0a{
+        margin: 0 auto;
+        /* margin-left: -150px; */
+        /* position: relative; */
+        /* left: 10rem; */
+    }
 }

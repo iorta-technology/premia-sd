@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import './CreateTask.css';
-import { Row, Col, Divider, Typography, Button, Form, Avatar, Image, Popover, Checkbox, Pagination, Modal, Input, Space, DatePicker, Select } from 'antd';
+import { Row, Col,
+    Divider, Typography, Button,
+    Form, Avatar, Image, Popover,
+    Checkbox, Pagination, Modal, 
+    Input, Space, DatePicker, Select } 
+    from 'antd';
 import {
     UsergroupAddOutlined,
     UserOutlined,

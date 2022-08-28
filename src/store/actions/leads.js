@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
 import { getLeadFilter } from '../../helpers';
 import axiosLms from '../../axios-lmsv2';
+import axiosRequest from '../../axios-request/request.methods';
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -30,29 +31,34 @@ export const fetchAllLeads = (id,leads,pageNo) => {
     console.log(id)
        const leadFilter =  getLeadFilter(leads)
         let skipVal 
-        if(pageNo===1){
-            skipVal = 0
-        }else{
-            skipVal = (pageNo-1)*15
+        pageNo === 1 ? skipVal = 0 : skipVal = (pageNo - 1) * 15
 
-        }
-    return dispatch => {
+    return async dispatch => {
         dispatch(fetchAllLeadsStart())
-        return axios.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`)
-            .then(res => {
-                // console.log(res.data.errMsg[1][0].count)
-                const response = res.data.errMsg
-                const errorCode = res.data.errCode
-                if(errorCode===-1){
+        // return axios.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`)
+        //     .then(res => {
+        //         // console.log(res.data.errMsg[1][0].count)
+        //         const response = res.data.errMsg
+        //         const errorCode = res.data.errCode
+        //         if(errorCode===-1){
 
-                    return dispatch(fetchAllLeadsSuccess(response[0],response[1][0].count))
-                }else{
-                    throw response
-                }
-            })
-            .catch(error => {
-                return dispatch(fetchAllLeadsFail(error))
-            })
+        //             return dispatch(fetchAllLeadsSuccess(response[0],response[1][0].count))
+        //         }else{
+        //             throw response
+        //         }
+        //     })
+        //     .catch(error => {
+        //         return dispatch(fetchAllLeadsFail(error))
+        //     })
+
+
+        let result = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`, { secure: true });
+        console.warn('+++++++++ GET LEAD DATA ++++++++',result)
+        if (result.length > 0) {
+            dispatch(fetchAllLeadsSuccess(result[0],result[1][0].count));
+        }else{
+            dispatch(fetchAllLeadsFail())
+        }
     }
 }
 

@@ -28,20 +28,20 @@ const tabMenu = [
         id: 1,
         value: "Status",
     },
+    // {
+    //     id: 2,
+    //     value: "Lead Details"
+    // },
+    // {
+    //     id: 3,
+    //     value: "Proposal Details"
+    // },
+    // {
+    //     id: 4,
+    //     value: "Documents Upload"
+    // },
     {
         id: 2,
-        value: "Lead Details"
-    },
-    {
-        id: 3,
-        value: "Proposal Details"
-    },
-    {
-        id: 4,
-        value: "Documents Upload"
-    },
-    {
-        id: 5,
         value: "History"
     },
 
@@ -422,518 +422,521 @@ const ContactDetails = React.memo(() => {
                     onFinishFailed={failedHandler}
 
                 >
-                    <Row className='m0a' gutter={[0, 30]} justify="center">
-                        <LeadDetailsTab activeKey="2" />
-                        <Col className=" form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
-                            <p className="form-title">Contact Details</p>
-                            <Row gutter={16} className="mb2"  >
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='addline1'
-                                        label="Address line 1"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                        ]}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Address line 1"
-                                            onChange={addLine1Handler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='addline2'
-                                        label="Address line 2"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                        ]}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Address line 2"
-                                            onChange={addLine2Handler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='addline3'
-                                        label="Landmark"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                        ]}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Landmark"
-                                            onChange={addLine3Handler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="country"
-                                        label="Country"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Please select your city!',
-                                            },
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Select
-                                            bordered={false}
-                                            style={{ marginTop: '-10px' }}
-                                            className='select-box'
-                                            size="large"
-                                            placeholder="India">
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="state"
-                                        label="State"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select your State!',
-                                            },
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-
-                                    >
-                                        <Select
-                                            style={{ marginTop: '-10px' }}
-                                            bordered={false}
-                                            className='select-box'
-                                            size="large"
-                                            placeholder="Select Your State"
-                                            options={stateOptions}
-                                            onSelect={stateSelectHandler}
-                                            onChange={stateChangedHandler}>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="city"
-                                        label="City"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Please select your city!',
-                                            },
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-
-                                    >
-                                        <Select
-                                            style={{ marginTop: '-10px' }}
-                                            bordered={false}
-                                            className='select-box'
-                                            size="large"
-                                            placeholder="Select a city"
-                                            options={citiesOptions}
-                                            onChange={cityChangedHandler}>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='pincode'
-                                        label="Pincode"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                            {
-                                                min: 6,
-                                                max: 6,
-                                                pattern: '^([-]?[1-9][0-9]*|0)$',
-                                                message: 'Pincode must be of 6 characters'
-                                            }
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Pincode"
-                                            onChange={pincodeHandler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='primaryNo'
-                                        label="Primary Mobile No"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                            {
-                                                min: 10,
-                                                max: 10,
-                                                pattern: '^([-]?[1-9][0-9]*|0)$',
-                                                message: 'Mobile No must be of 10 characters'
-                                            }
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Primary Mobile No"
-                                            onChange={primaryNoHandler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='secondaryNo'
-                                        label="Alternate Mobile"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                            {
-                                                min: 10,
-                                                max: 10,
-                                                pattern: '^([-]?[1-9][0-9]*|0)$',
-                                                message: 'Mobile No must be of 10 characters'
-                                            }
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Alternate Mobile No"
-                                            onChange={secondaryNoHandler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='landlineNo'
-                                        label="Landline No"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Landline No"
-                                            onChange={landlineNoHandler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='aadharNo'
-                                        label="Social Security (Aadhaar No.)"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                            {
-                                                min: 12,
-                                                max: 12,
-                                                pattern: '^([-]?[1-9][0-9]*|0)$',
-                                                message: 'Aadhar No must be of 12 characters'
-                                            }
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Your Aadhaar No"
-                                            onChange={aadharNoHandler} />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name='email'
-                                        label="Email Address"
-                                        rules={[
-                                            {
-                                                type: email,
-                                                required: false,
-                                                message: 'Please provide valid email'
-                                            },
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Input
-                                            className="first-name input-box"
-                                            placeholder="Enter Your Email Address"
-                                            onChange={emailAddressHandler} />
-                                    </Form.Item>
-                                </Col>
-
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        className="form-item-name label-color"
-                                        name='addStatus'
-                                        label="Is your permarent address same as mailing address?"
-                                        rules={[
-                                            {
-                                                required: false,
-                                            },
-                                        ]}
-                                        style={{ marginBottom: '1rem' }}
-                                    >
-                                        <Switch
-                                            size="large"
-                                            checkedChildren="No"
-                                            unCheckedChildren="Yes"
-                                            // defaultChecked={true}
-                                            onChange={CheckMailingAddSameAsPermanentAdd} />
-                                    </Form.Item>
-                                </Col>
-                                {!isSameAddress &&
-                                    // <Form layout="horizontal" className="contact-detail-form">
-                                    <>
-                                        <Col xs={24} sm={24} md={24} lg={24} xl={24} className="form-title">
-                                            <Title level={5} style={{ marginTop: '1rem' }}>Permanent Address</Title>
-                                        </Col>
-                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name='secAddLine1'
-                                                label="Address line 1"
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                    },
-                                                ]}
-                                                style={{ marginBottom: '1rem' }}
-                                            >
-                                                <Input
-                                                    className="first-name input-box"
-                                                    placeholder="Enter Address line 1"
-                                                    onChange={secAddLine1Handler} />
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name='secAddLine2'
-                                                label="Address line 2"
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                    },
-                                                ]}
-                                                style={{ marginBottom: '1rem' }}
-                                            >
-                                                <Input
-                                                    className="first-name input-box"
-                                                    placeholder="Enter Address line 2"
-                                                    onChange={secAddLine2Handler} />
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name='secAddLine3'
-                                                label="Landmark"
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                    },
-                                                ]}
-                                                style={{ marginBottom: '1rem' }}
-                                            >
-                                                <Input
-                                                    className="first-name input-box"
-                                                    placeholder="Enter Landmark"
-                                                    onChange={secAddLine3Handler} />
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="secAddCountry"
-                                                label="Country"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Please select your city!',
-                                                    },
-                                                ]}
+                    <div className='form-container2'>
+                    <LeadDetailsTab activeKey="2" />
+                        <Row className='m0a' gutter={[0, 30]} justify="center">
+                            
+                            <Col className=" form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
+                                <p className="form-title">Contact Details</p>
+                                <Row gutter={16} className="mb2"  >
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='addline1'
+                                            label="Address line 1"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Address line 1"
+                                                onChange={addLine1Handler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='addline2'
+                                            label="Address line 2"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Address line 2"
+                                                onChange={addLine2Handler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='addline3'
+                                            label="Landmark"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Landmark"
+                                                onChange={addLine3Handler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="country"
+                                            label="Country"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Please select your city!',
+                                                },
+                                            ]}
                                             style={{ marginBottom: '1rem' }}
-                                            >
-                                                <Select
-                                                    bordered={false}
-                                                    style={{ width: '100%', boxShadow: 'none', borderBottom: 'rgb(153, 153, 153) 1px solid', height: '2.5rem', marginTop: '-10px' }}
-                                                    size="large"
-                                                    placeholder="Select Your Country">
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="secAddState"
-                                                label="State"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Select your State!',
-                                                    },
-                                                ]}
+                                        >
+                                            <Select
+                                                bordered={false}
+                                                style={{ marginTop: '-10px' }}
+                                                className='select-box'
+                                                size="large"
+                                                placeholder="India">
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="state"
+                                            label="State"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select your State!',
+                                                },
+                                            ]}
                                             style={{ marginBottom: '1rem' }}
 
-                                            >
-                                                <Select
-                                                    style={{ marginTop: '-10px' }}
-                                                    bordered={false}
-                                                    className='select-box'
-                                                    size="large"
-                                                    placeholder="Select Your State"
-                                                    options={stateOptions}
-                                                    onSelect={secStateSelectHandler}
-                                                    onChange={secStateChangedHandler}>
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name="secAddCity"
-                                                label="City"
-                                                hasFeedback
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                        message: 'Please select your city!',
-                                                    },
-                                                ]}
+                                        >
+                                            <Select
+                                                style={{ marginTop: '-10px' }}
+                                                bordered={false}
+                                                className='select-box'
+                                                size="large"
+                                                placeholder="Select Your State"
+                                                options={stateOptions}
+                                                onSelect={stateSelectHandler}
+                                                onChange={stateChangedHandler}>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="city"
+                                            label="City"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Please select your city!',
+                                                },
+                                            ]}
                                             style={{ marginBottom: '1rem' }}
 
-                                            >
-                                                <Select
-                                                    style={{ marginTop: '-10px' }}
-                                                    bordered={false}
-                                                    className='select-box'
-                                                    size="large"
-                                                    placeholder="Select a city"
-                                                    options={citiesOptions}
-                                                    onChange={secCityChangedHandler}>
-                                                </Select>
-                                            </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                            <Form.Item
-                                                {...formItemLayout}
-                                                className="form-item-name label-color"
-                                                name='secAddPin'
-                                                label="Pincode"
-                                                rules={[
-                                                    {
-                                                        required: false,
-                                                    },
-                                                    {
-                                                        min: 6,
-                                                        max: 6,
-                                                        pattern: '^([-]?[1-9][0-9]*|0)$',
-                                                        message: 'Pincode must be 6 characters'
-                                                    }
-                                                ]}
+                                        >
+                                            <Select
+                                                style={{ marginTop: '-10px' }}
+                                                bordered={false}
+                                                className='select-box'
+                                                size="large"
+                                                placeholder="Select a city"
+                                                options={citiesOptions}
+                                                onChange={cityChangedHandler}>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='pincode'
+                                            label="Pincode"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                                {
+                                                    min: 6,
+                                                    max: 6,
+                                                    pattern: '^([-]?[1-9][0-9]*|0)$',
+                                                    message: 'Pincode must be of 6 characters'
+                                                }
+                                            ]}
+                                            style={{ marginBottom: '1rem' }}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Pincode"
+                                                onChange={pincodeHandler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='primaryNo'
+                                            label="Primary Mobile No"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                                {
+                                                    min: 10,
+                                                    max: 10,
+                                                    pattern: '^([-]?[1-9][0-9]*|0)$',
+                                                    message: 'Mobile No must be of 10 characters'
+                                                }
+                                            ]}
+                                            style={{ marginBottom: '1rem' }}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Primary Mobile No"
+                                                onChange={primaryNoHandler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='secondaryNo'
+                                            label="Alternate Mobile"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                                {
+                                                    min: 10,
+                                                    max: 10,
+                                                    pattern: '^([-]?[1-9][0-9]*|0)$',
+                                                    message: 'Mobile No must be of 10 characters'
+                                                }
+                                            ]}
+                                            style={{ marginBottom: '1rem' }}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Alternate Mobile No"
+                                                onChange={secondaryNoHandler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='landlineNo'
+                                            label="Landline No"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                            ]}
+                                            style={{ marginBottom: '1rem' }}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Landline No"
+                                                onChange={landlineNoHandler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='aadharNo'
+                                            label="Social Security (Aadhaar No.)"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                                {
+                                                    min: 12,
+                                                    max: 12,
+                                                    pattern: '^([-]?[1-9][0-9]*|0)$',
+                                                    message: 'Aadhar No must be of 12 characters'
+                                                }
+                                            ]}
+                                            style={{ marginBottom: '1rem' }}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Your Aadhaar No"
+                                                onChange={aadharNoHandler} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name='email'
+                                            label="Email Address"
+                                            rules={[
+                                                {
+                                                    type: email,
+                                                    required: false,
+                                                    message: 'Please provide valid email'
+                                                },
+                                            ]}
+                                            style={{ marginBottom: '1rem' }}
+                                        >
+                                            <Input
+                                                className="first-name input-box"
+                                                placeholder="Enter Your Email Address"
+                                                onChange={emailAddressHandler} />
+                                        </Form.Item>
+                                    </Col>
+
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            className="form-item-name label-color"
+                                            name='addStatus'
+                                            label="Is your permarent address same as mailing address?"
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                },
+                                            ]}
+                                            style={{ marginBottom: '1rem' }}
+                                        >
+                                            <Switch
+                                                size="large"
+                                                checkedChildren="No"
+                                                unCheckedChildren="Yes"
+                                                // defaultChecked={true}
+                                                onChange={CheckMailingAddSameAsPermanentAdd} />
+                                        </Form.Item>
+                                    </Col>
+                                    {!isSameAddress &&
+                                        // <Form layout="horizontal" className="contact-detail-form">
+                                        <>
+                                            <Col xs={24} sm={24} md={24} lg={24} xl={24} className="form-title">
+                                                <Title level={5} style={{ marginTop: '1rem' }}>Permanent Address</Title>
+                                            </Col>
+                                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name='secAddLine1'
+                                                    label="Address line 1"
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                        },
+                                                    ]}
+                                                    style={{ marginBottom: '1rem' }}
+                                                >
+                                                    <Input
+                                                        className="first-name input-box"
+                                                        placeholder="Enter Address line 1"
+                                                        onChange={secAddLine1Handler} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name='secAddLine2'
+                                                    label="Address line 2"
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                        },
+                                                    ]}
+                                                    style={{ marginBottom: '1rem' }}
+                                                >
+                                                    <Input
+                                                        className="first-name input-box"
+                                                        placeholder="Enter Address line 2"
+                                                        onChange={secAddLine2Handler} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name='secAddLine3'
+                                                    label="Landmark"
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                        },
+                                                    ]}
+                                                    style={{ marginBottom: '1rem' }}
+                                                >
+                                                    <Input
+                                                        className="first-name input-box"
+                                                        placeholder="Enter Landmark"
+                                                        onChange={secAddLine3Handler} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="secAddCountry"
+                                                    label="Country"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Please select your city!',
+                                                        },
+                                                    ]}
                                                 style={{ marginBottom: '1rem' }}
-                                            >
-                                                <Input
-                                                    className="first-name input-box"
-                                                    placeholder="Enter Pincode"
-                                                    onChange={secPincodeHandler} />
-                                            </Form.Item>
-                                        </Col>
-                                    </>
-                                }
-                            </Row>
-                        </Col>
-                        <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
-                            <Row gutter={[8, 8]}>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
-                                    <Button
-                                    className="last-btn-1"
-                                        type="primary"
-                                        // shape="round" 
-                                        size="large"
-                                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                                        icon={<ArrowLeftOutlined />}
-                                    >Previous</Button>
-                                </Col>
-                                <Col xs={11} sm={12} md={4} >
-                                    <Form.Item>
+                                                >
+                                                    <Select
+                                                        bordered={false}
+                                                        style={{ width: '100%', boxShadow: 'none', borderBottom: 'rgb(153, 153, 153) 1px solid', height: '2.5rem', marginTop: '-10px' }}
+                                                        size="large"
+                                                        placeholder="Select Your Country">
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="secAddState"
+                                                    label="State"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Select your State!',
+                                                        },
+                                                    ]}
+                                                style={{ marginBottom: '1rem' }}
+
+                                                >
+                                                    <Select
+                                                        style={{ marginTop: '-10px' }}
+                                                        bordered={false}
+                                                        className='select-box'
+                                                        size="large"
+                                                        placeholder="Select Your State"
+                                                        options={stateOptions}
+                                                        onSelect={secStateSelectHandler}
+                                                        onChange={secStateChangedHandler}>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name="secAddCity"
+                                                    label="City"
+                                                    hasFeedback
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                            message: 'Please select your city!',
+                                                        },
+                                                    ]}
+                                                style={{ marginBottom: '1rem' }}
+
+                                                >
+                                                    <Select
+                                                        style={{ marginTop: '-10px' }}
+                                                        bordered={false}
+                                                        className='select-box'
+                                                        size="large"
+                                                        placeholder="Select a city"
+                                                        options={citiesOptions}
+                                                        onChange={secCityChangedHandler}>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                                <Form.Item
+                                                    {...formItemLayout}
+                                                    className="form-item-name label-color"
+                                                    name='secAddPin'
+                                                    label="Pincode"
+                                                    rules={[
+                                                        {
+                                                            required: false,
+                                                        },
+                                                        {
+                                                            min: 6,
+                                                            max: 6,
+                                                            pattern: '^([-]?[1-9][0-9]*|0)$',
+                                                            message: 'Pincode must be 6 characters'
+                                                        }
+                                                    ]}
+                                                    style={{ marginBottom: '1rem' }}
+                                                >
+                                                    <Input
+                                                        className="first-name input-box"
+                                                        placeholder="Enter Pincode"
+                                                        onChange={secPincodeHandler} />
+                                                </Form.Item>
+                                            </Col>
+                                        </>
+                                    }
+                                </Row>
+                            </Col>
+                            <Col className='form-body  p20' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
+                                <Row gutter={[8, 8]}>
+                                    <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 12 : 0} >
                                         <Button
-                                        className="last-ss-btn-2"
+                                        className="last-btn-1"
                                             type="primary"
-                                            // shape="round"
+                                            // shape="round" 
                                             size="large"
-                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                                            icon={<FileTextOutlined />} htmlType="submit"
-                                        // disabled={!formIsValid}
-                                        // onClick={updateHandler}
-                                        >Update</Button>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={11} sm={12} md={4}>
-                                    <Form.Item>
-                                        <Button
-                                        className="last-btn-3"
-                                            type="primary"
-                                            // shape="round"
-                                            size="large"
-                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                                            icon={<ArrowRightOutlined />}
-                                            htmlType="submit"
-                                        // onClick={proceedHandler}
-                                        >Proceed</Button>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
+                                            icon={<ArrowLeftOutlined />}
+                                        >Previous</Button>
+                                    </Col>
+                                    <Col xs={11} sm={12} md={4} >
+                                        <Form.Item>
+                                            <Button
+                                            className="last-ss-btn-2"
+                                                type="primary"
+                                                // shape="round"
+                                                size="large"
+                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
+                                                icon={<FileTextOutlined />} htmlType="submit"
+                                            // disabled={!formIsValid}
+                                            // onClick={updateHandler}
+                                            >Update</Button>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={11} sm={12} md={4}>
+                                        <Form.Item>
+                                            <Button
+                                            className="last-btn-3"
+                                                type="primary"
+                                                // shape="round"
+                                                size="large"
+                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                                                icon={<ArrowRightOutlined />}
+                                                htmlType="submit"
+                                            // onClick={proceedHandler}
+                                            >Proceed</Button>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </div>
                 </Form>
             </div>
 

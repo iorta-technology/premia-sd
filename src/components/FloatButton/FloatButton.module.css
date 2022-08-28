@@ -1,10 +1,13 @@
 .icon{
     font-size: 56px;
     color: rgb(1, 180, 187);
+    background-color: #fff;
     z-index: 10000;
     position: fixed;
     bottom: 50px;
     right: 23px;
+    border-radius: 28px;
+    box-shadow: rgb(107, 100, 100) 0px 0px 4px;
 }
 .iconpfr{
     position: fixed;
@@ -24,7 +27,7 @@
     background-color: #4caf50;
 }
 .newrecuirement{
-    bottom: 280px;
+    bottom: 213px;
     background-color: #4caf50;
 }
 .pgpfr{
@@ -45,11 +48,30 @@
 }
 .recuirementpg{
     
-    bottom: 270px;
+    bottom: 205px;
 }
 .popover-icon{
     font-size: 30px;
     color: rgb(1, 180, 187);
+}
+
+@media (min-width:320px) {
+    .leadpg{
+        bottom: 107px;
+    }
+    .leadicon{
+        bottom: 115px;
+        background-color: #4caf50;
+    }
+    .eventicon{
+        bottom: 170px;
+        background-color: #00ACC1;
+    
+    }
+    .eventpg{
+    
+        bottom: 164px;
+    }
 }
 
 @media (min-width:992px) {
@@ -64,7 +86,7 @@
         right: 83px;
     }
     .eventicon{
-        bottom: 220px;
+        bottom: 162px;
     }
     .goalicon{
         bottom:165px;
@@ -74,7 +96,7 @@
     }
     .eventpg{
         
-        bottom: 215px;
+        bottom: 155px;
     }
     .goalpg{
         

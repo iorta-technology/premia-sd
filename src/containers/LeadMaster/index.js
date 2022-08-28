@@ -15,18 +15,13 @@ const LeadMaster = (props) => {
     const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
-        // const {id} = stoageGetter('user')
+        const {id} = stoageGetter('user')
         // console.log(id)
-        // dispatch(actions.fetchAllLeads(id,'',current))
-
-
-        const ids = stoageGetter('user')
-        // ids && 
-        dispatch(actions.fetchAllLeads(ids[0][0]._id, '', current))
-    }, [dispatch, current]);
+        dispatch(actions.fetchAllLeads(id,'',current))
+    },[dispatch,current]);
 
     //Accessing LeadCard data  from store
-    const leadsData = useSelector((state) => state.leads.allLeads)
+    const leadsData = useSelector((state)=>state.leads.allLeads)
     //Loading leads data
     const leadDataLoading = useSelector((state) => state.leads.fetch_allLeads_Loading)
     // lead count of the page
@@ -81,15 +76,15 @@ const LeadMaster = (props) => {
         },
 
     ]
-    console.warn("debug 001", leadsData, "debug 002", leadDataLoading)
+console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
     return (
-        <div style={{ backgroundColor: '#fafafa' }}>
-            <Tab
-                tabMenu={tabMenu}
-                header="Lead"
-            // current={current}
-            />
-            {/* <Button type='primary' className="export-btn">Export</Button>
+        <div style={{backgroundColor:'#fafafa'}}>
+            <Tab 
+                tabMenu={tabMenu} 
+                header="Lead" 
+                // current={current}
+                />
+                {/* <Button type='primary' className="export-btn">Export</Button>
                 <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button> */}
             {/* <Button type='primary' className='dashboard-btn' onClick={ ()=> history.push('/dashboard') }>Dashboard</Button>
                 <Button type='primary' className="export-btn">Export</Button>

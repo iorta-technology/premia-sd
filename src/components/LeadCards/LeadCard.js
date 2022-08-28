@@ -25,15 +25,16 @@ const LeadCard = React.memo((props) => {
   } = props;
 
   const leadComponent =
+  console.log('leadStatus_______________',leadStatus)
     leadStatus === "newleadentery" ? (
       <p className="user-status-text capitalize open">Open</p>
     ) : leadStatus === "converted" ? (
       <p className="user-status-text capitalize converted">{leadStatus}</p>
     ) : leadStatus === "failed" ? (
       <p className="user-status-text capitalize failed">{leadStatus}</p>
-    ) : (
-      <p className="user-status-text capitalize">{leadStatus}</p>
-    );
+    ) : leadStatus === "contact" ? (
+      <p className="user-status-text capitalize">Open</p>
+    ) : ( <p className="user-status-text capitalize">{leadStatus}</p>)
 
   let avatar = firstName.match(/\b(\w)/g) + lastName.match(/\b(\w)/g);
 
@@ -70,11 +71,11 @@ const LeadCard = React.memo((props) => {
           //  <input type='checkbox'></input>
           //  :null
         }
-          <Avatar style={{ }} size={{ xl: 50 }}>
+          <Avatar style={{paddingTop:'-40px' }} size={{ xl: 50 }}>
             {avatar}
           </Avatar>
-          
-          {leadComponent} 
+          <div style={{display:'flex'}}>{leadStatus === "newleadentery"? <div style={{fontSize:'10px'}}>NEW<div>LEADENTRY</div></div> : leadStatus}</div>
+           
         </div>
         </div>
           
@@ -157,11 +158,11 @@ const LeadCard = React.memo((props) => {
         <Avatar
           className="avatar-mobile"
           size={{
-            xs: 36,
+            xs: 50,
             md: 40,
             xl: 50,
           }}
-          style={{ backgroundColor: "blue" }}
+          style={{ display: 'flex',alignItems: 'center',justifyContent: 'center',backgroundColor: "blue" }}
         >
           {avatar}
         </Avatar>
@@ -169,7 +170,8 @@ const LeadCard = React.memo((props) => {
           <p className="user-name-text">
             {firstName} {lastName}
           </p>
-          <p className="user-status-text">{leadStatus}</p>
+          {/* {leadComponent} */}
+          <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p>
           {/* <PhoneOutlined
             style={{ color: "green", cursor: "pointer" }}
           ></PhoneOutlined> */}

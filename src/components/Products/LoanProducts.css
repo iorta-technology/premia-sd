@@ -22,23 +22,29 @@
   /* .Clubsmaster-modal-style{
     width: 30vw;
   } */
+
   .bi-cancelbtn{
-    display: flex;
+    /* display: flex;
     margin-left: 30vw;
-    height: 4vh;
+    height: 4vh; */
     /* padding-top: 2vw; */
     /* justify-content: space-around; */
+    margin-right: 10px;
+    width: 20%;
     background-color: #01B4BB;
     color: #fff;   
 }
 .link-btn{
-    display: flex;
-    margin-left: 40vw;
-    height: 4vh;
-
+    /* display: flex; */
+    /* height: 4vh; */
     /* padding-left: 2vw; */
+    width: 15%;
+    border-radius: 1px;
+    text-align: center;
     background-color: #3b371e;
     color: #fff;
+    padding-top: 5px;
+    font-size: 12px;
 }
 .table-heading1{
   color: #fff;
@@ -299,5 +305,41 @@ padding-top: 1vw;
 }
   }
 
+/*Download icon*/
+.anticon-download{
+  margin-right: bold;
+}
+ /*inside Benefit illustration button components*/
+ .Clubsmaster-modal-style{
+  width: 800px !important;
+ }
+.Clubsmaster-modal-style .ant-modal-header{
+  background-color: #3b371e;
+  padding: 13px 22px !important;
+}
+/*-end-/ 
 
- 
+/*inside Benefit illustration trable design*/
+.Clubsmaster-modal-style .ant-modal-footer{
+ display: flex !important;
+ justify-content: flex-end !important;
+}
+.Clubsmaster-modal-style-Table-Pagination{
+  display: flex;
+  flex-direction: row;
+}
+/*------end ---*/
+
+.Clubsmaster-modal-style .ant-modal-title{
+  font-weight: bold;
+  font-size: 14px;
+  color: #FFF;
+}
+.ant-input{
+  max-width: 50%;
+  background-color: #e8e8e8;
+  color: #000;
+  margin-left: 20%;
+  padding: 5px 30px 5px 30px;
+  border-radius: 5px;
+}

@@ -11,7 +11,7 @@ import productReducer from './product'
 import agentReducer from './agentMicroSite'
 import advisorReducer from './advisor'
 import applicationReducer from './applicationreducer'
-import BICardReducer from './BICardReducer';
+// import BICardReducer from './BICardReducer';
 // import activitiesReducer from './home'
 import historyReducer from './history'
 // import pendencyReducer from './penc'
@@ -29,7 +29,7 @@ const rootReducer = combineReducers({
     agent:agentReducer,
     advisor:advisorReducer,
     applicationReducer,
-    BICardReducer,
+    // BICardReducer,
     // pendencies:pendencyReducer
 });
 

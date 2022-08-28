@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
+import axiosRequest from '../../axios-request/request.methods';
 
 
 
@@ -28,25 +29,32 @@ export const createLeadFail = (error) => {
 
 export const createLead = (formData) => {
         
-    return dispatch => {
+    return async dispatch => {
         dispatch(createLeadStart())
-        return axios.post(`user/addlead`,formData)
-            .then(res => {
-                if(res.data.errCode===-1){
-                    const response = res.data.errMsg
-                    const succMsg = 'Lead Created Successfully'
-                    console.log('creat action',response)
-                    return dispatch(createLeadSuccess(...response,succMsg))
+        // return axios.post(`user/addlead`,formData)
+        //     .then(res => {
+        //         if(res.data.errCode===-1){
+        //             const response = res.data.errMsg
+        //             const succMsg = 'Lead Created Successfully'
+        //             console.log('creat action',response)
+        //             return dispatch(createLeadSuccess(...response,succMsg))
 
-                }else{
-                    throw res
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                const errorMessage = error.data.errMsg
-                return dispatch(createLeadFail(errorMessage))
-            })
+        //         }else{
+        //             throw res
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //         const errorMessage = error.data.errMsg
+        //         return dispatch(createLeadFail(errorMessage))
+        //     })
+
+
+        let result = await axiosRequest.post('user/addlead', formData, { secure: true });
+        console.log('create LEADDDD_______',result)
+        if (result.length > 0) {
+            return dispatch(createLeadSuccess(result));
+        }
     }
 }
 
@@ -73,24 +81,30 @@ export const editLeadFail = (error) => {
 
 export const editLead = (formData,id) => {
         
-    return dispatch => {
+    return async dispatch => {
         dispatch(editLeadStart())
-        return axios.put(`user/updateLead/${id}`,formData)
-            .then(res => {
-                if(res.data.errCode===-1){
-                    let formData = res.data.errMsg[0]
-                    let appointmentData = res.data.errMsg[1]
+        // return axios.put(`user/updateLead/${id}`,formData)
+        //     .then(res => {
+        //         if(res.data.errCode===-1){
+        //             let formData = res.data.errMsg[0]
+        //             let appointmentData = res.data.errMsg[1]
 
-                    return dispatch(editLeadSuccess(formData,appointmentData))
-                }else{
-                    throw res
-                }
-            })
-            .catch(error => {
-                const errorMessage = error.data.errMsg
+        //             return dispatch(editLeadSuccess(formData,appointmentData))
+        //         }else{
+        //             throw res
+        //         }
+        //     })
+        //     .catch(error => {
+        //         const errorMessage = error.data.errMsg
 
-                return dispatch(editLeadFail(errorMessage))
-            })
+        //         return dispatch(editLeadFail(errorMessage))
+        //     })
+
+        let result = await axiosRequest.post(`user/updateLead/${id}`, formData, { secure: true });
+        console.warn('update LEADDDD_______',result)
+        if (result.length > 0) {
+            return dispatch(editLeadSuccess(result));
+        }
     }
 }
 
@@ -120,23 +134,29 @@ export const fetchLeadDetailsFail = (error) => {
 
 export const fetchLeadDetails = (id) => {
         
-    return dispatch => {
+    return async dispatch => {
         dispatch(fetchLeadDetailsStart())
-        return axios.get(`user/getlead_details/${id}`)
-            .then(res => {
-                    console.log(res.data.errMsg)
-                    let formData = res.data.errMsg[0]
-                    let appointmentData = res.data.errMsg[1]
-                    if(res.data.errCode===-1){
-                        return dispatch(fetchLeadDetailsSuccess(formData,appointmentData,id))
-                    }else{
-                        throw formData
-                    }
-            })
-            .catch(error => {
-                console.log(error)
-                return dispatch(fetchLeadDetailsFail(error))
-            })
+        // return axios.get(`user/getlead_details/${id}`)
+        //     .then(res => {
+        //             console.log(res.data.errMsg)
+        //             let formData = res.data.errMsg[0]
+        //             let appointmentData = res.data.errMsg[1]
+        //             if(res.data.errCode===-1){
+        //                 return dispatch(fetchLeadDetailsSuccess(formData,appointmentData,id))
+        //             }else{
+        //                 throw formData
+        //             }
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //         return dispatch(fetchLeadDetailsFail(error))
+        //     })
+
+        let result = await axiosRequest.get(`user/getlead_details/${id}`, { secure: true });
+        console.warn('__++++++++++++++ getlead_details',result)
+        if (result.length > 0) {
+            return dispatch(fetchLeadDetailsSuccess(result[0]));
+        }
     }
 }
 

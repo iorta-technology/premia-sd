@@ -26,20 +26,20 @@ const tabMenu = [
         id: 1,
         value: "Status",
     },
+    // {
+    //     id: 2,
+    //     value: "Lead Details"
+    // },
+    // {
+    //     id: 3,
+    //     value: "Proposal Details"
+    // },
+    // {
+    //     id: 4,
+    //     value: "Documents Upload"
+    // },
     {
         id: 2,
-        value: "Lead Details"
-    },
-    {
-        id: 3,
-        value: "Proposal Details"
-    },
-    {
-        id: 4,
-        value: "Documents Upload"
-    },
-    {
-        id: 5,
         value: "History"
     },
 
@@ -150,139 +150,141 @@ const ProposedProduct = () => {
                     className="contact-detail-form"
                     onFinish={submitHandler}
                 >
-                    <Row className='m0b' gutter={['', 20]} justify="center">
-                        <LeadDetailsTab activeKey="5" />
-                        <Col className="form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
-                            <p className="form-title">Proposed Product</p>
-                            <Row gutter={16} className="mb-2" >
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="Product Category"
-                                        label="Product Category"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select product category',
-                                            },
-                                        ]}
-                                    >
-                                        <Select
-                                            bordered={false}
-                                            style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid' }}
-                                            className='form-input-box'
-                                            value={product}
-                                            options={productCategoryOptions}
-                                            size="large"
-                                            placeholder="Select Product"
-                                            onChange={productHandler}
+                    <div className='form-container2'>
+                        <Row className='m0b' gutter={['', 20]} justify="center">
+                            <LeadDetailsTab activeKey="5" />
+                            <Col className="form-body p40 m0a" sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
+                                <p className="form-title">Proposed Product</p>
+                                <Row gutter={16} className="mb-2" >
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="Product Category"
+                                            label="Product Category"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select product category',
+                                                },
+                                            ]}
                                         >
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="Plan Name"
-                                        label="Plan Name"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select plan name',
-                                            },
-                                        ]}
-                                    >
-                                        <Select
-                                            bordered={false}
-                                            style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid' }}
-                                            className='form-input-box'
-                                            value={planNameValue}
-                                            options={planOptions}
-                                            size="large"
-                                            placeholder="Select"
-                                            onChange={planNameHandler}
+                                            <Select
+                                                bordered={false}
+                                                style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid' }}
+                                                className='form-input-box'
+                                                value={product}
+                                                options={productCategoryOptions}
+                                                size="large"
+                                                placeholder="Select Product"
+                                                onChange={productHandler}
+                                            >
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="Plan Name"
+                                            label="Plan Name"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select plan name',
+                                                },
+                                            ]}
                                         >
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="Expected Closure Date"
-                                        label="Expected Closure Date"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select Closure Date',
-                                            },
-                                        ]}
-                                        style={{marginBlock:'1rem'}}
-                                    >
-                                        <DatePicker
-                                            value={closureDate}
-                                            onChange={closureDateHandler}
-                                            size="large"
-                                            style={{ width: "100%", boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid', height: '2.7rem' }}
-                                            placeholder="dd/mm/yyyy" />
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        className="form-item-name label-color"
-                                        name="Expected Premium"
-                                        label="Expected Premium"
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: false,
-                                                message: 'Select plan name',
-                                            },
-                                        ]}
-                                        style={{marginBlock:'1rem'}}
-                                    >
-                                        <Input
-                                            style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid',height:'2.7rem' }}
-                                            value={expectedMoney}
-                                            onChange={expectedMoneyHandler}
-                                            className="first-name input-box"
-                                            placeholder="Expected Premium Amount1">
-                                        </Input>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Col>
+                                            <Select
+                                                bordered={false}
+                                                style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid' }}
+                                                className='form-input-box'
+                                                value={planNameValue}
+                                                options={planOptions}
+                                                size="large"
+                                                placeholder="Select"
+                                                onChange={planNameHandler}
+                                            >
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="Expected Closure Date"
+                                            label="Expected Closure Date"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select Closure Date',
+                                                },
+                                            ]}
+                                            style={{marginBlock:'1rem'}}
+                                        >
+                                            <DatePicker
+                                                value={closureDate}
+                                                onChange={closureDateHandler}
+                                                size="large"
+                                                style={{ width: "100%", boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid', height: '2.7rem' }}
+                                                placeholder="dd/mm/yyyy" />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            className="form-item-name label-color"
+                                            name="Expected Premium"
+                                            label="Expected Premium"
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: false,
+                                                    message: 'Select plan name',
+                                                },
+                                            ]}
+                                            style={{marginBlock:'1rem'}}
+                                        >
+                                            <Input
+                                                style={{ boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid',height:'2.7rem' }}
+                                                value={expectedMoney}
+                                                onChange={expectedMoneyHandler}
+                                                className="first-name input-box"
+                                                placeholder="Expected Premium Amount1">
+                                            </Input>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Col>
 
-                        <Col className='form-body  p10' style={{ marginBottom: "20px" }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
-                            <Row gutter={[8, 8]}>
-                                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 0} >
-                                    <Button
-                                        type="primary"
-                                        // shape="round" 
-                                        size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
-                                </Col>
-                                <Col xs={11} sm={12} md={4}>
-                                    <Form.Item>
+                            <Col className='form-body  p10' style={{ marginBottom: "20px" }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 6 : 0}>
+                                <Row gutter={[8, 8]}>
+                                    <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 0} >
                                         <Button
                                             type="primary"
-                                            // shape="round"
-                                            size="large"
-                                            style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                                            icon={<FileTextOutlined />}
-                                            // onClick={submitHandler}
-                                            htmlType="submit"
-                                        >Submit</Button>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                                            // shape="round" 
+                                            size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                    </Col>
+                                    <Col xs={11} sm={12} md={4}>
+                                        <Form.Item>
+                                            <Button
+                                                type="primary"
+                                                // shape="round"
+                                                size="large"
+                                                style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                                                icon={<FileTextOutlined />}
+                                                // onClick={submitHandler}
+                                                htmlType="submit"
+                                            >Submit</Button>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </div>
                 </Form>
             </div>
         </>

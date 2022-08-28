@@ -5,6 +5,9 @@ import './LeadDetailsTab.css'
 const style = {
     color:"#000",
     background:'#fff',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#ccc'
 }
 
 const LeadDetailsTab = (props) => {
@@ -25,6 +28,8 @@ const LeadDetailsTab = (props) => {
     // const [activeKey, setactiveKey] = useState('1')
     let history = useHistory()
     const tabClick = (key) => {
+        // console.log('history ___',history)
+        // console.log('KEYSSSS___',key)
         // setactiveKey(key)
         switch (key) {
             case "1": return history.push('/leadmasterpage/leaddetails/personallead');
@@ -38,7 +43,7 @@ const LeadDetailsTab = (props) => {
 
     return (
         <>
-            <Col className="internal-tab"  xs={22} sm={24} md={4} lg={4} xl={4} offset={2}>
+            <Col className="internal-tab"  xs={28} sm={24} md={4} lg={4} xl={4} offset={2}>
                 <Tabs
                     tabBarGutter={0}
                     tabPosition={width > breakpoint ? 'left' : 'top'}

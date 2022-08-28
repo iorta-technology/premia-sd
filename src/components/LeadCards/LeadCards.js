@@ -12,7 +12,10 @@ import {
   getTeamMainTabApi,
   getFirstDropdownValueApi,
   getSecondDropdownValueApi,
-  getFormByIdApi
+  getFormByIdApi,
+  getOpenTabApi,
+  getFortodayTabApi,
+  getFailedTabApi
 } from "../../components/actions/allleadAction"
 
 import { fetchAllLeadsSuccess } from '../../store/actions/leads'
@@ -22,7 +25,7 @@ const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads)
   const loginState = useSelector((state) => state.login)
   const { user } = loginState
-  console.log("all**", user[0][0]._id)
+  // console.log("all**", user[0][0]._id)
   // console.warn("leadsData", leadsData)
   const dispatch = useDispatch()
   const [width, setWidth] = useState(window.innerWidth);
@@ -41,12 +44,15 @@ const LeadCards = (props) => {
       getDataForFirstDropdownTeam()
     }
   }, [leadsData])
+  
 
   const getDataForFirstDropdownTeam = async () => {
-    const response = await getFirstDropdownValueApi(user && user[0] && user[0][0] && user[0][0]._id)
+    console.log("***********>",user)
+    const response = await getFirstDropdownValueApi(user && user.id)
+    console.log("***********>",user)
     if (response.status == 200) {
+      console.log("all*******", response?.data?.errMsg)
       if (response?.data?.errMsg?.reporting_hierarchies) {
-        console.log("all*******", response?.data?.errMsg)
         setFirstDrop(response?.data?.errMsg.reporting_hierarchies)
         setSecondDropData(response?.data?.errMsg.reporting_users)
       }
@@ -54,6 +60,7 @@ const LeadCards = (props) => {
       throw response?.data?.errMsg
     }
   }
+
 
   // useEffect(() => {
   //   if(openSecond){

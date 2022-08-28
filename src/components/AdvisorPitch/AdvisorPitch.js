@@ -33,9 +33,10 @@ const AdvisorPitch = () => {
                 activeKey="advisorpitch"
             />
                 <div className="Advisorpitch-row-flex">
-                    <Tabs tabPosition={tabPosition} tabBarGutter="3vw" style={{ fontSize: '12px', backgroundColor: 'white' }}>
+                    <Tabs tabPosition={tabPosition} tabBarGutter="2vw" style={{ fontSize: '12px'}}
+                     className='AdvisorPitch-Container'>
                         {/* style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }} */}
-                        <TabPane tab="About Us" key="1" >
+                        <TabPane tab="About Us" key="1"  className='AdvisorPitch'>
                             <div className="Advisorpitch-details-card-style ">
                                 <div className="Advisorpitch-details-card-content-align">
                                     <h1 className="about-heading">About Us New</h1><Divider />
@@ -51,7 +52,7 @@ const AdvisorPitch = () => {
                                 </div>
                             </div>
                         </TabPane>
-                        <TabPane tab="Benefits" key="2" >
+                        <TabPane tab="Benefits" key="2" className='AdvisorPitch'>
                             <div className="Advisorpitch-details-card-style ">
                                 <div className="Advisorpitch-details-card-content-align">
                                     <h1 className="about-heading">Benefits fo being Advisor at Life</h1><Divider />
@@ -88,7 +89,7 @@ const AdvisorPitch = () => {
                                 </div>
                             </div>
                         </TabPane>
-                        <TabPane tab="Success Story" key="3" >
+                        <TabPane tab="Success Story" key="3" className='AdvisorPitch-Success-Story'>
                             <div>
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
@@ -188,8 +189,9 @@ const AdvisorPitch = () => {
                                 </Row>
                             </div>
                         </TabPane>
-                        <TabPane tab="Licensing Process" key="4" >
-                            <div>
+                        <TabPane tab="Licensing Process" key="4" 
+                        className='AdvisorPitch-Licensing'>
+                            <div className='AdvisorPitch-Licensing-Container'>
                                 <h1 className="about-heading">Our quick and easy steps to be an Agent</h1><Divider />
                                 <h3 className="process">Process</h3>
                                 <p className="about-paragraph">You can also become the part of the insurance sector, not as a policyholder, but as an agent. Follow any of the following ways if you want to become an agent:

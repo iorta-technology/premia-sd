@@ -123,24 +123,30 @@ export const fetchUserDetailsFail = (error) => {
 
 export const fetchUserDetails = (userId) => {
         
-    return dispatch => {
+    return async dispatch => {
         dispatch(fetchUserDetailsStart())
-        return axios.get(`user/getuserDetails?user_id=${userId}`)
-            .then(res => {
-                let response = res.data.errMsg
-                if(res.data.errCode===-1){
+        // return axios.get(`user/getuserDetails?user_id=${userId}`)
+        //     .then(res => {
+        //         let response = res.data.errMsg
+        //         if(res.data.errCode===-1){
 
-                    console.log('post login userdetails',res.data.errMsg[0])
-                    return dispatch(fetchUserDetailsSuccess(res.data.errMsg[0]))
-                }else{
-                    throw response
-                }
-            })
-            .catch(error => {
-                // return dispatch(fetchUserDetailsFail(error.response.data.errors))
-                console.log(error)
-                return dispatch(fetchUserDetailsFail(error))
-            })
+        //             console.log('post login userdetails',res.data.errMsg[0])
+        //             return dispatch(fetchUserDetailsSuccess(res.data.errMsg[0]))
+        //         }else{
+        //             throw response
+        //         }
+        //     })
+        //     .catch(error => {
+        //         // return dispatch(fetchUserDetailsFail(error.response.data.errors))
+        //         console.log(error)
+        //         return dispatch(fetchUserDetailsFail(error))
+        //     })
+
+        let result = await axiosRequest.get(`user/getuserDetails?user_id=${userId}`, { secure: true });
+        console.log(' login getuserDetails',result)
+        if (result.length > 0) {
+            dispatch(fetchUserDetailsSuccess(result));
+        }
     }
 }
 
@@ -169,15 +175,22 @@ export const fetchHierarchyFail = (error) => {
 }
 
 export const fetchHierarchy = (userId,channelCode) => {
-    return dispatch => {
+    return async dispatch => {
         dispatch(fetchHierarchyStart())
-        return axios.get(`admin/getHierarchy?userId=5b3b4cc28fa96d39870443e3&channelCode=${channelCode}&skip=0&hierarchy_type=1`)
-            .then(res => {
-                console.log('post login hierarchy',res.data.errMsg[0])
-                return dispatch(fetchHierarchySuccess(res.data.errMsg[0]))
-            })
-            .catch(error => {
-                return dispatch(fetchHierarchyFail(error.response.data.errors))
-            })
+        // return axios.get(`admin/getHierarchy?userId=5b3b4cc28fa96d39870443e3&channelCode=${channelCode}&skip=0&hierarchy_type=1`)
+        //     .then(res => {
+        //         console.log('post login hierarchy',res.data.errMsg[0])
+        //         return dispatch(fetchHierarchySuccess(res.data.errMsg[0]))
+        //     })
+        //     .catch(error => {
+        //         return dispatch(fetchHierarchyFail(error.response.data.errors))
+        //     })
+        // console.log('p*********** channelCode',channelCode)
+
+        let result = await axiosRequest.get(`admin/getHierarchy?userId=5b3b4cc28fa96d39870443e3&channelCode=${channelCode}&skip=0&hierarchy_type=1`, { secure: true });
+        console.log(' login getHierarchy',result)
+        if (result.length > 0) {
+            dispatch(fetchHierarchySuccess(result));
+        }
     }
 }

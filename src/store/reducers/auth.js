@@ -31,20 +31,20 @@ const loginStart = (state, action) => {
 
 const loginSuccess = (state, action) => {
     // console.log("id",action.login_agent_data._id)
-    let user= camelCaseKeys({...action.login_agent_data})
+    let user= camelCaseKeys({...action.login_agent_data[0][0]})
     // localStorage.setItem('user',user)
      stoageSetter('user', user);
      
-    return updateObject(state,{ 
-            fetch_allLeads_Loading: false, 
-            // login_agent_data: action.login_agent_data,
-            user:user,
-            user_name: action.login_agent_data.first_name + " " + action.login_agent_data.last_name,
-            agent_id: action.login_agent_data.agent_id,
-            userId: action.login_agent_data._id,
-            // channelCode:action.login_agent_data.channelCode
-            
-         })
+     return updateObject(state,{ 
+        fetch_allLeads_Loading: false, 
+        // login_agent_data: action.login_agent_data,
+        user:user,
+        user_name: action.login_agent_data[0][0].first_name + " " + action.login_agent_data[0][0].last_name,
+        agent_id: action.login_agent_data[0][0].agent_id,
+        userId: action.login_agent_data[0][0]._id,
+        // channelCode:action.login_agent_data[0][0].channelCode
+        
+     })
 }
 const loginFail = (state, action) => {
     return updateObject(state, { 

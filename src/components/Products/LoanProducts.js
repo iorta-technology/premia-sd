@@ -11,6 +11,7 @@ import {
     BrowserRouter as Router,
     Link, useLocation, useHistory
 } from "react-router-dom";
+import Pagination from '../Activitity Tracker/Pagenation/Pagenation';
 const LoanProducts = () => {
     const contentStyle = {
         height: '160px',
@@ -25,6 +26,7 @@ const LoanProducts = () => {
     const [productTabs, SetProductTabs] = useState([]);
     const [activeId, SetActiveId] = useState(null);
 
+   
 
 
     useEffect(() => {
@@ -79,6 +81,17 @@ const LoanProducts = () => {
     const [benefitillArr, setBIArr] = useState();
     const [buttonValue, setButtonValue] = useState();
 
+    ////---Pagination---start-----------///////////////
+    const [currentPage,setCurrentPage]=useState(1);
+    const [postPerPage]=useState(5);
+
+    const indexOfLastPost= currentPage * postPerPage;
+    const indexOfFirstPost= indexOfLastPost - postPerPage;
+    const currentPost=benefitIllustratorArr.slice(indexOfFirstPost,indexOfLastPost);
+    console.log(benefitIllustratorArr.length/postPerPage);
+    const paginate =(page)=> setCurrentPage(page)
+    // const onChange=(page)=> paginate(page);
+/////////-=--------pagination finished-----------/////////////
     const showModal = () => {
         setIsJoinModalVisible(true);
     };
@@ -105,9 +118,11 @@ const LoanProducts = () => {
                 <div>
                     <Row className="tabs" gutter={[16, 24]}>
                         {productData?.map(item =>
-                            <Col span={6}><Button className={`primaryBtn ${item._id === activeId && 'top-tab-header-active'}`}
-
-                                onClick={topBtnClickHandler.bind(this, item)}>{item.productCategoryName}</Button></Col>
+                            <Col span={4}>
+                                <Button className={`primaryBtn ${item._id === activeId && 'top-tab-header-active'}`}
+                                    onClick={topBtnClickHandler.bind(this, item)}>{item.productCategoryName}
+                                </Button>
+                            </Col>
                         )}
 
                     </Row>
@@ -124,19 +139,18 @@ const LoanProducts = () => {
                                             <div className="main-card2" bordered={false} >
                                                 <div className="benefit-main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
                                                     <h1 style={{ color: '#5EA5C0' }} className="benefit-head">{item.productName}</h1>
-                                                    <Button className="benefit-btn" style={{ backgroundColor: 'transparent', border: '1px solid #5EA5C0', borderRadius: '10px' }} onClick={showModal}>Benefit Illustration</Button>
+                                                    <Button className="benefit-btn" style={{ backgroundColor: 'transparent',fontWeight:"bold", border: '1px solid #5EA5C0', borderRadius: '10px' }} onClick={showModal}>Benefit Illustration</Button>
                                                     <Modal
                                                         className="Clubsmaster-modal-style"
-                                                        title="Select the proposer" visible={isJoinModalVisible} onOk={handleOk}
-
+                                                        title="Select the proposer" 
+                                                        visible={isJoinModalVisible} onOk={handleOk}
                                                         footer={[
                                                             <Button type="primary" className="bi-cancelbtn" onClick={handleCancel}>Cancel</Button>,
                                                             <Link to={{
                                                                 pathname: "/master/benefitillustrator",
                                                                 state: { recorddata: benefitIllustratorArr },
-
-
-                                                            }} className="link-btn">Proceed</Link>
+                                                            }} 
+                                                            className="link-btn">Proceed</Link>
                                                         ]}
                                                         width="50%"
                                                         bodyStyle={{
@@ -149,8 +163,8 @@ const LoanProducts = () => {
                                                         >
                                                             <Input type="text" placeholder="Search Here" />
                                                         </Form.Item>
-
-                                                        <table >
+                                                        
+                                                        <table className='LoanProducts-Table'>
                                                             <tr>
                                                                 <th className='table-heading1'>Action</th>
                                                                 <th className='table-heading2'>Lead ID</th>
@@ -158,10 +172,10 @@ const LoanProducts = () => {
                                                                 <th className='table-heading2'>Mobile</th>
                                                                 <th className='table-heading2'>Created Date</th>
                                                             </tr>
-                                                            {benefitIllustratorArr.map((item) => {
+                                                            {currentPost.map((item) => {
                                                                 return (
-                                                                    <tr>
-                                                                        <td><Button className='select-btn' onClick={() => SelectedButtonFunc(item)}>Select</Button></td>
+                                                                    <tr style={{padding:'10px'}} key={item._id}>
+                                                                        <td ><Button className='select-btn' onClick={() => SelectedButtonFunc(item)}>Select</Button></td>
                                                                         <td className='table-subdata'>{item.lead_Id}</td>
                                                                         <td className='table-subdata'>{item.firstName + " " + item.lastName}</td>
                                                                         <td className='table-subdata'>{item.primaryMobile}</td>
@@ -169,7 +183,16 @@ const LoanProducts = () => {
                                                                     </tr>
                                                                 )
                                                             })}
+                                                            
                                                         </table>
+                                                        <Pagination 
+                                                            className='Clubsmaster-modal-style-Table-Pagination' 
+                                                            defaultCurrent={1} 
+                                                            postPerPage={postPerPage}
+                                                            paginate={paginate}
+                                                            total={benefitIllustratorArr.length}
+                                                            totalPost={benefitIllustratorArr.length/postPerPage}
+                                                        />
                                                         {/* </div> */}
                                                         {/* <Table
                         columns={columns}
@@ -214,7 +237,7 @@ const LoanProducts = () => {
                                     <Col className="gutter-row  first-card" xs={12} sm={12} md={12} lg={12} xl={12}>
 
                                         <div className="main-card3" bordered={false} >
-                                            <h4 style={{ textAlign: 'center' }}>{item.imageTitle}</h4>
+                                            <h4 style={{ textAlign: 'center', fontWeight:"bold"}}>{item.imageTitle}</h4>
                                             {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
                                             <Carousel autoplay={true}>
 
@@ -232,10 +255,10 @@ const LoanProducts = () => {
                                             <div className="product-brochure">
                                                 {item.productBrochure.map(item => {
                                                     return (
-                                                        <div>
-                                                            <h4>{item.fileCategory}</h4>
+                                                        <div style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
+                                                            <h4 style={{fontWeight:"bold"}}>{item.fileCategory}</h4>
                                                             <img src={Brocher} height="100px" width="90px"></img>
-                                                            <Button size="small" style={{ backgroundColor: '#5EA5C0', color: '#fff', border: '1px solid #5EA5C0', borderRadius: '10px' }}>
+                                                            <Button size="small" style={{ backgroundColor: '#5EA5C0', width:"100%",color: '#fff', border: '1px solid #5EA5C0', borderRadius: '20px'}}>
                                                                 <a href={item.location} download><DownloadOutlined />
                                                                     English</a>
                                                             </Button>

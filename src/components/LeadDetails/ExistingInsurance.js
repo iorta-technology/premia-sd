@@ -52,20 +52,20 @@ const tabMenu = [
         id: 1,
         value: "Status",
     },
+    // {
+    //     id: 2,
+    //     value: "Lead Details"
+    // },
+    // {
+    //     id: 3,
+    //     value: "Proposal Details"
+    // },
+    // {
+    //     id: 4,
+    //     value: "Documents Upload"
+    // },
     {
         id: 2,
-        value: "Lead Details"
-    },
-    {
-        id: 3,
-        value: "Proposal Details"
-    },
-    {
-        id: 4,
-        value: "Documents Upload"
-    },
-    {
-        id: 5,
         value: "History"
     },
 
@@ -1117,9 +1117,9 @@ const ExistingInsurenceDetails = () => {
                                     <Button
                                         type="primary"
                                         // shape="round" 
-                                        size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }} icon={<ArrowLeftOutlined />} >Previous</Button>
+                                        size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }} icon={<ArrowLeftOutlined />} >Previous</Button>
                                 </Col>
-                                <Col xs={11} sm={12} md={4} >
+                                {/* <Col xs={11} sm={12} md={4} >
                                     <Button
                                         type="primary"
                                         // shape="round" 
@@ -1129,13 +1129,13 @@ const ExistingInsurenceDetails = () => {
                                     // disabled={!formIsValid}
                                     // onClick={updateHandler}
                                     >Update</Button>
-                                </Col>
+                                </Col> */}
                                 <Col xs={11} sm={12} md={4}>
                                     <Button
                                         type="primary"
                                         // shape="round"
                                         size="large"
-                                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
                                         icon={<ArrowRightOutlined />}
                                         onClick={proceedHandler}>Proceed</Button>
                                 </Col>

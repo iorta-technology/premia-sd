@@ -10,14 +10,18 @@ import { stoageGetter } from '../../helpers'
 import { Button } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import LeadCard from '../LeadCards/LeadCard'
-import OffCanvasComp from '../Modal Component/Modal'
+// import OffCanvasComp from '../Modal Component/Modal'
 
 // api's
 import {
   getTeamMainTabApi,
   getFirstDropdownValueApi,
   getSecondDropdownValueApi,
-  getFormByIdApi
+  getFormByIdApi,
+  
+  getOpenTabApi,
+  getFortodayTabApi,
+  getFailedTabApi
 } from "../actions/allleadAction"
 
 const { TabPane } = Tabs
@@ -49,31 +53,41 @@ const Tab = ({
   // const [activeKey, setActiveKey] = useState("self")
   const [currentActiveTab, setCurrentActiveTab] = useState("self")
 
-  useEffect(() => {
-    // const { id } = stoageGetter('user')
-    // console.log(typeof(leadType))
-    // dispatch(actions.fetchAllLeads(id, leadType, 1))
-
-    const ids = stoageGetter('user')
-    // ids && 
-    dispatch(actions.fetchAllLeads(ids[0][0]._id, leadType, 1))
-  }, [dispatch, current, activeTab, leadType])
+  // useEffect(() => {
+    
+  //   const { id } = stoageGetter('user')
+  //   // console.log(typeof(leadType))
+  //   dispatch(actions.fetchAllLeads(id, leadType, 1))
+  // }, [dispatch, current, activeTab, leadType])
 
   useEffect(() => {
     if (currentActiveTab == 'self') {
-      // const { id } = stoageGetter('user')
-      // dispatch(actions.fetchAllLeads(id, leadType, 1))
-
-      const ids = stoageGetter('user')
-      // ids && 
-      dispatch(actions.fetchAllLeads(ids[0][0]._id, leadType, 1))
+      const { id } = stoageGetter('user')
+      dispatch(actions.fetchAllLeads(id, leadType, 1))
     }
   }, [currentActiveTab])
-
   // const ids = stoageGetter('user')
   console.log("--------------------------",leadType)
 
   // ************************Api *********************
+
+  const getDataForOpen = async (leadInc) => {
+    console.log("****************************************************************************in",leadType)
+    const leadtyp = leadInc
+    const { id } = stoageGetter('user')
+    const response = await getOpenTabApi(id,leadtyp)
+    console.log("***************************************************************************out",response)
+    if (response?.data?.errCode == -1) {
+      console.log("all*******", response?.data?.errMsg)
+      console.log("***********>",response?.data?.errMsg[0])
+      if (response?.data?.errMsg) {
+        dispatch(actions.fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
+      }
+    } else {
+      dispatch(actions.fetchAllLeadsSuccess([], 0))
+      throw response?.data?.errMsg
+    }
+  }
 
   // case "allservicecorners": return history.push('/servicecorner/all');
   // case "forself": return history.push('/servicecorner/self');
@@ -94,13 +108,14 @@ const Tab = ({
 
   const getAlldataofTeamMainTab = async () => {
     const response = await getTeamMainTabApi()
-    if (response.status == 200) {
+    if (response?.data?.errCode == -1) {
       if (response?.data?.errMsg) {
         // setAllData(response?.data?.errMsg[0])
         dispatch(actions.fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
 
       }
     } else {
+      dispatch(actions.fetchAllLeadsSuccess([], 0))
       throw response?.data?.errMsg
       // dispatch(fetchAllLeadsFail(error))
     }
@@ -126,27 +141,34 @@ const Tab = ({
       console.log("active key",activeKey)
       switch (activeKey) {
         case 'all':
-          return history.push('/leadMaster/all_leads')
+          {getDataForOpen('all'); return history.push('/leadMaster/all_leads')}
         case 'fortoday':
-          return history.push('/leadMaster/fortoday')
+          {getDataForOpen('fortoday'); return history.push('/leadMaster/fortoday')}
         case 'open':
-          return history.push('/leadMaster/openlead')
+          {getDataForOpen('open'); return history.push('/leadMaster/openlead')}
         case 'converted':
-          return history.push('/leadMaster/convertedleads')
+          {getDataForOpen('converted'); return history.push('/leadMaster/convertedleads')}
         case 'failed':
-          return history.push('/leadMaster/pendingproposal')
+          {getDataForOpen('failed'); return history.push('/leadMaster/pendingproposal')}
 
         case '1':
           return history.push('/leadmasterpage/statuslead')
+        // case '2':
+        //   return history.push('/leadmasterpage/leaddetails/personallead')
+        // case '3':
+        //   return history.push('/leadmasterpage/proposal')
+        // case '4':
+        //   return history.push('/leadmasterpage/leadmasterdoc/leaddoc')
         case '2':
-          return history.push('/leadmasterpage/leaddetails/personallead')
-        case '3':
-          return history.push('/leadmasterpage/proposal')
-        case '4':
-          return history.push('/leadmasterpage/leadmasterdoc/leaddoc')
-        case '5':
-          return history.push('/leadmasterpage/leadhistorymaster/leadhistory')
+          return history.push('/leadmasterpage/leadhistory')
 
+        case 'calendar':
+          return history.push('/calendar')
+
+        case 'todo':
+          return history.push('/todo')
+          
+          
         case 'allrenewals':
           return history.push('/renewalMaster/allRenewals')
         case 'paidrenewals':
@@ -195,6 +217,7 @@ const Tab = ({
       console.log("value", value)
       return <TabPane key={value.id} tab={value.value}></TabPane>
     })
+    // console.warn("tabPane", tabPane)
   }
 
   const [width, setWidth] = useState(window.innerWidth)
@@ -230,13 +253,13 @@ const Tab = ({
         <div className="header-img">
           <span className="header-title">{header}</span>
 
-          <div style={{ display: 'flex' }}>
+          <div >
             <Tabs
               tabBarGutter={20}
               centered={false}
               type="card"
               onTabClick={handler}
-              size="large"
+              size="small"
               activeKey={activeKey}
               className="main-lead-tabs"
               style={{ marginLeft: '80px' }}
@@ -275,14 +298,15 @@ const Tab = ({
                 {' '}
                 <figcaption className="card-caption">Filter</figcaption>{' '}
               </figure>
-              <div  >
-                <Offcanvas scroll={true} placement='end' style={{ width: '30rem', height: 'auto', marginTop: '3.7rem', backgroundColor: 'rgb(247, 247, 247)' }} show={show} onHide={handleClose} {...props}>
+              <div className='offcanvas-div' >
+                <Offcanvas className='offcanvas' scroll={true} placement='end' style={{ width: '30rem', height: '30rem', marginTop: '3.7rem', backgroundColor: 'rgb(247, 247, 247)' }} show={show} onHide={handleClose} {...props}>
                   <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Select Filter</Offcanvas.Title>
+                  <Button onClick={()=>{handleClose()}} style={{width:'2rem'}}>X</Button>
+                    <Offcanvas.Title>Select Filter  </Offcanvas.Title>
                   </Offcanvas.Header>
                   <Offcanvas.Body style={{ marginTop: '-1rem' }}>
                     <div style={{ width: 'auto', height: '6rem', backgroundColor: 'white', marginBottom: '0.5rem' }}>
-                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Sort by</h6>
+                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px',fontSize:'13px' }}>Sort by</h6>
                       <Select bordered={false} style={{ width: '20rem', marginLeft: '1rem', marginTop: '1rem', borderBottom: '1px gray solid', opacity: '0.5' }} defaultValue='1'>
                         <Option value='1'>Lead Created Date - Newest to Oldest</Option>
                         <Option value='2'>Lead Created Date - Oldest to Newest</Option>
@@ -291,7 +315,7 @@ const Tab = ({
                       </Select>
                     </div>
                     <div style={{ width: 'auto', height: '10rem', backgroundColor: 'white', marginBottom: '0.5rem' }}>
-                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Search Type Selection</h6>
+                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px',fontSize:'13px' }}>Search Type Selection</h6>
                       <Radio.Group style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
                         <Radio.Button style={{ paddingTop: '6px' }} value='Name'>Name</Radio.Button>
                         <Radio.Button style={{ paddingTop: '6px' }} value='Mobile'>Mobile</Radio.Button>
@@ -307,9 +331,9 @@ const Tab = ({
 
                     </div>
                     <div style={{ width: 'auto', height: '8rem', backgroundColor: 'white' }}>
-                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Filter By</h6>
+                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px',fontSize:'13px' }}>Filter By</h6>
                       <div style={{ width: 'auto', marginTop: '0rem', marginLeft: '0.7rem' }}>
-                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold' }}>Age Group</p>
+                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold',fontSize:'13px' }}>Age Group</p>
                         <Select bordered={false} style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}>
                           <Option>18 to 28</Option>
                           <Option>29 to 35</Option>
@@ -318,7 +342,7 @@ const Tab = ({
                         </Select>
                       </div>
                       <div style={{ width: 'auto', marginLeft: '10rem', marginTop: '-4.2rem' }}>
-                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold' }}>Income Group</p>
+                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold',fontSize:'13px' }}>Income Group</p>
                         <Select bordered={false} style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}>
                           <Option>Less than 2.5 Lacs</Option>
                           <Option>2.5 Lacs to 3.9 Lacs</Option>
@@ -331,7 +355,7 @@ const Tab = ({
                         </Select>
                       </div>
                       <div style={{ widht: 'auto', marginLeft: '20rem', position: 'relative', top: '-4.2rem' }}>
-                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold' }}>Age Group</p>
+                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold',fontSize:'13px' }}>Age Group</p>
                         <Select bordered={false} style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}>
                           <Option>Single</Option>
                           <Option>Married, No Kids</Option>
@@ -340,13 +364,17 @@ const Tab = ({
                       </div>
                       <div style={{ width: 'auto', height: '6rem', backgroundColor: 'white', marginTop: '-2.5rem' }}>
 
-                        <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Search Between</h6>
+                        <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px',fontSize:'13px' }}>Search Between</h6>
                         <Radio.Group style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
-                          <Radio.Button style={{ paddingTop: '6px' }} value='Name'>MTD</Radio.Button>
-                          <Radio.Button style={{ paddingTop: '6px' }} value='Mobile'>YTD</Radio.Button>
-                          <Radio.Button style={{ paddingTop: '6px' }} value='Lead'>Custom</Radio.Button>
+                          <Radio.Button value='Name'>MTD</Radio.Button>
+                          <Radio.Button  value='Mobile'>YTD</Radio.Button>
+                          <Radio.Button  value='Lead'>Custom</Radio.Button>
                         </Radio.Group>
 
+                      </div>
+
+                      <div  style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                        <Button style={{marginTop:'5px',width:'6rem',backgroundColor:'rgb(59, 55, 30)',color:'#fff'}}>Apply</Button>
                       </div>
 
                     </div>
@@ -358,16 +386,17 @@ const Tab = ({
         </div>
       ) : (
         <>
-          <div className="header-img">
+          <div>
             <Tabs
               tabBarGutter={20}
-              centered={true}
+              centered={false}
               onTabClick={handler}
-              size="large"
+              size="small"
               activeKey={activeKey}
-              style={{ margin: '20px' }}
+              style={{backgroundColor:'#f7f7f7',boxShadow: '0px 1px 10px 0px #0000003d' }}
             >
               {tabPane}
+             
             </Tabs>
           </div>
         </>

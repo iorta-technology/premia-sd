@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined ,SaveOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
@@ -49,20 +49,20 @@ const tabMenu = [
     id: 1,
     value: "Status",
   },
+  // {
+  //   id: 2,
+  //   value: "Lead Details"
+  // },
+  // {
+  //   id: 3,
+  //   value: "Proposal Details"
+  // },
+  // {
+  //   id: 4,
+  //   value: "Documents Upload"
+  // },
   {
     id: 2,
-    value: "Lead Details"
-  },
-  {
-    id: 3,
-    value: "Proposal Details"
-  },
-  {
-    id: 4,
-    value: "Documents Upload"
-  },
-  {
-    id: 5,
     value: "History"
   },
 
@@ -287,7 +287,7 @@ const NewLead = React.memo(() => {
   const history = useHistory()
   const [form] = Form.useForm();
   useEffect(() => {
-    dispatch(actions.fetchTeamMember())
+    // dispatch(actions.fetchTeamMember())
     dispatch(actions.fetchAllState())
   }, [dispatch]);
   const id = useSelector((state) => state.login.user.id)
@@ -319,7 +319,7 @@ const NewLead = React.memo(() => {
   // const {start_date,start_time} = storeAppointmentData
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
   console.log(typeof (start_time))
-  // console.log(parseInt(start_date))
+  // console.warn('((((((((((( storeFormData )))))))))))',storeFormData)
   // msToDateString(1637605800000)  
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
@@ -337,6 +337,7 @@ const NewLead = React.memo(() => {
 
 
   const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
+  console.warn('leadArr((((((((((===>>>>>>>>>>', leadArr)
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
@@ -377,11 +378,21 @@ const NewLead = React.memo(() => {
     // dispatch(actions.fetchLeadDetails(fetchLeadId))
     // console.log(leadDisposition === "appointment" || leadDisposition === "callback" || !appointmentStatus)
     // console.log(appointmentStatus)
-    // console.log('mobile', leadArr)
-    if (storeLeadId !== '') {
-
-      setIsNewLead(false)
+    if(storeFormData.lead_Id !== ''){
+      console.warn('UPDATE', storeFormData)
+      setFirstName(storeFormData.firstName)
+      setLastName(storeFormData.lastName)
+      setLeadStatus(storeFormData.leadStatus)
+      setPrimaryNo(storeFormData.primaryMobile)
+      setLeadType(storeFormData.leadType)
+      // setPrimaryNo(storeFormData.primaryMobile)
+      // setPrimaryNo(storeFormData.primaryMobile)
+      
+    }else{
+      console.warn('CREATE', storeFormData.lead_Id)
     }
+    // console.log('storeLeadId=======>>>', storeLeadId)
+    storeLeadId !== '' ? setIsNewLead(false) : setIsNewLead(true)
     if (primaryNo.length === 10) {
       setmobileNoValid(true)
     } else {
@@ -873,7 +884,7 @@ const NewLead = React.memo(() => {
   // if (firstNameIsValid && lastNameIsValid && primaryMobileIsValid) {
   //   formIsValid = true;
   // }
-
+  // https://sdtatadevlmsv2.iorta.in/secure/user/user_tree?userId=
   const failedHandler = (error) => {
     alert(error)
     console.log(error)
@@ -881,25 +892,31 @@ const NewLead = React.memo(() => {
 
   const submitHandler = event => {
     // event.preventDefault();
+    // console.warn('isNewLead===========>>>>>:', isNewLead);
 
     if (isNewLead) {
       // console.log(formData)
 
       // const values = await form.validateFields();
       // console.log('Success:', values);
+
+      // let _leadData = dispatch(actions.createLead(formData))
+      // console.warn('_leadData =============>>>:', _leadData);
       dispatch(actions.createLead(formData))
         .then((res) => {
+          // console.log('CREATE_LEAD_SUCCESS:', res);
           if (res.type === "CREATE_LEAD_SUCCESS") {
             console.log('success:', res);
-            setErrorMessage(successMsg)
+            // setErrorMessage(successMsg)
             setIsNewLead(false)
 
-          } else if (res.type === 'CREATE_LEAD_FAIL') {
-            console.log('failed:', res);
+          } 
+          // else if (res.type === 'CREATE_LEAD_FAIL') {
+          //   console.log('failed:', res);
 
-            failedHandler(res.error)
-            console.log(res)
-          }
+          //   failedHandler(res.error)
+          //   console.log(res)
+          // }
         })
 
       // if (!formIsValid) {
@@ -1665,12 +1682,12 @@ const NewLead = React.memo(() => {
                         type="primary"
                         // shape="round"
                         size="large"
-                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                        icon={<EditOutlined />}
+                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
+                        icon={<SaveOutlined />}
                         htmlType="submit"
                       // disabled={!formIsValid}
                       // onClick={updateLeadHandler}
-                      >Update</Button>
+                      >Submit</Button>
                     </Form.Item>
                   }
                 </Col>
@@ -1682,10 +1699,10 @@ const NewLead = React.memo(() => {
                       // shape="round"
                       size="large"
                       htmlType="submit"
-                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                      icon={<ArrowRightOutlined />}
+                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
+                      // icon={<ArrowRightOutlined />}
                     // onClick={proceedHandler}
-                    >Proceed</Button>
+                    >Proceed <ArrowRightOutlined /></Button>
                   </Form.Item>
                   {/* </Link> */}
                 </Col>

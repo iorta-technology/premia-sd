@@ -9,6 +9,8 @@ let _appointDispoList = dataLibrary._appointDispoList;
 
 
 export const stoageSetter = (key, value) =>{
+    // console.log('stoageSetter _______',value)
+    // console.log('stoageGetter____typeof___', typeof key)
     let stringify = JSON.stringify(value)
     window.localStorage.setItem(key, encryptDecrypt(stringify, 'encrypt'))
     return value;
