@@ -22,7 +22,7 @@ const useWidowsSize = () => {
     return size;
 }
 
-const DataField = ({Self,history,TeamData,TeamHere}) => {
+const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
   const [isModalVisible, setIsModalVisible] = useState(
     {
       check:false,
@@ -46,30 +46,26 @@ const DataField = ({Self,history,TeamData,TeamHere}) => {
       const currentMonth =(1 + new Date().getMonth());
       const currentYear =new Date().getFullYear();
       const monthYear=currentMonth+'/'+currentYear;
-      const dM = monthYear == Self;
-      if(dM && history || TeamHere){
-        let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=upcoming`)
+      const MonthCompare = monthYear == SelfMonthYear;
+
+      if(MonthCompare && history || TeamHere){
+        let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=upcoming`)
         setDataContainer(result)
-        console.log(result.data);
-       }else if(TeamHere == true){
-        let result1 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
-        console.log(result1);
-        console.log(Self||TeamData?Self||TeamData : monthYear);
-        setDataContainer(result1)
-       }else if(dM && history== false){
-        let result2 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
+        console.log(result);
+       }else if(MonthCompare && history == false){
+        let result2 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
         setDataContainer(result2)
-       }else if(monthYear != Self){
-        let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}`)
-        setDataContainer(result3.data)
+       }else if(monthYear != SelfMonthYear){
+        let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
+        setDataContainer(result3)
        }
        else{
-        let result4 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${Self||TeamData?Self||TeamData : monthYear}&category=past`)
+        let result4 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=past`)
         setDataContainer(result4)
        }
     }
     api();
-  },[Self,TeamData,history]);
+  },[SelfMonthYear,TeamData,history]);
 
     const dateFun=(time)=>{
       var dt = new Date(time);

@@ -12,46 +12,41 @@ import {stoageGetter} from '../../../../helpers'
 const Self = () => {
   const [month,setMonth]=useState()
   const [year,setyear]=useState()
-  const [ApiDataContainer,setApiDataContainer]=useState();
+  const [PastDataContainer,setPastDataContainer]=useState();
   const [CurentOrPast,setCurentOrPast]=useState()
   const [pastEventLenght,setPastEventLength]=useState();
 
-  const api = async ()=>{
-    let {id}=stoageGetter('user')
-    console.log(month,year);
-    let {data} = await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=past`);
-    console.log(data);
-    setApiDataContainer(data);
-
-  }
+  let {id}=stoageGetter('user');
   useEffect(()=>{
-    if(ApiDataContainer){
-      for(let i = 0; i < ApiDataContainer?.errMsg.length; i++){
-        let a = 1+new Date(ApiDataContainer.errMsg[i].start_time_MS).getMonth();
+    const api = async ()=>{
+      let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
+      console.log(data);
+      setPastDataContainer(data);
+    }
+    api();
+  },[month,year,CurentOrPast]);
+  useEffect(()=>{
+    if(PastDataContainer){
+      for(let i = 0; i < PastDataContainer?.length; i++){
+        let a = 1+new Date(PastDataContainer[i].start_time_MS).getMonth();
         console.log(a);
         let b = 1+ new Date().getMonth();
         if(a==b){
-          const filterCurrentData= ApiDataContainer?.errMsg.filter((element,index,arr)=>((1 + new Date(element?.start_time_MS).getDate()) <= (1 + new Date().getDate())))
+          const filterCurrentData = PastDataContainer?.filter((element,index,arr)=>((1 + new Date(element?.start_time_MS).getDate()) <= (1 + new Date().getDate())))
           if(filterCurrentData){
-            console.log(filterCurrentData);
             setPastEventLength(filterCurrentData?.length);
           }
-          // setPastEventLength(ApiDataContainer.length)
         }
-
       }
-    }  
-  },[month,year,CurentOrPast])
-  
-  useEffect(()=>{
-      api();
-  },[month,year,CurentOrPast])
+    } 
+  },[PastDataContainer])
+ 
   return (
     <div className='Self-Container'>
       <EventCreate monthData={setMonth} yearData={setyear}/>
         <div className='eventChange'>
             {
-              ApiDataContainer ?.errCode == -1 && 
+              PastDataContainer?.length >0 && 
               (month == 1+new Date().getMonth() && year == new Date().getFullYear())
               ?
                 <PastFutureData CurentOrPast={setCurentOrPast}
@@ -73,7 +68,7 @@ const Self = () => {
                 <p>PAST</p>
           }
         </div>
-        <DataField Self = {month +'/'+ year}
+        <DataField SelfMonthYear = {month +'/'+ year}
           history={CurentOrPast}
           SelfHere='self'
         />

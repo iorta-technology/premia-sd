@@ -17,17 +17,7 @@ const Team = () => {
 
   const [month,setMonth]=useState()
   const [year,setyear]=useState()
-  const [ApiDataContainer,setApiDataContainer]=useState();
   const [CurentOrPast,setCurentOrPast]=useState()
-
-  const api = async ()=>{
-    let id=stoageGetter('user')
-    let {data}=await axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
-    setApiDataContainer(data.errMsg);
-  }
-  useEffect(()=>{
-      api();
-  },[month,year])
 
   const options=["All","Zonal Manager","Area Manager","Sales Manager"];
   const options2=["Ankit Singh","Rahul Patali","Otter","Sawa"];
@@ -139,7 +129,7 @@ const Team = () => {
             <Typography className='Team-Past'>PAST</Typography>
         }
         <div className='Team-Information'>
-            <DataField TeamData={month +'/'+year}
+            <DataField TeamData={month+'/'+year}
             TeamHere={(month) ==(1 + new Date().getMonth()) && (year) ==(new Date().getFullYear())}
             />
         </div>

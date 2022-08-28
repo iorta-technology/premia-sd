@@ -22,7 +22,6 @@ const EventCreate = ({monthData,yearData}) => {
   const [count,setCount]=useState((1+ new Date().getMonth()))
   const [month,setMonth]=useState(MonthContainer[0][1+ new Date().getMonth()]);
   const [year,setYear]=useState(new Date().getFullYear())
-  const [requestData,setRequestData]=useState()
 
   const eventClickBtnDec=()=>{
       setCount(count - 1)
@@ -40,18 +39,9 @@ const EventCreate = ({monthData,yearData}) => {
       setYear(year+1)
     }
   }
-  const api = async ()=>{
-    let {id} =stoageGetter('user')
-    const {data}= await axios.get(`user/fetch_appointments/${id}?teamdata=0&filter=0${count}/${year}`);  
-    setRequestData(data.errMsg)
-    // console.log(data);
-  }
   monthData(count);
   yearData(year);
 
-  useEffect(async ()=>{
-    api()  
-  },[count,year])
   
   return (
         <div className='EventCreate-dateChange'>
