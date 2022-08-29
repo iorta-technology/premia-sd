@@ -158,6 +158,7 @@ export default function CalendarEvent(props) {
             phone_call_customer: false,
             policy_renewal: false
           })
+          setclientVisit('Client Meeting')
         }else if(props.Data.event_type == 'phonecall'){
           setCustomerCollection({
             appointment_customer: false,
@@ -3400,6 +3401,27 @@ export default function CalendarEvent(props) {
               >
 
               </div>
+              {
+                customerCollection.appointment_customer == true && customerCheck == true?
+                <div>
+                <h4
+                  className="CalendarEvent-Modal-Card-header-type"
+                >Client Visit</h4>
+
+
+                <div
+                  className="CalendarEvent-Modal-appointmenttype-button-flex"
+                >
+                  <button
+                    onClick={() => { setclientVisit('Client Meeting')}}
+                    className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
+                  >Client Meeting </button>
+
+
+
+                </div>
+              </div> : null
+              }
               {advisorCollection.appointment_advisor == true && advisorCheck == true ?
                 <div>
                   <h4
@@ -4279,7 +4301,7 @@ export default function CalendarEvent(props) {
             // onClick={() => { }}
             className={"CalendarEvent-Modal-book-appointment-button-style"}
             onClick={BookAppointmentFunc}
-          >{bookEventCheck==true? "Book Appointment":"Update Appointment"}</button>
+          >{updateEventCheck==true? "Update Appointment":"Book Appointment"}</button>
         </div>
         {/* <Card>
   <h4>jasjkhdsaj</h4>
