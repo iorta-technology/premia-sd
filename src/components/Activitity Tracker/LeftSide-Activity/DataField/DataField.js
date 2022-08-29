@@ -305,7 +305,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
                                   }
                                 </div>
                               </Row>
-                              <hr />
+                              <hr style={{marginTop : 10, marginBottom : 10}}/>
                     </div>
                    
               
