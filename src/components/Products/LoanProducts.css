@@ -227,7 +227,7 @@ padding-right: 0px !important;
   }
   .main-card2{
     padding-left: 1vw;
-    width: 150vw;
+    /* width: 150vw; */
     height: 120vh;
     background: rgb(236, 242, 249);
   }
@@ -236,7 +236,7 @@ padding-right: 0px !important;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
-    width: 300px;
+    /* width: 300px; */
     display: flex;
     align-items: stretch;
     font-size: 16px;
@@ -291,10 +291,10 @@ padding-right: 0px !important;
 
 } */
 .loan-product-tabs .bullet-points{
-  display: flex;
+  /* display: flex; */
   text-align: left;
   font-size: 14px;
-  margin-left: 1vw;
+  /* margin-left: 1vw; */
   
 }
 .header h1{

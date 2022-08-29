@@ -6,6 +6,7 @@ import './Team.css'
 import EventCreate from '../EventCreate/EventCreate'
 import HistoryTab from '../History-showedData/index'
 import axios from 'axios'
+import {stoageGetter} from '../../../../helpers'
 
 const Team = () => {
   const [isActive,setActive] =useState(false);
@@ -16,16 +17,7 @@ const Team = () => {
 
   const [month,setMonth]=useState()
   const [year,setyear]=useState()
-  const [ApiDataContainer,setApiDataContainer]=useState();
   const [CurentOrPast,setCurentOrPast]=useState()
-
-  const api = async ()=>{
-      let {data}=await axios.get(`https://pocbancanode.iorta.in/secure/user/fetch_appointments/60e5d6056b18e8309da3fa49?teamdata=0&filter=${month}/${year}`);
-      setApiDataContainer(data.errMsg);
-  }
-  useEffect(()=>{
-      api();
-  },[month,year])
 
   const options=["All","Zonal Manager","Area Manager","Sales Manager"];
   const options2=["Ankit Singh","Rahul Patali","Otter","Sawa"];
@@ -108,15 +100,15 @@ const Team = () => {
         </div>
         <div className="Team-Calender">
             <Row className='Team-Calender-row'>
-                <Col span={6} className='Team-Calender-first'>
+                <Col span={9} className='Team-Calender-first'>
                     <Typography>From Date</Typography>
                     <input type="date"/>
                 </Col>
-                <Col span={6} offset={1}className='Team-Calender-second'>
+                <Col span={9} offset={1}className='Team-Calender-second'>
                     <Typography>To Date</Typography>
                     <input type='date'/>
                 </Col>
-                <Col span={6} offset={2} className='Team-Calender-Export'>
+                <Col span={2} offset={1} className='Team-Calender-Export'>
                     <Button> <CloudUploadOutlined /> Export</Button>
                 </Col>
             </Row>
@@ -137,7 +129,7 @@ const Team = () => {
             <Typography className='Team-Past'>PAST</Typography>
         }
         <div className='Team-Information'>
-            <DataField TeamData={month +'/'+year}
+            <DataField TeamData={month+'/'+year}
             TeamHere={(month) ==(1 + new Date().getMonth()) && (year) ==(new Date().getFullYear())}
             />
         </div>

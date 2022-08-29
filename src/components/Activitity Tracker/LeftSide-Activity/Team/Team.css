@@ -136,4 +136,14 @@
         margin-left: 2%;
         width: 27%;
     }
+
+    .Tean-Hierarchy {
+        width: 37.5%;
+    }
+
+    .Team-CircleManager{
+        width: 39.5%;
+        margin-left: 15px;
+    }
+
 }

@@ -4,11 +4,12 @@ import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './CalendarEvent.css';
-import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag} from 'antd';
+import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag, Space, message} from 'antd';
 import { CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
 import Icon from '@ant-design/icons';
+import axiosRequest from '../../axios-request/request.methods'
 
 import axios from 'axios';
 import { times } from "lodash";
@@ -65,11 +66,21 @@ export default function CalendarEvent(props) {
 
   useEffect(()=>{
     console.log(props.click)
-    if(props.click == 'data'){
-      // showModal()
-      setIsModalVisible(true)
+    if(props.click == 'data'||"UPDATE EVENT"){
+      console.log(props.Data);
+      setIsModalVisible(true);
+    }
+    if(props.click=='UPDATE EVENT'){
+      setUpdateCheckEvent(true)
+    }//1661472000000
+    if(props.Data){
+      let date=moment(1661472000000).format("YYYY-MM-DD")
+      setDurationStartDateOperation(props.Data.start_date);
+      setDurationStartDate(date)
+      console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
   },[])
+
   const [startDuration, setStartDuration] = useState();
   const [endDuration, setEndDuration] = useState();
   const [MultiSelectDate, setMultiSelectDate] = useState(false)
@@ -921,10 +932,31 @@ export default function CalendarEvent(props) {
     value: "77400000"
   }])
 
+  const[modeList,setModeList]=useState( [
+    {
+    dispValue: "Face to face visit",
+    value: "Face to face visit"
+  }, {
+    dispValue: "Telephonic",
+    value: "Telephonic"
+  }, {
+    dispValue: "Branch visit",
+    value: "Branch visit"
+  }, {
+    dispValue: "Lead visit",
+    value: "Lead visit"
+  }, {
+    dispValue: "Joint call",
+    value: "Joint call"
+  },])
+  const[modeSelect,setModeSelect]=useState("")
   const[startTimeSelect,setStartTimeSelect]=useState("")
   const[endTimeSelect,setEndTimeSelect]=useState("");
   const [durationDateAlert, setDurationDateAlert] = useState(false)
   const [durationTimeAlert, setDurationTimeAlert] = useState(false)
+  const [durationendTimeAlert, setDurationEndTimeAlert] = useState(false)
+  const [durationenddateAlert, setDurationEndDateAlert] = useState(false)
+  const [durationModeAlert, setDurationModeAlert] = useState(false)
   const [cardHeight, setCardHeight] = useState(true);
   const [prospectFirstNameText, setProspectFirstNameText] = useState("");
   const [prospectLastNameText, setProspectLastNameText] = useState("");
@@ -1631,6 +1663,10 @@ export default function CalendarEvent(props) {
       setDurationDateAlert(false)
     }
 
+    const ModeChangeFunc=(e)=>{
+      setModeSelect(e.target.value)
+    }
+
     const StartTimeChangeFunc=(e)=>{
 
 
@@ -1808,10 +1844,56 @@ export default function CalendarEvent(props) {
       //     }
       //     setDurationTimeAlert(false)
     }
-    const BookAppointmentFunc = (e) => {
+    const BookAppointmentFunc = async (e) => {
 
 
       console.log(eventLoadCheck)
+
+      let formdata={
+        userId:"616e908c43ed727bbac8d2d4",
+        appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+        event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+          :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+          :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+          :null,
+        tata_appointment_type:"businesspalnrevie",
+      // partnerId:  advisorCheck?{
+        
+      //     contactNo: searchAdvisorObject.contactNo,
+      //     partnerId: searchAdvisorObject.partnerId,
+      //     partnerName: searchAdvisorObject.partnerName,
+      //     _id: searchAdvisorObject._id,
+
+      // }:"",
+        durationType:"customedatetime",
+        start_date:durationStartDateOperation,
+          start_time:durationStartTimeOperation,
+          end_date:durationEndDateOperation,
+          end_time:durationEndTimeOperation,
+        teamMember:[
+          
+        ],
+        statusType:"open",
+        statusreason:statusReasonText,
+        manuallycustomerAdded:addManuallyButtonCheck?true:false,
+        manuallyrenewalCustomer:addManuallyButtonCheck? [
+          {
+            Name:customerNameText,
+            MobileNumber:customerMobileNoText,
+          }
+        ]:[],
+        clientVisit:"",
+        customerId:"",
+        teamMember_clone:[
+          
+        ],
+        remarkText : '',
+        mode : modeSelect,
+        }
+
+        console.log(formdata, 'form data ------->')
+
+
       if(updateEventCheck==true){
       
       axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
@@ -1924,86 +2006,155 @@ export default function CalendarEvent(props) {
       }
       else{
       
-      
-      
-    axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
-        userId:"616e908c43ed727bbac8d2d4",
-        appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
-        event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
-          :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
-          :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
-          :null,
-        tata_appointment_type:"businesspalnrevie",
-      partnerId:  advisorCheck?{
-        
-          contactNo: searchAdvisorObject.contactNo,
-          partnerId: searchAdvisorObject.partnerId,
-          partnerName: searchAdvisorObject.partnerName,
-          _id: searchAdvisorObject._id,
+        console.log('book appointment ---->')
+        console.log(durationStartDateOperation,'start date value ')
+        console.log(durationStartTimeOperation,'start time value ')
+        console.log(durationEndDateOperation,'end date value ')
+        console.log(durationEndTimeOperation,'end time value ')
 
-      }:"",
-        partnerId:advisorCheck?searchAdvisorObject._id:"",
-        leadId: prospectCheck? searchProspectObject._id:"", 
-        durationType:"customedatetime",
-        start_date:durationStartDateOperation,
-          start_time:durationStartTimeOperation,
-          end_date:durationEndDateOperation,
-          end_time:durationEndTimeOperation,
-        teamMember:[
+        if(modeSelect == ''){
+          message.warning('Mode is Mandatory');
+        }else if (durationStartDateOperation == undefined){
+          message.warning('Start Date is Mandatory');
+        }else if (durationStartTimeOperation == undefined || ''){
+          message.warning('Start Time is Mandatory');
+        }else if (durationEndDateOperation == undefined || ''){
+          message.warning('End Date is Mandatory');
+        }else if (durationEndTimeOperation == undefined || ''){
+          message.warning('End Time is Mandatory');
+        }else{
+          setDurationModeAlert(false)
+          setDurationDateAlert(false)
+          setDurationTimeAlert(false)
+          setDurationEndDateAlert(false)
+          setDurationEndTimeAlert(false)
+        let result = await axiosRequest.post('user/bookAppointment', {
+          userId:"62fcdbfc5fb1dc8913ab59f3",
+          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+          event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+            :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+            :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+            :null,
+          tata_appointment_type:"businesspalnrevie",
+        // partnerId:  advisorCheck?{
           
-        ],
-        statusType:"open",
-        statusreason:statusReasonText,
-        manuallycustomerAdded:addManuallyButtonCheck?true:false,
-        manuallyrenewalCustomer:addManuallyButtonCheck? [
-          {
-            Name:customerNameText,
-            MobileNumber:customerMobileNoText,
-          }
-        ]:[],
-        clientVisit:"",
-        customerId:"",
-        teamMember_clone:[
-          
-        ],
-    
-        // userId:"616e908c43ed727bbac8d2d4",
-        //   partnerId:"",
-        //   appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
-        //   durationType: eventDurationType,
-        //    partnerId:advisorCheck?searchAdvisorObject._id:"",
-        //   leadId: prospectCheck? searchProspectObject._id:"", 
+        //     contactNo: searchAdvisorObject.contactNo,
+        //     partnerId: searchAdvisorObject.partnerId,
+        //     partnerName: searchAdvisorObject.partnerName,
+        //     _id: searchAdvisorObject._id,
+  
+        // }:"",
+          durationType:"customedatetime",
+          start_date:durationStartDateOperation,
+            start_time:durationStartTimeOperation,
+            end_date:durationEndDateOperation,
+            end_time:durationEndTimeOperation,
+          teamMember:[
+            
+          ],
+          statusType:"open",
+          statusreason:statusReasonText,
+          manuallycustomerAdded:addManuallyButtonCheck?true:false,
+          manuallyrenewalCustomer:addManuallyButtonCheck? [
+            {
+              Name:customerNameText,
+              MobileNumber:customerMobileNoText,
+            }
+          ]:[],
+          clientVisit:"",
+          customerId:"",
+          teamMember_clone:[
+            
+          ],
+          remarkText : '',
+          mode : modeSelect,
+          }, { secure: true });
+
+          console.log(result, 'book appointment result-------->')
+
+
       
-        //   manuallyrenewalCustomer: [
-        //     {
-        //         Name: customerNameText,
-        //         MobileNumber: customerMobileNoText
-        //     }
-        // ],
-        //   event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
-        //   :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
-        //   :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
-        //   :null,
-        //   statusType:eventStatus,
-        //   start_date:durationStartDateOperation,
-        //   start_time:durationStartTimeOperation,
-        //   end_date:durationEndDateOperation,
-        //   end_time:durationEndTimeOperation,
-        //   event_name:"appointment",
-        //   event_description:"Test",
-          // customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
-          // :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
-          // :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
-          // :+" with "+advisorCheck?advisorOnClickVal:prospectCheck?prospectOnClickVal:"",
-        })
-        .then((res)=>{
-          console.log(res)
-          setAddEvents([])
-          setFetchEventArray([])
-          setEventLoadCheck(true)
-        }).catch((err)=>{
-          console.log(err)
-        })
+      
+    // axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
+    //     userId:"616e908c43ed727bbac8d2d4",
+    //     appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+    //     event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+    //       :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+    //       :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+    //       :null,
+    //     tata_appointment_type:"businesspalnrevie",
+    //   partnerId:  advisorCheck?{
+        
+    //       contactNo: searchAdvisorObject.contactNo,
+    //       partnerId: searchAdvisorObject.partnerId,
+    //       partnerName: searchAdvisorObject.partnerName,
+    //       _id: searchAdvisorObject._id,
+
+    //   }:"",
+    //     partnerId:advisorCheck?searchAdvisorObject._id:"",
+    //     leadId: prospectCheck? searchProspectObject._id:"", 
+    //     durationType:"customedatetime",
+    //     start_date:durationStartDateOperation,
+    //       start_time:durationStartTimeOperation,
+    //       end_date:durationEndDateOperation,
+    //       end_time:durationEndTimeOperation,
+    //     teamMember:[
+          
+    //     ],
+    //     statusType:"open",
+    //     statusreason:statusReasonText,
+    //     manuallycustomerAdded:addManuallyButtonCheck?true:false,
+    //     manuallyrenewalCustomer:addManuallyButtonCheck? [
+    //       {
+    //         Name:customerNameText,
+    //         MobileNumber:customerMobileNoText,
+    //       }
+    //     ]:[],
+    //     clientVisit:"",
+    //     customerId:"",
+    //     teamMember_clone:[
+          
+    //     ],
+    //     remarkText : '',
+    //     mode : modeSelect,
+    
+    //     // userId:"616e908c43ed727bbac8d2d4",
+    //     //   partnerId:"",
+    //     //   appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+    //     //   durationType: eventDurationType,
+    //     //    partnerId:advisorCheck?searchAdvisorObject._id:"",
+    //     //   leadId: prospectCheck? searchProspectObject._id:"", 
+      
+    //     //   manuallyrenewalCustomer: [
+    //     //     {
+    //     //         Name: customerNameText,
+    //     //         MobileNumber: customerMobileNoText
+    //     //     }
+    //     // ],
+    //     //   event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+    //     //   :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+    //     //   :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+    //     //   :null,
+    //     //   statusType:eventStatus,
+    //     //   start_date:durationStartDateOperation,
+    //     //   start_time:durationStartTimeOperation,
+    //     //   end_date:durationEndDateOperation,
+    //     //   end_time:durationEndTimeOperation,
+    //     //   event_name:"appointment",
+    //     //   event_description:"Test",
+    //       // customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+    //       // :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+    //       // :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+    //       // :+" with "+advisorCheck?advisorOnClickVal:prospectCheck?prospectOnClickVal:"",
+    //     })
+    //     .then((res)=>{
+    //       console.log(res)
+    //       setAddEvents([])
+    //       setFetchEventArray([])
+    //       setEventLoadCheck(true)
+    //     }).catch((err)=>{
+    //       console.log(err)
+    //     })
         
       // alert(durationEndTime)
   // axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
@@ -2087,7 +2238,10 @@ export default function CalendarEvent(props) {
       console.log(addEvents)
 
       console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
-  }}
+    }
+    }}
+
+
     const StatusTypeOpenFunc = () => {
       setEventStatus("open")
       setStatusType({
@@ -2234,7 +2388,7 @@ export default function CalendarEvent(props) {
     }
 
     const onChangeDate = (date, dateString) => {
-      // console.log(date, dateString);
+      console.log(date, dateString);
       setDurationStartDate(moment(date).format("YYYY-MM-DD"))
     console.log( moment(date).format("YYYY-MM-DD"))
     }
@@ -2862,21 +3016,8 @@ export default function CalendarEvent(props) {
           className="Calendar-event-modal-header-style"
           title={
             updateEventCheck==true?"Update Event":
-            durationTimeAlert == true ?
-            <Alert message="Start Time is Mandatory" type="warning"
-              closable
-
-            />
-            :
-            durationDateAlert == true ?
-              <Alert message="Start Date is Mandatory" type="warning"
-                closable
-                onClose={() => {
-                  setUpdateCheckEvent(false)
-                  setDurationDateAlert(false)
-                }}
-              />
-              : <div style={{fontWeight:"bold",fontSize:'18px'}}>CREATE EVENT</div>
+           
+               <div style={{fontWeight:"bold",fontSize:'16px', }}>{props.click =="UPDATE EVENT"?"UPDATE EVENT":"CREATE EVENT"}</div>
             } visible={isModalVisible} onOk={handleOk}
           closable={durationDateAlert == true || durationTimeAlert == true ? false : true}
           onCancel={handleCancel}
@@ -2891,10 +3032,10 @@ export default function CalendarEvent(props) {
           }}
         >
 
-          <div
+          {/* <div
             // className={prospectCollection.first_meeting == true && prospectCheck == true ? "CalendarEvent-Modal-Card-height" : "CalendarEvent-Modal-Card-style"}
         className="CalendarEvent-Modal-Card-style"
-        >
+        > */}
             <div
               className="CalendarEvent-Modal-Card-content"
             >
@@ -2904,24 +3045,26 @@ export default function CalendarEvent(props) {
               <div
                 className="CalendarEvent-Modal-Card-button-flex"
               >
+
                 <button
                 disabled={updateEventCheck==true?true:false}
                   onClick={checkTeamMemberFunc}
                   className={advisorCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                 >Producer</button>
-                <button
+                {/* <button
                   disabled={updateEventCheck==true?true:false}
                   onClick={checkProspectFunc}
                   className={prospectCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
-                >Prospect</button>
+                >Prospect</button> */}
 
-
+              
                 <button
                   disabled={updateEventCheck==true?true:false}
                 // updateEventCheck==true?disabled:null
                   onClick={checkCustomerFunc}
                   className={customerCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                 >Customer</button>
+               
               </div>
               <div
                 className="CalendarEvent-Modal-Card-vertical-line"
@@ -2933,7 +3076,7 @@ export default function CalendarEvent(props) {
               >Event Type</h4>
               {advisorCheck == true ?
                 <div
-                  className={advisorCheck == true ? "CalendarEvent-Modal-Card-button-flex" : "CalendarEvent-Modal-Card-button-flex"}
+                  className={advisorCheck == true ? "CalendarEvent-Modal-Card-button-flex-1" : "CalendarEvent-Modal-Card-button-flex"}
                 >
                   <button
                     disabled={updateEventCheck==true?true:false}
@@ -2945,11 +3088,13 @@ export default function CalendarEvent(props) {
                     disabled={updateEventCheck==true?true:false}
                     className={advisorCollection.phone_call_advisor == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     onClick={AdvisorPhoneCallFunc}
+                    style={{marginLeft : 10}}
                   >Phone Call</button>
 
                   <button
                     disabled={updateEventCheck==true?true:false}
                     onClick={AdvisorTrainingFunc}
+                    style={{marginLeft : 10}}
                     className={advisorCollection.training == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   >Training</button>
 
@@ -2968,11 +3113,13 @@ export default function CalendarEvent(props) {
                       disabled={updateEventCheck==true?true:false}
                       className={prospectCollection.phone_call == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                       onClick={ProspectPhoneCallFunc}
+                      style={{marginLeft : 10}}
                     >Phone Call</button>
 
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={ProspectTrainingFunc}
+                      style={{marginLeft : 10}}
                       className={prospectCollection.training_prospect == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     >Training</button>
 
@@ -2991,35 +3138,19 @@ export default function CalendarEvent(props) {
                         disabled={updateEventCheck==true?true:false}
                         className={customerCollection.phone_call_customer == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                         onClick={CustomerPhoneCallFunc}
+                        style={{marginLeft : 10}}
                       >Phone Call</button>
 
                       <button
                         disabled={updateEventCheck==true?true:false}
                         onClick={CustomerPolicyRenewalFunc}
+                        style={{marginLeft : 10}}
                         className={customerCollection.policy_renewal == true ? "CalendarEvent-Modal-documentcollection-onclick-button-style" : "CalendarEvent-Modal-Card-documentcollection-static-button-style"}
                       >Policy Renewals</button>
 
                     </div>
                     : null}
-              {/* <div
-  className={advisorCheck==true||prospectCheck==true?"CalendarEvent-Modal-Card-button-flex":"CalendarEvent-Modal-Card-button-flex"}
-  >
-  <button
-  className={prospectCollection.appointment_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.appointment_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":customerCollection.appointment_customer==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
-  onClick={ProspectCollectionAppointmentFunc}
-
-  >Appointment</button>
-  <button
-  className={prospectCollection.phone_call==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.phone_call_advisor==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
-  onClick={ProspectPhoneCallFunc}
-  >Phone Call</button>
-
-    <button
-  onClick={ProspectTrainingFunc}
-  className={prospectCollection.training_prospect==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":advisorCollection.training==true?"CalendarEvent-Modal-Card-eventwith-onclick-button-style":"CalendarEvent-Modal-Card-eventwith-static-button-style"}
-  >{advisorCheck==true||prospectCheck==true?"Training":customerCheck==true?"Policy Renewals":null}</button>
-
-  </div> */}
+  
               <div
                 className="CalendarEvent-Modal-Card-vertical-line"
               >
@@ -3038,21 +3169,28 @@ export default function CalendarEvent(props) {
                       onClick={AppointmentAdvisorBusinessPlanningFunc}
                       className={advisorCollection.businessPlanning_review == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
                     >Business Planning & Review</button>
+                  
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorInactiveAgentFunc}
+                     
                       className={advisorCollection.inactive_agent_reactivation == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
                     >Inactive Agent re-activation</button>
+                  
+                    <div className="unittime-mbl">
+                     <button
+                      disabled={updateEventCheck==true?true:false}
+                      onClick={AppointmentAdvisorUnitMeetingFunc}
+                      className={advisorCollection.unit_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
+                    >Unit Meeting</button>
+                    </div>
+               
                   </div>
 
                   <div
                     className="CalendarEvent-Modal-appointmenttype-button-flex CalendarEvent-Modal-Unit"
                   >
-                    <button
-                      disabled={updateEventCheck==true?true:false}
-                      onClick={AppointmentAdvisorUnitMeetingFunc}
-                      className={advisorCollection.unit_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
-                    >Unit Meeting</button>
+                   
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorJoint_Cust_MeetingFunc}
@@ -3066,6 +3204,7 @@ export default function CalendarEvent(props) {
 
 
                   </div>
+                 
                 </div>
 
 
@@ -3159,12 +3298,9 @@ export default function CalendarEvent(props) {
 
                         : null}
 
-  {advisorCheck==true ?
+  {/* {advisorCheck==true ?
                   <div>
-                    {/* <div
-                      className="CalendarEvent-Modal-Card-vertical-line"
-                    >
-                    </div> */}
+                  
                     <hr style={{
                       width: '100%',
                       backgroundColor: '#d9dbd1',
@@ -3233,57 +3369,7 @@ export default function CalendarEvent(props) {
 
                     </div>
 
-              /* {advisorCheck == true ?
-                <div>
-                  <div
-                    className="CalendarEvent-Modal-Card-vertical-line"
-                  >
-
-                  </div>
-                  <h4
-                    className="CalendarEvent-Modal-Card-header-type"
-                  >Search Advisor</h4>
-
-
-                  <div
-                    className="CalendarEvent-Modal-appointmenttype-button-flex"
-                  >
-                    <Search placeholder="Search By Name" onSearch={() => { }}
-                      enterButton
-                      className="CalendarEvent-Modal-textinput-style"
-                    />
-
-  {advisorOnClickCheck==true?
-        <div>
-      {advisorArr!==null&&Array.isArray(advisorArr)?
-        <div
-        className="CalendarEvent-Modal-search-record-style"
-        >
-        {advisorArr.map((cust)=>{
-          return(
-            <div>
-            <div
-            className="CalendarEvent-Modal-click-record-style"
-            onClick={()=>CustomerClickedTag(cust.partnerName)}
-            >
-              <div
-              className="CalendarEvent-Modal-Card-searchbox-vertical-line"
-              ></div>
-              <h4>{cust.partnerName}</h4>
-              </div>
             
-              </div>
-          )
-        })}
-        </div>
-      :null}
-                        
-                          </div>
-              :null}
-
-
-                  </div>
-                </div> */
                 : (prospectCollection.phone_call == true || prospectCollection.training_prospect == true || prospectCollection.follow_up == true || prospectCollection.document_collection == true)&&prospectCheck==true ?
                   <div>
                     <div
@@ -3353,11 +3439,7 @@ export default function CalendarEvent(props) {
                     </div>
                   : customerCheck == true ?
                     <div>
-                      {/* <div
-                        className="CalendarEvent-Modal-Card-vertical-line"
-                      >
-
-                      </div> */}
+                      
                       <h4
                         className="CalendarEvent-Modal-Card-header-type"
                       >Search Customer</h4>
@@ -3418,7 +3500,7 @@ export default function CalendarEvent(props) {
 
                       </div>
 
-                    </div> : null}
+                    </div> : null} */}
               {/* 
               {customerCheck == true ?
                 <div>
@@ -3526,7 +3608,7 @@ export default function CalendarEvent(props) {
                   </div>
 
                   <div
-                          className="CalendarEvent-Modal-appointmenttype-button-flex"
+                          className="add-manually"
                         >
                   <Button
                     disabled={updateEventCheck==true?true:false}
@@ -3634,6 +3716,52 @@ export default function CalendarEvent(props) {
                       marginBottom:'20px',
                       opacity: '.2'
                     }}/>
+          
+             <div
+                    className="CalendarEvent-Modal-date-column-flex"
+                  >
+                    <h4
+                     className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
+                      // className="CalendarEvent-Modal-Card-header-type"
+                    >Modes *</h4>
+                      <div className="Input-date">
+                   <select
+                   value={modeSelect}
+                   onChange={ModeChangeFunc}
+                   className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-empty-TimePicker-style" : "CalendarEvent-Modal-TimePicker-style"}
+                                  // className="CalendarEvent-Modal-TimePicker-style"
+                   > 
+              
+                     <option value="" >Select</option>
+    
+               {modeList.map((time)=>{
+                 return(
+             
+                   <option value={time.value}>{time.dispValue}</option>
+                  //  <option value={editStartTime} selected>{editStartDisp}</option>
+                 )
+               })}
+                   
+                    </select>
+                    {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null}
+                    {/* <TimePicker onChange={StartTimeFunc}
+                      value={durationStartTime}
+                      defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                      className="CalendarEvent-Modal-picker-style"
+                    /> */}
+                    </div>
+                  </div>
+
+
+
+            <hr style={{
+                      width: '100%',
+                      backgroundColor: '#d9dbd1',
+                      // height: '0.1vw',
+                      marginTop: '20px',
+                      marginBottom:'20px',
+                      opacity: '.2'
+                    }}/>
             <h4
               className="CalendarEvent-Modal-Card-header-type"
             >Duration</h4>
@@ -3663,7 +3791,7 @@ export default function CalendarEvent(props) {
               className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       // className="CalendarEvent-Modal-Card-header-type"
                     >Start Date *</h4>
-       
+                    <div className="Input-date">
                     <DatePicker onChange={StartDateFunc}
          
                        defaultValue={durationStartDate}
@@ -3672,9 +3800,9 @@ export default function CalendarEvent(props) {
                       className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-empty-picker-style" : "CalendarEvent-Modal-picker-style"}
                       // className="CalendarEvent-Modal-picker-style"
                     />
-                   
+                  
                    {durationStartDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Date should not be after the End date</p> : null}
-            
+                   </div>
                   </div>
                   <div
                     className="CalendarEvent-Modal-date-column-flex"
@@ -3683,6 +3811,7 @@ export default function CalendarEvent(props) {
                      className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       // className="CalendarEvent-Modal-Card-header-type"
                     >Start Time *</h4>
+                      <div className="Input-date">
                    <select
                    value={startTimeSelect}
                    onChange={StartTimeChangeFunc}
@@ -3707,6 +3836,7 @@ export default function CalendarEvent(props) {
                       defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
                       className="CalendarEvent-Modal-picker-style"
                     /> */}
+                    </div>
                   </div>
 
                 </div>
@@ -3723,6 +3853,7 @@ export default function CalendarEvent(props) {
                        className={durationEndDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                         // className="CalendarEvent-Modal-Card-header-type"
                       >End Date *</h4>
+                        <div className="Input-date">
                       <DatePicker onChange={EndDateFunc}
                   
                         defaultValue={durationEndDate}
@@ -3731,6 +3862,7 @@ export default function CalendarEvent(props) {
                         className="CalendarEvent-Modal-picker-style"
                       />
                        {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null}
+                   </div>
                     </div>
                     <div
                       className="CalendarEvent-Modal-date-column-flex"
@@ -3739,6 +3871,7 @@ export default function CalendarEvent(props) {
                        className={durationEndTimeDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                         // className="CalendarEvent-Modal-Card-header-type"
                       >End Time *</h4>
+                        <div className="Input-date">
       <select
                     value={endTimeSelect}
                    onChange={EndTimeChangeFunc}
@@ -3768,6 +3901,7 @@ export default function CalendarEvent(props) {
                         value={durationEndTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
                         className="CalendarEvent-Modal-picker-style"
                       /> */}
+                      </div>
                     </div>
 
                   </div>
@@ -3784,11 +3918,12 @@ export default function CalendarEvent(props) {
                     <h4
                       className="CalendarEvent-Modal-Card-header-type"
                     >Start Date *</h4>
+                    <div className="Input-date"> 
                                         <DatePicker onChange={onChangeDate}
                       className="CalendarEvent-Modal-picker-style"
                       value={durationStartDate}
                     />
-   
+                    </div>
                   </div>
 
                 </div>
@@ -3802,6 +3937,7 @@ export default function CalendarEvent(props) {
             <h4
               className="CalendarEvent-Modal-Card-header-type"
             >Add Team Member</h4>
+            <div className="CalendarEvent-Modal-Search-flex">
             <Search placeholder="Search By Name" 
             disabled={updateEventCheck?true:false}
            value={searchTeamText}
@@ -3836,6 +3972,7 @@ export default function CalendarEvent(props) {
                       
                         </div>
             :null}
+            </div>
                        <Tag
           closable={updateEventCheck?false: true}
           visible={teamTagVisible}
@@ -3884,7 +4021,7 @@ export default function CalendarEvent(props) {
 
           </div>
 
-        </div>
+        {/* </div> */}
         <div
           className="CalendarEvent-Modal-book-appointment-flex"
         >

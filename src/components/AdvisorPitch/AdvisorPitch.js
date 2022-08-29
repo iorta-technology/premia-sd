@@ -94,17 +94,17 @@ const AdvisorPitch = () => {
                                 <Row gutter={[40, 24]} justify="start">
                                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                         <Row gutter={['', 24]}>
-                                            <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Title className="success-head">Our Success Stories</Title>
 
                                                 <Form layout="horizontal" className="success-story-form">
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div >
-                                                            <Image src="../../Amit.jpg" style={{ width: '35vw' }} />
+                                                            <Image src="../../Amit.jpg" style={{ }} />
                                                         </div>
                                                         <h3 className="success-comments">- Amit Kumar, Construction Office Engineer</h3>
                                                     </Col>
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <h1 className="success-heading1">Amit Kumar,Winner of Digital East,Q1 (2016-17)</h1>
                                                         <p className="success-comments">On an everyday basis, Bluebeam helps create an environment where anything is possible in the creation and modification of PDFs. With the new release of Revu 11, users have even more functionality to work with such as the Format Painter. The capability to copy the formatted appearance from one annotation to another has spedup... Built documentation tremendously. Also, with the creation of Sets and the ability to split documents into multiple sections, Bluebeam has now evolved the process of forming maintenance manuals into a well-oiled machine On an everyday basis, Bluebeam helps create an environment where anything is possible in the creation and modification of PDFs. With the new release of Revu 11, users have even more functionality to work with such as the Format Painter. The capability to copy the formatted appearance from one annotation to another has spedup... Built documentation tremendously. Also, with the creation of Sets and the ability to split documents into multiple sections, Bluebeam has now evolved the process of forming maintenance manuals into a well-oiled machine.</p>
 
@@ -112,17 +112,17 @@ const AdvisorPitch = () => {
 
                                                 </Form>
                                             </Col>
-                                            <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Title className="success-head">Our Success Stories</Title>
 
                                                 <Form layout="horizontal" className="success-story-form">
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Deepak.jpg" style={{ width: '35vw' }} />
+                                                            <Image src="../../Deepak.jpg" style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Deepak Dhadotti , Construction Office Engineer</h3>
                                                     </Col>
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <h1 className="success-heading1">Deepak Dhadotti, Winner of Contests, Q1 (2016-17)</h1>
                                                         <p className="success-comments">Deepak Dhadotti grew up in Belgaum in an agricultural family, studied engineering and then joined the UK company, Moog, in the area of servo-controls. He travelled extensively in Asia and Europe, building deep experience – and also causing worry to his parents that he may marry a foreign woman. They arranged a marriage for him with a local bride, and he moved back to India eventually. Deepak started Servo Controls India with his brother, bagging orders from HAL and then the steel and power industry. Tie-ups with Russian companies and the Tata group have also proven lucrative.</p>
 
@@ -130,17 +130,17 @@ const AdvisorPitch = () => {
 
                                                 </Form>
                                             </Col>
-                                            <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Title className="success-head">Our Success Stories</Title>
 
                                                 <Form layout="horizontal" className="success-story-form">
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Jagjit.jpg" style={{ width: '35vw' }} />
+                                                            <Image src="../../Jagjit.jpg" style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Jagjit Singh , Construction Office </h3>
                                                     </Col>
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <h1 className="success-heading1">Jagjit Singh, Winner of Contests,  (2017-18)</h1>
                                                         <p className="success-comments">Jagjit Singh Kapoor’s parents were displaced from Pakistan during the Partition, and he grew up in Doraha, Punjab. He started off in the wine business but then moved into beekeeping and exporting of honey products. A trip to the UK to chase a non-paying customer ended up opening his eyes to a whole new world of quality, processing and technology. Today, Kashmir Apiaries is the largest exporter of honey from India, and Singh started the National Bee Board to increase awareness and networking for beekeepers.</p>
 
@@ -148,17 +148,17 @@ const AdvisorPitch = () => {
 
                                                 </Form>
                                             </Col>
-                                            <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Title className="success-head">Our Success Stories</Title>
 
                                                 <Form layout="horizontal" className="success-story-form">
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Chandubhai.jpg" style={{ width: '35vw' }} />
+                                                            <Image src="../../Chandubhai.jpg" style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Chandubhai Virani , Construction Office Engineer</h3>
                                                     </Col>
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <h1 className="success-heading1">Chandubhai Virani, Winner of Digital East, P1 (2015-16)</h1>
                                                         <p className="success-comments">Chandubhai Virani and his brothers started selling chips in a local cinema in Rajkot, and today their company Balaji Wafers has a 65% market share in five states, holding out against local and MNC competitors. They first tried the fertiliser business and then running a hostel, before settling on chips and snacks. Adherence to quality helped them get early customers, followed by importing Japanese machines and taking loans to grow their factory.</p>
 
@@ -166,17 +166,17 @@ const AdvisorPitch = () => {
 
                                                 </Form>
                                             </Col>
-                                            <Col className="success-story" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                            <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                 <Title className="success-head">Our Success Stories</Title>
 
                                                 <Form layout="horizontal" className="success-story-form">
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Sandeep.jpg" style={{ width: '35vw' }} />
+                                                            <Image src="../../Sandeep.jpg" style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Sandeep Kapoor , Construction Office Engineer</h3>
                                                     </Col>
-                                                    <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <h1 className="success-heading1">Sandeep Kapoor, Winner of Contests 3, B1 (2016-17)</h1>
                                                         <p className="success-comments">Sandeep Kapoor grew up in Jodhpur, and worked in his grandfather’s photo studio. Later he joined ITC, getting exposure to Russia and China in the perfume business. He realised the potential of this sector in India, and returned to start Perfume Station. With a wide range of pricing and open minded customer care, he first expanded in Tier 2 and 3 cities before moving into the metros.</p>
 
