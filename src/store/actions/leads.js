@@ -11,13 +11,13 @@ export const fetchAllLeadsStart = () => {
     }
 }
 
-export const fetchAllLeadsSuccess = (allLeads,count) => {
+export const fetchAllLeadsSuccess = (allLeads, count) => {
     return {
         type: actionTypes.FETCH_ALL_LEADS_SUCCESS,
         allLeads: allLeads,
-        count:count
+        count: count
     }
-} 
+}
 
 
 export const fetchAllLeadsFail = (error) => {
@@ -27,11 +27,11 @@ export const fetchAllLeadsFail = (error) => {
     }
 }
 
-export const fetchAllLeads = (id,leads,pageNo) => {
+export const fetchAllLeads = (id, leads, pageNo) => {
     console.log(id)
-       const leadFilter =  getLeadFilter(leads)
-        let skipVal 
-        pageNo === 1 ? skipVal = 0 : skipVal = (pageNo - 1) * 15
+    const leadFilter = getLeadFilter(leads)
+    let skipVal
+    pageNo === 1 ? skipVal = 0 : skipVal = (pageNo - 1) * 15
 
     return async dispatch => {
         dispatch(fetchAllLeadsStart())
@@ -53,10 +53,47 @@ export const fetchAllLeads = (id,leads,pageNo) => {
 
 
         let result = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`, { secure: true });
-        console.warn('+++++++++ GET LEAD DATA ++++++++',result)
+        console.warn('+++++++++ GET LEAD DATA ++++++++', result)
         if (result.length > 0) {
-            dispatch(fetchAllLeadsSuccess(result[0],result[1][0].count));
-        }else{
+            dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
+        } else {
+            dispatch(fetchAllLeadsFail())
+        }
+    }
+}
+
+export const fetchDataAfterFilter = (id, skip, searchtxt, lead_status, sorByFlter, sort_status, leadfilter, lead_disposition, leadType) => {
+    return async dispatch => {
+        dispatch(fetchAllLeadsStart())
+        let url = `user/v2/getleads_team/${id}?skip=${skip}`
+        if (searchtxt.trim().length) {
+            console.log("_____***A",searchtxt)
+            url += `&searchtxt=${searchtxt}`
+        }
+        if (lead_status.trim().length) {
+            url += `&lead_status=${lead_status}`
+        }
+        if (sorByFlter.trim().length) {
+            url += `&sorByFlter=${sorByFlter}`
+        }
+        if (sort_status.trim().length) {
+            url += `&sort_status=${sort_status}`
+        } 
+        if (leadfilter.trim().length) {
+            url += `&leadfilter=${leadfilter}`
+        } 
+        if (lead_disposition.trim().length) {
+            url += `&lead_disposition=${lead_disposition}`
+        }
+        if (leadType.trim().length) {
+            url += `&leadType=${leadType}`
+        }
+
+        let result = await axiosRequest.get(url);
+        console.warn('_______Filter', result)
+        if (result.length > 0) {
+            dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
+        } else {
             dispatch(fetchAllLeadsFail())
         }
     }
@@ -75,7 +112,7 @@ export const fetchDesignationSuccess = (designations) => {
         type: actionTypes.FETCH_DESIGNATION_SUCCESS,
         designations: designations,
     }
-} 
+}
 
 
 export const fetchDesignationFail = (error) => {
@@ -86,15 +123,15 @@ export const fetchDesignationFail = (error) => {
 }
 
 export const fetchDesignation = (channelCode) => {
-        
+
     return dispatch => {
         dispatch(fetchDesignationStart())
         return axios.get(`admin/getDesignationMaster?userId=5b3b4cc28fa96d39870443e3&channelCode=5dbfdfa8e51cd5522249ba70`)
             .then(res => {
-                
-                if(res.data.errCode === -1){
+
+                if (res.data.errCode === -1) {
                     return dispatch(fetchDesignationSuccess(res.data.errMsg[0]))
-                } 
+                }
             })
             .catch(error => {
                 return dispatch(fetchDesignationFail(error.response.data.errors))
@@ -113,9 +150,9 @@ export const fetchTeamMemberStart = () => {
 export const fetchTeamMemberSuccess = (teamMember) => {
     return {
         type: actionTypes.FETCH_TEAM_MEMBER_SUCCESS,
-        teamMember:teamMember
+        teamMember: teamMember
     }
-} 
+}
 
 
 export const fetchTeamMemberFail = (error) => {
@@ -126,17 +163,17 @@ export const fetchTeamMemberFail = (error) => {
 }
 
 export const fetchTeamMember = (id) => {
-        
+
     return dispatch => {
         dispatch(fetchTeamMemberStart())
         return axiosLms.get(`user_tree?userId=6153f1ec4735ef7f942926e3`)
             .then(res => {
-                    console.log(res.data.errMsg)
-                    if(res.data.errCode===-1){
-                        return dispatch(fetchTeamMemberSuccess())
-                    }else{
-                        throw res
-                    }
+                console.log(res.data.errMsg)
+                if (res.data.errCode === -1) {
+                    return dispatch(fetchTeamMemberSuccess())
+                } else {
+                    throw res
+                }
             })
             .catch(error => {
                 console.log(error)

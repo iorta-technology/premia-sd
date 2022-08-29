@@ -291,7 +291,7 @@ const LeadCards = (props) => {
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
         {!secondValue ? card : cards}
         {/* this is just a presentational card  */}
-        <Col sm={18} md={18} lg={11} xl={10} className={width < breakpoint ? "dummy-card-mobile" : 'dummy-card-desktop'} >
+        <Col sm={18} md={18} lg={11} xl={11} className={width < breakpoint ? "dummy-card-mobile" : 'dummy-card-desktop'} >
           <  >
             <Card
               // key={id}
