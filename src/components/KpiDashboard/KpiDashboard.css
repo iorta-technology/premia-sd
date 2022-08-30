@@ -58,7 +58,7 @@ body{
   .detailsCard .sidehead{
     font-weight: 500;
     font-size: 12px;
-    padding-top: 15%;
+    padding-top: 40%;
   }
   .detailsCard .updatestatus{
     font-weight: 500;
@@ -70,6 +70,7 @@ body{
     font-weight: 600;
     font-size: 24px;
     color: #00ACC1;
+    margin-bottom: 0%;
   }
   .profile{
     display: flex;
@@ -165,8 +166,9 @@ body{
     .detailsCard .updatetitle{
       font-size: 13px;
       font-weight: 600;
-      margin-top: 15px;
+      margin-top: 5px;
       padding-bottom: 7px;
+      margin-bottom: 0px;
     }
     .detailsCard .sidehead{
       font-weight: 600;
@@ -192,9 +194,9 @@ body{
       font-size: 13px;
       color: #333333;
       font-weight: 500;
-      padding-bottom: 10px;
+      padding-bottom: 5px;
     }
-    .center_profile{
+    .centerProfile{
       margin-top: 0px;
     }
   
@@ -207,12 +209,14 @@ body{
     .detailsCard .updatetitle{
       font-size: 12px;
       font-weight: 300;
+      padding-bottom: 0px;
+      margin-bottom: 0;
     }
     .detailsCard .sidehead{
       font-weight: 600;
       font-size: 12px;
-      padding-top: 15%;
-      text-align: end;
+      padding-top: 40%;
+      text-align: center;
     }
     .dispa {
       display: contents;
@@ -224,13 +228,16 @@ body{
     text-align: center;
     flex: 1 1 0%;
     align-items: flex-end;
-    -webkit-box-align: end;
+    -webkit-box-align: center;
     -webkit-box-flex: 1;
+    padding-top: 0%;
   }
   .detailsCard .updatetotal{
     font-size: 13px;
     color: #333333;
     font-weight: 700;
+    padding-bottom: 0;
+    margin-bottom: 0;
     
   }
   .detailsCards.ant-row{
@@ -252,8 +259,14 @@ body{
     font-weight: 800;
   }
 
-  .center_profile{
+  .centerProfile{
     margin-top: 40px;
   }
-
+  .dispa p{
+    margin-bottom: 0px;
+  }
+  
+  /* p{
+    margin: 0 !important;
+} */
   }
