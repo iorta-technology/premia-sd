@@ -3428,50 +3428,49 @@ export default function CalendarEvent(props) {
                   <h4
                     className="CalendarEvent-Modal-Card-header-type"
                   >Appointment Type</h4>
-                  <div
-                    className="CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex"
-                  >
+                  <div className="CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex">
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorBusinessPlanningFunc}
-                      className={advisorCollection.businessPlanning_review == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
+                      className={advisorCollection.businessPlanning_review == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-businessPlanning-static-button-style cal-mr10-mb10"}
                     >Business Planning & Review</button>
                   
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorInactiveAgentFunc}
                      
-                      className={advisorCollection.inactive_agent_reactivation == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
+                      className={advisorCollection.inactive_agent_reactivation == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-businessPlanning-static-button-style cal-mr10-mb10"}
                     >Inactive Agent re-activation</button>
                   
-                    <div className="unittime-mbl">
+                    {/* <div className="unittime-mbl"> */}
                      <button
                      
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorUnitMeetingFunc}
-                      className={advisorCollection.unit_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
+                      className={advisorCollection.unit_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-Card-eventwith-static-button-style cal-mr10-mb10"}
                     >Unit Meeting</button>
-                    </div>
-               
-                  </div>
-
-                  <div
-                    className="CalendarEvent-Modal-appointmenttype-button-flex CalendarEvent-Modal-Unit"
-                  >
-                   
+                    {/* </div> */}
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorJoint_Cust_MeetingFunc}
-                      className={advisorCollection.joint_customer_visit == true ? "CalendarEvent-Modal-joint-customer-onclick-button-style" : "CalendarEvent-Modal-joint-customer-static-button-style"}
+                      className={advisorCollection.joint_customer_visit == true ? "CalendarEvent-Modal-joint-customer-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-joint-customer-static-button-style cal-mr10-mb10"}
                     >Joint Customer Meeting</button>
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorServicingFunc}
-                      className={advisorCollection.servicing == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
+                      className={advisorCollection.servicing == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-Card-eventwith-static-button-style cal-mr10-mb10"}
                     >Servicing</button>
-
-
+               
                   </div>
+
+                  {/* <div
+                    className="CalendarEvent-Modal-appointmenttype-button-flex CalendarEvent-Modal-Unit"
+                  >
+                   
+                    
+
+
+                  </div> */}
                  
                 </div>
 

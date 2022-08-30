@@ -171,6 +171,12 @@ const Tab = ({
         case 'todo':
           return history.push('/todo')
 
+        case 'advisorpitch':
+          return history.push('/masterpresales/advisordetail/advisorpitch')
+          
+
+          case 'customerpitch':
+            return history.push('/masterpresales/customerdetails/salespitch')
 
         case 'allrenewals':
           return history.push('/renewalMaster/allRenewals')
@@ -255,28 +261,30 @@ const Tab = ({
     <>
       {width > breakpoint ? (
         <div className="header-img">
-          <span className="header-title">{header}</span>
+          <div>
+            <div>
+              <p className="header-title">{header}</p>
+            </div>
 
-          <div >
-            <Tabs
-              tabBarGutter={20}
-              centered={false}
-              type="card"
-              onTabClick={handler}
-              size="small"
-              activeKey={activeKey}
-              className="main-lead-tabs"
-              style={{ marginLeft: '80px' }}
-            >
-              {tabPane}
-            </Tabs>
+            <div >
+              <Tabs
+                tabBarGutter={20}
+                centered={false}
+                type="card"
+                onTabClick={handler}
+                size="small"
+                activeKey={activeKey}
+                className="main-lead-tabs"
+                style={{ marginLeft: '80px'}}
+              >
+                {tabPane}
+              </Tabs>
+            </div>
           </div>
 
           {tabPane.key === activeKey ?
-
-
             <div
-              className="round-card-main "
+              className="round-card-main-Tab "
             // defaultActiveKey={"allocket"}
             // activeKey={"team"}
             // style={{ marginLeft: '8rem' }}
@@ -305,6 +313,7 @@ const Tab = ({
               <GlobalFilters show={show} onHide={handleClose} handleShow={handleShow} setShow={setShow} />
             </div>
             : null}
+
         </div>
       ) : (
         <>

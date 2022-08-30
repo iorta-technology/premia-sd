@@ -54,11 +54,13 @@ const SalesPitch = () => {
                 <MTabs
                     tabMenu={tabMenu}
                     activeKey="customerpitch"
+                    header="Presales Tools"
                 /> :
                 <div>
                     <MTabs
                         tabMenu={tabMenu}
                         activeKey="customerpitch"
+                        header="Presales Tools"
                     />
                 </div>
             }

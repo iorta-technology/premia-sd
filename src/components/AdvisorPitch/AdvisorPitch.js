@@ -31,6 +31,7 @@ const AdvisorPitch = () => {
             <MTabs style
                 tabMenu={tabMenu}
                 activeKey="advisorpitch"
+                header="Presales Tools"
             />
                 <div className="Advisorpitch-row-flex">
                     <Tabs tabPosition={tabPosition} tabBarGutter="2vw" style={{ fontSize: '12px'}}

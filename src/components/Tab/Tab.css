@@ -8,20 +8,26 @@
     width: 100%;
     margin-bottom: 10px;
     margin-top: -1rem;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
 }
 
 .header-title{
-   
-    margin: 50px 0px 30px 84px !important;
-    font-weight:bold ;
+    margin-left: 82px;
+    /* margin: 50px 0px 20px 84px !important; */
+    font-weight:bolder ;
 
 }
-.round-card-main{
+.round-card-main-Tab{
     display: flex;
-    float: right;
-    width: 15.5rem;
-    margin-right: 5rem !important;
-    margin-top: -50px !important;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    /* float: right; */
+    /* width: 15.5rem; */
+    /* margin-right: 5rem !important; */
+    /* margin-top: -50px !important; */
     
 
    
@@ -131,13 +137,26 @@
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
     border: none;
 }
-.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, 
+/* .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, 
 .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab{
     border-radius: 25px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
+} */
+
+.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab {
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    padding: 15px;
+}
+.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-bottom > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
+    /* margin-left: 2px; */
+    padding: 15px;
 }
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
@@ -192,11 +211,11 @@
     .ant-tabs-nav{
         box-shadow: 0px 1px 3px 0px #0000003d;
     }
-    .round-card-main{
+    /* .round-card-main{
         width: 200px;
         height: 200px;
         left: 600px;
-    }
+    } */
     /* .header-img{
         width: 800px;
     } */

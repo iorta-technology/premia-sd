@@ -213,7 +213,7 @@ height: 40px;
 .CalendarEvent-Modal-Card-button-flex {
   display: flex;
   flex-direction: row;
-  width: 44%;
+  width: 42%;
   margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
@@ -384,13 +384,17 @@ height: 40px;
 .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
   display: flex;
   flex-direction: row;
-  width: 76%;
+  width: 90%;
   flex-flow: wrap;
   /* background-color: blanchedalmond; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 0.7vw;
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
   margin-top: 11px;
+}
+.cal-mr10-mb10{
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .CalendarEvent-Modal-businessPlanning-onclick-button-style {
@@ -541,7 +545,7 @@ height: 40px;
 .CalendarEvent-Modal-Card-time-duration-flex {
   display: flex;
   flex-direction: row;
-  width: 43%;
+  width: 42%;
   margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
@@ -551,12 +555,12 @@ height: 40px;
   display: flex;
   flex-direction: column;
   height: auto;
-  width: 80%;
+  width: 50%;
  
   /* background-color:#e46a25; */
 }
 .CalendarEvent-Modal-picker-style {
-  width: 15vw;
+  width: 95%;
   box-shadow: 0px 2px 2px #00000024;
   border-radius: 0.4vw;
   border: 0.5px solid #c1c8cc;
@@ -572,7 +576,7 @@ height: 40px;
   border: 0.5px solid #fa0909;
 }
 .CalendarEvent-Modal-TimePicker-style {
-  width: 15vw;
+  width: 95%;
   box-shadow: 0px 2px 2px #00000024;
   border-radius: 0.4vw;
   border: 0.5px solid #c1c8cc;
@@ -605,7 +609,7 @@ height: 40px;
 .CalendarEvent-Modal-Card-status-flex {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 42%;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
   padding-bottom: 2vw;

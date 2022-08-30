@@ -1694,16 +1694,16 @@ const NewLead = React.memo(() => {
 
               {/* </Form> */}
             </Col>
-            <Col className='form-body  p30' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
-              <Row  >
+            <Col className='form-body  p30' style={{ marginBottom: "20px",display:'flex',justifyContent: 'flex-end' }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
+              {/* <Row  > */}
                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
                   {isNewLead ?
                     <Form.Item>
                       <Button
                         type="primary"
-                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
                         // shape="round"
-                        size="large"
+                        // size="large"
                         icon={<FileTextOutlined />}
                         htmlType="submit"
                       // disabled={!formIsValid}
@@ -1724,20 +1724,8 @@ const NewLead = React.memo(() => {
                     </Form.Item>
                   }
                 </Col>
-                {/* <Col xs={11} sm={12} md={4}>
-                  <Form.Item>
-                    <Button
-                      type="primary"
-                      // shape="round"
-                      size="large"
-                      htmlType="submit"
-                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
-                      // icon={<ArrowRightOutlined />}
-                    // onClick={proceedHandler}
-                    >Proceed <ArrowRightOutlined /></Button>
-                  </Form.Item>
-                </Col> */}
-              </Row>
+               
+              {/* </Row> */}
             </Col>
           </Row>
         </Form>
