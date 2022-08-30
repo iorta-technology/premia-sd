@@ -15,7 +15,6 @@ body{
     background-color: rgb(60, 61, 61);
     color: #fff;
     border-radius: 3px;
-    width: 90px;
     border: none;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
   }
@@ -23,12 +22,12 @@ body{
     background-color: rgb(255, 255, 255);
     color: rgb(60, 61, 61);
     border-radius: 3px;
-    width: 90px;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
   }
   .tabs{
     margin: 10px 0 20px;
   }
+  
   .card{
     background-color: white;
       box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
@@ -104,14 +103,11 @@ body{
   .card{
     padding-top: 3.5%;
   }
-  .detailsCards.ant-row{
-    margin: 0;
-    margin-left: 4px !important;
-  }
+  
   .graph{
     background-color: white;
       box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
-      
+      margin-top: 10px;
   }
   .rms .ant-table-thead {
     border-radius: 5px;
@@ -123,4 +119,141 @@ body{
     padding-bottom:5px;
     border: none;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+  }
+
+  @media screen and (min-width: 320px) {
+    .ant-btn.primaryBtn{
+      background-color: rgb(60, 61, 61);
+      color: #fff;
+      border-radius: 3px;
+      border: none;
+      width: 90%;
+      
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    }
+    .ant-btn.secondaryBtn{
+      width: 100%;
+      
+    }
+    .card{
+        padding: 15px;
+        height: auto;
+        flex-direction: row;
+    }
+    .userDetails h5{
+      font-size: 16px;
+      margin-left: 10px;
+      margin-top: 0;
+    }
+    .userDetails p{
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .userDetails > p > span:nth-of-type(1){
+      color: #3C3D3D;
+      font-weight: 800;
+    }
+    .detailsCard{
+      height: auto;
+      padding: 0px;
+    }
+    .kpi-hori-line{
+      display: block;
+      height: 1px!important;
+      background-color: #E6E9EB;
+    }
+    .detailsCard .updatetitle{
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 15px;
+      padding-bottom: 7px;
+    }
+    .detailsCard .sidehead{
+      font-weight: 600;
+      font-size: 12px;
+      padding-top: 12px;
+      
+    }
+    .dispa{
+      display: flex;
+    }
+    .detailsCard .updatestatus {
+      font-weight: 500;
+      color: rgb(228, 106, 37);
+      font-size: 14px;
+      text-align: end;
+      flex: 1 1 0%;
+      align-items: flex-end;
+      -webkit-box-align: end;
+      -webkit-box-flex: 1;
+      padding-top: 10px;
+    }
+    .detailsCard .updatetotal{
+      font-size: 13px;
+      color: #333333;
+      font-weight: 500;
+      padding-bottom: 10px;
+    }
+    .center_profile{
+      margin-top: 0px;
+    }
+  
+  }
+
+  @media screen and (min-width: 920px) {
+    .kpi-hori-line{
+      display: none;
+    }
+    .detailsCard .updatetitle{
+      font-size: 12px;
+      font-weight: 300;
+    }
+    .detailsCard .sidehead{
+      font-weight: 600;
+      font-size: 12px;
+      padding-top: 15%;
+      text-align: end;
+    }
+    .dispa {
+      display: contents;
+  }
+  .detailsCard .updatestatus {
+    font-weight: 500;
+    color: rgb(228, 106, 37);
+    font-size: 14px;
+    text-align: center;
+    flex: 1 1 0%;
+    align-items: flex-end;
+    -webkit-box-align: end;
+    -webkit-box-flex: 1;
+  }
+  .detailsCard .updatetotal{
+    font-size: 13px;
+    color: #333333;
+    font-weight: 700;
+    
+  }
+  .detailsCards.ant-row{
+    margin: 0;
+    margin-left: 4px !important;
+  } 
+
+  .userDetails h5{
+    font-size: 13px;
+    margin-left: 0px;
+    margin-top: 0;
+  }
+  .userDetails p{
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .userDetails > p > span:nth-of-type(1){
+    color: #3C3D3D;
+    font-weight: 800;
+  }
+
+  .center_profile{
+    margin-top: 40px;
+  }
+
   }

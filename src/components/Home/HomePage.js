@@ -156,7 +156,7 @@ const HomePage = () => {
     
     <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" className="cardHolder">
       <Col >
-        <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
+        <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
           <div className="card-content">
             <div className="activity-icon">
               <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3371.png" alt="Activities" />
@@ -278,7 +278,7 @@ const HomePage = () => {
         </div>
       </Col>
 
-      <Col style={{ display: 'none' }}>
+      <Col>
         <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
           <Link to="/kpi-dashboard">
             <div className="card-content">

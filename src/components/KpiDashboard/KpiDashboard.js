@@ -192,112 +192,140 @@ const budgetKeys=
       {/* 12 */}
       <div style={{ padding: '0 3%', paddingBottom: '30px' }}>
         <Row className="tabs">
-          <Col span={2}><Button className="primaryBtn" icon={<UserOutlined />}>Self</Button></Col>
-          <Col span={2}><Button className="secondaryBtn" icon={<TeamOutlined />}>Team</Button></Col>
+          <Col xs={12} sm={12} md={12} lg={2} xl={2}><Button className="primaryBtn" icon={<UserOutlined />}>Self</Button></Col>
+          <Col xs={12} sm={12} md={12} lg={2} xl={2}><Button className="secondaryBtn" icon={<TeamOutlined />}>Team</Button></Col>
+          
         </Row>
+
+        
         <hr style={{ marginBottom: '20px' }} />
         <Row gutter={[10, 10]}>
-          {/* 24 */}
-          <Col span={2} className="card">
-            <Row>
-              <Col span={24}>
+          {/* 24 */}  
+          {/* span={24} */}
+          <Col xs={24} sm={24} md={24} lg={2} xl={2} className="card">
+            <Row className='center_profile'>
+              <Col sm={24} md={12} lg={2} xl={24}>
                 <div className="profile">
                   <h3 style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'normal' }}>{avatar}</h3>
                 </div>
               </Col>
-              <Col className="userDetails" span={24}>
+              <Col className="userDetails" sm={24} md={12} lg={2} xl={24}>
                 <h5>{employee_data[0]?.data.first_name} {employee_data[0]?.data.last_name}</h5>
-                <p style={{ marginTop: '0px' }}>ID : <span>{employee_data[0]?.data.employeeCode}</span></p>
+                <p style={{ marginTop: '0px' }}> <span>ID :</span> <span>{employee_data[0]?.data.employeeCode}</span></p>
               </Col>
             </Row>
           </Col>
-          <Col span={22}>
-            <Row className="detailsCards" gutter={[10, 13]}>
-              <Col span={8}>
+          <Col xs={24} sm={24} md={22} lg={22} xl={22}>
+            <Row className="detailsCards" gutter={[20, 13]}>
+              <Col xs={12} sm={12} md={12} lg={8} xl={8}>
                 <Row gutter={[10, 13]}>
-                  <Col span={24} className="detailsCard">
+                  <Col span={24} style={{ padding: '0px' }} className="detailsCard">
                     <Row>
-                      <Col span={12}>
-                        <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data?.GPW?.gpw_actual}</p>
-                        <p className='updatetotal' style={{ margin: "0" }}>Total GWP in ₹ Lac</p>
+                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <p className='updatetitle'>update as on {updatedDate}</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
+                        <p className='updatecount'>{employee_data[1]?.data?.GPW?.gpw_actual}</p>
+                        <p className='updatetotal'>Total GWP in ₹ Lac</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col span={8} offset={4}>
-                        <p className="sidehead" style={{ margin: "0" }}>MTD {month} {employee_data[1]?.data.year}</p>
-                        <p className="updatestatus" style={{ margin: "0" }}>Actual</p>
+                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                        <div className='dispa'>
+                          <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
+                          <p className="updatestatus">Actual</p>
+                        </div>
                       </Col>
                     </Row>
                   </Col>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col span={12}>
-                        <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data.parcentIssuance}</p>
-                        <p className='updatetotal' style={{ margin: "0" }}>% Issuance</p>
+                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <p className='updatetitle'>update as on {updatedDate}</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
+                        <p className='updatecount'>{employee_data[1]?.data.parcentIssuance}</p>
+                        <p className='updatetotal'>% Issuance</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col span={8} offset={4}>
-                        <p className="sidehead" style={{ margin: "0" }}>MTD {month} {employee_data[1]?.data.year}</p>
-                        <p className="updatestatus" style={{ margin: "0" }}>Actual</p>
+                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <div className='dispa'>
+                        <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
+                        <p className="updatestatus">Actual</p>
+                        </div>
                       </Col>
                     </Row>
                   </Col>
                 </Row>
               </Col>
-              <Col span={8} >
+              <Col xs={12} sm={12} md={12} lg={8} xl={8} >
                 <Row className="detailsCards" gutter={[10, 13]}>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col span={12}>
-                        <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>% {employee_data[1]?.data['Branch Activation']?.branch_activation_actual}</p>
-                        <p className='updatetotal' style={{ margin: "0" }}>Active Branches</p>
+                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <p className='updatetitle'>update as on {updatedDate}</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
+                        <p className='updatecount'>% {employee_data[1]?.data['Branch Activation']?.branch_activation_actual}</p>
+                        <p className='updatetotal'>Active Branches</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col span={8} offset={4}>
-                        <p className="sidehead" style={{ margin: "0" }}>MTD {month} {employee_data[1]?.data.year}</p>
-                        <p className="updatestatus" style={{ margin: "0" }}>Actual</p>
+                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <div className='dispa'>
+                        <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
+                        <p className="updatestatus">Actual</p>
+                        </div>
                       </Col>
                     </Row>
                   </Col>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col span={19}>
-                        <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>% {employee_data[1]?.data.parcentPendancy}</p>
-                        <p className='updatetotal' style={{ margin: "0" }}>Pendancy(GWP Pendancy vs. GWP Ach)</p>
+                      <Col xs={24} sm={24} md={19} lg={19} xl={19}>
+                        <p className='updatetitle'>update as on {updatedDate}</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
+                        <p className='updatecount'>% {employee_data[1]?.data.parcentPendancy}</p>
+                        <p className='updatetotal'>Pendancy(GWP Pendancy vs. GWP Ach)</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col span={5}>
+                      <Col xs={24} sm={24} md={5} lg={5} xl={5}>
+                      <div className='dispa'>
                         <p className="sidehead" style={{ margin: "0", marginRight: '-10px' }}>MTD {month} {employee_data[1]?.data.year}</p>
-                        <p className="updatestatus" style={{ margin: "0" }}>Actual</p>
+                        <p className="updatestatus">Actual</p>
+                        </div>
                       </Col>
                     </Row>
                   </Col>
                 </Row>
               </Col>
-              <Col span={8} >
+              <Col xs={12} sm={12} md={12} lg={8} xl={8} >
                 <Row className="detailsCards" gutter={[10, 13]}>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col span={12}>
-                        <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data['GWP Retention']?.gwp_retention_actual}</p>
-                        <p className='updatetotal' style={{ margin: "0" }}>Total GWP Retention in ₹</p>
+                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <p className='updatetitle'>update as on {updatedDate}</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
+                        <p className='updatecount'>{employee_data[1]?.data['GWP Retention']?.gwp_retention_actual}</p>
+                        <p className='updatetotal'>Total GWP Retention in ₹</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col span={8} offset={4}>
-                        <p className="sidehead" style={{ margin: "0" }}>MTD {month} {employee_data[1]?.data.year}</p>
-                        <p className="updatestatus" style={{ margin: "0" }}>Actual</p>
+                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <div className='dispa'>
+                        <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
+                        <p className="updatestatus">Actual</p>
+                        </div>
                       </Col>
                     </Row>
                   </Col>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col span={12}>
-                        <p className='updatetitle' style={{ margin: "0" }}>update as on {updatedDate}</p>
-                        <p className='updatecount' style={{ margin: "0" }}>{employee_data[1]?.data.parcentUnallocated}</p>
-                        <p className='updatetotal' style={{ margin: "0" }}>GWP Unallocated in ₹</p>
+                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <p className='updatetitle'>update as on {updatedDate}</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
+                        <p className='updatecount'>{employee_data[1]?.data.parcentUnallocated}</p>
+                        <p className='updatetotal'>GWP Unallocated in ₹</p>
+                        <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col span={8} offset={4}>
-                        <p className="sidehead" style={{ margin: "0" }}>MTD {month} {employee_data[1]?.data.year}</p>
-                        <p className="updatestatus" style={{ margin: "0" }}>Actual</p>
+                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <div className='dispa'>
+                        <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
+                        <p className="updatestatus">Actual</p>
+                        </div>
                       </Col>
                     </Row>
                   </Col>
@@ -307,7 +335,7 @@ const budgetKeys=
           </Col>
         </Row>
         <Row justify="space-around" style={{ marginTop: "10px" }} gutter={16}>
-          <Col span={7} className="graph">
+          <Col xs={24} sm={24} md={24} lg={7} xl={7} className="graph">
             <div style={{ padding: "15px" }}>
               <h4>FINAL KPI SCORE %</h4>
               <hr />
@@ -319,7 +347,7 @@ const budgetKeys=
             {/* graph */}
             <Table pagination={false} columns={columns} dataSource={finalKpiData} />
           </Col>
-          <Col span={8} style={{ marginLeft: "10px" }} className="graph">
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} style={{ marginLeft: "10px" }} className="graph">
             <div style={{ padding: "15px" }}>
               <h4>KPI (BUDGET VS ACHIEVEMENT)</h4>
               <Select
@@ -349,7 +377,7 @@ const budgetKeys=
             </div>
             <Table pagination={false} columns={columns1} dataSource={finalBudgetData} />
           </Col>
-          <Col span={8} style={{ marginLeft: "10px" }} className="graph">
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} style={{ marginLeft: "10px" }} className="graph">
             <div style={{ padding: "15px" }}>
               <Row justify="space-between">
                 <Col> <h4>LIST OF RMs</h4></Col>
