@@ -502,24 +502,24 @@ const HomePage = () => {
             </Link>
             <div className="sales-guide-content">
               <div className="b1-content">
-                <Link to="/masterpresales/customerdetails/salespitch">
+                <div onClick={() => history.push('/masterpresales/customerdetails/salespitch')}>
                   <p className="sales-content" style={{ height: 35, width: 100 }}>Sales Pitch</p>
-                </Link>
+                </div>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
               </div>
               <div className="b1-content">
-                <Link to="/products"><p className="sales-content" style={{ height: 35, width: 100 }}>Product</p></Link>
+                <div onClick={() => history.push('/products')}><p className="sales-content" style={{ height: 35, width: 100 }}>Product</p></div>
                 <p className="sales-content" style={{ height: 35, width: 130 }}>Need Analysis</p>
               </div>
               <div className="b1-content">
-                <Link to="/advisorpitch">
+                <div onClick={() => history.push('/advisorpitch')}>
                   <p className="sales-content" style={{ height: 35, width: 200 }}>Advisor OnBoarding</p>
-                </Link>
+                </div>
               </div>
               <div className="b1-content">
-                <Link to="/advisorpitch">
+                <div onClick={() => history.push('/advisorpitch')}>
                   <p className="sales-content" style={{ height: 35, width: 200 }}>Recruitment Presentation</p>
-                </Link>
+                </div>
               </div>
             </div>
           </div>

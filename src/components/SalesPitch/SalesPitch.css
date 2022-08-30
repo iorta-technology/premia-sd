@@ -141,7 +141,7 @@
 }
 .headingg{
   /* font-family: 'robotoregular'; */
-  font-family: 'robotobold';
+  /* font-family: 'robotobold'; */
   text-align: start;
   font-size: 16px !important;
   color: #38393d;
@@ -151,7 +151,7 @@
   text-align: justify;
 }
 .headingg1{
-  font-family: 'robotoregular';
+  /* font-family: 'robotoregular'; */
   font-size: 14px;
   color: #454F63;
   line-height: 1.7;
@@ -166,12 +166,12 @@
   line-height: 1.7;
   text-align: justify;
   font-weight: bold;
-  font-family: 'robotobold';
+  /* font-family: 'robotobold'; */
   /* font-family: 'robotoregular'; */
 }
 .headingg3{
   font-size: 14px;
-  font-family: 'robotobold';
+  /* font-family: 'robotobold'; */
   text-align: justify;
   /* text-align: start; */
   color: rgb(2, 175, 238);

@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal, Checkbox } from 'antd';
 import { Divider, Image, Card, Table } from 'antd';
+import axios from 'axios';
+
+
 import MainTabs from '../../components/MainTabs/MainTabs';
 import {
     ArrowRightOutlined
 } from '@ant-design/icons';
 import './ProposalFulfilment.css';
+import { useSelector } from 'react-redux';
 // import axios from 'axios';
 import {
     BrowserRouter as Router,
     Link, useLocation, useHistory
 } from "react-router-dom";
+import { applyStyleProp } from '@fullcalendar/react';
 const tabMenu = [
     {
         id: 'benefitillustrator',
@@ -41,8 +46,14 @@ const tabMenu = [
 // import Tabs from '../Tab';
 const { Title } = Typography;
 function onChange(date, dateString) {
+
+
     console.log(date, dateString);
+
 }
+
+
+
 const { Option } = Select;
 const contentStyle = {
     height: '100px',
@@ -98,17 +109,35 @@ const formItemLayout = {
         span: 24,
     },
 };
-const setStateOptions = [
+// const setStateOptions = [
 
-    { value: "Mr", label: "Mr" },
-    { value: "Mrs", label: "Mrs" },
-    { value: "Dr", label: "Dr" },
-    { value: "Prof", label: "Prof" }
-]
+//     { value: "Mr", label: "Mr" },
+//     { value: "Mrs", label: "Mrs" },
+//     { value: "Dr", label: "Dr" },
+//     { value: "Prof", label: "Prof" }
+// ]
 const ProposalFulfilment = () => {
     const [selectAllGenderOption, setSelectAllGenderOption] = useState(true);
     const [selectViewGenderOption, setSelectViewGenderOption] = useState(false);
     const [selectDisplayGenderOption, setSelectDisplayGenderOption] = useState(false);
+
+    const [proposalfulfilmentData, setproposalFulfilmentData] = useState();
+    // const [updateAt,setupdateAt]=useState()
+    // const [fullName,setfullName]=useState()
+    // const putItmes ={
+    //     fullName:fullName
+    // }
+
+    // const handlePutdata=()=>{
+
+    //     useEffect=(()=>{
+    //         axios.put('https://sdrestnode.iorta.in/secure/sd/user/updateProposal/624d6845d9cf413d6041a859',putItmes)
+    //     .then(response => setupdateAt(response.data.updateAt))
+    //     },[])
+
+    //     console.log('ye data gaya',handlePutdata)
+
+    // }
     const selectAllGenderFunc = () => {
         setSelectAllGenderOption(true)
         setSelectViewGenderOption(false)
@@ -128,11 +157,12 @@ const ProposalFulfilment = () => {
     // const { recorddata } = location.state;
     // console.log(recorddata);
     const [biArr, setBIArr] = useState([]);
-    const [value, setValue] = React.useState(1);
+    const [value, setValue] = React.useState('');
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
+
 
     // constructor(props) {
     //     super(props);
@@ -156,8 +186,284 @@ const ProposalFulfilment = () => {
 
     // }, []);
     // console.log(biArr);
+    const putData = () => { axios.put('https://sdrestnode.iorta.in/secure/sd/user/updateProposal/624d6845d9cf413d6041a859', PutproposalFulfilmentData) }
+    const PutproposalFulfilmentData = {
+        // IclocksProposerandLifetobe:'',
+        // Astadholdershipadhar:'',
+        // AuthorizationbyLi_agree:'',
+        // Tethmopalatineitle:'',
+        // FbranchiurousullName:'',
+        // FcrozzlyathersFullName:'',
+        // GenderofLifeAssured:'',
+        // MtenuisaritalStatus:'',
+        // DateofBirthofLifeAssured:'',
+        // Eexuviationducation:'',
+        // SmesepisternumourceOfIncome:'',
+        // AchurchwardnnualIncome:'',
+        // PsmokeryuposeOfInsurance:'',
+        // Odaityaccupation:'',
+        // JomoplatoscopyobDescription:'',
+        // JomoplatoscNatureofDuties:'',
+        // AbuzzerreyouABCGroupemployee:'',
+        // OunimucronateptingforECS:'',
+        // PblackbackANCardNo:'',
+        // BpeddleankAccountNo:'',
+        // IsaddlebagFSCCode:'',
+        // BpreternaturalistankName:'',
+        // BacanthodianankBranch:'',
+        // BpantomimistankAccountProof:'',
+        // AsmellingddressLine1:'',
+        // AbatwingddressLine2:'',
+        // Sgalumphtate:'',
+        // CUmbellulidaeity:'',
+        // PperiproctousinCode:'',
+        // EmployeeId:'',
+        // MartarobileNo:'',
+        // LrediscussionandlineNo:'',
+        // Isynecdochicallysyour:'',
+        // mailingAddressSecond:{
+        //     city:'',
+        //     mailingaddress:{
+        //         line1:"",
+        //         line2:"",
+        //         pincode: "",
+        //         state: ""
+        //     }
+        // }
+
+
+        ////////////////////////////
+
+
+        //         personalAddressLine2: personalAddressLine2,
+        //         areYouABC_GroupEmployee: areYouABC_GroupEmployee,
+        //         AnnualIncome: null,
+        //         AdvisorCode: AdvisorCode,
+        //         AdvisorName: AdvisorName,
+        //         AgeProof: AgeProof,
+        //         AnnuityFrequency: AnnuityFrequency,
+        //         AnnuityOption: AnnuityOption,
+        //         AnotherAppointeeDeatails_second: {Gender: Gender, Title: Title, Name: Name, Dob: Dob, Relationship: Relationship, MobileNo: MobileNo, Email: Email, Details: Details},
+
+        //         AnotherAppointeeaddresssameasLA_second: {Add1: Add1, Add2: Add2, State: State, City: City, Code: Code},
+
+        //         AnotherNomineeDeatails_second: {Gender: Gender, Title: Title, Name: Name, Dob: Dob, Relationship: Relationship, MobileNo: MobileNo, Email: Email, Details: Details},
+
+        //         AnotherNomineeaddresssameasLA_second: {Add1: "", Add2: "", State: "", City: "", Code: ""},
+
+        //         AppointeeaddresssameasLA_first: {Add1: Add1, Add2: Add2, State: State, City: City, Code: Code},
+
+        //         personalAddressLine1: personalAddressLine1,
+        //         AadharCardNumber: AadharCardNumber,
+        //         AuthorizationbyLi_agree: AuthorizationbyLi_agree,
+        //         BankBranch: BankBranch,
+        //         personalBankAccountProof: personalBankAccountProof,
+        //         BankAccountNo: BankAccountNo,
+        //         BankName: BankName,
+        //         personalCity: personalCity,
+        //         CalculatorType: CalculatorType,
+        //         WilltheNomineeDetailsbesameasaboveforPlan2: WilltheNomineeDetailsbesameasaboveforPlan2,
+        //         AuthorizationbyLifetobeAssuredProposer1: AuthorizationbyLifetobeAssuredProposer1,
+        //         Cheque_method: Cheque_method,
+        //         ChildDateofBirth: ChildDateofBirth,
+        //         ChildGender: ChildGender,
+        //         ChildName: ChildName,
+        // CustomerDeclarationCapture_status: false,
+        //         DateofBirthofLifeAssured: DateofBirthofLifeAssured,
+        //         DeathBenefitOption: DeathBenefitOption,
+        //         DeclarationbyLifeto: DeclarationbyLifeto,
+        //         DoyouwanttoaddRiderstothisplan: DoyouwanttoaddRiderstothisplan,
+        //         personalDateofBirth: personalDateofBirth,
+        //         Education: Education,
+        //         personalEmailID: personalEmailID,
+        //         personalFullName: personalFullName,
+        //         FathersFullName: FathersFullName,
+        //         GenderofLifeAssured: GenderofLifeAssured,
+        //         personalGender: personalGender,
+        //         HaveLifeInsurance_details: [],
+        //         isProposerAndLifeToBeAssureTheSame: isProposerAndLifeToBeAssureTheSame,
+        //         InstallmentPremium: null,
+        //         InvestmentOption: InvestmentOption,
+        //         IFSCCode: IFSCCode,
+        //         isYourPermanentMailingAdress: isYourPermanentMailingAdress,
+        //         IAgreecheckbox: IAgreecheckbox,
+        //         Question1: Question1,
+        //         NatureofDuties: NatureofDuties,
+        //         JobDescription: JobDescription,
+        //         LifeBalancedFund1: null,
+        //         LifeCorporationBondFund1: null,
+        //         LifeEquityFund3: null,
+        //         LifeMoneyMarketFund1: null,
+        //         LifePureEquityFund2: null,
+        //         LandlineNo: null,
+        //         MakeinIndiaFund: null,
+        //         personalMobileNo: personalMobileNo ,
+        //         MethodofPaymentecs: MethodofPaymentecs,
+        //         personalMaritalStatus: personalMaritalStatus,
+        //         Nationality: Nationality,
+        //         NameofLifeAssured: NameofLifeAssured,
+        //         Nameofparentspouse: Nameofparentspouse,
+        //         NomineeaddresssameasLA_first: {Add1: Add1, Add2: Add2, State: State, City: City, Code: Code},
+
+        //         Occupation: Occupation,
+        //         OptingforECS: OptingforECS,
+        //         PANCardNo: PANCardNo,
+        //         PolicyTerm: PolicyTerm,
+        //         PolicynotbecalledinquestionafterthreeyearsAgreeornot: PolicynotbecalledinquestionafterthreeyearsAgreeornot,
+        //         EmailID: EmailID,
+        //         personalPincode: null,
+        //         PremiumMode: PremiumMode,
+        //         PremiumPayingTerm: PremiumPayingTerm,
+        //         PremiumType: PremiumType,
+        //         Prohibitationofrebate: Prohibitationofrebate,
+        //         PuposeOfInsurance: PuposeOfInsurance,
+        //         RelationshipofChildwithLifeAssured: RelationshipofChildwithLifeAssured,
+        //         personalState: personalState,
+        //         SmartPensionFund1: null,
+        //         SourceOfIncome: SourceOfIncome,
+        //         SumAssured: SumAssured,
+        //         personalTitle: personalTitle,
+        //         NomineeName: NomineeName,
+        //         HowlonghaveyoukonwntheLifetobeassured_month: null,
+        // UploadAddressProof_status: false,
+        // UploadAgeProof_status: false,
+        // UploadIDProof_status: false,
+        // UploadIncomeProof_status: false,
+        // UploadPhotoID_status: false,
+        //         Question12: Question12,
+        //         AuthorizationbyLifetobeAssuredProposer3: AuthorizationbyLifetobeAssuredProposer3,
+        //         annualisedPremium: annualisedPremium,
+        // bI_export_pdf_status: '',
+        //         nomineeEmailID: nomineeEmailID,
+        //         medicalQuestion6: medicalQuestion6,
+        //         nomineeDateofBirth: nomineeDateofBirth,
+        //         Question5: Question5,
+        //         Question6: Question6,
+        //         currentRoute: "/master/testpro/proposalreport",
+        //         WitnessState: WitnessState,
+        //         medicalQuestion3: medicalQuestion3,
+        //         AdvisorPlace: AdvisorPlace,
+        //         Question4: Question4,
+        //         medicalQuestion2: medicalQuestion2,
+        //         Title_n: Title_n,
+        //         AuthorizationbyLifetobeAssuredProposer2: AuthorizationbyLifetobeAssuredProposer2,
+        //         Question3: Question3,
+        //         Dobnominee: Dobnominee,
+        //         WitnessPincode: null,
+        //         FamilyHistoryDetails: FamilyHistoryDetails,
+        //         WeightinKgs: null,
+        //         incomeofProposer: incomeofProposer,
+        //         Gender_n: Gender_n,
+        //         medicalQuestion11: medicalQuestion11,
+        // leadId: "",
+        //         lifeinsuranceDetails: lifeinsuranceDetails,
+        //         mailingAddressSecond: {mailingaddress: {line1: line1, line2: line2}, state: state, city: city, pincode: pincode},
+        //         city: city,
+        //         mailingaddress: {line1: line1, line2: line2},
+        //         line1: "",
+        //         line2: "",
+        //         pincode: "",
+        //         state: "",
+        //         NomineeName_n: NomineeName_n,
+        //         personalMaritalStatus: personalMaritalStatus,
+        //         relationship_with_nominee: relationship_with_nominee,
+        //         medicalQuestion7: medicalQuestion7,
+        //         WitnessAddressLine1: WitnessAddressLine1,
+        //         HeightinInches: HeightinInches,
+        //         DoyouwanttoaddanotherNominee: DoyouwanttoaddanotherNominee,
+        //         overmuchness: overmuchness,
+        //         IstheNomineeaddresssameasLA: IstheNomineeaddresssameasLA,
+        //         nomineeGender: nomineeGender,
+        //         witness_date: witness_date,
+        //         parturientDoyouwanttoaddanotherApp: parturientDoyouwanttoaddanotherApp,
+        //         WitnessCity: WitnessCity,
+        //         WitnessAddressLine2: WitnessAddressLine2,
+        //         Question7: Question7,
+        //         MobileNo:MobileNo ,
+        // productId: {_id: ""},
+        // active: 1,
+        // appID: "",
+        // channelCode: ["", ""],
+        // 0: "",
+        // 1: "",
+        // createdDate: "",
+        // created_by: "",
+        // imageTitle: "",
+        // lastupdatedOn: "",
+        // productBrochure: [{files: {name: "", type: ""}}],
+        // 0: {files: {name: "", type: ""}},
+        // productCategory: "",
+        // productDescription: "",
+        // productImages: [{}],
+        // 0: {},
+        // productName: "",
+        // productReasons: {reason1: "", reason2: ""},
+        // reason1: "",
+        // reason2: "",
+        // reason3: "",
+        // reason4: "",
+        // reason5: "",
+        // productVideo: [{}],
+        // 0: {},
+        // active: 1,
+        // location: "",
+        // name: "",
+        // type: "",
+        // product_code: "",
+        // updated_by: "",
+        // userId: "",
+        // videoLink: "",
+        // videoTitle: "",
+        // web_link: "",
+        // _id: "",
+        // proposalStatus: "",
+        // prosect: "",
+        //         nomineeTitle: nomineeTitle,
+        //         medicalQuestion10: medicalQuestion10,
+        //         HowlonghaveyoukonwntheLifetobeassured_year: null,
+        //         nomineeMobileNo: null,
+        //         summityRelationshipofnomine: summityRelationshipofnomine,
+        //         witness_mobile_no: null,
+        //         medicalQuestion4: medicalQuestion4,
+        //         totalsumass: null,
+        //         witness_name: witness_name,
+        //         unguentariaIstheAppointeeaddresssameasN: unguentariaIstheAppointeeaddresssameasN,
+        //         medicalQuestion9: medicalQuestion9,
+        //         TypeOfIncomeproof: TypeOfIncomeproof,
+        //         medicalQuestion8: medicalQuestion8,
+        // userId: "",
+        //         HowlonghaveyoukonwntheLifetobeassured_fls_mob_no: null,
+        //         medicalQuestion1: medicalQuestion1,
+
+
+
+
+
+
+
+
+
+    }
+
+    const selector = useSelector((state) => state.applicationReducer.singleCardData)
+    console.log('FULLFILMENT KA DATA AYA', selector)
+
+    const [getproposalFulfilment, setgetproposalFulfilment] = useState();
+    const getData = async () => {
+        const res = await axios.get(
+            "https://sdrestnode.iorta.in/secure/sd/user/getProposal/62600602d9cf413d6041a980"
+        );
+        console.log("This is proposalfulfilmetn res", res)
+        setgetproposalFulfilment(res.data.errMsg);
+    };
+
+    console.log("This is required proposalfulfilment Array", getproposalFulfilment)
+
+    useEffect(() => {
+        getData();
+    }, []);
     return (
-        <>
+        <>  <div className='main-div'>
             <div className="proposal-main">
                 <MainTabs
                     tabMenu={tabMenu}
@@ -165,8 +471,9 @@ const ProposalFulfilment = () => {
                     activeKey="proposalfulfilment"
                 />
                 <div className="proposalfulfilment-row-flex">
-                    <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
-                        <TabPane tab="Personal" key="1" >
+                    <Tabs tabPosition={tabPosition} style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
+
+                        <TabPane tab="Personal" key="1">
                             <div className="proposalfulfilment-details-card-style ">
                                 <div className="proposalfulfilment-details-card-content-align">
                                     <Row gutter={[40, 24]} justify="start">
@@ -177,9 +484,9 @@ const ProposalFulfilment = () => {
                                                         <Col>
                                                             <span className="proposal-label">Is Proposer and Life to be Assured the same?</span><br />
                                                             <div>
-                                                                <Radio.Group onChange={onChange} value={value}>
-                                                                    <Radio value={1}>Yes</Radio>
-                                                                    <Radio value={2}>No</Radio>
+                                                                <Radio.Group defaultValue={selector.personalDetails.IsProposerandLifetobeAssuredthesame} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, isProposerAndLifeToBeAssureTheSame: e.target.value })} >
+                                                                    <Radio value={1} >Yes</Radio>
+                                                                    <Radio value={2} >No</Radio>
                                                                 </Radio.Group>
                                                             </div>
                                                         </Col>
@@ -190,8 +497,8 @@ const ProposalFulfilment = () => {
                                         <Col xs={{ order: 2 }} sm={24} md={24} lg={{ order: 2 }} xl={{ order: 2 }} span={22}>
                                             <Row gutter={['', 24]}>
                                                 <Col className="proposal-personal1" xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                                                    <h3 className="proposal-head3">Life To Be Assured</h3>
-                                                    <h4 className="proposal-head4">Aadhar Card Details</h4>
+                                                    <h3 className="proposal-head3"> <b> Life To Be Assured</b></h3>
+                                                    <h4 className="proposal-head4"> <b> Aadhar Card Details</b></h4>
                                                     <Form layout="horizontal" className="contact-detail-form">
                                                         <Col >
                                                             <Form.Item
@@ -207,7 +514,7 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="first-name border-bottom" placeholder="Enter Aadhar Card Number" />
+                                                                <Input className="first-name border-bottom" defaultValue={selector.personalDetails.AadharCardNumber} placeholder="Enter Aadhar Card Number" onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AadharCardNumber: e.target.value })} />
                                                                 {/* value={this.state.value} onChange={this.handleChange} */}
                                                             </Form.Item>
                                                         </Col>
@@ -219,7 +526,7 @@ const ProposalFulfilment = () => {
                                                         </p>
                                                     </Col><br />
                                                     <Col>
-                                                        <Checkbox className="proposal-checkbox">I agree with the consent mentioned above</Checkbox>
+                                                        <Checkbox defaultChecked={selector.personalDetails.IAgreecheckbox} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AuthorizationbyLi_agree: e.target.value })} className="proposal-checkbox">I agree with the consent mentioned above</Checkbox>
                                                     </Col><br />
                                                     <Col>
                                                         <Button className="proposal-btn">Submit</Button>
@@ -240,7 +547,13 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select options={setStateOptions} placeholder="Select" style={{ width: '28vw' }}></Select>
+                                                                    <select defaultValue={selector.personalDetails.Title} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalTitle: e.target.value })} className='select-input' placeholder="Select" style={{ width: '28vw' }}>
+                                                                        <option value={'Select'}>Select</option>
+                                                                        <option value={'Mr'}>Mr</option>
+                                                                        <option value={'Mrs'}>Mrs</option>
+                                                                        <option value={'Dr'}>Dr</option>
+                                                                        <option value={'Prof'}>Prof</option>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -249,6 +562,7 @@ const ProposalFulfilment = () => {
                                                                     className="form-item-name label-color"
                                                                     name="Full Name"
                                                                     label="Full Name"
+                                                                    value={selector.personalDetails.FullName}
                                                                     hasFeedback
                                                                     rules={[
                                                                         {
@@ -257,7 +571,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="first-name border-bottom" placeholder="Enter Full Name" />
+                                                                    <Input defaultValue={selector.personalDetails.FullName} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalFullName: e.target.value })} className="first-name border-bottom" placeholder="Enter Full Name" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -274,7 +588,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="first-name border-bottom" placeholder="Enter Fathers Full Name" />
+                                                                    <Input defaultValue={selector.personalDetails.FathersFullName} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, FathersFullName: e.target.value })} className="first-name border-bottom" placeholder="Enter Fathers Full Name" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -292,7 +606,7 @@ const ProposalFulfilment = () => {
                                                                     ]}
                                                                 >
 
-                                                                    <Radio.Group defaultValue="a" buttonStyle="solid">
+                                                                    <Radio.Group defaultValue={selector.personalDetails.Gender} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalGender: e.target.value })} buttonStyle="solid">
                                                                         <Radio.Button value="a" className="radio">Male</Radio.Button>
                                                                         <Radio.Button value="b" className="radio">Female</Radio.Button>
                                                                         <Radio.Button value="c" className="radio">Other</Radio.Button>
@@ -303,8 +617,8 @@ const ProposalFulfilment = () => {
                                                                 <Form.Item
                                                                     {...formItemLayout}
                                                                     className="form-item-name label-color"
-                                                                    name="martial status"
-                                                                    label="Martial Status"
+                                                                    name="marital status"
+                                                                    label="Marital Status"
                                                                     hasFeedback
                                                                     rules={[
                                                                         {
@@ -313,13 +627,13 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select placeholder="Select a martial status">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Single">Single</Option>
-                                                                        <Option value="Married">Married</Option>
-                                                                        <Option value="Divorced">Divorced</Option>
-                                                                        <Option value="Widowed">Widowed</Option>
-                                                                    </Select>
+                                                                    <select defaultValue={selector.personalDetails.MaritalStatus} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalMaritalStatus: e.target.value })} className='select-input' placeholder="Select a marital status">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Single">Single</option>
+                                                                        <option value="Married">Married</option>
+                                                                        <option value="Divorced">Divorced</option>
+                                                                        <option value="Widowed">Widowed</option>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -335,7 +649,7 @@ const ProposalFulfilment = () => {
                                                                             message: 'Please select date of birth of life assured',
                                                                         },
                                                                     ]}
-                                                                >    <DatePicker onChange={onChange} />
+                                                                >    <input type="date" defaultValue={selector.personalDetails.DateofBirth} className='select-input' onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalDateofBirth: e.target.value })} />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -352,7 +666,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="first-name border-bottom" placeholder="Enter Nationality" />
+                                                                    <Input defaultValue={selector.personalDetails.Nationality} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Nationality: e.target.value })} className="first-name border-bottom" placeholder="Enter Nationality" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -369,7 +683,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="first-name border-bottom" placeholder="Enter Education" />
+                                                                    <Input defaultValue={selector.personalDetails.Education} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Education: e.target.value })} className="first-name border-bottom" placeholder="Enter Education" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -386,7 +700,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="first-name border-bottom" placeholder="Enter Source Of Income" />
+                                                                    <Input defaultValue={selector.personalDetails.SourceOfIncome} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, SourceOfIncome: e.target.value })} className="first-name border-bottom" placeholder="Enter Source Of Income" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -402,7 +716,7 @@ const ProposalFulfilment = () => {
                                                                             message: 'Please enter annual income',
                                                                         },
                                                                     ]}
-                                                                ><Input className="first-name border-bottom" placeholder="Enter Annual Income" />
+                                                                ><Input defaultValue={selector.personalDetails.AnnualIncome} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnnualIncome: e.target.value })} className="first-name border-bottom" placeholder="Enter Annual Income" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -419,11 +733,11 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select placeholder="Select purpose of insurance">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Investment">Investment</Option>
-                                                                        <Option value="Protection">Protection</Option>
-                                                                    </Select>
+                                                                    <select defaultValue={selector.personalDetails.PuposeOfInsurance} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, PuposeOfInsurance: e.target.value })} className='select-input' placeholder="Select purpose of insurance">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Investment">Investment</option>
+                                                                        <option value="Protection">Protection</option>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -440,26 +754,26 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select placeholder="Select occupation">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Agriculture">Agriculture</Option>
-                                                                        <Option value="AntiqueDealer">AntiqueDealer</Option>
-                                                                        <Option value="Armed Forces">Armed Forces</Option>
-                                                                        <Option value="Business">Business</Option>
-                                                                        <Option value="Diamond Trader">Diamond Trader</Option>
-                                                                        <Option value="Farmer">Farmer</Option>
-                                                                        <Option value="House Wife">House Wife</Option>
-                                                                        <Option value="House Wife with High Income">House Wife with High Income</Option>
-                                                                        <Option value="Jewellery Dealer">Jewellery Dealer</Option>
-                                                                        <Option value="Labour">Labour</Option>
-                                                                        <Option value="Machine Operator">Machine Operator</Option>
-                                                                        <Option value="Politically Exposed Person">Politically Exposed Person</Option>
-                                                                        <Option value="Professionals">Professionals</Option>
-                                                                        <Option value="Retired">Retired</Option>
-                                                                        <Option value="Salaried">Salaried</Option>
-                                                                        <Option value="Unemployed">Unemployed</Option>
-                                                                        <Option value="Working in Coal Mines">Working in Coal Mines</Option>
-                                                                    </Select>
+                                                                    <select defaultValue={selector.personalDetails.Occupation} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Occupation: e.target.value })} className='select-input' placeholder="Select occupation">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Agriculture">Agriculture</option>
+                                                                        <option value="AntiqueDealer">AntiqueDealer</option>
+                                                                        <option value="Armed Forces">Armed Forces</option>
+                                                                        <option value="Business">Business</option>
+                                                                        <option value="Diamond Trader">Diamond Trader</option>
+                                                                        <option value="Farmer">Farmer</option>
+                                                                        <option value="House Wife">House Wife</option>
+                                                                        <option value="House Wife with High Income">House Wife with High Income</option>
+                                                                        <option value="Jewellery Dealer">Jewellery Dealer</option>
+                                                                        <option value="Labour">Labour</option>
+                                                                        <option value="Machine Operator">Machine Operator</option>
+                                                                        <option value="Politically Exposed Person">Politically Exposed Person</option>
+                                                                        <option value="Professionals">Professionals</option>
+                                                                        <option value="Retired">Retired</option>
+                                                                        <option value="Salaried">Salaried</option>
+                                                                        <option value="Unemployed">Unemployed</option>
+                                                                        <option value="Working in Coal Mines">Working in Coal Mines</option>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -476,7 +790,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="number" placeholder="Enter Job Description" />
+                                                                    <Input defaultValue={selector.personalDetails.JobDescription} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, JobDescription: e.target.value })} className="email border-bottom" placeholder="Enter Job Description" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -493,7 +807,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="number" placeholder="Enter Nature Of Duties" />
+                                                                    <Input defaultValue={selector.personalDetails.NatureofDuties} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NatureofDuties: e.target.value })} className="email border-bottom" type="number" placeholder="Enter Nature Of Duties" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -510,13 +824,29 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Radio.Group onChange={onChange} value={value}>
+                                                                    <Radio.Group defaultValue={selector.personalDetails.AreyouABCGroupemployee} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, areYouABC_GroupEmployee: e.target.value }, onChange)} >
                                                                         <Radio value={1}>Yes</Radio>
                                                                         <Radio value={2}>No</Radio>
                                                                     </Radio.Group>
                                                                 </Form.Item>
                                                             </Col>
-                                                            <Col></Col>
+                                                            <Col>
+                                                                <Form.Item
+                                                                    {...formItemLayout}
+                                                                    className="form-item-name label-color"
+                                                                    name="Employee ID"
+                                                                    label="Employee ID"
+                                                                    hasFeedback
+                                                                    rules={[
+                                                                        {
+                                                                            required: false,
+                                                                            message: 'Please enter Employee ID',
+                                                                        },
+                                                                    ]}
+                                                                >
+                                                                    <Input defaultValue={selector.personalDetails.NatureofDuties} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, EmployeeId: e.target.value })} className="email border-bottom" type="number" placeholder="Enter Employee ID" />
+                                                                </Form.Item>
+                                                            </Col>
                                                             <Col>
                                                                 <Form.Item
                                                                     {...formItemLayout}
@@ -531,7 +861,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Radio.Group onChange={onChange} value={value}>
+                                                                    <Radio.Group defaultValue={selector.personalDetails.OptingforECS} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, OptingforECS: e.target.value }, onchange)} >
                                                                         <Radio value={1}>Yes</Radio>
                                                                         <Radio value={2}>No</Radio>
                                                                     </Radio.Group>
@@ -552,7 +882,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="number" placeholder="Enter PAN card No." />
+                                                                    <Input defaultValue={selector.personalDetails.PANCardNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, PANCardNo: e.target.value })} className="email border-bottom" type="number" placeholder="Enter PAN card No." />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col></Col>
@@ -576,7 +906,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="number" placeholder="Enter Bank Account No" />
+                                                                    <Input defaultValue={selector.personalDetails.BankAccountNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, BankAccountNo: e.target.value })} className="email border-bottom" type="number" placeholder="Enter Bank Account No" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -593,7 +923,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="number" placeholder="Enter IFSC Code" />
+                                                                    <Input defaultValue={selector.personalDetails.IFSCCode} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, IFSCCode: e.target.value })} className="email border-bottom" type="number" placeholder="Enter IFSC Code" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -610,7 +940,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Bank Name" />
+                                                                    <Input defaultValue={selector.personalDetails.BankName} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, BankName: e.target.value })} className="email border-bottom" type="text" placeholder="Bank Name" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -627,7 +957,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Enter Bank Branch" />
+                                                                    <Input defaultValue={selector.personalDetails.BankBranch} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, BankBranch: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Bank Branch" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -644,12 +974,12 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select placeholder="Select">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Life Annunity">Cancelled Cheque</Option>
-                                                                        <Option value="Life Annunity with ROP">Passbook Copy</Option>
+                                                                    <select defaultValue={selector.personalDetails.BankAccountProof} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalBankAccountProof: e.target.value })} className='select-input' placeholder="Select">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Life Annunity">Cancelled Cheque</option>
+                                                                        <option value="Life Annunity with ROP">Passbook Copy</option>
 
-                                                                    </Select>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col></Col>
@@ -671,7 +1001,7 @@ const ProposalFulfilment = () => {
                                                                             message: 'Please enter address line 1',
                                                                         },
                                                                     ]}
-                                                                ><Input className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
+                                                                ><Input defaultValue={selector.personalDetails.AddressLine1} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalAddressLine1: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -688,7 +1018,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
+                                                                    <Input defaultValue={selector.personalDetails.AddressLine2} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalAddressLine2: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -705,12 +1035,12 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select placeholder="Select">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Life Annunity">Life Annunity</Option>
-                                                                        <Option value="Life Annunity with ROP">Life Annunity with ROP</Option>
+                                                                    <select defaultValue={selector.personalDetails.State} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalState: e.target.value })} className='select-input' placeholder="Select">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Life Annunity">Life Annunity</option>
+                                                                        <option value="Life Annunity with ROP">Life Annunity with ROP</option>
 
-                                                                    </Select>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -727,16 +1057,16 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select placeholder="Select">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Life Annunity">Tura</Option>
-                                                                        <Option value="Life Annunity with ROP">Shillong</Option>
-                                                                        <Option>Nongstoin</Option>
-                                                                        <Option>Nongpoh</Option>
-                                                                        <Option>Mankachar</Option>
-                                                                        <Option>Mairang</Option>
-                                                                        <Option>Cherrapunji</Option>
-                                                                    </Select>
+                                                                    <select defaultValue={selector.personalDetails.City} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalCity: e.target.value })} className='select-input' placeholder="Select">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Life Annunity">Tura</option>
+                                                                        <option value="Life Annunity with ROP">Shillong</option>
+                                                                        <option>Nongstoin</option>
+                                                                        <option>Nongpoh</option>
+                                                                        <option>Mankachar</option>
+                                                                        <option>Mairang</option>
+                                                                        <option>Cherrapunji</option>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -753,7 +1083,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Enter Pin Code" />
+                                                                    <Input defaultValue={selector.personalDetails.PinCode} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalPincode: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Pin Code" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -770,7 +1100,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Enter Email ID" />
+                                                                    <Input defaultValue={selector.personalDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalEmailID: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Email ID" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -779,6 +1109,7 @@ const ProposalFulfilment = () => {
                                                                     className="form-item-name label-color"
                                                                     name="Mobile No"
                                                                     label="Mobile No"
+                                                                    value={selector.personalDetails.MobileNo}
                                                                     hasFeedback
                                                                     rules={[
                                                                         {
@@ -787,7 +1118,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Enter Mobile No" />
+                                                                    <Input defaultValue={selector.personalDetails.MobileNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, personalMobileNo: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Mobile No" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -803,7 +1134,7 @@ const ProposalFulfilment = () => {
                                                                             message: 'Please enter landline no',
                                                                         },
                                                                     ]}
-                                                                ><Input className="email border-bottom" type="text" placeholder="Enter Landline No" />
+                                                                ><Input defaultValue={selector.personalDetails.LandlineNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, LandlineNo: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Landline No" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -823,7 +1154,7 @@ const ProposalFulfilment = () => {
                                                                             message: 'Please select permanent address same as mailing address ',
                                                                         },
                                                                     ]}
-                                                                ><Radio.Group onChange={onChange} value={value}>
+                                                                ><Radio.Group defaultValue={selector.personalDetails.IsyourPermanentaddresssameasmailingaddress} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, isYourPermanentMailingAdress: e.target.value })} onChange={onChange}>
                                                                         <Radio value={1}>Yes</Radio>
                                                                         <Radio value={2}>No</Radio>
                                                                     </Radio.Group>
@@ -845,7 +1176,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
+                                                                    <Input defaultValue={selector.personalDetails.AddressLine1} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, mailingAddressSecond: { mailingaddress: { line1: e.target.value } } })} className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -862,7 +1193,7 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Input className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
+                                                                    <Input defaultValue={selector.personalDetails.AddressLine2} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, mailingAddressSecond: { mailingaddress: { line2: e.target.value } } })} className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -879,12 +1210,12 @@ const ProposalFulfilment = () => {
                                                                         },
                                                                     ]}
                                                                 >
-                                                                    <Select placeholder="Select">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Life Annunity">Life Annunity</Option>
-                                                                        <Option value="Life Annunity with ROP">Life Annunity with ROP</Option>
+                                                                    <select defaultValue={selector.personalDetails.State} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, mailingAddressSecond: { mailingaddress: { state: e.target.value } } })} className='select-input' placeholder="Select">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Life Annunity">Life Annunity</option>
+                                                                        <option value="Life Annunity with ROP">Life Annunity with ROP</option>
 
-                                                                    </Select>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col>
@@ -900,16 +1231,16 @@ const ProposalFulfilment = () => {
                                                                             message: 'Please select city',
                                                                         },
                                                                     ]}
-                                                                ><Select placeholder="Select">
-                                                                        <Option value="Select">Select</Option>
-                                                                        <Option value="Life Annunity">Tura</Option>
-                                                                        <Option value="Life Annunity with ROP">Shillong</Option>
-                                                                        <Option>Nongstoin</Option>
-                                                                        <Option>Nongpoh</Option>
-                                                                        <Option>Mankachar</Option>
-                                                                        <Option>Mairang</Option>
-                                                                        <Option>Cherrapunji</Option>
-                                                                    </Select>
+                                                                ><select defaultValue={selector.personalDetails.City} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, mailingAddressSecond: { city: e.target.value } })} className='select-input' placeholder="Select">
+                                                                        <option value="Select">Select</option>
+                                                                        <option value="Life Annunity">Tura</option>
+                                                                        <option value="Life Annunity with ROP">Shillong</option>
+                                                                        <option>Nongstoin</option>
+                                                                        <option>Nongpoh</option>
+                                                                        <option>Mankachar</option>
+                                                                        <option>Mairang</option>
+                                                                        <option>Cherrapunji</option>
+                                                                    </select>
                                                                 </Form.Item>
                                                             </Col>
                                                             <Col >
@@ -925,7 +1256,7 @@ const ProposalFulfilment = () => {
                                                                             message: 'Please enter pin code',
                                                                         },
                                                                     ]}
-                                                                ><Input className="email border-bottom" type="text" placeholder="Enter Pin Code" />
+                                                                ><Input defaultValue={selector.personalDetails.PinCode} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, mailingAddressSecond: { mailingaddress: { pincode: e.target.value } } })} className="email border-bottom" type="text" placeholder="Enter Pin Code" />
                                                                 </Form.Item>
                                                             </Col>
                                                         </Form>
@@ -939,10 +1270,12 @@ const ProposalFulfilment = () => {
                                                     <Form >
                                                         <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                                             <Col  >
-                                                                <Button className="proposal-btn1">Previous</Button>
+                                                                {/* <Link to="/BenefitIllustrator"> */}
+                                                                <Button className="proposal-btn1" >Previous</Button>
+                                                                {/* </Link> */}
                                                             </Col>
                                                             <Col >
-                                                                <Button className="proposal-btn">Proceed
+                                                                <Button className="proposal-btn" >Proceed
                                                                     <ArrowRightOutlined
                                                                         style={{
                                                                             marginTop: "6px"
@@ -973,6 +1306,8 @@ const ProposalFulfilment = () => {
                                                         className="form-item-name label-color"
                                                         name="gender"
                                                         label="Gender"
+                                                        defaultValue={selector.nomineeDetails.Gender}
+                                                        onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, nomineeGender: e.target.value })}
                                                         hasFeedback
                                                         rules={[
                                                             {
@@ -1017,13 +1352,13 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Select placeholder="Select a title">
-                                                            <Option value="Select">Select</Option>
-                                                            <Option value="Mr">Mr</Option>
-                                                            <Option value="Mrs">Mrs</Option>
-                                                            <Option value="Dr">Dr</Option>
-                                                            <Option value="Prof">Prof</Option>
-                                                        </Select>
+                                                        <select defaultValue={selector.nomineeDetails.Title} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, nomineeTitle: e.target.value })} className='select-input' placeholder="Select a title">
+                                                            <option value="Select">Select</option>
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Mrs">Mrs</option>
+                                                            <option value="Dr">Dr</option>
+                                                            <option value="Prof">Prof</option>
+                                                        </select>
                                                     </Form.Item>
                                                 </Col>
                                                 <Col>
@@ -1040,7 +1375,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input type="text" className="first-name border-bottom" placeholder="Enter Nominee Name" />
+                                                        <Input defaultValue={selector.nomineeDetails.NomineeName} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NomineeName: e.target.value })} type="text" className="first-name border-bottom" placeholder="Enter Nominee Name" />
                                                     </Form.Item>
 
                                                 </Col>
@@ -1058,7 +1393,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <DatePicker onChange={onChange} />
+                                                        <DatePicker defaultValue={selector.nomineeDetails.DateofBirth} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, nomineeDateofBirth: e.target.value }, onChange)} className='select-input' />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col>
@@ -1075,28 +1410,28 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Select placeholder="Select Relationship of nominee with LA">
-                                                            <Option value="Select">Select</Option>
-                                                            <Option value="5">Financier</Option>
-                                                            <Option value="10">Brother-in-law</Option>
-                                                            <Option value="15">Daughter</Option>
-                                                            <Option value="20">Daughter-in-law</Option>
-                                                            <Option value="25">Father</Option>
-                                                            <Option>Father-in-law</Option>
-                                                            <Option>Grand Daughter</Option>
-                                                            <Option>Grand Father</Option>
-                                                            <Option>Grand Mother</Option>
-                                                            <Option>Grand Son</Option>
-                                                            <Option>Husband</Option>
-                                                            <Option>Mother</Option>
-                                                            <Option>Mother-in-law</Option>
-                                                            <Option>Others</Option>
-                                                            <Option>Son</Option>
-                                                            <Option>Spouse</Option>
-                                                            <Option>Sister</Option>
-                                                            <Option>Sister-in-law</Option>
-                                                            <Option>Wife</Option>
-                                                        </Select>
+                                                        <select defaultValue={selector.nomineeDetails.RelationshipofnomineewithLA} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, relationship_with_nominee: e.target.value })} className='select-input' placeholder="Select Relationship of nominee with LA">
+                                                            <option value="Select">Select</option>
+                                                            <option value="5">Financier</option>
+                                                            <option value="10">Brother-in-law</option>
+                                                            <option value="15">Daughter</option>
+                                                            <option value="20">Daughter-in-law</option>
+                                                            <option value="25">Father</option>
+                                                            <option>Father-in-law</option>
+                                                            <option>Grand Daughter</option>
+                                                            <option>Grand Father</option>
+                                                            <option>Grand Mother</option>
+                                                            <option>Grand Son</option>
+                                                            <option>Husband</option>
+                                                            <option>Mother</option>
+                                                            <option>Mother-in-law</option>
+                                                            <option>Others</option>
+                                                            <option>Son</option>
+                                                            <option>Spouse</option>
+                                                            <option>Sister</option>
+                                                            <option>Sister-in-law</option>
+                                                            <option>Wife</option>
+                                                        </select>
                                                     </Form.Item>
                                                 </Col>
                                                 <Col >
@@ -1113,7 +1448,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input className="email border-bottom" type="text" placeholder="Enter Mobile No" />
+                                                        <Input defaultValue={selector.nomineeDetails.MobileNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, nomineeMobileNo: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Mobile No" />
                                                     </Form.Item>
 
                                                 </Col>
@@ -1131,7 +1466,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input className="email border-bottom" type="text" placeholder="Enter Email ID" />
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, nomineeEmailID: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Email ID" />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col></Col>
@@ -1153,10 +1488,97 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.IstheNomineeaddresssameasLA} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, IstheNomineeaddresssameasLA: e.target.value }, onChange)} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col></Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 1"
+                                                        label="Address Line 1"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 1',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NomineeaddresssameasLA_first: { Add1: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 2"
+                                                        label="Address Line 2"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 2',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NomineeaddresssameasLA_first: { Add2: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="State"
+                                                        label="State"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please State',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NomineeaddresssameasLA_first: { State: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter State" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="City"
+                                                        label="City"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please City',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NomineeaddresssameasLA_first: { City: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter CIty" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Pin Code"
+                                                        label="Pin Code"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Pin Code',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NomineeaddresssameasLA_first: { Code: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Pin Code" />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col></Col>
@@ -1174,13 +1596,297 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.DoyouwanttoaddanotherNominee} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, DoyouwanttoaddanotherNominee: e.target.value }, onchange)} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
                                                     </Form.Item>
                                                 </Col>
+                                                <Col>
+                                                </Col>
+                                                <h4 className="proposal-head4">Nominee 2</h4>
                                                 <Col></Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="gender"
+                                                        label="Gender"
+                                                        defaultValue={selector.nomineeDetails.Gender}
+                                                        onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeDeatails_second: { Gender: e.target.value } })}
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Nominee gender',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <div onClick={selectAllGenderFunc} className={selectAllGenderOption == true ? "proposalfulfilment-button" : "proposalfulfilment-btn2"} value={selectAllGenderOption}>
+                                                            <p className={selectAllGenderOption == true ? "proposalfulfilment-tab-active-text-style" : "proposalfulfilment-tab-text-style"}>
+                                                                Male
+                                                            </p>
+                                                        </div>
+                                                        <div onClick={selectViewGenderFunc} className={selectViewGenderOption == true ? "proposalfulfilment-button" : "proposalfulfilment-btn2"} value={selectViewGenderOption}>
+                                                            <p className={selectViewGenderOption == true ? "proposalfulfilment-tab-active-text-style" : "proposalfulfilment-tab-text-style"} >
+                                                                Female
+                                                            </p>
+                                                        </div>
+                                                        <div onClick={selectDisplayGenderFunc} className={selectDisplayGenderOption == true ? "proposalfulfilment-button" : "proposalfulfilment-btn2"} value={selectDisplayGenderOption}>
+                                                            <p className={selectDisplayGenderOption == true ? "proposalfulfilment-tab-active-text-style" : "proposalfulfilment-tab-text-style"}>
+                                                                Other
+                                                            </p>
+                                                        </div>
+                                                        {/* <Radio.Group defaultValue="a">
+                                                            <Radio.Button value="a" className="radio">Male</Radio.Button>
+                                                            <Radio.Button value="b" className="radio">Female</Radio.Button>
+                                                            <Radio.Button value="c" className="radio">Other</Radio.Button>
+                                                        </Radio.Group> */}
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="title"
+                                                        label="Title"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Nominee title!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <select defaultValue={selector.nomineeDetails.Title} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeDeatails_second: { Title: e.target.value } })} className='select-input' placeholder="Select a title">
+                                                            <option value="Select">Select</option>
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Mrs">Mrs</option>
+                                                            <option value="Dr">Dr</option>
+                                                            <option value="Prof">Prof</option>
+                                                        </select>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Nominee Name"
+                                                        label="Nominee Name"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Nominee name!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.NomineeName} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeDeatails_second: { Name: e.target.value } })} type="text" className="first-name border-bottom" placeholder="Enter Nominee Name" />
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="dob"
+                                                        label="Date Of Birth"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select date of birth!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <DatePicker defaultValue={selector.nomineeDetails.DateofBirth} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeDeatails_second: { Dob: e.target.value } })} className='select-input' />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Relationship of nominee with LA"
+                                                        label="Relationship of nominee with LA"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Relationship of nominee with LA!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <select defaultValue={selector.nomineeDetails.RelationshipofnomineewithLA} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeDeatails_second: { Relationship: e.target.value } })} className='select-input' placeholder="Select Relationship of nominee with LA">
+                                                            <option value="Select">Select</option>
+                                                            <option value="5">Financier</option>
+                                                            <option value="10">Brother-in-law</option>
+                                                            <option value="15">Daughter</option>
+                                                            <option value="20">Daughter-in-law</option>
+                                                            <option value="25">Father</option>
+                                                            <option>Father-in-law</option>
+                                                            <option>Grand Daughter</option>
+                                                            <option>Grand Father</option>
+                                                            <option>Grand Mother</option>
+                                                            <option>Grand Son</option>
+                                                            <option>Husband</option>
+                                                            <option>Mother</option>
+                                                            <option>Mother-in-law</option>
+                                                            <option>Others</option>
+                                                            <option>Son</option>
+                                                            <option>Spouse</option>
+                                                            <option>Sister</option>
+                                                            <option>Sister-in-law</option>
+                                                            <option>Wife</option>
+                                                        </select>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Mobile No"
+                                                        label="Mobile No"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select mobile no!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.MobileNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeDeatails_second: { MobileNo: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Mobile No" />
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Email ID"
+                                                        label="Email ID"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select email id!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeDeatails_second: { Email: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Email ID" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col></Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Is the Nominee address same as LA?"
+                                                        label="Is the Nominee address same as LA?"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Is the Nominee address same as LA?!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.IstheNomineeaddresssameasLA} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeaddresssameasLA_second: e.target.value }, onChange)} value={value}>
+                                                            <Radio value={1}>Yes</Radio>
+                                                            <Radio value={2}>No</Radio>
+                                                        </Radio.Group>
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col></Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 1"
+                                                        label="Address Line 1"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 1',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeaddresssameasLA_second: { Add1: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 2"
+                                                        label="Address Line 2"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 2',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeaddresssameasLA_second: { Add2: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="State"
+                                                        label="State"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please State',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeaddresssameasLA_second: { State: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter State" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="City"
+                                                        label="City"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please City',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeaddresssameasLA_second: { City: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter CIty" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Pin Code"
+                                                        label="Pin Code"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Pin Code',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherNomineeaddresssameasLA_second: { Code: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Pin Code" />
+                                                    </Form.Item>
+                                                </Col>
+
+                                                <Col></Col>
+
                                                 <Col>
                                                     <h3 className="proposal-head3">Appointment Details</h3>
                                                     <h4 className="proposal-head4">Appointee 1</h4>
@@ -1200,7 +1906,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group defaultValue="a" buttonStyle="solid">
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.Gender_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Gender_n: e.target.value })} buttonStyle="solid">
                                                             <Radio.Button value="a" className="radio">Male</Radio.Button>
                                                             <Radio.Button value="b" className="radio">Female</Radio.Button>
                                                             <Radio.Button value="c" className="radio">Other</Radio.Button>
@@ -1222,13 +1928,13 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Select placeholder="Select a title">
-                                                            <Option value="Select">Select</Option>
-                                                            <Option value="Mr">Mr</Option>
-                                                            <Option value="Mrs">Mrs</Option>
-                                                            <Option value="Dr">Dr</Option>
-                                                            <Option value="Prof">Prof</Option>
-                                                        </Select>
+                                                        <select defaultValue={selector.nomineeDetails.Title_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Title_n: e.target.value })} className='select-input' placeholder="Select a title">
+                                                            <option value="Select">Select</option>
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Mrs">Mrs</option>
+                                                            <option value="Dr">Dr</option>
+                                                            <option value="Prof">Prof</option>
+                                                        </select>
                                                     </Form.Item>
                                                 </Col>
                                                 <Col>
@@ -1245,7 +1951,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input type="text" className="first-name border-bottom" placeholder="Enter Nominee Name" />
+                                                        <Input defaultValue={selector.nomineeDetails.NomineeName_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, NomineeName_n: e.target.value })} type="text" className="first-name border-bottom" placeholder="Enter Apointnee Name" />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col >
@@ -1262,7 +1968,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <DatePicker onChange={onChange} />
+                                                        <DatePicker defaultValue={selector.nomineeDetails.Dobnominee} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Dobnominee: e.target.value })} className='select-input' onChange={onChange} />
 
                                                     </Form.Item>
                                                 </Col>
@@ -1280,28 +1986,28 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Select placeholder="Select Relationship of nominee with LA">
-                                                            <Option value="Select">Select</Option>
-                                                            <Option value="5">Financier</Option>
-                                                            <Option value="10">Brother-in-law</Option>
-                                                            <Option value="15">Daughter</Option>
-                                                            <Option value="20">Daughter-in-law</Option>
-                                                            <Option value="25">Father</Option>
-                                                            <Option>Father-in-law</Option>
-                                                            <Option>Grand Daughter</Option>
-                                                            <Option>Grand Father</Option>
-                                                            <Option>Grand Mother</Option>
-                                                            <Option>Grand Son</Option>
-                                                            <Option>Husband</Option>
-                                                            <Option>Mother</Option>
-                                                            <Option>Mother-in-law</Option>
-                                                            <Option>Others</Option>
-                                                            <Option>Son</Option>
-                                                            <Option>Spouse</Option>
-                                                            <Option>Sister</Option>
-                                                            <Option>Sister-in-law</Option>
-                                                            <Option>Wife</Option>
-                                                        </Select>
+                                                        <select defaultValue={selector.nomineeDetails.RelationshipofnomineewithLA_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, summityRelationshipofnomine: e.target.value })} className='select-input' placeholder="Select Relationship of nominee with LA">
+                                                            <option value="Select">Select</option>
+                                                            <option value="5">Financier</option>
+                                                            <option value="10">Brother-in-law</option>
+                                                            <option value="15">Daughter</option>
+                                                            <option value="20">Daughter-in-law</option>
+                                                            <option value="25">Father</option>
+                                                            <option>Father-in-law</option>
+                                                            <option>Grand Daughter</option>
+                                                            <option>Grand Father</option>
+                                                            <option>Grand Mother</option>
+                                                            <option>Grand Son</option>
+                                                            <option>Husband</option>
+                                                            <option>Mother</option>
+                                                            <option>Mother-in-law</option>
+                                                            <option>Others</option>
+                                                            <option>Son</option>
+                                                            <option>Spouse</option>
+                                                            <option>Sister</option>
+                                                            <option>Sister-in-law</option>
+                                                            <option>Wife</option>
+                                                        </select>
                                                     </Form.Item>
                                                 </Col>
 
@@ -1323,10 +2029,97 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.IstheAppointeeaddresssameasNominee} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, unguentariaIstheAppointeeaddresssameasN: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col></Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 1"
+                                                        label="Address Line 1"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 1',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AppointeeaddresssameasLA_first: { Add1: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 2"
+                                                        label="Address Line 2"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 2',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AppointeeaddresssameasLA_first: { Add2: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="State"
+                                                        label="State"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please State',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AppointeeaddresssameasLA_first: { State: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter State" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="City"
+                                                        label="City"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please City',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AppointeeaddresssameasLA_first: { City: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter CIty" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Pin Code"
+                                                        label="Pin Code"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Pin Code',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AppointeeaddresssameasLA_first: { Code: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Pin Code" />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col></Col>
@@ -1344,13 +2137,279 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.DoyouwanttoaddanotherAppointee} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, parturientDoyouwanttoaddanotherApp: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
                                                     </Form.Item>
                                                 </Col>
                                                 <Col></Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Gender"
+                                                        label="Gender"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select gender!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.Gender_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { Gender: e.target.value } })} buttonStyle="solid">
+                                                            <Radio.Button value="a" className="radio">Male</Radio.Button>
+                                                            <Radio.Button value="b" className="radio">Female</Radio.Button>
+                                                            <Radio.Button value="c" className="radio">Other</Radio.Button>
+                                                        </Radio.Group>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col></Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Title"
+                                                        label="Title"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select title!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <select defaultValue={selector.nomineeDetails.Title_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { Title: e.target.value } })} className='select-input' placeholder="Select a title">
+                                                            <option value="Select">Select</option>
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Mrs">Mrs</option>
+                                                            <option value="Dr">Dr</option>
+                                                            <option value="Prof">Prof</option>
+                                                        </select>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Nominee Name"
+                                                        label="Nominee Name"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Nominee Name!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.NomineeName_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { Name: e.target.value } })} type="text" className="first-name border-bottom" placeholder="Enter Apointnee Name" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="dob"
+                                                        label="Date Of Birth"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Date Of Birth!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <DatePicker defaultValue={selector.nomineeDetails.Dobnominee} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { Dob: e.target.value } })} className='select-input' onChange={onChange} />
+
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Relationship of nominee with LA"
+                                                        label="Relationship of nominee with LA"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Is the Nominee address same as LA?Relationship of nominee with LA!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <select defaultValue={selector.nomineeDetails.RelationshipofnomineewithLA_n} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { Relationship: e.target.value } })} className='select-input' placeholder="Select Relationship of nominee with LA">
+                                                            <option value="Select">Select</option>
+                                                            <option value="5">Financier</option>
+                                                            <option value="10">Brother-in-law</option>
+                                                            <option value="15">Daughter</option>
+                                                            <option value="20">Daughter-in-law</option>
+                                                            <option value="25">Father</option>
+                                                            <option>Father-in-law</option>
+                                                            <option>Grand Daughter</option>
+                                                            <option>Grand Father</option>
+                                                            <option>Grand Mother</option>
+                                                            <option>Grand Son</option>
+                                                            <option>Husband</option>
+                                                            <option>Mother</option>
+                                                            <option>Mother-in-law</option>
+                                                            <option>Others</option>
+                                                            <option>Son</option>
+                                                            <option>Spouse</option>
+                                                            <option>Sister</option>
+                                                            <option>Sister-in-law</option>
+                                                            <option>Wife</option>
+                                                        </select>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col >
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Mobile No"
+                                                        label="Mobile No"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select mobile no!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.MobileNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { MobileNo: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Mobile No" />
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Email ID"
+                                                        label="Email ID"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select email id!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { Email: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Email ID" />
+                                                    </Form.Item>
+                                                </Col>
+
+                                                <Col>
+                                                    <h4 className="proposal-head4">Appointee 2 Address Details</h4>
+                                                    <h4 className="proposal-head4">Appointee 2</h4>
+                                                </Col>
+                                                <Col></Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Is the Appointee address same as Nominee"
+                                                        label="Is the Appointee address same as Nominee"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please select Is the Nominee address same as LA?Is the Appointee address same as Nominee!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Radio.Group defaultValue={selector.nomineeDetails.IstheAppointeeaddresssameasNominee} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeDeatails_second: { Details: e.target.value } })} value={value}>
+                                                            <Radio value={1}>Yes</Radio>
+                                                            <Radio value={2}>No</Radio>
+                                                        </Radio.Group>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col></Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 1"
+                                                        label="Address Line 1"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 1',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeaddresssameasLA_second: { Add1: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
+                                                    </Form.Item>
+
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Address Line 2"
+                                                        label="Address Line 2"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Address Line 2',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeaddresssameasLA_second: { Add2: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="State"
+                                                        label="State"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please State',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeaddresssameasLA_second: { State: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter State" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="City"
+                                                        label="City"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please City',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeaddresssameasLA_second: { City: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter CIty" />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col>
+                                                    <Form.Item
+                                                        {...formItemLayout}
+                                                        className="form-item-name label-color"
+                                                        name="Pin Code"
+                                                        label="Pin Code"
+                                                        hasFeedback
+                                                        rules={[
+                                                            {
+                                                                required: false,
+                                                                message: 'Please Pin Code',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input defaultValue={selector.nomineeDetails.EmailID} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AnotherAppointeeaddresssameasLA_second: { Code: e.target.value } })} className="email border-bottom" type="text" placeholder="Enter Pin Code" />
+                                                    </Form.Item>
+                                                </Col>
                                             </Form>
                                         </Col>
                                     </Row>
@@ -1403,7 +2462,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.familyhistoryDetails.FamilyHistoryDetails} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, FamilyHistoryDetails: e.target.value }, onchange)} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1462,7 +2521,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.lifeinsuranceDetails.lifeinsuranceDetails} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, lifeinsuranceDetails: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1531,7 +2590,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question1} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion1: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1550,7 +2609,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question2} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion2: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1569,7 +2628,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question3} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion3: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1588,7 +2647,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question4} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion4: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1610,17 +2669,17 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Select placeholder="Select Height in Feet ">
-                                                                <Option value="Select">Select</Option>
-                                                                <Option value="1">1</Option>
-                                                                <Option value="2">2</Option>
-                                                                <Option value="3">3</Option>
-                                                                <Option value="4">4</Option>
-                                                                <Option value="5">5</Option>
-                                                                <Option value="6">6</Option>
-                                                                <Option value="7">7</Option>
-                                                                <Option value="8">8</Option>
-                                                            </Select>
+                                                            <select defaultValue={selector.medicalDetails.HeightinFeet} onchange={(e) => { setproposalFulfilmentData({ ...proposalfulfilmentData, overmuchness: e.target.value }) }} className='select-input' placeholder="Select Height in Feet ">
+                                                                <option value="Select">Select</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
                                                         </Form.Item>
                                                     </Col>
                                                     <Col >
@@ -1637,17 +2696,17 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Select placeholder="Select Height in Inches ">
-                                                                <Option value="Select">Select</Option>
-                                                                <Option value="1">1</Option>
-                                                                <Option value="2">2</Option>
-                                                                <Option value="3">3</Option>
-                                                                <Option value="4">4</Option>
-                                                                <Option value="5">5</Option>
-                                                                <Option value="6">6</Option>
-                                                                <Option value="7">7</Option>
-                                                                <Option value="8">8</Option>
-                                                            </Select>
+                                                            <select defaultValue={selector.medicalDetails.HeightinInches} onchange={(e) => { setproposalFulfilmentData({ ...proposalfulfilmentData, HeightinInches: e.target.value }) }} className='select-input' placeholder="Select Height in Inches ">
+                                                                <option value="Select">Select</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
                                                         </Form.Item>
                                                     </Col>
                                                     <Col>
@@ -1662,7 +2721,7 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input className="email border-bottom" type="number" placeholder="Enter Weight in kgs" />
+                                                            <Input defaultValue={selector.medicalDetails.WeightinKgs} onchange={(e => { setproposalFulfilmentData({ ...proposalfulfilmentData, WeightinKgs: e.target.value }) })} className="email border-bottom" type="number" placeholder="Enter Weight in kgs" />
                                                         </Form.Item>
                                                     </Col>
                                                 </Form>
@@ -1681,7 +2740,7 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         ><br />
-                                                            <Radio.Group onChange={onChange} value={value}>
+                                                            <Radio.Group defaultValue={selector.medicalDetails.Question6} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion6: e.target.value })} value={value}>
                                                                 <Radio value={1}>Yes</Radio>
                                                                 <Radio value={2}>No</Radio>
                                                             </Radio.Group>
@@ -1701,7 +2760,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question7} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion7: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1720,7 +2779,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question8} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion8: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1739,7 +2798,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question9} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion9: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1758,7 +2817,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question10} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion10: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1777,7 +2836,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.medicalDetails.Question11} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, medicalQuestion11: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1835,7 +2894,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.detailsOfWitness.Question12} onChange={onChange} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -1863,7 +2922,7 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="email border-bottom" type="text" placeholder="Enter Name" />
+                                                                <Input defaultValue={selector.detailsOfWitness.Name} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, undershire: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Name" />
                                                             </Form.Item>
                                                         </Col>
                                                         <Col >
@@ -1878,7 +2937,7 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="email border-bottom" type="text" placeholder="Enter Mobile No" />
+                                                                <Input defaultValue={selector.detailsOfWitness.MobileNo} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, swoop: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Mobile No" />
                                                             </Form.Item>
                                                         </Col>
                                                         <Col >
@@ -1896,7 +2955,7 @@ const ProposalFulfilment = () => {
                                                                 ]}
                                                             >
                                                                 <div>
-                                                                    <DatePicker onChange={onChange} />
+                                                                    <DatePicker defaultValue={selector.detailsOfWitness.Date} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, parquet: e.target.value })} />
 
                                                                 </div>,
                                                             </Form.Item>
@@ -1914,7 +2973,7 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
+                                                                <Input defaultValue={selector.detailsOfWitness.AddressLine1} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, oariopathic: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Address Line 1" />
                                                             </Form.Item>
                                                         </Col>
                                                         <Col >
@@ -1929,7 +2988,7 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
+                                                                <Input defaultValue={selector.detailsOfWitness.AddressLine2} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, pookaun: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Address Line 2" />
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>
@@ -1946,19 +3005,19 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select placeholder="Select">
-                                                                    <Option value="Select">Select</Option>
-                                                                    <Option value="Andra Pradesh">Andra Pradesh</Option>
-                                                                    <Option value="Himachal Pradesh">Himachal Pradesh</Option>
-                                                                    <Option value="Karnataka">Karnataka</Option>
-                                                                    <Option value="Kerala">Kerala</Option>
-                                                                    <Option value="Madhya Pradesh">Madhya Pradesh</Option>
-                                                                    <Option value="Maharashtra">Maharashtra</Option>
-                                                                    <Option value="Manipur">Manipur</Option>
-                                                                    <Option value="Odisa">Odisa</Option>
-                                                                    <Option value="Rajasthan">Rajasthan</Option>
+                                                                <select defaultValue={selector.detailsOfWitness.State} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, dictyopteran: e.target.value })} className='select-input' placeholder="Select">
+                                                                    <option value="Select">Select</option>
+                                                                    <option value="Andra Pradesh">Andra Pradesh</option>
+                                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                                    <option value="Karnataka">Karnataka</option>
+                                                                    <option value="Kerala">Kerala</option>
+                                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                                    <option value="Maharashtra">Maharashtra</option>
+                                                                    <option value="Manipur">Manipur</option>
+                                                                    <option value="Odisa">Odisa</option>
+                                                                    <option value="Rajasthan">Rajasthan</option>
 
-                                                                </Select>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>
@@ -1975,16 +3034,16 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select placeholder="Select">
-                                                                    <Option value="Select">Select</Option>
-                                                                    <Option value="Life Annunity">Tura</Option>
-                                                                    <Option value="Life Annunity with ROP">Shillong</Option>
-                                                                    <Option>Nongstoin</Option>
-                                                                    <Option>Nongpoh</Option>
-                                                                    <Option>Mankachar</Option>
-                                                                    <Option>Mairang</Option>
-                                                                    <Option>Cherrapunji</Option>
-                                                                </Select>
+                                                                <select defaultValue={selector.detailsOfWitness.City} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, phasmatoid: e.target.value })} className='select-input' placeholder="Select">
+                                                                    <option value="Select">Select</option>
+                                                                    <option value="Life Annunity">Tura</option>
+                                                                    <option value="Life Annunity with ROP">Shillong</option>
+                                                                    <option>Nongstoin</option>
+                                                                    <option>Nongpoh</option>
+                                                                    <option>Mankachar</option>
+                                                                    <option>Mairang</option>
+                                                                    <option>Cherrapunji</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col >
@@ -1999,7 +3058,7 @@ const ProposalFulfilment = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Input className="email border-bottom" type="text" placeholder="Enter Pin Code" />
+                                                                <Input defaultValue={selector.detailsOfWitness.PinCode} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, hushing: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Pin Code" />
                                                             </Form.Item>
                                                         </Col>
                                                     </Form>
@@ -2040,6 +3099,8 @@ const ProposalFulfilment = () => {
                                                 <h3 className="proposal-head3">Declaration by Life to be Assured / Proposer</h3>
                                                 <p className="proposal-paragraph">I understand and agree that the statements in this proposal form shall be the basis of the contract between me and ABC Life Insurance Company Limited ('the Company'). I agree that I will inform the Company if between the date of this proposal and the date of issuance of the policy about any change in my general health, occupation,financial position or if any other proposal or application to any other Insurance Company on my life is declined / postponed or accepted other than the standard terms so that the Company may consider the terms of acceptance.I understand that if I fail to disclose the information sought by the Company, then the Company may voidthe contract at its sole discretion without giving any further explanation and the consequence thereof shall follow. I agree that the Insurance protection shall only be provided effective from the date of acceptance of risk by the Company. I further declare that the statements in this proposal are true and I have disclosed all information which might be material to the Company while issuing the policy contract. I declare that I have read the sales literature of the proposed plan and understood the terms and conditions of the plan along with the associated risks and benefits which I propose to take. I declare that the premiums paid have  not been generated from the proceeds of any criminal activities/offences and I shall abide by and conform to the Prevention of Money Laundering Act, 2002 or any other applicable laws. I declare that the Company has disclosed and explained all the information related to this product and riders to me and I declare thatI have understood the same before signing this proposal form. In case of fraud the policy contract shall be cancelled immediately by forfeiture of all premiums paid or in case of misrepresentation the policy contractshall be cancelled immediately by refund of all premiums paid, subject to the fraud or misrepresentation being established by the insurer in accordance with Section 45 of the Insurance Act, 1938 as ammended from time to time.
                                                 </p>
+                                                <input type="checkbox" onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, DeclarationbyLifeto: e.target.value })} /> I agree
+
                                             </Col>
                                         </Row>
                                     </Col>
@@ -2062,7 +3123,7 @@ const ProposalFulfilment = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Radio.Group onChange={onChange} value={value}>
+                                                    <Radio.Group defaultValue={selector.misc.DeclarationbyLifeto} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AuthorizationbyLifetobeAssuredProposer1: e.target.value })} value={value}>
                                                         <Radio value={1}>Yes</Radio>
                                                         <Radio value={2}>No</Radio>
                                                     </Radio.Group>
@@ -2081,7 +3142,7 @@ const ProposalFulfilment = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Radio.Group onChange={onChange} value={value}>
+                                                    <Radio.Group defaultValue={selector.misc.AuthorizationbyLifetobeAssuredProposer1} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AuthorizationbyLifetobeAssuredProposer2: e.target.value })} value={value}>
                                                         <Radio value={1}>Yes</Radio>
                                                         <Radio value={2}>No</Radio>
                                                     </Radio.Group>
@@ -2101,13 +3162,13 @@ const ProposalFulfilment = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Radio.Group onChange={onChange} value={value}>
+                                                    <Radio.Group defaultValue={selector.misc.AuthorizationbyLifetobeAssuredProposer2} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AuthorizationbyLifetobeAssuredProposer3: e.target.value })} value={value}>
                                                         <Radio value={1}>Yes</Radio>
                                                         <Radio value={2}>No</Radio>
                                                     </Radio.Group>
                                                 </Form.Item>
                                                 </Col>
-                                                <Checkbox>I agree</Checkbox>
+                                                <input type="checkbox" defaultValue={selector.misc.AuthorizationbyLi_agree} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, AuthorizationbyLi_agree: e.target.value })} />I agree
                                             </Col>
                                         </Row>
                                     </Col>
@@ -2119,7 +3180,7 @@ const ProposalFulfilment = () => {
                                                 </p>
                                                 <p className="proposal-paragraph">2.Any person making the default in complying with the provisions of this section shall be liable for a prohibitionrebate which may extend to ten lakh rupees.Please refer to our website or contact our office for the details under the above mentioned Sectioned 41.</p>
 
-                                                <Checkbox>I agree</Checkbox>
+                                                <input type="checkbox" defaultValue={selector.misc.Prohibitationofrebate} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Prohibitationofrebate: e.target.value })} />I agree
                                             </Col>
                                         </Row>
                                     </Col>
@@ -2132,7 +3193,7 @@ const ProposalFulfilment = () => {
                                                 <p className="proposal-paragraph">3) Notwithstanding anything contained in subsection(2), No insurer shall repudiate a life insurance policy on the ground of fraud if the insured can prove that the mis-statement of supression of material fact was true to the best of his knowledge and belief or that there was no deliberate intention to supress the fact or that such mis-statement of supression of the material fact or within the knowledge of the insurer-provided that in case of fraud, the onus of disproving lies upon the beneficiaries, in case the policy holder is not alive.</p>
                                                 <p className="proposal-paragraph">4) A policy of life insurance may be called in question at any time within three years from the date of insurance of the policy or the date of commencement of risk or the date of revival of the policy or the date of the rider to the policy ,whichever is later, on the ground that any statement or supression of the fact material to the expectancy of the life of the insured was incorrectly made in the proposal or other document on the basis of which the policy was issued or revived or rider issued; Provided that the insurer shall have to communicate in writing to the insured the grounds and materials on which such decision to repudiate the policy of life insurance is based; Provided further that in case of repudation of the policy on the ground of misstatement or supression of material fact, and not on the ground of fraud, the premiums collected on the policy till the date of repudation shall be paid to the insured or legal representatives or nominees or assignees of the insured within a period of ninety days from the, whichever is later, on the ground that any statement or supression of the fact material to the expectancy of the life of the insured was incorrectly made in the proposal or other document on the basis of which the policy was issued or revived or rider issued; Provided that the insurer shall have to communicate in writing to the insured the grounds and materials on which such decision to repudiate the policy of life insurance is based; Provided further that in case of repudation of the policy on the ground of misstatement or supression of material fact, and not on the ground of fraud,the premiums collected on the policy till the date of repudation shall be paid to the insured or legal representatives or nominees or assignees of the insured within a period of ninety days from the date of such repudation.Mis-statement or supression of shall not be considered material unless it has a direct bearing on the risk undertaken by the insurer. the onus is on the insurer to show that had the insurer been aware of the said fact no life insurance policy would have been issued to the insured. Nothing in this section shall prevent the insurer from calling for proof of age at any time if if entitled to do so, and no policy shall be deemed to be called in question merely because the term of the policy are adjusted on subsequent proof that the age of the life insured was incorrectly stated in the proposal.</p>
 
-                                                <Checkbox>I agree</Checkbox>
+                                                <input type="checkbox" defaultValue={selector.misc.PolicynotbecalledinquestionafterthreeyearsAgreeornot} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, PolicynotbecalledinquestionafterthreeyearsAgreeornot: e.target.value })} />I agree
                                             </Col>
                                         </Row>
                                     </Col>
@@ -2181,7 +3242,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.confidentialReport.Question1} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Question1: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -2200,7 +3261,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.confidentialReport.Question2} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Question2: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -2219,7 +3280,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.confidentialReport.Question3} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Question3: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -2238,7 +3299,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.confidentialReport.Question4} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Question4: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -2256,7 +3317,7 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input className="email border-bottom" type="number" placeholder="Enter Income of the Proposer" />
+                                                            <Input defaultValue={selector.confidentialReport.incomeofProposer} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, incomeofProposer: e.target.value })} className="email border-bottom" type="number" placeholder="Enter Income of the Proposer" />
                                                         </Form.Item>
                                                     </Col>
                                                     <Col><Form.Item
@@ -2272,7 +3333,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.confidentialReport.Question5} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Question5: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -2292,17 +3353,17 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Select placeholder="Select Type Of Income proof ">
-                                                                <Option value="Select">Select</Option>
-                                                                <Option value="1">1</Option>
-                                                                <Option value="2">2</Option>
-                                                                <Option value="3">3</Option>
-                                                                <Option value="4">4</Option>
-                                                                <Option value="5">5</Option>
-                                                                <Option value="6">6</Option>
-                                                                <Option value="7">7</Option>
-                                                                <Option value="8">8</Option>
-                                                            </Select>
+                                                            <select defaultValue={selector.confidentialReport.TypeOfIncomeproof} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, TypeOfIncomeproof: e.target.value })} className='select-input' placeholder="Select Type Of Income proof ">
+                                                                <option value="Select">Select</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
                                                         </Form.Item>
                                                     </Col>
                                                     <Col><Form.Item
@@ -2318,7 +3379,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.confidentialReport.Question6} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Question6: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -2337,7 +3398,7 @@ const ProposalFulfilment = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Radio.Group onChange={onChange} value={value}>
+                                                        <Radio.Group defaultValue={selector.confidentialReport.Question7} onChange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, Question7: e.target.value })} value={value}>
                                                             <Radio value={1}>Yes</Radio>
                                                             <Radio value={2}>No</Radio>
                                                         </Radio.Group>
@@ -2360,7 +3421,7 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input className="email border-bottom" type="number" placeholder="Enter Years" />
+                                                            <Input defaultValue={selector.confidentialReport.HowlonghaveyoukonwntheLifetobeassured_year} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, HowlonghaveyoukonwntheLifetobeassured_year: e.target.value })} className="email border-bottom" type="number" placeholder="Enter Years" />
                                                         </Form.Item>
                                                     </Col>
                                                     <Col >
@@ -2375,7 +3436,7 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input className="email border-bottom" type="number" placeholder="Enter Months" />
+                                                            <Input defaultValue={selector.confidentialReport.HowlonghaveyoukonwntheLifetobeassured_month} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, HowlonghaveyoukonwntheLifetobeassured_month: e.target.value })} className="email border-bottom" type="number" placeholder="Enter Months" />
                                                         </Form.Item>
                                                     </Col>
                                                     <Col >
@@ -2390,7 +3451,7 @@ const ProposalFulfilment = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input className="email border-bottom" type="text" placeholder="Enter Mobile No" />
+                                                            <Input defaultValue={selector.confidentialReport.HowlonghaveyoukonwntheLifetobeassured_fls_mob_no} onchange={(e) => setproposalFulfilmentData({ ...proposalfulfilmentData, HowlonghaveyoukonwntheLifetobeassured_fls_mob_no: e.target.value })} className="email border-bottom" type="text" placeholder="Enter Mobile No" />
                                                         </Form.Item>
                                                     </Col>
                                                 </Form>
@@ -2406,7 +3467,7 @@ const ProposalFulfilment = () => {
                                                             <Button className="proposal-btn1">Previous</Button>
                                                         </Col>
                                                         <Col >
-                                                            <Button className="proposal-btn">Proceed
+                                                            <Button onClick={putData} className="proposal-btn">Proceed
                                                                 <ArrowRightOutlined
                                                                     style={{
                                                                         marginTop: "7px"
@@ -2424,6 +3485,7 @@ const ProposalFulfilment = () => {
                     </Tabs>
                 </div>
             </div>
+        </div>
         </>
     )
 }

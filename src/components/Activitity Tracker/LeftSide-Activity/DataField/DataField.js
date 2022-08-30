@@ -145,9 +145,9 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
                       </div>
                       <div className='bodyData-centerContent'>
                           <div className='Event-CenterBody'>
-                              <Typography className='Event-CenterBody-BranchName'>
+                              {/* <Typography className='Event-CenterBody-BranchName'>
                                 {element.branchCodeId?.branchName} ({element.branchCodeId?.branchCode})
-                              </Typography>
+                              </Typography> */}
                               <div className='Event-Type-Name'>
                                 <div className='EventType'>
                                     <Typography >
@@ -217,13 +217,13 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
                                 <FormOutlined onClick={() => showModal(element)} />
                                 </Col>
                               </Row>
-                              <Row>
+                              {/* <Row>
                                 <Col sm={24} md={24} xs={24}>
                                 <Typography className='Event-CenterBody-BranchName'>
                                   {element.branchCodeId?.branchName} ({element.branchCodeId?.branchCode})
                                 </Typography>
                                 </Col>
-                              </Row>
+                              </Row> */}
 
                               <Row>
                                 <Col sm={7} xs={7} md={7}>
@@ -305,7 +305,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
                                   }
                                 </div>
                               </Row>
-                              <hr />
+                              <hr style={{marginTop : 10, marginBottom : 10}}/>
                     </div>
                    
               

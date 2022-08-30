@@ -4,6 +4,7 @@ import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, C
 import { Divider, Image, Card } from 'antd';
 import './AdvisorPitch.css';
 import MainTabs from '../../components/MainTabs/MainTabs'
+import MTabs from '../../components/Tab/Tab'
 
 const tabMenu = [
     {
@@ -27,10 +28,10 @@ const AdvisorPitch = () => {
     return (
         <>
             <div className="Advisor-main">
-            <MainTabs style
+            <MTabs style
                 tabMenu={tabMenu}
-                // header="New Lead"
                 activeKey="advisorpitch"
+                header="Presales Tools"
             />
                 <div className="Advisorpitch-row-flex">
                     <Tabs tabPosition={tabPosition} tabBarGutter="2vw" style={{ fontSize: '12px'}}

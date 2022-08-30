@@ -10,6 +10,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import VideoPlayer from 'react-video-js-player';
 import MainTabs from '../../components/MainTabs/MainTabs'
+import MTabs from '../../components/Tab/Tab'
 
 const tabMenu = [
     {
@@ -50,14 +51,16 @@ const SalesPitch = () => {
         <div>
             
             {width <= "375" ?
-                <MainTabs
+                <MTabs
                     tabMenu={tabMenu}
                     activeKey="customerpitch"
+                    header="Presales Tools"
                 /> :
                 <div>
-                    <MainTabs
+                    <MTabs
                         tabMenu={tabMenu}
                         activeKey="customerpitch"
+                        header="Presales Tools"
                     />
                 </div>
             }

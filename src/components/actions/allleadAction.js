@@ -1,17 +1,22 @@
 import api from "../services/Axios"
 
 
-export const getTeamMainTabApi = () => {
+export const getTeamMainTabApi = (id) => {
     // const header = {
     //     headers: { "Authorization" : `Bearer ${token}`}
     // }
-    return api.get(`user/getleads_team/AG1ZVGTL?leadfilter=all&skip=0`)
+
+    // return api.get(`user/getleads_team/AG1ZVGTL?leadfilter=all&skip=0`)
+    //     .then(res => res).catch(err => err)
+
+    return api.get(`getleads_team/62fcdbfc5fb1dc8913ab59f1?skip=0&leadfilter=all`)
         .then(res => res).catch(err => err)
 
 }
 
-export const getFirstDropdownValueApi = () => {
-    return api.get(`admin/getHierarchy?userId=5b3b4cc28fa96d39870443e3&channelCode=5dbfdfa8e51cd5522249ba70&skip=0&hierarchy_type=1`)
+export const getFirstDropdownValueApi = (userId) => {
+    console.log("id",userId)
+    return api.get(`user_tree?userId=${userId}`)
         .then(res => res).catch(err => err)
 }
 
@@ -24,6 +29,22 @@ export const getFormByIdApi = ({id}) => {
     return api.get(`https://sdrestnode.iorta.in/secure/sd/user/v2/getLead/${id}?leadfilter=all&skip=0`)
         .then(res => res).catch(err => err)
 }
+export const getOpenTabApi = (id,leadtyp) => {
+    console.log("**********************************in******************************************in",leadtyp)
+    return api.get(`getleads_team/${id}?skip=0&leadfilter=${leadtyp}`)
+        .then(res => res).catch(err => err)
+}
+export const getFortodayTabApi = (userId) => {
+    return api.get(`getleads_team/62fcdbfc5fb1dc8913ab59f1?skip=0&leadfilter=today`)
+        .then(res => res).catch(err => err)
+}
+export const getFailedTabApi = (userId) => {
+    return api.get(`getleads_team/62fcdbfc5fb1dc8913ab59f1?skip=0&leadfilter=failed`)
+        .then(res => res).catch(err => err)
+}
+
+
+
 
 // export const getAshrafFromAgentApi = () => {
 //     return api.get(`https://sdrestnode.iorta.in/secure/sd/user/v2/getLead/5df782ab2b5ffa6c72ae1a25?leadfilter=all&skip=0`)
