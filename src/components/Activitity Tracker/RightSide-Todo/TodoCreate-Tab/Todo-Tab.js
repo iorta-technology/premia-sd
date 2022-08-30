@@ -484,9 +484,7 @@ const TodoTab = (props) => {
             <div className='Todo-Create-Container'>
                 <div className='Todo-Col-shadow-box'>
                     <div className='Todo-Create-Header'>
-                        <p>
-                            Add Team Member
-                        </p>
+                        <p> Add Team Member </p>
                     </div>
                     <div className='Todo-Create-SearchBox'>
                         {/* <input type='text' placeholder='Search by Name'/> */}
@@ -502,7 +500,7 @@ const TodoTab = (props) => {
                           filterOption={(inputValue, option) =>
                             option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                           }>
-                            <Search  placeholder="input here" />
+                            <Search  placeholder="Search by Name" />
                           </AutoComplete>
                     </div>
                     { teamMemberChip.length !== 0 &&

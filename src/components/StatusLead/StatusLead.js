@@ -336,8 +336,12 @@ const NewLead = React.memo(() => {
   const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
 
 
-  const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
-  console.warn('leadArr((((((((((===>>>>>>>>>>', leadArr)
+  // const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
+  let leadArr = []
+  storeFormData.leadStatus !== '' && leadArr.push(storeFormData.leadStatus)
+  storeFormData.leadDisposition !== '' && leadArr.push(storeFormData.leadDisposition)
+  storeFormData.leadsubDisposition !== '' && leadArr.push(storeFormData.leadsubDisposition)
+  // console.warn('leadArr((((((((((===>>>>>>>>>>', leadArr)
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
@@ -369,7 +373,46 @@ const NewLead = React.memo(() => {
   const [cityProvince, setCityProvince] = useState(storeCityValue)
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState()
+  const [leadStatusData, setLeadStatusData] = useState(leadArr)
 
+  useEffect(() => {
+    if(storeFormData.lead_Id !== ''){
+      // let _status = []
+      console.warn('UPDATE', storeFormData)
+      setFirstName(storeFormData.firstName)
+      setLastName(storeFormData.lastName)
+      setLeadStatus(storeFormData.leadStatus)
+      setPrimaryNo(storeFormData.primaryMobile)
+      setLeadType(storeFormData.leadType)
+
+      setStateProvince(storeFormData.state)
+      setCityProvince(storeFormData.city)
+      setEmail(storeFormData.email)
+      setInsuranceComapany(storeFormData.Insurance_Company)
+      setProduct(storeFormData.Product)
+      setLeadStatusData(leadArr)
+
+      // console.warn('leadStatusData((((((((((===>>>>>>>>>>', leadStatusData)
+      
+      // storeFormData.leadStatus !== '' && _status.push(storeFormData.leadStatus)
+      // storeFormData.leadDisposition !== '' && _status.push(storeFormData.leadDisposition)
+      // storeFormData.leadsubDisposition !== '' && _status.push(storeFormData.leadsubDisposition)
+
+      // let _status = [storeFormData.leadStatus , storeFormData.leadDisposition , storeFormData.leadsubDisposition]
+      // console.warn('_status((((((((((===>>>>>>>>>>', _status)
+      // setLeadStatusData([...leadStatusData,_status])
+      // setLeadStatusData(_status)
+      // setLeadStatus(leadArr[0])
+      // setLeadDisposition(leadArr[1])
+      // setLeadSubDisposition(leadArr[2])
+      // setPrimaryNo(storeFormData.primaryMobile)
+      // setPrimaryNo(storeFormData.primaryMobile)
+      
+    }else{
+      console.warn('CREATE', storeFormData.lead_Id)
+    }
+  },[])
+  
 
   useEffect(() => {
 
@@ -378,26 +421,11 @@ const NewLead = React.memo(() => {
     // dispatch(actions.fetchLeadDetails(fetchLeadId))
     // console.log(leadDisposition === "appointment" || leadDisposition === "callback" || !appointmentStatus)
     // console.log(appointmentStatus)
-    if(storeFormData.lead_Id !== ''){
-      console.warn('UPDATE', storeFormData)
-      setFirstName(storeFormData.firstName)
-      setLastName(storeFormData.lastName)
-      setLeadStatus(storeFormData.leadStatus)
-      setPrimaryNo(storeFormData.primaryMobile)
-      setLeadType(storeFormData.leadType)
-      // setPrimaryNo(storeFormData.primaryMobile)
-      // setPrimaryNo(storeFormData.primaryMobile)
-      
-    }else{
-      console.warn('CREATE', storeFormData.lead_Id)
-    }
+    
     // console.log('storeLeadId=======>>>', storeLeadId)
     storeLeadId !== '' ? setIsNewLead(false) : setIsNewLead(true)
-    if (primaryNo.length === 10) {
-      setmobileNoValid(true)
-    } else {
-      setmobileNoValid(false)
-    }
+    primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false)
+
     // console.log(_.isEmpty(storeAppointmentData))
     // console.log(storeAppointmentData)
     // form.resetFields({
@@ -450,7 +478,7 @@ const NewLead = React.memo(() => {
     storeEmailValue,
     storePrimaryMobileValue,
     stateProvince,
-    leadArr,
+    leadStatusData,
     leadDataloading,
     storeCityValue,
     storeStateValue
@@ -733,6 +761,7 @@ const NewLead = React.memo(() => {
   };
 
   const leadHandler = (value) => {
+    console.log('LEADSSS___STATUSSS',value)
     setLeadStatus(value[0])
     setLeadDisposition(value[1])
     setLeadSubDisposition(value[2])
@@ -847,6 +876,13 @@ const NewLead = React.memo(() => {
     //   range: 'Number must be 10 digits',
     // },
   };
+  const checkValidity = (data) => {
+    if (data === "" || data === undefined || data === null ) {
+      return ""
+    } else {
+        return data;
+    }
+  }
   const formData = {
     ...storeFormData,
     leadStatus: leadStatus,
@@ -854,14 +890,14 @@ const NewLead = React.memo(() => {
     start_time: parseInt(appointmentTime),
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    leadsubDisposition: 'Client has given appointment',
+    leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
     teamMembers: '',
     leadSource: '',
 
-    appointment_status: appointmentStatus,
-    appointmentdisPosition: appointmentDisposition,
-    appointmentsubdisPosition: appointmentSubDisposition,
+    appointment_status: checkValidity(appointmentStatus),
+    appointmentdisPosition: checkValidity(appointmentDisposition),
+    appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
 
 
     lead_Owner_Id: id,
@@ -889,6 +925,8 @@ const NewLead = React.memo(() => {
     alert(error)
     console.log(error)
   }
+
+  
 
   const submitHandler = event => {
     // event.preventDefault();
@@ -1040,7 +1078,7 @@ const NewLead = React.memo(() => {
             "remarksfromsource": remarkFromSource,
             "remarksfromuser": remarkFromUser,
             "reminder": reminder,
-            "leadStatus": leadArr,
+            "leadStatus": leadStatusData,
             "appointmentStatus": ['newappointment', 'newApptmnt']
           }}
           onFinishFailed={onFinishFailedFucn}
@@ -1159,7 +1197,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="state"
                     label="State"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1186,7 +1223,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="city"
                     label="City"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1212,7 +1248,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="leadType"
                     label="Lead Type"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1238,7 +1273,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="product"
                     label="Product"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1265,7 +1299,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="insuranceCompany"
                     label="Insurance Company"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1372,7 +1405,7 @@ const NewLead = React.memo(() => {
                         popupClassName="popup-size"
                         onChange={leadHandler}
                         style={{ height: '2.45rem' }}
-                        value={leadArr}
+                        value={leadStatusData}
                       />
                     </Form.Item>
                   </Col>
@@ -1401,7 +1434,7 @@ const NewLead = React.memo(() => {
                         popupClassName="popup-size"
                         onChange={appointmentStatusHandler}
                         style={{ height: '2.45rem' }}
-                        value={leadArr}
+                        value={leadStatusData}
                       />
                     </Form.Item>
                   </Col>}
@@ -1681,18 +1714,17 @@ const NewLead = React.memo(() => {
                       <Button
                         type="primary"
                         // shape="round"
-                        size="large"
+                        // size="large"
                         style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
                         icon={<SaveOutlined />}
                         htmlType="submit"
                       // disabled={!formIsValid}
                       // onClick={updateLeadHandler}
-                      >Submit</Button>
+                      >Update</Button>
                     </Form.Item>
                   }
                 </Col>
-                <Col xs={11} sm={12} md={4}>
-                  {/* <Link to="leaddetails/personallead"> */}
+                {/* <Col xs={11} sm={12} md={4}>
                   <Form.Item>
                     <Button
                       type="primary"
@@ -1704,8 +1736,7 @@ const NewLead = React.memo(() => {
                     // onClick={proceedHandler}
                     >Proceed <ArrowRightOutlined /></Button>
                   </Form.Item>
-                  {/* </Link> */}
-                </Col>
+                </Col> */}
               </Row>
             </Col>
           </Row>
