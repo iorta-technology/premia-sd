@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, Radio, Tabs, Modal, Form, Select, Input } from 'antd'
 import { Option } from 'antd/lib/mentions'
 import './Tab.css'
@@ -10,14 +10,20 @@ import { stoageGetter } from '../../helpers'
 import { Button } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import LeadCard from '../LeadCards/LeadCard'
-// import OffCanvasComp from '../Modal Component/Modal'
+import GlobalFilters from './Filter'
+// import Example from './Filter'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
 import {
   getTeamMainTabApi,
   getFirstDropdownValueApi,
   getSecondDropdownValueApi,
-  getFormByIdApi
+  getFormByIdApi,
+
+  getOpenTabApi,
+  getFortodayTabApi,
+  getFailedTabApi
 } from "../actions/allleadAction"
 
 const { TabPane } = Tabs
@@ -31,11 +37,12 @@ const Tab = ({
   activeKey,
   activeRenewalkey,
   current,
-  props,
+  filterdata,
 
 }) => {
+  console.log("Filter*****Data", filterdata) 
 
-  console.log("YE ARAR", props)
+  // console.log("YE ARAR", props)
 
   const dispatch = useDispatch()
   const { leadType } = useParams()
@@ -49,12 +56,12 @@ const Tab = ({
   // const [activeKey, setActiveKey] = useState("self")
   const [currentActiveTab, setCurrentActiveTab] = useState("self")
 
-  useEffect(() => {
-    
-    const { id } = stoageGetter('user')
-    // console.log(typeof(leadType))
-    dispatch(actions.fetchAllLeads(id, leadType, 1))
-  }, [dispatch, current, activeTab, leadType])
+  // useEffect(() => {
+
+  //   const { id } = stoageGetter('user')
+  //   // console.log(typeof(leadType))
+  //   dispatch(actions.fetchAllLeads(id, leadType, 1))
+  // }, [dispatch, current, activeTab, leadType])
 
   useEffect(() => {
     if (currentActiveTab == 'self') {
@@ -62,8 +69,28 @@ const Tab = ({
       dispatch(actions.fetchAllLeads(id, leadType, 1))
     }
   }, [currentActiveTab])
+  // const ids = stoageGetter('user')
+  console.log("--------------------------", leadType)
 
   // ************************Api *********************
+
+  const getDataForOpen = async (leadInc) => {
+    console.log("****************************************************************************in", leadType)
+    const leadtyp = leadInc
+    const { id } = stoageGetter('user')
+    const response = await getOpenTabApi(id, leadtyp)
+    console.log("***************************************************************************out", response)
+    if (response?.data?.errCode == -1) {
+      console.log("all*******", response?.data?.errMsg)
+      console.log("***********>", response?.data?.errMsg[0])
+      if (response?.data?.errMsg) {
+        dispatch(actions.fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
+      }
+    } else {
+      dispatch(actions.fetchAllLeadsSuccess([], 0))
+      throw response?.data?.errMsg
+    }
+  }
 
   // case "allservicecorners": return history.push('/servicecorner/all');
   // case "forself": return history.push('/servicecorner/self');
@@ -84,12 +111,14 @@ const Tab = ({
 
   const getAlldataofTeamMainTab = async () => {
     const response = await getTeamMainTabApi()
-    if (response.status == 200) {
+    if (response?.data?.errCode == -1) {
       if (response?.data?.errMsg) {
         // setAllData(response?.data?.errMsg[0])
         dispatch(actions.fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
+
       }
     } else {
+      dispatch(actions.fetchAllLeadsSuccess([], 0))
       throw response?.data?.errMsg
       // dispatch(fetchAllLeadsFail(error))
     }
@@ -112,18 +141,18 @@ const Tab = ({
 
     // setactiveKey(key)
     if (activeKey) {
-      console.log("active key",activeKey)
+      console.log("active key", activeKey)
       switch (activeKey) {
         case 'all':
-          return history.push('/leadMaster/all_leads')
+          { getDataForOpen('all'); return history.push('/leadMaster/all_leads') }
         case 'fortoday':
-          return history.push('/leadMaster/fortoday')
+          { getDataForOpen('fortoday'); return history.push('/leadMaster/fortoday') }
         case 'open':
-          return history.push('/leadMaster/openlead')
+          { getDataForOpen('open'); return history.push('/leadMaster/openlead') }
         case 'converted':
-          return history.push('/leadMaster/convertedleads')
+          { getDataForOpen('converted'); return history.push('/leadMaster/convertedleads') }
         case 'failed':
-          return history.push('/leadMaster/pendingproposal')
+          { getDataForOpen('failed'); return history.push('/leadMaster/pendingproposal') }
 
         case '1':
           return history.push('/leadmasterpage/statuslead')
@@ -141,8 +170,8 @@ const Tab = ({
 
         case 'todo':
           return history.push('/todo')
-          
-          
+
+
         case 'allrenewals':
           return history.push('/renewalMaster/allRenewals')
         case 'paidrenewals':
@@ -207,7 +236,7 @@ const Tab = ({
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
-    // dispatch(actions.updateTabOfDashboard(currentTab))
+    dispatch(actions.updateTabOfDashboard(currentTab))
     setCurrentActiveTab(currentTab)
     if (currentTab == "team") {
       getAlldataofTeamMainTab()
@@ -219,6 +248,7 @@ const Tab = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+    
 
 
   return (
@@ -267,89 +297,12 @@ const Tab = ({
                 {' '}
                 <figcaption className="card-caption">Allocate</figcaption>{' '}
               </figure>
-              <figure
-                className="round-cards43" onClick={() => { handleShow() }} key={"filter"}>
+              {/* <figure
+                className="round-cards43" onClick={() => { }} key={"filter"}>
                 {' '}
                 <figcaption className="card-caption">Filter</figcaption>{' '}
-              </figure>
-              <div  >
-                <Offcanvas scroll={true} placement='end' style={{ width: '30rem', height: 'auto', marginTop: '3.7rem', backgroundColor: 'rgb(247, 247, 247)' }} show={show} onHide={handleClose} {...props}>
-                  <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Select Filter</Offcanvas.Title>
-                  </Offcanvas.Header>
-                  <Offcanvas.Body style={{ marginTop: '-1rem' }}>
-                    <div style={{ width: 'auto', height: '6rem', backgroundColor: 'white', marginBottom: '0.5rem' }}>
-                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Sort by</h6>
-                      <Select bordered={false} style={{ width: '20rem', marginLeft: '1rem', marginTop: '1rem', borderBottom: '1px gray solid', opacity: '0.5' }} defaultValue='1'>
-                        <Option value='1'>Lead Created Date - Newest to Oldest</Option>
-                        <Option value='2'>Lead Created Date - Oldest to Newest</Option>
-                        <Option value='3'>Allocation Date - Newest to Oldest</Option>
-                        <Option value='4'>Allocation Date - Oldest to Newest</Option>
-                      </Select>
-                    </div>
-                    <div style={{ width: 'auto', height: '10rem', backgroundColor: 'white', marginBottom: '0.5rem' }}>
-                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Search Type Selection</h6>
-                      <Radio.Group style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
-                        <Radio.Button style={{ paddingTop: '6px' }} value='Name'>Name</Radio.Button>
-                        <Radio.Button style={{ paddingTop: '6px' }} value='Mobile'>Mobile</Radio.Button>
-                        <Radio.Button style={{ paddingTop: '6px' }} value='Lead'>Lead ID</Radio.Button>
-                      </Radio.Group>
-                      <p style={{ margin: '10px 0px -5px 20px' }}>Name</p>
-                      <Input
-                        type='text'
-                        style={{ border: 'none', borderBottom: '1px gray solid', opacity: '0.5', width: '25rem', marginLeft: '1rem' }}
-                        placeholder='Enter Name'
-                        size="large"
-                      />
-
-                    </div>
-                    <div style={{ width: 'auto', height: '8rem', backgroundColor: 'white' }}>
-                      <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Filter By</h6>
-                      <div style={{ width: 'auto', marginTop: '0rem', marginLeft: '0.7rem' }}>
-                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold' }}>Age Group</p>
-                        <Select bordered={false} style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}>
-                          <Option>18 to 28</Option>
-                          <Option>29 to 35</Option>
-                          <Option>36 to 45</Option>
-                          <Option>56 and above</Option>
-                        </Select>
-                      </div>
-                      <div style={{ width: 'auto', marginLeft: '10rem', marginTop: '-4.2rem' }}>
-                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold' }}>Income Group</p>
-                        <Select bordered={false} style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}>
-                          <Option>Less than 2.5 Lacs</Option>
-                          <Option>2.5 Lacs to 3.9 Lacs</Option>
-                          <Option>3.5 Lacs to 4.99 Lacs</Option>
-                          <Option>5 Lacs to 7.99 Lacs</Option>
-                          <Option>8 Lacs to 9.9 Lacs</Option>
-                          <Option>More than 10 Lacs, Less than 14.99 Lacs</Option>
-                          <Option>More than 15 Lacs, Less than 20 Lacs</Option>
-                          <Option>More than 20 Lacs</Option>
-                        </Select>
-                      </div>
-                      <div style={{ widht: 'auto', marginLeft: '20rem', position: 'relative', top: '-4.2rem' }}>
-                        <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold' }}>Age Group</p>
-                        <Select bordered={false} style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}>
-                          <Option>Single</Option>
-                          <Option>Married, No Kids</Option>
-                          <Option>With Kids</Option>
-                        </Select>
-                      </div>
-                      <div style={{ width: 'auto', height: '6rem', backgroundColor: 'white', marginTop: '-2.5rem' }}>
-
-                        <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px' }}>Search Between</h6>
-                        <Radio.Group style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}>
-                          <Radio.Button style={{ paddingTop: '6px' }} value='Name'>MTD</Radio.Button>
-                          <Radio.Button style={{ paddingTop: '6px' }} value='Mobile'>YTD</Radio.Button>
-                          <Radio.Button style={{ paddingTop: '6px' }} value='Lead'>Custom</Radio.Button>
-                        </Radio.Group>
-
-                      </div>
-
-                    </div>
-                  </Offcanvas.Body>
-                </Offcanvas>
-              </div>
+              </figure> */}
+              <GlobalFilters show={show} onHide={handleClose} handleShow={handleShow} setShow={setShow} />
             </div>
             : null}
         </div>
@@ -362,10 +315,10 @@ const Tab = ({
               onTabClick={handler}
               size="small"
               activeKey={activeKey}
-              style={{backgroundColor:'#f7f7f7',boxShadow: '0px 1px 10px 0px #0000003d' }}
+              style={{ backgroundColor: '#f7f7f7', boxShadow: '0px 1px 10px 0px #0000003d' }}
             >
               {tabPane}
-             
+
             </Tabs>
           </div>
         </>

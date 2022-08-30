@@ -31,11 +31,13 @@
 }
 .paymentoption-head3{
     display: flex;
+    font-weight: bold;
     font-size: 15px !important;
     text-decoration: underline !important;
 }
 .paymentoption-head2{
     display: flex;
+    font-weight: bold;
     font-size: 15px;
 }
 .paymentoption-title{

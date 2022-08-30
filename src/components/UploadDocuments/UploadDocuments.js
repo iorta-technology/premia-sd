@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import './UploadDocuments.css';
 import { Row, Col, Form, Menu, Tabs, Typography, Button, Input, Radio, Select, Cascader, DatePicker, Space, Modal, Checkbox } from 'antd';
 import { Divider, Image, Card } from 'antd';
@@ -64,13 +65,13 @@ const columns = [
 ];
 const props = {
     name: 'file',
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    action: 'https://sdrestnode.iorta.in/secure/sd/user/upload_app_doc', 
     headers: {
         authorization: 'authorization-text',
     },
     onChange(info) {
         if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
+            console.log( 'ye hai info', info);
         }
         if (info.file.status === 'done') {
             message.success(`${info.file.name} file uploaded successfully`);
@@ -92,30 +93,79 @@ const formItemLayout = {
         span: 24,
     },
 };
-const setStateOptions = [
+// const setStateOptions = [
 
-    { value: "Mr", label: "Passport" },
-    { value: "Mrs", label: "Pan Card" },
-    { value: "Ration Card", label: "Ration Card" },
-    { value: "Dr", label: "Voter's Identity Card" },
-    { value: "Prof", label: "Driving License" },
-    { value: "", label: "Photo identity proof of Central or State government" },
-    { value: "", label: "Letter from a recognized public authority or public servant" },
-    { value: "", label: "Bank Pass Book bearing photograph" },
-    { value: "", label: "Electricity Bill" },
-    { value: "", label: "Telephone bill including mobile" },
-    { value: "", label: "landline" },
-    { value: "", label: "Bank Account Statement" },
-    { value: "", label: "Consumer Gas connection card or Gas Bill" },
-    { value: "", label: "Letter from any recognized public authority or public servant" },
-    { value: "", label: "Credit Card Statement" }
-]
+//     { value: "Mr", label: "Passport" },
+//     { value: "Mrs", label: "Pan Card" },
+//     { value: "Ration Card", label: "Ration Card" },
+//     { value: "Dr", label: "Voter's Identity Card" },
+//     { value: "Prof", label: "Driving License" },
+//     { value: "", label: "Photo identity proof of Central or State government" },
+//     { value: "", label: "Letter from a recognized public authority or public servant" },
+//     { value: "", label: "Bank Pass Book bearing photograph" },
+//     { value: "", label: "Electricity Bill" },
+//     { value: "", label: "Telephone bill including mobile" },
+//     { value: "", label: "landline" },
+//     { value: "", label: "Bank Account Statement" },
+//     { value: "", label: "Consumer Gas connection card or Gas Bill" },
+//     { value: "", label: "Letter from any recognized public authority or public servant" },
+//     { value: "", label: "Credit Card Statement" }
+// ]
+
+
 const UploadDocuments = () => {
     const [value, setValue] = React.useState(1);
+    const [selectedFile, setSelectedFile] = useState();
+        const [isFilePicked, setIsFilePicked] = useState(false);
+        const [fileName, setFileName]=useState('')
+
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
+
+
+        const selector = useSelector((state)=>state.applicationReducer.singleCardData)
+        console.log('PAYMENTOPTION KA DATA',selector)
+
+//    const selectedFile={
+//         active: "",
+//         document_type: fileName,
+//         fileName: "0a767c847ef95087ad822f229391554c3d49b68c",
+//         fileType: "png",
+//         location: "http://sdrestnode.pngiorta.in/0a767c847ef95087ad822f229391554c3d49b68c.",
+//         document_status: true,
+//         document_type: "UploadAddressProof",
+//     }
+	// const changeHandler = (event) => {
+	// 	setSelectedFile(event.target.files[0]);
+	// 	setIsFilePicked(true);
+    //     console.log(selectedFile,'SELECTED DOCUMENT')
+	// };
+
+	// const handleSubmission = () => {
+	// 	const formData = new FormData();
+
+	// 	formData.append('File', selectedFile);
+
+	// 	fetch(
+	// 		'https://sdrestnode.iorta.in/secure/sd/user/upload_app_doc',
+	// 		{
+	// 			method: 'POST',
+	// 			body: formData,
+	// 		}
+	// 	)
+	// 		.then((response) => response.json())
+	// 		.then((result) => {
+	// 			console.log('Success:', result);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error('Error:', error);
+	// 		});
+	// };
+
+
+
     return (
         <div className="addressproof">
             <MainTabs
@@ -124,7 +174,7 @@ const UploadDocuments = () => {
                 activeKey="uploaddocuments"
             />
             <div className="addressProof-row-flex">
-                <Tabs tabPosition={tabPosition} tabBarGutter="5vw" style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
+                <Tabs tabPosition={tabPosition} style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }}>
                     <TabPane tab="Address Proof" key="1" >
                         <div className="uploaddocuments-details-card-style ">
                             <div className="uploaddocuments-details-card-content-align">
@@ -150,7 +200,24 @@ const UploadDocuments = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select options={setStateOptions} placeholder="Passport"></Select>
+                                                                <select defaultValue={selector.documentUpload} placeholder="Passport"  className='select-input'>
+                                                                    <option>Select</option>
+                                                                    <option>Passport</option>
+                                                                    <option>Pan Card</option>
+                                                                    <option>Ration Card</option>
+                                                                    <option>Voter's Identity Card</option>
+                                                                    <option>Driving License</option>
+                                                                    <option>Photo identity proof of Central or State government</option>
+                                                                    <option>Letter from a recognized public authority or public servant</option>
+                                                                    <option>Bank Pass Book bearing photograph</option>
+                                                                    <option>Electricity Bill</option>
+                                                                    <option>Telephone bill including mobile</option>
+                                                                    <option>landline</option>
+                                                                    <option>Bank Account Statement</option>
+                                                                    <option>Consumer Gas connection card or Gas Bill</option>
+                                                                    <option>Letter from any recognized public authority or public servant</option>
+                                                                    <option>Credit Card Statement</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>
@@ -166,7 +233,7 @@ const UploadDocuments = () => {
                                                                 ]}
                                                             >
                                                                 <Upload {...props}>
-                                                                    <Button className="addressproof-btn" >Upload</Button>
+                                                                    <Button className="addressproof-btn"  >Upload</Button>
                                                                 </Upload>
                                                             </Form.Item>
                                                         </Col>
@@ -195,7 +262,7 @@ const UploadDocuments = () => {
                                                             <Button className="addressproof-btn1">Previous</Button>
                                                         </Col>
                                                         <Col >
-                                                            <Button className="addressproof-btn">Save</Button><br />
+                                                            <Button className="addressproof-btn"  >Save</Button><br />
                                                         </Col>
                                                     </Row>
                                                 </Form>
@@ -231,7 +298,24 @@ const UploadDocuments = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select options={setStateOptions} placeholder="Passport"></Select>
+                                                                <select defaultValue={selector.documentUpload} placeholder="Passport" className='select-input'>
+                                                                    <option>Select</option>
+                                                                    <option>Passport</option>
+                                                                    <option>Pan Card</option>
+                                                                    <option>Ration Card</option>
+                                                                    <option>Voter's Identity Card</option>
+                                                                    <option>Driving License</option>
+                                                                    <option>Photo identity proof of Central or State government</option>
+                                                                    <option>Letter from a recognized public authority or public servant</option>
+                                                                    <option>Bank Pass Book bearing photograph</option>
+                                                                    <option>Electricity Bill</option>
+                                                                    <option>Telephone bill including mobile</option>
+                                                                    <option>landline</option>
+                                                                    <option>Bank Account Statement</option>
+                                                                    <option>Consumer Gas connection card or Gas Bill</option>
+                                                                    <option>Letter from any recognized public authority or public servant</option>
+                                                                    <option>Credit Card Statement</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>
@@ -310,7 +394,24 @@ const UploadDocuments = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select options={setStateOptions} placeholder="Passport"></Select>
+                                                                <select defaultValue={selector.documentUpload} placeholder="Passport" className='select-input'>
+                                                                    <option>Select</option>
+                                                                    <option>Passport</option>
+                                                                    <option>Pan Card</option>
+                                                                    <option>Ration Card</option>
+                                                                    <option>Voter's Identity Card</option>
+                                                                    <option>Driving License</option>
+                                                                    <option>Photo identity proof of Central or State government</option>
+                                                                    <option>Letter from a recognized public authority or public servant</option>
+                                                                    <option>Bank Pass Book bearing photograph</option>
+                                                                    <option>Electricity Bill</option>
+                                                                    <option>Telephone bill including mobile</option>
+                                                                    <option>landline</option>
+                                                                    <option>Bank Account Statement</option>
+                                                                    <option>Consumer Gas connection card or Gas Bill</option>
+                                                                    <option>Letter from any recognized public authority or public servant</option>
+                                                                    <option>Credit Card Statement</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>
@@ -389,7 +490,24 @@ const UploadDocuments = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select options={setStateOptions} placeholder="Passport"></Select>
+                                                                 <select defaultValue={selector.documentUpload} placeholder="Passport" className='select-input'>
+                                                                    <option>Select</option>
+                                                                    <option>Passport</option>
+                                                                    <option>Pan Card</option>
+                                                                    <option>Ration Card</option>
+                                                                    <option>Voter's Identity Card</option>
+                                                                    <option>Driving License</option>
+                                                                    <option>Photo identity proof of Central or State government</option>
+                                                                    <option>Letter from a recognized public authority or public servant</option>
+                                                                    <option>Bank Pass Book bearing photograph</option>
+                                                                    <option>Electricity Bill</option>
+                                                                    <option>Telephone bill including mobile</option>
+                                                                    <option>landline</option>
+                                                                    <option>Bank Account Statement</option>
+                                                                    <option>Consumer Gas connection card or Gas Bill</option>
+                                                                    <option>Letter from any recognized public authority or public servant</option>
+                                                                    <option>Credit Card Statement</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>
@@ -468,7 +586,24 @@ const UploadDocuments = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select options={setStateOptions} placeholder="Passport"></Select>
+                                                                <select defaultValue={selector.documentUpload} placeholder="Passport" className='select-input'>
+                                                                    <option>Select</option>
+                                                                    <option>Passport</option>
+                                                                    <option>Pan Card</option>
+                                                                    <option>Ration Card</option>
+                                                                    <option>Voter's Identity Card</option>
+                                                                    <option>Driving License</option>
+                                                                    <option>Photo identity proof of Central or State government</option>
+                                                                    <option>Letter from a recognized public authority or public servant</option>
+                                                                    <option>Bank Pass Book bearing photograph</option>
+                                                                    <option>Electricity Bill</option>
+                                                                    <option>Telephone bill including mobile</option>
+                                                                    <option>landline</option>
+                                                                    <option>Bank Account Statement</option>
+                                                                    <option>Consumer Gas connection card or Gas Bill</option>
+                                                                    <option>Letter from any recognized public authority or public servant</option>
+                                                                    <option>Credit Card Statement</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>
@@ -547,7 +682,24 @@ const UploadDocuments = () => {
                                                                     },
                                                                 ]}
                                                             >
-                                                                <Select options={setStateOptions} placeholder="Passport"></Select>
+                                                                 <select defaultValue={selector.documentUpload} placeholder="Passport" className='select-input'>
+                                                                    <option>Select</option>
+                                                                    <option>Passport</option>
+                                                                    <option>Pan Card</option>
+                                                                    <option>Ration Card</option>
+                                                                    <option>Voter's Identity Card</option>
+                                                                    <option>Driving License</option>
+                                                                    <option>Photo identity proof of Central or State government</option>
+                                                                    <option>Letter from a recognized public authority or public servant</option>
+                                                                    <option>Bank Pass Book bearing photograph</option>
+                                                                    <option>Electricity Bill</option>
+                                                                    <option>Telephone bill including mobile</option>
+                                                                    <option>landline</option>
+                                                                    <option>Bank Account Statement</option>
+                                                                    <option>Consumer Gas connection card or Gas Bill</option>
+                                                                    <option>Letter from any recognized public authority or public servant</option>
+                                                                    <option>Credit Card Statement</option>
+                                                                </select>
                                                             </Form.Item>
                                                         </Col>
                                                         <Col>

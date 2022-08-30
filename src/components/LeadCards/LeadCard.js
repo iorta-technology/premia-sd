@@ -71,11 +71,11 @@ const LeadCard = React.memo((props) => {
           //  <input type='checkbox'></input>
           //  :null
         }
-          <Avatar style={{ }} size={{ xl: 50 }}>
+          <Avatar style={{paddingTop:'-40px' }} size={{ xl: 50 }}>
             {avatar}
           </Avatar>
-          
-          {leadComponent} 
+          <div style={{display:'flex'}}>{leadStatus === "newleadentery"? <div style={{fontSize:'10px'}}>NEW<div>LEADENTRY</div></div> : leadStatus}</div>
+           
         </div>
         </div>
           

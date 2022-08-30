@@ -11,10 +11,8 @@
 }
 
 .header-title{
-    font-size: 25px;
-    color: #00ACC1;
-    margin: 0px 0px 30px 84px !important;
-    padding-top: 20px !important;
+   
+    margin: 50px 0px 30px 84px !important;
     font-weight:bold ;
 
 }
@@ -103,6 +101,16 @@
     margin-top: 3.3rem;
     color: black;
 }
+/* .offcanvas-div{
+
+    position: absolute;
+}
+.offcanvas{
+    position: relative;
+    left: 65%;
+    bottom: 78%;
+} */
+
 
  
 

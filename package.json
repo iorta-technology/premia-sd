@@ -5,6 +5,9 @@
   "dependencies": {
     "@ant-design/charts": "^1.2.13",
     "@ant-design/icons": "^4.6.4",
+    "@coreui/react": "^4.3.1",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
     "@fullcalendar/core": "^5.9.0",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/google-calendar": "^5.9.0",
@@ -12,6 +15,8 @@
     "@fullcalendar/moment": "^5.9.0",
     "@fullcalendar/moment-timezone": "^5.9.0",
     "@fullcalendar/react": "^5.10.1",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/material": "^5.10.2",
     "@natscale/react-calendar": "^0.0.0-beta.20",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
