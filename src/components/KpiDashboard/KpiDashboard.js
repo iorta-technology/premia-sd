@@ -203,7 +203,7 @@ const budgetKeys=
           {/* 24 */}  
           {/* span={24} */}
           <Col xs={24} sm={24} md={24} lg={2} xl={2} className="card">
-            <Row className='center_profile'>
+            <Row className='centerProfile'>
               <Col sm={24} md={12} lg={2} xl={24}>
                 <div className="profile">
                   <h3 style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'normal' }}>{avatar}</h3>
@@ -221,14 +221,14 @@ const budgetKeys=
                 <Row gutter={[10, 13]}>
                   <Col span={24} style={{ padding: '0px' }} className="detailsCard">
                     <Row>
-                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                      <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                         <p className='updatetitle'>update as on {updatedDate}</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         <p className='updatecount'>{employee_data[1]?.data?.GPW?.gpw_actual}</p>
                         <p className='updatetotal'>Total GWP in ₹ Lac</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <Col xs={24} sm={24} md={4} lg={4} xl={4}>
                         <div className='dispa'>
                           <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
                           <p className="updatestatus">Actual</p>
@@ -238,14 +238,14 @@ const budgetKeys=
                   </Col>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                      <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                         <p className='updatetitle'>update as on {updatedDate}</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         <p className='updatecount'>{employee_data[1]?.data.parcentIssuance}</p>
                         <p className='updatetotal'>% Issuance</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <Col xs={24} sm={24} md={4} lg={4} xl={4}>
                       <div className='dispa'>
                         <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
                         <p className="updatestatus">Actual</p>
@@ -259,14 +259,14 @@ const budgetKeys=
                 <Row className="detailsCards" gutter={[10, 13]}>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                      <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                         <p className='updatetitle'>update as on {updatedDate}</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         <p className='updatecount'>% {employee_data[1]?.data['Branch Activation']?.branch_activation_actual}</p>
                         <p className='updatetotal'>Active Branches</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <Col xs={24} sm={24} md={4} lg={4} xl={4}>
                       <div className='dispa'>
                         <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
                         <p className="updatestatus">Actual</p>
@@ -276,14 +276,14 @@ const budgetKeys=
                   </Col>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col xs={24} sm={24} md={19} lg={19} xl={19}>
+                      <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                         <p className='updatetitle'>update as on {updatedDate}</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         <p className='updatecount'>% {employee_data[1]?.data.parcentPendancy}</p>
                         <p className='updatetotal'>Pendancy(GWP Pendancy vs. GWP Ach)</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col xs={24} sm={24} md={5} lg={5} xl={5}>
+                      <Col xs={24} sm={24} md={4} lg={4} xl={4}>
                       <div className='dispa'>
                         <p className="sidehead" style={{ margin: "0", marginRight: '-10px' }}>MTD {month} {employee_data[1]?.data.year}</p>
                         <p className="updatestatus">Actual</p>
@@ -297,14 +297,14 @@ const budgetKeys=
                 <Row className="detailsCards" gutter={[10, 13]}>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                      <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                         <p className='updatetitle'>update as on {updatedDate}</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         <p className='updatecount'>{employee_data[1]?.data['GWP Retention']?.gwp_retention_actual}</p>
                         <p className='updatetotal'>Total GWP Retention in ₹</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <Col xs={24} sm={24} md={4} lg={4} xl={4}>
                       <div className='dispa'>
                         <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
                         <p className="updatestatus">Actual</p>
@@ -314,14 +314,14 @@ const budgetKeys=
                   </Col>
                   <Col span={24} className="detailsCard">
                     <Row>
-                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                      <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                         <p className='updatetitle'>update as on {updatedDate}</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         <p className='updatecount'>{employee_data[1]?.data.parcentUnallocated}</p>
                         <p className='updatetotal'>GWP Unallocated in ₹</p>
                         <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                       </Col>
-                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                      <Col xs={24} sm={24} md={4} lg={4} xl={4}>
                       <div className='dispa'>
                         <p className="sidehead">MTD {month} {employee_data[1]?.data.year}</p>
                         <p className="updatestatus">Actual</p>
