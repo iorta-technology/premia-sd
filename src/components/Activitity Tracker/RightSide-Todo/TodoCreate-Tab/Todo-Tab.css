@@ -89,6 +89,14 @@
     width: 85px;
     border-radius: 5px;
 }
+.todoSearch .ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    font-size: 14px !important;
+    /* font-family: 'robotoregular !important'; */
+}
 .Todo-Create-FooterReminder{
     /* display: flex; */
     flex-direction: row;

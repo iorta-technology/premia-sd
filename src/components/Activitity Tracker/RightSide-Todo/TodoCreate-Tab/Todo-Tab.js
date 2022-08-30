@@ -486,7 +486,7 @@ const TodoTab = (props) => {
                     <div className='Todo-Create-Header'>
                         <p> Add Team Member </p>
                     </div>
-                    <div className='Todo-Create-SearchBox'>
+                    <div className='Todo-Create-SearchBox todoSearch'>
                         {/* <input type='text' placeholder='Search by Name'/> */}
                         {/* <SearchOutlined /> */}
                         {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
