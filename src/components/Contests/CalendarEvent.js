@@ -68,6 +68,7 @@ export default function CalendarEvent(props) {
   })
 
   useEffect(()=>{
+    console.log(stoageGetter('user'),'user id calendar event--------->')
     // let userid =stoageGetter('user')
     console.log(props.click)
     if(props.click == 'data'||"UPDATE EVENT"){
@@ -2061,8 +2062,8 @@ export default function CalendarEvent(props) {
           setDurationEndTimeAlert(false)
           console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
         let result = await axiosRequest.put('user/updateAppointment', {
-          // userId: stoageGetter('user'),
-          userId : '60069a18579be233d2decf04',
+          userId: stoageGetter('user').id,
+          //userId : '60069a18579be233d2decf04',
           appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
           event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
             :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
@@ -2265,8 +2266,8 @@ export default function CalendarEvent(props) {
           setDurationEndTimeAlert(false)
           console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
         let result = await axiosRequest.post('user/bookAppointment', {
-          // userId: stoageGetter('user'),
-          userId : '60069a18579be233d2decf04',
+           userId: stoageGetter('user').id,
+         // userId : '60069a18579be233d2decf04',
           appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
           event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
             :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
