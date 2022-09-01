@@ -59,7 +59,7 @@
   padding: 16px;
   text-align: center;
   font-family: robotoregular;
-  font-variant: small-caps;
+  /* font-variant: small-caps; */
 }
 
 .avatar-and-status > span > span {

@@ -298,6 +298,11 @@ const NewLead = React.memo(() => {
 
   // store form data 
   let storeFormData = useSelector((state) => state.newLead.formData)
+  console.warn('((((((((((( storeFormData )))))))))))',storeFormData)
+  delete storeFormData['appointmentId'];
+  delete storeFormData['appointmentDate'];
+
+  
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading)
   let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
   const storeLeadId = useSelector((state) => state.newLead.leadId)
@@ -376,6 +381,11 @@ const NewLead = React.memo(() => {
   const [leadStatusData, setLeadStatusData] = useState(leadArr)
 
   useEffect(() => {
+    setLeadStatusData(leadArr)
+  },[])
+  
+
+  useEffect(() => {
     if(storeFormData.lead_Id !== ''){
       // let _status = []
       console.warn('UPDATE', storeFormData)
@@ -390,7 +400,7 @@ const NewLead = React.memo(() => {
       setEmail(storeFormData.email)
       setInsuranceComapany(storeFormData.Insurance_Company)
       setProduct(storeFormData.Product)
-      setLeadStatusData(leadArr)
+      // setLeadStatusData(leadArr)
 
       // console.warn('leadStatusData((((((((((===>>>>>>>>>>', leadStatusData)
       
@@ -411,10 +421,6 @@ const NewLead = React.memo(() => {
     }else{
       console.warn('CREATE', storeFormData.lead_Id)
     }
-  },[])
-  
-
-  useEffect(() => {
 
     // console.log('payload',payloadFormData)
     // console.log('nonpayload',storeFormData)
@@ -508,52 +514,52 @@ const NewLead = React.memo(() => {
         {
           value: 'notreachable',
           label: 'Not Reachable',
-          // children: [
-          //   {
-          //     value: 'Not reachable',
-          //     label: 'Not reachable',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Not reachable',
+              label: 'Not reachable',
+            },
+          ],
         },
         {
           value: 'ringingbusy',
           label: 'Ringing Busy',
-          // children: [
-          //   {
-          //     value: 'Ringing Busy',
-          //     label: 'Ringing Busy',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Ringing Busy',
+              label: 'Ringing Busy',
+            },
+          ],
         },
         {
           value: 'wrongnumber',
           label: 'Wrong Number',
-          // children: [
-          //   {
-          //     value: 'Wrong Number',
-          //     label: 'Wrong Number',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Wrong Number',
+              label: 'Wrong Number',
+            },
+          ],
         },
         {
           value: 'invalid',
           label: 'Invalid Number',
-          // children: [
-          //   {
-          //     value: 'Invalid Number',
-          //     label: 'Invalid Number',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Invalid Number',
+              label: 'Invalid Number',
+            },
+          ],
         },
         {
           value: 'switchoff',
           label: 'Switched Off',
-          // children: [
-          //   {
-          //     value: 'Switched Off',
-          //     label: 'Switched Off',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Switched Off',
+              label: 'Switched Off',
+            },
+          ],
         },
       ],
     },
@@ -565,23 +571,31 @@ const NewLead = React.memo(() => {
           value: 'appointment',
           label: 'Appointment',
           isSelected: true,
-          // children: [
-          //   {
-          //     value: 'New Appointment',
-          //     label: 'New Appointment',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Client has given appointment',
+              label: 'Client has given appointment',
+            },
+          ],
         },
         {
           value: 'callback',
           label: 'Callback',
           isSelected: false,
-          // children: [
-          //   {
-          //     value: 'Customer asked for callback',
-          //     label: 'Customer asked for callback',
-          //   }
-          // ],
+          children: [
+            {
+              value: 'Asked to call back later',
+              label: 'Asked to call back later',
+            },
+            {
+              value: 'Decision maker unavailable',
+              label: 'Decision maker unavailable',
+            },
+            {
+              value: 'ECS is active asked to call on due date ',
+              label: 'ECS is active asked to call on due date ',
+            }
+          ],
         },
         // {
         //   value: 'followup',
@@ -601,46 +615,58 @@ const NewLead = React.memo(() => {
         {
           value: 'shorthangup',
           label: 'Short hang up',
-          // children: [
-          //   {
-          //     value: 'shorthangup',
-          //     label: 'Short hang up',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Short hang up',
+              label: 'Short hang up',
+            },
+          ],
         },
         {
           value: 'notinterested',
           label: 'Not interested',
-          // children: [
-          //   {
-          //     value: 'Client denied giving appointment',
-          //     label: 'Client denied giving appointment',
-          //   },
-          //   {
-          //     value: 'Met - not interested',
-          //     label: 'Met - not interested',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Not interested to Meet',
+              label: 'Not interested to Meet',
+            },
+            {
+              value: 'Did not Enquire',
+              label: 'Did not Enquire',
+            },
+            {
+              value: 'Too Expensive',
+              label: 'Too Expensive',
+            },
+            {
+              value: 'Not interested to continue Existing Policy',
+              label: 'Not interested to continue Existing Policy',
+            },
+          ],
         },
         {
           value: 'nonserviceloc',
-          label: 'Non service location',
-          // children: [
-          //   {
-          //     value: 'Non service location',
-          //     label: 'Non service location',
-          //   },
-          // ],
+          label: 'Non servicable location',
+          children: [
+            {
+              value: 'Non servicable location',
+              label: 'Non servicable location',
+            },
+          ],
         },
         {
           value: 'noteligible',
           label: 'Not Eligible',
-          // children: [
-          //   {
-          //     value: 'Not Eligible',
-          //     label: 'Not Eligible',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'NE - Income',
+              label: 'NE - Income',
+            },
+            {
+              value: 'NE - Age',
+              label: 'NE - Age',
+            },
+          ],
         },
         // {
         //   value: 'notavailable',
