@@ -17,8 +17,6 @@ import {stoageGetter} from '../../helpers'
 // import { models } from "powerbi-client";
 
 
-
-
 const HomePage = () => {
   const agent_id = useSelector((state) => state.login.agent_id)
   const logged_in_user = useSelector((state) => state.login.user_name)
