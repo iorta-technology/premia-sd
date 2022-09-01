@@ -40,7 +40,7 @@ const Tab = ({
   filterdata,
 
 }) => {
-  console.log("Filter*****Data", filterdata) 
+  console.log("tabMenu*****Data", tabMenu) 
 
   // console.log("YE ARAR", props)
 
@@ -260,7 +260,7 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        <div className="header-img">
+        <div className={tabMenu.length !== 0 ? "header-img" : 'header-img-noTab'}>
           <div>
             <div>
               <p className="header-title">{header}</p>

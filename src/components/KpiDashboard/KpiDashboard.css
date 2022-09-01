@@ -121,8 +121,19 @@ body{
     border: none;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
   }
+  
 
   @media screen and (min-width: 320px) {
+    .kpiDailyData {
+      flex:1;
+      /* borderBottomWidth:1px, */
+      /* borderBottomColor:'#E6E9EB', */
+      /* borderRightWidth:1, */
+      /* borderRightColor:'#E6E9EB', */
+      background-color : #fff;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+      margin-bottom: 10px;
+    }
     .ant-btn.primaryBtn{
       background-color: rgb(60, 61, 61);
       color: #fff;
