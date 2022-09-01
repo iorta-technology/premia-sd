@@ -347,7 +347,7 @@ const budgetKeys=
             {/* graph */}
             <Table pagination={false} columns={columns} dataSource={finalKpiData} />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={8} xl={8} style={{ marginLeft: "10px" }} className="graph">
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
             <div style={{ padding: "15px" }}>
               <h4>KPI (BUDGET VS ACHIEVEMENT)</h4>
               <Select
@@ -377,7 +377,7 @@ const budgetKeys=
             </div>
             <Table pagination={false} columns={columns1} dataSource={finalBudgetData} />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={8} xl={8} style={{ marginLeft: "10px" }} className="graph">
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
             <div style={{ padding: "15px" }}>
               <Row justify="space-between">
                 <Col> <h4>LIST OF RMs</h4></Col>
