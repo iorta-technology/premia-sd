@@ -306,7 +306,7 @@ const budgetKeys=
           <Row gutter={[10, 10]}>
             {/* 24 */}  
             {/* span={24} */}
-            <Col xs={24} sm={24} md={24} lg={2} xl={2} className="card">
+            <Col xs={24} sm={24} md={24} lg={2} xl={2} className="cardKpi">
               <Row className='centerProfile'>
                 <Col sm={24} md={12} lg={2} xl={24}>
                   <div className="profile">
@@ -441,7 +441,23 @@ const budgetKeys=
           </Row>
         }
         { width < breakpoint &&
-          <Row justify='space-between' style={{flexWrap:'wrap',}}>{dailyDataCards()}</Row>
+          <div>
+            <Col xs={24} sm={24} md={24} lg={2} xl={2} style={{marginBottom:10}} className="cardKpi">
+              <Row className='centerProfile'>
+                <Col sm={24} md={12} lg={2} xl={24}>
+                  <div className="profile">
+                    <h3 style={{ color: '#fff', textTransform: 'uppercase', fontWeight: 'normal' }}>{avatar}</h3>
+                  </div>
+                </Col>
+                <Col className="userDetails" sm={24} md={12} lg={2} xl={24}>
+                  <h5>{employee_data[0]?.data.first_name} {employee_data[0]?.data.last_name}</h5>
+                  <p style={{ marginTop: '0px' }}> <span>ID :</span> <span>{employee_data[0]?.data.employeeCode}</span></p>
+                </Col>
+              </Row>
+            </Col>
+            <Row justify='space-between' style={{flexWrap:'wrap',}}>{dailyDataCards()}</Row>
+          </div>
+          
         }
         <Row justify="space-around" style={{ marginTop: "10px" }} gutter={16}>
           <Col xs={24} sm={24} md={24} lg={7} xl={7} className="graph">
