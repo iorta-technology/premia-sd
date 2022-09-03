@@ -416,12 +416,14 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}>
+                                <div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
                                                     </div>
+                                                    </Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -444,12 +446,14 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}>
+                                <div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
                                                     </div>
+                                                    </Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -473,12 +477,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div></Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -498,12 +502,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}><div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div></Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -525,12 +529,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}><div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div></Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -552,12 +556,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}><div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div></Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -578,12 +582,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div></Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -603,12 +607,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div> </Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -629,12 +633,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div> </Link>
                                                 </Col>
                                             </Col>
                                             <Col className="success-story" xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -655,12 +659,12 @@ const SalesPitch = () => {
                                                 </Form>
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
                                                     <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
-                                                    <div className='Product-showMoreContainer'>
-                                                        <div style={{backgroundColor:'rgb(59, 55, 30)'}} className='Product-ShowMore'>
+                                                    <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
+                                                        <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
                                                             Show All Products
                                                         </div>
-                                                    </div>
+                                                    </div> </Link>
                                                 </Col>
                                             </Col>
                                         </Row>
@@ -671,7 +675,7 @@ const SalesPitch = () => {
 
 
 
-                            <Row gutter={[40, 24]} justify="start">
+                            <Row gutter={[40, 24]} justify="start" >
                             <Col className="product-main" xs={{ order: 1 }} sm={12} md={12} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                                 <Row gutter={['', 24]}>
                                     <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>

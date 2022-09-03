@@ -351,6 +351,9 @@ height: 690px;
   .Product-ShowMore{
     width: 150px !important;
 }
+.ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane {
+  padding-left: 10px !important;
+}
 }
 @media(min-width: 770px){
   .Testimonials-Video{
