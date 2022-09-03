@@ -445,22 +445,18 @@ const TodoTab = (props) => {
   
   const onChangeTeam = (text,data) => {
     
-    setTeamMemberData('')
-    console.log('onSelect___text', text);
-    console.log('onSelect___data', data);
-    // const [ownerCollectn ,setOwnerCollectn]=useState([])
+    setTeamMemberData(text)
+    // console.log('onSelect___text', text);
+    // console.log('onSelect___data', data);
     setOwnerCollectn([...ownerCollectn,data])
   };
   
 
   const onSelectTeam = (value) => {
-    // let _chipData = []
-    // _chipData.push(value)
-    // console.log('teamMemberChip ______________', teamMemberChip);
+    // console.log('ON SELECTION ______________', value);
+    setTeamMemberData('')
     let _data = [...new Set([...teamMemberChip,value])]
-    // console.log('_data ______________', _data);
     setTeamMemberChip(_data)
-    // console.log('TeamMemberChip ______________', teamMemberChip);
   }
 
   const removeTeamMember = (data,ind) => {
