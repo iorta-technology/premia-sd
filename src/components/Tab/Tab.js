@@ -275,7 +275,7 @@ const Tab = ({
                 size="small"
                 activeKey={activeKey}
                 className="main-lead-tabs"
-                style={{ marginLeft: '80px'}}
+                style={{ marginLeft: '40px'}}
               >
                 {tabPane}
               </Tabs>
