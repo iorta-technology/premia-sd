@@ -34,7 +34,7 @@ const AdvisorPitch = () => {
                 header="Presales Tools"
             />
                 <div className="Advisorpitch-row-flex">
-                    <Tabs tabPosition={tabPosition} tabBarGutter="2vw" style={{ fontSize: '12px'}}
+                    <Tabs tabPosition={tabPosition}  style={{ fontSize: '12px'}}
                      className='AdvisorPitch-Container'>
                         {/* style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }} */}
                         <TabPane tab="About Us" key="1"  className='AdvisorPitch'>

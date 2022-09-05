@@ -16,8 +16,9 @@ const Self = () => {
   const [CurentOrPast,setCurentOrPast]=useState()
   const [pastEventLenght,setPastEventLength]=useState();
 
-  let {id}=stoageGetter('user');
+  
   useEffect(()=>{
+    let {id}=stoageGetter('user');
     const api = async ()=>{
       let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
       console.log(data);

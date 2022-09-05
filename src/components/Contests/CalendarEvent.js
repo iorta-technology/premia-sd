@@ -1750,12 +1750,13 @@ export default function CalendarEvent(props) {
       console.log(date)
       console.log(dateString)
       setDurationStartDate(moment(date))
-
+      setDurationEndDate(moment(date))
   let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
 
   console.log(ms_date)
 
       setDurationStartDateOperation(ms_date)
+      setDurationEndDateOperation(ms_date)
       console.log("This is Start Date"+ms_date)
       if(durationEndDateOperation<ms_date){
         setDurationStartDateDiffCheck(false)
@@ -2636,6 +2637,8 @@ export default function CalendarEvent(props) {
     const onChangeDate = (date, dateString) => {
       console.log(date, dateString);
       setDurationStartDate(moment(date).format("YYYY-MM-DD"))
+      setDurationEndDate(moment(date).format("YYYY-MM-DD"))
+      
     console.log( moment(date).format("YYYY-MM-DD"))
     }
 
@@ -4123,15 +4126,16 @@ export default function CalendarEvent(props) {
                        className={durationEndDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                         // className="CalendarEvent-Modal-Card-header-type"
                       >End Date *</h4>
+                      {console.log(durationEndDate,'end date------>')}
                         <div className="Input-date">
                       <DatePicker onChange={EndDateFunc}
                   
-                        defaultValue={durationEndDate}
+                        // defaultValue={durationEndDate}
                         format="YYYY-MM-DD"
                         value={durationEndDate}
                         className="CalendarEvent-Modal-picker-style"
                       />
-                       {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null}
+                       {/* {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null} */}
                    </div>
                     </div>
                     <div

@@ -273,6 +273,10 @@
   /* margin-top: 1.3vw; */
   margin-bottom: 1.3vw;
 }
+.ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab {
+  padding: 8px 15px !important;
+  text-align: center;
+}
 .testimonial1 {
   margin: 0 auto;
   border-radius: 5px;

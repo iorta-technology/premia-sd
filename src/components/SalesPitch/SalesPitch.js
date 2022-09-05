@@ -21,7 +21,6 @@ const tabMenu = [
         id: 'advisorpitch',
         value: "Advisor Pitch",
     },
-
 ]
 
 const { Text } = Typography;
@@ -42,6 +41,17 @@ const SalesPitch = () => {
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");
+    const [showmore, setShowMore] = useState(false) 
+    const [showmore1, setShowMore1] = useState(false)
+    const [showmore2, setShowMore2] = useState(false)
+    const [showmore3, setShowMore3] = useState(false)
+    const [showmore4, setShowMore4] = useState(false)
+    const [showmore5, setShowMore5] = useState(false)
+    const [showmore6, setShowMore6] = useState(false)
+    const [showmore7, setShowMore7] = useState(false)
+    const [showmore8, setShowMore8] = useState(false)
+    const [showmore9, setShowMore9] = useState(false)
+    const [showmore10, setShowMore10] = useState(false)
     const changeTabPosition = e => {
         setTabPosition(e.target.value);
     };
@@ -66,7 +76,7 @@ const SalesPitch = () => {
             }
             <div className="Salespitch-main">
                 <div className="Salespitch-row-flex">
-                    <Tabs tabPosition={tabPosition} tabBarGutter="2vw" 
+                    <Tabs tabPosition={tabPosition}  
                         className='SalesPitch-sider' >
                         <TabPane tab="Presentation" key="1" >
                             {/* <div className="Salespitch-data-flex"> */}
@@ -414,8 +424,22 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                <h3 className="product-head3">Useful Features of Term Mutual Fund:</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">A mutual fund is the trust that pools the savings of a number of investors who share a common financial goal.</p></li>
+                                                                <li><p className="product-para">Anybody with an investible surplus of as little as a few hundred rupees can invest in Mutual Funds.</p></li>
+                                                                <li><p className="product-para">The money thus collected is then invested by the fund manager in different types of securities. These could range from shares to debentures to money market instruments, depending upon the scheme’s stated objective.</p></li>
+                                                                <li><p className="product-para">It gives the market returns and not assured returns. Bajaj Capital  In the long term, market returns have the potential to perform better than other assured return products.   Mutual Fund is the one of the most cost efficient financial products.</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore(!showmore)}>{ showmore == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}>
                                 <div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
@@ -444,8 +468,22 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore1 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                <h3 className="product-head3">How To Find the Latest NFO Opportunities?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">Bajaj Capital brings to you the latest investment opportunities pertaining to various investment domains. In the domain of Mutual Funds and its NFOs also, Bajaj Capital is one of the most preferred choices of investors.</p></li>
+                                                                <li><p className="product-para">1. Fund companies keep coming up with new fund offers and we are here to keep you updated about the new offers. Here we make the real-time posting of the newly launched NFOs and provide the detailed information</p></li>
+                                                                <li><p className="product-para">2. You can also subscribe to our weekly newsletter through which we will keep you posted about latest NFOs.</p></li>
+                                                                <li><p className="product-para">If you are looking forward to investing in NFOs, then you must keep in mind that new funds require at least some time to establish themselves in the market; irrespective of the value and reputation of the manager. Rest, we are here to assist you in making the right investment choices.</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore1(!showmore1)}>{ showmore1 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}>
                                 <div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
@@ -475,8 +513,22 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore2 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                <h3 className="product-head3">Important things to consider</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">Investors must carefully read the application form</p></li>
+                                                                <li><p className="product-para">Check the rating of the company before investing</p></li>
+                                                                <li><p className="product-para">Do a background check of the company before putting money into it</p></li>
+                                                                <li><p className="product-para">Companies may change the interest rates on the fixed deposit schemes without any prior notice</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore2(!showmore2)}>{ showmore2 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -500,8 +552,23 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore3 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                <h3 className="product-head3">Useful Features of National Pension System:</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">Low cost voluntary investment any time of the year</p></li>
+                                                                <li><p className="product-para">Flexible investment options to choose from</p></li>
+                                                                <li><p className="product-para">FOnline access 24/7 all 365 days in a year</p></li>
+                                                                <li><p className="product-para">Regulated by PFRDA with transparent norms</p></li>
+                                                                <li><p className="product-para">Portable even on switching employment/city</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore3(!showmore3)}>{ showmore3 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}><div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -527,8 +594,21 @@ const SalesPitch = () => {
                                                         </Col>
                                         
                                                 </Form>
+                                                {showmore4 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                <h3 className="product-head3">How do bonds work?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">When you purchase a bond, the authorised issuer borrows money from you for a fixed period of time.</p></li>
+                                                                <li><p className="product-para">This money earns you a predetermined interest rate at regular intervals.</p></li>
+                                                                <li><p className="product-para">The principal amount is repaid at the end of the maturity period.</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore4(!showmore4)}>{ showmore4 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}><div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -554,8 +634,23 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore5 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                                                <h3 className="product-head3">Useful Features of Term Insurance Plans:</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">Term Life Insurance is the most Cost-Effective plan.</p></li>
+                                                                <li><p className="product-para">Pay the Policy Premium Only Till Retirement</p></li>
+                                                                <li><p className="product-para">Flexibility to Receive Payout as Monthly Income in Addition to Lumpsum Amount</p></li>
+                                                                <li><p className="product-para">Choose Riders to Make Your Term Plan more Comprehensive</p></li>
+                                                                <li><p className="product-para">You can Enhance/Increase the Insurance Cover at Major Life-Stages</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore5(!showmore5)}>{ showmore5 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}><div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -580,8 +675,35 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore6 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">What are health insurance plans?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <p> Health insurance plans are insurance products designed to cover your medical expenses in case of hospitalization or critical illness. Unlike other health plans, which provide coverage for only the medical bills, a health insurance plan can provide coverage for other medical procedures and treatments, depending on your need. Medical treatment procedures in complex ailments such as cancer are costly and can continue for many years. To cover these costs, people sometimes end up taking loans, or even selling or mortgaging their assets. A health insurance plan bought early on in life will provide sufficient financial coverage if such a situation arises.</p>
+                                                            {/* <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">A mutual fund is the trust that pools the savings of a number of investors who share a common financial goal.</p></li>
+                                                                <li><p className="product-para">Anybody with an investible surplus of as little as a few hundred rupees can invest in Mutual Funds.</p></li>
+                                                                <li><p className="product-para">The money thus collected is then invested by the fund manager in different types of securities. These could range from shares to debentures to money market instruments, depending upon the scheme’s stated objective.</p></li>
+                                                                <li><p className="product-para">It gives the market returns and not assured returns. Bajaj Capital  In the long term, market returns have the potential to perform better than other assured return products.   Mutual Fund is the one of the most cost efficient financial products.</p></li>
+                                                            </ul> */}
+                                                        </div>
+                                                    </Col>
+                                                    <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">How to choose a health plan?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                           <p>Health plans can provide coverage to your family members. Make sure you are selecting a plan with sufficient coverage as premiums are not directly proportional to the coverage amount. Here are three simple steps to choose a health insurance plan</p>
+                                                            <ol style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">Choose the amount of Insurance Cover (sum insured) you need</p></li>
+                                                                <li><p className="product-para">Choose the maximum coverage age as there are chances of contracting a critical illness in old age too</p></li>
+                                                                <li><p className="product-para">Arrive at the premium amount basis your age, gender, chosen Sum Insured and Maximum Coverage Age</p></li>
+                                                    
+                                                            </ol>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore6(!showmore6)}>{ showmore6 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -605,8 +727,35 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore7 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">What are retirement plans?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <p> Retirement plans are insurance products designed to provide you financial security once your working income stops. With the proceeds of the retirement plans, you can also opt for monthly pension benefits by purchasing annuity plans. They help you invest your earnings over the years and create a fund which you can withdraw as a whole or in parts during your retirement years. Further, with dual benefits of protection with investment, these plans are ideal for covering your financial needs in the golden years of your life.</p>
+                                                            {/* <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">A mutual fund is the trust that pools the savings of a number of investors who share a common financial goal.</p></li>
+                                                                <li><p className="product-para">Anybody with an investible surplus of as little as a few hundred rupees can invest in Mutual Funds.</p></li>
+                                                                <li><p className="product-para">The money thus collected is then invested by the fund manager in different types of securities. These could range from shares to debentures to money market instruments, depending upon the scheme’s stated objective.</p></li>
+                                                                <li><p className="product-para">It gives the market returns and not assured returns. Bajaj Capital  In the long term, market returns have the potential to perform better than other assured return products.   Mutual Fund is the one of the most cost efficient financial products.</p></li>
+                                                            </ul> */}
+                                                        </div>
+                                                    </Col>
+                                                    <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">Why you should invest in retirement plans?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                           <p>In our ultra-stressful modern lifestyle, we barely get time to plan for future and give a conscious thought about retirement planning. However, if we can pause a little, understand current and the possible future expenses based on our lifestyle and start investing in a life insurance retirement plan, we can relieve ourselves from retirement woes. What’s important to understand is that:</p>
+                                                            <ol style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">It is a disciplined, affordable, and secure way for retirement planning.</p></li>
+                                                                <li><p className="product-para">You can get protection for your family, along with your retirement savings.</p></li>
+                                                                <li><p className="product-para"> You can also choose to invest in market-linked pension plans or stick with a conventional pension plan.</p></li>
+                                                    
+                                                            </ol>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore7(!showmore7)}>{ showmore7 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -631,8 +780,30 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore8 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">What is a Child Insurance Plan?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <p> A child insurance plan is a combination of insurance and investment that ensure a secure future for your child. Life cover is available as a  lumpsum payment at the end of policy term. Not just this, these plans also provide  flexible payouts at important milestones of your child's education. While one may not want to think about unfortunate situations like death or serious medical illness, it’s important that you shield your child’s future against such incidents. ABC life Child Insurance Plans ensure that your child’s future financial needs are taken care of even in your absence.</p>
+                                                            {/* <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">A mutual fund is the trust that pools the savings of a number of investors who share a common financial goal.</p></li>
+                                                                <li><p className="product-para">Anybody with an investible surplus of as little as a few hundred rupees can invest in Mutual Funds.</p></li>
+                                                                <li><p className="product-para">The money thus collected is then invested by the fund manager in different types of securities. These could range from shares to debentures to money market instruments, depending upon the scheme’s stated objective.</p></li>
+                                                                <li><p className="product-para">It gives the market returns and not assured returns. Bajaj Capital  In the long term, market returns have the potential to perform better than other assured return products.   Mutual Fund is the one of the most cost efficient financial products.</p></li>
+                                                            </ul> */}
+                                                        </div>
+                                                    </Col>
+                                                    <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">Why Buy a Child Plan?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                           <p>Simple monthly savings might not suffice the growing higher education costs. For your child to shine in the competitive environment, education fees should be the last constraint. Child insurance plans provide you the flexibility to invest based on your child's education needs, your current financial status, and other monetary goals. Typically, child insurance plans provide a life cover of around 10 times the annual premium. Additionally, these plans also provide partial withdrawal facility as needed. Along with this, you can also avail tax benefits for the premium paid.</p>
+                                                           
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore8(!showmore8)}>{ showmore8 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -657,8 +828,34 @@ const SalesPitch = () => {
                                                         </div>
                                                     </Col>
                                                 </Form>
+                                                {showmore8 == true ?
+                                                <Row style={{paddingTop:"10px"}}>
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">What are savings plans?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                            <p>Saving plans are life insurance products designed to support disciplined savings and at the same time ensure steady returns throughout the policy term which can be payable as monthly income or lumpsum depending on your need and chosen plan. Additionally, being a life insurance product, these plans also provide the tax benefits, terminal illness benefits, death benefits, and much more. By selecting a plan that covers your family’s financial needs, you can ensure financial security for your loved ones, and be worry-free.</p>
+                                                            {/* <ul style={{paddingLeft : '1rem'}}>
+                                                                <li><p className="product-para">A mutual fund is the trust that pools the savings of a number of investors who share a common financial goal.</p></li>
+                                                                <li><p className="product-para">Anybody with an investible surplus of as little as a few hundred rupees can invest in Mutual Funds.</p></li>
+                                                                <li><p className="product-para">The money thus collected is then invested by the fund manager in different types of securities. These could range from shares to debentures to money market instruments, depending upon the scheme’s stated objective.</p></li>
+                                                                <li><p className="product-para">It gives the market returns and not assured returns. Bajaj Capital  In the long term, market returns have the potential to perform better than other assured return products.   Mutual Fund is the one of the most cost efficient financial products.</p></li>
+                                                            </ul> */}
+                                                        </div>
+                                                    </Col>
+                                                    <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+                                                <h3 className="product-head3">How to choose the best plan?</h3>
+                                                        <div style={{paddingTop:"10px"}}>
+                                                           <p>When it comes to choosing one of the best saving plans in India, it is advisable to identify your short and long-term goals keeping in mind your current savings, liabilities, and family’s financial needs. The following points can help you evaluate saving plans:</p>
+                                                           <ol style={{paddingTop : '10px'}}>
+                                                            <li>Competitive plan features and benefits to meet your future needs</li>
+                                                            <li>Flexibility to withdraw money to meet any emergency needs</li>
+                                                            <li>Rider Options to get additional benefits to maximize plan coverage</li>
+                                                           </ol>
+                                                        </div>
+                                                    </Col>
+                                                </Row> : null}
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24} className='Products-Footer'>
-                                                    <Button type="link" block className='SalesPitch-ShowMore'>Show More</Button>
+                                                    <Button type="link" block className='SalesPitch-ShowMore' onClick={()=>setShowMore9(!showmore9)}>{ showmore9 == true ? 'Show Less' : 'Show More' }</Button>
                                                     <Link to={{pathname: "/products",}}> <div className='Product-showMoreContainer'>
                                                         <div style={{backgroundColor:'rgb(59, 55, 30)', textDecoration : 'none'}} className='Product-ShowMore'>
                                                             <img className='Product-ShowMorePng' src={'https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Tab_Icon/White/Group_11252.png'}alt='png'/>
@@ -682,8 +879,7 @@ const SalesPitch = () => {
                                         <h1 className="product-head">Mutual Fund</h1><Divider />
                                         <h3 className="product-head3">Description</h3>
                                         <p className="product-para">Mutual Funds are among the hottest favourites with all types of investors.Investing in mutual funds ranks among one of the preferred ways of creating wealth over the long term.In fact, mutual funds represent the hands-off approach to entering the equity market.There are a wide variety of mutual funds that are viable investment avenues to meet a wide variety of financial goals.This section explains the various aspects of Mutual Funds.</p>
-                                        <Button type="link" block>
-                                            Show More
+                                        <Button type="link" block onClick={()=>setShowMore10(!showmore10)}>{ showmore10 == true ? 'Show Less' : 'Show More' }
                                         </Button>
                                     </Col>
                                 </Row>

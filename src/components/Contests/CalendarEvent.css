@@ -1678,17 +1678,19 @@ height: 40px;
 }
 }
 @media (max-width:420px){
-
+  .Team-Calender-Export {
+    margin-top: 10px !important;
+}
   .Team-Calender-Export >button {
     padding: 0px !important;
-    width: 70px !important;
+    /* width: 70px !important; */
   }
   .ant-btn > .anticon + span, .ant-btn > span + .anticon {
     margin-left: 5px !important;
 }
-  .Team-Calender-Export {
+  /* .Team-Calender-Export {
     margin-left: 5px !important;
-  }
+  } */
 
   .ant-card-body {
     padding: 15px !important;
