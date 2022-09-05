@@ -263,7 +263,7 @@ const Tab = ({
         <div className={tabMenu.length !== 0 ? "header-img" : 'header-img-noTab'}>
           <div>
             <div>
-              <p className="header-title">{header}</p>
+              <p className="header-title-tab">{header}</p>
             </div>
 
             <div >

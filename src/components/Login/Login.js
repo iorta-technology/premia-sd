@@ -1,12 +1,13 @@
 import React,{ useState } from 'react';
 import './Login.css';
-import { Card, Input, Button, Image, Form } from 'antd';
+import { Card, Input, Button, Image, Form ,message} from 'antd';
 import { UserOutlined,KeyOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import * as actions from '../../store/actions/index';
 import { useDispatch,useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import loginLogo from '../../images/loginlogo20years.png'
+import axios from 'axios'; 
 
  const  Login =  () => {
     const [form] = Form.useForm();
@@ -19,14 +20,42 @@ import loginLogo from '../../images/loginlogo20years.png'
     const dispatch = useDispatch();
     const history = useHistory()
     const onLogin = () => { 
-                dispatch(actions.login(email,password))
-                if(agent_data !== 'null' && agent_data !== 'undefined'  && agent_data !== "Email/password is incorrect"  ){
-                    setTimeout(() => {
-                        history.push('/home')
-                    }, 1000);
-                    
-                }
+        // let _loginResp = dispatch(actions.login(email,password))
+        // console.warn('(((((((((_loginResp)))))))))',_loginResp)
+        // return
+        // if(agent_data !== 'null' && agent_data !== 'undefined'  && agent_data !== "Email/password is incorrect"  ){
+        //     setTimeout(() => {
+        //         history.push('/home')
+        //     }, 1000);
+            
+        // }
+        axios.post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/login`,{email,password}).then( res=>{
+                // console.log("logged in data",res)
+                console.warn('(((((((((_loginResp)))))))))',res)
+          
+            if (res === undefined || res === null || res === "") {
+                return;
             }
+            if (res.status === 200) {
+                // if (!res.ok) {
+                //     message.error('Please check your internet connections');
+                // } else {
+                try {
+                    if (res.data.errCode === -1) {
+                        dispatch(actions.loginSuccess(res.data.errMsg));
+                        history.push('/home')
+                    }else{
+                        message.error(res.data.errMsg);
+                    }
+                }catch(err){
+
+                }
+                // }
+            }
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
        
     return (
         <div className="main-body">

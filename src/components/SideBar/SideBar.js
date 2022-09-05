@@ -11,6 +11,7 @@ import { BarChartOutlined } from '@ant-design/icons';
 import { createBrowserHistory } from "history";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import { stoageGetter } from '../../helpers'
 
 const Nav = styled.div`
   background: #15171c;
@@ -59,14 +60,19 @@ const SidebarWrap = styled.div`
 
 // let currentRoute = history.location.pathname.replace('/', '')
 // console.log("path name",currentRoute)
+const login_user_data = stoageGetter('user')
+console.warn('LOGIN USER',login_user_data)
 const Sidebar = () => {
   const history = useHistory();
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
-  const logged_in_user = useSelector((state) => state.login.user_name)
+  // const logged_in_user = useSelector((state) => state.login.user_name)
+  const logged_in_user = login_user_data.firstName + ' ' + login_user_data.lastName
   let avatar = logged_in_user?.match(/\b(\w)/g)
-  const agent_id = useSelector((state) => state.login.agent_id)
+  
+  // const agent_id = useSelector((state) => state.login.agent_id)
+  const agent_id = login_user_data.agentId
   const dispatch = useDispatch();
   const  onLogout=() =>{
     localStorage.clear()
@@ -94,13 +100,13 @@ const Sidebar = () => {
         <div className='sideMenu'>
           <div className='menuHeader'>
             <div className='profileLogo'>
-              <p style={{textTransform:'uppercase'}}>{avatar}</p>
+              <p style={{textTransform:'uppercase',color:'#fff',fontSize:22}}>{avatar}</p>
             </div>
             <div className='profileData'>
-              <p style={{textTransform:'capitalize'}}>{logged_in_user}</p>
-              <p><b>Channel Sales Manager</b> (ID {agent_id})</p>
-              <p><FaIcons.FaMapMarker style={{color:"#787878"}} /> | | </p>
-              <p><b>Channel : </b> Advisor Two</p>
+              <p style={{textTransform:'capitalize',fontWeight:600}}>{logged_in_user}</p>
+              <p><b>{login_user_data.designation.designatioName}</b> ( <b>ID</b> {agent_id})</p>
+              <p><FaIcons.FaMapMarker style={{color:"#787878"}} /> | {login_user_data.city} | {login_user_data.state}</p>
+              {/* <p><b>Channel : </b>{login_user_data.channelCode.channelName}</p> */}
             </div>
           </div>
           <div className='menuBody'>
@@ -111,24 +117,24 @@ const Sidebar = () => {
               <ul>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Switch Channel</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Channel Default</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75912x.png'/> &nbsp;<span>Download FAQs</span></div> </li>
+                {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li> */}
+                {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75912x.png'/> &nbsp;<span>Download FAQs</span></div> </li> */}
               </ul>
-              <h3>My Customers</h3>
+              {/* <h3>My Customers</h3>
               <ul>
                 <li onClick={() => { history.push('/renewalMaster/allRenewals') }}><div><img src='https://tataadv2dev.iorta.in/assets/upr.png'/> &nbsp;<span>Upcomming renewals</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/lp.png'/> &nbsp;<span>Lapsed Policy</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-              </ul>
-              <h3>My Partners</h3>
+              </ul> */}
+              {/* <h3>My Partners</h3>
               <ul>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/rapps.png'/> &nbsp;<span>All Partners</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-              </ul>
-              <h3>Leads</h3>
+              </ul> */}
+              <p>Leads</p>
               <ul>
                 <li onClick={() => { history.push('/leadmasterpage/statuslead') }}><div><img src='https://tataadv2dev.iorta.in/assets/draftr.png'/> &nbsp;<span>Add New Lead</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/rapps.png'/> &nbsp;<span>Add Bulk Lead</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
               </ul>
-              <h3>My Applications</h3>
+              <p>My Applications</p>
               <ul>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/allrec.png'/> &nbsp;<span>All Recruitments</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/draftr.png'/> &nbsp;<span>Draft Recruitments</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
@@ -136,7 +142,7 @@ const Sidebar = () => {
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/rdone.png'/> &nbsp;<span>Recruited</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/failed.png'/> &nbsp;<span>Failed Recruitments</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
               </ul>
-              <h3>Dashboards</h3>
+              {/* <p>Dashboards</p>
               <Link to="/leads-report" >
               <ul>
               <li onClick={()=>setSidebar(false)}> <div> <div className='lead-icon' > </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard</span></div></li>
@@ -146,9 +152,9 @@ const Sidebar = () => {
               <ul>
               <li onClick={()=>setSidebar(false)}> <div> <div  className='lead-icon'> </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard 2</span></div></li>
               </ul>
-              </Link>
+              </Link> */}
               
-              <h3>Need Help?</h3>
+              <p>Need Help?</p>
               <ul>
                 <li><div><img src='https://tataadv2dev.iorta.in/assets/needhelp.png'/> &nbsp;<span>Help &amp; FAQs</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
               </ul>

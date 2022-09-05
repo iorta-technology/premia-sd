@@ -48,7 +48,7 @@ export  const login = (email,password) => {
         const credentials = { email, password }
         let result = await axiosRequest.post('user/login', credentials, { secure: false });
         if (result.length > 0) {
-            dispatch(loginSuccess(result));
+            return dispatch(loginSuccess(result));
         }
     }
 }
@@ -145,7 +145,7 @@ export const fetchUserDetails = (userId) => {
         let result = await axiosRequest.get(`user/getuserDetails?user_id=${userId}`, { secure: true });
         console.log(' login getuserDetails',result)
         if (result.length > 0) {
-            dispatch(fetchUserDetailsSuccess(result));
+            return dispatch(fetchUserDetailsSuccess(result));
         }
     }
 }
