@@ -13,8 +13,15 @@
   border-style: solid;
 }
 
-@media (min-width:1200px){
 
+
+@media (min-width:1200px){
+  .Todo-Create-Search{
+    width : 48% 
+  }
+  .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    height: 40px;
+    }
   .bodyData-centerContent div {
     padding: 0 7px !important;
 }
@@ -106,6 +113,7 @@ height: 40px;
 
 .ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
   border-top-left-radius: 5px !important;
+  height: 40px;
   border-bottom-left-radius: 5px !important;
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
@@ -819,7 +827,15 @@ height: 40px;
 }
 
 @media (min-width: 300px) and (max-width: 420px) {
-  
+  .ant-select {
+    margin-top: 10px !important;
+  }
+  .Todo-Create-Search {
+    margin-top: 15px;
+}
+  .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    height: 40px;
+  }
   .fc .fc-toolbar-chunk {
     width: 50%;
     /* justify-content: flex-start; */

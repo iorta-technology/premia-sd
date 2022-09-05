@@ -201,7 +201,7 @@ const HomePage = () => {
               <Image className="stars" preview={false} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group127.png" alt="Events" />
               <p style={{ color: '#CEA0E1', fontSize: '20px', width: "fit-content", margin: "auto" }}>No Events Exist</p>
               <Link to="/calendar">
-                <div style={{ color: '#fff', padding: "5px 20px", backgroundColor: '#CEA0E1', width: '40%', width: "fit-content", margin: "auto", cursor: 'pointer' }} >Create an Event</div>
+                <div style={{ color: '#fff', padding: "5px 20px", backgroundColor: '#CEA0E1', width: '40%', width: "fit-content", margin: "auto", cursor: 'pointer', textDecoration : 'none' }} >Create an Event</div>
               </Link>
             </div>}
         </div>

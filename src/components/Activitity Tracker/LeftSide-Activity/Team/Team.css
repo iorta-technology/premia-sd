@@ -4,8 +4,15 @@
     
     /* cursor: pointer; */
 }
+
+
+
 .Tean-Hierarchy{
     width: 25%;
+}
+
+.ant-select-arrow {
+    margin-top: 0px;
 }
 .Team-CircleManager{
     width: 29%;
@@ -89,6 +96,13 @@
     margin-left: 5px;
 }
 @media (min-width: 320px){
+
+    .ant-select {
+        width : 100% !important;
+    }
+    .ant-select {
+        margin-top: 0px !important;
+    }
     .dropdown-btn {
         padding: 0px !important;
     }
@@ -98,6 +112,7 @@
     .dropdown-content {
         z-index: 1;
         position: absolute;
+        margin-top: -55px;
         top: 100%;
         padding-top : 10px !important;
         padding: 0px;
@@ -137,6 +152,10 @@
     }
 }
 @media (min-width: 640px){
+    .ant-select {
+        margin-top: 10px !important;
+        height: 40px !important;
+      }
     .dropdown-btn,.dropdown-content {
         font-size: 14px;
         /* width: 25%; */
