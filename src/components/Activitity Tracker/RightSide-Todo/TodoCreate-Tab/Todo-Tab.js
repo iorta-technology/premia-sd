@@ -38,7 +38,7 @@ const TodoTab = (props) => {
 
   useEffect(() => {
     try{
-    // console.log('USER HIERARCHYY ___DATA__',_dataStore)
+    console.log('USER HIERARCHYY ___DATA__',_dataStore)
     // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
     let _teamMember = []
     _dataStore.reporting_users.map(el => {

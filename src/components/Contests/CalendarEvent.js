@@ -4,7 +4,7 @@ import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './CalendarEvent.css';
-import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag, Space, message} from 'antd';
+import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag, Space, message, AutoComplete } from 'antd';
 import { CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
@@ -15,6 +15,7 @@ import axios from 'axios';
 import { times } from "lodash";
 import Form from "antd/lib/form/Form";
 import Item from "antd/lib/list/Item";
+import { useDispatch, useSelector } from 'react-redux';
 const { Search } = Input;
 
 let dateFormat = 'YYYY/MM/DD';
@@ -66,13 +67,72 @@ export default function CalendarEvent(props) {
     phone_call_customer: false,
     policy_renewal: false
   })
+  const [teamMemberData ,setTeamMemberData]=useState('')
+  const [hierarAgentList ,setHierarAgentList]=useState([])
+  const [teamMemberChip ,setTeamMemberChip]=useState([])
+  const [ownerCollectn ,setOwnerCollectn]=useState([])
+  const _dataStore = useSelector((state) => state?.home?.user_tree)
+
+  useEffect(() => {
+    try{
+    console.log('USER HIERARCHYY ___DATA__',_dataStore)
+    // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
+    let _teamMember = []
+    _dataStore.reporting_users.map(el => {
+          let sortarray = {
+              FullName: el.full_name,
+              ShortId: el.hierarchy_details.hierarchyName,
+              firstname: el.first_name,
+              lastname: el.last_name,
+              employecode: el.employeeCode,
+              designation: el.hierarchy_details.hierarchyName,
+              _Id: el._id,
+              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchy_details.hierarchyName+')'
+          }
+          _teamMember.push(sortarray)
+          sortarray = {};
+
+      })
+      setHierarAgentList(_teamMember)
+
+   
+    // if(Object.keys(props.editData).length !== 0 || props.editData !== undefined){
+    //   // console.log('I AM HEREEEE',props);
+    //   let _teamMember = props.editData.searchdata.map(el =>{ return el.value })
+    //   setTeamMemberChip(_teamMember)
+    //   setOwnerCollectn(props.editData.searchdata)
+
+    // }
+  }catch(err){}
+    
+  },[props]);
+
+  let toCapitalize = (strText) =>{
+    try {
+        if (strText !== '' && strText !== null && typeof(strText) !== undefined) {
+            var _str = strText.toLowerCase();
+            var collection = _str.split(" ");
+            var modifyStrigs = [];
+            _str = '';
+            for (var i = 0; i < collection.length; i++) {
+                modifyStrigs[i] = collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+                _str = _str + modifyStrigs[i] + ' ';
+            }
+            return _str;
+        } else {
+            return "";
+        }
+    } catch (err) {
+
+    }
+};
 
   useEffect(()=>{
     console.log(stoageGetter('user'),'user id calendar event--------->')
     // let userid =stoageGetter('user')
     console.log(props.click)
     if(props.click == 'data'||"UPDATE EVENT"){
-      console.log(props.Data);
+      // console.log(props.Data.teamMember);
       setIsModalVisible(true);
     }
     if(props.click=='UPDATE EVENT'){
@@ -221,6 +281,7 @@ export default function CalendarEvent(props) {
       setEventDurationType(props.Data.durationType)
       setModeSelect(props.Data.mode)
       setStatusReasonText(props.Data.statusreason)
+      setTeamMemberChip(props.Data.teamMember)
       setCustomerNameText()
       console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
@@ -1485,6 +1546,32 @@ export default function CalendarEvent(props) {
       console.log(err)
     })
   }
+
+  const onChangeTeam = (text,data) => {
+    console.log(text,'text------>')
+    console.log(data, 'data------>')
+    setTeamMemberData(text)
+    // console.log('onSelect___text', text);
+    // console.log('onSelect___data', data);
+    setOwnerCollectn([...ownerCollectn,data])
+  };
+
+  const onSelectTeam = (value) => {
+    console.log('ON SELECTION ______________', value);
+    setTeamMemberData('')
+    let _data = [...new Set([...teamMemberChip,value])]
+    setTeamMemberChip(_data)
+  }
+
+  const removeTeamMember = (data,ind) => {
+    console.log('removeTeamMember', data);
+    console.log('ownerCollectn=====>>', ownerCollectn);
+    let _arrayOwner = ownerCollectn.filter((item,index) => item.value !== data)
+    setOwnerCollectn(_arrayOwner)
+    let _array = teamMemberChip.filter((item,index) => index !== ind)
+    setTeamMemberChip(_array)
+  }
+
   const searchCustomer = (e) => {
   setCustomerOnClickCheck(true)
   axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/customers?csmId=616e908c43ed727bbac8d2d4&search=${searchCustomerText}`)
@@ -1750,12 +1837,13 @@ export default function CalendarEvent(props) {
       console.log(date)
       console.log(dateString)
       setDurationStartDate(moment(date))
-
+      setDurationEndDate(moment(date))
   let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
 
   console.log(ms_date)
 
       setDurationStartDateOperation(ms_date)
+      setDurationEndDateOperation(ms_date)
       console.log("This is Start Date"+ms_date)
       if(durationEndDateOperation<ms_date){
         setDurationStartDateDiffCheck(false)
@@ -2087,9 +2175,7 @@ export default function CalendarEvent(props) {
             start_time:durationStartTimeOperation,
             end_date:durationEndDateOperation,
             end_time:durationEndTimeOperation,
-          teamMember:[
-            
-          ],
+          teamMember:ownerCollectn,
           statusType:statusType.openStatus==true?"open":"close",
           statusreason:statusReasonText,
           manuallycustomerAdded:addManuallyButtonCheck?true:false,
@@ -2289,9 +2375,7 @@ export default function CalendarEvent(props) {
             start_time:durationStartTimeOperation,
             end_date:durationEndDateOperation,
             end_time:durationEndTimeOperation,
-          teamMember:[
-            
-          ],
+          teamMember:ownerCollectn,
           statusType:statusType.openStatus==true?"open":"close",
           statusreason:statusReasonText,
           manuallycustomerAdded:addManuallyButtonCheck?true:false,
@@ -2636,6 +2720,8 @@ export default function CalendarEvent(props) {
     const onChangeDate = (date, dateString) => {
       console.log(date, dateString);
       setDurationStartDate(moment(date).format("YYYY-MM-DD"))
+      setDurationEndDate(moment(date).format("YYYY-MM-DD"))
+      
     console.log( moment(date).format("YYYY-MM-DD"))
     }
 
@@ -4123,15 +4209,16 @@ export default function CalendarEvent(props) {
                        className={durationEndDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                         // className="CalendarEvent-Modal-Card-header-type"
                       >End Date *</h4>
+                      {console.log(durationEndDate,'end date------>')}
                         <div className="Input-date">
                       <DatePicker onChange={EndDateFunc}
                   
-                        defaultValue={durationEndDate}
+                        // defaultValue={durationEndDate}
                         format="YYYY-MM-DD"
                         value={durationEndDate}
                         className="CalendarEvent-Modal-picker-style"
                       />
-                       {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null}
+                       {/* {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null} */}
                    </div>
                     </div>
                     <div
@@ -4207,7 +4294,40 @@ export default function CalendarEvent(props) {
             <h4
               className="CalendarEvent-Modal-Card-header-type"
             >Add Team Member</h4>
-            <div className="CalendarEvent-Modal-Search-flex">
+            <div className='Todo-Create-Search'>
+                        {/* <input type='text' placeholder='Search by Name'/> */}
+                        {/* <SearchOutlined /> */}
+                        {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
+                        {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
+                        <AutoComplete
+                          disabled={updateEventCheck==true?true:false}
+                          value={teamMemberData}
+                          style={{width: '100%'}}
+                          options={hierarAgentList}
+                          onChange={(text,data)=> onChangeTeam(text,data) }
+                          onSelect={onSelectTeam}
+                          filterOption={(inputValue, option) =>
+                            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                          }>
+                            <Search  placeholder="Search by Name" />
+                          </AutoComplete>
+                    </div>
+                    {console.log(teamMemberChip,'team member chip----->')}
+                    { teamMemberChip?.length !== 0 &&
+                        <div style={{display:'flex',flexFlow:'wrap',alignItems:'center'}}>
+                          {
+                            teamMemberChip?.map((item,index) =>{
+                              console.log(item,'item---->')
+                              return(
+                                <div style={{marginRight:10,marginTop:10,}}>
+                                  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item.value} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
+                                </div>
+                              )
+                          })
+                          }
+                        </div>
+                      }
+            {/* <div className="CalendarEvent-Modal-Search-flex">
             <Search placeholder="Search By Name" 
             disabled={updateEventCheck?true:false}
            value={searchTeamText}
@@ -4250,7 +4370,8 @@ export default function CalendarEvent(props) {
           className="CalendarEvent-Modal-Search-tag-style"
         >
         {teamOnClickVal}
-        </Tag>
+        </Tag> */}
+        {console.log(ownerCollectn, 'owner--->')}
             <div
               className="CalendarEvent-Modal-Card-vertical-line"
             >

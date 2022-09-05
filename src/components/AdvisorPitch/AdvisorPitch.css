@@ -5,6 +5,11 @@
     margin-left: 1vw; */
     background-color: #f7f7f7;
 }
+.AdvisorPitch-Container>.ant-tabs-nav>.ant-tabs-nav-wrap>.ant-tabs-nav-list>.ant-tabs-tab>.ant-tabs-tab-btn {
+    color: #000;
+    margin-left: 10 !important;
+    font-size: 14px;
+}
 .Advisorpitch-row-flex{
     display: flex;
     width: 96%;

@@ -16,15 +16,17 @@ const Self = () => {
   const [CurentOrPast,setCurentOrPast]=useState()
   const [pastEventLenght,setPastEventLength]=useState();
 
-  let {id}=stoageGetter('user');
+  
   useEffect(()=>{
-    const api = async ()=>{
-      let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
-      console.log(data);
-      setPastDataContainer(data);
-    }
+   
     api();
   },[month,year,CurentOrPast]);
+  let {id}=stoageGetter('user');
+  const api = async ()=>{
+    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
+    console.log(data);
+    setPastDataContainer(data);
+  }
   useEffect(()=>{
     if(PastDataContainer){
       for(let i = 0; i < PastDataContainer?.length; i++){
@@ -43,7 +45,7 @@ const Self = () => {
  
   return (
     <div className='Self-Container'>
-      <EventCreate monthData={setMonth} yearData={setyear}/>
+      <EventCreate monthData={setMonth} yearData={setyear} />
         <div className='eventChange'>
             {
               PastDataContainer?.length >0 && 

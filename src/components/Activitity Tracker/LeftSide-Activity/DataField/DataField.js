@@ -41,7 +41,11 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
   const [DataContainer,setDataContainer]=useState();
 
   useEffect(()=>{
-    let {id}=stoageGetter('user')
+    
+    api();
+  },[SelfMonthYear,TeamData,history]);
+
+  let {id}=stoageGetter('user')
     const api = async ()=>{
       const currentMonth =(1 + new Date().getMonth());
       const currentYear =new Date().getFullYear();
@@ -64,8 +68,6 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
         setDataContainer(result4)
        }
     }
-    api();
-  },[SelfMonthYear,TeamData,history]);
 
     const dateFun=(time)=>{
       var dt = new Date(time);
