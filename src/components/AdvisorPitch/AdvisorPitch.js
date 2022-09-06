@@ -6,6 +6,13 @@ import './AdvisorPitch.css';
 import MainTabs from '../../components/MainTabs/MainTabs'
 import MTabs from '../../components/Tab/Tab'
 
+// ---- Import Image ------ //
+import amit_img from '../../assets/Amit.jpg'
+import deepak_img from '../../assets/Deepak.jpg'
+import jagjit_img from '../../assets/Jagjit.jpg'
+import chandubhai_img from '../../assets/Chandubhai.jpg'
+import sandeep_img from '../../assets/Sandeep.jpg'
+
 const tabMenu = [
     {
       id: 'customerpitch',
@@ -101,7 +108,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div >
-                                                            <Image src="../../Amit.jpg" style={{ }} />
+                                                            <Image src={amit_img} style={{ }} />
                                                         </div>
                                                         <h3 className="success-comments">- Amit Kumar, Construction Office Engineer</h3>
                                                     </Col>
@@ -119,7 +126,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Deepak.jpg" style={{}} />
+                                                            <Image src={deepak_img} style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Deepak Dhadotti , Construction Office Engineer</h3>
                                                     </Col>
@@ -137,7 +144,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Jagjit.jpg" style={{}} />
+                                                            <Image src={jagjit_img} style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Jagjit Singh , Construction Office </h3>
                                                     </Col>
@@ -155,7 +162,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Chandubhai.jpg" style={{}} />
+                                                            <Image src={chandubhai_img} style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Chandubhai Virani , Construction Office Engineer</h3>
                                                     </Col>
@@ -173,7 +180,7 @@ const AdvisorPitch = () => {
                                                 <Form layout="horizontal" className="success-story-form">
                                                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                                         <div>
-                                                            <Image src="../../Sandeep.jpg" style={{}} />
+                                                            <Image src={sandeep_img} style={{}} />
                                                         </div>
                                                         <h3 className="success-comments">- Sandeep Kapoor , Construction Office Engineer</h3>
                                                     </Col>
