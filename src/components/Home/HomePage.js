@@ -12,6 +12,11 @@ import FloatButton from '../FloatButton/FloatButton';
 import { Column } from '@ant-design/charts';
 import axiosRequest from '../../axios-request/request.methods';
 import {stoageGetter} from '../../helpers'
+import business_img from '../../assets/DashboardIconNew/Group3366.png'
+import activity_img from '../../assets/DashboardIconNew/Group3371.png'
+import opportunities_img from '../../assets/DashboardIconNew/Group3367.png'
+import todo_img from '../../assets/DashboardIconNew/Group3375.png'
+import sales_guide_img from '../../assets/DashboardIconNew/Group3369.png'
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
@@ -160,7 +165,7 @@ const HomePage = () => {
           <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
             <div className="card-content">
               <div className="activity-icon">
-                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3371.png" alt="Activities" />
+                <Image preview={false} width={55} height={55} src={activity_img} alt="Activities" />
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
@@ -214,7 +219,7 @@ const HomePage = () => {
             <Link to="/leadMaster/all_leads">
               <div className="card-content">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3367.png" alt="Opportunities" />
+                  <Image preview={false} width={55} height={55} src={opportunities_img} alt="Opportunities" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Opportunities</p>
@@ -284,7 +289,7 @@ const HomePage = () => {
             <Link to="/kpi-dashboard">
               <div className="card-content">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3366.png" alt="Business" />
+                  <Image preview={false} width={55} height={55} src={business_img} alt="Business" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Business</p>
@@ -373,7 +378,7 @@ const HomePage = () => {
             <Link to='/calendar'>
               <div className="card-content">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3375.png" alt="ToDo" />
+                  <Image preview={false} width={55} height={55} src={todo_img} alt="ToDo" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>To Do</p>
@@ -493,7 +498,7 @@ const HomePage = () => {
             <div className="card-content">
               <Link to='/products'>
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3369.png" alt="Sales Guide" />
+                  <Image preview={false} width={55} height={55} src={sales_guide_img} alt="Sales Guide" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Sales Guide</p>
