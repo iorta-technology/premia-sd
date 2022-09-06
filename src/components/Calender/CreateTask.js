@@ -18,6 +18,12 @@ import {
 // import Calendar from 'react-calendar';
 import { Calendar } from '@natscale/react-calendar';
 import { AudioOutlined } from '@ant-design/icons';
+
+// --- Import Image ---- //
+import todoclock_img from '../../assets/todoclock.png'
+
+
+
 const { Option } = Select;
 const { Search } = Input;
 const suffix = (
@@ -247,7 +253,7 @@ const CreateTask = () => {
                                                                         marginTop: "3px"
                                                                     }}
                                                                     size="small"
-                                                                    src={<Image src="todoclock.png" style={{ width: '15px', marginTop: '2px' }} />}
+                                                                    src={<Image src={todoclock_img} style={{ width: '15px', marginTop: '2px' }} />}
                                                                 >
                                                                 </Avatar>
                                                                 <div className="Createtask-card-top-avatar-name-column-flex">
@@ -501,7 +507,7 @@ const CreateTask = () => {
                                                                         marginTop: "3px"
                                                                     }}
                                                                     size="small"
-                                                                    src={<Image src="todoclock.png" style={{ width: '15px', marginTop: '2px' }} />}
+                                                                    src={<Image src={todoclock_img} style={{ width: '15px', marginTop: '2px' }} />}
                                                                 >
                                                                 </Avatar>
                                                                 <div className="Createtask-card-top-avatar-name-column-flex">
@@ -648,7 +654,7 @@ const CreateTask = () => {
                                                                         marginTop: "3px"
                                                                     }}
                                                                     size="small"
-                                                                    src={<Image src="todoclock.png" style={{ width: '15px', marginTop: '2px' }} />}
+                                                                    src={<Image src={todoclock_img} style={{ width: '15px', marginTop: '2px' }} />}
                                                                 >
                                                                 </Avatar>
                                                                 <div className="Createtask-card-top-avatar-name-column-flex">
@@ -795,7 +801,7 @@ const CreateTask = () => {
                                                                         marginTop: "3px"
                                                                     }}
                                                                     size="small"
-                                                                    src={<Image src="todoclock.png" style={{ width: '15px', marginTop: '2px' }} />}
+                                                                    src={<Image src={todoclock_img} style={{ width: '15px', marginTop: '2px' }} />}
                                                                 >
                                                                 </Avatar>
                                                                 <div className="Createtask-card-top-avatar-name-column-flex">
@@ -942,7 +948,7 @@ const CreateTask = () => {
                                                                         marginTop: "3px"
                                                                     }}
                                                                     size="small"
-                                                                    src={<Image src="todoclock.png" style={{ width: '15px', marginTop: '2px' }} />}
+                                                                    src={<Image src={todoclock_img} style={{ width: '15px', marginTop: '2px' }} />}
                                                                 >
                                                                 </Avatar>
                                                                 <div className="Createtask-card-top-avatar-name-column-flex">

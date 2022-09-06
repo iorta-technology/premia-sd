@@ -12,11 +12,23 @@ import FloatButton from '../FloatButton/FloatButton';
 import { Column } from '@ant-design/charts';
 import axiosRequest from '../../axios-request/request.methods';
 import {stoageGetter} from '../../helpers'
+
+// import image ----- 
 import business_img from '../../assets/DashboardIconNew/Group3366.png'
 import activity_img from '../../assets/DashboardIconNew/Group3371.png'
 import opportunities_img from '../../assets/DashboardIconNew/Group3367.png'
 import todo_img from '../../assets/DashboardIconNew/Group3375.png'
 import sales_guide_img from '../../assets/DashboardIconNew/Group3369.png'
+import event_img from '../../assets/DashboardIconNew/Group127.png'
+import application_img from '../../assets/DashboardIconNew/Group3373.png'
+import action_data_img from '../../assets/Actionnodata.png'
+import mapped_img from '../../assets/DashboardIconNew/Group3381.png'
+import reward_img from '../../assets/DashboardIconNew/Group3379.png'
+import contest_img from '../../assets/DashboardIconNew/Group3151.png'
+import club_img from '../../assets/DashboardIconNew/Group3157.png'
+import birthday_img from '../../assets/DashboardIconNew/Group3376.png'
+import left_arrow from '../../assets/Subtraction10.png'
+import right_arrow from '../../assets/Subtraction12.png'
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
@@ -206,7 +218,7 @@ const HomePage = () => {
                 </div>
               )
               : <div className="events-body" >
-                <Image className="stars" preview={false} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group127.png" alt="Events" />
+                <Image className="stars" preview={false} src={event_img} alt="Events" />
                 <p style={{ color: '#CEA0E1', fontSize: '20px', width: "fit-content", margin: "auto" }}>No Events Exist</p>
                 <Link to="/calendar">
                   <div style={{ color: '#fff', padding: "5px 20px", backgroundColor: '#CEA0E1', width: '40%', width: "fit-content", margin: "auto", cursor: 'pointer' }} >Create an Event</div>
@@ -248,7 +260,7 @@ const HomePage = () => {
             <div className="card-content">
               <Link to={"/applications"}>
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3373.png" alt="Opportunities" />
+                  <Image preview={false} width={55} height={55} src={application_img} alt="Opportunities" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Applications</p>
@@ -345,7 +357,7 @@ const HomePage = () => {
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1', overflow: "hidden" }}>
             <div className="card-content">
               <div className="activity-icon">
-                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3375.png" alt="Actions" />
+                <Image preview={false} width={55} height={55} src={todo_img} alt="Actions" />
               </div>
               <div className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Actions</p>
@@ -387,7 +399,7 @@ const HomePage = () => {
                 </div>
               </div>
               <div style={{ height: "75%" }} className="events-body">
-                <Image className='stars1' src='https://sdrestdemo.iorta.in/assets/Actionnodata.png' preview={false} ></Image>
+                <Image className='stars1' src={action_data_img} preview={false} ></Image>
                 <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", }}>No Active Task</p>
               </div>
             </Link>
@@ -399,7 +411,7 @@ const HomePage = () => {
             <Link to="/renewalMaster/allRenewals">
               <div className="card-content">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+                  <Image preview={false} width={55} height={55} src={mapped_img} alt="Customers" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Renewals</p>
@@ -430,7 +442,7 @@ const HomePage = () => {
             <div className="card-content">
               <Link to="/rewardscorner/contests/allcontest">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3379.png" alt="Rewards Corner" />
+                  <Image preview={false} width={55} height={55} src={reward_img} alt="Rewards Corner" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Rewards Corner</p>
@@ -442,13 +454,13 @@ const HomePage = () => {
                 <div style={{ display: 'flex', justifyContent: "center", marginTop: '1rem' }}>
                   <Link to="/rewardscorner/contests/allcontest">
                     <div style={{ padding: "0 50px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
-                      <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
+                      <Image preview={false} width={90} height={90} src={contest_img} alt="contests" hspace="20" />
                       <p>Contests</p>
                     </div>
                   </Link>
                   <Link to="/clubsmaster">
                     <div style={{ padding: "0 50px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
-                      <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
+                      <Image preview={false} width={90} height={90} src={club_img} alt="clubs" />
                       <p>Clubs</p>
                     </div>
                   </Link>
@@ -462,7 +474,7 @@ const HomePage = () => {
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
             <div className="card-content">
               <div className="activity-icon">
-                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3369.png" alt="Sales Guide" />
+                <Image preview={false} width={55} height={55} src={sales_guide_img} alt="Sales Guide" />
               </div>
               <Link to='/servicecorner/all'>
                 <div className="activities-text">
@@ -537,7 +549,7 @@ const HomePage = () => {
             <div className="card-content">
               <Link to="/birthday">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3376.png" alt="Birthday" />
+                  <Image preview={false} width={55} height={55} src={birthday_img} alt="Birthday" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Birthday</p>
@@ -546,8 +558,8 @@ const HomePage = () => {
                 </div>
               </Link>
               <div className="birthday-slides">
-                <Image preview={false} width={32} height={32} src="https://sdrestdemo.iorta.in/assets/Subtraction10.png" alt="left arrow" />
-                <Image preview={false} width={32} height={32} src="https://sdrestdemo.iorta.in/assets/Subtraction9.png" alt="right arrow" />
+                <Image preview={false} width={32} height={32} src={left_arrow} alt="left arrow" />
+                <Image preview={false} width={32} height={32} src={right_arrow} alt="right arrow" />
               </div>
             </div>
           </div>
@@ -579,7 +591,7 @@ const HomePage = () => {
             <Link to="/mappedbranches">
               <div className="card-content">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+                  <Image preview={false} width={55} height={55} src={mapped_img} alt="Customers" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Mapped Branches</p>
@@ -589,7 +601,7 @@ const HomePage = () => {
               </div>
             </Link>
             <div className="events-body" >
-              <Image className="stars" preview={false} src="https://pocbanca.iorta.in/assets/Actionnodata.png" alt="Events" />
+              <Image className="stars" preview={false} src={action_data_img} alt="Events" />
               <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content" }}>No Branches Found</p>
             </div>
           </div>
@@ -600,7 +612,7 @@ const HomePage = () => {
             <Link to="/existingpartner">
               <div className="card-content">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
+                  <Image preview={false} width={55} height={55} src={mapped_img} alt="Customers" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Existing Partner</p>
@@ -643,7 +655,7 @@ const HomePage = () => {
             <div className="card-content">
               <Link to="/renewalreport">
                 <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3379.png" alt="dashboards" />
+                  <Image preview={false} width={55} height={55} src={reward_img} alt="dashboards" />
                 </div>
                 <div className="activities-text">
                   <p style={{ fontSize: '15px', color: '#fff' }}>Dashboards</p>
@@ -654,13 +666,13 @@ const HomePage = () => {
                 <div style={{ display: 'flex', justifyContent: "center", marginTop: '1rem' }}>
                   <Link to="/renewalreport">
                     <div style={{ padding: "0 50px", cursor: 'pointer', borderRight: "1px solid #fff", textAlign: "center", color: "#fff" }}>
-                      <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3151.png" alt="contests" hspace="20" />
+                      <Image preview={false} width={90} height={90} src={contest_img} alt="contests" hspace="20" />
                       <p>Renewal Report</p>
                     </div>
                   </Link>
                   <Link to="/salespendency">
                     <div style={{ padding: "0 50px", cursor: 'pointer', textAlign: "center", color: "#fff" }}>
-                      <Image preview={false} width={90} height={90} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3157.png" alt="clubs" />
+                      <Image preview={false} width={90} height={90} src={club_img} alt="clubs" />
                       <p>Sales Pendency</p>
                     </div>
                   </Link>

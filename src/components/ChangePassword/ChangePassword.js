@@ -3,6 +3,8 @@ import './ChangePassword.css';
 import { Card, Input, Button, Image, Form } from 'antd';
 import { KeyOutlined } from '@ant-design/icons';
 import axios from 'axios';
+// --- Import Image --- //
+import salesDrivelogo_img from '../../assets/salesDrivelogo.png'
 const ChangePassword = () => {
     const [form] = Form.useForm();
     const [newpassword,setnewPassword]= useState('')
@@ -20,7 +22,7 @@ const ChangePassword = () => {
             <div className="login-card">
                 <Card className="main-card">
                     <div className="logo">
-                        <Image preview={false} height={30} width={130} src="https://sdrestdemo.iorta.in/assets/salesDrivelogo.png" alt="login-logo" />
+                        <Image preview={false} height={30} width={130} src={salesDrivelogo_img} alt="login-logo" />
                     </div>
                     <hr className="horline" />
                     <p className="forgotpasstext" style={{margin:20}}>Change Password</p>
