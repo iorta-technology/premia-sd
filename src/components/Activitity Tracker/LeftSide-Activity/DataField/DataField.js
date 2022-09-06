@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef, useImperativeHandle, forwardRef} from 'react'
 import {Typography} from 'antd'
 import {FormOutlined, MessageOutlined} from '@ant-design/icons';
 import EventCreateButton from '../EventCreateButton/EventCreateButton';
@@ -22,7 +22,7 @@ const useWidowsSize = () => {
     return size;
 }
 
-const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
+const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) => {
   const [isModalVisible, setIsModalVisible] = useState(
     {
       check:false,
@@ -39,14 +39,22 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
   };
 
   const [DataContainer,setDataContainer]=useState();
+  
+
+//   useImperativeHandle(ref, () => ({
+//     api : () =>{ api() }
+// }));
 
   useEffect(()=>{
-    
-    api();
-  },[SelfMonthYear,TeamData,history]);
+     api();
+     console.log('yesssssss------>')
+  },[SelfMonthYear,TeamData,history,getdata]);
+
+  
 
   let {id}=stoageGetter('user')
     const api = async ()=>{
+     
       const currentMonth =(1 + new Date().getMonth());
       const currentYear =new Date().getFullYear();
       const monthYear=currentMonth+'/'+currentYear;
@@ -313,11 +321,11 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
               
         )
       })
-    :<EventCreateButton/>
+    :<EventCreateButton api={"getFunc"} />
   }
   {
     isModalVisible.check == true ?
-    <EventCreateComponent click={'UPDATE EVENT'} Data={isModalVisible.Data}/>
+    <EventCreateComponent click={'UPDATE EVENT'} Data={isModalVisible.Data} api={getFunc} />
     :""
   }
   </div>
