@@ -101,9 +101,9 @@ function App() {
       <Router>
         <div className="box-size">
           <Switch>
-            {/* <Route exact path="/">
-              <Redirect to="/profile" />
-            </Route> */}
+            <Route exact path="/">
+              <Redirect to="/login" />
+            </Route>
             <Route path="/login" component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>

@@ -100,7 +100,7 @@ export const editLead = (formData,id) => {
         //         return dispatch(editLeadFail(errorMessage))
         //     })
 
-        let result = await axiosRequest.post(`user/updateLead/${id}`, formData, { secure: true });
+        let result = await axiosRequest.put(`user/updateLead/${id}`, formData, { secure: true });
         console.warn('update LEADDDD_______',result)
         if (result.length > 0) {
             return dispatch(editLeadSuccess(result));

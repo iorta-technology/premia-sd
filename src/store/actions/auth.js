@@ -48,7 +48,7 @@ export  const login = (email,password) => {
         const credentials = { email, password }
         let result = await axiosRequest.post('user/login', credentials, { secure: false });
         if (result.length > 0) {
-            dispatch(loginSuccess(result));
+            return dispatch(loginSuccess(result));
         }
     }
 }
@@ -145,7 +145,7 @@ export const fetchUserDetails = (userId) => {
         let result = await axiosRequest.get(`user/getuserDetails?user_id=${userId}`, { secure: true });
         console.log(' login getuserDetails',result)
         if (result.length > 0) {
-            dispatch(fetchUserDetailsSuccess(result));
+            return dispatch(fetchUserDetailsSuccess(result));
         }
     }
 }
@@ -187,7 +187,7 @@ export const fetchHierarchy = (userId,channelCode) => {
         //     })
         // console.log('p*********** channelCode',channelCode)
 
-        let result = await axiosRequest.get(`admin/getHierarchy?userId=5b3b4cc28fa96d39870443e3&channelCode=${channelCode}&skip=0&hierarchy_type=1`, { secure: true });
+        let result = await axiosRequest.get(`admin/getHierarchy?userId=5b3b4cc28fa96d39870443e3&channelCode=${channelCode._id}&skip=0&hierarchy_type=1`, { secure: true });
         console.log(' login getHierarchy',result)
         if (result.length > 0) {
             dispatch(fetchHierarchySuccess(result));

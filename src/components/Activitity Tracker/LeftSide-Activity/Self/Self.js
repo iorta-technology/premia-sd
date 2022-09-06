@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import {Typography} from 'antd'
 import './Self.css'
 import PastFutureData from '../History-showedData'
@@ -15,16 +15,24 @@ const Self = () => {
   const [PastDataContainer,setPastDataContainer]=useState();
   const [CurentOrPast,setCurentOrPast]=useState()
   const [pastEventLenght,setPastEventLength]=useState();
+  const [getshow, setGetShow] = useState();
+  let getdata = false;
+  // const childRef = useRef(null);
 
-  let {id}=stoageGetter('user');
+  // const apidata = () => {
+  //   childRef.current.api()
+  // }
+  
   useEffect(()=>{
-    const api = async ()=>{
-      let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
-      console.log(data);
-      setPastDataContainer(data);
-    }
+   
     api();
   },[month,year,CurentOrPast]);
+  let {id}=stoageGetter('user');
+  const api = async ()=>{
+    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
+    console.log(data);
+    setPastDataContainer(data);
+  }
   useEffect(()=>{
     if(PastDataContainer){
       for(let i = 0; i < PastDataContainer?.length; i++){
@@ -43,7 +51,7 @@ const Self = () => {
  
   return (
     <div className='Self-Container'>
-      <EventCreate monthData={setMonth} yearData={setyear}/>
+      <EventCreate monthData={setMonth} yearData={setyear}  getFunc = {api}  getdata = {setGetShow} />
         <div className='eventChange'>
             {
               PastDataContainer?.length >0 && 
@@ -71,6 +79,9 @@ const Self = () => {
         <DataField SelfMonthYear = {month +'/'+ year}
           history={CurentOrPast}
           SelfHere='self'
+          // ref={childRef}
+          getFunc={api}
+          getdata = {getshow}
         />
     </div>
   )

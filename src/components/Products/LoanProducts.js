@@ -7,11 +7,15 @@ import axios from '../../axios-common';
 import { map } from 'lodash';
 import moment from 'moment';
 import Brocher from '../../images/brochrewhite.png'
+import MTabs from '../../components/Tab/Tab'
 import {
     BrowserRouter as Router,
     Link, useLocation, useHistory
 } from "react-router-dom";
 import Pagination from '../Activitity Tracker/Pagenation/Pagenation';
+
+
+
 const LoanProducts = () => {
     const contentStyle = {
         height: '160px',
@@ -25,17 +29,30 @@ const LoanProducts = () => {
     const [productData, SetProductData] = useState();
     const [productTabs, SetProductTabs] = useState([]);
     const [activeId, SetActiveId] = useState(null);
-
+    const [finaltabdata, setFinalTabData] = useState({})
    
 
 
     useEffect(() => {
-        axios.get(`admin/getprodCategory?filter=23&channel=5dbfdfa8e51cd5522249ba70`).then(resp => {
-            const productData = resp?.data?.errMsg;
-            SetProductData(productData)
-            topBtnClickHandler(productData[0])
-            SetActiveId(productData[0]?._id)
+        axios.get(`admin/getprodCategory?filter=23&channel=5dbfdfa8e51cd5522249ba70`).then(resp => 
+            {
+            const producttData = resp?.data?.errMsg;
+            SetProductData(producttData)
+            topBtnClickHandler(producttData[0])
+            SetActiveId(producttData[0]?._id)
             console.log("response", resp)
+            let finaltab = []
+            
+            for(let i=0; i< producttData.length; i++){
+                console.log(producttData, 'product data----->')
+                let objdata = {
+                    id: producttData[i]._id,
+                    value: producttData[i].productCategoryName,
+                }
+            
+             finaltab.push(objdata)
+            }
+            console.log(finaltab, 'final ---->')
         }, []).catch(error => {
             console.log(error)
         })
@@ -47,7 +64,25 @@ const LoanProducts = () => {
                 );
             });
 
+            
+            
+        //     {productData?.map(item =>(
+        //         let objdata={
+        //             id: productData[item]._id,
+        //             value: productData[item].productCategoryName,
+        //         }
 
+        //     ))
+        // }
+        if(productData){
+            
+        }
+         
+                // const tabMenu = [
+                //    ...objdata,
+                // Tabs
+                // ]           
+            
 
     }, [])
     const { TabPane } = Tabs;
@@ -105,6 +140,8 @@ const LoanProducts = () => {
     const handleCancel = () => {
         setIsJoinModalVisible(false);
     };
+   
+  
     let { innerWidth: width, innerHeight: height } = window;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
         width <= "767" ? "top" : width <= "1023" ? "top" : "left");

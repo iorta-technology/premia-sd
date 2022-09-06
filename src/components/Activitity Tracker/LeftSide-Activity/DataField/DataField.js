@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef, useImperativeHandle, forwardRef} from 'react'
 import {Typography} from 'antd'
 import {FormOutlined, MessageOutlined} from '@ant-design/icons';
 import EventCreateButton from '../EventCreateButton/EventCreateButton';
@@ -22,7 +22,7 @@ const useWidowsSize = () => {
     return size;
 }
 
-const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
+const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) => {
   const [isModalVisible, setIsModalVisible] = useState(
     {
       check:false,
@@ -39,10 +39,22 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
   };
 
   const [DataContainer,setDataContainer]=useState();
+  
+
+//   useImperativeHandle(ref, () => ({
+//     api : () =>{ api() }
+// }));
 
   useEffect(()=>{
-    let {id}=stoageGetter('user')
+     api();
+     console.log('yesssssss------>')
+  },[SelfMonthYear,TeamData,history,getdata]);
+
+  
+
+  let {id}=stoageGetter('user')
     const api = async ()=>{
+     
       const currentMonth =(1 + new Date().getMonth());
       const currentYear =new Date().getFullYear();
       const monthYear=currentMonth+'/'+currentYear;
@@ -64,8 +76,6 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
         setDataContainer(result4)
        }
     }
-    api();
-  },[SelfMonthYear,TeamData,history]);
 
     const dateFun=(time)=>{
       var dt = new Date(time);
@@ -145,9 +155,9 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
                       </div>
                       <div className='bodyData-centerContent'>
                           <div className='Event-CenterBody'>
-                              <Typography className='Event-CenterBody-BranchName'>
+                              {/* <Typography className='Event-CenterBody-BranchName'>
                                 {element.branchCodeId?.branchName} ({element.branchCodeId?.branchCode})
-                              </Typography>
+                              </Typography> */}
                               <div className='Event-Type-Name'>
                                 <div className='EventType'>
                                     <Typography >
@@ -217,13 +227,13 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
                                 <FormOutlined onClick={() => showModal(element)} />
                                 </Col>
                               </Row>
-                              <Row>
+                              {/* <Row>
                                 <Col sm={24} md={24} xs={24}>
                                 <Typography className='Event-CenterBody-BranchName'>
                                   {element.branchCodeId?.branchName} ({element.branchCodeId?.branchCode})
                                 </Typography>
                                 </Col>
-                              </Row>
+                              </Row> */}
 
                               <Row>
                                 <Col sm={7} xs={7} md={7}>
@@ -305,17 +315,17 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere}) => {
                                   }
                                 </div>
                               </Row>
-                              <hr />
+                              <hr style={{marginTop : 10, marginBottom : 10}}/>
                     </div>
                    
               
         )
       })
-    :<EventCreateButton/>
+    :<EventCreateButton api={"getFunc"} />
   }
   {
     isModalVisible.check == true ?
-    <EventCreateComponent click={'UPDATE EVENT'} Data={isModalVisible.Data}/>
+    <EventCreateComponent click={'UPDATE EVENT'} Data={isModalVisible.Data} api={getFunc} />
     :""
   }
   </div>

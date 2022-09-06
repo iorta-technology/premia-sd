@@ -74,6 +74,14 @@ const LeadCard = React.memo((props) => {
     dispatch(actions.fetchLeadDetails(id));
     history.replace("/leadmasterpage/statuslead");
   };
+  let statusColors = {
+    closed: '#D04949',
+    open: '#e0cb0d',
+    PendingProposals: '#b50e21',
+    Converted: '#159e0e',
+    statusStyle: '',
+    bgColor: ''
+  }
   // Card for desktop
 
   let card = (
@@ -95,6 +103,13 @@ const LeadCard = React.memo((props) => {
             </Avatar>
             <div style={{ display: 'flex' }}>{leadStatus === "newleadentery" ? <div style={{ fontSize: '10px' }}>NEW<div>LEADENTRY</div></div> : leadStatus}</div>
           </div>
+          {/* <Avatar style={{paddingTop:'-40px',lineHeight:'none' }} size={{ xl: 50 }}>
+            {avatar}
+          </Avatar> */}
+          {/* <div style={{display:'flex'}}>{leadStatus === "newleadentery"? <div style={{fontSize:'10px'}}>NEW<div>LEADENTRY</div></div> : leadStatus}</div> */}
+          {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
+          {/* {leadComponent} */}
+           
         </div>
         <div className="content">
           <div className="content-header">
@@ -182,8 +197,8 @@ const LeadCard = React.memo((props) => {
           <p className="user-name-text">
             {firstName} {lastName}
           </p>
-          {/* {leadComponent} */}
-          <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p>
+          {leadComponent}
+          {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
           {/* <PhoneOutlined
             style={{ color: "green", cursor: "pointer" }}
           ></PhoneOutlined> */}

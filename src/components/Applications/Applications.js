@@ -9,6 +9,9 @@ import { Pagination } from "antd";
 import FloatButton from "../FloatButton/FloatButton";
 import moment from "moment";
 
+// ---- Import Image --- //
+import mail_icon from '../../assets/SalesDriveIcon/Mail_Icon.png'
+
 
 export const Applications = () => {
   const dispatch = useDispatch();
@@ -283,7 +286,7 @@ export const Applications = () => {
                 </Row>
               </Col>
               <Col className="mail-image-main" span={2}>
-                <img src="https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Mail_Icon.png" alt="" className="mail-image" />
+                <img src={mail_icon} alt="" className="mail-image" />
               </Col>
 
             </Row>

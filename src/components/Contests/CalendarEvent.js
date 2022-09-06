@@ -4,17 +4,18 @@ import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './CalendarEvent.css';
-import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag, Space, message} from 'antd';
+import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag, Space, message, AutoComplete } from 'antd';
 import { CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
 import Icon from '@ant-design/icons';
 import axiosRequest from '../../axios-request/request.methods'
-
+import {stoageGetter} from '../../helpers'
 import axios from 'axios';
 import { times } from "lodash";
 import Form from "antd/lib/form/Form";
 import Item from "antd/lib/list/Item";
+import { useDispatch, useSelector } from 'react-redux';
 const { Search } = Input;
 
 let dateFormat = 'YYYY/MM/DD';
@@ -27,10 +28,13 @@ export default function CalendarEvent(props) {
   let month=moment().format('MM/YYYY');
   // console.log(month)    
   
-
+  const [Appointmentid, setAppointmentid] = useState('')
   const [advisorCheck, setAdvisorCheck] = useState(true)
   const [prospectCheck, setProspectCheck] = useState(false)
   const [customerCheck, setCustomerCheck] = useState(false)
+  const [appointmenttypes, setAppointmentType] = useState('')
+  const [clientvisit, setclientVisit] = useState('')
+  const [duration, setDuration] = useState('')
   const [durationButton, setDurationButton] = useState({
     select_time: true,
     all_day: false
@@ -63,20 +67,229 @@ export default function CalendarEvent(props) {
     phone_call_customer: false,
     policy_renewal: false
   })
+  const [teamMemberData ,setTeamMemberData]=useState('')
+  const [hierarAgentList ,setHierarAgentList]=useState([])
+  const [teamMemberChip ,setTeamMemberChip]=useState([])
+  const [ownerCollectn ,setOwnerCollectn]=useState([])
+  const _dataStore = useSelector((state) => state?.home?.user_tree)
+
+  useEffect(() => {
+    try{
+      console.log(props, 'props-----calendar----1st use effect?')
+    console.log('USER HIERARCHYY ___DATA__',_dataStore)
+    // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
+    let _teamMember = []
+    _dataStore.reporting_users.map(el => {
+          let sortarray = {
+              FullName: el.full_name,
+              ShortId: el.hierarchy_details.hierarchyName,
+              firstname: el.first_name,
+              lastname: el.last_name,
+              employecode: el.employeeCode,
+              designation: el.hierarchy_details.hierarchyName,
+              _Id: el._id,
+              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchy_details.hierarchyName+')'
+          }
+          _teamMember.push(sortarray)
+          sortarray = {};
+
+      })
+      setHierarAgentList(_teamMember)
+
+   
+    // if(Object.keys(props.editData).length !== 0 || props.editData !== undefined){
+    //   // console.log('I AM HEREEEE',props);
+    //   let _teamMember = props.editData.searchdata.map(el =>{ return el.value })
+    //   setTeamMemberChip(_teamMember)
+    //   setOwnerCollectn(props.editData.searchdata)
+
+    // }
+  }catch(err){}
+    
+  },[props]);
+
+  useEffect(() => {
+    // props.getdata(false)
+    console.log(props, 'props-----calendar----?')
+    
+  },[props]);
+
+  let toCapitalize = (strText) =>{
+    try {
+        if (strText !== '' && strText !== null && typeof(strText) !== undefined) {
+            var _str = strText.toLowerCase();
+            var collection = _str.split(" ");
+            var modifyStrigs = [];
+            _str = '';
+            for (var i = 0; i < collection.length; i++) {
+                modifyStrigs[i] = collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+                _str = _str + modifyStrigs[i] + ' ';
+            }
+            return _str;
+        } else {
+            return "";
+        }
+    } catch (err) {
+
+    }
+};
 
   useEffect(()=>{
+    console.log(stoageGetter('user'),'user id calendar event--------->')
+    // let userid =stoageGetter('user')
     console.log(props.click)
     if(props.click == 'data'||"UPDATE EVENT"){
-      console.log(props.Data);
+      // console.log(props.Data.teamMember);
       setIsModalVisible(true);
     }
     if(props.click=='UPDATE EVENT'){
       setUpdateCheckEvent(true)
     }//1661472000000
     if(props.Data){
-      let date=moment(1661472000000).format("YYYY-MM-DD")
+      if(props.Data.appointment_type == 'existingpartner'){
+        setAdvisorCheck(true)
+        setCustomerCheck(false)
+        if(props.Data.event_type == 'appointment'){
+          setAdvisorCollection({
+            appointment_advisor: true,
+            phone_call_advisor: false,
+            training: false,
+          })
+          setAppointmentType(props.Data.tata_appointment_type)
+          if(props.Data.tata_appointment_type == 'Business Planning & review' ){
+            setAdvisorCollection({
+              appointment_advisor: true,
+              businessPlanning_review: true,
+              inactive_agent_reactivation: false,
+              unit_meeting: false,
+              joint_customer_visit: false,
+              servicing: false
+            })
+          }else if (props.Data.tata_appointment_type == 'Inactive agent reactivation'){
+            setAdvisorCollection({
+              appointment_advisor: true,
+              businessPlanning_review: false,
+              inactive_agent_reactivation: true,
+              unit_meeting: false,
+              joint_customer_visit: false,
+              servicing: false
+            })
+          }else if (props.Data.tata_appointment_type == 'Joint customer Meeting'){
+            setAdvisorCollection({
+              appointment_advisor: true,
+              businessPlanning_review: false,
+              inactive_agent_reactivation: false,
+              unit_meeting: false,
+              joint_customer_visit: true,
+              servicing: false
+            })
+          }else if (props.Data.tata_appointment_type == 'Unit Meeting'){
+            setAdvisorCollection({
+              appointment_advisor: true,
+              businessPlanning_review: false,
+              inactive_agent_reactivation: false,
+              unit_meeting: true,
+              joint_customer_visit: false,
+              servicing: false
+            })
+          }else if (props.Data.tata_appointment_type == 'Servicing'){
+            setAdvisorCollection({
+              appointment_advisor: true,
+              businessPlanning_review: false,
+              inactive_agent_reactivation: false,
+              unit_meeting: false,
+              joint_customer_visit: false,
+              servicing: true
+            })
+          }
+          
+        }else if(props.Data.event_type == 'phonecall'){
+          setAdvisorCollection({
+            appointment_advisor: false,
+            phone_call_advisor: true,
+            training: false,
+          })
+          setclientVisit('Relationship call')
+        }else{
+          setAdvisorCollection({
+            appointment_advisor: false,
+            phone_call_advisor: false,
+            training: true,
+          })
+        }
+      }else{
+        setCustomerCheck(true)
+        setAdvisorCheck(false)
+        if(props.Data.event_type == 'appointment'){
+          setCustomerCollection({
+            appointment_customer: true,
+            phone_call_customer: false,
+            policy_renewal: false
+          })
+          setclientVisit('Client Meeting')
+        }else if(props.Data.event_type == 'phonecall'){
+          setCustomerCollection({
+            appointment_customer: false,
+            phone_call_customer: true,
+            policy_renewal: false
+          })
+          setclientVisit('Relationship call')
+        }else if(props.Data.event_type == 'policyrenewals'){
+          setCustomerCollection({
+            appointment_customer: false,
+            phone_call_customer: false,
+            policy_renewal: true
+          })
+        }
+      }
+
+      if(props.Data.durationType == 'customedatetime'){
+        setDurationButton({
+          select_time: true,
+          all_day: false
+        })
+      }else{
+        setDurationButton({
+          select_time: false,
+          all_day: true
+        })
+      }
+      if(props.Data.statusType == 'open'){
+        setEventStatus("open")
+        setStatusType({
+          openStatus: true,
+          closeStatus: false
+        })
+      }else{
+        setEventStatus("close")
+        setStatusType({
+          openStatus: false,
+          closeStatus: true
+        })
+      }
+      if(props.Data.manuallycustomerAdded == true){
+      setCustomerNameText(props.Data.manuallyrenewalCustomer[0].Name)
+      setCustomerNameCheck(true)
+      setCustomerMobileNoCheck(true)
+      setCustomerMobileNoText(props.Data.manuallyrenewalCustomer[0].MobileNumber)
+      setManualCustomerCheck(true)
+      setAddCustTagVisible(true)
+      }
+      setAppointmentid(props.Data._id)
+      setStatusReasonText(props.Data.statusreason)
+      setDurationStartTimeOperation(props.Data.start_time)
+      setDurationEndTimeOperation(props.Data.end_time)
+      setDurationEndDateOperation(props.Data.end_date)
+      setDurationEndDate(moment(props.Data.end_date))
       setDurationStartDateOperation(props.Data.start_date);
-      setDurationStartDate(date)
+      setDurationStartDate(moment(props.Data.start_date))
+      setStartTimeSelect(props.Data.start_time)
+      setEndTimeSelect(props.Data.end_time)
+      setEventDurationType(props.Data.durationType)
+      setModeSelect(props.Data.mode)
+      setStatusReasonText(props.Data.statusreason)
+      setTeamMemberChip(props.Data.teamMember)
+      setCustomerNameText()
       console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
   },[])
@@ -1009,7 +1222,7 @@ export default function CalendarEvent(props) {
   const[statusReasonText,setStatusReasonText]=useState("")
   const[manualCustomerCheck,setManualCustomerCheck]=useState(false)
   const[addCustTagVisible,setAddCustTagVisible]=useState(true)
-  const[eventDurationType,setEventDurationType]=useState("")
+  const[eventDurationType,setEventDurationType]=useState("customedatetime")
   const[searchTeamArr,setSearchTeamArr]=useState([])
   const[searchTeamObject,setSearchTeamObject]=useState()
   const[teamArr,setTeamArr]=useState([]);
@@ -1340,6 +1553,32 @@ export default function CalendarEvent(props) {
       console.log(err)
     })
   }
+
+  const onChangeTeam = (text,data) => {
+    console.log(text,'text------>')
+    console.log(data, 'data------>')
+    setTeamMemberData(text)
+    // console.log('onSelect___text', text);
+    // console.log('onSelect___data', data);
+    setOwnerCollectn([...ownerCollectn,data])
+  };
+
+  const onSelectTeam = (value) => {
+    console.log('ON SELECTION ______________', value);
+    setTeamMemberData('')
+    let _data = [...new Set([...teamMemberChip,value])]
+    setTeamMemberChip(_data)
+  }
+
+  const removeTeamMember = (data,ind) => {
+    console.log('removeTeamMember', data);
+    console.log('ownerCollectn=====>>', ownerCollectn);
+    let _arrayOwner = ownerCollectn.filter((item,index) => item.value !== data)
+    setOwnerCollectn(_arrayOwner)
+    let _array = teamMemberChip.filter((item,index) => index !== ind)
+    setTeamMemberChip(_array)
+  }
+
   const searchCustomer = (e) => {
   setCustomerOnClickCheck(true)
   axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/search/customers?csmId=616e908c43ed727bbac8d2d4&search=${searchCustomerText}`)
@@ -1602,13 +1841,16 @@ export default function CalendarEvent(props) {
     setTeamTagVisible(false)
   }
     const StartDateFunc = (date, dateString) => {
+      console.log(date)
+      console.log(dateString)
       setDurationStartDate(moment(date))
-
+      setDurationEndDate(moment(date))
   let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
 
   console.log(ms_date)
 
       setDurationStartDateOperation(ms_date)
+      setDurationEndDateOperation(ms_date)
       console.log("This is Start Date"+ms_date)
       if(durationEndDateOperation<ms_date){
         setDurationStartDateDiffCheck(false)
@@ -1845,7 +2087,7 @@ export default function CalendarEvent(props) {
       //     setDurationTimeAlert(false)
     }
     const BookAppointmentFunc = async (e) => {
-
+     
 
       console.log(eventLoadCheck)
 
@@ -1895,86 +2137,159 @@ export default function CalendarEvent(props) {
 
 
       if(updateEventCheck==true){
-      
-      axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
-      
-      
-        // showComment: false,
-        //       leadId: "",
-        //       partnerId: "",
-        //       customerId: "",
-        //       teamMember_clone: [],
-        //       statusReason: "sdsd",
-        //       isLeadFailed: false,
-        //       Appointment_id: "6156fe9a4735ef7f94293d8c",
-        //       manuallyrenewalCustomer: [
-        //           {
-        //               Name: "sa",
-        //               MobileNumber: "2"
-        //           }
-        //       ],
-        //       clientVisit: "clientmeeting",
-        //       teamMember: [],
-        //       manuallycustomerAdded: "true",
-        //       statusType: "close",
-        //       tata_appointment_type: "",
-        //       durationType: "customedatetime",
-        //       appointment_type: "customer",
-        //       start_time_MS: 1633170600000,
-        //       end_time_MS: 1633174200000,
-        //       start_time: 37800000,
-        //       start_date: 1633132800000,
-        //       userId: "61519f9a8ce8772eab9838cb",
-        //       end_time: 41400000,
-        //       end_date: 1633132800000,
-        //       event_type: "appointment",
-        //       event_name: "Appointment",
-        //       event_description: "Singh Dhara will have a client meeting with Sa",
-        //       // created_date: 1633091226621
-      
-      
-      
-      
-      
-      showComment: "false",
+        
+        console.log('Update event--->')
+        if(modeSelect == ''){
+          message.warning('Mode is Mandatory');
+        }else if (durationStartDateOperation == undefined){
+          message.warning('Start Date is Mandatory');
+        }else if (durationStartTimeOperation == undefined || ''){
+          message.warning('Start Time is Mandatory');
+        }else if (durationEndDateOperation == undefined || ''){
+          message.warning('End Date is Mandatory');
+        }else if (durationEndTimeOperation == undefined || ''){
+          message.warning('End Time is Mandatory');
+        }else{
+          setDurationModeAlert(false)
+          setDurationDateAlert(false)
+          setDurationTimeAlert(false)
+          setDurationEndDateAlert(false)
+          setDurationEndTimeAlert(false)
+          console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
+        let result = await axiosRequest.put('user/updateAppointment', {
+          userId: stoageGetter('user').id,
+          //userId : '60069a18579be233d2decf04',
+          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+          event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+            :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+            :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+            :null,
+          tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
+          :"",
+          clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
+        // partnerId:  advisorCheck?{
+          
+        //     contactNo: searchAdvisorObject.contactNo,
+        //     partnerId: searchAdvisorObject.partnerId,
+        //     partnerName: searchAdvisorObject.partnerName,
+        //     _id: searchAdvisorObject._id,
+  
+        // }:"",
+        Appointment_id : Appointmentid,
         leadId: "",
-        partnerId: "",
-        customerId: "",
-        teamMember_clone: [],
-        statusReason: statusReasonText,
-        isLeadFailed: false,
-        Appointment_id: updateEventId, 
-        manuallyrenewalCustomer: [],
-        clientVisit: "clientmeeting",
-        teamMember: [],
-        manuallycustomerAdded:addManuallyButtonCheck,
-        statusType: statusType.openStatus==true?"open":"close",
-        tata_appointment_type: "",
-        durationType: eventDurationType,
-        appointment_type: "",
-        // start_time_MS: 1632315600000,
-        // end_time_MS: 1632319200000,
-        start_time: durationStartTimeOperation,
-        start_date: durationStartDateOperation,
-        userId: "616e908c43ed727bbac8d2d4",
-        end_time: durationEndTimeOperation,
-        end_date: durationEndDateOperation,
-        event_type: updateEventType,
-        event_name: "",
-        event_description: "",
-        // created_date: 1631962470877,
-        advisorName: "",
-        event_repeat_on_every: "",
-        event_repeat_till_date: "",
-        reminder_prority_color: "",
-        set_reminder: "",
+          durationType: eventDurationType,
+          start_date:durationStartDateOperation,
+            start_time:durationStartTimeOperation,
+            end_date:durationEndDateOperation,
+            end_time:durationEndTimeOperation,
+          teamMember:ownerCollectn,
+          statusType:statusType.openStatus==true?"open":"close",
+          statusreason:statusReasonText,
+          manuallycustomerAdded:addManuallyButtonCheck?true:false,
+          manuallyrenewalCustomer:addManuallyButtonCheck? [
+            {
+              Name:customerNameText,
+              MobileNumber:customerMobileNoText,
+            }
+          ]:[],
+          customerId:"",
+          teamMember_clone:[
+            
+          ],
+          remarkText : '',
+          mode : modeSelect,
+          }, { secure: true });
+          
+          setIsModalVisible(false)
+          console.log(result, 'book update appointment result-------->')
+
+          if(result.length !== 0){
+            props.api()
+            props.getdata(true)
+            setIsModalVisible(false)
+          }
+
+
+  //     axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
+      
+      
+      
+  //       // showComment: false,
+  //       //       leadId: "",
+  //       //       partnerId: "",
+  //       //       customerId: "",
+  //       //       teamMember_clone: [],
+  //       //       statusReason: "sdsd",
+  //       //       isLeadFailed: false,
+  //       //       Appointment_id: "6156fe9a4735ef7f94293d8c",
+  //       //       manuallyrenewalCustomer: [
+  //       //           {
+  //       //               Name: "sa",
+  //       //               MobileNumber: "2"
+  //       //           }
+  //       //       ],
+  //       //       clientVisit: "clientmeeting",
+  //       //       teamMember: [],
+  //       //       manuallycustomerAdded: "true",
+  //       //       statusType: "close",
+  //       //       tata_appointment_type: "",
+  //       //       durationType: "customedatetime",
+  //       //       appointment_type: "customer",
+  //       //       start_time_MS: 1633170600000,
+  //       //       end_time_MS: 1633174200000,
+  //       //       start_time: 37800000,
+  //       //       start_date: 1633132800000,
+  //       //       userId: "61519f9a8ce8772eab9838cb",
+  //       //       end_time: 41400000,
+  //       //       end_date: 1633132800000,
+  //       //       event_type: "appointment",
+  //       //       event_name: "Appointment",
+  //       //       event_description: "Singh Dhara will have a client meeting with Sa",
+  //       //       // created_date: 1633091226621
+      
+      
+      
+      
+      
+  //     showComment: "false",
+  //       leadId: "",
+  //       partnerId: "",
+  //       customerId: "",
+  //       teamMember_clone: [],
+  //       statusReason: statusReasonText,
+  //       isLeadFailed: false,
+  //       Appointment_id: updateEventId, 
+  //       manuallyrenewalCustomer: [],
+  //       clientVisit: "clientmeeting",
+  //       teamMember: [],
+  //       manuallycustomerAdded:addManuallyButtonCheck,
+  //       statusType: statusType.openStatus==true?"open":"close",
+  //       tata_appointment_type: "",
+  //       durationType: eventDurationType,
+  //       appointment_type: "",
+  //       // start_time_MS: 1632315600000,
+  //       // end_time_MS: 1632319200000,
+  //       start_time: durationStartTimeOperation,
+  //       start_date: durationStartDateOperation,
+  //       userId: "616e908c43ed727bbac8d2d4",
+  //       end_time: durationEndTimeOperation,
+  //       end_date: durationEndDateOperation,
+  //       event_type: updateEventType,
+  //       event_name: "",
+  //       event_description: "",
+  //       // created_date: 1631962470877,
+  //       advisorName: "",
+  //       event_repeat_on_every: "",
+  //       event_repeat_till_date: "",
+  //       reminder_prority_color: "",
+  //       set_reminder: "",
 
         
       
       
       
     
-      // updated_date: 1631962990266
+  //     // updated_date: 1631962990266
   
  
  
@@ -1982,28 +2297,49 @@ export default function CalendarEvent(props) {
  
  
  
-      //   _id:"6135e9a3f503954f7e6bba45s", 
-      // userId:"60a61763de95b87f62856c13",
-      //     partnerId:"",
-      //     appointment_type:"customer",
-      //     event_type:"appointment",
-      //     start_date:durationStartDateOperation,
-      //     start_time:durationStartTimeOperation,
-      //     end_date:durationEndDateOperation,
-      //     end_time:durationEndTimeOperation,
-      //     leadId:""
-        })
-        .then((res)=>{
-  setEventLoadCheck(true)  
-  setAddEvents([])
-  setFetchEventArray([])
-          console.log(res.data.errMsg)
-        }).catch((err)=>{
-          console.log(err)
-        })
+  //     //   _id:"6135e9a3f503954f7e6bba45s", 
+  //     // userId:"60a61763de95b87f62856c13",
+  //     //     partnerId:"",
+  //     //     appointment_type:"customer",
+  //     //     event_type:"appointment",
+  //     //     start_date:durationStartDateOperation,
+  //     //     start_time:durationStartTimeOperation,
+  //     //     end_date:durationEndDateOperation,
+  //     //     end_time:durationEndTimeOperation,
+  //     //     leadId:""
+  //       })
+  //       .then((res)=>{
+  // setEventLoadCheck(true)  
+  // setAddEvents([])
+  // setFetchEventArray([])
+  //         console.log(res.data.errMsg)
+  //       }).catch((err)=>{
+  //         console.log(err)
+  //       })
   
-        setIsModalVisible(false)
+  //       setIsModalVisible(false)
       }
+      setIsModalVisible(false)
+      if (startTimeSelect == "" && durationButton.select_time == true) {
+            setDurationStartTimeCheck(false)
+            setDurationTimeAlert(true)
+      //  alert("This workd")
+    
+            return false
+          }
+      if (endTimeSelect == "" && durationButton.select_time == true) {
+            setDurationEndTimeCheck(false)
+            setDurationTimeAlert(true)
+          
+    
+            return false
+          }
+          
+          console.log(addEvents)
+    
+          console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
+        
+    }
       else{
       
         console.log('book appointment ---->')
@@ -2028,14 +2364,18 @@ export default function CalendarEvent(props) {
           setDurationTimeAlert(false)
           setDurationEndDateAlert(false)
           setDurationEndTimeAlert(false)
+          console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
         let result = await axiosRequest.post('user/bookAppointment', {
-          userId:"62fcdbfc5fb1dc8913ab59f3",
+           userId: stoageGetter('user').id,
+         // userId : '60069a18579be233d2decf04',
           appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
           event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
             :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
             :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
             :null,
-          tata_appointment_type:"businesspalnrevie",
+          tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
+          :"",
+          clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
         // partnerId:  advisorCheck?{
           
         //     contactNo: searchAdvisorObject.contactNo,
@@ -2044,15 +2384,13 @@ export default function CalendarEvent(props) {
         //     _id: searchAdvisorObject._id,
   
         // }:"",
-          durationType:"customedatetime",
+          durationType: eventDurationType,
           start_date:durationStartDateOperation,
             start_time:durationStartTimeOperation,
             end_date:durationEndDateOperation,
             end_time:durationEndTimeOperation,
-          teamMember:[
-            
-          ],
-          statusType:"open",
+          teamMember:ownerCollectn,
+          statusType:statusType.openStatus==true?"open":"close",
           statusreason:statusReasonText,
           manuallycustomerAdded:addManuallyButtonCheck?true:false,
           manuallyrenewalCustomer:addManuallyButtonCheck? [
@@ -2061,7 +2399,6 @@ export default function CalendarEvent(props) {
               MobileNumber:customerMobileNoText,
             }
           ]:[],
-          clientVisit:"",
           customerId:"",
           teamMember_clone:[
             
@@ -2072,7 +2409,11 @@ export default function CalendarEvent(props) {
 
           console.log(result, 'book appointment result-------->')
 
-
+          if(result.length !== 0){
+            props.api()
+            props.getdata(true)
+            setIsModalVisible(false)
+          }
       
       
     // axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
@@ -2276,6 +2617,7 @@ export default function CalendarEvent(props) {
         phone_call_advisor: true,
         training: false,
       })
+      setclientVisit('Relationship call')
     }
     const AdvisorAppointmentFunc = () => {
       setAdvisorCollection({
@@ -2298,6 +2640,7 @@ export default function CalendarEvent(props) {
         phone_call_customer: true,
         policy_renewal: false
       })
+      setclientVisit('Relationship call')
     }
     const CustomerPolicyRenewalFunc = () => {
       setCustomerCollection({
@@ -2344,6 +2687,7 @@ export default function CalendarEvent(props) {
         joint_customer_visit: false,
         servicing: false
       })
+      setAppointmentType('Unit Meeting')
     }
     const AppointmentAdvisorServicingFunc = () => {
       setAdvisorCollection({
@@ -2354,6 +2698,7 @@ export default function CalendarEvent(props) {
         joint_customer_visit: false,
         servicing: true
       })
+      setAppointmentType('Servicing')
     }
     const AppointmentAdvisorJoint_Cust_MeetingFunc = () => {
       setAdvisorCollection({
@@ -2364,6 +2709,7 @@ export default function CalendarEvent(props) {
         joint_customer_visit: true,
         servicing: false
       })
+      setAppointmentType('Joint customer Meeting')
     }
     const AppointmentAdvisorBusinessPlanningFunc = () => {
       setAdvisorCollection({
@@ -2374,6 +2720,7 @@ export default function CalendarEvent(props) {
         joint_customer_visit: false,
         servicing: false
       })
+      setAppointmentType('Business Planning & review')
     }
 
     const AppointmentAdvisorInactiveAgentFunc = () => {
@@ -2385,11 +2732,14 @@ export default function CalendarEvent(props) {
         joint_customer_visit: false,
         servicing: false
       })
+      setAppointmentType('Inactive agent reactivation')
     }
 
     const onChangeDate = (date, dateString) => {
       console.log(date, dateString);
       setDurationStartDate(moment(date).format("YYYY-MM-DD"))
+      setDurationEndDate(moment(date).format("YYYY-MM-DD"))
+      
     console.log( moment(date).format("YYYY-MM-DD"))
     }
 
@@ -2470,7 +2820,7 @@ export default function CalendarEvent(props) {
         phone_call: true,
         training_prospect: false
       })
-
+      setclientVisit('Relationship call')
 
     }
     const ProspectTrainingFunc = () => {
@@ -3156,54 +3506,75 @@ export default function CalendarEvent(props) {
               >
 
               </div>
+              {
+                customerCollection.appointment_customer == true && customerCheck == true?
+                <div>
+                <h4
+                  className="CalendarEvent-Modal-Card-header-type"
+                >Client Visit</h4>
+
+
+                <div
+                  className="CalendarEvent-Modal-appointmenttype-button-flex"
+                >
+                  <button
+                    onClick={() => { setclientVisit('Client Meeting')}}
+                    className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
+                  >Client Meeting </button>
+
+
+
+                </div>
+              </div> : null
+              }
               {advisorCollection.appointment_advisor == true && advisorCheck == true ?
                 <div>
                   <h4
                     className="CalendarEvent-Modal-Card-header-type"
                   >Appointment Type</h4>
-                  <div
-                    className="CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex"
-                  >
+                  <div className="CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex">
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorBusinessPlanningFunc}
-                      className={advisorCollection.businessPlanning_review == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
+                      className={advisorCollection.businessPlanning_review == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-businessPlanning-static-button-style cal-mr10-mb10"}
                     >Business Planning & Review</button>
                   
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorInactiveAgentFunc}
                      
-                      className={advisorCollection.inactive_agent_reactivation == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style" : "CalendarEvent-Modal-businessPlanning-static-button-style "}
+                      className={advisorCollection.inactive_agent_reactivation == true ? "CalendarEvent-Modal-businessPlanning-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-businessPlanning-static-button-style cal-mr10-mb10"}
                     >Inactive Agent re-activation</button>
                   
-                    <div className="unittime-mbl">
+                    {/* <div className="unittime-mbl"> */}
                      <button
+                     
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorUnitMeetingFunc}
-                      className={advisorCollection.unit_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
+                      className={advisorCollection.unit_meeting == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-Card-eventwith-static-button-style cal-mr10-mb10"}
                     >Unit Meeting</button>
-                    </div>
-               
-                  </div>
-
-                  <div
-                    className="CalendarEvent-Modal-appointmenttype-button-flex CalendarEvent-Modal-Unit"
-                  >
-                   
+                    {/* </div> */}
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorJoint_Cust_MeetingFunc}
-                      className={advisorCollection.joint_customer_visit == true ? "CalendarEvent-Modal-joint-customer-onclick-button-style" : "CalendarEvent-Modal-joint-customer-static-button-style"}
+                      className={advisorCollection.joint_customer_visit == true ? "CalendarEvent-Modal-joint-customer-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-joint-customer-static-button-style cal-mr10-mb10"}
                     >Joint Customer Meeting</button>
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={AppointmentAdvisorServicingFunc}
-                      className={advisorCollection.servicing == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
+                      className={advisorCollection.servicing == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style cal-mr10-mb10" : "CalendarEvent-Modal-Card-eventwith-static-button-style cal-mr10-mb10"}
                     >Servicing</button>
-
-
+               
                   </div>
+
+                  {/* <div
+                    className="CalendarEvent-Modal-appointmenttype-button-flex CalendarEvent-Modal-Unit"
+                  >
+                   
+                    
+
+
+                  </div> */}
                  
                 </div>
 
@@ -3219,7 +3590,7 @@ export default function CalendarEvent(props) {
                       className="CalendarEvent-Modal-appointmenttype-button-flex"
                     >
                       <button
-                        onClick={() => { }}
+                        onClick={() => { setclientVisit('Relationship call')}}
                         className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
                       >Relationship Call </button>
 
@@ -3239,7 +3610,7 @@ export default function CalendarEvent(props) {
                       >
                         <button
                           disabled={updateEventCheck==true?true:false}
-                          onClick={() => { }}
+                          onClick={() => {setclientVisit('Relationship call') }}
                           className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
                         >Relationship Call </button>
 
@@ -3259,7 +3630,7 @@ export default function CalendarEvent(props) {
                         >
                           <button
                             disabled={updateEventCheck==true?true:false}
-                            onClick={() => { }}
+                            onClick={() => {setclientVisit('Relationship call')}}
                             className="CalendarEvent-Modal-Card-clientVisit-onclick-button-style"
                           >Relationship Call </button>
 
@@ -3688,6 +4059,7 @@ export default function CalendarEvent(props) {
                   onClick={ManualCustomerSubmitFunc}
                   className={ "CalendarEvent-Modal-Card-eventwith-onclick-button-style" }
                 >Submit</button>
+                {console.log(manualCustomerCheck,'customer check--->')}
                     {manualCustomerCheck?  <Tag
                     
                     closable={updateEventCheck?false: true}
@@ -3771,9 +4143,11 @@ export default function CalendarEvent(props) {
               <button
               
                 onClick={DurationSelectTimeFunc}
+                value={eventDurationType}
                 className={durationButton.select_time == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >Select Time</button><button
                 onClick={DurationAllDayFunc}
+                value={eventDurationType}
                 className={durationButton.all_day == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
               >All Day</button>
 
@@ -3853,15 +4227,16 @@ export default function CalendarEvent(props) {
                        className={durationEndDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                         // className="CalendarEvent-Modal-Card-header-type"
                       >End Date *</h4>
+                      {console.log(durationEndDate,'end date------>')}
                         <div className="Input-date">
                       <DatePicker onChange={EndDateFunc}
                   
-                        defaultValue={durationEndDate}
+                        // defaultValue={durationEndDate}
                         format="YYYY-MM-DD"
                         value={durationEndDate}
                         className="CalendarEvent-Modal-picker-style"
                       />
-                       {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null}
+                       {/* {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null} */}
                    </div>
                     </div>
                     <div
@@ -3937,7 +4312,40 @@ export default function CalendarEvent(props) {
             <h4
               className="CalendarEvent-Modal-Card-header-type"
             >Add Team Member</h4>
-            <div className="CalendarEvent-Modal-Search-flex">
+            <div className='Todo-Create-Search'>
+                        {/* <input type='text' placeholder='Search by Name'/> */}
+                        {/* <SearchOutlined /> */}
+                        {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
+                        {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
+                        <AutoComplete
+                          disabled={updateEventCheck==true?true:false}
+                          value={teamMemberData}
+                          style={{width: '100%'}}
+                          options={hierarAgentList}
+                          onChange={(text,data)=> onChangeTeam(text,data) }
+                          onSelect={onSelectTeam}
+                          filterOption={(inputValue, option) =>
+                            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                          }>
+                            <Search  placeholder="Search by Name" />
+                          </AutoComplete>
+                    </div>
+                    {console.log(teamMemberChip,'team member chip----->')}
+                    { teamMemberChip?.length !== 0 &&
+                        <div style={{display:'flex',flexFlow:'wrap',alignItems:'center'}}>
+                          {
+                            teamMemberChip?.map((item,index) =>{
+                              console.log(item,'item---->')
+                              return(
+                                <div style={{marginRight:10,marginTop:10,}}>
+                                  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item.value} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
+                                </div>
+                              )
+                          })
+                          }
+                        </div>
+                      }
+            {/* <div className="CalendarEvent-Modal-Search-flex">
             <Search placeholder="Search By Name" 
             disabled={updateEventCheck?true:false}
            value={searchTeamText}
@@ -3980,7 +4388,8 @@ export default function CalendarEvent(props) {
           className="CalendarEvent-Modal-Search-tag-style"
         >
         {teamOnClickVal}
-        </Tag>
+        </Tag> */}
+        {console.log(ownerCollectn, 'owner--->')}
             <div
               className="CalendarEvent-Modal-Card-vertical-line"
             >
@@ -3993,10 +4402,12 @@ export default function CalendarEvent(props) {
                 className="CalendarEvent-Modal-Card-status-flex"
               >
                 <button
+                value={eventStatus}
                   onClick={StatusTypeOpenFunc}
                   className={statusType.openStatus == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                 >Open</button>
                 <button
+                 value={eventStatus}
                   onClick={StatusTypeCloseFunc}
                   className={statusType.closeStatus == true ? "CalendarEvent-Modal-Card-status-onclick-button-style" : "CalendarEvent-Modal-Card-status-static-button-style"}
                 >Close</button>
@@ -4029,7 +4440,7 @@ export default function CalendarEvent(props) {
             // onClick={() => { }}
             className={"CalendarEvent-Modal-book-appointment-button-style"}
             onClick={BookAppointmentFunc}
-          >{bookEventCheck==true? "Book Appointment":"Update Appointment"}</button>
+          >{updateEventCheck==true? "Update Appointment":"Book Appointment"}</button>
         </div>
         {/* <Card>
   <h4>jasjkhdsaj</h4>

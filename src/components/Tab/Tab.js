@@ -40,6 +40,7 @@ const Tab = ({
   filterdata,
 
 }) => {
+  console.log("tabMenu*****Data", tabMenu) 
 
   // console.log("YE ARAR", props)
 
@@ -164,6 +165,12 @@ const Tab = ({
         case 'todo':
           return history.push('/todo')
 
+        case 'advisorpitch':
+          return history.push('/masterpresales/advisordetail/advisorpitch')
+          
+
+          case 'customerpitch':
+            return history.push('/masterpresales/customerdetails/salespitch')
 
         case 'allrenewals':
           return history.push('/renewalMaster/allRenewals')
@@ -251,29 +258,31 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        <div className="header-img">
-          <span className="header-title">{header}</span>
+        <div className={tabMenu.length !== 0 ? "header-img" : 'header-img-noTab'}>
+          <div>
+            <div>
+              <p className="header-title-tab">{header}</p>
+            </div>
 
-          <div >
-            <Tabs
-              tabBarGutter={20}
-              centered={false}
-              type="card"
-              onTabClick={handler}
-              size="small"
-              activeKey={activeKey}
-              className="main-lead-tabs"
-              style={{ marginLeft: '80px' }}
-            >
-              {tabPane}
-            </Tabs>
+            <div >
+              <Tabs
+                tabBarGutter={20}
+                centered={false}
+                type="card"
+                onTabClick={handler}
+                size="small"
+                activeKey={activeKey}
+                className="main-lead-tabs"
+                style={{ marginLeft: '40px'}}
+              >
+                {tabPane}
+              </Tabs>
+            </div>
           </div>
 
           {tabPane.key === activeKey ?
-
-
             <div
-              className="round-card-main "
+              className="round-card-main-Tab "
             // defaultActiveKey={"allocket"}
             // activeKey={"team"}
             // style={{ marginLeft: '8rem' }}
@@ -303,6 +312,7 @@ const Tab = ({
               
             </div>
             : null}
+
         </div>
       ) : (
         <>

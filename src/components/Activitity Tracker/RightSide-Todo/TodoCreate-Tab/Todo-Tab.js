@@ -38,7 +38,7 @@ const TodoTab = (props) => {
 
   useEffect(() => {
     try{
-    // console.log('USER HIERARCHYY ___DATA__',_dataStore)
+    console.log('USER HIERARCHYY ___DATA__',_dataStore)
     // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
     let _teamMember = []
     _dataStore.reporting_users.map(el => {
@@ -445,22 +445,18 @@ const TodoTab = (props) => {
   
   const onChangeTeam = (text,data) => {
     
-    setTeamMemberData('')
-    console.log('onSelect___text', text);
-    console.log('onSelect___data', data);
-    // const [ownerCollectn ,setOwnerCollectn]=useState([])
+    setTeamMemberData(text)
+    // console.log('onSelect___text', text);
+    // console.log('onSelect___data', data);
     setOwnerCollectn([...ownerCollectn,data])
   };
   
 
   const onSelectTeam = (value) => {
-    // let _chipData = []
-    // _chipData.push(value)
-    // console.log('teamMemberChip ______________', teamMemberChip);
+    // console.log('ON SELECTION ______________', value);
+    setTeamMemberData('')
     let _data = [...new Set([...teamMemberChip,value])]
-    // console.log('_data ______________', _data);
     setTeamMemberChip(_data)
-    // console.log('TeamMemberChip ______________', teamMemberChip);
   }
 
   const removeTeamMember = (data,ind) => {
@@ -484,11 +480,9 @@ const TodoTab = (props) => {
             <div className='Todo-Create-Container'>
                 <div className='Todo-Col-shadow-box'>
                     <div className='Todo-Create-Header'>
-                        <p>
-                            Add Team Member
-                        </p>
+                        <p> Add Team Member </p>
                     </div>
-                    <div className='Todo-Create-SearchBox'>
+                    <div className='Todo-Create-SearchBox todoSearch'>
                         {/* <input type='text' placeholder='Search by Name'/> */}
                         {/* <SearchOutlined /> */}
                         {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
@@ -502,7 +496,7 @@ const TodoTab = (props) => {
                           filterOption={(inputValue, option) =>
                             option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                           }>
-                            <Search  placeholder="input here" />
+                            <Search  placeholder="Search by Name" />
                           </AutoComplete>
                     </div>
                     { teamMemberChip.length !== 0 &&

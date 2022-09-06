@@ -10,7 +10,7 @@ import axios from 'axios'
 import './EventCreate.css'
 
 
-const EventCreate = ({monthData,yearData}) => {
+const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
 
   const MonthContainer=[{1:'Jan', 2:'Feb',3:'Mar', 4:'Apr', 
     5:'May', 6:'Jun', 7:'Jul', 8:'Aug', 9:'Sep', 10:'Oct', 
@@ -60,7 +60,7 @@ const EventCreate = ({monthData,yearData}) => {
           </div>
           {
               isModalVisible == true ?
-              <EventCreateComponent click={'data'}/>
+              <EventCreateComponent click={'data'} api={getFunc} getdata={getdata}/>
               :""
             }
           <div className='EventCreate-btn'>

@@ -298,6 +298,11 @@ const NewLead = React.memo(() => {
 
   // store form data 
   let storeFormData = useSelector((state) => state.newLead.formData)
+  console.warn('((((((((((( storeFormData )))))))))))',storeFormData)
+  delete storeFormData['appointmentId'];
+  delete storeFormData['appointmentDate'];
+
+  
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading)
   let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
   const storeLeadId = useSelector((state) => state.newLead.leadId)
@@ -336,8 +341,12 @@ const NewLead = React.memo(() => {
   const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
 
 
-  const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
-  console.warn('leadArr((((((((((===>>>>>>>>>>', leadArr)
+  // const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
+  let leadArr = []
+  storeFormData.leadStatus !== '' && leadArr.push(storeFormData.leadStatus)
+  storeFormData.leadDisposition !== '' && leadArr.push(storeFormData.leadDisposition)
+  storeFormData.leadsubDisposition !== '' && leadArr.push(storeFormData.leadsubDisposition)
+  // console.warn('leadArr((((((((((===>>>>>>>>>>', leadArr)
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
@@ -369,35 +378,60 @@ const NewLead = React.memo(() => {
   const [cityProvince, setCityProvince] = useState(storeCityValue)
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState()
-
+  const [leadStatusData, setLeadStatusData] = useState(leadArr)
 
   useEffect(() => {
+    setLeadStatusData(leadArr)
+  },[])
+  
 
-    // console.log('payload',payloadFormData)
-    // console.log('nonpayload',storeFormData)
-    // dispatch(actions.fetchLeadDetails(fetchLeadId))
-    // console.log(leadDisposition === "appointment" || leadDisposition === "callback" || !appointmentStatus)
-    // console.log(appointmentStatus)
+  useEffect(() => {
     if(storeFormData.lead_Id !== ''){
+      // let _status = []
       console.warn('UPDATE', storeFormData)
       setFirstName(storeFormData.firstName)
       setLastName(storeFormData.lastName)
       setLeadStatus(storeFormData.leadStatus)
       setPrimaryNo(storeFormData.primaryMobile)
       setLeadType(storeFormData.leadType)
+
+      setStateProvince(storeFormData.state)
+      setCityProvince(storeFormData.city)
+      setEmail(storeFormData.email)
+      setInsuranceComapany(storeFormData.Insurance_Company)
+      setProduct(storeFormData.Product)
+      // setLeadStatusData(leadArr)
+
+      // console.warn('leadStatusData((((((((((===>>>>>>>>>>', leadStatusData)
+      
+      // storeFormData.leadStatus !== '' && _status.push(storeFormData.leadStatus)
+      // storeFormData.leadDisposition !== '' && _status.push(storeFormData.leadDisposition)
+      // storeFormData.leadsubDisposition !== '' && _status.push(storeFormData.leadsubDisposition)
+
+      // let _status = [storeFormData.leadStatus , storeFormData.leadDisposition , storeFormData.leadsubDisposition]
+      // console.warn('_status((((((((((===>>>>>>>>>>', _status)
+      // setLeadStatusData([...leadStatusData,_status])
+      // setLeadStatusData(_status)
+      // setLeadStatus(leadArr[0])
+      // setLeadDisposition(leadArr[1])
+      // setLeadSubDisposition(leadArr[2])
       // setPrimaryNo(storeFormData.primaryMobile)
       // setPrimaryNo(storeFormData.primaryMobile)
       
     }else{
       console.warn('CREATE', storeFormData.lead_Id)
     }
+
+    // console.log('payload',payloadFormData)
+    // console.log('nonpayload',storeFormData)
+    // dispatch(actions.fetchLeadDetails(fetchLeadId))
+    // console.log(leadDisposition === "appointment" || leadDisposition === "callback" || !appointmentStatus)
+    // console.log(appointmentStatus)
+    
     // console.log('storeLeadId=======>>>', storeLeadId)
     storeLeadId !== '' ? setIsNewLead(false) : setIsNewLead(true)
-    if (primaryNo.length === 10) {
-      setmobileNoValid(true)
-    } else {
-      setmobileNoValid(false)
-    }
+    primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false)
+
     // console.log(_.isEmpty(storeAppointmentData))
     // console.log(storeAppointmentData)
     // form.resetFields({
@@ -450,7 +484,7 @@ const NewLead = React.memo(() => {
     storeEmailValue,
     storePrimaryMobileValue,
     stateProvince,
-    leadArr,
+    leadStatusData,
     leadDataloading,
     storeCityValue,
     storeStateValue
@@ -480,52 +514,52 @@ const NewLead = React.memo(() => {
         {
           value: 'notreachable',
           label: 'Not Reachable',
-          // children: [
-          //   {
-          //     value: 'Not reachable',
-          //     label: 'Not reachable',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Not reachable',
+              label: 'Not reachable',
+            },
+          ],
         },
         {
           value: 'ringingbusy',
           label: 'Ringing Busy',
-          // children: [
-          //   {
-          //     value: 'Ringing Busy',
-          //     label: 'Ringing Busy',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Ringing Busy',
+              label: 'Ringing Busy',
+            },
+          ],
         },
         {
           value: 'wrongnumber',
           label: 'Wrong Number',
-          // children: [
-          //   {
-          //     value: 'Wrong Number',
-          //     label: 'Wrong Number',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Wrong Number',
+              label: 'Wrong Number',
+            },
+          ],
         },
         {
           value: 'invalid',
           label: 'Invalid Number',
-          // children: [
-          //   {
-          //     value: 'Invalid Number',
-          //     label: 'Invalid Number',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Invalid Number',
+              label: 'Invalid Number',
+            },
+          ],
         },
         {
           value: 'switchoff',
           label: 'Switched Off',
-          // children: [
-          //   {
-          //     value: 'Switched Off',
-          //     label: 'Switched Off',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Switched Off',
+              label: 'Switched Off',
+            },
+          ],
         },
       ],
     },
@@ -537,23 +571,31 @@ const NewLead = React.memo(() => {
           value: 'appointment',
           label: 'Appointment',
           isSelected: true,
-          // children: [
-          //   {
-          //     value: 'New Appointment',
-          //     label: 'New Appointment',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Client has given appointment',
+              label: 'Client has given appointment',
+            },
+          ],
         },
         {
           value: 'callback',
           label: 'Callback',
           isSelected: false,
-          // children: [
-          //   {
-          //     value: 'Customer asked for callback',
-          //     label: 'Customer asked for callback',
-          //   }
-          // ],
+          children: [
+            {
+              value: 'Asked to call back later',
+              label: 'Asked to call back later',
+            },
+            {
+              value: 'Decision maker unavailable',
+              label: 'Decision maker unavailable',
+            },
+            {
+              value: 'ECS is active asked to call on due date ',
+              label: 'ECS is active asked to call on due date ',
+            }
+          ],
         },
         // {
         //   value: 'followup',
@@ -573,46 +615,58 @@ const NewLead = React.memo(() => {
         {
           value: 'shorthangup',
           label: 'Short hang up',
-          // children: [
-          //   {
-          //     value: 'shorthangup',
-          //     label: 'Short hang up',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Short hang up',
+              label: 'Short hang up',
+            },
+          ],
         },
         {
           value: 'notinterested',
           label: 'Not interested',
-          // children: [
-          //   {
-          //     value: 'Client denied giving appointment',
-          //     label: 'Client denied giving appointment',
-          //   },
-          //   {
-          //     value: 'Met - not interested',
-          //     label: 'Met - not interested',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'Not interested to Meet',
+              label: 'Not interested to Meet',
+            },
+            {
+              value: 'Did not Enquire',
+              label: 'Did not Enquire',
+            },
+            {
+              value: 'Too Expensive',
+              label: 'Too Expensive',
+            },
+            {
+              value: 'Not interested to continue Existing Policy',
+              label: 'Not interested to continue Existing Policy',
+            },
+          ],
         },
         {
           value: 'nonserviceloc',
-          label: 'Non service location',
-          // children: [
-          //   {
-          //     value: 'Non service location',
-          //     label: 'Non service location',
-          //   },
-          // ],
+          label: 'Non servicable location',
+          children: [
+            {
+              value: 'Non servicable location',
+              label: 'Non servicable location',
+            },
+          ],
         },
         {
           value: 'noteligible',
           label: 'Not Eligible',
-          // children: [
-          //   {
-          //     value: 'Not Eligible',
-          //     label: 'Not Eligible',
-          //   },
-          // ],
+          children: [
+            {
+              value: 'NE - Income',
+              label: 'NE - Income',
+            },
+            {
+              value: 'NE - Age',
+              label: 'NE - Age',
+            },
+          ],
         },
         // {
         //   value: 'notavailable',
@@ -733,6 +787,7 @@ const NewLead = React.memo(() => {
   };
 
   const leadHandler = (value) => {
+    console.log('LEADSSS___STATUSSS',value)
     setLeadStatus(value[0])
     setLeadDisposition(value[1])
     setLeadSubDisposition(value[2])
@@ -847,6 +902,13 @@ const NewLead = React.memo(() => {
     //   range: 'Number must be 10 digits',
     // },
   };
+  const checkValidity = (data) => {
+    if (data === "" || data === undefined || data === null ) {
+      return ""
+    } else {
+        return data;
+    }
+  }
   const formData = {
     ...storeFormData,
     leadStatus: leadStatus,
@@ -854,14 +916,14 @@ const NewLead = React.memo(() => {
     start_time: parseInt(appointmentTime),
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    leadsubDisposition: 'Client has given appointment',
+    leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
     teamMembers: '',
     leadSource: '',
 
-    appointment_status: appointmentStatus,
-    appointmentdisPosition: appointmentDisposition,
-    appointmentsubdisPosition: appointmentSubDisposition,
+    appointment_status: checkValidity(appointmentStatus),
+    appointmentdisPosition: checkValidity(appointmentDisposition),
+    appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
 
 
     lead_Owner_Id: id,
@@ -889,6 +951,8 @@ const NewLead = React.memo(() => {
     alert(error)
     console.log(error)
   }
+
+  
 
   const submitHandler = event => {
     // event.preventDefault();
@@ -1040,7 +1104,7 @@ const NewLead = React.memo(() => {
             "remarksfromsource": remarkFromSource,
             "remarksfromuser": remarkFromUser,
             "reminder": reminder,
-            "leadStatus": leadArr,
+            "leadStatus": leadStatusData,
             "appointmentStatus": ['newappointment', 'newApptmnt']
           }}
           onFinishFailed={onFinishFailedFucn}
@@ -1159,7 +1223,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="state"
                     label="State"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1186,7 +1249,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="city"
                     label="City"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1212,7 +1274,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="leadType"
                     label="Lead Type"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1238,7 +1299,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="product"
                     label="Product"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1265,7 +1325,6 @@ const NewLead = React.memo(() => {
                     className="form-item-name label-color"
                     name="insuranceCompany"
                     label="Insurance Company"
-                    hasFeedback
                     rules={[
                       {
                         required: false,
@@ -1372,7 +1431,7 @@ const NewLead = React.memo(() => {
                         popupClassName="popup-size"
                         onChange={leadHandler}
                         style={{ height: '2.45rem' }}
-                        value={leadArr}
+                        value={leadStatusData}
                       />
                     </Form.Item>
                   </Col>
@@ -1401,7 +1460,7 @@ const NewLead = React.memo(() => {
                         popupClassName="popup-size"
                         onChange={appointmentStatusHandler}
                         style={{ height: '2.45rem' }}
-                        value={leadArr}
+                        value={leadStatusData}
                       />
                     </Form.Item>
                   </Col>}
@@ -1661,16 +1720,16 @@ const NewLead = React.memo(() => {
 
               {/* </Form> */}
             </Col>
-            <Col className='form-body  p30' style={{ marginBottom: "20px" }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
-              <Row  >
+            <Col className='form-body  p30' style={{ marginBottom: "20px",display:'flex',justifyContent: 'flex-end' }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
+              {/* <Row  > */}
                 <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
                   {isNewLead ?
                     <Form.Item>
                       <Button
                         type="primary"
-                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
                         // shape="round"
-                        size="large"
+                        // size="large"
                         icon={<FileTextOutlined />}
                         htmlType="submit"
                       // disabled={!formIsValid}
@@ -1681,32 +1740,18 @@ const NewLead = React.memo(() => {
                       <Button
                         type="primary"
                         // shape="round"
-                        size="large"
+                        // size="large"
                         style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
                         icon={<SaveOutlined />}
                         htmlType="submit"
                       // disabled={!formIsValid}
                       // onClick={updateLeadHandler}
-                      >Submit</Button>
+                      >Update</Button>
                     </Form.Item>
                   }
                 </Col>
-                <Col xs={11} sm={12} md={4}>
-                  {/* <Link to="leaddetails/personallead"> */}
-                  <Form.Item>
-                    <Button
-                      type="primary"
-                      // shape="round"
-                      size="large"
-                      htmlType="submit"
-                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
-                      // icon={<ArrowRightOutlined />}
-                    // onClick={proceedHandler}
-                    >Proceed <ArrowRightOutlined /></Button>
-                  </Form.Item>
-                  {/* </Link> */}
-                </Col>
-              </Row>
+               
+              {/* </Row> */}
             </Col>
           </Row>
         </Form>

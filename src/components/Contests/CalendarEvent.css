@@ -13,8 +13,15 @@
   border-style: solid;
 }
 
-@media (min-width:1200px){
 
+
+@media (min-width:1200px){
+  .Todo-Create-Search{
+    width : 48% 
+  }
+  .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    height: 40px;
+    }
   .bodyData-centerContent div {
     padding: 0 7px !important;
 }
@@ -106,6 +113,7 @@ height: 40px;
 
 .ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
   border-top-left-radius: 5px !important;
+  height: 40px;
   border-bottom-left-radius: 5px !important;
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
@@ -213,7 +221,7 @@ height: 40px;
 .CalendarEvent-Modal-Card-button-flex {
   display: flex;
   flex-direction: row;
-  width: 44%;
+  width: 42%;
   margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
@@ -384,13 +392,17 @@ height: 40px;
 .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
   display: flex;
   flex-direction: row;
-  width: 76%;
+  width: 90%;
   flex-flow: wrap;
   /* background-color: blanchedalmond; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 0.7vw;
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
   margin-top: 11px;
+}
+.cal-mr10-mb10{
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .CalendarEvent-Modal-businessPlanning-onclick-button-style {
@@ -541,7 +553,7 @@ height: 40px;
 .CalendarEvent-Modal-Card-time-duration-flex {
   display: flex;
   flex-direction: row;
-  width: 43%;
+  width: 42%;
   margin-top: 10px;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
@@ -551,12 +563,12 @@ height: 40px;
   display: flex;
   flex-direction: column;
   height: auto;
-  width: 80%;
+  width: 50%;
  
   /* background-color:#e46a25; */
 }
 .CalendarEvent-Modal-picker-style {
-  width: 15vw;
+  width: 95%;
   box-shadow: 0px 2px 2px #00000024;
   border-radius: 0.4vw;
   border: 0.5px solid #c1c8cc;
@@ -572,7 +584,7 @@ height: 40px;
   border: 0.5px solid #fa0909;
 }
 .CalendarEvent-Modal-TimePicker-style {
-  width: 15vw;
+  width: 95%;
   box-shadow: 0px 2px 2px #00000024;
   border-radius: 0.4vw;
   border: 0.5px solid #c1c8cc;
@@ -605,7 +617,7 @@ height: 40px;
 .CalendarEvent-Modal-Card-status-flex {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 42%;
   /* background-color: blanchedalmond; */
   justify-content: space-between;
   padding-bottom: 2vw;
@@ -815,7 +827,15 @@ height: 40px;
 }
 
 @media (min-width: 300px) and (max-width: 420px) {
-  
+  .ant-select {
+    margin-top: 10px !important;
+  }
+  .Todo-Create-Search {
+    margin-top: 15px;
+}
+  .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    height: 40px;
+  }
   .fc .fc-toolbar-chunk {
     width: 50%;
     /* justify-content: flex-start; */
@@ -1139,7 +1159,7 @@ height: 40px;
     margin-left: 10px;
     padding-left: 10px;
     margin-top: 10px;
-    font-family: robotoregular;
+    /* font-family: robotoregular; */
     /* font-size: 13px; */
   }
   .CalendarEvent-Modal-customer-textbox-style {
@@ -1148,7 +1168,7 @@ height: 40px;
     padding-left: 10px;
     margin-top: 10px;
     height: 5vh;
-    font-family: robotoregular;
+    /* font-family: robotoregular; */
     /* font-size: 13px; */
     border-radius: 5px;
     /* margin-bottom: 3vw; */
@@ -1674,17 +1694,19 @@ height: 40px;
 }
 }
 @media (max-width:420px){
-
+  .Team-Calender-Export {
+    margin-top: 10px !important;
+}
   .Team-Calender-Export >button {
     padding: 0px !important;
-    width: 70px !important;
+    /* width: 70px !important; */
   }
   .ant-btn > .anticon + span, .ant-btn > span + .anticon {
     margin-left: 5px !important;
 }
-  .Team-Calender-Export {
+  /* .Team-Calender-Export {
     margin-left: 5px !important;
-  }
+  } */
 
   .ant-card-body {
     padding: 15px !important;
@@ -1759,7 +1781,7 @@ height: 40px;
     height: 5vh !important;
   }
   .CalendarEvent-Modal-appointmenttype-button-flex {
-    width: 78% !important;
+    width: 84% !important;
     margin-top: -15px;
     /* margin-left: 10px; */
   }
@@ -1840,19 +1862,19 @@ height: 40px;
 @media (max-width:420px ){
 
   .CalendarEvent-Modal-Card-button-flex-1{
-    width: 90%;
+    width: 95%;
   }
 
   .CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex {
     /* width: 83% !important;
     margin-left: 10px; */
-    width: 83% !important;
+    width: 90% !important;
     /* margin-left: 10px; */
     display: flex;
     flex-flow: wrap;
   }
   .CalendarEvent-Modal-Card-button-flex{
-    width: 56% !important;
+    width: 61% !important;
   }
   .CalendarEvent-Modal-textinput-style > span > .ant-input, 
  
@@ -1941,7 +1963,7 @@ height: 40px;
     border-radius: 5px;
   }
   .CalendarEvent-Modal-Card-time-duration-flex{
-    width: 58% !important;
+    width: 61% !important;
   }
   .CalendarEvent-Modal-Card-status-flex {
     width: 60% !important;
