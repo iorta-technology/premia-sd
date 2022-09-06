@@ -53,11 +53,12 @@ export const activitiesFail = (error) => {
 }
 
 
-export const home = (agent_id) => {
+export const home = (agent_id,userID) => {
     //    console.log("agent id in",agent_id)
     return async dispatch => {
         dispatch(homeStart())
-        let _resp = await axiosRequest.get(`user/getleads_team_count/${agent_id}`, { secure: true })
+        // https://pocbancanode.iorta.in/secure/user/getleads_team_count/AG9l7ynu?filter=today&agent_user_id=60e5d6056b18e8309da3fa49
+        let _resp = await axiosRequest.get(`user/getleads_team_count/${agent_id}?filter=today&agent_user_id=${userID}`, { secure: true })
         console.log("GETTTT LEADD TEAM COUNTT",_resp)
         return dispatch(homeSuccess(_resp))
         // return axios.get(`user/getleads_team_count/${agent_id}`)
@@ -87,10 +88,12 @@ export const getUserTreeAPI = (userId) => {
     }
 }
 
-export const activities = (id) => {
+export const activities = (id,agentID) => {
     return async dispatch => {
         dispatch(activitiesStart())
-        let _resp = await axiosRequest.get(`user/getAppointment/${id}?set_reminder_prority=high,none,low,medium&now_filter=1`, { secure: true })
+        // https://pocbancanode.iorta.in/secure/user/getAppointment/60e5d6056b18e8309da3fa49?teamdata=1&now_filter=1&agentCode=AG9l7ynu
+        // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getAppointment/62fcdbfc5fb1dc8913ab59f1?teamdata=1&now_filter=1&agentCode=AGvqq42v
+        let _resp = await axiosRequest.get(`user/getAppointment/${id}?teamdata=1&now_filter=1&agentCode=${agentID}`, { secure: true })
         console.log("GETTTT APPPPPPOINTMENTTT",_resp)
         return dispatch(activitiesSuccess(_resp))
         // return axios.get(`user/getAppointment/${id}?set_reminder_prority=high,none,low,medium&now_filter=1`)

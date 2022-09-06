@@ -7,6 +7,7 @@ import TodoTab from './TodoCreate-Tab/Todo-Tab'
 import './Todo.css'
 // import axiosRequest from '../../../axios-request/request.methods';
 // import {stoageGetter} from '../../../helpers'
+const { Title } = Typography;
 
 const Todo = () => {
   const [isActive,setIsActive]=useState(true);
@@ -27,7 +28,8 @@ const Todo = () => {
   return (
     <div className='Todo-Container'>
         <div className='Todo-Top'>
-            <Typography>To Do</Typography>
+            {/* <Typography>To Do</Typography> */}
+            <Title level={5} style={{color: '#545454'}}>To Do</Title>
             <div className='Todo-CreateBtn'>
                 <Typography>Create new Task</Typography>
                 <PlusCircleFilled onClick={showModal}/>
