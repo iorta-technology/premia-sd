@@ -7,8 +7,16 @@ import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { drop } from "lodash";
+import AllocateModal from "../Tab/Allocate"
+
+import { updateCheckAllocatedLead } from '../../store/actions/leads'
+
 const LeadCard = React.memo((props) => {
   const dispatch = useDispatch();
+  const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab)
+  const checkedLead = useSelector((state) => state?.leads?.checkedLead)
+  const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead)
+
   const history = useHistory();
   const {
     id,
@@ -24,7 +32,23 @@ const LeadCard = React.memo((props) => {
     appointmentOn,
   } = props;
 
-  const leadComponent = leadStatus === "newleadentery" ? (
+  const [chkID, setChkId] = useState("")
+
+  function checkboxes(data, e) {
+    e.target.checked ?
+      dispatch(updateCheckAllocatedLead([...checkedLead, data]))
+      :
+      dispatch(updateCheckAllocatedLead(checkedLead?.filter(a => a.id !== data.id) || []))
+    setChkId(data.Id)
+  }
+
+  useEffect(() => {
+    !checkedLead.length && setChkId("")
+  }, [checkedLead])
+
+
+  const leadComponent =
+    leadStatus === "newleadentery" ? (
       <p className="user-status-text capitalize open">Open</p>
     ) : leadStatus === "converted" ? (
       <p className="user-status-text capitalize converted">{leadStatus}</p>
@@ -32,7 +56,7 @@ const LeadCard = React.memo((props) => {
       <p className="user-status-text capitalize failed">{leadStatus}</p>
     ) : leadStatus === "contact" ? (
       <p className="user-status-text capitalize">Open</p>
-    ) : ( <p className="user-status-text capitalize">{leadStatus}</p>)
+    ) : (<p className="user-status-text capitalize">{leadStatus}</p>)
 
   let avatar = firstName.match(/\b(\w)/g) + lastName.match(/\b(\w)/g);
 
@@ -40,7 +64,6 @@ const LeadCard = React.memo((props) => {
   const breakpoint = 620;
 
   useEffect(() => {
-    //  console.log(moment(appointmentOn).format('DD-MM-YYYY'))
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
 
@@ -69,24 +92,25 @@ const LeadCard = React.memo((props) => {
         className="lead-card-desktop"
         hoverable={true}
       >
-        <div className="main-avtar">
-
-        <div className="avatar-and-status">
-        {
-          //  leadComponent.props.children === "Open" ?
-          //  <input type='checkbox'></input>
-          //  :null
+        {allocateBtnStatus &&
+          <input id="checkbox" type='checkbox' checked={chkID && checkedLead.length && checkedLead?.filter(a => a.id.includes(chkID))} onChange={(e) => checkboxes(props, e)}></input>
         }
-          <Avatar style={{paddingTop:'-40px',lineHeight:'none' }} size={{ xl: 50 }}>
+
+        <div className="main-avtar">
+          <div className="avatar-and-status">
+            <Avatar style={{ paddingTop: '-40px' }} size={{ xl: 50 }}>
+              {avatar}
+            </Avatar>
+            <div style={{ display: 'flex' }}>{leadStatus === "newleadentery" ? <div style={{ fontSize: '10px' }}>NEW<div>LEADENTRY</div></div> : leadStatus}</div>
+          </div>
+          {/* <Avatar style={{paddingTop:'-40px',lineHeight:'none' }} size={{ xl: 50 }}>
             {avatar}
-          </Avatar>
+          </Avatar> */}
           {/* <div style={{display:'flex'}}>{leadStatus === "newleadentery"? <div style={{fontSize:'10px'}}>NEW<div>LEADENTRY</div></div> : leadStatus}</div> */}
           {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
-          {leadComponent}
+          {/* {leadComponent} */}
            
         </div>
-        </div>
-          
         <div className="content">
           <div className="content-header">
             <p className="user-name-text capitalize">
@@ -96,10 +120,9 @@ const LeadCard = React.memo((props) => {
             <a href={`tel:${primaryMobile}`}></a>
             {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
           </div>
-          <hr style={{ margin:'3px 0px 4px 0px', opacity:'0.5' }} />
+          <hr style={{ margin: '3px 0px 4px 0px', opacity: '0.5' }} />
 
           <div className="content-body Datainfo-Main-Container">
-            {/* Date Data Code Start Here */}
             <div className="Dateinfo-Container">
               <Card.Grid hoverable={false} className="grid-style">
                 <p className="text-type">Created on</p>
@@ -127,9 +150,6 @@ const LeadCard = React.memo((props) => {
                     : new Date(appointmentOn).toLocaleDateString("in")}
                 </p>
               </Card.Grid>
-
-              {/* Mobile No And Allocated Data Code Start Here */}
-              {/* <div className="NameAllocate-Data-Container"> */}
               <Card.Grid hoverable={false} className="grid-style">
                 <p className="text-type">Mobile No.</p>
                 <p className="text-content">{primaryMobile}</p>
@@ -148,7 +168,6 @@ const LeadCard = React.memo((props) => {
                 <p className="text-type">Allocated to</p>
                 <p className="text-content capitalize">{allocatedTo}</p>
               </Card.Grid>
-              {/* </div> */}
             </div>
           </div>
         </div>
@@ -170,7 +189,7 @@ const LeadCard = React.memo((props) => {
             md: 40,
             xl: 50,
           }}
-          style={{ display: 'flex',alignItems: 'center',justifyContent: 'center',backgroundColor: "blue" }}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: "blue" }}
         >
           {avatar}
         </Avatar>
@@ -191,6 +210,7 @@ const LeadCard = React.memo((props) => {
     );
   }
   return <div key={id}>{card}</div>;
+
 });
 
 export default LeadCard;

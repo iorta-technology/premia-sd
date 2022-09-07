@@ -52,11 +52,11 @@ const HomePage = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    if (id) dispatch(actions.activities(id))
+    // if (id) dispatch(actions.activities(id,agent_id))
     dispatch(actions.getUserTreeAPI(userId))
     // userId && dispatch(actions.fetchUserDetails(userId))
-    channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
-    if (agent_id) dispatch(actions.home(agent_id))
+    // channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
+    // if (agent_id) dispatch(actions.home(agent_id,userId))
 
   }, [dispatch, id, agent_id]);
 
