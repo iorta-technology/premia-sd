@@ -8,7 +8,9 @@ const style = {
     color:"#000",
     background:'#fff'
 }
+
 const HistoryTabs = () => {
+
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
 
@@ -18,6 +20,7 @@ const HistoryTabs = () => {
         // Return a function from the effect that removes the event listener
         return () => window.removeEventListener("resize", handleWindowResize);
     }, [width]);
+    
     return (
         <>
             <Col className="internal-tab"  xs={22} sm={24} md={4} lg={4} xl={4} offset={1}>
