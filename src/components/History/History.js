@@ -156,54 +156,7 @@ return (
                 </Row>
                 :
                 <Row>
-
-                {/* <div className="Advisorpitch-row-flex">
-                    <Tabs tabPosition={tabPosition}  style={{ fontSize: '12px'}}
-                     className='AdvisorPitch-Container'>
-                       
-                        <TabPane tab="Lead" key="1"  className='AdvisorPitch'>
-                            <div className="Advisorpitch-details-card-style ">
-                                <div className="Advisorpitch-details-card-content-align">
-                                    <h1 className="about-heading">Lead</h1><Divider />
-                                    <p className="about-paragraph">Edelweiss Tokio Life Insurance Company offers comprehensive protection plans Edelweiss Tokio Life Insurance Company offers comprehensive protection plans to help you in the hour of need through options of both critical illnesses and life cover. The company helps you to chalk out your goals and create a secure and bright future for yourself and your loved ones. Edelweiss Tokio Life is a private sector insurance provider established in 2011. The company is a joint venture between Edelweiss Group of India, and Tokio Marine Holdings of Japan. It is among the fastest growing private players in the life insurance sector in India. Edelweiss Tokio Life provides a host of life insurance products aimed at providing high returns, guaranteed interest payments, child education needs, retirement benefits etc. for customers across a wide spectrum.</p>
-
-                                </div>
-                            </div>
-                        </TabPane>
-
-                        <TabPane tab="Appointment" key="2"  className='AdvisorPitch'>
-                            <div className="Advisorpitch-details-card-style ">
-                                <div className="Advisorpitch-details-card-content-align">
-                                    <h1 className="about-heading">Appointment</h1><Divider />
-                                    <p className="about-paragraph">Edelweiss Tokio Life Insurance Company offers comprehensive protection plans Edelweiss Tokio Life Insurance Company offers comprehensive protection plans to help you in the hour of need through options of both critical illnesses and life cover. The company helps you to chalk out your goals and create a secure and bright future for yourself and your loved ones. Edelweiss Tokio Life is a private sector insurance provider established in 2011. The company is a joint venture between Edelweiss Group of India, and Tokio Marine Holdings of Japan. It is among the fastest growing private players in the life insurance sector in India. Edelweiss Tokio Life provides a host of life insurance products aimed at providing high returns, guaranteed interest payments, child education needs, retirement benefits etc. for customers across a wide spectrum.</p>
-
-                                </div>
-                            </div>
-                        </TabPane>
-
-                        <TabPane tab="Proposal" key="3"  className='AdvisorPitch'>
-                            <div className="Advisorpitch-details-card-style ">
-                                <div className="Advisorpitch-details-card-content-align">
-                                    <h1 className="about-heading">Proposal</h1><Divider />
-                                    <p className="about-paragraph">Edelweiss Tokio Life Insurance Company offers comprehensive protection plans Edelweiss Tokio Life Insurance Company offers comprehensive protection plans to help you in the hour of need through options of both critical illnesses and life cover. The company helps you to chalk out your goals and create a secure and bright future for yourself and your loved ones. Edelweiss Tokio Life is a private sector insurance provider established in 2011. The company is a joint venture between Edelweiss Group of India, and Tokio Marine Holdings of Japan. It is among the fastest growing private players in the life insurance sector in India. Edelweiss Tokio Life provides a host of life insurance products aimed at providing high returns, guaranteed interest payments, child education needs, retirement benefits etc. for customers across a wide spectrum.</p>
-                                </div>
-                            </div>
-                        </TabPane>
-
-                        <TabPane tab="Issuance" key="4"  className='AdvisorPitch'>
-                            <div className="Advisorpitch-details-card-style ">
-                                <div className="Advisorpitch-details-card-content-align">
-                                    <h1 className="about-heading">Issuance</h1><Divider />
-                                    <p className="about-paragraph">Edelweiss Tokio Life Insurance Company offers comprehensive protection plans Edelweiss Tokio Life Insurance Company offers comprehensive protection plans to help you in the hour of need through options of both critical illnesses and life cover. The company helps you to chalk out your goals and create a secure and bright future for yourself and your loved ones. Edelweiss Tokio Life is a private sector insurance provider established in 2011. The company is a joint venture between Edelweiss Group of India, and Tokio Marine Holdings of Japan. It is among the fastest growing private players in the life insurance sector in India. Edelweiss Tokio Life provides a host of life insurance products aimed at providing high returns, guaranteed interest payments, child education needs, retirement benefits etc. for customers across a wide spectrum.</p>
-
-                                </div>
-                            </div>
-                        </TabPane>
-
-                    </Tabs>
-                </div> */}
                     <HistoryTabs />
-
                     <Col xs={22} sm={22} md={17} className="form-body his-container m0a">
                         {leadElement}
                         {appointmentElement}
