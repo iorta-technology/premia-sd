@@ -12,7 +12,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import LeadCard from '../LeadCards/LeadCard'
 import GlobalFilters from './Filter'
 // import Example from './Filter'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
 import {
