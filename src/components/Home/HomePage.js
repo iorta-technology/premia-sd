@@ -54,6 +54,7 @@ const HomePage = () => {
   useEffect(() => {
     // if (id) dispatch(actions.activities(id,agent_id))
     dispatch(actions.getUserTreeAPI(userId))
+    // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     // channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
     // if (agent_id) dispatch(actions.home(agent_id,userId))
@@ -549,22 +550,22 @@ const HomePage = () => {
               <div className="sales-guide-content">
                 <div className="b1-content">
                   <div onClick={() => history.push('/masterpresales/customerdetails/salespitch')}>
-                    <p className="sales-content" style={{ height: 35, width: 100 }}>Sales Pitch</p>
+                    <p className="sales-content" style={{ height: 35, width: 100,fontSize:14 }}>Sales Pitch</p>
                   </div>
-                  <p className="sales-content" style={{ height: 35, width: 130 }}>Resource Center</p>
+                  <p className="sales-content" style={{ height: 35, width: 130,fontSize:14 }}>Resource Center</p>
                 </div>
                 <div className="b1-content">
                   <div onClick={() => history.push('/products')}><p className="sales-content" style={{ height: 35, width: 100 }}>Product</p></div>
-                  <p className="sales-content" style={{ height: 35, width: 130 }}>Need Analysis</p>
+                  <p className="sales-content" style={{ height: 35, width: 130,fontSize:14 }}>Need Analysis</p>
                 </div>
                 <div className="b1-content">
                   <div onClick={() => history.push('/advisorpitch')}>
-                    <p className="sales-content" style={{ height: 35, width: 200 }}>Advisor OnBoarding</p>
+                    <p className="sales-content" style={{ height: 35, width: 200,fontSize:14 }}>Advisor OnBoarding</p>
                   </div>
                 </div>
                 <div className="b1-content">
                   <div onClick={() => history.push('/advisorpitch')}>
-                    <p className="sales-content" style={{ height: 35, width: 200 }}>Recruitment Presentation</p>
+                    <p className="sales-content" style={{ height: 35, width: 200,fontSize:14 }}>Recruitment Presentation</p>
                   </div>
                 </div>
               </div>

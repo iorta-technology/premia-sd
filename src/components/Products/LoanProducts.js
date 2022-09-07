@@ -211,8 +211,8 @@ const LoanProducts = () => {
                                                             </tr>
                                                             {currentPost.map((item) => {
                                                                 return (
-                                                                    <tr style={{padding:'10px'}} key={item._id}>
-                                                                        <td ><Button className='select-btn' onClick={() => SelectedButtonFunc(item)}>Select</Button></td>
+                                                                    <tr style={{padding:'10px'}} className='tableBorder' key={item._id}>
+                                                                        <td ><Button size='small' className='select-btn' onClick={() => SelectedButtonFunc(item)}>Select</Button></td>
                                                                         <td className='table-subdata'>{item.lead_Id}</td>
                                                                         <td className='table-subdata'>{item.firstName + " " + item.lastName}</td>
                                                                         <td className='table-subdata'>{item.primaryMobile}</td>
@@ -241,7 +241,7 @@ const LoanProducts = () => {
                                                     </Modal>
                                                 </div>
                                                 <p className="product-para">{item.productDescription}</p>
-                                                <h1 style={{ color: '#5EA5C0' }} className="product_heading">5 Reasons to buy:</h1>
+                                                <h4 style={{ color: '#5EA5C0',marginBottom:10 }} className="product_heading">5 Reasons to buy:</h4>
                                                 <p style={{margintop : 10}}><span className="slNo circle-point">1</span><span className="bullet-points">{item.productReasons.reason1}</span>
                                                 </p>
                                                 <p><span className="slNo circle-point">2</span>
