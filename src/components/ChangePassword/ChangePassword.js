@@ -5,9 +5,11 @@ import { KeyOutlined } from '@ant-design/icons';
 import axios from 'axios';
 // --- Import Image --- //
 import salesDrivelogo_img from '../../assets/salesDrivelogo.png'
+
 const ChangePassword = () => {
     const [form] = Form.useForm();
-    const [newpassword,setnewPassword]= useState('')
+    const [newpassword,setnewPassword] = useState('')
+
     const onNewPassword = ()=>{
         console.log("newpassword",newpassword)
         axios.post('https://sdrestnode.iorta.in/secure/sd/user/changePasscode',{newpassword:newpassword}).then(resp=>{
