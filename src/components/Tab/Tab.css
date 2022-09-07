@@ -54,7 +54,7 @@
     cursor: pointer;
     border-radius: 100%;
     background-size: 100% 100%;
-    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_6_4.png);
+    background-image: url('../../assets/SalesDriveIcon/Circle_Button_Icon/Component_6_4.png');
 }
 .round-cards1-active{
     height: 3.3rem;
@@ -62,7 +62,7 @@
     cursor: pointer;
     border-radius: 100%;
     background-size: 100% 100%;
-    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_6_5.png);
+    background-image: url('../../assets/SalesDriveIcon/Circle_Button_Icon/Component_6_5.png');
 }
 
 .round-cards2{
@@ -72,7 +72,7 @@
     margin-left: 0.8rem;
     border-radius: 100%;
     background-size: 100% 100%;
-    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_5_3.png);
+    background-image: url('../../assets/SalesDriveIcon/Circle_Button_Icon/Component_5_3.png');
 
 }
 .round-cards2-active{
@@ -82,7 +82,7 @@
     margin-left: 0.8rem;
     border-radius: 100%;
     background-size: 100% 100%;
-    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_5_4.png);
+    background-image: url('../../assets/SalesDriveIcon/Circle_Button_Icon/Component_5_4.png');
 
 }
 .round-cards3{
@@ -93,7 +93,7 @@
     margin-left: 0.8rem;
     border-radius: 100%;
     background-size: 100% 100%;
-    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_7_2.png);
+    background-image: url('../../assets/SalesDriveIcon/Circle_Button_Icon/Component_7_2.png');
 }
 
 .round-cards3-active{
@@ -104,7 +104,7 @@
     margin-left: 0.8rem;
     border-radius: 100%;
     background-size: 100% 100%;
-    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_7_3.png);
+    background-image: url('../../assets/SalesDriveIcon/Circle_Button_Icon/Component_7_3.png');
 }
 .round-cards43{
     height: 3.3rem;
@@ -114,7 +114,7 @@
     margin-left: 0.8rem;
     border-radius: 100%;
     background-size: 100% 100%;
-    background-image: url(https://sdrestdemo.iorta.in/assets/SalesDriveIcon/Circle_Button_Icon/Component_8_4.png);
+    background-image: url('../../assets/SalesDriveIcon/Circle_Button_Icon/Component_8_4.png');
 
 }
 .card-caption{

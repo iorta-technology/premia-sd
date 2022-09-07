@@ -1,10 +1,16 @@
 import React,{useState} from 'react';
 import './ActiveContestDetails.css';
 import {Progress,TabPane,Tabs} from 'antd';
+
+// -- Import Image -- //
 import Microwave from '../../images/Microwave.png';
 import WashingMachine from '../../images/Washingmachine.jpg';
 import Refrigerator from '../../images/Refrigerator.jpg';
 import Construction from '../../images/Construction.jpg';
+
+
+// %%%%%%%--- Modules Creation Start %%%%%%--- //
+
 const ActiveContestDetails=()=>{
     let{innerWidth:width,innerHeight:height}=window;
     const { TabPane } = Tabs;

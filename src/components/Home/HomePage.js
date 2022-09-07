@@ -311,45 +311,73 @@ const HomePage = () => {
                 </div>
               </div>
             </Link>
-            <div style={{ marginTop: "50px" }}>
-              <div style={{ float: "right" }}>
-                <select style={{ backgroundColor: "transparent", border: "none", borderBottom: "1px solid #fff", outline: "none", boxShadow: "none", color: "#fff", appearance: 'none' }}>
-                  <option style={{ color: "#000" }} value="data1">Month to Date</option>
-                  <option style={{ color: "#000" }} value="data1">Weak to Date</option>
-                  <option style={{ color: "#000" }} value="data1">Year to Date</option>
-                  <option style={{ color: "#000" }} value="data1">Goal Sheet to Date</option>
-                </select>
-              </div>
-              <p style={{ color: "#fff", }}>Logins</p>
-              <div style={{ display: "flex", color: "#fff", lineHeight: '5px', marginTop: '2rem' }}>
-                <div style={{ width: "120px" }}>
-                  <p>12400</p>
-                  <p>Target</p>
-                </div>
-                <div style={{ width: "120px" }}>
-                  <p>12400</p>
-                  <p>Achieved</p>
-                </div>
-                <div style={{ width: "120px" }}>
-                  <p>12400</p>
-                  <p>Shortfall</p>
+            <div style={{ marginTop: "50px"}}>
+              <div style={{backgroundColor:'#fff', marginBottom:'10px', borderRadius:'3px', color: '#3C3D3D', fontSize: '11px'}}>
+                <p style={{
+                  fontWeight:'750', padding:'5px 10px',
+                  borderBottom:'1px solid #c1c8cc',
+                  marginBottom:0,
+                }}>Retention</p>
+                <div style={{ display: "flex", color: "#fff", lineHeight: '5px', color:'black'}}>
+                  <div style={{ width: "120px", padding:'8px 10px'}}>
+                    <p>Target</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
+                  <div style={{ width: "120px", padding:'8px 10px', borderRight:'1px solid #c2c8cc',borderLeft:'1px solid #c2c8cc'}}>
+                    <p>Achievement</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
+                  <div style={{ width: "120px", padding:'8px 10px'}}>
+                    <p>%Achievement</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
                 </div>
               </div>
-              <p style={{ color: "#fff", marginTop: '1rem' }}>Issuance</p>
-              <div style={{ display: "flex", color: "#fff", lineHeight: '5px', marginTop: '2rem' }}>
-                <div style={{ width: "120px" }}>
-                  <p>12400</p>
-                  <p>Target</p>
-                </div>
-                <div style={{ width: "120px" }}>
-                  <p>12400</p>
-                  <p>Achieved</p>
-                </div>
-                <div style={{ width: "120px" }}>
-                  <p>12400</p>
-                  <p>Shortfall</p>
+              
+              <div style={{backgroundColor:'#fff', marginBottom:'10px', borderRadius:'3px', color: '#3C3D3D', fontSize: '11px'}}>
+                <p style={{
+                  fontWeight:'750', padding:'5px 10px',
+                  borderBottom:'1px solid #c1c8cc',
+                  marginBottom:0,
+                }}>GWP</p>
+                <div style={{ display: "flex", color: "#fff", lineHeight: '5px', color:'black'}}>
+                  <div style={{ width: "120px", padding:'8px 10px'}}>
+                    <p>Target</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
+                  <div style={{ width: "120px", padding:'8px 10px', borderRight:'1px solid #c2c8cc',borderLeft:'1px solid #c2c8cc'}}>
+                    <p>Achievement</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
+                  <div style={{ width: "120px", padding:'8px 10px'}}>
+                    <p>%Achievement</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
                 </div>
               </div>
+
+              <div style={{backgroundColor:'#fff', marginBottom:'10px', borderRadius:'3px', color: '#3C3D3D', fontSize: '11px'}}>
+                <p style={{
+                  fontWeight:'750', padding:'5px 10px',
+                  borderBottom:'1px solid #c1c8cc',
+                  marginBottom:0,
+                }}>Activation</p>
+                <div style={{ display: "flex", color: "#fff", lineHeight: '5px', color:'black'}}>
+                  <div style={{ width: "120px", padding:'8px 10px'}}>
+                    <p>Target</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
+                  <div style={{ width: "120px", padding:'8px 10px', borderRight:'1px solid #c2c8cc',borderLeft:'1px solid #c2c8cc'}}>
+                    <p>Achievement</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
+                  <div style={{ width: "120px", padding:'8px 10px'}}>
+                    <p>%Achievement</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </Col>
