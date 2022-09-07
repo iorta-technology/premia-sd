@@ -321,15 +321,15 @@ const HomePage = () => {
                 <div style={{ display: "flex", color: "#fff", lineHeight: '5px', color:'black'}}>
                   <div style={{ width: "120px", padding:'8px 10px'}}>
                     <p>Target</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                   <div style={{ width: "120px", padding:'8px 10px', borderRight:'1px solid #c2c8cc',borderLeft:'1px solid #c2c8cc'}}>
                     <p>Achievement</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                   <div style={{ width: "120px", padding:'8px 10px'}}>
                     <p>%Achievement</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                 </div>
               </div>
@@ -343,15 +343,15 @@ const HomePage = () => {
                 <div style={{ display: "flex", color: "#fff", lineHeight: '5px', color:'black'}}>
                   <div style={{ width: "120px", padding:'8px 10px'}}>
                     <p>Target</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                   <div style={{ width: "120px", padding:'8px 10px', borderRight:'1px solid #c2c8cc',borderLeft:'1px solid #c2c8cc'}}>
                     <p>Achievement</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                   <div style={{ width: "120px", padding:'8px 10px'}}>
                     <p>%Achievement</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                 </div>
               </div>
@@ -365,15 +365,15 @@ const HomePage = () => {
                 <div style={{ display: "flex", color: "#fff", lineHeight: '5px', color:'black'}}>
                   <div style={{ width: "120px", padding:'8px 10px'}}>
                     <p>Target</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                   <div style={{ width: "120px", padding:'8px 10px', borderRight:'1px solid #c2c8cc',borderLeft:'1px solid #c2c8cc'}}>
                     <p>Achievement</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                   <div style={{ width: "120px", padding:'8px 10px'}}>
                     <p>%Achievement</p>
-                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d'}}>0</p>
+                    <p style={{fontSize:'14px',fontWeight:'700', color:'#3c3d3d', marginBottom:5}}>0</p>
                   </div>
                 </div>
               </div>

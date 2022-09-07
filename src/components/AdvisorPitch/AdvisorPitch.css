@@ -219,9 +219,6 @@ font-size: 14px;
         /* font-family: 'robotoregular'; */
         padding-top: 10px;
     }
-}
-
-@media (max-width: 420px){
     .AdvisorPitch,.AdvisorPitch-Licensing-Container{
         margin-top: 10px;
     }
@@ -233,3 +230,4 @@ font-size: 14px;
         padding-bottom: 25px;
     }
 }
+

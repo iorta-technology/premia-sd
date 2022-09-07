@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import * as actions from '../../store/actions/index';
 import { useDispatch,useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import loginLogo from '../../images/loginlogo20years.png'
+import loginLogo from '../../images/ABIB_LOGO.jpg'
 import axios from 'axios'; 
 
  const  Login =  () => {
