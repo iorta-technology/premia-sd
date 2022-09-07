@@ -18,8 +18,8 @@ const TodoTab = (props) => {
   const [isHighButtonClick ,setIsHighButtonClick]=useState(false)
   const [isMediumButtonClick ,setIsMediumButtonClick]=useState(false)
   const [isLowButtonClick ,setIsLowButtonClick]=useState(false)
-  const [priorityBtn ,setPriorityBtn]=useState('')
-  const [priorityBtnColr ,setPriorityBtnColr]=useState('')
+  const [priorityBtn ,setPriorityBtn]=useState('medium')
+  const [priorityBtnColr ,setPriorityBtnColr]=useState('#fb8c00')
   const [reminderDate ,setReminderDate]=useState('')
   const [reminderDateString ,setReminderDateString]=useState('')
   const [todoDesc ,setTodoDesc]=useState('')
@@ -429,11 +429,13 @@ const TodoTab = (props) => {
   }
 
   const clearData = () =>{
+      setPriorityBtn('medium')
+      setPriorityBtnColr('#fb8c00')
       setIsHighButtonClick(false)
-      setIsMediumButtonClick(false)
+      setIsMediumButtonClick(true)
       setIsLowButtonClick(false)
-      setPriorityBtn('')
-      setPriorityBtnColr('')
+      // setPriorityBtn('')
+      // setPriorityBtnColr('')
       setReminderDate('')
       setTodoDesc('')
       setSelectedTime('select')
@@ -480,7 +482,7 @@ const TodoTab = (props) => {
             <div className='Todo-Create-Container'>
                 <div className='Todo-Col-shadow-box'>
                     <div className='Todo-Create-Header'>
-                        <p> Add Team Member </p>
+                        <p style={{marginBottom:0}}> Add Team Member </p>
                     </div>
                     <div className='Todo-Create-SearchBox todoSearch'>
                         {/* <input type='text' placeholder='Search by Name'/> */}
@@ -520,7 +522,7 @@ const TodoTab = (props) => {
                     </div>
                     <hr style={{margin:"10px 0", color:"#f4f4f4 !important",opacity:"0.2"}}/>
                     <div className='Todo-Create-Priority'>
-                        <p>Add Priority</p>
+                        <p style={{marginBottom:0}}>Add Priority</p>
                         <Button style={{backgroundColor:"#ff5252",color:"#fff"}} 
                         onClick={()=>{
                           setPriorityBtnColr('#ff5252')
