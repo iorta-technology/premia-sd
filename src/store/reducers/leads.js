@@ -16,6 +16,8 @@ const initialState = {
 
     teamMember:{},
     globalTab: "self",
+    allocateTab: false,
+    checkedLead: [],
 
 }
 // lead reducer
@@ -65,6 +67,21 @@ const updateTabOfDashboard = (state, action) => {
     });
 }
 
+const updateAllocateOfOpportunities = (state, action) => {
+    return updateObject(state, { 
+        fetchTeamMemberLoading: false, 
+        allocateTab: action.allocateTab 
+    });
+}
+
+const updateCheckAllocatedLead = (state, action) => {
+    return updateObject(state, { 
+        fetchTeamMemberLoading: false, 
+        checkedLead: action.checkedLead 
+    });
+}
+
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -77,6 +94,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_DESIGNATION_SUCCESS: return fetchTeamMemberSuccess(state, action)
         case actionTypes.FETCH_DESIGNATION_FAIL: return fetchTeamMemberFail(state, action)
         case actionTypes.UPDATE_TAB_POSSITION: return updateTabOfDashboard(state, action)
+        case actionTypes.UPDATE_ALLCATION_TAB_POSSITION: return updateAllocateOfOpportunities(state, action)
+        case actionTypes.UPDATE_ALLCATED_CHECKED_LEADS: return updateCheckAllocatedLead(state, action)
+        
         default: return state
     }
 }

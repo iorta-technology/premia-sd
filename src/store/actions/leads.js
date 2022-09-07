@@ -189,3 +189,22 @@ export const updateTabOfDashboard = (globalTab) => {
         globalTab: globalTab,
     }
 } 
+
+// Action for Allocate satus
+
+export const updateAllocateOfOpportunities = (allocate) => {
+    return {
+        type: actionTypes.UPDATE_ALLCATION_TAB_POSSITION,
+        allocateTab: allocate,
+    }
+}
+
+// Action to store all checked leads
+
+export const updateCheckAllocatedLead = (checkedLead) => {
+    return {
+        type: actionTypes.UPDATE_ALLCATED_CHECKED_LEADS,
+        checkedLead: checkedLead,
+    }
+}
+

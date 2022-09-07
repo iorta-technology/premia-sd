@@ -11,8 +11,8 @@ import { Button } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import LeadCard from '../LeadCards/LeadCard'
 import GlobalFilters from './Filter'
-// import Example from './Filter'
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import AllocateModalShow from './Allocate'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
 import {
@@ -70,19 +70,14 @@ const Tab = ({
     }
   }, [currentActiveTab])
   // const ids = stoageGetter('user')
-  console.log("--------------------------", leadType)
 
   // ************************Api *********************
 
   const getDataForOpen = async (leadInc) => {
-    console.log("****************************************************************************in", leadType)
     const leadtyp = leadInc
     const { id } = stoageGetter('user')
     const response = await getOpenTabApi(id, leadtyp)
-    console.log("***************************************************************************out", response)
     if (response?.data?.errCode == -1) {
-      console.log("all*******", response?.data?.errMsg)
-      console.log("***********>", response?.data?.errMsg[0])
       if (response?.data?.errMsg) {
         dispatch(actions.fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
       }
@@ -141,7 +136,6 @@ const Tab = ({
 
     // setactiveKey(key)
     if (activeKey) {
-      console.log("active key", activeKey)
       switch (activeKey) {
         case 'all':
           { getDataForOpen('all'); return history.push('/leadMaster/all_leads') }
@@ -223,7 +217,6 @@ const Tab = ({
   let tabPane = []
   if (tabMenu && !_.isEmpty(tabMenu)) {
     tabPane = _.map(tabMenu, (value, id) => {
-      console.log("value", value)
       return <TabPane key={value.id} tab={value.value}></TabPane>
     })
     // console.warn("tabPane", tabPane)
@@ -247,7 +240,12 @@ const Tab = ({
     if (currentTab == "team") {
       getAlldataofTeamMainTab()
     }
+    currentTab != currentActiveTab && 
+    dispatch(actions.updateAllocateOfOpportunities(false))
+    
+    
   }
+
 
   const [show, setShow] = useState(false);
 
@@ -289,7 +287,6 @@ const Tab = ({
             // activeKey={"team"}
             // style={{ marginLeft: '8rem' }}
             >
-              {console.log("tabvalue =====>", tabPane)}
               <figure className={currentActiveTab === "team"
                 ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
                 {' '}
@@ -300,17 +297,19 @@ const Tab = ({
                 {' '}
                 <figcaption className="card-caption">Self</figcaption>{' '}
               </figure>
-              <figure className={currentActiveTab === "allocket"
+              {/* <figure className={currentActiveTab === "allocket" 
                 ? "round-cards3-active" : "round-cards3"} onClick={() => handleChangeTab("allocket")} key={"allocket"}>
                 {' '}
                 <figcaption className="card-caption">Allocate</figcaption>{' '}
-              </figure>
+              </figure> */}
+              <AllocateModalShow/>
               {/* <figure
                 className="round-cards43" onClick={() => { }} key={"filter"}>
                 {' '}
                 <figcaption className="card-caption">Filter</figcaption>{' '}
               </figure> */}
               <GlobalFilters show={show} onHide={handleClose} handleShow={handleShow} setShow={setShow} />
+              
             </div>
             : null}
 

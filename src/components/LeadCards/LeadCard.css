@@ -7,7 +7,9 @@
   text-align: center;
   padding: 10px;
 }
-
+#checkbox{
+  margin-top: -6rem;
+}
 .lead-card-mobile {
   width: 85vw;
   text-align: left;

@@ -5,6 +5,7 @@ import _ from "lodash";
 import { Row, Col, Avatar, Card, Select } from 'antd'
 import NoRecordsFound from '../NoRcordsFound/NoRecordsFound';
 import { useDispatch, useSelector } from "react-redux";
+import { AllocateModal } from '../Tab/Allocate';
 
 
 
@@ -25,8 +26,6 @@ const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads)
   const loginState = useSelector((state) => state.login)
   const { user } = loginState
-  // console.log("all**", user[0][0]._id)
-  // console.warn("leadsData", leadsData)
   const dispatch = useDispatch()
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
@@ -44,14 +43,11 @@ const LeadCards = (props) => {
       getDataForFirstDropdownTeam()
     }
   }, [leadsData])
-  
+
 
   const getDataForFirstDropdownTeam = async () => {
-    console.log("***********>",user)
     const response = await getFirstDropdownValueApi(user && user.id)
-    console.log("***********>",user)
     if (response.status == 200) {
-      console.log("all*******", response?.data?.errMsg)
       if (response?.data?.errMsg?.reporting_hierarchies) {
         setFirstDrop(response?.data?.errMsg.reporting_hierarchies)
         setSecondDropData(response?.data?.errMsg.reporting_users)
@@ -73,16 +69,15 @@ const LeadCards = (props) => {
       // getDataAfterFilterTeam()
       cardShow()
     }
-  }, [secondValue,props])
+  }, [secondValue, props])
 
   useEffect(() => {
     // if (secondValue) {
-      // getDataAfterFilterTeam()
-      cardShow()
+    // getDataAfterFilterTeam()
+    cardShow()
     // }
   }, [])
 
-  console.log("****secondValue", secondValue)
 
   // const getDataForSecondDropdownTeam = async () => {
   //   const response = await getSecondDropdownValueApi()
@@ -108,7 +103,6 @@ const LeadCards = (props) => {
   //   }
   // }
 
-  // console.log("secondDropData", secondDropData)
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth)
     window.addEventListener("resize", handleWindowResize);
@@ -124,12 +118,11 @@ const LeadCards = (props) => {
 
 
     if (secondValue) {
-      console.log("********data",secondDropData)
       let newCards = secondDropData.filter(data =>
         data.reporting_manager === secondValue)
 
-        if (_.isEmpty(newCards)) { return <NoRecordsFound /> }
-        if (!_.isEmpty(newCards)) {
+      if (_.isEmpty(newCards)) { return <NoRecordsFound /> }
+      if (!_.isEmpty(newCards)) {
         let card = [];
         card = _.map(newCards, (lead, index) => {
           return (
@@ -197,36 +190,37 @@ const LeadCards = (props) => {
   // "hi"
   // :
   // (
-    let card = [];
-      if (_.isEmpty(props.leads)) { return <NoRecordsFound /> }
-      if (!_.isEmpty(props.leads)) {
-        card = _.map(props.leads, (lead, index) => {
-          return (
-            <>
-              <Col sm={18} md={18} lg={11} xl={11} >
-                <LeadCard className='lead-agent-card'
-                  key={lead._id}
-                  id={lead._id}
-                  lead_Id={lead.lead_Id}
-                  leadStatus={lead.leadStatus}
-                  firstName={lead.firstName}
-                  lastName={lead.lastName}
-                  created_date={lead.created_date}
-                  allocatedDate={lead.allocatedDate}
-                  primaryMobile={lead.primaryMobile}
-                  allocatedBy={lead.lead_allocated_by === null ? '' : lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
-                  allocatedTo={lead.leadOwnerId === null ? '' : lead.leadOwnerId.first_name + ' ' + lead.leadOwnerId.last_name}
-                  appointmentOn={lead?.appointmentId?.start_date}
-                  loading={props.leadDataLoading}
-                />
-              </Col>
-            </>
-          )
-        })
-      }
+  let card = [];
+  if (_.isEmpty(props.leads)) { return <NoRecordsFound /> }
+  if (!_.isEmpty(props.leads)) {
+    card = _.map(props.leads, (lead, index) => {
+      return (
+        <>
+          <Col sm={18} md={18} lg={11} xl={11} >
+            <LeadCard className='lead-agent-card'
+              key={lead._id}
+              id={lead._id}
+              lead_Id={lead.lead_Id}
+              leadStatus={lead.leadStatus}
+              firstName={lead.firstName}
+              lastName={lead.lastName}
+              created_date={lead.created_date}
+              allocatedDate={lead.allocatedDate}
+              primaryMobile={lead.primaryMobile}
+              allocatedBy={lead.lead_allocated_by === null ? '' : lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
+              allocatedTo={lead.leadOwnerId === null ? '' : lead.leadOwnerId.first_name + ' ' + lead.leadOwnerId.last_name}
+              appointmentOn={lead?.appointmentId?.start_date}
+              loading={props.leadDataLoading}
+            />
+          </Col>
+
+        </>
+      )
+    })
+  }
   // )
 
-  
+
 
   const handleFirstDropdown = (e) => {
     e.target.value ? setOpenSecond(true) : setOpenSecond(false)
@@ -237,7 +231,6 @@ const LeadCards = (props) => {
     const response = await getFormByIdApi({ id: secondValue })
     if (response.status == 200) {
       if (response?.data?.errMsg) {
-        console.log("data *******", response?.data?.errMsg[0])
         dispatch(fetchAllLeadsSuccess(response?.data?.errMsg[0], response?.data?.errMsg[1][0]?.count))
       }
     } else {

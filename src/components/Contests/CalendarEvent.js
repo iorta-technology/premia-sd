@@ -75,6 +75,7 @@ export default function CalendarEvent(props) {
 
   useEffect(() => {
     try{
+      console.log(props, 'props-----calendar----1st use effect?')
     console.log('USER HIERARCHYY ___DATA__',_dataStore)
     // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
     let _teamMember = []
@@ -104,6 +105,12 @@ export default function CalendarEvent(props) {
 
     // }
   }catch(err){}
+    
+  },[props]);
+
+  useEffect(() => {
+    // props.getdata(false)
+    console.log(props, 'props-----calendar----?')
     
   },[props]);
 
@@ -2080,7 +2087,7 @@ export default function CalendarEvent(props) {
       //     setDurationTimeAlert(false)
     }
     const BookAppointmentFunc = async (e) => {
-
+     
 
       console.log(eventLoadCheck)
 
@@ -2192,8 +2199,15 @@ export default function CalendarEvent(props) {
           remarkText : '',
           mode : modeSelect,
           }, { secure: true });
+          
+          setIsModalVisible(false)
+          console.log(result, 'book update appointment result-------->')
 
-          console.log(result, 'book appointment result-------->')
+          if(result.length !== 0){
+            props.api()
+            props.getdata(true)
+            setIsModalVisible(false)
+          }
 
 
   //     axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
@@ -2395,7 +2409,11 @@ export default function CalendarEvent(props) {
 
           console.log(result, 'book appointment result-------->')
 
-
+          if(result.length !== 0){
+            props.api()
+            props.getdata(true)
+            setIsModalVisible(false)
+          }
       
       
     // axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{

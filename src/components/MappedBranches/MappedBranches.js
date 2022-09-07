@@ -10,6 +10,8 @@ import {
     MailFilled,
 } from '@ant-design/icons';
 import './MappedBranches.css';
+// import image //
+import group_name_img from '../../assets/Group90162x.png'
 const style = { background: '#0092ff', padding: '8px 0' };
 const MappedBranches = () => {
     const [selectButtonOption, setSelectButtonOption] = useState(true);
@@ -121,7 +123,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -276,7 +278,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -431,7 +433,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -586,7 +588,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -742,7 +744,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -897,7 +899,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -1052,7 +1054,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -1207,7 +1209,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -1371,7 +1373,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -1526,7 +1528,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -1681,7 +1683,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -1836,7 +1838,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -1992,7 +1994,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -2147,7 +2149,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -2302,7 +2304,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">
@@ -2457,7 +2459,7 @@ const MappedBranches = () => {
                                                                     marginTop: "3px"
                                                                 }}
                                                                 size="large"
-                                                                src={<Image src="Group90162x.png" />}
+                                                                src={<Image src={group_name_img} />}
                                                             >
                                                             </Avatar>
                                                             <div className="Mappedbranches-card-top-avatar-name-column-flex">

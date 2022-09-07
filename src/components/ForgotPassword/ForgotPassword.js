@@ -5,6 +5,9 @@ import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 
+// Import Image --- //
+import sales_logo_img from '../../images/salesDrivelogo.png'
+
 const ForgotPassword = () => {
     const [form] = Form.useForm();
     const [email,setEmail] = useState('');
@@ -27,7 +30,7 @@ const ForgotPassword = () => {
                 <div className="login-card">
                     <Card className="main-card">
                         <div className="logo">
-                            <Image preview={false} width={130} src="https://sdrestdemo.iorta.in/assets/salesDrivelogo.png" alt="login-logo" />
+                            <Image preview={false} width={130} src={sales_logo_img} alt="login-logo" />
                         </div>
                         <hr className="horline" />
                         <p style={{margin:20,fontSize:"28px",textAlign:'center',color: "#1FB3AB"}}>Forgot Password</p>
