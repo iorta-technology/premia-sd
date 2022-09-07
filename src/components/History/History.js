@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Steps, Timeline, Divider, Image, Tabs  } from 'antd';
 import './History.css'
 import '../StatusLead/StatusLead.css'
-import '../LeadDetails/LeadDetailsTab.css'
+// import '../LeadDetails/LeadDetailsTab.css'
 import MTabs from '../../components/Tab/Tab'
-//import HistoryTabs from './HistoryTabs'
+import HistoryTabs from './HistoryTabs'
 import * as actions from '../../store/actions/index';
 import _ from "lodash";
 import { dataFormatting } from '../../helpers'
@@ -157,10 +157,10 @@ return (
                 :
                 <Row>
 
-                <div className="Advisorpitch-row-flex">
+                {/* <div className="Advisorpitch-row-flex">
                     <Tabs tabPosition={tabPosition}  style={{ fontSize: '12px'}}
                      className='AdvisorPitch-Container'>
-                        {/* style={{ marginLeft: '1vw', marginRight: '1vw', marginTop: '1vw', backgroundColor: 'white', fontWeight: 'bolder' }} */}
+                       
                         <TabPane tab="Lead" key="1"  className='AdvisorPitch'>
                             <div className="Advisorpitch-details-card-style ">
                                 <div className="Advisorpitch-details-card-content-align">
@@ -201,14 +201,14 @@ return (
                         </TabPane>
 
                     </Tabs>
-                </div>
-                    {/* <HistoryTabs />
+                </div> */}
+                    <HistoryTabs />
 
                     <Col xs={22} sm={22} md={17} className="form-body his-container m0a">
                         {leadElement}
                         {appointmentElement}
                         {proposalElement}
-                    </Col> */}
+                    </Col>
                 </Row>
             }
         </div>
