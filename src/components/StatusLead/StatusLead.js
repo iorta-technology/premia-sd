@@ -139,6 +139,10 @@ const NewLead = React.memo(() => {
   ]
   const leadTypeOptions = [
     {
+      label: 'Select',
+      value: 'select'
+    },
+    {
       label: 'New Business',
       value: 'NewBusiness'
     },
@@ -152,6 +156,10 @@ const NewLead = React.memo(() => {
     }
   ]
   const insuranceCompanyOptions = [
+    {
+      label: 'Select',
+      value: 'select'
+    },
     {
       label: 'TATA AIG General Insurance Company',
       value: 'TATA AIG General Insurance Company'
@@ -176,6 +184,10 @@ const NewLead = React.memo(() => {
     }
   ]
   const leadProductOptions = [
+    {
+      label: 'Select',
+      value: 'select'
+    },
     {
       label: 'Health',
       value: 'Health'
@@ -420,6 +432,11 @@ const NewLead = React.memo(() => {
       
     }else{
       console.warn('CREATE', storeFormData.lead_Id)
+      setLeadType('select')
+      setStateProvince('select')
+      setCityProvince('select')
+      setInsuranceComapany('select')
+      setProduct('select')
     }
 
     // console.log('payload',payloadFormData)
@@ -972,7 +989,7 @@ const NewLead = React.memo(() => {
     email: email,
     socialSecurityAdharNo: "",
     mailingAddressStatus: "Yes",
-    "mailingAddressSecond": "{\"mailingaddress\":{\"line1\":\"\",\"line2\":\"\",\"line3\":\"\"},\"state\":\"Arunachal Pradesh\",\"city\":\"Margherita\",\"country\":\"India\",\"pincode\":\"\"}",
+    mailingAddressSecond: "{\"mailingaddress\":{\"line1\":\"\",\"line2\":\"\",\"line3\":\"\"},\"state\":\"Arunachal Pradesh\",\"city\":\"Margherita\",\"country\":\"India\",\"pincode\":\"\"}",
     firstName: firstName,
     lastName: lastName,
     dob: "",
@@ -996,6 +1013,100 @@ const NewLead = React.memo(() => {
     Insurancedetails: "[]",
     HaveLifeInsurance_details: "[]"
   };
+
+  let createFormData = {
+    // ...storeFormData,
+    leadStatus: leadStatus,
+    start_date: appointmentDatePost,
+    start_time: parseInt(appointmentTime),
+    remarksfromUser: remarkFromUser,
+    remarksfromSource: remarkFromSource,
+    leadsubDisposition: leadSubDisposition,
+    leadDisposition: leadDisposition,
+    teamMembers: '',
+    leadSource: '',
+
+    appointment_status: checkValidity(appointmentStatus),
+    appointmentdisPosition: checkValidity(appointmentDisposition),
+    appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
+
+
+    lead_Owner_Id: id,
+    lead_Creator_Id: id,
+    user_id: id,
+    LeadType: leadType,
+    Product: product,
+    Insurance_Company: insuranceCompany,
+
+    state: stateProvince,
+    city: cityProvince,
+    primaryMobile: primaryNo,
+    email: email,
+
+    firstName: firstName,
+    lastName: lastName,
+  }
+
+  // let createFormData = {
+  //     leadStatus: leadStatus,
+  //     leadsubDisposition: leadSubDisposition,
+  //     lead_Owner_Id: id,
+  //     user_id: id,
+  //     lead_Creator_Id: id,
+  //     start_time: null,
+  //     remarksfromSource: remarkFromSource,
+  //     remarksfromUser: remarkFromUser,
+  //     teamMembers: "",
+  //     productId: "",
+  //     proposalId: "",
+  //     leadSource: "",
+  //     LeadType: leadType,
+  //     Product: product,
+  //     Insurance_Company: insuranceCompany,
+  //     firstName: firstName,
+  //     lastName: lastName,
+  //     dob: "",
+  //     gender: "",
+  //     maritalStatus: "",
+  //     childStatus: "",
+  //     ChildInfo: [],
+  //     primaryMobile: primaryNo,
+  //     state: stateProvince,
+  //     city: cityProvince,
+  //     email: email,
+  //     address: {
+  //         line1: "",
+  //         line2: "",
+  //         line3: ""
+  //     },
+  //     country: "",
+  //     pincode: "",
+  //     secondaryMobile: "",
+  //     landlineNo: "",
+  //     socialSecurityAdharNo: "",
+  //     mailingAddressStatus: "",
+  //     mailingAddressSecond: {
+  //         mailingaddress: {
+  //             line1: "",
+  //             line2: "",
+  //             line3: ""
+  //         },
+  //         state: "",
+  //         city: "",
+  //         country: "",
+  //         pincode: ""
+  //     },
+  //     HaveLifeInsurance: {
+  //         ExistHealthInsur: "",
+  //         ExistInsur: ""
+  //     },
+  //     HaveLifeInsurance_details: [],
+  //     Insurancedetails: [],
+  //     education: "",
+  //     professionType: "",
+  //     incomeGroup: "",
+  //     lead_Id: ""
+  // }
   let formIsValid = false;
 
   // if (firstNameIsValid && lastNameIsValid && primaryMobileIsValid) {
@@ -1021,7 +1132,7 @@ const NewLead = React.memo(() => {
 
       // let _leadData = dispatch(actions.createLead(formData))
       // console.warn('_leadData =============>>>:', _leadData);
-      dispatch(actions.createLead(formData))
+      dispatch(actions.createLead(createFormData))
         .then((res) => {
           // console.log('CREATE_LEAD_SUCCESS:', res);
           if (res.type === "CREATE_LEAD_SUCCESS") {
@@ -1331,7 +1442,7 @@ const NewLead = React.memo(() => {
                     label="Lead Type"
                     rules={[
                       {
-                        required: false,
+                        required: true,
                         message: 'Select Lead Type',
                       },
                     ]}
@@ -1356,7 +1467,7 @@ const NewLead = React.memo(() => {
                     label="Product"
                     rules={[
                       {
-                        required: false,
+                        required: true,
                         message: 'Select Product',
                       },
                     ]}
@@ -1382,7 +1493,7 @@ const NewLead = React.memo(() => {
                     label="Insurance Company"
                     rules={[
                       {
-                        required: false,
+                        required: true,
                         message: 'Insurance Company',
                       },
                     ]}
