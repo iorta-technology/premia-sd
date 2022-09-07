@@ -910,36 +910,91 @@ const NewLead = React.memo(() => {
     }
   }
   const formData = {
-    ...storeFormData,
+    // ...storeFormData,
+    // leadStatus: leadStatus,
+    // start_date: appointmentDatePost,
+    // start_time: parseInt(appointmentTime),
+    // remarksfromUser: remarkFromUser,
+    // remarksfromSource: remarkFromSource,
+    // leadsubDisposition: leadSubDisposition,
+    // leadDisposition: leadDisposition,
+    // teamMembers: '',
+    // leadSource: '',
+
+    // appointment_status: checkValidity(appointmentStatus),
+    // appointmentdisPosition: checkValidity(appointmentDisposition),
+    // appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
+
+
+    // lead_Owner_Id: id,
+    // lead_Creator_Id: id,
+    // user_id: id,
+    // LeadType: leadType,
+    // Product: product,
+    // Insurance_Company: insuranceCompany,
+
+    // state: stateProvince,
+    // city: cityProvince,
+    // primaryMobile: primaryNo,
+    // email: email,
+
+    // firstName: firstName,
+    // lastName: lastName,
+
+    // ============================
+
+    user_id: id,
     leadStatus: leadStatus,
-    start_date: appointmentDatePost,
-    start_time: parseInt(appointmentTime),
+    leadDisposition: leadDisposition,
+    leadsubDisposition: leadSubDisposition,
+    appointmentdisPosition: checkValidity(appointmentDisposition),
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    leadsubDisposition: leadSubDisposition,
-    leadDisposition: leadDisposition,
-    teamMembers: '',
-    leadSource: '',
-
+    teamMembers: "[]",
+    leadSource: null,
     appointment_status: checkValidity(appointmentStatus),
-    appointmentdisPosition: checkValidity(appointmentDisposition),
     appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
-
-
     lead_Owner_Id: id,
     lead_Creator_Id: id,
-    user_id: id,
     LeadType: leadType,
     Product: product,
     Insurance_Company: insuranceCompany,
-
+    line1: "",
+    line2: "",
+    line3: "",
+    country: "India",
     state: stateProvince,
     city: cityProvince,
+    pincode: null,
     primaryMobile: primaryNo,
+    secondaryMobile: null,
+    landlineNo: null,
     email: email,
-
+    socialSecurityAdharNo: "",
+    mailingAddressStatus: "Yes",
+    "mailingAddressSecond": "{\"mailingaddress\":{\"line1\":\"\",\"line2\":\"\",\"line3\":\"\"},\"state\":\"Arunachal Pradesh\",\"city\":\"Margherita\",\"country\":\"India\",\"pincode\":\"\"}",
     firstName: firstName,
     lastName: lastName,
+    dob: "",
+    gender: "",
+    maritalStatus: "",
+    childStatus: "",
+    ChildInfo: "[]",
+    education: "",
+    incomeGroup: "",
+    annuaLincome: null,
+    professionType: "",
+    productCategory: "",
+    productType: "",
+    solution: "",
+    expectedPremium: null,
+    expectedclosureDate: "",
+    HaveLifeInsurance: {
+        ExistInsur: "No",
+        ExistHealthInsur: "No"
+    },
+    Insurancedetails: "[]",
+    HaveLifeInsurance_details: "[]"
   };
   let formIsValid = false;
 

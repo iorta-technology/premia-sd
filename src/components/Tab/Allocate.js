@@ -57,10 +57,10 @@ export const AllocateModal = React.memo((props) => {
   return (
     <>
       {allocateBtnStatus &&
-        <div style={{ backgroundColor: "rgb(33, 150, 243)", position: 'absolute', right: '550px', top: "60px", width: 'auto', height: '3rem', color: 'white' }} >
+        <div style={{ backgroundColor: "rgb(33, 150, 243)", position: 'absolute', right: '550px', top: "60px", width: '320px', color: 'white',padding: '0px 10px 0px 10px' }} >
           <p style={{ position: 'relative', top: '10px' }}> You have selected {checkedLead.length} leads {checkedLead.length
-            ? <p style={{ cursor: "pointer", marginLeft: '190px', marginTop: '-25px' }} onClick={() => dispatch(actions.updateCheckAllocatedLead([]))}>UNSELECT</p>
-            : <p style={{ cursor: "pointer", marginLeft: '190px', marginTop: '-25px' }} onClick={() => { handleCloseAllocate() }} >Cancel </p>}</p>
+            ? <p style={{ cursor: "pointer", marginLeft: '190px', marginTop: '-25px',textAlign:'end' }} onClick={() => dispatch(actions.updateCheckAllocatedLead([]))}>UNSELECT</p>
+            : <p style={{ cursor: "pointer", marginLeft: '190px', marginTop: '-25px',textAlign:'end' }} onClick={() => { handleCloseAllocate() }} >CANCEL </p>}</p>
         </div>
       }
 
@@ -96,27 +96,55 @@ export const AllocateModal = React.memo((props) => {
               let avatar = item.firstName.match(/\b(\w)/g) + item.lastName.match(/\b(\w)/g);
               return (
 
-                <div key={item.id} style={{ display: 'flex', backgroundColor: '#fff', height: '2.5rem', width: 'auto', marginBottom: '1rem', position: 'relative', alignItems: 'center', border: '0.8px solid lightgray' }}>
-                  <Avatar style={{ textTransform: 'uppercase', position: 'absolute', left: '5px' }} size={{ xl: 20 }}>
-                    {avatar}
-                  </Avatar>
-                  <p style={{ color: 'rgb(0, 172, 193)', fontSize: '13px', position: 'absolute', left: '45px', top: '10px' }}>
-                    Agent
-                  </p>
-                  <p style={{ fontWeight: '700', position: 'absolute', left: '90px', top: '8px' }}>
-                    {item.firstName} {item.lastName}
-                  </p>
-                  <p style={{ textTransform: 'uppercase', color: '#78849E', fontSize: '11px', position: 'absolute', left: '170px', top: '10px' }}>
-                    {item.lead_Id}
-                  </p>
+                // <div key={item.id} style={{ display: 'flex', backgroundColor: '#fff', height: '2.5rem', width: 'auto', marginBottom: '1rem', position: 'relative', alignItems: 'center', border: '0.8px solid lightgray' }}>
+                //   <Avatar style={{ textTransform: 'uppercase', position: 'absolute', left: '5px' }} >
+                //     {avatar}
+                //   </Avatar>
+                //   <p style={{ color: 'rgb(0, 172, 193)', fontSize: '13px', position: 'absolute', left: '45px', top: '10px',fontWeight: '600', }}>
+                //     Agent
+                //   </p>
+                //   <p style={{ fontWeight: '700', position: 'absolute', left: '90px', top: '8px' }}>
+                //     {item.firstName} {item.lastName}
+                //   </p>
+                //   <p style={{ textTransform: 'uppercase', color: '#78849E', fontSize: '12px', position: 'absolute', left: '170px', top: '10px' }}>
+                //     {item.lead_Id}
+                //   </p>
 
-                  <Button
-                    style={{ height: '1.2rem', width: '4rem', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0, 172, 193)', fontSize: '10px', fontWeight: '400px', position: 'absolute', left: '335px', color: '#ffff' }}
-                    onClick={() => handleViewDetails(item)}
-                  >
-                    View details
-                  </Button>
+                //   <Button
+                //     style={{ height: '1.2rem', width: '4rem', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0, 172, 193)', fontSize: '10px', fontWeight: '400px', position: 'absolute', left: '335px', color: '#ffff' }}
+                //     onClick={() => handleViewDetails(item)}
+                //   >
+                //     View details
+                //   </Button>
 
+                // </div>
+
+                <div key={item.id} style={{ display: 'flex', backgroundColor: '#fff', width: 'auto', marginBottom: '10px',padding:3, alignItems: 'center', border: '0.8px solid lightgray',justifyContent:'space-between' }}>
+                    <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems: 'center',flex:2}}>
+                      <div>
+                        <Avatar style={{ textTransform: 'uppercase' }} >{avatar}</Avatar>
+                      </div>
+                      <div>
+                        <p style={{marginBottom:0,fontWeight: '500',color: 'rgb(0, 172, 193)', }}>Agent</p>
+                      </div>
+                      <div>
+                        <p style={{marginBottom:0,fontWeight: '500',textTransform: 'capitalize' }}>{item.firstName} {item.lastName}</p>
+                      </div>
+                      <div>
+                        <p style={{marginBottom:0,fontWeight: '500',color: '#78849E',textTransform: 'uppercase',}}>{item.lead_Id}</p>
+                      </div>
+                    </div>
+                    <div style={{display:'flex',justifyContent:'flex-end',flex:1}}>
+                      <Button
+                        size='small'
+                        shape="round"
+                        style={{backgroundColor: 'rgb(0, 172, 193)',color:'#fff'}}
+                        // style={{ height: '1.2rem', width: '4rem', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0, 172, 193)', fontSize: '10px', fontWeight: '400px', position: 'absolute', left: '335px', color: '#ffff' }}
+                        onClick={() => handleViewDetails(item)}
+                      >
+                      View details
+                      </Button>
+                    </div>
                 </div>
               )
 
