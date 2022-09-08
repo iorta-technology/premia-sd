@@ -178,7 +178,7 @@ const HomePage = () => {
     {/* home-ml10 */}
       <p className='' style={{ textTransform: 'capitalize', fontWeight: 'bold',fontSize: '16px',marginBottom:'8px'}}>Hi, {logged_in_user}</p>
       <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" >
-        <Col >
+        <Col>
           <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
             <div className="card-content">
               <div className="activity-icon">
@@ -190,6 +190,7 @@ const HomePage = () => {
                 <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '420%', margin: '-6px' }} ></div>
               </div>
             </div>
+
             {activities_data && !_.isEmpty(activities_data) && activities_data !== 'No appointment ' ?
               (
                 <div className="activity-block">
@@ -441,7 +442,7 @@ const HomePage = () => {
           </div>
         </Col>
 
-        
+
 
         <Col style={{ display: 'none' }}>
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
