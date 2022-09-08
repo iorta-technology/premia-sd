@@ -69,12 +69,15 @@ const HomePage = () => {
   )
 
   const activities_data = useSelector((state) => state.activities.activities_obj)
+  
+
   const onLogout = () => {
     dispatch(actions.logout())
     history.push('/login')
   }
   // console.log("Home-Data", home_data)
   console.log("activities-data", activities_data)
+
   const data = [
     {
       name: 'For Today',
@@ -177,9 +180,13 @@ const HomePage = () => {
     <Col className="cardHolder">
     {/* home-ml10 */}
       <p className='' style={{ textTransform: 'capitalize', fontWeight: 'bold',fontSize: '16px',marginBottom:'8px'}}>Hi, {logged_in_user}</p>
+
+
       <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" >
+
         <Col>
           <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
+
             <div className="card-content">
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src={activity_img} alt="Activities" />
@@ -199,13 +206,19 @@ const HomePage = () => {
                       return (
                         <div className="action-cards-content-activity" key={item._id}>
                           <div >
-                            <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
-                            <table>
-                              <tr>
-                                <td>{Moment(item.start_time_MS).format("h:mm a")}</td>
-                                <td>{item.event_name}</td>
-                                <td>{Moment(item.end_time_MS).format("h:mm a")}</td>
-                              </tr>
+                            <p style={{ width: "100%", marginBottom: "5px", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
+                            <div className='appointment_data'>
+                              <p>{Moment(item.start_time_MS).format("h:mm a")}</p>
+                              <p style={{fontWeight: 'bold'}}>{item.event_name}</p>
+                              <p>{Moment(item.end_time_MS).format("h:mm a")}</p>
+                            </div>
+                            <div id="truncateLongTexts">
+                               <p>{item.event_description}</p>
+                          </div>
+
+                            
+
+                            {/* <table>
                               <tr>
                                 <td style={{ width: '85px' }}>
                                   <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
@@ -215,7 +228,7 @@ const HomePage = () => {
                                 <td>{item.event_description}</td>
                                 <td>{item.leadId?.primaryMobile}</td>
                               </tr>
-                            </table>
+                            </table> */}
                           </div>
                         </div>
                       )
@@ -232,6 +245,8 @@ const HomePage = () => {
               </div>}
           </div>
         </Col>
+
+
         <Col>
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
             <Link to="/leadMaster/all_leads">
@@ -434,10 +449,19 @@ const HomePage = () => {
                   <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '590%', margin: '-6px' }} ></div>
                 </div>
               </div>
-              <div style={{ height: "75%" }} className="events-body">
-                <Image className='stars1' src={action_data_img} preview={false} ></Image>
-                <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", }}>No Active Task</p>
-              </div>
+
+                {/* {<p>H</p> ?
+                (
+                  //<h1>Hi</h1>
+                ) :  */}
+                <div style={{ height: "75%" }} className="events-body">
+                  <Image className='stars1' src={action_data_img} preview={false} ></Image>
+                  <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", }}>No Active Task</p>
+                </div>
+
+                {/* } */}
+
+              
             </Link>
           </div>
         </Col>

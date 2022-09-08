@@ -229,3 +229,21 @@
   }
 } */
 
+
+/* my css */
+.appointment_data {
+  display: flex;                  
+  flex-direction: row;            
+  flex-wrap: nowrap;              
+  justify-content: space-between; 
+}
+
+#truncateLongTexts {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: -20px;
+  margin-top: -10px;
+}
+
+
