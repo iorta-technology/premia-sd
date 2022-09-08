@@ -194,7 +194,7 @@ const Team = () => {
 }
            
         <div className="Team-Calender">
-        {
+        {/* {
         windowWidth >breakpoint &&
             <Row className='Team-Calender-row'>
                 <Col span={9} className='Team-Calender-first'>
@@ -209,8 +209,8 @@ const Team = () => {
                     <Button> <CloudUploadOutlined /> Export</Button>
                 </Col>
             </Row>
-        }
-          {
+        } */}
+          {/* {
         windowWidth < breakpoint &&
         <div>
             <Row className='Team-Calender-row'>
@@ -229,7 +229,7 @@ const Team = () => {
                 </Col>
             </Row>
             </div>
-        }
+        } */}
         </div>
         <EventCreate monthData={setMonth} yearData={setyear} />
         <div className=''>

@@ -1,17 +1,20 @@
 import React, { Fragment, useEffect ,useState } from 'react';
 import './HomePage.css';
-import { Image, Button, Row, Col } from 'antd';
+import '../Activitity Tracker/RightSide-Todo/Todo&Archive-Css/TodoCards.css'
+import { Image, Button, Row, Col, Card } from 'antd';
 // import { Bar } from '@ant-design/charts';
 import 'antd/dist/antd.css';
 import * as actions from '../../store/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from "moment";
+import moment from 'moment'
 import _ from "lodash";
 import { Link, useHistory } from 'react-router-dom';
 import FloatButton from '../FloatButton/FloatButton';
 import { Column } from '@ant-design/charts';
 import axiosRequest from '../../axios-request/request.methods';
 import {stoageGetter} from '../../helpers'
+import {FormOutlined,ShopOutlined} from '@ant-design/icons'
 
 // import image ----- 
 import business_img from '../../assets/DashboardIconNew/Group3366.png'
@@ -29,6 +32,10 @@ import club_img from '../../assets/DashboardIconNew/Group3157.png'
 import birthday_img from '../../assets/DashboardIconNew/Group3376.png'
 import left_arrow from '../../assets/Subtraction10.png'
 import right_arrow from '../../assets/Subtraction12.png'
+import TodoClock from '../../assets/todoclock.png'
+import hamburger from '../../assets/hamburger8@2x.png' 
+import checkboxoutline from '../../assets/checkboxoutline.png'
+import truecheckbox from '../../assets/CalenderIcons/truecheckbox.png'
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
@@ -51,6 +58,11 @@ const HomePage = () => {
   const history = useHistory()
   const [width, setWidth] = useState(window.innerWidth);
 
+  const [getTodoDataArray, setGetTodoDataArray] = useState([]);
+  const [updateData, setUpdateData] = useState({});
+  const [showData, setShowData] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   useEffect(() => {
     if (id) dispatch(actions.activities(id,agent_id))
     if (id) dispatch(actions.todoGetData(id))
@@ -61,6 +73,7 @@ const HomePage = () => {
     if (agent_id) dispatch(actions.home(agent_id,userId))
 
     // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
+    getTodoData(0)
 
   }, [dispatch, id, agent_id]);
 
@@ -68,13 +81,250 @@ const HomePage = () => {
     state.home.home_obj
   )
 
+  
+
   const activities_data = useSelector((state) => state.activities.activities_obj)
+  // const todo_data = useSelector((state) => state.todoGetData.todo_obj)
+  // console.log("hvjgfg--", todo_data);
+
+  const statetttt = useSelector((state) => state)
+  console.log("gg----", statetttt)
+
+  let getTodoData = async (skip) =>{
+    try{
+        const {id} = stoageGetter('user')
+        let arrData = []
+        let _resp = await axiosRequest.get(`user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`, { secure: true })
+        console.log('TODO__GETTTT___RESPPPP',_resp)
+        let respData = _resp[0]
+       
+        for(let _data of respData){
+            // console.log('DATATATATA',_data)
+            let _icon = ''
+            // let _remark = ''
+            // let _enableRemark = null
+            // let _disableSubmit = null
+            let _textOverline = {}
+            if(_data.taskOwner._id !== id){
+                _textOverline = _data.owernersCollectionDetails[0].taskDone === false ? {textDecorationLine: '',opacity: '0'}:{textDecorationLine: 'line-through',opacity: '0'}
+                _icon = _data.owernersCollectionDetails[0].taskDone === false ? checkboxoutline : truecheckbox
+            }else{
+                _textOverline = _data.taskDone === false ? {textDecorationLine: '',opacity: '0'}:{textDecorationLine: 'line-through',opacity: '0'}
+                _icon = _data.taskDone === false ? checkboxoutline : truecheckbox
+            }
+
+            // _data.owernersCollectionDetails.forEach(event => { 
+            //     // console.log("*********************** owernersCollectionDetails ****************",event.remarkText);
+            //     if(event.remarkText !== ''){
+            //         _enableRemark = false
+            //         // _disableSubmit = true
+            //         event.remarkData = event.remarkText
+            //         event.disableSubmit = true
+            //     }else{
+            //         _enableRemark = true
+            //         // _disableSubmit = false
+            //         event.remarkData = event.remarkText
+            //         event.disableSubmit = false
+            //     }
+            // })
+
+            let objstrct = {
+                content: _data.description,
+                removeBtn: _data.taskDone,
+                icon :_icon ,
+                createddate: _data.createdDate,
+                dateofreminder : moment(_data.dateOfReminder).format('L'),
+                timeofreminder : parseInt(_data.timeOfReminder),
+                todoid :_data._id,
+                stringtimeofreminder:_data._stringVersionTimeOfReminder,
+                ownername:_data.taskOwner.first_name+' '+_data.taskOwner.last_name,
+                status : setTodoStatus(_data.dateOfReminder,parseInt(_data.timeOfReminder)),
+                searchdata: _data.owernersCollectionDetails,
+                taskOwner_id:_data.taskOwner._id, 
+                taskPriority:_data.taskPriority,
+                priorityIndicatorColor:_data.priorityIndicatorColor,
+                showMemberRemark:false,
+                showMemText:'Show More',
+                sooncolor: '#E46A25',
+                overduecolor:'#F44336',
+                showarchiedpopup:false,
+                textOverLine : _textOverline,
+                wholeData:_data
+            }
+            // console.warn('objstrct',objstrct)
+            arrData.push(objstrct)
+            
+        }
+        setGetTodoDataArray(arrData);
+        console.warn('getTodoDataArray____DATAA',getTodoDataArray)
+        setShowData(true)
+    }catch(err){
+
+    }
+}
+
+let setTodoStatus = (reminderDate, reminderTime) => {
+  try{
+      let reminderDay = reminderDate + reminderTime;
+      let current_date = Date.now();
+
+      let soon_time_ = reminderDay - ((60000 * 60) * 24);
+      let start_time = new Date(current_date).setHours(0, 0, 0, 0)
+      let end_time = new Date(current_date).setHours(23, 59, 59, 999)
+
+      if (current_date > reminderDay) {
+          return 'Overdue';  
+      } else if (start_time < soon_time_ && soon_time_ < end_time ) {
+          return 'Soon';  
+      } else {
+          return '';
+      }
+  }catch(err){
+      console.log(err , '837270dc-c0d0-4049-b3cf-0ba00b631b8b');
+  }
+}
+
+
+
   const onLogout = () => {
     dispatch(actions.logout())
     history.push('/login')
   }
   // console.log("Home-Data", home_data)
   console.log("activities-data", activities_data)
+
+  const showModal = (event,ind) => {
+    console.log('TODO__CARDD___DATA__',event)
+    // setButtonName('Update')
+    getTodoDataArray[ind].showarchiedpopup = false
+    setUpdateData(event)
+    setIsModalVisible(true);
+};
+
+  const archiveData = async (event) => {
+    // console.log('TODO__CARDD___DATA__',event)
+    //   setIsModalVisible(true);
+    const {id} = stoageGetter('user')
+    try{
+        let formData = {
+            // userId:id,
+            userId:id,
+            taskOwner : event.taskOwner_id,
+            taskId: event.todoid,
+            archive : true
+        }   
+        let _resp = await axiosRequest.put(`user/update_task_status`,formData, { secure: true })
+        console.log("DATA Update:: Archived",_resp);
+        setGetTodoDataArray([])
+        getTodoData(0)
+
+    }catch(err){
+        // console.log(err , 'ce7372e5-ba6c-4ce9-8bdf-c59899feddf5');
+    }
+};
+
+const removListFromToDo = (data,rowIndex) => {
+  // console.log('Check box data',data);
+  // console.log('Index::',rowIndex);
+      // console.log("From if condition")
+      const {id} = stoageGetter('user')
+      // userId:id,
+     
+      let _teamMembers = []
+      let newData = getTodoDataArray;
+      return getTodoDataArray.map((item,index) =>{
+          if(data.removeBtn === false){
+              
+              newData[rowIndex].removeBtn = true
+              newData[rowIndex].icon = truecheckbox
+              newData[rowIndex].textOverLine.textDecorationLine = 'line-through'
+              setGetTodoDataArray(newData)
+
+              if(newData[rowIndex].taskOwner_id !== id){
+                  let object={
+                      FullName:newData[rowIndex].searchdata[0].FullName,
+                      designation:newData[rowIndex].searchdata[0].designation,
+                      _Id:newData[rowIndex].searchdata[0]._Id,
+                      ShortId:newData[rowIndex].searchdata[0].ShortId,
+                      remarkText: newData[rowIndex].searchdata[0].remarkText,
+                      taskDone: true,
+                      inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
+                      remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
+                  }
+                  _teamMembers.push(object);
+
+                  let formdata={
+                      userId:id,
+                      taskOwner : newData[rowIndex].taskOwner_id,
+                      taskId :newData[rowIndex].todoid,
+                      owernersCollectionDetails:_teamMembers
+                  }
+                  updateTODOTaskApi(formdata)
+              }else{
+                  let formdata = {
+                      userId:id,
+                      taskOwner : newData[rowIndex].taskOwner_id,
+                      taskId: data.todoid,
+                      taskDone : true
+                  }
+                  updateTODOTaskApi(formdata)
+              }
+          }else{
+              newData[rowIndex].removeBtn = false
+              newData[rowIndex].icon = checkboxoutline
+              newData[rowIndex].textOverLine.textDecorationLine = ''
+              setGetTodoDataArray(newData)
+
+              if(newData[rowIndex].taskOwner_id !== id){
+                  let object={
+                      FullName:newData[rowIndex].searchdata[0].FullName,
+                      designation:newData[rowIndex].searchdata[0].designation,
+                      _Id:newData[rowIndex].searchdata[0]._Id,
+                      ShortId:newData[rowIndex].searchdata[0].ShortId,
+                      remarkText: newData[rowIndex].searchdata[0].remarkText,
+                      taskDone: false,
+                      inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
+                      remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
+                  }
+                  _teamMembers.push(object);
+
+                  let formdata={
+                      userId:id,
+                      taskOwner : newData[rowIndex].taskOwner_id,
+                      taskId :newData[rowIndex].todoid,
+                      owernersCollectionDetails:_teamMembers
+                  }
+                  updateTODOTaskApi(formdata)
+              }else{
+                  let formdata = {
+                      userId:id,
+                      taskOwner : newData[rowIndex].taskOwner_id,
+                      taskId: data.todoid,
+                      taskDone : false
+                  }
+                  updateTODOTaskApi(formdata)
+              }
+
+          }
+      })                    
+}
+
+const updateTODOTaskApi = async (data) =>{
+  setGetTodoDataArray([])
+  let _resp = await axiosRequest.put(`user/update_task_status`,data, { secure: true })
+  console.log('UPDATE___RESPPP__',_resp)
+  getTodoData(0)
+
+};
+
+const Showpopuptodo = (ind,data) => {
+  let _data = getTodoDataArray.map((ev,index)=>{
+      ind === index ? ev.showarchiedpopup = true : ev.showarchiedpopup = false
+      return ev
+  }) 
+  setGetTodoDataArray(_data)
+}
+
   const data = [
     {
       name: 'For Today',
@@ -186,8 +436,10 @@ const HomePage = () => {
       </Row>
 
       <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" >
-        <Col >
+
+        <Col>
           <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
+
             <div className="card-content">
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src={activity_img} alt="Activities" />
@@ -198,6 +450,7 @@ const HomePage = () => {
                 <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '420%', margin: '-6px' }} ></div>
               </div>
             </div>
+
             {activities_data && !_.isEmpty(activities_data) && activities_data !== 'No appointment ' ?
               (
                 <div className="activity-block">
@@ -206,13 +459,19 @@ const HomePage = () => {
                       return (
                         <div className="action-cards-content-activity" key={item._id}>
                           <div >
-                            <p style={{ width: "100%", margin: "0", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
-                            <table>
-                              <tr>
-                                <td>{Moment(item.start_time_MS).format("h:mm a")}</td>
-                                <td>{item.event_name}</td>
-                                <td>{Moment(item.end_time_MS).format("h:mm a")}</td>
-                              </tr>
+                            <p style={{ width: "100%", marginBottom: "5px", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
+                            <div className='appointment_data'>
+                              <p>{Moment(item.start_time_MS).format("h:mm a")}</p>
+                              <p style={{fontWeight: 'bold'}}>{item.event_name}</p>
+                              <p>{Moment(item.end_time_MS).format("h:mm a")}</p>
+                            </div>
+                            <div id="truncateLongTexts">
+                               <p>{item.event_description}</p>
+                          </div>
+
+                            
+
+                            {/* <table>
                               <tr>
                                 <td style={{ width: '85px' }}>
                                   <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
@@ -222,7 +481,7 @@ const HomePage = () => {
                                 <td>{item.event_description}</td>
                                 <td>{item.leadId?.primaryMobile}</td>
                               </tr>
-                            </table>
+                            </table> */}
                           </div>
                         </div>
                       )
@@ -239,6 +498,8 @@ const HomePage = () => {
               </div>}
           </div>
         </Col>
+
+
         <Col>
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
             <Link to="/leadMaster/all_leads">
@@ -426,6 +687,8 @@ const HomePage = () => {
             </div>
           </div>
         </Col>
+
+
         <Col>
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
             <Link to='/calendar'>
@@ -439,13 +702,83 @@ const HomePage = () => {
                   <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '590%', margin: '-6px' }} ></div>
                 </div>
               </div>
-              <div style={{ height: "75%" }} className="events-body">
-                <Image className='stars1' src={action_data_img} preview={false} ></Image>
-                <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", }}>No Active Task</p>
-              </div>
             </Link>
+             
+        {getTodoDataArray && !_.isEmpty(getTodoDataArray) && getTodoDataArray !== 'No appointment ' ?
+          ( <div className='activity-block'>
+              {getTodoDataArray.map((element,index, item)=>{
+                    // console.log('DATATATATA____',element)
+                    return(
+                        <div className='TodoCard-Container todo-home' key={index}>
+                            <div className='TodoCards-Top'>
+                                <div className='TodoCards-TimedateArchive' sm>
+                                    <Col className='TodoCards-TopClock'>
+                                        <div className='todoCard-mr15'>
+                                            <img src={TodoClock} alt='alarm'/>
+                                        </div>
+                                        <div>
+                                            <text style={{color: element.status === 'Soon' ? element.sooncolor : element.status === 'Overdue' ? element.overduecolor : 'red',fontSize:12,}}>{element.status} </text>
+                                        </div>
+                                        <div style={{marginLeft:5}}>
+                                            <text style={{color:element.status === 'Soon' ? element.sooncolor : element.status === 'Overdue' ? element.overduecolor : 'red',fontSize:12,}}>{element.stringtimeofreminder} : {element.dateofreminder}</text>
+                                        </div>
+                                    </Col>
+        
+        
+                                    <div style={{paddingLeft:10,paddingRight:5}}>
+                                        <img alt='' src={hamburger} style={{height:15, width:3,cursor:"pointer"}} onClick={(e)=>{ Showpopuptodo(index,element) }}/>
+                                    </div>
+        
+                                    <div className='Hamburger-Edit'>
+        
+                                    {
+                                        element.showarchiedpopup === true &&
+                                            <div className='TodoCard-Container-Hamburger'>
+                                                <Card className='Hamburger-Card Hamburger-box'>
+                                                    <hr style={{color:'#e6e9eb', opacity:'0.3'}}/>
+                                                    <p onClick={()=> archiveData(element)} style={{display:'flex',alignItems:'center'}}>
+                                                        <ShopOutlined style={{marginRight:"10px"}}/> Archive
+                                                    </p>
+                                                </Card>
+                                            </div>
+                                    }
+                                    
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div className='TodoCards-Body'>
+                                    <div className='TodoCard-Body-CheckBox todoCard-mr15' onClick = {()=> removListFromToDo(element ,index)}>
+                                        <img src={element.icon} className='archive-trueCheckBox' alt='trueCheckBox'/>
+                                    </div>
+                                    <p style={{textDecorationLine : element.textOverLine.textDecorationLine}} >{element.content}</p>
+                                    
+                            </div>
+
+                            <div className='Todo-Footer'>
+                                <p style={{textTransform: 'capitalize',fontWeight:'bolder'}}>{element.ownername}</p>
+                                <button style={{textTransform: 'capitalize',backgroundColor:element.priorityIndicatorColor}}>{element.taskPriority}</button>
+                               
+                            </div>
+                               
+                        </div>
+                    )
+            
+                })}
+              </div>) : 
+                <div style={{ height: "75%" }} className="events-body">
+                  <Image className='stars1' src={action_data_img} preview={false} ></Image>
+                  <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", }}>No Active Task</p>
+                </div>
+
+                }
+
+              
+            
           </div>
         </Col>
+
+
 
         <Col style={{ display: 'none' }}>
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>

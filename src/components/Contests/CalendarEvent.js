@@ -1690,9 +1690,13 @@ export default function CalendarEvent(props) {
   const CustomerNameFunc = (e) => {
 
   setCustomerNameText(e.target.value)
-  setCustomerNameCheck(true)
-
-    if (customerMobileNoText == "") {
+  
+    if(e.target.value.length > 1){
+      setCustomerNameCheck(true)
+    }else{
+      setCustomerNameCheck(false)
+    }
+    if (customerMobileNoText.length < 10) {
       setCustomerMobileNoCheck(false)
       // alert("this works")
     }
@@ -1700,10 +1704,16 @@ export default function CalendarEvent(props) {
   }
   const CustomerMobileNoFunc = (e) => {
     setCustomerMobileNoText(e.target.value)
-    setCustomerMobileNoCheck(true)
-      if (customerNameText == "") {
+    // setCustomerMobileNoCheck(true)
+      if (customerNameText == "" ) {
         setCustomerNameCheck(false)
         // alert("this works")
+      }
+
+      if(e.target.value.length < 10){
+        setCustomerMobileNoCheck(false)
+      }else{
+        setCustomerMobileNoCheck(true)
       }
       
     }
@@ -2199,7 +2209,7 @@ export default function CalendarEvent(props) {
           remarkText : '',
           mode : modeSelect,
           }, { secure: true });
-          
+
           setIsModalVisible(false)
           console.log(result, 'book update appointment result-------->')
 
@@ -4040,10 +4050,11 @@ export default function CalendarEvent(props) {
                       >Mobile Number *</h4>
                         <input
                         disabled={manualCustomerCheck==true?true:false}
+                        
                         value={customerMobileNoText}
                         onChange={CustomerMobileNoFunc}
                         className={customerMobileNoCheck == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
-                        type="text"
+                        type="number"
                         placeholder="Enter the Mobile Number"
                         required
                       />

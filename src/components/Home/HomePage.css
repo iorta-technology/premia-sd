@@ -75,9 +75,9 @@
   height: 220px;
 }
 .activity-block {
-  margin-top: 50px;
+  margin-top: 40px;
   overflow-y: scroll;
-  height: 220px;
+  height: 250px;
 }
 .activity-block .action-cards-content-activity {
   padding: 20px;
@@ -240,4 +240,27 @@
     box-shadow: rgb(107, 100, 100) 0px 0px 4px;
   }
 } */
+
+
+/* my css */
+.appointment_data {
+  display: flex;                  
+  flex-direction: row;            
+  flex-wrap: nowrap;              
+  justify-content: space-between; 
+}
+
+#truncateLongTexts {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: -20px;
+  margin-top: -10px;
+}
+
+.todo-home{
+  background-color: #fff;
+  border-radius: 3px;
+}
+
 
