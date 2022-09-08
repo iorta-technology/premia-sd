@@ -64,10 +64,10 @@ const tabMenu = [
     //     id: 4,
     //     value: "Documents Upload"
     // },
-    {
-        id: 2,
-        value: "History"
-    },
+    // {
+    //     id: 2,
+    //     value: "History"
+    // },
 
 ]
 const ExistingInsurenceDetails = () => {

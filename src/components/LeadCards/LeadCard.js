@@ -120,7 +120,7 @@ const LeadCard = React.memo((props) => {
             <a href={`tel:${primaryMobile}`}></a>
             {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
           </div>
-          <hr style={{ margin: '3px 0px 4px 0px', opacity: '0.5' }} />
+          <hr style={{ margin: '3px -30px 4px 0px', opacity: '0.5',color:'lightgray' }} />
 
           <div className="content-body Datainfo-Main-Container">
             <div className="Dateinfo-Container">
