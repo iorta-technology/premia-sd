@@ -52,12 +52,15 @@ const HomePage = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    // if (id) dispatch(actions.activities(id,agent_id))
+    if (id) dispatch(actions.activities(id,agent_id))
+    if (id) dispatch(actions.todoGetData(id))
     dispatch(actions.getUserTreeAPI(userId))
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     // channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
-    // if (agent_id) dispatch(actions.home(agent_id,userId))
+    if (agent_id) dispatch(actions.home(agent_id,userId))
+
+    // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
 
   }, [dispatch, id, agent_id]);
 
@@ -172,7 +175,8 @@ const HomePage = () => {
     {/* <h3 className='ml10' style={{ textTransform: 'capitalize', fontWeight: 'bold', fontSize: '16px',}}>Hi, {logged_in_user}</h3> */}
     
     <Col className="cardHolder">
-      <p className='ml10' style={{ textTransform: 'capitalize', fontWeight: 'bold',fontSize: '16px',marginBottom:'8px'}}>Hi, {logged_in_user}</p>
+    {/* home-ml10 */}
+      <p className='' style={{ textTransform: 'capitalize', fontWeight: 'bold',fontSize: '16px',marginBottom:'8px'}}>Hi, {logged_in_user}</p>
       <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" >
         <Col >
           <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>

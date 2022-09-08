@@ -30,6 +30,18 @@ export const homeFail = (error) => {
         error: error
     }
 }
+export const todoStart = () => {
+    return {
+        type: actionTypes.TODO_START
+    }
+}
+
+export const todoSuccess = (info) => {
+    return {
+        type: actionTypes.TODO_SUCCESS,
+        todo:info
+    }
+} 
 
 export const activitiesStart = () => {
     return {
@@ -58,7 +70,7 @@ export const home = (agent_id,userID) => {
     return async dispatch => {
         dispatch(homeStart())
         // https://pocbancanode.iorta.in/secure/user/getleads_team_count/AG9l7ynu?filter=today&agent_user_id=60e5d6056b18e8309da3fa49
-        let _resp = await axiosRequest.get(`user/getleads_team_count/${agent_id}?filter=today&agent_user_id=${userID}`, { secure: true })
+        let _resp = await axiosRequest.get(`user/v2/getleads_team_count/${userID}`, { secure: true })
         console.log("GETTTT LEADD TEAM COUNTT",_resp)
         return dispatch(homeSuccess(_resp))
         // return axios.get(`user/getleads_team_count/${agent_id}`)
@@ -87,13 +99,21 @@ export const getUserTreeAPI = (userId) => {
         // })
     }
 }
+export const todoGetData = (id) => {
+    return async dispatch => {
+        dispatch(todoStart())
+        // https://pocbancanode.iorta.in/secure/user/fetch_todo_list?user_id=60e5d6056b18e8309da3fa49&filter=all&skip=0
+        let _resp = await axiosRequest.get(`user/fetch_todo_list?user_id=${id}&filter=all&skip=0`, { secure: true })
+        console.log("GETTTT TODOOOOO",_resp)
+        return dispatch(todoSuccess(_resp))
+    }
+}
 
 export const activities = (id,agentID) => {
     return async dispatch => {
         dispatch(activitiesStart())
-        // https://pocbancanode.iorta.in/secure/user/getAppointment/60e5d6056b18e8309da3fa49?teamdata=1&now_filter=1&agentCode=AG9l7ynu
-        // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getAppointment/62fcdbfc5fb1dc8913ab59f1?teamdata=1&now_filter=1&agentCode=AGvqq42v
-        let _resp = await axiosRequest.get(`user/getAppointment/${id}?teamdata=1&now_filter=1&agentCode=${agentID}`, { secure: true })
+        let _resp = await axiosRequest.get(`user/getAppointment/${id}?teamdata=0&now_filter=1&agentCode=${agentID}`, { secure: true })
+        // let _resp = await axiosRequest.get(`user/fetch_todo_list?user_id=${id}&filter=all&skip=0`, { secure: true })
         console.log("GETTTT APPPPPPOINTMENTTT",_resp)
         return dispatch(activitiesSuccess(_resp))
         // return axios.get(`user/getAppointment/${id}?set_reminder_prority=high,none,low,medium&now_filter=1`)

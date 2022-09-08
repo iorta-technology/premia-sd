@@ -45,6 +45,15 @@ const fetchActivitiesFail = (state, action) => {
     return updateObject(state, { fetch_Activities_Loading: false, activities_Error: action.error });
 }
 
+const fetchTodoStart = (state, action) => {
+    return updateObject(state, { fetch_todo_Loading: true })
+}
+
+const fetchTodoSuccess = (state, action) => {
+    console.log("actions of activities",action)
+    return updateObject(state, { fetch_todo_Loading: false, todo_obj: action.todo})
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         
@@ -56,6 +65,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ACTIVITIES_START: return fetchActivitiesStart(state, action)
         case actionTypes.ACTIVITIES_SUCCESS: return fetchActivitiesSuccess(state, action)
         case actionTypes.ACTIVITIES_FAIL: return fetchActivitiesFail(state, action)
+
+        case actionTypes.TODO_START: return fetchTodoStart(state, action)
+        case actionTypes.TODO_SUCCESS: return fetchTodoSuccess(state, action)
+
 
         default: return state
     }

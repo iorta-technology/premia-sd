@@ -25,7 +25,7 @@ export {
 export { kpiDashboard } from './kpiDashboard'
 export {fetchAllRenewals,fetchPaidRenewals,fetchUnPaidRenewals, fetchLapsedRenewals,fetchRenewalDetails} from './renewals'
 export { 
-    home,activities ,getUserTreeAPI
+    home,activities ,getUserTreeAPI , todoGetData
 } from './home'
 export {
     fetchHistory
