@@ -172,11 +172,19 @@ const HomePage = () => {
   return <Fragment  >
     {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
     <FloatButton />
-    {/* <h3 className='ml10' style={{ textTransform: 'capitalize', fontWeight: 'bold', fontSize: '16px',}}>Hi, {logged_in_user}</h3> */}
     
-    <Col className="cardHolder">
+    <Col className="cardHolder" justify="center">
     {/* home-ml10 */}
-      <p className='' style={{ textTransform: 'capitalize', fontWeight: 'bold',fontSize: '16px',marginBottom:'8px'}}>Hi, {logged_in_user}</p>
+      <Row className='alignUserLabel'>
+        <Col>
+          <div className="dataCardLabel" >
+            <p style={{ textTransform: 'capitalize', fontWeight: 'bold',fontSize: '16px',marginBottom:'8px'}}>Hi, {logged_in_user}</p>
+          </div>
+        </Col>
+        <Col><div className="dataCardLabel"></div></Col>
+        <Col><div className="dataCardLabel"></div></Col>
+      </Row>
+
       <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" >
         <Col >
           <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
