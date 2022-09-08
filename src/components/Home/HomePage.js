@@ -191,7 +191,7 @@ const HomePage = () => {
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src={activity_img} alt="Activities" />
               </div>
-              <div className="activities-text">
+              <div onClick={() => history.push('/calendar')} className="activities-text">
                 <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
                 {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
                 <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '420%', margin: '-6px' }} ></div>

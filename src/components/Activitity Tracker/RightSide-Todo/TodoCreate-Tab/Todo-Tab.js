@@ -41,7 +41,8 @@ const TodoTab = (props) => {
     console.log('USER HIERARCHYY ___DATA__',_dataStore)
     // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
     let _teamMember = []
-    _dataStore.reporting_users.map(el => {
+    if(Object.keys(_dataStore).length !== 0){
+      _dataStore.reporting_users.map(el => {
           let sortarray = {
               FullName: el.full_name,
               ShortId: el.hierarchy_details.hierarchyName,
@@ -57,7 +58,7 @@ const TodoTab = (props) => {
 
       })
       setHierarAgentList(_teamMember)
-
+    }
     // console.log('Calling func',Object.keys(props.editData));
     if(props.button === 'Create' && props.isModalVisible === true) {
       setButtonName(props.button)
