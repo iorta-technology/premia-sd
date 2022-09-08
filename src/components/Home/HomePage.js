@@ -418,6 +418,8 @@ const HomePage = () => {
             </div>
           </div>
         </Col>
+
+
         <Col>
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
             <Link to='/calendar'>
@@ -438,6 +440,8 @@ const HomePage = () => {
             </Link>
           </div>
         </Col>
+
+        
 
         <Col style={{ display: 'none' }}>
           <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
