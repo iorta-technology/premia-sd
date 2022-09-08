@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined ,SaveOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined, SaveOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
@@ -64,7 +64,7 @@ const tabMenu = [
   {
     id: 2,
     value: "History"
-  },
+  }
 
 ]
 const isNotEmpty = (value) => value.trim() !== '';
@@ -310,11 +310,11 @@ const NewLead = React.memo(() => {
 
   // store form data 
   let storeFormData = useSelector((state) => state.newLead.formData)
-  console.warn('((((((((((( storeFormData )))))))))))',storeFormData)
+  console.warn('((((((((((( storeFormData )))))))))))', storeFormData)
   delete storeFormData['appointmentId'];
   delete storeFormData['appointmentDate'];
 
-  
+
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading)
   let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
   const storeLeadId = useSelector((state) => state.newLead.leadId)
@@ -394,11 +394,11 @@ const NewLead = React.memo(() => {
 
   useEffect(() => {
     setLeadStatusData(leadArr)
-  },[])
-  
+  }, [])
+
 
   useEffect(() => {
-    if(storeFormData.lead_Id !== ''){
+    if (storeFormData.lead_Id !== '') {
       // let _status = []
       console.warn('UPDATE', storeFormData)
       setFirstName(storeFormData.firstName)
@@ -415,7 +415,7 @@ const NewLead = React.memo(() => {
       // setLeadStatusData(leadArr)
 
       // console.warn('leadStatusData((((((((((===>>>>>>>>>>', leadStatusData)
-      
+
       // storeFormData.leadStatus !== '' && _status.push(storeFormData.leadStatus)
       // storeFormData.leadDisposition !== '' && _status.push(storeFormData.leadDisposition)
       // storeFormData.leadsubDisposition !== '' && _status.push(storeFormData.leadsubDisposition)
@@ -429,8 +429,8 @@ const NewLead = React.memo(() => {
       // setLeadSubDisposition(leadArr[2])
       // setPrimaryNo(storeFormData.primaryMobile)
       // setPrimaryNo(storeFormData.primaryMobile)
-      
-    }else{
+
+    } else {
       console.warn('CREATE', storeFormData.lead_Id)
       setLeadType('select')
       setStateProvince('select')
@@ -444,7 +444,7 @@ const NewLead = React.memo(() => {
     // dispatch(actions.fetchLeadDetails(fetchLeadId))
     // console.log(leadDisposition === "appointment" || leadDisposition === "callback" || !appointmentStatus)
     // console.log(appointmentStatus)
-    
+
     // console.log('storeLeadId=======>>>', storeLeadId)
     storeLeadId !== '' ? setIsNewLead(false) : setIsNewLead(true)
     primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false)
@@ -804,7 +804,7 @@ const NewLead = React.memo(() => {
   };
 
   const leadHandler = (value) => {
-    console.log('LEADSSS___STATUSSS',value)
+    console.log('LEADSSS___STATUSSS', value)
     setLeadStatus(value[0])
     setLeadDisposition(value[1])
     setLeadSubDisposition(value[2])
@@ -867,22 +867,22 @@ const NewLead = React.memo(() => {
     dispatch(actions.fetchAllCities(key.region_data.adminCode1))
 
   }
-  const stateChangetHandler = value => {
-    setStateProvince(value)
+  const stateChangetHandler = (event) => {
+    setStateProvince(event.target.value)
   }
 
-  const cityChangeHandler = value => {
-    setCityProvince(value)
+  const cityChangeHandler = (event) => {
+    setCityProvince(event.target.value)
 
   }
-  const leadTypeHandler = value => {
-    setLeadType(value)
+  const leadTypeHandler = (event) => {
+    setLeadType(event.target.value)
   }
-  const productHandler = value => {
-    setProduct(value)
+  const productHandler = (event) => {
+    setProduct(event.target.value)
   }
-  const insuranceCompanyHandler = value => {
-    setInsuranceComapany(value)
+  const insuranceCompanyHandler = (event) => {
+    setInsuranceComapany(event.target.value)
   }
 
 
@@ -920,10 +920,10 @@ const NewLead = React.memo(() => {
     // },
   };
   const checkValidity = (data) => {
-    if (data === "" || data === undefined || data === null ) {
+    if (data === "" || data === undefined || data === null) {
       return ""
     } else {
-        return data;
+      return data;
     }
   }
   const formData = {
@@ -1118,7 +1118,7 @@ const NewLead = React.memo(() => {
     console.log(error)
   }
 
-  
+
 
   const submitHandler = event => {
     // event.preventDefault();
@@ -1140,7 +1140,7 @@ const NewLead = React.memo(() => {
             // setErrorMessage(successMsg)
             setIsNewLead(false)
 
-          } 
+          }
           // else if (res.type === 'CREATE_LEAD_FAIL') {
           //   console.log('failed:', res);
 
@@ -1297,8 +1297,10 @@ const NewLead = React.memo(() => {
                       className="first-name input-box "
                       size="large"
                       placeholder="Enter First Name"
-                      value={firstName}
-                      onChange={onChangeFirstName} />
+                      // value={firstName}
+                      defaultValue={firstName}
+                      onChange={()=>onChangeFirstName}
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1320,7 +1322,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Last Name"
                       value={lastName}
-                      onChange={onChangeLastName} />
+                      onChange={()=> onChangeLastName} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1342,7 +1344,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Email Address"
                       value={email}
-                      onChange={emailAddressHandler} />
+                      onChange={()=> emailAddressHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1380,7 +1382,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Primary Mobile"
                       value={primaryNo}
-                      onChange={primaryNoHandler} />
+                      onChange={()=> primaryNoHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1404,8 +1406,10 @@ const NewLead = React.memo(() => {
                       placeholder="Select Your State"
                       options={stateOptions}
                       onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      onChange={stateChangetHandler}>
+                      // value={stateProvince}
+                      defaultValue={stateProvince}
+                      onChange={()=> stateChangetHandler}
+                    >
                     </Select>
                   </Form.Item>
                 </Col>
@@ -1429,8 +1433,10 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Select a city"
                       options={citiesOptions}
-                      value={cityProvince}
-                      onChange={cityChangeHandler}>
+                      // value={cityProvince}
+                      defaultValue={citiesOptions}
+                      onChange={()=> cityChangeHandler}
+                    >
                     </Select>
                   </Form.Item>
                 </Col>
@@ -1452,10 +1458,12 @@ const NewLead = React.memo(() => {
                       bordered={false}
                       className='select-box'
                       options={leadTypeOptions}
-                      value={leadType}
+                      // value={leadType}
+                      defaultValue={leadType}
                       size="large"
                       placeholder="Select Lead Type"
-                      onChange={leadTypeHandler}>
+                      onChange={()=> leadTypeHandler}
+                    >
                     </Select>
                   </Form.Item>
                 </Col>
@@ -1476,11 +1484,13 @@ const NewLead = React.memo(() => {
                     <Select
                       bordered={false}
                       className='select-box'
-                      value={product}
+                      // value={product}
+                      defaultValue={product}
                       size="large"
                       options={leadProductOptions}
                       placeholder="Select Product"
-                      onChange={productHandler}>
+                      onChange={()=> productHandler}
+                    >
 
                     </Select>
                   </Form.Item>
@@ -1502,12 +1512,15 @@ const NewLead = React.memo(() => {
                     <Select
                       bordered={false}
                       className='select-box'
-                      value={insuranceCompany}
+                      // value={insuranceCompany}
+                      defaultValue={insuranceCompany}
                       size="large"
                       placeholder="Select Insurance"
-                      onChange={insuranceCompanyHandler}
-                      options={insuranceCompanyOptions}>
+                      onChange={()=> insuranceCompanyHandler}
+                      options={insuranceCompanyOptions}
+                    >
                     </Select>
+
                   </Form.Item>
                 </Col>
               </Row>
@@ -1624,7 +1637,7 @@ const NewLead = React.memo(() => {
                         placeholder="New Contact"
                         size="large"
                         popupClassName="popup-size"
-                        onChange={appointmentStatusHandler}
+                        onChange={ appointmentStatusHandler}
                         style={{ height: '2.45rem' }}
                         value={leadStatusData}
                       />
@@ -1650,12 +1663,15 @@ const NewLead = React.memo(() => {
 
                       >
                         <DatePicker
+                          className='input-box'
                           // disabledDate={disabledDate}
                           onChange={appointmentDateHandler}
                           value={appointmentDate}
                           size="large"
                           format="YYYY/MM/DD"
-                          style={{ width: "100%" }} />
+                          style={{ width: "100%", boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid', }}
+                        // style={{ width: "100%",border:'none',borderBottom:'1px solid gray' }} 
+                        />
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1684,9 +1700,12 @@ const NewLead = React.memo(() => {
                           style={{ width: "100%" }}
                           onChange={startTimeHandler} /> */}
                         <Select
+                          bordered={false}
+                          className='select-box'
                           value={appointmentTime}
                           onChange={startTimeHandler}
                           size="large"
+                          // style={{ width: "100%", boxShadow: 'none', border: 'none', outline: 'none', borderBottom: '1px rgb(153, 153, 153) solid', }}
                           options={appointmentTimeOptions}
                           placeholder="Start Time">
                         </Select>
@@ -1708,7 +1727,9 @@ const NewLead = React.memo(() => {
                         style={{ marginBottom: '1rem' }}
                       >
                         <Select
-                          // onChange={reminderHandler} 
+                          bordered={false}
+                          className='select-box'
+                          // onChange={()=> reminderHandler} 
                           value={reminder} size="large"
                           options={setReminderOptions}
                           placeholder="Set Reminder">
@@ -1785,7 +1806,7 @@ const NewLead = React.memo(() => {
                       <Button key="cancel" onClick={toggleTeamMember}>
                         Cancel
                       </Button>,
-                      <Button key="save" type="primary" style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
+                      <Button key="save" type="primary" onClick={toggleTeamMember} style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
                         Save
                       </Button>
                     ]}
@@ -1886,37 +1907,37 @@ const NewLead = React.memo(() => {
 
               {/* </Form> */}
             </Col>
-            <Col className='form-body  p30' style={{ marginBottom: "20px",display:'flex',justifyContent: 'flex-end' }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
+            <Col className='form-body  p30' style={{ marginBottom: "20px", display: 'flex', justifyContent: 'flex-end' }} xs={{ order: 5 }} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               {/* <Row  > */}
-                <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
-                  {isNewLead ?
-                    <Form.Item>
-                      <Button
-                        type="primary"
-                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
-                        // shape="round"
-                        // size="large"
-                        icon={<FileTextOutlined />}
-                        htmlType="submit"
-                      // disabled={!formIsValid}
-                      // onClick={submitHandler}
-                      >Submit</Button>
-                    </Form.Item> :
-                    <Form.Item>
-                      <Button
-                        type="primary"
-                        // shape="round"
-                        // size="large"
-                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none',display:'flex',alignItems:'center' }}
-                        icon={<SaveOutlined />}
-                        htmlType="submit"
-                      // disabled={!formIsValid}
-                      // onClick={updateLeadHandler}
-                      >Update</Button>
-                    </Form.Item>
-                  }
-                </Col>
-               
+              <Col xs={11} sm={12} md={4} offset={width > breakpoint ? 16 : 2} >
+                {isNewLead ?
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none', display: 'flex', alignItems: 'center' }}
+                      // shape="round"
+                      // size="large"
+                      icon={<FileTextOutlined />}
+                      htmlType="submit"
+                    // disabled={!formIsValid}
+                    // onClick={submitHandler}
+                    >Submit</Button>
+                  </Form.Item> :
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      // shape="round"
+                      // size="large"
+                      style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none', display: 'flex', alignItems: 'center' }}
+                      icon={<SaveOutlined />}
+                      htmlType="submit"
+                    // disabled={!formIsValid}
+                    // onClick={updateLeadHandler}
+                    >Update</Button>
+                  </Form.Item>
+                }
+              </Col>
+
               {/* </Row> */}
             </Col>
           </Row>
