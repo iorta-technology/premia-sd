@@ -80,9 +80,9 @@
   height: 250px;
 }
 .activity-block .action-cards-content-activity {
-  padding: 20px;
+  padding: 10px;
   background-color: #fff;
-  margin-top: 20px;
+  margin-top: 10px;
   border-radius: 6px;
 }
 .action-cards-content::-webkit-scrollbar {
