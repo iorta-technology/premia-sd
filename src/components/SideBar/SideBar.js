@@ -13,6 +13,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { stoageGetter } from '../../helpers'
 
+// -- Import Image -- //
+import sales_logo_img from '../../images/salesDrivelogo.png'
+import switch_img from '../../assets/Group75902x.png'
+import right_black_img from '../../assets/MaterialUiIcons/chevron_right_black_192x192.png'
+import draftr_img from '../../assets/draftr.png'
+import rapps_img from '../../assets/rapps.png'
+import allrec_img from '../../assets/allrec.png'
+import rdone_img from '../../assets/rdone.png'
+import failed_img from '../../assets/failed.png'
+import needhelp_img from '../../assets/needhelp.png'
+
 const Nav = styled.div`
   background: #15171c;
   height: 60px;
@@ -87,7 +98,7 @@ const Sidebar = () => {
           {/* <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon> */}
-          <img onClick={() => { history.push('/home') }} src= "https://tataadv2devadmin.iorta.in/web/assets/sdlogo.png" style={{width:'180px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
+          <img onClick={() => { history.push('/home') }} src= {sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
             <FaIcons.FaBell />
@@ -115,32 +126,32 @@ const Sidebar = () => {
             </div>
             <div className='menuList'>
               <ul>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Switch Channel</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Channel Default</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li> */}
+                <li><div><img src={switch_img}/> &nbsp;<span>Switch Channel</span></div> <img src={right_black_img}/></li>
+                <li><div><img src={switch_img}/> &nbsp;<span>Channel Default</span></div> <img src={right_black_img}/></li>
+                {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src={right_black_img}/></li> */}
                 {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75912x.png'/> &nbsp;<span>Download FAQs</span></div> </li> */}
               </ul>
               {/* <h3>My Customers</h3>
               <ul>
-                <li onClick={() => { history.push('/renewalMaster/allRenewals') }}><div><img src='https://tataadv2dev.iorta.in/assets/upr.png'/> &nbsp;<span>Upcomming renewals</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/lp.png'/> &nbsp;<span>Lapsed Policy</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
+                <li onClick={() => { history.push('/renewalMaster/allRenewals') }}><div><img src='https://tataadv2dev.iorta.in/assets/upr.png'/> &nbsp;<span>Upcomming renewals</span></div> <img src={right_black_img}/></li>
+                <li><div><img src='https://tataadv2dev.iorta.in/assets/lp.png'/> &nbsp;<span>Lapsed Policy</span></div> <img src={right_black_img}/></li>
               </ul> */}
               {/* <h3>My Partners</h3>
               <ul>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/rapps.png'/> &nbsp;<span>All Partners</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
+                <li><div><img src={rapps_img}/> &nbsp;<span>All Partners</span></div> <img src={right_black_img}/></li>
               </ul> */}
               <p>Leads</p>
               <ul>
-                <li onClick={() => { history.push('/leadmasterpage/statuslead') }}><div><img src='https://tataadv2dev.iorta.in/assets/draftr.png'/> &nbsp;<span>Add New Lead</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/rapps.png'/> &nbsp;<span>Add Bulk Lead</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
+                <li onClick={() => { history.push('/leadmasterpage/statuslead') }}><div><img src={draftr_img}/> &nbsp;<span>Add New Lead</span></div> <img src={right_black_img}/></li>
+                <li><div><img src={rapps_img}/> &nbsp;<span>Add Bulk Lead</span></div> <img src={right_black_img}/></li>
               </ul>
               <p>My Applications</p>
               <ul>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/allrec.png'/> &nbsp;<span>All Recruitments</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/draftr.png'/> &nbsp;<span>Draft Recruitments</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/rapps.png'/> &nbsp;<span>Recruitment Applications</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/rdone.png'/> &nbsp;<span>Recruited</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/failed.png'/> &nbsp;<span>Failed Recruitments</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
+                <li><div><img src={allrec_img}/> &nbsp;<span>All Recruitments</span></div> <img src={right_black_img}/></li>
+                <li><div><img src={draftr_img}/> &nbsp;<span>Draft Recruitments</span></div> <img src={right_black_img}/></li>
+                <li><div><img src={rapps_img}/> &nbsp;<span>Recruitment Applications</span></div> <img src={right_black_img}/></li>
+                <li><div><img src={rdone_img}/> &nbsp;<span>Recruited</span></div> <img src={right_black_img}/></li>
+                <li><div><img src={failed_img}/> &nbsp;<span>Failed Recruitments</span></div> <img src={right_black_img}/></li>
               </ul>
               {/* <p>Dashboards</p>
               <Link to="/leads-report" >
@@ -156,7 +167,7 @@ const Sidebar = () => {
               
               <p>Need Help?</p>
               <ul>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/needhelp.png'/> &nbsp;<span>Help &amp; FAQs</span></div> <img src='https://tataadv2dev.iorta.in/assets/MaterialUiIcons/chevron_right_black_192x192.png'/></li>
+                <li><div><img src={needhelp_img}/> &nbsp;<span>Help &amp; FAQs</span></div> <img src={right_black_img}/></li>
               </ul>
             </div>
           </div>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Steps, Timeline } from 'antd';
+import { Row, Col, Steps, Timeline, Divider, Image, Tabs  } from 'antd';
 import './History.css'
 import '../StatusLead/StatusLead.css'
-import '../LeadDetails/LeadDetailsTab.css'
-import Tabs from '../Tab/Tab'
+// import '../LeadDetails/LeadDetailsTab.css'
+import MTabs from '../../components/Tab/Tab'
 import HistoryTabs from './HistoryTabs'
 import * as actions from '../../store/actions/index';
 import _ from "lodash";
@@ -48,6 +48,11 @@ const History = () => {
     const [leadId, setleadId] = useState(storeLeadId)
     const [userId, setuserId] = useState(storeUserId)
     const dispatch = useDispatch()
+
+    let { innerWidth: width, innerHeight: height } = window;
+    const { TabPane } = Tabs;
+    const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
+        width <= "767" ? "top" : width <= "1023" ? "top" : "left");
 
     let leadElement = (
         // {
@@ -130,7 +135,7 @@ useEffect(() => {
 
 return (
     <>
-        <Tabs
+        <MTabs
             tabBarGutter={0}
             tabMenu={tabMenu}
             header="New Lead"
@@ -139,7 +144,7 @@ return (
 
         />
         <div className="form-container">
-            {!leadId ?
+            {leadId ?
                 <Row gutter={['', 20]} justify="center">
                     <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
                         <div className="proposal">
