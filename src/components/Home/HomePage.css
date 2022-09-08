@@ -75,9 +75,9 @@
   height: 220px;
 }
 .activity-block {
-  margin-top: 50px;
+  margin-top: 40px;
   overflow-y: scroll;
-  height: 220px;
+  height: 250px;
 }
 .activity-block .action-cards-content-activity {
   padding: 20px;
@@ -244,6 +244,11 @@
   text-overflow: ellipsis;
   margin-bottom: -20px;
   margin-top: -10px;
+}
+
+.todo-home{
+  background-color: #fff;
+  border-radius: 3px;
 }
 
 
