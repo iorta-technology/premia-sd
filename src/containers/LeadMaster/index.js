@@ -14,11 +14,19 @@ const LeadMaster = (props) => {
     const [current, setcurrent] = useState(1)
     const history = useHistory()
     const dispatch = useDispatch()
+
+    const [width, setWidth] = useState(window.innerWidth)
+    const breakpoint = 620
+
     useEffect(() => {
         const {id} = stoageGetter('user')
-        // console.log(id)
         dispatch(actions.fetchAllLeads(id,'',current))
-    },[dispatch,current]);
+
+        const handleWindowResize = () => setWidth(window.innerWidth)
+        window.addEventListener('resize', handleWindowResize)
+
+        return () => window.removeEventListener('resize', handleWindowResize)
+    },[dispatch,current,width]);
 
     //Accessing LeadCard data  from store
     const leadsData = useSelector((state)=>state.leads.allLeads)
@@ -101,7 +109,7 @@ console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
-            <FloatButton />
+            {(breakpoint > width) ? null : <FloatButton />}
         </div>
     )
 }

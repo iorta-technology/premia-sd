@@ -12,6 +12,10 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import LeadCard from '../LeadCards/LeadCard'
 import GlobalFilters from './Filter'
 import AllocateModalShow from './Allocate'
+import person_black from './../Activitity Tracker/icons/person_black.png'
+import person_white from './../Activitity Tracker/icons/person_white.png'
+import group_white from './../Activitity Tracker/icons/group_white.png'
+import group_black from './../Activitity Tracker/icons/group_black.png'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
@@ -25,6 +29,8 @@ import {
   getFortodayTabApi,
   getFailedTabApi
 } from "../actions/allleadAction"
+import { flexibleCompare } from 'fullcalendar'
+import { Column } from '@antv/g2plot'
 
 const { TabPane } = Tabs
 
@@ -242,8 +248,6 @@ const Tab = ({
     }
     currentTab != currentActiveTab && 
     dispatch(actions.updateAllocateOfOpportunities(false))
-    
-    
   }
 
 
@@ -258,13 +262,13 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        <div className={tabMenu.length !== 0 ? "header-img" : 'header-img-noTab'}>
+        <div className="header-img">
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
             </div>
 
-            <div >
+            <div>
               <Tabs
                 tabBarGutter={20}
                 centered={false}
@@ -279,43 +283,30 @@ const Tab = ({
               </Tabs>
             </div>
           </div>
-
-          {tabPane.key === activeKey ?
-            <div
-              className="round-card-main-Tab "
-            // defaultActiveKey={"allocket"}
-            // activeKey={"team"}
-            // style={{ marginLeft: '8rem' }}
-            >
-              <figure className={currentActiveTab === "team"
-                ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
-                {' '}
-                <figcaption className="card-caption">Team</figcaption>{' '}
-              </figure>
-              <figure className={currentActiveTab === "self"
-                ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
-                {' '}
-                <figcaption className="card-caption">Self</figcaption>{' '}
-              </figure>
-              {/* <figure className={currentActiveTab === "allocket" 
-                ? "round-cards3-active" : "round-cards3"} onClick={() => handleChangeTab("allocket")} key={"allocket"}>
-                {' '}
-                <figcaption className="card-caption">Allocate</figcaption>{' '}
-              </figure> */}
-              <AllocateModalShow/>
-              {/* <figure
-                className="round-cards43" onClick={() => { }} key={"filter"}>
-                {' '}
-                <figcaption className="card-caption">Filter</figcaption>{' '}
-              </figure> */}
-              <GlobalFilters show={show} onHide={handleClose} handleShow={handleShow} setShow={setShow} />
-              
-            </div>
-            : null}
-
+          
+          <div style={{display:'flex'}}>
+            {tabPane.key === activeKey ?
+              <div
+                className="round-card-main-Tab"
+              >
+                <figure className={currentActiveTab === "team"
+                  ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
+                  {' '}
+                  <figcaption className="card-caption">Team</figcaption>{' '}
+                </figure>
+                <figure className={currentActiveTab === "self"
+                  ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
+                  {' '}
+                  <figcaption className="card-caption">Self</figcaption>{' '}
+                </figure>
+                <AllocateModalShow/>
+                <GlobalFilters show={show} onHide={handleClose} handleShow={handleShow} setShow={setShow} />
+              </div>
+              : null}
+          </div>
         </div>
       ) : (
-        <>
+        <div style={{display:'flex', flexDirection:'Column'}}>
           <div>
             <Tabs
               tabBarGutter={20}
@@ -326,10 +317,26 @@ const Tab = ({
               style={{ backgroundColor: '#f7f7f7', boxShadow: '0px 1px 10px 0px #0000003d' }}
             >
               {tabPane}
-
             </Tabs>
           </div>
-        </>
+          <div style={{display:'flex', justifyContent:'space-between', padding:'16px'}}>
+              {/* <figure className={currentActiveTab === "team"
+                ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
+                {' '}
+                <figcaption className="card-caption">Team</figcaption>{' '}
+              </figure>
+              <figure className={currentActiveTab === "self"
+                ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
+                {' '}
+                <figcaption className="card-caption">Self</figcaption>{' '}
+              </figure>
+              <AllocateModalShow/> */}
+              <button onClick={() => handleChangeTab("team")} key={"team"} className={(currentActiveTab === "team")  ? 'active_tabs_button' : 'tabs_button'}><img src={(currentActiveTab === "team") ? person_white : person_black} className='person' alt='person_png'/> Team</button>
+              <button onClick={() => handleChangeTab("self")} key={"self"} className={(currentActiveTab === "self")  ? 'active_tabs_button' : 'tabs_button'}><img src={(currentActiveTab === "self") ? group_white : group_black} className='group' alt='person_png'/> Self</button>
+              <AllocateModalShow />
+              <GlobalFilters show={show} onHide={handleClose} handleShow={handleShow} setShow={setShow} />
+          </div>
+        </div>
       )}
 
     </>

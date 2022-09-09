@@ -57,7 +57,7 @@ const App = () => {
                              onClick={(e)=>{
                                     setTeamSelf(true)
                                 }}>
-                                <img src={TeamSelf ?person_white:person_black} className='person' alt='person_png'/>Self
+                                <img src={TeamSelf ? person_white:person_black} className='person' alt='person_png'/>Self
                             </button>
                             <button 
                                 style={{width : 75}}

@@ -8,8 +8,18 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions/leads'
 import axios from 'axios';
+import person_black from './../Activitity Tracker/icons/person_black.png'
+import person_white from './../Activitity Tracker/icons/person_white.png'
 
 export const AllocateModal = React.memo((props) => {
+  
+  const [width, setWidth] = useState(window.innerWidth)
+  const breakpoint = 650
+
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handleWindowResize)
+  },[])
 
   const dispatch = useDispatch()
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab)
@@ -17,8 +27,6 @@ export const AllocateModal = React.memo((props) => {
   const [visible, setVisible] = useState(false);
   const [viewDetails, setviewDetails] = useState([])
   const [cardData, setCardData] = useState([])
-
-
 
   const handleCloseAllocate = () => {
     setVisible(false)
@@ -38,9 +46,7 @@ export const AllocateModal = React.memo((props) => {
     handleCloseAllocate();
     alert("Lead allocated successfully");
   }
-  
-
-
+   
   useEffect(() => {
     getAlldataofTeamMainTab();
   }, [])
@@ -53,6 +59,12 @@ export const AllocateModal = React.memo((props) => {
     setviewDetails([lead])
   }
 
+  const modelStyle = {
+    display: 'flex', 
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection:(width <= 750) ? 'column' : "row",
+  };
 
   return (
     <>
@@ -64,18 +76,25 @@ export const AllocateModal = React.memo((props) => {
         </div>
       }
 
-      {allocateBtnStatus ?
-
+      {
+      allocateBtnStatus ?  
+        ((width > breakpoint-30)?
         <figure className="round-cards3-active" onClick={handleAllocateTo} key={"allocket"}>
           {' '}
           <figcaption className="card-caption">Allocate To</figcaption>{' '}
-        </figure>
+        </figure>:    
+        <button key={"allocket active"} onClick={handleAllocateTo} style={{color:'#fff'}} className='active_tabs_button'><img src={person_white} className='person' alt='person_png'/>
+          <b>+</b> Allocate To
+        </button>)
         :
+        ((width > breakpoint-30)?
         <figure className="round-cards3" onClick={() => dispatch(actions.updateAllocateOfOpportunities(true))} key={"allocket"}>
           {' '}
           <figcaption className="card-caption">Allocate</figcaption>{' '}
-        </figure>
-
+        </figure>:
+        <button key={"allocket"} onClick={() => dispatch(actions.updateAllocateOfOpportunities(true))} style={{color:'#000'}} className='tabs_button'><img src={person_black} className='person' alt='person_png'/>
+          <b>+</b> Allocate
+        </button>)
       }
       <Modal
         title="Allocate to"
@@ -87,39 +106,14 @@ export const AllocateModal = React.memo((props) => {
         width={800}
         bodyStyle={{ backgroundColor: 'rgb(247, 247, 247)' }}
       >
-        <div style={{ display: 'flex', }}>
+        <div style={modelStyle}>
 
-          <div style={{ height: '30rem', width: "30rem" }}>
+          <div style={{height: '238px', width: "100%", display:'flex', flexDirection:'column', justifyContent:'space-between', marginBottom:'5px'}}>
 
             {cardData?.map((item, ind) => {
-
               let avatar = item.firstName.match(/\b(\w)/g) + item.lastName.match(/\b(\w)/g);
               return (
-
-                // <div key={item.id} style={{ display: 'flex', backgroundColor: '#fff', height: '2.5rem', width: 'auto', marginBottom: '1rem', position: 'relative', alignItems: 'center', border: '0.8px solid lightgray' }}>
-                //   <Avatar style={{ textTransform: 'uppercase', position: 'absolute', left: '5px' }} >
-                //     {avatar}
-                //   </Avatar>
-                //   <p style={{ color: 'rgb(0, 172, 193)', fontSize: '13px', position: 'absolute', left: '45px', top: '10px',fontWeight: '600', }}>
-                //     Agent
-                //   </p>
-                //   <p style={{ fontWeight: '700', position: 'absolute', left: '90px', top: '8px' }}>
-                //     {item.firstName} {item.lastName}
-                //   </p>
-                //   <p style={{ textTransform: 'uppercase', color: '#78849E', fontSize: '12px', position: 'absolute', left: '170px', top: '10px' }}>
-                //     {item.lead_Id}
-                //   </p>
-
-                //   <Button
-                //     style={{ height: '1.2rem', width: '4rem', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(0, 172, 193)', fontSize: '10px', fontWeight: '400px', position: 'absolute', left: '335px', color: '#ffff' }}
-                //     onClick={() => handleViewDetails(item)}
-                //   >
-                //     View details
-                //   </Button>
-
-                // </div>
-
-                <div key={item.id} style={{ display: 'flex', backgroundColor: '#fff', width: 'auto', marginBottom: '10px',padding:3, alignItems: 'center', border: '0.8px solid lightgray',justifyContent:'space-between' }}>
+                <div key={item.id} style={{ display: 'flex', backgroundColor: '#fff', width: 'auto', marginBottom: '0',padding:3, alignItems: 'center', border: '0.8px solid lightgray',justifyContent:'space-between' }}>
                     <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems: 'center',flex:2}}>
                       <div>
                         <Avatar style={{ textTransform: 'uppercase' }} >{avatar}</Avatar>
@@ -152,7 +146,7 @@ export const AllocateModal = React.memo((props) => {
 
           </div>
 
-          <div style={{ height: '25rem', width: "25rem", backgroundColor: '#ffff', marginLeft: '10px', border: '0.8px solid lightgray' }}>
+          <div style={{ height: '100%', width: "100%", backgroundColor: '#ffff', margin: '0 10px', border: '0.8px solid lightgray' }}>
 
             {
               viewDetails.length ?
@@ -193,7 +187,6 @@ export const AllocateModal = React.memo((props) => {
                         position: "absolute",
                         top: "73%",
                         right: "4%",
-
                       }}>
                         <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleAllocateLead}>Allocate</Button>
                       </div>
@@ -215,7 +208,7 @@ export const AllocateModal = React.memo((props) => {
 
           </div>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', justifyContent: 'space-between', marginBottom: '-15px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', justifyContent: 'space-between', marginBottom: '-5px', marginTop:'5px' }}>
           <Button onClick={handleCloseAllocate}>Cancel</Button>
 
         </div>
