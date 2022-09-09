@@ -7,8 +7,8 @@
   flex-direction: row;
   padding: 30px 0px;
   justify-content: center;  */
-  margin-left: 80px;
-  margin-right: 80px;
+  /* margin-left: 80px;
+  margin-right: 80px; */
 }
 .dummy-home-card {
   width: 419px !important;
@@ -80,9 +80,9 @@
   height: 250px;
 }
 .activity-block .action-cards-content-activity {
-  padding: 20px;
+  padding: 10px;
   background-color: #fff;
-  margin-top: 20px;
+  margin-top: 10px;
   border-radius: 6px;
 }
 .action-cards-content::-webkit-scrollbar {
@@ -178,27 +178,31 @@
     border-radius: 8px;
     box-shadow: rgb(107, 100, 100) 0px 0px 4px;
   }
-  .cardHolder{
+  .alignUserLabel{
+    justify-content:unset;
+    margin-left: 10px;
+  }
+  /* .cardHolder{
     margin-left: 10px;
     margin-right: 10px;
-  }
+  } */
 }
 @media screen and (min-width: 768px) {
   
-  .cardHolder{
+  /* .cardHolder{
     margin-left: 80px;
     margin-right: 80px;
-  }
+  } */
 }
 
 @media screen and (min-width: 992px) {
   .home-ml10{
     margin-left: 100px;
   }
-  .cardHolder{
+  /* .cardHolder{
     margin-left: 80px;
     margin-right: 80px;
-  }
+  } */
   .cardHolder .dataCard {
     width: 400px !important;
     /* flex: 1; */
@@ -207,6 +211,14 @@
     flex-wrap: wrap;
     border-radius: 8px;
     box-shadow: rgb(107, 100, 100) 0px 0px 4px;
+  }
+
+  .dataCardLabel {
+    width: 400px !important;
+  }
+  .alignUserLabel{
+    justify-content: center;
+    margin-left: -35px;
   }
 }
 

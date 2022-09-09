@@ -310,6 +310,7 @@ const NewLead = React.memo(() => {
 
   // store form data 
   let storeFormData = useSelector((state) => state.newLead.formData)
+  const userTreeData = useSelector((state) => state?.home?.user_tree)
   console.warn('((((((((((( storeFormData )))))))))))', storeFormData)
   delete storeFormData['appointmentId'];
   delete storeFormData['appointmentDate'];
@@ -354,10 +355,10 @@ const NewLead = React.memo(() => {
 
 
   // const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
-  let leadArr = []
-  storeFormData.leadStatus !== '' && leadArr.push(storeFormData.leadStatus)
-  storeFormData.leadDisposition !== '' && leadArr.push(storeFormData.leadDisposition)
-  storeFormData.leadsubDisposition !== '' && leadArr.push(storeFormData.leadsubDisposition)
+  // let leadArr = []
+  // storeFormData.leadStatus !== '' && leadArr.push(storeFormData.leadStatus)
+  // storeFormData.leadDisposition !== '' && leadArr.push(storeFormData.leadDisposition)
+  // storeFormData.leadsubDisposition !== '' && leadArr.push(storeFormData.leadsubDisposition)
   // console.warn('leadArr((((((((((===>>>>>>>>>>', leadArr)
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
@@ -389,18 +390,26 @@ const NewLead = React.memo(() => {
   const [stateProvince, setStateProvince] = useState(storeStateValue)
   const [cityProvince, setCityProvince] = useState(storeCityValue)
   const [errorMessage, setErrorMessage] = useState()
-  const [isNewLead, setIsNewLead] = useState()
-  const [leadStatusData, setLeadStatusData] = useState(leadArr)
+  const [isNewLead, setIsNewLead] = useState(false)
+  const [leadStatusData, setLeadStatusData] = useState([])
+  const [hierarAgentList ,setHierarAgentList]=useState([])
+  const [desigData ,setDesigData]=useState('')
+  const [teamMemberList ,setTeamMemberList]=useState([])
+  const [teamData ,setTeamData]=useState('')
 
-  useEffect(() => {
-    setLeadStatusData(leadArr)
-  }, [])
+  // useEffect(() => {
+  //   // setLeadStatusData(leadArr)
+  //   setLeadStatusData([...leadStatusData,leadArr])
+  //   console.warn('leadStatusData((((((((((===>>>>>>>>>>', leadStatusData)
+  // }, [leadArr])
 
 
   useEffect(() => {
     if (storeFormData.lead_Id !== '') {
       // let _status = []
       console.warn('UPDATE', storeFormData)
+      // console.warn('storeFormData.leadStatusArr((((((((((===>>>>>>>>>>', storeFormData.leadStatusArr)
+      if(storeFormData.leadStatusArr > 0 || storeFormData.leadStatusArr !== undefined) setLeadStatusData(storeFormData.leadStatusArr)
       setFirstName(storeFormData.firstName)
       setLastName(storeFormData.lastName)
       setLeadStatus(storeFormData.leadStatus)
@@ -412,7 +421,12 @@ const NewLead = React.memo(() => {
       setEmail(storeFormData.email)
       setInsuranceComapany(storeFormData.Insurance_Company)
       setProduct(storeFormData.Product)
-      // setLeadStatusData(leadArr)
+      
+      // leadHandler(storeFormData.leadStatusArr)
+      
+      // setLeadStatusData(storeFormData.leadStatusArr)
+      // setLeadStatusData([...leadStatusData,storeFormData.leadStatusArr])
+      // if(leadArr.length > 0) setLeadStatusData([...leadStatusData,leadArr])
 
       // console.warn('leadStatusData((((((((((===>>>>>>>>>>', leadStatusData)
 
@@ -422,13 +436,6 @@ const NewLead = React.memo(() => {
 
       // let _status = [storeFormData.leadStatus , storeFormData.leadDisposition , storeFormData.leadsubDisposition]
       // console.warn('_status((((((((((===>>>>>>>>>>', _status)
-      // setLeadStatusData([...leadStatusData,_status])
-      // setLeadStatusData(_status)
-      // setLeadStatus(leadArr[0])
-      // setLeadDisposition(leadArr[1])
-      // setLeadSubDisposition(leadArr[2])
-      // setPrimaryNo(storeFormData.primaryMobile)
-      // setPrimaryNo(storeFormData.primaryMobile)
 
     } else {
       console.warn('CREATE', storeFormData.lead_Id)
@@ -438,6 +445,15 @@ const NewLead = React.memo(() => {
       setInsuranceComapany('select')
       setProduct('select')
     }
+
+    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
+
+    userTreeData.reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
+    userTreeData.reporting_users.forEach(el =>{ 
+      el.label = el.full_name
+      el.value = el._id 
+    })
+    setHierarAgentList(userTreeData.reporting_hierarchies)
 
     // console.log('payload',payloadFormData)
     // console.log('nonpayload',storeFormData)
@@ -1186,6 +1202,24 @@ const NewLead = React.memo(() => {
     // resetLastName();
     // resetEmail();
   };
+
+  const handleDesignationData = (event) =>{
+    setDesigData(event)
+    setTeamData('')
+    // console.log('DESIGNATOON',event)
+    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
+    let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
+    // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
+    setTeamMemberList(_teamData)
+    
+  }
+  const handleTeamListData = (event) =>{
+    setTeamData(event)
+    // console.log('DESIGNATOON',event)
+    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
+    
+  }
+  
   // const proceedHandler = event => {
   //   event.preventDefault();
 
@@ -1608,7 +1642,7 @@ const NewLead = React.memo(() => {
                         placeholder="New Contact"
                         size="large"
                         popupClassName="popup-size"
-                        onChange={leadHandler}
+                        onChange={(event)=> leadHandler(event) }
                         style={{ height: '2.45rem' }}
                         value={leadStatusData}
                       />
@@ -1637,7 +1671,7 @@ const NewLead = React.memo(() => {
                         placeholder="New Contact"
                         size="large"
                         popupClassName="popup-size"
-                        onChange={ appointmentStatusHandler}
+                        onChange={ ()=> appointmentStatusHandler}
                         style={{ height: '2.45rem' }}
                         value={leadStatusData}
                       />
@@ -1665,7 +1699,7 @@ const NewLead = React.memo(() => {
                         <DatePicker
                           className='input-box'
                           // disabledDate={disabledDate}
-                          onChange={appointmentDateHandler}
+                          onChange={ ()=> appointmentDateHandler}
                           value={appointmentDate}
                           size="large"
                           format="YYYY/MM/DD"
@@ -1703,7 +1737,7 @@ const NewLead = React.memo(() => {
                           bordered={false}
                           className='select-box'
                           value={appointmentTime}
-                          onChange={startTimeHandler}
+                          onChange={ ()=> startTimeHandler}
                           size="large"
                           // style={{ width: "100%", boxShadow: 'none', border: 'none', outline: 'none', borderBottom: '1px rgb(153, 153, 153) solid', }}
                           options={appointmentTimeOptions}
@@ -1757,7 +1791,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Some Remark"
                       value={remarkFromSource}
-                      onChange={remarkFromSourceHandler} />
+                      onChange={ ()=> remarkFromSourceHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} className="mb-2">
@@ -1778,7 +1812,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Some Remark"
                       value={remarkFromUser}
-                      onChange={remarkFromUserHandler} />
+                      onChange={()=> remarkFromUserHandler} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager" style={(leadDisposition === "appointment" || leadDisposition === "callback") && { display: 'none' }}>
@@ -1827,7 +1861,7 @@ const NewLead = React.memo(() => {
                             },
                           ]}
                         >
-                          <Select size="large" options={designationsOptions} placeholder="Set Designation"></Select>
+                          <Select size="large" value={desigData} options={hierarAgentList} onChange={(event)=> handleDesignationData(event)}  placeholder="Set Designation"></Select>
                         </Form.Item>
                       </Col>
                       <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -1844,7 +1878,8 @@ const NewLead = React.memo(() => {
                             },
                           ]}
                         >
-                          <Select size="large" options={setReminderOptions} placeholder="Set Team Member"></Select>
+                         
+                          <Select size="large" value={teamData} options={teamMemberList} onChange={(event)=> handleTeamListData(event)} placeholder="Set Team Member"></Select>
                         </Form.Item>
                       </Col>
                     </Row>
