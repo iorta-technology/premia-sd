@@ -25,7 +25,7 @@
     "antd": "^4.16.13",
     "apexcharts": "^3.33.0",
     "axios": "^0.21.4",
-    "bootstrap": "^5.2.0",
+    "bootstrap": "^5.2.1",
     "chart.js": "^3.7.1",
     "ciqu-react-calendar": "^1.0.2",
     "faker": "^6.6.6",

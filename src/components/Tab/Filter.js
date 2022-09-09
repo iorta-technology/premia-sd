@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Radio, Select, Input } from 'antd'
@@ -76,9 +76,15 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  React.useEffect(() => {
+  const [width, setWidth] = useState(window.innerWidth)
+  const breakpoint = 620
+
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handleWindowResize)
     setShow(props.show)
-  }, [])
+    return () => window.removeEventListener('resize', handleWindowResize)
+  }, [width])
 
   return (
     <>
@@ -86,23 +92,30 @@ export function OffCanvasForGlobalFilter({ ...props }) {
         Filter
       </Button> */}
       <figure
+        style={!(breakpoint <= width) ? {
+          position: "fixed",
+          bottom: '1%',
+          zIndex: '99999',
+          boxShadow: '0px 0px 4px 1px black',
+          right: '5.5%',
+        } : {}} 
         className="round-cards43" onClick={handleShow} key={"filter"}>
         {' '}
-        <figcaption className="card-caption">Filter</figcaption>{' '}
+        {(breakpoint <= width) ? <figcaption className="card-caption">Filter </figcaption> : null}
       </figure>
       <Offcanvas
         show={show}
         onHide={handleClose}
         {...props}
         scroll={true}
-        placement='end'
+        placement={(breakpoint <= width) ? 'end' : 'down'}
         style={{ width: '30rem', height: 'auto', marginTop: '3.7rem', backgroundColor: 'rgb(247, 247, 247)' }}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Select Filter</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div style={{ width: 'auto', height: '6rem', backgroundColor: 'white', marginBottom: '0.5rem' }}>
+          <div style={{width: 'auto', height: '6rem', backgroundColor: 'white', marginBottom: '0.5rem' }}>
             <h6 style={{ fontWeight: 'bold', padding: '10px', fontSize: '13px' }}>Sort by</h6>
             <Select
               onChange={handleSortByStatus}
