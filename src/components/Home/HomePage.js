@@ -63,6 +63,8 @@ const HomePage = () => {
   const [showData, setShowData] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  
+
   useEffect(() => {
     if (id) dispatch(actions.activities(id,agent_id))
     if (id) dispatch(actions.todoGetData(id))
@@ -432,7 +434,7 @@ const Showpopuptodo = (ind,data) => {
       <Row  gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center" >
 
         <Col>
-          <div className="dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
+          <div className="dataCard" bordered="false" style={{ backgroundColor: '#CEA0E1' }}>
 
             <div className="card-content">
               <div className="activity-icon">
@@ -495,7 +497,7 @@ const Showpopuptodo = (ind,data) => {
 
 
         <Col>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#86ACEC' }}>
             <Link to="/leadMaster/all_leads">
               <div className="card-content">
                 <div className="activity-icon">
@@ -524,7 +526,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col style={{ display: 'none' }}>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#00ACC1' }}>
             <div className="card-content">
               <Link to={"/applications"}>
                 <div className="activity-icon">
@@ -565,7 +567,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#5EC0AD' }}>
             <Link to="/kpi-dashboard">
               <div className="card-content">
                 <div className="activity-icon">
@@ -650,7 +652,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col style={{ display: 'none' }} >
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1', overflow: "hidden" }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#00ACC1', overflow: "hidden" }}>
             <div className="card-content">
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src={todo_img} alt="Actions" />
@@ -684,7 +686,7 @@ const Showpopuptodo = (ind,data) => {
 
 
         <Col>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#00ACC1' }}>
             <Link to='/calendar'>
               <div className="card-content">
                 <div className="activity-icon">
@@ -705,16 +707,16 @@ const Showpopuptodo = (ind,data) => {
                     return(
                         <div className='TodoCard-Container todo-home' key={index}>
                             <div className='TodoCards-Top'>
-                                <div className='TodoCards-TimedateArchive' sm>
+                                <div className='TodoCards-TimedateArchive'>
                                     <Col className='TodoCards-TopClock'>
                                         <div className='todoCard-mr15'>
                                             <img src={TodoClock} alt='alarm'/>
                                         </div>
                                         <div>
-                                            <text style={{color: element.status === 'Soon' ? element.sooncolor : element.status === 'Overdue' ? element.overduecolor : 'red',fontSize:12,}}>{element.status} </text>
+                                            <h4 style={{color: element.status === 'Soon' ? element.sooncolor : element.status === 'Overdue' ? element.overduecolor : 'red',fontSize:12,}}>{element.status} </h4>
                                         </div>
                                         <div style={{marginLeft:5}}>
-                                            <text style={{color:element.status === 'Soon' ? element.sooncolor : element.status === 'Overdue' ? element.overduecolor : 'red',fontSize:12,}}>{element.stringtimeofreminder} : {element.dateofreminder}</text>
+                                            <h4 style={{color:element.status === 'Soon' ? element.sooncolor : element.status === 'Overdue' ? element.overduecolor : 'red',fontSize:12,}}>{element.stringtimeofreminder} : {element.dateofreminder}</h4>
                                         </div>
                                     </Col>
         
@@ -775,7 +777,7 @@ const Showpopuptodo = (ind,data) => {
 
 
         <Col style={{ display: 'none' }}>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#5EC0AD' }}>
             <Link to="/renewalMaster/allRenewals">
               <div className="card-content">
                 <div className="activity-icon">
@@ -806,7 +808,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col style={{ display: 'none' }}>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#00ACC1' }}>
             <div className="card-content">
               <Link to="/rewardscorner/contests/allcontest">
                 <div className="activity-icon">
@@ -839,7 +841,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col style={{ display: 'none' }}>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#86ACEC' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#86ACEC' }}>
             <div className="card-content">
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src={sales_guide_img} alt="Sales Guide" />
@@ -874,7 +876,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#CEA0E1' }}>
             <div className="card-content">
               <Link to='/products'>
                 <div className="activity-icon">
@@ -913,7 +915,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col style={{ display: 'none' }}>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#CEA0E1' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#CEA0E1' }}>
             <div className="card-content">
               <Link to="/birthday">
                 <div className="activity-icon">
@@ -934,7 +936,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         {/* <Col>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#5EC0AD' }}>
             <Link to="/mappedbranches">
               <div className="card-content">
                 <div className="activity-icon">
@@ -955,7 +957,7 @@ const Showpopuptodo = (ind,data) => {
         </Col> */}
 
         <Col style={{ display: 'none' }}>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#5EC0AD' }}>
             <Link to="/mappedbranches">
               <div className="card-content">
                 <div className="activity-icon">
@@ -976,7 +978,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         <Col style={{ display: 'none' }} >
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#5EC0AD' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#5EC0AD' }}>
             <Link to="/existingpartner">
               <div className="card-content">
                 <div className="activity-icon">
@@ -996,7 +998,7 @@ const Showpopuptodo = (ind,data) => {
         </Col>
 
         {/* <Col>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#00ACC1' }}>
             <div className="card-content">
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3375.png" alt="ToDo" />
@@ -1019,7 +1021,7 @@ const Showpopuptodo = (ind,data) => {
 
 
         <Col style={{ display: 'none' }}>
-          <div className=" dataCard" bordered={false} style={{ backgroundColor: '#00ACC1' }}>
+          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#00ACC1' }}>
             <div className="card-content">
               <Link to="/renewalreport">
                 <div className="activity-icon">
