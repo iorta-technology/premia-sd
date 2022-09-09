@@ -150,12 +150,12 @@ const LoanProducts = () => {
             {/* <div className='product-content'> */}
             <div className="header">
                 <Row >
-                    <Col><h1 className="product-title">Products</h1></Col>
+                    <Col><p className="product-title">Products</p></Col>
                 </Row>
                 <div>
-                    <Row className="tabs" gutter={[16, 24]}>
+                    <Row className="tabs" >
                         {productData?.map(item =>
-                            <Col span={4}>
+                            <Col style={{marginRight:15}}>
                                 <Button className={`primaryBtn ${item._id === activeId && 'top-tab-header-active'}`}
                                     onClick={topBtnClickHandler.bind(this, item)}>{item.productCategoryName}
                                 </Button>

@@ -98,7 +98,7 @@ const Sidebar = () => {
           {/* <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon> */}
-          <img onClick={() => { history.push('/home') }} src= {sales_logo_img} style={{width:'180px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
+          <img onClick={() => { history.push('/home') }} src= {sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
             <FaIcons.FaBell />

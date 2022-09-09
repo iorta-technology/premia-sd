@@ -4,9 +4,14 @@
 } */
 .header{
     background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
-    height: 200px;
-    padding: 10px 20px;
-    background-size: 100% 100%;
+    background-size: cover;
+    height: 11rem;
+    /* width: 100%; */
+    margin-bottom: 10px;
+    margin-top: -1rem;
+    /* padding: 10px 20px; */
+    padding: 15px;
+    /* background-size: 100% 100%; */
   }
   .header h1{
     color: #00ACC1;
@@ -79,7 +84,7 @@
   }
   .ant-btn.primaryBtn{
     /* background-color: rgb(255, 255, 255); */
-    background-color: transparent;
+    background-color: #D2DDE8;;
     color: rgb(60, 61, 61);
     border-radius: 20px;
     width: 190px;
@@ -94,7 +99,7 @@
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
   }
   .tabs{
-    margin: 10px 0 20px;
+    margin-left: 40px;
     /* justify-content: space-around; */
   }
   .main-card1{
@@ -162,6 +167,13 @@
   .tableBorder{
     border: 1px solid #eee;
   }
+  .product-title{
+    /* padding-top: 1vw; */
+    font-size: 32px;
+    font-weight: bold;
+    color: #00ACC1;
+    margin-left: 40px;
+  }
   @media only screen and (min-width: 992px){
     .loan-product-tabs .circle-point {
       background-color: #5EA5C0;
@@ -215,7 +227,7 @@
   }
   .ant-btn.primaryBtn{
     /* background-color: rgb(255, 255, 255); */
-    background-color: transparent;
+    background-color: #D2DDE8;;
     color: rgb(60, 61, 61);
     border-radius: 20px;
     width: 150px;
@@ -306,7 +318,9 @@
   color: #00ACC1;
 }
 .product-title{
-padding-top: 1vw;
+  /* padding-top: 1vw; */
+  font-size: 32px;
+  font-weight: bold;
 }
   }
 

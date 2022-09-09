@@ -153,6 +153,15 @@ export const fetchLeadDetails = (id) => {
         //     })
 
         let result = await axiosRequest.get(`user/getlead_details/${id}`, { secure: true });
+        // console.warn('__++++++++++++++ getlead_details',result)
+        let leadArr = []
+        result[0].leadStatus !== '' && leadArr.push(result[0].leadStatus)
+        result[0].leadDisposition !== '' && leadArr.push(result[0].leadDisposition)
+        result[0].leadsubDisposition !== '' && leadArr.push(result[0].leadsubDisposition)
+
+        result[0]['leadStatusArr'] = leadArr
+
+        // result.forEach(el =>{ el.leadStatusArr = leadArr })
         console.warn('__++++++++++++++ getlead_details',result)
         if (result.length > 0) {
             return dispatch(fetchLeadDetailsSuccess(result[0]));

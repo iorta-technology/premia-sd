@@ -5,8 +5,10 @@
    /* display: flex; */
   /* flex-wrap: wrap;
   flex-direction: row;
- padding: 30px 0px;
- justify-content: center;  */
+  padding: 30px 0px;
+  justify-content: center;  */
+  /* margin-left: 80px;
+  margin-right: 80px; */
 }
 .dummy-home-card {
   width: 419px !important;
@@ -50,8 +52,17 @@
   cursor: pointer;
 }
 .activities-text {
-  display: inline-block;
-  margin-left: 5%;
+   display: inline-block; 
+   margin-left: 5%; 
+}
+.separator{
+  max-width: 150px;
+  margin: 2rem auto;
+}
+.separator .line{
+  height: 3px;
+  flex: 1;
+  background-color: #000;
 }
 .events-body {
   background-color: #fff;
@@ -73,14 +84,14 @@
   height: 220px;
 }
 .activity-block {
-  margin-top: 50px;
+  margin-top: 40px;
   overflow-y: scroll;
-  height: 220px;
+  height: 250px;
 }
 .activity-block .action-cards-content-activity {
-  padding: 20px;
+  padding: 10px;
   background-color: #fff;
-  margin-top: 20px;
+  margin-top: 10px;
   border-radius: 6px;
 }
 .action-cards-content::-webkit-scrollbar {
@@ -164,7 +175,7 @@
 } */
 
 @media screen and (min-width: 320px) {
-  .ml10{
+  .home-ml10{
     margin-left: 10px;
   }
   .cardHolder .dataCard {
@@ -176,11 +187,31 @@
     border-radius: 8px;
     box-shadow: rgb(107, 100, 100) 0px 0px 4px;
   }
+  .alignUserLabel{
+    justify-content:unset;
+    margin-left: 10px;
+  }
+  /* .cardHolder{
+    margin-left: 10px;
+    margin-right: 10px;
+  } */
 }
-@media screen and (min-width: 920px) {
-  .ml10{
+@media screen and (min-width: 768px) {
+  
+  /* .cardHolder{
+    margin-left: 80px;
+    margin-right: 80px;
+  } */
+}
+
+@media screen and (min-width: 992px) {
+  .home-ml10{
     margin-left: 100px;
   }
+  /* .cardHolder{
+    margin-left: 80px;
+    margin-right: 80px;
+  } */
   .cardHolder .dataCard {
     width: 400px !important;
     /* flex: 1; */
@@ -190,7 +221,16 @@
     border-radius: 8px;
     box-shadow: rgb(107, 100, 100) 0px 0px 4px;
   }
+
+  .dataCardLabel {
+    width: 400px !important;
+  }
+  .alignUserLabel{
+    justify-content: center;
+    margin-left: -35px;
+  }
 }
+
 /* @media screen and (min-width: 900px) {
   .ml10{
     margin-left: 80px;
@@ -209,4 +249,27 @@
     box-shadow: rgb(107, 100, 100) 0px 0px 4px;
   }
 } */
+
+
+/* my css */
+.appointment_data {
+  display: flex;                  
+  flex-direction: row;            
+  flex-wrap: nowrap;              
+  justify-content: space-between; 
+}
+
+#truncateLongTexts {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: -20px;
+  margin-top: -10px;
+}
+
+.todo-home{
+  background-color: #fff;
+  border-radius: 3px;
+}
+
 
