@@ -30,7 +30,6 @@ const TodoTab = (props) => {
   const [ownerCollectn ,setOwnerCollectn]=useState([])
   const [teamMemberData ,setTeamMemberData]=useState('')
 
-  
   const _dataStore = useSelector((state) => state?.home?.user_tree)
   
 
@@ -440,6 +439,8 @@ const TodoTab = (props) => {
       setReminderDate('')
       setTodoDesc('')
       setSelectedTime('select')
+      setOwnerCollectn([])
+      setTeamMemberChip([])
   }
   const handleTimeChange = (value) => {
     setSelectedTime(value)

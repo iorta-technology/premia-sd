@@ -135,6 +135,14 @@
     line-height: 1.5715;
     word-wrap: break-word;
 }
+.ant-modal-title {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    word-wrap: break-word;
+}
 
 
 @media (min-width:320px){
