@@ -52,8 +52,17 @@
   cursor: pointer;
 }
 .activities-text {
-  display: inline-block;
-  margin-left: 5%;
+   display: inline-block; 
+   margin-left: 5%; 
+}
+.separator{
+  max-width: 150px;
+  margin: 2rem auto;
+}
+.separator .line{
+  height: 3px;
+  flex: 1;
+  background-color: #000;
 }
 .events-body {
   background-color: #fff;

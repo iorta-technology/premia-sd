@@ -88,6 +88,11 @@ const HomePage = () => {
   const activities_data = useSelector((state) => state.activities.activities_obj)
   // const todo_data = useSelector((state) => state.todoGetData.todo_obj)
   // console.log("hvjgfg--", todo_data);
+  // console.log("activites00000000--", activities_data)
+  // if(activities_data && activities_data.length){
+  //     let total = activities_data.length;
+  // }
+ 
 
   const statetttt = useSelector((state) => state)
   console.log("gg----", statetttt)
@@ -447,7 +452,11 @@ const Showpopuptodo = (ind,data) => {
                 <Image preview={false} width={55} height={55} src={activity_img} alt="Activities" />
               </div>
               <div onClick={() => history.push('/calendar')} className="activities-text">
-                <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
+                <div className='appointment_data'>
+                  <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
+                  {/* <p style={{ fontSize: '15px', color: '#fff' }}>{activities_data && activities_data.length ? activities_data.length : ''} Activities</p> */}
+                  
+                </div>
                 {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
                 <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '420%', margin: '-6px' }} ></div>
               </div>
