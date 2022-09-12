@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
- export default function OffCanvasExample({ name, ...props }) {
+export default function OffCanvasExample({ name, ...props }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -29,10 +29,9 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 function Example() {
   return (
     <>
-      {['start', 'end', 'top', 'bottom'].map((placement, idx) => (
+      {["start", "end", "top", "bottom"].map((placement, idx) => (
         <OffCanvasExample key={idx} placement={placement} name={placement} />
       ))}
     </>
   );
 }
-

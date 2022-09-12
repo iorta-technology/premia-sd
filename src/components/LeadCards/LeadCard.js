@@ -7,15 +7,15 @@ import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { drop } from "lodash";
-import AllocateModal from "../Tab/Allocate"
+import AllocateModal from "../Tab/Allocate";
 
-import { updateCheckAllocatedLead } from '../../store/actions/leads'
+import { updateCheckAllocatedLead } from "../../store/actions/leads";
 
 const LeadCard = React.memo((props) => {
   const dispatch = useDispatch();
-  const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab)
-  const checkedLead = useSelector((state) => state?.leads?.checkedLead)
-  const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead)
+  const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
+  const checkedLead = useSelector((state) => state?.leads?.checkedLead);
+  const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead);
 
   const history = useHistory();
   const {
@@ -32,20 +32,22 @@ const LeadCard = React.memo((props) => {
     appointmentOn,
   } = props;
 
-  const [chkID, setChkId] = useState("")
+  const [chkID, setChkId] = useState("");
 
   function checkboxes(data, e) {
-    e.target.checked ?
-      dispatch(updateCheckAllocatedLead([...checkedLead, data]))
-      :
-      dispatch(updateCheckAllocatedLead(checkedLead?.filter(a => a.id !== data.id) || []))
-    setChkId(data.Id)
+    e.target.checked
+      ? dispatch(updateCheckAllocatedLead([...checkedLead, data]))
+      : dispatch(
+          updateCheckAllocatedLead(
+            checkedLead?.filter((a) => a.id !== data.id) || []
+          )
+        );
+    setChkId(data.Id);
   }
 
   useEffect(() => {
-    !checkedLead.length && setChkId("")
-  }, [checkedLead])
-
+    !checkedLead.length && setChkId("");
+  }, [checkedLead]);
 
   const leadComponent =
     leadStatus === "newleadentery" ? (
@@ -56,7 +58,9 @@ const LeadCard = React.memo((props) => {
       <p className="user-status-text capitalize failed">{leadStatus}</p>
     ) : leadStatus === "contact" ? (
       <p className="user-status-text capitalize">Open</p>
-    ) : (<p className="user-status-text capitalize">{leadStatus}</p>)
+    ) : (
+      <p className="user-status-text capitalize">{leadStatus}</p>
+    );
 
   let avatar = firstName.match(/\b(\w)/g) + lastName.match(/\b(\w)/g);
 
@@ -75,13 +79,13 @@ const LeadCard = React.memo((props) => {
     history.replace("/leadmasterpage/statuslead");
   };
   let statusColors = {
-    closed: '#D04949',
-    open: '#e0cb0d',
-    PendingProposals: '#b50e21',
-    Converted: '#159e0e',
-    statusStyle: '',
-    bgColor: ''
-  }
+    closed: "#D04949",
+    open: "#e0cb0d",
+    PendingProposals: "#b50e21",
+    Converted: "#159e0e",
+    statusStyle: "",
+    bgColor: "",
+  };
   // Card for desktop
 
   let card = (
@@ -92,16 +96,36 @@ const LeadCard = React.memo((props) => {
         className="lead-card-desktop"
         hoverable={true}
       >
-        {allocateBtnStatus &&
-          <input id="checkbox" type='checkbox' checked={chkID && checkedLead.length && checkedLead?.filter(a => a.id.includes(chkID))} onChange={(e) => checkboxes(props, e)}></input>
-        }
+        {allocateBtnStatus && (
+          <input
+            id="checkbox"
+            type="checkbox"
+            checked={
+              chkID &&
+              checkedLead.length &&
+              checkedLead?.filter((a) => a.id.includes(chkID))
+            }
+            onChange={(e) => checkboxes(props, e)}
+          ></input>
+        )}
 
         <div className="main-avtar">
           <div className="avatar-and-status">
-            <Avatar style={{ paddingTop: '-40px',lineHeight: 'none' }} size={{ xl: 50 }}>
+            <Avatar
+              style={{ paddingTop: "-40px", lineHeight: "none" }}
+              size={{ xl: 50 }}
+            >
               {avatar}
             </Avatar>
-            <div style={{ display: 'flex' }}>{leadStatus === "newleadentery" ? <div style={{ fontSize: '10px' }}>NEW<div>LEADENTRY</div></div> : leadStatus}</div>
+            <div style={{ display: "flex" }}>
+              {leadStatus === "newleadentery" ? (
+                <div style={{ fontSize: "10px" }}>
+                  NEW<div>LEADENTRY</div>
+                </div>
+              ) : (
+                leadStatus
+              )}
+            </div>
           </div>
           {/* <Avatar style={{paddingTop:'-40px',lineHeight:'none' }} size={{ xl: 50 }}>
             {avatar}
@@ -109,7 +133,6 @@ const LeadCard = React.memo((props) => {
           {/* <div style={{display:'flex'}}>{leadStatus === "newleadentery"? <div style={{fontSize:'10px'}}>NEW<div>LEADENTRY</div></div> : leadStatus}</div> */}
           {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
           {/* {leadComponent} */}
-           
         </div>
         <div className="content">
           <div className="content-header">
@@ -120,7 +143,13 @@ const LeadCard = React.memo((props) => {
             <a href={`tel:${primaryMobile}`}></a>
             {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
           </div>
-          <hr style={{ margin: '3px -30px 4px 0px', opacity: '0.5',color:'lightgray' }} />
+          <hr
+            style={{
+              margin: "3px -30px 4px 0px",
+              opacity: "0.5",
+              color: "lightgray",
+            }}
+          />
 
           <div className="content-body Datainfo-Main-Container">
             <div className="Dateinfo-Container">
@@ -182,6 +211,22 @@ const LeadCard = React.memo((props) => {
   if (width < breakpoint) {
     card = (
       <Card className="lead-card-mobile" hoverable>
+        {allocateBtnStatus && (
+          <input
+            style={{
+              marginTop: "-4.5rem",
+              marginLeft: "-1rem",
+            }}
+            id="checkbox"
+            type="checkbox"
+            checked={
+              chkID &&
+              checkedLead.length &&
+              checkedLead?.filter((a) => a.id.includes(chkID))
+            }
+            onChange={(e) => checkboxes(props, e)}
+          ></input>
+        )}
         <Avatar
           className="avatar-mobile"
           size={{
@@ -189,7 +234,12 @@ const LeadCard = React.memo((props) => {
             md: 40,
             xl: 50,
           }}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: "blue" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "blue",
+          }}
         >
           {avatar}
         </Avatar>
@@ -210,7 +260,6 @@ const LeadCard = React.memo((props) => {
     );
   }
   return <div key={id}>{card}</div>;
-
 });
 
 export default LeadCard;
