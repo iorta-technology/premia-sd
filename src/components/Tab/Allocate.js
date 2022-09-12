@@ -70,11 +70,13 @@ export const AllocateModal = React.memo((props) => {
           style={{
             backgroundColor: "rgb(33, 150, 243)",
             position: "absolute",
-            right: "550px",
+            left: "50%",
             top: "60px",
             width: "320px",
             color: "white",
             padding: "0px 10px 0px 10px",
+            zIndex: 99,
+            transform: "translate(-50%,0)",
           }}
         >
           <p style={{ position: "relative", top: "10px" }}>
@@ -159,7 +161,7 @@ export const AllocateModal = React.memo((props) => {
         onOk={handleCloseAllocate}
         onCancel={handleCloseAllocate}
         footer={null}
-        width={width <= breakpoint ? "90%" : 800}
+        width={width <= breakpoint ? "99%" : 800}
         bodyStyle={{ backgroundColor: "rgb(247, 247, 247)" }}
       >
         <div style={modelStyle}>
