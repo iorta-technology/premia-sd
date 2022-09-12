@@ -79,23 +79,18 @@ const HomePage = () => {
 
   }, [dispatch, id, agent_id]);
 
-  const home_data = useSelector((state) =>
-    state.home.home_obj
-  )
-
-  
-
+  const home_data = useSelector((state) => state.home.home_obj)
   const activities_data = useSelector((state) => state.activities.activities_obj)
-  // const todo_data = useSelector((state) => state.todoGetData.todo_obj)
-  // console.log("hvjgfg--", todo_data);
-  // console.log("activites00000000--", activities_data)
-  // if(activities_data && activities_data.length){
-  //     let total = activities_data.length;
-  // }
- 
 
-  const statetttt = useSelector((state) => state)
-  console.log("gg----", statetttt)
+  function add3Dots(string, limit)
+  {
+    var dots = "...";
+    if(string.length > limit)
+    {
+      string = string.substring(0,limit) + dots;
+    }
+      return string;
+  }
 
   let getTodoData = async (skip) =>{
     try{
@@ -446,19 +441,16 @@ const Showpopuptodo = (ind,data) => {
 
         <Col>
           <div className="dataCard" bordered="false" style={{ backgroundColor: '#CEA0E1' }}>
-
             <div className="card-content">
               <div className="activity-icon">
                 <Image preview={false} width={55} height={55} src={activity_img} alt="Activities" />
               </div>
               <div onClick={() => history.push('/calendar')} className="activities-text">
                 <div className='appointment_data'>
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Activities</p>
-                  {/* <p style={{ fontSize: '15px', color: '#fff' }}>{activities_data && activities_data.length ? activities_data.length : ''} Activities</p> */}
-                  
+                  <p className='ttile_name'>Activities</p>
+                  <p className='ttile_name'>{activities_data && activities_data.length ? activities_data.length : ''} Activities</p>
                 </div>
-                {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
-                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '420%', margin: '-6px' }} ></div>
+                <div className='horizontalLine'></div>
               </div>
             </div>
 
@@ -470,18 +462,15 @@ const Showpopuptodo = (ind,data) => {
                       return (
                         <div className="action-cards-content-activity" key={item._id}>
                           <div >
-                            <p style={{ width: "100%", marginBottom: "5px", fontWeight: "bold" }}>{Moment(item.start_date).format("D MMM YYYY")} </p>
+                            <p className='appoinment_date'>{Moment(item.start_date).format("D MMM YYYY")} </p>
                             <div className='appointment_data'>
                               <p>{Moment(item.start_time_MS).format("h:mm a")}</p>
                               <p style={{fontWeight: 'bold'}}>{item.event_name}</p>
                               <p>{Moment(item.end_time_MS).format("h:mm a")}</p>
                             </div>
                             <div id="truncateLongTexts">
-                               <p>{item.event_description}</p>
+                               <p>{add3Dots(item.event_description, 50)}</p>
                           </div>
-
-                            
-
                             {/* <table>
                               <tr>
                                 <td style={{ width: '85px' }}>
@@ -519,8 +508,8 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={opportunities_img} alt="Opportunities" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Opportunities</p>
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '280%', margin: '-6px' }} ></div>
+                  <p className='ttile_name'>Opportunities</p>
+                  <div className='horizontalLine' ></div>
                 </div>
               </div>
             </Link>
@@ -548,9 +537,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={application_img} alt="Opportunities" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Applications</p>
+                  <p className='ttile_name'>Applications</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '280%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine' ></div>
                 </div>
               </Link>
             </div>
@@ -589,9 +578,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={business_img} alt="Business" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Business</p>
+                  <p className='ttile_name'>Business</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '420%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine' ></div>
                 </div>
               </div>
             </Link>
@@ -673,9 +662,9 @@ const Showpopuptodo = (ind,data) => {
                 <Image preview={false} width={55} height={55} src={todo_img} alt="Actions" />
               </div>
               <div className="activities-text">
-                <p style={{ fontSize: '15px', color: '#fff' }}>Actions</p>
+                <p className='ttile_name'>Actions</p>
                 {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '480%', margin: '-6px' }} /> */}
-                <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '480%', margin: '-6px' }} ></div>
+                <div className='horizontalLine'></div>
               </div>
               <div className="action-cards-content">
                 <div style={{ width: "100%", padding: "10px" }}>
@@ -708,9 +697,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={todo_img} alt="ToDo" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>To Do</p>
+                  <p className='ttile_name'>To Do</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '590%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine'></div>
                 </div>
               </div>
             </Link>
@@ -799,9 +788,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={mapped_img} alt="Customers" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Renewals</p>
+                  <p className='ttile_name'>Renewals</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '380%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine'></div>
                 </div>
               </div>
             </Link>
@@ -830,9 +819,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={reward_img} alt="Rewards Corner" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Rewards Corner</p>
+                  <p className='ttile_name'>Rewards Corner</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '240%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine'></div>
                 </div>
               </Link>
               <div className='rewardscorner-text'>
@@ -863,9 +852,9 @@ const Showpopuptodo = (ind,data) => {
               </div>
               <Link to='/servicecorner/all'>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Service Corner</p>
+                  <p className='ttile_name'>Service Corner</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '300%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine'></div>
                 </div>
               </Link>
               <div className="salesGuideCont">
@@ -898,9 +887,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={sales_guide_img} alt="Sales Guide" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Sales Guide</p>
+                  <p className='ttile_name'>Sales Guide</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '300%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine'></div>
                 </div>
               </Link>
               <div className="sales-guide-content">
@@ -937,9 +926,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={birthday_img} alt="Birthday" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Birthday</p>
+                  <p className='ttile_name'>Birthday</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '420%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine' ></div>
                 </div>
               </Link>
               <div className="birthday-slides">
@@ -958,7 +947,7 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Mapped Branches</p>
+                  <p className='ttile_name'>Mapped Branches</p>
                   <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} />
                 </div>
               </div>
@@ -979,9 +968,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={mapped_img} alt="Customers" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Mapped Branches</p>
+                  <p className='ttile_name'>Mapped Branches</p>
                   {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '200%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '200%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine'></div>
                 </div>
               </div>
             </Link>
@@ -1000,9 +989,9 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={mapped_img} alt="Customers" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Existing Partner</p>
+                  <p className='ttile_name'>Existing Partner</p>
                   {/* <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} /> */}
-                  <div style={{ backgroundColor: '#FFFFFF', height: '2px', opacity: 0.5, width: '240%', margin: '-6px' }} ></div>
+                  <div className='horizontalLine'></div>
                 </div>
               </div>
             </Link>
@@ -1019,7 +1008,7 @@ const Showpopuptodo = (ind,data) => {
                 <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3375.png" alt="ToDo" />
               </div>
               <div className="activities-text">
-                <p style={{ fontSize: '15px', color: '#fff' }}>To Do</p>
+                <p className='ttile_name'>To Do</p>
                 <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} />
               </div>
             </div>
@@ -1043,8 +1032,8 @@ const Showpopuptodo = (ind,data) => {
                   <Image preview={false} width={55} height={55} src={reward_img} alt="dashboards" />
                 </div>
                 <div className="activities-text">
-                  <p style={{ fontSize: '15px', color: '#fff' }}>Dashboards</p>
-                  <hr style={{ backgroundColor: '#ececec', height: '1px', opacity: '0.5', width: '300%', margin: '-6px' }} />
+                  <p className='ttile_name'>Dashboards</p>
+                  <hr className='horizontalLine'/>
                 </div>
               </Link>
               <div className='rewardscorner-text'>
