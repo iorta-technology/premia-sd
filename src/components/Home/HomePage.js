@@ -77,19 +77,16 @@ const HomePage = () => {
     // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
     getTodoData(0)
 
-  }, [dispatch, id, agent_id]);
+  }, []);
+// }, [dispatch, id, agent_id]);
 
   const home_data = useSelector((state) => state.home.home_obj)
   const activities_data = useSelector((state) => state.activities.activities_obj)
 
-  function add3Dots(string, limit)
-  {
+  function add3Dots(string, limit){
     var dots = "...";
-    if(string.length > limit)
-    {
-      string = string.substring(0,limit) + dots;
-    }
-      return string;
+    if(string.length > limit) string = string.substring(0,limit) + dots;
+    return string;
   }
 
   let getTodoData = async (skip) =>{
@@ -163,7 +160,7 @@ const HomePage = () => {
     }catch(err){
 
     }
-}
+  }
 
 let setTodoStatus = (reminderDate, reminderTime) => {
   try{
@@ -193,10 +190,10 @@ let setTodoStatus = (reminderDate, reminderTime) => {
     history.push('/login')
   }
   // console.log("Home-Data", home_data)
-  console.log("activities-data", activities_data)
+  // console.log("activities-data", activities_data)
 
   const showModal = (event,ind) => {
-    console.log('TODO__CARDD___DATA__',event)
+    // console.log('TODO__CARDD___DATA__',event)
     // setButtonName('Update')
     getTodoDataArray[ind].showarchiedpopup = false
     setUpdateData(event)
@@ -321,7 +318,8 @@ const updateTODOTaskApi = async (data) =>{
 
 const Showpopuptodo = (ind,data) => {
   let _data = getTodoDataArray.map((ev,index)=>{
-      ind === index ? ev.showarchiedpopup = true : ev.showarchiedpopup = false
+      // ind === index ? ev.showarchiedpopup = true : ev.showarchiedpopup = false
+      ind === index ?  ev.showarchiedpopup === true ? ev.showarchiedpopup = false : ev.showarchiedpopup = true   : ev.showarchiedpopup = false
       return ev
   }) 
   setGetTodoDataArray(_data)

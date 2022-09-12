@@ -102,7 +102,7 @@ const Team = () => {
 
      
         
-    {
+    {/* {
         windowWidth > breakpoint &&
         <Row>
         <Col md={9} lg={9} xl={9}>
@@ -145,17 +145,17 @@ const Team = () => {
        : null 
        }
        </Col>
-</Row>
+        </Row>
     }
 
-{
+    {
         windowWidth < breakpoint &&
         <div>
             
                         <Typography>Hierarchy</Typography>
                         <div style={{marginTop : 10}}>
-                       <Select value={selected} onChange={hierarchyOnchange}>
-                       {
+                    <Select value={selected} onChange={hierarchyOnchange}>
+                    {
                                                 finalhierarchy?.map((element,index)=>{
                                                     return(
                                                         <Option
@@ -165,16 +165,16 @@ const Team = () => {
                                                     )
                                                 })
                                             }    
-                       </Select>
-                       </div>
+                    </Select>
+                    </div>
 
-                       {
+                    {
                         selected !='All' && selected.length>1 ?
                         <div style={{marginTop : 10}}>
                             <Typography>Circle Manager</Typography>
                             <div style={{marginTop : 10}}>
-                       <Select value={selected1}  onChange={userOnchange}>
-                       {
+                    <Select value={selected1}  onChange={userOnchange}>
+                    {
                                                 users?.map((element,index)=>{
                                                     return(
                                                         <Option
@@ -184,14 +184,14 @@ const Team = () => {
                                                     )
                                                 })
                                             }    
-                       </Select>
-                       </div> 
-                       </div>
-                       : null 
-                       }
-                       
+                    </Select>
+                    </div> 
+                    </div>
+                    : null 
+                    }
+                    
         </div>
-}
+    } */}
            
         <div className="Team-Calender">
         {/* {

@@ -3,7 +3,7 @@ import './LoanProducts.css'
 import { Row, Col, Button, Card, Carousel, Modal, Form, Input } from 'antd'
 import { ShareAltOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
-import axios from '../../axios-common';
+// import axios from '../../axios-common';
 import { map } from 'lodash';
 import moment from 'moment';
 import Brocher from '../../images/brochrewhite.png'
@@ -13,6 +13,8 @@ import {
     Link, useLocation, useHistory
 } from "react-router-dom";
 import Pagination from '../Activitity Tracker/Pagenation/Pagenation';
+import axios from 'axios'; 
+import {stoageGetter} from '../../helpers'
 
 
 
@@ -30,33 +32,43 @@ const LoanProducts = () => {
     const [productTabs, SetProductTabs] = useState([]);
     const [activeId, SetActiveId] = useState(null);
     const [finaltabdata, setFinalTabData] = useState({})
+    const login_user_data = stoageGetter('user')
    
 
 
     useEffect(() => {
-        axios.get(`admin/getprodCategory?filter=23&channel=5dbfdfa8e51cd5522249ba70`).then(resp => 
-            {
-            const producttData = resp?.data?.errMsg;
-            SetProductData(producttData)
-            topBtnClickHandler(producttData[0])
-            SetActiveId(producttData[0]?._id)
-            console.log("response", resp)
-            let finaltab = []
-            
-            for(let i=0; i< producttData.length; i++){
-                console.log(producttData, 'product data----->')
-                let objdata = {
-                    id: producttData[i]._id,
-                    value: producttData[i].productCategoryName,
+        
+        console.warn('login_user_data___________ login_user_data',login_user_data)
+        let _channel = login_user_data.channelCode._id
+        // https://abinsurancenode.salesdrive.app/sdx-api/secure/admin/getprodCategory?filter=0
+        axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/admin/getprodCategory?filter=23&channel=${_channel}`).then(resp => {
+                console.warn('getprodCategory ____APIIIIII',resp)
+            if(resp.data.errCode === -1){
+                const producttData = resp?.data?.errMsg;
+                SetProductData(producttData)
+                topBtnClickHandler(producttData[0])
+                SetActiveId(producttData[0]?._id)
+                console.log("response", resp)
+                let finaltab = []
+                
+                for(let i=0; i< producttData.length; i++){
+                    console.log(producttData, 'product data----->')
+                    let objdata = {
+                        id: producttData[i]._id,
+                        value: producttData[i].productCategoryName,
+                    }
+                
+                    finaltab.push(objdata)
                 }
-            
-             finaltab.push(objdata)
+                console.log(finaltab, 'final ---->')
+            }else{
+                
             }
-            console.log(finaltab, 'final ---->')
+            
         }, []).catch(error => {
             console.log(error)
         })
-        axios.get("https://sdrestnode.iorta.in/secure/sd/user/getLead/5df77d17009e273b39cae811?leadfilter=all")
+        axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getLead/${login_user_data.id}?leadfilter=all`)
             .then((res) => {
                 console.log(res.data.errMsg)
                 setBenefitIllustratorArr(
@@ -103,7 +115,8 @@ const LoanProducts = () => {
     const topBtnClickHandler = (item) => {
         console.log(item)
         SetActiveId(item._id)
-        axios.get(`user/getproduct/?productType=${item._id}&roleCode=SM1`).then(resp => {
+        axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getproduct/?productType=${item._id}&roleCode=SM1`).then(resp => {
+            console.warn('PRODUCTTTT____APIIIIII',resp)
             const productTabs = resp?.data?.errMsg;
             SetProductTabs(productTabs)
         }, []).catch(error => {

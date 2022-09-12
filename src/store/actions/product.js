@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-common';
+// import axios from '../../axios-common';
+import axios from 'axios'; 
 
 export const fetchProductStart = () => {
     return {
@@ -68,7 +69,7 @@ export const fetchPlanName = (productId) => {
         
     return dispatch => {
         dispatch(fetchPlanNameStart())
-        return axios.get(`user/getproduct/?productType=${productId}&roleCode=SM1`)
+        return axios.get(`https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getproduct/?productType=${productId}&roleCode=SM1`)
             .then(res => {
                     console.log(res.data.errMsg)
                     let response = res.data.errMsg

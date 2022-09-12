@@ -14,23 +14,29 @@ import applicationReducer from './applicationreducer'
 // import BICardReducer from './BICardReducer';
 // import activitiesReducer from './home'
 import historyReducer from './history'
-// import pendencyReducer from './penc'
-const rootReducer = combineReducers({
-    leads:leadsReducer,
-    newLead:createLeadReducer,
-    address:addressReducer,
-    login:loginReducer,
-    home: homeReducer,
-    activities: activitiesReducer,
-    kpiDashboard: kpiDashboardReducer,
-    renewals: renewalReducer,
-    history:historyReducer,
-    product:productReducer,
-    agent:agentReducer,
-    advisor:advisorReducer,
-    applicationReducer,
-    // BICardReducer,
-    // pendencies:pendencyReducer
-});
 
-export default rootReducer;
+import configureStore from '../CreateStore'
+// import pendencyReducer from './penc'
+export default () => {
+    const rootReducer = combineReducers({
+        leads:leadsReducer,
+        newLead:createLeadReducer,
+        address:addressReducer,
+        login:loginReducer,
+        home: homeReducer,
+        activities: activitiesReducer,
+        kpiDashboard: kpiDashboardReducer,
+        renewals: renewalReducer,
+        history:historyReducer,
+        product:productReducer,
+        agent:agentReducer,
+        advisor:advisorReducer,
+        applicationReducer,
+        // BICardReducer,
+        // pendencies:pendencyReducer
+    });
+
+    return configureStore(rootReducer)
+}
+
+// export default rootReducer;

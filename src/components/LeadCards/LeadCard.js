@@ -55,7 +55,7 @@ const LeadCard = React.memo((props) => {
     ) : leadStatus === "failed" ? (
       <p className="user-status-text capitalize failed">{leadStatus}</p>
     ) : leadStatus === "contact" ? (
-      <p className="user-status-text capitalize">Open</p>
+      <p className="user-status-text capitalize open">Open</p>
     ) : (<p className="user-status-text capitalize">{leadStatus}</p>)
 
   let avatar = firstName.match(/\b(\w)/g) + lastName.match(/\b(\w)/g);
@@ -101,7 +101,8 @@ const LeadCard = React.memo((props) => {
             <Avatar style={{ paddingTop: '-40px',lineHeight: 'none' }} size={{ xl: 50 }}>
               {avatar}
             </Avatar>
-            <div style={{ display: 'flex' }}>{leadStatus === "newleadentery" ? <div style={{ fontSize: '10px' }}>NEW<div>LEADENTRY</div></div> : leadStatus}</div>
+            {/* <div style={{ display: 'flex' }}>{leadStatus === "newleadentery" ? <div style={{ fontSize: '10px' }}>NEW<div>LEADENTRY</div></div> : leadStatus}</div> */}
+            {leadComponent}
           </div>
           {/* <Avatar style={{paddingTop:'-40px',lineHeight:'none' }} size={{ xl: 50 }}>
             {avatar}
