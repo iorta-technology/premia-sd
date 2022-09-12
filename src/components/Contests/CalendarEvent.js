@@ -1704,7 +1704,7 @@ export default function CalendarEvent(props) {
     
   }
   const CustomerMobileNoFunc = (e) => {
-    setCustomerMobileNoText(e.target.value)
+    
     // setCustomerMobileNoCheck(true)
       // if (customerNameText == "" ) {
       //   setCustomerNameCheck(false)
@@ -1714,9 +1714,14 @@ export default function CalendarEvent(props) {
       if(e.target.value.length > 0){
         setCustomerMobileNoCheck(true)
       }
-
-      if(e.target.value > 1 && e.target.value.length < 10){
+      if(e.target.value.length < 11){
         setCustomerMblValid(false)
+        setCustomerMobileNoText(e.target.value)
+      }
+
+      if(e.target.value > 0 && e.target.value.length < 10){
+        setCustomerMblValid(false)
+       
       }else{
         setCustomerMblValid(true)
       }
@@ -1896,6 +1901,24 @@ export default function CalendarEvent(props) {
       // }
       setDurationDateAlert(false)
     }
+    const allDayStartDate = (date, dateString) => {
+      console.log(date)
+      console.log(dateString)
+      setDurationStartDate(moment(date))
+  let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
+
+  console.log(ms_date)
+
+      setDurationStartDateOperation(ms_date)
+      console.log("This is Start Date"+ms_date)
+      if(durationEndDateOperation<ms_date){
+        setDurationStartDateDiffCheck(false)
+        console.log("Start Date should we after end date")
+        return false
+      }
+      setDurationDateAlert(false)
+    }
+
     const EndDateFunc = (e,date,dateString) => {
   setDurationEndDate(moment(date))
       let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
@@ -4063,7 +4086,7 @@ export default function CalendarEvent(props) {
                       >Mobile Number *</h4>
                         <input
                         disabled={manualCustomerCheck==true?true:false}
-                        
+                        // pattern="[1-9]{1}[0-9]{9}"
                         value={customerMobileNoText}
                         onChange={CustomerMobileNoFunc}
                         className={customerMobileNoCheck == false || customermblvalid == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
@@ -4118,14 +4141,13 @@ export default function CalendarEvent(props) {
                     className="CalendarEvent-Modal-date-column-flex"
                   >
                     <h4
-                     className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
-                      // className="CalendarEvent-Modal-Card-header-type"
+                     className="CalendarEvent-Modal-Card-header-type"
                     >Modes *</h4>
                       <div className="Input-date">
                    <select
                    value={modeSelect}
                    onChange={ModeChangeFunc}
-                   className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-empty-TimePicker-style" : "CalendarEvent-Modal-TimePicker-style"}
+                   className="CalendarEvent-Modal-TimePicker-style"
                                   // className="CalendarEvent-Modal-TimePicker-style"
                    > 
               
@@ -4140,7 +4162,7 @@ export default function CalendarEvent(props) {
                })}
                    
                     </select>
-                    {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null}
+                    {/* {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null} */}
                     {/* <TimePicker onChange={StartTimeFunc}
                       value={durationStartTime}
                       defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
@@ -4319,10 +4341,13 @@ export default function CalendarEvent(props) {
                       className="CalendarEvent-Modal-Card-header-type"
                     >Start Date *</h4>
                     <div className="Input-date"> 
-                                        <DatePicker onChange={onChangeDate}
-                                        allowClear={false}
-                      className="CalendarEvent-Modal-picker-style"
-                      value={durationStartDate}
+                    <DatePicker onChange={allDayStartDate}
+                        allowClear={false}
+                       defaultValue={durationStartDate}
+                     
+                      format="YYYY-MM-DD"
+                      className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-empty-picker-style" : "CalendarEvent-Modal-picker-style"}
+                      // className="CalendarEvent-Modal-picker-style"
                     />
                     </div>
                   </div>
@@ -4449,7 +4474,7 @@ export default function CalendarEvent(props) {
                       className="CalendarEvent-Modal-Card-close-textbox-style"
                       type="text"
                       placeholder="Enter the reason"
-                      
+                      style={{padding : 10}}
                     />
                   </div>
                   : null
