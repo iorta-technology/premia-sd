@@ -12,12 +12,12 @@
 .mb-2:nth-child(3){
     margin-bottom: 1rem;
 }
-.input-box {
+.statsLead .input-box {
     border: none;
     box-shadow: none;
     border-bottom:rgb(153, 153, 153) 1px solid;
 }
-.select-box{
+ .select-box{
     border-bottom:rgb(153, 153, 153) 1px solid ;
 }
 .m0a{

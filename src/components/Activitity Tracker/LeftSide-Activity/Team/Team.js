@@ -24,6 +24,9 @@ const useWidowsSize = () => {
   }
 
 const Team = () => {
+const _date = new Date();
+  let currentMonth = _date.getMonth();
+  let currentyear = _date.getFullYear();
     
   const [isActive,setActive] =useState(false);
   const [isActive1,setActive1] =useState(false);
@@ -33,8 +36,8 @@ const Team = () => {
   const [selected1, setSelected1]=useState("");
   const [users, setUsers] = useState('')
   const [selectedvalue1, setSelectedValue1]=useState("");
-  const [month,setMonth]=useState()
-  const [year,setyear]=useState()
+  const [month,setMonth]=useState(currentMonth+1)
+  const [year,setyear]=useState(currentyear)
   const [CurentOrPast,setCurentOrPast]=useState()
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const breakpoint = 620;

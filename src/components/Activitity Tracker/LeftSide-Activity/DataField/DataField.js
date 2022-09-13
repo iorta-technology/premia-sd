@@ -62,7 +62,8 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
       const currentMonth =(1 + new Date().getMonth());
       const currentYear =new Date().getFullYear();
       const monthYear=currentMonth+'/'+currentYear;
-      const MonthCompare = monthYear == SelfMonthYear;
+      const MonthCompare = monthYear === SelfMonthYear;
+      
 
       if(MonthCompare && history || TeamHere){
         let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=upcoming`)
@@ -71,7 +72,10 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
        }else if(MonthCompare && history == false){
         let result2 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
         setDataContainer(result2)
-       }else if(monthYear != SelfMonthYear){
+       }else if(monthYear !== SelfMonthYear){
+        console.warn('SelfMonthYear ------>',SelfMonthYear)
+        console.warn('TeamData ------>',TeamData)
+        // let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
         let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
         setDataContainer(result3)
        }

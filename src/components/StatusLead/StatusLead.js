@@ -1324,7 +1324,7 @@ const NewLead = React.memo(() => {
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}  >
             <Col className="form-body  p50 mb-2" xs={24} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <p className="form-title">Contact Details</p>
-              <Row gutter={16} className="mb-2">
+              <Row gutter={16} className="mb-2 statsLead">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item
                     {...formItemLayout}

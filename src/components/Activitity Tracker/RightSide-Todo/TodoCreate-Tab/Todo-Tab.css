@@ -95,6 +95,7 @@
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
     font-size: 14px !important;
+    height: 40px;
     /* font-family: 'robotoregular !important'; */
 }
 .Todo-Create-FooterReminder{

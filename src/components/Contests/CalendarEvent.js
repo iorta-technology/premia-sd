@@ -3484,13 +3484,13 @@ export default function CalendarEvent(props) {
                     disabled={updateEventCheck==true?true:false}
                     className={advisorCollection.phone_call_advisor == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     onClick={AdvisorPhoneCallFunc}
-                    style={{marginLeft : 10}}
+                    // style={{marginLeft : 10}}
                   >Phone Call</button>
 
                   <button
                     disabled={updateEventCheck==true?true:false}
                     onClick={AdvisorTrainingFunc}
-                    style={{marginLeft : 10}}
+                    // style={{marginLeft : 10}}
                     className={advisorCollection.training == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   >Training</button>
 
@@ -3509,13 +3509,13 @@ export default function CalendarEvent(props) {
                       disabled={updateEventCheck==true?true:false}
                       className={prospectCollection.phone_call == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                       onClick={ProspectPhoneCallFunc}
-                      style={{marginLeft : 10}}
+                      // style={{marginLeft : 10}}
                     >Phone Call</button>
 
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={ProspectTrainingFunc}
-                      style={{marginLeft : 10}}
+                      // style={{marginLeft : 10}}
                       className={prospectCollection.training_prospect == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     >Training</button>
 
@@ -3534,13 +3534,13 @@ export default function CalendarEvent(props) {
                         disabled={updateEventCheck==true?true:false}
                         className={customerCollection.phone_call_customer == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                         onClick={CustomerPhoneCallFunc}
-                        style={{marginLeft : 10}}
+                        // style={{marginLeft : 10}}
                       >Phone Call</button>
 
                       <button
                         disabled={updateEventCheck==true?true:false}
                         onClick={CustomerPolicyRenewalFunc}
-                        style={{marginLeft : 10}}
+                        // style={{marginLeft : 10}}
                         className={customerCollection.policy_renewal == true ? "CalendarEvent-Modal-documentcollection-onclick-button-style" : "CalendarEvent-Modal-Card-documentcollection-static-button-style"}
                       >Policy Renewals</button>
 
@@ -4364,7 +4364,7 @@ export default function CalendarEvent(props) {
             <h4
               className="CalendarEvent-Modal-Card-header-type"
             >Add Team Member</h4>
-            <div className='Todo-Create-Search'>
+            <div className='Todo-Create-Search calSearch'>
                         {/* <input type='text' placeholder='Search by Name'/> */}
                         {/* <SearchOutlined /> */}
                         {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
