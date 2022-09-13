@@ -1334,8 +1334,13 @@ const NewLead = React.memo(() => {
                     rules={[
                       {
                         required: true,
-                        message: 'First Name is required'
+                        message: 'First Name is required',
                       },
+                      {
+                        message: 'Only Alphabets are Allowed',
+                        pattern: new RegExp(/^[a-zA-Z ]+$/)
+                      }
+                      
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
@@ -1360,6 +1365,10 @@ const NewLead = React.memo(() => {
                         required: true,
                         message: 'Last Name is required'
                       },
+                      {
+                        message: 'Only Alphabets are Allowed',
+                        pattern: new RegExp(/^[a-zA-Z ]+$/)
+                      }
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >

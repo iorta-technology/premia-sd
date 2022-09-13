@@ -188,7 +188,7 @@ const LoanProducts = () => {
                                         <div>
                                             <div className="main-card2" bordered={false} >
                                                 <div className="benefit-main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
-                                                    <h1 style={{ color: '#5EA5C0' }} className="benefit-head">{item.productName}</h1>
+                                                    <h1 style={{ color: '#5EA5C0',textTransform: 'capitalize' }} className="benefit-head">{item.productName}</h1>
                                                     <Button className="benefit-btn" style={{ backgroundColor: 'transparent',fontWeight:"bold", border: '1px solid #5EA5C0', borderRadius: '10px' }} onClick={showModal}>Benefit Illustration</Button>
                                                     <Modal
                                                         className="Clubsmaster-modal-style"
@@ -284,7 +284,7 @@ const LoanProducts = () => {
                                     <Col className="gutter-row  first-card" xs={24} sm={24} md={12} lg={12} xl={12}>
 
                                         <div className="main-card3" bordered={false} >
-                                            <h4 style={{ textAlign: 'center', fontWeight:"bold"}}>{item.imageTitle}</h4>
+                                            <h4 style={{ textAlign: 'center', fontWeight:"bold",textTransform: 'capitalize'}}>{item.imageTitle}</h4>
                                             {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
                                             <Carousel autoplay={true}>
 

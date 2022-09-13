@@ -23,20 +23,24 @@ const useWidowsSize = () => {
 }
 
 const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) => {
-  const [isModalVisible, setIsModalVisible] = useState(
-    {
-      check:false,
-      Data:null
-    }
-  );
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [editData, setEditData] = useState({})
+  //   const [isModalVisible, setIsModalVisible] = useState(
+  //   {
+  //     check:false,
+  //     Data:null
+  //   }
+  // );
     const [windowWidth, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
     const showModal = (e) => {
-    setIsModalVisible({
-      check:true,
-      Data:e
-    });
-  };
+      setIsModalVisible(true)
+      setEditData(e)
+      // setIsModalVisible({
+      //   check:true,
+      //   Data:e
+      // });
+    };
 
   const [DataContainer,setDataContainer]=useState();
   
@@ -324,8 +328,8 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
     :<EventCreateButton api={"getFunc"} />
   }
   {
-    isModalVisible.check == true ?
-    <EventCreateComponent click={'UPDATE EVENT'} Data={isModalVisible.Data} api={getFunc} />
+    isModalVisible == true ?
+    <EventCreateComponent click={'UPDATE EVENT'} Data={editData} api={getFunc} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} />
     :""
   }
   </div>

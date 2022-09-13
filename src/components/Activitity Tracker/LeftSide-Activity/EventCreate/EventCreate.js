@@ -60,7 +60,7 @@ const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
           </div>
           {
               isModalVisible == true ?
-              <EventCreateComponent click={'data'} api={getFunc} getdata={getdata}/>
+              <EventCreateComponent click={'data'} api={getFunc} getdata={getdata} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
               :""
             }
           <div className='EventCreate-btn'>

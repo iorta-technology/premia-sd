@@ -135,12 +135,12 @@ export default function CalendarEvent(props) {
 };
 
   useEffect(()=>{
-    console.log(stoageGetter('user'),'user id calendar event--------->')
+    console.log('user id calendar event----PROPSSS----->',props)
     // let userid =stoageGetter('user')
     console.log(props.click)
     if(props.click == 'data'||"UPDATE EVENT"){
       // console.log(props.Data.teamMember);
-      setIsModalVisible(true);
+      props.setIsModalVisible(true);
     }
     if(props.click=='UPDATE EVENT'){
       setUpdateCheckEvent(true)
@@ -298,7 +298,7 @@ export default function CalendarEvent(props) {
   const [endDuration, setEndDuration] = useState();
   const [MultiSelectDate, setMultiSelectDate] = useState(false)
   const [clickedDate, setClickedDate] = useState();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, props.] = useState(false);
   const [eventText, setEventText] = useState("");
   const [value, setValue] = useState(moment('10:00', format));
   const [endVal, setEndVal] = useState(moment('10:00', format));
@@ -2210,13 +2210,13 @@ export default function CalendarEvent(props) {
           mode : modeSelect,
           }, { secure: true });
 
-          setIsModalVisible(false)
+          props.setIsModalVisible(false)
           console.log(result, 'book update appointment result-------->')
 
           if(result.length !== 0){
             props.api()
             props.getdata(true)
-            setIsModalVisible(false)
+            props.setIsModalVisible(false)
           }
 
 
@@ -2329,7 +2329,7 @@ export default function CalendarEvent(props) {
   
   //       setIsModalVisible(false)
       }
-      setIsModalVisible(false)
+      props.setIsModalVisible(false)
       if (startTimeSelect == "" && durationButton.select_time == true) {
             setDurationStartTimeCheck(false)
             setDurationTimeAlert(true)
@@ -2422,7 +2422,7 @@ export default function CalendarEvent(props) {
           if(result.length !== 0){
             props.api()
             props.getdata(true)
-            setIsModalVisible(false)
+            props.setIsModalVisible(false)
           }
       
       
@@ -2570,7 +2570,7 @@ export default function CalendarEvent(props) {
 
   //       return false
   //     }
-  setIsModalVisible(false)
+  props.setIsModalVisible(false)
   if (startTimeSelect == "" && durationButton.select_time == true) {
         setDurationStartTimeCheck(false)
         setDurationTimeAlert(true)
@@ -3094,7 +3094,7 @@ export default function CalendarEvent(props) {
       setBookEventCheck(false)
       setUpdateEventId(e.event.id)
       setUpdateCheckEvent(true)
-      setIsModalVisible(true);
+      props.setIsModalVisible(true);
       setEventText(JSON.stringify(e.event.title))
       // alert(e.event.id)
 
@@ -3135,11 +3135,11 @@ export default function CalendarEvent(props) {
     const OnDateClick = (e) => {
       setDateClick(e.target.value)
       // alert(e.target.value)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
     }
     const handleOk = (e) => {
       // alert("This is ok " + clickedDate)
-      setIsModalVisible(false);
+      props.setIsModalVisible(false);
 
       // alert(MultiSelectDate)
       // alert("This is endva;l" + endVal.format("H:mm:ss"))
@@ -3218,12 +3218,12 @@ export default function CalendarEvent(props) {
       setStartDuration(e.startStr)
       // alert("This is the end str" + e.endStr)
       setEndDuration(e.endStr)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
       setMultiSelectDate(true)
     }
 
     const handleCancel = () => {
-      setIsModalVisible(false);
+      props.setIsModalVisible(false);
       setDurationStartDateHelper()
     };
 
@@ -3319,7 +3319,7 @@ export default function CalendarEvent(props) {
       // setDurationEndDate(moment(e.end).subtract(1, "days").format("YYYY-MM-DD"))
       // setDurationEndDateOperation(moment(e.end).subtract(1, "days").format("YYYY-MM-DD"))
       // alert("This is duration End Date"+durationEndDate)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
     }
     const DateClick = (e) => {
       setAddManuallyButtonCheck(false)
@@ -3360,7 +3360,7 @@ export default function CalendarEvent(props) {
 
       setDurationEndDateOperation( ms_date)
       setClickedDate(e.dateStr)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
       setMultiSelectDate(false)
       // alert(value)
       // setAddEvents([...addEvents{title:eventText,date:moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")}])
@@ -3378,7 +3378,7 @@ export default function CalendarEvent(props) {
             updateEventCheck==true?"Update Event":
            
                <div style={{fontWeight:"bold",fontSize:'16px', }}>{props.click =="UPDATE EVENT"?"UPDATE EVENT":"CREATE EVENT"}</div>
-            } visible={isModalVisible} onOk={handleOk}
+            } visible={props.isModalVisible} onOk={handleOk}
           closable={durationDateAlert == true || durationTimeAlert == true ? false : true}
           onCancel={handleCancel}
           footer={null}
