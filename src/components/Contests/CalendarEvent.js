@@ -32,7 +32,7 @@ export default function CalendarEvent(props) {
   const [advisorCheck, setAdvisorCheck] = useState(true)
   const [prospectCheck, setProspectCheck] = useState(false)
   const [customerCheck, setCustomerCheck] = useState(false)
-  const [appointmenttypes, setAppointmentType] = useState('')
+  const [appointmenttypes, setAppointmentType] = useState('Business Planning & review')
   const [clientvisit, setclientVisit] = useState('')
   const [duration, setDuration] = useState('')
   const [durationButton, setDurationButton] = useState({
@@ -4208,6 +4208,7 @@ export default function CalendarEvent(props) {
                   <div
                     className="CalendarEvent-Modal-date-column-flex"
                   >
+                    {console.log(durationStartDate, 'start date--- in code--->')}
                     <h4
               className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       // className="CalendarEvent-Modal-Card-header-type"
@@ -4216,7 +4217,7 @@ export default function CalendarEvent(props) {
                     <DatePicker onChange={StartDateFunc}
                         allowClear={false}
                        defaultValue={durationStartDate}
-                     
+                     value={durationStartDate}
                       format="YYYY-MM-DD"
                       className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-empty-picker-style" : "CalendarEvent-Modal-picker-style"}
                       // className="CalendarEvent-Modal-picker-style"
@@ -4344,7 +4345,7 @@ export default function CalendarEvent(props) {
                     <DatePicker onChange={allDayStartDate}
                         allowClear={false}
                        defaultValue={durationStartDate}
-                     
+                       value={durationStartDate}
                       format="YYYY-MM-DD"
                       className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-empty-picker-style" : "CalendarEvent-Modal-picker-style"}
                       // className="CalendarEvent-Modal-picker-style"
