@@ -328,7 +328,7 @@ const budgetKeys=
                         <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                           <p className='updatetitle'>update as on {updatedDate}</p>
                           <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
-                          <p className='updatecount'>{employee_data[1]?.data?.GPW?.gpw_actual}</p>
+                          <p className='updatecount'>{employee_data[1]?.data?.GPW?.gpw_actual ? employee_data[1]?.data?.GPW?.gpw_actual : 0}</p>
                           <p className='updatetotal'>Total GWP in ₹ Lac</p>
                           <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         </Col>
@@ -345,7 +345,7 @@ const budgetKeys=
                         <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                           <p className='updatetitle'>update as on {updatedDate}</p>
                           <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
-                          <p className='updatecount'>{employee_data[1]?.data.parcentIssuance}</p>
+                          <p className='updatecount'>{employee_data[1]?.data.parcentIssuance ? employee_data[1]?.data.parcentIssuance : 0}</p>
                           <p className='updatetotal'>% Issuance</p>
                           <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         </Col>
@@ -405,7 +405,7 @@ const budgetKeys=
                         <Col xs={24} sm={24} md={20} lg={20} xl={20}>
                           <p className='updatetitle'>update as on {updatedDate}</p>
                           <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
-                          <p className='updatecount'>{employee_data[1]?.data['GWP Retention']?.gwp_retention_actual}</p>
+                          <p className='updatecount'>{employee_data[1]?.data['GWP Retention']?.gwp_retention_actual ? employee_data[1]?.data['GWP Retention']?.gwp_retention_actual : 0}</p>
                           <p className='updatetotal'>Total GWP Retention in ₹</p>
                           <div weex-type="div" class="weex-div weex-ct kpi-hori-line"></div>
                         </Col>
@@ -461,7 +461,7 @@ const budgetKeys=
         }
         <Row justify="space-around" style={{ marginTop: "10px" }} gutter={16}>
           <Col xs={24} sm={24} md={24} lg={7} xl={7} className="graph">
-            <div style={{ padding: "15px" }}>
+            <div className='kip_score' style={{ padding: "15px" }}>
               <h4>FINAL KPI SCORE %</h4>
               <hr />
             </div>
@@ -473,7 +473,7 @@ const budgetKeys=
             <Table pagination={false} columns={columns} dataSource={finalKpiData} />
           </Col>
           <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
-            <div style={{ padding: "15px" }}>
+            <div className='kip_score' style={{ padding: "15px" }}>
               <h4>KPI (BUDGET VS ACHIEVEMENT)</h4>
               <Select
                 showSearch
@@ -505,7 +505,12 @@ const budgetKeys=
           <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
             <div style={{ padding: "15px" }}>
               <Row justify="space-between">
-                <Col> <h4>LIST OF RMs</h4></Col>
+                <Col> 
+                <div className='kip_score'>
+                <h4>LIST OF RMs</h4>
+                </div>
+                
+                </Col>
                 <Col>
                   <Select
                     showSearch

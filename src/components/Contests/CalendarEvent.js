@@ -32,7 +32,7 @@ export default function CalendarEvent(props) {
   const [advisorCheck, setAdvisorCheck] = useState(true)
   const [prospectCheck, setProspectCheck] = useState(false)
   const [customerCheck, setCustomerCheck] = useState(false)
-  const [appointmenttypes, setAppointmentType] = useState('')
+  const [appointmenttypes, setAppointmentType] = useState('Business Planning & review')
   const [clientvisit, setclientVisit] = useState('')
   const [duration, setDuration] = useState('')
   const [durationButton, setDurationButton] = useState({
@@ -135,12 +135,12 @@ export default function CalendarEvent(props) {
 };
 
   useEffect(()=>{
-    console.log(stoageGetter('user'),'user id calendar event--------->')
+    console.log('user id calendar event----PROPSSS----->',props)
     // let userid =stoageGetter('user')
     console.log(props.click)
     if(props.click == 'data'||"UPDATE EVENT"){
       // console.log(props.Data.teamMember);
-      setIsModalVisible(true);
+      props.setIsModalVisible(true);
     }
     if(props.click=='UPDATE EVENT'){
       setUpdateCheckEvent(true)
@@ -298,7 +298,7 @@ export default function CalendarEvent(props) {
   const [endDuration, setEndDuration] = useState();
   const [MultiSelectDate, setMultiSelectDate] = useState(false)
   const [clickedDate, setClickedDate] = useState();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, props.] = useState(false);
   const [eventText, setEventText] = useState("");
   const [value, setValue] = useState(moment('10:00', format));
   const [endVal, setEndVal] = useState(moment('10:00', format));
@@ -1186,6 +1186,7 @@ export default function CalendarEvent(props) {
   const[customerMobileNoText,setCustomerMobileNoText]=useState("");
   const[customerNameCheck,setCustomerNameCheck]=useState(true);
   const[customerMobileNoCheck,setCustomerMobileNoCheck]=useState(true)
+  const[customermblvalid, setCustomerMblValid] = useState(true)
   const[customerArr,setCustomerArr]=useState([]);
   const[customerHelperArr,setCustomerHelperArr]=useState([]);
   const[customerTagVisible,setCustomerTagVisible]=useState(false);
@@ -1691,38 +1692,55 @@ export default function CalendarEvent(props) {
 
   setCustomerNameText(e.target.value)
   
-    if(e.target.value.length > 1){
+    if(e.target.value.length > 0){
       setCustomerNameCheck(true)
     }else{
       setCustomerNameCheck(false)
     }
-    if (customerMobileNoText.length < 10) {
-      setCustomerMobileNoCheck(false)
-      // alert("this works")
-    }
+    // if (customerMobileNoText.length < 10) {
+    //   setCustomerMobileNoCheck(false)
+    //   // alert("this works")
+    // }
     
   }
   const CustomerMobileNoFunc = (e) => {
-    setCustomerMobileNoText(e.target.value)
+    
     // setCustomerMobileNoCheck(true)
-      if (customerNameText == "" ) {
-        setCustomerNameCheck(false)
-        // alert("this works")
+      // if (customerNameText == "" ) {
+      //   setCustomerNameCheck(false)
+      //   // alert("this works")
+      // }
+
+      if(e.target.value.length > 0){
+        setCustomerMobileNoCheck(true)
+      }
+      if(e.target.value.length < 11){
+        setCustomerMblValid(false)
+        setCustomerMobileNoText(e.target.value)
       }
 
-      if(e.target.value.length < 10){
-        setCustomerMobileNoCheck(false)
+      if(e.target.value > 0 && e.target.value.length < 10){
+        setCustomerMblValid(false)
+       
       }else{
-        setCustomerMobileNoCheck(true)
+        setCustomerMblValid(true)
       }
       
     }
     const ManualCustomerSubmitFunc=(e)=>{
-      if(customerMobileNoText==""||customerNameText==""){
-        setManualCustomerCheck(false)
+      if(customerMobileNoText=="" && customerNameText==""){
+        setCustomerMobileNoCheck(false)
+        setCustomerNameCheck(false)
+      }else if (customerMobileNoText==""){
+        setCustomerMobileNoCheck(false)
+      }else if (customerNameText=="") {
+        setCustomerNameCheck(false)
       }
       else{
   setManualCustomerCheck(true)
+  setCustomerMobileNoCheck(true)
+  setCustomerNameCheck(true)
+  
   // setCustomerMobileNoText("")
   // setCustomerNameText("")
       }
@@ -1883,6 +1901,24 @@ export default function CalendarEvent(props) {
       // }
       setDurationDateAlert(false)
     }
+    const allDayStartDate = (date, dateString) => {
+      console.log(date)
+      console.log(dateString)
+      setDurationStartDate(moment(date))
+  let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
+
+  console.log(ms_date)
+
+      setDurationStartDateOperation(ms_date)
+      console.log("This is Start Date"+ms_date)
+      if(durationEndDateOperation<ms_date){
+        setDurationStartDateDiffCheck(false)
+        console.log("Start Date should we after end date")
+        return false
+      }
+      setDurationDateAlert(false)
+    }
+
     const EndDateFunc = (e,date,dateString) => {
   setDurationEndDate(moment(date))
       let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
@@ -2155,8 +2191,6 @@ export default function CalendarEvent(props) {
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndDateOperation == undefined || ''){
-          message.warning('End Date is Mandatory');
         }else if (durationEndTimeOperation == undefined || ''){
           message.warning('End Time is Mandatory');
         }else{
@@ -2210,13 +2244,13 @@ export default function CalendarEvent(props) {
           mode : modeSelect,
           }, { secure: true });
 
-          setIsModalVisible(false)
+          props.setIsModalVisible(false)
           console.log(result, 'book update appointment result-------->')
 
           if(result.length !== 0){
             props.api()
             props.getdata(true)
-            setIsModalVisible(false)
+            props.setIsModalVisible(false)
           }
 
 
@@ -2329,7 +2363,7 @@ export default function CalendarEvent(props) {
   
   //       setIsModalVisible(false)
       }
-      setIsModalVisible(false)
+      props.setIsModalVisible(false)
       if (startTimeSelect == "" && durationButton.select_time == true) {
             setDurationStartTimeCheck(false)
             setDurationTimeAlert(true)
@@ -2364,12 +2398,14 @@ export default function CalendarEvent(props) {
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndDateOperation == undefined || ''){
-          message.warning('End Date is Mandatory');
         }else if (durationEndTimeOperation == undefined || ''){
           message.warning('End Time is Mandatory');
         }else{
-          setDurationModeAlert(false)
+          if(eventDurationType == 'customedatetime'){
+            if( durationEndDateOperation == undefined || ''){
+              message.warning('End Date is Mandatory');
+            }else{
+              setDurationModeAlert(false)
           setDurationDateAlert(false)
           setDurationTimeAlert(false)
           setDurationEndDateAlert(false)
@@ -2422,8 +2458,67 @@ export default function CalendarEvent(props) {
           if(result.length !== 0){
             props.api()
             props.getdata(true)
-            setIsModalVisible(false)
+            props.setIsModalVisible(false)
           }
+            }
+          }else {
+            setDurationModeAlert(false)
+          setDurationDateAlert(false)
+          setDurationTimeAlert(false)
+          setDurationEndDateAlert(false)
+          setDurationEndTimeAlert(false)
+          console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
+        let result = await axiosRequest.post('user/bookAppointment', {
+           userId: stoageGetter('user').id,
+         // userId : '60069a18579be233d2decf04',
+          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+          event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+            :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+            :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+            :null,
+          tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
+          :"",
+          clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
+        // partnerId:  advisorCheck?{
+          
+        //     contactNo: searchAdvisorObject.contactNo,
+        //     partnerId: searchAdvisorObject.partnerId,
+        //     partnerName: searchAdvisorObject.partnerName,
+        //     _id: searchAdvisorObject._id,
+  
+        // }:"",
+          durationType: eventDurationType,
+          start_date:durationStartDateOperation,
+            start_time:durationStartTimeOperation,
+            end_date:durationEndDateOperation,
+            end_time:durationEndTimeOperation,
+          teamMember:ownerCollectn,
+          statusType:statusType.openStatus==true?"open":"close",
+          statusreason:statusReasonText,
+          manuallycustomerAdded:addManuallyButtonCheck?true:false,
+          manuallyrenewalCustomer:addManuallyButtonCheck? [
+            {
+              Name:customerNameText,
+              MobileNumber:customerMobileNoText,
+            }
+          ]:[],
+          customerId:"",
+          teamMember_clone:[
+            
+          ],
+          remarkText : '',
+          mode : modeSelect,
+          }, { secure: true });
+
+          console.log(result, 'book appointment result-------->')
+
+          if(result.length !== 0){
+            props.api()
+            props.getdata(true)
+            props.setIsModalVisible(false)
+          }
+          }
+          
       
       
     // axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
@@ -2570,7 +2665,7 @@ export default function CalendarEvent(props) {
 
   //       return false
   //     }
-  setIsModalVisible(false)
+  // props.setIsModalVisible(false)
   if (startTimeSelect == "" && durationButton.select_time == true) {
         setDurationStartTimeCheck(false)
         setDurationTimeAlert(true)
@@ -3094,7 +3189,7 @@ export default function CalendarEvent(props) {
       setBookEventCheck(false)
       setUpdateEventId(e.event.id)
       setUpdateCheckEvent(true)
-      setIsModalVisible(true);
+      props.setIsModalVisible(true);
       setEventText(JSON.stringify(e.event.title))
       // alert(e.event.id)
 
@@ -3135,11 +3230,11 @@ export default function CalendarEvent(props) {
     const OnDateClick = (e) => {
       setDateClick(e.target.value)
       // alert(e.target.value)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
     }
     const handleOk = (e) => {
       // alert("This is ok " + clickedDate)
-      setIsModalVisible(false);
+      props.setIsModalVisible(false);
 
       // alert(MultiSelectDate)
       // alert("This is endva;l" + endVal.format("H:mm:ss"))
@@ -3218,12 +3313,12 @@ export default function CalendarEvent(props) {
       setStartDuration(e.startStr)
       // alert("This is the end str" + e.endStr)
       setEndDuration(e.endStr)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
       setMultiSelectDate(true)
     }
 
     const handleCancel = () => {
-      setIsModalVisible(false);
+      props.setIsModalVisible(false);
       setDurationStartDateHelper()
     };
 
@@ -3319,7 +3414,7 @@ export default function CalendarEvent(props) {
       // setDurationEndDate(moment(e.end).subtract(1, "days").format("YYYY-MM-DD"))
       // setDurationEndDateOperation(moment(e.end).subtract(1, "days").format("YYYY-MM-DD"))
       // alert("This is duration End Date"+durationEndDate)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
     }
     const DateClick = (e) => {
       setAddManuallyButtonCheck(false)
@@ -3360,7 +3455,7 @@ export default function CalendarEvent(props) {
 
       setDurationEndDateOperation( ms_date)
       setClickedDate(e.dateStr)
-      setIsModalVisible(true)
+      props.setIsModalVisible(true)
       setMultiSelectDate(false)
       // alert(value)
       // setAddEvents([...addEvents{title:eventText,date:moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")}])
@@ -3378,7 +3473,7 @@ export default function CalendarEvent(props) {
             updateEventCheck==true?"Update Event":
            
                <div style={{fontWeight:"bold",fontSize:'16px', }}>{props.click =="UPDATE EVENT"?"UPDATE EVENT":"CREATE EVENT"}</div>
-            } visible={isModalVisible} onOk={handleOk}
+            } visible={props.isModalVisible} onOk={handleOk}
           closable={durationDateAlert == true || durationTimeAlert == true ? false : true}
           onCancel={handleCancel}
           footer={null}
@@ -3448,13 +3543,13 @@ export default function CalendarEvent(props) {
                     disabled={updateEventCheck==true?true:false}
                     className={advisorCollection.phone_call_advisor == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     onClick={AdvisorPhoneCallFunc}
-                    style={{marginLeft : 10}}
+                    // style={{marginLeft : 10}}
                   >Phone Call</button>
 
                   <button
                     disabled={updateEventCheck==true?true:false}
                     onClick={AdvisorTrainingFunc}
-                    style={{marginLeft : 10}}
+                    // style={{marginLeft : 10}}
                     className={advisorCollection.training == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                   >Training</button>
 
@@ -3473,13 +3568,13 @@ export default function CalendarEvent(props) {
                       disabled={updateEventCheck==true?true:false}
                       className={prospectCollection.phone_call == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                       onClick={ProspectPhoneCallFunc}
-                      style={{marginLeft : 10}}
+                      // style={{marginLeft : 10}}
                     >Phone Call</button>
 
                     <button
                       disabled={updateEventCheck==true?true:false}
                       onClick={ProspectTrainingFunc}
-                      style={{marginLeft : 10}}
+                      // style={{marginLeft : 10}}
                       className={prospectCollection.training_prospect == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                     >Training</button>
 
@@ -3498,13 +3593,13 @@ export default function CalendarEvent(props) {
                         disabled={updateEventCheck==true?true:false}
                         className={customerCollection.phone_call_customer == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                         onClick={CustomerPhoneCallFunc}
-                        style={{marginLeft : 10}}
+                        // style={{marginLeft : 10}}
                       >Phone Call</button>
 
                       <button
                         disabled={updateEventCheck==true?true:false}
                         onClick={CustomerPolicyRenewalFunc}
-                        style={{marginLeft : 10}}
+                        // style={{marginLeft : 10}}
                         className={customerCollection.policy_renewal == true ? "CalendarEvent-Modal-documentcollection-onclick-button-style" : "CalendarEvent-Modal-Card-documentcollection-static-button-style"}
                       >Policy Renewals</button>
 
@@ -4046,41 +4141,42 @@ export default function CalendarEvent(props) {
                       className="CalendarEvent-Modal-date-column-flex"
                     >
                       <h4
-                        className={customerMobileNoCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
+                        className={customerMobileNoCheck  == false || customermblvalid == false  ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       >Mobile Number *</h4>
                         <input
                         disabled={manualCustomerCheck==true?true:false}
-                        
+                        // pattern="[1-9]{1}[0-9]{9}"
                         value={customerMobileNoText}
                         onChange={CustomerMobileNoFunc}
-                        className={customerMobileNoCheck == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
+                        className={customerMobileNoCheck == false || customermblvalid == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
                         type="number"
                         placeholder="Enter the Mobile Number"
                         required
                       />
                       {customerMobileNoCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
+                      {customermblvalid == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Enter valid mobile no.</h4> : null}
                     </div>
                 
                   </div>
                   <div
                 className="CalendarEvent-Modal-Card-add-manual-flex"
               >
-                <button
+               {manualCustomerCheck == false ? <button
                   disabled={updateEventCheck==true?true:false}
                   onClick={ManualCustomerSubmitFunc}
                   className={ "CalendarEvent-Modal-Card-eventwith-onclick-button-style" }
-                >Submit</button>
-                {console.log(manualCustomerCheck,'customer check--->')}
-                    {manualCustomerCheck?  <Tag
+                >Submit</button> : <Tag
                     
-                    closable={updateEventCheck?false: true}
-      visible={addCustTagVisible}
-      onClose={AddCustomerTagVisibleFunc}
-            
-            className="CalendarEvent-Modal-Search-tag-style"
-          >
-          {customerNameText}
-          </Tag>:null}
+                closable={updateEventCheck?false: true}
+  visible={addCustTagVisible}
+  onClose={AddCustomerTagVisibleFunc}
+        
+        className="CalendarEvent-Modal-Search-tag-style"
+      >
+      {customerNameText}
+      </Tag>}
+                {console.log(manualCustomerCheck,'customer check--->')}
+                    {/* {manualCustomerCheck?  :null} */}
             
                 </div>
             
@@ -4104,14 +4200,13 @@ export default function CalendarEvent(props) {
                     className="CalendarEvent-Modal-date-column-flex"
                   >
                     <h4
-                     className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
-                      // className="CalendarEvent-Modal-Card-header-type"
+                     className="CalendarEvent-Modal-Card-header-type"
                     >Modes *</h4>
                       <div className="Input-date">
                    <select
                    value={modeSelect}
                    onChange={ModeChangeFunc}
-                   className={durationStartTimeDiffCheck == false ? "CalendarEvent-Modal-empty-TimePicker-style" : "CalendarEvent-Modal-TimePicker-style"}
+                   className="CalendarEvent-Modal-TimePicker-style"
                                   // className="CalendarEvent-Modal-TimePicker-style"
                    > 
               
@@ -4126,7 +4221,7 @@ export default function CalendarEvent(props) {
                })}
                    
                     </select>
-                    {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null}
+                    {/* {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null} */}
                     {/* <TimePicker onChange={StartTimeFunc}
                       value={durationStartTime}
                       defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
@@ -4172,15 +4267,16 @@ export default function CalendarEvent(props) {
                   <div
                     className="CalendarEvent-Modal-date-column-flex"
                   >
+                    {console.log(durationStartDate, 'start date--- in code--->')}
                     <h4
               className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       // className="CalendarEvent-Modal-Card-header-type"
                     >Start Date *</h4>
                     <div className="Input-date">
                     <DatePicker onChange={StartDateFunc}
-         
+                        allowClear={false}
                        defaultValue={durationStartDate}
-                     
+                     value={durationStartDate}
                       format="YYYY-MM-DD"
                       className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-empty-picker-style" : "CalendarEvent-Modal-picker-style"}
                       // className="CalendarEvent-Modal-picker-style"
@@ -4241,7 +4337,7 @@ export default function CalendarEvent(props) {
                       {console.log(durationEndDate,'end date------>')}
                         <div className="Input-date">
                       <DatePicker onChange={EndDateFunc}
-                  
+                    allowClear={false}
                         // defaultValue={durationEndDate}
                         format="YYYY-MM-DD"
                         value={durationEndDate}
@@ -4305,9 +4401,13 @@ export default function CalendarEvent(props) {
                       className="CalendarEvent-Modal-Card-header-type"
                     >Start Date *</h4>
                     <div className="Input-date"> 
-                                        <DatePicker onChange={onChangeDate}
-                      className="CalendarEvent-Modal-picker-style"
-                      value={durationStartDate}
+                    <DatePicker onChange={allDayStartDate}
+                        allowClear={false}
+                       defaultValue={durationStartDate}
+                       value={durationStartDate}
+                      format="YYYY-MM-DD"
+                      className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-empty-picker-style" : "CalendarEvent-Modal-picker-style"}
+                      // className="CalendarEvent-Modal-picker-style"
                     />
                     </div>
                   </div>
@@ -4323,7 +4423,7 @@ export default function CalendarEvent(props) {
             <h4
               className="CalendarEvent-Modal-Card-header-type"
             >Add Team Member</h4>
-            <div className='Todo-Create-Search'>
+            <div className='Todo-Create-Search calSearch'>
                         {/* <input type='text' placeholder='Search by Name'/> */}
                         {/* <SearchOutlined /> */}
                         {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
@@ -4349,8 +4449,10 @@ export default function CalendarEvent(props) {
                               console.log(item,'item---->')
                               return(
                                 <div style={{marginRight:10,marginTop:10,}}>
+                                 { updateEventCheck==true?
                                   <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item.value} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
-                                </div>
+                                 :  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
+                                   }  </div>
                               )
                           })
                           }
@@ -4434,7 +4536,7 @@ export default function CalendarEvent(props) {
                       className="CalendarEvent-Modal-Card-close-textbox-style"
                       type="text"
                       placeholder="Enter the reason"
-                      
+                      style={{padding : 10}}
                     />
                   </div>
                   : null

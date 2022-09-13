@@ -281,3 +281,8 @@ body{
     margin: 0 !important;
 } */
   }
+
+  .kip_score h4{
+    font-size: 13px;
+    font-weight: bold;
+  }

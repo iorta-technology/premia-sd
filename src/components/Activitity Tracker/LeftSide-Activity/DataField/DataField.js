@@ -23,20 +23,24 @@ const useWidowsSize = () => {
 }
 
 const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) => {
-  const [isModalVisible, setIsModalVisible] = useState(
-    {
-      check:false,
-      Data:null
-    }
-  );
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [editData, setEditData] = useState({})
+  //   const [isModalVisible, setIsModalVisible] = useState(
+  //   {
+  //     check:false,
+  //     Data:null
+  //   }
+  // );
     const [windowWidth, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
     const showModal = (e) => {
-    setIsModalVisible({
-      check:true,
-      Data:e
-    });
-  };
+      setIsModalVisible(true)
+      setEditData(e)
+      // setIsModalVisible({
+      //   check:true,
+      //   Data:e
+      // });
+    };
 
   const [DataContainer,setDataContainer]=useState();
   
@@ -58,7 +62,8 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
       const currentMonth =(1 + new Date().getMonth());
       const currentYear =new Date().getFullYear();
       const monthYear=currentMonth+'/'+currentYear;
-      const MonthCompare = monthYear == SelfMonthYear;
+      const MonthCompare = monthYear === SelfMonthYear;
+      
 
       if(MonthCompare && history || TeamHere){
         let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=upcoming`)
@@ -67,7 +72,10 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
        }else if(MonthCompare && history == false){
         let result2 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
         setDataContainer(result2)
-       }else if(monthYear != SelfMonthYear){
+       }else if(monthYear !== SelfMonthYear){
+        console.warn('SelfMonthYear ------>',SelfMonthYear)
+        console.warn('TeamData ------>',TeamData)
+        // let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
         let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
         setDataContainer(result3)
        }
@@ -324,8 +332,8 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
     :<EventCreateButton api={"getFunc"} />
   }
   {
-    isModalVisible.check == true ?
-    <EventCreateComponent click={'UPDATE EVENT'} Data={isModalVisible.Data} api={getFunc} />
+    isModalVisible == true ?
+    <EventCreateComponent click={'UPDATE EVENT'} Data={editData} api={getFunc} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} />
     :""
   }
   </div>

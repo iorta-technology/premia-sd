@@ -13,6 +13,12 @@
   border-style: solid;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 .CalendarEvent-Modal-Card-empty-text-header-type {
   font-size: 13px !important;
   margin-top: 10px;
@@ -24,6 +30,14 @@
 }
 
 @media (min-width:1200px){
+
+  .CalendarEvent-Modal-empty-picker-style {
+    width: 19vw !important;
+  }
+
+  .CalendarEvent-Modal-appointmenttype-button-flex {
+  margin-top: 10px !important;
+  }
   .Todo-Create-Search{
     width : 48% 
   }
@@ -123,7 +137,7 @@ height: 40px;
   /* font-family: 'robotoregular' !important; */
 }
 
-.ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
+.calSearch .ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
   border-top-left-radius: 5px !important;
   height: 40px;
   border-bottom-left-radius: 5px !important;
@@ -233,10 +247,10 @@ height: 40px;
 .CalendarEvent-Modal-Card-button-flex {
   display: flex;
   flex-direction: row;
-  width: 42%;
+  width: 50%;
   margin-top: 10px;
   /* background-color: blanchedalmond; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
 
   /* background: #a4a8abfc;
     border-color: #a4a8abfc;
@@ -276,6 +290,7 @@ height: 40px;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2); */
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
+  margin-right: 10px
 }
 .CalendarEvent-Modal-Card-eventwith-static-button-style {
   /* background-color: #58a2cf; 
@@ -292,6 +307,7 @@ height: 40px;
   cursor: pointer;
   font-size: calc(10px + 0.28vw);
   background-color: #F7F7F7;
+  margin-right: 10px
 }
 .CalendarEvent-Modal-Card-status-onclick-button-style {
   background-color: #e46a25; /* Green */
@@ -721,7 +737,7 @@ height: 40px;
   box-shadow: 0px 2px 2px #00000024;
   border-radius: 0.4vw;
   border: 0.5px solid #c1c8cc;
-  font-size: 11px;
+  font-size: 13px;
   border-color: #fa0909;
   color: #666767;
   height: 5.3vh;
