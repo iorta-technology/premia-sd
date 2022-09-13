@@ -2191,8 +2191,6 @@ export default function CalendarEvent(props) {
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndDateOperation == undefined || ''){
-          message.warning('End Date is Mandatory');
         }else if (durationEndTimeOperation == undefined || ''){
           message.warning('End Time is Mandatory');
         }else{
@@ -2400,12 +2398,14 @@ export default function CalendarEvent(props) {
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndDateOperation == undefined || ''){
-          message.warning('End Date is Mandatory');
         }else if (durationEndTimeOperation == undefined || ''){
           message.warning('End Time is Mandatory');
         }else{
-          setDurationModeAlert(false)
+          if(eventDurationType == 'customedatetime'){
+            if( durationEndDateOperation == undefined || ''){
+              message.warning('End Date is Mandatory');
+            }else{
+              setDurationModeAlert(false)
           setDurationDateAlert(false)
           setDurationTimeAlert(false)
           setDurationEndDateAlert(false)
@@ -2460,6 +2460,65 @@ export default function CalendarEvent(props) {
             props.getdata(true)
             props.setIsModalVisible(false)
           }
+            }
+          }else {
+            setDurationModeAlert(false)
+          setDurationDateAlert(false)
+          setDurationTimeAlert(false)
+          setDurationEndDateAlert(false)
+          setDurationEndTimeAlert(false)
+          console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
+        let result = await axiosRequest.post('user/bookAppointment', {
+           userId: stoageGetter('user').id,
+         // userId : '60069a18579be233d2decf04',
+          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+          event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+            :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+            :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+            :null,
+          tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
+          :"",
+          clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
+        // partnerId:  advisorCheck?{
+          
+        //     contactNo: searchAdvisorObject.contactNo,
+        //     partnerId: searchAdvisorObject.partnerId,
+        //     partnerName: searchAdvisorObject.partnerName,
+        //     _id: searchAdvisorObject._id,
+  
+        // }:"",
+          durationType: eventDurationType,
+          start_date:durationStartDateOperation,
+            start_time:durationStartTimeOperation,
+            end_date:durationEndDateOperation,
+            end_time:durationEndTimeOperation,
+          teamMember:ownerCollectn,
+          statusType:statusType.openStatus==true?"open":"close",
+          statusreason:statusReasonText,
+          manuallycustomerAdded:addManuallyButtonCheck?true:false,
+          manuallyrenewalCustomer:addManuallyButtonCheck? [
+            {
+              Name:customerNameText,
+              MobileNumber:customerMobileNoText,
+            }
+          ]:[],
+          customerId:"",
+          teamMember_clone:[
+            
+          ],
+          remarkText : '',
+          mode : modeSelect,
+          }, { secure: true });
+
+          console.log(result, 'book appointment result-------->')
+
+          if(result.length !== 0){
+            props.api()
+            props.getdata(true)
+            props.setIsModalVisible(false)
+          }
+          }
+          
       
       
     // axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
@@ -2606,7 +2665,7 @@ export default function CalendarEvent(props) {
 
   //       return false
   //     }
-  props.setIsModalVisible(false)
+  // props.setIsModalVisible(false)
   if (startTimeSelect == "" && durationButton.select_time == true) {
         setDurationStartTimeCheck(false)
         setDurationTimeAlert(true)
@@ -4390,8 +4449,10 @@ export default function CalendarEvent(props) {
                               console.log(item,'item---->')
                               return(
                                 <div style={{marginRight:10,marginTop:10,}}>
+                                 { updateEventCheck==true?
                                   <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item.value} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
-                                </div>
+                                 :  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
+                                   }  </div>
                               )
                           })
                           }
