@@ -384,11 +384,16 @@ const NewLead = React.memo(() => {
   // parseInt(start_time)
   const [remarkFromSource, setRemarkFromSource] = useState(storeRemarkFromSourceValue)
   const [remarkFromUser, setRemarkFromUser] = useState(storeRemarkFromUserValue)
-  const [leadType, setLeadType] = useState(storeLeadTypeValue)
-  const [product, setProduct] = useState(storeProductValue)
-  const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
-  const [stateProvince, setStateProvince] = useState(storeStateValue)
-  const [cityProvince, setCityProvince] = useState(storeCityValue)
+  // const [leadType, setLeadType] = useState(storeLeadTypeValue)
+  const [leadType, setLeadType] = useState('select')
+  // const [product, setProduct] = useState(storeProductValue)
+  const [product, setProduct] = useState('select')
+  // const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue)
+  const [insuranceCompany, setInsuranceComapany] = useState('select')
+  // const [stateProvince, setStateProvince] = useState(storeStateValue)
+  const [stateProvince, setStateProvince] = useState('Select')
+  // const [cityProvince, setCityProvince] = useState(storeCityValue)
+  const [cityProvince, setCityProvince] = useState('Select')
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(false)
   const [leadStatusData, setLeadStatusData] = useState([])
@@ -439,11 +444,11 @@ const NewLead = React.memo(() => {
 
     } else {
       console.warn('CREATE', storeFormData.lead_Id)
-      setLeadType('select')
-      setStateProvince('select')
-      setCityProvince('select')
-      setInsuranceComapany('select')
-      setProduct('select')
+      // setLeadType('select')
+      // setStateProvince('Select')
+      // setCityProvince('Select')
+      // setInsuranceComapany('select')
+      // setProduct('select')
     }
 
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
@@ -883,22 +888,29 @@ const NewLead = React.memo(() => {
     dispatch(actions.fetchAllCities(key.region_data.adminCode1))
 
   }
-  const stateChangetHandler = (event) => {
-    setStateProvince(event.target.value)
+  const stateChangetHandler = (event,data) => {
+    // console.log('stateChangetHandler__________:', event);
+    // setStateProvince(event.target.value)
+    setStateProvince(event)
   }
 
   const cityChangeHandler = (event) => {
-    setCityProvince(event.target.value)
+    // setCityProvince(event.target.value)
+    setCityProvince(event)
 
   }
   const leadTypeHandler = (event) => {
-    setLeadType(event.target.value)
+    // setLeadType(event.target.value)
+    console.log('leadTypeHandler __________:', event);
+    setLeadType(event)
   }
   const productHandler = (event) => {
-    setProduct(event.target.value)
+    // setProduct(event.target.value)
+    setProduct(event)
   }
   const insuranceCompanyHandler = (event) => {
-    setInsuranceComapany(event.target.value)
+    // setInsuranceComapany(event.target.value)
+    setInsuranceComapany(event)
   }
 
 
@@ -1312,7 +1324,7 @@ const NewLead = React.memo(() => {
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}  >
             <Col className="form-body  p50 mb-2" xs={24} sm={24} md={16} lg={15} xl={15} span={23} offset={width > breakpoint ? 2 : 0}>
               <p className="form-title">Contact Details</p>
-              <Row gutter={16} className="mb-2">
+              <Row gutter={16} className="mb-2 statsLead">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item
                     {...formItemLayout}
@@ -1322,8 +1334,13 @@ const NewLead = React.memo(() => {
                     rules={[
                       {
                         required: true,
-                        message: 'First Name is required'
+                        message: 'First Name is required',
                       },
+                      {
+                        message: 'Only Alphabets are Allowed',
+                        pattern: new RegExp(/^[a-zA-Z ]+$/)
+                      }
+                      
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
@@ -1333,7 +1350,7 @@ const NewLead = React.memo(() => {
                       placeholder="Enter First Name"
                       // value={firstName}
                       defaultValue={firstName}
-                      onChange={()=>onChangeFirstName}
+                      onChange={(item)=>onChangeFirstName(item)}
                     />
                   </Form.Item>
                 </Col>
@@ -1348,6 +1365,10 @@ const NewLead = React.memo(() => {
                         required: true,
                         message: 'Last Name is required'
                       },
+                      {
+                        message: 'Only Alphabets are Allowed',
+                        pattern: new RegExp(/^[a-zA-Z ]+$/)
+                      }
                     ]}
                     style={{ marginBottom: '1rem' }}
                   >
@@ -1356,7 +1377,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Last Name"
                       value={lastName}
-                      onChange={()=> onChangeLastName} />
+                      onChange={(item)=> onChangeLastName(item)} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1378,7 +1399,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Email Address"
                       value={email}
-                      onChange={()=> emailAddressHandler} />
+                      onChange={(item)=> emailAddressHandler(item)} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1392,14 +1413,13 @@ const NewLead = React.memo(() => {
                         required: true,
                         message: 'Mobile No is required'
                       },
-                      ({ getFieldValue }) => ({
+                      () => ({
                         validator(_, value) {
-                          console.log(value)
-                          if (primaryNo.toString().length !== 10) {
-                            return Promise.reject(new Error("Number must be 10 digits"))
+                          if (value.length !== 10) {
+                            return Promise.reject("Number must be 10 digits");
                           }
                           return Promise.resolve();
-                        }
+                        },
                       }),
                       // !mobileNoCheck || {
                       //   // type:'phone',
@@ -1415,8 +1435,9 @@ const NewLead = React.memo(() => {
                       className="phone-no input-box"
                       size="large"
                       placeholder="Enter Primary Mobile"
+                      maxLength="10"
                       value={primaryNo}
-                      onChange={()=> primaryNoHandler} />
+                      onChange={(item)=> primaryNoHandler(item)} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -1440,9 +1461,10 @@ const NewLead = React.memo(() => {
                       placeholder="Select Your State"
                       options={stateOptions}
                       onSelect={stateSelectHandler}
-                      // value={stateProvince}
-                      defaultValue={stateProvince}
-                      onChange={()=> stateChangetHandler}
+                      value={stateProvince}
+                      // defaultValue={stateProvince}
+                      onChange={(item)=> stateChangetHandler(item)}
+                      // onChange={stateChangetHandler}
                     >
                     </Select>
                   </Form.Item>
@@ -1469,7 +1491,7 @@ const NewLead = React.memo(() => {
                       options={citiesOptions}
                       // value={cityProvince}
                       defaultValue={citiesOptions}
-                      onChange={()=> cityChangeHandler}
+                      onChange={(item)=> cityChangeHandler(item)}
                     >
                     </Select>
                   </Form.Item>
@@ -1496,7 +1518,7 @@ const NewLead = React.memo(() => {
                       defaultValue={leadType}
                       size="large"
                       placeholder="Select Lead Type"
-                      onChange={()=> leadTypeHandler}
+                      onChange={(item)=> leadTypeHandler(item)}
                     >
                     </Select>
                   </Form.Item>
@@ -1523,7 +1545,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       options={leadProductOptions}
                       placeholder="Select Product"
-                      onChange={()=> productHandler}
+                      onChange={(item)=> productHandler(item)}
                     >
 
                     </Select>
@@ -1550,7 +1572,7 @@ const NewLead = React.memo(() => {
                       defaultValue={insuranceCompany}
                       size="large"
                       placeholder="Select Insurance"
-                      onChange={()=> insuranceCompanyHandler}
+                      onChange={(item)=> insuranceCompanyHandler(item)}
                       options={insuranceCompanyOptions}
                     >
                     </Select>
@@ -1671,7 +1693,7 @@ const NewLead = React.memo(() => {
                         placeholder="New Contact"
                         size="large"
                         popupClassName="popup-size"
-                        onChange={ ()=> appointmentStatusHandler}
+                        onChange={ (item)=> appointmentStatusHandler(item)}
                         style={{ height: '2.45rem' }}
                         value={leadStatusData}
                       />
@@ -1699,7 +1721,7 @@ const NewLead = React.memo(() => {
                         <DatePicker
                           className='input-box'
                           // disabledDate={disabledDate}
-                          onChange={ ()=> appointmentDateHandler}
+                          onChange={ (item)=> appointmentDateHandler(item)}
                           value={appointmentDate}
                           size="large"
                           format="YYYY/MM/DD"
@@ -1737,7 +1759,7 @@ const NewLead = React.memo(() => {
                           bordered={false}
                           className='select-box'
                           value={appointmentTime}
-                          onChange={ ()=> startTimeHandler}
+                          onChange={ (item)=> startTimeHandler(item)}
                           size="large"
                           // style={{ width: "100%", boxShadow: 'none', border: 'none', outline: 'none', borderBottom: '1px rgb(153, 153, 153) solid', }}
                           options={appointmentTimeOptions}
@@ -1763,7 +1785,7 @@ const NewLead = React.memo(() => {
                         <Select
                           bordered={false}
                           className='select-box'
-                          // onChange={()=> reminderHandler} 
+                          // onChange={(item)=> reminderHandler(item)} 
                           value={reminder} size="large"
                           options={setReminderOptions}
                           placeholder="Set Reminder">
@@ -1791,7 +1813,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Some Remark"
                       value={remarkFromSource}
-                      onChange={ ()=> remarkFromSourceHandler} />
+                      onChange={ (item)=> remarkFromSourceHandler(item)} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={24} lg={12} xl={12} className="mb-2">
@@ -1812,7 +1834,7 @@ const NewLead = React.memo(() => {
                       size="large"
                       placeholder="Enter Some Remark"
                       value={remarkFromUser}
-                      onChange={()=> remarkFromUserHandler} />
+                      onChange={(item)=> remarkFromUserHandler(item)} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager" style={(leadDisposition === "appointment" || leadDisposition === "callback") && { display: 'none' }}>

@@ -12,7 +12,9 @@ const ForgotPassword = () => {
     const [form] = Form.useForm();
     const [email,setEmail] = useState('');
     const onForgotPassword = () => { 
-        axios.post('https://sdrestnode.iorta.in/secure/sd/user/forgotPasscode',{email:email}).then(resp=>{
+        // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/forgotPasscode
+        // https://sdrestnode.iorta.in/secure/sd/user/forgotPasscode
+        axios.post('https://abinsurancenode.salesdrive.app/sdx-api/secure/user/forgotPasscode',{email:email}).then(resp=>{
             console.log("forgotpassword resp data",resp)
             if(resp?.data?.errCode === -1){
                 message.success(resp?.data?.errMsg?.msg)

@@ -321,7 +321,7 @@ const TodoCards = forwardRef((props, ref) => {
 
     const Showpopuptodo = (ind,data) => {
         let _data = getTodoDataArray.map((ev,index)=>{
-            ind === index ? ev.showarchiedpopup = true : ev.showarchiedpopup = false
+            ind === index ?  ev.showarchiedpopup === true ? ev.showarchiedpopup = false : ev.showarchiedpopup = true   : ev.showarchiedpopup = false
             return ev
         }) 
         setGetTodoDataArray(_data)
@@ -363,7 +363,6 @@ const TodoCards = forwardRef((props, ref) => {
                                         </Card>
                                     </div>
                             }
-                            {/* getTodoFunc={getTodoData.bind(this,0)} */}
                             </div>
                             
                         </div>

@@ -86,22 +86,24 @@
 }
 .Hamburger-Card>.ant-card-body>p{
     margin: 0;
-    font-weight: bold;
+    font-weight: 500;
     color: #5f5e5c;
 }
 
 .Hamburger-Edit{
-    display: contents;
-    content: '';
+    position: absolute;
+    left: 62%;
+    margin-top: 120px;
+    width: 100px;
 }
 .Hamburger-Card>.ant-card-body>p>span{
     cursor: pointer;
 }
 .TodoCard-Container-Hamburger{
-    position: absolute;
+    /* position: absolute;
     left: 62%;
     margin-top: 120px;
-    width: 100px;
+    width: 100px; */
 }
 .textDecoration{
     text-decoration: line-through;

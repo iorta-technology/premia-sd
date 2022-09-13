@@ -10,8 +10,11 @@ import axiosRequest from '../../../../axios-request/request.methods'
 import {stoageGetter} from '../../../../helpers'
 
 const Self = () => {
-  const [month,setMonth]=useState()
-  const [year,setyear]=useState()
+  const _date = new Date();
+  let currentMonth = _date.getMonth();
+  let currentyear = _date.getFullYear();
+  const [month,setMonth]=useState(currentMonth+1)
+  const [year,setyear]=useState(currentyear)
   const [PastDataContainer,setPastDataContainer]=useState();
   const [CurentOrPast,setCurentOrPast]=useState()
   const [pastEventLenght,setPastEventLength]=useState();
@@ -26,7 +29,8 @@ const Self = () => {
   useEffect(()=>{
    
     api();
-  },[month,year,CurentOrPast]);
+  },[]);
+// },[month,year,CurentOrPast]);
   let {id}=stoageGetter('user');
   const api = async ()=>{
     let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);

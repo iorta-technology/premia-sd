@@ -374,7 +374,7 @@ const Tab = ({
               }
             >
               <img
-                src={currentActiveTab === "seft" ? person_white : person_black}
+                src={currentActiveTab === "seft" ? person_black : person_white}
                 className="person"
                 alt="person_png"
               />{" "}
