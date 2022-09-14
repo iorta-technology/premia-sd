@@ -855,9 +855,9 @@ height: 40px;
 }
 
 @media (min-width: 300px) and (max-width: 420px) {
-  .ant-select {
+  /* .ant-select {
     margin-top: 10px !important;
-  }
+  } */
   .Todo-Create-Search {
     margin-top: 15px;
 }

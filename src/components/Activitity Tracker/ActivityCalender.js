@@ -37,7 +37,7 @@ const tabMenu = [
   ]
 
 const App = () => {
-    const [TeamSelf,setTeamSelf]=useState(true);
+const [TeamSelf,setTeamSelf]=useState(true);
  const [width,height]=useWidowsSize();
  const [windowWidth, setWidth] = useState(window.innerWidth);
  const breakpoint = 620;
