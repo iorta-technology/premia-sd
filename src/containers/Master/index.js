@@ -96,7 +96,7 @@ const Master = (props) => {
                     defaultPageSize={15}
                     itemRender={itemRender} />
             </div>
-            <FloatButton/>
+            {/* <FloatButton/> */}
         </div>
     )
 }
