@@ -44,7 +44,7 @@ body{
       border-style: unset;
       border-color: unset;
       height: 85px;
-      padding: 5px 15px !important;
+      /* padding: 5px 15px !important; */
   }
   .detailsCard .updatetitle{
     font-weight: 300;
@@ -226,7 +226,7 @@ body{
     .detailsCard .sidehead{
       font-weight: 600;
       font-size: 12px;
-      padding-top: 40%;
+      padding-top: 20%;
       text-align: center;
     }
     .dispa {
@@ -286,3 +286,31 @@ body{
     font-size: 13px;
     font-weight: bold;
   }
+  .budget{
+    width: 100%;
+  }
+  .list_of{
+    margin-top: 10px;
+  }
+  .myGraph{
+    padding: 15px;
+  }
+
+  .budgeData{
+    padding: 10px;
+  }
+  .mainTab{
+    padding: 0 3%;
+    padding-bottom: 30px;
+  }
+
+  hr {
+    margin: 10px 0;
+    color: inherit;
+    border: 0;
+    border-top: 1px solid;
+    opacity: .25;
+}
+.padding_row{
+  padding: 10px;
+}

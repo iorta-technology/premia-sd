@@ -152,10 +152,10 @@
     }
 }
 @media (min-width: 640px){
-    .ant-select {
+    /* .ant-select {
         margin-top: 10px !important;
         height: 40px !important;
-      }
+      } */
     .dropdown-btn,.dropdown-content {
         font-size: 14px;
         /* width: 25%; */
