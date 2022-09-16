@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect , createRef } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
@@ -295,13 +295,12 @@ const NewLead = React.memo(() => {
       value: "77400000"
     }]
 
+  let formRef = createRef();
   const dispatch = useDispatch()
-  const history = useHistory()
+  // const history = useHistory()
   const [form] = Form.useForm();
-  useEffect(() => {
-    // dispatch(actions.fetchTeamMember())
-    dispatch(actions.fetchAllState())
-  }, [dispatch]);
+
+  
   const id = useSelector((state) => state.login.user.id)
   const channelCode = useSelector((state) => state.login.user.channelCode)
   const states = useSelector((state) => state.address.states)
@@ -309,7 +308,7 @@ const NewLead = React.memo(() => {
   const levelCode = useSelector((state) => state.login.levelCode)
 
   // store form data 
-  let storeFormData = useSelector((state) => state.newLead.formData)
+  let storeFormData = useSelector((state) => state?.newLead?.formData)
   const userTreeData = useSelector((state) => state?.home?.user_tree)
   console.warn('((((((((((( storeFormData )))))))))))', storeFormData)
   delete storeFormData['appointmentId'];
@@ -327,7 +326,7 @@ const NewLead = React.memo(() => {
   const storeStateValue = useSelector((state) => state.newLead.formData.state)
   const storeCityValue = useSelector((state) => state.newLead.formData.city)
   const storeLeadTypeValue = useSelector((state) => state.newLead.formData.LeadType)
-  console.warn('((((((((((( storefirstNameValue )))))))))))',storefirstNameValue)
+  // console.warn('((((((((((( storefirstNameValue )))))))))))',storefirstNameValue)
   const storeProductValue = useSelector((state) => state.newLead.formData.Product)
   const storeInsuranceCompanyValue = useSelector((state) => state.newLead.formData.Insurance_Company)
   const storeLeadStatusValue = useSelector((state) => state.newLead.formData.leadStatus)
@@ -338,9 +337,7 @@ const NewLead = React.memo(() => {
   const start_time = useSelector((state) => state.newLead.formData.start_time)
   // const {start_date,start_time} = storeAppointmentData
   // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
-  // console.log(typeof (start_time))
   // console.warn('((((((((((( storeFormData )))))))))))',storeFormData)
-  // msToDateString(1637605800000)  
   const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
   const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
   const fetchLeadId = useSelector((state) => state.newLead.fetcLeadId)
@@ -348,26 +345,19 @@ const NewLead = React.memo(() => {
   const successMsg = useSelector((state) => state.newLead.successMsg)
   const errorMsg = useSelector((state) => state.newLead.errorMessage)
   const { lastupdatedOn } = storeFormData
-  // let MobRegex='^([-]?[1-9][0-9]*|0)$';
-  // const [mobileNoCheck,setMobileNoCheck]=useState(storePrimaryMobileValue?true:false)
 
   // lead summary
   const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
 
-
-  // const leadArr = [storeLeadStatusValue, storeLeadDispositionValue, storeLeadSubDispositionValue]
-  // let leadArr = []
-  // storeFormData.leadStatus !== '' && leadArr.push(storeFormData.leadStatus)
-  // storeFormData.leadDisposition !== '' && leadArr.push(storeFormData.leadDisposition)
-  // storeFormData.leadsubDisposition !== '' && leadArr.push(storeFormData.leadsubDisposition)
-  // console.warn('leadArr((((((((((===>>>>>>>>>>', leadArr)
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
 
   const [firstName, setFirstName] = useState(storefirstNameValue)
+  // console.warn('((((((((((( storefirstNameValue )))))))))))',storefirstNameValue)
+  // console.warn('((((((((((( firstName )))))))))))',firstName)
   const [lastName, setLastName] = useState(storelastNameValue)
   const [email, setEmail] = useState(storeEmailValue)
   const [primaryNo, setPrimaryNo] = useState(storePrimaryMobileValue)
@@ -404,23 +394,78 @@ const NewLead = React.memo(() => {
   const [teamMemberList ,setTeamMemberList]=useState([])
   const [teamData ,setTeamData]=useState('')
 
-  // useEffect(() => {
-  //   // if (storeFormData.lead_Id !== '') {
-  //   //   console.warn('UPDATE___DATAAAA((((((((((===>>>>>>>>>>', storeFormData)
-  //   //   setFirstName(storefirstNameValue)
-  //   // }
-  //   console.warn('storefirstNameValue((((((((((===>>>>>>>>>>', storefirstNameValue)
-  //   // console.warn('lastName((((((((((===>>>>>>>>>>', lastName)
-  //   // console.warn('email((((((((((===>>>>>>>>>>', email)
-  //   // console.warn('primaryNo((((((((((===>>>>>>>>>>', primaryNo)
-  //   setFirstName(storefirstNameValue)
-  //   // setLastName(storelastNameValue)
-  //   // setLeadStatus(storeEmailValue)
-  //   // setPrimaryNo(storePrimaryMobileValue)
-  //   // setLeadType(storeLeadTypeValue)
-  // },[storefirstNameValue])
+  // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
+  
+  useEffect(() => {
+    // dispatch(actions.fetchTeamMember())
+    dispatch(actions.fetchAllState())
+  }, [dispatch]);
 
   useEffect(() => {
+    if(userTreeData.length > 0){
+      userTreeData.reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
+      userTreeData.reporting_users.forEach(el =>{ 
+        el.label = el.full_name
+        el.value = el._id 
+      })
+      setHierarAgentList(userTreeData.reporting_hierarchies)
+    }
+    storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
+    primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false)
+  }, []);
+
+  // useEffect(() => {
+    // if (storeFormData.lead_Id !== '') {
+      // console.warn('UPDATE___ DATAAAA((((((((((===>>>>>>>>>>', storefirstNameValue)
+      // setFirstName(storefirstNameValue)
+      
+    // }
+    // console.warn('storefirstNameValue((((((((((===>>>>>>>>>>', storefirstNameValue)
+    // console.warn('lastName((((((((((===>>>>>>>>>>', lastName)
+    // console.warn('email((((((((((===>>>>>>>>>>', email)
+    // console.warn('primaryNo((((((((((===>>>>>>>>>>', primaryNo)
+    // setFirstName(prev =>{
+      // console.warn('firstName)__________((((((((((===>>>>>>>>>>', firstName)
+    // })
+    // setLastName(storelastNameValue)
+    // setLeadStatus(storeEmailValue)
+    // setPrimaryNo(storePrimaryMobileValue)
+    // setLeadType(storeLeadTypeValue)
+
+    // formRef.current.setFieldsValue({
+    //   "firstname": storefirstNameValue,
+    //   "lastname": storelastNameValue,
+    //   "email": storeEmailValue,
+    //   "phone": storePrimaryMobileValue,
+    //   "state": storeStateValue,
+    //   "city": storeCityValue,
+    //   "leadType": storeLeadTypeValue,
+    //   "product": storeProductValue,
+    //   "insuranceCompany": storeInsuranceCompanyValue,
+    //   "appointmentDate": appointmentDate,
+    //   "remarksfromsource": remarkFromSource,
+    //   "remarksfromuser": remarkFromUser,
+    //   // "leadStatus":leadSubDisposition
+    // });
+    // form.setFieldsValue({
+    //   "firstname": storefirstNameValue,
+    //   "lastname": storelastNameValue,
+    //   "email": storeEmailValue,
+    //   "phone": storePrimaryMobileValue,
+    //   "state": storeStateValue,
+    //   "city": storeCityValue,
+    //   "leadType": storeLeadTypeValue,
+    //   "product": storeProductValue,
+    //   "insuranceCompany": storeInsuranceCompanyValue,
+    //   "appointmentDate": appointmentDate,
+    //   "remarksfromsource": remarkFromSource,
+    //   "remarksfromuser": remarkFromUser,
+    //   // "leadStatus":leadSubDisposition
+    // });
+  // },[])
+
+  useEffect(() => {
+    // console.warn('firstName)__________((((((((((===>>>>>>>>>>', firstName)
     // if (storeFormData.lead_Id !== '') {
     //   // let _status = []
     //   console.warn('UPDATE', storeFormData)
@@ -446,49 +491,34 @@ const NewLead = React.memo(() => {
     // }
 
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
-    if(userTreeData.length > 0){
-      userTreeData.reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
-      userTreeData.reporting_users.forEach(el =>{ 
-        el.label = el.full_name
-        el.value = el._id 
-      })
-      setHierarAgentList(userTreeData.reporting_hierarchies)
-    }
     
 
-    // dispatch(actions.fetchLeadDetails(fetchLeadId))
-    storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
-    primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false)
-
-    // form.resetFields({
-    //   "firstname":firstName,
-    //   "lastname":lastName,
-    //   "email":email,
-    //   "phone":primaryNo,
-    //   "state":stateProvince,
-    //   "city":cityProvince,
-    //   "leadType":leadType,
-    //   "product":product,
-    //   "insuranceCompany":insuranceCompany,
-    //   "appointmentDate":appointmentDate,
-    //   "remarksfromsource":remarkFromSource,
-    //   "remarksfromuser":remarkFromUser,
-    // })
-    // form.setFieldsValue({
-    //   "firstname": firstName,
-    //   "lastname": lastName,
-    //   "email": email,
-    //   "phone": primaryNo,
-    //   "state": stateProvince,
-    //   "city": cityProvince,
-    //   "leadType": leadType,
-    //   "product": product,
-    //   "insuranceCompany": insuranceCompany,
-    //   "appointmentDate": appointmentDate,
-    //   "remarksfromsource": remarkFromSource,
-    //   "remarksfromuser": remarkFromUser,
-    //   // "leadStatus":leadSubDisposition
-    // })
+    // setFirstName(firstName)
+    // setLastName(storelastNameValue)
+    // // setLeadStatus(storeFormData.leadStatus)
+    // setPrimaryNo(storePrimaryMobileValue)
+    // setLeadType(storeLeadTypeValue)
+    // setStateProvince(storeStateValue)
+    // setCityProvince(storeCityValue)
+    // setEmail(storeEmailValue)
+    // setInsuranceComapany(storeInsuranceCompanyValue)
+    // setProduct(storeProductValue)
+    console.warn('firstName)__________((((((((((===>>>>>>>>>>', formRef.current)
+    formRef.current.setFieldsValue({
+      "firstname": storefirstNameValue,
+      "lastname": lastName,
+      "email": email,
+      "phone": primaryNo,
+      "state": stateProvince,
+      "city": cityProvince,
+      "leadType": leadType,
+      "product": product,
+      "insuranceCompany": insuranceCompany,
+      "appointmentDate": appointmentDate,
+      "remarksfromsource": remarkFromSource,
+      "remarksfromuser": remarkFromUser,
+      // "leadStatus":leadSubDisposition
+    })
   }, [
     firstName,
     lastName,
@@ -502,18 +532,18 @@ const NewLead = React.memo(() => {
     appointmentDate,
     remarkFromSource,
     remarkFromUser,
-    storeLeadId,
-    form,
-    storeRemarkFromSourceValue,
-    storefirstNameValue,
-    storelastNameValue,
-    storeEmailValue,
-    storePrimaryMobileValue,
-    stateProvince,
+    formRef,
+    // form,
+    // storeRemarkFromSourceValue,
+    // storefirstNameValue,
+    // storelastNameValue,
+    // storeEmailValue,
+    // storePrimaryMobileValue,
+    // stateProvince,
     leadStatusData,
     // leadDataloading,
-    storeCityValue,
-    storeStateValue
+    // storeCityValue,
+    // storeStateValue
   ])
   
   // add team Member modal state control
@@ -815,7 +845,7 @@ const NewLead = React.memo(() => {
   };
 
   const leadHandler = (value) => {
-    console.log('LEADSSS___STATUSSS', value)
+    // console.log('LEADSSS___STATUSSS', value)
     setLeadStatus(value[0])
     setLeadDisposition(value[1])
     setLeadSubDisposition(value[2])
@@ -837,7 +867,7 @@ const NewLead = React.memo(() => {
     setAppointmentDatePost(newDate)
 
   }
-  console.log(appointmentDatePost)
+  // console.log(appointmentDatePost)
   // const newDate = moment.unix(appointmentDate/1000).format("DD MM YYYY ")
   // console.log(appointmentDate)
 
@@ -1282,33 +1312,34 @@ const NewLead = React.memo(() => {
 
       <div className="form-container">
         <Form
-          layout="horizontal"
-          className="contact-detail-form"
+          // layout="horizontal"
+          // className="contact-detail-form"
           // validateMessages={validateMessages}
-          scrollToFirstError
+          // scrollToFirstError
           // form={form}
           // help={errorMessage}
           onFinish={submitHandler}
           // onFinishFailedFucn={failedHandler}
-          initialValues={{
-            "firstname": firstName,
-            "lastname": lastName,
-            "email": email,
+          ref={formRef}
+          // initialValues={{
+          //   "firstname": firstName,
+          //   "lastname": lastName,
+          //   "email": email,
 
-            "phone": primaryNo,
-            "state": stateProvince,
-            "city": cityProvince,
-            "leadType": leadType,
-            "product": product,
-            "insuranceCompany": insuranceCompany,
-            "appointmentDate": appointmentDate,
-            "appointmentTime": appointmentTime,
-            "remarksfromsource": remarkFromSource,
-            "remarksfromuser": remarkFromUser,
-            "reminder": reminder,
-            "leadStatus": leadStatusData,
-            "appointmentStatus": ['newappointment', 'newApptmnt']
-          }}
+          //   "phone": primaryNo,
+          //   "state": stateProvince,
+          //   "city": cityProvince,
+          //   "leadType": leadType,
+          //   "product": product,
+          //   "insuranceCompany": insuranceCompany,
+          //   "appointmentDate": appointmentDate,
+          //   "appointmentTime": appointmentTime,
+          //   "remarksfromsource": remarkFromSource,
+          //   "remarksfromuser": remarkFromUser,
+          //   "reminder": reminder,
+          //   "leadStatus": leadStatusData,
+          //   "appointmentStatus": ['newappointment', 'newApptmnt']
+          // }}
           // onFinishFailed={onFinishFailedFucn}
         >
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}  >
