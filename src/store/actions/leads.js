@@ -53,7 +53,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
 
 
         let result = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`, { secure: true });
-        console.warn('+++++++++ GET LEAD DATA ++++++++', result)
+        // console.warn('+++++++++ GET LEAD DATA ++++++++', result)
         if (result.length > 0) {
             dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
         } else {

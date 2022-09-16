@@ -16,6 +16,7 @@ const LeadCard = React.memo((props) => {
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
   const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead);
+  const LeadData = useSelector((state) => state?.newLead?.payloadFormData);
 
   const history = useHistory();
   const {
@@ -73,8 +74,15 @@ const LeadCard = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
   const updateHandler = (id) => {
+    console.log('____LEADDDD___IDDD',id)
+    
+    
     dispatch(actions.fetchLeadDetails(id));
-    history.replace("/leadmasterpage/statuslead");
+    // let _data = actions.fetchLeadDetails(id);
+    // console.log('_data___LEADDDD',_data)
+    // console.log('LeadData-----------',LeadData)
+    // LeadData._id === id && history.push("/leadmasterpage/statuslead");
+    history.push("/leadmasterpage/statuslead");
   };
   let statusColors = {
     closed: "#D04949",

@@ -109,7 +109,7 @@
     text-decoration: line-through;
 }
 hr {
-    margin: 0rem 0;
+    margin: 10px 0;
     color: inherit;
     border: 0;
     border-top: 1px solid;

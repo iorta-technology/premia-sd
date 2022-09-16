@@ -30,7 +30,7 @@ const loginStart = (state, action) => {
 }
 
 const loginSuccess = (state, action) => {
-    // console.log("id",action.login_agent_data._id)
+    // console.log("id_______DATATATATTAAT",action)
     let user= camelCaseKeys({...action.login_agent_data[0][0]})
     // localStorage.setItem('user',user)
      stoageSetter('user', user);
@@ -42,6 +42,7 @@ const loginSuccess = (state, action) => {
         user_name: action.login_agent_data[0][0].first_name + " " + action.login_agent_data[0][0].last_name,
         agent_id: action.login_agent_data[0][0].agent_id,
         userId: action.login_agent_data[0][0]._id,
+        token: action.login_agent_data[1].token,
         // channelCode:action.login_agent_data[0][0].channelCode
         
      })
