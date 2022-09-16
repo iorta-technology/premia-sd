@@ -1003,7 +1003,7 @@ const HomePage = () => {
               bordered="false"
               style={{ backgroundColor: "rgb(134, 172, 236)" }}
             >
-              <Link to="/kpi-dashboard">
+              <Link to="/daily-bussienss">
                 <div className="card-content">
                   <div className="activity-icon">
                     <Image

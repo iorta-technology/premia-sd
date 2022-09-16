@@ -16,6 +16,7 @@ import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
+import { useLocation } from "react-router-dom";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
@@ -43,6 +44,7 @@ const Tab = ({
   filterdata,
 }) => {
   console.log("tabMenu*****Data", tabMenu);
+  const currentLocation = useLocation();
 
   // console.log("YE ARAR", props)
 
@@ -329,7 +331,7 @@ const Tab = ({
             ) : null}
           </div>
         </div>
-      ) : (
+      ) : currentLocation.pathname === "/leadMaster/all_leads" ? (
         <div style={{ display: "flex", flexDirection: "Column" }}>
           <div>
             <Tabs
@@ -405,7 +407,7 @@ const Tab = ({
             />
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

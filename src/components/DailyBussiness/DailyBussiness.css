@@ -139,13 +139,11 @@ body{
       color: #fff;
       border-radius: 3px;
       border: none;
-      width: 90%;
-      
+      width: 100%;
       box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
     }
     .ant-btn.secondaryBtn{
       width: 100%;
-      
     }
     .cardKpi{
         padding: 15px;
@@ -330,6 +328,17 @@ body{
     border:none !important;
     color: gray !important;
     font-size: 15px;
+  }
+
+  .person.person_icon{
+    height: 22px;
+    margin:0 5px;
+  }
+
+  .ant-btn{
+    display: flex;
+    justify-content: center;
+    align-items:center;
   }
 
   @media screen and (max-width: 769px) {
