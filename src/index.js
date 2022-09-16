@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 // import rootreducer from './store/reducers/index';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/lib/integration/react'
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
 // import { createStore, applyMiddleware,compose } from 'redux';
-import rootIndex from './store/root_index'
+import rootIndex from "./store/root_index";
 // import thunk from 'redux-thunk';
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__  || compose;
 
 // const store = createStore(rootreducer,composeEnhancers(
 //   applyMiddleware(thunk)
 // ));
-const { store, persistor } = rootIndex
+const { store, persistor } = rootIndex;
 
 ReactDOM.render(
   <Provider store={store} id="root">
@@ -23,10 +23,8 @@ ReactDOM.render(
       <PersistGate loading={null} persistor={persistor} />
       <App />
     </React.StrictMode>
-  </Provider>
-  ,
-
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
