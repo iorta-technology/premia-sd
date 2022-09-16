@@ -12,6 +12,7 @@ import { Select } from "antd";
 import { Column } from "@ant-design/charts";
 import { stoageGetter } from "../../helpers";
 import Tabs from "../../components/Tab/Tab";
+import axiosRequest from '../../axios-request/request.methods'
 
 import Self from "../Activitity Tracker/LeftSide-Activity/Self/Self";
 import Team from "../Activitity Tracker/LeftSide-Activity/Team/Team";
@@ -47,6 +48,7 @@ const KpiDashboard = () => {
   const [finalBudgetConfig, setFinalBudgetConfig] = useState(null);
   const [width, setWidth] = useState(window.innerWidth);
   const [TeamSelf, setTeamSelf] = useState(true);
+  const [category, setCategory] = useState();
   const breakpoint = 620;
 
   const budgetKeys = {
@@ -93,6 +95,8 @@ const KpiDashboard = () => {
         color: "#00ACC1",
       });
       setFinalKpiData(kpiData);
+
+    
       
       const kpiBudget = employee_data
         ? employee_data.filter((item) => item.category == finalKpiDataDropdown)
@@ -132,6 +136,20 @@ const KpiDashboard = () => {
       
     });
   }, [employee_data]);
+
+
+  
+  useEffect(() => {
+    category_data()
+  }, [])
+
+  const category_data = async ()=>{
+    let {id}=stoageGetter('user');
+    let data = await axiosRequest.get(`user/fetchKPIMaster/main_category/${id}`);
+    console.log("mydatatatatat----",data);
+    setCategory(data);
+  }
+  
 
   const { Option } = Select;
   function onChange(value) {

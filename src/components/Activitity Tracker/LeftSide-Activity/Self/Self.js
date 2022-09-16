@@ -27,9 +27,9 @@ const Self = () => {
   // }
   
   useEffect(()=>{
-   
     api();
   },[]);
+
 // },[month,year,CurentOrPast]);
   let {id}=stoageGetter('user');
   const api = async ()=>{
@@ -37,6 +37,7 @@ const Self = () => {
     console.log(data);
     setPastDataContainer(data);
   }
+
   useEffect(()=>{
     if(PastDataContainer){
       for(let i = 0; i < PastDataContainer?.length; i++){
