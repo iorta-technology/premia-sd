@@ -42,7 +42,7 @@ const Tab = ({
   current,
   filterdata,
 }) => {
-  console.log("tabMenu*****Data", tabMenu);
+ 
 
   // console.log("YE ARAR", props)
 
