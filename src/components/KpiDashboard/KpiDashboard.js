@@ -3,6 +3,7 @@ import * as actions from "../../store/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import Moment from "moment";
 import "./KpiDashboard.css";
+import "../Activitity Tracker/ActivityCalender.css";
 import { Row, Col } from "antd";
 import { Button } from "antd";
 import { TeamOutlined, UserOutlined } from "@ant-design/icons";
@@ -11,10 +12,7 @@ import { Select } from "antd";
 import { Column } from "@ant-design/charts";
 import { stoageGetter } from "../../helpers";
 import Tabs from "../../components/Tab/Tab";
-// import request from '../../API/request';
-import axiosRequest from '../../axios-request/request.methods';
-//import apiConfig from '../../API/index';
-// import Self from './LeftSide-Activity/Self/Self';
+
 import Self from "../Activitity Tracker/LeftSide-Activity/Self/Self";
 import Team from "../Activitity Tracker/LeftSide-Activity/Team/Team";
 
@@ -75,7 +73,7 @@ const KpiDashboard = () => {
     setTimeout(() => {
       const kpiDataObj = employee_data
         ? employee_data.filter(
-            (item) => item.id == "final_score_last_two_month"
+            (item) => item.id == "final_score_last_six_month"
           )
         : [];
       let kpiData = kpiDataObj[0]?.data ? [...kpiDataObj[0]?.data] : [];
@@ -83,6 +81,7 @@ const KpiDashboard = () => {
         ...item,
         finalScore: parseInt(item.Final_Score || 0),
       }));
+      
       setFinalKpiConfig({
         data: kpiData,
         xField: "month",
@@ -94,16 +93,17 @@ const KpiDashboard = () => {
         color: "#00ACC1",
       });
       setFinalKpiData(kpiData);
+      
       const kpiBudget = employee_data
         ? employee_data.filter((item) => item.category == finalKpiDataDropdown)
         : [];
       let data = kpiBudget[0]?.data ? [...kpiBudget[0]?.data] : [];
-
+      
       data = data.map((item) => ({
         ...item,
         ...item[finalKpiDataDropdown],
       }));
-      console.log(data);
+     
       const budgetConfigDat = [];
       data.forEach((item) => {
         budgetConfigDat.push({
@@ -117,17 +117,19 @@ const KpiDashboard = () => {
           month: item.month,
         });
       });
-      console.log(budgetConfigDat);
+      console.log("Budget--", budgetConfigDat);
+     
       setFinalBudgetConfig({
         data: budgetConfigDat,
         isGroup: true,
         xField: "month",
         yField: "val",
         seriesField: "name",
-
         color: ["rgb(228, 106, 37)", "#00ACC1"],
+        
       });
       setFinalBudgetData(data);
+      
     });
   }, [employee_data]);
 
@@ -160,38 +162,47 @@ const KpiDashboard = () => {
       title: "Period",
       dataIndex: "month",
       key: "month",
+      align: "center",
     },
     {
       title: "Final Score",
       dataIndex: "Final_Score",
       key: "Final_Score",
+      align: "center",
     },
     {
       title: "% Change over last month",
       dataIndex: "change_in_percent",
       key: "change_in_percent",
+      align: "center",
     },
   ];
+
+  
   const columns1 = [
     {
       title: "Period",
       dataIndex: "month",
       key: "month",
+      align: "center"
     },
     {
       title: `${finalKpiDataDropdown}(in ₹ Lac) Budget`,
       dataIndex: budgetKeys[finalKpiDataDropdown][0],
       key: budgetKeys[finalKpiDataDropdown][0],
+      align: "center"
     },
     {
       title: `${finalKpiDataDropdown}(in ₹ Lac) Actual`,
       dataIndex: budgetKeys[finalKpiDataDropdown][1],
       key: budgetKeys[finalKpiDataDropdown][1],
+      align: "center"
     },
     {
       title: "% Achievement",
       dataIndex: budgetKeys[finalKpiDataDropdown][2],
       key: budgetKeys[finalKpiDataDropdown][2],
+      align: "center"
     },
   ];
   const columns2 = [
@@ -338,20 +349,46 @@ const KpiDashboard = () => {
       <Tabs tabMenu={[]} header="KPI Dashboard" activeKey="1" />
 
       <div className="mainTab">
-        <Row className="tabs">
+         <Row className="tabs">
           <Col xs={12} sm={12} md={12} lg={2} xl={2}>
-            <Button className="primaryBtn" icon={<UserOutlined />}>
-              Self
-            </Button>
+            
+           <button
+                style={{width: "80%"}}
+                className={TeamSelf ? "active_tabs_button" : "tabs_button"}
+                onClick={(e) => {
+                  setTeamSelf(true);
+                }}
+              >
+                <img
+                style={{marginRight: "0px"}}
+                  src={TeamSelf ? person_white : person_black}
+                  className="person"
+                  alt="person_png"
+                />
+                Self
+              </button>
           </Col>
           <Col xs={12} sm={12} md={12} lg={2} xl={2}>
-            <Button className="secondaryBtn" icon={<TeamOutlined />}>
-              Team
-            </Button>
+            <button
+                style={{width: "80%"}}
+                className={!TeamSelf ? "active_tabs_button" : "tabs_button"}
+                onClick={(e) => {
+                  setTeamSelf(false);
+                }}
+              >
+                <img
+                style={{marginRight: "0px"}}
+                  src={TeamSelf ? group_black : group_white}
+                  className="person"
+                  alt="group_png"
+                />
+                Team
+              </button>
           </Col>
         </Row>
-
         <hr style={{ marginBottom: "20px" }} />
+        { TeamSelf ? 
+        <div>
         {width > breakpoint && (
           <Row gutter={[10, 10]}>
             <Col xs={24} sm={24} md={24} lg={2} xl={2} className="cardKpi">
@@ -463,11 +500,13 @@ const KpiDashboard = () => {
                             className="weex-div weex-ct kpi-hori-line"
                           ></div>
                           <p className="updatecount">
-                            %{" "}
-                            {
+                            %{employee_data[1]?.data["Branch Activation"]
+                                ?.branch_activation_actual ? employee_data[1]?.data["Branch Activation"]
+                                ?.branch_activation_actual : 0}
+                            {/* {
                               employee_data[1]?.data["Branch Activation"]
                                 ?.branch_activation_actual
-                            }
+                            } */}
                           </p>
                           <p className="updatetotal">Active Branches</p>
                           <div
@@ -496,7 +535,7 @@ const KpiDashboard = () => {
                             className="weex-div weex-ct kpi-hori-line"
                           ></div>
                           <p className="updatecount">
-                            % {employee_data[1]?.data.parcentPendancy}
+                            % {employee_data[1]?.data.parcentPendancy ? employee_data[1]?.data.parcentPendancy : 0}
                           </p>
                           <p className="updatetotal">
                             Pendancy(GWP Pendancy vs. GWP Ach)
@@ -654,6 +693,7 @@ const KpiDashboard = () => {
               columns={columns}
               key={columns.key}
               dataSource={finalKpiData}
+              className="score_one"
             />
           </Col>
           <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
@@ -686,11 +726,13 @@ const KpiDashboard = () => {
             <div className="budgeData">
               {finalBudgetConfig && <Column {...finalBudgetConfig} />}
             </div>
+
             <Table
               pagination={false}
               columns={columns1}
               key={columns1.key}
               dataSource={finalBudgetData}
+              className="score"
             />
           </Col>
           <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
@@ -732,6 +774,9 @@ const KpiDashboard = () => {
             />
           </Col>
         </Row>
+        </div>
+         : 
+         ''}
       </div>
     </>
   );

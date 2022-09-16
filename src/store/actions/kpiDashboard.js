@@ -24,6 +24,8 @@ export const kpiDashboardFail = (error) => {
     }
 }
 
+
+
 export const kpiDashboard = (value,userId,channel) => {
     return async dispatch => {
         dispatch(kpiDashboardStart())
@@ -38,6 +40,7 @@ export const kpiDashboard = (value,userId,channel) => {
 
         let result = await axiosRequest.get(`user/fetch_employee_kpi?emp_code=${userId}&category=${value}&channel=${channel}`, { secure: true });
         console.log('  kpiDashboardSuccess',result)
+        
         if (result.length > 0) {
             return dispatch(kpiDashboardSuccess(result));
         }

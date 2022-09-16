@@ -113,6 +113,8 @@ body{
   }
   .rms .ant-table-thead {
     border-radius: 5px;
+    text-align: center;
+    justify-content: center;
   }
   .rms .ant-table-thead > tr > th{
     background: rgb(0, 172, 193);
@@ -121,6 +123,8 @@ body{
     padding-bottom:5px;
     border: none;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    text-align: center;
+    justify-content: center;
   }
   
 
@@ -314,4 +318,56 @@ body{
 }
 .padding_row{
   padding: 10px;
+}
+.score{
+  text-align: center;
+}
+.score tr th:nth-child(2) {
+  color: rgb(228, 106, 37);
+  text-align: center;
+}
+.score tr th:nth-child(3) {
+  color: rgb(0, 172, 193);
+}
+.score_one tr th:nth-child(2){
+  color: rgb(0, 172, 193);
+}
+.ant-table table { font-size: 12px; }
+
+.active_tabs_button{
+    border: none;
+    /* margin: 0 6px; */
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    padding: 5px;
+    cursor: pointer;
+    /* width: 90px; */
+    color: #fff;
+    background-color: #000;
+    width: 80%;
+    cursor: pointer;
+}
+
+.tabs_button{
+    border: none;
+    /* margin: 0 6px; */
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    padding: 5px;
+    cursor: pointer;
+    /* width: 90px; */
+    color: #000;
+    width: 80%;
+    cursor: pointer;
+}
+
+button.tabs_button img, button.active_tabs_button img{
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    vertical-align: middle;
 }
