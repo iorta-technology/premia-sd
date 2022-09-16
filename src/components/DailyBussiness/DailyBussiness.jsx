@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Moment from "moment";
 import "./DailyBussiness.css";
 import { Row, Col, Typography } from "antd";
+import person_black from "./../Activitity Tracker/icons/person_black.png";
+import person_white from "./../Activitity Tracker/icons/person_white.png";
 import { Button } from "antd";
 import {
   TeamOutlined,
@@ -18,6 +20,7 @@ import { stoageGetter } from "../../helpers";
 import Tabs from "../../components/Tab/Tab";
 import { Avatar } from "antd";
 import { fontWeight } from "@mui/system";
+import { useSyncExternalStore } from "react";
 
 const DailyBussiness = () => {
   const { Text, Link } = Typography;
@@ -30,6 +33,7 @@ const DailyBussiness = () => {
   }, [dispatch]);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
+  const [currentTabValue, SetCurrentTabValue] = useState("Self");
 
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data);
   const employee_data = kpi_data;
@@ -66,6 +70,12 @@ const DailyBussiness = () => {
       "gwp_retention_achievement",
     ],
     Dummy: ["dummy_budget", "dummy_actual", "dummy_achievement"],
+  };
+
+  const changeTab = () => {
+    currentTabValue === "Self"
+      ? SetCurrentTabValue("Team")
+      : SetCurrentTabValue("Self");
   };
 
   useEffect(() => {
@@ -271,229 +281,503 @@ const DailyBussiness = () => {
       <Tabs tabMenu={[]} header="Daily Bussiness" activeKey="1" />
       <div style={{ padding: "0 3%", paddingBottom: "30px" }}>
         <Row className="tabs">
-          <Col xs={12} sm={12} md={12} lg={2} xl={2}>
-            <Button className="primaryBtn" icon={<UserOutlined />}>
+          <Col
+            xs={12}
+            sm={12}
+            md={12}
+            lg={2}
+            xl={2}
+            style={{ paddingRight: "10px" }}
+          >
+            <Button
+              className={
+                currentTabValue === "Self" ? "primaryBtn" : "secondaryBtn"
+              }
+              onClick={changeTab}
+            >
+              <img
+                src={currentTabValue === "Self" ? person_white : person_black}
+                className="person person_icon"
+                alt="person_png"
+              />
+              {"   "}
               Self
             </Button>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={2} xl={2}>
-            <Button className="secondaryBtn" icon={<TeamOutlined />}>
+          <Col
+            xs={12}
+            sm={12}
+            md={12}
+            lg={2}
+            xl={2}
+            style={{ paddingLeft: "10px" }}
+          >
+            <Button
+              className={
+                currentTabValue === "Team" ? "primaryBtn" : "secondaryBtn"
+              }
+              onClick={changeTab}
+            >
+              <img
+                src={currentTabValue === "Team" ? person_white : person_black}
+                className="person person_icon"
+                alt="person_png"
+              />
+              {"   "}
               Team
             </Button>
           </Col>
         </Row>
         <hr style={{ marginBottom: "20px" }} />
-
-        <Row
-          justify="space-around graph"
-          style={{ marginTop: "10px" }}
-          gutter={16}
-        >
-          <Col
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-            className=""
-            style={{ padding: "14px" }}
-          >
-            <Row justify="start">
-              <Avatar
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  backgroundColor: "#00ACC1",
-                  verticalAlign: "middle",
-                }}
-                size="large"
-                gap={1}
-              >
-                OJ
-              </Avatar>
-              <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
-                <Text strong>Otter</Text>
-                <Row>
-                  <Text strong type="secondary">
-                    CSM ID
-                  </Text>
-                  <Text style={{ marginLeft: "10px" }} type="secondary">
-                    {" "}
-                    AG5hcd9y
-                  </Text>
-                </Row>
-              </Row>
-            </Row>
-          </Col>
-          <Col
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-            style={{ padding: "14px" }}
-          >
+        {currentTabValue === "Self" ? (
+          <div>
             <Row
-              style={{
-                justifyContent: width <= breakpoint ? "space-between" : "end",
-                alignItems: "center",
-                height: "100%",
-              }}
+              justify="space-around graph"
+              style={{ marginTop: "10px" }}
+              gutter={16}
             >
-              <Text strong className="dateRange">
-                Date range :
-              </Text>
-              <div
-                className="goalCalendar"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+              <Col
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
+                className=""
+                style={{ padding: "14px" }}
               >
-                <CalendarOutlined
-                  style={{ fontSize: "23px", color: "gray", margin: "0 5px" }}
-                />
-                <Select
-                  defaultValue="Select"
-                  size="large"
-                  style={{ width: "100%" }}
+                <Row justify="start">
+                  <Avatar
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      backgroundColor: "#00ACC1",
+                      verticalAlign: "middle",
+                    }}
+                    size="large"
+                    gap={1}
+                  >
+                    OJ
+                  </Avatar>
+                  <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
+                    <Text strong>Otter</Text>
+                    <Row>
+                      <Text strong type="secondary">
+                        CSM ID
+                      </Text>
+                      <Text style={{ marginLeft: "10px" }} type="secondary">
+                        {" "}
+                        AG5hcd9y
+                      </Text>
+                    </Row>
+                  </Row>
+                </Row>
+              </Col>
+              <Col
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
+                style={{ padding: "14px" }}
+              >
+                <Row
+                  style={{
+                    justifyContent:
+                      width <= breakpoint ? "space-between" : "end",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
                 >
-                  <Option value="last 7 Days">Last 7 Days</Option>
-                  <Option value="last 30 Days">Last 30 Days</Option>
-                </Select>
-              </div>
-              <Button
-                className="goalButton"
-                type="primary"
-                size="large"
-                icon={<AimOutlined style={{ fontSize: "17px" }} />}
-              >
-                Add Daily Goal
-              </Button>
+                  <Text strong className="dateRange">
+                    Date range :
+                  </Text>
+                  <div
+                    className="goalCalendar"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CalendarOutlined
+                      style={{
+                        fontSize: "23px",
+                        color: "gray",
+                        margin: "0 5px",
+                      }}
+                    />
+                    <Select
+                      defaultValue="Select"
+                      size="large"
+                      style={{ width: "100%" }}
+                    >
+                      <Option value="last 7 Days">Last 7 Days</Option>
+                      <Option value="last 30 Days">Last 30 Days</Option>
+                    </Select>
+                  </div>
+                  <Button
+                    className="goalButton"
+                    type="primary"
+                    size="large"
+                    icon={<AimOutlined style={{ fontSize: "17px" }} />}
+                  >
+                    Add Daily Goal
+                  </Button>
+                </Row>
+              </Col>
             </Row>
-          </Col>
-        </Row>
-
-        <Row
-          justify="space-around graph"
-          style={{ marginTop: "10px" }}
-          gutter={16}
-        >
-          <Col
-            style={{
-              border: "1px solid lightgray",
-              padding: 0,
-            }}
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-          >
-            <Row>
+            <Row
+              justify="space-around graph"
+              style={{ marginTop: "10px" }}
+              gutter={16}
+            >
               <Col
-                span={24}
                 style={{
                   border: "1px solid lightgray",
-                  padding: "14px",
-                  color: "#3c3d3d",
-                  fontWeight: "bold",
+                  padding: 0,
                 }}
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
               >
-                GWP (COMMITMENT VS. ACHIEVED)
+                <Row>
+                  <Col
+                    span={24}
+                    style={{
+                      border: "1px solid lightgray",
+                      padding: "14px",
+                      color: "#3c3d3d",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    GWP (COMMITMENT VS. ACHIEVED)
+                  </Col>
+                </Row>
+              </Col>
+              <Col
+                style={{ padding: 0 }}
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
+              >
+                <Row>
+                  <Col
+                    span={7}
+                    style={{
+                      border: "1px solid lightgray",
+                      padding: "14px",
+                      textAlign: "center",
+                      color: "#3c3d3d",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    DATE
+                  </Col>
+                  <Col
+                    span={17}
+                    style={{
+                      border: "1px solid lightgray",
+                      padding: "14px",
+                      textAlign: "center",
+                      color: "#3c3d3d",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    GWP (in ₹)
+                  </Col>
+                </Row>
+
+                <Row className="GWP_div">
+                  <Col span={6}></Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    COMMITMENT
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ACHIEVED
+                  </Col>
+                </Row>
+
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
+
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
+
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
+
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
+
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
               </Col>
             </Row>
-          </Col>
-          <Col style={{ padding: 0 }} xs={24} sm={24} md={12} lg={12} xl={12}>
-            <Row>
+          </div>
+        ) : (
+          <div>
+            <Row
+              justify="space-around graph"
+              style={{ marginTop: "10px" }}
+              gutter={16}
+            >
               <Col
-                span={7}
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
+                className=""
+                style={{ padding: "14px" }}
+              >
+                <Row justify="start">
+                  <Avatar
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      backgroundColor: "#00ACC1",
+                      verticalAlign: "middle",
+                    }}
+                    size="large"
+                    gap={1}
+                  >
+                    OJ
+                  </Avatar>
+                  <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
+                    <Text strong>Otter</Text>
+                    <Row>
+                      <Text strong type="secondary">
+                        CSM ID
+                      </Text>
+                      <Text style={{ marginLeft: "10px" }} type="secondary">
+                        {" "}
+                        AG5hcd9y
+                      </Text>
+                    </Row>
+                  </Row>
+                </Row>
+              </Col>
+              <Col
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
+                style={{ padding: "14px" }}
+              >
+                <Row
+                  style={{
+                    justifyContent:
+                      width <= breakpoint ? "space-between" : "end",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <Text strong className="dateRange">
+                    Date range :
+                  </Text>
+                  <div
+                    className="goalCalendar"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CalendarOutlined
+                      style={{
+                        fontSize: "23px",
+                        color: "gray",
+                        margin: "0 5px",
+                      }}
+                    />
+                    <Select
+                      defaultValue="Select"
+                      size="large"
+                      style={{ width: "100%" }}
+                    >
+                      <Option value="last 7 Days">Last 7 Days</Option>
+                      <Option value="last 30 Days">Last 30 Days</Option>
+                    </Select>
+                  </div>
+                  <Button
+                    className="goalButton"
+                    type="primary"
+                    size="large"
+                    icon={<AimOutlined style={{ fontSize: "17px" }} />}
+                  >
+                    Add Daily Goal
+                  </Button>
+                </Row>
+              </Col>
+            </Row>
+            <Row
+              justify="space-around graph"
+              style={{ marginTop: "10px" }}
+              gutter={16}
+            >
+              <Col
                 style={{
                   border: "1px solid lightgray",
-                  padding: "14px",
-                  textAlign: "center",
-                  color: "#3c3d3d",
-                  fontWeight: "bold",
+                  padding: 0,
                 }}
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
               >
-                DATE
+                <Row>
+                  <Col
+                    span={24}
+                    style={{
+                      border: "1px solid lightgray",
+                      padding: "14px",
+                      color: "#3c3d3d",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    GWP (COMMITMENT VS. ACHIEVED)
+                  </Col>
+                </Row>
               </Col>
               <Col
-                span={17}
-                style={{
-                  border: "1px solid lightgray",
-                  padding: "14px",
-                  textAlign: "center",
-                  color: "#3c3d3d",
-                  fontWeight: "bold",
-                }}
+                style={{ padding: 0 }}
+                xs={24}
+                sm={24}
+                md={12}
+                lg={12}
+                xl={12}
               >
-                GWP (in ₹)
-              </Col>
-            </Row>
+                <Row>
+                  <Col
+                    span={7}
+                    style={{
+                      border: "1px solid lightgray",
+                      padding: "14px",
+                      textAlign: "center",
+                      color: "#3c3d3d",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    DATE
+                  </Col>
+                  <Col
+                    span={17}
+                    style={{
+                      border: "1px solid lightgray",
+                      padding: "14px",
+                      textAlign: "center",
+                      color: "#3c3d3d",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    GWP (in ₹)
+                  </Col>
+                </Row>
 
-            <Row className="GWP_div">
-              <Col span={6}></Col>
-              <Col span={11} style={{ color: "#007f8f" }}>
-                COMMITMENT
-              </Col>
-              <Col span={7} style={{ color: "#5eb3bd" }}>
-                ACHIEVED
-              </Col>
-            </Row>
+                <Row className="GWP_div">
+                  <Col span={6}></Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    COMMITMENT
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ACHIEVED
+                  </Col>
+                </Row>
 
-            <Row className="GWP_div">
-              <Col span={6}>9/13/2022</Col>
-              <Col span={11} style={{ color: "#007f8f" }}>
-                ₹ 0
-              </Col>
-              <Col span={7} style={{ color: "#5eb3bd" }}>
-                ₹ 0(0%)
-              </Col>
-            </Row>
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
 
-            <Row className="GWP_div">
-              <Col span={6}>9/13/2022</Col>
-              <Col span={11} style={{ color: "#007f8f" }}>
-                ₹ 0
-              </Col>
-              <Col span={7} style={{ color: "#5eb3bd" }}>
-                ₹ 0(0%)
-              </Col>
-            </Row>
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
 
-            <Row className="GWP_div">
-              <Col span={6}>9/13/2022</Col>
-              <Col span={11} style={{ color: "#007f8f" }}>
-                ₹ 0
-              </Col>
-              <Col span={7} style={{ color: "#5eb3bd" }}>
-                ₹ 0(0%)
-              </Col>
-            </Row>
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
 
-            <Row className="GWP_div">
-              <Col span={6}>9/13/2022</Col>
-              <Col span={11} style={{ color: "#007f8f" }}>
-                ₹ 0
-              </Col>
-              <Col span={7} style={{ color: "#5eb3bd" }}>
-                ₹ 0(0%)
-              </Col>
-            </Row>
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
 
-            <Row className="GWP_div">
-              <Col span={6}>9/13/2022</Col>
-              <Col span={11} style={{ color: "#007f8f" }}>
-                ₹ 0
-              </Col>
-              <Col span={7} style={{ color: "#5eb3bd" }}>
-                ₹ 0(0%)
+                <Row className="GWP_div">
+                  <Col span={6}>9/13/2022</Col>
+                  <Col span={11} style={{ color: "#007f8f" }}>
+                    ₹ 0
+                  </Col>
+                  <Col span={7} style={{ color: "#5eb3bd" }}>
+                    ₹ 0(0%)
+                  </Col>
+                </Row>
               </Col>
             </Row>
-          </Col>
-        </Row>
+          </div>
+        )}
       </div>
     </>
   );

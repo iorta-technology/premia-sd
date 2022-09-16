@@ -12,6 +12,8 @@ function _execRequest(config, options = { secure: true, multipart: false }) {
   const _store = store.getState()
   // console.warn('LOGIN DATA_______',_store)
 
+  
+
   function promiseCallback(resolve) {
     let headers = {
       "Content-Type": options.multipart
