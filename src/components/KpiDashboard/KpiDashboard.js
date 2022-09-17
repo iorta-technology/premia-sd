@@ -12,6 +12,7 @@ import { Select } from "antd";
 import { Column } from "@ant-design/charts";
 import { stoageGetter } from "../../helpers";
 import Tabs from "../../components/Tab/Tab";
+import axiosRequest from '../../axios-request/request.methods'
 
 import Self from "../Activitity Tracker/LeftSide-Activity/Self/Self";
 import Team from "../Activitity Tracker/LeftSide-Activity/Team/Team";
@@ -22,16 +23,22 @@ import group_white from "../../assets/MaterialUiIcons/group_white_192x192.png";
 import group_black from "../../assets/MaterialUiIcons/group_black_192x192.png";
 
 const KpiDashboard = () => {
+  
+  const userId = useSelector(state => state.login.userId)
+  const login_user_data = stoageGetter('user')
+    
 
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
     dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
+   
   }, [dispatch]);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
 
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data);
+  
   const employee_data = kpi_data;
   let avatar =
     employee_data[0]?.data.first_name.match(/\b(\w)/g) +
@@ -47,6 +54,7 @@ const KpiDashboard = () => {
   const [finalBudgetConfig, setFinalBudgetConfig] = useState(null);
   const [width, setWidth] = useState(window.innerWidth);
   const [TeamSelf, setTeamSelf] = useState(true);
+  const [category, setCategory] = useState();
   const breakpoint = 620;
 
   const budgetKeys = {
@@ -93,6 +101,8 @@ const KpiDashboard = () => {
         color: "#00ACC1",
       });
       setFinalKpiData(kpiData);
+
+    
       
       const kpiBudget = employee_data
         ? employee_data.filter((item) => item.category == finalKpiDataDropdown)
@@ -132,6 +142,21 @@ const KpiDashboard = () => {
       
     });
   }, [employee_data]);
+
+
+
+  useEffect(() => {
+    category_data()
+  }, [])
+
+ 
+  const category_data = async ()=>{
+    let _channelId = login_user_data.channelCode._id
+    let data = await axiosRequest.get(`user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`);
+    console.log("mydatatatatat----",data);
+    setCategory(data);
+  }
+  
 
   const { Option } = Select;
   function onChange(value) {
