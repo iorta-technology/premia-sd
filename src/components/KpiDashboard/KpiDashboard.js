@@ -23,16 +23,22 @@ import group_white from "../../assets/MaterialUiIcons/group_white_192x192.png";
 import group_black from "../../assets/MaterialUiIcons/group_black_192x192.png";
 
 const KpiDashboard = () => {
+  
+  const userId = useSelector(state => state.login.userId)
+  const login_user_data = stoageGetter('user')
+    
 
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
     dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
+   
   }, [dispatch]);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
 
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data);
+  
   const employee_data = kpi_data;
   let avatar =
     employee_data[0]?.data.first_name.match(/\b(\w)/g) +
@@ -138,14 +144,15 @@ const KpiDashboard = () => {
   }, [employee_data]);
 
 
-  
+
   useEffect(() => {
     category_data()
   }, [])
 
+ 
   const category_data = async ()=>{
-    let {id}=stoageGetter('user');
-    let data = await axiosRequest.get(`user/fetchKPIMaster/main_category/${id}`);
+    let _channelId = login_user_data.channelCode._id
+    let data = await axiosRequest.get(`user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`);
     console.log("mydatatatatat----",data);
     setCategory(data);
   }
