@@ -74,15 +74,15 @@ const LeadCard = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
   const updateHandler = (id) => {
-    console.log('____LEADDDD___IDDD',id)
+    // console.log('____LEADDDD___IDDD',id)
     
     
-    dispatch(actions.fetchLeadDetails(id));
+    // dispatch(actions.fetchLeadDetails(id));
     // let _data = actions.fetchLeadDetails(id);
     // console.log('_data___LEADDDD',_data)
-    // console.log('LeadData-----------',LeadData)
+    // console.log('history-----------',history)
     // LeadData._id === id && history.push("/leadmasterpage/statuslead");
-    history.push("/leadmasterpage/statuslead");
+    history.push("/leadmasterpage/statuslead",{ leadID: id });
   };
   let statusColors = {
     closed: "#D04949",
