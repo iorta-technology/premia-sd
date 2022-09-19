@@ -23,7 +23,7 @@ import group_white from "../../assets/MaterialUiIcons/group_white_192x192.png";
 import group_black from "../../assets/MaterialUiIcons/group_black_192x192.png";
 
 const KpiDashboard = () => {
-  
+
   const userId = useSelector(state => state.login.userId)
   const login_user_data = stoageGetter('user')
     
@@ -102,10 +102,12 @@ const KpiDashboard = () => {
       });
       setFinalKpiData(kpiData);
 
-    
+
+      // -- ----------
+
       
       const kpiBudget = employee_data
-        ? employee_data.filter((item) => item.category == finalKpiDataDropdown)
+        ? employee_data.filter((item) => item.category == finalKpiDataDropdown )
         : [];
       let data = kpiBudget[0]?.data ? [...kpiBudget[0]?.data] : [];
       
@@ -127,7 +129,8 @@ const KpiDashboard = () => {
           month: item.month,
         });
       });
-      console.log("Budget--", budgetConfigDat);
+      console.log("Budget--", budgetConfigDat[0].val);
+      console.log("hjhj---", budgetKeys[finalKpiDataDropdown][1]);
      
       setFinalBudgetConfig({
         data: budgetConfigDat,
@@ -152,8 +155,9 @@ const KpiDashboard = () => {
  
   const category_data = async ()=>{
     let _channelId = login_user_data.channelCode._id
-    let data = await axiosRequest.get(`user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`);
+    let data = await axiosRequest.get(`user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`)
     console.log("mydatatatatat----",data);
+
     setCategory(data);
   }
   
@@ -230,6 +234,8 @@ const KpiDashboard = () => {
       align: "center"
     },
   ];
+
+
   const columns2 = [
     {
       title: "CSM Name",
@@ -746,6 +752,9 @@ const KpiDashboard = () => {
                 <Option value="GWP Retention">GWP Retention</Option>
                 <Option value="Dummy">Dummy</Option>
               </Select>
+              
+
+              
             </div>
             {/* graph */}
             <div className="budgeData">
