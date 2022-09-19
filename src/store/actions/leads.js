@@ -3,6 +3,8 @@ import axios from '../../axios-common';
 import { getLeadFilter } from '../../helpers';
 import axiosLms from '../../axios-lmsv2';
 import axiosRequest from '../../axios-request/request.methods';
+import supportLead from '../../components/LeadCards/supportLeads';
+
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -55,7 +57,9 @@ export const fetchAllLeads = (id, leads, pageNo) => {
         let result = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`, { secure: true });
         // console.warn('+++++++++ GET LEAD DATA ++++++++', result)
         if (result.length > 0) {
-            dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
+            // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
+            // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
+            dispatch(fetchAllLeadsSuccess(supportLead.readSortDataFromAPI(leadFilter,result[0],this), result[1][0].count));
         } else {
             dispatch(fetchAllLeadsFail())
         }

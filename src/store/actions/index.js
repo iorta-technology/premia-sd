@@ -1,5 +1,5 @@
 export { fetchAllLeads, fetchDesignation, fetchTeamMember } from "./leads";
-export { fetchLeadDetails, createLead, storeLead, editLead } from "./newLead";
+export { fetchLeadDetailsSuccess,fetchLeadDetails, createLead, storeLead, editLead } from "./newLead";
 export { fetchAllState, fetchAllCities } from "./address";
 export {
   loginSuccess,

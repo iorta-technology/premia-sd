@@ -117,17 +117,19 @@ const LeadCards = (props) => {
       if (!_.isEmpty(newCards)) {
         let card = [];
         card = _.map(newCards, (lead, index) => {
+          console.warn('leAD___CARDSSSSSS',lead)
           return (
             <>
               <Col sm={18} md={18} lg={11} xl={11}>
                 <LeadCard
                   className="lead-agent-card"
-                  key={lead._id}
-                  id={lead._id}
+                  key={lead.id}
+                  id={lead.id}
                   lead_Id={""}
-                  leadStatus={lead.leadStatus}
-                  firstName={lead.first_name}
-                  lastName={lead.last_name}
+                  leadStatus={lead.status}
+                  leadName={lead.personName}
+                  // firstName={lead.first_name}
+                  // lastName={lead.last_name}
                   created_date={""}
                   allocatedDate={""}
                   primaryMobile={""}
@@ -180,6 +182,8 @@ const LeadCards = (props) => {
   // "hi"
   // :
   // (
+    // console.warn('leAD___CARDSSSSSS',props.leads)
+    // return
   let card = [];
   if (_.isEmpty(props.leads)) {
     return <NoRecordsFound />;
@@ -191,30 +195,19 @@ const LeadCards = (props) => {
           <Col sm={18} md={18} lg={11} xl={11}>
             <LeadCard
               className="lead-agent-card"
-              key={lead._id}
-              id={lead._id}
+              key={lead.id}
+              id={lead.id}
               lead_Id={lead.lead_Id}
-              leadStatus={lead.leadStatus}
-              firstName={lead.firstName}
-              lastName={lead.lastName}
-              created_date={lead.created_date}
-              allocatedDate={lead.allocatedDate}
-              primaryMobile={lead.primaryMobile}
-              allocatedBy={
-                lead.lead_allocated_by === null
-                  ? ""
-                  : lead.lead_allocated_by.first_name +
-                    " " +
-                    lead.lead_allocated_by.last_name
-              }
-              allocatedTo={
-                lead.leadOwnerId === null
-                  ? ""
-                  : lead.leadOwnerId.first_name +
-                    " " +
-                    lead.leadOwnerId.last_name
-              }
-              appointmentOn={lead?.appointmentId?.start_date}
+              leadStatus={lead.status}
+              leadName={lead.personName}
+              // firstName={lead.firstName}
+              // lastName={lead.lastName}
+              created_date={lead.allocationDate}
+              allocatedDate={lead.allocationDate}
+              primaryMobile={lead.mobileNo}
+              allocatedBy={lead.allocBy}
+              allocatedTo={lead.allocTo}
+              appointmentOn={lead.appointDate}
               loading={props.leadDataLoading}
             />
           </Col>

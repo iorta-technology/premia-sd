@@ -23,8 +23,9 @@ const LeadCard = React.memo((props) => {
     id,
     lead_Id,
     leadStatus,
-    firstName,
-    lastName,
+    // firstName,
+    // lastName,
+    leadName,
     created_date,
     allocatedDate,
     primaryMobile,
@@ -32,6 +33,7 @@ const LeadCard = React.memo((props) => {
     allocatedTo,
     appointmentOn,
   } = props;
+  // console.warn('PROPSSSS___________',props)
 
   const [chkID, setChkId] = useState("");
 
@@ -51,17 +53,12 @@ const LeadCard = React.memo((props) => {
   }, [checkedLead]);
 
   const leadComponent =
-    leadStatus === "newleadentery" ? (
-      <p className="user-status-text capitalize open">Open</p>
-    ) : leadStatus === "converted" ? (
-      <p className="user-status-text capitalize converted">{leadStatus}</p>
-    ) : leadStatus === "failed" ? (
-      <p className="user-status-text capitalize failed">{leadStatus}</p>
-    ) : leadStatus === "contact" ? (
-      <p className="user-status-text capitalize open">Open</p>
-    ) : (<p className="user-status-text capitalize">{leadStatus}</p>)
+  leadStatus === 'Converted' ? (<p className="user-status-text capitalize converted">{leadStatus}</p> ) :
+  leadStatus === 'Failed' ? (<p className="user-status-text capitalize failed">{leadStatus}</p> ) :
+  leadStatus === 'Closed' ? (<p className="user-status-text capitalize" style={{color:'#D04949'}}>{leadStatus}</p> ) :
+   (<p className="user-status-text capitalize open">{leadStatus}</p> )
 
-  let avatar = firstName.match(/\b(\w)/g) + lastName.match(/\b(\w)/g);
+  // let avatar = leadName
 
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
@@ -74,15 +71,15 @@ const LeadCard = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
   const updateHandler = (id) => {
-    console.log('____LEADDDD___IDDD',id)
+    // console.log('____LEADDDD___IDDD',id)
     
     
-    dispatch(actions.fetchLeadDetails(id));
+    // dispatch(actions.fetchLeadDetails(id));
     // let _data = actions.fetchLeadDetails(id);
     // console.log('_data___LEADDDD',_data)
-    // console.log('LeadData-----------',LeadData)
+    // console.log('history-----------',history)
     // LeadData._id === id && history.push("/leadmasterpage/statuslead");
-    history.push("/leadmasterpage/statuslead");
+    history.push("/leadmasterpage/statuslead",{ leadID: id });
   };
   let statusColors = {
     closed: "#D04949",
@@ -92,6 +89,31 @@ const LeadCard = React.memo((props) => {
     statusStyle: "",
     bgColor: "",
   };
+  const nameShorter = (str) => {
+    try {
+      if (str !== '') {
+          str = str.toUpperCase();
+          let arr = str.split(" ");
+          let fLatter = arr[0].charAt(0);
+          let sLatter = arr[1].charAt(0);
+          // fLatter = fLatter.charAt(0);
+          // sLatter = sLatter.charAt(0);
+          str = fLatter + sLatter;
+      }
+      return str;
+    } catch (error) {
+        console.log(error)
+    }
+  };
+
+  const getRandomColor = () => {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
   // Card for desktop
 
   let card = (
@@ -118,10 +140,10 @@ const LeadCard = React.memo((props) => {
         <div className="main-avtar">
           <div className="avatar-and-status">
             <Avatar
-              style={{ paddingTop: "-40px", lineHeight: "none" }}
+              style={{ paddingTop: "-40px", lineHeight: "none", backgroundColor:getRandomColor() }}
               size={{ xl: 50 }}
             >
-              {avatar}
+              {nameShorter(leadName)}
             </Avatar>
             {/* <div style={{ display: 'flex' }}>{leadStatus === "newleadentery" ? <div style={{ fontSize: '10px' }}>NEW<div>LEADENTRY</div></div> : leadStatus}</div> */}
             {leadComponent}
@@ -136,7 +158,7 @@ const LeadCard = React.memo((props) => {
         <div className="content">
           <div className="content-header">
             <p className="user-name-text capitalize">
-              {firstName} {lastName}
+              {leadName}
             </p>
             <span className="user-id uppercase">{lead_Id}</span>
             <a href={`tel:${primaryMobile}`}></a>
@@ -173,9 +195,7 @@ const LeadCard = React.memo((props) => {
               >
                 <p className="text-type">Appointment on</p>
                 <p className="text-content">
-                  {!appointmentOn
-                    ? "-"
-                    : new Date(appointmentOn).toLocaleDateString("in")}
+                  {appointmentOn}
                 </p>
               </Card.Grid>
               <Card.Grid hoverable={false} className="grid-style">
@@ -240,11 +260,11 @@ const LeadCard = React.memo((props) => {
             backgroundColor: "blue",
           }}
         >
-          {avatar}
+          {nameShorter(leadName)}
         </Avatar>
         <div className="card-content-text capitalize">
           <p className="user-name-text">
-            {firstName} {lastName}
+            {leadName}
           </p>
           {leadComponent}
           {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}

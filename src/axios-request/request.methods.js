@@ -8,9 +8,8 @@ const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 
 // it will execute the request
 // common function for all methods
-function _execRequest(config, options = { secure: true, multipart: false }) {
+const ExecRequest = (config, options = { secure: true, multipart: false }) => {
   const _store = store.getState();
-  // console.warn('LOGIN DATA_______',_store)
 
   function promiseCallback(resolve) {
     let headers = {
@@ -63,6 +62,7 @@ function _execRequest(config, options = { secure: true, multipart: false }) {
               // if token is not sent from the application
               // we consider this type of request is "invalid"
               else if (error.response.data.errCode === 25) {
+                window.location.replace("/login");
                 // let self = this;
                 // this.$router.push('/login');
                 // setTimeout(() => {
@@ -88,7 +88,7 @@ function _execRequest(config, options = { secure: true, multipart: false }) {
       });
   }
   return new Promise(promiseCallback);
-}
+};
 
 export default {
   get: async (endPoint, options = { secure: true, multipart: false }) => {
@@ -98,7 +98,7 @@ export default {
           ...options,
           multipart: false,
         };
-    let result = await _execRequest(
+    let result = await ExecRequest(
       {
         method: "get",
         url: endPoint,
@@ -119,7 +119,7 @@ export default {
           ...options,
           multipart: false,
         };
-    let result = await _execRequest(
+    let result = await ExecRequest(
       {
         method: "post",
         url: endPoint,
@@ -141,7 +141,7 @@ export default {
           ...options,
           multipart: false,
         };
-    let result = await _execRequest(
+    let result = await ExecRequest(
       {
         method: "put",
         url: endPoint,
