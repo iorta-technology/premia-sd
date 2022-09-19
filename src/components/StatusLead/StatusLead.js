@@ -385,7 +385,7 @@ const NewLead = React.memo((props) => {
       value: "77400000"
     }]
 
-  // let formRef = createRef();
+  let formRef = createRef();
   const dispatch = useDispatch()
   // const history = useHistory()
   const [form] = Form.useForm();
@@ -394,7 +394,7 @@ const NewLead = React.memo((props) => {
     console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
     if(props.location.state !== undefined){
       let _leadID = props.location.state.leadID
-      setshowLeadStatusVisiblity(true)
+      // setshowLeadStatusVisiblity(true)
       getLeadDetails(_leadID)
     }
     
@@ -526,7 +526,7 @@ const NewLead = React.memo((props) => {
       result[0]['leadStatusArr'] = leadArr
 
       // result.forEach(el =>{ el.leadStatusArr = leadArr })
-      console.warn('__++++++++++++++ getlead_details +++++++++++>>>',result)
+      // console.warn('__++++++++++++++ getlead_details +++++++++++>>>',result)
       if (result.length > 0) {
           dispatch(actions.fetchLeadDetailsSuccess(result[0]));
           if (result.length > 1) {
@@ -546,44 +546,46 @@ const NewLead = React.memo((props) => {
   }
 
   const loadValuesToFields = (leadData) =>{
-    console.warn('__++++++++++++++ leadData +++++++++++>>',leadData)
+    // console.warn('__++++++++++++++ leadData +++++++++++>>',leadData)
     let _appntDate = ''
+    let _appntTime = ''
     let leadArr = []
-    if (leadData.leadDisposition === 'appointment' && leadData.leadStatus === 'contact') {
-      setshowLeadStatusVisiblity(true)
-      // onAppointStatusIsChanged(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status);
-      
-      leadArr.push(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
-      leadArr.push('newApptmnt')
-      leadArr.push('Untouched / Not updated Appointment')
+      if (leadData.leadDisposition === 'appointment' && leadData.leadStatus === 'contact') {
+        setshowLeadStatusVisiblity(true)
+        // onAppointStatusIsChanged(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status);
+        leadArr.push(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
+        leadArr.push('newApptmnt')
+        leadArr.push('Untouched / Not updated Appointment')
 
-      setAppointmentStatus(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
-      setAppointmentDisposition('newApptmnt')
-      setAppointmentSubDisposition('Untouched / Not updated Appointment')
-      
-      // leadData.appointment_status === '' ? leadArr.push('newappointment') : leadArr.push(leadData.appointment_status)
-      setLeadStatus(leadData.leadStatus)
-      setLeadStatusData(leadArr)
-      // leadStatusData
-      // setPropspectDisposition('appointment');
-      // onProppectSubDispositionIsChanged('');
-      // only when, the date and time is exist in the object
-      if (leadData.appointmentDetails) {
-        // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
-        // setDate(readableDateFormat);
-        // let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
-        _appntDate = moment(leadData.appointmentDetails.start_date)
-        setAppointmentDate(moment(leadData.appointmentDetails.start_date))
-        // setAppointmentDatePost(newDate)
-        setAppointmentTime(leadData.appointmentDetails.start_time.toString())
+        setAppointmentStatus(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
+        setAppointmentDisposition('newApptmnt')
+        setAppointmentSubDisposition('Untouched / Not updated Appointment')
+        
+        // leadData.appointment_status === '' ? leadArr.push('newappointment') : leadArr.push(leadData.appointment_status)
+        setLeadStatus(leadData.leadStatus)
+        setLeadStatusData(leadArr)
+        // leadStatusData
+        // setPropspectDisposition('appointment');
+        // onProppectSubDispositionIsChanged('');
+        // only when, the date and time is exist in the object
+        if (leadData.appointmentDetails) {
+          // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
+          // setDate(readableDateFormat);
+          // let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
+          _appntDate = moment(leadData.appointmentDetails.start_date)
+          _appntTime = leadData.appointmentDetails.start_time.toString()
+          setAppointmentDate(moment(leadData.appointmentDetails.start_date))
+          // setAppointmentDatePost(newDate)
+          setAppointmentTime(_appntTime)
+        }
+      } else {
+        setshowLeadStatusVisiblity(false)
+        // let _data = info.leadType === 'ITD' ? [...dataLibrary.ITD_leadStatusList] : [...dataLibrary.leadStatusList]
+        // setStatusList(_data)
+        // onProspectStatusIsChanged(info.leadStatus);
+        // onProspectDispositionIsChanged(info.leadDisposition);
+        // onProppectSubDispositionIsChanged(info.leadsubDisposition);
       }
-    } else {
-      // let _data = info.leadType === 'ITD' ? [...dataLibrary.ITD_leadStatusList] : [...dataLibrary.leadStatusList]
-      // setStatusList(_data)
-      // onProspectStatusIsChanged(info.leadStatus);
-      // onProspectDispositionIsChanged(info.leadDisposition);
-      // onProppectSubDispositionIsChanged(info.leadsubDisposition);
-    }
     setFirstName(leadData.firstName)
     setLastName(leadData.lastName)
     setEmail(leadData.email)
@@ -602,7 +604,8 @@ const NewLead = React.memo((props) => {
     setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
     setLeadStatusData(leadData.leadStatusArr)
 
-    // console.warn('storefirstNameValue)__________((((((((((===>>>>>>>>>>', storefirstNameValue)
+    // console.warn('firstName)__________((((((((((===>>>>>>>>>>', firstName)
+    // console.warn('leadData.firstName)__________((((((((((===>>>>>>>>>>', leadData.firstName)
     form.setFieldsValue({
       "firstname": leadData.firstName,
       "lastname": leadData.lastName,
@@ -619,7 +622,7 @@ const NewLead = React.memo((props) => {
       "leadStatus":leadData.leadStatusArr,
       "appointmentStatus": leadArr,
       "appointmentDate": _appntDate,
-      "appointmentTime": leadData.appointmentDetails.start_time.toString()
+      "appointmentTime": _appntTime
     })
   }
 
@@ -1600,8 +1603,8 @@ const NewLead = React.memo((props) => {
                       size="large"
                       placeholder="Select a city"
                       options={citiesOptions}
-                      // value={cityProvince}
-                      defaultValue={citiesOptions}
+                      value={cityProvince}
+                      // defaultValue={citiesOptions}
                       onChange={(item)=> cityChangeHandler(item)}
                     >
                     </Select>
@@ -1625,8 +1628,8 @@ const NewLead = React.memo((props) => {
                       bordered={false}
                       className='select-box'
                       options={leadTypeOptions}
-                      // value={leadType}
-                      defaultValue={leadType}
+                      value={leadType}
+                      // defaultValue={leadType}
                       size="large"
                       placeholder="Select Lead Type"
                       onChange={(item)=> leadTypeHandler(item)}
@@ -1651,8 +1654,8 @@ const NewLead = React.memo((props) => {
                     <Select
                       bordered={false}
                       className='select-box'
-                      // value={product}
-                      defaultValue={product}
+                      value={product}
+                      // defaultValue={product}
                       size="large"
                       options={leadProductOptions}
                       placeholder="Select Product"
@@ -1679,8 +1682,8 @@ const NewLead = React.memo((props) => {
                     <Select
                       bordered={false}
                       className='select-box'
-                      // value={insuranceCompany}
-                      defaultValue={insuranceCompany}
+                      value={insuranceCompany}
+                      // defaultValue={insuranceCompany}
                       size="large"
                       placeholder="Select Insurance"
                       onChange={(item)=> insuranceCompanyHandler(item)}
@@ -1774,7 +1777,7 @@ const NewLead = React.memo((props) => {
                         options={appointmentOptions}
                         placeholder="New Contact"
                         size="large"
-                        popupClassName="popup-size"
+                        dropdownClassName="popup-size"
                         onChange={ (item)=> appointmentStatusHandler(item)}
                         style={{ height: '2.45rem' }}
                         value={leadStatusData}
@@ -1804,7 +1807,7 @@ const NewLead = React.memo((props) => {
                         options={leadOptions}
                         placeholder="New Contact"
                         size="large"
-                        popupClassName="popup-size"
+                        dropdownClassName="popup-size"
                         onChange={(event)=> leadHandler(event) }
                         style={{ height: '2.45rem' }}
                         value={leadStatusData}
