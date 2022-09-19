@@ -43,10 +43,8 @@ const Tab = ({
   current,
   filterdata,
 }) => {
-
   console.log("tabMenu*****Data", tabMenu);
   const currentLocation = useLocation();
-
 
   // console.log("YE ARAR", props)
 
