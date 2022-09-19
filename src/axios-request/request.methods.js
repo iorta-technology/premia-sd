@@ -1,12 +1,17 @@
 import axios from "axios";
 import apiConfig from "../config/api.config";
 import { message } from "antd";
+import rootIndex from "../store/root_index";
 
+const { store } = rootIndex;
 const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 
 // it will execute the request
 // common function for all methods
 function _execRequest(config, options = { secure: true, multipart: false }) {
+  const _store = store.getState();
+  // console.warn('LOGIN DATA_______',_store)
+
   function promiseCallback(resolve) {
     let headers = {
       "Content-Type": options.multipart
@@ -16,7 +21,7 @@ function _execRequest(config, options = { secure: true, multipart: false }) {
     headers = options.secure
       ? {
           ...headers,
-          authorization: "Bearer " + "xyz",
+          authorization: "Bearer " + _store.login.token,
         }
       : headers;
     config.url = `${baseURL}${options.secure ? secure : auth}${config.url}`;

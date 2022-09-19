@@ -1096,7 +1096,7 @@ const HomePage = () => {
                       </p>
                     </div>
                     <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>%Achievement</p>
+                      <p>Achievement</p>
                       <p
                         style={{
                           fontSize: "14px",
