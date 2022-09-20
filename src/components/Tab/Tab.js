@@ -43,7 +43,7 @@ const Tab = ({
   current,
   filterdata,
 }) => {
-  console.log("tabMenu*****Data", tabMenu);
+  // console.log("tabMenu*****Data", tabMenu);
   const currentLocation = useLocation();
 
   // console.log("YE ARAR", props)
@@ -67,9 +67,12 @@ const Tab = ({
   // }, [dispatch, current, activeTab, leadType])
 
   useEffect(() => {
-    if (currentActiveTab == "self") {
-      const { id } = stoageGetter("user");
-      dispatch(actions.fetchAllLeads(id, leadType, 1));
+    // console.log('************************ KPIIII___ *********************===========>>>',header)
+    if(header === 'Lead'){
+      if (currentActiveTab === "self") {
+        const { id } = stoageGetter("user");
+        dispatch(actions.fetchAllLeads(id, leadType, 1));
+      }
     }
   }, [currentActiveTab]);
   // const ids = stoageGetter('user')
@@ -82,7 +85,7 @@ const Tab = ({
     const leadtyp = leadInc;
     const { id } = stoageGetter("user");
 
-    console.log('FILTERR===========>>>',leadtyp)
+    // console.log('FILTERR===========>>>',leadtyp)
     dispatch(actions.fetchAllLeads(id,leadtyp,1))
 
 

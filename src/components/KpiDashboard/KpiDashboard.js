@@ -119,18 +119,21 @@ const KpiDashboard = () => {
       const budgetConfigDat = [];
       data.forEach((item) => {
         budgetConfigDat.push({
-          name: "Budget",
-          val: parseInt(item[budgetKeys[finalKpiDataDropdown][0]] || 0),
+          // name: "Budget",
+          [budgetKeys[finalKpiDataDropdown][0]]: parseInt(item[budgetKeys[finalKpiDataDropdown][0]] || 0),
+          [budgetKeys[finalKpiDataDropdown][1]]: parseInt(item[budgetKeys[finalKpiDataDropdown][1] || 0]),
           month: item.month,
         });
-        budgetConfigDat.push({
-          name: "Actual",
-          val: parseInt(item[budgetKeys[finalKpiDataDropdown][1] || 0]),
-          month: item.month,
-        });
+        // budgetConfigDat.push({
+        //   name: "Actual",
+        //   [budgetKeys[finalKpiDataDropdown][1]]: parseInt(item[budgetKeys[finalKpiDataDropdown][1] || 0]),
+        //   month: item.month,
+        // });
+        // return budgetConfigDat
       });
-      console.log("Budget--", budgetConfigDat[0].val);
+      console.log("Budget--", budgetConfigDat);
       console.log("hjhj---", budgetKeys[finalKpiDataDropdown][1]);
+      // console.log("finalBudgetData___________data-->>>>>>>>>>>",data);
      
       setFinalBudgetConfig({
         data: budgetConfigDat,
@@ -141,7 +144,8 @@ const KpiDashboard = () => {
         color: ["rgb(228, 106, 37)", "#00ACC1"],
         
       });
-      setFinalBudgetData(data);
+      // console.log("finalBudgetData-->>>>>>>>>>>",finalBudgetData);
+      setFinalBudgetData(budgetConfigDat);
       
     });
   }, [employee_data]);
@@ -158,7 +162,24 @@ const KpiDashboard = () => {
     let data = await axiosRequest.get(`user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`)
     console.log("mydatatatatat----",data);
 
-    setCategory(data);
+    let _resp = data[0]
+    let gpwDropDwnList = []
+    
+    for(let i = 0; i < _resp.length; i++){
+      let data = {
+          value: _resp[i].categoryName,
+          label: _resp[i].categoryName
+      }
+      gpwDropDwnList.push(data) 
+    }
+    // let category = self.gpwDropDwnList[0].value
+    // self.actualHeader = self.dataSelected = category == 'Branch Activation' ? '% Active Branches' : category
+    // self.inLacSectn = category == 'Branch Activation' ? '' :  '(in ₹ Lac)'
+
+    // self.gpwHead = self.gpwDropDwnList[0].value
+    // self.gpwDrpdwn = self.gpwDropDwnList[0].value
+
+    setCategory(gpwDropDwnList);
   }
   
 
@@ -234,6 +255,7 @@ const KpiDashboard = () => {
       align: "center"
     },
   ];
+  // console.warn('HEADER DATA',columns1)
 
 
   const columns2 = [
@@ -740,17 +762,18 @@ const KpiDashboard = () => {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onSearch={onSearch}
+                options={category}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
                 }
                 value={finalKpiDataDropdown}
               >
-                <Option value="GPW">GPW</Option>
+                {/* <Option value="GPW">GPW</Option>
                 <Option value="Branch Activation">Branch Activation</Option>
                 <Option value="NOP Retention">NOP Retention</Option>
                 <Option value="GWP Retention">GWP Retention</Option>
-                <Option value="Dummy">Dummy</Option>
+                <Option value="Dummy">Dummy</Option> */}
               </Select>
               
 
