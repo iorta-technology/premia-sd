@@ -27,7 +27,6 @@ const KpiDashboard = () => {
   const userId = useSelector(state => state.login.userId)
   const login_user_data = stoageGetter('user')
     
-
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
@@ -36,7 +35,6 @@ const KpiDashboard = () => {
   }, [dispatch]);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
-
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data);
   
   const employee_data = kpi_data;
