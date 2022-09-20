@@ -76,6 +76,7 @@ const KpiDashboard = () => {
   };
 
   useEffect(() => {
+
     setTimeout(() => {
       const kpiDataObj = employee_data
         ? employee_data.filter(
@@ -100,8 +101,6 @@ const KpiDashboard = () => {
       });
       setFinalKpiData(kpiData);
 
-
-      
       const kpiBudget = employee_data
         ? employee_data.filter((item) => item.category == finalKpiDataDropdown )
         : [];
@@ -137,8 +136,6 @@ const KpiDashboard = () => {
       
     });
   }, [employee_data]);
-
-
 
   useEffect(() => {
     category_data()
@@ -711,8 +708,8 @@ const KpiDashboard = () => {
                   </h5>
                   <p style={{ marginTop: "0px" }}>
                     {" "}
-                    <h6>ID :</h6>{" "}
-                    <h6>{employee_data[0]?.data.employeeCode}</h6>
+                    <span>ID :</span>{" "}
+                    <span>{employee_data[0]?.data.employeeCode}</span>
                   </p>
                 </Col>
               </Row>
