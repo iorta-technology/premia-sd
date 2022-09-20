@@ -193,11 +193,11 @@ export const getLeadFilter=(leadFilter)=>{
         pendingproposal:'failed'
     }
     switch(leadFilter){
-        case "all_lead":return 'all';
+        case "all":return 'all';
         case "fortoday":return 'fortoday';
-        case "openlead":return 'open';
-        case "convertedleads":return 'converted';
-        case "pendingproposal":return 'failed';
+        case "open":return 'open';
+        case "converted":return 'converted';
+        case "failed":return 'failed';
 
         default:  return 'all';
 

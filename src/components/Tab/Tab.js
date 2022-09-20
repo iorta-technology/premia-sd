@@ -43,7 +43,7 @@ const Tab = ({
   current,
   filterdata,
 }) => {
-  console.log("tabMenu*****Data", tabMenu);
+  // console.log("tabMenu*****Data", tabMenu);
   const currentLocation = useLocation();
 
   // console.log("YE ARAR", props)
@@ -67,9 +67,12 @@ const Tab = ({
   // }, [dispatch, current, activeTab, leadType])
 
   useEffect(() => {
-    if (currentActiveTab == "self") {
-      const { id } = stoageGetter("user");
-      dispatch(actions.fetchAllLeads(id, leadType, 1));
+    // console.log('************************ KPIIII___ *********************===========>>>',header)
+    if(header === 'Lead'){
+      if (currentActiveTab === "self") {
+        const { id } = stoageGetter("user");
+        dispatch(actions.fetchAllLeads(id, leadType, 1));
+      }
     }
   }, [currentActiveTab]);
   // const ids = stoageGetter('user')
@@ -77,22 +80,29 @@ const Tab = ({
   // ************************Api *********************
 
   const getDataForOpen = async (leadInc) => {
+
+    
     const leadtyp = leadInc;
     const { id } = stoageGetter("user");
-    const response = await getOpenTabApi(id, leadtyp);
-    if (response?.data?.errCode == -1) {
-      if (response?.data?.errMsg) {
-        dispatch(
-          actions.fetchAllLeadsSuccess(
-            response?.data?.errMsg[0],
-            response?.data?.errMsg[1][0]?.count
-          )
-        );
-      }
-    } else {
-      dispatch(actions.fetchAllLeadsSuccess([], 0));
-      throw response?.data?.errMsg;
-    }
+
+    // console.log('FILTERR===========>>>',leadtyp)
+    dispatch(actions.fetchAllLeads(id,leadtyp,1))
+
+
+    // const response = await getOpenTabApi(id, leadtyp);
+    // if (response?.data?.errCode == -1) {
+    //   if (response?.data?.errMsg) {
+    //     dispatch(
+    //       actions.fetchAllLeadsSuccess(
+    //         response?.data?.errMsg[0],
+    //         response?.data?.errMsg[1][0]?.count
+    //       )
+    //     );
+    //   }
+    // } else {
+    //   dispatch(actions.fetchAllLeadsSuccess([], 0));
+    //   throw response?.data?.errMsg;
+    // }
   };
 
   // case "allservicecorners": return history.push('/servicecorner/all');
