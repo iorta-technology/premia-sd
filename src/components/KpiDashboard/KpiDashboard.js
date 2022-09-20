@@ -101,8 +101,6 @@ const KpiDashboard = () => {
       setFinalKpiData(kpiData);
 
 
-      // -- ----------
-
       
       const kpiBudget = employee_data
         ? employee_data.filter((item) => item.category == finalKpiDataDropdown )
@@ -117,21 +115,13 @@ const KpiDashboard = () => {
       const budgetConfigDat = [];
       data.forEach((item) => {
         budgetConfigDat.push({
-          // name: "Budget",
-          [budgetKeys[finalKpiDataDropdown][0]]: parseInt(item[budgetKeys[finalKpiDataDropdown][0]] || 0),
-          [budgetKeys[finalKpiDataDropdown][1]]: parseInt(item[budgetKeys[finalKpiDataDropdown][1] || 0]),
+          val: parseInt(item[budgetKeys[finalKpiDataDropdown][0]] || 0),
+          [budgetKeys[finalKpiDataDropdown][1]]: parseInt(item[budgetKeys[finalKpiDataDropdown][1]] || 0),
           month: item.month,
+          gpw_achievement: item.gpw_achievement
         });
-        // budgetConfigDat.push({
-        //   name: "Actual",
-        //   [budgetKeys[finalKpiDataDropdown][1]]: parseInt(item[budgetKeys[finalKpiDataDropdown][1] || 0]),
-        //   month: item.month,
-        // });
-        // return budgetConfigDat
+
       });
-      console.log("Budget--", budgetConfigDat);
-      console.log("hjhj---", budgetKeys[finalKpiDataDropdown][1]);
-      // console.log("finalBudgetData___________data-->>>>>>>>>>>",data);
      
       setFinalBudgetConfig({
         data: budgetConfigDat,
@@ -142,7 +132,7 @@ const KpiDashboard = () => {
         color: ["rgb(228, 106, 37)", "#00ACC1"],
         
       });
-      // console.log("finalBudgetData-->>>>>>>>>>>",finalBudgetData);
+       console.log("finalBudgetData-->>>>>>>>>>>",budgetConfigDat);
       setFinalBudgetData(budgetConfigDat);
       
     });
@@ -156,6 +146,7 @@ const KpiDashboard = () => {
 
  
   const category_data = async ()=>{
+
     let _channelId = login_user_data.channelCode._id
     let data = await axiosRequest.get(`user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`)
     console.log("mydatatatatat----",data);
@@ -169,7 +160,9 @@ const KpiDashboard = () => {
           label: _resp[i].categoryName
       }
       gpwDropDwnList.push(data) 
+      
     }
+   
     // let category = self.gpwDropDwnList[0].value
     // self.actualHeader = self.dataSelected = category == 'Branch Activation' ? '% Active Branches' : category
     // self.inLacSectn = category == 'Branch Activation' ? '' :  '(in ₹ Lac)'
@@ -236,8 +229,8 @@ const KpiDashboard = () => {
     },
     {
       title: `${finalKpiDataDropdown}(in ₹ Lac) Budget`,
-      dataIndex: budgetKeys[finalKpiDataDropdown][0],
-      key: budgetKeys[finalKpiDataDropdown][0],
+      dataIndex: 'val',
+      key: 'val',
       align: "center"
     },
     {
@@ -248,8 +241,8 @@ const KpiDashboard = () => {
     },
     {
       title: "% Achievement",
-      dataIndex: budgetKeys[finalKpiDataDropdown][2],
-      key: budgetKeys[finalKpiDataDropdown][2],
+      dataIndex: "gpw_achievement",
+      key: "gpw_achievement",
       align: "center"
     },
   ];
@@ -718,8 +711,8 @@ const KpiDashboard = () => {
                   </h5>
                   <p style={{ marginTop: "0px" }}>
                     {" "}
-                    <span>ID :</span>{" "}
-                    <span>{employee_data[0]?.data.employeeCode}</span>
+                    <h6>ID :</h6>{" "}
+                    <h6>{employee_data[0]?.data.employeeCode}</h6>
                   </p>
                 </Col>
               </Row>
@@ -767,14 +760,7 @@ const KpiDashboard = () => {
                 }
                 value={finalKpiDataDropdown}
               >
-                {/* <Option value="GPW">GPW</Option>
-                <Option value="Branch Activation">Branch Activation</Option>
-                <Option value="NOP Retention">NOP Retention</Option>
-                <Option value="GWP Retention">GWP Retention</Option>
-                <Option value="Dummy">Dummy</Option> */}
               </Select>
-              
-
               
             </div>
             {/* graph */}
