@@ -30,6 +30,7 @@ const KpiDashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
+    
     dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
    
   }, [dispatch]);
@@ -131,11 +132,13 @@ const KpiDashboard = () => {
         color: ["rgb(228, 106, 37)", "#00ACC1"],
         
       });
-       console.log("finalBudgetData-->>>>>>>>>>>",budgetConfigDat);
+       
       setFinalBudgetData(budgetConfigDat);
       
     });
   }, [employee_data]);
+
+  
 
   useEffect(() => {
     category_data()
