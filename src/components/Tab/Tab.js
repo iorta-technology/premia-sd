@@ -67,7 +67,7 @@ const Tab = ({
   // }, [dispatch, current, activeTab, leadType])
 
   useEffect(() => {
-    // console.log('************************ KPIIII___ *********************===========>>>',header)
+    // console.log('************************ LEADDD ___ *********************===========>>>',header)
     if(header === 'Lead'){
       if (currentActiveTab === "self") {
         const { id } = stoageGetter("user");
@@ -84,9 +84,16 @@ const Tab = ({
     
     const leadtyp = leadInc;
     const { id } = stoageGetter("user");
+    
 
-    // console.log('FILTERR===========>>>',leadtyp)
-    dispatch(actions.fetchAllLeads(id,leadtyp,1))
+    
+    if(currentActiveTab === 'self'){
+      dispatch(actions.fetchAllLeads(id,leadtyp,1))
+    }else{
+      const teamId  = stoageGetter("teamMemberId");
+      console.warn('teamId______===========>>>',teamId)
+      dispatch(actions.fetchAllLeads(teamId,leadtyp,1))
+    }
 
 
     // const response = await getOpenTabApi(id, leadtyp);
@@ -104,23 +111,6 @@ const Tab = ({
     //   throw response?.data?.errMsg;
     // }
   };
-
-  // case "allservicecorners": return history.push('/servicecorner/all');
-  // case "forself": return history.push('/servicecorner/self');
-  // case "forcustomers": return history.push('/servicecorner/customers');
-  /////////////////////////////////////////////////
-
-  // case "benefitillustrator": return history.push('/master/benefitillustrator');
-  // case "proposalfulfilment": return history.push('/master/proposalfulfilment');
-  // case "prepaymentreview": return history.push('/master/prepaymentreview');
-  // case "paymentoptions": return history.push('/master/paymentoptions');
-  // case "uploaddocuments": return history.push('/master/uploaddocuments');
-  // case "proposalhistory": return history.push('/master/proposalhistory');
-  // default:  return history.push('/leadmasterpage/statuslead');
-
-  // useEffect(() => {
-  //   getAlldataofTeamMainTab()
-  // }, [])
 
   const getAlldataofTeamMainTab = async () => {
     const response = await getTeamMainTabApi();
@@ -216,32 +206,10 @@ const Tab = ({
         // case "paymentoptions": return history.push('/master/paymentoptions');
         // case "uploaddocuments": return history.push('/master/uploaddocuments');
         // case "proposalhistory": return history.push('/master/proposalhistory');
-        // default:  return history.push('/leadmasterpage/statuslead');
+        default:  return history.push('/home');
       }
     }
-    // if(activeKey){
-    //     switch (activeKey) {
-    //         case "1": return history.push('/renewalMaster/allRenewals');
-    //         case "2": return history.push('/renewalMaster/paidRenewals');
-    //         case "3": return history.push('/renewalMaster/unpaidRenewals');
-    //         case "4": return history.push('/renewalMaster/lapsedRenewals');
-    //     }
-    // }
   };
-
-  // const handler = (activeRenewalkey) => {
-  //     // console.log(activeKey)
-  //     // setactiveKey(key)
-
-  //     switch (activeRenewalkey) {
-  //         case "1": return history.push('/renewalMaster/all');
-  //         // case "2": return history.push('/leadmasterpage/leaddetails/personallead');
-  //         // case "3": return history.push('/leadmasterpage/proposal');
-  //         // case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
-  //         // case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
-  //         default:  return history.push('/leadmasterpage/statuslead');
-  //     }
-  // }
 
   let tabPane = [];
   if (tabMenu && !_.isEmpty(tabMenu)) {
@@ -264,10 +232,12 @@ const Tab = ({
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
+    // console.log("good bye currentActiveTab",currentActiveTab)
+    
     dispatch(actions.updateTabOfDashboard(currentTab));
     setCurrentActiveTab(currentTab);
     if (currentTab == "team") {
-      getAlldataofTeamMainTab();
+      getDataForOpen();
     }
     currentTab != currentActiveTab &&
       dispatch(actions.updateAllocateOfOpportunities(false));
