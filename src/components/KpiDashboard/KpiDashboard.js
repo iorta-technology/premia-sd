@@ -130,7 +130,6 @@ const KpiDashboard = () => {
         yField: "val",
         seriesField: "name",
         color: ["rgb(228, 106, 37)", "#00ACC1"],
-        
       });
        
       setFinalBudgetData(budgetConfigDat);

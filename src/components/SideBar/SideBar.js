@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link,useHistory } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
@@ -73,9 +73,17 @@ const SidebarWrap = styled.div`
 // console.log("path name",currentRoute)
 const login_user_data = stoageGetter('user')
 console.warn('LOGIN USER',login_user_data)
+
+
 const Sidebar = () => {
+
   const history = useHistory();
   const [sidebar, setSidebar] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const setModalIsOpenToTrue = () =>{
+      setModalIsOpen(!modalIsOpen)
+  }
 
   const showSidebar = () => setSidebar(!sidebar);
   // const logged_in_user = useSelector((state) => state.login.user_name)
@@ -101,13 +109,14 @@ const Sidebar = () => {
           <img onClick={() => { history.push('/home') }} src= {sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
-            <FaIcons.FaBell />
+            <FaIcons.FaBell onClick={setModalIsOpenToTrue} />
           </NavIcon>
           <NavIcon onClick={showSidebar} to='#'>
             <FaIcons.FaUserCircle />
           </NavIcon>
         </Nav>
-{sidebar &&
+
+    {sidebar &&
         <div className='sideMenu'>
           <div className='menuHeader'>
             <div className='profileLogo'>
@@ -172,6 +181,70 @@ const Sidebar = () => {
             </div>
           </div>
         </div>}
+
+        {modalIsOpen && 
+          // <div className='arrow-up'>
+            <div className='sideMenu1'>
+              
+                <div className='notificationHead'>
+                  <p>Notification</p>
+                  <button>Clear All</button>
+                </div>
+              
+              <div className='menuBody1 activity-block'>
+                <div className='notification_data'>
+                  <div className='list_data'>
+                    <h4>TO-DO</h4>
+                    <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
+                  </div>
+                  <div className='date'>
+                    <p>Date</p>
+                    <p>Time</p>
+                  </div>
+                </div>
+                <div className='notification_status'>
+                  <button>Medium</button>
+                </div>
+
+                <div className='notification_data'>
+                  <div className='list_data'>
+                    <h4>You are invited to an event by Bhanyshree</h4>
+                    <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
+                  </div>
+                  <div className='date'>
+                    <p>Date</p>
+                    <p>Time</p>
+                  </div>
+                </div>
+                
+                <div className='notification_data'>
+                  <div className='list_data'>
+                    <h4>TO-DO</h4>
+                    <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
+                  </div>
+                  <div className='date'>
+                    <p>Date</p>
+                    <p>Time</p>
+                  </div>
+                </div>
+                <div className='notification_status'>
+                  <button>Medium</button>
+                </div>
+
+                {/* <div className='logoutContainer1'>
+                  <p>All Catch Up!</p>
+                </div> */}
+
+              </div>
+              <div className='notification_footer view_button'>
+                <button onClick={() => { history.push('/notifypage') }}>View All</button>
+              </div>
+          </div>
+//</div>
+          
+        }
+
+
         {/* <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to='#' style={{padding:'18px'}}>
