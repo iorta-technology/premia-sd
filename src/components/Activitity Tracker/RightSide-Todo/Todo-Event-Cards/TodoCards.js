@@ -13,6 +13,7 @@ import axiosRequest from '../../../../axios-request/request.methods';
 import moment from 'moment'
 import {stoageGetter} from '../../../../helpers'
 import '../../../Activitity Tracker/Pagenation/Pagenation.css'
+import noDataIcon from '../../../../assets/078e54aa9d@2x.png'
 
 const TodoCards = forwardRef((props, ref) => {
     // console.log(TodoData.length);
@@ -461,7 +462,7 @@ const TodoCards = forwardRef((props, ref) => {
 
         {showData === false  &&
             <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center',padding:50}} >  
-                <img src={'https://sdrestdemo.iorta.in/assets/078e54aa9d.png'} style={{height:150,width:100}}/>
+                <img src={noDataIcon} style={{height:150,width:100}}/>
                 <div style={{marginTop:10}}>
                     <text  style={{  textAlign:'center',fontSize:14}} > No records found </text>
                 </div>

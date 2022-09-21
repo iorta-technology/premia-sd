@@ -73,9 +73,16 @@ const SidebarWrap = styled.div`
 // console.log("path name",currentRoute)
 const login_user_data = stoageGetter('user')
 console.warn('LOGIN USER',login_user_data)
+if(login_user_data === null) window.location.replace('/login')
+
+
 const Sidebar = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  
   const [sidebar, setSidebar] = useState(false);
+
+  
 
   const showSidebar = () => setSidebar(!sidebar);
   // const logged_in_user = useSelector((state) => state.login.user_name)
@@ -84,7 +91,7 @@ const Sidebar = () => {
   
   // const agent_id = useSelector((state) => state.login.agent_id)
   const agent_id = login_user_data.agentId
-  const dispatch = useDispatch();
+  
   const  onLogout=() =>{
     localStorage.clear()
     dispatch(actions.logout())
