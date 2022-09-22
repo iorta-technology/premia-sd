@@ -122,3 +122,126 @@
   margin-left: 10px;
   margin-bottom: -16px;
 }
+
+.sideMenu1 {
+  /* height: calc(100vh - 77px); */
+  position: fixed;
+  right: 60px;
+  /* bottom: 0px; */
+  top: 45px;
+  width: 340px;
+  z-index: 10;
+  background-color: #fff;
+  box-shadow: rgb(107 100 100) 0px 0px 4px;
+  height: auto;
+}
+
+.notificationHead p{
+  font-size: 16px;
+  color: #00ACC1;
+  font-weight: 700;
+  margin-bottom: 0;
+
+}
+
+.notificationHead {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.notificationHead button{
+  font-size: 14px;
+  color: #3C3D3D;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 2px;
+  width: 95px;
+  border: none;
+}
+
+
+.notification_footer{
+    background-color: #ffffff;
+    padding: 12px;
+    border-top: 1px solid #e3e3e3a6;
+    z-index: 29;
+    text-align: center;
+}
+.view_button button{
+  padding: 2px;
+    width: 95px;
+    align-items: center;
+    background-color: rgb(228, 106, 37);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+
+}
+
+.logoutContainer1 p{
+  text-align: center;
+}
+
+.arrow-up{
+width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #f7fbff;
+    position: absolute;
+    top: -14px;
+    right: 8px;
+}
+
+.notification_data{
+  padding: 12px;
+  display: flex;
+}
+
+.list_data{
+  width: 85%;
+}
+.list_data h4{
+  color: rgb(228, 106, 37);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.list_data p{
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.date p{
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.notification_status button{
+  width: 85px;
+    padding: 2px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+    background-color: rgb(251, 140, 0);
+    color: #fff;
+    justify-content: right;
+    border: none;
+    font-size: 12px;
+    
+}
+.notification_status{
+  justify-content: end;
+  text-align: end;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.activity-block {
+  margin-top: 30px;
+  overflow-y: scroll;
+  height: 250px;
+}
