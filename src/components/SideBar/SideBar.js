@@ -82,14 +82,12 @@ const Sidebar = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  
   const [sidebar, setSidebar] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const setModalIsOpenToTrue = () =>{
       setModalIsOpen(!modalIsOpen)
   }
-
   const [clearBtn, setClearBtn] = useState(true)
   const clearData = () =>{
     setClearBtn(!clearBtn)
@@ -215,9 +213,7 @@ if (notify_data.length > 0) {
                 <div className='notificationHead'>
                   <p>Notification</p>
                   {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
-                  
                 </div>
-              
               <div className='menuBody1'>
                 {clearBtn ? notify_data.map((desc_data, index) =>{
                   return <div>
@@ -240,7 +236,7 @@ if (notify_data.length > 0) {
                 }) :  <div className='logoutContainer1'>
                 <img src={all_clear_img} />
                 <p>All Catch Up!</p>
-              </div>}
+              </div> }
 
               {/* {notify_data.length > 0 ? 'abcc' : } */}
               {/* {

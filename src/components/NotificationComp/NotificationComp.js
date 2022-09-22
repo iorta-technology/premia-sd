@@ -1,6 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Row, Col } from 'antd'
-import { ShareAltOutlined, DownloadOutlined } from '@ant-design/icons';
 import './Notification.css'
 
 const NotificationComp = () => {
@@ -12,13 +11,28 @@ const NotificationComp = () => {
         {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
         {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
     ]
+
+    const MAX_ITEMS = 3;
+    const [isOpen, setIsOpen] = useState(false)
+
+    function toggle(){
+        setIsOpen(!isOpen)
+    }
+
+    function getRenderedItems() {
+        if (isOpen) {
+          return notify_data;
+        }
+        return notify_data.slice(0, MAX_ITEMS);
+      }
+
+      
   return (
     <>
         <div className="header">
-                <Row >
-                    <Col><p className="product-title">Notification</p></Col>
-                </Row>
-                
+            <Row >
+                <Col><p className="product-title">Notification</p></Col>
+            </Row>
         </div>
         
        {/* Start the node data */}
@@ -38,7 +52,7 @@ const NotificationComp = () => {
                 </div>
 
                 {
-                    notify_data.map((notify, index) => {
+                    getRenderedItems().map((notify, index) => {
                         return <div className="d-flex mb-1 ml-4">
                         <div className="d-flex flex-column pr-4 align-items-center">
                             <div className='steps'></div>
@@ -62,15 +76,14 @@ const NotificationComp = () => {
                  </div>
                     })
                 }
-                
-
-                 
             </div>
 
-            {/* load more button */}
 
+            {/* load more button */}
             <div className='loadMore'>
-                <button>Load More</button>
+                <button onClick={toggle}>
+                     {isOpen ? 'Load Less' : 'Load More'}
+                </button>
             </div>
             
         </div>
