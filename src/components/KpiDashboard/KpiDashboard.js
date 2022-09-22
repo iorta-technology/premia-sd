@@ -26,6 +26,7 @@ const KpiDashboard = () => {
 
   const userId = useSelector(state => state.login.userId)
   const login_user_data = stoageGetter('user')
+  const userTreeData = useSelector((state) => state?.home?.user_tree)
     
   const dispatch = useDispatch();
   useEffect(() => {
@@ -59,11 +60,18 @@ const KpiDashboard = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [TeamSelf, setTeamSelf] = useState(true);
   const [showDailyData, setShowDailyData] = useState(false);
+  const [showFirstGraph, setShowFirstGraph] = useState(false);
+  const [showTeamDrop, setShowTeamDrop] = useState(false);
   const [category, setCategory] = useState();
   const [employeeName, setEmployeeName] = useState('');
   const [employeeCode, setEmployeeCode] = useState('');
   const [avatarData, setAvatarData] = useState('');
   const [finalScoreTblData, setFinalScoreTblData] = useState([]);
+  const [gpwTableData, setGpwTableData] = useState([]);
+  const [hierarAgentList ,setHierarAgentList]=useState([])
+  const [desigData ,setDesigData]=useState('Select')
+  const [teamMemberList ,setTeamMemberList]=useState([])
+  const [teamData ,setTeamData]=useState('Select')
   const [dailyDataArray, setDailyDataArray] = useState([
     {
       month: "",
@@ -115,6 +123,17 @@ const KpiDashboard = () => {
     },
   ]);
   const breakpoint = 620;
+
+  useEffect(() => {
+    // if(userTreeData.length > 0){
+      userTreeData.reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
+      userTreeData.reporting_users.forEach(el =>{ 
+        el.label = toCapitalize(el.full_name)
+        el.value = el._id 
+      })
+      setHierarAgentList(userTreeData.reporting_hierarchies)
+    // }
+  }, []);
 
   // const dailyDataArray = [
   //   {
@@ -187,71 +206,6 @@ const KpiDashboard = () => {
     Dummy: ["dummy_budget", "dummy_actual", "dummy_achievement"],
   };
 
-  useEffect(() => {
-
-    // setTimeout(() => {
-      const kpiDataObj = employee_data
-        ? employee_data.filter(
-            (item) => item.id == "final_score_last_six_month"
-          )
-        : [];
-      let kpiData = kpiDataObj[0]?.data ? [...kpiDataObj[0]?.data] : [];
-      kpiData = kpiData.map((item) => ({
-        ...item,
-        finalScore: parseInt(item.Final_Score || 0),
-      }));
-      
-      setFinalKpiConfig({
-        data: kpiData,
-        xField: "month",
-        yField: "finalScore",
-        point: {
-          size: 5,
-          shape: "diamond",
-        },
-        color: "#00ACC1",
-      });
-      setFinalKpiData(kpiData);
-
-      const kpiBudget = employee_data
-        ? employee_data.filter((item) => item.category == finalKpiDataDropdown )
-        : [];
-      let data = kpiBudget[0]?.data ? [...kpiBudget[0]?.data] : [];
-      
-      data = data.map((item) => ({
-        ...item,
-        ...item[finalKpiDataDropdown],
-      }));
-     
-      const budgetConfigDat = [];
-      data.forEach((item) => {
-        budgetConfigDat.push({
-          val: parseInt(item[budgetKeys[finalKpiDataDropdown][0]] || 0),
-          [budgetKeys[finalKpiDataDropdown][1]]: parseInt(item[budgetKeys[finalKpiDataDropdown][1]] || 0),
-          month: item.month,
-          gpw_achievement: item.gpw_achievement
-        });
-
-      });
-     
-      setFinalBudgetConfig({
-        data: budgetConfigDat,
-        isGroup: true,
-        xField: "month",
-        yField: "val",
-        seriesField: "name",
-        color: ["rgb(228, 106, 37)", "#00ACC1"],
-      });
-       
-      setFinalBudgetData(budgetConfigDat);
-      
-    // });
-  }, [employee_data]);
-
-
-
-  
-  
   const category_data = async ()=>{
 
     let _channelId = login_user_data.channelCode._id
@@ -269,12 +223,12 @@ const KpiDashboard = () => {
       gpwDropDwnList.push(data) 
       
     }
-    // let category = self.gpwDropDwnList[0].value
-    // self.actualHeader = self.dataSelected = category == 'Branch Activation' ? '% Active Branches' : category
-    // self.inLacSectn = category == 'Branch Activation' ? '' :  '(in ₹ Lac)'
+    // let category = gpwDropDwnList[0].value
+    // actualHeader = dataSelected = category == 'Branch Activation' ? '% Active Branches' : category
+    // inLacSectn = category == 'Branch Activation' ? '' :  '(in ₹ Lac)'
 
-    // self.gpwHead = self.gpwDropDwnList[0].value
-    // self.gpwDrpdwn = self.gpwDropDwnList[0].value
+    // gpwHead = gpwDropDwnList[0].value
+    // gpwDrpdwn = gpwDropDwnList[0].value
 
     setCategory(gpwDropDwnList);
     setFinalKpiDataDropdown(gpwDropDwnList[0].value)
@@ -287,60 +241,118 @@ const KpiDashboard = () => {
     let _kpiResp = await axiosRequest.get(`user/fetch_employee_kpi?emp_code=${userId}&category=${category}&channel=${channelId}`, { secure: true });
     console.warn('(((((((((_kpiResp)))))))))',_kpiResp)
     if(_kpiResp.length > 0){
-      let sixMonthData = []
-      let finalScoreData = []
-      let _finalScoreArray = []
-      for(let i = 0; i < _kpiResp.length ; i++){
-        if(_kpiResp[i].id === 'current_month' ){
-          let currentData = checkValidity(_kpiResp[i].data)
+      if(_kpiResp.length > 1){
+        // console.warn('(((((((((NOT GREATER THAN ONE)))))))))',_kpiResp)
+        let sixMonthData = []
+        let finalScoreData = []
+        let _finalScoreArray = []
+        let gpwFinalData = []
+        
+        for(let i = 0; i < _kpiResp.length ; i++){
+          if(_kpiResp[i].id === 'current_month' ){
+            let currentData = checkValidity(_kpiResp[i].data)
 
-          currentMonthData.currentDate = checkValidityCurrent(formateDate(currentData.uploadedDate))
-          currentMonthData.currentMonth = checkValidityCurrent(toCapitalize(currentData.month))
-          currentMonthData.currentYear = checkValidityCurrent(currentData.year)
-          currentMonthData.GPW_Actual = checkValidityCurrent(currentData.GPW.gpw_actual)
-          currentMonthData.parcentIssuance = checkValidity(currentData.parcentIssuance)
-          currentMonthData.parcentPendancy = checkValidityCurrent(currentData.parcentPendancy)
-          currentMonthData.parcentUnallocated = checkValidityCurrent(currentData.parcentUnallocated)
-          currentMonthData.branch_activation_actual = branchDataHandling(currentData,'branch')
-          currentMonthData.gwp_retention_actual = branchDataHandling(currentData,'gwp')
+            currentMonthData.currentDate = checkValidityCurrent(formateDate(currentData.uploadedDate))
+            currentMonthData.currentMonth = checkValidityCurrent(toCapitalize(currentData.month))
+            currentMonthData.currentYear = checkValidityCurrent(currentData.year)
+            currentMonthData.GPW_Actual = checkValidityCurrent(currentData.GPW.gpw_actual)
+            currentMonthData.parcentIssuance = checkValidity(currentData.parcentIssuance)
+            currentMonthData.parcentPendancy = checkValidityCurrent(currentData.parcentPendancy)
+            currentMonthData.parcentUnallocated = checkValidityCurrent(currentData.parcentUnallocated)
+            currentMonthData.branch_activation_actual = branchDataHandling(currentData,'branch')
+            currentMonthData.gwp_retention_actual = branchDataHandling(currentData,'gwp')
 
-          let _data =  dailyDataArray.map(el =>{
-            el.month = currentMonthData.currentMonth
-            el.date = currentMonthData.currentDate
-            el.year = currentMonthData.currentYear
-            el.gwpData = el.title === 'Total GWP in ₹ Lac' ?  currentMonthData.GPW_Actual : 
-                          el.title === 'Active Branches' ?  currentMonthData.branch_activation_actual : 
-                          el.title === 'Total GWP Retention in ₹' ?  currentMonthData.gwp_retention_actual : 
-                          el.title === '% Issuance' ?  currentMonthData.parcentIssuance : 
-                          el.title === 'Pendancy(GWP Pendancy vs. GWP Ach)' ?  currentMonthData.parcentPendancy : 
-                          el.title === 'GWP Unallocated in ₹' ?  currentMonthData.parcentUnallocated : '0'
-            return el
-          })
-          setDailyDataArray(_data)
-          setShowDailyData(true)
-          // console.log('*********************((  _data ))******************',_data)
-        }else if(_kpiResp[i].id === 'employee_data'){
-          setEmployeeName(_kpiResp[i].data.first_name + ' ' + _kpiResp[i].data.last_name)
-          setAvatarData(_kpiResp[i].data.first_name.match(/\b(\w)/g) + _kpiResp[i].data.last_name.match(/\b(\w)/g))
-          setEmployeeCode(_kpiResp[i].data.employeeCode)
+            let _data =  dailyDataArray.map(el =>{
+              el.month = currentMonthData.currentMonth
+              el.date = currentMonthData.currentDate
+              el.year = currentMonthData.currentYear
+              el.gwpData = el.title === 'Total GWP in ₹ Lac' ?  currentMonthData.GPW_Actual : 
+                            el.title === 'Active Branches' ?  currentMonthData.branch_activation_actual : 
+                            el.title === 'Total GWP Retention in ₹' ?  currentMonthData.gwp_retention_actual : 
+                            el.title === '% Issuance' ?  currentMonthData.parcentIssuance : 
+                            el.title === 'Pendancy(GWP Pendancy vs. GWP Ach)' ?  currentMonthData.parcentPendancy : 
+                            el.title === 'GWP Unallocated in ₹' ?  currentMonthData.parcentUnallocated : '0'
+              return el
+            })
+            setDailyDataArray(_data)
+            setShowDailyData(true)
+            // console.log('*********************((  _data ))******************',_data)
+          }else if(_kpiResp[i].id === 'employee_data'){
+            setEmployeeName(_kpiResp[i].data.first_name + ' ' + _kpiResp[i].data.last_name)
+            setAvatarData(_kpiResp[i].data.first_name.match(/\b(\w)/g) + _kpiResp[i].data.last_name.match(/\b(\w)/g))
+            setEmployeeCode(_kpiResp[i].data.employeeCode)
 
-        }else if(_kpiResp[i].id === 'final_score_last_six_month'){
-          // kpiDataResp[i].id === 'final_score_last_two_month' ? sixMonthData = kpiDataResp[i] : twoQuaterData = kpiDataResp[i]
-          sixMonthData = _kpiResp[i]
-          console.warn('*********************((  sixMonthData ))******************',sixMonthData)
+          }else if(_kpiResp[i].id === 'final_score_last_six_month'){
+            sixMonthData = _kpiResp[i]
+            if(sixMonthData.data.length > 0) finalScoreData.push(sixMonthData) 
+            _finalScoreArray = finalScoreFunc(finalScoreData)
+            setFinalScoreTblData(_finalScoreArray)
+            // console.warn('*********************((  _finalScoreArray ))******************',_finalScoreArray)
+            setFinalKpiConfig({
+              data: _finalScoreArray,
+              xField: "month",
+              yField: "sales",
+              point: {
+                size: 5,
+                shape: "diamond",
+              },
+              color: "#00ACC1",
+            });
+            setShowFirstGraph(true)
+          }else if(_kpiResp[i].id === 'GPW_last_six_month' ){
 
-          if(sixMonthData.data.length > 0) finalScoreData.push(sixMonthData) 
-          console.warn('*********************((  finalScoreData ))******************',finalScoreData)
-          _finalScoreArray = finalScoreFunc(finalScoreData)
-          // setFinalScoreTblData(_finalScoreArray)
-          // const [finalScoreTblData, setFinalScoreTblData] = useState([]);
-          console.warn('*********************((  _finalScoreArray ))******************',_finalScoreArray)
-          
-          // if(self.finalScoreGraph !== undefined){
-          //     self.basicColumn(self.finalScoreGraph)
-          //     self.$forceUpdate()
-          // }
+            gpwFinalData = gpwGraphData(_kpiResp[i],'GPW_last_six_month')
+            console.log('*********************((  gpwFinalData ))******************',gpwFinalData)
+            setFinalBudgetData(gpwFinalData)
+
+            setFinalBudgetConfig({
+              data: gpwFinalData,
+              isGroup: true,
+              xField: "month",
+              yField: "actual",
+              seriesField: "name",
+              color: ["rgb(228, 106, 37)", "#00ACC1"],
+            });
+
+          }
         }
+      }else{
+        // console.warn('(((((((((GREATER THAN ONE)))))))))',_kpiResp)
+        setEmployeeName(_kpiResp[0].data.first_name + ' ' + _kpiResp[0].data.last_name)
+        setAvatarData(_kpiResp[0].data.first_name.match(/\b(\w)/g) + _kpiResp[0].data.last_name.match(/\b(\w)/g))
+        setEmployeeCode(_kpiResp[0].data.employeeCode)
+
+        currentMonthData.currentDate = '-'
+        currentMonthData.currentMonth = '-'
+        currentMonthData.currentYear = '-'
+        currentMonthData.GPW_Actual = 0
+        currentMonthData.parcentIssuance = 0
+        currentMonthData.parcentPendancy = 0
+        currentMonthData.parcentUnallocated = 0
+        currentMonthData.branch_activation_actual = 0
+        currentMonthData.gwp_retention_actual = 0
+
+        let _data =  dailyDataArray.map(el =>{
+          el.month = currentMonthData.currentMonth
+          el.date = currentMonthData.currentDate
+          el.year = currentMonthData.currentYear
+          el.gwpData = el.title === 'Total GWP in ₹ Lac' ?  currentMonthData.GPW_Actual : 
+                        el.title === 'Active Branches' ?  currentMonthData.branch_activation_actual : 
+                        el.title === 'Total GWP Retention in ₹' ?  currentMonthData.gwp_retention_actual : 
+                        el.title === '% Issuance' ?  currentMonthData.parcentIssuance : 
+                        el.title === 'Pendancy(GWP Pendancy vs. GWP Ach)' ?  currentMonthData.parcentPendancy : 
+                        el.title === 'GWP Unallocated in ₹' ?  currentMonthData.parcentUnallocated : '0'
+          return el
+        })
+
+        setFinalKpiConfig(null)
+        setFinalBudgetConfig(null)
+        setShowFirstGraph(false)
+        setFinalScoreTblData([])
+        setGpwTableData([])
+        setFinalBudgetData([])
+        setDailyDataArray(_data)
+        setShowDailyData(true)
       }
     }
   }
@@ -355,7 +367,8 @@ const KpiDashboard = () => {
             for(let i = 0;i < _data.data.length; i++){
                 let finalDataStruct = {}
                 // finalDataStruct.month = this.checkValidity(this.capitalize(_data.id === 'final_score_last_two_month' ?  _data.data[i].year_month : _data.data[i].quater+' '+_data.data[i].year))
-                finalDataStruct.month = checkValidity(toCapitalize(_data.id === 'final_score_last_six_month' ?  shortMonth(_data.data[i].month) : _data.data[i].quater))
+                // finalDataStruct.month = checkValidity(toCapitalize(_data.id === 'final_score_last_six_month' ?  shortMonth(_data.data[i].month) : _data.data[i].quater))
+                finalDataStruct.month = checkValidity(toCapitalize(shortMonth(_data.data[i].month)))
                 finalDataStruct.monthTbl = checkValidity(toCapitalize(_data.data[i].month))
                 finalDataStruct.sales = checkValidity(parseFloat(_data.data[i].Final_Score))
                 finalDataStruct.index = checkValidity(parseFloat(_data.data[i].index))
@@ -374,6 +387,111 @@ const KpiDashboard = () => {
         }
     }catch(err){
         console.log(err , '792746a3-f3d1-4483-bfaf-220ec2ec0271');
+    }
+  }
+
+  // FOR GPW TABLE AND GRAPH DATA PROCESSING
+  const gpwGraphData = (dataGPW,monthKey) =>{
+    try{
+        setGpwTableData([])
+        let gpwBudget = []
+        let gpwData = []
+        let gpwFinalData = []
+        let finalKey = ''
+        let budgetKey = ''
+        let actualKey = ''
+        let achieveKey = ''
+
+        // for(let _data of dataGPW){
+            let gpwID = dataGPW.id === monthKey 
+
+            // FOR ACTUAL DATA
+            for(let i = 0;i < dataGPW.data.length; i++){
+                for(let _dataKeys in dataGPW.data[i]){
+                    if(dataGPW.category === _dataKeys){
+                        finalKey = _dataKeys
+                        let gpwTblData = checkValidity(dataGPW.data[i][finalKey])
+                        for(let _gpwKeys in gpwTblData){
+                            // _gpwKeys.includes('budget') === true ? budgetKey = _gpwKeys : _gpwKeys.includes('actual') === true ? actualKey = _gpwKeys : 
+                            // _gpwKeys.includes('achievement') === true ? achieveKey = _gpwKeys : ''
+                            if(_gpwKeys.includes('budget') === true) budgetKey = _gpwKeys
+                            if(_gpwKeys.includes('actual') === true) actualKey = _gpwKeys
+                            if(_gpwKeys.includes('achievement') === true) achieveKey = _gpwKeys
+                        }
+                    }
+                }
+
+                let kpiCategory = dataGPW.category
+                let gpwStruct = {}
+                gpwStruct.name = 'Actual' 
+                // console.log('*********************((  _data ))******************',dataGPW.data)
+                // gpwStruct.month = checkValidity(capitalize(gpwID ? dataGPW.data[i].year_month : dataGPW.data[i].qauter+' '+dataGPW.data[i].year))
+                gpwStruct.month = checkValidity(toCapitalize(shortMonth(dataGPW.data[i].month)))
+
+                let gpwTblData = checkValidity(dataGPW.data[i][finalKey])
+                let tblDataKeys =  Object.keys(gpwTblData)
+
+                gpwStruct.budget = parseFloat(checkValidity(gpwTblData[budgetKey]))
+                gpwStruct.actual = parseFloat(checkValidity(gpwTblData[actualKey]))
+                gpwStruct.avgData = checkValidity(gpwStruct.actual)
+                gpwStruct.year = checkValidity(dataGPW.data[i].year)
+                gpwStruct.achievePercent = gpwTblData[achieveKey]
+                gpwStruct.graphIND = gpwID ? '2' :'1'
+
+                gpwData.push(gpwStruct)
+                // dataSorting() function is used for sorting the Data as required 
+                gpwData = dataSorting(gpwData)
+                setGpwTableData(gpwData)
+                
+                gpwStruct = {}
+            }
+            // FOR BUDGET DATA
+            for(let i = 0;i < dataGPW.data.length; i++){
+
+                for(let _dataKeys in dataGPW.data[i]){
+                    if(dataGPW.category === _dataKeys){
+                        finalKey = _dataKeys
+                        let gpwTblData = checkValidity(dataGPW.data[i][finalKey])
+                        for(let _gpwKeys in gpwTblData){
+                            // _gpwKeys.includes('budget') === true ? budgetKey = _gpwKeys : _gpwKeys.includes('actual') === true ? actualKey = _gpwKeys : 
+                            // _gpwKeys.includes('achievement') === true ? achieveKey = _gpwKeys : ''
+                            if(_gpwKeys.includes('budget') === true) budgetKey = _gpwKeys
+                            if(_gpwKeys.includes('actual') === true) actualKey = _gpwKeys
+                            if(_gpwKeys.includes('achievement') === true) achieveKey = _gpwKeys
+                        }
+                    }
+                }
+
+                let gpwStruct = {}
+                gpwStruct.name = 'Budget' 
+                // gpwStruct.month = checkValidity(capitalize(gpwID ? dataGPW.data[i].year_month : dataGPW.data[i].qauter+' '+dataGPW.data[i].year))
+                gpwStruct.month = checkValidity(toCapitalize(shortMonth(dataGPW.data[i].month)))
+
+                let gpwTblData = checkValidity(dataGPW.data[i][finalKey])
+                let tblDataKeys =  Object.keys(gpwTblData)
+
+                gpwStruct.budget = parseFloat(checkValidity(gpwTblData[budgetKey]))
+                gpwStruct.avgData = checkValidity(gpwStruct.budget)
+                gpwStruct.actual = parseFloat(checkValidity(gpwTblData[actualKey]))
+                gpwStruct.year = checkValidity(dataGPW.data[i].year)
+                gpwStruct.achievePercent = gpwTblData[achieveKey]
+                gpwStruct.graphIND = gpwID ? '2' :'1'
+
+                gpwBudget.push(gpwStruct)
+                // dataSorting() function is used for sorting the Data as required 
+                gpwBudget = dataSorting(gpwBudget)
+                gpwStruct = {}
+            }
+        // }
+        // console.log('*********************((  gpwBudget ))******************',gpwBudget)
+        // console.log('*********************((  gpwTableData ))******************',gpwTableData)
+        // const [gpwTableData, setGpwTableData] gpwData = useState([]);
+        gpwFinalData = gpwBudget.concat(gpwData)
+        if(gpwFinalData.length !== 0){
+            return gpwFinalData
+        }
+    }catch(err){
+        console.log(err , '6aeddb00-e4a1-4a46-a652-89efc643894d');
     }
   }
 
@@ -460,9 +578,13 @@ const KpiDashboard = () => {
     console.log(`selected ${value}`);
   }
   const onChangeKPIBudgetHandler = (value) => {
+    let _channelId = login_user_data.channelCode._id
+    let _userId = teamData === 'Select' || teamData === '' ? login_user_data.id : teamData
+
     console.log(value);
     setFinalKpiDataDropdown(value);
-    dispatch(actions.kpiDashboard(value));
+    getKpiData(value,_userId,_channelId)
+    // dispatch(actions.kpiDashboard(value));
   };
 
   function onBlur() {
@@ -480,14 +602,14 @@ const KpiDashboard = () => {
   const columns = [
     {
       title: "Period",
-      dataIndex: "month",
-      key: "month",
+      dataIndex: "monthTbl",
+      key: "monthTbl",
       align: "center",
     },
     {
       title: "Final Score",
-      dataIndex: "Final_Score",
-      key: "Final_Score",
+      dataIndex: "sales",
+      key: "sales",
       align: "center",
     },
     {
@@ -508,20 +630,20 @@ const KpiDashboard = () => {
     },
     {
       title: `${finalKpiDataDropdown}(in ₹ Lac) Budget`,
-      dataIndex: 'val',
-      key: 'val',
+      dataIndex: 'budget',
+      key: 'budget',
       align: "center"
     },
     {
       title: `${finalKpiDataDropdown}(in ₹ Lac) Actual`,
-      dataIndex: budgetKeys[finalKpiDataDropdown][1],
-      key: budgetKeys[finalKpiDataDropdown][1],
+      dataIndex: 'actual',
+      key: 'actual',
       align: "center"
     },
     {
       title: "% Achievement",
-      dataIndex: "gpw_achievement",
-      key: "gpw_achievement",
+      dataIndex: "achievePercent",
+      key: "achievePercent",
       align: "center"
     },
   ];
@@ -562,7 +684,7 @@ const KpiDashboard = () => {
   const dailyDataCards = () => {
     return dailyDataArray.map((item, index) => {
       return (
-        <div key={index} style={{ width: "35%" }}>
+        <div key={index} style={{ width: "48%" }}>
           <div className="kpiDailyData">
             <div style={{ marginTop: 5, padding: 6 }}>
               <text style={{ fontSize: 12 }}>Update as on {item.date}</text>
@@ -657,51 +779,69 @@ const KpiDashboard = () => {
     });
   };
 
+  const handleDesignationData = (event) =>{
+    setDesigData(event)
+    setTeamData('Select')
+    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
+    let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
+    // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
+    setTeamMemberList(_teamData)
+    setShowTeamDrop(true)
+  }
+  const handleTeamListData = (event) =>{
+    let _channelId = login_user_data.channelCode._id
+    // console.warn('handleTeamListData((((((((((===>>>>>>>>>>', event)
+    setTeamData(event)
+    getKpiData('GPW',event,_channelId)
+  }
+
+  const handleSelfTeam = (type) =>{
+    let _channelId = login_user_data.channelCode._id
+    let _userId = login_user_data.id
+    if(type === 'self'){
+      setTeamSelf(true)
+      setShowTeamDrop(false)
+      setTeamData('Select')
+      getKpiData('GPW',_userId,_channelId)
+    }else{
+      setTeamSelf(false)
+      setDesigData('Select')
+      setTeamData('Select')
+    }
+  }
+
 
   return (
     <>
       <Tabs tabMenu={[]} header="KPI Dashboard" activeKey="1" />
 
       <div className="mainTab">
-         <Row className="tabs">
-          <Col xs={12} sm={12} md={12} lg={2} xl={2}>
-            
-           <button
-                style={{width: "80%"}}
-                className={TeamSelf ? "active_tabs_button" : "tabs_button"}
-                onClick={(e) => {
-                  setTeamSelf(true);
-                }}
-              >
-                <img
-                style={{marginRight: "0px"}}
-                  src={TeamSelf ? person_white : person_black}
-                  className="person"
-                  alt="person_png"
-                />
-                Self
-              </button>
+        <Row className="tabs">
+          <Col xs={11} sm={12} md={12} lg={2} xl={2}>
+           <button style={{width: "95%"}} className={TeamSelf ? "active_tabs_button" : "tabs_button"} onClick={(e) => { handleSelfTeam('self') }}>
+              <img style={{marginRight: "0px"}} src={TeamSelf ? person_white : person_black} className="person" alt="person_png"/>
+              Self
+            </button>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={2} xl={2}>
-            <button
-                style={{width: "80%"}}
-                className={!TeamSelf ? "active_tabs_button" : "tabs_button"}
-                onClick={(e) => {
-                  setTeamSelf(false);
-                }}
-              >
-                <img
-                style={{marginRight: "0px"}}
-                  src={TeamSelf ? group_black : group_white}
-                  className="person"
-                  alt="group_png"
-                />
+          <Col xs={11} sm={12} md={12} lg={2} xl={2} style={{marginLeft:8}}>
+            <button style={{width: "95%"}} className={!TeamSelf ? "active_tabs_button" : "tabs_button"} onClick={(e) => { handleSelfTeam('team') }} >
+                <img style={{marginRight: "0px"}} src={TeamSelf ? group_black : group_white} className="person" alt="group_png"/>
                 Team
-              </button>
+            </button>
+          </Col>
+          <Col xs={12} sm={12} md={12} lg={3} xl={3} style={{marginLeft:10}}>
+            { TeamSelf === false &&
+              <Select value={desigData} options={hierarAgentList} onChange={(event)=> handleDesignationData(event)}  placeholder="Select Hierarchy"></Select>
+            }
+          </Col>
+          <Col xs={12} sm={12} md={12} lg={3} xl={3} style={{marginLeft:10}}>
+            { showTeamDrop &&
+              <Select value={teamData} options={teamMemberList} onChange={(event)=> handleTeamListData(event)} placeholder="Select Team Member"></Select>
+            }
           </Col>
         </Row>
         <hr style={{ marginBottom: "20px" }} />
-        { TeamSelf ? 
+        {/* { TeamSelf ?  */}
         <div>
         {width > breakpoint && (
           <Row gutter={[10, 10]}>
@@ -763,13 +903,9 @@ const KpiDashboard = () => {
                     </h3>
                   </div>
                 </Col>
-                <Col className="userDetails" sm={24} md={12} lg={2} xl={24}>
+                <Col className="userDetails" sm={24} md={12} lg={2} xl={24} style={{display:'flex',flexDirection: 'column',justifyContent:'center'}}>
                   <h5>{employeeName}</h5>
-                  <p style={{ marginTop: "0px" }}>
-                    {" "}
-                    <span>ID :</span>{" "}
-                    <span>{employeeCode}</span>
-                  </p>
+                  <p style={{ marginTop: "0px",marginBottom: "0px" ,textAlign: 'start',marginLeft:10}}>ID : {employeeCode}</p>
                 </Col>
               </Row>
             </Col>
@@ -778,21 +914,21 @@ const KpiDashboard = () => {
             </Row>
           </div>
         )}
-        <Row justify="space-around" style={{ marginTop: "10px" }} gutter={16}>
-          <Col xs={24} sm={24} md={24} lg={7} xl={7} className="graph">
+        <Row style={{ marginTop: "10px" }} >
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
             <div className="kip_score myGraph">
               <h4>FINAL KPI SCORE %</h4>
               <hr />
             </div>
             <div className="budgeData">
-              {finalKpiConfig && <Column {...finalKpiConfig} />}
+              {showFirstGraph && <Column {...finalKpiConfig} />}
             </div>
             {/* graph */}
             <Table
               pagination={false}
               columns={columns}
               key={columns.key}
-              dataSource={finalKpiData}
+              dataSource={finalScoreTblData}
               className="score_one"
             />
           </Col>
@@ -828,11 +964,11 @@ const KpiDashboard = () => {
               pagination={false}
               columns={columns1}
               key={columns1.key}
-              dataSource={finalBudgetData}
+              dataSource={gpwTableData}
               className="score"
             />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
+          {/* <Col xs={24} sm={24} md={24} lg={8} xl={8} className="graph">
             <div className="myGraph">
               <Row justify="space-between">
                 <Col>
@@ -869,11 +1005,11 @@ const KpiDashboard = () => {
               columns={columns2}
               key={columns2.key}
             />
-          </Col>
+          </Col> */}
         </Row>
         </div>
-         : 
-         ''}
+         {/* : 
+         ''} */}
       </div>
     </>
   );
