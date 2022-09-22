@@ -82,13 +82,13 @@ export default function CalendarEvent(props) {
     _dataStore.reporting_users.map(el => {
           let sortarray = {
               FullName: el.full_name,
-              ShortId: el.hierarchy_details.hierarchyName,
+              ShortId: el.hierarchyName,
               firstname: el.first_name,
               lastname: el.last_name,
               employecode: el.employeeCode,
-              designation: el.hierarchy_details.hierarchyName,
+              designation: el.hierarchyName,
               _Id: el._id,
-              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchy_details.hierarchyName+')'
+              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchyName+')'
           }
           _teamMember.push(sortarray)
           sortarray = {};

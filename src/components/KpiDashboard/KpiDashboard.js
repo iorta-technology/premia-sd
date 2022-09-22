@@ -29,14 +29,19 @@ const KpiDashboard = () => {
     
   const dispatch = useDispatch();
   useEffect(() => {
-    const { id, channelCode } = stoageGetter("user");
+    category_data()
+  }, [])
+  // useEffect(() => {
+  //   const { id, channelCode } = stoageGetter("user");
     
-    dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
+  //   // dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
+  //   getKpiData('')
    
-  }, [dispatch]);
+  // }, [dispatch]);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data);
+  let currentMonthData = {}
   
   const employee_data = kpi_data;
   let avatar =
@@ -53,8 +58,114 @@ const KpiDashboard = () => {
   const [finalBudgetConfig, setFinalBudgetConfig] = useState(null);
   const [width, setWidth] = useState(window.innerWidth);
   const [TeamSelf, setTeamSelf] = useState(true);
+  const [showDailyData, setShowDailyData] = useState(false);
   const [category, setCategory] = useState();
+  const [employeeName, setEmployeeName] = useState('');
+  const [employeeCode, setEmployeeCode] = useState('');
+  const [avatarData, setAvatarData] = useState('');
+  const [finalScoreTblData, setFinalScoreTblData] = useState([]);
+  const [dailyDataArray, setDailyDataArray] = useState([
+    {
+      month: "",
+      type: "MTD",
+      date: "",
+      gwpData: "",
+      year: "",
+      title: "Total GWP in ₹ Lac",
+    },
+    {
+      month: "",
+      type: "MTD",
+      date: "",
+      gwpData: "",
+      year: "",
+      title: "Active Branches",
+    },
+    {
+      month: "",
+      type: "MTD",
+      date: "",
+      gwpData: "",
+      year: "",
+      title: "Total GWP Retention in ₹",
+    },
+    {
+      month: "",
+      type: "MTD",
+      date: "",
+      gwpData: "",
+      year: "",
+      title: "% Issuance",
+    },
+    {
+      month: "",
+      type: "MTD",
+      date: "",
+      gwpData: "",
+      year: "",
+      title: "Pendancy(GWP Pendancy vs. GWP Ach)",
+    },
+    {
+      month: "",
+      type: "MTD",
+      date: "",
+      gwpData: "",
+      year: "",
+      title: "GWP Unallocated in ₹",
+    },
+  ]);
   const breakpoint = 620;
+
+  // const dailyDataArray = [
+  //   {
+  //     month: "",
+  //     type: "MTD",
+  //     date: "",
+  //     gwpData: "",
+  //     year: "",
+  //     title: "Total GWP in ₹ Lac",
+  //   },
+  //   {
+  //     month: "",
+  //     type: "MTD",
+  //     date: "",
+  //     gwpData: "",
+  //     year: "",
+  //     title: "Active Branches",
+  //   },
+  //   {
+  //     month: "",
+  //     type: "MTD",
+  //     date: "",
+  //     gwpData: "",
+  //     year: "",
+  //     title: "Total GWP Retention in ₹",
+  //   },
+  //   {
+  //     month: "",
+  //     type: "MTD",
+  //     date: "",
+  //     gwpData: "",
+  //     year: "",
+  //     title: "% Issuance",
+  //   },
+  //   {
+  //     month: "",
+  //     type: "MTD",
+  //     date: "",
+  //     gwpData: "",
+  //     year: "",
+  //     title: "Pendancy(GWP Pendancy vs. GWP Ach)",
+  //   },
+  //   {
+  //     month: "",
+  //     type: "MTD",
+  //     date: "",
+  //     gwpData: "",
+  //     year: "",
+  //     title: "GWP Unallocated in ₹",
+  //   },
+  // ];
 
   const budgetKeys = {
     "Branch Activation": [
@@ -78,7 +189,7 @@ const KpiDashboard = () => {
 
   useEffect(() => {
 
-    setTimeout(() => {
+    // setTimeout(() => {
       const kpiDataObj = employee_data
         ? employee_data.filter(
             (item) => item.id == "final_score_last_six_month"
@@ -134,22 +245,19 @@ const KpiDashboard = () => {
        
       setFinalBudgetData(budgetConfigDat);
       
-    });
+    // });
   }, [employee_data]);
 
+
+
   
-
-  useEffect(() => {
-    category_data()
-  }, [])
-
- 
+  
   const category_data = async ()=>{
 
     let _channelId = login_user_data.channelCode._id
+    let _userId = login_user_data.id
     let data = await axiosRequest.get(`user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`)
-    console.log("mydatatatatat----",data);
-
+    // console.log("mydatatatatat----",data);
     let _resp = data[0]
     let gpwDropDwnList = []
     
@@ -161,7 +269,6 @@ const KpiDashboard = () => {
       gpwDropDwnList.push(data) 
       
     }
-   
     // let category = self.gpwDropDwnList[0].value
     // self.actualHeader = self.dataSelected = category == 'Branch Activation' ? '% Active Branches' : category
     // self.inLacSectn = category == 'Branch Activation' ? '' :  '(in ₹ Lac)'
@@ -170,6 +277,179 @@ const KpiDashboard = () => {
     // self.gpwDrpdwn = self.gpwDropDwnList[0].value
 
     setCategory(gpwDropDwnList);
+    setFinalKpiDataDropdown(gpwDropDwnList[0].value)
+    let _data = gpwDropDwnList[0].value
+    getKpiData(_data,_userId,_channelId)
+  }
+
+  const getKpiData = async (category,userId,channelId)=>{
+
+    let _kpiResp = await axiosRequest.get(`user/fetch_employee_kpi?emp_code=${userId}&category=${category}&channel=${channelId}`, { secure: true });
+    console.warn('(((((((((_kpiResp)))))))))',_kpiResp)
+    if(_kpiResp.length > 0){
+      let sixMonthData = []
+      let finalScoreData = []
+      let _finalScoreArray = []
+      for(let i = 0; i < _kpiResp.length ; i++){
+        if(_kpiResp[i].id === 'current_month' ){
+          let currentData = checkValidity(_kpiResp[i].data)
+
+          currentMonthData.currentDate = checkValidityCurrent(formateDate(currentData.uploadedDate))
+          currentMonthData.currentMonth = checkValidityCurrent(toCapitalize(currentData.month))
+          currentMonthData.currentYear = checkValidityCurrent(currentData.year)
+          currentMonthData.GPW_Actual = checkValidityCurrent(currentData.GPW.gpw_actual)
+          currentMonthData.parcentIssuance = checkValidity(currentData.parcentIssuance)
+          currentMonthData.parcentPendancy = checkValidityCurrent(currentData.parcentPendancy)
+          currentMonthData.parcentUnallocated = checkValidityCurrent(currentData.parcentUnallocated)
+          currentMonthData.branch_activation_actual = branchDataHandling(currentData,'branch')
+          currentMonthData.gwp_retention_actual = branchDataHandling(currentData,'gwp')
+
+          let _data =  dailyDataArray.map(el =>{
+            el.month = currentMonthData.currentMonth
+            el.date = currentMonthData.currentDate
+            el.year = currentMonthData.currentYear
+            el.gwpData = el.title === 'Total GWP in ₹ Lac' ?  currentMonthData.GPW_Actual : 
+                          el.title === 'Active Branches' ?  currentMonthData.branch_activation_actual : 
+                          el.title === 'Total GWP Retention in ₹' ?  currentMonthData.gwp_retention_actual : 
+                          el.title === '% Issuance' ?  currentMonthData.parcentIssuance : 
+                          el.title === 'Pendancy(GWP Pendancy vs. GWP Ach)' ?  currentMonthData.parcentPendancy : 
+                          el.title === 'GWP Unallocated in ₹' ?  currentMonthData.parcentUnallocated : '0'
+            return el
+          })
+          setDailyDataArray(_data)
+          setShowDailyData(true)
+          // console.log('*********************((  _data ))******************',_data)
+        }else if(_kpiResp[i].id === 'employee_data'){
+          setEmployeeName(_kpiResp[i].data.first_name + ' ' + _kpiResp[i].data.last_name)
+          setAvatarData(_kpiResp[i].data.first_name.match(/\b(\w)/g) + _kpiResp[i].data.last_name.match(/\b(\w)/g))
+          setEmployeeCode(_kpiResp[i].data.employeeCode)
+
+        }else if(_kpiResp[i].id === 'final_score_last_six_month'){
+          // kpiDataResp[i].id === 'final_score_last_two_month' ? sixMonthData = kpiDataResp[i] : twoQuaterData = kpiDataResp[i]
+          sixMonthData = _kpiResp[i]
+          console.warn('*********************((  sixMonthData ))******************',sixMonthData)
+
+          if(sixMonthData.data.length > 0) finalScoreData.push(sixMonthData) 
+          console.warn('*********************((  finalScoreData ))******************',finalScoreData)
+          _finalScoreArray = finalScoreFunc(finalScoreData)
+          // setFinalScoreTblData(_finalScoreArray)
+          // const [finalScoreTblData, setFinalScoreTblData] = useState([]);
+          console.warn('*********************((  _finalScoreArray ))******************',_finalScoreArray)
+          
+          // if(self.finalScoreGraph !== undefined){
+          //     self.basicColumn(self.finalScoreGraph)
+          //     self.$forceUpdate()
+          // }
+        }
+      }
+    }
+  }
+
+  const finalScoreFunc = (dataFinal) =>{
+    try{
+        let finalData = []
+        let finalScoreData = []
+        let _finalData = []
+        
+        for(let _data of dataFinal){
+            for(let i = 0;i < _data.data.length; i++){
+                let finalDataStruct = {}
+                // finalDataStruct.month = this.checkValidity(this.capitalize(_data.id === 'final_score_last_two_month' ?  _data.data[i].year_month : _data.data[i].quater+' '+_data.data[i].year))
+                finalDataStruct.month = checkValidity(toCapitalize(_data.id === 'final_score_last_six_month' ?  shortMonth(_data.data[i].month) : _data.data[i].quater))
+                finalDataStruct.monthTbl = checkValidity(toCapitalize(_data.data[i].month))
+                finalDataStruct.sales = checkValidity(parseFloat(_data.data[i].Final_Score))
+                finalDataStruct.index = checkValidity(parseFloat(_data.data[i].index))
+                finalDataStruct.change_in_percent = checkValidity(_data.data[i].change_in_percent)
+                finalDataStruct.year = checkValidity(_data.data[i].year)
+                finalDataStruct.graphIND = _data.id === 'final_score_last_six_month' ? '2' :'1'
+                finalData.push(finalDataStruct)
+
+                finalDataStruct = {}
+            }
+        }
+        // dataSorting() function is used for sorting the Data as required 
+        finalScoreData = dataSorting(finalData)
+        if(finalScoreData.length !== 0){
+            return finalScoreData
+        }
+    }catch(err){
+        console.log(err , '792746a3-f3d1-4483-bfaf-220ec2ec0271');
+    }
+  }
+
+  const dataSorting = (data) =>{
+    let monthData = []
+    let quaterData = []
+    let sortedData = []
+    for(let _data of data){
+        if(_data.graphIND == '2'){
+            monthData.push(_data)
+            monthData.sort(function (a, b) { return a.year - b.year })
+        }else{
+            quaterData.push(_data)
+            quaterData.sort(function (a, b) { return a.year - b.year })
+        }
+    }
+    return sortedData = quaterData.concat(monthData)
+  }
+
+  const checkValidity = (data) =>{
+    try{
+        if(data === "" || data === null || data === undefined || data === 'undefined' || data === '-'){
+            return 0;
+        }else{
+            return data;
+        }
+    }catch(err){
+        // console.log(err , '4d0315f8-bfe5-4666-bad7-4ebb34ba4dfd');
+    }
+  }
+  const checkValidityCurrent = (data) =>{
+    try{
+        if(data === "" || data === null || data === undefined || data === 'undefined' || data === '-'){
+            return '-';
+        }else{
+            return data;
+        }
+    }catch(err){
+        // console.log(err , '4d0315f8-bfe5-4666-bad7-4ebb34ba4dfd');
+    }
+  }
+  const formateDate = (milisecond) => {
+    try {
+        return new Date(parseInt(milisecond)).toLocaleDateString()
+    } catch (err) {
+        // console.log(err , 'a676bc19-d632-4078-b9eb-5b0b649f8c03');
+        return milisecond;
+    }
+  }
+  const toCapitalize = (string) =>{
+      try{
+          return string[0].toUpperCase() + string.slice(1);
+      }catch(err){
+          // console.log(err , 'cc7abd78-e68b-4768-a058-f956ae6c2e68');
+      }
+  }
+  const branchDataHandling = (data,type) =>{
+    if(type === 'branch'){
+        if(data.hasOwnProperty('Branch Activation') === true){
+            // console.log('*********************((  Branch Activation ))******************',data['Branch Activation'])
+            // return data['Branch Activation'].branch_activation_actual
+            return data['Branch Activation'].branch_activation_per_achievement
+
+        }else{
+            return 0
+        }
+
+    }else{
+        if(data.hasOwnProperty('GWP Retention') === true){
+            // console.log('*********************((  GWP Retention ))******************',data['GWP Retention'])
+            // return data['GWP Retention'].gwp_retention_actual
+            return data['GWP Retention'].gwp_retention_per_achievement
+        }else{
+            return 0
+        }
+    }
   }
   
 
@@ -268,51 +548,6 @@ const KpiDashboard = () => {
 
   const data2 = [{ csmName: "Calvin Robert", city: "Mumbai", value: 56 }];
 
-  const dailyDataArray = [
-    {
-      month: "January",
-      type: "MTD",
-      date: "1/09/2022",
-      gwpData: "200",
-      title: "Total GWP in ₹ Lac",
-    },
-    {
-      month: "January",
-      type: "MTD",
-      date: "1/09/2022",
-      gwpData: "200",
-      title: "Active Branches",
-    },
-    {
-      month: "January",
-      type: "MTD",
-      date: "1/09/2022",
-      gwpData: "200",
-      title: "Total GWP Retention in ₹",
-    },
-    {
-      month: "January",
-      type: "MTD",
-      date: "1/09/2022",
-      gwpData: "200",
-      title: "% Issuance",
-    },
-    {
-      month: "January",
-      type: "MTD",
-      date: "1/09/2022",
-      gwpData: "200",
-      title: "Pendancy(GWP Pendancy vs. GWP Ach)",
-    },
-    {
-      month: "January",
-      type: "MTD",
-      date: "1/09/2022",
-      gwpData: "200",
-      title: "GWP Unallocated in ₹",
-    },
-  ];
-
   const shortMonth = (text) => {
     try {
       text = text.slice(0, 3);
@@ -327,7 +562,7 @@ const KpiDashboard = () => {
   const dailyDataCards = () => {
     return dailyDataArray.map((item, index) => {
       return (
-        <div key={index} style={{ width: "48%" }}>
+        <div key={index} style={{ width: "35%" }}>
           <div className="kpiDailyData">
             <div style={{ marginTop: 5, padding: 6 }}>
               <text style={{ fontSize: 12 }}>Update as on {item.date}</text>
@@ -387,6 +622,42 @@ const KpiDashboard = () => {
       );
     });
   };
+
+  const dailyDataCardsDesktop = () => {
+    return dailyDataArray.map((item, index) => {
+      // console.warn('DATA============>>>>>',item)
+      return (
+        <div key={index} style={{ width: "32.5%" }}>
+          <div className="kpiDailyData">
+            <div style={{ paddingLeft: 10,paddingTop:5 }}>
+              <text style={{ fontSize: 12 }}>Update as on {item.date}</text>
+            </div>
+            <Row style={{ paddingLeft: 10,paddingRight: 10,paddingBottom:5,display: "flex",flex: 1,alignItems: "center",justifyContent: "space-between",}}>
+              <div>
+                <div >
+                  <text className="updatecount" style={{ color: "#00acc1", fontSize: 24, fontWeight: "bolder" }}>{item.gwpData}</text>
+                </div>
+                <div >
+                  <text className="updatetotal" >{item.title}</text>
+                </div>
+              </div>
+              <div >
+                <div>
+                  {/* <text style={{fontSize:12,fontWeight:'bolder'}}>{shortMonth(item.month)}</text> */}
+                  <text style={{ fontSize: 12, fontWeight: "bolder" }}>{item.type}</text>
+                </div>
+                <div>
+                  <text style={{ color: "#e46a25",fontSize: 12,fontWeight: "bolder",}}>{"Actual"}</text>
+                </div>
+              </div>
+            </Row>
+          </div>
+        </div>
+      );
+    });
+  };
+
+
   return (
     <>
       <Tabs tabMenu={[]} header="KPI Dashboard" activeKey="1" />
@@ -434,8 +705,8 @@ const KpiDashboard = () => {
         <div>
         {width > breakpoint && (
           <Row gutter={[10, 10]}>
-            <Col xs={24} sm={24} md={24} lg={2} xl={2} className="cardKpi">
-              <Row className="centerProfile">
+            <Col xs={24} sm={24} md={24} lg={2} xl={2} className="cardKpi centerProfile">
+              <Row className="">
                 <Col sm={24} md={12} lg={2} xl={24}>
                   <div className="profile">
                     <h3
@@ -445,237 +716,26 @@ const KpiDashboard = () => {
                         fontWeight: "normal",
                       }}
                     >
-                      {avatar}
+                      {avatarData}
                     </h3>
                   </div>
                 </Col>
                 <Col className="userDetails" sm={24} md={12} lg={2} xl={24}>
-                  <h5>
-                    {employee_data[0]?.data.first_name}{" "}
-                    {employee_data[0]?.data.last_name}
-                  </h5>
+                  <h5> {employeeName}</h5>
                   <p style={{ marginTop: "0px" }}>
                     {" "}
                     <span>ID :</span>{" "}
-                    <span>{employee_data[0]?.data.employeeCode}</span>
+                    <span>{employeeCode}</span>
                   </p>
                 </Col>
               </Row>
             </Col>
             <Col xs={24} sm={24} md={22} lg={22} xl={22}>
-              <Row className="detailsCards" gutter={[20, 13]}>
-                <Col xs={12} sm={12} md={12} lg={8} xl={8}>
-                  <Row gutter={[10, 13]}>
-                    <Col span={24} className="detailsCard">
-                      <Row className="padding_row">
-                        <Col xs={24} sm={24} md={20} lg={20} xl={20}>
-                          <p className="updatetitle">
-                            update as on {updatedDate}
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                          <p className="updatecount">
-                            {employee_data[1]?.data?.GPW?.gpw_actual
-                              ? employee_data[1]?.data?.GPW?.gpw_actual
-                              : 0}
-                          </p>
-                          <p className="updatetotal">Total GWP in ₹ Lac</p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                        </Col>
-                        <Col xs={24} sm={24} md={4} lg={4} xl={4}>
-                          <div className="dispa">
-                            <p className="sidehead">
-                              MTD {month} {employee_data[1]?.data.year}
-                            </p>
-                            <p className="updatestatus">Actual</p>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col span={24} className="detailsCard">
-                      <Row className="padding_row">
-                        <Col xs={24} sm={24} md={20} lg={20} xl={20}>
-                          <p className="updatetitle">
-                            update as on {updatedDate}
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                          <p className="updatecount">
-                            {employee_data[1]?.data.parcentIssuance
-                              ? employee_data[1]?.data.parcentIssuance
-                              : 0}
-                          </p>
-                          <p className="updatetotal">% Issuance</p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                        </Col>
-                        <Col xs={24} sm={24} md={4} lg={4} xl={4}>
-                          <div className="dispa">
-                            <p className="sidehead">
-                              MTD {month} {employee_data[1]?.data.year}
-                            </p>
-                            <p className="updatestatus">Actual</p>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xs={12} sm={12} md={12} lg={8} xl={8}>
-                  <Row className="detailsCards" gutter={[10, 13]}>
-                    <Col span={24} className="detailsCard">
-                      <Row className="padding_row">
-                        <Col xs={24} sm={24} md={20} lg={20} xl={20}>
-                          <p className="updatetitle">
-                            update as on {updatedDate}
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                          <p className="updatecount">
-                            %{employee_data[1]?.data["Branch Activation"]
-                                ?.branch_activation_actual ? employee_data[1]?.data["Branch Activation"]
-                                ?.branch_activation_actual : 0}
-                            {/* {
-                              employee_data[1]?.data["Branch Activation"]
-                                ?.branch_activation_actual
-                            } */}
-                          </p>
-                          <p className="updatetotal">Active Branches</p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                        </Col>
-                        <Col xs={24} sm={24} md={4} lg={4} xl={4}>
-                          <div className="dispa">
-                            <p className="sidehead">
-                              MTD {month} {employee_data[1]?.data.year}
-                            </p>
-                            <p className="updatestatus">Actual</p>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col span={24} className="detailsCard">
-                      <Row className="padding_row">
-                        <Col xs={24} sm={24} md={20} lg={20} xl={20}>
-                          <p className="updatetitle">
-                            update as on {updatedDate}
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                          <p className="updatecount">
-                            % {employee_data[1]?.data.parcentPendancy ? employee_data[1]?.data.parcentPendancy : 0}
-                          </p>
-                          <p className="updatetotal">
-                            Pendancy(GWP Pendancy vs. GWP Ach)
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                        </Col>
-                        <Col xs={24} sm={24} md={4} lg={4} xl={4}>
-                          <div className="dispa">
-                            <p
-                              className="sidehead"
-                              style={{ margin: "0", marginRight: "-10px" }}
-                            >
-                              MTD {month} {employee_data[1]?.data.year}
-                            </p>
-                            <p className="updatestatus">Actual</p>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-
-                <Col xs={12} sm={12} md={12} lg={8} xl={8}>
-                  <Row className="detailsCards" gutter={[10, 13]}>
-                    <Col span={24} className="detailsCard">
-                      <Row className="padding_row">
-                        <Col xs={24} sm={24} md={20} lg={20} xl={20}>
-                          <p className="updatetitle">
-                            update as on {updatedDate}
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                          <p className="updatecount">
-                            {employee_data[1]?.data["GWP Retention"]
-                              ?.gwp_retention_actual
-                              ? employee_data[1]?.data["GWP Retention"]
-                                  ?.gwp_retention_actual
-                              : 0}
-                          </p>
-                          <p className="updatetotal">
-                            Total GWP Retention in ₹
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                        </Col>
-                        <Col xs={24} sm={24} md={4} lg={4} xl={4}>
-                          <div className="dispa">
-                            <p className="sidehead">
-                              MTD {month} {employee_data[1]?.data.year}
-                            </p>
-                            <p className="updatestatus">Actual</p>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col span={24} className="detailsCard">
-                      <Row className="padding_row">
-                        <Col xs={24} sm={24} md={20} lg={20} xl={20}>
-                          <p className="updatetitle">
-                            update as on {updatedDate}
-                          </p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                          <p className="updatecount">
-                            {employee_data[1]?.data.parcentUnallocated
-                              ? employee_data[1]?.data.parcentUnallocated
-                              : 0}
-                          </p>
-                          <p className="updatetotal">GWP Unallocated in ₹</p>
-                          <div
-                            weex-type="div"
-                            className="weex-div weex-ct kpi-hori-line"
-                          ></div>
-                        </Col>
-                        <Col xs={24} sm={24} md={4} lg={4} xl={4}>
-                          <div className="dispa">
-                            <p className="sidehead">
-                              MTD {month} {employee_data[1]?.data.year}
-                            </p>
-                            <p className="updatestatus">Actual</p>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
+              <Row gutter={[10, 12]} justify="space-between" style={{ flexWrap: "wrap", marginLeft:10 }}>
+                { showDailyData && dailyDataCardsDesktop() }
               </Row>
             </Col>
+            
           </Row>
         )}
         {width < breakpoint && (
@@ -687,9 +747,9 @@ const KpiDashboard = () => {
               lg={2}
               xl={2}
               style={{ marginBottom: 10 }}
-              className="cardKpi"
+              className="cardKpi centerProfile"
             >
-              <Row className="centerProfile">
+              <Row className="">
                 <Col sm={24} md={12} lg={2} xl={24}>
                   <div className="profile">
                     <h3
@@ -699,25 +759,22 @@ const KpiDashboard = () => {
                         fontWeight: "normal",
                       }}
                     >
-                      {avatar}
+                      {avatarData}
                     </h3>
                   </div>
                 </Col>
                 <Col className="userDetails" sm={24} md={12} lg={2} xl={24}>
-                  <h5>
-                    {employee_data[0]?.data.first_name}{" "}
-                    {employee_data[0]?.data.last_name}
-                  </h5>
+                  <h5>{employeeName}</h5>
                   <p style={{ marginTop: "0px" }}>
                     {" "}
                     <span>ID :</span>{" "}
-                    <span>{employee_data[0]?.data.employeeCode}</span>
+                    <span>{employeeCode}</span>
                   </p>
                 </Col>
               </Row>
             </Col>
             <Row justify="space-between" style={{ flexWrap: "wrap" }}>
-              {dailyDataCards()}
+              { showDailyData && dailyDataCards() }
             </Row>
           </div>
         )}

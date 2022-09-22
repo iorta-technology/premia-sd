@@ -141,6 +141,7 @@ const Tab = ({
   // -****************************************
 
   const handler = (activeKey) => {
+    console.log("activeKey------------->>>>>>>>",activeKey)
     setactiveTab(activeKey);
     // dispatch(actions.fetchAllLeads(activeTab,current))
 
@@ -236,10 +237,10 @@ const Tab = ({
     
     dispatch(actions.updateTabOfDashboard(currentTab));
     setCurrentActiveTab(currentTab);
-    if (currentTab == "team") {
+    if (currentTab === "team") {
       getDataForOpen();
     }
-    currentTab != currentActiveTab &&
+    currentTab !== currentActiveTab &&
       dispatch(actions.updateAllocateOfOpportunities(false));
   };
 
@@ -311,7 +312,8 @@ const Tab = ({
             ) : null}
           </div>
         </div>
-      ) : currentLocation.pathname === "/leadMaster/all_leads" ? (
+      ) :  (
+        // FOR MOBILE WEB
         <div style={{ display: "flex", flexDirection: "Column" }}>
           <div>
             <Tabs
@@ -321,7 +323,7 @@ const Tab = ({
               size="small"
               activeKey={activeKey}
               style={{
-                backgroundColor: "#f7f7f7",
+                backgroundColor: "#red",
                 boxShadow: "0px 1px 10px 0px #0000003d",
               }}
             >
@@ -387,7 +389,7 @@ const Tab = ({
             />
           </div>
         </div>
-      ) : null}
+      ) }
     </>
   );
 };

@@ -354,13 +354,16 @@ const TodoCards = forwardRef((props, ref) => {
                                 element.showarchiedpopup === true &&
                                     <div className='TodoCard-Container-Hamburger'>
                                         <Card className='Hamburger-Card Hamburger-box'>
-                                            <p onClick={()=> showModal(element,index)}  style={{display:'flex',alignItems:'center'}}>
+                                            {/* <p onClick={()=> showModal(element,index)}  style={{display:'flex',alignItems:'center'}}>
                                                 <FormOutlined style={{marginRight:"10px"}} />Edit
-                                            </p>
-                                            <hr style={{color:'#e6e9eb', opacity:'0.3'}}/>
-                                            <p onClick={()=> archiveData(element)} style={{display:'flex',alignItems:'center'}}>
+                                            </p> */}
+                                            <div style={{cursor:'pointer'}} onClick={()=> showModal(element,index)}><FormOutlined style={{marginRight:"10px",marginLeft:10}} />Edit</div>
+                                            <div style={{backgroundColor:'#e6e9eb', opacity:'0.3',height:1,marginTop:5,marginBottom:5}}></div>
+                                            <div style={{cursor:'pointer'}} onClick={()=> archiveData(element)}><ShopOutlined style={{marginRight:"10px",marginLeft:10}}/>Archive</div>
+                                            {/* <p onClick={()=> archiveData(element)} style={{display:'flex',alignItems:'center'}}>
                                                 <ShopOutlined style={{marginRight:"10px"}}/> Archive
-                                            </p>
+                                            </p> */}
+                                            
                                         </Card>
                                     </div>
                             }

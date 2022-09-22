@@ -28,7 +28,7 @@ const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree)
-  // console.warn('leadsData==========>>>>>>>',leadsData.allLeads)
+  // console.warn('userTreeData==========>>>>>>>',userTreeData)
   const { user } = loginState;
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
@@ -1088,7 +1088,7 @@ const LeadCards = (props) => {
     //   throw response?.data?.errMsg;
     // }
 
-    if(userTreeData.length > 0){
+    // if(userTreeData.length > 0){
       // if(userTreeData.length == 0){
       userTreeData.reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
       // reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
@@ -1100,7 +1100,7 @@ const LeadCards = (props) => {
       setFirstDrop(userTreeData.reporting_hierarchies)
       // setFirstDrop(reporting_hierarchies)
       // console.warn('firstDrop((((((((((===>>>>>>>>>>', firsrDrop)
-    }
+    // }
 
   };
 
@@ -1147,13 +1147,32 @@ const LeadCards = (props) => {
     setFirstValue(event);
     // stoageSetter('teamMemberId', event);
     userTreeData.reporting_users.forEach(el =>{ 
-      el.label = el.full_name
+      el.label = toCapitalize(el.full_name)
       el.value = el._id 
     })
     // let _teamData = reporting_users.filter(el => el.hierarchy_id === event)
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
     // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
     setSecondDropData(_teamData);
+  };
+  let toCapitalize = (strText) =>{
+    try {
+        if (strText !== '' && strText !== null && typeof(strText) !== undefined) {
+            var _str = strText.toLowerCase();
+            var collection = _str.split(" ");
+            var modifyStrigs = [];
+            _str = '';
+            for (var i = 0; i < collection.length; i++) {
+                modifyStrigs[i] = collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+                _str = _str + modifyStrigs[i] + ' ';
+            }
+            return _str;
+        } else {
+            return "";
+        }
+    } catch (err) {
+
+    }
   };
   const handleSecondDropdown = (event) => {
     // console.warn('event___TEAMM MEMBER((((((((((===>>>>>>>>>>', event)
@@ -1218,7 +1237,7 @@ const LeadCards = (props) => {
       if (!_.isEmpty(newCards)) {
         let card = [];
         card = _.map(newCards, (lead, index) => {
-          
+          // console.warn('leAD___CARDSSSSSS',lead)
           return (
             <>
               <Col sm={18} md={18} lg={11} xl={11}>
@@ -1226,17 +1245,17 @@ const LeadCards = (props) => {
                   className="lead-agent-card"
                   key={lead.id}
                   id={lead.id}
-                  lead_Id={""}
+                  lead_Id={lead.lead_Id}
                   leadStatus={lead.status}
                   leadName={lead.personName}
                   // firstName={lead.first_name}
                   // lastName={lead.last_name}
-                  created_date={""}
-                  allocatedDate={""}
-                  primaryMobile={""}
-                  allocatedBy={""}
-                  allocatedTo={""}
-                  appointmentOn={""}
+                  created_date={lead.allocationDate}
+                  allocatedDate={lead.allocationDate}
+                  primaryMobile={lead.mobileNo}
+                  allocatedBy={lead.allocBy}
+                  allocatedTo={lead.allocTo}
+                  appointmentOn={lead.appointDate}
                   loading={props.leadDataLoading}
                 />
               </Col>
@@ -1324,6 +1343,7 @@ const LeadCards = (props) => {
   }
   if (!_.isEmpty(props.leads)) {
     card = _.map(props.leads, (lead, index) => {
+      // console.warn('leAD___CARDSSSSSS__HEREEE',lead)
       return (
         <>
           <Col sm={18} md={18} lg={11} xl={11}>

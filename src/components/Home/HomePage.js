@@ -433,6 +433,27 @@ const HomePage = () => {
     xField: "month",
     yField: "value",
     seriesField: "name",
+    xAxis: {
+      label: {
+        style: {
+          fill: "#fff",
+        },
+      },
+    },
+    yAxis: {
+      label: {
+        style: {
+          fill: "#fff",
+        },
+      },
+    },
+    legend:{
+      itemName: {
+        style: {
+          fill: '#fff',
+        },
+      },
+    },
     label: {
       position: "middle",
       layout: [
