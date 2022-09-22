@@ -100,8 +100,8 @@ const breakpoint = 620;
 
 const notify_data = [
   {heading: 'To-Do', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date', time: 'time', status: 'medium'},
-  {heading: 'You are invited to an event by Bhanyshree', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date333', time: 'time3444', status: 'low'},
-  {heading: 'Branch Commitment Collected', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date666', time: 'time666', status: 'medium666'},
+  {heading: 'You are invited to an event by Bhanyshree', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date333', time: 'time3444' },
+  {heading: 'Branch Commitment Collected', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date666', time: 'time666'},
 ]
 
 if (notify_data.length > 0) {
@@ -232,7 +232,8 @@ if (notify_data.length > 0) {
                                 </div>
                             </div>
                             <div className='notification_status'>
-                                <button>{desc_data.status}</button>
+                              {desc_data.status ?  <button>{desc_data.status}</button> : ''}
+                                
                               </div>
                               <hr />
                           </div>
