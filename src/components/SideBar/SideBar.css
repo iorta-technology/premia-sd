@@ -128,7 +128,7 @@
   position: fixed;
   right: 60px;
   /* bottom: 0px; */
-  top: 45px;
+  top: 18px;
   width: 340px;
   z-index: 10;
   background-color: #fff;
@@ -181,8 +181,13 @@
 
 }
 
-.logoutContainer1 p{
+.logoutContainer1 img{
+height: 85px;
+}
+.logoutContainer1 {
   text-align: center;
+  margin-top: 6rem;
+    margin-bottom: 7rem;
 }
 
 .arrow-up{
@@ -241,7 +246,7 @@ width: 0;
 }
 
 .activity-block {
-  margin-top: 30px;
+  margin-top: 0px;
   overflow-y: scroll;
-  height: 250px;
+  height: 300px;
 }
