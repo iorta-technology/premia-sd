@@ -1,11 +1,17 @@
 import React from 'react'
-import { Row, Col, Step, Steps } from 'antd'
+import { Row, Col } from 'antd'
 import { ShareAltOutlined, DownloadOutlined } from '@ant-design/icons';
 import './Notification.css'
 
-
 const NotificationComp = () => {
-    const { Step } = Steps;
+
+    const notify_data = [
+        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
+        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
+        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
+        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
+        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
+    ]
   return (
     <>
         <div className="header">
@@ -18,57 +24,55 @@ const NotificationComp = () => {
        {/* Start the node data */}
 
         <div className='mainTab'>
-            <Row className='row-space'>
-                <Col flex="50px">
+            <div className="stepper d-flex flex-column mt-2 ml-2">
+                <div className="d-flex mb-1">
+                    <div className="d-flex flex-column pr-4 align-items-center">
                     <div className='startNode'></div>
-                </Col>
-                <Col flex="auto">
-                    <div className='notifyHead'>
-                        <h4>Alert</h4>
+                        <div className="line h-100"></div>
                     </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col flex="50px">
-                    <div className='root-to-node'></div>
-                    <div className='steps'></div>
-                </Col>
-                <Col flex="auto">
-                    <div className='box-data1'>
-                    <div className='notification_data1'>
-                        <div className='list_data1'>
-                            <h4>TO-DO</h4>
-                            <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
-                        </div>
-                        <div className='date1'>
-                            <p>6:36 pm, July 19th, 2022</p>
-                            <button>View Details</button>
+                    <div>
+                        <div className='notifyHead'>
+                            <h4>Alert</h4>
                         </div>
                     </div>
-                    </div>
-                </Col>
-            </Row>
+                </div>
 
-            <Row>
-                <Col flex="50px">
-                    <div className='steps'></div>
-                </Col>
-                <Col flex="auto">
-                    <div className='box-data1'>
-                    <div className='notification_data1'>
-                        <div className='list_data1'>
-                            <h4>TO-DO</h4>
-                            <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
+                {
+                    notify_data.map((notify, index) => {
+                        return <div className="d-flex mb-1 ml-4">
+                        <div className="d-flex flex-column pr-4 align-items-center">
+                            <div className='steps'></div>
+                            <div className="line h-100"></div>
                         </div>
-                        <div className='date1'>
-                            <p>6:36 pm, July 19th, 2022</p>
-                            <button>View Details</button>
+                        <div className='responsive_panel'>
+                            <div className='box-data1'>
+                                <div className='notification_data1'>
+                                    <div className='list_data1'>
+                                        <h4>{notify.heading}</h4>
+                                        <p>{notify.desc}</p>
+                                    </div>
+                                    <div className='date1'>
+                                        <p>{notify.time_date}</p>
+                                        <button>{notify.details}</button>
+                                    </div>
+                                </div>
+                            
+                            </div>
                         </div>
-                    </div>
-                    </div>
-                </Col>
-            </Row>
+                 </div>
+                    })
+                }
+                
 
+                 
+            </div>
+
+            {/* load more button */}
+
+            <div className='loadMore'>
+                <button>Load More</button>
+            </div>
+            
         </div>
     </>
   )

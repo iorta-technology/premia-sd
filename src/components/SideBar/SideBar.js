@@ -23,6 +23,7 @@ import allrec_img from '../../assets/allrec.png'
 import rdone_img from '../../assets/rdone.png'
 import failed_img from '../../assets/failed.png'
 import needhelp_img from '../../assets/needhelp.png'
+import all_clear_img from '../../assets/MaterialUiIcons/notifications_grey_192x192.png'
 
 const Nav = styled.div`
   background: #15171c;
@@ -75,6 +76,8 @@ const login_user_data = stoageGetter('user')
 console.warn('LOGIN USER',login_user_data)
 if(login_user_data === null) window.location.replace('/login')
 
+
+
 const Sidebar = () => {
 
   const history = useHistory();
@@ -87,8 +90,28 @@ const Sidebar = () => {
       setModalIsOpen(!modalIsOpen)
   }
 
-  
+  const [clearBtn, setClearBtn] = useState(true)
+  const clearData = () =>{
+    setClearBtn(!clearBtn)
+  }
 
+const [width, setWidth] = useState(window.innerWidth);
+const breakpoint = 620;
+
+const notify_data = [
+  {heading: 'To-Do', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date', time: 'time', status: 'medium'},
+  {heading: 'You are invited to an event by Bhanyshree', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date333', time: 'time3444', status: 'low'},
+  {heading: 'Branch Commitment Collected', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date666', time: 'time666', status: 'medium666'},
+]
+
+if (notify_data.length > 0) {
+   <div className='logoutContainer1'>
+  <img src={all_clear_img} />
+  <p>All Catch Up!</p>
+</div>
+}
+
+  
   const showSidebar = () => setSidebar(!sidebar);
   // const logged_in_user = useSelector((state) => state.login.user_name)
   const logged_in_user = login_user_data.firstName + ' ' + login_user_data.lastName
@@ -188,61 +211,71 @@ const Sidebar = () => {
 
         {modalIsOpen && 
           // <div className='arrow-up'>
-            <div className='sideMenu1'>
-              
+            <div className='sideMenu1 activity-block' style={{height: "430px"}}>
                 <div className='notificationHead'>
                   <p>Notification</p>
-                  <button>Clear All</button>
+                  {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
+                  
                 </div>
               
-              <div className='menuBody1 activity-block'>
-                <div className='notification_data'>
-                  <div className='list_data'>
-                    <h4>TO-DO</h4>
-                    <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
-                  </div>
-                  <div className='date'>
-                    <p>Date</p>
-                    <p>Time</p>
-                  </div>
-                </div>
-                <div className='notification_status'>
-                  <button>Medium</button>
-                </div>
+              <div className='menuBody1'>
+                {clearBtn ? notify_data.map((desc_data, index) =>{
+                  return <div>
+                        <div className='notification_data'>
+                                <div className='list_data'>
+                                  <h4>{desc_data.heading}</h4>
+                                  <p>{desc_data.desscription}</p>
+                                </div>
+                                <div className='date'>
+                                  <p>{desc_data.date}</p>
+                                  <p>{desc_data.time}</p>
+                                </div>
+                            </div>
+                            <div className='notification_status'>
+                                <button>{desc_data.status}</button>
+                              </div>
+                              <hr />
+                          </div>
+                }) :  <div className='logoutContainer1'>
+                <img src={all_clear_img} />
+                <p>All Catch Up!</p>
+              </div>}
 
-                <div className='notification_data'>
-                  <div className='list_data'>
-                    <h4>You are invited to an event by Bhanyshree</h4>
-                    <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
-                  </div>
-                  <div className='date'>
-                    <p>Date</p>
-                    <p>Time</p>
-                  </div>
-                </div>
+              {/* {notify_data.length > 0 ? 'abcc' : } */}
+              {/* {
+                notify_data.map((desc_data, index) =>{
+                  return <div>
+                        <div className='notification_data'>
+                                <div className='list_data'>
+                                  <h4>{desc_data.heading}</h4>
+                                  <p>{desc_data.desscription}</p>
+                                </div>
+                                <div className='date'>
+                                  <p>{desc_data.date}</p>
+                                  <p>{desc_data.time}</p>
+                                </div>
+                            </div>
+                            <div className='notification_status'>
+                                <button>{desc_data.status}</button>
+                              </div>
+                              <hr />
+                          </div>
+                })
+              } */}
                 
-                <div className='notification_data'>
-                  <div className='list_data'>
-                    <h4>TO-DO</h4>
-                    <p>You have been assigned a new task(Complete report) by Bhanyshree</p>
-                  </div>
-                  <div className='date'>
-                    <p>Date</p>
-                    <p>Time</p>
-                  </div>
-                </div>
-                <div className='notification_status'>
-                  <button>Medium</button>
-                </div>
-
-                {/* <div className='logoutContainer1'>
-                  <p>All Catch Up!</p>
-                </div> */}
+               
 
               </div>
+              {/* {
+                width > breakpoint && (
+                 
+                )
+              } */}
+
               <div className='notification_footer view_button'>
-                <button onClick={() => { history.push('/notifypage') }}>View All</button>
-              </div>
+                  <button onClick={() => { history.push('/notifypage') }}>View All</button>
+                </div>
+             
           </div>
 //</div>
           
