@@ -134,15 +134,15 @@ import moment from 'moment'
          dataStructure.email = resObj.email;
          let _address_ = resObj.address[0];
          dataStructure.address = this.completeAddress(_address_.line1, _address_.line2, _address_.line3, resObj.pincode);
-         dataStructure.allocationDate = moment(parseInt(resObj.created_date)).format('MM/DD/YYYY')
+         dataStructure.allocationDate = moment(parseInt(resObj.created_date)).format('DD/MM/YYYY')
         //  new Date(parseInt(resObj.created_date)).toLocaleDateString();
  
      //    console.log("RAW STSTSTS =>", resObj.appointmentId.start_date); 
-     //    console.log("MOEMNT STSTSTS =>", moment(resObj.appointmentId.start_date).format('MM/DD/YYYY') );
+     //    console.log("MOEMNT STSTSTS =>", moment(resObj.appointmentId.start_date).format('DD/MM/YYYY') );
          // dataStructure.appointDate = 'start_date' in resObj ? new Date(parseInt(resObj.start_date)).toLocaleDateString() : "-";
          if (resObj.hasOwnProperty('start_time')){
  
-             dataStructure.appointDate = moment(parseInt(resObj.start_date)).format('MM/DD/YYYY')
+             dataStructure.appointDate = moment(parseInt(resObj.start_date)).format('DD/MM/YYYY')
             //  new Date(parseInt(resObj.start_date)).toLocaleDateString();
  
          } else if ((resObj.hasOwnProperty('appointmentId') && Boolean(resObj.appointmentId) )|| (resObj.hasOwnProperty('lead_appointment') && Boolean(resObj.lead_appointment))) {
@@ -153,7 +153,7 @@ import moment from 'moment'
              if(event_date == '-'){
                  dataStructure.appointDate = "-"
              }else{
-                 dataStructure.appointDate = moment(resObj.appointmentId.start_date).format('MM/DD/YYYY')
+                 dataStructure.appointDate = moment(resObj.appointmentId.start_date).format('DD/MM/YYYY')
              }
            
  
@@ -166,7 +166,7 @@ import moment from 'moment'
         
  
          
-         dataStructure.inception = moment(parseInt(resObj.created_date)).format('MM/DD/YYYY')
+         dataStructure.inception = moment(parseInt(resObj.created_date)).format('DD/MM/YYYY')
         //  new Date(parseInt(resObj.created_date)).toLocaleDateString();
          if(resObj.hasOwnProperty('lead_allocated_by') === true){
              

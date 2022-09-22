@@ -177,7 +177,7 @@ const LeadCard = React.memo((props) => {
               <Card.Grid hoverable={false} className="grid-style">
                 <p className="text-type">Created on</p>
                 <p className="text-content">
-                  {new Date(created_date).toLocaleDateString("in")}
+                  {created_date}
                 </p>
               </Card.Grid>
               <Card.Grid
@@ -186,7 +186,7 @@ const LeadCard = React.memo((props) => {
               >
                 <p className="text-type">Allocated on</p>
                 <p className="text-content">
-                  {new Date(allocatedDate).toLocaleDateString("in")}
+                  {allocatedDate}
                 </p>
               </Card.Grid>
               <Card.Grid

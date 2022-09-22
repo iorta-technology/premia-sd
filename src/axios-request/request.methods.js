@@ -35,8 +35,18 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
             // alert(data.errMsg)
             message.warning(data.errMsg);
           } else {
+            // console.warn('API___URL____',config)
             // alert('Your request has been resolved successfully');
-            if (config.method !== "get") message.success("Your data fetched successfully");
+            if(config.method === "post"){
+              // console.warn('API___URL____',config.url.hasOwnProperty('todo_task'))
+              if(config.url.includes('todo_task')) message.success("Todo Created successfully");
+              if(config.url.includes('bookAppointment')) message.success("Event Created successfully");
+                
+            }else if(config.method === "put"){
+              if(config.url.includes('update_task_status')) message.success("Todo Updated successfully");
+              if(config.url.includes('updateAppointment')) message.success("Event Updated successfully");
+            }
+            // if (config.method !== "get") message.success("Your data fetched successfully");
             // if (config.method === "put") message.success("Data updated successfully");
           }
           resolve(data.errMsg);
