@@ -330,64 +330,60 @@ const Tab = ({
               {tabPane}
             </Tabs>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "16px",
-            }}
-          >
-            {/* <figure className={currentActiveTab === "team"
-                ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
-                {' '}
-                <figcaption className="card-caption">Team</figcaption>{' '}
-              </figure>
-              <figure className={currentActiveTab === "self"
-                ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
-                {' '}
-                <figcaption className="card-caption">Self</figcaption>{' '}
-              </figure>
-              <AllocateModalShow/> */}
-            <button
-              onClick={() => handleChangeTab("self")}
-              key={"self"}
-              className={
-                currentActiveTab === "self"
-                  ? "active_tabs_button"
-                  : "tabs_button"
-              }
-            >
-              <img
-                src={currentActiveTab === "seft" ? person_black : person_white}
-                className="person"
-                alt="person_png"
-              />{" "}
-              Self
-            </button>
-            <button
-              onClick={() => handleChangeTab("team")}
-              key={"team"}
-              className={
-                currentActiveTab === "team"
-                  ? "active_tabs_button"
-                  : "tabs_button"
-              }
-            >
-              <img
-                src={currentActiveTab === "team" ? group_white : group_black}
-                className="group"
-                alt="person_png"
-              />{" "}
-              Team
-            </button>
-            <AllocateModalShow />
-            <GlobalFilters
-              show={show}
-              onHide={handleClose}
-              handleShow={handleShow}
-              setShow={setShow}
-            />
-          </div>
+          { header === 'Lead' &&
+            <div style={{display: "flex",justifyContent: "space-between",padding: "16px",}}>
+              {/* <figure className={currentActiveTab === "team"
+                  ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
+                  {' '}
+                  <figcaption className="card-caption">Team</figcaption>{' '}
+                </figure>
+                <figure className={currentActiveTab === "self"
+                  ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
+                  {' '}
+                  <figcaption className="card-caption">Self</figcaption>{' '}
+                </figure>
+                <AllocateModalShow/> */}
+              <button
+                onClick={() => handleChangeTab("self")}
+                key={"self"}
+                className={
+                  currentActiveTab === "self"
+                    ? "active_tabs_button"
+                    : "tabs_button"
+                }
+              >
+                <img
+                  src={currentActiveTab === "seft" ? person_black : person_white}
+                  className="person"
+                  alt="person_png"
+                />{" "}
+                Self
+              </button>
+              <button
+                onClick={() => handleChangeTab("team")}
+                key={"team"}
+                className={
+                  currentActiveTab === "team"
+                    ? "active_tabs_button"
+                    : "tabs_button"
+                }
+              >
+                <img
+                  src={currentActiveTab === "team" ? group_white : group_black}
+                  className="group"
+                  alt="person_png"
+                />{" "}
+                Team
+              </button>
+              <AllocateModalShow />
+              <GlobalFilters
+                show={show}
+                onHide={handleClose}
+                handleShow={handleShow}
+                setShow={setShow}
+              />
+            </div>
+          }
         </div>
       ) }
     </>

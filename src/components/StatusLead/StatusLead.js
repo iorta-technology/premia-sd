@@ -502,14 +502,14 @@ const NewLead = React.memo((props) => {
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
   useEffect(() => {
-    if(userTreeData.length > 0){
+    // if(userTreeData.length > 0){
       userTreeData.reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
       userTreeData.reporting_users.forEach(el =>{ 
         el.label = el.full_name
         el.value = el._id 
       })
       setHierarAgentList(userTreeData.reporting_hierarchies)
-    }
+    // }
     storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
     primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false)
   }, []);
@@ -552,7 +552,6 @@ const NewLead = React.memo((props) => {
     let leadArr = []
       if (leadData.leadDisposition === 'appointment' && leadData.leadStatus === 'contact') {
         setshowLeadStatusVisiblity(true)
-        // onAppointStatusIsChanged(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status);
         leadArr.push(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
         leadArr.push('newApptmnt')
         leadArr.push('Untouched / Not updated Appointment')
@@ -561,12 +560,8 @@ const NewLead = React.memo((props) => {
         setAppointmentDisposition('newApptmnt')
         setAppointmentSubDisposition('Untouched / Not updated Appointment')
         
-        // leadData.appointment_status === '' ? leadArr.push('newappointment') : leadArr.push(leadData.appointment_status)
         setLeadStatus(leadData.leadStatus)
         setLeadStatusData(leadArr)
-        // leadStatusData
-        // setPropspectDisposition('appointment');
-        // onProppectSubDispositionIsChanged('');
         // only when, the date and time is exist in the object
         if (leadData.appointmentDetails) {
           // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
@@ -580,11 +575,10 @@ const NewLead = React.memo((props) => {
         }
       } else {
         setshowLeadStatusVisiblity(false)
-        // let _data = info.leadType === 'ITD' ? [...dataLibrary.ITD_leadStatusList] : [...dataLibrary.leadStatusList]
-        // setStatusList(_data)
-        // onProspectStatusIsChanged(info.leadStatus);
-        // onProspectDispositionIsChanged(info.leadDisposition);
-        // onProppectSubDispositionIsChanged(info.leadsubDisposition);
+        setLeadStatus(leadData.leadStatus)
+        setLeadDisposition(leadData.hasOwnProperty('leadDisposition') ? leadData.leadDisposition : '')
+        setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
+        setLeadStatusData(leadData.leadStatusArr)
       }
     setFirstName(leadData.firstName)
     setLastName(leadData.lastName)
@@ -599,13 +593,6 @@ const NewLead = React.memo((props) => {
     setRemarkFromSource(leadData.remarksfromSource)
     setRemarkFromUser(leadData.remarksfromUser)
 
-    setLeadStatus(leadData.leadStatus)
-    setLeadDisposition(leadData.hasOwnProperty('leadDisposition') ? leadData.leadDisposition : '')
-    setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
-    setLeadStatusData(leadData.leadStatusArr)
-
-    // console.warn('firstName)__________((((((((((===>>>>>>>>>>', firstName)
-    // console.warn('leadData.firstName)__________((((((((((===>>>>>>>>>>', leadData.firstName)
     form.setFieldsValue({
       "firstname": leadData.firstName,
       "lastname": leadData.lastName,
@@ -616,7 +603,6 @@ const NewLead = React.memo((props) => {
       "leadType": leadData.leadType,
       "product": leadData.Product,
       "insuranceCompany": leadData.Insurance_Company,
-      // "appointmentDate": leadData.appointmentDate,
       "remarksfromsource": leadData.remarksfromSource,
       "remarksfromuser": leadData.remarksfromUser,
       "leadStatus":leadData.leadStatusArr,
@@ -1008,7 +994,7 @@ const NewLead = React.memo((props) => {
   }
   const leadTypeHandler = (event) => {
     // setLeadType(event.target.value)
-    console.log('leadTypeHandler __________:', event);
+    // console.log('leadTypeHandler __________:', event);
     setLeadType(event)
   }
   const productHandler = (event) => {
@@ -1183,92 +1169,16 @@ const NewLead = React.memo((props) => {
     firstName: firstName,
     lastName: lastName,
   }
-
-  // let createFormData = {
-  //     leadStatus: leadStatus,
-  //     leadsubDisposition: leadSubDisposition,
-  //     lead_Owner_Id: id,
-  //     user_id: id,
-  //     lead_Creator_Id: id,
-  //     start_time: null,
-  //     remarksfromSource: remarkFromSource,
-  //     remarksfromUser: remarkFromUser,
-  //     teamMembers: "",
-  //     productId: "",
-  //     proposalId: "",
-  //     leadSource: "",
-  //     LeadType: leadType,
-  //     Product: product,
-  //     Insurance_Company: insuranceCompany,
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     dob: "",
-  //     gender: "",
-  //     maritalStatus: "",
-  //     childStatus: "",
-  //     ChildInfo: [],
-  //     primaryMobile: primaryNo,
-  //     state: stateProvince,
-  //     city: cityProvince,
-  //     email: email,
-  //     address: {
-  //         line1: "",
-  //         line2: "",
-  //         line3: ""
-  //     },
-  //     country: "",
-  //     pincode: "",
-  //     secondaryMobile: "",
-  //     landlineNo: "",
-  //     socialSecurityAdharNo: "",
-  //     mailingAddressStatus: "",
-  //     mailingAddressSecond: {
-  //         mailingaddress: {
-  //             line1: "",
-  //             line2: "",
-  //             line3: ""
-  //         },
-  //         state: "",
-  //         city: "",
-  //         country: "",
-  //         pincode: ""
-  //     },
-  //     HaveLifeInsurance: {
-  //         ExistHealthInsur: "",
-  //         ExistInsur: ""
-  //     },
-  //     HaveLifeInsurance_details: [],
-  //     Insurancedetails: [],
-  //     education: "",
-  //     professionType: "",
-  //     incomeGroup: "",
-  //     lead_Id: ""
-  // }
+  
   let formIsValid = false;
 
-  // if (firstNameIsValid && lastNameIsValid && primaryMobileIsValid) {
-  //   formIsValid = true;
-  // }
-  // https://sdtatadevlmsv2.iorta.in/secure/user/user_tree?userId=
   const failedHandler = (error) => {
     alert(error)
     console.log(error)
   }
 
-
-
   const submitHandler = event => {
-    // event.preventDefault();
-    // console.warn('isNewLead===========>>>>>:', isNewLead);
-
     if (isNewLead) {
-      // console.log(formData)
-
-      // const values = await form.validateFields();
-      // console.log('Success:', values);
-
-      // let _leadData = dispatch(actions.createLead(formData))
-      // console.warn('_leadData =============>>>:', _leadData);
       dispatch(actions.createLead(createFormData))
         .then((res) => {
           // console.log('CREATE_LEAD_SUCCESS:', res);
@@ -1286,13 +1196,6 @@ const NewLead = React.memo((props) => {
           // }
         })
 
-      // if (!formIsValid) {
-      //   return;
-      // }else{
-      // }
-      // console.log(errorMessage)
-      // alert('New Lead Created Successfully')
-
     } else {
 
       dispatch(actions.editLead(formData, storeLeadId))
@@ -1306,28 +1209,16 @@ const NewLead = React.memo((props) => {
             console.log('failed:', res);
 
             failedHandler(res.error)
-            console.log(res)
           }
         })
-      // alert(' Lead Updated Successfully')
       // history.push('leaddetails/personallead')
-
-
-
     }
     // setErrorMessage( res.data.errMsg)
-
-
-
-    // resetFirstName();
-    // resetLastName();
-    // resetEmail();
   };
 
   const handleDesignationData = (event) =>{
     setDesigData(event)
     setTeamData('')
-    // console.log('DESIGNATOON',event)
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
     // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
@@ -1396,8 +1287,6 @@ const NewLead = React.memo((props) => {
         header="New Lead"
         activeKey="1"
       />
-
-
 
       <div className="form-container">
         <Form
