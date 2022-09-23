@@ -1,31 +1,53 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Row, Col } from 'antd'
 import './Notification.css'
+import { Link,useHistory } from 'react-router-dom';
 
 const NotificationComp = () => {
-
-    const notify_data = [
-        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
-        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
-        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
-        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
-        {heading: 'TO-DO', desc: 'You have been assigned a new task(Complete report) by Bhanyshree', time_date: '6:36 pm, July 19th, 2022', details: 'View Details'},
-    ]
+    const history = useHistory();
+    
 
     const MAX_ITEMS = 3;
     const [isOpen, setIsOpen] = useState(false)
+    // api integation 
+    const [_notify, set_Notify] = useState('') 
+    
+    useEffect(() => {
+        // simple using fetch  
+        const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=2&skip=0";
+        const fetchData = async () => {
+          try {
+            const response = await fetch(url);
+             const json = await response.json();
+           console.log("-----", json.errMsg[0])
+                // let date = json.dbDate
+                // console.log("jhjgh", date);
+            set_Notify(json.errMsg[0]);
+          } catch (error) {
+            console.log("error", error);
+          }
+        };
+    
+        fetchData()
+    }, [])
 
+    
     function toggle(){
+        // setTimeout(() => {
+        //     return("hh", )  
+        // }, 2000);
         setIsOpen(!isOpen)
+        
     }
 
     function getRenderedItems() {
         if (isOpen) {
-          return notify_data;
+          return _notify;
         }
-        return notify_data.slice(0, MAX_ITEMS);
+        return _notify.slice(0, MAX_ITEMS);
       }
 
+    
       
   return (
     <>
@@ -52,8 +74,9 @@ const NotificationComp = () => {
                 </div>
 
                 {
-                    getRenderedItems().map((notify, index) => {
-                        return <div className="d-flex mb-1 ml-4">
+                   Array.isArray(getRenderedItems()) ?
+                   getRenderedItems().map((notify, index) => {
+                        return <div key={index} className="d-flex mb-1 ml-4">
                         <div className="d-flex flex-column pr-4 align-items-center">
                             <div className='steps'></div>
                             <div className="line h-100"></div>
@@ -62,19 +85,19 @@ const NotificationComp = () => {
                             <div className='box-data1'>
                                 <div className='notification_data1'>
                                     <div className='list_data1'>
-                                        <h4>{notify.heading}</h4>
-                                        <p>{notify.desc}</p>
+                                        <h4>{notify.title}</h4>
+                                        <p>{notify.body}</p>
                                     </div>
                                     <div className='date1'>
-                                        <p>{notify.time_date}</p>
-                                        <button>{notify.details}</button>
+                                        <p>{notify.time_date ? notify.time_date : '12:38 pm, September 23rd, 2022'}</p>
+                                        <button onClick={() => { history.push('/calender') }}>{notify.details ? notify.details : 'View Details'}</button>
                                     </div>
                                 </div>
                             
                             </div>
                         </div>
                  </div>
-                    })
+                    }): null
                 }
             </div>
 

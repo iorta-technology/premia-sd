@@ -63,6 +63,9 @@
   height: calc(100vh - 160px);
   overflow-y: auto;
 }
+.menuBody1{
+  height: 320px;
+}
 .logoutContainer{
   height: 65px;
   width: 100%;
