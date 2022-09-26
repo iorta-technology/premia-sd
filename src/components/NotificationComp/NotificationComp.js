@@ -2,15 +2,18 @@ import React, {useState, useEffect} from 'react'
 import { Row, Col } from 'antd'
 import './Notification.css'
 import { Link,useHistory } from 'react-router-dom';
+import moment from 'moment'
 
 const NotificationComp = () => {
     const history = useHistory();
     
-
-    const MAX_ITEMS = 3;
+    const MAX_ITEMS = 7;
     const [isOpen, setIsOpen] = useState(false)
     // api integation 
     const [_notify, set_Notify] = useState('') 
+    const [isShown, setIsShown] = useState(true);
+    const [loading, setLoading] = useState(false)
+
     
     useEffect(() => {
         // simple using fetch  
@@ -33,10 +36,12 @@ const NotificationComp = () => {
 
     
     function toggle(){
-        // setTimeout(() => {
-        //     return("hh", )  
-        // }, 2000);
-        setIsOpen(!isOpen)
+        setLoading(true);
+        setTimeout(() => {
+            setIsOpen(!isOpen)
+            setIsShown(current => !current);
+            setLoading(false);
+        }, 2000);
         
     }
 
@@ -89,7 +94,7 @@ const NotificationComp = () => {
                                         <p>{notify.body}</p>
                                     </div>
                                     <div className='date1'>
-                                        <p>{notify.time_date ? notify.time_date : '12:38 pm, September 23rd, 2022'}</p>
+                                        <p>{moment(notify.created_date).format('DD-MM-YYYY')}</p>
                                         <button onClick={() => { history.push('/calender') }}>{notify.details ? notify.details : 'View Details'}</button>
                                     </div>
                                 </div>
@@ -103,11 +108,15 @@ const NotificationComp = () => {
 
 
             {/* load more button */}
+            
             <div className='loadMore'>
-                <button onClick={toggle}>
+            {loading ? <button>Loading..</button> :  
+                <button onClick={toggle} style={{display: isShown ? '-webkit-inline-box' : 'none', textAlign: 'center'}}>
                      {isOpen ? 'Load Less' : 'Load More'}
-                </button>
+                </button>}
+               
             </div>
+            
             
         </div>
     </>

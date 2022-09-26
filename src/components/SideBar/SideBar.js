@@ -5,6 +5,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
+import moment from 'moment'
 import './SideBar.css'
 import { IconContext } from 'react-icons/lib';
 import { BarChartOutlined } from '@ant-design/icons';
@@ -87,6 +88,7 @@ const Sidebar = () => {
 
     const setModalIsOpenToTrue = () =>{
       setModalIsOpen(!modalIsOpen)
+      
   }
   const [clearBtn, setClearBtn] = useState(true)
   const clearData = () =>{
@@ -102,7 +104,6 @@ useEffect(() => {
     try {
       const response = await fetch(url);
        const json = await response.json();
-       console.log("-----", json.errMsg[0])
 
        let date = json.dbDate
         console.log("jhjgh", date);
@@ -220,7 +221,7 @@ useEffect(() => {
             </div>
           </div>
         </div>}
-
+              
         {modalIsOpen && 
           // <div className='arrow-up'>
             <div className='sideMenu1 activity-block' style={{height: "430px"}}>
@@ -229,7 +230,10 @@ useEffect(() => {
                   {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
                 </div>
               <div className='menuBody1'>
+                {/* {!_notify.length ? <h1>gh</h1> : 'hgh'} */}
                 {clearBtn ? _notify.map((desc_data, index) =>{
+                  console.log("jhjhj------------", _notify.length);
+                  
                   return <div key={index}>
                         <div className='notification_data'>
                                 <div className='list_data'>
@@ -237,12 +241,12 @@ useEffect(() => {
                                   <p>{desc_data.body}</p>
                                 </div>
                                 <div className='date'>
-                                  <p>{desc_data.date}</p>
+                                  <p>{moment(desc_data.created_date).format('DD-MM-YYYY')}</p>
                                   {/* <p>{desc_data.time}</p> */}
                                 </div>
                             </div>
                             <div className='notification_status'>
-                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? '#ea1616' : '' && desc_data.priority === 'medium' ? 'yellow' : '',
+                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? '#ea1616' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',
 }} onClick={() => { history.push('/calendar') }}>{desc_data.priority}</button> : ''}
                                 
                               </div>
