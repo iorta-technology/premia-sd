@@ -43,6 +43,7 @@ const Tab = ({
   current,
   filterdata,
 }) => {
+  // console.log("tabMenu*****Data", tabMenu);
   const currentLocation = useLocation();
   // console.log("YE ARAR", props)
 
@@ -65,9 +66,12 @@ const Tab = ({
   // }, [dispatch, current, activeTab, leadType])
 
   useEffect(() => {
-    if (currentActiveTab == "self") {
-      const { id } = stoageGetter("user");
-      dispatch(actions.fetchAllLeads(id, leadType, 1));
+    // console.log('************************ LEADDD ___ *********************===========>>>',header)
+    if (header === "Lead") {
+      if (currentActiveTab === "self") {
+        const { id } = stoageGetter("user");
+        dispatch(actions.fetchAllLeads(id, leadType, 1));
+      }
     }
   }, [currentActiveTab]);
   // const ids = stoageGetter('user')
@@ -78,8 +82,13 @@ const Tab = ({
     const leadtyp = leadInc;
     const { id } = stoageGetter("user");
 
-    console.log("FILTERR===========>>>", leadtyp);
-    dispatch(actions.fetchAllLeads(id, leadtyp, 1));
+    if (currentActiveTab === "self") {
+      dispatch(actions.fetchAllLeads(id, leadtyp, 1));
+    } else {
+      const teamId = stoageGetter("teamMemberId");
+      console.warn("teamId______===========>>>", teamId);
+      dispatch(actions.fetchAllLeads(teamId, leadtyp, 1));
+    }
 
     // const response = await getOpenTabApi(id, leadtyp);
     // if (response?.data?.errCode == -1) {
@@ -96,23 +105,6 @@ const Tab = ({
     //   throw response?.data?.errMsg;
     // }
   };
-
-  // case "allservicecorners": return history.push('/servicecorner/all');
-  // case "forself": return history.push('/servicecorner/self');
-  // case "forcustomers": return history.push('/servicecorner/customers');
-  /////////////////////////////////////////////////
-
-  // case "benefitillustrator": return history.push('/master/benefitillustrator');
-  // case "proposalfulfilment": return history.push('/master/proposalfulfilment');
-  // case "prepaymentreview": return history.push('/master/prepaymentreview');
-  // case "paymentoptions": return history.push('/master/paymentoptions');
-  // case "uploaddocuments": return history.push('/master/uploaddocuments');
-  // case "proposalhistory": return history.push('/master/proposalhistory');
-  // default:  return history.push('/leadmasterpage/statuslead');
-
-  // useEffect(() => {
-  //   getAlldataofTeamMainTab()
-  // }, [])
 
   const getAlldataofTeamMainTab = async () => {
     const response = await getTeamMainTabApi();
@@ -143,6 +135,7 @@ const Tab = ({
   // -****************************************
 
   const handler = (activeKey) => {
+    console.log("activeKey------------->>>>>>>>", activeKey);
     setactiveTab(activeKey);
     // dispatch(actions.fetchAllLeads(activeTab,current))
 
@@ -208,32 +201,11 @@ const Tab = ({
         // case "paymentoptions": return history.push('/master/paymentoptions');
         // case "uploaddocuments": return history.push('/master/uploaddocuments');
         // case "proposalhistory": return history.push('/master/proposalhistory');
-        // default:  return history.push('/leadmasterpage/statuslead');
+        default:
+          return history.push("/home");
       }
     }
-    // if(activeKey){
-    //     switch (activeKey) {
-    //         case "1": return history.push('/renewalMaster/allRenewals');
-    //         case "2": return history.push('/renewalMaster/paidRenewals');
-    //         case "3": return history.push('/renewalMaster/unpaidRenewals');
-    //         case "4": return history.push('/renewalMaster/lapsedRenewals');
-    //     }
-    // }
   };
-
-  // const handler = (activeRenewalkey) => {
-  //     // console.log(activeKey)
-  //     // setactiveKey(key)
-
-  //     switch (activeRenewalkey) {
-  //         case "1": return history.push('/renewalMaster/all');
-  //         // case "2": return history.push('/leadmasterpage/leaddetails/personallead');
-  //         // case "3": return history.push('/leadmasterpage/proposal');
-  //         // case "4": return history.push('/leadmasterpage/leadmasterdoc/leaddoc');
-  //         // case "5": return history.push('/leadmasterpage/leadhistorymaster/leadhistory');
-  //         default:  return history.push('/leadmasterpage/statuslead');
-  //     }
-  // }
 
   let tabPane = [];
   if (tabMenu && !_.isEmpty(tabMenu)) {
@@ -256,12 +228,14 @@ const Tab = ({
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
+    // console.log("good bye currentActiveTab",currentActiveTab)
+
     dispatch(actions.updateTabOfDashboard(currentTab));
     setCurrentActiveTab(currentTab);
-    if (currentTab == "team") {
-      getAlldataofTeamMainTab();
+    if (currentTab === "team") {
+      getDataForOpen();
     }
-    currentTab != currentActiveTab &&
+    currentTab !== currentActiveTab &&
       dispatch(actions.updateAllocateOfOpportunities(false));
   };
 
@@ -333,7 +307,8 @@ const Tab = ({
             ) : null}
           </div>
         </div>
-      ) : currentLocation.pathname === "/leadMaster/all_leads" ? (
+      ) : (
+        // FOR MOBILE WEB
         <div style={{ display: "flex", flexDirection: "Column" }}>
           <div>
             <Tabs
@@ -343,73 +318,77 @@ const Tab = ({
               size="small"
               activeKey={activeKey}
               style={{
-                backgroundColor: "#f7f7f7",
+                backgroundColor: "#red",
                 boxShadow: "0px 1px 10px 0px #0000003d",
               }}
             >
               {tabPane}
             </Tabs>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "16px",
-            }}
-          >
-            {/* <figure className={currentActiveTab === "team"
-                ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
-                {' '}
-                <figcaption className="card-caption">Team</figcaption>{' '}
-              </figure>
-              <figure className={currentActiveTab === "self"
-                ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
-                {' '}
-                <figcaption className="card-caption">Self</figcaption>{' '}
-              </figure>
-              <AllocateModalShow/> */}
-            <button
-              onClick={() => handleChangeTab("self")}
-              key={"self"}
-              className={
-                currentActiveTab === "self"
-                  ? "active_tabs_button"
-                  : "tabs_button"
-              }
+          {header === "Lead" && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "16px",
+              }}
             >
-              <img
-                src={currentActiveTab === "seft" ? person_black : person_white}
-                className="person"
-                alt="person_png"
-              />{" "}
-              Self
-            </button>
-            <button
-              onClick={() => handleChangeTab("team")}
-              key={"team"}
-              className={
-                currentActiveTab === "team"
-                  ? "active_tabs_button"
-                  : "tabs_button"
-              }
-            >
-              <img
-                src={currentActiveTab === "team" ? group_white : group_black}
-                className="group"
-                alt="person_png"
-              />{" "}
-              Team
-            </button>
-            <AllocateModalShow />
-            <GlobalFilters
-              show={show}
-              onHide={handleClose}
-              handleShow={handleShow}
-              setShow={setShow}
-            />
-          </div>
+              {/* <figure className={currentActiveTab === "team"
+                  ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
+                  {' '}
+                  <figcaption className="card-caption">Team</figcaption>{' '}
+                </figure>
+                <figure className={currentActiveTab === "self"
+                  ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
+                  {' '}
+                  <figcaption className="card-caption">Self</figcaption>{' '}
+                </figure>
+                <AllocateModalShow/> */}
+              <button
+                onClick={() => handleChangeTab("self")}
+                key={"self"}
+                className={
+                  currentActiveTab === "self"
+                    ? "active_tabs_button"
+                    : "tabs_button"
+                }
+              >
+                <img
+                  src={
+                    currentActiveTab === "seft" ? person_black : person_white
+                  }
+                  className="person"
+                  alt="person_png"
+                />{" "}
+                Self
+              </button>
+              <button
+                onClick={() => handleChangeTab("team")}
+                key={"team"}
+                className={
+                  currentActiveTab === "team"
+                    ? "active_tabs_button"
+                    : "tabs_button"
+                }
+              >
+                <img
+                  src={currentActiveTab === "team" ? group_white : group_black}
+                  className="group"
+                  alt="person_png"
+                />{" "}
+                Team
+              </button>
+              <AllocateModalShow />
+              <GlobalFilters
+                show={show}
+                onHide={handleClose}
+                handleShow={handleShow}
+                setShow={setShow}
+              />
+            </div>
+          )}
         </div>
-      ) : null}
+      )}
     </>
   );
 };

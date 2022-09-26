@@ -9,6 +9,7 @@ import { Card, Col,Collapse,Pagination  } from 'antd'
 
 import moment from 'moment'
 import {stoageGetter} from '../../../../helpers'
+import noDataIcon from '../../../../assets/078e54aa9d@2x.png'
 
 const Archive = () => {
     const [ShowMore,setShowMore]=useState(false);
@@ -234,7 +235,7 @@ const Archive = () => {
 
             {showData === false  &&
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center',padding:50}} >  
-                    <img src={'https://sdrestdemo.iorta.in/assets/078e54aa9d.png'} style={{height:150,width:100}}/>
+                    <img src={noDataIcon} style={{height:150,width:100}}/>
                     <div style={{marginTop:10}}>
                         <text  style={{  textAlign:'center',fontSize:14}} > No records found </text>
                     </div>

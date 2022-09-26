@@ -13,6 +13,7 @@ import axiosRequest from '../../../../axios-request/request.methods';
 import moment from 'moment'
 import {stoageGetter} from '../../../../helpers'
 import '../../../Activitity Tracker/Pagenation/Pagenation.css'
+import noDataIcon from '../../../../assets/078e54aa9d@2x.png'
 
 const TodoCards = forwardRef((props, ref) => {
     // console.log(TodoData.length);
@@ -353,13 +354,16 @@ const TodoCards = forwardRef((props, ref) => {
                                 element.showarchiedpopup === true &&
                                     <div className='TodoCard-Container-Hamburger'>
                                         <Card className='Hamburger-Card Hamburger-box'>
-                                            <p onClick={()=> showModal(element,index)}  style={{display:'flex',alignItems:'center'}}>
+                                            {/* <p onClick={()=> showModal(element,index)}  style={{display:'flex',alignItems:'center'}}>
                                                 <FormOutlined style={{marginRight:"10px"}} />Edit
-                                            </p>
-                                            <hr style={{color:'#e6e9eb', opacity:'0.3'}}/>
-                                            <p onClick={()=> archiveData(element)} style={{display:'flex',alignItems:'center'}}>
+                                            </p> */}
+                                            <div style={{cursor:'pointer'}} onClick={()=> showModal(element,index)}><FormOutlined style={{marginRight:"10px",marginLeft:10}} />Edit</div>
+                                            <div style={{backgroundColor:'#e6e9eb', opacity:'0.3',height:1,marginTop:5,marginBottom:5}}></div>
+                                            <div style={{cursor:'pointer'}} onClick={()=> archiveData(element)}><ShopOutlined style={{marginRight:"10px",marginLeft:10}}/>Archive</div>
+                                            {/* <p onClick={()=> archiveData(element)} style={{display:'flex',alignItems:'center'}}>
                                                 <ShopOutlined style={{marginRight:"10px"}}/> Archive
-                                            </p>
+                                            </p> */}
+                                            
                                         </Card>
                                     </div>
                             }
@@ -461,7 +465,7 @@ const TodoCards = forwardRef((props, ref) => {
 
         {showData === false  &&
             <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center',padding:50}} >  
-                <img src={'https://sdrestdemo.iorta.in/assets/078e54aa9d.png'} style={{height:150,width:100}}/>
+                <img src={noDataIcon} style={{height:150,width:100}}/>
                 <div style={{marginTop:10}}>
                     <text  style={{  textAlign:'center',fontSize:14}} > No records found </text>
                 </div>

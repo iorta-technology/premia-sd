@@ -79,19 +79,27 @@ const Login = () => {
             <Form.Item
               name="email"
               rules={[
-                {
-                  type: "email",
-                  message: "Please Enter Valid Email",
-                },
+                // {
+                //     type: "email",
+                //     message: "Please Enter Valid Email"
+                // },
                 {
                   required: true,
-                  message: "Email is Required",
+                  message: "PAN No is Required",
+                  // message: "Email is Required"
+                },
+                {
+                  message: "Enter a valid PAN No format",
+                  pattern: new RegExp(
+                    /(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/
+                  ),
                 },
               ]}
             >
+              {/* <Input size="large" placeholder="Enter PAN Number / Email" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} /> */}
               <Input
                 size="large"
-                placeholder="Enter your NTID"
+                placeholder="Enter PAN Number"
                 prefix={<UserOutlined />}
                 onChange={(e) => setEmail(e.target.value)}
               />

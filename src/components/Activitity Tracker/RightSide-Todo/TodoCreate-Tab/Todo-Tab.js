@@ -33,24 +33,20 @@ const TodoTab = (props) => {
   const _dataStore = useSelector((state) => state?.home?.user_tree)
   const minimumDate = moment().format("YYYY-MM-DD")
 
-  
-
   useEffect(() => {
-    try{
     console.log('USER HIERARCHYY ___DATA__',_dataStore)
-    // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
     let _teamMember = []
     if(Object.keys(_dataStore).length !== 0){
       _dataStore.reporting_users.map(el => {
           let sortarray = {
               FullName: el.full_name,
-              ShortId: el.hierarchy_details.hierarchyName,
+              ShortId: el.hierarchyName,
               firstname: el.first_name,
               lastname: el.last_name,
               employecode: el.employeeCode,
-              designation: el.hierarchy_details.hierarchyName,
+              designation: el.hierarchyName,
               _Id: el._id,
-              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchy_details.hierarchyName+')'
+              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchyName+')'
           }
           _teamMember.push(sortarray)
           sortarray = {};
@@ -58,6 +54,10 @@ const TodoTab = (props) => {
       })
       setHierarAgentList(_teamMember)
     }
+  },[])
+
+  useEffect(() => {
+    try{
     // console.log('Calling func',Object.keys(props.editData));
     if(props.button === 'Create' && props.isModalVisible === true) {
       setButtonName(props.button)
@@ -587,7 +587,7 @@ const TodoTab = (props) => {
                           </Select>
                         <div className='todo-ml10'>
                           {/* <Button onClick={()=> submitTodoData()} className='Todo-Create-FooterReminder-Button'>Save</Button> */}
-                          <div onClick={()=> submitTodoData()} className='Todo-Create-FooterReminder-Button todo-mb20'>
+                          <div onClick={()=> submitTodoData()} className='Todo-Create-FooterReminder-Button todo-mb20' style={{cursor:'pointer'}}>
                             <text>Save</text>
                           </div>
                         </div>

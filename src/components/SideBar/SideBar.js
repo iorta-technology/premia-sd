@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link,useHistory } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
+import moment from 'moment'
 import './SideBar.css'
 import { IconContext } from 'react-icons/lib';
 import { BarChartOutlined } from '@ant-design/icons';
@@ -23,6 +24,7 @@ import allrec_img from '../../assets/allrec.png'
 import rdone_img from '../../assets/rdone.png'
 import failed_img from '../../assets/failed.png'
 import needhelp_img from '../../assets/needhelp.png'
+import all_clear_img from '../../assets/MaterialUiIcons/notifications_grey_192x192.png'
 
 const Nav = styled.div`
   background: #15171c;
@@ -73,9 +75,55 @@ const SidebarWrap = styled.div`
 // console.log("path name",currentRoute)
 const login_user_data = stoageGetter('user')
 console.warn('LOGIN USER',login_user_data)
+if(login_user_data === null) window.location.replace('/login')
+
+
+
 const Sidebar = () => {
+
   const history = useHistory();
+  const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const setModalIsOpenToTrue = () =>{
+      setModalIsOpen(!modalIsOpen)
+      
+  }
+  const [clearBtn, setClearBtn] = useState(true)
+  const clearData = () =>{
+    setClearBtn(!clearBtn)
+  }
+
+const [_notify, set_Notify] = useState([]) 
+
+useEffect(() => {
+  // simple using fetch  
+  const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=0";
+  const fetchData = async () => {
+    try {
+      const response = await fetch(url);
+       const json = await response.json();
+
+       let date = json.dbDate
+        console.log("jhjgh", date);
+
+      set_Notify(json.errMsg[0], json.dbDate);
+
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  fetchData()
+}, [])
+
+// const notify_data = [
+//   {heading: 'To-Do', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date', time: 'time', status: 'medium'},
+//   {heading: 'You are invited to an event by Bhanyshree', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date333', time: 'time3444' },
+//   {heading: 'Branch Commitment Collected', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date666', time: 'time666'},
+// ]
+
 
   const showSidebar = () => setSidebar(!sidebar);
   // const logged_in_user = useSelector((state) => state.login.user_name)
@@ -84,7 +132,7 @@ const Sidebar = () => {
   
   // const agent_id = useSelector((state) => state.login.agent_id)
   const agent_id = login_user_data.agentId
-  const dispatch = useDispatch();
+  
   const  onLogout=() =>{
     localStorage.clear()
     dispatch(actions.logout())
@@ -101,13 +149,14 @@ const Sidebar = () => {
           <img onClick={() => { history.push('/home') }} src= {sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
-            <FaIcons.FaBell />
+            <FaIcons.FaBell onClick={setModalIsOpenToTrue} />
           </NavIcon>
           <NavIcon onClick={showSidebar} to='#'>
             <FaIcons.FaUserCircle />
           </NavIcon>
         </Nav>
-{sidebar &&
+
+    {sidebar &&
         <div className='sideMenu'>
           <div className='menuHeader'>
             <div className='profileLogo'>
@@ -172,6 +221,83 @@ const Sidebar = () => {
             </div>
           </div>
         </div>}
+              
+        {modalIsOpen && 
+          // <div className='arrow-up'>
+            <div className='sideMenu1 activity-block' style={{height: "430px"}}>
+                <div className='notificationHead'>
+                  <p>Notification</p>
+                  {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
+                </div>
+              <div className='menuBody1'>
+                {/* {!_notify.length ? <h1>gh</h1> : 'hgh'} */}
+                {clearBtn ? _notify.map((desc_data, index) =>{
+                  console.log("jhjhj------------", _notify.length);
+                  
+                  return <div key={index}>
+                        <div className='notification_data'>
+                                <div className='list_data'>
+                                  <h4>{desc_data.title}</h4>
+                                  <p>{desc_data.body}</p>
+                                </div>
+                                <div className='date'>
+                                  <p>{moment(desc_data.created_date).format('DD-MM-YYYY')}</p>
+                                  {/* <p>{desc_data.time}</p> */}
+                                </div>
+                            </div>
+                            <div className='notification_status'>
+                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? '#ea1616' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',
+}} onClick={() => { history.push('/calendar') }}>{desc_data.priority}</button> : ''}
+                                
+                              </div>
+                              <hr />
+                          </div>
+                }) :  <div className='logoutContainer1'>
+                <img src={all_clear_img} />
+                <p>All Catch Up!</p>
+              </div> }
+
+              {/* {notify_data.length > 0 ? 'abcc' : } */}
+              {/* {
+                notify_data.map((desc_data, index) =>{
+                  return <div>
+                        <div className='notification_data'>
+                                <div className='list_data'>
+                                  <h4>{desc_data.heading}</h4>
+                                  <p>{desc_data.desscription}</p>
+                                </div>
+                                <div className='date'>
+                                  <p>{desc_data.date}</p>
+                                  <p>{desc_data.time}</p>
+                                </div>
+                            </div>
+                            <div className='notification_status'>
+                                <button>{desc_data.status}</button>
+                              </div>
+                              <hr />
+                          </div>
+                })
+              } */}
+                
+               
+
+              </div>
+              {/* {
+                width > breakpoint && (
+                 
+                )
+              } */}
+
+              <div className='notification_footer view_button'>
+                  <button onClick={() => { history.push('/notifypage') }}>View All</button>
+                </div>
+             
+          </div>
+//</div>
+          
+        }
+
+
         {/* <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to='#' style={{padding:'18px'}}>

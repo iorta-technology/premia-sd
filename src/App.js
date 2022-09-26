@@ -94,8 +94,13 @@ const Calendar = React.lazy(() =>
 const AgentMicroService = React.lazy(() =>
   import("./components/AgentMicroSite/AgentMicroSite")
 );
+
 const KpiDashboard = React.lazy(() =>
   import("./components/KpiDashboard/KpiDashboard")
+);
+
+const NotifyPage = React.lazy(() =>
+  import("./components/NotificationComp/NotificationComp")
 );
 
 const DailyBussiness = React.lazy(() =>
@@ -255,6 +260,9 @@ function App() {
 
                   <Route path="/kpi-dashboard" component={KpiDashboard} />
                   <Route path="/daily-bussienss" component={DailyBussiness} />
+
+                  <Route path="/notifypage" component={NotifyPage} />
+
                   <Route
                     path="/masterpresales/advisordetail/advisorpitch"
                     component={AdvisorPitch}

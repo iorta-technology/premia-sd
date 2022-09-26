@@ -275,16 +275,19 @@ const DailyBussiness = () => {
       const budgetConfigDat = [];
 
       GWPGraph?.forEach((item, index) => {
-        budgetConfigDat.push({
-          name: "Achieved",
-          val: parseInt(item.amount),
-          day: item.month,
-        });
-        budgetConfigDat.push({
-          name: "Commitment",
-          val: parseInt(item.amount),
-          day: item.month,
-        });
+        if (item.name == "GWP Commitment (in ₹)") {
+          budgetConfigDat.push({
+            name: "Commitment",
+            val: parseInt(item.amount),
+            day: item.month,
+          });
+        } else {
+          budgetConfigDat.push({
+            name: "Achieved",
+            val: parseInt(item.amount),
+            day: item.month,
+          });
+        }
       });
 
       setFinalBudgetConfig({
@@ -293,7 +296,7 @@ const DailyBussiness = () => {
         xField: "day",
         yField: "val",
         seriesField: "name",
-        color: ["#4fdaeb", "#00ACC1"],
+        color: ["#00ACC1", "#4fdaeb"],
       });
       setFinalBudgetData(data);
     });
