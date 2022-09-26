@@ -280,6 +280,10 @@ body{
 } */
   }
 
+  .ant-form-item{
+    margin-bottom: 10px !important;
+  }
+
   .goalButton{
     margin-left:15px;
     background-color: rgb(0, 172, 193);
@@ -374,6 +378,14 @@ body{
     font-size: smaller;
     margin-top: 4px;
     margin-bottom: 10px;
+  }
+
+  .budgeData_bussiness{
+    padding: 16px;
+  }
+
+  .GWP_data_columns{
+    height: fit-content;
   }
 
   @media screen and (max-width: 769px) {

@@ -174,19 +174,12 @@ var compare_C = function (item, _array, _with, key) {
     } else {
       result = "";
     }
-    switch (leadFilter) {
-      case "all":
-        return "all";
-      case "fortoday":
-        return "fortoday";
-      case "open":
-        return "open";
-      case "converted":
-        return "converted";
-      case "failed":
-        return "failed";
-    }
   }
+  return result;
+};
+export const milToDateString = (milisec) => {
+  const date = new Date(milisec).toLocaleDateString("in");
+  return date;
 };
 
 export const getLeadFilter = (leadFilter) => {

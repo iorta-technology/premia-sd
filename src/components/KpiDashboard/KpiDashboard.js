@@ -733,7 +733,6 @@ const KpiDashboard = () => {
                 <div className="budgeData">
                   {finalBudgetConfig && <Column {...finalBudgetConfig} />}
                 </div>
-
                 <Table
                   pagination={false}
                   columns={columns1}
