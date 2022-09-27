@@ -296,7 +296,8 @@ const DailyBussiness = () => {
         xField: "day",
         yField: "val",
         seriesField: "name",
-        color: ["#00ACC1", "#4fdaeb"],
+
+        color: ["#4fdaeb", "#00ACC1"],
       });
       setFinalBudgetData(data);
     });
@@ -463,13 +464,14 @@ const DailyBussiness = () => {
     }
   };
 
-  const GetGraphParams = async (currentId) => {
+  const GetGrpahParams = async (currentId) => {
     try {
       let res = await axiosRequest.get(`user/fetch_goals/${currentId}`, {
         secure: true,
       });
       if (res.graph_data) {
-        let responseArray = [...res.graph_data];
+        let responseArray = [...res.graph_data.slice(0, 7)];
+        console.log("GWPDataGraph ==========", res.graph_data);
         SetGWPGraph([...responseArray]);
       }
     } catch (error) {
@@ -480,7 +482,7 @@ const DailyBussiness = () => {
   const gethirarchyData = (currentId) => {
     setCurrentIDTeam(currentId);
     changeDaysParams(7, currentId);
-    GetGraphParams(currentId);
+    GetGrpahParams(currentId);
   };
 
   return (

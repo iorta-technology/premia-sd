@@ -985,6 +985,7 @@ const NewLead = React.memo((props) => {
     // console.log('stateChangetHandler__________:', event);
     // setStateProvince(event.target.value)
     setStateProvince(event)
+    setCityProvince('Select')
   }
 
   const cityChangeHandler = (event) => {
