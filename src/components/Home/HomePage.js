@@ -46,8 +46,8 @@ const HomePage = () => {
   const history = useHistory();
 
   const login_user_data = stoageGetter("user");
-  
-  if(login_user_data === null) history.push('/login')
+
+  if (login_user_data === null) history.push("/login");
 
   // const agent_id = useSelector((state) => state.login.agent_id)
   const agent_id = login_user_data.agentId;
@@ -61,7 +61,7 @@ const HomePage = () => {
   const userId = login_user_data.id;
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
-  
+
   const [width, setWidth] = useState(window.innerWidth);
 
   const [getTodoDataArray, setGetTodoDataArray] = useState([]);
@@ -69,14 +69,12 @@ const HomePage = () => {
   const [showData, setShowData] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  
-
   useEffect(() => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
-    dispatch(leadActions.updateTabOfDashboard('self'));
-    
+    dispatch(leadActions.updateTabOfDashboard("self"));
+
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     // channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
@@ -460,10 +458,10 @@ const HomePage = () => {
         },
       },
     },
-    legend:{
+    legend: {
       itemName: {
         style: {
-          fill: '#fff',
+          fill: "#fff",
         },
       },
     },
