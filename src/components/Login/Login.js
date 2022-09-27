@@ -23,7 +23,7 @@ import axios from 'axios';
 
     const onLogin = () => { 
         axios.post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/login`,{email,password}).then( (res,error)=>{
-                console.warn('(((((((((_loginResp)))))))))',res)
+                // console.warn('(((((((((_loginResp)))))))))',res)
             if (res === undefined || res === null || res === "") {
                 return;
             }
@@ -42,20 +42,6 @@ import axios from 'axios';
 
                 }
             }
-        // if (res === undefined || res === null || res === "") {
-        //   return;
-        // }
-        // if (res.status === 200) {
-        //   // if (!res.ok) {
-        //   //     message.error('Please check your internet connections');
-        //   // } else {
-        //   try {
-        //     if (res.data.errCode === -1) {
-        //       dispatch(actions.loginSuccess(res.data.errMsg));
-        //       history.push("/home");
-        //     } else {
-        //       message.error(res.data.errMsg);
-        //     }
         }).catch(error=>{
             // console.log('ERRROR',error.response)
             if (error.response.status === 400) {
