@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     const onForgotPassword = () => { 
         // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/forgotPasscode
         // https://sdrestnode.iorta.in/secure/sd/user/forgotPasscode
-        axios.post('https://abinsurancenode.salesdrive.app/sdx-api/secure/user/forgotPasscode',{email:email}).then(resp=>{
+        axios.post('https://abinsurancenode.salesdrive.app/sdx-api/auth/user/forgotPasscode',{email:email}).then(resp=>{
             console.log("forgotpassword resp data",resp)
             if(resp?.data?.errCode === -1){
                 message.success(resp?.data?.errMsg?.msg)
@@ -39,16 +39,21 @@ const ForgotPassword = () => {
                         <Form.Item
                             name="email"
                             rules={[
-                                {
-                                    type: "email",
-                                    message: "Please Enter Valid Email"
-                                },
-                                {
-                                    required: true,
-                                    message: "Email is Required"
-                                }
+                                // {
+                                //     type: "email",
+                                //     message: "Please Enter Valid Email"
+                                // },
+                                // {
+                                //     required: true,
+                                //     message: "PAN No is Required"
+                                //     // message: "Email is Required"
+                                // },
+                                // {
+                                //     message: 'Enter a valid PAN No format',
+                                //     pattern: new RegExp(/(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/)
+                                // }
                             ]}>
-                            <Input size="large" placeholder="Enter UserName" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} />
+                            <Input size="large" placeholder="Enter PAN Number / Email" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} />
                         </Form.Item>
                         <Link to="/login">
                             <p className="Logintext" style={{color: '#fff', textDecoration: 'underline'}}>Back To Login</p>

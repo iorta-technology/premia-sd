@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import './Login.css';
 import { Card, Input, Button, Image, Form ,message} from 'antd';
 import { UserOutlined,KeyOutlined } from '@ant-design/icons';
@@ -13,26 +13,17 @@ import axios from 'axios';
     const [form] = Form.useForm();
     const [email,setEmail] = useState('');
     const [password,setPassword]= useState('')
+    const [emailValidation,setEmailValidation] = useState(null)
 
     const agent_data = useSelector((state) => state.login.login_agent_data)
     // const userId =  useSelector((state) => state.login.user.id)
 
     const dispatch = useDispatch();
     const history = useHistory()
+
     const onLogin = () => { 
-        // let _loginResp = dispatch(actions.login(email,password))
-        // console.warn('(((((((((_loginResp)))))))))',_loginResp)
-        // return
-        // if(agent_data !== 'null' && agent_data !== 'undefined'  && agent_data !== "Email/password is incorrect"  ){
-        //     setTimeout(() => {
-        //         history.push('/home')
-        //     }, 1000);
-            
-        // }
-        axios.post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/login`,{email,password}).then( res=>{
-                // console.log("logged in data",res)
+        axios.post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/login`,{email,password}).then( (res,error)=>{
                 console.warn('(((((((((_loginResp)))))))))',res)
-          
             if (res === undefined || res === null || res === "") {
                 return;
             }
@@ -53,10 +44,13 @@ import axios from 'axios';
                 // }
             }
         }).catch(error=>{
-            console.log(error)
+            // console.log('ERRROR',error.response)
+            if (error.response.status === 400) {
+                if (error.response.data.errCode === 1) message.error('Please Enter Correct User Credentials');
+            }
         })
     }
-       
+        
     return (
         <div className="main-body">
             <Form form={form} onFinish={onLogin}>
@@ -68,23 +62,26 @@ import axios from 'axios';
                         <br /><br />
                         <Form.Item
                             name="email"
-                            rules={[
+                            // rules={emailValidation}
+                            // rules={[
                                 // {
                                 //     type: "email",
                                 //     message: "Please Enter Valid Email"
                                 // },
-                                {
-                                    required: true,
-                                    message: "PAN No is Required"
-                                    // message: "Email is Required"
-                                },
-                                {
-                                    message: 'Enter a valid PAN No format',
-                                    pattern: new RegExp(/(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/)
-                                }
-                            ]}>
+                                // {
+                                //     required: true,
+                                //     message: "PAN No is Required"
+                                //     // message: "Email is Required"
+                                // },
+                                // {
+                                //     message: 'Enter a valid PAN No format',
+                                //     pattern: new RegExp(/(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/)
+                                // }
+                            // ]}
+                            >
                             {/* <Input size="large" placeholder="Enter PAN Number / Email" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} /> */}
-                            <Input size="large" placeholder="Enter PAN Number" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} />
+                            {/* onBlur={ () => setEmailValidation([])} */}
+                            <Input size="large" placeholder="Enter PAN Number / Email" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)}  />
                         </Form.Item>
                         <Form.Item
                             name="password"

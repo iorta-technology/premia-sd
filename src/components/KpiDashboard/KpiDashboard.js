@@ -862,11 +862,7 @@ const KpiDashboard = () => {
                 </Col>
                 <Col className="userDetails" sm={24} md={12} lg={2} xl={24}>
                   <h5> {employeeName}</h5>
-                  <p style={{ marginTop: "0px" }}>
-                    {" "}
-                    <span>ID :</span>{" "}
-                    <span>{employeeCode}</span>
-                  </p>
+                  <p style={{ marginTop: "0px"}}>ID : {employeeCode}</p>
                 </Col>
               </Row>
             </Col>
