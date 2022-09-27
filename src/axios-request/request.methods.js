@@ -1,16 +1,15 @@
 import axios from "axios";
 import apiConfig from "../config/api.config";
 import { message } from "antd";
-import rootIndex from '../store/root_index'
+import rootIndex from "../store/root_index";
 
-const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 const { store } = rootIndex;
-
+const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 
 // it will execute the request
 // common function for all methods
 const ExecRequest = (config, options = { secure: true, multipart: false }) => {
-  const _store = store.getState()
+  const _store = store.getState();
 
   function promiseCallback(resolve) {
     let headers = {
@@ -37,16 +36,21 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
           } else {
             // console.warn('API___URL____',config)
             // alert('Your request has been resolved successfully');
-            if(config.method === "post"){
+            if (config.method === "post") {
               // console.warn('API___URL____',config.url.hasOwnProperty('todo_task'))
-              if(config.url.includes('todo_task')) message.success("Todo Created successfully");
-              if(config.url.includes('bookAppointment')) message.success("Event Created successfully");
-              if(config.url.includes('addlead')) message.success("Lead Created successfully");
-                
-            }else if(config.method === "put"){
-              if(config.url.includes('update_task_status')) message.success("Todo Updated successfully");
-              if(config.url.includes('updateAppointment')) message.success("Event Updated successfully");
-              if(config.url.includes('updateLead')) message.success("Lead Updated successfully");
+              if (config.url.includes("todo_task"))
+                message.success("Todo Created successfully");
+              if (config.url.includes("bookAppointment"))
+                message.success("Event Created successfully");
+              if (config.url.includes("addlead"))
+                message.success("Lead Created successfully");
+            } else if (config.method === "put") {
+              if (config.url.includes("update_task_status"))
+                message.success("Todo Updated successfully");
+              if (config.url.includes("updateAppointment"))
+                message.success("Event Updated successfully");
+              if (config.url.includes("updateLead"))
+                message.success("Lead Updated successfully");
             }
             // if (config.method !== "get") message.success("Your data fetched successfully");
             // if (config.method === "put") message.success("Data updated successfully");
@@ -77,7 +81,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
               // if token is not sent from the application
               // we consider this type of request is "invalid"
               else if (error.response.data.errCode === 25) {
-                window.location.replace('/login')
+                window.location.replace("/login");
                 // let self = this;
                 // this.$router.push('/login');
                 // setTimeout(() => {
@@ -103,7 +107,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
       });
   }
   return new Promise(promiseCallback);
-}
+};
 
 export default {
   get: async (endPoint, options = { secure: true, multipart: false }) => {

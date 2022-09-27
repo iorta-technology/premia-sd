@@ -15,8 +15,8 @@ import axios from 'axios';
     const [password,setPassword]= useState('')
     const [emailValidation,setEmailValidation] = useState(null)
 
-    const agent_data = useSelector((state) => state.login.login_agent_data)
-    // const userId =  useSelector((state) => state.login.user.id)
+  const agent_data = useSelector((state) => state.login.login_agent_data);
+  // const userId =  useSelector((state) => state.login.user.id)
 
     const dispatch = useDispatch();
     const history = useHistory()
@@ -41,8 +41,21 @@ import axios from 'axios';
                 }catch(err){
 
                 }
-                // }
             }
+        // if (res === undefined || res === null || res === "") {
+        //   return;
+        // }
+        // if (res.status === 200) {
+        //   // if (!res.ok) {
+        //   //     message.error('Please check your internet connections');
+        //   // } else {
+        //   try {
+        //     if (res.data.errCode === -1) {
+        //       dispatch(actions.loginSuccess(res.data.errMsg));
+        //       history.push("/home");
+        //     } else {
+        //       message.error(res.data.errMsg);
+        //     }
         }).catch(error=>{
             // console.log('ERRROR',error.response)
             if (error.response.status === 400) {
@@ -107,7 +120,7 @@ import axios from 'axios';
                 </div>
             </Form>
         </div>
-    )
-}
+  );
+};
 
-export default  Login;
+export default Login;

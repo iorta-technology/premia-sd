@@ -84,6 +84,7 @@ const HomePage = () => {
 
     // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
     getTodoData(0);
+    getDailyBusiness();
   }, [dispatch, id, agent_id]);
 
   const home_data = useSelector((state) => state.home.home_obj);
@@ -98,6 +99,18 @@ const HomePage = () => {
     }
     return string;
   }
+
+  let getDailyBusiness = async () => {
+    try {
+      let res = await axiosRequest.get(
+        `user/fetch_daily_activity/${id}?today_goal=true`,
+        { secure: true }
+      );
+      console.log("res", res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let getTodoData = async (skip) => {
     try {
@@ -1114,7 +1127,7 @@ const HomePage = () => {
                       </p>
                     </div>
                     <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>%Achievement</p>
+                      <p>Achievement</p>
                       <p
                         style={{
                           fontSize: "14px",

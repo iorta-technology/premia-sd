@@ -14,6 +14,7 @@ import {
   UserOutlined,
   AimOutlined,
   CalendarOutlined,
+  ConsoleSqlOutlined,
 } from "@ant-design/icons";
 import { Table, Tag, Space } from "antd";
 import { Select } from "antd";
@@ -71,14 +72,13 @@ const DailyBussiness = () => {
     }
   };
 
-  const GetGrpah = async () => {
+  const GetGraph = async () => {
     try {
       let res = await axiosRequest.get(`user/fetch_goals/${currentIDTeam}`, {
         secure: true,
       });
       if (res.graph_data) {
-        let responseArray = [...res.graph_data.slice(0, 7)];
-        console.log("GWPDataGraph ==========", responseArray);
+        let responseArray = [...res.graph_data];
         SetGWPGraph([...responseArray]);
       }
     } catch (error) {
@@ -156,7 +156,7 @@ const DailyBussiness = () => {
               secure: true,
             })
           : await axiosRequest.post(`user/set_goal`, payload, { secure: true });
-        GetGrpah();
+        GetGraph();
         setIsModalOpen(false);
         changeDays(7);
         form.resetFields();
@@ -187,12 +187,10 @@ const DailyBussiness = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
-    // console.log('channelCode a___________',channelCode)
-    // console.log('channelCode a______id_____',id)
     // dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
 
     changeDays(7);
-    GetGrpah();
+    GetGraph();
     setReporting_hierarchies(userTreeData.reporting_hierarchies);
   }, [dispatch]);
 
@@ -248,47 +246,49 @@ const DailyBussiness = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      const kpiDataObj = employee_data
-        ? employee_data.filter(
-            (item) => item.id == "final_score_last_two_month"
-          )
-        : [];
-      let kpiData = kpiDataObj[0]?.data ? [...kpiDataObj[0]?.data] : [];
-      kpiData = kpiData.map((item) => ({
-        ...item,
-        finalScore: parseInt(item.Final_Score || 0),
-      }));
-      setFinalKpiConfig({
-        data: kpiData,
-        xField: "month",
-        yField: "finalScore",
-        point: {
-          size: 5,
-          shape: "diamond",
-        },
-        color: "#00ACC1",
-      });
-      setFinalKpiData(kpiData);
+      // const kpiDataObj = employee_data
+      //   ? employee_data.filter(
+      //       (item) => item.id == "final_score_last_two_month"
+      //     )
+      //   : [];
+      // let kpiData = kpiDataObj[0]?.data ? [...kpiDataObj[0]?.data] : [];
+      // kpiData = kpiData.map((item) => ({
+      //   ...item,
+      //   finalScore: parseInt(item.Final_Score || 0),
+      // }));
+      // setFinalKpiConfig({
+      //   data: kpiData,
+      //   xField: "month",
+      //   yField: "finalScore",
+      //   point: {
+      //     size: 5,
+      //     shape: "diamond",
+      //   },
+      //   color: "#00ACC1",
+      // });
+      // setFinalKpiData(kpiData);
 
-      const kpiBudget = employee_data
-        ? employee_data.filter((item) => item.category == finalKpiDataDropdown)
-        : [];
+      // const kpiBudget = employee_data
+      //   ? employee_data.filter((item) => item.category == finalKpiDataDropdown)
+      //   : [];
       // let data = kpiBudget[0]?.data ? [...kpiBudget[0]?.data] : [];
       const budgetConfigDat = [];
 
-      GWPGraph?.forEach((item) => {
-        budgetConfigDat.push({
-          name: "Achieved",
-          val: parseInt(item.activity),
-          day: item.month,
-        });
-        budgetConfigDat.push({
-          name: "Commitment",
-          val: parseInt(item.amount),
-          day: item.month,
-        });
+      GWPGraph?.forEach((item, index) => {
+        if (item.name == "GWP Commitment (in ₹)") {
+          budgetConfigDat.push({
+            name: "Commitment",
+            val: parseInt(item.amount),
+            day: item.month,
+          });
+        } else {
+          budgetConfigDat.push({
+            name: "Achieved",
+            val: parseInt(item.amount),
+            day: item.month,
+          });
+        }
       });
-      console.log("xxx", budgetConfigDat, GWPGraph);
 
       setFinalBudgetConfig({
         data: budgetConfigDat,
@@ -301,7 +301,7 @@ const DailyBussiness = () => {
       });
       setFinalBudgetData(data);
     });
-  }, [employee_data]);
+  }, [GWPGraph]);
 
   const { Option } = Select;
   function onChange(value) {

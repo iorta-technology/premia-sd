@@ -45,7 +45,6 @@ const Tab = ({
 }) => {
   // console.log("tabMenu*****Data", tabMenu);
   const currentLocation = useLocation();
-
   // console.log("YE ARAR", props)
 
   const dispatch = useDispatch();
@@ -68,7 +67,7 @@ const Tab = ({
 
   useEffect(() => {
     // console.log('************************ LEADDD ___ *********************===========>>>',header)
-    if(header === 'Lead'){
+    if (header === "Lead") {
       if (currentActiveTab === "self") {
         const { id } = stoageGetter("user");
         dispatch(actions.fetchAllLeads(id, leadType, 1));
@@ -80,21 +79,16 @@ const Tab = ({
   // ************************Api *********************
 
   const getDataForOpen = async (leadInc) => {
-
-    
     const leadtyp = leadInc;
     const { id } = stoageGetter("user");
-    
 
-    
-    if(currentActiveTab === 'self'){
-      dispatch(actions.fetchAllLeads(id,leadtyp,1))
-    }else{
-      const teamId  = stoageGetter("teamMemberId");
-      console.warn('teamId______===========>>>',teamId)
-      dispatch(actions.fetchAllLeads(teamId,leadtyp,1))
+    if (currentActiveTab === "self") {
+      dispatch(actions.fetchAllLeads(id, leadtyp, 1));
+    } else {
+      const teamId = stoageGetter("teamMemberId");
+      console.warn("teamId______===========>>>", teamId);
+      dispatch(actions.fetchAllLeads(teamId, leadtyp, 1));
     }
-
 
     // const response = await getOpenTabApi(id, leadtyp);
     // if (response?.data?.errCode == -1) {
@@ -141,7 +135,7 @@ const Tab = ({
   // -****************************************
 
   const handler = (activeKey) => {
-    console.log("activeKey------------->>>>>>>>",activeKey)
+    console.log("activeKey------------->>>>>>>>", activeKey);
     setactiveTab(activeKey);
     // dispatch(actions.fetchAllLeads(activeTab,current))
 
@@ -207,7 +201,8 @@ const Tab = ({
         // case "paymentoptions": return history.push('/master/paymentoptions');
         // case "uploaddocuments": return history.push('/master/uploaddocuments');
         // case "proposalhistory": return history.push('/master/proposalhistory');
-        default:  return history.push('/home');
+        default:
+          return history.push("/home");
       }
     }
   };
@@ -234,7 +229,7 @@ const Tab = ({
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
     // console.log("good bye currentActiveTab",currentActiveTab)
-    
+
     dispatch(actions.updateTabOfDashboard(currentTab));
     setCurrentActiveTab(currentTab);
     if (currentTab === "team") {
@@ -312,7 +307,7 @@ const Tab = ({
             ) : null}
           </div>
         </div>
-      ) :  (
+      ) : (
         // FOR MOBILE WEB
         <div style={{ display: "flex", flexDirection: "Column" }}>
           <div>
@@ -330,8 +325,14 @@ const Tab = ({
               {tabPane}
             </Tabs>
           </div>
-          { header === 'Lead' &&
-            <div style={{display: "flex",justifyContent: "space-between",padding: "16px",}}>
+          {header === "Lead" && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "16px",
+              }}
+            >
               {/* <figure className={currentActiveTab === "team"
                   ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
                   {' '}
@@ -353,7 +354,9 @@ const Tab = ({
                 }
               >
                 <img
-                  src={currentActiveTab === "seft" ? person_black : person_white}
+                  src={
+                    currentActiveTab === "seft" ? person_black : person_white
+                  }
                   className="person"
                   alt="person_png"
                 />{" "}
@@ -383,9 +386,9 @@ const Tab = ({
                 setShow={setShow}
               />
             </div>
-          }
+          )}
         </div>
-      ) }
+      )}
     </>
   );
 };

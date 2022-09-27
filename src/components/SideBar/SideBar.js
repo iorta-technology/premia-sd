@@ -5,6 +5,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
+import moment from 'moment'
 import './SideBar.css'
 import { IconContext } from 'react-icons/lib';
 import { BarChartOutlined } from '@ant-design/icons';
@@ -87,29 +88,43 @@ const Sidebar = () => {
 
     const setModalIsOpenToTrue = () =>{
       setModalIsOpen(!modalIsOpen)
+      
   }
   const [clearBtn, setClearBtn] = useState(true)
   const clearData = () =>{
     setClearBtn(!clearBtn)
   }
 
-const [width, setWidth] = useState(window.innerWidth);
-const breakpoint = 620;
+const [_notify, set_Notify] = useState([]) 
 
-const notify_data = [
-  {heading: 'To-Do', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date', time: 'time', status: 'medium'},
-  {heading: 'You are invited to an event by Bhanyshree', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date333', time: 'time3444' },
-  {heading: 'Branch Commitment Collected', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date666', time: 'time666'},
-]
+useEffect(() => {
+  // simple using fetch  
+  const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=0";
+  const fetchData = async () => {
+    try {
+      const response = await fetch(url);
+       const json = await response.json();
 
-if (notify_data.length > 0) {
-   <div className='logoutContainer1'>
-  <img src={all_clear_img} />
-  <p>All Catch Up!</p>
-</div>
-}
+       let date = json.dbDate
+        console.log("jhjgh", date);
 
-  
+      set_Notify(json.errMsg[0], json.dbDate);
+
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  fetchData()
+}, [])
+
+// const notify_data = [
+//   {heading: 'To-Do', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date', time: 'time', status: 'medium'},
+//   {heading: 'You are invited to an event by Bhanyshree', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date333', time: 'time3444' },
+//   {heading: 'Branch Commitment Collected', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date666', time: 'time666'},
+// ]
+
+
   const showSidebar = () => setSidebar(!sidebar);
   // const logged_in_user = useSelector((state) => state.login.user_name)
   const logged_in_user = login_user_data.firstName + ' ' + login_user_data.lastName
@@ -206,7 +221,7 @@ if (notify_data.length > 0) {
             </div>
           </div>
         </div>}
-
+              
         {modalIsOpen && 
           // <div className='arrow-up'>
             <div className='sideMenu1 activity-block' style={{height: "430px"}}>
@@ -215,20 +230,24 @@ if (notify_data.length > 0) {
                   {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
                 </div>
               <div className='menuBody1'>
-                {clearBtn ? notify_data.map((desc_data, index) =>{
-                  return <div>
+                {/* {!_notify.length ? <h1>gh</h1> : 'hgh'} */}
+                {clearBtn ? _notify.map((desc_data, index) =>{
+                  console.log("jhjhj------------", _notify.length);
+                  
+                  return <div key={index}>
                         <div className='notification_data'>
                                 <div className='list_data'>
-                                  <h4>{desc_data.heading}</h4>
-                                  <p>{desc_data.desscription}</p>
+                                  <h4>{desc_data.title}</h4>
+                                  <p>{desc_data.body}</p>
                                 </div>
                                 <div className='date'>
-                                  <p>{desc_data.date}</p>
-                                  <p>{desc_data.time}</p>
+                                  <p>{moment(desc_data.created_date).format('DD-MM-YYYY')}</p>
+                                  {/* <p>{desc_data.time}</p> */}
                                 </div>
                             </div>
                             <div className='notification_status'>
-                              {desc_data.status ?  <button>{desc_data.status}</button> : ''}
+                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? '#ea1616' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',
+}} onClick={() => { history.push('/calendar') }}>{desc_data.priority}</button> : ''}
                                 
                               </div>
                               <hr />

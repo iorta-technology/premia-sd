@@ -154,10 +154,9 @@
     padding-left: 60px;
     padding-right: 60px;
     border-radius: 25px;
-    border-width: 2px;
-    border-style: solid;
     color: rgb(151, 153, 152);
-    font-size: 16px;
+    font-size: 16px!important;
     font-weight: 700;
+    border: 2px solid;
 }
   
