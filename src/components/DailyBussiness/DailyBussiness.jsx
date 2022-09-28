@@ -86,11 +86,6 @@ const DailyBussiness = () => {
     }
   };
 
-  const getPercenTage = (x, y) => {
-    let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
-    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val);
-  };
-
   const isFloat = (n) => {
     try {
       return Number(n) === n && n % 1 !== 0;
@@ -114,6 +109,11 @@ const DailyBussiness = () => {
     } catch (err) {
       console.log(err, "b059f7b4-161d-4c63-bdc7-be0966f811d8");
     }
+  };
+
+  const getPercenTage = (x, y) => {
+    let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
+    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val);
   };
 
   const checkValidity = (data) => {
@@ -486,7 +486,7 @@ const DailyBussiness = () => {
   return (
     <>
       <Modal
-        title="GOAL PLAINING"
+        title="GOAL PLANNING"
         centered
         visible={isModalOpen}
         onOk={() => setIsModalOpen(false)}
@@ -511,7 +511,7 @@ const DailyBussiness = () => {
               }}
             />{" "}
             <div>
-              Ativity Goals for{" "}
+              Activity Goals for{" "}
               <span
                 style={{
                   color: "#00acc1",

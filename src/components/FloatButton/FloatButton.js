@@ -221,7 +221,7 @@ const FloatButton = React.memo(() => {
               }}
             />{" "}
             <div>
-              Ativity Goals for{" "}
+              Activity Goals for{" "}
               <span
                 style={{
                   color: "#00acc1",
