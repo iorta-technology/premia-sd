@@ -46,7 +46,6 @@ const DailyBussiness = () => {
         { secure: true }
       );
       setTodayGoalCreated(res);
-      console.log("todayGoalCreated._id", todayGoalCreated);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +64,6 @@ const DailyBussiness = () => {
       );
       if (res[0]) {
         SetGWPData(res[0]);
-        console.log("res API ", res[0]);
       }
     } catch (error) {
       console.log("error API " + error);
@@ -177,17 +175,24 @@ const DailyBussiness = () => {
   const [reporting_users, setReporting_users] = useState([]);
   const [showAreYouSure, setShowAreYouSure] = useState(false);
   const [areYouSure, setAreYouSure] = useState(false);
+  const [user, setUser] = useState("");
   const onChangeAreYouSure = (e) => {
     setAreYouSure(e.target.value);
   };
   const userTreeData = useSelector((state) => state?.home?.user_tree);
-  console.log("userTreeData ", userTreeData);
 
   const { Text, Link } = Typography;
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
-    // dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
+    // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_goals/6333c95400d30d8c8027b8c7
+    try {
+      let res = axiosRequest.get(`user/fetch_goals/${id}`, { secure: true });
+      res.then((res) => setUser(res));
+      console.log("res", res);
+    } catch (error) {
+      console.log("error API " + error);
+    }
 
     changeDays(7);
     GetGraph();
@@ -306,10 +311,8 @@ const DailyBussiness = () => {
   function onChange(value) {
     setFinalKpiDataDropdown(value);
     dispatch(actions.kpiDashboard(value));
-    console.log(`selected ${value}`);
   }
   const onChangeKPIBudgetHandler = (value) => {
-    console.log(value);
     setFinalKpiDataDropdown(value);
     dispatch(actions.kpiDashboard(value));
   };
@@ -456,7 +459,6 @@ const DailyBussiness = () => {
       );
       if (res[0]) {
         SetGWPData(res[0]);
-        console.log("res API ", res[0]);
       }
     } catch (error) {
       console.log("error API " + error);
@@ -730,7 +732,7 @@ const DailyBussiness = () => {
                 lg={12}
                 xl={12}
                 className=""
-                style={{ padding: "14px" }}
+                style={{ padding: "14px", textTransform: "capitalize" }}
               >
                 <Row justify="start">
                   <Avatar
@@ -743,17 +745,21 @@ const DailyBussiness = () => {
                     size="large"
                     gap={1}
                   >
-                    OJ
+                    {user?.csm_details?.first_name?.charAt(0)}
+                    {user?.csm_details?.last_name?.charAt(0)}
                   </Avatar>
                   <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
-                    <Text strong>Otter</Text>
+                    <Text strong>
+                      {user?.csm_details?.first_name}{" "}
+                      {user?.csm_details?.last_name}
+                    </Text>
                     <Row>
                       <Text strong type="secondary">
                         CSM ID
                       </Text>
                       <Text style={{ marginLeft: "10px" }} type="secondary">
                         {" "}
-                        AG5hcd9y
+                        {user?.csm_details?.agent_id}
                       </Text>
                     </Row>
                   </Row>
