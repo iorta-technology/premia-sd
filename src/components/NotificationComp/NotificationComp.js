@@ -94,7 +94,7 @@ const NotificationComp = () => {
                                         <p>{notify.body}</p>
                                     </div>
                                     <div className='date1'>
-                                        <p>{moment(notify.created_date).format('DD-MM-YYYY')}</p>
+                                        <p>{moment(notify.created_date).format('DD-MM-YYYY')} {moment(notify.created_date).format('LT')}</p>
                                         <button onClick={() => { history.push('/calender') }}>{notify.details ? notify.details : 'View Details'}</button>
                                     </div>
                                 </div>

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { stoageGetter } from '../../helpers'
 
+
 // -- Import Image -- //
 import sales_logo_img from '../../images/salesDrivelogo.png'
 import switch_img from '../../assets/Group75902x.png'
@@ -78,19 +79,39 @@ console.warn('LOGIN USER',login_user_data)
 if(login_user_data === null) window.location.replace('/login')
 
 
+function Modal1({ children, shown, close }) {
+  return shown ? (
+    <div
+      className="modal-backdrop"
+      onClick={() => {
+        // close modal when outside of modal is clicked
+        close();
+      }}
+    >
+      <div
+        className="modal-content"
+        onClick={e => {
+          // do not close modal if anything inside modal content is clicked
+          e.stopPropagation();
+        }}
+      >
+        {/* <button onClick={close}>Close</button> */}
+        {children}
+      </div>
+    </div>
+  ) : null;
+}
+
 
 const Sidebar = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    const setModalIsOpenToTrue = () =>{
-      setModalIsOpen(!modalIsOpen)
-      
-  }
+  const [modalShown, toggleModal] = useState(false);
   const [clearBtn, setClearBtn] = useState(true)
+
+
   const clearData = () =>{
     setClearBtn(!clearBtn)
   }
@@ -151,7 +172,8 @@ useEffect(() => {
           <img onClick={() => { history.push('/home') }} src= {sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
-            <FaIcons.FaBell onClick={setModalIsOpenToTrue} />
+            <FaIcons.FaBell onClick={() => toggleModal(!modalShown)} />
+            {_notify.length && clearBtn ? <div className='dot'></div> : ''}
           </NavIcon>
           <NavIcon onClick={showSidebar} to='#'>
             <FaIcons.FaUserCircle />
@@ -223,20 +245,22 @@ useEffect(() => {
             </div>
           </div>
         </div>}
-              
-        {modalIsOpen && 
-          // <div className='arrow-up'>
-            <div className='sideMenu1'>
-              <div className='activity-block' style={{height: "350px"}}>
+
+        <Modal1
+        shown={modalShown}
+        close={() => {
+          toggleModal(false);
+        }}
+      >
+        <div className='sideMenu1'>
+              <div className='activity-block1' style={{height: "350px"}}>
                 <div className='notificationHead'>
                     <p>Notification</p>
-                    {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
+                    {_notify.length && _notify.length > 0 && clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
                   </div>
                 <div className='menuBody1'>
                 {/* {!_notify.length ? <h1>gh</h1> : 'hgh'} */}
-                {clearBtn ? _notify.map((desc_data, index) =>{
-                  console.log("jhjhj------------", _notify.length);
-                  
+                {_notify.length && _notify.length > 0 && clearBtn ? _notify.map((desc_data, index) =>{
                   return <div key={index}>
                         <div className='notification_data'>
                                 <div className='list_data'>
@@ -249,8 +273,7 @@ useEffect(() => {
                                 </div>
                             </div>
                             <div className='notification_status'>
-                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? 'rgb(253 84 84)' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',
-}} onClick={() => { history.push('/calendar') }}>{desc_data.priority}</button> : ''}
+                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? 'rgb(253 84 84)' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',}} onClick={() => { history.push('/calendar') }}>{desc_data.priority}</button> : ''}
                                 
                               </div>
                               <hr className='hr-line' />
@@ -281,27 +304,17 @@ useEffect(() => {
                           </div>
                 })
               } */}
-                
-               
-
+              
+                </div>
               </div>
-              </div>
-                
-
-              {/* {
-                width > breakpoint && (
-                 
-                )
-              } */}
-
-              <div className='notification_footer view_button'>
-                  <button onClick={() => { history.push('/notifypage') }}>View All</button>
+              <div className='notification_footer view_button' >
+                  <button onClick={() => { history.push('/notifypage')}} >View All</button>
                 </div>
              
           </div>
-//</div>
-          
-        }
+      </Modal1>
+              
+       
 
 
         {/* <SidebarNav sidebar={sidebar}>
