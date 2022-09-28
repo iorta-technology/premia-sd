@@ -108,7 +108,7 @@ useEffect(() => {
        let date = json.dbDate
         console.log("jhjgh", date);
 
-      set_Notify(json.errMsg[0], json.dbDate);
+      set_Notify(json.errMsg[0]);
 
     } catch (error) {
       console.log("error", error);
@@ -117,6 +117,8 @@ useEffect(() => {
 
   fetchData()
 }, [])
+
+
 
 // const notify_data = [
 //   {heading: 'To-Do', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date', time: 'time', status: 'medium'},
@@ -224,12 +226,13 @@ useEffect(() => {
               
         {modalIsOpen && 
           // <div className='arrow-up'>
-            <div className='sideMenu1 activity-block' style={{height: "430px"}}>
+            <div className='sideMenu1'>
+              <div className='activity-block' style={{height: "350px"}}>
                 <div className='notificationHead'>
-                  <p>Notification</p>
-                  {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
-                </div>
-              <div className='menuBody1'>
+                    <p>Notification</p>
+                    {clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
+                  </div>
+                <div className='menuBody1'>
                 {/* {!_notify.length ? <h1>gh</h1> : 'hgh'} */}
                 {clearBtn ? _notify.map((desc_data, index) =>{
                   console.log("jhjhj------------", _notify.length);
@@ -242,15 +245,15 @@ useEffect(() => {
                                 </div>
                                 <div className='date'>
                                   <p>{moment(desc_data.created_date).format('DD-MM-YYYY')}</p>
-                                  {/* <p>{desc_data.time}</p> */}
+                                  <p style={{marginTop: '-10px'}}>{moment(desc_data.created_date).format('LT')}</p>
                                 </div>
                             </div>
                             <div className='notification_status'>
-                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? '#ea1616' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',
+                              {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? 'rgb(253 84 84)' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',
 }} onClick={() => { history.push('/calendar') }}>{desc_data.priority}</button> : ''}
                                 
                               </div>
-                              <hr />
+                              <hr className='hr-line' />
                           </div>
                 }) :  <div className='logoutContainer1'>
                 <img src={all_clear_img} />
@@ -282,6 +285,9 @@ useEffect(() => {
                
 
               </div>
+              </div>
+                
+
               {/* {
                 width > breakpoint && (
                  

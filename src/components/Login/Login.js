@@ -28,7 +28,7 @@ const Login = () => {
         password,
       })
       .then((res, error) => {
-        console.warn("(((((((((_loginResp)))))))))", res);
+        // console.warn('(((((((((_loginResp)))))))))',res)
         if (res === undefined || res === null || res === "") {
           return;
         }
@@ -45,20 +45,6 @@ const Login = () => {
             }
           } catch (err) {}
         }
-        // if (res === undefined || res === null || res === "") {
-        //   return;
-        // }
-        // if (res.status === 200) {
-        //   // if (!res.ok) {
-        //   //     message.error('Please check your internet connections');
-        //   // } else {
-        //   try {
-        //     if (res.data.errCode === -1) {
-        //       dispatch(actions.loginSuccess(res.data.errMsg));
-        //       history.push("/home");
-        //     } else {
-        //       message.error(res.data.errMsg);
-        //     }
       })
       .catch((error) => {
         // console.log('ERRROR',error.response)
