@@ -741,6 +741,7 @@ const DailyBussiness = () => {
                       fontWeight: "bold",
                       backgroundColor: "#00ACC1",
                       verticalAlign: "middle",
+                      textTransform: "uppercase",
                     }}
                     size="large"
                     gap={1}
@@ -939,7 +940,7 @@ const DailyBussiness = () => {
                 lg={12}
                 xl={12}
                 className=""
-                style={{ padding: "14px" }}
+                style={{ padding: "14px", textTransform: "capitalize" }}
               >
                 <Row justify="start">
                   <Avatar
@@ -948,21 +949,26 @@ const DailyBussiness = () => {
                       fontWeight: "bold",
                       backgroundColor: "#00ACC1",
                       verticalAlign: "middle",
+                      textTransform: "uppercase",
                     }}
                     size="large"
                     gap={1}
                   >
-                    OJ
+                    {user?.csm_details?.first_name?.charAt(0)}
+                    {user?.csm_details?.last_name?.charAt(0)}
                   </Avatar>
                   <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
-                    <Text strong>Otter</Text>
+                    <Text strong>
+                      {user?.csm_details?.first_name}{" "}
+                      {user?.csm_details?.last_name}
+                    </Text>
                     <Row>
                       <Text strong type="secondary">
                         CSM ID
                       </Text>
                       <Text style={{ marginLeft: "10px" }} type="secondary">
                         {" "}
-                        AG5hcd9y
+                        {user?.csm_details?.agent_id}
                       </Text>
                     </Row>
                   </Row>
