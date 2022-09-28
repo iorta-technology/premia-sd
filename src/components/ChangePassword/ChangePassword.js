@@ -1,19 +1,40 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import './ChangePassword.css';
 import { Card, Input, Button, Image, Form } from 'antd';
 import { KeyOutlined } from '@ant-design/icons';
 import axios from 'axios';
 // --- Import Image --- //
 import salesDrivelogo_img from '../../assets/salesDrivelogo.png'
+import { useHistory ,useParams } from "react-router-dom";
 
-const ChangePassword = () => {
+
+const ChangePassword = (props) => {
     const [form] = Form.useForm();
     const [newpassword,setnewPassword] = useState('')
+    const history = useHistory();
+    const params = useParams();
+    let _decodeURL = decodeURIComponent(history.location.search).split("?id=")[1]
+
+    // useEffect(()=>{
+    //     // console.warn('CHANGE__PASSWORD__FROM___ROUTE___',props.location.state)
+    //     _decodeURL = decodeURIComponent(history.location.search).split("?id=")[1]
+        
+    //     console.warn('CHANGE__PASSWORD__ HISTORY',history)
+    //     console.warn('CHANGE__PASSWORD__ _decodeURL',_decodeURL)
+    // },[])
 
     const onNewPassword = ()=>{
         console.log("newpassword",newpassword)
-        axios.post('https://sdrestnode.iorta.in/secure/sd/user/changePasscode',{newpassword:newpassword}).then(resp=>{
+        let _formData = {
+            newpassword:newpassword ,
+            enc_email:_decodeURL
+        }
+        axios.post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/changePasscode`,_formData).then(resp=>{
             console.log("changepassword resp data",resp)
+            if(resp.data.errCode == -1){
+                history.push('login')
+            }
+            
         }).catch(error=>{
             console.log(error)
         })

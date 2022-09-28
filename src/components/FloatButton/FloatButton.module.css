@@ -1,3 +1,5 @@
+
+
 .icon{
     font-size: 56px;
     color: rgb(1, 180, 187);
@@ -19,7 +21,7 @@
 
 }
 .goalicon{
-    bottom:200px;
+    bottom:224.5px;
     background-color: red;
 }
 .leadicon{
@@ -39,8 +41,7 @@
     bottom: 223px;
 }
 .goalpg{
-    
-    bottom: 168px;
+    bottom: 216px;
 }
 .leadpg{
     
@@ -54,6 +55,7 @@
     font-size: 30px;
     color: rgb(1, 180, 187);
 }
+
 
 @media (min-width:320px) {
     .leadpg{
@@ -89,7 +91,7 @@
         bottom: 162px;
     }
     .goalicon{
-        bottom:165px;
+        bottom:216px;
     }
     .leadicon{
         bottom: 110px;
@@ -99,8 +101,7 @@
         bottom: 155px;
     }
     .goalpg{
-        
-        bottom: 160px;
+        bottom: 209px;
     }
     .leadpg{
         
