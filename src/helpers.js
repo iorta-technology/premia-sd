@@ -56,7 +56,7 @@ export const stoageGetter = (key) => {
 export const checkAgent = () => {
   let _temp = window.localStorage.getItem('persist:root')
   let _loginUser = JSON.parse(JSON.parse(_temp).login)
-  console.log('((((((((((hierarchyData))))))))))',_loginUser)
+  // console.log('((((((((((hierarchyData))))))))))',_loginUser)
 
   var hierarchyData = _loginUser.hierarchy[0]
   let levelCodeArray = []
@@ -78,7 +78,7 @@ export const checkuserAccess = (featureCode) => {
   // console.log('featureCode ))::>>', featureCode);
   let _temp = window.localStorage.getItem('persist:root')
   let _loginUser = JSON.parse(JSON.parse(_temp).login)
-  console.log('((((((((((hierarchyData))))))))))',_loginUser)
+  // console.log('((((((((((hierarchyData))))))))))',_loginUser)
   var storeData_match = _loginUser.user.accessOpt.accessOpt
   var roleCODE = _loginUser.user.roleCode
           // console.log('Role Code::', roleCODE);  
