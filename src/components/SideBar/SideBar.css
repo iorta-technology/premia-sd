@@ -269,7 +269,7 @@ width: 0;
 
 .modal-backdrop{
   --bs-backdrop-bg: none;
-  width: none!important;
+  
 }
 .dot{
   background-color: red;
