@@ -10,9 +10,9 @@ import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import { Table, Tag, Space } from "antd";
 import { Select } from "antd";
 import { Column } from "@ant-design/charts";
-import { stoageGetter } from "../../helpers";
+import { checkAgent,stoageGetter } from "../../helpers";
 import Tabs from "../../components/Tab/Tab";
-import axiosRequest from '../../axios-request/request.methods'
+import axiosRequest from '../../axios-request/request.methods'  
 
 import Self from "../Activitity Tracker/LeftSide-Activity/Self/Self";
 import Team from "../Activitity Tracker/LeftSide-Activity/Team/Team";
@@ -817,18 +817,22 @@ const KpiDashboard = () => {
 
       <div className="mainTab">
         <Row className="tabs">
-          <Col xs={11} sm={12} md={12} lg={2} xl={2}>
-            <button style={{ width: "95%" }} className={TeamSelf ? "active_tabs_button" : "tabs_button"} onClick={(e) => { handleSelfTeam('self') }}>
-              <img style={{ marginRight: "0px" }} src={TeamSelf ? person_white : person_black} className="person" alt="person_png" />
-              Self
-            </button>
-          </Col>
-          <Col xs={11} sm={12} md={12} lg={2} xl={2} style={{ marginLeft: 8 }}>
-            <button style={{ width: "95%" }} className={!TeamSelf ? "active_tabs_button" : "tabs_button"} onClick={(e) => { handleSelfTeam('team') }} >
-              <img style={{ marginRight: "0px" }} src={TeamSelf ? group_black : group_white} className="person" alt="group_png" />
-              Team
-            </button>
-          </Col>
+          { checkAgent() === false &&
+            <>
+              <Col xs={11} sm={12} md={12} lg={2} xl={2}>
+                <button style={{ width: "95%" }} className={TeamSelf ? "active_tabs_button" : "tabs_button"} onClick={(e) => { handleSelfTeam('self') }}>
+                  <img style={{ marginRight: "0px" }} src={TeamSelf ? person_white : person_black} className="person" alt="person_png" />
+                  Self
+                </button>
+              </Col>
+              <Col xs={11} sm={12} md={12} lg={2} xl={2} style={{ marginLeft: 8 }}>
+                <button style={{ width: "95%" }} className={!TeamSelf ? "active_tabs_button" : "tabs_button"} onClick={(e) => { handleSelfTeam('team') }} >
+                  <img style={{ marginRight: "0px" }} src={TeamSelf ? group_black : group_white} className="person" alt="group_png" />
+                  Team
+                </button>
+              </Col>
+            </>
+          }
           <Col xs={12} sm={12} md={12} lg={3} xl={3} style={{ marginLeft: 10 }}>
             {TeamSelf === false &&
               <Select value={desigData} options={hierarAgentList} onChange={(event) => handleDesignationData(event)} placeholder="Select Hierarchy"></Select>
@@ -840,7 +844,7 @@ const KpiDashboard = () => {
             }
           </Col>
         </Row>
-        <hr style={{ marginBottom: "20px" }} />
+        { checkAgent() === false && <hr style={{ marginBottom: "20px" }} /> }
         {/* { TeamSelf ? */}
         <div>
           {width > breakpoint && (

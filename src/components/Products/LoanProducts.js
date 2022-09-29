@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./LoanProducts.css";
-import { Row, Col, Button, Card, Carousel, Modal, Form, Input } from "antd";
+import { Row, Col, Button, Card, Carousel, Modal, Form, Input, message } from "antd";
 import { ShareAltOutlined, DownloadOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 // import axios from '../../axios-common';
@@ -17,6 +17,8 @@ import {
 import Pagination from "../Activitity Tracker/Pagenation/Pagenation";
 import axios from "axios";
 import { stoageGetter } from "../../helpers";
+import { useSelector } from "react-redux";
+import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 
 const LoanProducts = () => {
   const contentStyle = {
@@ -28,19 +30,24 @@ const LoanProducts = () => {
     // background:'#fff',
     // color:'black'
   };
-  const [productData, SetProductData] = useState();
+  const [productData, SetProductData] = useState([]);
   const [productTabs, SetProductTabs] = useState([]);
   const [activeId, SetActiveId] = useState(null);
   const [finaltabdata, setFinalTabData] = useState({});
   const login_user_data = stoageGetter("user");
+  const _storeData = useSelector(state => state?.login?.token)
+  // console.warn("_storeData _storeData", _storeData);
 
   useEffect(() => {
-    console.warn("login_user_data___________ login_user_data", login_user_data);
+    // console.warn("login_user_data___________ login_user_data", login_user_data);
     let _channel = login_user_data.channelCode._id;
     // https://abinsurancenode.salesdrive.app/sdx-api/secure/admin/getprodCategory?filter=0
     axios
       .get(
-        `https://abinsurancenode.salesdrive.app/sdx-api/secure/admin/getprodCategory?filter=23&channel=${_channel}`
+        `https://abinsurancenode.salesdrive.app/sdx-api/secure/admin/getprodCategory?filter=23&channel=${_channel}`,
+        {headers:{
+          'Authorization' :`Bearer ${_storeData}`
+        }}
       )
       .then((resp) => {
         console.warn("getprodCategory ____APIIIIII", resp);
@@ -63,14 +70,19 @@ const LoanProducts = () => {
           }
           console.log(finaltab, "final ---->");
         } else {
+          message.error(resp.data.errMsg);
+          SetProductData([]);
         }
       }, [])
       .catch((error) => {
-        console.log(error);
+        console.log('CATEGORYYYY___ERROR',productData);
       });
     axios
       .get(
-        `https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getLead/${login_user_data.id}?leadfilter=all`
+        `https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getLead/${login_user_data.id}?leadfilter=all`,
+        {headers:{
+          'Authorization' :`Bearer ${_storeData}`
+        }}
       )
       .then((res) => {
         console.log(res.data.errMsg);
@@ -113,7 +125,10 @@ const LoanProducts = () => {
     SetActiveId(item._id);
     axios
       .get(
-        `https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getproduct/?productType=${item._id}&roleCode=SM1`
+        `https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getproduct/?productType=${item._id}&roleCode=SM1`,
+        {headers:{
+          'Authorization' :`Bearer ${_storeData}`
+        }}
       )
       .then((resp) => {
         console.warn("PRODUCTTTT____APIIIIII", resp);
@@ -170,6 +185,7 @@ const LoanProducts = () => {
       ? "top"
       : "left"
   );
+  console.log('productData',productData);
   return (
     <>
       {/* <div className='product-content'> */}
@@ -197,277 +213,281 @@ const LoanProducts = () => {
         </div>
       </div>
       {/* <div className='product-content'> */}
-      <div className="loan-product-tabs">
-        <Row gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
-          <Tabs tabPosition={tabPosition}>
-            {productTabs.map((item) => {
-              return (
-                <TabPane
-                  tab={item.productName}
-                  key={item._id}
-                  className="MainContent"
-                >
-                  <Col
-                    className="gutter-row first-card"
-                    xs={24}
-                    sm={24}
-                    md={12}
-                    lg={12}
-                    xl={12}
+      { productData.length > 0 ? 
+        <div className="loan-product-tabs">
+          <Row gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
+            <Tabs tabPosition={tabPosition}>
+              {productTabs.map((item) => {
+                return (
+                  <TabPane
+                    tab={item.productName}
+                    key={item._id}
+                    className="MainContent"
                   >
-                    <div>
-                      <div className="main-card2" bordered={false}>
-                        <div
-                          className="benefit-main"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            height: "70px",
-                          }}
-                        >
-                          <h1
+                    <Col
+                      className="gutter-row first-card"
+                      xs={24}
+                      sm={24}
+                      md={12}
+                      lg={12}
+                      xl={12}
+                    >
+                      <div>
+                        <div className="main-card2" bordered={false}>
+                          <div
+                            className="benefit-main"
                             style={{
-                              color: "#5EA5C0",
-                              textTransform: "capitalize",
-                            }}
-                            className="benefit-head"
-                          >
-                            {item.productName}
-                          </h1>
-                          <Button
-                            className="benefit-btn"
-                            style={{
-                              backgroundColor: "transparent",
-                              fontWeight: "bold",
-                              border: "1px solid #5EA5C0",
-                              borderRadius: "10px",
-                            }}
-                            onClick={showModal}
-                          >
-                            Benefit Illustration
-                          </Button>
-                          <Modal
-                            className="Clubsmaster-modal-style"
-                            title="Select the proposer"
-                            visible={isJoinModalVisible}
-                            onOk={handleOk}
-                            footer={[
-                              <Button
-                                type="primary"
-                                className="bi-cancelbtn"
-                                onClick={handleCancel}
-                              >
-                                Cancel
-                              </Button>,
-                              <Link
-                                to={{
-                                  pathname: "/master/benefitillustrator",
-                                  state: { recorddata: benefitIllustratorArr },
-                                }}
-                                className="link-btn"
-                              >
-                                Proceed
-                              </Link>,
-                            ]}
-                            width="50%"
-                            bodyStyle={{
-                              height: "auto",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              height: "70px",
                             }}
                           >
-                            <Form.Item
-                              name="username"
-                              rules={[
-                                {
-                                  required: false,
-                                  message: "Please input your username!",
-                                },
-                              ]}
-                            >
-                              <Input type="text" placeholder="Search Here" />
-                            </Form.Item>
-
-                            <table className="LoanProducts-Table">
-                              <tr>
-                                <th className="table-heading1">Action</th>
-                                <th className="table-heading2">Lead ID</th>
-                                <th className="table-heading2">Name</th>
-                                <th className="table-heading2">Mobile</th>
-                                <th className="table-heading2">Created Date</th>
-                              </tr>
-                              {currentPost.map((item) => {
-                                return (
-                                  <tr
-                                    style={{ padding: "10px" }}
-                                    className="tableBorder"
-                                    key={item._id}
-                                  >
-                                    <td>
-                                      <Button
-                                        size="small"
-                                        className="select-btn"
-                                        onClick={() => SelectedButtonFunc(item)}
-                                      >
-                                        Select
-                                      </Button>
-                                    </td>
-                                    <td className="table-subdata">
-                                      {item.lead_Id}
-                                    </td>
-                                    <td className="table-subdata">
-                                      {item.firstName + " " + item.lastName}
-                                    </td>
-                                    <td className="table-subdata">
-                                      {item.primaryMobile}
-                                    </td>
-                                    <td className="table-subdata">
-                                      {moment(item.created_date).format(
-                                        "DD-MM-YYYY"
-                                      )}
-                                    </td>
-                                  </tr>
-                                );
-                              })}
-                            </table>
-                            <Pagination
-                              className="Clubsmaster-modal-style-Table-Pagination"
-                              defaultCurrent={1}
-                              postPerPage={postPerPage}
-                              paginate={paginate}
-                              total={benefitIllustratorArr.length}
-                              totalPost={
-                                benefitIllustratorArr.length / postPerPage
-                              }
-                            />
-                            {/* </div> */}
-                            {/* <Table
-                        columns={columns}
-                        dataSource={benefitIllustratorArr}
-                        pagination={{ pageSize: 50 }}
-                        scroll={{ x: '150vw' }}
-                    /> */}
-                          </Modal>
-                        </div>
-                        <p className="product-para">
-                          {item.productDescription}
-                        </p>
-                        <h4
-                          style={{ color: "#5EA5C0", marginBottom: 10 }}
-                          className="product_heading"
-                        >
-                          5 Reasons to buy:
-                        </h4>
-                        <p style={{ margintop: 10 }}>
-                          <span className="slNo circle-point">1</span>
-                          <span className="bullet-points">
-                            {item.productReasons.reason1}
-                          </span>
-                        </p>
-                        <p>
-                          <span className="slNo circle-point">2</span>
-                          <span className="bullet-points">
-                            {item.productReasons.reason2}
-                          </span>
-                        </p>
-                        <p>
-                          <span className="slNo circle-point">3</span>
-                          <span className="bullet-points">
-                            {item.productReasons.reason3}
-                          </span>
-                        </p>
-                        <p>
-                          <span className="slNo circle-point">4</span>
-                          <span className="bullet-points">
-                            {item.productReasons.reason4}
-                          </span>
-                        </p>
-                        <p>
-                          <span className="slNo circle-point">5</span>
-                          <span className="bullet-points">
-                            {item.productReasons.reason5}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col
-                    className="gutter-row  first-card"
-                    xs={24}
-                    sm={24}
-                    md={12}
-                    lg={12}
-                    xl={12}
-                  >
-                    <div className="main-card3" bordered={false}>
-                      <h4
-                        style={{
-                          textAlign: "center",
-                          fontWeight: "bold",
-                          textTransform: "capitalize",
-                        }}
-                      >
-                        {item.imageTitle}
-                      </h4>
-                      {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
-                      <Carousel autoplay={true}>
-                        {item.productImages.map((item) => {
-                          return (
-                            <div style={contentStyle}>
-                              <img
-                                src={item.location}
-                                style={{ margin: "auto" }}
-                                height="190px"
-                                width="145px"
-                              />
-                            </div>
-                          );
-                        })}
-                      </Carousel>
-                      <div className="product-brochure">
-                        {item.productBrochure.map((item) => {
-                          return (
-                            <div
+                            <h1
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                flexDirection: "column",
+                                color: "#5EA5C0",
+                                textTransform: "capitalize",
+                              }}
+                              className="benefit-head"
+                            >
+                              {item.productName}
+                            </h1>
+                            <Button
+                              className="benefit-btn"
+                              style={{
+                                backgroundColor: "transparent",
+                                fontWeight: "bold",
+                                border: "1px solid #5EA5C0",
+                                borderRadius: "10px",
+                              }}
+                              onClick={showModal}
+                            >
+                              Benefit Illustration
+                            </Button>
+                            <Modal
+                              className="Clubsmaster-modal-style"
+                              title="Select the proposer"
+                              visible={isJoinModalVisible}
+                              onOk={handleOk}
+                              footer={[
+                                <Button
+                                  type="primary"
+                                  className="bi-cancelbtn"
+                                  onClick={handleCancel}
+                                >
+                                  Cancel
+                                </Button>,
+                                <Link
+                                  to={{
+                                    pathname: "/master/benefitillustrator",
+                                    state: { recorddata: benefitIllustratorArr },
+                                  }}
+                                  className="link-btn"
+                                >
+                                  Proceed
+                                </Link>,
+                              ]}
+                              width="50%"
+                              bodyStyle={{
+                                height: "auto",
                               }}
                             >
-                              <h4 style={{ fontWeight: "bold" }}>
-                                {item.fileCategory}
-                              </h4>
-                              <img
-                                src={Brocher}
-                                height="100px"
-                                width="90px"
-                              ></img>
-                              <Button
-                                size="small"
+                              <Form.Item
+                                name="username"
+                                rules={[
+                                  {
+                                    required: false,
+                                    message: "Please input your username!",
+                                  },
+                                ]}
+                              >
+                                <Input type="text" placeholder="Search Here" />
+                              </Form.Item>
+
+                              <table className="LoanProducts-Table">
+                                <tr>
+                                  <th className="table-heading1">Action</th>
+                                  <th className="table-heading2">Lead ID</th>
+                                  <th className="table-heading2">Name</th>
+                                  <th className="table-heading2">Mobile</th>
+                                  <th className="table-heading2">Created Date</th>
+                                </tr>
+                                {currentPost.map((item) => {
+                                  return (
+                                    <tr
+                                      style={{ padding: "10px" }}
+                                      className="tableBorder"
+                                      key={item._id}
+                                    >
+                                      <td>
+                                        <Button
+                                          size="small"
+                                          className="select-btn"
+                                          onClick={() => SelectedButtonFunc(item)}
+                                        >
+                                          Select
+                                        </Button>
+                                      </td>
+                                      <td className="table-subdata">
+                                        {item.lead_Id}
+                                      </td>
+                                      <td className="table-subdata">
+                                        {item.firstName + " " + item.lastName}
+                                      </td>
+                                      <td className="table-subdata">
+                                        {item.primaryMobile}
+                                      </td>
+                                      <td className="table-subdata">
+                                        {moment(item.created_date).format(
+                                          "DD-MM-YYYY"
+                                        )}
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                              </table>
+                              <Pagination
+                                className="Clubsmaster-modal-style-Table-Pagination"
+                                defaultCurrent={1}
+                                postPerPage={postPerPage}
+                                paginate={paginate}
+                                total={benefitIllustratorArr.length}
+                                totalPost={
+                                  benefitIllustratorArr.length / postPerPage
+                                }
+                              />
+                              {/* </div> */}
+                              {/* <Table
+                          columns={columns}
+                          dataSource={benefitIllustratorArr}
+                          pagination={{ pageSize: 50 }}
+                          scroll={{ x: '150vw' }}
+                      /> */}
+                            </Modal>
+                          </div>
+                          <p className="product-para">
+                            {item.productDescription}
+                          </p>
+                          <h4
+                            style={{ color: "#5EA5C0", marginBottom: 10 }}
+                            className="product_heading"
+                          >
+                            5 Reasons to buy:
+                          </h4>
+                          <p style={{ margintop: 10 }}>
+                            <span className="slNo circle-point">1</span>
+                            <span className="bullet-points">
+                              {item.productReasons.reason1}
+                            </span>
+                          </p>
+                          <p>
+                            <span className="slNo circle-point">2</span>
+                            <span className="bullet-points">
+                              {item.productReasons.reason2}
+                            </span>
+                          </p>
+                          <p>
+                            <span className="slNo circle-point">3</span>
+                            <span className="bullet-points">
+                              {item.productReasons.reason3}
+                            </span>
+                          </p>
+                          <p>
+                            <span className="slNo circle-point">4</span>
+                            <span className="bullet-points">
+                              {item.productReasons.reason4}
+                            </span>
+                          </p>
+                          <p>
+                            <span className="slNo circle-point">5</span>
+                            <span className="bullet-points">
+                              {item.productReasons.reason5}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col
+                      className="gutter-row  first-card"
+                      xs={24}
+                      sm={24}
+                      md={12}
+                      lg={12}
+                      xl={12}
+                    >
+                      <div className="main-card3" bordered={false}>
+                        <h4
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          {item.imageTitle}
+                        </h4>
+                        {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
+                        <Carousel autoplay={true}>
+                          {item.productImages.map((item) => {
+                            return (
+                              <div style={contentStyle}>
+                                <img
+                                  src={item.location}
+                                  style={{ margin: "auto" }}
+                                  height="190px"
+                                  width="145px"
+                                />
+                              </div>
+                            );
+                          })}
+                        </Carousel>
+                        <div className="product-brochure">
+                          {item.productBrochure.map((item) => {
+                            return (
+                              <div
                                 style={{
-                                  backgroundColor: "#5EA5C0",
-                                  width: "100%",
-                                  color: "#fff",
-                                  border: "1px solid #5EA5C0",
-                                  borderRadius: "20px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  flexDirection: "column",
                                 }}
                               >
-                                <a href={item.location} download>
-                                  <DownloadOutlined />
-                                  English
-                                </a>
-                              </Button>
-                            </div>
-                          );
-                        })}
+                                <h4 style={{ fontWeight: "bold" }}>
+                                  {item.fileCategory}
+                                </h4>
+                                <img
+                                  src={Brocher}
+                                  height="100px"
+                                  width="90px"
+                                ></img>
+                                <Button
+                                  size="small"
+                                  style={{
+                                    backgroundColor: "#5EA5C0",
+                                    width: "100%",
+                                    color: "#fff",
+                                    border: "1px solid #5EA5C0",
+                                    borderRadius: "20px",
+                                  }}
+                                >
+                                  <a href={item.location} download>
+                                    <DownloadOutlined />
+                                    English
+                                  </a>
+                                </Button>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  </Col>
-                </TabPane>
-              );
-            })}
-          </Tabs>
-        </Row>
-      </div>
+                    </Col>
+                  </TabPane>
+                );
+              })}
+            </Tabs>
+          </Row>
+        </div>
+      :
+        <NoRecordsFound />
+      }
       <Modal visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>Do you wish to send payment link to the customer?</p>
       </Modal>

@@ -1,7 +1,9 @@
 import _ from "lodash";
 import dataLibrary from "./dataLibrary";
 import moment from "moment";
+import axios from 'axios';
 import { type } from "jquery";
+
 let nonContact = dataLibrary.nonContact;
 let contact = dataLibrary.contact;
 let _apStatusList = dataLibrary.appointmentStatus;
@@ -51,8 +53,50 @@ export const stoageGetter = (key) => {
   return value;
 };
 
-export const checkAgent = (levelCode, minValue) => {
-  return levelCode === minValue ? false : true;
+export const checkAgent = () => {
+  let _temp = window.localStorage.getItem('persist:root')
+  let _loginUser = JSON.parse(JSON.parse(_temp).login)
+  console.log('((((((((((hierarchyData))))))))))',_loginUser)
+
+  var hierarchyData = _loginUser.hierarchy[0]
+  let levelCodeArray = []
+  for (let i = 0; i < hierarchyData.length; i++) {
+      let levelCode = hierarchyData[i].levelCode
+      levelCodeArray.push(levelCode)
+  }
+  levelCodeArray.sort((a, b) => a - b)
+  let minValue = Math.min(...levelCodeArray)
+  // console.log('((((((((((hierarchyData))))))))))',minValue)
+  if(_loginUser.user.hierarchyId.levelCode === minValue){
+      return true
+  }else{
+      return false
+  }
+};
+
+export const checkuserAccess = (featureCode) => {
+  // console.log('featureCode ))::>>', featureCode);
+  let _temp = window.localStorage.getItem('persist:root')
+  let _loginUser = JSON.parse(JSON.parse(_temp).login)
+  console.log('((((((((((hierarchyData))))))))))',_loginUser)
+  var storeData_match = _loginUser.user.accessOpt.accessOpt
+  var roleCODE = _loginUser.user.roleCode
+          // console.log('Role Code::', roleCODE);  
+    // Array Itration
+    for (var location of storeData_match) {
+        if (featureCode.localeCompare(location.featureCode) === 0) {
+            //     // Object Itration
+            for (let props of location.roles) {
+                if (props.roleCode == roleCODE) {
+                    return {
+                        props: props,
+                        accessControl: location
+                    };
+                }
+            }
+            break;
+        }
+    }
 };
 
 export const dataFormatting = (resp, title, desc) => {

@@ -26,10 +26,10 @@ const ChangePassword = (props) => {
     const onNewPassword = ()=>{
         console.log("newpassword",newpassword)
         let _formData = {
-            newpassword:newpassword ,
+            newPasscode:newpassword ,
             enc_email:_decodeURL
         }
-        axios.post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/changePasscode`,_formData).then(resp=>{
+        axios.post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/resetForgotPassword`,_formData).then(resp=>{
             console.log("changepassword resp data",resp)
             if(resp.data.errCode == -1){
                 history.push('login')

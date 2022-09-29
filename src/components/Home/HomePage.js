@@ -14,7 +14,7 @@ import { Link, useHistory } from "react-router-dom";
 import FloatButton from "../FloatButton/FloatButton";
 import { Column } from "@ant-design/charts";
 import axiosRequest from "../../axios-request/request.methods";
-import { stoageGetter } from "../../helpers";
+import { checkuserAccess,stoageGetter } from "../../helpers";
 import { FormOutlined, ShopOutlined } from "@ant-design/icons";
 
 // import image -----
@@ -49,7 +49,7 @@ const HomePage = () => {
   
   if(login_user_data === null) history.push('/login')
 
-  // const agent_id = useSelector((state) => state.login.agent_id)
+  // const _token = useSelector((state) => state.login.token)
   const agent_id = login_user_data.agentId;
   // const logged_in_user = useSelector((state) => state.login.user_name)
   const logged_in_user =
@@ -61,6 +61,15 @@ const HomePage = () => {
   const userId = login_user_data.id;
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
+
+  const _accessActivityTracker = checkuserAccess('myEvents'); //Activity Tracker
+  const _accessDailyBusiness = checkuserAccess('myBusiness'); // Daily Business
+  const _accessOpportunities = checkuserAccess('myLeads'); // Opportunities
+  const _accessKpi = checkuserAccess('businessDashboard'); // KPI Dashbord
+  const _accessTodo = checkuserAccess('todoTask'); // TODO
+  const _accessSalesGuide = checkuserAccess('sales_guide'); // Sales Guide
+  // console.warn('((((((((_accessActivityTracker))))))))',_accessActivityTracker)
+
   
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -68,6 +77,14 @@ const HomePage = () => {
   const [updateData, setUpdateData] = useState({});
   const [showData, setShowData] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // Access Management
+  const [showActivityTracker, setShowActivityTracker] = useState(_accessActivityTracker.props.read === true ? true : false);
+  const [showDailyBusiness, setShowDailyBusiness] = useState(_accessDailyBusiness.props.read === true ? true : false);
+  const [showOpportunities, setShowOpportunities] = useState(_accessOpportunities.props.read === true ? true : false);
+  const [showKpi, setShowKpi] = useState(_accessKpi.props.read === true ? true : false);
+  const [showTodo, setShowTodo] = useState(_accessTodo.props.read === true ? true : false);
+  const [showSalesGuide, setShowSalesGuide] = useState(_accessSalesGuide.props.read === true ? true : false);
 
   
 
@@ -79,7 +96,7 @@ const HomePage = () => {
     
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
-    // channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
+    channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
     if (agent_id) dispatch(actions.home(agent_id, userId));
 
     // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
@@ -507,8 +524,14 @@ const HomePage = () => {
             <div className="dataCardLabel"></div>
           </Col>
         </Row>
+        {/* const [showDailyBusiness, setShowDailyBusiness] = useState(_accessDailyBusiness.props.read === true ? true : false);
+        const [showOpportunities, setShowOpportunities] = useState(_accessOpportunities.props.read === true ? true : false);
+        const [showKpi, setShowKpi] = useState(_accessKpi.props.read === true ? true : false);
+        const [showTodo, setShowTodo] = useState(_accessTodo.props.read === true ? true : false);
+        const [showSalesGuide, setShowSalesGuide] = useState(_accessSalesGuide.props.read === true ? true : false); */}
 
         <Row gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center">
+          { showActivityTracker &&
           <Col>
             <div
               className="dataCard"
@@ -619,7 +642,9 @@ const HomePage = () => {
               )}
             </div>
           </Col>
+          }
 
+          { showOpportunities &&
           <Col>
             <div
               className=" dataCard"
@@ -682,6 +707,7 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
+          }
 
           <Col style={{ display: "none" }}>
             <div
@@ -784,7 +810,8 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
-
+          
+          { showKpi &&
           <Col>
             <div
               className=" dataCard"
@@ -1040,7 +1067,9 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
+          }
 
+          { showDailyBusiness &&
           <Col>
             <div
               className=" dataCard"
@@ -1144,6 +1173,7 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
+          }
 
           <Col style={{ display: "none" }}>
             <div
@@ -1280,6 +1310,7 @@ const HomePage = () => {
             </div>
           </Col>
 
+          { showTodo &&              
           <Col>
             <div
               className=" dataCard"
@@ -1460,6 +1491,7 @@ const HomePage = () => {
               )}
             </div>
           </Col>
+          }
 
           <Col style={{ display: "none" }}>
             <div
@@ -1676,6 +1708,7 @@ const HomePage = () => {
             </div>
           </Col>
 
+          { showSalesGuide &&
           <Col>
             <div
               className=" dataCard"
@@ -1762,6 +1795,7 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
+          }
 
           <Col style={{ display: "none" }}>
             <div
