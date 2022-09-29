@@ -45,9 +45,39 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const getPercenTage = (x, y) => {
+    let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
+    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val);
+  };
+
+  const isFloat = (n) => {
+    try {
+      return Number(n) === n && n % 1 !== 0;
+    } catch (err) {
+      console.log(err, "72b52752-02a7-4b70-b910-69810435b32b");
+    }
+  };
+
+  const checkValidity = (data) => {
+    try {
+      if (
+        data === "" ||
+        data === null ||
+        data === undefined ||
+        data === "undefined" ||
+        data === "-" ||
+        data === Infinity
+      ) {
+        return 0;
+      } else {
+        return data;
+      }
+    } catch (err) {}
+  };
+
   const login_user_data = stoageGetter("user");
-  
-  if(login_user_data === null) history.push('/login')
+
+  if (login_user_data === null) history.push("/login");
 
   // const _token = useSelector((state) => state.login.token)
   const agent_id = login_user_data.agentId;
@@ -71,8 +101,9 @@ const HomePage = () => {
   // console.warn('((((((((_accessActivityTracker))))))))',_accessActivityTracker)
 
   
-  const [width, setWidth] = useState(window.innerWidth);
 
+  const [width, setWidth] = useState(window.innerWidth);
+  const [goal, setGoal] = useState({});
   const [getTodoDataArray, setGetTodoDataArray] = useState([]);
   const [updateData, setUpdateData] = useState({});
   const [showData, setShowData] = useState(false);
@@ -92,8 +123,8 @@ const HomePage = () => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
-    dispatch(leadActions.updateTabOfDashboard('self'));
-    
+    dispatch(leadActions.updateTabOfDashboard("self"));
+
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
@@ -123,7 +154,8 @@ const HomePage = () => {
         `user/fetch_daily_activity/${id}?today_goal=true`,
         { secure: true }
       );
-      console.log("res", res);
+      setGoal(res);
+      console.log("res", goal.am.gpwCommitment);
     } catch (error) {
       console.log(error);
     }
@@ -477,10 +509,10 @@ const HomePage = () => {
         },
       },
     },
-    legend:{
+    legend: {
       itemName: {
         style: {
-          fill: '#fff',
+          fill: "#fff",
         },
       },
     },
@@ -1132,7 +1164,7 @@ const HomePage = () => {
                           marginBottom: 5,
                         }}
                       >
-                        ₹ 0
+                        {goal?.am?.gpwCommitment ? goal.am.gpwCommitment : 0}
                       </p>
                     </div>
                     <div
@@ -1152,7 +1184,7 @@ const HomePage = () => {
                           marginBottom: 5,
                         }}
                       >
-                        ₹ 0
+                        {goal?.pm?.gpwAchived ? goal.pm.gpwAchived : 0}
                       </p>
                     </div>
                     <div style={{ width: "120px", padding: "8px 10px" }}>
@@ -1165,7 +1197,11 @@ const HomePage = () => {
                           marginBottom: 5,
                         }}
                       >
-                        0%
+                        {getPercenTage(
+                          checkValidity(goal?.am?.gpwCommitment),
+                          checkValidity(goal?.pm?.gpwAchived)
+                        )}
+                        %
                       </p>
                     </div>
                   </div>

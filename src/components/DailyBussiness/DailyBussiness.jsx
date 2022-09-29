@@ -46,7 +46,6 @@ const DailyBussiness = () => {
         { secure: true }
       );
       setTodayGoalCreated(res);
-      console.log("todayGoalCreated._id", todayGoalCreated);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +64,6 @@ const DailyBussiness = () => {
       );
       if (res[0]) {
         SetGWPData(res[0]);
-        console.log("res API ", res[0]);
       }
     } catch (error) {
       console.log("error API " + error);
@@ -84,11 +82,6 @@ const DailyBussiness = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const getPercenTage = (x, y) => {
-    let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
-    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val);
   };
 
   const isFloat = (n) => {
@@ -114,6 +107,11 @@ const DailyBussiness = () => {
     } catch (err) {
       console.log(err, "b059f7b4-161d-4c63-bdc7-be0966f811d8");
     }
+  };
+
+  const getPercenTage = (x, y) => {
+    let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
+    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val);
   };
 
   const checkValidity = (data) => {
@@ -177,17 +175,24 @@ const DailyBussiness = () => {
   const [reporting_users, setReporting_users] = useState([]);
   const [showAreYouSure, setShowAreYouSure] = useState(false);
   const [areYouSure, setAreYouSure] = useState(false);
+  const [user, setUser] = useState("");
   const onChangeAreYouSure = (e) => {
     setAreYouSure(e.target.value);
   };
   const userTreeData = useSelector((state) => state?.home?.user_tree);
-  console.log("userTreeData ", userTreeData);
 
   const { Text, Link } = Typography;
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
-    // dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
+    // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_goals/6333c95400d30d8c8027b8c7
+    try {
+      let res = axiosRequest.get(`user/fetch_goals/${id}`, { secure: true });
+      res.then((res) => setUser(res));
+      console.log("res", res);
+    } catch (error) {
+      console.log("error API " + error);
+    }
 
     changeDays(7);
     GetGraph();
@@ -296,8 +301,7 @@ const DailyBussiness = () => {
         xField: "day",
         yField: "val",
         seriesField: "name",
-
-        color: ["#4fdaeb", "#00ACC1"],
+        color: ["#007f8f", "#5eb3bd"],
       });
       setFinalBudgetData(data);
     });
@@ -307,10 +311,8 @@ const DailyBussiness = () => {
   function onChange(value) {
     setFinalKpiDataDropdown(value);
     dispatch(actions.kpiDashboard(value));
-    console.log(`selected ${value}`);
   }
   const onChangeKPIBudgetHandler = (value) => {
-    console.log(value);
     setFinalKpiDataDropdown(value);
     dispatch(actions.kpiDashboard(value));
   };
@@ -457,21 +459,19 @@ const DailyBussiness = () => {
       );
       if (res[0]) {
         SetGWPData(res[0]);
-        console.log("res API ", res[0]);
       }
     } catch (error) {
       console.log("error API " + error);
     }
   };
 
-  const GetGrpahParams = async (currentId) => {
+  const GetGraphParams = async (currentId) => {
     try {
       let res = await axiosRequest.get(`user/fetch_goals/${currentId}`, {
         secure: true,
       });
       if (res.graph_data) {
-        let responseArray = [...res.graph_data.slice(0, 7)];
-        console.log("GWPDataGraph ==========", res.graph_data);
+        let responseArray = [...res.graph_data];
         SetGWPGraph([...responseArray]);
       }
     } catch (error) {
@@ -482,13 +482,13 @@ const DailyBussiness = () => {
   const gethirarchyData = (currentId) => {
     setCurrentIDTeam(currentId);
     changeDaysParams(7, currentId);
-    GetGrpahParams(currentId);
+    GetGraphParams(currentId);
   };
 
   return (
     <>
       <Modal
-        title="GOAL PLAINING"
+        title="GOAL PLANNING"
         centered
         visible={isModalOpen}
         onOk={() => setIsModalOpen(false)}
@@ -513,7 +513,7 @@ const DailyBussiness = () => {
               }}
             />{" "}
             <div>
-              Ativity Goals for{" "}
+              Activity Goals for{" "}
               <span
                 style={{
                   color: "#00acc1",
@@ -736,7 +736,7 @@ const DailyBussiness = () => {
                 lg={12}
                 xl={12}
                 className=""
-                style={{ padding: "14px" }}
+                style={{ padding: "14px", textTransform: "capitalize" }}
               >
                 <Row justify="start">
                   <Avatar
@@ -745,21 +745,26 @@ const DailyBussiness = () => {
                       fontWeight: "bold",
                       backgroundColor: "#00ACC1",
                       verticalAlign: "middle",
+                      textTransform: "uppercase",
                     }}
                     size="large"
                     gap={1}
                   >
-                    OJ
+                    {user?.csm_details?.first_name?.charAt(0)}
+                    {user?.csm_details?.last_name?.charAt(0)}
                   </Avatar>
                   <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
-                    <Text strong>Otter</Text>
+                    <Text strong>
+                      {user?.csm_details?.first_name}{" "}
+                      {user?.csm_details?.last_name}
+                    </Text>
                     <Row>
                       <Text strong type="secondary">
                         CSM ID
                       </Text>
                       <Text style={{ marginLeft: "10px" }} type="secondary">
                         {" "}
-                        AG5hcd9y
+                        {user?.csm_details?.agent_id}
                       </Text>
                     </Row>
                   </Row>
@@ -939,7 +944,7 @@ const DailyBussiness = () => {
                 lg={12}
                 xl={12}
                 className=""
-                style={{ padding: "14px" }}
+                style={{ padding: "14px", textTransform: "capitalize" }}
               >
                 <Row justify="start">
                   <Avatar
@@ -948,21 +953,26 @@ const DailyBussiness = () => {
                       fontWeight: "bold",
                       backgroundColor: "#00ACC1",
                       verticalAlign: "middle",
+                      textTransform: "uppercase",
                     }}
                     size="large"
                     gap={1}
                   >
-                    OJ
+                    {user?.csm_details?.first_name?.charAt(0)}
+                    {user?.csm_details?.last_name?.charAt(0)}
                   </Avatar>
                   <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
-                    <Text strong>Otter</Text>
+                    <Text strong>
+                      {user?.csm_details?.first_name}{" "}
+                      {user?.csm_details?.last_name}
+                    </Text>
                     <Row>
                       <Text strong type="secondary">
                         CSM ID
                       </Text>
                       <Text style={{ marginLeft: "10px" }} type="secondary">
                         {" "}
-                        AG5hcd9y
+                        {user?.csm_details?.agent_id}
                       </Text>
                     </Row>
                   </Row>

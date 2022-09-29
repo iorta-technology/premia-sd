@@ -190,7 +190,7 @@ height: 85px;
 .logoutContainer1 {
   text-align: center;
   margin-top: 6rem;
-    margin-bottom: 7rem;
+    /* margin-bottom: 7rem; */
 }
 
 .arrow-up{
@@ -249,10 +249,13 @@ width: 0;
   margin-right: 20px;
 }
 
-.activity-block {
+.activity-block1 {
   margin-top: 0px;
   overflow-y: scroll;
   height: 300px;
+}
+.activity-block1::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
 
 .hr-line{
@@ -262,4 +265,19 @@ width: 0;
     border-top: 1px solid;
     opacity: .25;
 
+}
+
+.modal-backdrop{
+  --bs-backdrop-bg: none;
+  width: none!important;
+}
+.dot{
+  background-color: red;
+    height: 8px;
+    width: 8px;
+    border: 1px solid red;
+    position: absolute;
+    border-radius: 5px;
+    right: 5rem;
+    top: 20px;
 }
