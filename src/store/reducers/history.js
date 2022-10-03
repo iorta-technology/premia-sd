@@ -18,7 +18,7 @@ const fetchHistoryStart = (state, action) => {
 
 const fetchHistorySuccess = (state, action) => {
     const historyDetailsArr = action.history
-    console.log(historyDetailsArr)
+    console.log("hiiiiii------------",historyDetailsArr)
     let proposalArr = []
     let leadArr = []
     let appointmentArr = []

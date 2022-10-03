@@ -9,6 +9,7 @@ import HistoryTabs from './HistoryTabs'
 import * as actions from '../../store/actions/index';
 import _ from "lodash";
 import { dataFormatting } from '../../helpers'
+
 const { Step } = Steps;
 
 
@@ -44,6 +45,8 @@ const History = () => {
     const leadArrObject = useSelector((state) => state.history.leadData)
     const appointmentArrObject = useSelector((state) => state.history.appointmentData)
     const proposalArrObject = useSelector((state) => state.history.proposalData)
+    const hist = useSelector((state) => state.history)
+    console.log("histrory datta--- ", hist);
 
     const [leadId, setleadId] = useState(storeLeadId)
     const [userId, setuserId] = useState(storeUserId)
@@ -131,6 +134,7 @@ let proposalElement = (
 useEffect(() => {
     dispatch(actions.fetchHistory(leadId, userId))
 }, [dispatch]);
+
 
 
 return (

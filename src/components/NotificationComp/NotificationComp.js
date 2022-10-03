@@ -52,8 +52,6 @@ const NotificationComp = () => {
         return _notify.slice(0, MAX_ITEMS);
       }
 
-    
-      
   return (
     <>
         <div className="header">
