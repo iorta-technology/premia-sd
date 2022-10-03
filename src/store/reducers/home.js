@@ -28,6 +28,11 @@ const fetchUserTreeData = (state, action) => {
     return updateObject(state, { fetch_Home_Loading: false, user_tree: action.home, count:action.count})
 }
 
+const fetchBusinessCardData = (state, action) => {
+    // console.log("actions USER TREEEEE",action)
+    return updateObject(state, { fetch_Home_Loading: false, businessData: action.businessData, count:action.count})
+}
+
 const fetchHomeFail = (state, action) => {
     return updateObject(state, { fetch_Home_Loading: false, home_Error: action.error });
 }
@@ -61,7 +66,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.HOME_SUCCESS: return fetchHomeSuccess(state, action)
         case actionTypes.LOGIN_FAIL: return fetchHomeFail(state, action)
         case actionTypes.USER_TREE: return fetchUserTreeData(state, action)
-
+        case actionTypes.BUSINESS_CARD: return fetchBusinessCardData(state, action)
+        
         case actionTypes.ACTIVITIES_START: return fetchActivitiesStart(state, action)
         case actionTypes.ACTIVITIES_SUCCESS: return fetchActivitiesSuccess(state, action)
         case actionTypes.ACTIVITIES_FAIL: return fetchActivitiesFail(state, action)

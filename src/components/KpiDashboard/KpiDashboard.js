@@ -247,8 +247,11 @@ const KpiDashboard = () => {
         let finalScoreData = []
         let _finalScoreArray = []
         let gpwFinalData = []
+        let gpwDataKey = ''
 
         for (let i = 0; i < _kpiResp.length; i++) {
+           if( _kpiResp[i].hasOwnProperty('category') ) gpwDataKey = _kpiResp[i].category
+          // console.warn('((((((((( gpwDataKey THAN )))))))))',gpwDataKey)
           if (_kpiResp[i].id === 'current_month') {
             let currentData = checkValidity(_kpiResp[i].data)
 
@@ -299,9 +302,9 @@ const KpiDashboard = () => {
               color: "#00ACC1",
             });
             setShowFirstGraph(true)
-          } else if (_kpiResp[i].id === 'GPW_last_six_month') {
+          } else if (_kpiResp[i].id === `${gpwDataKey}_last_six_month`) {
 
-            gpwFinalData = gpwGraphData(_kpiResp[i], 'GPW_last_six_month')
+            gpwFinalData = gpwGraphData(_kpiResp[i], `${gpwDataKey}_last_two_month`)
             console.log('*********************(( gpwFinalData ))******************', gpwFinalData)
             setFinalBudgetData(gpwFinalData)
 
@@ -372,7 +375,7 @@ const KpiDashboard = () => {
           finalDataStruct.monthTbl = checkValidity(toCapitalize(_data.data[i].month))
           finalDataStruct.sales = checkValidity(parseFloat(_data.data[i].Final_Score))
           finalDataStruct.index = checkValidity(parseFloat(_data.data[i].index))
-          finalDataStruct.change_in_percent = checkValidity(_data.data[i].change_in_percent)
+          finalDataStruct.change_in_percent = checkValidity(_data.data[i].change_in_percent.toPrecision(4))
           finalDataStruct.year = checkValidity(_data.data[i].year)
           finalDataStruct.graphIND = _data.id === 'final_score_last_six_month' ? '2' : '1'
           finalData.push(finalDataStruct)
@@ -412,6 +415,7 @@ const KpiDashboard = () => {
             finalKey = _dataKeys
             let gpwTblData = checkValidity(dataGPW.data[i][finalKey])
             for (let _gpwKeys in gpwTblData) {
+              console.log('*********************(( _gpwKeys ))******************',_gpwKeys)
               // _gpwKeys.includes('budget') === true ? budgetKey = _gpwKeys : _gpwKeys.includes('actual') === true ? actualKey = _gpwKeys : 
               // _gpwKeys.includes('achievement') === true ? achieveKey = _gpwKeys : ''
               if (_gpwKeys.includes('budget') === true) budgetKey = _gpwKeys
@@ -424,12 +428,15 @@ const KpiDashboard = () => {
         let kpiCategory = dataGPW.category
         let gpwStruct = {}
         gpwStruct.name = 'Actual'
-        // console.log('*********************(( _data ))******************',dataGPW.data)
+        
         // gpwStruct.month = checkValidity(capitalize(gpwID ? dataGPW.data[i].year_month : dataGPW.data[i].qauter+' '+dataGPW.data[i].year))
         gpwStruct.month = checkValidity(toCapitalize(shortMonth(dataGPW.data[i].month)))
 
         let gpwTblData = checkValidity(dataGPW.data[i][finalKey])
         let tblDataKeys = Object.keys(gpwTblData)
+        // console.log('*********************(( gpwTblData ))******************',gpwTblData)
+        // console.log('*********************(( budgetKey ))******************',budgetKey)
+        // console.log('*********************(( actualKey ))******************',actualKey)
 
         gpwStruct.budget = parseFloat(checkValidity(gpwTblData[budgetKey]))
         gpwStruct.actual = parseFloat(checkValidity(gpwTblData[actualKey]))

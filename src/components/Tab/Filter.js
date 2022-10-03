@@ -17,20 +17,39 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [leadStatusFilter, setLeadStatusFilter] = useState("");
   const [sortByFlter, setSortByFlter] = useState("");
 
-  const [shortByStatus, setShortByStatus] = useState("");
+  const [shortByStatus, setShortByStatus] = useState("created_date_old");
+  const [sortBy, setSortBy] = useState("new_to_old");
 
   const [sortStatusFilter, setsortStatusFilter] = useState("");
   const [leadFilter, setleadFilter] = useState("");
+  const [searchType, setSearchType] = useState("");
   const [leadDispositionFilter, setleadDispositionFilter] = useState("");
   const [leadTypeFilter, setleadTypeFilter] = useState("");
 
-  const handleSortByStatus = (e) => {
-    console.log("sort by type___________***", e);
-    setShortByStatus(e);
+  // let sortByData = [
+  //   {label:'Lead Created date - Newest to oldest',value:'new_to_old', status: 'created_date_old'},
+  //   {label:'Lead Created date - Oldest to Newest',value:'old_to_new', status: 'created_date_new'},
+  //   // {label:'Allocation Date - Newest to Oldest',value:'new_to_old', status: 'allocation_date_old'},
+  //   // {label:'Allocation Date - Oldest to Newest',value:'old_to_new', status: 'allocation_date_new'},
+  // ]
+  let sortByData = [
+    {label:'Lead Created date - Newest to oldest',status:'new_to_old',filtValue:'createddate', value: 'created_date_old'},
+    {label:'Lead Created date - Oldest to Newest',status:'old_to_new',filtValue:'createddate', value: 'created_date_new'},
+    {label:'Allocation Date - Newest to Oldest',status:'new_to_old',filtValue:'allocateddate', value: 'allocation_date_old'},
+    {label:'Allocation Date - Oldest to Newest',status:'old_to_new',filtValue:'allocateddate', value: 'allocation_date_new'},
+  ]
+
+  const handleSortByStatus = (ev,data) => {
+    console.log("sort by type_____ev______***", ev);
+    console.log("sort by type______data_____***", data);
+    setSortByFlter(data.filtValue);
+    setSortBy(data.status)
+    setShortByStatus(ev);
   };
   const handleSearchType = (e) => {
     console.log("search type___________***", e.target.value);
-    setSortByFlter(e.target.value);
+    setSearchType(e.target.value)
+    // setSortByFlter(e.target.value);
   };
   const handleNameSearch = (e) => {
     console.log("name search___________***", e.target.value);
@@ -71,10 +90,11 @@ export function OffCanvasForGlobalFilter({ ...props }) {
         searchTextFilter,
         lead_status,
         sortByFlter,
-        shortByStatus,
+        sortBy,
         leadfilter,
         lead_disposition,
-        leadType
+        leadType,
+        searchType
       )
     );
     handleClose();
@@ -148,25 +168,26 @@ export function OffCanvasForGlobalFilter({ ...props }) {
             }}
           >
             <h6
-              style={{ fontWeight: "bold", padding: "10px", fontSize: "13px" }}
+              style={{ fontWeight: "bold", padding: "10px", fontSize: "13px",marginLeft:5 }}
             >
               Sort by
             </h6>
             <Select
-              onChange={handleSortByStatus}
+              onChange={(ev,data)=> handleSortByStatus(ev,data)}
               bordered={false}
               name="SortBy"
               value={shortByStatus}
+              options={sortByData}
               style={{
                 width: "20rem",
                 marginLeft: "1rem",
-                marginTop: "1rem",
+                // marginTop: "1rem",
                 borderBottom: "1px gray solid",
                 opacity: "0.5",
               }}
-              defaultValue=""
+              // defaultValue=""
             >
-              <Option value="new_to_old">
+              {/* <Option value="new_to_old">
                 Lead Created Date - Newest to Oldest
               </Option>
               <Option value="old_to_new">
@@ -177,7 +198,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
               </Option>
               <Option value="allo_old_to_new">
                 Allocation Date - Oldest to Newest
-              </Option>
+              </Option> */}
             </Select>
           </div>
           <div
@@ -202,10 +223,10 @@ export function OffCanvasForGlobalFilter({ ...props }) {
               }}
               // onChange={handleSearchType}
             >
-              <Radio.Button value="name" onChange={handleSearchType}>
+              <Radio.Button value="fname" onChange={handleSearchType}>
                 Name
               </Radio.Button>
-              <Radio.Button value="mobile" onChange={handleSearchType}>
+              <Radio.Button value="primaryMobile" onChange={handleSearchType}>
                 Mobile
               </Radio.Button>
               <Radio.Button value="leadId" onChange={handleSearchType}>

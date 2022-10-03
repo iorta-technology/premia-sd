@@ -11,7 +11,7 @@ import * as actions from "../../store/actions/leads";
 // stoageSetter('user', user);
 
 import {
-  getTeamMainTabApi,
+  // getTeamMainTabApi,
   getFirstDropdownValueApi,
   getSecondDropdownValueApi,
   getFormByIdApi,
@@ -1145,6 +1145,7 @@ const LeadCards = (props) => {
     // console.warn('event___HIERARCHYYY((((((((((===>>>>>>>>>>', event)
     event ? setOpenSecond(true) : setOpenSecond(false);
     setFirstValue(event);
+    setSecondValue('');
     // stoageSetter('teamMemberId', event);
     userTreeData.reporting_users.forEach(el =>{ 
       el.label = toCapitalize(el.full_name)
