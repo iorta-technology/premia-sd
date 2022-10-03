@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-common';
+// import axios from '../../axios-common';
+import axiosRequest from '../../axios-request/request.methods'
 
 
 // Fetch leads data
@@ -27,7 +28,7 @@ export const fetchHistoryFail = (error) => {
 export const fetchHistory = (leadId,userId) => {
     return dispatch => {
         dispatch(fetchHistoryStart())
-        return axios.get(`user/leadhistory/${leadId}?user_id=${userId}`)
+        return axiosRequest.get(`user/leadhistory/${leadId}?user_id=${userId}`, { secure: true })
             .then(res => {
                 // console.log(res.data.errMsg[1][0].count)
                 if(res.data.errCode===-1){
