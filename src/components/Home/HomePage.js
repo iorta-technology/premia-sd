@@ -14,7 +14,7 @@ import { Link, useHistory } from "react-router-dom";
 import FloatButton from "../FloatButton/FloatButton";
 import { Column } from "@ant-design/charts";
 import axiosRequest from "../../axios-request/request.methods";
-import { checkuserAccess,stoageGetter } from "../../helpers";
+import { checkuserAccess, stoageGetter } from "../../helpers";
 import { FormOutlined, ShopOutlined } from "@ant-design/icons";
 
 // import image -----
@@ -92,15 +92,13 @@ const HomePage = () => {
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
 
-  const _accessActivityTracker = checkuserAccess('myEvents'); //Activity Tracker
-  const _accessDailyBusiness = checkuserAccess('myBusiness'); // Daily Business
-  const _accessOpportunities = checkuserAccess('myLeads'); // Opportunities
-  const _accessKpi = checkuserAccess('businessDashboard'); // KPI Dashbord
-  const _accessTodo = checkuserAccess('todoTask'); // TODO
-  const _accessSalesGuide = checkuserAccess('sales_guide'); // Sales Guide
+  const _accessActivityTracker = checkuserAccess("myEvents"); //Activity Tracker
+  const _accessDailyBusiness = checkuserAccess("myBusiness"); // Daily Business
+  const _accessOpportunities = checkuserAccess("myLeads"); // Opportunities
+  const _accessKpi = checkuserAccess("businessDashboard"); // KPI Dashbord
+  const _accessTodo = checkuserAccess("todoTask"); // TODO
+  const _accessSalesGuide = checkuserAccess("sales_guide"); // Sales Guide
   // console.warn('((((((((_accessActivityTracker))))))))',_accessActivityTracker)
-
-  
 
   const [width, setWidth] = useState(window.innerWidth);
   const [goal, setGoal] = useState({});
@@ -110,14 +108,24 @@ const HomePage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   // Access Management
-  const [showActivityTracker, setShowActivityTracker] = useState(_accessActivityTracker.props.read === true ? true : false);
-  const [showDailyBusiness, setShowDailyBusiness] = useState(_accessDailyBusiness.props.read === true ? true : false);
-  const [showOpportunities, setShowOpportunities] = useState(_accessOpportunities.props.read === true ? true : false);
-  const [showKpi, setShowKpi] = useState(_accessKpi.props.read === true ? true : false);
-  const [showTodo, setShowTodo] = useState(_accessTodo.props.read === true ? true : false);
-  const [showSalesGuide, setShowSalesGuide] = useState(_accessSalesGuide.props.read === true ? true : false);
-
-  
+  const [showActivityTracker, setShowActivityTracker] = useState(
+    _accessActivityTracker.props.read === true ? true : false
+  );
+  const [showDailyBusiness, setShowDailyBusiness] = useState(
+    _accessDailyBusiness.props.read === true ? true : false
+  );
+  const [showOpportunities, setShowOpportunities] = useState(
+    _accessOpportunities.props.read === true ? true : false
+  );
+  const [showKpi, setShowKpi] = useState(
+    _accessKpi.props.read === true ? true : false
+  );
+  const [showTodo, setShowTodo] = useState(
+    _accessTodo.props.read === true ? true : false
+  );
+  const [showSalesGuide, setShowSalesGuide] = useState(
+    _accessSalesGuide.props.read === true ? true : false
+  );
 
   useEffect(() => {
     if (id) dispatch(actions.activities(id, agent_id));
@@ -127,7 +135,7 @@ const HomePage = () => {
 
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
-    channelCode && dispatch(actions.fetchHierarchy(userId, channelCode))
+    channelCode && dispatch(actions.fetchHierarchy(userId, channelCode));
     if (agent_id) dispatch(actions.home(agent_id, userId));
 
     // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
@@ -563,65 +571,67 @@ const HomePage = () => {
         const [showSalesGuide, setShowSalesGuide] = useState(_accessSalesGuide.props.read === true ? true : false); */}
 
         <Row gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center">
-          { showActivityTracker &&
-          <Col>
-            <div
-              className="dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#CEA0E1" }}
-            >
-              <div className="card-content">
-                <div className="activity-icon">
-                  <Image
-                    preview={false}
-                    width={55}
-                    height={55}
-                    src={activity_img}
-                    alt="Activities"
-                  />
-                </div>
-                <div
-                  onClick={() => history.push("/calendar")}
-                  className="activities-text"
-                >
-                  <div className="appointment_data">
-                    <p className="ttile_name">Activities</p>
-                    <p className="ttile_name">
-                      {activities_data && activities_data.length
-                        ? activities_data.length
-                        : ""}{" "}
-                      Activities
-                    </p>
+          {showActivityTracker && (
+            <Col>
+              <div
+                className="dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#CEA0E1" }}
+              >
+                <div className="card-content">
+                  <div className="activity-icon">
+                    <Image
+                      preview={false}
+                      width={55}
+                      height={55}
+                      src={activity_img}
+                      alt="Activities"
+                    />
                   </div>
-                  <div className="horizontalLine"></div>
+                  <div
+                    onClick={() => history.push("/calendar")}
+                    className="activities-text"
+                  >
+                    <div className="appointment_data">
+                      <p className="ttile_name">Activities</p>
+                      <p className="ttile_name">
+                        {activities_data && activities_data.length
+                          ? activities_data.length
+                          : ""}{" "}
+                        Activities
+                      </p>
+                    </div>
+                    <div className="horizontalLine"></div>
+                  </div>
                 </div>
-              </div>
 
-              {activities_data &&
-              !_.isEmpty(activities_data) &&
-              activities_data !== "No appointment " ? (
-                <div className="activity-block">
-                  {activities_data.map((item) => {
-                    return (
-                      <div
-                        className="action-cards-content-activity"
-                        key={item._id}
-                      >
-                        <div>
-                          <p className="appoinment_date">
-                            {Moment(item.start_date).format("D MMM YYYY")}{" "}
-                          </p>
-                          <div className="appointment_data">
-                            <p>{Moment(item.start_time_MS).format("h:mm a")}</p>
-                            <p style={{ fontWeight: "bold" }}>
-                              {item.event_name}
+                {activities_data &&
+                !_.isEmpty(activities_data) &&
+                activities_data !== "No appointment " ? (
+                  <div className="activity-block">
+                    {activities_data.map((item) => {
+                      return (
+                        <div
+                          className="action-cards-content-activity"
+                          key={item._id}
+                        >
+                          <div>
+                            <p className="appoinment_date">
+                              {Moment(item.start_date).format("D MMM YYYY")}{" "}
                             </p>
-                            <p>{Moment(item.end_time_MS).format("h:mm a")}</p>
-                          </div>
-                          <div id="truncateLongTexts">
-                            <p>{add3Dots(item.event_description, 50)}</p>
-                          </div>
-                          {/* <table>
+                            <div className="appointment_data">
+                              <p>
+                                {Moment(item.start_time_MS).format("h:mm a")}
+                              </p>
+                              <p style={{ fontWeight: "bold" }}>
+                                {item.event_name}
+                              </p>
+                              <p>{Moment(item.end_time_MS).format("h:mm a")}</p>
+                            </div>
+                            <div id="truncateLongTexts">
+                              <p>{add3Dots(item.event_description, 50)}</p>
+                            </div>
+                            {/* <table>
                               <tr>
                                 <td style={{ width: '85px' }}>
                                   <Button type="primary" size='small' style={{ backgroundColor: item.reminder_prority_color, color: "#fff", borderRadius: '2px' }}>
@@ -632,114 +642,114 @@ const HomePage = () => {
                                 <td>{item.leadId?.primaryMobile}</td>
                               </tr>
                             </table> */}
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="events-body">
-                  <Image
-                    className="stars"
-                    preview={false}
-                    src={event_img}
-                    alt="Events"
-                  />
-                  <p
-                    style={{
-                      color: "#CEA0E1",
-                      fontSize: "20px",
-                      width: "fit-content",
-                      margin: "auto",
-                    }}
-                  >
-                    No Events Exist
-                  </p>
-                  <Link to="/calendar">
-                    <div
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="events-body">
+                    <Image
+                      className="stars"
+                      preview={false}
+                      src={event_img}
+                      alt="Events"
+                    />
+                    <p
                       style={{
-                        color: "#fff",
-                        padding: "5px 20px",
-                        backgroundColor: "#CEA0E1",
-                        width: "40%",
+                        color: "#CEA0E1",
+                        fontSize: "20px",
                         width: "fit-content",
                         margin: "auto",
-                        cursor: "pointer",
                       }}
                     >
-                      Create an Event
-                    </div>
-                  </Link>
-                </div>
-              )}
-            </div>
-          </Col>
-          }
+                      No Events Exist
+                    </p>
+                    <Link to="/calendar">
+                      <div
+                        style={{
+                          color: "#fff",
+                          padding: "5px 20px",
+                          backgroundColor: "#CEA0E1",
+                          width: "40%",
+                          width: "fit-content",
+                          margin: "auto",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Create an Event
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </Col>
+          )}
 
-          { showOpportunities &&
-          <Col>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#86ACEC" }}
-            >
-              <Link to="/leadMaster/all_leads">
-                <div className="card-content">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={opportunities_img}
-                      alt="Opportunities"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Opportunities</p>
-                    <div className="horizontalLine"></div>
-                  </div>
-                </div>
-              </Link>
-              <div style={{ marginTop: "30px" }}>
-                <Column {...config} />
-              </div>
+          {showOpportunities && (
+            <Col>
               <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginTop: "10px",
-                }}
+                className=" dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#86ACEC" }}
               >
-                <div
-                  style={{
-                    padding: "0 30px",
-                    borderRight: "1px solid #fff",
-                    textAlign: "center",
-                    color: "#fff",
-                  }}
-                >
-                  <p>For Today</p>
-                  <span style={{ color: "#fff", fontSize: "50px" }}>
-                    {home_data?.today ? home_data.today : "00"}
-                  </span>
+                <Link to="/leadMaster/all_leads">
+                  <div className="card-content">
+                    <div className="activity-icon">
+                      <Image
+                        preview={false}
+                        width={55}
+                        height={55}
+                        src={opportunities_img}
+                        alt="Opportunities"
+                      />
+                    </div>
+                    <div className="activities-text">
+                      <p className="ttile_name">Opportunities</p>
+                      <div className="horizontalLine"></div>
+                    </div>
+                  </div>
+                </Link>
+                <div style={{ marginTop: "30px" }}>
+                  <Column {...config} />
                 </div>
                 <div
                   style={{
-                    padding: "0 30px",
-                    textAlign: "center",
-                    color: "#fff",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "10px",
                   }}
                 >
-                  <p>Open</p>
-                  <span style={{ color: "#fff", fontSize: "50px" }}>
-                    {home_data?.open_lead ? home_data.open_lead : "00"}
-                  </span>
+                  <div
+                    style={{
+                      padding: "0 30px",
+                      borderRight: "1px solid #fff",
+                      textAlign: "center",
+                      color: "#fff",
+                    }}
+                  >
+                    <p>For Today</p>
+                    <span style={{ color: "#fff", fontSize: "50px" }}>
+                      {home_data?.today ? home_data.today : "00"}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      padding: "0 30px",
+                      textAlign: "center",
+                      color: "#fff",
+                    }}
+                  >
+                    <p>Open</p>
+                    <span style={{ color: "#fff", fontSize: "50px" }}>
+                      {home_data?.open_lead ? home_data.open_lead : "00"}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Col>
-          }
+            </Col>
+          )}
 
           <Col style={{ display: "none" }}>
             <div
@@ -842,374 +852,374 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
-          
-          { showKpi &&
-          <Col>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#5EC0AD" }}
-            >
-              <Link to="/kpi-dashboard">
-                <div className="card-content">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={business_img}
-                      alt="Business"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Business</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </div>
-              </Link>
-              <div style={{ marginTop: "50px" }}>
-                <div
-                  style={{
-                    backgroundColor: "#fff",
-                    marginBottom: "10px",
-                    borderRadius: "3px",
-                    color: "#3C3D3D",
-                    fontSize: "11px",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontWeight: "750",
-                      padding: "5px 10px",
-                      borderBottom: "1px solid #c1c8cc",
-                      marginBottom: 0,
-                    }}
-                  >
-                    Retention
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      color: "#fff",
-                      lineHeight: "5px",
-                      color: "black",
-                    }}
-                  >
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>Target</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        0
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        width: "120px",
-                        padding: "8px 10px",
-                        borderRight: "1px solid #c2c8cc",
-                        borderLeft: "1px solid #c2c8cc",
-                      }}
-                    >
-                      <p>Achievement</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        0
-                      </p>
-                    </div>
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>%Achievement</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        0
-                      </p>
-                    </div>
-                  </div>
-                </div>
 
-                <div
-                  style={{
-                    backgroundColor: "#fff",
-                    marginBottom: "10px",
-                    borderRadius: "3px",
-                    color: "#3C3D3D",
-                    fontSize: "11px",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontWeight: "750",
-                      padding: "5px 10px",
-                      borderBottom: "1px solid #c1c8cc",
-                      marginBottom: 0,
-                    }}
-                  >
-                    GWP
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      color: "#fff",
-                      lineHeight: "5px",
-                      color: "black",
-                    }}
-                  >
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>Target</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        0
-                      </p>
+          {showKpi && (
+            <Col>
+              <div
+                className=" dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#5EC0AD" }}
+              >
+                <Link to="/kpi-dashboard">
+                  <div className="card-content">
+                    <div className="activity-icon">
+                      <Image
+                        preview={false}
+                        width={55}
+                        height={55}
+                        src={business_img}
+                        alt="Business"
+                      />
                     </div>
-                    <div
-                      style={{
-                        width: "120px",
-                        padding: "8px 10px",
-                        borderRight: "1px solid #c2c8cc",
-                        borderLeft: "1px solid #c2c8cc",
-                      }}
-                    >
-                      <p>Achievement</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        0
-                      </p>
-                    </div>
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>%Achievement</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        0
-                      </p>
+                    <div className="activities-text">
+                      <p className="ttile_name">Business</p>
+                      {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
+                      <div className="horizontalLine"></div>
                     </div>
                   </div>
-                </div>
-
-                <div
-                  style={{
-                    backgroundColor: "#fff",
-                    marginBottom: "10px",
-                    borderRadius: "3px",
-                    color: "#3C3D3D",
-                    fontSize: "11px",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontWeight: "750",
-                      padding: "5px 10px",
-                      borderBottom: "1px solid #c1c8cc",
-                      marginBottom: 0,
-                    }}
-                  >
-                    Activation
-                  </p>
+                </Link>
+                <div style={{ marginTop: "50px" }}>
                   <div
                     style={{
-                      display: "flex",
-                      color: "#fff",
-                      lineHeight: "5px",
-                      color: "black",
+                      backgroundColor: "#fff",
+                      marginBottom: "10px",
+                      borderRadius: "3px",
+                      color: "#3C3D3D",
+                      fontSize: "11px",
                     }}
                   >
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>Target</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        0
-                      </p>
-                    </div>
-                    <div
+                    <p
                       style={{
-                        width: "120px",
-                        padding: "8px 10px",
-                        borderRight: "1px solid #c2c8cc",
-                        borderLeft: "1px solid #c2c8cc",
+                        fontWeight: "750",
+                        padding: "5px 10px",
+                        borderBottom: "1px solid #c1c8cc",
+                        marginBottom: 0,
                       }}
                     >
-                      <p>Achievement</p>
-                      <p
+                      Retention
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#fff",
+                        lineHeight: "5px",
+                        color: "black",
+                      }}
+                    >
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Target</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
+                      <div
                         style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
+                          width: "120px",
+                          padding: "8px 10px",
+                          borderRight: "1px solid #c2c8cc",
+                          borderLeft: "1px solid #c2c8cc",
                         }}
                       >
-                        0
-                      </p>
+                        <p>Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>%Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
                     </div>
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>%Achievement</p>
-                      <p
+                  </div>
+
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      marginBottom: "10px",
+                      borderRadius: "3px",
+                      color: "#3C3D3D",
+                      fontSize: "11px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontWeight: "750",
+                        padding: "5px 10px",
+                        borderBottom: "1px solid #c1c8cc",
+                        marginBottom: 0,
+                      }}
+                    >
+                      GWP
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#fff",
+                        lineHeight: "5px",
+                        color: "black",
+                      }}
+                    >
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Target</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
+                      <div
                         style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
+                          width: "120px",
+                          padding: "8px 10px",
+                          borderRight: "1px solid #c2c8cc",
+                          borderLeft: "1px solid #c2c8cc",
                         }}
                       >
-                        0
-                      </p>
+                        <p>Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>%Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      marginBottom: "10px",
+                      borderRadius: "3px",
+                      color: "#3C3D3D",
+                      fontSize: "11px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontWeight: "750",
+                        padding: "5px 10px",
+                        borderBottom: "1px solid #c1c8cc",
+                        marginBottom: 0,
+                      }}
+                    >
+                      Activation
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#fff",
+                        lineHeight: "5px",
+                        color: "black",
+                      }}
+                    >
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Target</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
+                      <div
+                        style={{
+                          width: "120px",
+                          padding: "8px 10px",
+                          borderRight: "1px solid #c2c8cc",
+                          borderLeft: "1px solid #c2c8cc",
+                        }}
+                      >
+                        <p>Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>%Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          0
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Col>
-          }
+            </Col>
+          )}
 
-          { showDailyBusiness &&
-          <Col>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "rgb(134, 172, 236)" }}
-            >
-              <Link to="/daily-bussienss">
-                <div className="card-content">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={opportunities_img}
-                      alt="Business"
-                    />
+          {showDailyBusiness && (
+            <Col>
+              <div
+                className=" dataCard"
+                bordered="false"
+                style={{ backgroundColor: "rgb(134, 172, 236)" }}
+              >
+                <Link to="/daily-bussienss">
+                  <div className="card-content">
+                    <div className="activity-icon">
+                      <Image
+                        preview={false}
+                        width={55}
+                        height={55}
+                        src={opportunities_img}
+                        alt="Business"
+                      />
+                    </div>
+                    <div className="activities-text">
+                      <p className="ttile_name">Daily Business</p>
+                      {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
+                      <div className="horizontalLine"></div>
+                    </div>
                   </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Daily Business</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </div>
-              </Link>
-              <div style={{ marginTop: "50px" }}>
-                <div
-                  style={{
-                    backgroundColor: "#fff",
-                    marginBottom: "10px",
-                    borderRadius: "3px",
-                    color: "#3C3D3D",
-                    fontSize: "11px",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontWeight: "750",
-                      padding: "5px 10px",
-                      borderBottom: "1px solid #c1c8cc",
-                      marginBottom: 0,
-                    }}
-                  >
-                    GWP /July / 2021
-                  </p>
+                </Link>
+                <div style={{ marginTop: "50px" }}>
                   <div
                     style={{
-                      display: "flex",
-                      color: "#fff",
-                      lineHeight: "5px",
-                      color: "black",
+                      backgroundColor: "#fff",
+                      marginBottom: "10px",
+                      borderRadius: "3px",
+                      color: "#3C3D3D",
+                      fontSize: "11px",
                     }}
                   >
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>Target</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        {goal?.am?.gpwCommitment ? goal.am.gpwCommitment : 0}
-                      </p>
-                    </div>
-                    <div
+                    <p
                       style={{
-                        width: "120px",
-                        padding: "8px 10px",
-                        borderRight: "1px solid #c2c8cc",
-                        borderLeft: "1px solid #c2c8cc",
+                        fontWeight: "750",
+                        padding: "5px 10px",
+                        borderBottom: "1px solid #c1c8cc",
+                        marginBottom: 0,
                       }}
                     >
-                      <p>Achievement</p>
-                      <p
+                      GWP / {moment().format("MMMM / YYYY")}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#fff",
+                        lineHeight: "5px",
+                        color: "black",
+                      }}
+                    >
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Target</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {goal?.am?.gpwCommitment ? goal.am.gpwCommitment : 0}
+                        </p>
+                      </div>
+                      <div
                         style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
+                          width: "120px",
+                          padding: "8px 10px",
+                          borderRight: "1px solid #c2c8cc",
+                          borderLeft: "1px solid #c2c8cc",
                         }}
                       >
-                        {goal?.pm?.gpwAchived ? goal.pm.gpwAchived : 0}
-                      </p>
-                    </div>
-                    <div style={{ width: "120px", padding: "8px 10px" }}>
-                      <p>Achievement</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          color: "#3c3d3d",
-                          marginBottom: 5,
-                        }}
-                      >
-                        {getPercenTage(
-                          checkValidity(goal?.am?.gpwCommitment),
-                          checkValidity(goal?.pm?.gpwAchived)
-                        )}
-                        %
-                      </p>
+                        <p>Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {goal?.pm?.gpwAchived ? goal.pm.gpwAchived : 0}
+                        </p>
+                      </div>
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {getPercenTage(
+                            checkValidity(goal?.am?.gpwCommitment),
+                            checkValidity(goal?.pm?.gpwAchived)
+                          )}
+                          %
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Col>
-          }
+            </Col>
+          )}
 
           <Col style={{ display: "none" }}>
             <div
@@ -1346,188 +1356,191 @@ const HomePage = () => {
             </div>
           </Col>
 
-          { showTodo &&              
-          <Col>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#00ACC1" }}
-            >
-              <Link to="/calendar">
-                <div className="card-content">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={todo_img}
-                      alt="ToDo"
-                    />
+          {showTodo && (
+            <Col>
+              <div
+                className=" dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#00ACC1" }}
+              >
+                <Link to="/calendar">
+                  <div className="card-content">
+                    <div className="activity-icon">
+                      <Image
+                        preview={false}
+                        width={55}
+                        height={55}
+                        src={todo_img}
+                        alt="ToDo"
+                      />
+                    </div>
+                    <div className="activities-text">
+                      <p className="ttile_name">To Do</p>
+                      {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} /> */}
+                      <div className="horizontalLine"></div>
+                    </div>
                   </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">To Do</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </div>
-              </Link>
+                </Link>
 
-              {getTodoDataArray &&
-              !_.isEmpty(getTodoDataArray) &&
-              getTodoDataArray !== "No appointment " ? (
-                <div className="activity-block">
-                  {getTodoDataArray.map((element, index, item) => {
-                    // console.log('DATATATATA____',element)
-                    return (
-                      <div className="TodoCard-Container todo-home" key={index}>
-                        <div className="TodoCards-Top">
-                          <div className="TodoCards-TimedateArchive">
-                            <Col className="TodoCards-TopClock">
-                              <div className="todoCard-mr15">
-                                <img src={TodoClock} alt="alarm" />
-                              </div>
-                              <div>
-                                <h4
-                                  style={{
-                                    color:
-                                      element.status === "Soon"
-                                        ? element.sooncolor
-                                        : element.status === "Overdue"
-                                        ? element.overduecolor
-                                        : "red",
-                                    fontSize: 12,
-                                  }}
-                                >
-                                  {element.status}{" "}
-                                </h4>
-                              </div>
-                              <div style={{ marginLeft: 5 }}>
-                                <h4
-                                  style={{
-                                    color:
-                                      element.status === "Soon"
-                                        ? element.sooncolor
-                                        : element.status === "Overdue"
-                                        ? element.overduecolor
-                                        : "red",
-                                    fontSize: 12,
-                                  }}
-                                >
-                                  {element.stringtimeofreminder} :{" "}
-                                  {element.dateofreminder}
-                                </h4>
-                              </div>
-                            </Col>
+                {getTodoDataArray &&
+                !_.isEmpty(getTodoDataArray) &&
+                getTodoDataArray !== "No appointment " ? (
+                  <div className="activity-block">
+                    {getTodoDataArray.map((element, index, item) => {
+                      // console.log('DATATATATA____',element)
+                      return (
+                        <div
+                          className="TodoCard-Container todo-home"
+                          key={index}
+                        >
+                          <div className="TodoCards-Top">
+                            <div className="TodoCards-TimedateArchive">
+                              <Col className="TodoCards-TopClock">
+                                <div className="todoCard-mr15">
+                                  <img src={TodoClock} alt="alarm" />
+                                </div>
+                                <div>
+                                  <h4
+                                    style={{
+                                      color:
+                                        element.status === "Soon"
+                                          ? element.sooncolor
+                                          : element.status === "Overdue"
+                                          ? element.overduecolor
+                                          : "red",
+                                      fontSize: 12,
+                                    }}
+                                  >
+                                    {element.status}{" "}
+                                  </h4>
+                                </div>
+                                <div style={{ marginLeft: 5 }}>
+                                  <h4
+                                    style={{
+                                      color:
+                                        element.status === "Soon"
+                                          ? element.sooncolor
+                                          : element.status === "Overdue"
+                                          ? element.overduecolor
+                                          : "red",
+                                      fontSize: 12,
+                                    }}
+                                  >
+                                    {element.stringtimeofreminder} :{" "}
+                                    {element.dateofreminder}
+                                  </h4>
+                                </div>
+                              </Col>
 
-                            <div style={{ paddingLeft: 10, paddingRight: 5 }}>
+                              <div style={{ paddingLeft: 10, paddingRight: 5 }}>
+                                <img
+                                  alt=""
+                                  src={hamburger}
+                                  style={{
+                                    height: 15,
+                                    width: 3,
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={(e) => {
+                                    Showpopuptodo(index, element);
+                                  }}
+                                />
+                              </div>
+
+                              <div className="Hamburger-Edit">
+                                {element.showarchiedpopup === true && (
+                                  <div className="TodoCard-Container-Hamburger">
+                                    <Card className="Hamburger-Card Hamburger-box">
+                                      <hr
+                                        style={{
+                                          color: "#e6e9eb",
+                                          opacity: "0.3",
+                                        }}
+                                      />
+                                      <p
+                                        onClick={() => archiveData(element)}
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                        }}
+                                      >
+                                        <ShopOutlined
+                                          style={{ marginRight: "10px" }}
+                                        />{" "}
+                                        Archive
+                                      </p>
+                                    </Card>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="TodoCards-Body">
+                            <div
+                              className="TodoCard-Body-CheckBox todoCard-mr15"
+                              onClick={() => removListFromToDo(element, index)}
+                            >
                               <img
-                                alt=""
-                                src={hamburger}
-                                style={{
-                                  height: 15,
-                                  width: 3,
-                                  cursor: "pointer",
-                                }}
-                                onClick={(e) => {
-                                  Showpopuptodo(index, element);
-                                }}
+                                src={element.icon}
+                                className="archive-trueCheckBox"
+                                alt="trueCheckBox"
                               />
                             </div>
+                            <p
+                              style={{
+                                textDecorationLine:
+                                  element.textOverLine.textDecorationLine,
+                              }}
+                            >
+                              {element.content}
+                            </p>
+                          </div>
 
-                            <div className="Hamburger-Edit">
-                              {element.showarchiedpopup === true && (
-                                <div className="TodoCard-Container-Hamburger">
-                                  <Card className="Hamburger-Card Hamburger-box">
-                                    <hr
-                                      style={{
-                                        color: "#e6e9eb",
-                                        opacity: "0.3",
-                                      }}
-                                    />
-                                    <p
-                                      onClick={() => archiveData(element)}
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                      }}
-                                    >
-                                      <ShopOutlined
-                                        style={{ marginRight: "10px" }}
-                                      />{" "}
-                                      Archive
-                                    </p>
-                                  </Card>
-                                </div>
-                              )}
-                            </div>
+                          <div className="Todo-Footer">
+                            <p
+                              style={{
+                                textTransform: "capitalize",
+                                fontWeight: "bolder",
+                              }}
+                            >
+                              {element.ownername}
+                            </p>
+                            <button
+                              style={{
+                                textTransform: "capitalize",
+                                backgroundColor: element.priorityIndicatorColor,
+                              }}
+                            >
+                              {element.taskPriority}
+                            </button>
                           </div>
                         </div>
-                        <div className="TodoCards-Body">
-                          <div
-                            className="TodoCard-Body-CheckBox todoCard-mr15"
-                            onClick={() => removListFromToDo(element, index)}
-                          >
-                            <img
-                              src={element.icon}
-                              className="archive-trueCheckBox"
-                              alt="trueCheckBox"
-                            />
-                          </div>
-                          <p
-                            style={{
-                              textDecorationLine:
-                                element.textOverLine.textDecorationLine,
-                            }}
-                          >
-                            {element.content}
-                          </p>
-                        </div>
-
-                        <div className="Todo-Footer">
-                          <p
-                            style={{
-                              textTransform: "capitalize",
-                              fontWeight: "bolder",
-                            }}
-                          >
-                            {element.ownername}
-                          </p>
-                          <button
-                            style={{
-                              textTransform: "capitalize",
-                              backgroundColor: element.priorityIndicatorColor,
-                            }}
-                          >
-                            {element.taskPriority}
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div style={{ height: "75%" }} className="events-body">
-                  <Image
-                    className="stars1"
-                    src={action_data_img}
-                    preview={false}
-                  ></Image>
-                  <p
-                    style={{
-                      color: "#00ACC1",
-                      fontSize: "18px",
-                      fontWeight: "600",
-                      margin: "0 auto",
-                      width: "fit-content",
-                    }}
-                  >
-                    No Active Task
-                  </p>
-                </div>
-              )}
-            </div>
-          </Col>
-          }
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div style={{ height: "75%" }} className="events-body">
+                    <Image
+                      className="stars1"
+                      src={action_data_img}
+                      preview={false}
+                    ></Image>
+                    <p
+                      style={{
+                        color: "#00ACC1",
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        margin: "0 auto",
+                        width: "fit-content",
+                      }}
+                    >
+                      No Active Task
+                    </p>
+                  </div>
+                )}
+              </div>
+            </Col>
+          )}
 
           <Col style={{ display: "none" }}>
             <div
@@ -1744,94 +1757,94 @@ const HomePage = () => {
             </div>
           </Col>
 
-          { showSalesGuide &&
-          <Col>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#CEA0E1" }}
-            >
-              <div className="card-content">
-                <Link to="/products">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={sales_guide_img}
-                      alt="Sales Guide"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Sales Guide</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </Link>
-                <div className="sales-guide-content">
-                  <div className="b1-content">
-                    <div
-                      onClick={() =>
-                        history.push(
-                          "/masterpresales/customerdetails/salespitch"
-                        )
-                      }
-                    >
+          {showSalesGuide && (
+            <Col>
+              <div
+                className=" dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#CEA0E1" }}
+              >
+                <div className="card-content">
+                  <Link to="/products">
+                    <div className="activity-icon">
+                      <Image
+                        preview={false}
+                        width={55}
+                        height={55}
+                        src={sales_guide_img}
+                        alt="Sales Guide"
+                      />
+                    </div>
+                    <div className="activities-text">
+                      <p className="ttile_name">Sales Guide</p>
+                      {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
+                      <div className="horizontalLine"></div>
+                    </div>
+                  </Link>
+                  <div className="sales-guide-content">
+                    <div className="b1-content">
+                      <div
+                        onClick={() =>
+                          history.push(
+                            "/masterpresales/customerdetails/salespitch"
+                          )
+                        }
+                      >
+                        <p
+                          className="sales-content"
+                          style={{ height: 35, width: 100, fontSize: 14 }}
+                        >
+                          Sales Pitch
+                        </p>
+                      </div>
                       <p
                         className="sales-content"
-                        style={{ height: 35, width: 100, fontSize: 14 }}
+                        style={{ height: 35, width: 130, fontSize: 14 }}
                       >
-                        Sales Pitch
+                        Resource Center
                       </p>
                     </div>
-                    <p
-                      className="sales-content"
-                      style={{ height: 35, width: 130, fontSize: 14 }}
-                    >
-                      Resource Center
-                    </p>
-                  </div>
-                  <div className="b1-content">
-                    <div onClick={() => history.push("/products")}>
+                    <div className="b1-content">
+                      <div onClick={() => history.push("/products")}>
+                        <p
+                          className="sales-content"
+                          style={{ height: 35, width: 100 }}
+                        >
+                          Product
+                        </p>
+                      </div>
                       <p
                         className="sales-content"
-                        style={{ height: 35, width: 100 }}
+                        style={{ height: 35, width: 130, fontSize: 14 }}
                       >
-                        Product
+                        Need Analysis
                       </p>
                     </div>
-                    <p
-                      className="sales-content"
-                      style={{ height: 35, width: 130, fontSize: 14 }}
-                    >
-                      Need Analysis
-                    </p>
-                  </div>
-                  <div className="b1-content">
-                    <div onClick={() => history.push("/advisorpitch")}>
-                      <p
-                        className="sales-content"
-                        style={{ height: 35, width: 200, fontSize: 14 }}
-                      >
-                        Advisor OnBoarding
-                      </p>
+                    <div className="b1-content">
+                      <div onClick={() => history.push("/advisorpitch")}>
+                        <p
+                          className="sales-content"
+                          style={{ height: 35, width: 200, fontSize: 14 }}
+                        >
+                          Advisor OnBoarding
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="b1-content">
-                    <div onClick={() => history.push("/advisorpitch")}>
-                      <p
-                        className="sales-content"
-                        style={{ height: 35, width: 200, fontSize: 14 }}
-                      >
-                        Recruitment Presentation
-                      </p>
+                    <div className="b1-content">
+                      <div onClick={() => history.push("/advisorpitch")}>
+                        <p
+                          className="sales-content"
+                          style={{ height: 35, width: 200, fontSize: 14 }}
+                        >
+                          Recruitment Presentation
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Col>
-          }
+            </Col>
+          )}
 
           <Col style={{ display: "none" }}>
             <div
