@@ -12,6 +12,7 @@ import axios from "axios";
 import headerTabs from "./icons/header-tabs.png";
 import "./ActivityCalender.css";
 import Tabs from "../../components/Tab/Tab";
+import { checkAgent } from "../../helpers";
 
 const useWidowsSize = () => {
   const [size, setSize] = useState([window.Width, window.height]);
@@ -48,6 +49,7 @@ const App = () => {
       <Row style={{ color: "#f7f7f7", marginTop: "20px" }} justify="center">
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
+            {checkAgent() === false && 
             <div className="CardBody" style={{ marginLeft: "-10px" }}>
               <button
                 className={TeamSelf ? "activate" : " "}
@@ -78,6 +80,7 @@ const App = () => {
                 Team
               </button>
             </div>
+            }
             {TeamSelf ? <Self /> : <Team />}
           </Card>
         </Col>

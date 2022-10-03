@@ -187,7 +187,7 @@ export const fetchHierarchy = (userId,channelCode) => {
         //     })
         // console.log('p*********** channelCode',channelCode)
 
-        let result = await axiosRequest.get(`admin/getHierarchy?userId=5b3b4cc28fa96d39870443e3&channelCode=${channelCode._id}&skip=0&hierarchy_type=1`, { secure: true });
+        let result = await axiosRequest.get(`admin/getHierarchy?userId=5d80e8b084dfaa4a37a6b760&channelCode=${channelCode._id}&skip=0&hierarchy_type=1`, { secure: true });
         console.log(' login getHierarchy',result)
         if (result.length > 0) {
             dispatch(fetchHierarchySuccess(result));

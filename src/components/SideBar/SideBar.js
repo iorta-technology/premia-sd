@@ -218,14 +218,14 @@ useEffect(() => {
                 <li onClick={() => { history.push('/leadmasterpage/statuslead') }}><div><img src={draftr_img}/> &nbsp;<span>Add New Lead</span></div> <img src={right_black_img}/></li>
                 <li><div><img src={rapps_img}/> &nbsp;<span>Add Bulk Lead</span></div> <img src={right_black_img}/></li>
               </ul>
-              <p>My Applications</p>
+              {/* <p>My Applications</p>
               <ul>
                 <li><div><img src={allrec_img}/> &nbsp;<span>All Recruitments</span></div> <img src={right_black_img}/></li>
                 <li><div><img src={draftr_img}/> &nbsp;<span>Draft Recruitments</span></div> <img src={right_black_img}/></li>
                 <li><div><img src={rapps_img}/> &nbsp;<span>Recruitment Applications</span></div> <img src={right_black_img}/></li>
                 <li><div><img src={rdone_img}/> &nbsp;<span>Recruited</span></div> <img src={right_black_img}/></li>
                 <li><div><img src={failed_img}/> &nbsp;<span>Failed Recruitments</span></div> <img src={right_black_img}/></li>
-              </ul>
+              </ul> */}
               {/* <p>Dashboards</p>
               <Link to="/leads-report" >
               <ul>

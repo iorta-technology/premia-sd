@@ -351,7 +351,7 @@ const FloatButton = React.memo(() => {
       >
         New Lead Creation
       </p>
-      <Link>
+      <Link to="/leadmasterpage/statuslead">
         <Button
           onClick={addNewLead}
           type="primary"

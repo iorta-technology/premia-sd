@@ -2,7 +2,7 @@ import React, { useState, useEffect , createRef } from 'react'
 import useInput from '../hooks/use-input';
 import './StatusLead.css'
 import { Row, Col, Form, Button, Input, Select, Cascader, DatePicker, Space, Modal, Table, TimePicker, Spin } from 'antd';
-import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined, SaveOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FileTextOutlined, EditOutlined, PhoneOutlined, SaveOutlined,DeleteOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Tabs from '../../components/Tab/Tab'
@@ -24,27 +24,6 @@ const formItemLayout = {
 };
 
 
-
-
-
-
-const columns = [
-  {
-    title: 'Designation',
-    dataIndex: 'designation',
-    key: 'designation',
-  },
-  {
-    title: "Team Member''s",
-    dataIndex: "teammember''s",
-    key: "teammember''s",
-  },
-  {
-    title: 'Action',
-    dataIndex: 'action',
-    key: 'action',
-  },
-];
 const tabMenu = [
   {
     id: 1,
@@ -384,6 +363,25 @@ const NewLead = React.memo((props) => {
       label: "9:30 PM",
       value: "77400000"
     }]
+  
+  const teamTableHeader = [
+    {
+      title: 'Designation',
+      dataIndex: 'designation',
+      key: 'designation',
+    },
+    {
+      title: "Team Member's",
+      dataIndex: "teamMember",
+      key: "teamMember",
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (_, record) => <DeleteOutlined onClick={()=> deleteTableRow(record) } />,
+    },
+  ];
 
   let formRef = createRef();
   const dispatch = useDispatch()
@@ -409,12 +407,12 @@ const NewLead = React.memo((props) => {
   const channelCode = useSelector((state) => state.login.user.channelCode)
   const states = useSelector((state) => state.address.states)
   const minValue = useSelector((state) => state.login.minValue)
-  const levelCode = useSelector((state) => state.login.levelCode)
+  const levelCode = useSelector((state) => state.login)
 
   // store form data 
   let storeFormData = useSelector((state) => state?.newLead?.formData)
   const userTreeData = useSelector((state) => state?.home?.user_tree)
-  // console.warn('((((((((((( storeFormData )))))))))))', storeFormData)
+  // console.warn('((((((((((( levelCode )))))))))))', levelCode)
   delete storeFormData['appointmentId'];
   delete storeFormData['appointmentDate'];
 
@@ -498,6 +496,8 @@ const NewLead = React.memo((props) => {
   const [teamMemberList ,setTeamMemberList]=useState([])
   const [teamData ,setTeamData]=useState('')
   const [showLeadStatus, setshowLeadStatusVisiblity] = React.useState(false);
+  const [addTeamMemb ,setAddTeamMemb]=useState([])
+  const [teamTableData ,setTeamTableData]=useState([])
 
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
@@ -1025,10 +1025,30 @@ const NewLead = React.memo((props) => {
   // }
 
   const toggleTeamMember = () => {
+    setDesigData('')
+    setTeamData('')
     setVisibleTeamMemberModal(!visibleTeamMemberModal);
     !visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
+    
+
 
   };
+  const saveTeamMemberData = () => {
+    let _data = {
+      designation:addTeamMemb.designation.label,
+      teamMember:addTeamMemb.teamName.label,
+    }
+    // const [teamTableData ,setTeamTableData]=useState([])
+    setTeamTableData([...teamTableData,_data])
+    // console.warn('teamTableData ====((((((((((===>>>>>>>>>>', teamTableData)
+    setVisibleTeamMemberModal(false);
+
+  };
+
+  const deleteTableRow = (el) => {
+    const newData = teamTableData.filter((item) => item.teamMember !== el.teamMember);
+    setTeamTableData(newData);
+  }
 
   // validations 
   const validateMessages = {
@@ -1089,7 +1109,7 @@ const NewLead = React.memo((props) => {
     appointmentdisPosition: checkValidity(appointmentDisposition),
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    teamMembers: "[]",
+    teamMembers: JSON.stringify(addTeamMemb),
     leadSource: null,
     appointment_status: checkValidity(appointmentStatus),
     appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
@@ -1147,7 +1167,7 @@ const NewLead = React.memo((props) => {
     remarksfromSource: remarkFromSource,
     leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
-    teamMembers: '',
+    teamMembers: JSON.stringify(addTeamMemb),
     leadSource: '',
 
     appointment_status: checkValidity(appointmentStatus),
@@ -1217,19 +1237,30 @@ const NewLead = React.memo((props) => {
     // setErrorMessage( res.data.errMsg)
   };
 
-  const handleDesignationData = (event) =>{
+  const handleDesignationData = (event,data) =>{
     setDesigData(event)
     setTeamData('')
-    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
+    let _team = { ['designation']: data }
+    setAddTeamMemb(_team)
+    
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
-    // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
     setTeamMemberList(_teamData)
+    // console.warn('addTeamMemb((((((((((===>>>>>>>>>>', addTeamMemb)
     
   }
-  const handleTeamListData = (event) =>{
+  const handleTeamListData = (event,data) =>{
     setTeamData(event)
-    // console.log('DESIGNATOON',event)
+
+    let _memberData = {
+      dispValue:data.label,
+      label:data.label,
+      value:data.value,
+    }
+
+    let _team = { ...addTeamMemb, ['teamName']: _memberData }
+    setAddTeamMemb(_team)
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
+    // console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
     
   }
   
@@ -1843,123 +1874,150 @@ const NewLead = React.memo((props) => {
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager" style={(leadDisposition === "appointment" || leadDisposition === "callback") && { display: 'none' }}>
                 </Col>
-                <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager">
-                  <p className="botton-label">Select the team members you want to involve for this lead</p>
-                </Col>
-                <Col xs={24} sm={24} md={6} lg={6} xl={6} className="lead-manager" offset={width > breakpoint ? 6 : 0}>
-                  <Button
-                    shape="round"
-                    size="large"
-                    block
-                    onClick={toggleTeamMember}
-                    type="primary"
-                    style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
-                  >Add Team Member</Button>
-                </Col>
-                <>
-                  <Modal
-                    title="Add Team Member"
-                    centered={true}
-                    visible={visibleTeamMemberModal}
-                    onCancel={toggleTeamMember}
-                    footer={[
-                      <Button key="cancel" onClick={toggleTeamMember}>
-                        Cancel
-                      </Button>,
-                      <Button key="save" type="primary" onClick={toggleTeamMember} style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
-                        Save
-                      </Button>
-                    ]}
-                  // onCancel={handleCancel}
-                  >
-                    <Row gutter={10}>
-                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Form.Item
-                          {...formItemLayout}
-                          className="form-item-name label-color"
-                          name="Select Designation"
-                          label="Select Designation"
-                          rules={[
-                            {
-                              required: false,
-                              message: 'Set Designation',
-                            },
-                          ]}
-                        >
-                          <Select size="large" value={desigData} options={hierarAgentList} onChange={(event)=> handleDesignationData(event)}  placeholder="Set Designation"></Select>
-                        </Form.Item>
-                      </Col>
-                      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Form.Item
-                          {...formItemLayout}
-                          className="form-item-name label-color"
-                          name="Select Team Member"
-                          label="Select Team Member"
-                          rules={[
-                            {
-                              required: false,
-                              message: 'Set Reminder',
-                            },
-                          ]}
-                        >
-                         
-                          <Select size="large" value={teamData} options={teamMemberList} onChange={(event)=> handleTeamListData(event)} placeholder="Set Team Member"></Select>
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                  </Modal>
-                </>
+                
 
-                {checkAgent(levelCode, minValue) && <>
-                  <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager">
-                    <p className="botton-label">Currently this lead is allocated to Self</p>
-                  </Col>
-                  <Col xs={24} sm={24} md={5} lg={5} xl={5} className="lead-manager" offset={width > breakpoint ? 7 : 0}>
-                    <Button shape="round" size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', color: '#ffff' }} block onClick={showChangeOwnerModal}>Change Owner</Button>
-                  </Col>
-                  <Modal
-                    title="Allocate to"
-                    centered={true}
-                    visible={visibleChangeOwnerModel}
-                    onOk={handleChangeOwner}
-                    confirmLoading={changeOwnerLoading}
-                    onCancel={handleCancel}
-                  >
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                      <Form.Item
-                        {...formItemLayout}
-                        className="form-item-name label-color"
-                        name="designation"
-                        label="Select Designation"
-                        rules={[
-                          {
-                            required: false,
-                            message: 'Set Designation',
-                          },
-                        ]}
-                      >
-                        <Select size="large" options={setReminderOptions} placeholder="Set Designation"></Select>
-                      </Form.Item>
+                {checkAgent() === false && 
+                  <>
+                    <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager">
+                      <p className="botton-label">Currently this lead is allocated to Self</p>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                      <Form.Item
-                        {...formItemLayout}
-                        className="form-item-name label-color"
-                        name="teamMember"
-                        label="Select Team Member"
-                        rules={[
-                          {
-                            required: false,
-                            message: 'Set Reminder',
-                          },
-                        ]}
-                      >
-                        <Select size="large" options={setReminderOptions} placeholder="Set Team Member"></Select>
-                      </Form.Item>
+                    <Col xs={24} sm={24} md={5} lg={5} xl={5} className="lead-manager" offset={width > breakpoint ? 7 : 0}>
+                      <Button shape="round" size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', color: '#ffff' }} block onClick={showChangeOwnerModal}>Change Owner</Button>
                     </Col>
-                  </Modal>
-                </>}
-                <Table columns={columns} />
+                    <Modal
+                      title="Allocate to"
+                      centered={true}
+                      visible={visibleChangeOwnerModel}
+                      onCancel={handleCancel}
+                      footer={[
+                        <Button key="cancel" onClick={handleCancel}>
+                          Cancel
+                        </Button>,
+                        <Button key="save" type="primary" onClick={handleCancel} style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
+                          Save
+                        </Button>
+                      ]}
+                    >
+                      <Row gutter={10}>
+                          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Designation"
+                              label="Select Designation"
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Designation',
+                                },
+                              ]}
+                            >
+                              <Select size="large" value={desigData} options={hierarAgentList} onChange={(event,data)=> handleDesignationData(event,data)}  placeholder="Set Designation"></Select>
+                            </Form.Item>
+                          </Col>
+                          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Team Member"
+                              label="Select Team Member"
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Reminder',
+                                },
+                              ]}
+                            >
+                            
+                              <Select size="large" value={teamData} options={teamMemberList} onChange={(event,data)=> handleTeamListData(event,data)} placeholder="Set Team Member"></Select>
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                    </Modal>
+                  </>
+                }
+
+                {checkAgent() === false && 
+                  <>
+                    <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager">
+                      <p className="botton-label">Select the team members you want to involve for this lead</p>
+                    </Col>
+                    <Col xs={24} sm={24} md={6} lg={6} xl={6} className="lead-manager" offset={width > breakpoint ? 6 : 0}>
+                      <Button
+                        shape="round"
+                        size="large"
+                        block
+                        onClick={toggleTeamMember}
+                        type="primary"
+                        style={{ backgroundColor: 'rgb(59, 55, 30)', border: 'none' }}
+                      >Add Team Member</Button>
+                    </Col>
+                    <>
+                      <Modal
+                        title="Add Team Member"
+                        centered={true}
+                        visible={visibleTeamMemberModal}
+                        onCancel={toggleTeamMember}
+                        footer={[
+                          <Button key="cancel" onClick={toggleTeamMember}>
+                            Cancel
+                          </Button>,
+                          <Button key="save" type="primary" onClick={ saveTeamMemberData} style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
+                            Save
+                          </Button>
+                        ]}
+                      // onCancel={handleCancel}
+                      >
+                        <Row gutter={10}>
+                          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Designation"
+                              label="Select Designation"
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Designation',
+                                },
+                              ]}
+                            >
+                              <Select size="large" value={desigData} options={hierarAgentList} onChange={(event,data)=> handleDesignationData(event,data)}  placeholder="Set Designation"></Select>
+                            </Form.Item>
+                          </Col>
+                          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                            <Form.Item
+                              {...formItemLayout}
+                              className="form-item-name label-color"
+                              name="Select Team Member"
+                              label="Select Team Member"
+                              rules={[
+                                {
+                                  required: false,
+                                  message: 'Set Reminder',
+                                },
+                              ]}
+                            >
+                            
+                              <Select size="large" value={teamData} options={teamMemberList} onChange={(event,data)=> handleTeamListData(event,data)} placeholder="Set Team Member"></Select>
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                      </Modal>
+                    </>
+                  </>
+                }
+
+                {(checkAgent() === false && teamTableData.length > 0) &&  
+                  <Col xs={12} sm={12} md={12}>
+                    <Table 
+                      pagination={false} 
+                      bordered 
+                      dataSource={teamTableData} 
+                      columns={teamTableHeader} 
+                      size="small" /> 
+                  </Col>
+                }
               </Row>
 
               {/* </Form> */}

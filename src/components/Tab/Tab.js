@@ -6,7 +6,7 @@ import _ from "lodash";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/leads";
-import { stoageGetter } from "../../helpers";
+import { checkAgent,stoageGetter } from "../../helpers";
 import { Button } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import LeadCard from "../LeadCards/LeadCard";
@@ -272,31 +272,35 @@ const Tab = ({
           <div style={{ display: "flex" }}>
             {tabPane.key === activeKey ? (
               <div className="round-card-main-Tab">
-                <figure
-                  className={
-                    currentActiveTab === "team"
-                      ? "round-cards1-active"
-                      : "round-cards1"
-                  }
-                  onClick={() => handleChangeTab("team")}
-                  key={"team"}
-                >
-                  {" "}
-                  <figcaption className="card-caption">Team</figcaption>{" "}
-                </figure>
-                <figure
-                  className={
-                    currentActiveTab === "self"
-                      ? "round-cards2-active"
-                      : "round-cards2"
-                  }
-                  onClick={() => handleChangeTab("self")}
-                  key={"self"}
-                >
-                  {" "}
-                  <figcaption className="card-caption">Self</figcaption>{" "}
-                </figure>
-                <AllocateModalShow />
+                { checkAgent() === false && 
+                <>
+                  <figure
+                    className={
+                      currentActiveTab === "team"
+                        ? "round-cards1-active"
+                        : "round-cards1"
+                    }
+                    onClick={() => handleChangeTab("team")}
+                    key={"team"}
+                  >
+                    {" "}
+                    <figcaption className="card-caption">Team</figcaption>{" "}
+                  </figure>
+                  <figure
+                    className={
+                      currentActiveTab === "self"
+                        ? "round-cards2-active"
+                        : "round-cards2"
+                    }
+                    onClick={() => handleChangeTab("self")}
+                    key={"self"}
+                  >
+                    {" "}
+                    <figcaption className="card-caption">Self</figcaption>{" "}
+                  </figure>
+                  <AllocateModalShow />
+                </>
+                }
                 <GlobalFilters
                   show={show}
                   onHide={handleClose}
@@ -333,17 +337,8 @@ const Tab = ({
                 padding: "16px",
               }}
             >
-              {/* <figure className={currentActiveTab === "team"
-                  ? "round-cards1-active" : "round-cards1"} onClick={() => handleChangeTab("team")} key={"team"}>
-                  {' '}
-                  <figcaption className="card-caption">Team</figcaption>{' '}
-                </figure>
-                <figure className={currentActiveTab === "self"
-                  ? "round-cards2-active" : "round-cards2"} onClick={() => handleChangeTab("self")} key={"self"}>
-                  {' '}
-                  <figcaption className="card-caption">Self</figcaption>{' '}
-                </figure>
-                <AllocateModalShow/> */}
+              { checkAgent() === false && 
+              <>
               <button
                 onClick={() => handleChangeTab("self")}
                 key={"self"}
@@ -379,6 +374,8 @@ const Tab = ({
                 Team
               </button>
               <AllocateModalShow />
+              </>
+              }
               <GlobalFilters
                 show={show}
                 onHide={handleClose}
