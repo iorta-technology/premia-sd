@@ -92,13 +92,14 @@ const HomePage = () => {
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
   let _storeData = useSelector((state) => state)
+  console.warn('((((((((_storeData))))))))',_storeData.login)
 
-  const _accessActivityTracker = checkuserAccess('myEvents'); //Activity Tracker
-  const _accessDailyBusiness = checkuserAccess('myBusiness'); // Daily Business
-  const _accessOpportunities = checkuserAccess('myLeads'); // Opportunities
-  const _accessKpi = checkuserAccess('businessDashboard'); // KPI Dashbord
-  const _accessTodo = checkuserAccess('todoTask'); // TODO
-  const _accessSalesGuide = checkuserAccess('sales_guide'); // Sales Guide
+  const _accessActivityTracker = checkuserAccess('myEvents',_storeData.login); //Activity Tracker
+  const _accessDailyBusiness = checkuserAccess('myBusiness',_storeData.login); // Daily Business
+  const _accessOpportunities = checkuserAccess('myLeads',_storeData.login); // Opportunities
+  const _accessKpi = checkuserAccess('businessDashboard',_storeData.login); // KPI Dashbord
+  const _accessTodo = checkuserAccess('todoTask',_storeData.login); // TODO
+  const _accessSalesGuide = checkuserAccess('sales_guide',_storeData.login); // Sales Guide
   // console.warn('((((((((_storeData))))))))',_storeData)
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -145,14 +146,14 @@ const HomePage = () => {
     if (agent_id) dispatch(actions.home(agent_id, userId));
     getTodoData(0);
     getDailyBusiness();
-  }, [dispatch, id, agent_id]);
+  }, []);
 
   useEffect(() => {
     let _businessCardResp = _storeData.home.businessData[0].data
     let _bussDropArr = [];
 
-    // console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
-    if(_storeData.home.businessData.length > 0){
+    console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
+    if(_businessCardResp.length > 0){
       for (let _kpi of _businessCardResp) {
         let data = {
           label: _kpi.year_month,
@@ -164,7 +165,10 @@ const HomePage = () => {
         setBusinessDropArray(_bussDropArr)
         setBusinessDropdown(_bussDropArr[0].value)
       }
+      console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
       handleBusinessDropdown(_bussDropArr[0].value)
+    }else{
+      handleBusinessDropdown('')
     }
   },[])
 
@@ -451,7 +455,7 @@ const HomePage = () => {
     let _businessCardResp = _storeData.home.businessData[0].data
     let _selectMonthData = _businessCardResp.filter(el => event === el.year_month)
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
-    if(_storeData.home.businessData.length > 0){
+    if(event !== ''){
 
       _businessRetention.target = _selectMonthData[0]['GWP Retention'].gwp_retention_target
       _businessRetention.achieve = _selectMonthData[0]['GWP Retention'].gwp_retention_achievement
