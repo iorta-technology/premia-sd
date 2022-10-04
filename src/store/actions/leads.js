@@ -31,7 +31,7 @@ export const fetchAllLeadsFail = (error) => {
 
 export const fetchAllLeads = (id, leads, pageNo) => {
     console.log(id)
-    const leadFilter = getLeadFilter(leads)
+    // const leadFilter = getLeadFilter(leads)
     let skipVal
     pageNo === 1 ? skipVal = 0 : skipVal = (pageNo - 1) * 15
 
@@ -54,24 +54,26 @@ export const fetchAllLeads = (id, leads, pageNo) => {
         //     })
 
 
-        let result = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`, { secure: true });
+        let result = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=${leads}&skip=${skipVal}`, { secure: true });
         // console.warn('+++++++++ GET LEAD DATA ++++++++', result)
         if (result.length > 0) {
             // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
             // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
-            dispatch(fetchAllLeadsSuccess(supportLead.readSortDataFromAPI(leadFilter,result[0],this), result[1][0].count));
+            dispatch(fetchAllLeadsSuccess(supportLead.readSortDataFromAPI(leads,result[0],this), result[1][0].count));
         } else {
             dispatch(fetchAllLeadsFail())
         }
     }
 }
 
-export const fetchDataAfterFilter = (id, skip, searchtxt, lead_status, sorByFlter, sort_status, leadfilter, lead_disposition, leadType) => {
+export const fetchDataAfterFilter = (id, skip, searchtxt, lead_status, sorByFlter, sort_status, leadfilter, lead_disposition, leadType,searchType) => {
     return async dispatch => {
         dispatch(fetchAllLeadsStart())
-        let url = `user/v2/getleads_team/${id}?skip=${skip}`
+        // &searchType=fname
+        let url = `user/v2/getLead/${id}?skip=${skip}`
+        
+        if (searchType.trim().length) url += `&searchType=${searchType}`
         if (searchtxt.trim().length) {
-            console.log("_____***A",searchtxt)
             url += `&searchtxt=${searchtxt}`
         }
         if (lead_status.trim().length) {
@@ -96,7 +98,8 @@ export const fetchDataAfterFilter = (id, skip, searchtxt, lead_status, sorByFlte
         let result = await axiosRequest.get(url);
         console.warn('_______Filter', result)
         if (result.length > 0) {
-            dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
+            dispatch(fetchAllLeadsSuccess(supportLead.readSortDataFromAPI(leadfilter,result[0],this), result[1][0].count));
+            // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
         } else {
             dispatch(fetchAllLeadsFail())
         }

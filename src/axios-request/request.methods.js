@@ -60,7 +60,8 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
           resolve(data.errMsg);
         } else {
           // alert(data.errMsg);
-          message.error(data.errMsg);
+          if (config.method !== "get") message.error(data.errMsg);
+          // message.error(data.errMsg);
           resolve(null);
         }
       })

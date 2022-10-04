@@ -3,10 +3,12 @@ import { Row, Col } from 'antd'
 import './Notification.css'
 import { Link,useHistory } from 'react-router-dom';
 import moment from 'moment'
+import axiosRequest from '../../axios-request/request.methods'  
+import { useSelector } from "react-redux";
 
 const NotificationComp = () => {
+    const userId = useSelector(state => state.login.userId)
     const history = useHistory();
-    
     const MAX_ITEMS = 7;
     const [isOpen, setIsOpen] = useState(false)
     // api integation 
@@ -17,21 +19,20 @@ const NotificationComp = () => {
     
     useEffect(() => {
         // simple using fetch  
-        const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=2&skip=0";
+       
         const fetchData = async () => {
           try {
-            const response = await fetch(url);
-             const json = await response.json();
-           console.log("-----", json.errMsg[0])
-                // let date = json.dbDate
-                // console.log("jhjgh", date);
-            set_Notify(json.errMsg[0]);
+            let data = await axiosRequest.get(`user/getnotification/${userId}?notification_type=alerts&readStatus=0`)
+             console.log("-----", data)
+            set_Notify(data);
+            
           } catch (error) {
             console.log("error", error);
           }
         };
     
         fetchData()
+
     }, [])
 
     
@@ -62,7 +63,8 @@ const NotificationComp = () => {
         
        {/* Start the node data */}
 
-        <div className='mainTab'>
+        {
+            _notify.length && _notify.length > 0 ? <div className='mainTab'>
             <div className="stepper d-flex flex-column mt-2 ml-2">
                 <div className="d-flex mb-1">
                     <div className="d-flex flex-column pr-4 align-items-center">
@@ -111,12 +113,17 @@ const NotificationComp = () => {
             {loading ? <button>Loading..</button> :  
                 <button onClick={toggle} style={{display: isShown ? '-webkit-inline-box' : 'none', textAlign: 'center'}}>
                      {isOpen ? 'Load Less' : 'Load More'}
-                </button>}
+                </button>
+            }
                
             </div>
             
             
+        </div> : <div className='no_agent'>
+            <p>No Notification by Agent</p>
         </div>
+        }
+        
     </>
   )
 }

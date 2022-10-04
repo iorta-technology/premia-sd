@@ -74,13 +74,13 @@ export const checkAgent = () => {
   }
 };
 
-export const checkuserAccess = (featureCode) => {
+export const checkuserAccess = (featureCode,userData) => {
   // console.log('featureCode ))::>>', featureCode);
-  let _temp = window.localStorage.getItem('persist:root')
-  let _loginUser = JSON.parse(JSON.parse(_temp).login)
-  // console.log('((((((((((hierarchyData))))))))))',_loginUser)
-  var storeData_match = _loginUser.user.accessOpt.accessOpt
-  var roleCODE = _loginUser.user.roleCode
+  // let _temp = window.localStorage.getItem('persist:root')
+  // let _loginUser = JSON.parse(JSON.parse(_temp).login)
+  console.warn('((((((((((hierarchyData))))))))))',userData.user)
+  var storeData_match = userData.user.accessOpt.accessOpt
+  var roleCODE = userData.user.roleCode
           // console.log('Role Code::', roleCODE);  
     // Array Itration
     for (var location of storeData_match) {

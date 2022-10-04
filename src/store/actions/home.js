@@ -16,11 +16,17 @@ export const homeSuccess = (payload) => {
 };
 
 export const userTreeData = (payload) => {
-  return {
-    type: actionTypes.USER_TREE,
-    home: payload,
-  };
-};
+    return {
+        type: actionTypes.USER_TREE,
+        home:payload
+    }
+} 
+export const businessCardData = (payload) => {
+    return {
+        type: actionTypes.BUSINESS_CARD,
+        businessData:payload
+    }
+} 
 
 export const homeFail = (error) => {
   return {
@@ -83,23 +89,41 @@ export const home = (agent_id, userID) => {
 };
 
 export const getUserTreeAPI = (userId) => {
-  //    console.log("agent id in",agent_id)
-  return async (dispatch) => {
-    // dispatch(homeStart())
-    let _resp = await axiosRequest.get(`user/v2/user_tree?userId=${userId}`, {
-      secure: true,
-    });
-    console.log("home data", _resp);
-    return dispatch(userTreeData(_resp));
-    // return axiosRequest.get(`user/v2/user_tree?userId=${agent_id}`)
-    // .then(res=>{
-    //     console.log("home data",res)
-    //     return dispatch(userTreeData(res.data.errMsg))
-    // }).catch(error=>{
-    //     console.log(error)
-    // })
-  };
-};
+    //    console.log("agent id in",agent_id)
+    return async dispatch => {
+        // dispatch(homeStart())
+        let _resp = await axiosRequest.get(`user/v2/user_tree?userId=${userId}`, { secure: true })
+        console.log("home data",_resp)
+        return dispatch(userTreeData(_resp))
+        // return axiosRequest.get(`user/v2/user_tree?userId=${agent_id}`)
+        // .then(res=>{
+        //     console.log("home data",res)
+        //     return dispatch(userTreeData(res.data.errMsg))
+        // }).catch(error=>{
+        //     console.log(error)
+        // })
+    }
+}
+
+export const getBusinessCardAPI = (userId,channelData) => {
+    //    console.log("agent id in",agent_id)
+    // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
+    return async dispatch => {
+        // dispatch(homeStart())
+        let _resp = await axiosRequest.get(`user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`, { secure: true })
+        console.log("Business CARD",_resp)
+        return dispatch(businessCardData(_resp))
+        // return axiosRequest.get(`user/v2/user_tree?userId=${agent_id}`)
+        // .then(res=>{
+        //     console.log("home data",res)
+        //     return dispatch(userTreeData(res.data.errMsg))
+        // }).catch(error=>{
+        //     console.log(error)
+        // })
+    }
+}
+
+
 export const todoGetData = (id) => {
   return async (dispatch) => {
     dispatch(todoStart());

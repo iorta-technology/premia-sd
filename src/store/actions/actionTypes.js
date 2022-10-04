@@ -98,6 +98,7 @@ export const HOME_START = 'HOME_START'
 export const HOME_SUCCESS = 'HOME_SUCCESS'
 export const HOME_FAIL = 'HOME_FAIL'
 export const USER_TREE = 'USER_TREE'
+export const BUSINESS_CARD = 'BUSINESS_CARD'
 
 
 export const ACTIVITIES_START = 'ACTIVITIES_START'
