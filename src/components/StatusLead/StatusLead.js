@@ -13,6 +13,8 @@ import { checkAgent, milToDateString } from '../../helpers'
 import moment from 'moment';
 import { Link, useHistory } from 'react-router-dom';
 import axiosRequest from '../../axios-request/request.methods';
+
+const minimumDate = moment().format("YYYY-MM-DD")
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -389,11 +391,15 @@ const NewLead = React.memo((props) => {
   const [form] = Form.useForm();
   useEffect(() => {
     // dispatch(actions.fetchTeamMember())
-    console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
+    // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
     if(props.location.state !== undefined){
       let _leadID = props.location.state.leadID
       // setshowLeadStatusVisiblity(true)
       getLeadDetails(_leadID)
+      setIsNewLead(false)
+    }else{
+      setIsNewLead(true)
+      // storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
     }
     
     // dispatch(actions.fetchLeadDetails(_leadID));
@@ -510,7 +516,9 @@ const NewLead = React.memo((props) => {
       })
       setHierarAgentList(userTreeData.reporting_hierarchies)
     // }
-    storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
+    // console.log('((((((((((((storeFormData))))))))))))',storeFormData)
+    // console.log('((((((((((((lead_Id))))))))))))',storeFormData.lead_Id)
+    // storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
     primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false)
   }, []);
 
@@ -574,6 +582,14 @@ const NewLead = React.memo((props) => {
           setAppointmentTime(_appntTime)
         }
       } else {
+        if (leadData.leadDisposition === 'callback' && leadData.leadStatus === 'contact') {
+          if (leadData.appointmentDetails) {
+            _appntDate = moment(leadData.appointmentDetails.start_date)
+            _appntTime = leadData.appointmentDetails.start_time.toString()
+            setAppointmentDate(moment(leadData.appointmentDetails.start_date))
+            setAppointmentTime(_appntTime)
+          }
+        }
         setshowLeadStatusVisiblity(false)
         setLeadStatus(leadData.leadStatus)
         setLeadDisposition(leadData.hasOwnProperty('leadDisposition') ? leadData.leadDisposition : '')
@@ -666,8 +682,8 @@ const NewLead = React.memo((props) => {
           label: 'Wrong Number',
           children: [
             {
-              value: 'Wrong Number',
-              label: 'Wrong Number',
+              value: 'Wrong number',
+              label: 'Wrong number',
             },
           ],
         },
@@ -683,11 +699,11 @@ const NewLead = React.memo((props) => {
         },
         {
           value: 'switchoff',
-          label: 'Switched Off',
+          label: 'Switched off',
           children: [
             {
-              value: 'Switched Off',
-              label: 'Switched Off',
+              value: 'Switched off',
+              label: 'Switched off',
             },
           ],
         },
@@ -722,8 +738,8 @@ const NewLead = React.memo((props) => {
               label: 'Decision maker unavailable',
             },
             {
-              value: 'ECS is active asked to call on due date ',
-              label: 'ECS is active asked to call on due date ',
+              value: 'ECS is active asked to call on due date',
+              label: 'ECS is active asked to call on due date',
             }
           ],
         },
@@ -1762,6 +1778,7 @@ const NewLead = React.memo((props) => {
                           value={appointmentDate}
                           size="large"
                           format="YYYY/MM/DD"
+                          disabledDate={d => !d || d.isBefore(minimumDate)}
                           style={{ width: "100%", boxShadow: 'none', border: 'none', borderBottom: '1px rgb(153, 153, 153) solid', }}
                         // style={{ width: "100%",border:'none',borderBottom:'1px solid gray' }} 
                         />

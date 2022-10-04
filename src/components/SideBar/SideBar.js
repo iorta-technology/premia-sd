@@ -157,7 +157,7 @@ useEffect(() => {
   const agent_id = login_user_data.agentId
   
   const  onLogout=() =>{
-    localStorage.clear()
+    window.localStorage.clear()
     dispatch(actions.logout())
     history.push('/login')
 }

@@ -44,14 +44,14 @@ export const AllocateModal = React.memo((props) => {
     alert("Lead allocated successfully");
   };
 
-  useEffect(() => {
-    getAlldataofTeamMainTab();
-  }, []);
+  // useEffect(() => {
+  //   getAlldataofTeamMainTab();
+  // }, []);
 
-  const getAlldataofTeamMainTab = async () => {
-    const responsedata = await getTeamMainTabApi();
-    setCardData(responsedata?.data?.errMsg[0]);
-  };
+  // const getAlldataofTeamMainTab = async () => {
+  //   const responsedata = await getTeamMainTabApi();
+  //   setCardData(responsedata?.data?.errMsg[0]);
+  // };
   const handleViewDetails = (lead) => {
     setviewDetails([lead]);
   };

@@ -93,7 +93,7 @@ const History = () => {
                 <Timeline className="p4">
                     {appointmentArrObject.map((leadData) =>
                         <Timeline.Item color="red">
-                            <p className="ml10 timeline-title">{leadData.title} Appointment</p>
+                            <p className="ml10 timeline-title">{leadData.title}</p>
                             <Row className="timeline-desc">
                                 <Col xs={22} sm={22} md={12} className="ml10 desc">
                                     <p>{leadData.desc}</p>

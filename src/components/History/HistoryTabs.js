@@ -5,22 +5,39 @@ import './History.css'
 const { Step } = Steps;
 const { TabPane } = Tabs;
 
-
 const HistoryTabs = () => {
+  let { innerWidth: width, innerHeight: height } = window;
+  const [tabPosition, setTabPosition] = useState(
+    width <= "374"
+      ? "top"
+      : width <= "424"
+      ? "top"
+      : width <= "767"
+      ? "top"
+      : width <= "1023"
+      ? "top"
+      : "left"
+  );
 
-    let { innerWidth: width, innerHeight: height } = window;
-    const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
-        width <= "767" ? "top" : width <= "1023" ? "top" : "left");
+  // const [width, setWidth] = useState(window.innerWidth);
+  // const breakpoint = 620;
 
-    // const [width, setWidth] = useState(window.innerWidth);
-    // const breakpoint = 620;
+  useEffect(() => {
+    //const handleWindowResize = () => setWidth(window.innerWidth)
+    // window.addEventListener("resize", handleWindowResize);
+    // Return a function from the effect that removes the event listener
+    // return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
 
-    useEffect(() => {
-        //const handleWindowResize = () => setWidth(window.innerWidth)
-       // window.addEventListener("resize", handleWindowResize);
-        // Return a function from the effect that removes the event listener
-       // return () => window.removeEventListener("resize", handleWindowResize);
-    }, []);
+  // useEffect(() => {
+  //     try {
+  //         let res = axiosRequest.get(`user/fetch_goals/${id}`, { secure: true });
+  //         res.then((res) => setUser(res));
+  //         console.log("res", res);
+  //       } catch (error) {
+  //         console.log("error API " + error);
+  //       }
+  // }, [])
 
 
     return (
@@ -43,4 +60,4 @@ const HistoryTabs = () => {
     )
 }
 
-export default HistoryTabs
+export default HistoryTabs;

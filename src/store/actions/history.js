@@ -1,29 +1,27 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 // import axios from '../../axios-common';
-import axiosRequest from '../../axios-request/request.methods'
-
+import axiosRequest from "../../axios-request/request.methods";
 
 // Fetch leads data
 export const fetchHistoryStart = () => {
-    return {
-        type: actionTypes.FETCH_HISTORY_START
-    }
-}
+  return {
+    type: actionTypes.FETCH_HISTORY_START,
+  };
+};
 
 export const fetchHistorySuccess = (history) => {
-    return {
-        type: actionTypes.FETCH_HISTORY_SUCCESS,
-        history: history,
-    }
-} 
-
+  return {
+    type: actionTypes.FETCH_HISTORY_SUCCESS,
+    history: history,
+  };
+};
 
 export const fetchHistoryFail = (error) => {
-    return {
-        type: actionTypes.FETCH_HISTORY_FAIL,
-        error: error
-    }
-}
+  return {
+    type: actionTypes.FETCH_HISTORY_FAIL,
+    error: error,
+  };
+};
 
 export const fetchHistory = (leadId,userId) => {
    

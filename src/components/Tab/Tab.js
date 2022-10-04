@@ -55,6 +55,7 @@ const Tab = ({
   const [showModal, setShowModal] = useState(false);
 
   let history = useHistory();
+  let _currentTab = 'self'
   // const [activeKey, setActiveKey] = useState("self")
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
@@ -67,27 +68,31 @@ const Tab = ({
 
   useEffect(() => {
     // console.log('************************ LEADDD ___ *********************===========>>>',header)
-    if (header === "Lead") {
-      if (currentActiveTab === "self") {
-        const { id } = stoageGetter("user");
-        dispatch(actions.fetchAllLeads(id, leadType, 1));
-      }
-    }
-  }, [currentActiveTab]);
+    if (header === "Lead") getDataForOpen('all')
+      // if (currentActiveTab === "self") {
+        // const { id } = stoageGetter("user");
+        // dispatch(actions.fetchAllLeads(id, 'all', 1));
+        // getDataForOpen('all')
+      // }
+    // }
+  }, []);
   // const ids = stoageGetter('user')
 
   // ************************Api *********************
 
   const getDataForOpen = async (leadInc) => {
-    const leadtyp = leadInc;
+    // let leadtyp = leadInc;
     const { id } = stoageGetter("user");
+    // console.warn("_currentTab ______===========>>>", _currentTab);
+    // console.warn("leadInc ______===========>>>", leadInc);
+    // console.warn("currentActiveTab ______===========>>>", currentActiveTab);
 
-    if (currentActiveTab === "self") {
-      dispatch(actions.fetchAllLeads(id, leadtyp, 1));
+    if (_currentTab === "self") {
+      dispatch(actions.fetchAllLeads(id, leadInc, 1));
     } else {
       const teamId = stoageGetter("teamMemberId");
       console.warn("teamId______===========>>>", teamId);
-      dispatch(actions.fetchAllLeads(teamId, leadtyp, 1));
+      dispatch(actions.fetchAllLeads(teamId, leadInc, 1));
     }
 
     // const response = await getOpenTabApi(id, leadtyp);
@@ -106,31 +111,31 @@ const Tab = ({
     // }
   };
 
-  const getAlldataofTeamMainTab = async () => {
-    const response = await getTeamMainTabApi();
-    if (response?.data?.errCode == -1) {
-      if (response?.data?.errMsg) {
-        // setAllData(response?.data?.errMsg[0])
-        dispatch(
-          actions.fetchAllLeadsSuccess(
-            response?.data?.errMsg[0],
-            response?.data?.errMsg[1][0]?.count
-          )
-        );
-      }
-    } else {
-      dispatch(actions.fetchAllLeadsSuccess([], 0));
-      throw response?.data?.errMsg;
-      // dispatch(fetchAllLeadsFail(error))
-    }
-    // const response2 = await getFirstDropdownValueApi()
-    // const response3 = await getSecondDropdownValueApi()
-    // const response4 = await getFormByIdApi("")
-    // console.log("response",response)
-    // console.log("response2",response2)
-    // console.log("response3",response3)
-    // console.log("response4",response4)
-  };
+  // const getAlldataofTeamMainTab = async () => {
+  //   const response = await getTeamMainTabApi();
+  //   if (response?.data?.errCode == -1) {
+  //     if (response?.data?.errMsg) {
+  //       // setAllData(response?.data?.errMsg[0])
+  //       dispatch(
+  //         actions.fetchAllLeadsSuccess(
+  //           response?.data?.errMsg[0],
+  //           response?.data?.errMsg[1][0]?.count
+  //         )
+  //       );
+  //     }
+  //   } else {
+  //     dispatch(actions.fetchAllLeadsSuccess([], 0));
+  //     throw response?.data?.errMsg;
+  //     // dispatch(fetchAllLeadsFail(error))
+  //   }
+  //   // const response2 = await getFirstDropdownValueApi()
+  //   // const response3 = await getSecondDropdownValueApi()
+  //   // const response4 = await getFormByIdApi("")
+  //   // console.log("response",response)
+  //   // console.log("response2",response2)
+  //   // console.log("response3",response3)
+  //   // console.log("response4",response4)
+  // };
 
   // -****************************************
 
@@ -228,13 +233,14 @@ const Tab = ({
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
-    // console.log("good bye currentActiveTab",currentActiveTab)
-
-    dispatch(actions.updateTabOfDashboard(currentTab));
+    console.log("good bye currentActiveTab",currentActiveTab)
+    _currentTab = currentTab
     setCurrentActiveTab(currentTab);
-    if (currentTab === "team") {
-      getDataForOpen();
-    }
+    getDataForOpen('all')
+    dispatch(actions.updateTabOfDashboard(currentTab));
+    
+    
+    // if (currentTab === "team") getDataForOpen();
     currentTab !== currentActiveTab &&
       dispatch(actions.updateAllocateOfOpportunities(false));
   };
@@ -350,7 +356,7 @@ const Tab = ({
               >
                 <img
                   src={
-                    currentActiveTab === "seft" ? person_black : person_white
+                    currentActiveTab === "self" ? person_black : person_white
                   }
                   className="person"
                   alt="person_png"

@@ -19,7 +19,7 @@ import {
 import { Table, Tag, Space } from "antd";
 import { Select } from "antd";
 import { Column } from "@ant-design/charts";
-import { checkAgent,stoageGetter } from "../../helpers";
+import { checkAgent, stoageGetter } from "../../helpers";
 import Tabs from "../../components/Tab/Tab";
 import { Avatar } from "antd";
 import { fontWeight } from "@mui/system";
@@ -607,7 +607,7 @@ const DailyBussiness = () => {
       <Tabs tabMenu={[]} header="Daily Bussiness" activeKey="1" />
       <div style={{ padding: "0 3%", paddingBottom: "30px" }}>
         <Row className="tabs">
-          { checkAgent() === false &&
+          {checkAgent() === false && (
             <>
               <Col
                 xs={12}
@@ -624,7 +624,9 @@ const DailyBussiness = () => {
                   onClick={changeTab}
                 >
                   <img
-                    src={currentTabValue === "Self" ? person_white : person_black}
+                    src={
+                      currentTabValue === "Self" ? person_white : person_black
+                    }
                     className="person person_icon"
                     alt="person_png"
                   />
@@ -647,7 +649,9 @@ const DailyBussiness = () => {
                   onClick={changeTab}
                 >
                   <img
-                    src={currentTabValue === "Team" ? person_white : person_black}
+                    src={
+                      currentTabValue === "Team" ? person_white : person_black
+                    }
                     className="person person_icon"
                     alt="person_png"
                   />
@@ -656,7 +660,7 @@ const DailyBussiness = () => {
                 </Button>
               </Col>
             </>
-          }
+          )}
           {currentTabValue === "Team" && (
             <Col
               xs={12}
@@ -721,7 +725,7 @@ const DailyBussiness = () => {
             </Col>
           )}
         </Row>
-        { checkAgent() === false && <hr style={{ marginBottom: "20px" }} /> }
+        {checkAgent() === false && <hr style={{ marginBottom: "20px" }} />}
         {currentTabValue === "Self" ? (
           <div>
             <Row
