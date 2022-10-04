@@ -1,0 +1,32 @@
+.active{
+    background-color: #00acc1; /* Green */
+    color: white;
+}
+
+.inactive{
+    color : '#646666';
+    background-color: white;
+}
+
+.ant-card-body {
+    padding: 10px;
+}
+
+.dropactive{
+    background-color: #00acc1; /* Green */
+    color: white;
+}
+
+.dropinactive{
+    background-color: rgb(247, 247, 247);
+    color: black;
+}
+
+.content{
+    background-image: url('../../assets/contentback.png');
+}
+
+.maincard .ant-card-body{
+        padding: 0px;
+    
+}
