@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react'
 import { Row, Col, Tabs,Steps,Divider } from 'antd';
 import './History.css'
-// import axiosRequest from "../../axios-request/request.methods";
+
 const { Step } = Steps;
 const { TabPane } = Tabs;
 
@@ -22,17 +22,7 @@ const HistoryTabs = () => {
        // return () => window.removeEventListener("resize", handleWindowResize);
     }, []);
 
-    // useEffect(() => {
-    //     try {
-    //         let res = axiosRequest.get(`user/fetch_goals/${id}`, { secure: true });
-    //         res.then((res) => setUser(res));
-    //         console.log("res", res);
-    //       } catch (error) {
-    //         console.log("error API " + error);
-    //       }
-    // }, [])
-    
-    
+
     return (
         <>
             <Col className="internal-tab"  xs={22} sm={24} md={4} lg={4} xl={4} offset={1}>

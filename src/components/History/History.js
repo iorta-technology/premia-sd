@@ -6,9 +6,11 @@ import '../StatusLead/StatusLead.css'
 // import '../LeadDetails/LeadDetailsTab.css'
 import MTabs from '../../components/Tab/Tab'
 import HistoryTabs from './HistoryTabs'
-import * as actions from '../../store/actions/index';
+// import * as actions from '../../store/actions/index';
+import * as actions from "../../store/actions/history";
 import _ from "lodash";
 import { dataFormatting } from '../../helpers'
+import axiosRequest from '../../axios-request/request.methods'  
 
 const { Step } = Steps;
 
@@ -39,14 +41,15 @@ const tabMenu = [
 ]
 
 const History = () => {
-
+    
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     const storeUserId = useSelector((state) => state.newLead.userId)
     const leadArrObject = useSelector((state) => state.history.leadData)
     const appointmentArrObject = useSelector((state) => state.history.appointmentData)
     const proposalArrObject = useSelector((state) => state.history.proposalData)
+
     const hist = useSelector((state) => state.history)
-    console.log("histrory datta--- ", hist);
+    console.log("histrory datta--- ",hist);
 
     const [leadId, setleadId] = useState(storeLeadId)
     const [userId, setuserId] = useState(storeUserId)
@@ -61,18 +64,18 @@ const History = () => {
         // {
             // proposalArrObject !== null &&
             <>
-                <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}} >Lead Data</h2>
-                <Timeline className="p20">
+                <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Lead Data</h2>
+                <Timeline className="p4">
                     {leadArrObject.map((leadData) =>
                         <Timeline.Item color="red">
                             <p className="ml10 timeline-title">{leadData.title}</p>
                             <Row className="timeline-desc">
-                                <Col xs={22} sm={22} md={12} className="ml10 ">
+                                <Col xs={22} sm={22} md={12} className="ml10 desc">
                                     <p>{leadData.desc}</p>
                                 </Col>
                                 <Col xs={22} sm={22} md={11} className="time-content">
                                     <p>{leadData.owner}</p>
-                                    <p>{leadData.date}</p>
+                                    <p style={{marginTop: '-12px'}}>{leadData.date}</p>
                                 </Col>
                             </Row>
                         </Timeline.Item>
@@ -87,17 +90,17 @@ const History = () => {
             // proposalArrObject !== null &&
             <>
                 <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Appointment Data</h2>
-                <Timeline className="p20">
+                <Timeline className="p4">
                     {appointmentArrObject.map((leadData) =>
                         <Timeline.Item color="red">
-                            <p className="ml10 timeline-title">{leadData.title}</p>
+                            <p className="ml10 timeline-title">{leadData.title} Appointment</p>
                             <Row className="timeline-desc">
-                                <Col xs={22} sm={22} md={12} className="ml10 ">
+                                <Col xs={22} sm={22} md={12} className="ml10 desc">
                                     <p>{leadData.desc}</p>
                                 </Col>
                                 <Col xs={22} sm={22} md={11} className="time-content">
                                     <p>{leadData.owner}</p>
-                                    <p>{leadData.date}</p>
+                                    <p style={{marginTop: '-12px'}}>{leadData.date}</p>
                                 </Col>
                             </Row>
                         </Timeline.Item>
@@ -107,20 +110,20 @@ const History = () => {
         // }
     )
 
-let proposalElement = (
+    let proposalElement = (
     <>
         <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Proposal Data</h2>
-        <Timeline className="p20">
+        <Timeline className="p4">
             {proposalArrObject.map((leadData) =>
                 <Timeline.Item color="red">
                     <p className="ml10 timeline-title">{leadData.title}</p>
                     <Row className="timeline-desc">
-                        <Col xs={22} sm={22} md={12} className="ml10 ">
+                        <Col xs={22} sm={22} md={12} className="ml10 desc">
                             <p>{leadData.desc}</p>
                         </Col>
                         <Col xs={22} sm={22} md={11} className="time-content">
                             <p>{leadData.owner}</p>
-                            <p>{leadData.date}</p>
+                            <p style={{marginTop: '-12px'}}>{leadData.date}</p>
                         </Col>
                     </Row>
                 </Timeline.Item>
@@ -129,13 +132,19 @@ let proposalElement = (
     </>
 )
 
-
-
 useEffect(() => {
     dispatch(actions.fetchHistory(leadId, userId))
+    
 }, [dispatch]);
 
+// const category_data = async () => {
+//     let data = await axiosRequest.get(`user/leadhistory/${leadId}?user_id=${userId}`, { secure: true })
+//      console.log("mydatatatatat----",data);
+//   }
 
+// useEffect(() =>{
+//     category_data()
+// }, [])
 
 return (
     <>
@@ -149,16 +158,6 @@ return (
         />
         <div className="form-container">
             {leadId ?
-                <Row gutter={['', 20]} justify="center">
-                    <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
-                        <div className="proposal">
-                            <div className="bg-norecord">
-                            </div>
-                            <p className="norecord-title">No Records Found</p>
-                        </div>
-                    </Col>
-                </Row>
-                :
                 <Row>
                     <HistoryTabs />
                     <Col xs={22} sm={22} md={17} className="form-body his-container m0a">
@@ -167,6 +166,16 @@ return (
                         {proposalElement}
                     </Col>
                 </Row>
+                :
+                 <Row gutter={['', 20]} justify="center">
+                 <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
+                     <div className="proposal">
+                         <div className="bg-norecord">
+                         </div>
+                         <p className="norecord-title">No Records Found</p>
+                     </div>
+                 </Col>
+             </Row>
             }
         </div>
     </>

@@ -26,14 +26,17 @@ export const fetchHistoryFail = (error) => {
 }
 
 export const fetchHistory = (leadId,userId) => {
+   
     return dispatch => {
         dispatch(fetchHistoryStart())
         return axiosRequest.get(`user/leadhistory/${leadId}?user_id=${userId}`, { secure: true })
             .then(res => {
-                // console.log(res.data.errMsg[1][0].count)
-                if(res.data.errCode===-1){
-                   const  response = res.data.errMsg
+                console.log("shubham---", res);
+                if(res.length > 0){
+                   const  response = res
+                   console.log("dgdf122222-----",res)
                     return dispatch(fetchHistorySuccess(response))
+
                 }else{
                     throw res
                 }
