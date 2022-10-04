@@ -35,7 +35,6 @@
 }
 .timeline-title{
     font-size: 14px;
-    font-weight: 600;
     color: rgb(191, 40, 11);
 }
 .timeline-desc{
@@ -201,3 +200,14 @@
         }
 
     }
+.ant-timeline-item-content{
+    top: 0px!important;
+}
+.ant-timeline-item{
+    padding: 30px;
+    padding-bottom:0px!important;
+}
+.desc p{
+    margin-bottom: 25px;
+    margin-top: 10px;
+}

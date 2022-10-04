@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Tabs, Steps, Divider } from "antd";
-import "./History.css";
-// import axiosRequest from "../../axios-request/request.methods";
+import React, { useState, useEffect }  from 'react'
+import { Row, Col, Tabs,Steps,Divider } from 'antd';
+import './History.css'
+
 const { Step } = Steps;
 const { TabPane } = Tabs;
 
@@ -39,33 +39,25 @@ const HistoryTabs = () => {
   //       }
   // }, [])
 
-  return (
-    <>
-      <Col
-        className="internal-tab"
-        xs={22}
-        sm={24}
-        md={4}
-        lg={4}
-        xl={4}
-        offset={1}
-      >
-        <Tabs
-          style={{ fontSize: "12px" }}
-          className="AdvisorPitch-Container"
-          // tabPosition={width > breakpoint ? 'left' : 'top'}
-          // size={width > breakpoint ? 'large' : 'small'}
-          // tabBarStyle={style}
-          tabPosition={tabPosition}
-        >
-          <TabPane className="AdvisorPitch" key="1" tab="Lead"></TabPane>
-          <TabPane key="2" tab="Appointment"></TabPane>
-          <TabPane key="3" tab="Proposal"></TabPane>
-          <TabPane key="4" tab="Issuance"></TabPane>
-        </Tabs>
-      </Col>
-    </>
-  );
-};
+
+    return (
+        <>
+            <Col className="internal-tab"  xs={22} sm={24} md={4} lg={4} xl={4} offset={1}>
+                <Tabs style={{ fontSize: '12px'}}
+                     className='AdvisorPitch-Container'
+                    // tabPosition={width > breakpoint ? 'left' : 'top'}
+                    // size={width > breakpoint ? 'large' : 'small'}
+                    // tabBarStyle={style}
+                    tabPosition={tabPosition}
+                >
+                    <TabPane className='AdvisorPitch' key="1" tab="Lead"></TabPane>
+                    <TabPane key="2" tab="Appointment"></TabPane>
+                    <TabPane key="3" tab="Proposal"></TabPane>
+                    <TabPane key="4" tab="Issuance"></TabPane>
+                </Tabs>
+            </Col> 
+        </>
+    )
+}
 
 export default HistoryTabs;
