@@ -106,6 +106,7 @@ const HomePage = () => {
   const [updateData, setUpdateData] = useState({});
   const [showData, setShowData] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [opportunities, setOpportunities] = useState({});
 
   // Access Management
   const [showActivityTracker, setShowActivityTracker] = useState(
@@ -141,6 +142,7 @@ const HomePage = () => {
     // https://pocbancanode.iorta.in/secure/user/fetch_business_card_data?csmId=60e5d6056b18e8309da3fa49&channel=5f912e05037b6c581e7678f1
     getTodoData(0);
     getDailyBusiness();
+    getOpportunities();
   }, [dispatch, id, agent_id]);
 
   const home_data = useSelector((state) => state.home.home_obj);
@@ -163,7 +165,18 @@ const HomePage = () => {
         { secure: true }
       );
       setGoal(res);
-      console.log("res", goal.am.gpwCommitment);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  let getOpportunities = async () => {
+    try {
+      let res = await axiosRequest.get(
+        `user/leadFutureOverviewCount?fetchPastDaysCount=true`,
+        { secure: true }
+      );
+      setOpportunities("res ======================= " + res);
     } catch (error) {
       console.log(error);
     }
