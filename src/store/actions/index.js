@@ -18,7 +18,7 @@ export {
   fetchLapsedRenewals,
   fetchRenewalDetails,
 } from "./renewals";
-export { home, activities, getUserTreeAPI, todoGetData , getBusinessCardAPI } from "./home";
+export { home, activities, getUserTreeAPI, todoGetData , getBusinessCardAPI , businessCardData } from "./home";
 export { fetchHistory } from "./history";
 
 export { fetchProduct, fetchPlanName } from "./product";

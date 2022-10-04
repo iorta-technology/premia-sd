@@ -92,7 +92,7 @@ const HomePage = () => {
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
   let _storeData = useSelector((state) => state)
-  console.warn('((((((((_storeData))))))))',_storeData.login)
+  // console.warn('((((((((_storeData))))))))',_storeData.login)
 
   const _accessActivityTracker = checkuserAccess('myEvents',_storeData.login); //Activity Tracker
   const _accessDailyBusiness = checkuserAccess('myBusiness',_storeData.login); // Daily Business
@@ -136,7 +136,7 @@ const HomePage = () => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
-    dispatch(actions.getBusinessCardAPI(userId,channelCode));
+    // dispatch(actions.getBusinessCardAPI(userId,channelCode));
     
     dispatch(leadActions.updateTabOfDashboard("self"));
 
@@ -146,10 +146,52 @@ const HomePage = () => {
     if (agent_id) dispatch(actions.home(agent_id, userId));
     getTodoData(0);
     getDailyBusiness();
+    getKpiData(userId,channelCode);
   }, []);
 
-  useEffect(() => {
-    let _businessCardResp = _storeData.home.businessData[0].data
+  // useEffect(() => {
+    // let _businessCardResp = _storeData.home.businessData[0].data
+    // let _bussDropArr = [];
+
+    // console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
+    // if(_businessCardResp.length > 0){
+    //   for (let _kpi of _businessCardResp) {
+    //     let data = {
+    //       label: _kpi.year_month,
+    //       value: _kpi.year_month,
+    //       index: _kpi.id === 'last_two_month' ? '1' : '2'
+    //     }
+    //     _bussDropArr.push(data)
+        
+    //     setBusinessDropArray(_bussDropArr)
+    //     setBusinessDropdown(_bussDropArr[0].value)
+    //   }
+    //   console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
+    //   handleBusinessDropdown(_bussDropArr[0].value)
+    // }else{
+    //   handleBusinessDropdown('')
+    // }
+  // },[])
+
+  const home_data = useSelector((state) => state.home.home_obj);
+  const activities_data = useSelector(
+    (state) => state.activities.activities_obj
+  );
+
+  function add3Dots(string, limit) {
+    var dots = "...";
+    if (string.length > limit) {
+      string = string.substring(0, limit) + dots;
+    }
+    return string;
+  }
+  
+  let getKpiData = async (userId,channelData) => {
+    let _resp = await axiosRequest.get(`user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`, { secure: true })
+    console.log("Business CARD",_resp)
+    // dispatch(actions.businessCardData(_resp))
+    let _businessCardResp = _resp[0].data
+
     let _bussDropArr = [];
 
     console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
@@ -166,23 +208,10 @@ const HomePage = () => {
         setBusinessDropdown(_bussDropArr[0].value)
       }
       console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
-      handleBusinessDropdown(_bussDropArr[0].value)
+      handleBusinessDropdown(_bussDropArr[0].value,_businessCardResp)
     }else{
-      handleBusinessDropdown('')
+      handleBusinessDropdown('',_businessCardResp)
     }
-  },[])
-
-  const home_data = useSelector((state) => state.home.home_obj);
-  const activities_data = useSelector(
-    (state) => state.activities.activities_obj
-  );
-
-  function add3Dots(string, limit) {
-    var dots = "...";
-    if (string.length > limit) {
-      string = string.substring(0, limit) + dots;
-    }
-    return string;
   }
 
   let getDailyBusiness = async () => {
@@ -452,7 +481,7 @@ const HomePage = () => {
 
   const handleBusinessDropdown = (event, data) => {
     setBusinessDropdown(event)
-    let _businessCardResp = _storeData.home.businessData[0].data
+    let _businessCardResp = data
     let _selectMonthData = _businessCardResp.filter(el => event === el.year_month)
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
     if(event !== ''){
@@ -491,7 +520,7 @@ const HomePage = () => {
       setBusinessGWP(_businessGWP)
       setBusinessActivation(_businessActivation)
     }
-    setShowBusinessData(true)
+    // setShowBusinessData(true)
   };
 
   const data = [
@@ -958,7 +987,6 @@ const HomePage = () => {
                   </div>
                 </div>
               {/* </Link> */}
-              { showBusinessData &&
                 <div style={{ marginTop: "50px" }}>
                   <div
                     style={{
@@ -1191,7 +1219,6 @@ const HomePage = () => {
                     </div>
                   </div>
                 </div>
-              }
             </div>
           </Col>
           }
