@@ -160,6 +160,7 @@ const HomePage = () => {
     if (agent_id) dispatch(actions.home(agent_id, userId));
     getTodoData(0);
     getDailyBusiness();
+    getOpportunities();
     getKpiData(userId,channelCode);
   }, []);
 
