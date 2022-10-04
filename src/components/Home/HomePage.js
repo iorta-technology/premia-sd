@@ -1882,12 +1882,18 @@ const HomePage = () => {
                           Sales Pitch
                         </p>
                       </div>
-                      <p
-                        className="sales-content"
-                        style={{ height: 35, width: 130, fontSize: 14 }}
-                      >
-                        Resource Center
-                      </p>
+                      <div onClick={() =>
+                        history.push(
+                          "/resourcecenter"
+                        )
+                      }>
+                    <p
+                      className="sales-content"
+                      style={{ height: 35, width: 130, fontSize: 14 }}
+                    >
+                      Resource Center
+                    </p>
+                    </div>
                     </div>
                     <div className="b1-content">
                       <div onClick={() => history.push("/products")}>

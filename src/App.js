@@ -14,6 +14,9 @@ import ProposalFulfilment from "./components/ProposalFulfilment/ProposalFulfilme
 // import { LeadReport2 } from './components/LeadReport/LeadReport2';
 
 import { Spin } from "antd";
+import Multichannel from "./components/Multichannel";
+import ResourceCenter from "./components/SalesPitch/ResourceCenter";
+
 const Master = React.lazy(() => import("./containers/Master/index"));
 const LeadMaster = React.lazy(() => import("./containers/LeadMaster/index"));
 const AdvisorList = React.lazy(() =>
@@ -294,6 +297,10 @@ function App() {
                     component={SalesPitch}
                   ></Route>
                   <Route
+                    path="/resourcecenter"
+                    component={ResourceCenter}
+                  ></Route>
+                  <Route
                     path="/servicecorner/all"
                     component={ServiceCorner}
                   ></Route>
@@ -354,6 +361,7 @@ function App() {
                     path="/leadMaster/:leadType"
                     component={LeadMaster}
                   ></Route>
+                   <Route path="/multichannel" component={Multichannel}></Route>
                   <Route
                     path="/leadmasterpage/statuslead"
                     component={StatusLead}
