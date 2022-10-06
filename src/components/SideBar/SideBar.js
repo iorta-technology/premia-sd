@@ -13,6 +13,8 @@ import { createBrowserHistory } from "history";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { stoageGetter } from '../../helpers'
+import axiosRequest from '../../axios-request/request.methods'  
+
 
 
 // -- Import Image -- //
@@ -104,7 +106,7 @@ function Modal1({ children, shown, close }) {
 
 
 const Sidebar = () => {
-
+  const userId = useSelector(state => state.login.userId)
   const history = useHistory();
   const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
@@ -118,37 +120,46 @@ const Sidebar = () => {
 
 const [_notify, set_Notify] = useState([]) 
 
+// useEffect(() => {
+//   // simple using fetch  
+//   const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=01";
+//   const fetchData = async () => {
+//     try {
+//       const response = await fetch(url);
+//        const json = await response.json();
+
+//        let date = json.dbDate
+//         console.log("jhjgh", date);
+
+//       set_Notify(json.errMsg[0]);
+
+//     } catch (error) {
+//       console.log("error", error);
+//     }
+//   };
+
+//   fetchData()
+// }, [])
+
 useEffect(() => {
   // simple using fetch  
-  const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=0";
   const fetchData = async () => {
     try {
-      const response = await fetch(url);
-       const json = await response.json();
-
-       let date = json.dbDate
-        console.log("jhjgh", date);
-
-      set_Notify(json.errMsg[0]);
-
+      let data = await axiosRequest.get(`user/getnotification/${userId}?notification_type=alerts&readStatus=0`)
+          let res = data
+          set_Notify(res[0]);
     } catch (error) {
       console.log("error", error);
     }
   };
 
   fetchData()
+
 }, [])
 
 
-
-// const notify_data = [
-//   {heading: 'To-Do', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date', time: 'time', status: 'medium'},
-//   {heading: 'You are invited to an event by Bhanyshree', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date333', time: 'time3444' },
-//   {heading: 'Branch Commitment Collected', desscription: 'You have been assigned a new task(Complete report) by Bhanyshree', date: 'date666', time: 'time666'},
-// ]
-
-
   const showSidebar = () => setSidebar(!sidebar);
+
   // const logged_in_user = useSelector((state) => state.login.user_name)
   const logged_in_user = login_user_data.firstName + ' ' + login_user_data.lastName
   let avatar = logged_in_user?.match(/\b(\w)/g)
@@ -283,27 +294,6 @@ useEffect(() => {
                 <p>All Catch Up!</p>
               </div> }
 
-              {/* {notify_data.length > 0 ? 'abcc' : } */}
-              {/* {
-                notify_data.map((desc_data, index) =>{
-                  return <div>
-                        <div className='notification_data'>
-                                <div className='list_data'>
-                                  <h4>{desc_data.heading}</h4>
-                                  <p>{desc_data.desscription}</p>
-                                </div>
-                                <div className='date'>
-                                  <p>{desc_data.date}</p>
-                                  <p>{desc_data.time}</p>
-                                </div>
-                            </div>
-                            <div className='notification_status'>
-                                <button>{desc_data.status}</button>
-                              </div>
-                              <hr />
-                          </div>
-                })
-              } */}
               
                 </div>
               </div>

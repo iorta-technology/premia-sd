@@ -23,9 +23,8 @@ const NotificationComp = () => {
         const fetchData = async () => {
           try {
             let data = await axiosRequest.get(`user/getnotification/${userId}?notification_type=alerts&readStatus=0`)
-             console.log("-----", data)
-             let res = data
-            set_Notify(res[0]);
+                let res = data
+                set_Notify(res[0]);
           } catch (error) {
             console.log("error", error);
           }
