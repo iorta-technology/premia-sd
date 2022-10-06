@@ -9,6 +9,27 @@
 /* .ant-btn-primary {
     background-color: #1FB3AB;
 } */
+
+.card-list .ant-card-body {
+    padding:5px
+}
+
+.main{
+    background-image: url('../../images/Bgimage.png');
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+ /* .ant-card-body{
+    padding: 10 !important;
+} */
+
+
 .login-card{
    width: 400px;
    background-color: #3e3e3e;

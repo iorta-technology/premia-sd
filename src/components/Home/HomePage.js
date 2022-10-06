@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./HomePage.css";
 import "../Activitity Tracker/RightSide-Todo/Todo&Archive-Css/TodoCards.css";
-import { Image, Button, Row, Col, Card , Select } from "antd";
+import { Image, Button, Row, Col, Card, Select } from "antd";
 // import { Bar } from '@ant-design/charts';
 import "antd/dist/antd.css";
 import * as actions from "../../store/actions/index";
@@ -15,7 +15,11 @@ import FloatButton from "../FloatButton/FloatButton";
 import { Column } from "@ant-design/charts";
 import axiosRequest from "../../axios-request/request.methods";
 import { checkuserAccess, stoageGetter } from "../../helpers";
-import { FormOutlined, ShopOutlined } from "@ant-design/icons";
+import {
+  ConsoleSqlOutlined,
+  FormOutlined,
+  ShopOutlined,
+} from "@ant-design/icons";
 
 // import image -----
 import business_img from "../../assets/DashboardIconNew/Group3366.png";
@@ -92,7 +96,7 @@ const HomePage = () => {
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
   let _storeData = useSelector((state) => state)
-  console.warn('((((((((_storeData))))))))',_storeData.login)
+  // console.warn('((((((((_storeData))))))))',_storeData.login)
 
   const _accessActivityTracker = checkuserAccess('myEvents',_storeData.login); //Activity Tracker
   const _accessDailyBusiness = checkuserAccess('myBusiness',_storeData.login); // Daily Business
@@ -110,33 +114,43 @@ const HomePage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showBusinessData, setShowBusinessData] = useState(false);
 
-  const [businessDropdown, setBusinessDropdown] = useState('');
+  const [businessDropdown, setBusinessDropdown] = useState("");
   const [businessDropArray, setBusinessDropArray] = useState([]);
 
   const [businessRetention, setBusinessRetention] = useState({});
   const [businessGWP, setBusinessGWP] = useState({});
   const [businessActivation, setBusinessActivation] = useState({});
-  
+  const [opportunities, setOpportunities] = useState([]);
 
   // Access Management
-  const [showActivityTracker, setShowActivityTracker] = useState(_accessActivityTracker.props.read === true ? true : false);
-  const [showDailyBusiness, setShowDailyBusiness] = useState(_accessDailyBusiness.props.read === true ? true : false);
-  const [showOpportunities, setShowOpportunities] = useState(_accessOpportunities.props.read === true ? true : false);
-  const [showKpi, setShowKpi] = useState(_accessKpi.props.read === true ? true : false);
-  const [showTodo, setShowTodo] = useState(_accessTodo.props.read === true ? true : false);
-  const [showSalesGuide, setShowSalesGuide] = useState(_accessSalesGuide.props.read === true ? true : false);
+  const [showActivityTracker, setShowActivityTracker] = useState(
+    _accessActivityTracker.props.read === true ? true : false
+  );
+  const [showDailyBusiness, setShowDailyBusiness] = useState(
+    _accessDailyBusiness.props.read === true ? true : false
+  );
+  const [showOpportunities, setShowOpportunities] = useState(
+    _accessOpportunities.props.read === true ? true : false
+  );
+  const [showKpi, setShowKpi] = useState(
+    _accessKpi.props.read === true ? true : false
+  );
+  const [showTodo, setShowTodo] = useState(
+    _accessTodo.props.read === true ? true : false
+  );
+  const [showSalesGuide, setShowSalesGuide] = useState(
+    _accessSalesGuide.props.read === true ? true : false
+  );
 
   let _businessRetention = {};
   let _businessGWP = {};
   let _businessActivation = {};
 
-  
-
   useEffect(() => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
-    dispatch(actions.getBusinessCardAPI(userId,channelCode));
+    // dispatch(actions.getBusinessCardAPI(userId,channelCode));
     
     dispatch(leadActions.updateTabOfDashboard("self"));
 
@@ -146,31 +160,33 @@ const HomePage = () => {
     if (agent_id) dispatch(actions.home(agent_id, userId));
     getTodoData(0);
     getDailyBusiness();
+    getOpportunities();
+    getKpiData(userId,channelCode);
   }, []);
 
-  useEffect(() => {
-    let _businessCardResp = _storeData.home.businessData[0].data
-    let _bussDropArr = [];
+  // useEffect(() => {
+    // let _businessCardResp = _storeData.home.businessData[0].data
+    // let _bussDropArr = [];
 
-    console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
-    if(_businessCardResp.length > 0){
-      for (let _kpi of _businessCardResp) {
-        let data = {
-          label: _kpi.year_month,
-          value: _kpi.year_month,
-          index: _kpi.id === 'last_two_month' ? '1' : '2'
-        }
-        _bussDropArr.push(data)
+    // console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
+    // if(_businessCardResp.length > 0){
+    //   for (let _kpi of _businessCardResp) {
+    //     let data = {
+    //       label: _kpi.year_month,
+    //       value: _kpi.year_month,
+    //       index: _kpi.id === 'last_two_month' ? '1' : '2'
+    //     }
+    //     _bussDropArr.push(data)
         
-        setBusinessDropArray(_bussDropArr)
-        setBusinessDropdown(_bussDropArr[0].value)
-      }
-      console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
-      handleBusinessDropdown(_bussDropArr[0].value)
-    }else{
-      handleBusinessDropdown('')
-    }
-  },[])
+    //     setBusinessDropArray(_bussDropArr)
+    //     setBusinessDropdown(_bussDropArr[0].value)
+    //   }
+    //   console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
+    //   handleBusinessDropdown(_bussDropArr[0].value)
+    // }else{
+    //   handleBusinessDropdown('')
+    // }
+  // },[])
 
   const home_data = useSelector((state) => state.home.home_obj);
   const activities_data = useSelector(
@@ -184,6 +200,61 @@ const HomePage = () => {
     }
     return string;
   }
+  
+  let getKpiData = async (userId,channelData) => {
+    let _resp = await axiosRequest.get(`user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`, { secure: true })
+    console.log("Business CARD",_resp)
+    // dispatch(actions.businessCardData(_resp))
+    let _businessCardResp = _resp[0].data
+
+    let _bussDropArr = [];
+
+    console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
+    if (_businessCardResp.length > 0) {
+      for (let _kpi of _businessCardResp) {
+        let data = {
+          label: _kpi.year_month,
+          value: _kpi.year_month,
+          index: _kpi.id === "last_two_month" ? "1" : "2",
+        };
+        _bussDropArr.push(data);
+
+        setBusinessDropArray(_bussDropArr);
+        setBusinessDropdown(_bussDropArr[0].value);
+      }
+      console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
+      handleBusinessDropdown(_bussDropArr[0].value,_businessCardResp)
+    }else{
+      handleBusinessDropdown('',_businessCardResp)
+    }
+  }
+
+  let getOpportunities = async () => {
+    try {
+      let res = await axiosRequest.get(
+        `user/leadFutureOverviewCount?fetchPastDaysCount=true`,
+        { secure: true }
+      );
+      if (res) {
+        for (const key in res) {
+          opportunities.push({
+            value: res[key].ForToday,
+            name: "ForToday",
+            month: moment(key).format("ddd"),
+          });
+          opportunities.push({
+            value: res[key].Open,
+            name: "Open",
+            month: moment(key).format("ddd"),
+          });
+        }
+      }
+
+      console.log("opportunities =========== ", opportunities);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let getDailyBusiness = async () => {
     try {
@@ -452,46 +523,51 @@ const HomePage = () => {
 
   const handleBusinessDropdown = (event, data) => {
     setBusinessDropdown(event)
-    let _businessCardResp = _storeData.home.businessData[0].data
+    let _businessCardResp = data
     let _selectMonthData = _businessCardResp.filter(el => event === el.year_month)
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
-    if(event !== ''){
+    if (event !== "") {
+      _businessRetention.target =
+        _selectMonthData[0]["GWP Retention"].gwp_retention_target;
+      _businessRetention.achieve =
+        _selectMonthData[0]["GWP Retention"].gwp_retention_achievement;
+      _businessRetention.per_achieve =
+        _selectMonthData[0]["GWP Retention"].gwp_retention_per_achievement;
 
-      _businessRetention.target = _selectMonthData[0]['GWP Retention'].gwp_retention_target
-      _businessRetention.achieve = _selectMonthData[0]['GWP Retention'].gwp_retention_achievement
-      _businessRetention.per_achieve = _selectMonthData[0]['GWP Retention'].gwp_retention_per_achievement
+      _businessGWP.target = _selectMonthData[0]["GPW"].gpw_target;
+      _businessGWP.achieve = _selectMonthData[0]["GPW"].gpw_achievement;
+      _businessGWP.per_achieve = _selectMonthData[0]["GPW"].gpw_per_achievement;
 
-      _businessGWP.target = _selectMonthData[0]['GPW'].gpw_target
-      _businessGWP.achieve = _selectMonthData[0]['GPW'].gpw_achievement
-      _businessGWP.per_achieve = _selectMonthData[0]['GPW'].gpw_per_achievement
+      _businessActivation.target =
+        _selectMonthData[0]["Branch Activation"].branch_activation_target;
+      _businessActivation.achieve =
+        _selectMonthData[0]["Branch Activation"].branch_activation_achievement;
+      _businessActivation.per_achieve =
+        _selectMonthData[0][
+          "Branch Activation"
+        ].branch_activation_per_achievement;
 
-      _businessActivation.target = _selectMonthData[0]['Branch Activation'].branch_activation_target
-      _businessActivation.achieve = _selectMonthData[0]['Branch Activation'].branch_activation_achievement
-      _businessActivation.per_achieve = _selectMonthData[0]['Branch Activation'].branch_activation_per_achievement
+      setBusinessRetention(_businessRetention);
+      setBusinessGWP(_businessGWP);
+      setBusinessActivation(_businessActivation);
+    } else {
+      _businessRetention.target = 0;
+      _businessRetention.achieve = 0;
+      _businessRetention.per_achieve = 0;
 
-      setBusinessRetention(_businessRetention)
-      setBusinessGWP(_businessGWP)
-      setBusinessActivation(_businessActivation)
+      _businessGWP.target = 0;
+      _businessGWP.achieve = 0;
+      _businessGWP.per_achieve = 0;
 
-    }else{
+      _businessActivation.target = 0;
+      _businessActivation.achieve = 0;
+      _businessActivation.per_achieve = 0;
 
-      _businessRetention.target = 0
-      _businessRetention.achieve = 0
-      _businessRetention.per_achieve = 0
-
-      _businessGWP.target = 0
-      _businessGWP.achieve = 0
-      _businessGWP.per_achieve = 0
-
-      _businessActivation.target = 0
-      _businessActivation.achieve = 0
-      _businessActivation.per_achieve = 0
-
-      setBusinessRetention(_businessRetention)
-      setBusinessGWP(_businessGWP)
-      setBusinessActivation(_businessActivation)
+      setBusinessRetention(_businessRetention);
+      setBusinessGWP(_businessGWP);
+      setBusinessActivation(_businessActivation);
     }
-    setShowBusinessData(true)
+    // setShowBusinessData(true)
   };
 
   const data = [
@@ -568,7 +644,7 @@ const HomePage = () => {
   ];
   const breakpoint = 620;
   const config = {
-    data: data,
+    data: opportunities,
     width: width > breakpoint ? 356 : 333,
     height: 165,
     autoFit: false,
@@ -597,15 +673,15 @@ const HomePage = () => {
         },
       },
     },
-    label: {
-      position: "middle",
-      layout: [
-        // { type: 'interval-adjust-position' },
-        // { type: 'interval-hide-overlap' },
-        { type: "adjust-color" },
-      ],
-    },
-    color: ["#ADD8E6", "#fff"],
+    // label: {
+    //   position: "middle",
+    //   layout: [
+    //     // { type: 'interval-adjust-position' },
+    //     // { type: 'interval-hide-overlap' },
+    //     { type: "adjust-color" },
+    //   ],
+    // },
+    color: ["#ADD8E6", "#f1f1f1"],
   };
 
   return (
@@ -925,17 +1001,20 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
-          
-          { showKpi &&
-          <Col>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#5EC0AD" }}
-            >
-              {/* <Link to="/kpi-dashboard"> */}
+
+          {showKpi && (
+            <Col>
+              <div
+                className=" dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#5EC0AD" }}
+              >
+                {/* <Link to="/kpi-dashboard"> */}
                 <div className="card-content">
-                  <div className="activity-icon" onClick={() => history.push("/kpi-dashboard") } >
+                  <div
+                    className="activity-icon"
+                    onClick={() => history.push("/kpi-dashboard")}
+                  >
                     <Image
                       preview={false}
                       width={55}
@@ -944,257 +1023,269 @@ const HomePage = () => {
                       alt="Business"
                     />
                   </div>
-                  <div className="activities-text businessCardStyle" >
-                    <div style={{display:'flex',alignItems:'baseline',justifyContent:'space-between'}}>
-                      <p onClick={() => history.push("/kpi-dashboard") } className="ttile_name">Business</p>
-                      <Select 
-                        value={businessDropdown} 
-                        options={businessDropArray} 
-                        onChange={(event,data)=> handleBusinessDropdown(event,data)}
-                        style={{width:'50%'}}>
-                      </Select>
+                  <div className="activities-text businessCardStyle">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "baseline",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <p
+                        onClick={() => history.push("/kpi-dashboard")}
+                        className="ttile_name"
+                      >
+                        Business
+                      </p>
+                      <Select
+                        value={businessDropdown}
+                        options={businessDropArray}
+                        onChange={(event, data) =>
+                          handleBusinessDropdown(event, data)
+                        }
+                        style={{ width: "50%" }}
+                      ></Select>
                     </div>
                     <div className="horizontalLine"></div>
                   </div>
                 </div>
-              {/* </Link> */}
-              { showBusinessData &&
-                <div style={{ marginTop: "50px" }}>
-                  <div
-                    style={{
-                      backgroundColor: "#fff",
-                      marginBottom: "10px",
-                      borderRadius: "3px",
-                      color: "#3C3D3D",
-                      fontSize: "11px",
-                    }}
-                  >
-                    <p
-                      style={{
-                        fontWeight: "750",
-                        padding: "5px 10px",
-                        borderBottom: "1px solid #c1c8cc",
-                        marginBottom: 0,
-                      }}
-                    >
-                      Retention
-                    </p>
+                {/* </Link> */}
+                {/* {showBusinessData && ( */}
+                  <div style={{ marginTop: "50px" }}>
                     <div
                       style={{
-                        display: "flex",
-                        color: "#fff",
-                        lineHeight: "5px",
-                        color: "black",
+                        backgroundColor: "#fff",
+                        marginBottom: "10px",
+                        borderRadius: "3px",
+                        color: "#3C3D3D",
+                        fontSize: "11px",
                       }}
                     >
-                    
-                      <div style={{ width: "120px", padding: "8px 10px" }}>
-                        <p>Target</p>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
-                          }}
-                        >
-                          {businessRetention.target}
-                        </p>
-                      </div>
-                      <div
+                      <p
                         style={{
-                          width: "120px",
-                          padding: "8px 10px",
-                          borderRight: "1px solid #c2c8cc",
-                          borderLeft: "1px solid #c2c8cc",
+                          fontWeight: "750",
+                          padding: "5px 10px",
+                          borderBottom: "1px solid #c1c8cc",
+                          marginBottom: 0,
                         }}
                       >
-                        <p>Achievement</p>
-                        <p
+                        Retention
+                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          color: "#fff",
+                          lineHeight: "5px",
+                          color: "black",
+                        }}
+                      >
+                        <div style={{ width: "120px", padding: "8px 10px" }}>
+                          <p>Target</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessRetention.target}
+                          </p>
+                        </div>
+                        <div
                           style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
+                            width: "120px",
+                            padding: "8px 10px",
+                            borderRight: "1px solid #c2c8cc",
+                            borderLeft: "1px solid #c2c8cc",
                           }}
                         >
-                          {businessRetention.achieve}
-                        </p>
+                          <p>Achievement</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessRetention.achieve}
+                          </p>
+                        </div>
+                        <div style={{ width: "120px", padding: "8px 10px" }}>
+                          <p>%Achievement</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessRetention.per_achieve}
+                          </p>
+                        </div>
                       </div>
-                      <div style={{ width: "120px", padding: "8px 10px" }}>
-                        <p>%Achievement</p>
-                        <p
+                    </div>
+
+                    <div
+                      style={{
+                        backgroundColor: "#fff",
+                        marginBottom: "10px",
+                        borderRadius: "3px",
+                        color: "#3C3D3D",
+                        fontSize: "11px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontWeight: "750",
+                          padding: "5px 10px",
+                          borderBottom: "1px solid #c1c8cc",
+                          marginBottom: 0,
+                        }}
+                      >
+                        GWP
+                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          color: "#fff",
+                          lineHeight: "5px",
+                          color: "black",
+                        }}
+                      >
+                        <div style={{ width: "120px", padding: "8px 10px" }}>
+                          <p>Target</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessGWP.target}
+                          </p>
+                        </div>
+
+                        <div
                           style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
+                            width: "120px",
+                            padding: "8px 10px",
+                            borderRight: "1px solid #c2c8cc",
+                            borderLeft: "1px solid #c2c8cc",
                           }}
                         >
-                          {businessRetention.per_achieve}
-                        </p>
+                          <p>Achievement</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessGWP.achieve}
+                          </p>
+                        </div>
+                        <div style={{ width: "120px", padding: "8px 10px" }}>
+                          <p>%Achievement</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessGWP.per_achieve}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        backgroundColor: "#fff",
+                        marginBottom: "10px",
+                        borderRadius: "3px",
+                        color: "#3C3D3D",
+                        fontSize: "11px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontWeight: "750",
+                          padding: "5px 10px",
+                          borderBottom: "1px solid #c1c8cc",
+                          marginBottom: 0,
+                        }}
+                      >
+                        Activation
+                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          color: "#fff",
+                          lineHeight: "5px",
+                          color: "black",
+                        }}
+                      >
+                        <div style={{ width: "120px", padding: "8px 10px" }}>
+                          <p>Target</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessActivation.target}
+                          </p>
+                        </div>
+                        <div
+                          style={{
+                            width: "120px",
+                            padding: "8px 10px",
+                            borderRight: "1px solid #c2c8cc",
+                            borderLeft: "1px solid #c2c8cc",
+                          }}
+                        >
+                          <p>Achievement</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessActivation.achieve}
+                          </p>
+                        </div>
+
+                        <div style={{ width: "120px", padding: "8px 10px" }}>
+                          <p>%Achievement</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "700",
+                              color: "#3c3d3d",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {businessActivation.per_achieve}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-
-                  <div
-                    style={{
-                      backgroundColor: "#fff",
-                      marginBottom: "10px",
-                      borderRadius: "3px",
-                      color: "#3C3D3D",
-                      fontSize: "11px",
-                    }}
-                  >
-                    <p
-                      style={{
-                        fontWeight: "750",
-                        padding: "5px 10px",
-                        borderBottom: "1px solid #c1c8cc",
-                        marginBottom: 0,
-                      }}
-                    >
-                      GWP
-                    </p>
-                    <div
-                      style={{
-                        display: "flex",
-                        color: "#fff",
-                        lineHeight: "5px",
-                        color: "black",
-                      }}
-                    >
-                      <div style={{ width: "120px", padding: "8px 10px" }}>
-                        <p>Target</p>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
-                          }}
-                        >
-                          {businessGWP.target}
-                        </p>
-                      </div>
-                      
-                      <div
-                        style={{
-                          width: "120px",
-                          padding: "8px 10px",
-                          borderRight: "1px solid #c2c8cc",
-                          borderLeft: "1px solid #c2c8cc",
-                        }}
-                      >
-                        <p>Achievement</p>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
-                          }}
-                        >
-                          {businessGWP.achieve}
-                        </p>
-                      </div>
-                      <div style={{ width: "120px", padding: "8px 10px" }}>
-                        <p>%Achievement</p>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
-                          }}
-                        >
-                          {businessGWP.per_achieve}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      backgroundColor: "#fff",
-                      marginBottom: "10px",
-                      borderRadius: "3px",
-                      color: "#3C3D3D",
-                      fontSize: "11px",
-                    }}
-                  >
-                    <p
-                      style={{
-                        fontWeight: "750",
-                        padding: "5px 10px",
-                        borderBottom: "1px solid #c1c8cc",
-                        marginBottom: 0,
-                      }}
-                    >
-                      Activation
-                    </p>
-                    <div
-                      style={{
-                        display: "flex",
-                        color: "#fff",
-                        lineHeight: "5px",
-                        color: "black",
-                      }}
-                    >
-                      <div style={{ width: "120px", padding: "8px 10px" }}>
-                        <p>Target</p>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
-                          }}
-                        >
-                          {businessActivation.target}
-                        </p>
-                      </div>
-                      <div
-                        style={{
-                          width: "120px",
-                          padding: "8px 10px",
-                          borderRight: "1px solid #c2c8cc",
-                          borderLeft: "1px solid #c2c8cc",
-                        }}
-                      >
-                        <p>Achievement</p>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
-                          }}
-                        >
-                          {businessActivation.achieve}
-                        </p>
-                      </div>
-
-                      <div style={{ width: "120px", padding: "8px 10px" }}>
-                        <p>%Achievement</p>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            color: "#3c3d3d",
-                            marginBottom: 5,
-                          }}
-                        >
-                          {businessActivation.per_achieve}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              }
-            </div>
-          </Col>
-          }
+                {/* )} */}
+              </div>
+            </Col>
+          )}
 
           {showDailyBusiness && (
             <Col>
@@ -1882,12 +1973,18 @@ const HomePage = () => {
                           Sales Pitch
                         </p>
                       </div>
-                      <p
-                        className="sales-content"
-                        style={{ height: 35, width: 130, fontSize: 14 }}
-                      >
-                        Resource Center
-                      </p>
+                      <div onClick={() =>
+                        history.push(
+                          "/resourcecenter"
+                        )
+                      }>
+                    <p
+                      className="sales-content"
+                      style={{ height: 35, width: 130, fontSize: 14 }}
+                    >
+                      Resource Center
+                    </p>
+                    </div>
                     </div>
                     <div className="b1-content">
                       <div onClick={() => history.push("/products")}>
