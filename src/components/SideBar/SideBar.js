@@ -184,7 +184,7 @@ useEffect(() => {
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
             <FaIcons.FaBell onClick={() => toggleModal(!modalShown)} />
-            {_notify.length && clearBtn ? <div className='dot'></div> : ''}
+            {_notify?.length && _notify?.length > 0 && clearBtn ? <div className='dot'></div> : ''}
           </NavIcon>
           <NavIcon onClick={showSidebar} to='#'>
             <FaIcons.FaUserCircle />
@@ -267,11 +267,11 @@ useEffect(() => {
               <div className='activity-block1' style={{height: "350px"}}>
                 <div className='notificationHead'>
                     <p>Notification</p>
-                    {_notify.length && _notify.length > 0 && clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
+                    {_notify?.length && _notify?.length > 0 && clearBtn ? <button onClick={clearData}>Clear All</button> : ''}
                   </div>
                 <div className='menuBody1'>
                 {/* {!_notify.length ? <h1>gh</h1> : 'hgh'} */}
-                {_notify.length && _notify.length > 0 && clearBtn ? _notify.map((desc_data, index) =>{
+                {_notify?.length && _notify?.length > 0 && clearBtn ? _notify.map((desc_data, index) =>{
                   return <div key={index}>
                         <div className='notification_data'>
                                 <div className='list_data'>
@@ -304,9 +304,7 @@ useEffect(() => {
           </div>
       </Modal1>
               
-       
-
-
+      
         {/* <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to='#' style={{padding:'18px'}}>
