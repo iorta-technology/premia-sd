@@ -12,7 +12,7 @@ const NotificationComp = () => {
     const MAX_ITEMS = 7;
     const [isOpen, setIsOpen] = useState(false)
     // api integation 
-    const [_notify, set_Notify] = useState('') 
+    const [_notify, set_Notify] = useState([]) 
     const [isShown, setIsShown] = useState(true);
     const [loading, setLoading] = useState(false)
 
@@ -24,8 +24,8 @@ const NotificationComp = () => {
           try {
             let data = await axiosRequest.get(`user/getnotification/${userId}?notification_type=alerts&readStatus=0`)
              console.log("-----", data)
-            set_Notify(data);
-            
+             let res = data
+            set_Notify(res[0]);
           } catch (error) {
             console.log("error", error);
           }
