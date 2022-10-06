@@ -161,8 +161,8 @@ return (
                 <Row>
                     <HistoryTabs />
                     <Col xs={22} sm={22} md={18} className="form-body his-container" style={{
-                            marginLeft: "15px"
-                        }}>
+                    marginLeft: "15px"
+                }}>
                         {leadElement}
                         {appointmentElement}
                         {proposalElement}
