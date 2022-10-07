@@ -178,6 +178,11 @@ useEffect(() => {
     setSidebar(false)
   }
 
+  const  defaultChannel=() =>{
+    history.push('/defaultchannel')
+    setSidebar(false)
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -216,7 +221,7 @@ useEffect(() => {
             <div className='menuList'>
               <ul>
               <li onClick={() => { switchChannel() }}><div><img src={switch_img}/> &nbsp;<span>Switch Channel</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={switch_img}/> &nbsp;<span>Channel Default</span></div> <img src={right_black_img}/></li>
+                <li onClick={() => { defaultChannel() }}><div><img src={switch_img}/> &nbsp;<span>Channel Default</span></div> <img src={right_black_img}/></li>
                 {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src={right_black_img}/></li> */}
                 {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75912x.png'/> &nbsp;<span>Download FAQs</span></div> </li> */}
               </ul>
