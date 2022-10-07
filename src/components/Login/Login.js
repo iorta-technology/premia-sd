@@ -41,14 +41,10 @@ const Login = () => {
                 let _loginData = []
                 // actions.multiChannelData()
                 let _defaultChannel = res.data.errMsg[0].filter((item,index) => item.setDefault === true)
-                // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+                console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
                 _loginData.push(_defaultChannel,res.data.errMsg[1])
-                console.warn('(((((((((_loginData)))))))))',_loginData)
                 dispatch(actions.loginSuccess(_loginData));
-                console.warn('(((((((((HERE)))))))))')
                 dispatch(actions.multiChannelData(res.data.errMsg[0]));
-                console.warn('(((((((((HERE ALSO)))))))))')
-                // return
                 history.push("/home");
             } else {
               message.error(res.data.errMsg);
