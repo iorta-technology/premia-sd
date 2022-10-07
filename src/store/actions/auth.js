@@ -18,6 +18,13 @@ export const loginSuccess = (payload) => {
     }
 } 
 
+export const multiChannelData = (payload) => {
+    return {
+        type: actionTypes.MULTI_CHANNEL,
+        multiChannel: payload
+    }
+}
+
 
 export const loginFail = (error) => {
     return {

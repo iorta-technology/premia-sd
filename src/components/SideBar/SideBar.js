@@ -171,7 +171,12 @@ useEffect(() => {
     window.localStorage.clear()
     dispatch(actions.logout())
     history.push('/login')
-}
+  }
+
+  const  switchChannel=() =>{
+    history.push('/multichannel')
+    setSidebar(false)
+  }
 
   return (
     <>
@@ -199,7 +204,7 @@ useEffect(() => {
             </div>
             <div className='profileData'>
               <p style={{textTransform:'capitalize',fontWeight:600}}>{logged_in_user}</p>
-              <p><b>{login_user_data.designation.designatioName}</b> ( <b>ID</b> {agent_id})</p>
+              <p><b>{login_user_data?.designation?.designatioName}</b> ( <b>ID</b> {agent_id})</p>
               <p><FaIcons.FaMapMarker style={{color:"#787878"}} /> | {login_user_data.city} | {login_user_data.state}</p>
               {/* <p><b>Channel : </b>{login_user_data.channelCode.channelName}</p> */}
             </div>
@@ -210,7 +215,7 @@ useEffect(() => {
             </div>
             <div className='menuList'>
               <ul>
-              <li onClick={() => { history.push('/multichannel') }}><div><img src={switch_img}/> &nbsp;<span>Switch Channel</span></div> <img src={right_black_img}/></li>
+              <li onClick={() => { switchChannel() }}><div><img src={switch_img}/> &nbsp;<span>Switch Channel</span></div> <img src={right_black_img}/></li>
                 <li><div><img src={switch_img}/> &nbsp;<span>Channel Default</span></div> <img src={right_black_img}/></li>
                 {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src={right_black_img}/></li> */}
                 {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75912x.png'/> &nbsp;<span>Download FAQs</span></div> </li> */}

@@ -2,8 +2,11 @@ import React from 'react'
 import '../components/Login/Login.css';
 import { Card, Input, Button, Image, Form, message, Row, Col, Radio } from 'antd';
 import loginLogo from '../images/ABIB_LOGO.jpg'
+import { useDispatch, useSelector } from 'react-redux';
 
 function Multichannel() {
+    const _store = useSelector(state => state)
+    console.warn('STORE DATA----------',_store.login.multiChannel)
     return (
         <div className="main">
             <div className="login-card">
@@ -17,12 +20,12 @@ function Multichannel() {
                     <Card style={{ backgroundColor: 'rgb(228, 106, 37)', }} bordered={false} >
                         <Row >
                            
-                                <Col span={22}>
-                                    <h5 style={{color : 'white'}}>Axis</h5>
-                                </Col>
-                                <Col span={2}>
-                                    <Radio checked={true}/>
-                                </Col>
+                            <Col span={22}>
+                                <h5 style={{color : 'white'}}>Axis</h5>
+                            </Col>
+                            <Col span={2}>
+                                <Radio checked={true}/>
+                            </Col>
                            
                         </Row>
                     </Card>

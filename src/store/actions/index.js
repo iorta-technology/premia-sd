@@ -7,6 +7,7 @@ export {
   logout,
   fetchUserDetails,
   fetchHierarchy,
+  multiChannelData,
 } from "./auth";
 // export { home,activities } from './home'
 // export { activities } from './home'
