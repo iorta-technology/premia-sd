@@ -5,6 +5,7 @@ import { Link,useHistory } from 'react-router-dom';
 import moment from 'moment'
 import axiosRequest from '../../axios-request/request.methods'  
 import { useSelector } from "react-redux";
+import Tabs from "../../components/Tab/Tab";
 
 const NotificationComp = () => {
     const userId = useSelector(state => state.login.userId)
@@ -12,7 +13,7 @@ const NotificationComp = () => {
     const MAX_ITEMS = 7;
     const [isOpen, setIsOpen] = useState(false)
     // api integation 
-    const [_notify, set_Notify] = useState('') 
+    const [_notify, set_Notify] = useState([]) 
     const [isShown, setIsShown] = useState(true);
     const [loading, setLoading] = useState(false)
 
@@ -23,9 +24,9 @@ const NotificationComp = () => {
         const fetchData = async () => {
           try {
             let data = await axiosRequest.get(`user/getnotification/${userId}?notification_type=alerts&readStatus=0`)
-             console.log("-----", data)
-            set_Notify(data);
-            
+
+                let res = data
+                set_Notify(res[0]);
           } catch (error) {
             console.log("error", error);
           }
@@ -55,16 +56,17 @@ const NotificationComp = () => {
 
   return (
     <>
-        <div className="header">
+        {/* <div className="header">
             <Row >
                 <Col><p className="product-title">Notification</p></Col>
             </Row>
-        </div>
+        </div> */}
+        <Tabs tabMenu={[]} header="Notification" activeKey="1" />
         
        {/* Start the node data */}
 
         {
-            _notify.length && _notify.length > 0 ? <div className='mainTab'>
+            _notify?.length && _notify?.length > 0 ? <div className='mainTab'>
             <div className="stepper d-flex flex-column mt-2 ml-2">
                 <div className="d-flex mb-1">
                     <div className="d-flex flex-column pr-4 align-items-center">

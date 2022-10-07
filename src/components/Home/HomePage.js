@@ -95,15 +95,15 @@ const HomePage = () => {
   const userId = login_user_data.id;
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
-  let _storeData = useSelector((state) => state);
-  console.warn("((((((((_storeData))))))))", _storeData.login);
+  let _storeData = useSelector((state) => state)
+  // console.warn('((((((((_storeData))))))))',_storeData.login)
 
-  const _accessActivityTracker = checkuserAccess("myEvents", _storeData.login); //Activity Tracker
-  const _accessDailyBusiness = checkuserAccess("myBusiness", _storeData.login); // Daily Business
-  const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
-  const _accessKpi = checkuserAccess("businessDashboard", _storeData.login); // KPI Dashbord
-  const _accessTodo = checkuserAccess("todoTask", _storeData.login); // TODO
-  const _accessSalesGuide = checkuserAccess("sales_guide", _storeData.login); // Sales Guide
+  const _accessActivityTracker = checkuserAccess('myEvents',_storeData.login); //Activity Tracker
+  const _accessDailyBusiness = checkuserAccess('myBusiness',_storeData.login); // Daily Business
+  const _accessOpportunities = checkuserAccess('myLeads',_storeData.login); // Opportunities
+  const _accessKpi = checkuserAccess('businessDashboard',_storeData.login); // KPI Dashbord
+  const _accessTodo = checkuserAccess('todoTask',_storeData.login); // TODO
+  const _accessSalesGuide = checkuserAccess('sales_guide',_storeData.login); // Sales Guide
   // console.warn('((((((((_storeData))))))))',_storeData)
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -150,8 +150,8 @@ const HomePage = () => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
-    dispatch(actions.getBusinessCardAPI(userId, channelCode));
-
+    // dispatch(actions.getBusinessCardAPI(userId,channelCode));
+    
     dispatch(leadActions.updateTabOfDashboard("self"));
 
     // console.log('ROUTEEE___HISTORYYY',history)
@@ -161,10 +161,52 @@ const HomePage = () => {
     getTodoData(0);
     getDailyBusiness();
     getOpportunities();
+    getKpiData(userId,channelCode);
   }, []);
 
-  useEffect(() => {
-    let _businessCardResp = _storeData.home.businessData[0].data;
+  // useEffect(() => {
+    // let _businessCardResp = _storeData.home.businessData[0].data
+    // let _bussDropArr = [];
+
+    // console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
+    // if(_businessCardResp.length > 0){
+    //   for (let _kpi of _businessCardResp) {
+    //     let data = {
+    //       label: _kpi.year_month,
+    //       value: _kpi.year_month,
+    //       index: _kpi.id === 'last_two_month' ? '1' : '2'
+    //     }
+    //     _bussDropArr.push(data)
+        
+    //     setBusinessDropArray(_bussDropArr)
+    //     setBusinessDropdown(_bussDropArr[0].value)
+    //   }
+    //   console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
+    //   handleBusinessDropdown(_bussDropArr[0].value)
+    // }else{
+    //   handleBusinessDropdown('')
+    // }
+  // },[])
+
+  const home_data = useSelector((state) => state.home.home_obj);
+  const activities_data = useSelector(
+    (state) => state.activities.activities_obj
+  );
+
+  function add3Dots(string, limit) {
+    var dots = "...";
+    if (string.length > limit) {
+      string = string.substring(0, limit) + dots;
+    }
+    return string;
+  }
+  
+  let getKpiData = async (userId,channelData) => {
+    let _resp = await axiosRequest.get(`user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`, { secure: true })
+    console.log("Business CARD",_resp)
+    // dispatch(actions.businessCardData(_resp))
+    let _businessCardResp = _resp[0].data
+
     let _bussDropArr = [];
 
     console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
@@ -180,24 +222,11 @@ const HomePage = () => {
         setBusinessDropArray(_bussDropArr);
         setBusinessDropdown(_bussDropArr[0].value);
       }
-      console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
-      handleBusinessDropdown(_bussDropArr[0].value);
-    } else {
-      handleBusinessDropdown("");
+      console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
+      handleBusinessDropdown(_bussDropArr[0].value,_businessCardResp)
+    }else{
+      handleBusinessDropdown('',_businessCardResp)
     }
-  }, []);
-
-  const home_data = useSelector((state) => state.home.home_obj);
-  const activities_data = useSelector(
-    (state) => state.activities.activities_obj
-  );
-
-  function add3Dots(string, limit) {
-    var dots = "...";
-    if (string.length > limit) {
-      string = string.substring(0, limit) + dots;
-    }
-    return string;
   }
 
   let getOpportunities = async () => {
@@ -493,11 +522,9 @@ const HomePage = () => {
   };
 
   const handleBusinessDropdown = (event, data) => {
-    setBusinessDropdown(event);
-    let _businessCardResp = _storeData.home.businessData[0].data;
-    let _selectMonthData = _businessCardResp.filter(
-      (el) => event === el.year_month
-    );
+    setBusinessDropdown(event)
+    let _businessCardResp = data
+    let _selectMonthData = _businessCardResp.filter(el => event === el.year_month)
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
     if (event !== "") {
       _businessRetention.target =
@@ -540,7 +567,7 @@ const HomePage = () => {
       setBusinessGWP(_businessGWP);
       setBusinessActivation(_businessActivation);
     }
-    setShowBusinessData(true);
+    // setShowBusinessData(true)
   };
 
   const data = [
@@ -1023,7 +1050,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 {/* </Link> */}
-                {showBusinessData && (
+                {/* {showBusinessData && ( */}
                   <div style={{ marginTop: "50px" }}>
                     <div
                       style={{
@@ -1255,7 +1282,7 @@ const HomePage = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                {/* )} */}
               </div>
             </Col>
           )}

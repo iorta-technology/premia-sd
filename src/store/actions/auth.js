@@ -11,9 +11,17 @@ export const loginStart = () => {
 };
 
 export const loginSuccess = (payload) => {
+  // console.log("login success ========", payload);
   return {
     type: actionTypes.LOGIN_SUCCESS,
     login_agent_data: payload,
+  };
+};
+
+export const multiChannelData = (payload) => {
+  return {
+    type: actionTypes.MULTI_CHANNEL,
+    multiChannel: payload,
   };
 };
 

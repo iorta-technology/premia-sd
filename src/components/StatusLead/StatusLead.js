@@ -457,6 +457,12 @@ const NewLead = React.memo((props) => {
   // lead summary
   const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
+  let storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
+  let storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
+  // let storeEmailValue = useSelector((state) => state.newLead.formData.email)
+  let storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
+  let storeStateValue = useSelector((state) => state.newLead.formData.state)
+  let storeCityValue = useSelector((state) => state.newLead.formData.city)
 
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
@@ -627,13 +633,6 @@ const NewLead = React.memo((props) => {
       "appointmentTime": _appntTime
     })
   }
-
-  const storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
-  const storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
-  // const storeEmailValue = useSelector((state) => state.newLead.formData.email)
-  const storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
-  const storeStateValue = useSelector((state) => state.newLead.formData.state)
-  const storeCityValue = useSelector((state) => state.newLead.formData.city)
   
   // add team Member modal state control
   const [visibleTeamMemberModal, setVisibleTeamMemberModal] = useState(false);
@@ -1085,39 +1084,6 @@ const NewLead = React.memo((props) => {
     }
   }
   const formData = {
-    // ...storeFormData,
-    // leadStatus: leadStatus,
-    // start_date: appointmentDatePost,
-    // start_time: parseInt(appointmentTime),
-    // remarksfromUser: remarkFromUser,
-    // remarksfromSource: remarkFromSource,
-    // leadsubDisposition: leadSubDisposition,
-    // leadDisposition: leadDisposition,
-    // teamMembers: '',
-    // leadSource: '',
-
-    // appointment_status: checkValidity(appointmentStatus),
-    // appointmentdisPosition: checkValidity(appointmentDisposition),
-    // appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
-
-
-    // lead_Owner_Id: id,
-    // lead_Creator_Id: id,
-    // user_id: id,
-    // LeadType: leadType,
-    // Product: product,
-    // Insurance_Company: insuranceCompany,
-
-    // state: stateProvince,
-    // city: cityProvince,
-    // primaryMobile: primaryNo,
-    // email: email,
-
-    // firstName: firstName,
-    // lastName: lastName,
-
-    // ============================
-
     user_id: id,
     leadStatus: leadStatus,
     leadDisposition: leadDisposition,
@@ -1138,8 +1104,8 @@ const NewLead = React.memo((props) => {
     line2: "",
     line3: "",
     country: "India",
-    state: stateProvince,
-    city: cityProvince,
+    state: stateProvince === 'Select' ? '' : stateProvince,
+    city: cityProvince  === 'Select' ? '' : cityProvince,
     pincode: null,
     primaryMobile: primaryNo,
     secondaryMobile: null,
@@ -1196,10 +1162,10 @@ const NewLead = React.memo((props) => {
     user_id: id,
     LeadType: leadType,
     Product: product,
-    Insurance_Company: insuranceCompany,
+    Insurance_Company: insuranceCompany ,
 
-    state: stateProvince,
-    city: cityProvince,
+    state: stateProvince === 'Select' ? '' : stateProvince,
+    city: cityProvince  === 'Select' ? '' : cityProvince,
     primaryMobile: primaryNo,
     email: email,
 
@@ -1220,9 +1186,18 @@ const NewLead = React.memo((props) => {
         .then((res) => {
           // console.log('CREATE_LEAD_SUCCESS:', res);
           if (res.type === "CREATE_LEAD_SUCCESS") {
-            console.log('success:', res);
+            console.log('success:', res.formData[0]);
             // setErrorMessage(successMsg)
             setIsNewLead(false)
+            storefirstNameValue = res.formData[0].firstName
+            storelastNameValue = res.formData[0].lastName
+            storePrimaryMobileValue = res.formData[0].primaryMobile
+            storeStateValue = res.formData[0].state
+            storeCityValue = res.formData[0].city
+            // console.warn('(((((((storefirstNameValue))))))):', storefirstNameValue);
+            // console.warn('(((((((storelastNameValue))))))):', storelastNameValue);
+            // console.warn('(((((((storePrimaryMobileValue))))))):', storePrimaryMobileValue);
+            // console.warn('(((((((storeStateValue))))))):', storeStateValue);
 
           }
           // else if (res.type === 'CREATE_LEAD_FAIL') {

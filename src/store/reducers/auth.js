@@ -27,8 +27,15 @@ const loginStart = (state, action) => {
   return updateObject(state, { fetch_allLeads_Loading: true });
 };
 
+const multiChannelData = (state, action) => {
+  return updateObject(state, {
+    multiChannel: action.multiChannel,
+    fetch_allLeads_Loading: false,
+  });
+};
+
 const loginSuccess = (state, action) => {
-  // console.log("id_______DATATATATTAAT",action)
+  console.log("id_______DATATATATTAAT", action);
   let user = camelCaseKeys({ ...action.login_agent_data[0][0] });
   // localStorage.setItem('user',user)
   stoageSetter("user", user);
@@ -130,6 +137,8 @@ const reducer = (state = initialState, action) => {
       return loginSuccess(state, action);
     case actionTypes.LOGIN_FAIL:
       return loginFail(state, action);
+    case actionTypes.MULTI_CHANNEL:
+      return multiChannelData(state, action);
 
     case actionTypes.AUTH_LOGOUT_START:
       return logoutStart(state, action);
