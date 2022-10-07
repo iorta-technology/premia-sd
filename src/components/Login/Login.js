@@ -28,7 +28,7 @@ const Login = () => {
         password,
       })
       .then((res, error) => {
-        console.warn('(((((((((_loginResp)))))))))',res)
+        console.warn("(((((((((_loginResp)))))))))", res);
         if (res === undefined || res === null || res === "") {
           return;
         }

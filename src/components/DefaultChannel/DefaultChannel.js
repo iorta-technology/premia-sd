@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../components/Login/Login.css";
+import "../../components/Login/Login.css";
 import {
   Card,
   Input,
@@ -11,11 +11,11 @@ import {
   Col,
   Radio,
 } from "antd";
-import loginLogo from "../images/ABIB_LOGO.jpg";
+import loginLogo from "../../images/ABIB_LOGO.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import axiosRequest from "../axios-request/request.methods";
+import axiosRequest from "../../axios-request/request.methods";
 
-function Multichannel() {
+function DefaultChannel() {
   const _store = useSelector((state) => state);
   const bankData = _store.login.multiChannel;
   console.warn("STORE DATA----------", _store.login.multiChannel);
@@ -53,9 +53,8 @@ function Multichannel() {
           <br />
           <br />
           {bankData.map((item, index) => (
-            <div className="card-list">
+            <div className="card-list" key={index}>
               <Card
-                key={index}
                 style={{
                   backgroundColor: "rgb(228, 106, 37)",
                   marginBottom: "6px",
@@ -104,4 +103,4 @@ function Multichannel() {
   );
 }
 
-export default Multichannel;
+export default DefaultChannel;
