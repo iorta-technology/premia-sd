@@ -252,7 +252,7 @@ const LoanProducts = () => {
                             >
                               {item.productName}
                             </h1>
-                            <Button
+                            {/* <Button
                               className="benefit-btn"
                               style={{
                                 backgroundColor: "transparent",
@@ -263,8 +263,8 @@ const LoanProducts = () => {
                               onClick={showModal}
                             >
                               Benefit Illustration
-                            </Button>
-                            <Modal
+                            </Button> */}
+                            {/* <Modal
                               className="Clubsmaster-modal-style"
                               title="Select the proposer"
                               visible={isJoinModalVisible}
@@ -356,54 +356,44 @@ const LoanProducts = () => {
                                   benefitIllustratorArr.length / postPerPage
                                 }
                               />
-                              {/* </div> */}
-                              {/* <Table
-                          columns={columns}
-                          dataSource={benefitIllustratorArr}
-                          pagination={{ pageSize: 50 }}
-                          scroll={{ x: '150vw' }}
-                      /> */}
-                            </Modal>
+                            </Modal> */}
                           </div>
                           <p className="product-para">
                             {item.productDescription}
                           </p>
-                          <h4
-                            style={{ color: "#5EA5C0", marginBottom: 10 }}
-                            className="product_heading"
-                          >
-                            5 Reasons to buy:
-                          </h4>
-                          <p style={{ margintop: 10 }}>
-                            <span className="slNo circle-point">1</span>
-                            <span className="bullet-points">
-                              {item.productReasons.reason1}
-                            </span>
-                          </p>
-                          <p>
-                            <span className="slNo circle-point">2</span>
-                            <span className="bullet-points">
-                              {item.productReasons.reason2}
-                            </span>
-                          </p>
-                          <p>
-                            <span className="slNo circle-point">3</span>
-                            <span className="bullet-points">
-                              {item.productReasons.reason3}
-                            </span>
-                          </p>
-                          <p>
-                            <span className="slNo circle-point">4</span>
-                            <span className="bullet-points">
-                              {item.productReasons.reason4}
-                            </span>
-                          </p>
-                          <p>
-                            <span className="slNo circle-point">5</span>
-                            <span className="bullet-points">
-                              {item.productReasons.reason5}
-                            </span>
-                          </p>
+                          <h4 style={{ color: "#5EA5C0"}} className="product_heading">5 Reasons to buy:</h4>
+                          <div style={{ marginTop: 10 }}>
+                            <p >
+                              <span className="slNo circle-point">1</span>
+                              <span className="bullet-points">
+                                {item.productReasons.reason1}
+                              </span>
+                            </p>
+                            <p>
+                              <span className="slNo circle-point">2</span>
+                              <span className="bullet-points">
+                                {item.productReasons.reason2}
+                              </span>
+                            </p>
+                            <p>
+                              <span className="slNo circle-point">3</span>
+                              <span className="bullet-points">
+                                {item.productReasons.reason3}
+                              </span>
+                            </p>
+                            <p>
+                              <span className="slNo circle-point">4</span>
+                              <span className="bullet-points">
+                                {item.productReasons.reason4}
+                              </span>
+                            </p>
+                            <p>
+                              <span className="slNo circle-point">5</span>
+                              <span className="bullet-points">
+                                {item.productReasons.reason5}
+                              </span>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </Col>
@@ -426,7 +416,7 @@ const LoanProducts = () => {
                           {item.imageTitle}
                         </h4>
                         {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
-                        <Carousel autoplay={true}>
+                        <Carousel style={{marginTop:12}} autoplay={true}>
                           {item.productImages.map((item) => {
                             return (
                               <div style={contentStyle}>

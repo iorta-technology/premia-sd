@@ -425,7 +425,7 @@ const NewLead = React.memo((props) => {
 
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading)
   // let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
-  const storeLeadId = useSelector((state) => state.newLead.leadId)
+  let storeLeadId = useSelector((state) => state.newLead.leadId)
   // const leadDataloading = useSelector((state) => state.newLead.leadDataloading)
   // let storefirstNameValue = ''
   // let storelastNameValue = ''
@@ -510,6 +510,7 @@ const NewLead = React.memo((props) => {
   const [showLeadStatus, setshowLeadStatusVisiblity] = React.useState(false);
   const [addTeamMemb ,setAddTeamMemb]=useState([])
   const [teamTableData ,setTeamTableData]=useState([])
+  const [leadIdData ,setLeadIdData]=useState('')
 
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
@@ -1179,8 +1180,8 @@ const NewLead = React.memo((props) => {
     alert(error)
     console.log(error)
   }
-
   const submitHandler = event => {
+    
     if (isNewLead) {
       dispatch(actions.createLead(createFormData))
         .then((res) => {
@@ -1194,6 +1195,8 @@ const NewLead = React.memo((props) => {
             storePrimaryMobileValue = res.formData[0].primaryMobile
             storeStateValue = res.formData[0].state
             storeCityValue = res.formData[0].city
+            // _leadID = res.formData[0]._id
+            setLeadIdData(res.formData[0]._id)
             // console.warn('(((((((storefirstNameValue))))))):', storefirstNameValue);
             // console.warn('(((((((storelastNameValue))))))):', storelastNameValue);
             // console.warn('(((((((storePrimaryMobileValue))))))):', storePrimaryMobileValue);
@@ -1206,11 +1209,12 @@ const NewLead = React.memo((props) => {
           //   failedHandler(res.error)
           //   console.log(res)
           // }
+          // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
         })
 
     } else {
-
-      dispatch(actions.editLead(formData, storeLeadId))
+      let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData
+      dispatch(actions.editLead(formData, _lead_id))
         .then((res) => {
           if (res.type === "EDIT_LEAD_SUCCESS") {
             console.log('success:', res);
