@@ -14,8 +14,12 @@ import {
 import loginLogo from "../images/ABIB_LOGO.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import axiosRequest from "../axios-request/request.methods";
+import * as actions from "../store/actions/index";
+import { useHistory } from "react-router";
 
 function Multichannel() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const _store = useSelector((state) => state);
   const bankData = _store.login.multiChannel;
   console.warn("STORE DATA----------", _store.login.multiChannel);
@@ -32,7 +36,17 @@ function Multichannel() {
         `user/switchChannel?switchingChannelCode=${bankID}`,
         { secure: true }
       );
-      message.info("success");
+
+      if (res) {
+        let _loginData = [];
+        let _defaultChannel = bankData.filter(
+          (item, index) => item.channelCode._id === bankID
+        );
+        _loginData.push(_defaultChannel, res.TOKEN);
+        console.log("_loginData", _loginData[0]);
+        dispatch(actions.loginSuccess(_loginData));
+        history.push("/home");
+      }
     } catch (error) {
       console.log("error API " + error);
     }
@@ -53,18 +67,25 @@ function Multichannel() {
           <br />
           <br />
           {bankData.map((item, index) => (
-            <div className="card-list">
+            <div className="card-list" key={index}>
               <Card
-                key={index}
                 style={{
-                  backgroundColor: "rgb(228, 106, 37)",
-                  marginBottom: "6px",
+                  backgroundColor:
+                    item.channelCode._id !== bankID
+                      ? "#fff"
+                      : "rgb(228, 106, 37)",
+                  marginBottom: "17px",
                 }}
                 bordered={false}
               >
-                <Row>
+                <Row style={{ padding: "5px" }}>
                   <Col span={22}>
-                    <h6 style={{ color: "white" }}>
+                    <h6
+                      style={{
+                        color:
+                          item.channelCode._id !== bankID ? "#000" : "#fff",
+                      }}
+                    >
                       {item.channelCode.channelName}
                     </h6>
                   </Col>
