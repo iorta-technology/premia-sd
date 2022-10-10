@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../components/Login/Login.css";
+import "../../components/Login/Login.css";
 import {
   Card,
   Input,
@@ -11,15 +11,11 @@ import {
   Col,
   Radio,
 } from "antd";
-import loginLogo from "../images/ABIB_LOGO.jpg";
+import loginLogo from "../../images/ABIB_LOGO.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import axiosRequest from "../axios-request/request.methods";
-import * as actions from "../store/actions/index";
-import { useHistory } from "react-router";
+import axiosRequest from "../../axios-request/request.methods";
 
-function Multichannel() {
-  const dispatch = useDispatch();
-  const history = useHistory();
+function DefaultChannel() {
   const _store = useSelector((state) => state);
   const bankData = _store.login.multiChannel;
   console.warn("STORE DATA----------", _store.login.multiChannel);
@@ -36,17 +32,7 @@ function Multichannel() {
         `user/switchChannel?switchingChannelCode=${bankID}`,
         { secure: true }
       );
-
-      if (res) {
-        let _loginData = [];
-        let _defaultChannel = bankData.filter(
-          (item, index) => item.channelCode._id === bankID
-        );
-        _loginData.push(_defaultChannel, res.TOKEN);
-        console.log("_loginData", _loginData[0]);
-        dispatch(actions.loginSuccess(_loginData));
-        history.push("/home");
-      }
+      message.info("success");
     } catch (error) {
       console.log("error API " + error);
     }
@@ -70,22 +56,14 @@ function Multichannel() {
             <div className="card-list" key={index}>
               <Card
                 style={{
-                  backgroundColor:
-                    item.channelCode._id !== bankID
-                      ? "#fff"
-                      : "rgb(228, 106, 37)",
-                  marginBottom: "17px",
+                  backgroundColor: "rgb(228, 106, 37)",
+                  marginBottom: "6px",
                 }}
                 bordered={false}
               >
-                <Row style={{ padding: "5px" }}>
+                <Row>
                   <Col span={22}>
-                    <h6
-                      style={{
-                        color:
-                          item.channelCode._id !== bankID ? "#000" : "#fff",
-                      }}
-                    >
+                    <h6 style={{ color: "white" }}>
                       {item.channelCode.channelName}
                     </h6>
                   </Col>
@@ -125,4 +103,4 @@ function Multichannel() {
   );
 }
 
-export default Multichannel;
+export default DefaultChannel;

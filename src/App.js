@@ -15,6 +15,7 @@ import ProposalFulfilment from "./components/ProposalFulfilment/ProposalFulfilme
 
 import { Spin } from "antd";
 import Multichannel from "./components/Multichannel";
+import DefaultChannel from './components/DefaultChannel/DefaultChannel'
 import ResourceCenter from "./components/SalesPitch/ResourceCenter";
 
 const Master = React.lazy(() => import("./containers/Master/index"));
@@ -362,6 +363,7 @@ function App() {
                     component={LeadMaster}
                   ></Route>
                    <Route path="/multichannel" component={Multichannel}></Route>
+                   <Route path="/defaultchannel" component={DefaultChannel}></Route>
                   <Route
                     path="/leadmasterpage/statuslead"
                     component={StatusLead}

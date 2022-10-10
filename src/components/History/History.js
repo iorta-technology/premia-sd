@@ -64,7 +64,7 @@ const History = () => {
         // {
             // proposalArrObject !== null &&
             <>
-                <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Lead Data</h2>
+                <h2 className="his-title">Lead Data</h2>
                 <Timeline className="p4">
                     {leadArrObject.map((leadData) =>
                         <Timeline.Item color="red">
@@ -89,7 +89,7 @@ const History = () => {
         // {
             // proposalArrObject !== null &&
             <>
-                <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Appointment Data</h2>
+                <h2 className="his-title">Appointment Data</h2>
                 <Timeline className="p4">
                     {appointmentArrObject.map((leadData) =>
                         <Timeline.Item color="red">
@@ -112,7 +112,7 @@ const History = () => {
 
     let proposalElement = (
     <>
-        <h2 className="his-title m0a" style={{padding:'10px 0px 10px 0px'}}>Proposal Data</h2>
+        <h2 className="his-title">Proposal Data</h2>
         <Timeline className="p4">
             {proposalArrObject.map((leadData) =>
                 <Timeline.Item color="red">
@@ -160,7 +160,9 @@ return (
             {leadId ?
                 <Row>
                     <HistoryTabs />
-                    <Col xs={22} sm={22} md={17} className="form-body his-container m0a">
+                    <Col xs={22} sm={22} md={18} className="form-body his-container" style={{
+                    marginLeft: "15px"
+                }}>
                         {leadElement}
                         {appointmentElement}
                         {proposalElement}
@@ -168,7 +170,7 @@ return (
                 </Row>
                 :
                  <Row gutter={['', 20]} justify="center">
-                 <Col className="form-body m0a" xs={22} sm={24} md={16} lg={16} xl={16} >
+                 <Col className="form-body" xs={22} sm={24} md={16} lg={16} xl={16} >
                      <div className="proposal">
                          <div className="bg-norecord">
                          </div>

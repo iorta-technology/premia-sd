@@ -8,9 +8,9 @@
     background-color: white;
 }
 
-.ant-card-body {
+/* .ant-card-body {
     padding: 10px;
-}
+} */
 
 .dropactive{
     background-color: #00acc1; /* Green */
@@ -22,9 +22,9 @@
     color: black;
 }
 
-.content{
+/* .content{
     background-image: url('../../assets/contentback.png');
-}
+} */
 
 .maincard .ant-card-body{
         padding: 0px;
