@@ -1,7 +1,7 @@
 import _ from "lodash";
 import dataLibrary from "./dataLibrary";
 import moment from "moment";
-import axios from 'axios';
+import axios from "axios";
 import { type } from "jquery";
 
 let nonContact = dataLibrary.nonContact;
@@ -54,49 +54,49 @@ export const stoageGetter = (key) => {
 };
 
 export const checkAgent = () => {
-  let _temp = window.localStorage.getItem('persist:root')
-  let _loginUser = JSON.parse(JSON.parse(_temp).login)
+  let _temp = window.localStorage.getItem("persist:root");
+  let _loginUser = JSON.parse(JSON.parse(_temp).login);
   // console.log('((((((((((hierarchyData))))))))))',_loginUser)
 
-  var hierarchyData = _loginUser.hierarchy[0]
-  let levelCodeArray = []
+  var hierarchyData = _loginUser.hierarchy[0];
+  let levelCodeArray = [];
   for (let i = 0; i < hierarchyData.length; i++) {
-      let levelCode = hierarchyData[i].levelCode
-      levelCodeArray.push(levelCode)
+    let levelCode = hierarchyData[i].levelCode;
+    levelCodeArray.push(levelCode);
   }
-  levelCodeArray.sort((a, b) => a - b)
-  let minValue = Math.min(...levelCodeArray)
+  levelCodeArray.sort((a, b) => a - b);
+  let minValue = Math.min(...levelCodeArray);
   // console.log('((((((((((hierarchyData))))))))))',minValue)
-  if(_loginUser.user.hierarchyId.levelCode === minValue){
-      return true
-  }else{
-      return false
+  if (_loginUser.user.hierarchyId.levelCode === minValue) {
+    return true;
+  } else {
+    return false;
   }
 };
 
-export const checkuserAccess = (featureCode,userData) => {
+export const checkuserAccess = (featureCode, userData) => {
   // console.log('featureCode ))::>>', featureCode);
   // let _temp = window.localStorage.getItem('persist:root')
   // let _loginUser = JSON.parse(JSON.parse(_temp).login)
   // console.warn('((((((((((hierarchyData))))))))))',userData.user)
-  var storeData_match = userData.user.accessOpt.accessOpt
-  var roleCODE = userData.user.roleCode
-          // console.log('Role Code::', roleCODE);  
-    // Array Itration
-    for (var location of storeData_match) {
-        if (featureCode.localeCompare(location.featureCode) === 0) {
-            //     // Object Itration
-            for (let props of location.roles) {
-                if (props.roleCode == roleCODE) {
-                    return {
-                        props: props,
-                        accessControl: location
-                    };
-                }
-            }
-            break;
+  var storeData_match = userData.user.accessOpt.accessOpt;
+  var roleCODE = userData.user.roleCode;
+  // console.log('Role Code::', roleCODE);
+  // Array Itration
+  for (var location of storeData_match) {
+    if (featureCode.localeCompare(location.featureCode) === 0) {
+      //     // Object Itration
+      for (let props of location.roles) {
+        if (props.roleCode == roleCODE) {
+          return {
+            props: props,
+            accessControl: location,
+          };
         }
+      }
+      break;
     }
+  }
 };
 
 export const dataFormatting = (resp, title, desc) => {

@@ -22,11 +22,35 @@
     color: black;
 }
 
-.content{
+/* .content{
     background-image: url('../../assets/contentback.png');
-}
+} */
 
 .maincard .ant-card-body{
         padding: 0px;
     
 }
+@media screen and (max-width:992px) {
+  .options{
+    display: none;
+}  
+.card{
+    align-items: center;
+    display: flex;
+}
+/* .ant-card{
+    height: 100vh;
+} */
+}
+@media screen and (min-width:993px) {
+    /* .options{
+      display: none;
+  }   */
+  .dropdown{
+    display: none;
+  }
+  .sideBar,.contentMain{
+      height: 100vh;
+  }
+  }
+

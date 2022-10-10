@@ -51,7 +51,7 @@ const HomePage = () => {
 
   const getPercenTage = (x, y) => {
     let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
-    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val);
+    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val).toPrecision(3);
   };
 
   const isFloat = (n) => {
@@ -702,7 +702,7 @@ const HomePage = () => {
                   marginBottom: "8px",
                 }}
               >
-                Hi, {logged_in_user}
+                Hi {logged_in_user}, Welcome to Salesdrive
               </p>
             </div>
           </Col>
@@ -713,12 +713,6 @@ const HomePage = () => {
             <div className="dataCardLabel"></div>
           </Col>
         </Row>
-        {/* const [showDailyBusiness, setShowDailyBusiness] = useState(_accessDailyBusiness.props.read === true ? true : false);
-        const [showOpportunities, setShowOpportunities] = useState(_accessOpportunities.props.read === true ? true : false);
-        const [showKpi, setShowKpi] = useState(_accessKpi.props.read === true ? true : false);
-        const [showTodo, setShowTodo] = useState(_accessTodo.props.read === true ? true : false);
-        const [showSalesGuide, setShowSalesGuide] = useState(_accessSalesGuide.props.read === true ? true : false); */}
-
         <Row gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center">
           {showActivityTracker && (
             <Col>
@@ -743,11 +737,7 @@ const HomePage = () => {
                   >
                     <div className="appointment_data">
                       <p className="ttile_name">Activities</p>
-                      <p className="ttile_name">
-                        {activities_data && activities_data.length
-                          ? activities_data.length
-                          : ""}{" "}
-                        Activities
+                      <p className="ttile_name">{activities_data && activities_data.length ? activities_data.length +' Activities' : ""}
                       </p>
                     </div>
                     <div className="horizontalLine"></div>

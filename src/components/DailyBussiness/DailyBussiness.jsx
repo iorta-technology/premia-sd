@@ -187,7 +187,9 @@ const DailyBussiness = () => {
     const { id, channelCode } = stoageGetter("user");
     // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_goals/6333c95400d30d8c8027b8c7
     try {
-      let res = axiosRequest.get(`user/fetch_goals/${id}`, { secure: true });
+      let res = axiosRequest.get(`user/fetch_goals/${currentIDTeam}`, {
+        secure: true,
+      });
       res.then((res) => setUser(res));
       console.log("res", res);
     } catch (error) {
@@ -197,7 +199,7 @@ const DailyBussiness = () => {
     changeDays(7);
     GetGraph();
     setReporting_hierarchies(userTreeData.reporting_hierarchies);
-  }, [dispatch]);
+  }, [dispatch, currentIDTeam]);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
   const [currentTabValue, SetCurrentTabValue] = useState("Self");
