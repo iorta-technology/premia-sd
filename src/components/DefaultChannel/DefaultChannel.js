@@ -17,7 +17,7 @@ import axiosRequest from "../../axios-request/request.methods";
 import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router";
 
-function Multichannel() {
+function DefaultChannel() {
   const dispatch = useDispatch();
   const history = useHistory();
   const _store = useSelector((state) => state);
@@ -38,7 +38,6 @@ function Multichannel() {
             channelCode: `${bankID}`,     
         }
       );
-
       if (res) {
         console.log("Res ======== ", res);
         let _loginData = [];
@@ -128,4 +127,4 @@ function Multichannel() {
   );
 }
 
-export default Multichannel;
+export default DefaultChannel;
