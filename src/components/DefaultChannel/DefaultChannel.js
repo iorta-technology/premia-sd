@@ -18,7 +18,7 @@ import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router";
 
 function DefaultChannel() {
-  const dispatch = useDispatch();
+//   const dispatch = useDispatch();
   const history = useHistory();
   const _store = useSelector((state) => state);
   const bankData = _store.login.multiChannel;
@@ -34,19 +34,17 @@ function DefaultChannel() {
     try {
       let res = await axiosRequest.put(
         `user/setDefaultLoginChannel`,
-        {
-            channelCode: `${bankID}`,     
-        }
-      );
-      if (res) {
-        console.log("Res ======== ", res);
-        let _loginData = [];
-        let _defaultChannel = bankData.filter(
-          (item, index) => item.channelCode._id === bankID
-        );
-        _loginData.push(_defaultChannel, { token: res.TOKEN });
-        console.log("_loginData", _loginData[0]);
-        dispatch(actions.loginSuccess(_loginData));
+        {channelCode: `${bankID}`});
+
+        if (res === 'Default channel set successfully') {
+        // console.log("Res ======== ", res);
+        // let _loginData = [];
+        // let _defaultChannel = bankData.filter(
+        //   (item, index) => item.channelCode._id === bankID
+        // );
+        // _loginData.push(_defaultChannel, { token: res.TOKEN });
+        // console.log("_loginData", _loginData[0]);
+        // dispatch(actions.loginSuccess(_loginData));
         history.push("/home");
       }
     } catch (error) {
