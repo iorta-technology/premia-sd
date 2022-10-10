@@ -35,7 +35,6 @@ function DefaultChannel() {
       let res = await axiosRequest.put(
         `user/setDefaultLoginChannel`,
         {channelCode: `${bankID}`});
-
         if (res === 'Default channel set successfully') {
         // console.log("Res ======== ", res);
         // let _loginData = [];
