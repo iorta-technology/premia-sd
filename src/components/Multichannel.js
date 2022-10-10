@@ -22,9 +22,9 @@ function Multichannel() {
   const history = useHistory();
   const _store = useSelector((state) => state);
   const bankData = _store.login.multiChannel;
-  console.warn("STORE DATA----------", _store.login.multiChannel);
+  console.warn("STORE DATA----------", bankData);
 
-  const [bankID, setBankID] = useState(bankData[0].channelCode._id);
+  const [bankID, setBankID] = useState(_store.login.user.channelCode._id);
 
   const onValueChange = (e) => {
     setBankID(e.target.value);
@@ -38,12 +38,12 @@ function Multichannel() {
       );
 
       if (res) {
+        console.log("Res ======== ", res.errCode);
         let _loginData = [];
         let _defaultChannel = bankData.filter(
           (item, index) => item.channelCode._id === bankID
         );
-        _loginData.push(_defaultChannel, res.TOKEN);
-        console.log("_loginData", _loginData[0]);
+        _loginData.push(_defaultChannel, { token: res.TOKEN });
         dispatch(actions.loginSuccess(_loginData));
         history.push("/home");
       }

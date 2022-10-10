@@ -7,6 +7,8 @@ import { Row, Col, Typography, Input, Radio } from "antd";
 import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
 import axiosRequest from "../../axios-request/request.methods";
+import group_white from "../../assets/MaterialUiIcons/group_white_192x192.png";
+import group_black from "../../assets/MaterialUiIcons/group_black_192x192.png";
 import { Button, Modal, Form } from "antd";
 import { message } from "antd";
 import {
@@ -651,9 +653,7 @@ const DailyBussiness = () => {
                   onClick={changeTab}
                 >
                   <img
-                    src={
-                      currentTabValue === "Team" ? person_white : person_black
-                    }
+                    src={currentTabValue === "Team" ? group_white : group_black}
                     className="person person_icon"
                     alt="person_png"
                   />
@@ -673,13 +673,12 @@ const DailyBussiness = () => {
               style={{ marginTop: "10px", padding: "0 5px" }}
             >
               <Select
-                defaultValue={{ value: "", label: "Select an Item" }}
+                defaultValue={{ value: "", label: "Select " }}
                 size="medium"
                 style={{
                   width: "100%",
-                  borderRadius: "5px",
-                  boxShadow:
-                    "0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)",
+
+                  border: "1px solid rgba(0,0,0,0.2)",
                 }}
                 onChange={getReportingUsers}
               >
@@ -701,14 +700,12 @@ const DailyBussiness = () => {
               style={{ marginTop: "10px", padding: "0 5px" }}
             >
               <Select
-                defaultValue={{ value: "", label: "Select an Item" }}
+                defaultValue={{ value: "", label: "Select " }}
                 size="medium"
                 onChange={(e) => gethirarchyData(e)}
                 style={{
                   width: "100%",
-                  borderRadius: "5px",
-                  boxShadow:
-                    "0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)",
+                  border: "1px solid rgba(0,0,0,0.2)",
                 }}
               >
                 {/* <Select
