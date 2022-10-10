@@ -55,6 +55,20 @@ const DailyBussiness = () => {
     setIsModalOpen(true);
   };
 
+  const getUserData = async () => {
+    try {
+      let res = await axiosRequest.get(
+        `user/fetch_goals/${currentIDTeam}?team=enable`,
+        {
+          secure: true,
+        }
+      );
+      setUser(res);
+    } catch (error) {
+      console.log("error API " + error);
+    }
+  };
+
   const changeDays = async (value) => {
     if (value == 7) setSelectDays({ value: "7", label: "Last 7 Days" });
     else setSelectDays({ value: "30", label: "Last 30 Days" });
@@ -159,6 +173,7 @@ const DailyBussiness = () => {
         GetGraph();
         setIsModalOpen(false);
         changeDays(7);
+        getUserData();
         form.resetFields();
       } catch (error) {
         console.log(error);
@@ -187,21 +202,11 @@ const DailyBussiness = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
-    // https://abinsurancenode.salesdrive.app/sdx-api/secure/user/fetch_goals/6333c95400d30d8c8027b8c7
-    try {
-      let res = axiosRequest.get(`user/fetch_goals/${currentIDTeam}`, {
-        secure: true,
-      });
-      res.then((res) => setUser(res));
-      console.log("res", res);
-    } catch (error) {
-      console.log("error API " + error);
-    }
-
+    getUserDataParams(id);
     changeDays(7);
     GetGraph();
     setReporting_hierarchies(userTreeData.reporting_hierarchies);
-  }, [dispatch, currentIDTeam]);
+  }, []);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
   const [currentTabValue, SetCurrentTabValue] = useState("Self");
@@ -469,6 +474,20 @@ const DailyBussiness = () => {
     }
   };
 
+  const getUserDataParams = async (currrentID) => {
+    try {
+      let res = await axiosRequest.get(
+        `user/fetch_goals/${currrentID}?team=enable`,
+        {
+          secure: true,
+        }
+      );
+      setUser(res);
+    } catch (error) {
+      console.log("error API " + error);
+    }
+  };
+
   const GetGraphParams = async (currentId) => {
     try {
       let res = await axiosRequest.get(`user/fetch_goals/${currentId}`, {
@@ -484,6 +503,7 @@ const DailyBussiness = () => {
   };
 
   const gethirarchyData = (currentId) => {
+    getUserDataParams(currentId);
     setCurrentIDTeam(currentId);
     changeDaysParams(7, currentId);
     GetGraphParams(currentId);
@@ -670,6 +690,7 @@ const DailyBussiness = () => {
               md={12}
               lg={4}
               xl={4}
+              className="selectionPeroson"
               style={{ marginTop: "10px", padding: "0 5px" }}
             >
               <Select
@@ -697,6 +718,7 @@ const DailyBussiness = () => {
               md={12}
               lg={4}
               xl={4}
+              className="selectionPeroson"
               style={{ marginTop: "10px", padding: "0 5px" }}
             >
               <Select
@@ -758,7 +780,7 @@ const DailyBussiness = () => {
                   </Avatar>
                   <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
                     <Text strong>
-                      {user?.csm_details?.first_name}{" "}
+                      {user?.csm_details?.first_name}
                       {user?.csm_details?.last_name}
                     </Text>
                     <Row>
