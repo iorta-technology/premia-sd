@@ -606,7 +606,7 @@ const DailyBussiness = () => {
         </div>
       </Modal>
 
-      <Tabs tabMenu={[]} header="Daily Bussiness" activeKey="1" />
+      <Tabs tabMenu={[]} header="Daily Business" activeKey="1" />
       <div style={{ padding: "0 3%", paddingBottom: "30px" }}>
         <Row className="tabs">
           {checkAgent() === false && (

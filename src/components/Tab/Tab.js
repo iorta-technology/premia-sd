@@ -253,7 +253,7 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        <div className="header-img">
+        <div className="header-img-tabs tabsStyle">
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
@@ -319,7 +319,7 @@ const Tab = ({
         </div>
       ) : (
         // FOR MOBILE WEB
-        <div style={{ display: "flex", flexDirection: "Column" }}>
+        <div className="tabsStyle" style={{ display: "flex", flexDirection: "Column" }}>
           <div>
             <Tabs
               tabBarGutter={20}

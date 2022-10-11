@@ -1,5 +1,5 @@
 /* sdtata lms2 */
-.header-img{
+.header-img-tabs{
     background-image: url('../../assets/header-tabs.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -16,14 +16,14 @@
 }
 
 @media (max-width:1080px) {
-    .header-img{
+    .header-img-tabs{
         flex-direction: column;
     }
 }
 
 .header-title-tab{
     margin-left: 40px;
-    margin: 10px 1px 0px 60px !important;
+    /* margin: 10px 1px 0px 60px !important; */
     font-weight:bold ;
     color: #00ACC1;
     font-size: 32px;
@@ -167,14 +167,14 @@ button.tabs_button img, button.active_tabs_button img{
     text-align: center;
     justify-content: center;
 }
-.ant-modal-body1{
+.tabsStyle .ant-modal-body1{
     height: 200rem;
 }
-/* .header-img>.header-title-tab{
+/* .header-img-tabs>.header-title-tab{
     margin-left: 120px;
 } */
 
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, 
+.tabsStyle .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, 
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
     border: none;
 }
@@ -187,44 +187,44 @@ button.tabs_button img, button.active_tabs_button img{
     -o-border-radius: 25px;
 } */
 
-.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab {
+.tabsStyle .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab {
     border-radius: 25px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
-    padding: 15px;
+    /* padding: 15px; */
 }
-.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-bottom > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
+/* .tabsStyle .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-bottom > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-card.ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab { */
     /* margin-left: 2px; */
-    padding: 15px;
-}
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+    /* padding: 15px; */
+/* } */
+.tabsStyle .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
     font-size: 14px;
     color: #6d8baa;
     background-color: #d2dde8;
 }
-.ant-tabs-tab-btn{
+.tabsStyle .ant-tabs-tab-btn{
     margin: 0 auto;
     /* padding: 10px; */
 }
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+.tabsStyle .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
     margin: 0 auto !important;
     /* color: #ffffff; */
 }
 /* .ant-tabs-tab.ant-tabs-tab-active{
     background-color: #00ACC1;
 } */
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
+.tabsStyle .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
 .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active{
     color: #fff;
     background-color: #00ACC1;
 }
-.ant-tabs-top > .ant-tabs-nav::before{
+.tabsStyle .ant-tabs-top > .ant-tabs-nav::before{
     display: none;
 }
-.ant-tabs-tab{
+.tabsStyle .ant-tabs-tab{
     font-size: 16px;
 }
 
@@ -235,21 +235,21 @@ button.tabs_button img, button.active_tabs_button img{
     .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
         color: #7e95ad;
     } */
-    .ant-tabs-tab-active, .ant-tabs-tab {
+    .tabsStyle .ant-tabs-tab-active, .ant-tabs-tab {
         /* width: 100px; */
         width: 100% !important;
     }
-    .ant-tabs-top > .ant-tabs-nav{
+    .tabsStyle .ant-tabs-top > .ant-tabs-nav{
         margin: 0 0 0px 0;
     }
-    .ant-tabs-tab{
+    .tabsStyle .ant-tabs-tab{
         font-size: 16px;
     }
     .ant-tabs{
         margin-left: 0;
         margin-top: -14px;
     }
-    .ant-tabs-nav{
+    .tabsStyle .ant-tabs-nav{
         box-shadow: 0px 1px 3px 0px #0000003d;
     }
     /* .round-card-main{
@@ -257,7 +257,7 @@ button.tabs_button img, button.active_tabs_button img{
         height: 200px;
         left: 600px;
     } */
-    /* .header-img{
+    /* .header-img-tabs{
         width: 800px;
     } */
     .ant-tabs-tab-btn{
@@ -267,14 +267,14 @@ button.tabs_button img, button.active_tabs_button img{
   
 }
 @media (min-width:621px){
-    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    .tabsStyle .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
         margin: 0 auto !important;
         color: #ffffff;
     }
-    .ant-tabs-tab.ant-tabs-tab-active{
+    .tabsStyle .ant-tabs-tab.ant-tabs-tab-active{
         background-color: #00ACC1;
     }
-    .ant-tabs-tab{
+    .tabsStyle .ant-tabs-tab{
         min-width: 135px;
     }
     /* .ant-tabs-tab-btn{
@@ -282,108 +282,3 @@ button.tabs_button img, button.active_tabs_button img{
     } */
     
 }
-
-
-
-
-
-/* sdrest demo new */
-/* .tab-container> .ant-tabs>.ant-tabs-nav{ 
-    border-bottom: none;
-}
-.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab{
-    border: none;
-}
-.tab-container>.ant-tabs-top > .ant-tabs-nav::before,
-.ant-tabs-bottom > .ant-tabs-nav::before, 
-.ant-tabs-top > div > .ant-tabs-nav::before, .ant-tabs-bottom > div > .ant-tabs-nav::before{
-    border: none;
-}
-
-.tab-container>div>div>div>div>div>.ant-tabs-tab-btn{
-    height: 100px;
-    width: 150px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-}
-
-.tab-pane{
-    position: relative;
-    border: none;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    
-}
-
-.tab-style{
-    position: relative;
-}
-
-.tab-style>.ant-btn{
-    position: absolute;
-    top:-30px;
-    right:0;
-}
-.ant-tabs-tab-btn{
-    padding: 40px;
-    color: #000;
-    background-color: #fff;
-    box-shadow:0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)
-    
-}
-.ant-tabs-tab{
-    padding: 0;
-}
-.ant-tabs-tab-active{
-    background-color: rgb(1, 180, 187);
-}
-.ant-tabs-content-holder{
-    display: none ;
-}
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
-    color: #fff;
-    background-color: rgb(1, 180, 187);
-}
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
-.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab{
-    margin: 10px;
-    padding: 0;
-} */
-
-
-
-
-/* sdrest styling old*/
-/* 
-body::-webkit-scrollbar {
-    width: 1em;
-}
-
-body::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
-}
-
-.tab-container>.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active{
-    background-color: #fafafa;
-    color: #ffffff;
-}
-.tab-pane:active{
-    color: rgb(1, 180, 187);
-    background-color: rgb(1, 180, 187);
-}
-.tab-pane>.ant-card-body>button{
-    position: absolute;
-    top:5px;
-    right:5px;
-}  */

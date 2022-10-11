@@ -75,7 +75,7 @@
   width: 10vw;
 }
   .product-brochure>div{
-    margin-right: 5px;
+    margin-right: 20px;
   }
   .product-brochure button{
     font-size: 12px;
@@ -145,25 +145,53 @@
   }
 
   .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab{
-    padding: 4px 24px;
-    box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
+    padding: 20px 24px;
+    /* box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%); */
     width: 280px;
     display: flex;
     flex-direction: row;
-    align-items: stretch;
+    /* align-items: stretch; */
     font-size: 16px;
   }
   .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab{
-    margin: 2px 0 0 0;
+    margin: 0 0 0 0;
   }
   .loan-product-tabs .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane{
     padding-left: 0px;
+  }
+  /* .loan-product-tabs .ant-tabs-card.ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab {
+    border-radius: 0px 0 0 0px;
+    border: 2px solid #ECF2F9;
+  } */
+  .loan-product-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    margin: 0 auto !important;
+    color: #6d8baa;
+  }
+  .loan-product-tabs .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+    color: #fff;
+    background-color: #ECF2F9;
+    border: 2px solid #5ea5c0;
+    /* background-color: rgb(236, 242, 249); */
+    border-bottom-width: 2px;
+    border-bottom-color: rgb(224, 233, 243);
+    border-top-color: rgb(224, 233, 243);
+    border-right-color: #ECF2F9;
+    border-left-color: rgb(94, 165, 192);
+    border-left-width: 2px;
+    /* color: rgb(94, 165, 192); */
   }
   .loan-product-tabs .first-card{
     padding-left: 0px !important;
     padding-right: 0px !important;
     width: 900px;
 
+  }
+  .loan-product-tabs .ant-tabs > .ant-tabs-nav, .ant-tabs > div > .ant-tabs-nav {
+    position: relative;
+    display: flex;
+    flex: none;
+    align-items: center;
+    background-color: #F7FBFF;
   }
   .tableBorder{
     border: 1px solid #eee;
@@ -175,6 +203,12 @@
     color: #00ACC1;
     margin-left: 40px;
   }
+  /* #F7FBFF; */
+  /* .loan-product-tabs .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+    font-size: 14px;
+    color: #6d8baa;
+    background-color: #ffff;
+  } */
   @media only screen and (min-width: 992px){
     .loan-product-tabs .circle-point {
       background-color: #5EA5C0;
@@ -355,7 +389,7 @@
   font-size: 14px;
   color: #FFF;
 }
-.ant-input{
+.loan-product-tabs .ant-input{
   max-width: 50%;
   background-color: #e8e8e8;
   color: #000;

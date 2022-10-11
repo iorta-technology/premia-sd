@@ -791,7 +791,7 @@ const KpiDashboard = () => {
     setTeamData('Select')
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
-    // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
+    console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
     setTeamMemberList(_teamData)
     setShowTeamDrop(true)
   }
@@ -823,7 +823,7 @@ const KpiDashboard = () => {
       <Tabs tabMenu={[]} header="KPI Dashboard" activeKey="1" />
 
       <div className="mainTab">
-        <Row className="tabs">
+        <Row className="tabs kpiDrop">
           { checkAgent() === false &&
             <>
               <Col xs={11} sm={12} md={12} lg={2} xl={2}>

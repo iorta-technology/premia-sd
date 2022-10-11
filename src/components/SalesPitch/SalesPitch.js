@@ -74,7 +74,7 @@ const SalesPitch = () => {
                     />
                 </div>
             }
-            <div className="Salespitch-main">
+            <div className="Salespitch-main salesCard">
                 <div className="Salespitch-row-flex">
                     <Tabs tabPosition={tabPosition}  
                         className='SalesPitch-sider' >
