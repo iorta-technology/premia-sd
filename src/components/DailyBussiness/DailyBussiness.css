@@ -280,10 +280,6 @@ body{
 } */
   }
 
-  .ant-form-item{
-    margin-bottom: 10px !important;
-  }
-
   .goalButton{
     margin-left:15px;
     background-color: rgb(0, 172, 193);
@@ -328,7 +324,7 @@ body{
     display: block;
   }
 
-  .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+  .goalCalendar .ant-select:not(.ant-select-customize-input) .ant-select-selector{
     border:none !important;
     color: gray !important;
     font-size: 15px;
