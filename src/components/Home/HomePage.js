@@ -51,7 +51,9 @@ const HomePage = () => {
 
   const getPercenTage = (x, y) => {
     let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
-    return isFloat(val) ? parseInt(val).toPrecision(3) : parseInt(val).toPrecision(3);
+    return isFloat(val)
+      ? parseInt(val).toPrecision(3)
+      : parseInt(val).toPrecision(3);
   };
 
   const isFloat = (n) => {
@@ -95,15 +97,15 @@ const HomePage = () => {
   const userId = login_user_data.id;
   // const channelCode = useSelector((state) => state.login?.user?.channelCode)
   const channelCode = login_user_data.channelCode;
-  let _storeData = useSelector((state) => state)
+  let _storeData = useSelector((state) => state);
   // console.warn('((((((((_storeData))))))))',_storeData.login)
 
-  const _accessActivityTracker = checkuserAccess('myEvents',_storeData.login); //Activity Tracker
-  const _accessDailyBusiness = checkuserAccess('myBusiness',_storeData.login); // Daily Business
-  const _accessOpportunities = checkuserAccess('myLeads',_storeData.login); // Opportunities
-  const _accessKpi = checkuserAccess('businessDashboard',_storeData.login); // KPI Dashbord
-  const _accessTodo = checkuserAccess('todoTask',_storeData.login); // TODO
-  const _accessSalesGuide = checkuserAccess('sales_guide',_storeData.login); // Sales Guide
+  const _accessActivityTracker = checkuserAccess("myEvents", _storeData.login); //Activity Tracker
+  const _accessDailyBusiness = checkuserAccess("myBusiness", _storeData.login); // Daily Business
+  const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
+  const _accessKpi = checkuserAccess("businessDashboard", _storeData.login); // KPI Dashbord
+  const _accessTodo = checkuserAccess("todoTask", _storeData.login); // TODO
+  const _accessSalesGuide = checkuserAccess("sales_guide", _storeData.login); // Sales Guide
   // console.warn('((((((((_storeData))))))))',_storeData)
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -151,7 +153,7 @@ const HomePage = () => {
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
     // dispatch(actions.getBusinessCardAPI(userId,channelCode));
-    
+
     dispatch(leadActions.updateTabOfDashboard("self"));
 
     // console.log('ROUTEEE___HISTORYYY',history)
@@ -161,31 +163,31 @@ const HomePage = () => {
     getTodoData(0);
     getDailyBusiness();
     getOpportunities();
-    getKpiData(userId,channelCode);
+    getKpiData(userId, channelCode);
   }, []);
 
   // useEffect(() => {
-    // let _businessCardResp = _storeData.home.businessData[0].data
-    // let _bussDropArr = [];
+  // let _businessCardResp = _storeData.home.businessData[0].data
+  // let _bussDropArr = [];
 
-    // console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
-    // if(_businessCardResp.length > 0){
-    //   for (let _kpi of _businessCardResp) {
-    //     let data = {
-    //       label: _kpi.year_month,
-    //       value: _kpi.year_month,
-    //       index: _kpi.id === 'last_two_month' ? '1' : '2'
-    //     }
-    //     _bussDropArr.push(data)
-        
-    //     setBusinessDropArray(_bussDropArr)
-    //     setBusinessDropdown(_bussDropArr[0].value)
-    //   }
-    //   console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
-    //   handleBusinessDropdown(_bussDropArr[0].value)
-    // }else{
-    //   handleBusinessDropdown('')
-    // }
+  // console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
+  // if(_businessCardResp.length > 0){
+  //   for (let _kpi of _businessCardResp) {
+  //     let data = {
+  //       label: _kpi.year_month,
+  //       value: _kpi.year_month,
+  //       index: _kpi.id === 'last_two_month' ? '1' : '2'
+  //     }
+  //     _bussDropArr.push(data)
+
+  //     setBusinessDropArray(_bussDropArr)
+  //     setBusinessDropdown(_bussDropArr[0].value)
+  //   }
+  //   console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
+  //   handleBusinessDropdown(_bussDropArr[0].value)
+  // }else{
+  //   handleBusinessDropdown('')
+  // }
   // },[])
 
   const home_data = useSelector((state) => state.home.home_obj);
@@ -200,12 +202,15 @@ const HomePage = () => {
     }
     return string;
   }
-  
-  let getKpiData = async (userId,channelData) => {
-    let _resp = await axiosRequest.get(`user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`, { secure: true })
-    console.log("Business CARD",_resp)
+
+  let getKpiData = async (userId, channelData) => {
+    let _resp = await axiosRequest.get(
+      `user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`,
+      { secure: true }
+    );
+    console.log("Business CARD", _resp);
     // dispatch(actions.businessCardData(_resp))
-    let _businessCardResp = _resp[0].data
+    let _businessCardResp = _resp[0].data;
 
     let _bussDropArr = [];
 
@@ -222,17 +227,17 @@ const HomePage = () => {
         setBusinessDropArray(_bussDropArr);
         setBusinessDropdown(_bussDropArr[0].value);
       }
-      console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
-      handleBusinessDropdown(_bussDropArr[0].value,_businessCardResp)
-    }else{
-      handleBusinessDropdown('',_businessCardResp)
+      console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
+      handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
+    } else {
+      handleBusinessDropdown("", _businessCardResp);
     }
-  }
+  };
 
   let getOpportunities = async () => {
     try {
       let res = await axiosRequest.get(
-        `user/leadFutureOverviewCount?fetchPastDaysCount=true`,
+        `user/leadFutureOverviewCount?fetchPastDaysCount=true&team=enable`,
         { secure: true }
       );
       if (res) {
@@ -522,9 +527,11 @@ const HomePage = () => {
   };
 
   const handleBusinessDropdown = (event, data) => {
-    setBusinessDropdown(event)
-    let _businessCardResp = data
-    let _selectMonthData = _businessCardResp.filter(el => event === el.year_month)
+    setBusinessDropdown(event);
+    let _businessCardResp = data;
+    let _selectMonthData = _businessCardResp.filter(
+      (el) => event === el.year_month
+    );
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
     if (event !== "") {
       _businessRetention.target =
@@ -737,7 +744,10 @@ const HomePage = () => {
                   >
                     <div className="appointment_data">
                       <p className="ttile_name">Activities</p>
-                      <p className="ttile_name">{activities_data && activities_data.length ? activities_data.length +' Activities' : ""}
+                      <p className="ttile_name">
+                        {activities_data && activities_data.length
+                          ? activities_data.length + " Activities"
+                          : ""}
                       </p>
                     </div>
                     <div className="horizontalLine"></div>
@@ -1041,237 +1051,237 @@ const HomePage = () => {
                 </div>
                 {/* </Link> */}
                 {/* {showBusinessData && ( */}
-                  <div style={{ marginTop: "50px" }}>
-                    <div
+                <div style={{ marginTop: "50px" }}>
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      marginBottom: "10px",
+                      borderRadius: "3px",
+                      color: "#3C3D3D",
+                      fontSize: "11px",
+                    }}
+                  >
+                    <p
                       style={{
-                        backgroundColor: "#fff",
-                        marginBottom: "10px",
-                        borderRadius: "3px",
-                        color: "#3C3D3D",
-                        fontSize: "11px",
+                        fontWeight: "750",
+                        padding: "5px 10px",
+                        borderBottom: "1px solid #c1c8cc",
+                        marginBottom: 0,
                       }}
                     >
-                      <p
-                        style={{
-                          fontWeight: "750",
-                          padding: "5px 10px",
-                          borderBottom: "1px solid #c1c8cc",
-                          marginBottom: 0,
-                        }}
-                      >
-                        Retention
-                      </p>
-                      <div
-                        style={{
-                          display: "flex",
-                          color: "#fff",
-                          lineHeight: "5px",
-                          color: "black",
-                        }}
-                      >
-                        <div style={{ width: "120px", padding: "8px 10px" }}>
-                          <p>Target</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessRetention.target}
-                          </p>
-                        </div>
-                        <div
+                      Retention
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#fff",
+                        lineHeight: "5px",
+                        color: "black",
+                      }}
+                    >
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Target</p>
+                        <p
                           style={{
-                            width: "120px",
-                            padding: "8px 10px",
-                            borderRight: "1px solid #c2c8cc",
-                            borderLeft: "1px solid #c2c8cc",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
                           }}
                         >
-                          <p>Achievement</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessRetention.achieve}
-                          </p>
-                        </div>
-                        <div style={{ width: "120px", padding: "8px 10px" }}>
-                          <p>%Achievement</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessRetention.per_achieve}
-                          </p>
-                        </div>
+                          {businessRetention.target}
+                        </p>
                       </div>
-                    </div>
-
-                    <div
-                      style={{
-                        backgroundColor: "#fff",
-                        marginBottom: "10px",
-                        borderRadius: "3px",
-                        color: "#3C3D3D",
-                        fontSize: "11px",
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontWeight: "750",
-                          padding: "5px 10px",
-                          borderBottom: "1px solid #c1c8cc",
-                          marginBottom: 0,
-                        }}
-                      >
-                        GWP
-                      </p>
                       <div
                         style={{
-                          display: "flex",
-                          color: "#fff",
-                          lineHeight: "5px",
-                          color: "black",
+                          width: "120px",
+                          padding: "8px 10px",
+                          borderRight: "1px solid #c2c8cc",
+                          borderLeft: "1px solid #c2c8cc",
                         }}
                       >
-                        <div style={{ width: "120px", padding: "8px 10px" }}>
-                          <p>Target</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessGWP.target}
-                          </p>
-                        </div>
-
-                        <div
+                        <p>Achievement</p>
+                        <p
                           style={{
-                            width: "120px",
-                            padding: "8px 10px",
-                            borderRight: "1px solid #c2c8cc",
-                            borderLeft: "1px solid #c2c8cc",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
                           }}
                         >
-                          <p>Achievement</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessGWP.achieve}
-                          </p>
-                        </div>
-                        <div style={{ width: "120px", padding: "8px 10px" }}>
-                          <p>%Achievement</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessGWP.per_achieve}
-                          </p>
-                        </div>
+                          {businessRetention.achieve}
+                        </p>
                       </div>
-                    </div>
-
-                    <div
-                      style={{
-                        backgroundColor: "#fff",
-                        marginBottom: "10px",
-                        borderRadius: "3px",
-                        color: "#3C3D3D",
-                        fontSize: "11px",
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontWeight: "750",
-                          padding: "5px 10px",
-                          borderBottom: "1px solid #c1c8cc",
-                          marginBottom: 0,
-                        }}
-                      >
-                        Activation
-                      </p>
-                      <div
-                        style={{
-                          display: "flex",
-                          color: "#fff",
-                          lineHeight: "5px",
-                          color: "black",
-                        }}
-                      >
-                        <div style={{ width: "120px", padding: "8px 10px" }}>
-                          <p>Target</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessActivation.target}
-                          </p>
-                        </div>
-                        <div
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>%Achievement</p>
+                        <p
                           style={{
-                            width: "120px",
-                            padding: "8px 10px",
-                            borderRight: "1px solid #c2c8cc",
-                            borderLeft: "1px solid #c2c8cc",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
                           }}
                         >
-                          <p>Achievement</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessActivation.achieve}
-                          </p>
-                        </div>
-
-                        <div style={{ width: "120px", padding: "8px 10px" }}>
-                          <p>%Achievement</p>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "700",
-                              color: "#3c3d3d",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {businessActivation.per_achieve}
-                          </p>
-                        </div>
+                          {businessRetention.per_achieve}
+                        </p>
                       </div>
                     </div>
                   </div>
+
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      marginBottom: "10px",
+                      borderRadius: "3px",
+                      color: "#3C3D3D",
+                      fontSize: "11px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontWeight: "750",
+                        padding: "5px 10px",
+                        borderBottom: "1px solid #c1c8cc",
+                        marginBottom: 0,
+                      }}
+                    >
+                      GWP
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#fff",
+                        lineHeight: "5px",
+                        color: "black",
+                      }}
+                    >
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Target</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {businessGWP.target}
+                        </p>
+                      </div>
+
+                      <div
+                        style={{
+                          width: "120px",
+                          padding: "8px 10px",
+                          borderRight: "1px solid #c2c8cc",
+                          borderLeft: "1px solid #c2c8cc",
+                        }}
+                      >
+                        <p>Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {businessGWP.achieve}
+                        </p>
+                      </div>
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>%Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {businessGWP.per_achieve}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      marginBottom: "10px",
+                      borderRadius: "3px",
+                      color: "#3C3D3D",
+                      fontSize: "11px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontWeight: "750",
+                        padding: "5px 10px",
+                        borderBottom: "1px solid #c1c8cc",
+                        marginBottom: 0,
+                      }}
+                    >
+                      Activation
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#fff",
+                        lineHeight: "5px",
+                        color: "black",
+                      }}
+                    >
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>Target</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {businessActivation.target}
+                        </p>
+                      </div>
+                      <div
+                        style={{
+                          width: "120px",
+                          padding: "8px 10px",
+                          borderRight: "1px solid #c2c8cc",
+                          borderLeft: "1px solid #c2c8cc",
+                        }}
+                      >
+                        <p>Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {businessActivation.achieve}
+                        </p>
+                      </div>
+
+                      <div style={{ width: "120px", padding: "8px 10px" }}>
+                        <p>%Achievement</p>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            color: "#3c3d3d",
+                            marginBottom: 5,
+                          }}
+                        >
+                          {businessActivation.per_achieve}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 {/* )} */}
               </div>
             </Col>
