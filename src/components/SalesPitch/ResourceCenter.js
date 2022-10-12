@@ -1,6 +1,6 @@
 import { Tabs, Col, Form, Row, Carousel, Image, Typography, Divider, Descriptions } from 'antd';
 import React, { useDebugValue, useState } from 'react';
-import { Card,Select } from 'antd';
+import { Card, Select } from 'antd';
 import { Button } from 'antd';
 import './ResourceCenter.css'
 // import './SalesPitch.css';
@@ -19,7 +19,9 @@ import mainimg from '../../assets/1a7da86d83ebe30862d8ea221384817848118054.jpg'
 import rightarw from '../../assets/rightarrow.png'
 import shareit from '../../assets/shareit.png'
 import viewicon from '../../assets/viewicon.png'
-
+import actionNoData from '../../assets/Actionnodata.png'
+import axiosRequest from '../../axios-request/request.methods'
+import { useSelector } from 'react-redux';
 const tabMenu = [
     {
         id: 'marketing',
@@ -44,7 +46,8 @@ const contentStyle = {
 };
 const { Title } = Typography;
 const ResourceCenter = () => {
-
+    let _store = useSelector((state) => state.login.user);
+    console.log("_store",_store.channelCode.channelCode)
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
@@ -61,6 +64,7 @@ const ResourceCenter = () => {
     const [showmore8, setShowMore8] = useState(false)
     const [showmore9, setShowMore9] = useState(false)
     const [showmore10, setShowMore10] = useState(false)
+    const [type, setType] = useState("ALL")
     const changeTabPosition = e => {
         setTabPosition(e.target.value);
     };
@@ -77,44 +81,71 @@ const ResourceCenter = () => {
         setMarketing(false)
     }
 
-    const All = () => {
-        setAll(true)
-        setVideo(false)
-        setPdf(false)
-        setArticles(false)
-        setInfographic(false)
+    const All = async () => {
+        setType('ALL')
+        try {
+            let res = await axiosRequest.get(
+                `admin/fetch_resource_category?filter=1&userId=${_store.id}&channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}`,
+                { secure: true }
+            );
+            console.log("abc", res)
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const Video = async () => {
+        setType('VIDEO')
+        try {
+            let res = await axiosRequest.get(
+                'admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=video&skip=0',
+                { secure: true }
+            );
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const Video = () => {
-        setAll(false)
-        setVideo(true)
-        setPdf(false)
-        setArticles(false)
-        setInfographic(false)
+    const Pdf = async () => {
+        setType('PDF')
+        try {
+            let res = await axiosRequest.get(
+                'admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=pdf&skip=0',
+
+                { secure: true }
+            );
+            console.log(res)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const Pdf = () => {
-        setAll(false)
-        setVideo(false)
-        setPdf(true)
-        setArticles(false)
-        setInfographic(false)
+    const Articles = async () => {
+        setType('ARTICLE')
+        try {
+            let res = await axiosRequest.get(
+                'admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=articles&skip=0',
+                { secure: true }
+            );
+            console.log(res)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const Articles = () => {
-        setAll(false)
-        setVideo(false)
-        setPdf(false)
-        setArticles(true)
-        setInfographic(false)
-    }
+    const Infographic = async () => {
+        setType('INFOGRAPHIC')
+        try {
+            let res = await axiosRequest.get(
+                'admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=infographic&skip=0',
+                { secure: true }
+            );
+            console.log(res)
+        } catch (error) {
+            console.log(error);
+        }
 
-    const Infographic = () => {
-        setAll(false)
-        setVideo(false)
-        setPdf(false)
-        setArticles(false)
-        setInfographic(true)
     }
 
 
@@ -171,7 +202,11 @@ const ResourceCenter = () => {
                                 <Row>
                                     <button style={{ borderColor: 'black', borderStyle: 'solid', borderWidth: 0, borderRadius: 0, padding: 5, width: '100%', marginTop: 5, textAlign: 'left', paddingLeft: 10 }}
                                         className={all == true ? 'dropactive' : 'dropinactive'}
-                                        onClick={All} >
+                                        onClick={(e) => {
+                                            console.log("All Clicked!");
+                                            All();
+                                        }}
+                                    >
                                         All
                                     </button>
                                 </Row>
@@ -205,19 +240,22 @@ const ResourceCenter = () => {
                                 </Row>
                             </div>
                             <div className='dropdown'>
-                                <Select defaultValue="all" style={{ width: '100% '}} >
-                                    <Option value="all">All</Option>
-                                    <Option value="videos">Videos</Option>
-                                    <Option value="pdf">PDF</Option>
-                                    <Option value="articles">Articles</Option>
-                                    <Option value="infographic">Infographic</Option>
+                                <Select defaultValue="ALL" onChange={(e) => {
+                                    console.log("Change event called!", e)
+                                    setType(e)
+                                }} style={{ width: '100% ' }} >
+                                    <Option value="ALL">All</Option>
+                                    <Option value="VIDEO" >Videos</Option>
+                                    <Option value="PDF" >PDF</Option>
+                                    <Option value="ARTICLE" >Articles</Option>
+                                    <Option value="INFOGRAPHIC" >Infographic</Option>
 
                                 </Select>
                             </div>
                         </Card>
                     </Col>
                     <Col lg={17} md={24} sm={24} xs={24}>
-                        <Card style={{ padding: 15, margin: 10, boxShadow: '2px 3px 6px rgb(0 0 0 / 9%)', border: '0.5px solid #e7edf5' }} className="contentMain">
+                        <Card style={{ margin: 10, boxShadow: '2px 3px 6px rgb(0 0 0 / 9%)', border: '0.5px solid #e7edf5' }} className="contentMain">
                             <Row style={{
                                 marginTop: 20, backgroundImage: `url(${content})`,
                                 backgroundPosition: 'center',
@@ -236,20 +274,35 @@ const ResourceCenter = () => {
                             </Row>
                             <hr style={{ marginTop: -5, marginLeft: -25, marginRight: -25 }} />
                             <Row>
-                                <Col lg={8} md={24} sm={24} xs={24} className="maincard">
-                                    <Card className="card">
-                                        <div style={{    height: '160px',width: '250px'}}>
+                                {["ALL", "INFOGRAPHIC"].includes(type) ?
+                                    <Col lg={8} md={24} sm={24} xs={24} className="maincard">
+                                        <Card className="card">
+                                            <div style={{ height: '170px', width: '300px' }}>
+                                                <div style={{
+                                                    backgroundImage: `url(${mainimg})`, backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%', height: 170, margin: 'auto'
+                                                }}>
+
+                                                    <img src={viewicon} style={{ height: 65, width: 65, marginTop: '20%', marginLeft: '35%' }} />
+
+                                                </div>
+                                            </div>
+                                        </Card>
+                                    </Col>
+                                    :
+                                    <Card className="card" style={{ width: '100%' }}>
                                         <div style={{
-                                            backgroundImage: `url(${mainimg})`, backgroundSize: 'cover',
-                                            backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%', height: 160, margin: 'auto'
+                                            display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"
                                         }}>
-
-                                            <img src={viewicon} style={{ height: 65, width: 65, marginTop: '20%', marginLeft: '35%' }} />
-
+                                            <img src={actionNoData} />
+                                            <p style={{
+                                                fontFamily: "roboto",
+                                                fontWeight: 600,
+                                                color: "#01b4bb",
+                                                fontSize: "22px",
+                                            }}>No Records Found!</p>
                                         </div>
-                                        </div>
-                                    </Card>
-                                </Col>
+                                    </Card>}
                             </Row>
                         </Card>
                     </Col>
