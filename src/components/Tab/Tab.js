@@ -256,7 +256,7 @@ const Tab = ({
         <div className="header-img-tabs tabsStyle">
           <div>
             <div>
-              <p className="header-title-tab">{header}</p>
+              <span className="header-title-tab">{header}</span>
             </div>
 
             <div>
@@ -268,7 +268,7 @@ const Tab = ({
                 size="small"
                 activeKey={activeKey}
                 className="main-lead-tabs"
-                style={{ marginLeft: "40px" }}
+                style={{ marginLeft: "40px"}}
               >
                 {tabPane}
               </Tabs>

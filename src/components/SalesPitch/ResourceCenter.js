@@ -9,7 +9,7 @@ import {
   Divider,
   Descriptions,
 } from "antd";
-import React, { useDebugValue, useState } from "react";
+import React, { useDebugValue, useState, useEffect } from "react";
 import { Card, Select } from "antd";
 import { Button } from "antd";
 import "./ResourceCenter.css";
@@ -39,7 +39,9 @@ import mainimg from "../../assets/1a7da86d83ebe30862d8ea221384817848118054.jpg";
 import rightarw from "../../assets/rightarrow.png";
 import shareit from "../../assets/shareit.png";
 import viewicon from "../../assets/viewicon.png";
-
+import actionNoData from "../../assets/Actionnodata.png";
+import axiosRequest from "../../axios-request/request.methods";
+import { useSelector } from "react-redux";
 const tabMenu = [
   {
     id: "marketing",
@@ -63,6 +65,8 @@ const contentStyle = {
 };
 const { Title } = Typography;
 const ResourceCenter = () => {
+  let _store = useSelector((state) => state.login.user);
+  console.log("_store", _store.channelCode.channelCode);
   let { innerWidth: width, innerHeight: height } = window;
   const { TabPane } = Tabs;
   const [tabPosition, setTabPosition] = useState(
@@ -78,71 +82,163 @@ const ResourceCenter = () => {
   );
   const [showmore, setShowMore] = useState(false);
   const [tabswitch, setTabSwitch] = useState(false);
-  const [marketing, setMarketing] = useState(false);
-  const [insurance, setInsurance] = useState(false);
-  const [all, setAll] = useState(false);
-  const [video, setVideo] = useState(false);
-  const [pdf, setPdf] = useState(false);
-  const [articles, setArticles] = useState(false);
-  const [infographic, setInfographic] = useState(false);
-  const [showmore8, setShowMore8] = useState(false);
-  const [showmore9, setShowMore9] = useState(false);
-  const [showmore10, setShowMore10] = useState(false);
+  const [tagSwitch, setTagSwitch] = useState("insurance");
+  // const [marketing, setMarketing] = useState(false);
+  // const [insurance, setInsurance] = useState(false);
+  // const [all, setAll] = useState(false);
+  // const [video, setVideo] = useState(false);
+  // const [pdf, setPdf] = useState(false);
+  // const [articles, setArticles] = useState(false);
+  // const [infographic, setInfographic] = useState(false);
+  const [type, setType] = useState("all");
   const changeTabPosition = (e) => {
     setTabPosition(e.target.value);
   };
   const videoSrc = video;
   const poster = "video.mp4";
 
-  const marketingTab = () => {
-    setMarketing(true);
-    setInsurance(false);
+  // const marketingTab = () => {
+  //   setMarketing(true);
+  //   setInsurance(false);
+  // };
+
+  // const insuranceTab = () => {
+  //   setInsurance(true);
+  //   setMarketing(false);
+  // };
+
+  const Video = async () => {
+    setType("VIDEO");
+    try {
+      let res = await axiosRequest.get(
+        "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=video&skip=0",
+        { secure: true }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const insuranceTab = () => {
-    setInsurance(true);
-    setMarketing(false);
+  // const Pdf = async () => {
+  //   setType("PDF");
+  //   try {
+  //     let res = await axiosRequest.get(
+  //       "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=pdf&skip=0",
+
+  //       { secure: true }
+  //     );
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const Articles = async () => {
+  //   setType("ARTICLE");
+  //   try {
+  //     let res = await axiosRequest.get(
+  //       "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=articles&skip=0",
+  //       { secure: true }
+  //     );
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const Infographic = async () => {
+  //   setType("INFOGRAPHIC");
+  //   try {
+  //     let res = await axiosRequest.get(
+  //       "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=infographic&skip=0",
+  //       { secure: true }
+  //     );
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  useEffect(() => {
+    typeData();
+  }, [type]);
+
+  useEffect(() => {
+    tagSwitchfun();
+  }, [tagSwitch]);
+
+  useEffect(() => {
+    tabSwitchfun();
+  }, [tabswitch]);
+
+  useEffect(() => {
+    axiosRequest
+      .get(
+        `admin/fetch_resource_category?filter=1&userId=${_store.id}&channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}`,
+        { secure: true }
+      )
+      .then((res) => console.log("res 1", res))
+      .catch((err) => console.log(err));
+
+    axiosRequest
+      .get(
+        `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&skip=0`, // filter_by
+        { secure: true }
+      )
+      .then((res) => console.log("res 2", res))
+      .catch((err) => console.log(err));
+
+    // default - https://pocbancanode.iorta.in/secure/admin/fetch_resource_category?filter=1&userId=60edb0e28ac1941f0185b6c6&channel_code=CH1&role_code=ZSM03
+    // default - https://pocbancanode.iorta.in/secure/admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&skip=0
+    // ----
+    // on above tabs change -- https://pocbancanode.iorta.in/secure/admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter_by=5d8f12d819a6cb5e86c6f994&filter=1&tagName=insurance&skip=0
+    // on above tabs change -- https://pocbancanode.iorta.in/secure/admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter_by=5d8f12f019a6cb5e86c6f998&filter=1&tagName=insurance&skip=0
+    // ----
+    // on tags change -- https://pocbancanode.iorta.in/secure/admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter_by=5d8f12d819a6cb5e86c6f994&filter=1&tagName=insurance&skip=0
+    // on tags change -- https://pocbancanode.iorta.in/secure/admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter_by=5d8f12f019a6cb5e86c6f998&filter=1&tagName=marketing&skip=0
+    // ---
+    // category change All -- https://pocbancanode.iorta.in/secure/admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter_by=5d8f12f019a6cb5e86c6f998&filter=1&tagName=marketing&skip=0
+    // category change --     https://pocbancanode.iorta.in/secure/admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter_by=5d8f12f019a6cb5e86c6f998&filter=1&tagName=marketing&filterByMediaCategory=video&skip=0
+  }, []);
+
+  const tabSwitchfun = () => {
+    axiosRequest
+      .get(
+        `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=5d8f12d819a6cb5e86c6f994&filter=1&tagName=${tagSwitch}&skip=0`, // filter_by
+        { secure: true }
+      )
+      .then((res) => console.log("res 2", res))
+      .catch((err) => console.log(err));
   };
 
-  const All = () => {
-    // setAll(true);
-    // setVideo(false);
-    // setPdf(false);
-    // setArticles(false);
-    // setInfographic(false);a
-    alert("hello");
+  const tagSwitchfun = () => {
+    axiosRequest
+      .get(
+        `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=5d8f12d819a6cb5e86c6f994&filter=1&tagName=${tagSwitch}&skip=0`, // filter_by
+        { secure: true }
+      )
+      .then((res) => console.log("res 2", res))
+      .catch((err) => console.log(err));
   };
 
-  const Video = () => {
-    setAll(false);
-    setVideo(true);
-    setPdf(false);
-    setArticles(false);
-    setInfographic(false);
-  };
-
-  const Pdf = () => {
-    setAll(false);
-    setVideo(false);
-    setPdf(true);
-    setArticles(false);
-    setInfographic(false);
-  };
-
-  const Articles = () => {
-    setAll(false);
-    setVideo(false);
-    setPdf(false);
-    setArticles(true);
-    setInfographic(false);
-  };
-
-  const Infographic = () => {
-    setAll(false);
-    setVideo(false);
-    setPdf(false);
-    setArticles(false);
-    setInfographic(true);
+  const typeData = async () => {
+    if (type === "all") {
+      axiosRequest
+        .get(
+          `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=5d8f12f019a6cb5e86c6f998&filter=1&tagName=${tagSwitch}&skip=0`,
+          { secure: true }
+        )
+        .then((res) => console.log("res 1", res))
+        .catch((err) => console.log(err));
+    } else {
+      axiosRequest
+        .get(
+          `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=5d8f12d819a6cb5e86c6f994&filter=1&tagName=${tagSwitch}&filterByMediaCategory=${type}&skip=0`,
+          { secure: true }
+        )
+        .then((res) => console.log("res 1", res))
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -208,10 +304,12 @@ const ResourceCenter = () => {
                       borderRadius: 5,
                       padding: 3,
                     }}
-                    className={marketing == true ? "active" : "inactive"}
-                    onClick={marketingTab}
+                    className={
+                      tagSwitch === "insurance" ? "active" : "inactive"
+                    }
+                    onClick={() => setTagSwitch("insurance")}
                   >
-                    Marketing
+                    Insurance
                   </button>
                 </div>
                 <div>
@@ -224,10 +322,12 @@ const ResourceCenter = () => {
                       padding: 3,
                       marginLeft: 10,
                     }}
-                    className={insurance == true ? "active" : "inactive"}
-                    onClick={insuranceTab}
+                    className={
+                      tagSwitch === "marketing" ? "active" : "inactive"
+                    }
+                    onClick={() => setTagSwitch("marketing")}
                   >
-                    Insurance
+                    Marketing
                   </button>
                 </div>
               </Row>
@@ -249,8 +349,8 @@ const ResourceCenter = () => {
                       textAlign: "left",
                       paddingLeft: 10,
                     }}
-                    className={all == true ? "dropactive" : "dropinactive"}
-                    onClick={All}
+                    className={type === "all" ? "dropactive" : "dropinactive"}
+                    onClick={() => setType("all")}
                   >
                     All
                   </button>
@@ -268,8 +368,8 @@ const ResourceCenter = () => {
                       textAlign: "left",
                       paddingLeft: 10,
                     }}
-                    className={video == true ? "dropactive" : "dropinactive"}
-                    onClick={Video}
+                    className={type === "video" ? "dropactive" : "dropinactive"}
+                    onClick={() => setType("video")}
                   >
                     Videos
                   </button>
@@ -287,8 +387,8 @@ const ResourceCenter = () => {
                       textAlign: "left",
                       paddingLeft: 10,
                     }}
-                    className={pdf == true ? "dropactive" : "dropinactive"}
-                    onClick={Pdf}
+                    className={type === "pdf" ? "dropactive" : "dropinactive"}
+                    onClick={() => setType("pdf")}
                   >
                     PDF
                   </button>
@@ -306,8 +406,10 @@ const ResourceCenter = () => {
                       textAlign: "left",
                       paddingLeft: 10,
                     }}
-                    className={articles == true ? "dropactive" : "dropinactive"}
-                    onClick={Articles}
+                    className={
+                      type === "articles" ? "dropactive" : "dropinactive"
+                    }
+                    onClick={() => setType("articles")}
                   >
                     Articles
                   </button>
@@ -326,20 +428,27 @@ const ResourceCenter = () => {
                       paddingLeft: 10,
                     }}
                     className={
-                      infographic == true ? "dropactive" : "dropinactive"
+                      type === "infographic" ? "dropactive" : "dropinactive"
                     }
-                    onClick={Infographic}
+                    onClick={() => setType("infographic")}
                   >
                     Infographic
                   </button>
                 </Row>
               </div>
               <div className="dropdown">
-                <Select defaultValue="all" style={{ width: "100% " }}>
+                <Select
+                  defaultValue="all"
+                  onChange={(e) => {
+                    console.log("Change event called!", e);
+                    setType(e);
+                  }}
+                  style={{ width: "100% " }}
+                >
                   <Option value="all">All</Option>
-                  <Option value="videos">Videos</Option>
+                  <Option value="video">Videos</Option>
                   <Option value="pdf">PDF</Option>
-                  <Option value="articles">Articles</Option>
+                  <Option value="article">Articles</Option>
                   <Option value="infographic">Infographic</Option>
                 </Select>
               </div>
@@ -348,7 +457,6 @@ const ResourceCenter = () => {
           <Col lg={17} md={24} sm={24} xs={24}>
             <Card
               style={{
-                padding: 15,
                 margin: 10,
                 boxShadow: "2px 3px 6px rgb(0 0 0 / 9%)",
                 border: "0.5px solid #e7edf5",
@@ -394,32 +502,97 @@ const ResourceCenter = () => {
                 style={{ marginTop: -5, marginLeft: -25, marginRight: -25 }}
               />
               <Row>
-                <Col lg={8} md={24} sm={24} xs={24} className="maincard">
-                  <Card className="card">
-                    <div style={{ height: "160px", width: "250px" }}>
-                      <div
+                {["ALL", "INFOGRAPHIC"].includes(type) ? (
+                  <Col lg={8} md={24} sm={24} xs={24} className="maincard">
+                    <Card className="card">
+                      <div style={{ height: "170px", width: "300px" }}>
+                        <div
+                          style={{
+                            backgroundImage: `url(${mainimg})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100% 100%",
+                            height: 170,
+                            margin: "auto",
+                          }}
+                        >
+                          <img
+                            src={viewicon}
+                            style={{
+                              height: 65,
+                              width: 65,
+                              marginTop: "20%",
+                              marginLeft: "35%",
+                            }}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            backgroundImage: `url(${mainimg})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100% 100%",
+                            height: 170,
+                            margin: "auto",
+                          }}
+                        >
+                          <img
+                            src={viewicon}
+                            style={{
+                              height: 65,
+                              width: 65,
+                              marginTop: "20%",
+                              marginLeft: "35%",
+                            }}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            backgroundImage: `url(${mainimg})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100% 100%",
+                            height: 170,
+                            margin: "auto",
+                          }}
+                        >
+                          <img
+                            src={viewicon}
+                            style={{
+                              height: 65,
+                              width: 65,
+                              marginTop: "20%",
+                              marginLeft: "35%",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </Card>
+                  </Col>
+                ) : (
+                  <Card className="card" style={{ width: "100%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <img src={actionNoData} />
+                      <p
                         style={{
-                          backgroundImage: `url(${mainimg})`,
-                          backgroundSize: "cover",
-                          backgroundRepeat: "no-repeat",
-                          backgroundSize: "100% 100%",
-                          height: 160,
-                          margin: "auto",
+                          fontFamily: "roboto",
+                          fontWeight: 600,
+                          color: "#01b4bb",
+                          fontSize: "22px",
                         }}
                       >
-                        <img
-                          src={viewicon}
-                          style={{
-                            height: 65,
-                            width: 65,
-                            marginTop: "20%",
-                            marginLeft: "35%",
-                          }}
-                        />
-                      </div>
+                        No Records Found!
+                      </p>
                     </div>
                   </Card>
-                </Col>
+                )}
               </Row>
             </Card>
           </Col>
