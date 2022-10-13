@@ -477,7 +477,7 @@ height: 690px;
   margin-top: 10px;
 }
 /*---presentationa components----Image cards design  ----*/
-.ant-card-body{
+.salesCard .ant-card-body{
   padding: 1px !important;
   border-color: #000000 !important;
 }

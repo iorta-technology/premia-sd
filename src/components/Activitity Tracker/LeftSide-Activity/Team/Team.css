@@ -97,12 +97,12 @@
 }
 @media (min-width: 320px){
 
-    .ant-select {
+    /* .ant-select {
         width : 100% !important;
     }
     .ant-select {
         margin-top: 0px !important;
-    }
+    } */
     .dropdown-btn {
         padding: 0px !important;
     }

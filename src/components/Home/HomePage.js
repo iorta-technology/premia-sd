@@ -693,7 +693,6 @@ const HomePage = () => {
 
   return (
     <Fragment>
-      {/* <Button type="primary" onClick={onLogout}>Logout</Button> */}
       <FloatButton />
 
       <Col className="cardHolder" justify="center">

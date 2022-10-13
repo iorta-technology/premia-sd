@@ -127,7 +127,10 @@ body{
     text-align: center;
     justify-content: center;
   }
-  
+  .kpiDrop .ant-select {
+    width : 100% !important;
+    margin-top: 0px !important;
+  }
 
   @media screen and (min-width: 320px) {
     .kpiDailyData {

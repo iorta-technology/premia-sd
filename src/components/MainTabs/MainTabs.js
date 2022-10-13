@@ -121,7 +121,7 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
     return (
         <>
             {width > breakpoint ?
-                <div className="header-img">
+                <div className="header-img mainTabsStyle">
                     <div className='sales-Header'>
                         <p>Presales Tools</p>
                     </div>
@@ -143,7 +143,7 @@ const MainTabs = ({ tabMenu, header, detailsRouteTab, activeKey, activeRenewalke
                 <>
                     <Tabs
                         tabBarGutter={20}
-                        className='TabMenu-Card'
+                        className='TabMenu-Card mainTabsStyle'
                         onTabClick={handler}
                         size="medium"
                         activeKey={activeKey}

@@ -22,7 +22,7 @@ import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 
 const LoanProducts = () => {
   const contentStyle = {
-    height: "160px",
+    height: "200px",
     color: "#fff",
     lineHeight: "160px",
     textAlign: "center",
@@ -172,6 +172,11 @@ const LoanProducts = () => {
   const handleCancel = () => {
     setIsJoinModalVisible(false);
   };
+  const truncateString = (string, limit) =>{
+    var dots = "...";
+    if(string.length > limit) string = string.substring(0,limit) + dots;
+    return string;
+  }
 
   let { innerWidth: width, innerHeight: height } = window;
   const [tabPosition, setTabPosition] = useState(
@@ -216,7 +221,7 @@ const LoanProducts = () => {
       { productData.length > 0 ? 
         <div className="loan-product-tabs">
           <Row gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
-            <Tabs tabPosition={tabPosition}>
+            <Tabs type="card" tabPosition={tabPosition}>
               {productTabs.map((item) => {
                 return (
                   <TabPane
@@ -430,24 +435,12 @@ const LoanProducts = () => {
                             );
                           })}
                         </Carousel>
-                        <div className="product-brochure">
+                        <div className="product-brochure" style={{marginTop:20}}>
                           {item.productBrochure.map((item) => {
                             return (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                <h4 style={{ fontWeight: "bold" }}>
-                                  {item.fileCategory}
-                                </h4>
-                                <img
-                                  src={Brocher}
-                                  height="100px"
-                                  width="90px"
-                                ></img>
+                              <div style={{ display: "flex", alignItems: "center",flexDirection: "column",}}>
+                                <p style={{ fontWeight: "bold",color:'#454F63',marginBottom:5 }}>{truncateString(item.fileCategory === '' ? '-' : item.fileCategory,12)}</p>
+                                <img src={Brocher} height="100px" width="90px"></img>
                                 <Button
                                   size="small"
                                   style={{
@@ -456,14 +449,11 @@ const LoanProducts = () => {
                                     color: "#fff",
                                     border: "1px solid #5EA5C0",
                                     borderRadius: "20px",
-                                  }}
-                                >
-                                  <a href={item.location} download>
-                                    <DownloadOutlined />
-                                    English
-                                  </a>
+                                  }}>
+                                  <a href={item.location} download><DownloadOutlined />  English</a>
                                 </Button>
                               </div>
+                              
                             );
                           })}
                         </div>
