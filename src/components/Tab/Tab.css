@@ -23,10 +23,10 @@
 
 .header-title-tab{
     margin-left: 40px;
-    /* margin: 10px 1px 0px 60px !important; */
     font-weight:bold ;
+    font-family: robotobold;
+    font-size: 29px;
     color: #00ACC1;
-    font-size: 32px;
 }
 .round-card-main-Tab{
     display: flex;
@@ -166,6 +166,9 @@ button.tabs_button img, button.active_tabs_button img{
     padding-top: 0px;
     text-align: center;
     justify-content: center;
+}
+.main-lead-tabs .ant-tabs-nav-list{
+    height: 25px;
 }
 .tabsStyle .ant-modal-body1{
     height: 200rem;
