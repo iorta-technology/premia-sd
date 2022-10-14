@@ -153,9 +153,10 @@
     /* align-items: stretch; */
     font-size: 16px;
   }
-  .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab{
+  /* .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab{
     margin: 0 0 0 0;
-  }
+    border: 1px solid #ECF2F9;
+  } */
   .loan-product-tabs .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane{
     padding-left: 0px;
   }
@@ -167,15 +168,17 @@
     margin: 0 auto !important;
     color: #6d8baa;
   }
-  .loan-product-tabs .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+  .loan-product-tabs .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
     color: #fff;
     background-color: #ECF2F9;
-    border: 2px solid #5ea5c0;
+    /* border: 2px solid #5ea5c0; */
+    border-width: 2px;
+    border-style: solid;
     /* background-color: rgb(236, 242, 249); */
     border-bottom-width: 2px;
     border-bottom-color: rgb(224, 233, 243);
-    border-top-color: rgb(224, 233, 243);
-    border-right-color: #ECF2F9;
+    border-top-color: #e0e9f3;
+    border-right-color: transparent;
     border-left-color: rgb(94, 165, 192);
     border-left-width: 2px;
     /* color: rgb(94, 165, 192); */
@@ -192,6 +195,7 @@
     flex: none;
     align-items: center;
     background-color: #F7FBFF;
+    border: 1px solid #f0f0f0;
   }
   .tableBorder{
     border: 1px solid #eee;
@@ -203,6 +207,7 @@
     color: #00ACC1;
     margin-left: 40px;
   }
+  
   /* #F7FBFF; */
   /* .loan-product-tabs .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
     font-size: 14px;
@@ -220,7 +225,7 @@
       text-align: center;
     
     color: #FFFFFF;
-    font-family: robotobold;
+    /* font-family: robotobold; */
     font-size: 14px;
     text-align: center;
 
@@ -244,7 +249,7 @@
       display: inline-block;
       text-align: center;
       color: #FFFFFF;
-      font-family: robotobold;
+      /* font-family: robotobold; */
       font-size: 10px;
       text-align: center;
 

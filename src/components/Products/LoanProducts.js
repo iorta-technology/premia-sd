@@ -220,7 +220,7 @@ const LoanProducts = () => {
       {/* <div className='product-content'> */}
       { productData.length > 0 ? 
         <div className="loan-product-tabs">
-          <Row gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
+          <Col gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
             <Tabs type="card" tabPosition={tabPosition}>
               {productTabs.map((item) => {
                 return (
@@ -463,7 +463,7 @@ const LoanProducts = () => {
                 );
               })}
             </Tabs>
-          </Row>
+          </Col>
         </div>
       :
         <NoRecordsFound />
