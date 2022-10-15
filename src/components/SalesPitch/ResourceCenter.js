@@ -68,6 +68,14 @@ const ResourceCenter = () => {
   let _store = useSelector((state) => state.login.user);
   console.log("_store", _store.channelCode.channelCode);
   let { innerWidth: width, innerHeight: height } = window;
+  // const [marketing, setMarketing] = useState(false);
+  // const [insurance, setInsurance] = useState(false);
+  // const [all, setAll] = useState(false);
+  // const [video, setVideo] = useState(false);
+  // const [pdf, setPdf] = useState(false);
+  // const [articles, setArticles] = useState(false);
+  // const [infographic, setInfographic] = useState(false);
+  // const [showmore, setShowMore] = useState(false);
   const { TabPane } = Tabs;
   const [tabPosition, setTabPosition] = useState(
     width <= "374"
@@ -80,16 +88,8 @@ const ResourceCenter = () => {
       ? "top"
       : "left"
   );
-  const [showmore, setShowMore] = useState(false);
   const [tabswitch, setTabSwitch] = useState(false);
   const [tagSwitch, setTagSwitch] = useState("insurance");
-  // const [marketing, setMarketing] = useState(false);
-  // const [insurance, setInsurance] = useState(false);
-  // const [all, setAll] = useState(false);
-  // const [video, setVideo] = useState(false);
-  // const [pdf, setPdf] = useState(false);
-  // const [articles, setArticles] = useState(false);
-  // const [infographic, setInfographic] = useState(false);
   const [type, setType] = useState("all");
   const changeTabPosition = (e) => {
     setTabPosition(e.target.value);
