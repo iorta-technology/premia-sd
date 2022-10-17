@@ -11,7 +11,13 @@ import {
   Input,
   message,
 } from "antd";
-import { ShareAltOutlined, DownloadOutlined } from "@ant-design/icons";
+import {
+  ShareAltOutlined,
+  DownloadOutlined,
+  PlusCircleFilled,
+  MailOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import { Tabs } from "antd";
 // import axios from '../../axios-common';
 import { map } from "lodash";
@@ -29,6 +35,8 @@ import axios from "axios";
 import { stoageGetter } from "../../helpers";
 import { useSelector } from "react-redux";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
+import shareIt from "../../assets/shareit.png";
+import { fontStyle } from "@mui/system";
 
 const LoanProducts = () => {
   const contentStyle = {
@@ -121,18 +129,20 @@ const LoanProducts = () => {
   }, []);
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible1, setIsModalVisible1] = useState(false);
 
-  // const showModal = () => {
-  //     setIsModalVisible(true);
-  // };
+  const showModal1 = () => {
+    setIsModalVisible1(true);
+  };
 
-  // const handleOk = () => {
-  //     setIsModalVisible(false);
-  // };
+  const handleOk1 = () => {
+    setIsModalVisible1(false);
+  };
 
-  // const handleCancel = () => {
-  //     setIsModalVisible(false);
-  // };
+  const handleCancel1 = () => {
+    setIsModalVisible1(false);
+  };
+
   const [benefitIllustratorArr, setBenefitIllustratorArr] = useState([]);
   const topBtnClickHandler = (item) => {
     console.log(item);
@@ -207,6 +217,20 @@ const LoanProducts = () => {
       : "left"
   );
   console.log("productData", productData);
+
+  const [data, setData] = useState("");
+  const [list, setList] = useState([]);
+
+  const handleSubmit = (e) => {
+    setList((oldData) => [...oldData, data]);
+    setData("");
+    e.preventDefault();
+  };
+
+  const handleDelete = (id) => {
+    setList((oldData) => oldData.filter((elem, index) => index !== id));
+  };
+
   return (
     <>
       {/* <div className='product-content'> */}
@@ -432,6 +456,9 @@ const LoanProducts = () => {
                       xl={12}
                     >
                       <div className="main-card3" bordered={false}>
+                        <div className="share_button">
+                          <img src={shareIt} onClick={showModal1} />
+                        </div>
                         <h4
                           style={{
                             textAlign: "center",
@@ -441,6 +468,7 @@ const LoanProducts = () => {
                         >
                           {item.imageTitle}
                         </h4>
+
                         {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
                         <Carousel style={{ marginTop: 12 }} autoplay={true}>
                           {item.productImages.map((item) => {
@@ -521,6 +549,157 @@ const LoanProducts = () => {
         <p>Do you wish to send payment link to the customer?</p>
       </Modal>
       {/* </div> */}
+
+      <Modal
+        title="Share Product Brochure"
+        visible={isModalVisible1}
+        // onOk={handleOk1}
+        // onCancel={handleCancel1}
+        width={800}
+        footer={[
+          <Button className="send" onClick={handleOk1} key="1">
+            <MailOutlined /> send
+          </Button>,
+          <Button className="cancle" onClick={handleCancel1} key="2">
+            <CloseOutlined /> Cancle
+          </Button>,
+        ]}
+        closable={false}
+        className="modalStyle"
+      >
+        <Row gutter={16}>
+          <Col>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "bold",
+                  color: "#454F63",
+                  marginBottom: 5,
+                }}
+              >
+                -
+              </p>
+              <img height="100px" width="90px"></img>
+
+              <p
+                style={{
+                  color: "#5EA5C0",
+                  width: "100%",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  marginTop: "10px",
+                  textAlign: "center",
+                }}
+              >
+                English
+              </p>
+            </div>
+          </Col>
+          <Col>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "bold",
+                  color: "#454F63",
+                  marginBottom: 5,
+                }}
+              >
+                Test Cat 1
+              </p>
+              <img height="100px" width="90px"></img>
+
+              <p
+                style={{
+                  color: "#5EA5C0",
+                  width: "100%",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  marginTop: "10px",
+                  textAlign: "center",
+                }}
+              >
+                English
+              </p>
+            </div>
+          </Col>
+          <Col>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "bold",
+                  color: "#454F63",
+                  marginBottom: 5,
+                }}
+              >
+                Test Cat 2
+              </p>
+              <img height="100px" width="90px"></img>
+
+              <p
+                style={{
+                  color: "#5EA5C0",
+                  width: "100%",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  marginTop: "10px",
+                  textAlign: "center",
+                }}
+              >
+                English
+              </p>
+            </div>
+          </Col>
+        </Row>
+
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <Row gutter={16}>
+            <Col>
+              <Input
+                className="inp"
+                placeholder="E-Mail ID"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+              />
+            </Col>
+            <Col>
+              <button type="submit" className="button_calss">
+                Add <PlusCircleFilled />
+              </button>
+            </Col>
+          </Row>
+        </form>
+
+        <Row>
+          <div className="disply">
+            {list.map((item, id) => (
+              <div key={id} className="listData">
+                <span>{item} </span>{" "}
+                <button className="delet_btn" onClick={() => handleDelete(id)}>
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
+        </Row>
+      </Modal>
     </>
   );
 };
