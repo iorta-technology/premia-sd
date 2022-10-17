@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./LoanProducts.css";
 import { Row, Col, Button, Card, Carousel, Modal, Form, Input, message } from "antd";
-import { ShareAltOutlined, DownloadOutlined, PlusCircleFilled } from "@ant-design/icons";
+import { ShareAltOutlined, DownloadOutlined, PlusCircleFilled, MailOutlined, CloseOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 // import axios from '../../axios-common';
 import { map } from "lodash";
@@ -197,6 +197,20 @@ const LoanProducts = () => {
       : "left"
   );
   console.log('productData',productData);
+
+  const [data, setData] = useState("");
+  const [list, setList] = useState([]);
+
+
+  const handleSubmit = (e) => {
+    setList((oldData) => [...oldData, data]);
+    setData("");
+    e.preventDefault();
+  };
+
+  const handleDelete = (id) => {
+    setList((oldData) => oldData.filter((elem, index) => index !== id));
+  };
 
 
   return (
@@ -490,9 +504,13 @@ const LoanProducts = () => {
         <Modal
           title="Share Product Brochure"
           visible={isModalVisible1}
-          onOk={handleOk1}
-          onCancel={handleCancel1}
+          // onOk={handleOk1}
+          // onCancel={handleCancel1}
           width={800}
+          footer={[
+            <Button className="send" onClick={handleOk1} key="1"><MailOutlined /> send</Button>,
+            <Button className="cancle" onClick={handleCancel1} key="2"><CloseOutlined /> Cancle</Button>,
+          ]}
           closable={false}
           className="modalStyle"
          
@@ -508,7 +526,7 @@ const LoanProducts = () => {
                                    color: '#5EA5C0',
                                     width: "100%",
                                     fontSize: '16px',
-                                    fontStyle: '900',
+                                    fontWeight: '700',
                                     marginTop: '10px',
                                     textAlign: 'center'
                                   }}>English</p>
@@ -524,7 +542,7 @@ const LoanProducts = () => {
                                    color: '#5EA5C0',
                                     width: "100%",
                                     fontSize: '16px',
-                                    fontStyle: '900',
+                                    fontWeight: '700',
                                     marginTop: '10px',
                                     textAlign: 'center'
                                   }}>English</p>
@@ -540,23 +558,41 @@ const LoanProducts = () => {
                                    color: '#5EA5C0',
                                     width: "100%",
                                     fontSize: '16px',
-                                    fontStyle: '900',
+                                    fontWeight: '700',
                                     marginTop: '10px',
                                     textAlign: 'center'
                                   }}>English</p>
                               </div>
             </Col>
           </Row>
+
+          <form onSubmit={(e) => handleSubmit(e)}>
           <Row gutter={16}>
-            <Col>
-            <Input className="inp" placeholder="E-Mail ID" />
+          
+           <Col>
+            <Input className="inp" placeholder="E-Mail ID" value={data} onChange={(e) =>setData(e.target.value)} />
             </Col>
             <Col>
-            <Button className="button_calss">
-        Add <PlusCircleFilled />
-      </Button>
+            <button type="submit" className="button_calss">Add <PlusCircleFilled /></button>
             </Col>
           </Row>
+          </form>
+
+          <Row>
+          <div className="disply">
+          {
+            list.map((item, id) => (
+              <div key={id} className='listData'>
+                  <span>{item} </span> <button className="delet_btn" onClick={() => handleDelete(id)}>X</button>
+                </div>
+              ))
+          }
+                                                                                                                                 </div>
+                                                                                                                  
+
+          </Row>
+
+
         
         </Modal>
       
