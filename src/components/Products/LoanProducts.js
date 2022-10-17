@@ -420,7 +420,7 @@ const LoanProducts = () => {
                     >
                       <div className="main-card3" bordered={false}>
                         <div className="share_button">
-                           <img src={shareIt} onClick={showModal1} style={{height: '18vh'}} />
+                           <img src={shareIt} onClick={showModal1} />
                         </div>
                         <h4
                           style={{
