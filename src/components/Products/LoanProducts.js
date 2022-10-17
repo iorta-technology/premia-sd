@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./LoanProducts.css";
-import { Row, Col, Button, Card, Carousel, Modal, Form, Input, message } from "antd";
+import {
+  Row,
+  Col,
+  Button,
+  Card,
+  Carousel,
+  Modal,
+  Form,
+  Input,
+  message,
+} from "antd";
 import { ShareAltOutlined, DownloadOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 // import axios from '../../axios-common';
@@ -35,7 +45,7 @@ const LoanProducts = () => {
   const [activeId, SetActiveId] = useState(null);
   const [finaltabdata, setFinalTabData] = useState({});
   const login_user_data = stoageGetter("user");
-  const _storeData = useSelector(state => state?.login?.token)
+  const _storeData = useSelector((state) => state?.login?.token);
   // console.warn("_storeData _storeData", _storeData);
 
   useEffect(() => {
@@ -45,9 +55,11 @@ const LoanProducts = () => {
     axios
       .get(
         `https://abinsurancenode.salesdrive.app/sdx-api/secure/admin/getprodCategory?filter=23&channel=${_channel}`,
-        {headers:{
-          'Authorization' :`Bearer ${_storeData}`
-        }}
+        {
+          headers: {
+            Authorization: `Bearer ${_storeData}`,
+          },
+        }
       )
       .then((resp) => {
         console.warn("getprodCategory ____APIIIIII", resp);
@@ -75,14 +87,16 @@ const LoanProducts = () => {
         }
       }, [])
       .catch((error) => {
-        console.log('CATEGORYYYY___ERROR',productData);
+        console.log("CATEGORYYYY___ERROR", productData);
       });
     axios
       .get(
         `https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getLead/${login_user_data.id}?leadfilter=all`,
-        {headers:{
-          'Authorization' :`Bearer ${_storeData}`
-        }}
+        {
+          headers: {
+            Authorization: `Bearer ${_storeData}`,
+          },
+        }
       )
       .then((res) => {
         console.log(res.data.errMsg);
@@ -126,9 +140,11 @@ const LoanProducts = () => {
     axios
       .get(
         `https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getproduct/?productType=${item._id}&roleCode=SM1`,
-        {headers:{
-          'Authorization' :`Bearer ${_storeData}`
-        }}
+        {
+          headers: {
+            Authorization: `Bearer ${_storeData}`,
+          },
+        }
       )
       .then((resp) => {
         console.warn("PRODUCTTTT____APIIIIII", resp);
@@ -172,11 +188,11 @@ const LoanProducts = () => {
   const handleCancel = () => {
     setIsJoinModalVisible(false);
   };
-  const truncateString = (string, limit) =>{
+  const truncateString = (string, limit) => {
     var dots = "...";
-    if(string.length > limit) string = string.substring(0,limit) + dots;
+    if (string.length > limit) string = string.substring(0, limit) + dots;
     return string;
-  }
+  };
 
   let { innerWidth: width, innerHeight: height } = window;
   const [tabPosition, setTabPosition] = useState(
@@ -190,7 +206,7 @@ const LoanProducts = () => {
       ? "top"
       : "left"
   );
-  console.log('productData',productData);
+  console.log("productData", productData);
   return (
     <>
       {/* <div className='product-content'> */}
@@ -218,7 +234,7 @@ const LoanProducts = () => {
         </div>
       </div>
       {/* <div className='product-content'> */}
-      { productData.length > 0 ? 
+      {productData.length > 0 ? (
         <div className="loan-product-tabs">
           <Col gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
             <Tabs type="card" tabPosition={tabPosition}>
@@ -366,9 +382,14 @@ const LoanProducts = () => {
                           <p className="product-para">
                             {item.productDescription}
                           </p>
-                          <h4 style={{ color: "#5EA5C0"}} className="product_heading">5 Reasons to buy:</h4>
+                          <h4
+                            style={{ color: "#5EA5C0" }}
+                            className="product_heading"
+                          >
+                            5 Reasons to buy:
+                          </h4>
                           <div style={{ marginTop: 10 }}>
-                            <p >
+                            <p>
                               <span className="slNo circle-point">1</span>
                               <span className="bullet-points">
                                 {item.productReasons.reason1}
@@ -421,7 +442,7 @@ const LoanProducts = () => {
                           {item.imageTitle}
                         </h4>
                         {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
-                        <Carousel style={{marginTop:12}} autoplay={true}>
+                        <Carousel style={{ marginTop: 12 }} autoplay={true}>
                           {item.productImages.map((item) => {
                             return (
                               <div style={contentStyle}>
@@ -435,12 +456,38 @@ const LoanProducts = () => {
                             );
                           })}
                         </Carousel>
-                        <div className="product-brochure" style={{marginTop:20}}>
+                        <div
+                          className="product-brochure"
+                          style={{ marginTop: 20 }}
+                        >
                           {item.productBrochure.map((item) => {
                             return (
-                              <div style={{ display: "flex", alignItems: "center",flexDirection: "column",}}>
-                                <p style={{ fontWeight: "bold",color:'#454F63',marginBottom:5 }}>{truncateString(item.fileCategory === '' ? '-' : item.fileCategory,12)}</p>
-                                <img src={Brocher} height="100px" width="90px"></img>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <p
+                                  style={{
+                                    fontWeight: "bold",
+                                    color: "#454F63",
+                                    marginBottom: 5,
+                                  }}
+                                >
+                                  {truncateString(
+                                    item.fileCategory === ""
+                                      ? "-"
+                                      : item.fileCategory,
+                                    12
+                                  )}
+                                </p>
+                                <img
+                                  src={Brocher}
+                                  height="100px"
+                                  width="90px"
+                                ></img>
                                 <Button
                                   size="small"
                                   style={{
@@ -449,11 +496,13 @@ const LoanProducts = () => {
                                     color: "#fff",
                                     border: "1px solid #5EA5C0",
                                     borderRadius: "20px",
-                                  }}>
-                                  <a href={item.location} download><DownloadOutlined />  English</a>
+                                  }}
+                                >
+                                  <a href={item.location} download>
+                                    <DownloadOutlined /> English
+                                  </a>
                                 </Button>
                               </div>
-                              
                             );
                           })}
                         </div>
@@ -465,9 +514,9 @@ const LoanProducts = () => {
             </Tabs>
           </Col>
         </div>
-      :
+      ) : (
         <NoRecordsFound />
-      }
+      )}
       <Modal visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <p>Do you wish to send payment link to the customer?</p>
       </Modal>
