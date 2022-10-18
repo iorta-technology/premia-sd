@@ -530,3 +530,6 @@ img, svg {
 .disply{
   display: flex;
 }
+.broimg{
+  cursor: pointer;
+}
