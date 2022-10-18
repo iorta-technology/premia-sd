@@ -39,8 +39,8 @@ function Multichannel() {
         { secure: true }
       );
 
+      console.log("res.TOKEN ================ ", res.TOKEN);
       if (res) {
-        console.log("Res ======== ", res.errCode);
         let _loginData = [];
         let _defaultChannel = bankData.filter(
           (item, index) => item.channelCode._id === bankID
