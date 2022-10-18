@@ -424,19 +424,31 @@
  .button_calss{
   
     background-color: #5EA5C0;
-    padding: 0px 20px 0px 20px;
     border-radius: 5px;
     -ms-flex-pack: center;
     justify-content: center;
     -ms-flex-align: center;
     align-items: center;
-    cursor: pointer;
     color: #fff!important;
+    padding: 5px 20px;
+    border: none;
  }
- .ant-btn:hover{
-  background-color: #5EA5C0;
-
+ .button_calss:hover{
+  background-color: #5EA5C0!important;
+  border: none!important;
+  padding: 5px 20px;
+  border: none;
+  
  }
+ .button_calss:focus{
+  background-color: #5EA5C0!important;
+  border: none!important;
+  padding: 5px 20px;
+  border: none;
+  
+  
+ }
+ /* .ant-btn:hover, .ant-btn:focus, .ant-btn:active */
 
  .inp {
   border:none;
@@ -452,4 +464,69 @@
 }
 .ant-input:hover{
   border-color: #cfcfcf;
+}
+.modalStyle .ant-modal-footer{
+  background-color: #EBEBEB;
+}
+.modalStyle .ant-modal-body{
+  background-color: #F4F6F9;
+}
+
+.send{
+  background: #5EA5C0;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.send:hover{
+  background: #5EA5C0!important;
+  color: #fff;
+  border: none;
+}
+.cancle{
+  background-color: #FFFFFF;
+    border-width: 1px;
+    border-color: #454F63;
+    padding: 3px 15px 3px 11px;
+    border-radius: 20px;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.cancle:hover{
+  background-color: #FFFFFF;
+  color: #000;
+  border-width: 1px;
+  border-color: #454F63;
+}
+img, svg {
+  vertical-align: baseline!important;
+}
+
+.listData{
+  border-radius: 6px;
+  background-color: #5EA5C0;
+  margin: 5px 5px;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 14px;
+ 
+}
+.delet_btn{
+  background: #5EA5C0;
+    border: none;
+    font-size: 12px;
+    margin-left: 10px;
+    font-weight: 700;
+}
+.delet_btn:hover{
+  color: #000;
+}
+.disply{
+  display: flex;
 }
