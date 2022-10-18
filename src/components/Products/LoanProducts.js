@@ -234,19 +234,19 @@ const LoanProducts = () => {
   return (
     <>
       {/* <div className='product-content'> */}
-      <div className="header">
+      <div className="header-loan-prod">
         <Row>
           <Col>
-            <p className="product-title">Products</p>
+            <p className="product-title-loan">Products</p>
           </Col>
         </Row>
         <div>
-          <Row className="tabs">
+          <Row className="tabs-loan">
             {productData?.map((item) => (
               <Col style={{ marginRight: 15 }}>
                 <Button
-                  className={`primaryBtn ${
-                    item._id === activeId && "top-tab-header-active"
+                  className={`primaryBtnLoan ${
+                    item._id === activeId && "top-tab-header-active-loan"
                   }`}
                   onClick={topBtnClickHandler.bind(this, item)}
                 >
