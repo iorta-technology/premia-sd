@@ -201,7 +201,6 @@ const LoanProducts = () => {
   const [data, setData] = useState("");
   const [list, setList] = useState([]);
 
-
   const handleSubmit = (e) => {
     setList((oldData) => [...oldData, data]);
     setData("");
@@ -568,7 +567,6 @@ const LoanProducts = () => {
 
           <form onSubmit={(e) => handleSubmit(e)}>
           <Row gutter={16}>
-          
            <Col>
             <Input className="inp" placeholder="E-Mail ID" value={data} onChange={(e) =>setData(e.target.value)} />
             </Col>
@@ -586,14 +584,8 @@ const LoanProducts = () => {
                   <span>{item} </span> <button className="delet_btn" onClick={() => handleDelete(id)}>X</button>
                 </div>
               ))
-          }
-                                                                                                                                 </div>
-                                                                                                                  
-
+          }                                                                                                           </div>
           </Row>
-
-
-        
         </Modal>
       
     </>
