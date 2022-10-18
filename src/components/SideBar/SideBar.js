@@ -12,7 +12,7 @@ import { BarChartOutlined } from '@ant-design/icons';
 import { createBrowserHistory } from "history";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { stoageGetter } from '../../helpers'
+import { checkuserAccess, stoageGetter } from "../../helpers";
 import axiosRequest from '../../axios-request/request.methods'  
 
 
@@ -112,6 +112,15 @@ const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
   const [modalShown, toggleModal] = useState(false);
   const [clearBtn, setClearBtn] = useState(true)
+
+  let _storeData = useSelector((state) => state);
+
+
+  const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
+
+  const [showOpportunities, setShowOpportunities] = useState(
+    _accessOpportunities.props.read === true ? true : false
+  );
 
 
   const clearData = () =>{
@@ -234,11 +243,15 @@ useEffect(() => {
               <ul>
                 <li><div><img src={rapps_img}/> &nbsp;<span>All Partners</span></div> <img src={right_black_img}/></li>
               </ul> */}
-              <p>Leads</p>
-              <ul>
-                <li onClick={() => { history.push('/leadmasterpage/statuslead') }}><div><img src={draftr_img}/> &nbsp;<span>Add New Lead</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={rapps_img}/> &nbsp;<span>Add Bulk Lead</span></div> <img src={right_black_img}/></li>
-              </ul>
+              {showOpportunities &&
+              <>
+                <p>Leads</p>
+                <ul>
+                  <li onClick={() => { history.push('/leadmasterpage/statuslead') }}><div><img src={draftr_img}/> &nbsp;<span>Add New Lead</span></div> <img src={right_black_img}/></li>
+                  {/* <li><div><img src={rapps_img}/> &nbsp;<span>Add Bulk Lead</span></div> <img src={right_black_img}/></li> */}
+                </ul>
+              </>
+              }
               {/* <p>My Applications</p>
               <ul>
                 <li><div><img src={allrec_img}/> &nbsp;<span>All Recruitments</span></div> <img src={right_black_img}/></li>

@@ -7,14 +7,15 @@ import {
   FileTextOutlined,
 } from "@ant-design/icons";
 import Moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styles from "./FloatButton.module.css";
 import Recruitment from "../Recuritment/Recuritment";
-import { stoageGetter } from "../../helpers";
+import { checkuserAccess, stoageGetter } from "../../helpers";
 import * as actions from "../../store/actions/index";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import axiosRequest from "../../axios-request/request.methods";
 import "./FloatButton.css";
+import { message } from "antd";
 
 // const logindata = stoageGetter('user')
 // let id = ''
@@ -25,6 +26,7 @@ import "./FloatButton.css";
 
 const FloatButton = React.memo(() => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isopen, setisopen] = useState(false);
   const { id, channelCode } = stoageGetter("user");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +34,22 @@ const FloatButton = React.memo(() => {
   const [showAreYouSure, setShowAreYouSure] = useState(false);
   const [areYouSure, setAreYouSure] = useState(false);
   const [form] = Form.useForm();
+  let _storeData = useSelector((state) => state);
+
+  const _accessActivityTracker = checkuserAccess("myEvents", _storeData.login); //Activity Tracker
+  const _accessDailyBusiness = checkuserAccess("myBusiness", _storeData.login); // Daily Business
+  const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
+
+  // Access Management
+  const [showActivityTracker, setShowActivityTracker] = useState(
+    _accessActivityTracker.props.read === true ? true : false
+  );
+  const [showDailyBusiness, setShowDailyBusiness] = useState(
+    _accessDailyBusiness.props.read === true ? true : false
+  );
+  const [showOpportunities, setShowOpportunities] = useState(
+    _accessOpportunities.props.read === true ? true : false
+  );
 
   const onChangeAreYouSure = (e) => {
     setAreYouSure(e.target.value);
@@ -39,12 +57,17 @@ const FloatButton = React.memo(() => {
 
   const showModalGoal = async () => {
     try {
-      let res = await axiosRequest.get(
-        `user/fetch_daily_activity/${id}?today_goal=true`,
-        { secure: true }
-      );
-      setTodayGoalCreated(res);
-      console.log("todayGoalCreated._id", todayGoalCreated);
+      if(showDailyBusiness){
+        let res = await axiosRequest.get(
+          `user/fetch_daily_activity/${id}?today_goal=true`,
+          { secure: true }
+        );
+        setTodayGoalCreated(res);
+        console.log("todayGoalCreated._id", todayGoalCreated);
+      }else{
+        message.info('This feature is currently not accessible');
+      }
+        
     } catch (error) {
       console.log(error);
     }
@@ -118,81 +141,90 @@ const FloatButton = React.memo(() => {
   };
 
   const addNewLead = () => {
-    const formData = {
-      // statusLeadData: {
-      leadStatus: "",
-      leadDisposition: "",
-      leadsubDisposition: "",
-      appointment_status: "",
-      appointmentdisPosition: "",
-      appointmentsubdisPosition: "",
-      lead_Owner_Id: "",
-      // user_id: id,
-      lead_Id: "",
-      lead_Creator_Id: "",
-      start_date: "",
-      start_time: "",
-      remarksfromSource: "",
-      remarksfromUser: "",
-      teamMembers: "",
-      productId: "",
-      proposalId: "",
-      leadSource: "",
-      LeadType: "",
-      Product: "",
-      Insurance_Company: "",
-      // },
-      // personalLeadData: {
-      firstName: "",
-      lastName: "",
-      dob: "",
-      gender: "",
-      maritalStatus: "",
-      childStatus: "",
-      ChildInfo: [],
-      // },
-      // contactLeadData: {
-      primaryMobile: "",
-      state: "",
-      city: "",
-      email: "",
-      address: {
-        line1: "",
-        line2: "",
-        line3: "",
-      },
-      country: "",
-      pincode: "",
-      secondaryMobile: "",
-      landlineNo: "",
-      socialSecurityAdharNo: "",
-      mailingAddressStatus: "",
-      mailingAddressSecond: {
-        mailingaddress: {
+    if(showOpportunities){
+      const formData = {
+        // statusLeadData: {
+        leadStatus: "",
+        leadDisposition: "",
+        leadsubDisposition: "",
+        appointment_status: "",
+        appointmentdisPosition: "",
+        appointmentsubdisPosition: "",
+        lead_Owner_Id: "",
+        // user_id: id,
+        lead_Id: "",
+        lead_Creator_Id: "",
+        start_date: "",
+        start_time: "",
+        remarksfromSource: "",
+        remarksfromUser: "",
+        teamMembers: "",
+        productId: "",
+        proposalId: "",
+        leadSource: "",
+        LeadType: "",
+        Product: "",
+        Insurance_Company: "",
+        // },
+        // personalLeadData: {
+        firstName: "",
+        lastName: "",
+        dob: "",
+        gender: "",
+        maritalStatus: "",
+        childStatus: "",
+        ChildInfo: [],
+        // },
+        // contactLeadData: {
+        primaryMobile: "",
+        state: "",
+        city: "",
+        email: "",
+        address: {
           line1: "",
           line2: "",
           line3: "",
         },
-        state: "",
-        city: "",
         country: "",
         pincode: "",
-        // user_Id:id,
-      },
-      HaveLifeInsurance: {
-        ExistHealthInsur: "",
-        ExistInsur: "",
-      },
-      HaveLifeInsurance_details: [],
-      Insurancedetails: [],
-      //professional data
-      education: "",
-      professionType: "",
-      incomeGroup: "",
-    };
-    dispatch(actions.storeLead(formData));
+        secondaryMobile: "",
+        landlineNo: "",
+        socialSecurityAdharNo: "",
+        mailingAddressStatus: "",
+        mailingAddressSecond: {
+          mailingaddress: {
+            line1: "",
+            line2: "",
+            line3: "",
+          },
+          state: "",
+          city: "",
+          country: "",
+          pincode: "",
+          // user_Id:id,
+        },
+        HaveLifeInsurance: {
+          ExistHealthInsur: "",
+          ExistInsur: "",
+        },
+        HaveLifeInsurance_details: [],
+        Insurancedetails: [],
+        //professional data
+        education: "",
+        professionType: "",
+        incomeGroup: "",
+      };
+      dispatch(actions.storeLead(formData));
+      history.push("/leadmasterpage/statuslead");
+    }else{
+      message.info('This feature is currently not accessible');
+    }
   };
-
+  
+  const openCalendarPage = () => {
+    // setIsModalVisible(true);
+    showActivityTracker ? history.push("/calendar") : message.info('This feature is currently not accessible')
+  };
   return (
     <>
       <Modal
@@ -319,7 +351,7 @@ const FloatButton = React.memo(() => {
       >
         Create an Event
       </p>
-      <Link to="/calendar">
+      {/* <Link to="/calendar"> */}
         <Button
           type="primary"
           shape="circle"
@@ -327,8 +359,9 @@ const FloatButton = React.memo(() => {
           icon={<CalendarOutlined />}
           className={`${styles.eventicon} ${styles.iconpfr}`}
           style={isopen ? open : close}
+          onClick={openCalendarPage}
         />
-      </Link>
+      {/* </Link> */}
       <p
         className={`${styles.paragraph}  ${styles.goalpg} ${styles.pgpfr}`}
         style={isopen ? open : close}
@@ -345,24 +378,25 @@ const FloatButton = React.memo(() => {
         style={isopen ? open : close}
       />
 
-      <p
-        className={`${styles.paragraph}  ${styles.leadpg} ${styles.pgpfr}`}
-        style={isopen ? open : close}
-      >
-        New Lead Creation
-      </p>
-      <Link to="/leadmasterpage/statuslead">
-        <Button
-          onClick={addNewLead}
-          type="primary"
-          shape="circle"
-          size="large"
-          icon={<FileTextOutlined />}
-          className={`${styles.leadicon} ${styles.iconpfr}`}
+      <>
+        <p
+          className={`${styles.paragraph}  ${styles.leadpg} ${styles.pgpfr}`}
           style={isopen ? open : close}
-        />
-      </Link>
-
+        >
+          New Lead Creation
+        </p>
+        {/* <Link to="/leadmasterpage/statuslead"> */}
+          <Button
+            onClick={addNewLead}
+            type="primary"
+            shape="circle"
+            size="large"
+            icon={<FileTextOutlined />}
+            className={`${styles.leadicon} ${styles.iconpfr}`}
+            style={isopen ? open : close}
+          />
+        {/* </Link> */}
+      </>
       {/* <p className={`${styles.paragraph}  ${styles.recuirementpg} ${styles.pgpfr}`} style={isopen?open:close}>New Recruitment</p> */}
       {/* <Button onClick={showModal} type="primary" shape="circle" size="large" icon={<FileTextOutlined />} className={`${styles.newrecuirement} ${styles.iconpfr}`} style={isopen?open:close}/> */}
 
