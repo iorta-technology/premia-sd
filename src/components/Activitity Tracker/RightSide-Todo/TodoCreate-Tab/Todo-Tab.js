@@ -576,7 +576,7 @@ const TodoTab = (props) => {
                     <div className={[ windowWidth < breakpoint ? 'Todo-Create-FooterReminder-mob' : 'Todo-Create-FooterReminder' ]} style={{display: 'flex'}}>
                         <p>Set a Due Reminder</p>
                         {/* <input type='date' style={{marginBottom: '10px'}} /> */}
-                        <DatePicker value={reminderDate} onChange={onChangeDatePick} disabledDate={d => !d || d.isBefore(minimumDate)} className='todo-ml10' style={{marginBottom: '10px',flex:1}}/>
+                        <DatePicker inputReadOnly={true} value={reminderDate} onChange={onChangeDatePick} disabledDate={d => !d || d.isBefore(minimumDate)} className='todo-ml10' style={{marginBottom: '10px',flex:1}}/>
                        
                           <Select value={selectedTime} className='todo-mb20 todo-ml10' style={{flex:1}} onChange={(time)=> handleTimeChange(time) }>
                             {
