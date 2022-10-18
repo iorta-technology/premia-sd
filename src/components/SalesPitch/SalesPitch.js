@@ -109,7 +109,7 @@ const SalesPitch = () => {
               />
             </div>
           )}
-          <div className="Salespitch-main salesCard">
+          <div className="Salespitch-main salesCard salesPitchStyle">
             <div className="Salespitch-row-flex">
               <Tabs tabPosition={tabPosition} className="SalesPitch-sider">
                 <TabPane tab="Presentation" key="1">
@@ -3184,7 +3184,7 @@ const SalesPitch = () => {
           </div>
         </div>
       )}
-      <div className="Salespitch-main">
+      <div className="Salespitch-main salesPitchStyle">
         <div className="Salespitch-row-flex">
           <Tabs tabPosition={tabPosition} className="SalesPitch-sider">
             <TabPane tab="Presentation" key="1">

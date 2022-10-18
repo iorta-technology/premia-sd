@@ -256,7 +256,7 @@ const Tab = ({
         <div className="header-img-tabs tabsStyle">
           <div>
             <div>
-              <span className="header-title-tab">{header}</span>
+              <p className="header-title-tab">{header}</p>
             </div>
 
             <div>

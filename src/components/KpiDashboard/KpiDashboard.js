@@ -1005,14 +1005,14 @@ const KpiDashboard = () => {
         {/* { TeamSelf ? */}
         <div>
           {width > breakpoint && (
-            <Row gutter={[10, 10]}>
+            <Row  gutter={[10, 10]}>
               <Col
                 xs={24}
                 sm={24}
                 md={24}
                 lg={2}
                 xl={2}
-                className="cardKpi centerProfile"
+                className="cardStyleKpi centerProfileKPI"
               >
                 <Row className="">
                   <Col sm={24} md={12} lg={2} xl={24}>
@@ -1054,7 +1054,7 @@ const KpiDashboard = () => {
                 lg={2}
                 xl={2}
                 style={{ marginBottom: 10 }}
-                className="cardKpi centerProfile"
+                className="cardStyleKpi centerProfileKPI"
               >
                 <Row className="">
                   <Col sm={24} md={12} lg={2} xl={24}>
