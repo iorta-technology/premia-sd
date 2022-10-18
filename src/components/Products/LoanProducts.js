@@ -18,12 +18,13 @@ import {
   MailOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
-import { Tabs } from "antd";
+import { Tabs, Alert } from "antd";
 // import axios from '../../axios-common';
 import { map } from "lodash";
 import moment from "moment";
 import Brocher from "../../images/brochrewhite.png";
 import MTabs from "../../components/Tab/Tab";
+import axiosRequest from "../../axios-request/request.methods";
 import {
   BrowserRouter as Router,
   Link,
@@ -37,6 +38,7 @@ import { useSelector } from "react-redux";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import shareIt from "../../assets/shareit.png";
 import { fontStyle } from "@mui/system";
+import browimg from '../../assets/brochrewhite.png'
 
 const LoanProducts = () => {
   const contentStyle = {
@@ -126,22 +128,44 @@ const LoanProducts = () => {
     //    ...objdata,
     // Tabs
     // ]
+
+
+
   }, []);
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const sdata = [
+    {name: 'Policy Wordings', img: '../../assets/brochrewhite.png',  lan: 'English'}
+  ]
 
   const showModal1 = () => {
     setIsModalVisible1(true);
   };
 
-  const handleOk1 = () => {
-    setIsModalVisible1(false);
+  const dataaa = [
+    {
+    Product_Brochure_data:"https://image-upload-bucket-2019.s3.ap-south-1.amazonaws.com/e5f937750169e9621db3ee042e393799f01d5d3a.pdf",
+     product_name:"Home Sure",
+     sendto:"test@grr.la"
+    },
+  ]
+  const handleOk1 = async () => {
+    // setIsModalVisible1(false);
+   message.error('Please, Select a Brochure and add an E-mail')
+   try {
+    let res = await axiosRequest.post(`user/send_email_brochure`, ...dataaa );
+      console.log("hgh--", res);
+  } catch (error) {
+    console.log("error API " + error);
+  }
   };
 
   const handleCancel1 = () => {
     setIsModalVisible1(false);
   };
+
+ 
 
   const [benefitIllustratorArr, setBenefitIllustratorArr] = useState([]);
   const topBtnClickHandler = (item) => {
@@ -222,8 +246,13 @@ const LoanProducts = () => {
   const [list, setList] = useState([]);
 
   const handleSubmit = (e) => {
-    setList((oldData) => [...oldData, data]);
-    setData("");
+    console.log("dataatat---", data);
+    if (data) {
+      setList((oldData) => [...oldData, data]);
+      setData("");
+    }else{
+        message.error('Please add an e-mail first');
+    }
     e.preventDefault();
   };
 
@@ -231,6 +260,9 @@ const LoanProducts = () => {
     setList((oldData) => oldData.filter((elem, index) => index !== id));
   };
 
+  
+
+  
   return (
     <>
       {/* <div className='product-content'> */}
@@ -557,7 +589,7 @@ const LoanProducts = () => {
         // onCancel={handleCancel1}
         width={800}
         footer={[
-          <Button className="send" onClick={handleOk1} key="1">
+          <Button className="send" type="submit" onClick={handleOk1} key="1">
             <MailOutlined /> send
           </Button>,
           <Button className="cancle" onClick={handleCancel1} key="2">
@@ -567,14 +599,18 @@ const LoanProducts = () => {
         closable={false}
         className="modalStyle"
       >
+        <form>
         <Row gutter={16}>
           <Col>
-            <div
+          {
+            sdata.map((brodata, index) => (
+              <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
               }}
+              key={index}
             >
               <p
                 style={{
@@ -583,10 +619,9 @@ const LoanProducts = () => {
                   marginBottom: 5,
                 }}
               >
-                -
+                {brodata.name}
               </p>
-              <img height="100px" width="90px"></img>
-
+              <img src={brodata.img} height="100px" width="90px" className="broimg" />
               <p
                 style={{
                   color: "#5EA5C0",
@@ -597,11 +632,14 @@ const LoanProducts = () => {
                   textAlign: "center",
                 }}
               >
-                English
+                {brodata.lan}
               </p>
             </div>
+            ))
+          }
+            
           </Col>
-          <Col>
+           {/*<Col>
             <div
               style={{
                 display: "flex",
@@ -666,37 +704,19 @@ const LoanProducts = () => {
                 English
               </p>
             </div>
-          </Col>
+          </Col> */}
         </Row>
 
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <Row gutter={16}>
-            <Col>
-              <Input
-                className="inp"
-                placeholder="E-Mail ID"
-                value={data}
-                onChange={(e) => setData(e.target.value)}
-              />
-            </Col>
-            <Col>
-              <button type="submit" className="button_calss">
-                Add <PlusCircleFilled />
-              </button>
-            </Col>
-          </Row>
-        </form>
-
-          <form onSubmit={(e) => handleSubmit(e)}>
+          
           <Row gutter={16}>
            <Col>
             <Input className="inp" placeholder="E-Mail ID" value={data} onChange={(e) =>setData(e.target.value)} />
             </Col>
             <Col>
-            <button type="submit" className="button_calss">Add <PlusCircleFilled /></button>
+            <button onClick={(e) => handleSubmit(e)} className="button_calss">Add <PlusCircleFilled /></button>
             </Col>
           </Row>
-          </form>
+          
 
           <Row>
           <div className="disply">
@@ -708,6 +728,7 @@ const LoanProducts = () => {
               ))
           }                                                                                                           </div>
           </Row>
+          </form>
         </Modal>
       
     </>
