@@ -780,7 +780,7 @@ const DailyBussiness = () => {
                   </Avatar>
                   <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
                     <Text strong>
-                      {user?.csm_details?.first_name}
+                      {user?.csm_details?.first_name}{" "}
                       {user?.csm_details?.last_name}
                     </Text>
                     <Row>
