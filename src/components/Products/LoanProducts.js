@@ -687,19 +687,29 @@ const LoanProducts = () => {
           </Row>
         </form>
 
-        <Row>
+          <form onSubmit={(e) => handleSubmit(e)}>
+          <Row gutter={16}>
+           <Col>
+            <Input className="inp" placeholder="E-Mail ID" value={data} onChange={(e) =>setData(e.target.value)} />
+            </Col>
+            <Col>
+            <button type="submit" className="button_calss">Add <PlusCircleFilled /></button>
+            </Col>
+          </Row>
+          </form>
+
+          <Row>
           <div className="disply">
-            {list.map((item, id) => (
-              <div key={id} className="listData">
-                <span>{item} </span>{" "}
-                <button className="delet_btn" onClick={() => handleDelete(id)}>
-                  X
-                </button>
-              </div>
-            ))}
-          </div>
-        </Row>
-      </Modal>
+          {
+            list.map((item, id) => (
+              <div key={id} className='listData'>
+                  <span>{item} </span> <button className="delet_btn" onClick={() => handleDelete(id)}>X</button>
+                </div>
+              ))
+          }                                                                                                           </div>
+          </Row>
+        </Modal>
+      
     </>
   );
 };

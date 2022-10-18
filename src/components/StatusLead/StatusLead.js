@@ -1622,7 +1622,7 @@ const NewLead = React.memo((props) => {
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Source</p>
-                      <p className="lead-detail"></p>
+                      <p className="lead-detail">-</p>
                     </Col>
                   </Row>
                   <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
