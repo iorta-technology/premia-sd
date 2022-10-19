@@ -631,7 +631,7 @@ const DailyBussiness = () => {
       <Tabs tabMenu={[]} header="Daily Business" activeKey="1" />
       <div style={{ padding: "0 3%", paddingBottom: "30px" }}>
         <Row className="tabs">
-          {checkAgent() === true && (
+          {checkAgent() === false && (
             <>
               <Col
                 xs={12}
