@@ -16,13 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosRequest from "../axios-request/request.methods";
 import * as actions from "../store/actions/index";
 import { useHistory } from "react-router";
-import {stoageGetter} from '../helpers'
+import { stoageGetter } from "../helpers";
 
 function Multichannel() {
   const dispatch = useDispatch();
   const history = useHistory();
   const _store = useSelector((state) => state);
-  const bankData = _store?.login?.multiChannel ? _store?.login?.multiChannel : stoageGetter('multi_channel')
+  const bankData = _store?.login?.multiChannel
+    ? _store?.login?.multiChannel
+    : stoageGetter("multi_channel");
   // console.warn("STORE DATA----------", bankData);
   // console.warn("STORE DATA-----LOCALL-----", stoageGetter('multi_channel'));
 
@@ -46,6 +48,7 @@ function Multichannel() {
           (item, index) => item.channelCode._id === bankID
         );
         _loginData.push(_defaultChannel, { token: res.TOKEN });
+        alert(res.TOKEN);
         dispatch(actions.loginSuccess(_loginData));
         history.push("/home");
       }
