@@ -48,7 +48,6 @@ function Multichannel() {
           (item, index) => item.channelCode._id === bankID
         );
         _loginData.push(_defaultChannel, { token: res.TOKEN });
-        alert(res.TOKEN);
         dispatch(actions.loginSuccess(_loginData));
         history.push("/home");
       }
