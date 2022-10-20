@@ -39,7 +39,7 @@ import { useSelector } from "react-redux";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import shareIt from "../../assets/shareit.png";
 import { fontStyle } from "@mui/system";
-import browimg from '../../assets/brochrewhite.png'
+import browimg from "../../assets/brochrewhite.png";
 
 const LoanProducts = () => {
   const contentStyle = {
@@ -129,9 +129,6 @@ const LoanProducts = () => {
     //    ...objdata,
     // Tabs
     // ]
-
-
-
   }, []);
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -168,8 +165,6 @@ const LoanProducts = () => {
   const handleCancel1 = () => {
     setIsModalVisible1(false);
   };
-
- 
 
   const [benefitIllustratorArr, setBenefitIllustratorArr] = useState([]);
   const topBtnClickHandler = (item) => {
@@ -257,8 +252,8 @@ const LoanProducts = () => {
     if (data) {
       setList((oldData) => [...oldData, data]);
       setData("");
-    }else{
-        message.error('Please add an e-mail first');
+    } else {
+      message.error("Please add an e-mail first");
     }
     e.preventDefault();
   };
@@ -284,7 +279,6 @@ const LoanProducts = () => {
      }
   }
 
-  
   return (
     <>
       {/* <div className='product-content'> */}
@@ -637,7 +631,6 @@ const LoanProducts = () => {
                 marginRight: "10px"
                 
               }}
-              key={index}
             >
               <p
                 style={{
@@ -670,30 +663,39 @@ const LoanProducts = () => {
           </Col>
         </Row>
 
-          
           <Row gutter={16}>
-           <Col>
-            <Input className="inp" placeholder="E-Mail ID" value={data} onChange={(e) =>setData(e.target.value)} />
+            <Col>
+              <Input
+                className="inp"
+                placeholder="E-Mail ID"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+              />
             </Col>
             <Col>
-            <button onClick={(e) => handleSubmit(e)} className="button_calss">Add <PlusCircleFilled /></button>
+              <button onClick={(e) => handleSubmit(e)} className="button_calss">
+                Add <PlusCircleFilled />
+              </button>
             </Col>
           </Row>
-          
 
           <Row>
-          <div className="disply">
-          {
-            list.map((item, id) => (
-              <div key={id} className='listData'>
-                  <span>{item} </span> <button className="delet_btn" onClick={() => handleDelete(id)}>X</button>
+            <div className="disply">
+              {list.map((item, id) => (
+                <div key={id} className="listData">
+                  <span>{item} </span>{" "}
+                  <button
+                    className="delet_btn"
+                    onClick={() => handleDelete(id)}
+                  >
+                    X
+                  </button>
                 </div>
-              ))
-          }                                                                                                           </div>
+              ))}{" "}
+            </div>
           </Row>
-          </form>
-        </Modal>
-      
+        </form>
+      </Modal>
     </>
   );
 };
