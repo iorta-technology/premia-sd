@@ -140,28 +140,6 @@ const LoanProducts = () => {
     setIsModalVisible1(true);
   };
 
-  const handleOk1 = async () => {
-    // setIsModalVisible1(false);
-   // message.error('Please, Select a Brochure and add an E-mail')
-   
-   let dataaa = 
-   {
-     Product_Brochure_data:selectedData.map(res => res.location),
-     product_name:selectedData.map(res => res.fileCategory ),
-     sendto: list
-   }
-   if (!dataaa.Product_Brochure_data) {
-    message.error('Please, Select a Brochure and add an E-mail')
-   }
-   try {
-    let res = await axiosRequest.post(`user/send_email_brochure`, dataaa );
-      console.log("hgh--", res);
-
-  } catch (error) {
-    console.log("error API " + error);
-  }
-  };
-
   const handleCancel1 = () => {
     setIsModalVisible1(false);
   };
@@ -181,7 +159,7 @@ const LoanProducts = () => {
       )
       .then((resp) => {
         console.log("PRODUCTTTT____APIIIIII =================== ", resp.data.errMsg[0].productBrochure);
-        SetSdata(resp.data.errMsg[0].productBrochure)
+       // SetSdata(resp.data.errMsg[0].productBrochure)
         
         const productTabs = resp?.data?.errMsg;
         SetProductTabs(productTabs);
@@ -270,7 +248,6 @@ const LoanProducts = () => {
 
   const changeTabfun =(e) => {
     //  sdata
-
      for(var i=0; i<productTabs.length; i++){
          console.log(e == productTabs[i]._id, productTabs[i])
          if(e == productTabs[i]._id){
@@ -278,6 +255,25 @@ const LoanProducts = () => {
          }
      }
   }
+  
+
+  const handleOk1 = async () => {
+    // setIsModalVisible1(false);
+   // message.error('Please, Select a Brochure and add an E-mail')
+   let dataaa = 
+   {
+     Product_Brochure_data:selectedData.map(res => res.location),
+     product_name:selectedData.map(res => res.fileCategory ),
+     sendto: list
+   }
+   try {
+    let res = await axiosRequest.post(`user/send_email_brochure`, dataaa );
+      console.log("hgh--", res);
+  } catch (error) {
+    console.log("error API " + error);
+  }
+  };
+
 
   return (
     <>
@@ -506,7 +502,7 @@ const LoanProducts = () => {
                       xl={12}
                     >
                       <div className="main-card3" bordered={false}>
-                        <div className="share_button">
+                        <div className="share_button1">
                           <img src={shareIt} onClick={showModal1} />
                         </div>
                         <h4
@@ -662,8 +658,8 @@ const LoanProducts = () => {
             
           </Col>
         </Row>
-
-          <Row gutter={16}>
+        {(sdata && sdata?.length > 0) ? <Row gutter={16}>
+            
             <Col>
               <Input
                 className="inp"
@@ -677,7 +673,9 @@ const LoanProducts = () => {
                 Add <PlusCircleFilled />
               </button>
             </Col>
-          </Row>
+          </Row> : <p className="product_data">No Product Brochure Found</p> }
+
+          
 
           <Row>
             <div className="disply">
