@@ -29,6 +29,7 @@ import {
   LaptopOutlined,
   NotificationOutlined,
   ShareAltOutlined,
+  PieChartOutlined,
 } from "@ant-design/icons";
 import VideoPlayer from "react-video-js-player";
 import MainTabs from "../../components/MainTabs/MainTabs";
@@ -325,6 +326,7 @@ const ResourceCenter = () => {
                         borderRadius: 5,
                         padding: 3,
                         marginRight: 5,
+                        marginBottom: 5,
                       }}
                       className={tagSwitch === res.name ? "active" : "inactive"}
                       onClick={() => setTagSwitch(res.name)}
@@ -547,6 +549,7 @@ const ResourceCenter = () => {
                         <a href="mailto:hasansadiqu@gmail.com">
                           <ShareAltOutlined className="share_button" />
                         </a>
+                        <div className="center_icon"></div>
 
                         <div style={{ width: "100%" }}>
                           <div className="Body_text">

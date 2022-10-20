@@ -257,6 +257,21 @@
     padding: 7px 20px;
 }
 
+.center_icon{
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%,-50%);
+    z-index: 99999;
+    background-image: url("https://pocbanca.iorta.in/assets/Group19142x.png");
+    width: 20px;
+    height: 20px;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    border-radius: 50px;
+}
+
 .block {
     display: block;
     width: 100%;
