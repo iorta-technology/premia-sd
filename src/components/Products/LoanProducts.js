@@ -17,6 +17,7 @@ import {
   PlusCircleFilled,
   MailOutlined,
   CloseOutlined,
+  ConsoleSqlOutlined,
 } from "@ant-design/icons";
 import { Tabs, Alert } from "antd";
 // import axios from '../../axios-common';
@@ -135,17 +136,13 @@ const LoanProducts = () => {
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
-  const [sdata,SetSdata] = useState([ {name: 'Policy Wordings',  language: 'English', location:'1237786786'},
-  {name: 'Policy Wordings',  language: 'English,', location:'123'},
-  {name: 'Policy Wordings',  language: 'English', location:'123545'}])
+  const [sdata,SetSdata] = useState([])
  
 
   const showModal1 = () => {
     setIsModalVisible1(true);
   };
 
-
-  
   const handleOk1 = async () => {
     // setIsModalVisible1(false);
    // message.error('Please, Select a Brochure and add an E-mail')
@@ -153,13 +150,16 @@ const LoanProducts = () => {
    let dataaa = 
    {
      Product_Brochure_data:selectedData.map(res => res.location),
-    product_name:'',
-    sendto: list
+     product_name:selectedData.map(res => res.fileCategory ),
+     sendto: list
    }
-
+   if (!dataaa.Product_Brochure_data) {
+    message.error('Please, Select a Brochure and add an E-mail')
+   }
    try {
     let res = await axiosRequest.post(`user/send_email_brochure`, dataaa );
-      console.log("hgh--", res.Product_Brochure_data);
+      console.log("hgh--", res);
+
   } catch (error) {
     console.log("error API " + error);
   }
@@ -185,9 +185,12 @@ const LoanProducts = () => {
         }
       )
       .then((resp) => {
-        console.warn("PRODUCTTTT____APIIIIII", resp);
+        console.log("PRODUCTTTT____APIIIIII =================== ", resp.data.errMsg[0].productBrochure);
+        SetSdata(resp.data.errMsg[0].productBrochure)
+        
         const productTabs = resp?.data?.errMsg;
         SetProductTabs(productTabs);
+        console.log("sdataaa0000======", productTabs)
       }, [])
       .catch((error) => {
         console.log(error);
@@ -265,11 +268,20 @@ const LoanProducts = () => {
   };
 
   const [selectedData, setSelectedData] = useState([])
-  const [productData1, setProductData1] = useState([])
   const selecteDataFun =(value) =>{
     console.log("value = ",value)
     setSelectedData(res => [...res,value])
-    setProductData1()
+  }
+
+  const changeTabfun =(e) => {
+    //  sdata
+
+     for(var i=0; i<productTabs.length; i++){
+         console.log(e == productTabs[i]._id, productTabs[i])
+         if(e == productTabs[i]._id){
+            SetSdata(productTabs[i].productBrochure);
+         }
+     }
   }
 
   
@@ -303,8 +315,8 @@ const LoanProducts = () => {
       {productData.length > 0 ? (
         <div className="loan-product-tabs">
           <Col gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
-            <Tabs type="card" tabPosition={tabPosition}>
-              {productTabs.map((item) => {
+            <Tabs type="card" tabPosition={tabPosition} onChange={changeTabfun}>
+              {productTabs.map((item,index) => {
                 return (
                   <TabPane
                     tab={item.productName}
@@ -323,6 +335,7 @@ const LoanProducts = () => {
                         <div className="main-card2" bordered={false}>
                           <div
                             className="benefit-main"
+                            
                             style={{
                               display: "flex",
                               alignItems: "center",
@@ -336,6 +349,7 @@ const LoanProducts = () => {
                                 textTransform: "capitalize",
                               }}
                               className="benefit-head"
+                              
                             >
                               {item.productName}
                             </h1>
@@ -603,7 +617,7 @@ const LoanProducts = () => {
             <MailOutlined /> send
           </Button>,
           <Button className="cancle" onClick={handleCancel1} key="2">
-            <CloseOutlined /> Cancle
+            <CloseOutlined /> Cancel
           </Button>,
         ]}
         closable={false}
@@ -614,12 +628,13 @@ const LoanProducts = () => {
           <Col style={{
                 display: "flex",}}>
           {
-            sdata.map((brodata, index) => (
+            sdata?.map((brodata, index) => (
               <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
+                marginRight: "10px"
                 
               }}
               key={index}
@@ -631,7 +646,9 @@ const LoanProducts = () => {
                   marginBottom: 5,
                 }}
               >
-                {brodata.name}
+                {
+                  brodata.fileCategory === "" ? "-" : brodata.fileCategory }
+                
               </p>
               <img onClick={() => selecteDataFun(brodata)} src={Brocher} height="100px" width="90px" className="broimg" />
               <p
@@ -651,72 +668,6 @@ const LoanProducts = () => {
           }
             
           </Col>
-           {/*<Col>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  color: "#454F63",
-                  marginBottom: 5,
-                }}
-              >
-                Test Cat 1
-              </p>
-              <img height="100px" width="90px"></img>
-
-              <p
-                style={{
-                  color: "#5EA5C0",
-                  width: "100%",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  marginTop: "10px",
-                  textAlign: "center",
-                }}
-              >
-                English
-              </p>
-            </div>
-          </Col>
-          <Col>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  color: "#454F63",
-                  marginBottom: 5,
-                }}
-              >
-                Test Cat 2
-              </p>
-              <img height="100px" width="90px"></img>
-
-              <p
-                style={{
-                  color: "#5EA5C0",
-                  width: "100%",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  marginTop: "10px",
-                  textAlign: "center",
-                }}
-              >
-                English
-              </p>
-            </div>
-          </Col> */}
         </Row>
 
           
