@@ -28,6 +28,7 @@ import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
+  ShareAltOutlined,
 } from "@ant-design/icons";
 import VideoPlayer from "react-video-js-player";
 import MainTabs from "../../components/MainTabs/MainTabs";
@@ -234,6 +235,11 @@ const ResourceCenter = () => {
     }
   };
 
+  const resetDataFilter = () => {
+    setTagSwitch("");
+    setType("all");
+  };
+
   return (
     <div>
       {width > "600" ? (
@@ -300,7 +306,11 @@ const ResourceCenter = () => {
                   </p>
                 </Col>
                 <Col span={2}>
-                  <img src={resourcereset} style={{ height: 25, width: 25 }} />
+                  <img
+                    onClick={resetDataFilter}
+                    src={resourcereset}
+                    style={{ height: 25, width: 25, cursor: "pointer" }}
+                  />
                 </Col>
               </Row>
               <hr style={{ marginTop: 5 }} />
@@ -314,6 +324,7 @@ const ResourceCenter = () => {
                         borderWidth: 1,
                         borderRadius: 5,
                         padding: 3,
+                        marginRight: 5,
                       }}
                       className={tagSwitch === res.name ? "active" : "inactive"}
                       onClick={() => setTagSwitch(res.name)}
@@ -521,10 +532,22 @@ const ResourceCenter = () => {
                           width: 280,
                           marginBottom: "10px",
                           margin: "5px",
+                          overflow: "hidden",
+                          position: "relative",
                         }}
                         className="card_body"
-                        cover={<img alt="example" src={res.thumbnail} />}
+                        cover={
+                          <img
+                            alt="example"
+                            class="card_img"
+                            src={res.thumbnail}
+                          />
+                        }
                       >
+                        <a href="mailto:hasansadiqu@gmail.com">
+                          <ShareAltOutlined className="share_button" />
+                        </a>
+
                         <div style={{ width: "100%" }}>
                           <div className="Body_text">
                             <p>{res.title}</p>
@@ -533,7 +556,7 @@ const ResourceCenter = () => {
                             <p>{res.contentCategory}</p>
                           </div>
                           <div style={{ padding: "6px" }}>
-                            <button type="button" className="block">
+                            <button type="button" className="cardbutton block">
                               View Now
                             </button>
                           </div>

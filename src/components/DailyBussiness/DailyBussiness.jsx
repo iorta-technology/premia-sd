@@ -255,6 +255,8 @@ const DailyBussiness = () => {
     if (currentTabValue === "Team") {
       gethirarchyData(id);
       setCurrentIDTeam(id);
+    } else {
+      setReporting_users([]);
     }
   };
 
@@ -327,6 +329,7 @@ const DailyBussiness = () => {
   };
 
   const getReportingUsers = (e) => {
+    console.log(e);
     setReporting_users(
       userTreeData.reporting_users.filter((el) => el.hierarchy_id === e)
     );
@@ -631,7 +634,7 @@ const DailyBussiness = () => {
       <Tabs tabMenu={[]} header="Daily Business" activeKey="1" />
       <div style={{ padding: "0 3%", paddingBottom: "30px" }}>
         <Row className="tabs">
-          {checkAgent() === true && (
+          {checkAgent() === false && (
             <>
               <Col
                 xs={12}
@@ -698,7 +701,6 @@ const DailyBussiness = () => {
                 size="medium"
                 style={{
                   width: "100%",
-
                   border: "1px solid rgba(0,0,0,0.2)",
                 }}
                 onChange={getReportingUsers}
@@ -711,40 +713,35 @@ const DailyBussiness = () => {
               </Select>
             </Col>
           )}
-          {currentTabValue === "Team" && reporting_users.length > 0 && (
-            <Col
-              xs={12}
-              sm={12}
-              md={12}
-              lg={2}
-              xl={2}
-              className="selectionPeroson"
-              style={{ marginTop: "10px", padding: "0 5px" }}
-            >
-              <Select
-                defaultValue={{ value: "", label: "Select " }}
-                size="medium"
-                onChange={(e) => gethirarchyData(e)}
-                style={{
-                  width: "100%",
-                  border: "1px solid rgba(0,0,0,0.2)",
-                }}
+          {currentTabValue === "Team" &&
+            reporting_users &&
+            reporting_users.length > 0 && (
+              <Col
+                xs={12}
+                sm={12}
+                md={12}
+                lg={3}
+                xl={3}
+                className="selectionPeroson"
+                style={{ marginTop: "10px", padding: "0 5px" }}
               >
-                {/* <Select
-                  value={teamData}
-                  options={teamMemberList}
-                  onChange={(event) => handleTeamListData(event)}
-                  placeholder="Select Team Member"
-                ></Select> */}
-
-                {reporting_users?.map((res, index) => (
-                  <Option key={index} value={res._id}>
-                    {res.first_name} {res.last_name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-          )}
+                <Select
+                  defaultValue={{ value: "", label: "Select " }}
+                  size="medium"
+                  onChange={(e) => gethirarchyData(e)}
+                  style={{
+                    width: "100%",
+                    border: "1px solid rgba(0,0,0,0.2)",
+                  }}
+                >
+                  {reporting_users?.map((res, index) => (
+                    <Option key={index} value={res._id}>
+                      {res.first_name} {res.last_name}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+            )}
         </Row>
         {checkAgent() === false && <hr style={{ marginBottom: "20px" }} />}
         {currentTabValue === "Self" ? (
