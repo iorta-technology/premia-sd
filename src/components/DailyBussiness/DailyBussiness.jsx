@@ -631,7 +631,7 @@ const DailyBussiness = () => {
       <Tabs tabMenu={[]} header="Daily Business" activeKey="1" />
       <div style={{ padding: "0 3%", paddingBottom: "30px" }}>
         <Row className="tabs">
-          {checkAgent() === false && (
+          {checkAgent() === true && (
             <>
               <Col
                 xs={12}
@@ -688,8 +688,8 @@ const DailyBussiness = () => {
               xs={12}
               sm={12}
               md={12}
-              lg={4}
-              xl={4}
+              lg={3}
+              xl={3}
               className="selectionPeroson"
               style={{ marginTop: "10px", padding: "0 5px" }}
             >
@@ -716,8 +716,8 @@ const DailyBussiness = () => {
               xs={12}
               sm={12}
               md={12}
-              lg={4}
-              xl={4}
+              lg={2}
+              xl={2}
               className="selectionPeroson"
               style={{ marginTop: "10px", padding: "0 5px" }}
             >
@@ -780,7 +780,7 @@ const DailyBussiness = () => {
                   </Avatar>
                   <Row style={{ flexDirection: "column", marginLeft: "10px" }}>
                     <Text strong>
-                      {user?.csm_details?.first_name}
+                      {user?.csm_details?.first_name}{" "}
                       {user?.csm_details?.last_name}
                     </Text>
                     <Row>
