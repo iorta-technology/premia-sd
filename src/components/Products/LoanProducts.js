@@ -132,32 +132,29 @@ const LoanProducts = () => {
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
-  const sdata = [
-    {
-      name: "Policy Wordings",
-      img: "../../assets/brochrewhite.png",
-      lan: "English",
-    },
-  ];
+  const [sdata, SetSdata] = useState([
+    { name: "Policy Wordings", language: "English", location: "1237786786" },
+    { name: "Policy Wordings", language: "English,", location: "123" },
+    { name: "Policy Wordings", language: "English", location: "123545" },
+  ]);
 
   const showModal1 = () => {
     setIsModalVisible1(true);
   };
 
-  const dataaa = [
-    {
-      Product_Brochure_data:
-        "https://image-upload-bucket-2019.s3.ap-south-1.amazonaws.com/e5f937750169e9621db3ee042e393799f01d5d3a.pdf",
-      product_name: "Home Sure",
-      sendto: "test@grr.la",
-    },
-  ];
   const handleOk1 = async () => {
     // setIsModalVisible1(false);
-    message.error("Please, Select a Brochure and add an E-mail");
+    // message.error('Please, Select a Brochure and add an E-mail')
+
+    let dataaa = {
+      Product_Brochure_data: selectedData.map((res) => res.location),
+      product_name: "",
+      sendto: list,
+    };
+
     try {
-      let res = await axiosRequest.post(`user/send_email_brochure`, ...dataaa);
-      console.log("hgh--", res);
+      let res = await axiosRequest.post(`user/send_email_brochure`, dataaa);
+      console.log("hgh--", res.Product_Brochure_data);
     } catch (error) {
       console.log("error API " + error);
     }
@@ -258,6 +255,14 @@ const LoanProducts = () => {
 
   const handleDelete = (id) => {
     setList((oldData) => oldData.filter((elem, index) => index !== id));
+  };
+
+  const [selectedData, setSelectedData] = useState([]);
+  const [productData1, setProductData1] = useState([]);
+  const selecteDataFun = (value) => {
+    console.log("value = ", value);
+    setSelectedData((res) => [...res, value]);
+    setProductData1();
   };
 
   return (
@@ -598,7 +603,11 @@ const LoanProducts = () => {
       >
         <form>
           <Row gutter={16}>
-            <Col>
+            <Col
+              style={{
+                display: "flex",
+              }}
+            >
               {sdata.map((brodata, index) => (
                 <div
                   style={{
@@ -618,7 +627,8 @@ const LoanProducts = () => {
                     {brodata.name}
                   </p>
                   <img
-                    src={brodata.img}
+                    onClick={() => selecteDataFun(brodata)}
+                    src={Brocher}
                     height="100px"
                     width="90px"
                     className="broimg"
@@ -633,7 +643,7 @@ const LoanProducts = () => {
                       textAlign: "center",
                     }}
                   >
-                    {brodata.lan}
+                    {brodata.language}
                   </p>
                 </div>
               ))}
