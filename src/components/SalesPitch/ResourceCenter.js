@@ -28,6 +28,8 @@ import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
+  ShareAltOutlined,
+  PieChartOutlined,
 } from "@ant-design/icons";
 import VideoPlayer from "react-video-js-player";
 import MainTabs from "../../components/MainTabs/MainTabs";
@@ -42,6 +44,7 @@ import viewicon from "../../assets/viewicon.png";
 import actionNoData from "../../assets/Actionnodata.png";
 import axiosRequest from "../../axios-request/request.methods";
 import { useSelector } from "react-redux";
+import { map } from "lodash";
 const { Meta } = Card;
 const tabMenu = [
   {
@@ -177,7 +180,8 @@ const ResourceCenter = () => {
       )
       .then((res) => {
         SetProductData(res);
-        setActiveId(res[0]._id);
+        setActiveId(res[0]?._id);
+        console.log("res[0]._id", res);
       })
       .catch((err) => console.log(err));
 
@@ -196,7 +200,6 @@ const ResourceCenter = () => {
         )
         .then((res) => {
           setCurrentData(res[0]);
-          console.log("currentData", currentData);
         })
         .catch((err) => console.log(err));
   };
@@ -208,7 +211,7 @@ const ResourceCenter = () => {
           `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=${activeId}&filter=1&tagName=${tagSwitch}&skip=0`, // filter_by
           { secure: true }
         )
-        .then((res) => setCurrentData(res))
+        .then((res) => setCurrentData(res[0]))
         .catch((err) => console.log(err));
   };
 
@@ -220,7 +223,7 @@ const ResourceCenter = () => {
             `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=${activeId}&filter=1&tagName=${tagSwitch}&skip=0`,
             { secure: true }
           )
-          .then((res) => setCurrentData(res))
+          .then((res) => setCurrentData(res[0]))
           .catch((err) => console.log(err));
     } else {
       activeId &&
@@ -229,9 +232,14 @@ const ResourceCenter = () => {
             `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=${activeId}&filter=1&tagName=${tagSwitch}&filterByMediaCategory=${type}&skip=0`,
             { secure: true }
           )
-          .then((res) => setCurrentData(res))
+          .then((res) => setCurrentData(res[0]))
           .catch((err) => console.log(err));
     }
+  };
+
+  const resetDataFilter = () => {
+    setTagSwitch("");
+    setType("all");
   };
 
   return (
@@ -300,7 +308,11 @@ const ResourceCenter = () => {
                   </p>
                 </Col>
                 <Col span={2}>
-                  <img src={resourcereset} style={{ height: 25, width: 25 }} />
+                  <img
+                    onClick={resetDataFilter}
+                    src={resourcereset}
+                    style={{ height: 25, width: 25, cursor: "pointer" }}
+                  />
                 </Col>
               </Row>
               <hr style={{ marginTop: 5 }} />
@@ -314,6 +326,8 @@ const ResourceCenter = () => {
                         borderWidth: 1,
                         borderRadius: 5,
                         padding: 3,
+                        marginRight: 5,
+                        marginBottom: 5,
                       }}
                       className={tagSwitch === res.name ? "active" : "inactive"}
                       onClick={() => setTagSwitch(res.name)}
@@ -521,10 +535,23 @@ const ResourceCenter = () => {
                           width: 280,
                           marginBottom: "10px",
                           margin: "5px",
+                          overflow: "hidden",
+                          position: "relative",
                         }}
                         className="card_body"
-                        cover={<img alt="example" src={res.thumbnail} />}
+                        cover={
+                          <img
+                            alt="example"
+                            class="card_img"
+                            src={res.thumbnail}
+                          />
+                        }
                       >
+                        <a href="mailto:hasansadiqu@gmail.com">
+                          <ShareAltOutlined className="share_button" />
+                        </a>
+                        <div className="center_icon"></div>
+
                         <div style={{ width: "100%" }}>
                           <div className="Body_text">
                             <p>{res.title}</p>
@@ -533,7 +560,7 @@ const ResourceCenter = () => {
                             <p>{res.contentCategory}</p>
                           </div>
                           <div style={{ padding: "6px" }}>
-                            <button type="button" className="block">
+                            <button type="button" className="cardbutton block">
                               View Now
                             </button>
                           </div>

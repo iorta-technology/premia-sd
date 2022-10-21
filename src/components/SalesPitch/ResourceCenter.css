@@ -54,6 +54,10 @@
     margin-left: 40px;
 }
 
+.tabs{
+    margin-left:40px;
+}
+
 .ant-btn.primaryBtn{
     /* background-color: rgb(255, 255, 255); */
     background-color: #D2DDE8;;
@@ -69,10 +73,8 @@
     background-color: #D2DDE8;;
     color: rgb(60, 61, 61);
     border-radius: 20px;
-    width: 150px;
+    width: 190px;
     border: none;
-    margin-left: 1vw;
-    margin-right: 1vw;
     justify-content: space-between;
     /* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%); */
 }
@@ -118,6 +120,26 @@
    align-items: flex-start;
    flex-wrap: wrap;
    margin-bottom: 10px;
+}
+
+.share_button{
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    background: #fff;
+    border-radius: 50px;
+    padding: 20px;
+    font-size: large;
+    padding: 12px;
+    color: #00acc1;
+    font-weight: 1000;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.card_img{
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
 }
 
 .card{
@@ -229,6 +251,26 @@
     color: rgb(73, 72, 72);
     letter-spacing: 1px;
 }
+
+.cardbutton.block{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 3px;
+    padding: 7px 20px;
+}
+
+.center_icon{
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%,-50%);
+    background-image: url("https://pocbanca.iorta.in/assets/Group19142x.png");
+    width: 20px;
+    height: 20px;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    border-radius: 50px;
+}
+
 .block {
     display: block;
     width: 100%;

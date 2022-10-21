@@ -17,6 +17,7 @@ import {
   PlusCircleFilled,
   MailOutlined,
   CloseOutlined,
+  ConsoleSqlOutlined,
 } from "@ant-design/icons";
 import { Tabs, Alert } from "antd";
 // import axios from '../../axios-common';
@@ -38,7 +39,7 @@ import { useSelector } from "react-redux";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import shareIt from "../../assets/shareit.png";
 import { fontStyle } from "@mui/system";
-import browimg from '../../assets/brochrewhite.png'
+import browimg from "../../assets/brochrewhite.png";
 
 const LoanProducts = () => {
   const contentStyle = {
@@ -128,44 +129,20 @@ const LoanProducts = () => {
     //    ...objdata,
     // Tabs
     // ]
-
-
-
   }, []);
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
-  const sdata = [
-    {name: 'Policy Wordings', img: '../../assets/brochrewhite.png',  lan: 'English'}
-  ]
+  const [sdata,SetSdata] = useState([])
+ 
 
   const showModal1 = () => {
     setIsModalVisible1(true);
   };
 
-  const dataaa = [
-    {
-    Product_Brochure_data:"https://image-upload-bucket-2019.s3.ap-south-1.amazonaws.com/e5f937750169e9621db3ee042e393799f01d5d3a.pdf",
-     product_name:"Home Sure",
-     sendto:"test@grr.la"
-    },
-  ]
-  const handleOk1 = async () => {
-    // setIsModalVisible1(false);
-   message.error('Please, Select a Brochure and add an E-mail')
-   try {
-    let res = await axiosRequest.post(`user/send_email_brochure`, ...dataaa );
-      console.log("hgh--", res);
-  } catch (error) {
-    console.log("error API " + error);
-  }
-  };
-
   const handleCancel1 = () => {
     setIsModalVisible1(false);
   };
-
- 
 
   const [benefitIllustratorArr, setBenefitIllustratorArr] = useState([]);
   const topBtnClickHandler = (item) => {
@@ -181,9 +158,12 @@ const LoanProducts = () => {
         }
       )
       .then((resp) => {
-        console.warn("PRODUCTTTT____APIIIIII", resp);
+        console.log("PRODUCTTTT____APIIIIII =================== ", resp.data.errMsg[0].productBrochure);
+       // SetSdata(resp.data.errMsg[0].productBrochure)
+        
         const productTabs = resp?.data?.errMsg;
         SetProductTabs(productTabs);
+        console.log("sdataaa0000======", productTabs)
       }, [])
       .catch((error) => {
         console.log(error);
@@ -250,8 +230,8 @@ const LoanProducts = () => {
     if (data) {
       setList((oldData) => [...oldData, data]);
       setData("");
-    }else{
-        message.error('Please add an e-mail first');
+    } else {
+      message.error("Please add an e-mail first");
     }
     e.preventDefault();
   };
@@ -260,9 +240,41 @@ const LoanProducts = () => {
     setList((oldData) => oldData.filter((elem, index) => index !== id));
   };
 
+  const [selectedData, setSelectedData] = useState([])
+  const selecteDataFun =(value) =>{
+    console.log("value = ",value)
+    setSelectedData(res => [...res,value])
+  }
+
+  const changeTabfun =(e) => {
+    //  sdata
+     for(var i=0; i<productTabs.length; i++){
+         console.log(e == productTabs[i]._id, productTabs[i])
+         if(e == productTabs[i]._id){
+            SetSdata(productTabs[i].productBrochure);
+         }
+     }
+  }
   
 
-  
+  const handleOk1 = async () => {
+    // setIsModalVisible1(false);
+   // message.error('Please, Select a Brochure and add an E-mail')
+   let dataaa = 
+   {
+     Product_Brochure_data:selectedData.map(res => res.location),
+     product_name:selectedData.map(res => res.fileCategory ),
+     sendto: list
+   }
+   try {
+    let res = await axiosRequest.post(`user/send_email_brochure`, dataaa );
+      console.log("hgh--", res);
+  } catch (error) {
+    console.log("error API " + error);
+  }
+  };
+
+
   return (
     <>
       {/* <div className='product-content'> */}
@@ -293,8 +305,8 @@ const LoanProducts = () => {
       {productData.length > 0 ? (
         <div className="loan-product-tabs">
           <Col gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
-            <Tabs type="card" tabPosition={tabPosition}>
-              {productTabs.map((item) => {
+            <Tabs type="card" tabPosition={tabPosition} onChange={changeTabfun}>
+              {productTabs.map((item,index) => {
                 return (
                   <TabPane
                     tab={item.productName}
@@ -313,6 +325,7 @@ const LoanProducts = () => {
                         <div className="main-card2" bordered={false}>
                           <div
                             className="benefit-main"
+                            
                             style={{
                               display: "flex",
                               alignItems: "center",
@@ -326,6 +339,7 @@ const LoanProducts = () => {
                                 textTransform: "capitalize",
                               }}
                               className="benefit-head"
+                              
                             >
                               {item.productName}
                             </h1>
@@ -488,7 +502,7 @@ const LoanProducts = () => {
                       xl={12}
                     >
                       <div className="main-card3" bordered={false}>
-                        <div className="share_button">
+                        <div className="share_button1">
                           <img src={shareIt} onClick={showModal1} />
                         </div>
                         <h4
@@ -593,24 +607,26 @@ const LoanProducts = () => {
             <MailOutlined /> send
           </Button>,
           <Button className="cancle" onClick={handleCancel1} key="2">
-            <CloseOutlined /> Cancle
+            <CloseOutlined /> Cancel
           </Button>,
         ]}
         closable={false}
         className="modalStyle"
       >
         <form>
-        <Row gutter={16}>
-          <Col>
+        <Row gutter={16} >
+          <Col style={{
+                display: "flex",}}>
           {
-            sdata.map((brodata, index) => (
+            sdata?.map((brodata, index) => (
               <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
+                marginRight: "10px"
+                
               }}
-              key={index}
             >
               <p
                 style={{
@@ -619,9 +635,11 @@ const LoanProducts = () => {
                   marginBottom: 5,
                 }}
               >
-                {brodata.name}
+                {
+                  brodata.fileCategory === "" ? "-" : brodata.fileCategory }
+                
               </p>
-              <img src={brodata.img} height="100px" width="90px" className="broimg" />
+              <img onClick={() => selecteDataFun(brodata)} src={Brocher} height="100px" width="90px" className="broimg" />
               <p
                 style={{
                   color: "#5EA5C0",
@@ -632,105 +650,50 @@ const LoanProducts = () => {
                   textAlign: "center",
                 }}
               >
-                {brodata.lan}
+                {brodata.language}
               </p>
             </div>
             ))
           }
             
           </Col>
-           {/*<Col>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  color: "#454F63",
-                  marginBottom: 5,
-                }}
-              >
-                Test Cat 1
-              </p>
-              <img height="100px" width="90px"></img>
-
-              <p
-                style={{
-                  color: "#5EA5C0",
-                  width: "100%",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  marginTop: "10px",
-                  textAlign: "center",
-                }}
-              >
-                English
-              </p>
-            </div>
-          </Col>
-          <Col>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  color: "#454F63",
-                  marginBottom: 5,
-                }}
-              >
-                Test Cat 2
-              </p>
-              <img height="100px" width="90px"></img>
-
-              <p
-                style={{
-                  color: "#5EA5C0",
-                  width: "100%",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  marginTop: "10px",
-                  textAlign: "center",
-                }}
-              >
-                English
-              </p>
-            </div>
-          </Col> */}
         </Row>
-
-          
-          <Row gutter={16}>
-           <Col>
-            <Input className="inp" placeholder="E-Mail ID" value={data} onChange={(e) =>setData(e.target.value)} />
+        {(sdata && sdata?.length > 0) ? <Row gutter={16}>
+            
+            <Col>
+              <Input
+                className="inp"
+                placeholder="E-Mail ID"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+              />
             </Col>
             <Col>
-            <button onClick={(e) => handleSubmit(e)} className="button_calss">Add <PlusCircleFilled /></button>
+              <button onClick={(e) => handleSubmit(e)} className="button_calss">
+                Add <PlusCircleFilled />
+              </button>
             </Col>
-          </Row>
+          </Row> : <p className="product_data">No Product Brochure Found</p> }
+
           
 
           <Row>
-          <div className="disply">
-          {
-            list.map((item, id) => (
-              <div key={id} className='listData'>
-                  <span>{item} </span> <button className="delet_btn" onClick={() => handleDelete(id)}>X</button>
+            <div className="disply">
+              {list.map((item, id) => (
+                <div key={id} className="listData">
+                  <span>{item} </span>{" "}
+                  <button
+                    className="delet_btn"
+                    onClick={() => handleDelete(id)}
+                  >
+                    X
+                  </button>
                 </div>
-              ))
-          }                                                                                                           </div>
+              ))}{" "}
+            </div>
           </Row>
-          </form>
-        </Modal>
-      
+        </form>
+      </Modal>
     </>
   );
 };
