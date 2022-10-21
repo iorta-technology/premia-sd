@@ -44,6 +44,7 @@ import viewicon from "../../assets/viewicon.png";
 import actionNoData from "../../assets/Actionnodata.png";
 import axiosRequest from "../../axios-request/request.methods";
 import { useSelector } from "react-redux";
+import { map } from "lodash";
 const { Meta } = Card;
 const tabMenu = [
   {
@@ -179,7 +180,8 @@ const ResourceCenter = () => {
       )
       .then((res) => {
         SetProductData(res);
-        setActiveId(res[0]._id);
+        setActiveId(res[0]?._id);
+        console.log("res[0]._id", res);
       })
       .catch((err) => console.log(err));
 
@@ -198,7 +200,6 @@ const ResourceCenter = () => {
         )
         .then((res) => {
           setCurrentData(res[0]);
-          console.log("currentData", currentData);
         })
         .catch((err) => console.log(err));
   };
@@ -210,7 +211,7 @@ const ResourceCenter = () => {
           `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=${activeId}&filter=1&tagName=${tagSwitch}&skip=0`, // filter_by
           { secure: true }
         )
-        .then((res) => setCurrentData(res))
+        .then((res) => setCurrentData(res[0]))
         .catch((err) => console.log(err));
   };
 
@@ -222,7 +223,7 @@ const ResourceCenter = () => {
             `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=${activeId}&filter=1&tagName=${tagSwitch}&skip=0`,
             { secure: true }
           )
-          .then((res) => setCurrentData(res))
+          .then((res) => setCurrentData(res[0]))
           .catch((err) => console.log(err));
     } else {
       activeId &&
@@ -231,7 +232,7 @@ const ResourceCenter = () => {
             `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=${activeId}&filter=1&tagName=${tagSwitch}&filterByMediaCategory=${type}&skip=0`,
             { secure: true }
           )
-          .then((res) => setCurrentData(res))
+          .then((res) => setCurrentData(res[0]))
           .catch((err) => console.log(err));
     }
   };
