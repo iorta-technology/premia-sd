@@ -23,7 +23,8 @@ function DefaultChannel() {
   const history = useHistory();
   const _store = useSelector((state) => state);
   const bankData = _store?.login?.multiChannel ? _store?.login?.multiChannel : stoageGetter('multi_channel')
-  // console.warn("STORE DATA----------", bankData);
+  
+   console.log("STORE DATA----------", _store);
 
   const [bankID, setBankID] = useState(bankData[0].channelCode._id);
 

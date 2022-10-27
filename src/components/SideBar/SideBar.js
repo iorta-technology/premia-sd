@@ -203,7 +203,7 @@ useEffect(() => {
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
             <FaIcons.FaBell onClick={() => toggleModal(!modalShown)} />
-            {_notify?.length && _notify?.length > 0 && clearBtn ? <div className='dot'></div> : ''}
+            {_notify?.length && _notify?.length > 0 && clearBtn && (!modalShown) ? <div className='dot'></div> : ''}
           </NavIcon>
           <NavIcon onClick={showSidebar} to='#'>
             <FaIcons.FaUserCircle />

@@ -259,7 +259,6 @@ const LoanProducts = () => {
 
   const handleOk1 = async () => {
   // setIsModalVisible1(false);
-   // message.error('Please, Select a Brochure and add an E-mail')
    let dataaa = 
    {
      Product_Brochure_data:selectedData.map(res => res.location),
@@ -267,11 +266,20 @@ const LoanProducts = () => {
      sendto: list
    }
    
+   if (dataaa.Product_Brochure_data && dataaa.Product_Brochure_data.length == 0 || dataaa.sendto && dataaa.sendto.length == 0) {
+     message.error('Please, Select a Brochure and add an E-mail')
+   }
+  
+   
    try {
     let res = await axiosRequest.post(`user/send_email_brochure`, dataaa );
         if (res.mailgunres.message === 'Queued. Thank you.') {
           message.success('Queued. Thank you.')
+          
+          handleCancel1()
         }
+
+        
     } catch (error) {
       console.log("error API " + error);
     }
