@@ -67,6 +67,7 @@ const logoutStart = (state, action) => {
 };
 
 const logoutSuccess = (state, action) => {
+
   stoageSetter("user", null);
   stoageSetter("headers", {});
   window.localStorage.removeItem("user");
