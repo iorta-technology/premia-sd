@@ -7,6 +7,7 @@ import EventCreate from '../EventCreate/EventCreate'
 import HistoryTab from '../History-showedData/index'
 import axios from 'axios'
 import {stoageGetter} from '../../../../helpers'
+import axiosRequest from '../../../../axios-request/request.methods'
 
 import { useDispatch, useSelector } from 'react-redux';
 const { Option } = Select;
@@ -40,6 +41,8 @@ const _date = new Date();
   const [year,setyear]=useState(currentyear)
   const [CurentOrPast,setCurentOrPast]=useState()
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [currentpastdata, setCurrentPastData] = useState();
+  const [currentpastdataln, setCurrentPastDataLn] = useState();
   const breakpoint = 620;
   const options=["All","Zonal Manager","Area Manager","Sales Manager"];
   const options2=["Ankit Singh","Rahul Patali","Otter","Sawa"];
@@ -47,6 +50,34 @@ const _date = new Date();
 
   const _dataStore = useSelector((state) => state?.home?.user_tree)
   console.log(_dataStore, 'datastore before----->')
+
+  let {id}=stoageGetter('user');
+  const login_user_data = stoageGetter("user");
+  const agent_id = login_user_data.agentId;
+  const currentpastapi = async ()=>{
+    console.log(month,'month----><<<<<');
+    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${month}/${year}&category=past&agentCode=${agent_id}`);
+    console.log(data, 'curent pastt-------t');
+    setCurrentPastData(data);
+    setCurrentPastDataLn(data.length)
+  }
+
+  useEffect(()=>{
+    if( (month == 1+new Date().getMonth() && year == new Date().getFullYear())){
+        console.log('yesssss curent past data here----->')
+        currentpastapi();
+       }
+    console.log(month.toString().length, 'length==================');
+    if(month.toString().length >1){
+     setMonth(month)
+    }else{
+     let num =  month.toString()
+     let add = '0' + num
+     setMonth(add)
+     console.log(add);
+    }
+   
+   },[month,year])
   useEffect(() => {
     try{
     
@@ -105,7 +136,7 @@ const _date = new Date();
 
      
         
-    {/* {
+    {
         windowWidth > breakpoint &&
         <Row>
         <Col md={9} lg={9} xl={9}>
@@ -194,10 +225,10 @@ const _date = new Date();
                     }
                     
         </div>
-    } */}
+    }
            
         <div className="Team-Calender">
-        {/* {
+        {
         windowWidth >breakpoint &&
             <Row className='Team-Calender-row'>
                 <Col span={9} className='Team-Calender-first'>
@@ -212,8 +243,8 @@ const _date = new Date();
                     <Button> <CloudUploadOutlined /> Export</Button>
                 </Col>
             </Row>
-        } */}
-          {/* {
+        }
+          {
         windowWidth < breakpoint &&
         <div>
             <Row className='Team-Calender-row'>
@@ -232,7 +263,7 @@ const _date = new Date();
                 </Col>
             </Row>
             </div>
-        } */}
+        }
         </div>
         <EventCreate monthData={setMonth} yearData={setyear} />
         <div className=''>
@@ -241,7 +272,7 @@ const _date = new Date();
         {   
             ((month) == ( 1 + new Date().getMonth()) && (year) == (new Date().getFullYear())) 
             ?
-            <HistoryTab Remove={RemoveData} CurentOrPast={setCurentOrPast} teamPast= '0'/>
+            <HistoryTab Remove={RemoveData} CurentOrPast={setCurentOrPast} teamPast= {currentpastdataln} teampastData = {currentpastdata}/>
             :((month) >= ( 1 + new Date().getMonth()) && (year) >= (new Date().getFullYear())) ||
             (month < (1+ new Date().getMonth()) && year > (new Date().getFullYear()))
             ?

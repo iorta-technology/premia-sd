@@ -14,8 +14,8 @@
    color:rgb(60, 61, 61);
 }
 .bodyData-Date span{
-    margin-left: 5px;
-    color:rgb(60, 61, 61);
+    margin-left: 5px !important;
+    color:rgb(60, 61, 61) !important;
 }
 .bodyData-Date p:nth-child(2){
     background-color: #5da5c0;
