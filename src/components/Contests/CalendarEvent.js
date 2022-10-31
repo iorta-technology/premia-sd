@@ -4297,7 +4297,7 @@ export default function CalendarEvent(props) {
                     <div className="Input-date">
                     <DatePicker onChange={StartDateFunc}
                         allowClear={false}
-                        // disabledDate={d => !d || d.isBefore(minimumDate)}
+                        disabledDate={d => !d || d.isBefore(minimumDate)}
                        defaultValue={durationStartDate}
                      value={durationStartDate}
                       format="YYYY-MM-DD"
