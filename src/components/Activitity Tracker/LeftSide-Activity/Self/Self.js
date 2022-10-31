@@ -19,6 +19,8 @@ const Self = () => {
   const [CurentOrPast,setCurentOrPast]=useState()
   const [pastEventLenght,setPastEventLength]=useState();
   const [getshow, setGetShow] = useState();
+  const [currentpastdata, setCurrentPastData] = useState();
+  const [currentpastdataln, setCurrentPastDataLn] = useState();
   let getdata = false;
   // const childRef = useRef(null);
 
@@ -30,12 +32,21 @@ const Self = () => {
     api();
   },[]);
 
+
 // },[month,year,CurentOrPast]);
   let {id}=stoageGetter('user');
   const api = async ()=>{
     let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
-    console.log(data);
+    console.log(data, 'pastt-------t');
     setPastDataContainer(data);
+  }
+
+  const currentpastapi = async ()=>{
+    console.log(month,'month----><<<<<');
+    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=past`);
+    console.log(data, 'curent pastt-------t');
+    setCurrentPastData(data);
+    setCurrentPastDataLn(data.length)
   }
 
   useEffect(()=>{
@@ -53,17 +64,37 @@ const Self = () => {
       }
     } 
   },[PastDataContainer])
+
+  useEffect(()=>{
+   if( (month == 1+new Date().getMonth() && year == new Date().getFullYear())){
+    console.log('yesssss curent past data here----->')
+    currentpastapi();
+   }
+   console.log(month.toString().length, 'length==================');
+   if(month.toString().length >1){
+    setMonth(month)
+   }else{
+    let num =  month.toString()
+    let add = '0' + num
+    setMonth(add)
+    console.log(add);
+   }
+  
+  },[month,year])
  
   return (
     <div className='Self-Container'>
       <EventCreate monthData={setMonth} yearData={setyear}  getFunc = {api}  getdata = {setGetShow} />
         <div className='eventChange'>
+   
+
             {
-              PastDataContainer?.length >0 && 
+              // PastDataContainer?.length >0 && 
               (month == 1+new Date().getMonth() && year == new Date().getFullYear())
               ?
                 <PastFutureData CurentOrPast={setCurentOrPast}
-                pastData={pastEventLenght}/>
+                pastDataln={currentpastdataln}
+                pastData={currentpastdata}/>
               :""
             }
         </div>
@@ -71,7 +102,7 @@ const Self = () => {
           {
               (month == (1+new Date().getMonth()) && year == (new Date().getFullYear()))
               ?
-              ""
+              "UPCOMING"
               :
               (month >= (1+new Date().getMonth()) && year >= (new Date().getFullYear())) ||
               (month < (1+ new Date().getMonth()) && year > (new Date().getFullYear()))

@@ -135,7 +135,7 @@ export default function CalendarEvent(props) {
 };
 
   useEffect(()=>{
-    console.log('user id calendar event----PROPSSS----->',props)
+    console.log('user id calendar event----PROPSSS----->',props.setIsModalVisible)
     // let userid =stoageGetter('user')
     console.log(props.click)
     if(props.click == 'data'||"UPDATE EVENT"){
@@ -1038,7 +1038,7 @@ export default function CalendarEvent(props) {
   const [durationStartTimeCheck, setDurationStartTimeCheck] = useState(true);
   const [durationEndTimeCheck, setDurationEndTimeCheck] = useState(true);
   const[durationStartDateOperation,setDurationStartDateOperation]=useState();
-  const[durationEndDateOperation,setDurationEndDateOperation]=useState();
+  const[durationEndDateOperation,setDurationEndDateOperation]=useState('');
   const[durationStartTimeOperation,setDurationStartTimeOperation]=useState();
   const[durationEndTimeOperation,setDurationEndTimeOperation]=useState();
   const[durationStartDateHelper,setDurationStartDateHelper]=useState();
@@ -1232,7 +1232,7 @@ export default function CalendarEvent(props) {
   const[teamOnClickVal,setTeamOnClickVal]=useState()
   const[searchTeamText,setSearchTeamText]=useState("");
   const[teamOnClickCheck,setTeamOnClickCheck]=useState(false)
-
+  const minimumDate = moment().format("YYYY-MM-DD")
   // axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/60c2fdb39c78a32644d0cf63?teamdata=0&filter=${month}&category=past
   // `,{
   //   // params:{
@@ -1873,18 +1873,19 @@ export default function CalendarEvent(props) {
       console.log(dateString)
       setDurationStartDate(moment(date))
       setDurationEndDate(moment(date))
+      setDurationEndDateDiffCheck(true)
   let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
 
-  console.log(ms_date)
+  console.log(ms_date,'ms date---->--->')
 
       setDurationStartDateOperation(ms_date)
       setDurationEndDateOperation(ms_date)
       console.log("This is Start Date"+ms_date)
-      if(durationEndDateOperation<ms_date){
-        setDurationStartDateDiffCheck(false)
-        console.log("Start Date should we after end date")
-        return false
-      }
+      // if(durationEndDateOperation<ms_date){
+      //   setDurationStartDateDiffCheck(false)
+      //   console.log("Start Date should we after end date")
+      //   return false
+      // }
       // setDurationStartDateOperation(dateString,"YYYY-MM-DD")
       // setDurationStartDateCheck(true)
       // alert(moment(date).format("X"))
@@ -1907,7 +1908,6 @@ export default function CalendarEvent(props) {
       setDurationStartDate(moment(date))
   let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
 
-  console.log(ms_date)
 
       setDurationStartDateOperation(ms_date)
       console.log("This is Start Date"+ms_date)
@@ -1922,14 +1922,32 @@ export default function CalendarEvent(props) {
     const EndDateFunc = (e,date,dateString) => {
   setDurationEndDate(moment(date))
       let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
-
-      console.log(ms_date)
-      if(durationStartDateOperation>ms_date){
+      console.log()
+      console.log(ms_date, durationStartDateOperation)
+      if(ms_date < durationStartDateOperation){
         setDurationEndDateDiffCheck(false)
         console.log("End Date should be after start date")
         return false
+      }else{
+        setDurationEndDateDiffCheck(true)
       }
           setDurationEndDateOperation(ms_date)
+
+          if(((endTimeSelect)<startTimeSelect)&&startTimeSelect!=""&&(ms_date <= durationStartDateOperation)){
+            setDurationEndTimeDiffCheck(false)
+      console.log("TIme should be more than start time")
+          }
+          else{
+            setDurationEndTimeDiffCheck(true)
+          }
+
+          if(((endTimeSelect)<startTimeSelect)&&(ms_date <= durationStartDateOperation)){
+            setDurationStartTimeDiffCheck(false)
+                }
+                else{
+                  setDurationStartTimeDiffCheck(true)
+                }
+
   console.log("This is end Date"+ms_date)
 
 
@@ -1957,34 +1975,35 @@ export default function CalendarEvent(props) {
 
     const StartTimeChangeFunc=(e)=>{
 
-
+      console.log(e.target.value, 'start time--select-->');
       setStartTimeSelect(e.target.value)
 
       setDurationStartTimeCheck(true)
           console.log("This is the start Time"+e.target.value)
           let parseTime=parseInt(e.target.value)
+          console.log(parseTime, 'time--parse--->');
           setDurationStartTimeOperation(parseTime)
       let timeDiff=e.target.value
       setDurationEndTimeCheck(true)
       setEndTimeSelect((+timeDiff)+(+"3600000"))
-      console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
-  if(endTimeSelect==""){
+    
+ 
+    console.log((+timeDiff)+(+"3600000"),'end timevafter start----->');
     setEndTimeSelect((+timeDiff)+(+"3600000"))
-  console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
+ 
     let parseTimeCondition=parseInt()
     setDurationEndTimeCheck(true)
-    let parseTime=parseInt((+timeDiff)+(+"3600000"))
-    setDurationEndTimeOperation(parseTime)
-  }
+    let endparseTime=parseInt((+timeDiff)+(+"3600000"))
+    console.log(endparseTime, 'time--parse--->');
+    setDurationEndTimeOperation(endparseTime)
+
 
   // if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
   //     setDurationStartTimeDiffCheck(false)
   //     console.log("TIme should be less than end time")
   //         }
         
-  else{
-    setDurationStartTimeDiffCheck(true)
-  }
+
 
   //     setStartTimeSelect(e.target.value)
   //     setDurationStartTimeCheck(true)
@@ -2014,6 +2033,7 @@ export default function CalendarEvent(props) {
   //     console.log(e.target.value)
     }
     const EndTimeChangeFunc=(e)=>{
+      console.log(e.target.value, 'start time--select-->');
       setEndTimeSelect(e.target.value)
       setDurationEndTimeCheck(true)
       let parseTime=parseInt(e.target.value)
@@ -2024,14 +2044,14 @@ export default function CalendarEvent(props) {
         setDurationEndTimeSameCheck(false)
   console.log("TIme should not be same as start time")
       }
-      else if(((e.target.value)<startTimeSelect)){
+      else if(((e.target.value)<startTimeSelect)&&(durationEndDateOperation <= durationStartDateOperation)){
   setDurationStartTimeDiffCheck(false)
       }
       else{
         setDurationStartTimeDiffCheck(true)
         setDurationEndTimeSameCheck(true)
       }
-      if(((e.target.value)<startTimeSelect)&&startTimeSelect!=""){
+      if(((e.target.value)<startTimeSelect)&&startTimeSelect!=""&&(durationEndDateOperation <= durationStartDateOperation)){
         setDurationEndTimeDiffCheck(false)
   console.log("TIme should be more than start time")
       }
@@ -2248,8 +2268,8 @@ export default function CalendarEvent(props) {
           console.log(result, 'book update appointment result-------->')
 
           if(result.length !== 0){
-            props.api()
-            props.getdata(true)
+            if(props.api != undefined){  props.api() }
+            if(props.getdata != undefined){ props.getdata(true) }
             props.setIsModalVisible(false)
           }
 
@@ -2456,8 +2476,10 @@ export default function CalendarEvent(props) {
           console.log(result, 'book appointment result-------->')
 
           if(result.length !== 0){
-            props.api()
-            props.getdata(true)
+            console.log('book appointment--yes no length')
+            if(props.api != undefined){
+              props.api()}
+           if(props.getdata){ props.getdata(true) }
             props.setIsModalVisible(false)
           }
             }
@@ -4275,6 +4297,7 @@ export default function CalendarEvent(props) {
                     <div className="Input-date">
                     <DatePicker onChange={StartDateFunc}
                         allowClear={false}
+                        // disabledDate={d => !d || d.isBefore(minimumDate)}
                        defaultValue={durationStartDate}
                      value={durationStartDate}
                       format="YYYY-MM-DD"
@@ -4339,11 +4362,12 @@ export default function CalendarEvent(props) {
                       <DatePicker onChange={EndDateFunc}
                     allowClear={false}
                         // defaultValue={durationEndDate}
+                        disabledDate={d => !d || d.isBefore(minimumDate)}
                         format="YYYY-MM-DD"
                         value={durationEndDate}
                         className="CalendarEvent-Modal-picker-style"
                       />
-                       {/* {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should not be past from the Start date</p> : null} */}
+                       {durationEndDateDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">End Date should be after start date</p> : null}
                    </div>
                     </div>
                     <div
@@ -4403,6 +4427,7 @@ export default function CalendarEvent(props) {
                     <div className="Input-date"> 
                     <DatePicker onChange={allDayStartDate}
                         allowClear={false}
+                        disabledDate={d => !d || d.isBefore(minimumDate)}
                        defaultValue={durationStartDate}
                        value={durationStartDate}
                       format="YYYY-MM-DD"

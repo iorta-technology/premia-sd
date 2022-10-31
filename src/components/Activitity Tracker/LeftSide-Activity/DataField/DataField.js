@@ -22,7 +22,7 @@ const useWidowsSize = () => {
     return size;
 }
 
-const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) => {
+const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, SelfHere}) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [editData, setEditData] = useState({})
   //   const [isModalVisible, setIsModalVisible] = useState(
@@ -41,7 +41,91 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
       //   Data:e
       // });
     };
-
+    const[timeList,setTimeList]=useState( [{
+      dispValue: "8:00 AM",
+      value: "28800000"
+    }, {
+      dispValue: "8:30 AM",
+      value: "30600000"
+    }, {
+      dispValue: "9:00 AM",
+      value: "32400000"
+    }, {
+      dispValue: "9:30 AM",
+      value: "34200000"
+    }, {
+      dispValue: "10:00 AM",
+      value: "36000000"
+    }, {
+      dispValue: "10:30 AM",
+      value: "37800000"
+    }, {
+      dispValue: "11:00 AM",
+      value: "39600000"
+    }, {
+      dispValue: "11:30 AM",
+      value: "41400000"
+    }, {
+      dispValue: "12:00 PM",
+      value: "43200000"
+    }, {
+      dispValue: "12:30 PM",
+      value: "45000000"
+    }, {
+      dispValue: "1:00 PM",
+      value: "46800000"
+    }, {
+      dispValue: "1:30 PM",
+      value: "48600000"
+    }, {
+      dispValue: "2:00 PM",
+      value: "50400000"
+    }, {
+      dispValue: "2:30 PM",
+      value: "52200000"
+    }, {
+      dispValue: "3:00 PM",
+      value: "54000000"
+    }, {
+      dispValue: "3:30 PM",
+      value: "55800000"
+    }, {
+      dispValue: "4:00 PM",
+      value: "57600000"
+    }, {
+      dispValue: "4:30 PM",
+      value: "59400000"
+    }, {
+      dispValue: "5:00 PM",
+      value: "61200000"
+    }, {
+      dispValue: "5:30 PM",
+      value: "63000000"
+    }, {
+      dispValue: "6:00 PM",
+      value: "64800000"
+    }, {
+      dispValue: "6:30 PM",
+      value: "66600000"
+    }, {
+      dispValue: "7:00 PM",
+      value: "68400000"
+    }, {
+      dispValue: "7:30 PM",
+      value: "70200000"
+    }, {
+      dispValue: "8:00 PM",
+      value: "72000000"
+    }, {
+      dispValue: "8:30 PM",
+      value: "73800000"
+    }, {
+      dispValue: "9:00 PM",
+      value: "75600000"
+    }, {
+      dispValue: "9:30 PM",
+      value: "77400000"
+    }])
   const [DataContainer,setDataContainer]=useState();
   
 
@@ -51,61 +135,116 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
 
   useEffect(()=>{
      api();
-     console.log('yesssssss------>')
-  },[SelfMonthYear,TeamData,history,getdata]);
+    
+     console.log(TeamHere, 'self team here--->');
+  },[SelfMonthYear,TeamData,history,getdata,isModalVisible]);
 
   
 
   let {id}=stoageGetter('user')
+  const login_user_data = stoageGetter("user");
+  const agent_id = login_user_data.agentId;
     const api = async ()=>{
      
       const currentMonth =(1 + new Date().getMonth());
+
       const currentYear =new Date().getFullYear();
       const monthYear=currentMonth+'/'+currentYear;
       const MonthCompare = monthYear === SelfMonthYear;
+      console.log(typeof(SelfMonthYear),'monthyearrr------<<>><>M<M<');
+      console.log(TeamData, 'team yr---<><mvc><</mvc>');
+      console.log(history,'history------>');
+
+      if(SelfHere == 'self'){
+        var dS = SelfMonthYear.split("/");
+        var d1 = new Date(dS[1], (+dS[0]));
+        var today = new Date();
+        console.log(d1)
+        console.log(today)
+        if (d1 >= today) {
+          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear}&category=upcoming`)
+              setDataContainer(result)
+              console.log(result, 'd is greater');
+        } else {
+          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear}&category=past`)
+          setDataContainer(result)
+          console.log(result, 'today is greater');
+        }
+      }
+
+      if(TeamHere == true || TeamData != undefined){
+        console.log('yes moved to team');
+        var dS = TeamData.split("/");
+        var d1 = new Date(dS[1], (+dS[0]));
+        var today = new Date();
+        console.log(d1)
+        console.log(today)
+        if (d1 >= today) {
+          console.log('yes moved to team ---> future & current');
+          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${TeamData}&category=upcoming&agentCode=${agent_id}`)
+              setDataContainer(result)
+              console.log(result, 'd is greater');
+        } else {
+          console.log('yes moved to team ---> past');
+          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${TeamData}&category=past&agentCode=${agent_id}`)
+          setDataContainer(result)
+          console.log(result, 'today is greater');
+        }
+      }
       
 
-      if(MonthCompare && history || TeamHere){
-        let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=upcoming`)
-        setDataContainer(result)
-        console.log(result);
-       }else if(MonthCompare && history == false){
-        let result2 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
-        setDataContainer(result2)
-       }else if(monthYear !== SelfMonthYear){
-        // console.warn('SelfMonthYear ------>',SelfMonthYear)
-        // console.warn('TeamData ------>',TeamData)
-        // let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
-        let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
-        setDataContainer(result3)
-       }
-       else{
-        let result4 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=past`)
-        setDataContainer(result4)
-       }
+    //   if(MonthCompare && history || TeamHere){
+    //  console.log('11111');
+    //     let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=upcoming`)
+    //     setDataContainer(result)
+    //     console.log(result);
+    //    }else if(MonthCompare && history == false){
+    //     console.log('22222');
+    //     console.log('self mponth year ---->', MonthCompare)
+    //     let result2 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
+    //     setDataContainer(result2)
+    //    }else if(monthYear !== SelfMonthYear){
+    //     console.log('3333');
+    //     console.warn('SelfMonthYear--last else ------>',SelfMonthYear)
+    //     console.warn('TeamData ------>',TeamData)
+    //     // let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}`)
+    //     let result3 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=past`)
+    //     setDataContainer(result3)
+    //    }
+    //    else{
+    //     console.log('4444');
+    //     console.log(SelfMonthYear , TeamData, monthYear, 'last--------->')
+    //     let result4 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear||TeamData?SelfMonthYear||TeamData : monthYear}&category=upcoming`)
+    //     console.log(result4,'4444 result');
+    //     setDataContainer(result4)
+    //    }
     }
 
     const dateFun=(time)=>{
-      var dt = new Date(time);
-      var hours = dt.getUTCHours() ; // gives the value in 24 hours format
-      var AmOrPm = hours >= 12 ? 'PM' : 'AM';
-      hours = (hours % 12) || 12;
-      var minutes = dt.getUTCMinutes() ;
-      var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm; 
+      // var dt = new Date(time);
+      // var hours = dt.getUTCHours() ; // gives the value in 24 hours format
+      // var AmOrPm = hours >= 12 ? 'PM' : 'AM';
+      // hours = (hours % 12) || 12;
+      // var minutes = dt.getUTCMinutes() ;
+      // var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm; 
+      let finalTimeobj = timeList.filter(item =>{return item.value == time})
+      console.log(finalTimeobj, 'obj time---->')
+      let finalTime = finalTimeobj[0].dispValue
+      console.log(finalTime, 'val time---->')
       return finalTime;
     }
 
   return (
 
     <div className='dataField'>
-    
+    {console.log(DataContainer, 'final upcoming')}
     {
         windowWidth > breakpoint &&
 
     DataContainer?.length>0 ? DataContainer?.map((element,index)=>{
       return(
           <div className='dataField-Card' key={index}>
-            {
+            {/* {
             ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
             && element== DataContainer?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
             && (1+ new Date(element?.start_time_MS).getMonth()) >= (1+new Date().getMonth())))[0]
@@ -113,7 +252,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
               <div className='head-cad-text'>
                 <p>UPCOMING</p>
               </div>:""
-            }
+            } */}
               <div className='dataContainer'>
                   <div className='bodyData'>
                       <div className='bodyData-Date'>
@@ -214,7 +353,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
     DataContainer?.length >0 ? DataContainer?.map((element,index)=>{
         return(
             <div className='dataField-Card-mbl' key={index}>
-                {
+                {/* {
                 ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
                 && element== DataContainer?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
                 && (1+ new Date(element?.start_time_MS).getMonth()) >= (1+new Date().getMonth())))[0]
@@ -222,7 +361,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata}) 
                   <div className='head-cad-text'>
                     <p>UPCOMING</p>
                   </div>:""
-                }
+                } */}
                         <Row>
                                 <Col sm={22} xs={22} md={22}>
                                 <div className='TimeToEnd-mbl'>
