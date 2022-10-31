@@ -10,7 +10,10 @@ import axios from 'axios'
 import './EventCreate.css'
 
 
+
 const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
+
+
 
   const MonthContainer=[{1:'Jan', 2:'Feb',3:'Mar', 4:'Apr', 
     5:'May', 6:'Jun', 7:'Jul', 8:'Aug', 9:'Sep', 10:'Oct', 
@@ -42,6 +45,13 @@ const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
   monthData(count);
   yearData(year);
 
+  useEffect(()=>{
+  
+    console.log(isModalVisible, 'modal visible changes---> after exit');
+ },[isModalVisible]);
+
+  {console.log(count, 'month=========------->')}
+{console.log(year, 'year=========------->')}
   
   return (
         <div className='EventCreate-dateChange'>

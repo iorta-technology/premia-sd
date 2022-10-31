@@ -130,12 +130,13 @@ const LoanProducts = () => {
     // Tabs
     // ]
   }, []);
+
+
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
   const [sdata,SetSdata] = useState([])
  
-
   const showModal1 = () => {
     setIsModalVisible1(true);
   };
@@ -242,7 +243,6 @@ const LoanProducts = () => {
 
   const [selectedData, setSelectedData] = useState([])
   const selecteDataFun =(value) =>{
-    console.log("value = ",value)
     setSelectedData(res => [...res,value])
   }
 
@@ -258,20 +258,31 @@ const LoanProducts = () => {
   
 
   const handleOk1 = async () => {
-    // setIsModalVisible1(false);
-   // message.error('Please, Select a Brochure and add an E-mail')
+  // setIsModalVisible1(false);
    let dataaa = 
    {
      Product_Brochure_data:selectedData.map(res => res.location),
      product_name:selectedData.map(res => res.fileCategory ),
      sendto: list
    }
+   
+   if (dataaa.Product_Brochure_data && dataaa.Product_Brochure_data.length == 0 || dataaa.sendto && dataaa.sendto.length == 0) {
+     message.error('Please, Select a Brochure and add an E-mail')
+   }
+  
+   
    try {
     let res = await axiosRequest.post(`user/send_email_brochure`, dataaa );
-      console.log("hgh--", res);
-  } catch (error) {
-    console.log("error API " + error);
-  }
+        if (res.mailgunres.message === 'Queued. Thank you.') {
+          message.success('Queued. Thank you.')
+          
+          handleCancel1()
+        }
+
+        
+    } catch (error) {
+      console.log("error API " + error);
+    }
   };
 
 
@@ -665,6 +676,7 @@ const LoanProducts = () => {
                 className="inp"
                 placeholder="E-Mail ID"
                 value={data}
+                type='email'
                 onChange={(e) => setData(e.target.value)}
               />
             </Col>
@@ -679,7 +691,7 @@ const LoanProducts = () => {
 
           <Row>
             <div className="disply">
-              {list.map((item, id) => (
+              {list?.map((item, id) => (
                 <div key={id} className="listData">
                   <span>{item} </span>{" "}
                   <button

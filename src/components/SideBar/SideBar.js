@@ -104,7 +104,12 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
   const [modalShown, toggleModal] = useState(false);
+<<<<<<< HEAD
   const [clearBtn, setClearBtn] = useState(true);
+=======
+  const [clearBtn, setClearBtn] = useState(true)
+  const [opened, setOpened] = useState(false)
+>>>>>>> 6baacf55c101c4c7bee5a5ca73a1a1a75390d816
 
   let _storeData = useSelector((state) => state);
 
@@ -114,8 +119,32 @@ const Sidebar = () => {
     _accessOpportunities.props.read === true ? true : false
   );
 
+<<<<<<< HEAD
   const clearData = () => {
     setClearBtn(!clearBtn);
+=======
+  const clearData = () =>{
+    setClearBtn(!clearBtn)
+  }
+  
+  
+
+
+const [_notify, set_Notify] = useState([]) 
+
+
+
+useEffect(() => {
+  // simple using fetch  
+  const fetchData = async () => {
+    try {
+      let data = await axiosRequest.get(`user/getnotification/${userId}?notification_type=alerts&readStatus=0`)
+          let res = data
+          set_Notify(res[0]);
+    } catch (error) {
+      console.log("error", error);
+    }
+>>>>>>> 6baacf55c101c4c7bee5a5ca73a1a1a75390d816
   };
 
   const [_notify, set_Notify] = useState([]);
@@ -184,6 +213,12 @@ const Sidebar = () => {
     setSidebar(false);
   };
 
+  const toggleModalBox = () =>{
+    toggleModal(!modalShown)
+    setOpened(true)
+  }
+
+
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -191,6 +226,7 @@ const Sidebar = () => {
           {/* <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon> */}
+<<<<<<< HEAD
           <img
             onClick={() => {
               history.push("/home");
@@ -211,6 +247,13 @@ const Sidebar = () => {
             ) : (
               ""
             )}
+=======
+          <img onClick={() => { history.push('/home') }} src={sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
+          {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
+          <NavIcon to='#' >
+            <FaIcons.FaBell onClick={() => toggleModalBox()} />
+            {_notify?.length && _notify?.length > 0 && clearBtn && (!opened) ? <div className='dot'></div> : null}
+>>>>>>> 6baacf55c101c4c7bee5a5ca73a1a1a75390d816
           </NavIcon>
           <NavIcon onClick={showSidebar} to="#">
             <FaIcons.FaUserCircle />

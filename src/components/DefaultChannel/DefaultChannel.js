@@ -19,13 +19,15 @@ import { useHistory } from "react-router";
 import {stoageGetter} from '../../helpers'
 
 function DefaultChannel() {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   const _store = useSelector((state) => state);
-  const bankData = _store?.login?.multiChannel ? _store?.login?.multiChannel : stoageGetter('multi_channel')
-  // console.warn("STORE DATA----------", bankData);
+  const bankData = _store?.login?.multiChannel?_store?.login?.multiChannel : stoageGetter('multi_channel')
+  
+   //console.log("STORE DATA----------", _store);
 
-  const [bankID, setBankID] = useState(bankData[0].channelCode._id);
+  // const [bankID, setBankID] = useState(bankData[0].channelCode._id);
+  const [bankID, setBankID] = useState(_store?.login?.user?.channelCode?._id);
 
   const onValueChange = (e) => {
     setBankID(e.target.value);
@@ -36,17 +38,13 @@ function DefaultChannel() {
       let res = await axiosRequest.put(
         `user/setDefaultLoginChannel`,
         {channelCode: `${bankID}`});
-        if (res === 'Default channel set successfully') {
-        // console.log("Res ======== ", res);
-        // let _loginData = [];
-        // let _defaultChannel = bankData.filter(
-        //   (item, index) => item.channelCode._id === bankID
-        // );
-        // _loginData.push(_defaultChannel, { token: res.TOKEN });
-        // console.log("_loginData", _loginData[0]);
-        // dispatch(actions.loginSuccess(_loginData));
-        history.push("/home");
+
+        if (res === 'Default channel set successfully' ) {
+          window.localStorage.clear()
+          history.push('/login')
+          dispatch(actions.logout())
       }
+      
     } catch (error) {
       console.log("error API " + error);
     }

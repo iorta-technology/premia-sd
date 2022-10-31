@@ -1167,6 +1167,3 @@ const DailyBussiness = () => {
 };
 
 export default DailyBussiness;
-
-// jeevan - 62fcdbfc5fb1dc8913ab59fd
-// pooja  - 62fcdbfc5fb1dc8913ab59ef
