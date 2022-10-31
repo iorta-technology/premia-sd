@@ -112,6 +112,7 @@ const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
   const [modalShown, toggleModal] = useState(false);
   const [clearBtn, setClearBtn] = useState(true)
+  const [opened, setOpened] = useState(false)
 
   let _storeData = useSelector((state) => state);
 
@@ -122,33 +123,16 @@ const Sidebar = () => {
     _accessOpportunities.props.read === true ? true : false
   );
 
-
   const clearData = () =>{
     setClearBtn(!clearBtn)
   }
+  
+  
+
 
 const [_notify, set_Notify] = useState([]) 
 
-// useEffect(() => {
-//   // simple using fetch  
-//   const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=01";
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch(url);
-//        const json = await response.json();
 
-//        let date = json.dbDate
-//         console.log("jhjgh", date);
-
-//       set_Notify(json.errMsg[0]);
-
-//     } catch (error) {
-//       console.log("error", error);
-//     }
-//   };
-
-//   fetchData()
-// }, [])
 
 useEffect(() => {
   // simple using fetch  
@@ -192,6 +176,12 @@ useEffect(() => {
     setSidebar(false)
   }
 
+  const toggleModalBox = () =>{
+    toggleModal(!modalShown)
+    setOpened(true)
+  }
+
+
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -199,11 +189,11 @@ useEffect(() => {
           {/* <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon> */}
-          <img onClick={() => { history.push('/home') }} src= {sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
+          <img onClick={() => { history.push('/home') }} src={sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to='#' >
-            <FaIcons.FaBell onClick={() => toggleModal(!modalShown)} />
-            {_notify?.length && _notify?.length > 0 && clearBtn && (!modalShown) ? <div className='dot'></div> : ''}
+            <FaIcons.FaBell onClick={() => toggleModalBox()} />
+            {_notify?.length && _notify?.length > 0 && clearBtn && (!opened) ? <div className='dot'></div> : null}
           </NavIcon>
           <NavIcon onClick={showSidebar} to='#'>
             <FaIcons.FaUserCircle />
