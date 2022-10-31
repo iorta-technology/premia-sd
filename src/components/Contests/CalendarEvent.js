@@ -1010,6 +1010,8 @@ export default function CalendarEvent(props) {
     setEventDurationType("customedatetime")
     setStartTimeSelect("")
     setEndTimeSelect("")
+    setDurationStartDate('')
+    setDurationEndDate('')
     setDurationStartTimeOperation()
     setDurationEndTimeOperation()
     setDurationButton({
@@ -1019,6 +1021,8 @@ export default function CalendarEvent(props) {
   }
   const DurationAllDayFunc = () => {
     setEventDurationType("allday")
+    setDurationStartDate('')
+    setDurationEndDate('')
     setDurationStartTimeOperation(32400000)
     setDurationEndTimeOperation(61200000)
     setDurationButton({
