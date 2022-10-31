@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import loginLogo from "../../images/ABIB_LOGO.jpg";
 import axios from "axios";
-import {stoageSetter} from '../../helpers'
+import { stoageSetter } from "../../helpers";
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -39,15 +39,17 @@ const Login = () => {
           // } else {
           try {
             if (res.data.errCode === -1) {
-                let _loginData = []
-                // actions.multiChannelData()
-                let _defaultChannel = res.data.errMsg[0].filter((item,index) => item.setDefault === true)
-                // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
-                _loginData.push(_defaultChannel,res.data.errMsg[1])
-                stoageSetter("multi_channel", res.data.errMsg[0]);
-                dispatch(actions.loginSuccess(_loginData));
-                dispatch(actions.multiChannelData(res.data.errMsg[0]));
-                history.push("/home");
+              let _loginData = [];
+              // actions.multiChannelData()
+              let _defaultChannel = res.data.errMsg[0].filter(
+                (item, index) => item.setDefault === true
+              );
+              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              stoageSetter("multi_channel", res.data.errMsg[0]);
+              dispatch(actions.loginSuccess(_loginData));
+              dispatch(actions.multiChannelData(res.data.errMsg[0]));
+              history.push("/home");
             } else {
               message.error(res.data.errMsg);
             }
