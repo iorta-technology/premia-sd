@@ -46,7 +46,7 @@ import truecheckbox from "../../assets/CalenderIcons/truecheckbox.png";
 // import { models } from "powerbi-client";
 
 const HomePage = () => {
-  const [activitydata, setActivityData] = useState()
+  const [activitydata, setActivityData] = useState();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -115,91 +115,120 @@ const HomePage = () => {
   const [updateData, setUpdateData] = useState({});
   const [showData, setShowData] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const[timeList,setTimeList]=useState( [{
-    dispValue: "8:00 AM",
-    value: "28800000"
-  }, {
-    dispValue: "8:30 AM",
-    value: "30600000"
-  }, {
-    dispValue: "9:00 AM",
-    value: "32400000"
-  }, {
-    dispValue: "9:30 AM",
-    value: "34200000"
-  }, {
-    dispValue: "10:00 AM",
-    value: "36000000"
-  }, {
-    dispValue: "10:30 AM",
-    value: "37800000"
-  }, {
-    dispValue: "11:00 AM",
-    value: "39600000"
-  }, {
-    dispValue: "11:30 AM",
-    value: "41400000"
-  }, {
-    dispValue: "12:00 PM",
-    value: "43200000"
-  }, {
-    dispValue: "12:30 PM",
-    value: "45000000"
-  }, {
-    dispValue: "1:00 PM",
-    value: "46800000"
-  }, {
-    dispValue: "1:30 PM",
-    value: "48600000"
-  }, {
-    dispValue: "2:00 PM",
-    value: "50400000"
-  }, {
-    dispValue: "2:30 PM",
-    value: "52200000"
-  }, {
-    dispValue: "3:00 PM",
-    value: "54000000"
-  }, {
-    dispValue: "3:30 PM",
-    value: "55800000"
-  }, {
-    dispValue: "4:00 PM",
-    value: "57600000"
-  }, {
-    dispValue: "4:30 PM",
-    value: "59400000"
-  }, {
-    dispValue: "5:00 PM",
-    value: "61200000"
-  }, {
-    dispValue: "5:30 PM",
-    value: "63000000"
-  }, {
-    dispValue: "6:00 PM",
-    value: "64800000"
-  }, {
-    dispValue: "6:30 PM",
-    value: "66600000"
-  }, {
-    dispValue: "7:00 PM",
-    value: "68400000"
-  }, {
-    dispValue: "7:30 PM",
-    value: "70200000"
-  }, {
-    dispValue: "8:00 PM",
-    value: "72000000"
-  }, {
-    dispValue: "8:30 PM",
-    value: "73800000"
-  }, {
-    dispValue: "9:00 PM",
-    value: "75600000"
-  }, {
-    dispValue: "9:30 PM",
-    value: "77400000"
-  }])
+  const [timeList, setTimeList] = useState([
+    {
+      dispValue: "8:00 AM",
+      value: "28800000",
+    },
+    {
+      dispValue: "8:30 AM",
+      value: "30600000",
+    },
+    {
+      dispValue: "9:00 AM",
+      value: "32400000",
+    },
+    {
+      dispValue: "9:30 AM",
+      value: "34200000",
+    },
+    {
+      dispValue: "10:00 AM",
+      value: "36000000",
+    },
+    {
+      dispValue: "10:30 AM",
+      value: "37800000",
+    },
+    {
+      dispValue: "11:00 AM",
+      value: "39600000",
+    },
+    {
+      dispValue: "11:30 AM",
+      value: "41400000",
+    },
+    {
+      dispValue: "12:00 PM",
+      value: "43200000",
+    },
+    {
+      dispValue: "12:30 PM",
+      value: "45000000",
+    },
+    {
+      dispValue: "1:00 PM",
+      value: "46800000",
+    },
+    {
+      dispValue: "1:30 PM",
+      value: "48600000",
+    },
+    {
+      dispValue: "2:00 PM",
+      value: "50400000",
+    },
+    {
+      dispValue: "2:30 PM",
+      value: "52200000",
+    },
+    {
+      dispValue: "3:00 PM",
+      value: "54000000",
+    },
+    {
+      dispValue: "3:30 PM",
+      value: "55800000",
+    },
+    {
+      dispValue: "4:00 PM",
+      value: "57600000",
+    },
+    {
+      dispValue: "4:30 PM",
+      value: "59400000",
+    },
+    {
+      dispValue: "5:00 PM",
+      value: "61200000",
+    },
+    {
+      dispValue: "5:30 PM",
+      value: "63000000",
+    },
+    {
+      dispValue: "6:00 PM",
+      value: "64800000",
+    },
+    {
+      dispValue: "6:30 PM",
+      value: "66600000",
+    },
+    {
+      dispValue: "7:00 PM",
+      value: "68400000",
+    },
+    {
+      dispValue: "7:30 PM",
+      value: "70200000",
+    },
+    {
+      dispValue: "8:00 PM",
+      value: "72000000",
+    },
+    {
+      dispValue: "8:30 PM",
+      value: "73800000",
+    },
+    {
+      dispValue: "9:00 PM",
+      value: "75600000",
+    },
+    {
+      dispValue: "9:30 PM",
+      value: "77400000",
+    },
+  ]);
   const [showBusinessData, setShowBusinessData] = useState(false);
 
   const [businessDropdown, setBusinessDropdown] = useState("");
@@ -277,9 +306,7 @@ const HomePage = () => {
   // },[])
 
   const home_data = useSelector((state) => state.home.home_obj);
-  let activities_data = useSelector(
-    (state) => state.activities.activities_obj
-  );
+  let activities_data = useSelector((state) => state.activities.activities_obj);
 
   function add3Dots(string, limit) {
     var dots = "...";
@@ -474,23 +501,27 @@ const HomePage = () => {
   // console.log("Home-Data", home_data)
   console.log("activities-data", activities_data);
 
-  if(activities_data.length != 0){
-    activities_data=activities_data.filter(item=>{return item.statusType == 'open'})
-   }
+  if (activities_data?.length != 0) {
+    activities_data = activities_data?.filter((item) => {
+      return item.statusType == "open";
+    });
+  }
 
-  const dateFun=(time)=>{
+  const dateFun = (time) => {
     // var dt = new Date(time);
     // var hours = dt.getUTCHours() ; // gives the value in 24 hours format
     // var AmOrPm = hours >= 12 ? 'PM' : 'AM';
     // hours = (hours % 12) || 12;
     // var minutes = dt.getUTCMinutes() ;
-    // var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm; 
-    let finalTimeobj = timeList.filter(item =>{return item.value == time})
-    console.log(finalTimeobj, 'obj time---->')
-    let finalTime = finalTimeobj[0].dispValue
-    console.log(finalTime, 'val time---->')
+    // var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm;
+    let finalTimeobj = timeList.filter((item) => {
+      return item.value == time;
+    });
+    console.log(finalTimeobj, "obj time---->");
+    let finalTime = finalTimeobj[0].dispValue;
+    console.log(finalTime, "val time---->");
     return finalTime;
-  }
+  };
 
   const showModal = (event, ind) => {
     // console.log("TODO__CARDD___DATA__", event);
@@ -848,7 +879,7 @@ const HomePage = () => {
                     <div className="appointment_data">
                       <p className="ttile_name">Activities</p>
                       <p className="ttile_name">
-                        {activities_data && activities_data.length
+                        {activities_data && activities_data?.length
                           ? activities_data.length + " Activities"
                           : ""}
                       </p>
@@ -861,7 +892,7 @@ const HomePage = () => {
                 !_.isEmpty(activities_data) &&
                 activities_data !== "No appointment " ? (
                   <div className="activity-block">
-                    {activities_data.map((item) => {
+                    {activities_data?.map((item) => {
                       return (
                         <div
                           className="action-cards-content-activity"
@@ -882,7 +913,7 @@ const HomePage = () => {
                               <p>
                                 {/* {Moment(item.end_time_MS).format("h:mm a")} */}
                                 {dateFun(item.end_time)}
-                                </p>
+                              </p>
                             </div>
                             <div id="truncateLongTexts">
                               <p>{add3Dots(item.event_description, 50)}</p>

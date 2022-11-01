@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { checkuserAccess, stoageGetter } from "../../helpers";
 import axiosRequest from "../../axios-request/request.methods";
+import mySocket from "../../Socket";
+import * as actionType from "./../../store/actions/actionTypes";
 
 // -- Import Image -- //
 import sales_logo_img from "../../images/salesDrivelogo.png";
@@ -99,17 +101,13 @@ function Modal1({ children, shown, close }) {
 }
 
 const Sidebar = () => {
+  const state = useSelector((state) => state);
   const userId = useSelector((state) => state.login.userId);
   const history = useHistory();
   const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
   const [modalShown, toggleModal] = useState(false);
-<<<<<<< HEAD
   const [clearBtn, setClearBtn] = useState(true);
-=======
-  const [clearBtn, setClearBtn] = useState(true)
-  const [opened, setOpened] = useState(false)
->>>>>>> 6baacf55c101c4c7bee5a5ca73a1a1a75390d816
 
   let _storeData = useSelector((state) => state);
 
@@ -119,56 +117,36 @@ const Sidebar = () => {
     _accessOpportunities.props.read === true ? true : false
   );
 
-<<<<<<< HEAD
+  const notificationIndicator = (flag) => {
+    return {
+      type: actionType.NOTIFICATION_STATUS,
+      data: flag,
+    };
+  };
+
   const clearData = () => {
     setClearBtn(!clearBtn);
-=======
-  const clearData = () =>{
-    setClearBtn(!clearBtn)
-  }
-  
-  
-
-
-const [_notify, set_Notify] = useState([]) 
-
-
-
-useEffect(() => {
-  // simple using fetch  
-  const fetchData = async () => {
-    try {
-      let data = await axiosRequest.get(`user/getnotification/${userId}?notification_type=alerts&readStatus=0`)
-          let res = data
-          set_Notify(res[0]);
-    } catch (error) {
-      console.log("error", error);
-    }
->>>>>>> 6baacf55c101c4c7bee5a5ca73a1a1a75390d816
   };
 
   const [_notify, set_Notify] = useState([]);
 
-  // useEffect(() => {
-  //   // simple using fetch
-  //   const url = "https://pocbancanode.iorta.in/secure/user/getnotification/60edb0e28ac1941f0185b6c9?notification_type=alerts&readStatus=01";
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(url);
-  //        const json = await response.json();
+  const toggleModalBox = () => {
+    toggleModal(!modalShown);
+    dispatch(notificationIndicator(true));
+  };
 
-  //        let date = json.dbDate
-  //         console.log("jhjgh", date);
+  useEffect(() => {
+    console.log("state = ", state.home.notification);
 
-  //       set_Notify(json.errMsg[0]);
+    mySocket.on("notification", (data) => {
+      console.log("data ========= ", data);
+      dispatch(notificationIndicator(false));
+    });
 
-  //     } catch (error) {
-  //       console.log("error", error);
-  //     }
-  //   };
-
-  //   fetchData()
-  // }, [])
+    mySocket.on("message", (data) => {
+      console.log("notification received", data);
+    });
+  }, [mySocket]);
 
   useEffect(() => {
     // simple using fetch
@@ -178,7 +156,8 @@ useEffect(() => {
           `user/getnotification/${userId}?notification_type=alerts&readStatus=0`
         );
         let res = data;
-        set_Notify(res[0]);
+        // set_Notify(res[0]);
+        console.log("notification", res[0]);
       } catch (error) {
         console.log("error", error);
       }
@@ -213,12 +192,6 @@ useEffect(() => {
     setSidebar(false);
   };
 
-  const toggleModalBox = () =>{
-    toggleModal(!modalShown)
-    setOpened(true)
-  }
-
-
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -226,7 +199,6 @@ useEffect(() => {
           {/* <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon> */}
-<<<<<<< HEAD
           <img
             onClick={() => {
               history.push("/home");
@@ -241,19 +213,13 @@ useEffect(() => {
           />
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
           <NavIcon to="#">
-            <FaIcons.FaBell onClick={() => toggleModal(!modalShown)} />
-            {_notify?.length && _notify?.length > 0 && clearBtn ? (
-              <div className="dot"></div>
-            ) : (
-              ""
-            )}
-=======
-          <img onClick={() => { history.push('/home') }} src={sales_logo_img} style={{width:'130px', marginRight:'auto', marginLeft:'auto', cursor:'pointer'}}/>
-          {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
-          <NavIcon to='#' >
             <FaIcons.FaBell onClick={() => toggleModalBox()} />
-            {_notify?.length && _notify?.length > 0 && clearBtn && (!opened) ? <div className='dot'></div> : null}
->>>>>>> 6baacf55c101c4c7bee5a5ca73a1a1a75390d816
+            {_notify?.length &&
+            _notify?.length > 0 &&
+            clearBtn &&
+            state.home.notification ? (
+              <div className="dot"></div>
+            ) : null}
           </NavIcon>
           <NavIcon onClick={showSidebar} to="#">
             <FaIcons.FaUserCircle />
