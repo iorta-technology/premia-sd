@@ -483,7 +483,7 @@ const TodoTab = (props) => {
         >
             <div className='Todo-Create-Container'>
                 <div className='Todo-Col-shadow-box'>
-                    <div className='Todo-Create-Header'>
+                    <div className='Todo-Create-Header' style={{marginBottom:5}}>
                         <p style={{marginBottom:0}}> Add Team Member </p>
                     </div>
                     <div className='Todo-Create-SearchBox todoSearch'>

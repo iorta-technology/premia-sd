@@ -511,7 +511,7 @@ const NewLead = React.memo((props) => {
   const [addTeamMemb ,setAddTeamMemb]=useState([])
   const [teamTableData ,setTeamTableData]=useState([])
   const [leadIdData ,setLeadIdData]=useState('')
-
+  const [teamDesig ,setTeamDesig]=useState(null)
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
   useEffect(() => {
@@ -561,48 +561,66 @@ const NewLead = React.memo((props) => {
   }
 
   const loadValuesToFields = (leadData) =>{
-    // console.warn('__++++++++++++++ leadData +++++++++++>>',leadData)
+    console.warn('__++++++++++++++ leadData +++++++++++>>',leadData)
+    console.warn('__++++++++++++++ leadData +++++++++++>>',JSON.parse(leadData.teamMembers))
     let _appntDate = ''
     let _appntTime = ''
     let leadArr = []
-      if (leadData.leadDisposition === 'appointment' && leadData.leadStatus === 'contact') {
-        setshowLeadStatusVisiblity(true)
-        leadArr.push(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
-        leadArr.push('newApptmnt')
-        leadArr.push('Untouched / Not updated Appointment')
+    if (leadData.leadDisposition === 'appointment' && leadData.leadStatus === 'contact') {
+      setshowLeadStatusVisiblity(true)
+      leadArr.push(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
+      leadArr.push('newApptmnt')
+      leadArr.push('Untouched / Not updated Appointment')
 
-        setAppointmentStatus(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
-        setAppointmentDisposition('newApptmnt')
-        setAppointmentSubDisposition('Untouched / Not updated Appointment')
-        
-        setLeadStatus(leadData.leadStatus)
-        setLeadStatusData(leadArr)
-        // only when, the date and time is exist in the object
+      setAppointmentStatus(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
+      setAppointmentDisposition('newApptmnt')
+      setAppointmentSubDisposition('Untouched / Not updated Appointment')
+      
+      setLeadStatus(leadData.leadStatus)
+      setLeadStatusData(leadArr)
+      // only when, the date and time is exist in the object
+      if (leadData.appointmentDetails) {
+        // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
+        // setDate(readableDateFormat);
+        // let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
+        _appntDate = moment(leadData.appointmentDetails.start_date)
+        _appntTime = leadData.appointmentDetails.start_time.toString()
+        setAppointmentDate(moment(leadData.appointmentDetails.start_date))
+        // setAppointmentDatePost(newDate)
+        setAppointmentTime(_appntTime)
+      }
+    } else {
+      if (leadData.leadDisposition === 'callback' && leadData.leadStatus === 'contact') {
         if (leadData.appointmentDetails) {
-          // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
-          // setDate(readableDateFormat);
-          // let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
           _appntDate = moment(leadData.appointmentDetails.start_date)
           _appntTime = leadData.appointmentDetails.start_time.toString()
           setAppointmentDate(moment(leadData.appointmentDetails.start_date))
-          // setAppointmentDatePost(newDate)
           setAppointmentTime(_appntTime)
         }
-      } else {
-        if (leadData.leadDisposition === 'callback' && leadData.leadStatus === 'contact') {
-          if (leadData.appointmentDetails) {
-            _appntDate = moment(leadData.appointmentDetails.start_date)
-            _appntTime = leadData.appointmentDetails.start_time.toString()
-            setAppointmentDate(moment(leadData.appointmentDetails.start_date))
-            setAppointmentTime(_appntTime)
-          }
-        }
-        setshowLeadStatusVisiblity(false)
-        setLeadStatus(leadData.leadStatus)
-        setLeadDisposition(leadData.hasOwnProperty('leadDisposition') ? leadData.leadDisposition : '')
-        setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
-        setLeadStatusData(leadData.leadStatusArr)
       }
+      setshowLeadStatusVisiblity(false)
+      setLeadStatus(leadData.leadStatus)
+      setLeadDisposition(leadData.hasOwnProperty('leadDisposition') ? leadData.leadDisposition : '')
+      setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
+      setLeadStatusData(leadData.leadStatusArr)
+    }
+
+    let _teamData = JSON.parse(leadData.teamMembers)
+    // let _team = _teamData
+    setAddTeamMemb(_teamData)
+    let _arryy = _teamData.map(el =>{
+      let _data = {
+        designation:el.designation.label,
+        teamMember:el.teamName.label,
+      }
+      return _data
+      // setTeamTableData([...teamTableData,_data])
+    })
+    setTeamTableData(_arryy)
+    
+    
+    console.warn('__++++++++++++++ teamTableData +++++++++++>>',teamTableData)
+    
     setFirstName(leadData.firstName)
     setLastName(leadData.lastName)
     setEmail(leadData.email)
@@ -1050,12 +1068,17 @@ const NewLead = React.memo((props) => {
 
   };
   const saveTeamMemberData = () => {
-    let _data = {
-      designation:addTeamMemb.designation.label,
-      teamMember:addTeamMemb.teamName.label,
-    }
-    // const [teamTableData ,setTeamTableData]=useState([])
-    setTeamTableData([...teamTableData,_data])
+    console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
+    let _dataArr = addTeamMemb.map(el =>{
+      let _data = {
+        designation:el.designation.label,
+        teamMember:el.teamName.label,
+      }
+      return _data
+    })
+  
+    setTeamTableData(_dataArr)
+    // setTeamTableData([...teamTableData,_dataArr])
     // console.warn('teamTableData ====((((((((((===>>>>>>>>>>', teamTableData)
     setVisibleTeamMemberModal(false);
 
@@ -1231,20 +1254,23 @@ const NewLead = React.memo((props) => {
     }
     // setErrorMessage( res.data.errMsg)
   };
-
+  
   const handleDesignationData = (event,data) =>{
+    // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
     setDesigData(event)
     setTeamData('')
+    // const [teamDesig ,setTeamDesig]=useState(null)
     let _team = { ['designation']: data }
-    setAddTeamMemb(_team)
+    setTeamDesig(_team)
     
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
     setTeamMemberList(_teamData)
-    // console.warn('addTeamMemb((((((((((===>>>>>>>>>>', addTeamMemb)
+    
     
   }
   const handleTeamListData = (event,data) =>{
     setTeamData(event)
+    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', addTeamMemb)
 
     let _memberData = {
       dispValue:data.label,
@@ -1252,10 +1278,11 @@ const NewLead = React.memo((props) => {
       value:data.value,
     }
 
-    let _team = { ...addTeamMemb, ['teamName']: _memberData }
-    setAddTeamMemb(_team)
+    let _team = { ...teamDesig, ['teamName']: _memberData }
+    // setAddTeamMemb(_team)
+    setAddTeamMemb([...addTeamMemb,_team])
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
-    // console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
+    console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
     
   }
   

@@ -217,7 +217,7 @@ const Sidebar = () => {
             {_notify?.length &&
             _notify?.length > 0 &&
             clearBtn &&
-            state.home.notification ? (
+            !state.home.notification ? (
               <div className="dot"></div>
             ) : null}
           </NavIcon>
