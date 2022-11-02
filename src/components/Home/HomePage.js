@@ -501,8 +501,8 @@ const HomePage = () => {
   // console.log("Home-Data", home_data)
   console.log("activities-data", activities_data);
   if (activities_data !== undefined || activities_data !== null) {
-    if (activities_data.length != 0) {
-      activities_data = activities_data.filter((item) => {
+    if (activities_data?.length != 0) {
+      activities_data = activities_data?.filter((item) => {
         return item.statusType == "open";
       });
     }
@@ -881,7 +881,7 @@ const HomePage = () => {
                       <p className="ttile_name">Activities</p>
                       <p className="ttile_name">
                         {activities_data && activities_data?.length
-                          ? activities_data.length + " Activities"
+                          ? activities_data?.length + " Activities"
                           : ""}
                       </p>
                     </div>
