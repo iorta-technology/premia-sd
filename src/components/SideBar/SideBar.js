@@ -131,6 +131,7 @@ const Sidebar = () => {
   const [_notify, set_Notify] = useState([]);
 
   const toggleModalBox = () => {
+    fetchData();
     toggleModal(!modalShown);
     dispatch(notificationIndicator(true));
   };
@@ -148,23 +149,17 @@ const Sidebar = () => {
     });
   }, [mySocket]);
 
-  useEffect(() => {
-    // simple using fetch
-    const fetchData = async () => {
-      try {
-        let data = await axiosRequest.get(
-          `user/getnotification/${userId}?notification_type=alerts&readStatus=0`
-        );
-        let res = data;
-        // set_Notify(res[0]);
-        console.log("notification", res[0]);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    try {
+      let data = await axiosRequest.get(
+        `user/getnotification/${userId}?notification_type=alerts&readStatus=0`
+      );
+      set_Notify(data[0]);
+      console.log("notification", data[0]);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   const showSidebar = () => setSidebar(!sidebar);
 
