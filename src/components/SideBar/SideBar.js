@@ -107,7 +107,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
   const [modalShown, toggleModal] = useState(false);
-  const [clearBtn, setClearBtn] = useState(true);
+  // const [clearBtn, setClearBtn] = useState(true);
 
   let _storeData = useSelector((state) => state);
 
@@ -124,47 +124,53 @@ const Sidebar = () => {
     };
   };
 
-  const clearData = () => {
-    setClearBtn(!clearBtn);
+  const clearData = async () => {
+    try {
+      let data = await axiosRequest.put(`user/readAllNotification/${userId}`);
+      console.log("notification", data);
+      set_Notify([]);
+    } catch (error) {
+      console.log("error", error);
+    }
+
+    // setClearBtn(false);
   };
 
   const [_notify, set_Notify] = useState([]);
 
   const toggleModalBox = () => {
+    fetchData();
     toggleModal(!modalShown);
     dispatch(notificationIndicator(true));
   };
 
   useEffect(() => {
-    console.log("state = ", state.home.notification);
+    fetchData();
+  }, []);
 
+  useEffect(() => {
     mySocket.on("notification", (data) => {
-      console.log("data ========= ", data);
       dispatch(notificationIndicator(false));
+      console.log("data ========= ", data);
     });
 
     mySocket.on("message", (data) => {
       console.log("notification received", data);
     });
+    console.log("state = ", state.home.notification);
   }, [mySocket]);
 
-  useEffect(() => {
-    // simple using fetch
-    const fetchData = async () => {
-      try {
-        let data = await axiosRequest.get(
-          `user/getnotification/${userId}?notification_type=alerts&readStatus=0`
-        );
-        let res = data;
-        // set_Notify(res[0]);
-        console.log("notification", res[0]);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    try {
+      let data = await axiosRequest.get(
+        `user/getnotification/${userId}?notification_type=alerts&readStatus=0`
+      );
+      set_Notify(data[0]);
+      console.log("notification", data[0]);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -216,7 +222,7 @@ const Sidebar = () => {
             <FaIcons.FaBell onClick={() => toggleModalBox()} />
             {_notify?.length &&
             _notify?.length > 0 &&
-            clearBtn &&
+            // clearBtn &&
             !state.home.notification ? (
               <div className="dot"></div>
             ) : null}
@@ -358,67 +364,72 @@ const Sidebar = () => {
             <div className="activity-block1" style={{ height: "350px" }}>
               <div className="notificationHead">
                 <p>Notification</p>
-                {_notify?.length && _notify?.length > 0 && clearBtn ? (
-                  <button onClick={clearData}>Clear All</button>
-                ) : (
-                  ""
-                )}
+                {
+                  // clearBtn &&
+                  _notify?.length && _notify?.length > 0 ? (
+                    <button onClick={clearData}>Clear All</button>
+                  ) : (
+                    ""
+                  )
+                }
               </div>
               <div className="menuBody1">
-                {/* {!_notify.length ? <h1>gh</h1> : 'hgh'} */}
-                {_notify?.length && _notify?.length > 0 && clearBtn ? (
-                  _notify.map((desc_data, index) => {
-                    return (
-                      <div key={index}>
-                        <div className="notification_data">
-                          <div className="list_data">
-                            <h4>{desc_data.title}</h4>
-                            <p>{desc_data.body}</p>
+                {
+                  // clearBtn &&
+                  _notify?.length && _notify?.length > 0 ? (
+                    _notify.map((desc_data, index) => {
+                      return (
+                        <div key={index}>
+                          <div className="notification_data">
+                            <div className="list_data">
+                              <h4>{desc_data.title}</h4>
+                              <p>{desc_data.body}</p>
+                            </div>
+                            <div className="date">
+                              <p>
+                                {moment(desc_data.created_date).format(
+                                  "DD-MM-YYYY"
+                                )}
+                              </p>
+                              <p style={{ marginTop: "-10px" }}>
+                                {moment(desc_data.created_date).format("LT")}
+                              </p>
+                            </div>
                           </div>
-                          <div className="date">
-                            <p>
-                              {moment(desc_data.created_date).format(
-                                "DD-MM-YYYY"
-                              )}
-                            </p>
-                            <p style={{ marginTop: "-10px" }}>
-                              {moment(desc_data.created_date).format("LT")}
-                            </p>
+                          <div className="notification_status">
+                            {desc_data.priority ? (
+                              <button
+                                style={{
+                                  backgroundColor:
+                                    desc_data.priority === "high"
+                                      ? "rgb(253 84 84)"
+                                      : desc_data.priority === "medium"
+                                      ? "#fb8c00"
+                                      : desc_data.priority === "low"
+                                      ? "#4caf50"
+                                      : "",
+                                }}
+                                onClick={() => {
+                                  history.push("/calendar");
+                                }}
+                              >
+                                {desc_data.priority}
+                              </button>
+                            ) : (
+                              ""
+                            )}
                           </div>
+                          <hr className="hr-line" />
                         </div>
-                        <div className="notification_status">
-                          {desc_data.priority ? (
-                            <button
-                              style={{
-                                backgroundColor:
-                                  desc_data.priority === "high"
-                                    ? "rgb(253 84 84)"
-                                    : desc_data.priority === "medium"
-                                    ? "#fb8c00"
-                                    : desc_data.priority === "low"
-                                    ? "#4caf50"
-                                    : "",
-                              }}
-                              onClick={() => {
-                                history.push("/calendar");
-                              }}
-                            >
-                              {desc_data.priority}
-                            </button>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <hr className="hr-line" />
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="logoutContainer1">
-                    <img src={all_clear_img} />
-                    <p>All Catch Up!</p>
-                  </div>
-                )}
+                      );
+                    })
+                  ) : (
+                    <div className="logoutContainer1">
+                      <img src={all_clear_img} />
+                      <p>All Catch Up!</p>
+                    </div>
+                  )
+                }
               </div>
             </div>
             <div className="notification_footer view_button">

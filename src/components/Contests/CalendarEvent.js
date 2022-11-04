@@ -146,6 +146,7 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true)
     }//1661472000000
     if(props.Data){
+      console.log(props.Data,'yes update');
       if(props.Data.appointment_type == 'existingpartner'){
         setAdvisorCheck(true)
         setCustomerCheck(false)
@@ -267,14 +268,19 @@ export default function CalendarEvent(props) {
           closeStatus: true
         })
       }
-      if(props.Data.manuallycustomerAdded == true){
+      if(props.Data.manuallycustomerAdded == true || 'true'){
+        console.log(props.Data.manuallyrenewalCustomer[0].Name, 'name======>');
       setCustomerNameText(props.Data.manuallyrenewalCustomer[0].Name)
       setCustomerNameCheck(true)
       setCustomerMobileNoCheck(true)
       setCustomerMobileNoText(props.Data.manuallyrenewalCustomer[0].MobileNumber)
       setManualCustomerCheck(true)
       setAddCustTagVisible(true)
+      setCustomerCheck(true)
+      setAddManuallyButtonCheck(true)
+      
       }
+    
       setAppointmentid(props.Data._id)
       setStatusReasonText(props.Data.statusreason)
       setDurationStartTimeOperation(props.Data.start_time)
@@ -289,7 +295,6 @@ export default function CalendarEvent(props) {
       setModeSelect(props.Data.mode)
       setStatusReasonText(props.Data.statusreason)
       setTeamMemberChip(props.Data.teamMember)
-      setCustomerNameText()
       console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
   },[])
@@ -994,6 +999,40 @@ export default function CalendarEvent(props) {
     setAdvisorCheck(true)
     setProspectCheck(false)
     setCustomerCheck(false)
+    setAdvisorCollection({
+      appointment_advisor: true,
+      phone_call_advisor: false,
+      training: false,
+    })
+    setAdvisorCollection({
+      appointment_advisor: true,
+      businessPlanning_review: true,
+      inactive_agent_reactivation: false,
+      unit_meeting: false,
+      joint_customer_visit: false,
+      servicing: false
+    })
+    setAppointmentType('Business Planning & review')
+    setModeSelect('')
+    setEventDurationType("customedatetime")
+    setStartTimeSelect("")
+    setEndTimeSelect("")
+    setDurationStartDate('')
+    setDurationEndDate('')
+    setDurationStartTimeOperation()
+    setDurationEndTimeOperation()
+    setDurationButton({
+      select_time: true,
+      all_day: false
+    })
+    setEventStatus("open")
+    setStatusType({
+      openStatus: true,
+      closeStatus: false
+    })
+    setTeamMemberData('')
+    setOwnerCollectn([])
+    setTeamMemberChip([])
   }
   const checkProspectFunc = () => {
     setAdvisorCheck(false)
@@ -1005,6 +1044,26 @@ export default function CalendarEvent(props) {
     setAdvisorCheck(false)
     setProspectCheck(false)
     setCustomerCheck(true)
+    setModeSelect('')
+    setEventDurationType("customedatetime")
+    setStartTimeSelect("")
+    setEndTimeSelect("")
+    setDurationStartDate('')
+    setDurationEndDate('')
+    setDurationStartTimeOperation()
+    setDurationEndTimeOperation()
+    setDurationButton({
+      select_time: true,
+      all_day: false
+    })
+    setEventStatus("open")
+    setStatusType({
+      openStatus: true,
+      closeStatus: false
+    })
+    setTeamMemberData('')
+    setOwnerCollectn([])
+    setTeamMemberChip([])
   }
   const DurationSelectTimeFunc = () => {
     setEventDurationType("customedatetime")
@@ -1289,6 +1348,7 @@ export default function CalendarEvent(props) {
 
     axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/616e908c43ed727bbac8d2d4?teamdata=0&filter=${month}&category=upcoming `)
     .then((res)=>{
+      console.log('update starteddddd');
       console.log(res.data.errMsg)
       setFetchEventCheck(true)
       setFetchUpcomingArr(res.data.errMsg)
@@ -4151,6 +4211,7 @@ export default function CalendarEvent(props) {
                       <h4
                         className={customerNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       >Name *</h4>
+                      {console.log(customerNameText, 'name text----->')}
                       <input
                         disabled={manualCustomerCheck==true?true:false}
                         value={customerNameText}
