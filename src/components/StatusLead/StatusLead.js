@@ -512,6 +512,7 @@ const NewLead = React.memo((props) => {
   const [teamTableData ,setTeamTableData]=useState([])
   const [leadIdData ,setLeadIdData]=useState('')
   const [teamDesig ,setTeamDesig]=useState(null)
+  const [totalDaysCount, setDaysCount] = React.useState('');
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
   useEffect(() => {
@@ -604,6 +605,10 @@ const NewLead = React.memo((props) => {
       setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
       setLeadStatusData(leadData.leadStatusArr)
     }
+    // const [totalDaysCount, setDaysCount] = React.useState('');
+    let oneDay = (24 * 60 * 60 * 1000);
+    let diffDays = Math.round(Math.abs((leadData.created_date - Date.now()) / (oneDay))) + " days ago";
+    setDaysCount(diffDays);
 
     let _teamData = JSON.parse(leadData.teamMembers)
     // let _team = _teamData
@@ -1686,7 +1691,7 @@ const NewLead = React.memo((props) => {
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Created on</p>
                       <p className="lead-detail">{new Date(createdDateValue).toLocaleDateString('in')}</p>
-                      <p className="lead-date">2 days ago</p>
+                      <p className="lead-date">{totalDaysCount}</p>
                     </Col>
                   </Row>
                   <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
