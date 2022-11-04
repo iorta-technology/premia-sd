@@ -2130,14 +2130,14 @@ const HomePage = () => {
                           Product
                         </p>
                       </div>
-                      <p
+                      {/* <p
                         className="sales-content"
                         style={{ height: 35, width: 130, fontSize: 14 }}
                       >
                         Need Analysis
-                      </p>
+                      </p> */}
                     </div>
-                    <div className="b1-content">
+                    {/* <div className="b1-content">
                       <div onClick={() => history.push("/advisorpitch")}>
                         <p
                           className="sales-content"
@@ -2146,8 +2146,8 @@ const HomePage = () => {
                           Advisor OnBoarding
                         </p>
                       </div>
-                    </div>
-                    <div className="b1-content">
+                    </div> */}
+                    {/* <div className="b1-content">
                       <div onClick={() => history.push("/advisorpitch")}>
                         <p
                           className="sales-content"
@@ -2156,7 +2156,7 @@ const HomePage = () => {
                           Recruitment Presentation
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
