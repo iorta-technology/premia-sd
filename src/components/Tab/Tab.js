@@ -6,7 +6,7 @@ import _ from "lodash";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/leads";
-import { checkAgent,stoageGetter } from "../../helpers";
+import { checkAgent, stoageGetter } from "../../helpers";
 import { Button } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import LeadCard from "../LeadCards/LeadCard";
@@ -55,7 +55,7 @@ const Tab = ({
   const [showModal, setShowModal] = useState(false);
 
   let history = useHistory();
-  let _currentTab = 'self'
+  let _currentTab = "self";
   // const [activeKey, setActiveKey] = useState("self")
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
@@ -68,12 +68,12 @@ const Tab = ({
 
   useEffect(() => {
     // console.log('************************ LEADDD ___ *********************===========>>>',header)
-    if (header === "Lead") getDataForOpen('all')
-      // if (currentActiveTab === "self") {
-        // const { id } = stoageGetter("user");
-        // dispatch(actions.fetchAllLeads(id, 'all', 1));
-        // getDataForOpen('all')
-      // }
+    if (header === "Lead") getDataForOpen("all");
+    // if (currentActiveTab === "self") {
+    // const { id } = stoageGetter("user");
+    // dispatch(actions.fetchAllLeads(id, 'all', 1));
+    // getDataForOpen('all')
+    // }
     // }
   }, []);
   // const ids = stoageGetter('user')
@@ -233,13 +233,12 @@ const Tab = ({
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
-    console.log("good bye currentActiveTab",currentActiveTab)
-    _currentTab = currentTab
+    console.log("good bye currentActiveTab", currentActiveTab);
+    _currentTab = currentTab;
     setCurrentActiveTab(currentTab);
-    getDataForOpen('all')
+    getDataForOpen("all");
     dispatch(actions.updateTabOfDashboard(currentTab));
-    
-    
+
     // if (currentTab === "team") getDataForOpen();
     currentTab !== currentActiveTab &&
       dispatch(actions.updateAllocateOfOpportunities(false));
@@ -268,7 +267,7 @@ const Tab = ({
                 size="small"
                 activeKey={activeKey}
                 className="main-lead-tabs"
-                style={{ marginLeft: "40px"}}
+                style={{ marginLeft: "40px" }}
               >
                 {tabPane}
               </Tabs>
@@ -278,35 +277,39 @@ const Tab = ({
           <div style={{ display: "flex" }}>
             {tabPane.key === activeKey ? (
               <div className="round-card-main-Tab">
-                { checkAgent() === false && 
-                <>
-                  <figure
-                    className={
-                      currentActiveTab === "team"
-                        ? "round-cards1-active"
-                        : "round-cards1"
-                    }
-                    onClick={() => handleChangeTab("team")}
-                    key={"team"}
-                  >
-                    {" "}
-                    <figcaption className="card-caption">Team</figcaption>{" "}
-                  </figure>
-                  <figure
-                    className={
-                      currentActiveTab === "self"
-                        ? "round-cards2-active"
-                        : "round-cards2"
-                    }
-                    onClick={() => handleChangeTab("self")}
-                    key={"self"}
-                  >
-                    {" "}
-                    <figcaption className="card-caption">Self</figcaption>{" "}
-                  </figure>
-                  <AllocateModalShow />
-                </>
-                }
+                {checkAgent() === false && (
+                  <>
+                    <figure
+                      className={
+                        currentActiveTab === "team"
+                          ? "round-cards1-active"
+                          : "round-cards1"
+                      }
+                      onClick={() => handleChangeTab("team")}
+                      key={"team"}
+                    >
+                      {" "}
+                      <figcaption className="card-caption">
+                        Team
+                      </figcaption>{" "}
+                    </figure>
+                    <figure
+                      className={
+                        currentActiveTab === "self"
+                          ? "round-cards2-active"
+                          : "round-cards2"
+                      }
+                      onClick={() => handleChangeTab("self")}
+                      key={"self"}
+                    >
+                      {" "}
+                      <figcaption className="card-caption">
+                        Self
+                      </figcaption>{" "}
+                    </figure>
+                    <AllocateModalShow />
+                  </>
+                )}
                 <GlobalFilters
                   show={show}
                   onHide={handleClose}
@@ -319,7 +322,10 @@ const Tab = ({
         </div>
       ) : (
         // FOR MOBILE WEB
-        <div className="tabsStyle" style={{ display: "flex", flexDirection: "Column" }}>
+        <div
+          className="tabsStyle"
+          style={{ display: "flex", flexDirection: "Column" }}
+        >
           <div>
             <Tabs
               tabBarGutter={20}
@@ -343,45 +349,49 @@ const Tab = ({
                 padding: "16px",
               }}
             >
-              { checkAgent() === false && 
-              <>
-              <button
-                onClick={() => handleChangeTab("self")}
-                key={"self"}
-                className={
-                  currentActiveTab === "self"
-                    ? "active_tabs_button"
-                    : "tabs_button"
-                }
-              >
-                <img
-                  src={
-                    currentActiveTab === "self" ? person_black : person_white
-                  }
-                  className="person"
-                  alt="person_png"
-                />{" "}
-                Self
-              </button>
-              <button
-                onClick={() => handleChangeTab("team")}
-                key={"team"}
-                className={
-                  currentActiveTab === "team"
-                    ? "active_tabs_button"
-                    : "tabs_button"
-                }
-              >
-                <img
-                  src={currentActiveTab === "team" ? group_white : group_black}
-                  className="group"
-                  alt="person_png"
-                />{" "}
-                Team
-              </button>
-              <AllocateModalShow />
-              </>
-              }
+              {checkAgent() === false && (
+                <>
+                  <button
+                    onClick={() => handleChangeTab("self")}
+                    key={"self"}
+                    className={
+                      currentActiveTab === "self"
+                        ? "active_tabs_button"
+                        : "tabs_button"
+                    }
+                  >
+                    <img
+                      src={
+                        currentActiveTab === "self"
+                          ? person_black
+                          : person_white
+                      }
+                      className="person"
+                      alt="person_png"
+                    />{" "}
+                    Self
+                  </button>
+                  <button
+                    onClick={() => handleChangeTab("team")}
+                    key={"team"}
+                    className={
+                      currentActiveTab === "team"
+                        ? "active_tabs_button"
+                        : "tabs_button"
+                    }
+                  >
+                    <img
+                      src={
+                        currentActiveTab === "team" ? group_white : group_black
+                      }
+                      className="group"
+                      alt="person_png"
+                    />{" "}
+                    Team
+                  </button>
+                  <AllocateModalShow />
+                </>
+              )}
               <GlobalFilters
                 show={show}
                 onHide={handleClose}
