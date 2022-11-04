@@ -3,6 +3,9 @@
     justify-content: space-between;
     align-items: center;
 }
+.dataField{
+    margin-top: -10px;
+}
 .dataField-Card{
     border-bottom: 1px solid #efeded;
 }
@@ -183,7 +186,7 @@
     }
     .dataField{
         overflow-x: auto;
-        margin-top: 10px;
+        margin-top: -10px;
     }
 }
 
