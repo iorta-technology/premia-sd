@@ -472,11 +472,14 @@ const HomePage = () => {
     history.push("/login");
   };
   // console.log("Home-Data", home_data)
+
   console.log("activities-data", activities_data);
-  if(activities_data !== undefined || activities_data !== null){
-    if(activities_data.length != 0){
-      activities_data=activities_data.filter(item=>{return item.statusType == 'open'})
-    }
+    if(activities_data !== undefined || activities_data !== null ){
+      if(activities_data.length != 0){
+        activities_data=activities_data.filter(item=>{return item.statusType == 'open'})
+      }
+      }else{
+        activities_data = []
   }
 
   const dateFun=(time)=>{

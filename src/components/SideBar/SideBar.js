@@ -296,10 +296,10 @@ useEffect(() => {
                                   <p style={{marginTop: '-10px'}}>{moment(desc_data.created_date).format('LT')}</p>
                                 </div>
                             </div>
-                            <div className='notification_status'>
+                            {/* <div className='notification_status'>
                               {desc_data.priority ?  <button style={{backgroundColor:desc_data.priority === 'high' ? 'rgb(253 84 84)' : desc_data.priority === 'medium' ? '#fb8c00' : desc_data.priority === 'low' ? '#4caf50' : '',}} onClick={() => { history.push('/calendar') }}>{desc_data.priority}</button> : ''}
                                 
-                              </div>
+                              </div> */}
                               <hr className='hr-line' />
                           </div>
                 }) :  <div className='logoutContainer1'>
