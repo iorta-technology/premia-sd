@@ -79,21 +79,13 @@ if (login_user_data === null) window.location.replace("/login");
 
 function Modal1({ children, shown, close }) {
   return shown ? (
-    <div
-      className="modal-backdrop"
-      onClick={() => {
-        // close modal when outside of modal is clicked
-        close();
-      }}
-    >
+    <div className="modal-backdrop" onClick={() => close()}>
       <div
         className="modal-content"
         onClick={(e) => {
-          // do not close modal if anything inside modal content is clicked
           e.stopPropagation();
         }}
       >
-        {/* <button onClick={close}>Close</button> */}
         {children}
       </div>
     </div>
@@ -231,7 +223,7 @@ const Sidebar = () => {
           </NavIcon>
         </Nav>
 
-        {sidebar && (
+        <Modal1 shown={sidebar} close={() => setSidebar(false)}>
           <div className="sideMenu">
             <div className="menuHeader">
               <div className="profileLogo">
@@ -318,25 +310,6 @@ const Sidebar = () => {
                     </ul>
                   </>
                 )}
-                {/* <p>My Applications</p>
-              <ul>
-                <li><div><img src={allrec_img}/> &nbsp;<span>All Recruitments</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={draftr_img}/> &nbsp;<span>Draft Recruitments</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={rapps_img}/> &nbsp;<span>Recruitment Applications</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={rdone_img}/> &nbsp;<span>Recruited</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={failed_img}/> &nbsp;<span>Failed Recruitments</span></div> <img src={right_black_img}/></li>
-              </ul> */}
-                {/* <p>Dashboards</p>
-              <Link to="/leads-report" >
-              <ul>
-              <li onClick={()=>setSidebar(false)}> <div> <div className='lead-icon' > </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard</span></div></li>
-              </ul>
-              </Link>
-              <Link to="/leads-report2" >
-              <ul>
-              <li onClick={()=>setSidebar(false)}> <div> <div  className='lead-icon'> </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard 2</span></div></li>
-              </ul>
-              </Link> */}
 
                 <p>Need Help?</p>
                 <ul>
@@ -351,14 +324,9 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
-        )}
+        </Modal1>
 
-        <Modal1
-          shown={modalShown}
-          close={() => {
-            toggleModal(false);
-          }}
-        >
+        <Modal1 shown={modalShown} close={() => toggleModal(false)}>
           <div className="sideMenu1">
             <div className="activity-block1" style={{ height: "350px" }}>
               <div className="notificationHead">
