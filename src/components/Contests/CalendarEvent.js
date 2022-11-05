@@ -146,6 +146,7 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true)
     }//1661472000000
     if(props.Data){
+      console.log(props.Data,'yes update');
       if(props.Data.appointment_type == 'existingpartner'){
         setAdvisorCheck(true)
         setCustomerCheck(false)
@@ -267,14 +268,26 @@ export default function CalendarEvent(props) {
           closeStatus: true
         })
       }
-      if(props.Data.manuallycustomerAdded == true){
+      if(props.Data.manuallycustomerAdded == 'true'){
       setCustomerNameText(props.Data.manuallyrenewalCustomer[0].Name)
       setCustomerNameCheck(true)
       setCustomerMobileNoCheck(true)
       setCustomerMobileNoText(props.Data.manuallyrenewalCustomer[0].MobileNumber)
       setManualCustomerCheck(true)
       setAddCustTagVisible(true)
+      setCustomerCheck(true)
+      setAddManuallyButtonCheck(true)
+      
       }
+      if(props.Data.teamMember?.length > 0){
+        // let teammemData = props.Data.teamMember.map(item=>{
+        //   console.log(item, 'kkk')
+        //   return item
+        // })
+        setOwnerCollectn(props.Data.teamMember)
+        setTeamMemberChip(props.Data.teamMember)
+      }
+
       setAppointmentid(props.Data._id)
       setStatusReasonText(props.Data.statusreason)
       setDurationStartTimeOperation(props.Data.start_time)
@@ -288,8 +301,6 @@ export default function CalendarEvent(props) {
       setEventDurationType(props.Data.durationType)
       setModeSelect(props.Data.mode)
       setStatusReasonText(props.Data.statusreason)
-      setTeamMemberChip(props.Data.teamMember)
-      setCustomerNameText()
       console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
   },[])
@@ -994,6 +1005,40 @@ export default function CalendarEvent(props) {
     setAdvisorCheck(true)
     setProspectCheck(false)
     setCustomerCheck(false)
+    setAdvisorCollection({
+      appointment_advisor: true,
+      phone_call_advisor: false,
+      training: false,
+    })
+    setAdvisorCollection({
+      appointment_advisor: true,
+      businessPlanning_review: true,
+      inactive_agent_reactivation: false,
+      unit_meeting: false,
+      joint_customer_visit: false,
+      servicing: false
+    })
+    setAppointmentType('Business Planning & review')
+    setModeSelect('')
+    setEventDurationType("customedatetime")
+    setStartTimeSelect("")
+    setEndTimeSelect("")
+    setDurationStartDate('')
+    setDurationEndDate('')
+    setDurationStartTimeOperation()
+    setDurationEndTimeOperation()
+    setDurationButton({
+      select_time: true,
+      all_day: false
+    })
+    setEventStatus("open")
+    setStatusType({
+      openStatus: true,
+      closeStatus: false
+    })
+    setTeamMemberData('')
+    setOwnerCollectn([])
+    setTeamMemberChip([])
   }
   const checkProspectFunc = () => {
     setAdvisorCheck(false)
@@ -1005,6 +1050,26 @@ export default function CalendarEvent(props) {
     setAdvisorCheck(false)
     setProspectCheck(false)
     setCustomerCheck(true)
+    setModeSelect('')
+    setEventDurationType("customedatetime")
+    setStartTimeSelect("")
+    setEndTimeSelect("")
+    setDurationStartDate('')
+    setDurationEndDate('')
+    setDurationStartTimeOperation()
+    setDurationEndTimeOperation()
+    setDurationButton({
+      select_time: true,
+      all_day: false
+    })
+    setEventStatus("open")
+    setStatusType({
+      openStatus: true,
+      closeStatus: false
+    })
+    setTeamMemberData('')
+    setOwnerCollectn([])
+    setTeamMemberChip([])
   }
   const DurationSelectTimeFunc = () => {
     setEventDurationType("customedatetime")
@@ -1012,6 +1077,8 @@ export default function CalendarEvent(props) {
     setEndTimeSelect("")
     setDurationStartDate('')
     setDurationEndDate('')
+    setDurationStartDateOperation('')
+      setDurationEndDateOperation('')
     setDurationStartTimeOperation()
     setDurationEndTimeOperation()
     setDurationButton({
@@ -1055,7 +1122,7 @@ export default function CalendarEvent(props) {
   const[helperUpcomingArr,setHelperUpcomingArr]=useState();
   const[updateStartTime,setUpdateStartTime]=useState()
   const[updateEndTime,setUpdateEndTime]=useState()
-
+  const[teammemdisable,setTeamemDisable]=useState(false)
   
   const[fetchStartDate,setFetchStartDate]=useState();
   const[fetchEndDate,setFetchEndDate]=useState();
@@ -1289,6 +1356,7 @@ export default function CalendarEvent(props) {
 
     axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/616e908c43ed727bbac8d2d4?teamdata=0&filter=${month}&category=upcoming `)
     .then((res)=>{
+      console.log('update starteddddd');
       console.log(res.data.errMsg)
       setFetchEventCheck(true)
       setFetchUpcomingArr(res.data.errMsg)
@@ -1440,7 +1508,7 @@ export default function CalendarEvent(props) {
 
     })
     .catch((err)=>{
-      console.log(err.msg)
+      console.log(err)
     })
 
 
@@ -1565,11 +1633,17 @@ export default function CalendarEvent(props) {
     setTeamMemberData(text)
     // console.log('onSelect___text', text);
     // console.log('onSelect___data', data);
-    setOwnerCollectn([...ownerCollectn,data])
+    // setOwnerCollectn([...ownerCollectn,data])
   };
 
   const onSelectTeam = (value) => {
     console.log('ON SELECTION ______________', value);
+    console.log('ONowner colle ______________', hierarAgentList);
+    let valuesplit = value.split(' ')
+    console.log(valuesplit[0]);
+    let filteredValue = hierarAgentList.filter(item=>{return item.firstname == valuesplit[0]})
+    console.log(filteredValue, 'value splitted--->');
+    setOwnerCollectn([...ownerCollectn,...filteredValue])
     setTeamMemberData('')
     let _data = [...new Set([...teamMemberChip,value])]
     setTeamMemberChip(_data)
@@ -1915,11 +1989,11 @@ export default function CalendarEvent(props) {
 
       setDurationStartDateOperation(ms_date)
       console.log("This is Start Date"+ms_date)
-      if(durationEndDateOperation<ms_date){
-        setDurationStartDateDiffCheck(false)
-        console.log("Start Date should we after end date")
-        return false
-      }
+      // if(durationEndDateOperation<ms_date){
+      //   setDurationStartDateDiffCheck(false)
+      //   console.log("Start Date should we after end date")
+      //   return false
+      // }
       setDurationDateAlert(false)
     }
 
@@ -2209,6 +2283,10 @@ export default function CalendarEvent(props) {
       if(updateEventCheck==true){
         
         console.log('Update event--->')
+        let teammemberclone = []
+        if(ownerCollectn.length > 0){
+          ownerCollectn.map(x => { teammemberclone.push(x._Id) });
+        }
         if(modeSelect == ''){
           message.warning('Mode is Mandatory');
         }else if (durationStartDateOperation == undefined){
@@ -2261,9 +2339,7 @@ export default function CalendarEvent(props) {
             }
           ]:[],
           customerId:"",
-          teamMember_clone:[
-            
-          ],
+          teamMember_clone: teammemberclone,
           remarkText : '',
           mode : modeSelect,
           }, { secure: true });
@@ -2416,6 +2492,11 @@ export default function CalendarEvent(props) {
         console.log(durationEndDateOperation,'end date value ')
         console.log(durationEndTimeOperation,'end time value ')
 
+        let teammemberclone = []
+        if(ownerCollectn.length > 0){
+          ownerCollectn.map(x => { teammemberclone.push(x._Id) });
+        }
+
         if(modeSelect == ''){
           message.warning('Mode is Mandatory');
         }else if (durationStartDateOperation == undefined){
@@ -2470,9 +2551,7 @@ export default function CalendarEvent(props) {
             }
           ]:[],
           customerId:"",
-          teamMember_clone:[
-            
-          ],
+          teamMember_clone: teammemberclone,
           remarkText : '',
           mode : modeSelect,
           }, { secure: true });
@@ -4151,6 +4230,7 @@ export default function CalendarEvent(props) {
                       <h4
                         className={customerNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       >Name *</h4>
+                      {console.log(customerNameText, 'name text----->')}
                       <input
                         disabled={manualCustomerCheck==true?true:false}
                         value={customerNameText}
@@ -4458,7 +4538,7 @@ export default function CalendarEvent(props) {
                         {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
                         {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
                         <AutoComplete
-                          disabled={updateEventCheck==true?true:false}
+                          disabled={updateEventCheck || teammemdisable ==true?true:false}
                           value={teamMemberData}
                           style={{width: '100%'}}
                           options={hierarAgentList}
@@ -4475,11 +4555,11 @@ export default function CalendarEvent(props) {
                         <div style={{display:'flex',flexFlow:'wrap',alignItems:'center'}}>
                           {
                             teamMemberChip?.map((item,index) =>{
-                              console.log(item,'item---->')
+                              console.log(item,'item--team member-->')
                               return(
                                 <div style={{marginRight:10,marginTop:10,}}>
                                  { updateEventCheck==true?
-                                  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item.value} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
+                                  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item.value} </Button>
                                  :  <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item} <CloseOutlined onClick={() => removeTeamMember(item,index)} /></Button>
                                    }  </div>
                               )

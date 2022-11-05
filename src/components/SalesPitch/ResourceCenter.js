@@ -217,14 +217,7 @@ const ResourceCenter = () => {
 
   const typeData = async () => {
     if (type === "all") {
-      activeId &&
-        axiosRequest
-          .get(
-            `admin/fetch_resources?channel_code=${_store.channelCode.channelCode}&role_code=${_store.roleCode}&filter_by=${activeId}&filter=1&tagName=${tagSwitch}&skip=0`,
-            { secure: true }
-          )
-          .then((res) => setCurrentData(res[0]))
-          .catch((err) => console.log(err));
+      tagSwitchfun();
     } else {
       activeId &&
         axiosRequest

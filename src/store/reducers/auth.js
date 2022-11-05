@@ -23,6 +23,10 @@ if (user) {
   initialState.user = user;
 }
 
+const changeDefaultChannel = (state, action) => {
+  console.log(initialState);
+};
+
 const loginStart = (state, action) => {
   return updateObject(state, { fetch_allLeads_Loading: true });
 };
@@ -44,7 +48,7 @@ const loginSuccess = (state, action) => {
     fetch_allLeads_Loading: false,
     // login_agent_data: action.login_agent_data,
     user: user,
-    userList:action.login_agent_data[0],
+    userList: action.login_agent_data[0],
     user_name:
       action.login_agent_data[0][0].first_name +
       " " +

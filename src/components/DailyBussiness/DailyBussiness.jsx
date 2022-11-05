@@ -42,6 +42,9 @@ const DailyBussiness = () => {
   });
 
   const showModal = async () => {
+    setShowAreYouSure(false);
+    setAreYouSure(false);
+
     try {
       let res = await axiosRequest.get(
         `user/fetch_daily_activity/${currentIDTeam}?today_goal=true`,
@@ -193,12 +196,13 @@ const DailyBussiness = () => {
   const [showAreYouSure, setShowAreYouSure] = useState(false);
   const [areYouSure, setAreYouSure] = useState(false);
   const [user, setUser] = useState("");
+  const { Text, Link } = Typography;
+
   const onChangeAreYouSure = (e) => {
     setAreYouSure(e.target.value);
   };
   const userTreeData = useSelector((state) => state?.home?.user_tree);
 
-  const { Text, Link } = Typography;
   const dispatch = useDispatch();
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
@@ -837,15 +841,19 @@ const DailyBussiness = () => {
                       <Option value="30">Last 30 Days</Option>
                     </Select>
                   </div>
-                  <Button
-                    className="goalButton"
-                    type="primary"
-                    size="large"
-                    onClick={showModal}
-                    icon={<AimOutlined style={{ fontSize: "17px" }} />}
-                  >
-                    Add Daily Goal
-                  </Button>
+                  {currentTabValue === "Self" ? (
+                    <Button
+                      className="goalButton"
+                      type="primary"
+                      size="large"
+                      onClick={showModal}
+                      icon={<AimOutlined style={{ fontSize: "17px" }} />}
+                    >
+                      Add Daily Goal
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
                 </Row>
               </Col>
             </Row>
@@ -1045,15 +1053,17 @@ const DailyBussiness = () => {
                       <Option value="30">Last 30 Days</Option>
                     </Select>
                   </div>
-                  <Button
-                    className="goalButton"
-                    type="primary"
-                    size="large"
-                    onClick={showModal}
-                    icon={<AimOutlined style={{ fontSize: "17px" }} />}
-                  >
-                    Add Daily Goal
-                  </Button>
+                  {!(currentTabValue === "Team") && (
+                    <Button
+                      className="goalButton"
+                      type="primary"
+                      size="large"
+                      onClick={showModal}
+                      icon={<AimOutlined style={{ fontSize: "17px" }} />}
+                    >
+                      Add Daily Goal
+                    </Button>
+                  )}
                 </Row>
               </Col>
             </Row>

@@ -40,7 +40,7 @@ const TodoTab = (props) => {
       _dataStore.reporting_users.map(el => {
           let sortarray = {
               FullName: el.full_name,
-              ShortId: el.hierarchyName,
+              ShortId: el.employeeCode,
               firstname: el.first_name,
               lastname: el.last_name,
               employecode: el.employeeCode,
@@ -68,7 +68,7 @@ const TodoTab = (props) => {
 
     if(Object.keys(props.editData).length !== 0 || props.editData !== undefined){
       // console.log('I AM HEREEEE',props);
-      let _teamMember = props.editData.searchdata.map(el =>{ return el.value })
+      let _teamMember = props.editData.searchdata.map(el =>{ return toCapitalize(el.FullName) + ' ' + '('+el.designation+')' })
       setTeamMemberChip(_teamMember)
       setOwnerCollectn(props.editData.searchdata)
       
@@ -448,11 +448,19 @@ const TodoTab = (props) => {
   };
   
   const onChangeTeam = (text,data) => {
+    console.log('onSelect___data', data);
+
+    let sortarray = {
+      FullName: data.FullName,
+      ShortId: data.ShortId,
+      designation: data.designation,
+      _Id: data._Id,
+    }
     
     setTeamMemberData(text)
     // console.log('onSelect___text', text);
     // console.log('onSelect___data', data);
-    setOwnerCollectn([...ownerCollectn,data])
+    setOwnerCollectn([...ownerCollectn,sortarray])
   };
   
 

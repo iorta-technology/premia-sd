@@ -149,7 +149,8 @@
 }
 .b1-content {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: space-evenly;
   align-content: flex-start;
 }
 .sales-content {
