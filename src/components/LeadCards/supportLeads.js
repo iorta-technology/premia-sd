@@ -171,7 +171,7 @@ import moment from 'moment'
          if(resObj.hasOwnProperty('lead_allocated_by') === true){
              
              if(resObj.lead_allocated_by !== null ){
-                 console.log("Im Here===>>",resObj.lead_allocated_by)
+                //  console.log("Im Here===>>",resObj.lead_allocated_by)
                  if (resObj.hasOwnProperty('lead_allocated_by') && Boolean(resObj.lead_allocated_by) && typeof resObj.lead_allocated_by === 'object') {
                      dataStructure.allocBy = self.doSentenceCase(resObj.lead_allocated_by.first_name) + ' ' + self.doSentenceCase(resObj.lead_allocated_by.last_name)
                      

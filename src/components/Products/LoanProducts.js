@@ -35,11 +35,12 @@ import {
 import Pagination from "../Activitity Tracker/Pagenation/Pagenation";
 import axios from "axios";
 import { stoageGetter } from "../../helpers";
-import { useSelector } from "react-redux";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import shareIt from "../../assets/shareit.png";
 import { fontStyle } from "@mui/system";
 import browimg from "../../assets/brochrewhite.png";
+import * as actions from '../../store/actions/index';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoanProducts = () => {
   const contentStyle = {
@@ -58,6 +59,8 @@ const LoanProducts = () => {
   const login_user_data = stoageGetter("user");
   const _storeData = useSelector((state) => state?.login?.token);
   // console.warn("_storeData _storeData", _storeData);
+  const dispatch = useDispatch()
+  dispatch(actions.headerName('Products'));
 
   useEffect(() => {
     // console.warn("login_user_data___________ login_user_data", login_user_data);

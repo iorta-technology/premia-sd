@@ -267,10 +267,10 @@ const HomePage = () => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
+    dispatch(actions.headerName('Home'));
     // dispatch(actions.getBusinessCardAPI(userId,channelCode));
 
     dispatch(leadActions.updateTabOfDashboard("self"));
-
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     channelCode && dispatch(actions.fetchHierarchy(userId, channelCode));
@@ -357,12 +357,12 @@ const HomePage = () => {
         for (const key in res) {
           opportunities.push({
             value: res[key].ForToday,
-            name: "ForToday",
+            name: "For Today",
             month: moment(key).format("ddd"),
           });
           opportunities.push({
             value: res[key].Open,
-            name: "Open",
+            name: "New",
             month: moment(key).format("ddd"),
           });
         }
@@ -518,9 +518,9 @@ const HomePage = () => {
     let finalTimeobj = timeList.filter((item) => {
       return item.value == time;
     });
-    console.log(finalTimeobj, "obj time---->");
+    // console.log(finalTimeobj, "obj time---->");
     let finalTime = finalTimeobj[0].dispValue;
-    console.log(finalTime, "val time---->");
+    // console.log(finalTime, "val time---->");
     return finalTime;
   };
 

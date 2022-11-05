@@ -43,7 +43,8 @@ import shareit from "../../assets/shareit.png";
 import viewicon from "../../assets/viewicon.png";
 import actionNoData from "../../assets/Actionnodata.png";
 import axiosRequest from "../../axios-request/request.methods";
-import { useSelector } from "react-redux";
+import * as actions from '../../store/actions/index';
+import { useDispatch, useSelector } from 'react-redux';
 import { map } from "lodash";
 const { Meta } = Card;
 const tabMenu = [
@@ -69,6 +70,8 @@ const contentStyle = {
 };
 const { Title } = Typography;
 const ResourceCenter = () => {
+  const dispatch = useDispatch()
+  dispatch(actions.headerName('Resource Center'));
   let _store = useSelector((state) => state.login.user);
   console.log("_store", _store.channelCode.channelCode);
   let { innerWidth: width, innerHeight: height } = window;
@@ -241,7 +244,7 @@ const ResourceCenter = () => {
         <div className="header">
           <Row>
             <Col>
-              <p className="product-title">Products</p>
+              <p className="product-title">Resource Center</p>
             </Col>
           </Row>
           <div>

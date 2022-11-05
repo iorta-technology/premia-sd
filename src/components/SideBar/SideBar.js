@@ -36,8 +36,8 @@ const Nav = styled.div`
   justify-content: flex-end;
   column-gap: 20px;
   align-items: center;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -102,8 +102,10 @@ function Modal1({ children, shown, close }) {
 
 const Sidebar = () => {
   const state = useSelector((state) => state);
+  const headerName = useSelector((state) => state?.login?.headerName);
   const userId = useSelector((state) => state.login.userId);
   const history = useHistory();
+  console.warn("_______STOREE_____", state);
   const dispatch = useDispatch();
   const [sidebar, setSidebar] = useState(false);
   const [modalShown, toggleModal] = useState(false);
@@ -198,41 +200,57 @@ const Sidebar = () => {
     setSidebar(false);
   };
 
+  const routeBack = () => {
+    // console.warn("history_____routeBack", history);
+    history.goBack()
+  };
+
+
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
-          {/* <NavIcon to='#'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </NavIcon> */}
-          <img
-            onClick={() => {
-              history.push("/home");
-            }}
-            src={sales_logo_img}
-            style={{
-              width: "130px",
-              marginRight: "auto",
-              marginLeft: "auto",
-              cursor: "pointer",
-            }}
-          />
+          <div style={{display:'flex',flex:1}}>
+            <NavIcon to='#'>
+              {headerName !== 'Home' &&
+                <FaIcons.FaArrowLeft  onClick={() => routeBack()} />
+              }
+              <p style={{marginBottom:0,marginLeft:10,color:'#fff',fontSize:20}}>{headerName}</p>
+            </NavIcon>
+          </div>
+          <div style={{display:'flex',flex:1}}>
+            <img
+              onClick={() => {
+                history.push("/home");
+              }}
+              src={sales_logo_img}
+              style={{
+                width: "130px",
+                marginRight: "auto",
+                marginLeft: "auto",
+                cursor: "pointer",
+              }}
+            />
+          </div>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
-          <NavIcon to="#">
-            <FaIcons.FaBell onClick={() => toggleModalBox()} />
-            {_notify?.length &&
-            _notify?.length > 0 &&
-            // clearBtn &&
-            !state.home.notification ? (
-              <div className="dot"></div>
-            ) : null}
-          </NavIcon>
-          <NavIcon onClick={showSidebar} to="#">
-            <FaIcons.FaUserCircle />
-          </NavIcon>
+
+          <div style={{display:'flex',flex:1,justifyContent:'flex-end'}}>
+            <NavIcon to="#">
+              <FaIcons.FaBell onClick={() => toggleModalBox()} />
+              {_notify?.length &&
+              _notify?.length > 0 &&
+              // clearBtn &&
+              !state.home.notification ? (
+                <div className="dot"></div>
+               ) : null}
+            </NavIcon>
+            <NavIcon style={{marginLeft:25}} onClick={showSidebar} to="#">
+              <FaIcons.FaUserCircle />
+            </NavIcon>
+          </div>
         </Nav>
 
-        {sidebar && (
+        <Modal1 shown={sidebar} close={() => setSidebar(false)}>
           <div className="sideMenu">
             <div className="menuHeader">
               <div className="profileLogo">
@@ -319,25 +337,6 @@ const Sidebar = () => {
                     </ul>
                   </>
                 )}
-                {/* <p>My Applications</p>
-              <ul>
-                <li><div><img src={allrec_img}/> &nbsp;<span>All Recruitments</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={draftr_img}/> &nbsp;<span>Draft Recruitments</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={rapps_img}/> &nbsp;<span>Recruitment Applications</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={rdone_img}/> &nbsp;<span>Recruited</span></div> <img src={right_black_img}/></li>
-                <li><div><img src={failed_img}/> &nbsp;<span>Failed Recruitments</span></div> <img src={right_black_img}/></li>
-              </ul> */}
-                {/* <p>Dashboards</p>
-              <Link to="/leads-report" >
-              <ul>
-              <li onClick={()=>setSidebar(false)}> <div> <div className='lead-icon' > </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard</span></div></li>
-              </ul>
-              </Link>
-              <Link to="/leads-report2" >
-              <ul>
-              <li onClick={()=>setSidebar(false)}> <div> <div  className='lead-icon'> </div> &nbsp; <span style={{color:'black'}}>Lead Dashboard 2</span></div></li>
-              </ul>
-              </Link> */}
 
                 <p>Need Help?</p>
                 <ul>
@@ -352,7 +351,7 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
-        )}
+        </Modal1>
 
         <Modal1
           shown={modalShown}

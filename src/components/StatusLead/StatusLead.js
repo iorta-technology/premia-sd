@@ -1832,7 +1832,7 @@ const NewLead = React.memo((props) => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                      <Form.Item
+                      {/* <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
                         name="reminder"
@@ -1853,7 +1853,7 @@ const NewLead = React.memo((props) => {
                           options={setReminderOptions}
                           placeholder="Set Reminder">
                         </Select>
-                      </Form.Item>
+                      </Form.Item> */}
                     </Col>
                   </>
                   : null}

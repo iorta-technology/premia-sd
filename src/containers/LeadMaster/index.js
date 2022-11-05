@@ -15,6 +15,8 @@ const LeadMaster = (props) => {
     const history = useHistory()
     const dispatch = useDispatch()
 
+    dispatch(actions.headerName('Opportunities'));
+
     const [width, setWidth] = useState(window.innerWidth)
     const breakpoint = 620
 
@@ -84,7 +86,7 @@ const LeadMaster = (props) => {
         },
 
     ]
-console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
+// console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
     return (
         <div style={{backgroundColor:'#fafafa'}}>
             <Tab 

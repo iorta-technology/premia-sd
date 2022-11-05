@@ -268,7 +268,8 @@ export default function CalendarEvent(props) {
           closeStatus: true
         })
       }
-      if(props.Data.manuallycustomerAdded == true || 'true'){
+      // if(props.Data.manuallycustomerAdded == true || 'true'){
+        if(props.Data.manuallycustomerAdded == true || props.Data.manuallycustomerAdded == 'true'){
         console.log(props.Data.manuallyrenewalCustomer[0].Name, 'name======>');
       setCustomerNameText(props.Data.manuallyrenewalCustomer[0].Name)
       setCustomerNameCheck(true)

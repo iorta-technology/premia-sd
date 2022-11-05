@@ -8,13 +8,15 @@ import Addactivity from '../../icons/Addactivity.png'
 import {stoageGetter} from '../../../../helpers'
 import axios from 'axios'
 import './EventCreate.css'
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from "../../../../store/actions/index";
 
 
 
 const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
 
-
-
+  const dispatch = useDispatch();
+  dispatch(actions.headerName('Calendar'));
   const MonthContainer=[{1:'Jan', 2:'Feb',3:'Mar', 4:'Apr', 
     5:'May', 6:'Jun', 7:'Jul', 8:'Aug', 9:'Sep', 10:'Oct', 
     11:'Nov', 12:'Dec'}];
@@ -47,11 +49,11 @@ const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
 
   useEffect(()=>{
   
-    console.log(isModalVisible, 'modal visible changes---> after exit');
+    // console.log(isModalVisible, 'modal visible changes---> after exit');
  },[isModalVisible]);
 
-  {console.log(count, 'month=========------->')}
-{console.log(year, 'year=========------->')}
+  // {console.log(count, 'month=========------->')}
+// {console.log(year, 'year=========------->')}
   
   return (
         <div className='EventCreate-dateChange'>

@@ -28,6 +28,8 @@ const KpiDashboard = () => {
   const userTreeData = useSelector((state) => state?.home?.user_tree);
 
   const dispatch = useDispatch();
+
+  dispatch(actions.headerName('KPI Dashboard'));
   useEffect(() => {
     category_data();
   }, []);
