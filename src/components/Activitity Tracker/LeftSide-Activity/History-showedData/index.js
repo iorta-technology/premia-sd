@@ -196,14 +196,14 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
       {pastData?.length == 0 || teampastData?.length == 0 ?  "" : (Team == false ? (
         Teamdata ? (
           <PlusCircleFilled
-            style={{ fontSize: "20px", marginRight: "7px" }}
+            style={{ fontSize: "20px", marginRight: "7px",marginTop : 5 }}
             onClick={(e) => {
               setTeamData(false);
             }}
           />
         ) : (
           <MinusCircleFilled
-            style={{ fontSize: "20px", marginRight: "7px" }}
+            style={{ fontSize: "20px", marginRight: "7px",marginTop : 5 }}
             onClick={(e) => {
               console.log(e);
               setTeamData(true);

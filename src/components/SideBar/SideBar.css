@@ -259,7 +259,7 @@ width: 0;
 }
 
 .hr-line{
-    margin: 0px!important;
+    margin: -6px!important;
     color: inherit;
     border: 0;
     border-top: 1px solid;

@@ -276,7 +276,7 @@ const Sidebar = () => {
                   <FaIcons.FaMapMarker style={{ color: "#787878" }} /> |{" "}
                   {login_user_data.city} | {login_user_data.state}
                 </p>
-                {/* <p><b>Channel : </b>{login_user_data.channelCode.channelName}</p> */}
+                <p><b>Channel : </b>{login_user_data.channelCode.channelName}</p>
               </div>
             </div>
             <div className="menuBody">
@@ -338,7 +338,7 @@ const Sidebar = () => {
                   </>
                 )}
 
-                <p>Need Help?</p>
+                {/* <p>Need Help?</p>
                 <ul>
                   <li>
                     <div>
@@ -347,7 +347,7 @@ const Sidebar = () => {
                     </div>{" "}
                     <img src={right_black_img} />
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
           </div>

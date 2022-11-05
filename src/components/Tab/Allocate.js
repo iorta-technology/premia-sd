@@ -12,6 +12,7 @@ import person_white from "./../Activitity Tracker/icons/person_white.png";
 export const AllocateModal = React.memo((props) => {
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
+  const userTreeData = useSelector((state) => state?.home?.user_tree);
 
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
@@ -50,8 +51,10 @@ export const AllocateModal = React.memo((props) => {
 
   // const getAlldataofTeamMainTab = async () => {
   //   const responsedata = await getTeamMainTabApi();
+  //   console.log("responsedata ? == ", responsedata?.data?.errMsg[0]);
   //   setCardData(responsedata?.data?.errMsg[0]);
   // };
+
   const handleViewDetails = (lead) => {
     setviewDetails([lead]);
   };
@@ -452,10 +455,10 @@ export const AllocateModal = React.memo((props) => {
   );
 });
 
-function AllocateModalShow(props) {
+function AllocateModalShow({ id }) {
   return (
     <>
-      <AllocateModal />
+      <AllocateModal id={id} />
     </>
   );
 }
