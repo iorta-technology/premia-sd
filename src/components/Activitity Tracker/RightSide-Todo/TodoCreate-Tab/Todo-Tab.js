@@ -68,8 +68,8 @@ const TodoTab = (props) => {
     if(props.button === 'Update' && props.isModalVisible === true) setButtonName(props.button)
 
     if(Object.keys(props.editData).length !== 0 || props.editData !== undefined){
-      // console.log('I AM HEREEEE',props);
-      let _teamMember = props.editData.searchdata.map(el =>{ return el.value })
+      console.log('I AM HEREEEE____CHIPPP',props);
+      let _teamMember = props.editData.searchdata.map(el =>{ return toCapitalize(el.FullName) + ' ' + '('+el.designation+')' })
       setTeamMemberChip(_teamMember)
       setOwnerCollectn(props.editData.searchdata)
       
@@ -414,10 +414,11 @@ const TodoTab = (props) => {
             ownerCollectn.map(x => { allocationdata.push(x._Id) });
             allocationdata.push(id);
         }
+        let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
         let formData ={
           dateOfReminder: reminderDateString,
           description: todoDesc,
-          owernersCollectionDetails: ownerCollectn,
+          owernersCollectionDetails: _ownerCollectn,
           priorityIndicatorColor: priorityBtnColr,
           taskOwner: id,
           taskOwners: allocationdata,
