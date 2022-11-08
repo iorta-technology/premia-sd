@@ -518,8 +518,8 @@ const HomePage = () => {
     let finalTimeobj = timeList.filter((item) => {
       return item.value == time;
     });
-    // console.log(finalTimeobj, "obj time---->");
-    let finalTime = finalTimeobj[0].dispValue;
+    // console.warn( "obj time-------------->",finalTimeobj);
+    let finalTime = finalTimeobj[0]?.dispValue;
     // console.log(finalTime, "val time---->");
     return finalTime;
   };

@@ -418,7 +418,14 @@ const TodoTab = (props) => {
         let formData ={
           dateOfReminder: reminderDateString,
           description: todoDesc,
-          owernersCollectionDetails: _ownerCollectn,
+          owernersCollectionDetails: _ownerCollectn.map(el=>{
+            return {
+              FullName: el.FullName,
+              ShortId: el.ShortId,
+              designation: el.designation,
+              _Id: el._Id,
+            }
+          }),
           priorityIndicatorColor: priorityBtnColr,
           taskOwner: id,
           taskOwners: allocationdata,
