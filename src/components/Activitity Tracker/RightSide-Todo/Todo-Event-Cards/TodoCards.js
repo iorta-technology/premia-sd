@@ -209,88 +209,85 @@ const TodoCards = forwardRef((props, ref) => {
 
     const removListFromToDo = (data,rowIndex) => {
         // console.log('Check box data',data);
-        // console.log('Index::',rowIndex);
-            // console.log("From if condition")
-            const {id} = stoageGetter('user')
-            // userId:id,
-           
-            let _teamMembers = []
-            let newData = getTodoDataArray;
-            return getTodoDataArray.map((item,index) =>{
-                if(data.removeBtn === false){
-                    
-                    newData[rowIndex].removeBtn = true
-                    newData[rowIndex].icon = truecheckbox
-                    newData[rowIndex].textOverLine.textDecorationLine = 'line-through'
-                    setGetTodoDataArray(newData)
+        const {id} = stoageGetter('user')
 
-                    if(newData[rowIndex].taskOwner_id !== id){
-                        let object={
-                            FullName:newData[rowIndex].searchdata[0].FullName,
-                            designation:newData[rowIndex].searchdata[0].designation,
-                            _Id:newData[rowIndex].searchdata[0]._Id,
-                            ShortId:newData[rowIndex].searchdata[0].ShortId,
-                            remarkText: newData[rowIndex].searchdata[0].remarkText,
-                            taskDone: true,
-                            inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
-                            remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
-                        }
-                        _teamMembers.push(object);
+        let _teamMembers = []
+        let newData = getTodoDataArray;
+        // return getTodoDataArray.map((item,index) =>{
+        if(data.removeBtn === false){
+            
+            newData[rowIndex].removeBtn = true
+            newData[rowIndex].icon = truecheckbox
+            newData[rowIndex].textOverLine.textDecorationLine = 'line-through'
+            setGetTodoDataArray(newData)
 
-                        let formdata={
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId :newData[rowIndex].todoid,
-                            owernersCollectionDetails:_teamMembers
-                        }
-                        updateTODOTaskApi(formdata)
-                    }else{
-                        let formdata = {
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId: data.todoid,
-                            taskDone : true
-                        }
-                        updateTODOTaskApi(formdata)
-                    }
-                }else{
-                    newData[rowIndex].removeBtn = false
-                    newData[rowIndex].icon = checkboxoutline
-                    newData[rowIndex].textOverLine.textDecorationLine = ''
-                    setGetTodoDataArray(newData)
-
-                    if(newData[rowIndex].taskOwner_id !== id){
-                        let object={
-                            FullName:newData[rowIndex].searchdata[0].FullName,
-                            designation:newData[rowIndex].searchdata[0].designation,
-                            _Id:newData[rowIndex].searchdata[0]._Id,
-                            ShortId:newData[rowIndex].searchdata[0].ShortId,
-                            remarkText: newData[rowIndex].searchdata[0].remarkText,
-                            taskDone: false,
-                            inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
-                            remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
-                        }
-                        _teamMembers.push(object);
-
-                        let formdata={
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId :newData[rowIndex].todoid,
-                            owernersCollectionDetails:_teamMembers
-                        }
-                        updateTODOTaskApi(formdata)
-                    }else{
-                        let formdata = {
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId: data.todoid,
-                            taskDone : false
-                        }
-                        updateTODOTaskApi(formdata)
-                    }
-
+            if(newData[rowIndex].taskOwner_id !== id){
+                let object={
+                    FullName:newData[rowIndex].searchdata[0].FullName,
+                    designation:newData[rowIndex].searchdata[0].designation,
+                    _Id:newData[rowIndex].searchdata[0]._Id,
+                    ShortId:newData[rowIndex].searchdata[0].ShortId,
+                    remarkText: newData[rowIndex].searchdata[0].remarkText,
+                    taskDone: true,
+                    inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
+                    remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
                 }
-            })                    
+                _teamMembers.push(object);
+
+                let formdata={
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId :newData[rowIndex].todoid,
+                    owernersCollectionDetails:_teamMembers
+                }
+                updateTODOTaskApi(formdata)
+            }else{
+                let formdata = {
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId: data.todoid,
+                    taskDone : true
+                }
+                updateTODOTaskApi(formdata)
+            }
+        }else{
+            newData[rowIndex].removeBtn = false
+            newData[rowIndex].icon = checkboxoutline
+            newData[rowIndex].textOverLine.textDecorationLine = ''
+            setGetTodoDataArray(newData)
+
+            if(newData[rowIndex].taskOwner_id !== id){
+                let object={
+                    FullName:newData[rowIndex].searchdata[0].FullName,
+                    designation:newData[rowIndex].searchdata[0].designation,
+                    _Id:newData[rowIndex].searchdata[0]._Id,
+                    ShortId:newData[rowIndex].searchdata[0].ShortId,
+                    remarkText: newData[rowIndex].searchdata[0].remarkText,
+                    taskDone: false,
+                    inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
+                    remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
+                }
+                _teamMembers.push(object);
+
+                let formdata={
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId :newData[rowIndex].todoid,
+                    owernersCollectionDetails:_teamMembers
+                }
+                updateTODOTaskApi(formdata)
+            }else{
+                let formdata = {
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId: data.todoid,
+                    taskDone : false
+                }
+                updateTODOTaskApi(formdata)
+            }
+
+        }
+        // })                    
     }
 
     const updateTODOTaskApi = async (data) =>{

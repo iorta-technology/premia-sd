@@ -229,7 +229,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
       // var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm; 
       let finalTimeobj = timeList.filter(item =>{return item.value == time})
       // console.log(finalTimeobj, 'obj time---->')
-      let finalTime = finalTimeobj[0].dispValue
+      let finalTime = finalTimeobj[0]?.dispValue
       // console.log(finalTime, 'val time---->')
       return finalTime;
     }
