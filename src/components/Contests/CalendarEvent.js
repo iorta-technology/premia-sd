@@ -3555,7 +3555,7 @@ export default function CalendarEvent(props) {
   </div> */}{customerCheck == true ?
                 <div>
                   <div
-                    className="CalendarEvent-Modal-Card-vertical-line"
+className="CalendarEvent-Modal-Card-vertical-line"
                   >
                   </div>
 
