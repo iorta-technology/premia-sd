@@ -8,29 +8,38 @@ import * as actions from "../../store/actions/leads";
 import axios from "axios";
 import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
+import axiosRequest from "../../axios-request/request.methods";
+import { checkAgent, stoageGetter } from "../../helpers";
 
 export const AllocateModal = React.memo((props) => {
+  const { id } = stoageGetter("user");
   const [width, setWidth] = useState(window.innerWidth);
+  const dispatch = useDispatch();
+  const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
+  const checkedLead = useSelector((state) => state?.leads?.checkedLead);
+  const state = useSelector((state) => state);
+  const [visible, setVisible] = useState(false);
+  const [viewDetails, setviewDetails] = useState("");
+  const [cardData, setCardData] = useState([]);
   const breakpoint = 620;
-  const userTreeData = useSelector((state) => state?.home?.user_tree);
+  console.log("state === ", state);
+  const userTreeData = useSelector(
+    (state) => state?.home?.user_tree.reporting_users
+  );
 
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
+    setCardData(userTreeData);
+    console.log("cardData === ", userTreeData);
   }, []);
-
-  const dispatch = useDispatch();
-  const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
-  const checkedLead = useSelector((state) => state?.leads?.checkedLead);
-  const [visible, setVisible] = useState(false);
-  const [viewDetails, setviewDetails] = useState([]);
-  const [cardData, setCardData] = useState([]);
 
   const handleCloseAllocate = () => {
     setVisible(false);
     dispatch(actions.updateAllocateOfOpportunities(false));
     dispatch(actions.updateCheckAllocatedLead([]));
   };
+  console.log("viewDetails", viewDetails);
 
   // dataForAllocket
 
@@ -41,28 +50,45 @@ export const AllocateModal = React.memo((props) => {
   };
 
   const handleAllocateLead = () => {
-    handleCloseAllocate();
-    alert("Lead allocated successfully");
+    let payload = {
+      userId: "5d80e8b084dfaa4a37a6b760",
+      Allocated_user_id: viewDetails._id,
+      Lead_Id_List: checkedLead.map((res) => ({ _id: res.id })),
+    };
+
+    axiosRequest
+      .post(`admin/manualAllocation_lead`, payload, {
+        secure: true,
+      })
+      .then((res) => {
+        handleCloseAllocate();
+        setviewDetails("");
+      })
+      .catch((err) => console.log(err));
   };
 
-  // useEffect(() => {
-  //   getAlldataofTeamMainTab();
-  // }, []);
-
-  // const getAlldataofTeamMainTab = async () => {
-  //   const responsedata = await getTeamMainTabApi();
-  //   console.log("responsedata ? == ", responsedata?.data?.errMsg[0]);
-  //   setCardData(responsedata?.data?.errMsg[0]);
-  // };
-
   const handleViewDetails = (lead) => {
-    setviewDetails([lead]);
+    axiosRequest
+      .get(`user/v2/getleads_team_count/${id}`, {
+        secure: true,
+      })
+      .then((res) => {
+        setviewDetails({
+          ...lead,
+          convertedLead: res.converted,
+          open: res.open_lead,
+        });
+      })
+      .catch((err) => console.log(err));
+
+    console.log(lead, "lead");
+    setviewDetails(lead);
   };
 
   const modelStyle = {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "start",
     flexDirection: width <= 750 ? "column" : "row",
   };
 
@@ -174,14 +200,11 @@ export const AllocateModal = React.memo((props) => {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-between",
+              justifyContent: "start",
               marginBottom: "5px",
             }}
           >
             {cardData?.map((item, ind) => {
-              let avatar =
-                item.firstName.match(/\b(\w)/g) +
-                item.lastName.match(/\b(\w)/g);
               return (
                 <div
                   key={item.id}
@@ -194,6 +217,7 @@ export const AllocateModal = React.memo((props) => {
                     alignItems: "center",
                     border: "0.8px solid lightgray",
                     justifyContent: "space-between",
+                    marginBottom: 10,
                   }}
                 >
                   <div
@@ -207,7 +231,7 @@ export const AllocateModal = React.memo((props) => {
                   >
                     <div>
                       <Avatar style={{ textTransform: "uppercase" }}>
-                        {avatar}
+                        {item.first_name.charAt(0) + item.last_name.charAt(0)}
                       </Avatar>
                     </div>
                     <div>
@@ -229,7 +253,7 @@ export const AllocateModal = React.memo((props) => {
                           textTransform: "capitalize",
                         }}
                       >
-                        {item.firstName} {item.lastName}
+                        {item.first_name} {item.last_name}
                       </p>
                     </div>
                     <div>
@@ -279,150 +303,102 @@ export const AllocateModal = React.memo((props) => {
               border: "0.8px solid lightgray",
             }}
           >
-            {viewDetails.length ? (
-              viewDetails?.map((item, ind) => {
-                let avatar =
-                  item.firstName.match(/\b(\w)/g) +
-                  item.lastName.match(/\b(\w)/g);
-                return (
-                  <div>
-                    <div
-                      key={item.id}
-                      style={{
-                        display: "flex",
-                        backgroundColor: "#F7FBFF",
-                        height: "8rem",
-                        width: "auto",
-                        marginBottom: "1rem",
-                        position: "relative",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Avatar
-                        style={{
-                          textTransform: "uppercase",
-                          position: "absolute",
-                          left: "5px",
-                          top: "20px",
-                        }}
-                        size={{ xl: 50 }}
-                      >
-                        {avatar}
-                      </Avatar>
-                      <p
-                        style={{
-                          color: "rgb(0, 172, 193)",
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                          position: "absolute",
-                          left: "14px",
-                          top: "70px",
-                        }}
-                      >
-                        Agent
-                      </p>
-                      <p
-                        style={{
-                          fontWeight: "700",
-                          position: "absolute",
-                          left: "70px",
-                          top: "35px",
-                        }}
-                      >
-                        {item.firstName} {item.lastName}
-                      </p>
-                      <p
-                        style={{
-                          textTransform: "uppercase",
-                          color: "#78849E",
-                          fontSize: "11px",
-                          position: "absolute",
-                          left: "70px",
-                          top: "55px",
-                        }}
-                      >
-                        {item.lead_Id}
-                      </p>
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "100px",
-                          left: "14px",
-                        }}
-                      >
-                        <p>
-                          Reports to: {item?.lead_allocated_by?.first_name}{" "}
-                          {item?.lead_allocated_by?.last_name}
-                        </p>
-                      </div>
+            {viewDetails ? (
+              <div>
+                <div
+                  key={viewDetails.id}
+                  style={{
+                    display: "flex",
+                    backgroundColor: "#F7FBFF",
+                    height: "8rem",
+                    width: "auto",
+                    marginBottom: "1rem",
+                    position: "relative",
+                    alignItems: "end",
+                  }}
+                >
+                  <Avatar
+                    style={{
+                      textTransform: "uppercase",
+                      position: "absolute",
+                      left: "7px",
+                      top: "20px",
+                    }}
+                    size={{ xl: 50 }}
+                  >
+                    {viewDetails.first_name && viewDetails.first_name.charAt(0)}{" "}
+                    {viewDetails.last_name && viewDetails.last_name.charAt(0)}
+                  </Avatar>
+                  <div style={{ margin: 10 }}>
+                    <div style={{ color: "#00acc1", fontWeight: "bolder" }}>
+                      Agent
                     </div>
+                    <div>Reports to :</div>
+                  </div>
+                  <div style={{ margin: 10 }}>
+                    <div></div>
+                    <div>{viewDetails.reporting_manager_name}</div>
+                  </div>
+                </div>
 
-                    <div
-                      style={{
-                        backgroundColor: "#F4F6F9",
-                        border: "1px solid #D2DDE8",
-                        padding: "10px",
-                        marginLeft: "15px",
-                        marginRight: "15px",
-                        height: "2.5rem",
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontWeight: "bold",
-                          color: "rgb(0, 172, 193)",
-                        }}
-                      >
-                        Lead
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor: "#F4F6F9",
-                        border: "1px solid #D2DDE8",
-                        padding: "10px",
-                        marginLeft: "15px",
-                        marginRight: "15px",
-                        height: "6rem",
-                      }}
-                    >
-                      <p>Converted Lead</p>{" "}
-                      <p
-                        style={{
-                          position: "absolute",
-                          left: "40rem",
-                          bottom: "18rem",
-                        }}
-                      >
-                        0
-                      </p>
-                      <p>Open</p>{" "}
-                      <p
-                        style={{
-                          position: "absolute",
-                          left: "40rem",
-                          bottom: "15.5rem",
-                        }}
-                      >
-                        0
-                      </p>
-                    </div>
-
-                    <div
-                      style={{
-                        margin: "15px",
-                      }}
-                    >
-                      <Button
-                        style={{ backgroundColor: "#00ACC1", color: "#fff" }}
-                        onClick={handleAllocateLead}
-                      >
-                        Allocate
-                      </Button>
+                <div
+                  style={{
+                    backgroundColor: "#F4F6F9",
+                    border: "1px solid #D2DDE8",
+                    padding: "10px",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    height: "2.5rem",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: "bold",
+                      color: "rgb(0, 172, 193)",
+                    }}
+                  >
+                    Lead
+                  </p>
+                </div>
+                <div
+                  style={{
+                    backgroundColor: "#F4F6F9",
+                    border: "1px solid #D2DDE8",
+                    padding: "10px",
+                    marginLeft: "15px",
+                    marginRight: "15px",
+                    height: "6rem",
+                  }}
+                >
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div>Converted Lead</div>
+                    <div style={{ fontWeight: "bold" }}>
+                      {viewDetails.convertedLead}
                     </div>
                   </div>
-                );
-              })
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div>Open</div>
+                    <div style={{ fontWeight: "bold" }}>{viewDetails.open}</div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    margin: "15px",
+                  }}
+                >
+                  <Button
+                    style={{ backgroundColor: "#00ACC1", color: "#fff" }}
+                    onClick={handleAllocateLead}
+                  >
+                    Allocate
+                  </Button>
+                </div>
+              </div>
             ) : (
               <div
                 style={{

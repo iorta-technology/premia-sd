@@ -101,9 +101,7 @@ const Sidebar = () => {
   const [modalShown, toggleModal] = useState(false);
   const [clearBtn, setClearBtn] = useState(true);
 
-  let _storeData = useSelector((state) => state);
-
-  const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
+  const _accessOpportunities = checkuserAccess("myLeads", state.login); // Opportunities
 
   const [showOpportunities, setShowOpportunities] = useState(
     _accessOpportunities.props.read === true ? true : false

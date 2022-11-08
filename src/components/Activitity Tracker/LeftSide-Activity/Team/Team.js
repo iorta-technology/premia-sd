@@ -136,7 +136,7 @@ const _date = new Date();
 
      
         
-    {
+    {/* {
         windowWidth > breakpoint &&
         <Row>
         <Col md={9} lg={9} xl={9}>
@@ -180,9 +180,9 @@ const _date = new Date();
        }
        </Col>
         </Row>
-    }
+    } */}
 
-    {
+    {/* {
         windowWidth < breakpoint &&
         <div>
             
@@ -225,9 +225,9 @@ const _date = new Date();
                     }
                     
         </div>
-    }
+    } */}
            
-        <div className="Team-Calender">
+        {/* <div className="Team-Calender">
         {
         windowWidth >breakpoint &&
             <Row className='Team-Calender-row'>
@@ -264,7 +264,7 @@ const _date = new Date();
             </Row>
             </div>
         }
-        </div>
+        </div> */}
         <EventCreate monthData={setMonth} yearData={setyear} />
         <div className=''>
 
