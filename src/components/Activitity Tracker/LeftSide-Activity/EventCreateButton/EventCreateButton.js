@@ -14,7 +14,7 @@ const EventCreateButton = () => {
             <img src='https://pocbanca.iorta.in/assets/dashboard/Group115.png'/>
             <Typography >No Event Exist</Typography>
             <button onClick={(e)=>showModal(e)}>Create an Event</button>
-            {console.log(isModalVisible,'is modal-------->')}
+            {/* {console.log(isModalVisible,'is modal-------->')} */}
         </div>
         {
           isModalVisible == true ?

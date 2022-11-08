@@ -14,6 +14,7 @@ export {
   fetchUserDetails,
   fetchHierarchy,
   multiChannelData,
+  headerName,
 } from "./auth";
 // export { home,activities } from './home'
 // export { activities } from './home'

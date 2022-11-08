@@ -1,4 +1,5 @@
 import React,{useState,useEffect , forwardRef, useImperativeHandle, useRef} from 'react'
+import { Button,Input} from 'antd';
 import TodoTab from '../TodoCreate-Tab/Todo-Tab'
 import TodoClock from '../../icons/todoclock.png'
 import hamburger from '../../icons/hamburger8@2x.png' 
@@ -17,6 +18,8 @@ import noDataIcon from '../../../../assets/078e54aa9d@2x.png'
 
 const TodoCards = forwardRef((props, ref) => {
     // console.log(TodoData.length);
+    const {id} = stoageGetter('user')
+    let loginUserID = id
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [showData, setShowData] = useState(false);
     const [getTodoDataArray, setGetTodoDataArray] = useState([]);
@@ -33,6 +36,7 @@ const TodoCards = forwardRef((props, ref) => {
     const [fval,setFval] = useState(0);
     const [sval,setSval] = useState(0);
     const [swap_final_count,setSwap_final_count]=useState(false);
+    const [remarkDataEnt,setRemarkDataEnt]=useState('');
 
     const showModal = (event,ind) => {
         console.log('TODO__CARDD___DATA__',event)
@@ -85,7 +89,7 @@ const TodoCards = forwardRef((props, ref) => {
             for(let _data of respData){
                 // console.log('DATATATATA',_data)
                 let _icon = ''
-                // let _remark = ''
+                let _remark = ''
                 // let _enableRemark = null
                 // let _disableSubmit = null
                 let _textOverline = {}
@@ -97,20 +101,20 @@ const TodoCards = forwardRef((props, ref) => {
                     _icon = _data.taskDone === false ? checkboxoutline : truecheckbox
                 }
 
-                // _data.owernersCollectionDetails.forEach(event => { 
-                //     // console.log("*********************** owernersCollectionDetails ****************",event.remarkText);
-                //     if(event.remarkText !== ''){
-                //         _enableRemark = false
-                //         // _disableSubmit = true
-                //         event.remarkData = event.remarkText
-                //         event.disableSubmit = true
-                //     }else{
-                //         _enableRemark = true
-                //         // _disableSubmit = false
-                //         event.remarkData = event.remarkText
-                //         event.disableSubmit = false
-                //     }
-                // })
+                _data.owernersCollectionDetails.forEach(event => { 
+                    // console.log("*********************** owernersCollectionDetails ****************",event.remarkText);
+                    if(event.remarkText !== ''){
+                        // _enableRemark = false
+                        // _disableSubmit = true
+                        event.remarkData = event.remarkText
+                        event.disableSubmit = true
+                    }else{
+                        // _enableRemark = true
+                        // _disableSubmit = false
+                        event.remarkData = event.remarkText
+                        event.disableSubmit = false
+                    }
+                })
 
                 let objstrct = {
                     content: _data.description,
@@ -132,6 +136,7 @@ const TodoCards = forwardRef((props, ref) => {
                     sooncolor: '#E46A25',
                     overduecolor:'#F44336',
                     showarchiedpopup:false,
+                    remarkData:_remark,
                     textOverLine : _textOverline,
                     wholeData:_data
                 }
@@ -204,88 +209,85 @@ const TodoCards = forwardRef((props, ref) => {
 
     const removListFromToDo = (data,rowIndex) => {
         // console.log('Check box data',data);
-        // console.log('Index::',rowIndex);
-            // console.log("From if condition")
-            const {id} = stoageGetter('user')
-            // userId:id,
-           
-            let _teamMembers = []
-            let newData = getTodoDataArray;
-            return getTodoDataArray.map((item,index) =>{
-                if(data.removeBtn === false){
-                    
-                    newData[rowIndex].removeBtn = true
-                    newData[rowIndex].icon = truecheckbox
-                    newData[rowIndex].textOverLine.textDecorationLine = 'line-through'
-                    setGetTodoDataArray(newData)
+        const {id} = stoageGetter('user')
 
-                    if(newData[rowIndex].taskOwner_id !== id){
-                        let object={
-                            FullName:newData[rowIndex].searchdata[0].FullName,
-                            designation:newData[rowIndex].searchdata[0].designation,
-                            _Id:newData[rowIndex].searchdata[0]._Id,
-                            ShortId:newData[rowIndex].searchdata[0].ShortId,
-                            remarkText: newData[rowIndex].searchdata[0].remarkText,
-                            taskDone: true,
-                            inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
-                            remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
-                        }
-                        _teamMembers.push(object);
+        let _teamMembers = []
+        let newData = getTodoDataArray;
+        // return getTodoDataArray.map((item,index) =>{
+        if(data.removeBtn === false){
+            
+            newData[rowIndex].removeBtn = true
+            newData[rowIndex].icon = truecheckbox
+            newData[rowIndex].textOverLine.textDecorationLine = 'line-through'
+            setGetTodoDataArray(newData)
 
-                        let formdata={
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId :newData[rowIndex].todoid,
-                            owernersCollectionDetails:_teamMembers
-                        }
-                        updateTODOTaskApi(formdata)
-                    }else{
-                        let formdata = {
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId: data.todoid,
-                            taskDone : true
-                        }
-                        updateTODOTaskApi(formdata)
-                    }
-                }else{
-                    newData[rowIndex].removeBtn = false
-                    newData[rowIndex].icon = checkboxoutline
-                    newData[rowIndex].textOverLine.textDecorationLine = ''
-                    setGetTodoDataArray(newData)
-
-                    if(newData[rowIndex].taskOwner_id !== id){
-                        let object={
-                            FullName:newData[rowIndex].searchdata[0].FullName,
-                            designation:newData[rowIndex].searchdata[0].designation,
-                            _Id:newData[rowIndex].searchdata[0]._Id,
-                            ShortId:newData[rowIndex].searchdata[0].ShortId,
-                            remarkText: newData[rowIndex].searchdata[0].remarkText,
-                            taskDone: false,
-                            inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
-                            remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
-                        }
-                        _teamMembers.push(object);
-
-                        let formdata={
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId :newData[rowIndex].todoid,
-                            owernersCollectionDetails:_teamMembers
-                        }
-                        updateTODOTaskApi(formdata)
-                    }else{
-                        let formdata = {
-                            userId:id,
-                            taskOwner : newData[rowIndex].taskOwner_id,
-                            taskId: data.todoid,
-                            taskDone : false
-                        }
-                        updateTODOTaskApi(formdata)
-                    }
-
+            if(newData[rowIndex].taskOwner_id !== id){
+                let object={
+                    FullName:newData[rowIndex].searchdata[0].FullName,
+                    designation:newData[rowIndex].searchdata[0].designation,
+                    _Id:newData[rowIndex].searchdata[0]._Id,
+                    ShortId:newData[rowIndex].searchdata[0].ShortId,
+                    remarkText: newData[rowIndex].searchdata[0].remarkText,
+                    taskDone: true,
+                    inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
+                    remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
                 }
-            })                    
+                _teamMembers.push(object);
+
+                let formdata={
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId :newData[rowIndex].todoid,
+                    owernersCollectionDetails:_teamMembers
+                }
+                updateTODOTaskApi(formdata)
+            }else{
+                let formdata = {
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId: data.todoid,
+                    taskDone : true
+                }
+                updateTODOTaskApi(formdata)
+            }
+        }else{
+            newData[rowIndex].removeBtn = false
+            newData[rowIndex].icon = checkboxoutline
+            newData[rowIndex].textOverLine.textDecorationLine = ''
+            setGetTodoDataArray(newData)
+
+            if(newData[rowIndex].taskOwner_id !== id){
+                let object={
+                    FullName:newData[rowIndex].searchdata[0].FullName,
+                    designation:newData[rowIndex].searchdata[0].designation,
+                    _Id:newData[rowIndex].searchdata[0]._Id,
+                    ShortId:newData[rowIndex].searchdata[0].ShortId,
+                    remarkText: newData[rowIndex].searchdata[0].remarkText,
+                    taskDone: false,
+                    inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
+                    remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
+                }
+                _teamMembers.push(object);
+
+                let formdata={
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId :newData[rowIndex].todoid,
+                    owernersCollectionDetails:_teamMembers
+                }
+                updateTODOTaskApi(formdata)
+            }else{
+                let formdata = {
+                    userId:id,
+                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskId: data.todoid,
+                    taskDone : false
+                }
+                updateTODOTaskApi(formdata)
+            }
+
+        }
+        // })                    
     }
 
     const updateTODOTaskApi = async (data) =>{
@@ -328,6 +330,57 @@ const TodoCards = forwardRef((props, ref) => {
         setGetTodoDataArray(_data)
     }
 
+    const memberRemarks = (ind) =>{
+        // console.warn('______getTodoDataArray ____',getTodoDataArray[ind])
+        let _data = getTodoDataArray.map((ev,index)=>{
+            if(ind === index){
+                if(ev.showMemberRemark === false){
+                    ev.showMemberRemark = true
+                    ev.showMemText = 'Show Less'
+                }else if(ev.showMemberRemark === true){
+                    ev.showMemberRemark = false
+                    ev.showMemText = 'Show More'
+                }
+            }
+            return ev
+        }) 
+        setGetTodoDataArray(_data)
+    };
+
+    const submitRemark = (ind,remark,userId) =>{
+        let _teamMembers = []
+        let _data = {}
+
+        getTodoDataArray[ind].searchdata.map(ev => {
+            console.log('MAPPPPPPP ______REMMMsUBMIT_______***>>',ev)
+            if(userId == ev._Id){
+                ev.remarkData = remark
+                _data = {
+                    FullName : ev.FullName,
+                    designation : ev.designation,
+                    _Id : ev._Id,
+                    ShortId : ev.ShortId,
+                    remarkText : remark,
+                    taskDone : ev.taskDone,
+                    inAppNotification : ev.inAppNotification,
+                    remarkNotification  : ev.remarkNotification
+                }
+            }
+            _teamMembers.push(_data);
+
+        })
+        console.log('_teamMembers _____________***>>',_teamMembers)
+
+        let formdata={
+            userId:loginUserID,
+            taskOwner : getTodoDataArray[ind].taskOwner_id,
+            taskId :getTodoDataArray[ind].todoid,
+            owernersCollectionDetails:_teamMembers
+        }
+        updateTODOTaskApi(formdata)
+         
+    };
+
     let fetchTodo = () =>{
         return getTodoDataArray.map((element,index)=>{
             // console.log('DATATATATA____',element)
@@ -354,16 +407,9 @@ const TodoCards = forwardRef((props, ref) => {
                                 element.showarchiedpopup === true &&
                                     <div className='TodoCard-Container-Hamburger'>
                                         <Card className='Hamburger-Card Hamburger-box'>
-                                            {/* <p onClick={()=> showModal(element,index)}  style={{display:'flex',alignItems:'center'}}>
-                                                <FormOutlined style={{marginRight:"10px"}} />Edit
-                                            </p> */}
                                             <div style={{cursor:'pointer'}} onClick={()=> showModal(element,index)}><FormOutlined style={{marginRight:"10px",marginLeft:10}} />Edit</div>
                                             <div style={{backgroundColor:'#e6e9eb', opacity:'0.3',height:1,marginTop:5,marginBottom:5}}></div>
                                             <div style={{cursor:'pointer'}} onClick={()=> archiveData(element)}><ShopOutlined style={{marginRight:"10px",marginLeft:10}}/>Archive</div>
-                                            {/* <p onClick={()=> archiveData(element)} style={{display:'flex',alignItems:'center'}}>
-                                                <ShopOutlined style={{marginRight:"10px"}}/> Archive
-                                            </p> */}
-                                            
                                         </Card>
                                     </div>
                             }
@@ -384,56 +430,65 @@ const TodoCards = forwardRef((props, ref) => {
                     <div className='Todo-Footer'>
                         <p style={{textTransform: 'capitalize',fontWeight:'bolder'}}>{element.ownername}</p>
                         <button style={{textTransform: 'capitalize',backgroundColor:element.priorityIndicatorColor}}>{element.taskPriority}</button>
-                        {/* {
-                            element.taskPriority === "high" ?
-                            <button style={{backgroundColor:"#ff5252"}}>{element.taskPriority}</button>
-                            :element.taskPriority === "low" ?
-                            <button style={{backgroundColor:"#4caf50"}}>{element.taskPriority}</button>
-                            :<button >{element.taskPriority}</button>
-                        } */}
-                        {/* {backgroundColor:item.priorityIndicatorColor} */}
-                        {/* {
-                            !ShowMore?
-                                <p style={{color:"#00acc1"}} 
-                                onClick={(e)=>{
-                                    setShowMore(true);
-                                    showMoreIndex(element.taskOwner_id)
-                                }}
-                                >
-                                    Show More
-                                </p>
-                                :isShowMoreIndex == element.taskOwner_id ? 
-                                <p style={{color:"#00acc1"}}
-                                onClick={()=>{
-                                    setShowMore(false)
-                                    showMoreIndex(element.taskOwner_id)
-                                }}
-                                >
-                                    Show Less
-                                </p>
-                                :
-                                <p style={{color:"#00acc1"}} 
-                                onClick={(e)=>{
-                                    setShowMore(true);
-                                    showMoreIndex(element.taskOwner_id)
-                                }}
-                                > Show More</p>
-                        } */}
+                       {element.searchdata.length !== 0 &&
+                        <p style={{color:"#00acc1"}} onClick={()=> memberRemarks(index) } >{element.showMemText}</p>
+                       }
+
                     
                     </div>
-                        {/* {
-                            isShowMoreIndex == element.taskOwner_id ?
-                                ShowMore == true?
-                                <div className="TodoCard-Footer">
-                                    <div className='TodoCard-Footer-Main'>
-                                        <span>Submited by : 
-                                            <p style={{color:'#5ea5c0',margin:"14px"}}>{element.Data.Submitied}</p>
-                                        </span>
-                                            <p>{element.Data.t}</p>
+                    <div style={{backgroundColor:'#C1C8CC',height:1}}></div>
+                        { element.showMemberRemark === true &&
+                            <>
+                            { element.searchdata.map((data,ind) =>{
+                                return(
+                                    <div>
+                                        { element.taskOwner_id === loginUserID ?
+                                            <div className="TodoCard-Footer">
+                                                <div className='TodoCard-Footer-Main'>
+                                                    <span style={{marginBottom:10}}>Submited by :
+                                                        <p style={{color:'#5ea5c0',marginBottom:0,marginLeft:5}}>{data.FullName}</p>
+                                                    </span>
+                                                    <div>
+                                                        <Input disabled={true}  value={data.remarkText} type='text' placeholder='Enter Remark'/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            :
+                                            <div className="TodoCard-Footer">
+                                                <div className='TodoCard-Footer-Main'>
+                                                    <div>
+                                                        <p style={{marginBottom:3,fontSize:13}} >Please enter the remark before ticking the checkbox</p>
+                                                    </div>
+                                                    <div>
+                                                        { data.remarkData == '' ? 
+                                                            // value={remarkDataEnt}
+                                                            <Input type='text' placeholder='Enter Remark' onChange={(e) => setRemarkDataEnt(e.target.value)}/>
+                                                            :
+                                                            <div style={{border:'1px solid #C1C8CC',padding:4}}>
+                                                                <p style={{color:'grey',fontSize:12,marginBottom:0}}>{!data.remarkData ? '-': data.remarkData}</p>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div style={{display: 'flex',justifyContent:'flex-end',marginTop:10}}>
+                                                        <Button 
+                                                            disabled={data.disableSubmit} 
+                                                            // size="small" 
+                                                            onClick={() => submitRemark(ind,remarkDataEnt,data._Id)}
+                                                            type="primary" 
+                                                            style={{ backgroundColor: '#E46A25',borderRadius:3,border: 'none'}} >
+                                                            Submit
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
                                     </div>
-                                </div>
-                            :'':""
-                        } */}
+                                )
+                            })
+                            }
+                            </>
+                        }
                 </div>
             )
     

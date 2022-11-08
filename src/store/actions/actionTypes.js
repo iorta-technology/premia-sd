@@ -73,6 +73,7 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const MULTI_CHANNEL = "MULTI_CHANNEL";
+export const HEADER_NAME = "HEADER_NAME";
 
 export const AUTH_LOGOUT_START = "AUTH_LOGOUT_START";
 export const AUTH_LOGOUT_SUCCESS = "AUTH_LOGOUT_SUCCESS";

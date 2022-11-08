@@ -25,6 +25,13 @@ export const multiChannelData = (payload) => {
   };
 };
 
+export const headerName = (payload) => {
+  return {
+    type: actionTypes.HEADER_NAME,
+    header: payload,
+  };
+};
+
 export const loginFail = (error) => {
   return {
     type: actionTypes.LOGIN_FAIL,

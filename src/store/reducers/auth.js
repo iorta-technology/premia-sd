@@ -16,6 +16,7 @@ const initialState = {
   hierarchy: {},
   minValue: "",
   checkAgent: false,
+  headerName:"",
 };
 
 let user = stoageGetter("user");
@@ -37,6 +38,15 @@ const multiChannelData = (state, action) => {
     fetch_allLeads_Loading: false,
   });
 };
+
+const headerNameData = (state, action) => {
+  return updateObject(state, {
+    headerName: action.header,
+    fetch_allLeads_Loading: false,
+  });
+};
+
+
 
 const loginSuccess = (state, action) => {
   console.log("id_______DATATATATTAAT", action);
@@ -145,6 +155,9 @@ const reducer = (state = initialState, action) => {
       return loginFail(state, action);
     case actionTypes.MULTI_CHANNEL:
       return multiChannelData(state, action);
+
+    case actionTypes.HEADER_NAME:
+      return headerNameData(state, action);
 
     case actionTypes.AUTH_LOGOUT_START:
       return logoutStart(state, action);

@@ -542,7 +542,7 @@ const NewLead = React.memo((props) => {
       result[0]['leadStatusArr'] = leadArr
 
       // result.forEach(el =>{ el.leadStatusArr = leadArr })
-      // console.warn('__++++++++++++++ getlead_details +++++++++++>>>',result)
+      console.warn('__++++++++++++++ getlead_details +++++++++++>>>',result)
       if (result.length > 0) {
           dispatch(actions.fetchLeadDetailsSuccess(result[0]));
           if (result.length > 1) {
@@ -563,7 +563,7 @@ const NewLead = React.memo((props) => {
 
   const loadValuesToFields = (leadData) =>{
     console.warn('__++++++++++++++ leadData +++++++++++>>',leadData)
-    console.warn('__++++++++++++++ leadData +++++++++++>>',JSON.parse(leadData.teamMembers))
+    // console.warn('__++++++++++++++ leadData +++++++++++>>',JSON.parse(leadData.teamMembers))
     let _appntDate = ''
     let _appntTime = ''
     let leadArr = []
@@ -576,6 +576,7 @@ const NewLead = React.memo((props) => {
       setAppointmentStatus(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
       setAppointmentDisposition('newApptmnt')
       setAppointmentSubDisposition('Untouched / Not updated Appointment')
+      setLeadDisposition(leadData.leadDisposition)
       
       setLeadStatus(leadData.leadStatus)
       setLeadStatusData(leadArr)
@@ -583,11 +584,11 @@ const NewLead = React.memo((props) => {
       if (leadData.appointmentDetails) {
         // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
         // setDate(readableDateFormat);
-        // let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
+        let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
         _appntDate = moment(leadData.appointmentDetails.start_date)
         _appntTime = leadData.appointmentDetails.start_time.toString()
         setAppointmentDate(moment(leadData.appointmentDetails.start_date))
-        // setAppointmentDatePost(newDate)
+        setAppointmentDatePost(newDate)
         setAppointmentTime(_appntTime)
       }
     } else {
@@ -815,11 +816,11 @@ const NewLead = React.memo((props) => {
         },
         {
           value: 'nonserviceloc',
-          label: 'Non servicable location',
+          label: 'Non Servicable location',
           children: [
             {
-              value: 'Non servicable location',
-              label: 'Non servicable location',
+              value: 'Non Servicable location',
+              label: 'Non Servicable location',
             },
           ],
         },
@@ -1832,7 +1833,7 @@ const NewLead = React.memo((props) => {
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                      <Form.Item
+                      {/* <Form.Item
                         {...formItemLayout}
                         className="form-item-name label-color"
                         name="reminder"
@@ -1853,7 +1854,7 @@ const NewLead = React.memo((props) => {
                           options={setReminderOptions}
                           placeholder="Set Reminder">
                         </Select>
-                      </Form.Item>
+                      </Form.Item> */}
                     </Col>
                   </>
                   : null}

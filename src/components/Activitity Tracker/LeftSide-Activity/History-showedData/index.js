@@ -143,11 +143,11 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
     // hours = (hours % 12) || 12;
     // var minutes = dt.getUTCMinutes() ;
     // var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm; 
-    console.log(time, 'time------->entry-->')
+    // console.log(time, 'time------->entry-->')
     let finalTimeobj = timeList.filter(item =>{return item.value == time})
-    console.log(finalTimeobj, 'obj time---->')
+    // console.log(finalTimeobj, 'obj time---->')
     let finalTime = finalTimeobj[0].dispValue
-    console.log(finalTime, 'val time---->')
+    // console.log(finalTime, 'val time---->')
     return finalTime;
   }
 

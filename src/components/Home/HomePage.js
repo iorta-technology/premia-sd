@@ -267,10 +267,10 @@ const HomePage = () => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
+    dispatch(actions.headerName('Home'));
     // dispatch(actions.getBusinessCardAPI(userId,channelCode));
 
     dispatch(leadActions.updateTabOfDashboard("self"));
-
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     channelCode && dispatch(actions.fetchHierarchy(userId, channelCode));
@@ -357,12 +357,12 @@ const HomePage = () => {
         for (const key in res) {
           opportunities.push({
             value: res[key].ForToday,
-            name: "ForToday",
+            name: "For Today",
             month: moment(key).format("ddd"),
           });
           opportunities.push({
             value: res[key].Open,
-            name: "Open",
+            name: "New",
             month: moment(key).format("ddd"),
           });
         }
@@ -499,7 +499,6 @@ const HomePage = () => {
     history.push("/login");
   };
   // console.log("Home-Data", home_data)
-
   console.log("activities-data", activities_data);
   if (activities_data !== undefined || activities_data !== null) {
     if (activities_data?.length != 0) {
@@ -519,9 +518,9 @@ const HomePage = () => {
     let finalTimeobj = timeList.filter((item) => {
       return item.value == time;
     });
-    console.log(finalTimeobj, "obj time---->");
-    let finalTime = finalTimeobj[0].dispValue;
-    console.log(finalTime, "val time---->");
+    // console.warn( "obj time-------------->",finalTimeobj);
+    let finalTime = finalTimeobj[0]?.dispValue;
+    // console.log(finalTime, "val time---->");
     return finalTime;
   };
 

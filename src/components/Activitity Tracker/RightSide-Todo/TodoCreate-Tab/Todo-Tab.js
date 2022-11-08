@@ -7,6 +7,7 @@ import axiosRequest from '../../../../axios-request/request.methods';
 
 import {stoageGetter} from '../../../../helpers'
 import { useDispatch, useSelector } from 'react-redux';
+import _ from "lodash";
 
 const { Option } = Select;
 const { Search } = Input;
@@ -67,7 +68,7 @@ const TodoTab = (props) => {
     if(props.button === 'Update' && props.isModalVisible === true) setButtonName(props.button)
 
     if(Object.keys(props.editData).length !== 0 || props.editData !== undefined){
-      // console.log('I AM HEREEEE',props);
+      console.log('I AM HEREEEE____CHIPPP',props);
       let _teamMember = props.editData.searchdata.map(el =>{ return toCapitalize(el.FullName) + ' ' + '('+el.designation+')' })
       setTeamMemberChip(_teamMember)
       setOwnerCollectn(props.editData.searchdata)
@@ -372,10 +373,20 @@ const TodoTab = (props) => {
             allocationdata.push(id);
         }
 
+        console.warn('ownerCollectn________',ownerCollectn)
+        let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
+        
         let formData ={
           dateOfReminder: reminderDateString,
           description: todoDesc,
-          owernersCollectionDetails: ownerCollectn,
+          owernersCollectionDetails: _ownerCollectn.map(el=>{
+            return {
+              FullName: el.FullName,
+              ShortId: el.ShortId,
+              designation: el.designation,
+              _Id: el._Id,
+            }
+          }),
           priorityIndicatorColor: priorityBtnColr,
           taskOwner: id,
           taskOwners:allocationdata,
@@ -403,10 +414,18 @@ const TodoTab = (props) => {
             ownerCollectn.map(x => { allocationdata.push(x._Id) });
             allocationdata.push(id);
         }
+        let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
         let formData ={
           dateOfReminder: reminderDateString,
           description: todoDesc,
-          owernersCollectionDetails: ownerCollectn,
+          owernersCollectionDetails: _ownerCollectn.map(el=>{
+            return {
+              FullName: el.FullName,
+              ShortId: el.ShortId,
+              designation: el.designation,
+              _Id: el._Id,
+            }
+          }),
           priorityIndicatorColor: priorityBtnColr,
           taskOwner: id,
           taskOwners: allocationdata,
@@ -448,19 +467,11 @@ const TodoTab = (props) => {
   };
   
   const onChangeTeam = (text,data) => {
-    console.log('onSelect___data', data);
-
-    let sortarray = {
-      FullName: data.FullName,
-      ShortId: data.ShortId,
-      designation: data.designation,
-      _Id: data._Id,
-    }
     
     setTeamMemberData(text)
     // console.log('onSelect___text', text);
     // console.log('onSelect___data', data);
-    setOwnerCollectn([...ownerCollectn,sortarray])
+    setOwnerCollectn([...ownerCollectn,data])
   };
   
 

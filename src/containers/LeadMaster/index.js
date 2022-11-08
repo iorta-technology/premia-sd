@@ -15,8 +15,10 @@ const LeadMaster = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [width, setWidth] = useState(window.innerWidth);
-  const breakpoint = 620;
+    dispatch(actions.headerName('Opportunities'));
+
+    const [width, setWidth] = useState(window.innerWidth)
+    const breakpoint = 620
 
   useEffect(() => {
     const { id } = stoageGetter("user");
@@ -68,40 +70,41 @@ const LeadMaster = (props) => {
   }
 
   const handlePageClick = (page) => {
-    setcurrent(page);
-    console.log(page);
-  };
-  const tabMenu = [
+    setcurrent(page)
+    console.log(page)
+}
+const tabMenu = [
     {
-      id: "all",
-      value: "All",
+        id: 'all',
+        value: "All"
     },
     {
-      id: "fortoday",
-      value: "For Today",
+        id: 'fortoday',
+        value: "For Today"
     },
     {
-      id: "open",
-      value: "Open",
+        id: 'open',
+        value: "Open"
     },
     {
-      id: "converted",
-      value: "Converted",
+        id: 'converted',
+        value: "Converted"
     },
     {
-      id: "failed",
-      value: "Failed",
+        id: 'failed',
+        value: "Failed"
     },
-  ];
-  console.warn("debug 001", leadsData, "debug 002", leadDataLoading);
-  return (
-    <div style={{ backgroundColor: "#fafafa" }}>
-      <Tab
-        tabMenu={tabMenu}
-        header="Lead"
-        // current={current}
-      />
-      {/* <Button type='primary' className="export-btn">Export</Button>
+
+]
+// console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
+    return (
+        <div style={{backgroundColor:'#fafafa'}}>
+            <Tab 
+                tabMenu={tabMenu} 
+                header="Lead" 
+                // current={current}
+                />
+                {/* <Button type='primary' className="export-btn">Export</Button>
                 <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button> */}
       {/* <Button type='primary' className='dashboard-btn' onClick={ ()=> history.push('/dashboard') }>Dashboard</Button>
                 <Button type='primary' className="export-btn">Export</Button>
