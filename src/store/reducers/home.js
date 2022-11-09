@@ -76,7 +76,7 @@ const fetchTodoStart = (state, action) => {
 };
 
 const fetchTodoSuccess = (state, action) => {
-  console.log("actions of activities", action);
+  // console.log("actions of activities", action);
   return updateObject(state, {
     fetch_todo_Loading: false,
     todo_obj: action.todo,
@@ -88,7 +88,7 @@ const fetchNotificationStatus = (state, action) => {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log("initialState", action);
+  // console.log("initialState", action);
   switch (action.type) {
     case actionTypes.HOME_START:
       return fetchHomeStart(state, action);

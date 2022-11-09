@@ -76,7 +76,7 @@ export const home = (agent_id, userID) => {
       `user/v2/getleads_team_count/${userID}`,
       { secure: true }
     );
-    console.log("GETTTT LEADD TEAM COUNTT", _resp);
+    // console.log("GETTTT LEADD TEAM COUNTT", _resp);
     return dispatch(homeSuccess(_resp));
     // return axios.get(`user/getleads_team_count/${agent_id}`)
     // .then(res=>{
@@ -95,7 +95,7 @@ export const getUserTreeAPI = (userId) => {
     let _resp = await axiosRequest.get(`user/v2/user_tree?userId=${userId}`, {
       secure: true,
     });
-    console.log("home data", _resp);
+    // console.log("home data", _resp);
     return dispatch(userTreeData(_resp));
     // return axiosRequest.get(`user/v2/user_tree?userId=${agent_id}`)
     // .then(res=>{
@@ -116,7 +116,7 @@ export const getBusinessCardAPI = (userId, channelData) => {
       `user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`,
       { secure: true }
     );
-    console.log("Business CARD", _resp);
+    // console.log("Business CARD", _resp);
     return dispatch(businessCardData(_resp));
     // return axiosRequest.get(`user/v2/user_tree?userId=${agent_id}`)
     // .then(res=>{
@@ -136,7 +136,7 @@ export const todoGetData = (id) => {
       `user/fetch_todo_list?user_id=${id}&filter=all&skip=0`,
       { secure: true }
     );
-    console.log("GETTTT TODOOOOO", _resp);
+    // console.log("GETTTT TODOOOOO", _resp);
     return dispatch(todoSuccess(_resp));
   };
 };
@@ -149,7 +149,7 @@ export const activities = (id, agentID) => {
       { secure: true }
     );
     // let _resp = await axiosRequest.get(`user/fetch_todo_list?user_id=${id}&filter=all&skip=0`, { secure: true })
-    console.log("GETTTT APPPPPPOINTMENTTT", _resp);
+    // console.log("GETTTT APPPPPPOINTMENTTT", _resp);
     return dispatch(activitiesSuccess(_resp));
     // return axios.get(`user/getAppointment/${id}?set_reminder_prority=high,none,low,medium&now_filter=1`)
     // .then(res=>{

@@ -53,6 +53,7 @@ const Tab = ({
   const [activeTab, setactiveTab] = useState();
   const [showTab, setShowTab] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [leadTabFilter, setLeadTabFilter] = useState(false);
 
   let history = useHistory();
   let _currentTab = "self";
@@ -81,6 +82,7 @@ const Tab = ({
   // ************************Api *********************
 
   const getDataForOpen = async (leadInc) => {
+    setLeadTabFilter(leadInc)
     // let leadtyp = leadInc;
     const { id } = stoageGetter("user");
     // console.warn("_currentTab ______===========>>>", _currentTab);
@@ -315,6 +317,7 @@ const Tab = ({
                   onHide={handleClose}
                   handleShow={handleShow}
                   setShow={setShow}
+                  tabFilter={leadTabFilter}
                 />
               </div>
             ) : null}
@@ -397,6 +400,7 @@ const Tab = ({
                 onHide={handleClose}
                 handleShow={handleShow}
                 setShow={setShow}
+                tabFilter={leadTabFilter}
               />
             </div>
           )}

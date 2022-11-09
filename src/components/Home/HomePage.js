@@ -327,7 +327,7 @@ const HomePage = () => {
 
     let _bussDropArr = [];
 
-    console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
+    // console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
     if (_businessCardResp.length > 0) {
       for (let _kpi of _businessCardResp) {
         let data = {
@@ -340,7 +340,7 @@ const HomePage = () => {
         setBusinessDropArray(_bussDropArr);
         setBusinessDropdown(_bussDropArr[0].value);
       }
-      console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
+      // console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
       handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
     } else {
       handleBusinessDropdown("", _businessCardResp);
@@ -368,7 +368,7 @@ const HomePage = () => {
         }
       }
 
-      console.log("opportunities =========== ", opportunities);
+      // console.log("opportunities =========== ", opportunities);
     } catch (error) {
       console.log(error);
     }
@@ -395,7 +395,7 @@ const HomePage = () => {
         `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`,
         { secure: true }
       );
-      console.log("TODO__GETTTT___RESPPPP", _resp);
+      // console.log("TODO__GETTTT___RESPPPP", _resp);
       let respData = _resp[0];
 
       for (let _data of respData) {
@@ -468,7 +468,7 @@ const HomePage = () => {
         arrData.push(objstrct);
       }
       setGetTodoDataArray(arrData);
-      console.warn("getTodoDataArray____DATAA", getTodoDataArray);
+      // console.warn("getTodoDataArray____DATAA", getTodoDataArray);
       setShowData(true);
     } catch (err) {}
   };
@@ -499,7 +499,7 @@ const HomePage = () => {
     history.push("/login");
   };
   // console.log("Home-Data", home_data)
-  console.log("activities-data", activities_data);
+  // console.log("activities-data", activities_data);
   if (activities_data !== undefined || activities_data !== null) {
     if (activities_data?.length != 0) {
       activities_data = activities_data?.filter((item) => {
