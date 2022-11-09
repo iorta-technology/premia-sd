@@ -68,9 +68,13 @@ export default function CalendarEvent(props) {
     policy_renewal: false
   })
   const [teamMemberData ,setTeamMemberData]=useState('')
+  const [customerData ,setCustomerData]=useState('')
   const [hierarAgentList ,setHierarAgentList]=useState([])
+  const [customersearchList ,setCustomerSearchList]=useState([])
   const [teamMemberChip ,setTeamMemberChip]=useState([])
   const [ownerCollectn ,setOwnerCollectn]=useState([])
+  const [customersearchchip ,setCustomerSearchChip]=useState([])
+  const [customerlistcollectn ,setCustomerListCollectn]=useState([])
   const _dataStore = useSelector((state) => state?.home?.user_tree)
 
   useEffect(() => {
@@ -109,6 +113,36 @@ export default function CalendarEvent(props) {
   },[props]);
 
   useEffect(() => {
+    try{
+      customerSearch()
+  }catch(err){}   
+  },[props]);
+
+  const customerSearch = async() =>{
+    let id = stoageGetter('user').id
+    console.log(id, 'leadsss- id----;;;;;;;;;;;')
+    let result = await axiosRequest.get(`user/v2/getLead/${id}?leadfilter=all&skip=0`, { secure: true });
+      // console.warn('+++++++++ GET LEAD DATA ++++++++', result)
+      if (result.length > 0) {
+        console.log(result[0], 'final lead result');
+        let customersearch = []
+        result[0].map(el => {
+          let sortarray = {
+              _Id: el._id,
+              value:toCapitalize(el.firstName) +  el.lastName + ' ( ' + el.lead_Id + ' )',
+          }
+        
+           customersearch.push(sortarray)
+           console.log(customersearch, 'customer search array-->>;;;;;');
+           sortarray = {};
+          })
+          setCustomerSearchList(customersearch)
+      } else{
+        console.log(result, 'final lead result');
+      }
+  }
+
+  useEffect(() => {
     // props.getdata(false)
     console.log(props, 'props-----calendar----?')
     
@@ -135,7 +169,7 @@ export default function CalendarEvent(props) {
 };
 
   useEffect(()=>{
-    console.log('user id calendar event----PROPSSS----->',props.setIsModalVisible)
+    console.log('lead id calendar event----PROPSSS----->',props.Data)
     // let userid =stoageGetter('user')
     console.log(props.click)
     if(props.click == 'data'||"UPDATE EVENT"){
@@ -147,7 +181,7 @@ export default function CalendarEvent(props) {
     }//1661472000000
     if(props.Data){
       console.log(props.Data,'yes update');
-      if(props.Data.appointment_type == 'existingpartner'){
+      if(props.Data.appointment_type == 'existingapplication'){
         setAdvisorCheck(true)
         setCustomerCheck(false)
         if(props.Data.event_type == 'appointment'){
@@ -288,6 +322,11 @@ export default function CalendarEvent(props) {
         // })
         setOwnerCollectn(props.Data.teamMember)
         setTeamMemberChip(props.Data.teamMember)
+      }
+      if(props.Data.leadId != null){
+        console.log(customersearchList,'update lead list');
+        setCustomerListCollectn(props.Data.leadId)
+        setCustomerSearchChip(props.Data.leadId)
       }
 
       setAppointmentid(props.Data._id)
@@ -1601,6 +1640,40 @@ export default function CalendarEvent(props) {
       //     }
       //     setDurationTimeAlert(false)
     }
+
+    const onChangeCustomerSearch = (text,data) => {
+      console.log(text,'text------>')
+      console.log(data, 'data------>')
+      setCustomerData(text)
+      // console.log('onSelect___text', text);
+      // console.log('onSelect___data', data);
+      // setOwnerCollectn([...ownerCollectn,data])
+    };
+  
+    const onSelectCustomer = (value) => {
+      console.log('ON SELECTION ______________', value);
+      console.log('ONowner colle ______________', customersearchList);
+      let valuesplit = value.split(' ')
+      console.log(valuesplit[0]);
+      let filteredValue = customersearchList.filter(item=>{return item.value == value})
+      console.log(filteredValue, 'value splitted--->');
+      setCustomerListCollectn([...customerlistcollectn,...filteredValue])
+      setCustomerData('')
+      let _data = [...new Set([...customersearchchip,value])]
+      setCustomerSearchChip(_data)
+      setTeamemDisable(true)
+    }
+  
+    const removeCustomer = (data,ind) => {
+      console.log('removeTeamMember', data);
+      console.log('ownerCollectn=====>>', ownerCollectn);
+      let _arrayOwner = customerlistcollectn.filter((item,index) => item.value !== data)
+      setCustomerListCollectn(_arrayOwner)
+      let _array = customersearchchip.filter((item,index) => index !== ind)
+      setCustomerSearchChip(_array)
+      setTeamemDisable(false)
+    }
+
     const BookAppointmentFunc = async (e) => {
      
 
@@ -1608,7 +1681,7 @@ export default function CalendarEvent(props) {
 
       let formdata={
         userId:"616e908c43ed727bbac8d2d4",
-        appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+        appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
         event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
           :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
           :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
@@ -1658,6 +1731,11 @@ export default function CalendarEvent(props) {
         if(ownerCollectn.length > 0){
           ownerCollectn.map(x => { teammemberclone.push(x._Id) });
         }
+        let leadlist = []
+        if(customerlistcollectn.length > 0){
+          customerlistcollectn.map(x => { leadlist.push(x._Id) });
+        }
+        console.log(leadlist, 'list of lead;;;;;;')
         if(modeSelect == ''){
           message.warning('Mode is Mandatory');
         }else if (durationStartDateOperation == undefined){
@@ -1676,7 +1754,7 @@ export default function CalendarEvent(props) {
         let result = await axiosRequest.put('user/updateAppointment', {
           userId: stoageGetter('user').id,
           //userId : '60069a18579be233d2decf04',
-          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
           event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
             :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
             :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
@@ -1712,6 +1790,7 @@ export default function CalendarEvent(props) {
           customerId:"",
           teamMember_clone: teammemberclone,
           remarkText : '',
+          leadId : leadlist[0],
           mode : modeSelect,
           }, { secure: true });
 
@@ -1867,7 +1946,11 @@ export default function CalendarEvent(props) {
         if(ownerCollectn.length > 0){
           ownerCollectn.map(x => { teammemberclone.push(x._Id) });
         }
-
+        let leadlist = []
+        if(customerlistcollectn.length > 0){
+          customerlistcollectn.map(x => { leadlist.push(x._Id) });
+        }
+        console.log(leadlist, 'list of lead;;;;;;')
         if(modeSelect == ''){
           message.warning('Mode is Mandatory');
         }else if (durationStartDateOperation == undefined){
@@ -1890,7 +1973,7 @@ export default function CalendarEvent(props) {
         let result = await axiosRequest.post('user/bookAppointment', {
            userId: stoageGetter('user').id,
          // userId : '60069a18579be233d2decf04',
-          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
           event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
             :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
             :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
@@ -1923,6 +2006,7 @@ export default function CalendarEvent(props) {
           ]:[],
           customerId:"",
           teamMember_clone: teammemberclone,
+          leadId : leadlist[0],
           remarkText : '',
           mode : modeSelect,
           }, { secure: true });
@@ -1947,7 +2031,7 @@ export default function CalendarEvent(props) {
         let result = await axiosRequest.post('user/bookAppointment', {
            userId: stoageGetter('user').id,
          // userId : '60069a18579be233d2decf04',
-          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingpartner",
+          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
           event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
             :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
             :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
@@ -2518,7 +2602,7 @@ export default function CalendarEvent(props) {
     console.log(item.partnerId)
     setAdvisorTagVisible(true)
   }
-  if(item.appointment_type=="existingpartner"){
+  if(item.appointment_type=="existingapplication"){
     setProspectCollection({
       appointment_prospect: false,
       phone_call: false,
@@ -2981,7 +3065,7 @@ export default function CalendarEvent(props) {
                 disabled={updateEventCheck==true?true:false}
                   onClick={checkTeamMemberFunc}
                   className={advisorCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
-                >Producer</button>
+                >Prospect</button>
                 {/* <button
                   disabled={updateEventCheck==true?true:false}
                   onClick={checkProspectFunc}
@@ -3552,7 +3636,58 @@ export default function CalendarEvent(props) {
   >Document Collection</button>
 
 
-  </div> */}{customerCheck == true ?
+  </div> */}
+  
+  {customerCheck == false ? 
+  <div>
+    <div
+    className="CalendarEvent-Modal-Card-vertical-line"
+  >
+  </div>
+  <h4
+    className="CalendarEvent-Modal-Card-header-type"
+  >Search Customer</h4>
+  {console.log(customerlistcollectn, "list col")}
+  <div className='Todo-Create-Search calSearch'>
+              <AutoComplete
+                disabled={updateEventCheck || teammemdisable ==true?true:false}
+                value={customerData}
+                style={{width: '100%'}}
+                options={customersearchList}
+                onChange={(text,data)=> onChangeCustomerSearch(text,data) }
+                onSelect={onSelectCustomer}
+                filterOption={(inputValue, option) =>
+                  option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                }>
+                  <Search  placeholder="Search by Name" />
+                </AutoComplete>
+          </div>
+          { customersearchchip?.length !== 0 &&  updateEventCheck==false ?
+              <div style={{display:'flex',flexFlow:'wrap',alignItems:'center'}}>
+                {
+                  customersearchchip?.map((item,index) =>{
+                    console.log(item,'item--team member-->')
+                    return(
+                      <div style={{marginRight:10,marginTop:10,}}>
+                        <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{item} <CloseOutlined onClick={() => removeCustomer(item,index)} /></Button>
+                           </div>
+                    )
+                })
+                }
+              </div> : customersearchchip?.length !== 0 &&  updateEventCheck==true ?<div style={{display:'flex',flexFlow:'wrap',alignItems:'center'}}>
+              
+                      <div style={{marginRight:10,marginTop:10,}}>
+                        <Button size="small" type="primary" style={{ backgroundColor: '#00ACC1', border: 'none',display:'flex',alignItems:'center' }} shape="round" >{ toCapitalize(customersearchchip.firstName) +  customersearchchip.lastName + ' ( ' + customersearchchip.lead_Id + ' )' }</Button>
+                           </div>
+                
+              </div> : null
+            } 
+           
+            </div>
+            : null
+  }
+  
+  {customerCheck == true ?
                 <div>
                   <div
 className="CalendarEvent-Modal-Card-vertical-line"
@@ -3909,7 +4044,7 @@ className="CalendarEvent-Modal-Card-vertical-line"
                         {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
                         {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
                         <AutoComplete
-                          disabled={updateEventCheck || teammemdisable ==true?true:false}
+                          disabled={updateEventCheck ?true:false}
                           value={teamMemberData}
                           style={{width: '100%'}}
                           options={hierarAgentList}

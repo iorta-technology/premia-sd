@@ -36,8 +36,13 @@ const Nav = styled.div`
   justify-content: flex-end;
   column-gap: 20px;
   align-items: center;
+<<<<<<< HEAD
+  padding-left: 2rem;
+  padding-right: 2rem;
+=======
   padding-left: 1rem;
   padding-right: 1rem;
+>>>>>>> d618f27f50274a142aa23750dcac51aaa34414a2
   position: fixed;
   top: 0;
   left: 0;
@@ -79,13 +84,7 @@ if (login_user_data === null) window.location.replace("/login");
 
 function Modal1({ children, shown, close }) {
   return shown ? (
-    <div
-      className="modal-backdrop"
-      onClick={() => {
-        // close modal when outside of modal is clicked
-        close();
-      }}
-    >
+    <div className="modal-backdrop" onClick={() => close()}>
       <div
         className="modal-content"
         onClick={(e) => {
@@ -93,7 +92,6 @@ function Modal1({ children, shown, close }) {
           e.stopPropagation();
         }}
       >
-        {/* <button onClick={close}>Close</button> */}
         {children}
       </div>
     </div>
@@ -202,23 +200,31 @@ const Sidebar = () => {
 
   const routeBack = () => {
     // console.warn("history_____routeBack", history);
-    history.goBack()
+    history.goBack();
   };
-
 
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
-          <div style={{display:'flex',flex:1}}>
-            <NavIcon to='#'>
-              {headerName !== 'Home' &&
-                <FaIcons.FaArrowLeft  onClick={() => routeBack()} />
-              }
-              <p style={{marginBottom:0,marginLeft:10,color:'#fff',fontSize:20}}>{headerName}</p>
+          <div style={{ display: "flex", flex: 1 }}>
+            <NavIcon to="#">
+              {headerName !== "Home" && (
+                <FaIcons.FaArrowLeft onClick={() => routeBack()} />
+              )}
+              <p
+                style={{
+                  marginBottom: 0,
+                  marginLeft: 10,
+                  color: "#fff",
+                  fontSize: 20,
+                }}
+              >
+                {headerName}
+              </p>
             </NavIcon>
           </div>
-          <div style={{display:'flex',flex:1}}>
+          <div style={{ display: "flex", flex: 1 }}>
             <img
               onClick={() => {
                 history.push("/home");
@@ -234,7 +240,7 @@ const Sidebar = () => {
           </div>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
 
-          <div style={{display:'flex',flex:1,justifyContent:'flex-end'}}>
+          <div style={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
             <NavIcon to="#">
               <FaIcons.FaBell onClick={() => toggleModalBox()} />
               {_notify?.length &&
@@ -242,9 +248,9 @@ const Sidebar = () => {
               // clearBtn &&
               !state.home.notification ? (
                 <div className="dot"></div>
-               ) : null}
+              ) : null}
             </NavIcon>
-            <NavIcon style={{marginLeft:25}} onClick={showSidebar} to="#">
+            <NavIcon style={{ marginLeft: 25 }} onClick={showSidebar} to="#">
               <FaIcons.FaUserCircle />
             </NavIcon>
           </div>
@@ -276,7 +282,10 @@ const Sidebar = () => {
                   <FaIcons.FaMapMarker style={{ color: "#787878" }} /> |{" "}
                   {login_user_data.city} | {login_user_data.state}
                 </p>
-                <p><b>Channel : </b>{login_user_data.channelCode.channelName}</p>
+                <p>
+                  <b>Channel : </b>
+                  {login_user_data.channelCode.channelName}
+                </p>
               </div>
             </div>
             <div className="menuBody">
