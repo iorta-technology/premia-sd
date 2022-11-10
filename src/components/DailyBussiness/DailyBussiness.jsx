@@ -30,7 +30,7 @@ import { useSyncExternalStore } from "react";
 const DailyBussiness = () => {
   const dispatch = useDispatch();
 
-  dispatch(actions.headerName('Daily Business'));
+  dispatch(actions.headerName("Daily Business"));
   let data = [];
   const { id, channelCode } = stoageGetter("user");
   const [form] = Form.useForm();
@@ -207,7 +207,7 @@ const DailyBussiness = () => {
   const userTreeData = useSelector((state) => state?.home?.user_tree);
 
   // const { Text, Link } = Typography;
-  
+
   useEffect(() => {
     const { id, channelCode } = stoageGetter("user");
     getUserDataParams(id);

@@ -26,12 +26,15 @@ export const AllocateModal = React.memo((props) => {
   const userTreeData = useSelector(
     (state) => state?.home?.user_tree.reporting_users
   );
+  const managerName = useSelector(
+    (state) => state?.home?.user_tree.reporting_managers
+  );
 
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
     setCardData(userTreeData);
-    console.log("cardData === ", userTreeData);
+    console.log("cardData === ", managerName);
   }, []);
 
   const handleCloseAllocate = () => {
@@ -47,6 +50,16 @@ export const AllocateModal = React.memo((props) => {
     if (allocateBtnStatus && checkedLead?.length > 0) {
       setVisible(true);
     }
+  };
+
+  let getMangerName = (findId) => {
+    let manager = "";
+    managerName.map((res) => {
+      if (res._id === findId) {
+        manager = res.first_name + " " + res.last_name;
+      }
+    });
+    return manager;
   };
 
   const handleAllocateLead = () => {
@@ -335,9 +348,10 @@ export const AllocateModal = React.memo((props) => {
                     </div>
                     <div>Reports to :</div>
                   </div>
-                  <div style={{ margin: 10 }}>
+                  <div style={{ margin: 10, color: "gray" }}>
                     <div></div>
-                    <div>{viewDetails.reporting_manager_name}</div>
+                    {/* <div>{viewDetails.reporting_manager} </div> */}
+                    <div>{getMangerName(viewDetails.reporting_manager)} </div>
                   </div>
                 </div>
 

@@ -39,8 +39,8 @@ import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import shareIt from "../../assets/shareit.png";
 import { fontStyle } from "@mui/system";
 import browimg from "../../assets/brochrewhite.png";
-import * as actions from '../../store/actions/index';
-import { useDispatch, useSelector } from 'react-redux';
+import * as actions from "../../store/actions/index";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoanProducts = () => {
   const contentStyle = {
@@ -59,8 +59,8 @@ const LoanProducts = () => {
   const login_user_data = stoageGetter("user");
   const _storeData = useSelector((state) => state?.login?.token);
   // console.warn("_storeData _storeData", _storeData);
-  const dispatch = useDispatch()
-  dispatch(actions.headerName('Products'));
+  const dispatch = useDispatch();
+  dispatch(actions.headerName("Products"));
 
   useEffect(() => {
     // console.warn("login_user_data___________ login_user_data", login_user_data);
@@ -134,12 +134,11 @@ const LoanProducts = () => {
     // ]
   }, []);
 
-
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
-  const [sdata,SetSdata] = useState([])
- 
+  const [sdata, SetSdata] = useState([]);
+
   const showModal1 = () => {
     setIsModalVisible1(true);
   };
@@ -162,12 +161,15 @@ const LoanProducts = () => {
         }
       )
       .then((resp) => {
-        console.log("PRODUCTTTT____APIIIIII =================== ", resp.data.errMsg[0].productBrochure);
-       // SetSdata(resp.data.errMsg[0].productBrochure)
-        
+        console.log(
+          "PRODUCTTTT____APIIIIII =================== ",
+          resp.data.errMsg[0].productBrochure
+        );
+        // SetSdata(resp.data.errMsg[0].productBrochure)
+
         const productTabs = resp?.data?.errMsg;
         SetProductTabs(productTabs);
-        console.log("sdataaa0000======", productTabs)
+        console.log("sdataaa0000======", productTabs);
       }, [])
       .catch((error) => {
         console.log(error);
@@ -244,50 +246,48 @@ const LoanProducts = () => {
     setList((oldData) => oldData.filter((elem, index) => index !== id));
   };
 
-  const [selectedData, setSelectedData] = useState([])
-  const selecteDataFun =(value) =>{
-    setSelectedData(res => [...res,value])
-  }
+  const [selectedData, setSelectedData] = useState([]);
+  const selecteDataFun = (value) => {
+    setSelectedData((res) => [...res, value]);
+  };
 
-  const changeTabfun =(e) => {
+  const changeTabfun = (e) => {
     //  sdata
-     for(var i=0; i<productTabs.length; i++){
-         console.log(e == productTabs[i]._id, productTabs[i])
-         if(e == productTabs[i]._id){
-            SetSdata(productTabs[i].productBrochure);
-         }
-     }
-  }
-  
+    for (var i = 0; i < productTabs.length; i++) {
+      console.log(e == productTabs[i]._id, productTabs[i]);
+      if (e == productTabs[i]._id) {
+        SetSdata(productTabs[i].productBrochure);
+      }
+    }
+  };
 
   const handleOk1 = async () => {
-  // setIsModalVisible1(false);
-   let dataaa = 
-   {
-     Product_Brochure_data:selectedData.map(res => res.location),
-     product_name:selectedData.map(res => res.fileCategory ),
-     sendto: list
-   }
-   
-   if (dataaa.Product_Brochure_data && dataaa.Product_Brochure_data.length == 0 || dataaa.sendto && dataaa.sendto.length == 0) {
-     message.error('Please, Select a Brochure and add an E-mail')
-   }
-  
-   
-   try {
-    let res = await axiosRequest.post(`user/send_email_brochure`, dataaa );
-        if (res.mailgunres.message === 'Queued. Thank you.') {
-          message.success('Queued. Thank you.')
-          
-          handleCancel1()
-        }
+    // setIsModalVisible1(false);
+    let dataaa = {
+      Product_Brochure_data: selectedData.map((res) => res.location),
+      product_name: selectedData.map((res) => res.fileCategory),
+      sendto: list,
+    };
 
-        
+    if (
+      (dataaa.Product_Brochure_data &&
+        dataaa.Product_Brochure_data.length == 0) ||
+      (dataaa.sendto && dataaa.sendto.length == 0)
+    ) {
+      message.error("Please, Select a Brochure and add an E-mail");
+    }
+
+    try {
+      let res = await axiosRequest.post(`user/send_email_brochure`, dataaa);
+      if (res.mailgunres.message === "Queued. Thank you.") {
+        message.success("Queued. Thank you.");
+
+        handleCancel1();
+      }
     } catch (error) {
       console.log("error API " + error);
     }
   };
-
 
   return (
     <>
@@ -320,7 +320,7 @@ const LoanProducts = () => {
         <div className="loan-product-tabs">
           <Col gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
             <Tabs type="card" tabPosition={tabPosition} onChange={changeTabfun}>
-              {productTabs.map((item,index) => {
+              {productTabs.map((item, index) => {
                 return (
                   <TabPane
                     tab={item.productName}
@@ -335,11 +335,14 @@ const LoanProducts = () => {
                       lg={12}
                       xl={12}
                     >
-                      <div>
-                        <div className="main-card2" bordered={false}>
+                      <div style={{ height: "100%" }}>
+                        <div
+                          style={{ height: "100%" }}
+                          className="main-card2"
+                          bordered={false}
+                        >
                           <div
                             className="benefit-main"
-                            
                             style={{
                               display: "flex",
                               alignItems: "center",
@@ -353,7 +356,6 @@ const LoanProducts = () => {
                                 textTransform: "capitalize",
                               }}
                               className="benefit-head"
-                              
                             >
                               {item.productName}
                             </h1>
@@ -472,7 +474,10 @@ const LoanProducts = () => {
                           >
                             5 Reasons to buy:
                           </h4>
-                          <div style={{ marginTop: 10 }}>
+                          <div
+                            className="bullet_points"
+                            style={{ marginTop: 10 }}
+                          >
                             <p>
                               <span className="slNo circle-point">1</span>
                               <span className="bullet-points">
@@ -546,7 +551,7 @@ const LoanProducts = () => {
                         </Carousel>
                         <div
                           className="product-brochure"
-                          style={{ marginTop: 20 }}
+                          style={{ marginTop: 10 }}
                         >
                           {item.productBrochure.map((item) => {
                             return (
@@ -561,7 +566,7 @@ const LoanProducts = () => {
                                   style={{
                                     fontWeight: "bold",
                                     color: "#454F63",
-                                    marginBottom: 5,
+                                    marginBottom: 0,
                                   }}
                                 >
                                   {truncateString(
@@ -628,69 +633,76 @@ const LoanProducts = () => {
         className="modalStyle"
       >
         <form>
-        <Row gutter={16} >
-          <Col style={{
-                display: "flex",}}>
-          {
-            sdata?.map((brodata, index) => (
-              <div
+          <Row gutter={16}>
+            <Col
               style={{
                 display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-                marginRight: "10px"
-                
               }}
             >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  color: "#454F63",
-                  marginBottom: 5,
-                }}
-              >
-                {
-                  brodata.fileCategory === "" ? "-" : brodata.fileCategory }
-                
-              </p>
-              <img onClick={() => selecteDataFun(brodata)} src={Brocher} height="100px" width="90px" className="broimg" />
-              <p
-                style={{
-                  color: "#5EA5C0",
-                  width: "100%",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  marginTop: "10px",
-                  textAlign: "center",
-                }}
-              >
-                {brodata.language}
-              </p>
-            </div>
-            ))
-          }
-            
-          </Col>
-        </Row>
-        {(sdata && sdata?.length > 0) ? <Row gutter={16}>
-            
-            <Col>
-              <Input
-                className="inp"
-                placeholder="E-Mail ID"
-                value={data}
-                type='email'
-                onChange={(e) => setData(e.target.value)}
-              />
+              {sdata?.map((brodata, index) => (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    marginRight: "10px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: "bold",
+                      color: "#454F63",
+                      marginBottom: 5,
+                    }}
+                  >
+                    {brodata.fileCategory === "" ? "-" : brodata.fileCategory}
+                  </p>
+                  <img
+                    onClick={() => selecteDataFun(brodata)}
+                    src={Brocher}
+                    height="100px"
+                    width="90px"
+                    className="broimg"
+                  />
+                  <p
+                    style={{
+                      color: "#5EA5C0",
+                      width: "100%",
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      marginTop: "10px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {brodata.language}
+                  </p>
+                </div>
+              ))}
             </Col>
-            <Col>
-              <button onClick={(e) => handleSubmit(e)} className="button_calss">
-                Add <PlusCircleFilled />
-              </button>
-            </Col>
-          </Row> : <p className="product_data">No Product Brochure Found</p> }
-
-          
+          </Row>
+          {sdata && sdata?.length > 0 ? (
+            <Row gutter={16}>
+              <Col>
+                <Input
+                  className="inp"
+                  placeholder="E-Mail ID"
+                  value={data}
+                  type="email"
+                  onChange={(e) => setData(e.target.value)}
+                />
+              </Col>
+              <Col>
+                <button
+                  onClick={(e) => handleSubmit(e)}
+                  className="button_calss"
+                >
+                  Add <PlusCircleFilled />
+                </button>
+              </Col>
+            </Row>
+          ) : (
+            <p className="product_data">No Product Brochure Found</p>
+          )}
 
           <Row>
             <div className="disply">

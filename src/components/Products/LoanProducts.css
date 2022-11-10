@@ -2,6 +2,10 @@
   display: flex;
   height: 300vh;
 } */
+
+.ant-carousel .slick-dots{
+  display:none !important;
+}
 .header-loan-prod{
     background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
     background-size: cover;
@@ -19,7 +23,7 @@
   .product-brochure{
     display: flex;
     flex-wrap: wrap;
-
+    justify-content: center;
   }
   .bi-table{
     width: 40vw;
@@ -27,6 +31,7 @@
   /* .Clubsmaster-modal-style{
     width: 30vw;
   } */
+
 
   .bi-cancelbtn{
     /* display: flex;
@@ -75,8 +80,10 @@
   width: 10vw;
 }
   .product-brochure>div{
-    margin-right: 20px;
+    margin: 10px;
   }
+
+  
   .product-brochure button{
     font-size: 12px;
     margin-top: 10px;
@@ -114,6 +121,7 @@
   .main-card3{
     padding: 30px;
     background: #E0E9F3;
+    height: 100%;
   }
   .benefit-head{
     display: flex;
@@ -129,11 +137,11 @@
     background:'#00ACC1';
     color:'#fff';
     border-radius:'80px';
-    padding:'5px'
+    padding:'5px';
+    font-weight: bolder;
   }
   .MainContent{
     display: flex;
-    
   }
   .image-slide{
     background-color: #fff;
@@ -144,19 +152,19 @@
     color: #fff !important;
   }
 
+  .bullet_points > p{
+    display: flex;
+    align-items: start;
+  }
+
+
   .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab{
     padding: 20px 24px;
-    /* box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%); */
-    width: 280px;
     display: flex;
     flex-direction: row;
-    /* align-items: stretch; */
     font-size: 16px;
   }
-  /* .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab{
-    margin: 0 0 0 0;
-    border: 1px solid #ECF2F9;
-  } */
+
   .loan-product-tabs .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane{
     padding-left: 0px;
   }
@@ -231,8 +239,9 @@
 
   }
   .loan-product-tabs {
-    width: 1280px;
+    width: 100%;
     margin: 0 auto;
+    padding:20px;
   }
   .loan-product-tabs .bullet-points{
     margin-left: 12px;
@@ -293,8 +302,6 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
-    /* width: 300px; */
-    display: flex;
     align-items: stretch;
     font-size: 16px;
   }
@@ -319,7 +326,7 @@
 }
 .product-para{
   display: flex;
-  width: 85vw;
+  width: 100%;
   text-align: justify;
   flex-direction: column;
   font-size: 14px;
@@ -356,6 +363,8 @@
 }
 .header-loan-prod h1{
   color: #00ACC1;
+  margin:20px 0;
+  width: 100%;
 }
 .product-title-loan{
   /* padding-top: 1vw; */
