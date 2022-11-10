@@ -50,10 +50,10 @@ const App = () => {
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
             {checkAgent() === false && 
-            <div className="CardBody" style={{ marginLeft: "-10px" }}>
+            <div className="CardBody" style={{ marginLeft: "-10px",display:'flex',flexDirection:'row' }}>
               <button
+                style={{ width:95,display:'flex',alignItems:'center',justifyContent:'center' }}
                 className={TeamSelf ? "activate" : " "}
-                style={{ width: 75 }}
                 onClick={(e) => {
                   setTeamSelf(true);
                 }}
@@ -66,7 +66,7 @@ const App = () => {
                 Self
               </button>
               <button
-                style={{ width: 75 }}
+                style={{ width: 95,display:'flex',alignItems:'center',justifyContent:'center' }}
                 className={!TeamSelf ? "activate" : ""}
                 onClick={(e) => {
                   setTeamSelf(false);

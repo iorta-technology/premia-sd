@@ -497,9 +497,9 @@ const NewLead = React.memo((props) => {
   // const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue !== '' ? storeInsuranceCompanyValue : 'select')
   const [insuranceCompany, setInsuranceComapany] = useState('select')
   // const [stateProvince, setStateProvince] = useState(storeStateValue !== '' ? storeStateValue : 'Select')
-  const [stateProvince, setStateProvince] = useState('Select')
+  const [stateProvince, setStateProvince] = useState('')
   // const [cityProvince, setCityProvince] = useState(storeCityValue !== '' ? storeCityValue : 'Select')
-  const [cityProvince, setCityProvince] = useState('Select')
+  const [cityProvince, setCityProvince] = useState('')
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(false)
   const [leadStatusData, setLeadStatusData] = useState([])
@@ -888,7 +888,7 @@ const NewLead = React.memo((props) => {
     setEmail(event.target.value)
   }
 
-  let _selectObj = {label: 'Select', value: 'Select'};
+  // let _selectObj = {label: 'Select', value: 'Select'};
   
 
   let stateOptions = (states && !_.isEmpty(states)) ?
@@ -899,7 +899,7 @@ const NewLead = React.memo((props) => {
       // state.push(label)
       return newState
     }) : null
-    stateOptions.unshift(_selectObj)
+    // stateOptions.unshift(_selectObj)
   // console.warn('stateOptions---------->>',stateOptions)
 
   const cities = useSelector((state) => state.address.cities)
@@ -911,7 +911,7 @@ const NewLead = React.memo((props) => {
       const newCities = { ...city, label, value }
       return newCities
     }) : null
-    citiesOptions.unshift(_selectObj)
+    // citiesOptions.unshift(_selectObj)
 
   const disabledDate = (current) => {
     // Can not select days before today and today
@@ -1034,7 +1034,7 @@ const NewLead = React.memo((props) => {
     // console.log('stateChangetHandler__________:', event);
     // setStateProvince(event.target.value)
     setStateProvince(event)
-    setCityProvince('Select')
+    setCityProvince('')
   }
 
   const cityChangeHandler = (event) => {

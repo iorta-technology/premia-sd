@@ -16,6 +16,9 @@ import { useDispatch,useSelector } from "react-redux";
 import axiosRequest from "../../axios-request/request.methods";
 import "./FloatButton.css";
 import { message } from "antd";
+import lead_icon from '../../assets/Agreement_white_24dp.png'
+import event_icon from '../../assets/Questinairee_white_24dp.png'
+import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png'
 
 // const logindata = stoageGetter('user')
 // let id = ''
@@ -352,49 +355,62 @@ const FloatButton = React.memo(() => {
         Create an Event
       </p>
       {/* <Link to="/calendar"> */}
-        <Button
+        {/* <Button
           type="primary"
           shape="circle"
           size="large"
           icon={<CalendarOutlined />}
-          className={`${styles.eventicon} ${styles.iconpfr}`}
+          className={`${styles.floatBtn} ${styles.eventicon} ${styles.iconpfr}`}
           style={isopen ? open : close}
           onClick={openCalendarPage}
-        />
+        /> */}
+        <div onClick={openCalendarPage} className={`${styles.floatBtn} ${styles.eventicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
+          {/* <CalendarOutlined /> */}
+          <img src={event_icon} style={{height:25, width:25,cursor:"pointer"}}/>
+        </div>
       {/* </Link> */}
       <p
-        className={`${styles.paragraph}  ${styles.goalpg} ${styles.pgpfr}`}
+        className={`${styles.paragraph} ${styles.goalpg} ${styles.pgpfr}`}
         style={isopen ? open : close}
       >
         Add Daily Goals
       </p>
-      <Button
+      {/* <Button
         onClick={showModalGoal}
         type="primary"
         shape="circle"
         size="large"
         icon={<AimOutlined />}
-        className={`${styles.goalicon} ${styles.iconpfr}`}
+        className={`${styles.floatBtn} ${styles.goalicon} ${styles.iconpfr}`}
         style={isopen ? open : close}
-      />
+      /> */}
+      <div onClick={showModalGoal} className={`${styles.floatBtn} ${styles.goalicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
+        {/* <AimOutlined /> */}
+        <img src={goal_icon} style={{height:25, width:25,cursor:"pointer"}}/>
+        
+      </div>
 
       <>
         <p
-          className={`${styles.paragraph}  ${styles.leadpg} ${styles.pgpfr}`}
+          className={`${styles.paragraph} ${styles.leadpg} ${styles.pgpfr}`}
           style={isopen ? open : close}
         >
           New Lead Creation
         </p>
         {/* <Link to="/leadmasterpage/statuslead"> */}
-          <Button
+          {/* <Button
             onClick={addNewLead}
             type="primary"
             shape="circle"
             size="large"
             icon={<FileTextOutlined />}
-            className={`${styles.leadicon} ${styles.iconpfr}`}
+            className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr}`}
             style={isopen ? open : close}
-          />
+          /> */}
+        <div onClick={addNewLead} className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
+          {/* <FileTextOutlined /> */}
+          <img src={lead_icon} style={{height:25, width:25,cursor:"pointer"}}/>
+        </div>
         {/* </Link> */}
       </>
       {/* <p className={`${styles.paragraph}  ${styles.recuirementpg} ${styles.pgpfr}`} style={isopen?open:close}>New Recruitment</p> */}
