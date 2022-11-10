@@ -89,7 +89,7 @@
     margin-top: 10px;
     display: block;
   }
-  .ant-btn.primaryBtnLoan{
+  .ant-btn.primaryBtnLoan, .tabButton{
     /* background-color: rgb(255, 255, 255); */
     background-color: #D2DDE8;;
     color: rgb(60, 61, 61);
@@ -132,15 +132,16 @@
       z-index: 1;
       opacity: 2;
       pointer-events: none;
-      content: "Non life Prod Plain";
+      content: "Non-life Prod Plain";
       background: #fafafa;
       width: 100%;
       padding: 20px 24px;
       height: 67px;
-      color:#6d8baa;
+      color:#26303a;
       font-weight: 700;
       font-size: 16px;
       text-align: center;
+      box-shadow: 0px 3px 2px -1px rgb(0 0 0 / 18%);
   }
 
   .loan-product-tabs .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list{
@@ -251,6 +252,13 @@
     color: #6d8baa;
     background-color: #ffff;
   } */
+  
+  @media only screen and (max-width: 1010px){
+    .loan-product-tabs .ant-tabs-nav{
+      width: 100% !important;
+    }
+  }
+
   @media only screen and (min-width: 992px){
     
     .loan-product-tabs .circle-point {
@@ -304,9 +312,9 @@
     width: 2vw;
     justify-content: space-between;
   }
-  .ant-btn.primaryBtnLoan{
+  .ant-btn.primaryBtnLoan, .tabButton{
     /* background-color: rgb(255, 255, 255); */
-    background-color: #D2DDE8;;
+    background-color: #D2DDE8;
     color: rgb(60, 61, 61);
     border-radius: 20px;
     width: 150px;
@@ -314,8 +322,8 @@
     margin-left: 1vw;
     margin-right: 1vw;
     justify-content: space-between;
-    /* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%); */
   }
+
   .top-tab-header-active-loan{
     background-color: #00ACC1 !important;
     color: #fff !important;

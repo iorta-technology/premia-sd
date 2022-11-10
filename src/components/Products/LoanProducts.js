@@ -304,7 +304,9 @@ const LoanProducts = () => {
               <Col style={{ marginRight: 15 }}>
                 <Button
                   size="small"
-                  className={` ${item._id === activeId && "top-tab-header-active-loan"}`}
+                  className={`tabButton ${
+                    item._id === activeId && "top-tab-header-active-loan"
+                  }`}
                   onClick={topBtnClickHandler.bind(this, item)}
                 >
                   {item.productCategoryName}
