@@ -299,17 +299,20 @@ const LoanProducts = () => {
           </Col>
         </Row>
         <div>
-          <Row className="tabs-loan">
+          <Row className="tabs-loan primaryBtnLoan">
             {productData?.map((item) => (
               <Col style={{ marginRight: 15 }}>
                 <Button
-                  className={`primaryBtnLoan ${
-                    item._id === activeId && "top-tab-header-active-loan"
-                  }`}
+                  size="small"
+                  className={` ${item._id === activeId && "top-tab-header-active-loan"}`}
                   onClick={topBtnClickHandler.bind(this, item)}
                 >
                   {item.productCategoryName}
                 </Button>
+
+                {/* <div onClick={topBtnClickHandler.bind(this, item)} className={`primaryBtnLoan ${item._id === activeId && "top-tab-header-active-loan"}`}>
+                {item.productCategoryName}
+                </div> */}
               </Col>
             ))}
           </Row>

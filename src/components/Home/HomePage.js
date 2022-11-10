@@ -240,6 +240,7 @@ const HomePage = () => {
   const [businessGWP, setBusinessGWP] = useState({});
   const [businessActivation, setBusinessActivation] = useState({});
   const [opportunities, setOpportunities] = useState([]);
+  const [businessArrData, setBusinessArrData] = useState([]);
 
   // Access Management
   const [showActivityTracker, setShowActivityTracker] = useState(
@@ -283,30 +284,6 @@ const HomePage = () => {
     getKpiData(userId, channelCode);
   }, []);
 
-  // useEffect(() => {
-  // let _businessCardResp = _storeData.home.businessData[0].data
-  // let _bussDropArr = [];
-
-  // console.warn('((((((((_businessCardResp))))))))',_businessCardResp)
-  // if(_businessCardResp.length > 0){
-  //   for (let _kpi of _businessCardResp) {
-  //     let data = {
-  //       label: _kpi.year_month,
-  //       value: _kpi.year_month,
-  //       index: _kpi.id === 'last_two_month' ? '1' : '2'
-  //     }
-  //     _bussDropArr.push(data)
-
-  //     setBusinessDropArray(_bussDropArr)
-  //     setBusinessDropdown(_bussDropArr[0].value)
-  //   }
-  //   console.warn('((((((((_bussDropArr))))))))',_bussDropArr)
-  //   handleBusinessDropdown(_bussDropArr[0].value)
-  // }else{
-  //   handleBusinessDropdown('')
-  // }
-  // },[])
-
   const home_data = useSelector((state) => state.home.home_obj);
   let activities_data = useSelector((state) => state.activities.activities_obj);
 
@@ -326,19 +303,21 @@ const HomePage = () => {
     console.log("Business CARD", _resp);
     // dispatch(actions.businessCardData(_resp))
     let _businessCardResp = _resp[0].data;
+    setBusinessArrData(_businessCardResp)
 
     let _bussDropArr = [];
 
-    // console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
+    console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
     if (_businessCardResp.length > 0) {
       for (let _kpi of _businessCardResp) {
         let data = {
           label: _kpi.year_month,
           value: _kpi.year_month,
-          index: _kpi.id === "last_two_month" ? "1" : "2",
+          // index: _kpi.id === "last_two_month" ? "1" : "2",
         };
         _bussDropArr.push(data);
-
+        _bussDropArr = _.uniqBy(_bussDropArr,'value'); 
+        // setBusinessDropArray([...businessDropArray,data]);
         setBusinessDropArray(_bussDropArr);
         setBusinessDropdown(_bussDropArr[0].value);
       }
@@ -666,31 +645,31 @@ const HomePage = () => {
 
   const handleBusinessDropdown = (event, data) => {
     setBusinessDropdown(event);
-    let _businessCardResp = data;
-    let _selectMonthData = _businessCardResp.filter(
-      (el) => event === el.year_month
-    );
+    let _selectMonthData = []
+    if(data.length !== undefined){
+      _selectMonthData = data.filter((el) => event === el.year_month);
+    }else{
+      _selectMonthData = businessArrData.filter((el) => event === el.year_month);
+    }
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
     if (event !== "") {
       _businessRetention.target =
-        _selectMonthData[0]["GWP Retention"].gwp_retention_target;
+      handleFalseData(_selectMonthData[0]["GWP Retention"].gwp_retention_actual);
       _businessRetention.achieve =
-        _selectMonthData[0]["GWP Retention"].gwp_retention_achievement;
+        handleFalseData(_selectMonthData[0]["GWP Retention"].gwp_retention_budget);
       _businessRetention.per_achieve =
-        _selectMonthData[0]["GWP Retention"].gwp_retention_per_achievement;
+        handleFalseData(_selectMonthData[0]["GWP Retention"].gwp_retention_per_achievement);
 
-      _businessGWP.target = _selectMonthData[0]["GPW"].gpw_target;
-      _businessGWP.achieve = _selectMonthData[0]["GPW"].gpw_achievement;
-      _businessGWP.per_achieve = _selectMonthData[0]["GPW"].gpw_per_achievement;
+      _businessGWP.target = handleFalseData(_selectMonthData[0]["GPW"].gpw_actual);
+      _businessGWP.achieve = handleFalseData(_selectMonthData[0]["GPW"].gpw_budget);
+      _businessGWP.per_achieve = handleFalseData(_selectMonthData[0]["GPW"].gpw_per_achievement);
 
       _businessActivation.target =
-        _selectMonthData[0]["Branch Activation"].branch_activation_target;
+        handleFalseData(_selectMonthData[0]["Branch Activation"].branch_activation_actual);
       _businessActivation.achieve =
-        _selectMonthData[0]["Branch Activation"].branch_activation_achievement;
+        handleFalseData(_selectMonthData[0]["Branch Activation"].branch_activation_budget);
       _businessActivation.per_achieve =
-        _selectMonthData[0][
-          "Branch Activation"
-        ].branch_activation_per_achievement;
+      handleFalseData(_selectMonthData[0]["Branch Activation"].branch_activation_per_achievement);
 
       setBusinessRetention(_businessRetention);
       setBusinessGWP(_businessGWP);
@@ -713,6 +692,14 @@ const HomePage = () => {
       setBusinessActivation(_businessActivation);
     }
     // setShowBusinessData(true)
+  };
+
+  const handleFalseData = (data) => {
+    if(!data){
+      return 0
+    }else{
+      return data
+    }
   };
 
   const data = [
@@ -828,7 +815,7 @@ const HomePage = () => {
     // },
     color: ["#ADD8E6", "#f1f1f1"],
   };
-
+  // console.warn('========businessDropArray==========>>>>',businessDropArray)
   return (
     <Fragment>
       <FloatButton />
