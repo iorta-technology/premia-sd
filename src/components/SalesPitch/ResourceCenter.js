@@ -248,7 +248,7 @@ const ResourceCenter = () => {
             </Col>
           </Row>
           <div>
-            <Row className="tabs">
+            <Row className="tabs resourceCenter primaryBtn">
               {productData?.map((item) => (
                 <Col key={item._id} style={{ marginRight: 15 }}>
                   <Button
