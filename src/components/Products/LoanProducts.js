@@ -316,6 +316,7 @@ const LoanProducts = () => {
         </div>
       </div>
       {/* <div className='product-content'> */}
+
       {productData.length > 0 ? (
         <div className="loan-product-tabs">
           <Col gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
@@ -614,7 +615,6 @@ const LoanProducts = () => {
         <p>Do you wish to send payment link to the customer?</p>
       </Modal>
       {/* </div> */}
-
       <Modal
         title="Share Product Brochure"
         visible={isModalVisible1}
