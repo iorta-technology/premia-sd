@@ -146,20 +146,43 @@
 }
 .sales-guide-content {
   margin-top: 40px;
+  display: flex;
+  height: 230px;
+  justify-content: center;
+  align-items: center;
 }
 .b1-content {
   display: flex;
+  flex: 1;
   /* justify-content: space-between; */
   justify-content: space-evenly;
   align-content: flex-start;
 }
 .sales-content {
-  border: 1px solid #fff;
-  border-radius: 15px;
-  padding: 5px;
+  /* border: 1px solid #fff; */
+  /* border-radius: 15px; */
+  /* padding: 5px; */
   text-align: center;
   color: #fff;
   cursor: pointer;
+}
+/* .resourceCenterStyle{
+    flex: 1;
+    align-items: center;
+    border: 1px solid #ffffff61;
+    border-bottom: none;
+    border-top: none;
+} */
+.salesGuideNewStyle{
+  display: flex;
+  flex: 1;
+  align-items: center;
+  background-color: #fff;
+  justify-content: center;
+  height: 90px;
+  width: 90px;
+  padding: 20px;
+  border-radius: 70px;
 }
 .birthday-slides {
   text-align: center;

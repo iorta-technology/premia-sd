@@ -941,14 +941,14 @@ const KpiDashboard = () => {
             <>
               <Col xs={11} sm={12} md={12} lg={2} xl={2}>
                 <button
-                  style={{ width: "95%" }}
+                  style={{ width: "95%",display:'flex',alignItems:'center',justifyContent:'center'  }}
                   className={TeamSelf ? "active_tabs_button" : "tabs_button"}
                   onClick={(e) => {
                     handleSelfTeam("self");
                   }}
                 >
                   <img
-                    style={{ marginRight: "0px" }}
+                    style={{ marginRight: "8px" }}
                     src={TeamSelf ? person_white : person_black}
                     className="person"
                     alt="person_png"
@@ -965,14 +965,14 @@ const KpiDashboard = () => {
                 style={{ marginLeft: 8 }}
               >
                 <button
-                  style={{ width: "95%" }}
+                  style={{ width: "95%",display:'flex',alignItems:'center',justifyContent:'center'  }}
                   className={!TeamSelf ? "active_tabs_button" : "tabs_button"}
                   onClick={(e) => {
                     handleSelfTeam("team");
                   }}
                 >
                   <img
-                    style={{ marginRight: "0px" }}
+                    style={{ marginRight: "8px" }}
                     src={TeamSelf ? group_black : group_white}
                     className="person"
                     alt="group_png"

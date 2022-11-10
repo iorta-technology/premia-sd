@@ -89,14 +89,14 @@
     margin-top: 10px;
     display: block;
   }
-  .ant-btn.primaryBtnLoan{
+  .primaryBtnLoan .ant-btn{
     /* background-color: rgb(255, 255, 255); */
     background-color: #D2DDE8;;
     color: rgb(60, 61, 61);
     border-radius: 20px;
-    width: 190px;
+    width: 170px;
     border: none;
-    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    /* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%); */
   }
   .ant-btn.secondaryBtn{
     background-color: transparent;
@@ -274,7 +274,7 @@
     width: 2vw;
     justify-content: space-between;
   }
-  .ant-btn.primaryBtnLoan{
+  .primaryBtnLoan.ant-btn{
     /* background-color: rgb(255, 255, 255); */
     background-color: #D2DDE8;;
     color: rgb(60, 61, 61);

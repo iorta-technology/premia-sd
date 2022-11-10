@@ -497,13 +497,15 @@ const NewLead = React.memo((props) => {
   // const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue !== '' ? storeInsuranceCompanyValue : 'select')
   const [insuranceCompany, setInsuranceComapany] = useState('select')
   // const [stateProvince, setStateProvince] = useState(storeStateValue !== '' ? storeStateValue : 'Select')
-  const [stateProvince, setStateProvince] = useState('Select')
+  const [stateProvince, setStateProvince] = useState('')
   // const [cityProvince, setCityProvince] = useState(storeCityValue !== '' ? storeCityValue : 'Select')
-  const [cityProvince, setCityProvince] = useState('Select')
+  const [cityProvince, setCityProvince] = useState('')
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(false)
   const [leadStatusData, setLeadStatusData] = useState([])
   const [hierarAgentList ,setHierarAgentList]=useState([])
+  const [desigDataOwner ,setDesigDataOwner]=useState('')
+  const [teamDataOwner ,setTeamDataOwner]=useState('')
   const [desigData ,setDesigData]=useState('')
   const [teamMemberList ,setTeamMemberList]=useState([])
   const [teamData ,setTeamData]=useState('')
@@ -886,15 +888,19 @@ const NewLead = React.memo((props) => {
     setEmail(event.target.value)
   }
 
+  // let _selectObj = {label: 'Select', value: 'Select'};
+  
+
   let stateOptions = (states && !_.isEmpty(states)) ?
     states.map(state => {
-      const label = state.region_data.name
-      const value = state.region_data.name
+      const label = state?.region_data?.name
+      const value = state?.region_data?.name
       const newState = { ...state, label, value }
       // state.push(label)
       return newState
     }) : null
-  // console.log(stateOptions)
+    // stateOptions.unshift(_selectObj)
+  // console.warn('stateOptions---------->>',stateOptions)
 
   const cities = useSelector((state) => state.address.cities)
   let citiesOptions = (cities && !_.isEmpty(cities)) ?
@@ -905,6 +911,7 @@ const NewLead = React.memo((props) => {
       const newCities = { ...city, label, value }
       return newCities
     }) : null
+    // citiesOptions.unshift(_selectObj)
 
   const disabledDate = (current) => {
     // Can not select days before today and today
@@ -1018,14 +1025,16 @@ const NewLead = React.memo((props) => {
   };
 
   const stateSelectHandler = (value, key) => {
-    dispatch(actions.fetchAllCities(key.region_data.adminCode1))
+    // console.log('------stateSelectHandler----value--???',value)
+    // console.log('------stateSelectHandler----key--???',key)
+    value !== 'Select' && dispatch(actions.fetchAllCities(key.region_data.adminCode1))
 
   }
   const stateChangetHandler = (event,data) => {
     // console.log('stateChangetHandler__________:', event);
     // setStateProvince(event.target.value)
     setStateProvince(event)
-    setCityProvince('Select')
+    setCityProvince('')
   }
 
   const cityChangeHandler = (event) => {
@@ -1274,6 +1283,22 @@ const NewLead = React.memo((props) => {
     
     
   }
+  const handleDesignationDataOwner = (event,data) =>{
+    // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
+    setDesigDataOwner(event)
+    setTeamDataOwner('')
+    // const [teamDesig ,setTeamDesig]=useState(null)
+    let _team = { ['designation']: data }
+    setTeamDesig(_team)
+    
+    let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
+    setTeamMemberList(_teamData)
+    
+    
+  }
+
+  // const [desigDataOwner ,setDesigDataOwner]=useState('')
+  // const [teamDataOwner ,setTeamDataOwner]=useState('')
   const handleTeamListData = (event,data) =>{
     setTeamData(event)
     // console.warn('BEFORE====((((((((((===>>>>>>>>>>', addTeamMemb)
@@ -1289,6 +1314,24 @@ const NewLead = React.memo((props) => {
     setAddTeamMemb([...addTeamMemb,_team])
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
     console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
+    
+  }
+
+  const handleTeamListDataOwner = (event,data) =>{
+    setTeamDataOwner(event)
+    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', addTeamMemb)
+
+    let _memberData = {
+      dispValue:data.label,
+      label:data.label,
+      value:data.value,
+    }
+
+    let _team = { ...teamDesig, ['teamName']: _memberData }
+    // setAddTeamMemb(_team)
+    setAddTeamMemb([...addTeamMemb,_team])
+    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
+    // console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
     
   }
   
@@ -1503,6 +1546,7 @@ const NewLead = React.memo((props) => {
                       onChange={(item)=> primaryNoHandler(item)} />
                   </Form.Item>
                 </Col>
+                {/* <p>{stateProvince}</p> */}
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item
                     {...formItemLayout}
@@ -1941,9 +1985,16 @@ const NewLead = React.memo((props) => {
                                 },
                               ]}
                             >
-                              <Select size="large" value={desigData} options={hierarAgentList} onChange={(event,data)=> handleDesignationData(event,data)}  placeholder="Set Designation"></Select>
+                              <Select 
+                                size="large" 
+                                value={desigDataOwner} 
+                                options={hierarAgentList} 
+                                onChange={(event,data)=> handleDesignationDataOwner(event,data)}  
+                                placeholder="Set Designation">
+                              </Select>
                             </Form.Item>
                           </Col>
+                          
                           <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                             <Form.Item
                               {...formItemLayout}
@@ -1958,7 +2009,14 @@ const NewLead = React.memo((props) => {
                               ]}
                             >
                             
-                              <Select size="large" value={teamData} options={teamMemberList} onChange={(event,data)=> handleTeamListData(event,data)} placeholder="Set Team Member"></Select>
+                              <Select 
+                                size="large" 
+                                value={teamDataOwner} 
+                                options={teamMemberList} 
+                                onChange={(event,data)=> handleTeamListDataOwner(event,data)} 
+                                placeholder="Set Team Member">
+                                
+                              </Select>
                             </Form.Item>
                           </Col>
                         </Row>

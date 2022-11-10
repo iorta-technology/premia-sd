@@ -12,7 +12,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const dispatch = useDispatch();
 
   // searchtxt, lead_status, sorByFlter, sort_status, leadfilter, lead_disposition, leadType
-
+  // console.log('========tabFilter============',props.filterdata.tabFilter)
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [leadStatusFilter, setLeadStatusFilter] = useState("");
   const [sortByFlter, setSortByFlter] = useState("");
@@ -54,6 +54,9 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const handleNameSearch = (e) => {
     console.log("name search___________***", e.target.value);
     setSearchTextFilter(e.target.value);
+
+    searchType === 'fname' ? setSearchTextFilter(e.target.value.toLowerCase()) : setSearchTextFilter(e.target.value);
+
   };
   const handleAgeGroup = (e) => {
     console.log("age grop___________***", e.target.value);
@@ -77,7 +80,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     // let searchtxt = searchTextFilter;
     // let sorByFlter = sortByFlter;
     // let sort_status = shortByStatus
-    let leadfilter = "all";
+    let leadfilter = props.filterdata.tabFilter;
 
     let lead_disposition = "";
     let leadType = "";

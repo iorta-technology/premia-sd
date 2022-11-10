@@ -51,7 +51,21 @@
     border-color: transparent;
 }
 .main-card{
-    background-color: transparent;
+    background-color: #3e3e3e;
+}
+.login-card .ant-card {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    position: relative;
+    background: #3e3e3e;
+    border-radius: 2px;
 }
 
 @media screen and (max-width:420px){

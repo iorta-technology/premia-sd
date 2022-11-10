@@ -166,7 +166,7 @@ const LeadCard = React.memo((props) => {
           {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
           {/* {leadComponent} */}
         </div>
-        <div className="content">
+        <div className="content" style={{flex:1}}>
           <div className="content-header">
             <p className="user-name-text capitalize">{leadName}</p>
             <span className="user-id uppercase">{lead_Id}</span>
@@ -180,52 +180,56 @@ const LeadCard = React.memo((props) => {
               color: "lightgray",
             }}
           />
+          <div style={{display:'flex',flexDirection:'row'}}>
+            <div className="content-body Datainfo-Main-Container" style={{flex:1}}>
+              <div className="Dateinfo-Container">
+                <div  className="grid-style">
+                  <p className="text-type">Created on</p>
+                  <p className="text-content">{created_date}</p>
+                </div>
+                <div
+                  className="grid-style AllocatedBy-Heading"
+                >
+                  <p className="text-type">Allocated on</p>
+                  <p className="text-content">{allocatedDate}</p>
+                </div>
+                <div
+                  className="grid-style Appoinment-Heading"
+                >
+                  <p className="text-type">Appointment on</p>
+                  <p className="text-content">{appointmentOn}</p>
+                </div>
 
-          <div className="content-body Datainfo-Main-Container">
-            <div className="Dateinfo-Container">
-              <Card.Grid hoverable={false} className="grid-style">
-                <p className="text-type">Created on</p>
-                <p className="text-content">{created_date}</p>
-              </Card.Grid>
-              <Card.Grid
-                hoverable={false}
-                className="grid-style AllocatedBy-Heading"
-              >
-                <p className="text-type">Allocated on</p>
-                <p className="text-content">{allocatedDate}</p>
-              </Card.Grid>
-              <Card.Grid
-                hoverable={false}
-                className="grid-style Appoinment-Heading"
-              >
-                <p className="text-type">Appointment on</p>
-                <p className="text-content">{appointmentOn}</p>
-              </Card.Grid>
-              <Card.Grid hoverable={false} className="grid-style">
-                <p className="text-type">Mobile No.</p>
-                <p className="text-content">{primaryMobile}</p>
-              </Card.Grid>
-              <Card.Grid
-                hoverable={false}
-                className="grid-style AllocatedBy-Heading"
-              >
-                <p className="text-type">Allocated by</p>
-                <p className="text-content capitalize">{allocatedBy}</p>
-              </Card.Grid>
-              <Card.Grid
-                hoverable={false}
-                className="grid-style Appoinment-Heading"
-              >
-                <p className="text-type">Allocated to</p>
-                <p className="text-content capitalize">{allocatedTo}</p>
-              </Card.Grid>
+                {/* Please dont delete the below line */}
+                {/* <div className="grid-style Appoinment-Heading"></div> */}
+              
+              </div>
+              <div className="Dateinfo-Container">
+                <div  className="grid-style">
+                    <p className="text-type">Mobile No.</p>
+                    <p className="text-content">{primaryMobile}</p>
+                  </div>
+                  <div
+                    className="grid-style AllocatedBy-Heading"
+                  >
+                    <p className="text-type">Allocated by</p>
+                    <p className="text-content capitalize">{allocatedBy}</p>
+                  </div>
+                  <div
+                    className="grid-style Appoinment-Heading"
+                  >
+                    <p className="text-type">Allocated to</p>
+                    <p className="text-content capitalize">{allocatedTo}</p>
+                  </div>
+              </div>
+            </div>
+            <div style={{display:'flex'}}>
+              <button className="update-btn" onClick={() => updateHandler(id)}>Update</button>
             </div>
           </div>
         </div>
         {/* <div className="Update-Btn"></div> */}
-        <button className="update-btn" onClick={() => updateHandler(id)}>
-          Update
-        </button>
+
       </Card>
     </div>
   );

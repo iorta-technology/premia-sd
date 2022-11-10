@@ -41,6 +41,8 @@ import TodoClock from "../../assets/todoclock.png";
 import hamburger from "../../assets/hamburger8@2x.png";
 import checkboxoutline from "../../assets/checkboxoutline.png";
 import truecheckbox from "../../assets/CalenderIcons/truecheckbox.png";
+import product_icon from '../../assets/resorceico/Producticon.png'
+import resource_icon from '../../assets/resorceico/resourcecenter.png'
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
@@ -327,7 +329,7 @@ const HomePage = () => {
 
     let _bussDropArr = [];
 
-    console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
+    // console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
     if (_businessCardResp.length > 0) {
       for (let _kpi of _businessCardResp) {
         let data = {
@@ -340,7 +342,7 @@ const HomePage = () => {
         setBusinessDropArray(_bussDropArr);
         setBusinessDropdown(_bussDropArr[0].value);
       }
-      console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
+      // console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
       handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
     } else {
       handleBusinessDropdown("", _businessCardResp);
@@ -368,7 +370,7 @@ const HomePage = () => {
         }
       }
 
-      console.log("opportunities =========== ", opportunities);
+      // console.log("opportunities =========== ", opportunities);
     } catch (error) {
       console.log(error);
     }
@@ -395,7 +397,7 @@ const HomePage = () => {
         `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`,
         { secure: true }
       );
-      console.log("TODO__GETTTT___RESPPPP", _resp);
+      // console.log("TODO__GETTTT___RESPPPP", _resp);
       let respData = _resp[0];
 
       for (let _data of respData) {
@@ -468,7 +470,7 @@ const HomePage = () => {
         arrData.push(objstrct);
       }
       setGetTodoDataArray(arrData);
-      console.warn("getTodoDataArray____DATAA", getTodoDataArray);
+      // console.warn("getTodoDataArray____DATAA", getTodoDataArray);
       setShowData(true);
     } catch (err) {}
   };
@@ -499,7 +501,7 @@ const HomePage = () => {
     history.push("/login");
   };
   // console.log("Home-Data", home_data)
-  console.log("activities-data", activities_data);
+  // console.log("activities-data", activities_data);
   if (activities_data !== undefined || activities_data !== null) {
     if (activities_data?.length != 0) {
       activities_data = activities_data?.filter((item) => {
@@ -2098,30 +2100,45 @@ const HomePage = () => {
                   </Link>
                   <div className="sales-guide-content">
                     <div className="b1-content">
-                      <div
-                        onClick={() =>
-                          history.push(
-                            "/masterpresales/customerdetails/salespitch"
-                          )
-                        }
-                      >
-                        <p
-                          className="sales-content"
-                          style={{ height: 35, width: 100, fontSize: 14 }}
-                        >
-                          Sales Pitch
-                        </p>
+                      <div onClick={() => history.push("/masterpresales/customerdetails/salespitch")}>
+                        <div className="salesGuideNewStyle">
+                          <img src={product_icon} style={{height:55, width:55,cursor:"pointer"}}/>
+                        </div>
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14 }}>Sales Pitch</p>
+                        </div>
                       </div>
-                      <div onClick={() => history.push("/resourcecenter")}>
+                      
+
+                      <div style={{marginLeft:15}} onClick={() => history.push("/resourcecenter")}>
+                        <div className="salesGuideNewStyle">
+                          <img src={resource_icon} style={{height:55, width:55,cursor:"pointer"}}/>
+                        </div>
+                        {/* <p className="sales-content" style={{ fontSize: 14 }}>Resource Center</p> */}
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14 }}>Resource Center</p>
+                        </div>
+                      </div>
+
+                      <div  onClick={() => history.push("/products")}>
+                        <div className="salesGuideNewStyle">
+                          <img src={product_icon} style={{height:55, width:55,cursor:"pointer"}}/>
+                        </div>
+                        {/* <p className="sales-content" style={{ fontSize: 14 }}>Product</p> */}
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14 }}>Product</p>
+                        </div>
+                      </div>
+                      {/* <div onClick={() => history.push("/resourcecenter")}>
                         <p
                           className="sales-content"
                           style={{ height: 35, width: 130, fontSize: 14 }}
                         >
                           Resource Center
                         </p>
-                      </div>
+                      </div> */}
                     </div>
-                    <div className="b1-content">
+                    {/* <div className="b1-content">
                       <div onClick={() => history.push("/products")}>
                         <p
                           className="sales-content"
@@ -2130,14 +2147,14 @@ const HomePage = () => {
                           Product
                         </p>
                       </div>
-                      {/* <p
+                      <p
                         className="sales-content"
                         style={{ height: 35, width: 130, fontSize: 14 }}
                       >
                         Need Analysis
-                      </p> */}
+                      </p>
                     </div>
-                    {/* <div className="b1-content">
+                    <div className="b1-content">
                       <div onClick={() => history.push("/advisorpitch")}>
                         <p
                           className="sales-content"
@@ -2146,8 +2163,8 @@ const HomePage = () => {
                           Advisor OnBoarding
                         </p>
                       </div>
-                    </div> */}
-                    {/* <div className="b1-content">
+                    </div>
+                    <div className="b1-content">
                       <div onClick={() => history.push("/advisorpitch")}>
                         <p
                           className="sales-content"
