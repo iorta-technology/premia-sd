@@ -137,6 +137,7 @@ const LoanProducts = () => {
   const { TabPane } = Tabs;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const [currentTab, setCurrentTab] = useState("");
   const [sdata, SetSdata] = useState([]);
 
   const showModal1 = () => {
@@ -149,8 +150,9 @@ const LoanProducts = () => {
 
   const [benefitIllustratorArr, setBenefitIllustratorArr] = useState([]);
   const topBtnClickHandler = (item) => {
-    console.log(item);
+    console.log(item, "item");
     SetActiveId(item._id);
+    setCurrentTab(item.productCategoryName);
     axios
       .get(
         `https://abinsurancenode.salesdrive.app/sdx-api/secure/user/getproduct/?productType=${item._id}&roleCode=SM1`,
@@ -289,6 +291,13 @@ const LoanProducts = () => {
     }
   };
 
+  const getCalcVal = (val, num) => {
+    if (val.length > num) {
+      return val.slice(0, num) + " ...";
+    }
+    return val;
+  };
+
   return (
     <>
       {/* <div className='product-content'> */}
@@ -323,13 +332,13 @@ const LoanProducts = () => {
       {/* <div className='product-content'> */}
 
       {productData.length > 0 ? (
-        <div className="loan-product-tabs">
+        <div className="loan-product-tabs" data-before-content={currentTab}>
           <Col gutter={{ xs: 24, sm: 24, md: 24, lg: 24 }}>
             <Tabs type="card" tabPosition={tabPosition} onChange={changeTabfun}>
               {productTabs.map((item, index) => {
                 return (
                   <TabPane
-                    tab={item.productName}
+                    tab={getCalcVal(item.productName, 30)}
                     key={item._id}
                     className="MainContent"
                   >
