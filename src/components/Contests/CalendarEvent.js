@@ -1738,6 +1738,8 @@ export default function CalendarEvent(props) {
         console.log(leadlist, 'list of lead;;;;;;')
         if(modeSelect == ''){
           message.warning('Mode is Mandatory');
+        }else if(customerlistcollectn.length == 0){
+          message.warning('Search Prospect is Mandatory');
         }else if (durationStartDateOperation == undefined){
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || ''){
@@ -1953,6 +1955,8 @@ export default function CalendarEvent(props) {
         console.log(leadlist, 'list of lead;;;;;;')
         if(modeSelect == ''){
           message.warning('Mode is Mandatory');
+        }else if(customerlistcollectn.length == 0){
+          message.warning('Search Prospect is Mandatory');
         }else if (durationStartDateOperation == undefined){
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || ''){
@@ -3646,7 +3650,7 @@ export default function CalendarEvent(props) {
   </div>
   <h4
     className="CalendarEvent-Modal-Card-header-type"
-  >Search Customer</h4>
+  >Search Prospect *</h4>
   {console.log(customerlistcollectn, "list col")}
   <div className='Todo-Create-Search calSearch'>
               <AutoComplete
@@ -3654,6 +3658,7 @@ export default function CalendarEvent(props) {
                 value={customerData}
                 style={{width: '100%'}}
                 options={customersearchList}
+                notFoundContent='No Result Found'
                 onChange={(text,data)=> onChangeCustomerSearch(text,data) }
                 onSelect={onSelectCustomer}
                 filterOption={(inputValue, option) =>
@@ -4050,6 +4055,7 @@ className="CalendarEvent-Modal-Card-vertical-line"
                           options={hierarAgentList}
                           onChange={(text,data)=> onChangeTeam(text,data) }
                           onSelect={onSelectTeam}
+                          notFoundContent='No Result Found'
                           filterOption={(inputValue, option) =>
                             option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                           }>
