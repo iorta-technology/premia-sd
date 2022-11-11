@@ -635,18 +635,18 @@ const NewLead = React.memo((props) => {
     
     console.warn('__++++++++++++++ teamTableData +++++++++++>>',teamTableData)
     
-    setFirstName(leadData.firstName)
-    setLastName(leadData.lastName)
-    setEmail(leadData.email)
-    setPrimaryNo(leadData.primaryMobile)
-    setStateProvince(leadData.state)
-    setCityProvince(leadData.city)
-    setLeadType(leadData.leadType)
-    setProduct(leadData.Product)
-    setInsuranceComapany(leadData.Insurance_Company)
+    setFirstName(leadData?.firstName)
+    setLastName(leadData?.lastName)
+    setEmail(leadData?.email)
+    setPrimaryNo(leadData?.primaryMobile)
+    setStateProvince(leadData?.state)
+    setCityProvince(leadData?.city)
+    setLeadType(leadData?.leadType)
+    setProduct(leadData?.Product)
+    setInsuranceComapany(leadData?.Insurance_Company)
     
-    setRemarkFromSource(leadData.remarksfromSource)
-    setRemarkFromUser(leadData.remarksfromUser)
+    setRemarkFromSource(leadData?.remarksfromSource)
+    setRemarkFromUser(leadData?.remarksfromUser)
 
     form.setFieldsValue({
       "firstname": leadData.firstName,
@@ -1040,6 +1040,7 @@ const NewLead = React.memo((props) => {
   const stateSelectHandler = (value, key) => {
     // console.log('------stateSelectHandler----value--???',value)
     // console.log('------stateSelectHandler----key--???',key)
+    setCityProvince('')
     value !== 'Select' && dispatch(actions.fetchAllCities(key.region_data.adminCode1))
 
   }
@@ -1048,6 +1049,8 @@ const NewLead = React.memo((props) => {
     // setStateProvince(event.target.value)
     setStateProvince(event)
     setCityProvince('')
+
+    form.setFieldsValue({"city": '',})
   }
 
   const cityChangeHandler = (event) => {
@@ -1156,8 +1159,8 @@ const NewLead = React.memo((props) => {
     line2: "",
     line3: "",
     country: "India",
-    state: stateProvince === 'Select' ? '' : stateProvince,
-    city: cityProvince  === 'Select' ? '' : cityProvince,
+    state: !stateProvince  ? '' : stateProvince,
+    city: !cityProvince   ? '' : cityProvince,
     pincode: null,
     primaryMobile: primaryNo,
     secondaryMobile: null,
@@ -1216,8 +1219,8 @@ const NewLead = React.memo((props) => {
     Product: product,
     Insurance_Company: insuranceCompany ,
 
-    state: stateProvince === 'Select' ? '' : stateProvince,
-    city: cityProvince  === 'Select' ? '' : cityProvince,
+    state: !stateProvince  ? '' : stateProvince,
+    city: !cityProvince   ? '' : cityProvince,
     primaryMobile: primaryNo,
     email: email,
 
