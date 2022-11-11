@@ -128,11 +128,27 @@
     font-size: 24px;
   }
 
+  .loan-product-tabs::before{
+      position: absolute;
+      z-index: 1;
+      opacity: 2;
+      pointer-events: none;
+      background: transparent;
+      padding: 20px 24px;
+      height: 67px;
+      color:#26303a;
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      content:attr(data-before-content);
+      /* content:'Life super'; */
+      width:275px;
+  }
+
   .loan-product-tabs .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap::before{
       z-index: 1;
       opacity: 2;
       pointer-events: none;
-      content: "Non-life Prod Plain";
       background: #fafafa;
       width: 100%;
       padding: 20px 24px;
@@ -179,10 +195,11 @@
 
 
   .loan-product-tabs .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab{
-    padding: 20px 24px;
+    padding: 15px 24px;
     display: flex;
     flex-direction: row;
     font-size: 16px;
+    background-color: #F7FBFF;
   }
 
   .loan-product-tabs .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane, .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane{
@@ -243,7 +260,7 @@
   }
 
   .loan-product-tabs .ant-tabs-nav{
-    width: 230px !important;
+    width: 275px !important;
   }
   
   /* #F7FBFF; */
