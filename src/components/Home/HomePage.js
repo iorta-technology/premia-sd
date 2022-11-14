@@ -41,8 +41,8 @@ import TodoClock from "../../assets/todoclock.png";
 import hamburger from "../../assets/hamburger8@2x.png";
 import checkboxoutline from "../../assets/checkboxoutline.png";
 import truecheckbox from "../../assets/CalenderIcons/truecheckbox.png";
-import product_icon from '../../assets/resorceico/Producticon.png'
-import resource_icon from '../../assets/resorceico/resourcecenter.png'
+import product_icon from "../../assets/resorceico/Producticon.png";
+import resource_icon from "../../assets/resorceico/resourcecenter.png";
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
@@ -270,7 +270,7 @@ const HomePage = () => {
     if (id) dispatch(actions.activities(id, agent_id));
     if (id) dispatch(actions.todoGetData(id));
     dispatch(actions.getUserTreeAPI(userId));
-    dispatch(actions.headerName('Home'));
+    dispatch(actions.headerName("Home"));
     // dispatch(actions.getBusinessCardAPI(userId,channelCode));
 
     dispatch(leadActions.updateTabOfDashboard("self"));
@@ -303,29 +303,29 @@ const HomePage = () => {
     console.log("Business CARD", _resp);
     // dispatch(actions.businessCardData(_resp))
     let _businessCardResp = _resp[0].data;
-    setBusinessArrData(_businessCardResp)
+    setBusinessArrData(_businessCardResp);
 
     let _bussDropArr = [];
 
     console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
-    if (_businessCardResp.length > 0) {
-      for (let _kpi of _businessCardResp) {
-        let data = {
-          label: _kpi.year_month,
-          value: _kpi.year_month,
-          // index: _kpi.id === "last_two_month" ? "1" : "2",
-        };
-        _bussDropArr.push(data);
-        _bussDropArr = _.uniqBy(_bussDropArr,'value'); 
-        // setBusinessDropArray([...businessDropArray,data]);
-        setBusinessDropArray(_bussDropArr);
-        setBusinessDropdown(_bussDropArr[0].value);
-      }
-      // console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
-      handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
-    } else {
-      handleBusinessDropdown("", _businessCardResp);
-    }
+    // if (_businessCardResp.length > 0) {
+    //   for (let _kpi of _businessCardResp) {
+    //     let data = {
+    //       label: _kpi.year_month,
+    //       value: _kpi.year_month,
+    //       // index: _kpi.id === "last_two_month" ? "1" : "2",
+    //     };
+    //     _bussDropArr.push(data);
+    //     _bussDropArr = _.uniqBy(_bussDropArr, "value");
+    //     // setBusinessDropArray([...businessDropArray,data]);
+    //     setBusinessDropArray(_bussDropArr);
+    //     setBusinessDropdown(_bussDropArr[0].value);
+    //   }
+    //   // console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
+    //   handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
+    // } else {
+    //   handleBusinessDropdown("", _businessCardResp);
+    // }
   };
 
   let getOpportunities = async () => {
@@ -645,31 +645,46 @@ const HomePage = () => {
 
   const handleBusinessDropdown = (event, data) => {
     setBusinessDropdown(event);
-    let _selectMonthData = []
-    if(data.length !== undefined){
+    let _selectMonthData = [];
+    if (data.length !== undefined) {
       _selectMonthData = data.filter((el) => event === el.year_month);
-    }else{
-      _selectMonthData = businessArrData.filter((el) => event === el.year_month);
+    } else {
+      _selectMonthData = businessArrData.filter(
+        (el) => event === el.year_month
+      );
     }
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
     if (event !== "") {
-      _businessRetention.target =
-      handleFalseData(_selectMonthData[0]["GWP Retention"].gwp_retention_actual);
-      _businessRetention.achieve =
-        handleFalseData(_selectMonthData[0]["GWP Retention"].gwp_retention_budget);
-      _businessRetention.per_achieve =
-        handleFalseData(_selectMonthData[0]["GWP Retention"].gwp_retention_per_achievement);
+      _businessRetention.target = handleFalseData(
+        _selectMonthData[0]["GWP Retention"].gwp_retention_actual
+      );
+      _businessRetention.achieve = handleFalseData(
+        _selectMonthData[0]["GWP Retention"].gwp_retention_budget
+      );
+      _businessRetention.per_achieve = handleFalseData(
+        _selectMonthData[0]["GWP Retention"].gwp_retention_per_achievement
+      );
 
-      _businessGWP.target = handleFalseData(_selectMonthData[0]["GPW"].gpw_actual);
-      _businessGWP.achieve = handleFalseData(_selectMonthData[0]["GPW"].gpw_budget);
-      _businessGWP.per_achieve = handleFalseData(_selectMonthData[0]["GPW"].gpw_per_achievement);
+      _businessGWP.target = handleFalseData(
+        _selectMonthData[0]["GPW"].gpw_actual
+      );
+      _businessGWP.achieve = handleFalseData(
+        _selectMonthData[0]["GPW"].gpw_budget
+      );
+      _businessGWP.per_achieve = handleFalseData(
+        _selectMonthData[0]["GPW"].gpw_per_achievement
+      );
 
-      _businessActivation.target =
-        handleFalseData(_selectMonthData[0]["Branch Activation"].branch_activation_actual);
-      _businessActivation.achieve =
-        handleFalseData(_selectMonthData[0]["Branch Activation"].branch_activation_budget);
-      _businessActivation.per_achieve =
-      handleFalseData(_selectMonthData[0]["Branch Activation"].branch_activation_per_achievement);
+      _businessActivation.target = handleFalseData(
+        _selectMonthData[0]["Branch Activation"].branch_activation_actual
+      );
+      _businessActivation.achieve = handleFalseData(
+        _selectMonthData[0]["Branch Activation"].branch_activation_budget
+      );
+      _businessActivation.per_achieve = handleFalseData(
+        _selectMonthData[0]["Branch Activation"]
+          .branch_activation_per_achievement
+      );
 
       setBusinessRetention(_businessRetention);
       setBusinessGWP(_businessGWP);
@@ -695,10 +710,10 @@ const HomePage = () => {
   };
 
   const handleFalseData = (data) => {
-    if(!data){
-      return 0
-    }else{
-      return data
+    if (!data) {
+      return 0;
+    } else {
+      return data;
     }
   };
 
@@ -2087,33 +2102,56 @@ const HomePage = () => {
                   </Link>
                   <div className="sales-guide-content">
                     <div className="b1-content">
-                      <div onClick={() => history.push("/masterpresales/customerdetails/salespitch")}>
+                      <div
+                        onClick={() =>
+                          history.push(
+                            "/masterpresales/customerdetails/salespitch"
+                          )
+                        }
+                      >
                         <div className="salesGuideNewStyle">
-                          <img src={product_icon} style={{height:55, width:55,cursor:"pointer"}}/>
+                          <img
+                            src={product_icon}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
                         </div>
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14 }}>Sales Pitch</p>
+                          <p className="sales-content" style={{ fontSize: 14 }}>
+                            Sales Pitch
+                          </p>
                         </div>
                       </div>
-                      
 
-                      <div style={{marginLeft:15}} onClick={() => history.push("/resourcecenter")}>
+                      <div
+                        style={{ marginLeft: 15 }}
+                        onClick={() => history.push("/resourcecenter")}
+                      >
                         <div className="salesGuideNewStyle">
-                          <img src={resource_icon} style={{height:55, width:55,cursor:"pointer"}}/>
+                          <img
+                            src={resource_icon}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
                         </div>
                         {/* <p className="sales-content" style={{ fontSize: 14 }}>Resource Center</p> */}
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14 }}>Resource Center</p>
+                          <p className="sales-content" style={{ fontSize: 14 }}>
+                            Resource Center
+                          </p>
                         </div>
                       </div>
 
-                      <div  onClick={() => history.push("/products")}>
+                      <div onClick={() => history.push("/products")}>
                         <div className="salesGuideNewStyle">
-                          <img src={product_icon} style={{height:55, width:55,cursor:"pointer"}}/>
+                          <img
+                            src={product_icon}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
                         </div>
                         {/* <p className="sales-content" style={{ fontSize: 14 }}>Product</p> */}
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14 }}>Product</p>
+                          <p className="sales-content" style={{ fontSize: 14 }}>
+                            Product
+                          </p>
                         </div>
                       </div>
                       {/* <div onClick={() => history.push("/resourcecenter")}>
