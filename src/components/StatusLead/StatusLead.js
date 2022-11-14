@@ -517,6 +517,11 @@ const NewLead = React.memo((props) => {
   const [totalDaysCount, setDaysCount] = React.useState('');
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
+  const [hierarAgentListOwner ,setHierarAgentListOwner]=useState([])
+  const [teamMemberListOwner ,setTeamMemberListOwner]=useState([])
+  const [ownerArray ,setOwnerArray]=useState([])
+  const [leadOwner ,setLeadOwner]=useState('')
+
   useEffect(() => {
     // if(userTreeData.length > 0){
       userTreeData.reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
@@ -525,6 +530,7 @@ const NewLead = React.memo((props) => {
         el.value = el._id 
       })
       setHierarAgentList(userTreeData.reporting_hierarchies)
+      setHierarAgentListOwner(userTreeData.reporting_hierarchies)
     // }
     // console.log('((((((((((((storeFormData))))))))))))',storeFormData)
     // console.log('((((((((((((lead_Id))))))))))))',storeFormData.lead_Id)
@@ -629,18 +635,18 @@ const NewLead = React.memo((props) => {
     
     console.warn('__++++++++++++++ teamTableData +++++++++++>>',teamTableData)
     
-    setFirstName(leadData.firstName)
-    setLastName(leadData.lastName)
-    setEmail(leadData.email)
-    setPrimaryNo(leadData.primaryMobile)
-    setStateProvince(leadData.state)
-    setCityProvince(leadData.city)
-    setLeadType(leadData.leadType)
-    setProduct(leadData.Product)
-    setInsuranceComapany(leadData.Insurance_Company)
+    setFirstName(leadData?.firstName)
+    setLastName(leadData?.lastName)
+    setEmail(leadData?.email)
+    setPrimaryNo(leadData?.primaryMobile)
+    setStateProvince(leadData?.state)
+    setCityProvince(leadData?.city)
+    setLeadType(leadData?.leadType)
+    setProduct(leadData?.Product)
+    setInsuranceComapany(leadData?.Insurance_Company)
     
-    setRemarkFromSource(leadData.remarksfromSource)
-    setRemarkFromUser(leadData.remarksfromUser)
+    setRemarkFromSource(leadData?.remarksfromSource)
+    setRemarkFromUser(leadData?.remarksfromUser)
 
     form.setFieldsValue({
       "firstname": leadData.firstName,
@@ -670,6 +676,11 @@ const NewLead = React.memo((props) => {
   // const [modalText, setModalText] = useState('Content of the modal');
 
   const handleCancel = () => {
+    setDesigDataOwner('')
+    setTeamDataOwner('')
+    setOwnerArray([])
+    setLeadOwner('')
+
     setVisibleChangeOwnerModel(false)
   }
 
@@ -950,6 +961,8 @@ const NewLead = React.memo((props) => {
 
   };
   const showChangeOwnerModal = () => {
+    setDesigDataOwner('')
+    setTeamDataOwner('')
     setVisibleChangeOwnerModel(true);
   };
 
@@ -1027,6 +1040,7 @@ const NewLead = React.memo((props) => {
   const stateSelectHandler = (value, key) => {
     // console.log('------stateSelectHandler----value--???',value)
     // console.log('------stateSelectHandler----key--???',key)
+    setCityProvince('')
     value !== 'Select' && dispatch(actions.fetchAllCities(key.region_data.adminCode1))
 
   }
@@ -1035,6 +1049,8 @@ const NewLead = React.memo((props) => {
     // setStateProvince(event.target.value)
     setStateProvince(event)
     setCityProvince('')
+
+    form.setFieldsValue({"city": '',})
   }
 
   const cityChangeHandler = (event) => {
@@ -1134,7 +1150,7 @@ const NewLead = React.memo((props) => {
     leadSource: null,
     appointment_status: checkValidity(appointmentStatus),
     appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
-    lead_Owner_Id: id,
+    lead_Owner_Id: teamDataOwner,
     lead_Creator_Id: id,
     LeadType: leadType,
     Product: product,
@@ -1143,8 +1159,8 @@ const NewLead = React.memo((props) => {
     line2: "",
     line3: "",
     country: "India",
-    state: stateProvince === 'Select' ? '' : stateProvince,
-    city: cityProvince  === 'Select' ? '' : cityProvince,
+    state: !stateProvince  ? '' : stateProvince,
+    city: !cityProvince   ? '' : cityProvince,
     pincode: null,
     primaryMobile: primaryNo,
     secondaryMobile: null,
@@ -1196,15 +1212,15 @@ const NewLead = React.memo((props) => {
     appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
 
 
-    lead_Owner_Id: id,
+    lead_Owner_Id: teamDataOwner,
     lead_Creator_Id: id,
     user_id: id,
     LeadType: leadType,
     Product: product,
     Insurance_Company: insuranceCompany ,
 
-    state: stateProvince === 'Select' ? '' : stateProvince,
-    city: cityProvince  === 'Select' ? '' : cityProvince,
+    state: !stateProvince  ? '' : stateProvince,
+    city: !cityProvince   ? '' : cityProvince,
     primaryMobile: primaryNo,
     email: email,
 
@@ -1288,13 +1304,11 @@ const NewLead = React.memo((props) => {
     setDesigDataOwner(event)
     setTeamDataOwner('')
     // const [teamDesig ,setTeamDesig]=useState(null)
-    let _team = { ['designation']: data }
-    setTeamDesig(_team)
+    // let _team = { ['designation']: data }
+    // setTeamDesig(_team)
     
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
-    setTeamMemberList(_teamData)
-    
-    
+    setTeamMemberListOwner(_teamData)
   }
 
   // const [desigDataOwner ,setDesigDataOwner]=useState('')
@@ -1319,19 +1333,13 @@ const NewLead = React.memo((props) => {
 
   const handleTeamListDataOwner = (event,data) =>{
     setTeamDataOwner(event)
-    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', addTeamMemb)
-
-    let _memberData = {
-      dispValue:data.label,
-      label:data.label,
-      value:data.value,
-    }
-
-    let _team = { ...teamDesig, ['teamName']: _memberData }
-    // setAddTeamMemb(_team)
-    setAddTeamMemb([...addTeamMemb,_team])
-    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
-    // console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
+    setOwnerArray(data)
+    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
+  }
+  const saveOwnerData = () =>{
+    console.warn('ownerArray ====((((((((((===>>>>>>>>>>', ownerArray)
+    setVisibleChangeOwnerModel(false)
+    setLeadOwner(ownerArray?.first_name)
     
   }
   
@@ -1952,7 +1960,7 @@ const NewLead = React.memo((props) => {
                 {checkAgent() === false && 
                   <>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12} className="lead-manager">
-                      <p className="botton-label">Currently this lead is allocated to Self</p>
+                      <p className="botton-label">Currently this lead is allocated to {!leadOwner ? 'Self' : leadOwner}</p>
                     </Col>
                     <Col xs={24} sm={24} md={5} lg={5} xl={5} className="lead-manager" offset={width > breakpoint ? 7 : 0}>
                       <Button shape="round" size="large" style={{ backgroundColor: 'rgb(59, 55, 30)', color: '#ffff' }} block onClick={showChangeOwnerModal}>Change Owner</Button>
@@ -1966,7 +1974,7 @@ const NewLead = React.memo((props) => {
                         <Button key="cancel" onClick={handleCancel}>
                           Cancel
                         </Button>,
-                        <Button key="save" type="primary" onClick={handleCancel} style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
+                        <Button key="save" type="primary" onClick={saveOwnerData} style={{ backgroundColor: 'rgb(59, 55, 30)' }} >
                           Save
                         </Button>
                       ]}
@@ -1976,8 +1984,8 @@ const NewLead = React.memo((props) => {
                             <Form.Item
                               {...formItemLayout}
                               className="form-item-name label-color"
-                              name="Select Designation"
-                              label="Select Designation"
+                              name="Select Owner Designation"
+                              label="Select Owner Designation"
                               rules={[
                                 {
                                   required: false,
@@ -1988,7 +1996,7 @@ const NewLead = React.memo((props) => {
                               <Select 
                                 size="large" 
                                 value={desigDataOwner} 
-                                options={hierarAgentList} 
+                                options={hierarAgentListOwner} 
                                 onChange={(event,data)=> handleDesignationDataOwner(event,data)}  
                                 placeholder="Set Designation">
                               </Select>
@@ -1999,8 +2007,8 @@ const NewLead = React.memo((props) => {
                             <Form.Item
                               {...formItemLayout}
                               className="form-item-name label-color"
-                              name="Select Team Member"
-                              label="Select Team Member"
+                              name="Select Owner Team Member"
+                              label="Select Owner Team Member"
                               rules={[
                                 {
                                   required: false,
@@ -2012,7 +2020,7 @@ const NewLead = React.memo((props) => {
                               <Select 
                                 size="large" 
                                 value={teamDataOwner} 
-                                options={teamMemberList} 
+                                options={teamMemberListOwner} 
                                 onChange={(event,data)=> handleTeamListDataOwner(event,data)} 
                                 placeholder="Set Team Member">
                                 
