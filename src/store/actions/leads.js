@@ -61,7 +61,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
       // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
       dispatch(
         fetchAllLeadsSuccess(
-          supportLead.readSortDataFromAPI(leads, result[0], this),
+          supportLead.readSortDataFromAPI(leads, result === 'No leads found' ? [] : result[0], this),
           result[1][0].count
         )
       );
@@ -116,7 +116,7 @@ export const fetchDataAfterFilter = (
     if (result.length > 0) {
       dispatch(
         fetchAllLeadsSuccess(
-          supportLead.readSortDataFromAPI(leadfilter, result[0], this),
+          supportLead.readSortDataFromAPI(leadfilter, result === 'No leads found' ? [] : result[0], this),
           result[1][0].count
         )
       );

@@ -47,6 +47,8 @@ const Tab = ({
   const currentLocation = useLocation();
   // console.log("YE ARAR", props)
 
+  // console.log('************************ current ___ *********************===========>>>',current)
+
   const dispatch = useDispatch();
   const { leadType } = useParams();
   const { masterType } = useParams();
@@ -60,14 +62,15 @@ const Tab = ({
   // const [activeKey, setActiveKey] = useState("self")
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const { id } = stoageGetter('user')
-  //   // console.log(typeof(leadType))
-  //   dispatch(actions.fetchAllLeads(id, leadType, 1))
-  // }, [dispatch, current, activeTab, leadType])
+    // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
+    // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
+    getDataForOpen(leadTabFilter);
+  }, [current])
 
   useEffect(() => {
+    
     // console.log('************************ LEADDD ___ *********************===========>>>',header)
     if (header === "Lead") getDataForOpen("all");
     // if (currentActiveTab === "self") {
@@ -85,16 +88,14 @@ const Tab = ({
     setLeadTabFilter(leadInc)
     // let leadtyp = leadInc;
     const { id } = stoageGetter("user");
-    // console.warn("_currentTab ______===========>>>", _currentTab);
-    // console.warn("leadInc ______===========>>>", leadInc);
-    // console.warn("currentActiveTab ______===========>>>", currentActiveTab);
-
+    // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
+    let _pageNo = current === undefined || current === null ? 1 : current
     if (_currentTab === "self") {
-      dispatch(actions.fetchAllLeads(id, leadInc, 1));
+      dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
     } else {
       const teamId = stoageGetter("teamMemberId");
       console.warn("teamId______===========>>>", teamId);
-      dispatch(actions.fetchAllLeads(teamId, leadInc, 1));
+      dispatch(actions.fetchAllLeads(teamId, leadInc, _pageNo));
     }
 
     // const response = await getOpenTabApi(id, leadtyp);
