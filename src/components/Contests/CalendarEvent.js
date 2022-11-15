@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 import moment from 'moment';
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -29,7 +29,7 @@ export default function CalendarEvent(props) {
   const format = 'h:mm';
   let month=moment().format('MM/YYYY');
   // console.log(month)    
-  
+  const elementRefs = useRef({});
   const [Appointmentid, setAppointmentid] = useState('')
   const [advisorCheck, setAdvisorCheck] = useState(true)
   const [prospectCheck, setProspectCheck] = useState(false)
@@ -751,11 +751,16 @@ export default function CalendarEvent(props) {
     console.log('ONowner colle ______________', hierarAgentList);
     let valuesplit = value.split(' ')
     console.log(valuesplit[0]);
-    let filteredValue = hierarAgentList.filter(item=>{return item.firstname == valuesplit[0]})
+    let _data = [...new Set([...teamMemberChip,value])]
+    let filteredValue = hierarAgentList.filter(item=>{
+       return item.value == value
+      
+    })
     console.log(filteredValue, 'value splitted--->');
+    let all = [...ownerCollectn, filteredValue[0]]
+    console.log(all,'after adding ');
     setOwnerCollectn([...ownerCollectn,...filteredValue])
     setTeamMemberData('')
-    let _data = [...new Set([...teamMemberChip,value])]
     setTeamMemberChip(_data)
   }
 
@@ -763,6 +768,7 @@ export default function CalendarEvent(props) {
     console.log('removeTeamMember', data);
     console.log('ownerCollectn=====>>', ownerCollectn);
     let _arrayOwner = ownerCollectn.filter((item,index) => item.value !== data)
+    console.log(_arrayOwner, 'after removing');
     setOwnerCollectn(_arrayOwner)
     let _array = teamMemberChip.filter((item,index) => index !== ind)
     setTeamMemberChip(_array)
@@ -1297,6 +1303,8 @@ export default function CalendarEvent(props) {
     }
   
     const removeCustomer = (data,ind) => {
+      console.log('removeTeamMember', data);
+      // console.log('ownerCollectn=====>>', ownerCollectn);
       let _arrayOwner = customerlistcollectn.filter((item,index) => item.value !== data)
       setCustomerListCollectn(_arrayOwner)
       let _array = customersearchchip.filter((item,index) => index !== ind)
