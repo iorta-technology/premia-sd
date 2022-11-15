@@ -55,7 +55,7 @@ const Tab = ({
   const [activeTab, setactiveTab] = useState();
   const [showTab, setShowTab] = useState();
   const [showModal, setShowModal] = useState(false);
-  const [leadTabFilter, setLeadTabFilter] = useState(false);
+  const [leadTabFilter, setLeadTabFilter] = useState('all');
 
   let history = useHistory();
   let _currentTab = "self";
@@ -65,22 +65,15 @@ const Tab = ({
   useEffect(() => {
 
     // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
-    // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
-    getDataForOpen(leadTabFilter);
+    console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
+    // getDataForOpen(leadTabFilter);
+    if (header === "Lead")  getDataForOpen(leadTabFilter);
   }, [current])
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    // console.log('************************ LEADDD ___ *********************===========>>>',header)
-    if (header === "Lead") getDataForOpen("all");
-    // if (currentActiveTab === "self") {
-    // const { id } = stoageGetter("user");
-    // dispatch(actions.fetchAllLeads(id, 'all', 1));
-    // getDataForOpen('all')
-    // }
-    // }
-  }, []);
-  // const ids = stoageGetter('user')
+  //   if (header === "Lead") getDataForOpen("all");
+  // }, []);
 
   // ************************Api *********************
 
@@ -95,7 +88,7 @@ const Tab = ({
     } else {
       const teamId = stoageGetter("teamMemberId");
       console.warn("teamId______===========>>>", teamId);
-      dispatch(actions.fetchAllLeads(teamId, leadInc, _pageNo));
+      dispatch(actions.fetchAllLeads(teamId === null || teamId === undefined ? id :  teamId, leadInc, _pageNo));
     }
 
     // const response = await getOpenTabApi(id, leadtyp);

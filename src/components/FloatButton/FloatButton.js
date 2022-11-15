@@ -217,7 +217,7 @@ const FloatButton = React.memo(() => {
         professionType: "",
         incomeGroup: "",
       };
-      dispatch(actions.storeLead(formData));
+      // dispatch(actions.storeLead(formData));
       history.push("/leadmasterpage/statuslead");
     }else{
       message.info('This feature is currently not accessible');

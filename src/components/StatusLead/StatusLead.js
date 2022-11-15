@@ -399,6 +399,11 @@ const NewLead = React.memo((props) => {
       setIsNewLead(false)
     }else{
       setIsNewLead(true)
+      form.setFieldsValue({
+        "leadType":'NewBusiness',
+        "leadStatus":['newleadentery']
+      })
+      // ['newleadentery','','']
       // storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
     }
     
@@ -476,7 +481,7 @@ const NewLead = React.memo((props) => {
   const [email, setEmail] = useState('')
   const [primaryNo, setPrimaryNo] = useState('')
   const [mobileNoValid, setmobileNoValid] = useState('')
-  const [leadStatus, setLeadStatus] = useState('')
+  const [leadStatus, setLeadStatus] = useState('newleadentery')
   const [leadDisposition, setLeadDisposition] = useState('')
   const [leadSubDisposition, setLeadSubDisposition] = useState('')
   const [appointmentStatus, setAppointmentStatus] = useState()
@@ -491,7 +496,7 @@ const NewLead = React.memo((props) => {
   const [remarkFromSource, setRemarkFromSource] = useState('')
   const [remarkFromUser, setRemarkFromUser] = useState('')
   // const [leadType, setLeadType] = useState(storeLeadTypeValue !== '' ? storeLeadTypeValue : 'select')
-  const [leadType, setLeadType] = useState('select')
+  const [leadType, setLeadType] = useState('NewBusiness')
   // const [product, setProduct] = useState(storeProductValue !== '' ? storeProductValue : 'select')
   const [product, setProduct] = useState('select')
   // const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue !== '' ? storeInsuranceCompanyValue : 'select')
@@ -502,7 +507,7 @@ const NewLead = React.memo((props) => {
   const [cityProvince, setCityProvince] = useState('')
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(false)
-  const [leadStatusData, setLeadStatusData] = useState([])
+  const [leadStatusData, setLeadStatusData] = useState(['newleadentery'])
   const [hierarAgentList ,setHierarAgentList]=useState([])
   const [desigDataOwner ,setDesigDataOwner]=useState('')
   const [teamDataOwner ,setTeamDataOwner]=useState('')
@@ -516,6 +521,8 @@ const NewLead = React.memo((props) => {
   const [leadIdData ,setLeadIdData]=useState('')
   const [teamDesig ,setTeamDesig]=useState(null)
   const [totalDaysCount, setDaysCount] = React.useState('');
+  const [allocatedToUser, setAllocatedToUser] = React.useState('');
+  
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
   const [hierarAgentListOwner ,setHierarAgentListOwner]=useState([])
@@ -621,24 +628,31 @@ const NewLead = React.memo((props) => {
       let diffDays = Math.round(Math.abs((leadData.created_date - Date.now()) / (oneDay))) + " days ago";
       setDaysCount(diffDays);
 
-      let _teamData = JSON.parse(leadData.teamMembers)
-      // console.warn('__++++++++++++++ teamTableData +++++++++++>>',_teamData)
-      // let _team = _teamData
-      setAddTeamMemAPIStruct(_teamData)
+      setAllocatedToUser(leadData?.userId?.first_name)
+
+      // console.warn('__++++++++++++++ userTreeData +++++++++++>>',userTreeData)
+      
       // setAddTeamMemb(_teamData)
-      let _arryy = _teamData.map(el =>{
-        let _data = {}
-        userTreeData.reporting_users.filter(event => {
-          if(event._id === el.Id){
-            _data = { designation:event.hierarchyName, teamName:event.full_name ,teamMem_id:event._id, }
-          }
-        })
-        return _data
-      })
-      // console.warn('__++++++++++++++ _arryy +++++++++++>>',_arryy)
-      setAddTeamMemb(_arryy)
-      setTeamTableData(_arryy)
-      // console.warn('__++++++++++++++ teamTableData +++++++++++>>',teamTableData)
+      let _data = {}
+      // checkAgent() === false
+      if(leadData.hasOwnProperty('teamMembers')){
+        let _teamData = JSON.parse(leadData?.teamMembers)
+        setAddTeamMemAPIStruct(_teamData)
+        if(checkAgent() === false){
+          let _arryy = _teamData.map(el =>{
+            userTreeData.reporting_users.filter(event => {
+              if(event._id === el.Id){
+                _data = { designation:event.hierarchyName, teamName:event.full_name ,teamMem_id:event._id, }
+              }
+            })
+            return _data
+          })
+          // console.warn('__++++++++++++++ _arryy +++++++++++>>',Object.keys(_arryy[0]).length)
+          let _finalData = _arryy.length > 0 ? Object.keys(_arryy[0]).length > 0 ? _arryy : [] : []
+          setAddTeamMemb(_finalData)
+          setTeamTableData(_finalData)
+        }
+      }
       
       setFirstName(leadData?.firstName)
       setLastName(leadData?.lastName)
@@ -1111,7 +1125,7 @@ const NewLead = React.memo((props) => {
 
   };
   const saveTeamMemberData = () => {
-    console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
+    // console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
     let _dataArr = addTeamMemb.map(el =>{
       let _data = {
         designation:el.designation,
@@ -1122,21 +1136,24 @@ const NewLead = React.memo((props) => {
     })
   
     setTeamTableData(_dataArr)
-    // setTeamTableData([...teamTableData,_dataArr])
-    // console.warn('teamTableData ====((((((((((===>>>>>>>>>>', teamTableData)
     setVisibleTeamMemberModal(false);
 
   };
 
   const deleteTableRow = (el) => {
     // console.warn('el ====((((((((((===>>>>>>>>>>', el)
-    // console.warn('teamTableData ====((((((((((===>>>>>>>>>>', teamTableData)
-    
-    // console.warn('addTeamMemAPIStruct ====((((((((((===>>>>>>>>>>', addTeamMemAPIStruct)
     const newData = teamTableData.filter((item) => item.teamMem_id !== el.teamMem_id);
     setTeamTableData(newData);
-    console.warn('newData ====((((((((((===>>>>>>>>>>', newData)
-    // setAddTeamMemAPIStruct([])
+    let _data = {}
+    let _arryy = newData.map(el =>{
+      userTreeData.reporting_users.filter(event => {
+        if(event._id === el.teamMem_id){
+          _data = { first_name:event.first_name, last_name:event.last_name, Id:event._id, }
+        }
+      })
+      return _data
+    })
+    setAddTeamMemAPIStruct(_arryy)
   }
 
   // validations 
@@ -1158,7 +1175,7 @@ const NewLead = React.memo((props) => {
     }
   }
   const formData = {
-    user_id: id,
+    user_id: !teamDataOwner ? id : teamDataOwner,
     leadStatus: leadStatus,
     leadDisposition: leadDisposition,
     leadsubDisposition: leadSubDisposition,
@@ -1233,7 +1250,7 @@ const NewLead = React.memo((props) => {
 
     lead_Owner_Id: !teamDataOwner ? id : teamDataOwner,
     lead_Creator_Id: id,
-    user_id: id,
+    user_id: !teamDataOwner ? id : teamDataOwner,
     LeadType: leadType,
     Product: product,
     Insurance_Company: insuranceCompany ,
@@ -1302,7 +1319,7 @@ const NewLead = React.memo((props) => {
   
   const handleDesignationData = (event,data) =>{
     // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
-    console.warn('data(((((--------------(((((===>>>>>>>>>>', data)
+    // console.warn('data(((((--------------(((((===>>>>>>>>>>', data)
     setDesigData(event)
     setTeamData('')
     form.setFieldsValue({
@@ -1331,27 +1348,21 @@ const NewLead = React.memo((props) => {
 
   const handleTeamListData = (event,data) =>{
     setTeamData(event)
-    console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
+    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
 
-    // let _memberData = {
-    //   dispValue:data.label,
-    //   label:data.label,
-    //   value:data.value,
-    // }
     let apiBody = {
       first_name:data.first_name,
       last_name:data.last_name,
       Id:data._id,
     }
-    // const [addTeamMemAPIStruct ,setAddTeamMemAPIStruct]=useState([])
 
     let _team = { ...teamDesig, ['teamName']: data.label , ['teamMem_id']: data.value }
     // Data Structure for Table Data
     setAddTeamMemb([...addTeamMemb,_team])
     // Data Structure for API Request Body
     setAddTeamMemAPIStruct([...addTeamMemAPIStruct,apiBody])
-    console.warn('addTeamMemAPIStruct((((((((((===>>>>>>>>>>', addTeamMemAPIStruct)
-    console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
+    // console.warn('addTeamMemAPIStruct((((((((((===>>>>>>>>>>', addTeamMemAPIStruct)
+    // console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
     
   }
 
@@ -1763,7 +1774,7 @@ const NewLead = React.memo((props) => {
                   <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Allocated To</p>
-                      <p className="lead-detail">Himanshu</p>
+                      <p className="lead-detail">{allocatedToUser}</p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Created on</p>
