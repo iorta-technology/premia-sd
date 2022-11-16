@@ -12,7 +12,7 @@ import Icon from '@ant-design/icons';
 import axiosRequest from '../../axios-request/request.methods'
 import {stoageGetter} from '../../helpers'
 import axios from 'axios';
-import { times } from "lodash";
+import _ from "lodash";
 import Form from "antd/lib/form/Form";
 import Item from "antd/lib/list/Item";
 import { useDispatch, useSelector } from 'react-redux';
@@ -77,6 +77,7 @@ export default function CalendarEvent(props) {
   const [ownerCollectn ,setOwnerCollectn]=useState([])
   const [customersearchchip ,setCustomerSearchChip]=useState([])
   const [customerlistcollectn ,setCustomerListCollectn]=useState([])
+  const [checkEventWith ,setCheckEventWith]=useState('New Prospect')
   const _dataStore = useSelector((state) => state?.home?.user_tree)
 
   useEffect(() => {
@@ -86,7 +87,7 @@ export default function CalendarEvent(props) {
     _dataStore.reporting_users.map(el => {
           let sortarray = {
               FullName: el.full_name,
-              ShortId: el.hierarchyName,
+              ShortId: el.employeeCode,
               firstname: el.first_name,
               lastname: el.last_name,
               employecode: el.employeeCode,
@@ -153,7 +154,7 @@ export default function CalendarEvent(props) {
 };
 
   useEffect(()=>{
-    if(props.click == 'data'||"UPDATE EVENT"){
+    if(props.click == 'data'|| props.click == "UPDATE EVENT"){
       // console.log(props.Data.teamMember);
       props.setIsModalVisible(true);
     }
@@ -161,8 +162,9 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true)
     }//1661472000000
     if(props.Data){
-      console.log(props.Data,'yes update');
+      // console.warn(props.Data,'yes update');
       if(props.Data.appointment_type == 'existingapplication'){
+        setCheckEventWith('New Prospect')
         setAdvisorCheck(true)
         setCustomerCheck(false)
         if(props.Data.event_type == 'appointment'){
@@ -238,6 +240,7 @@ export default function CalendarEvent(props) {
           })
         }
       }else{
+        setCheckEventWith('Existing Lead')
         setCustomerCheck(true)
         setAdvisorCheck(false)
         if(props.Data.event_type == 'appointment'){
@@ -289,7 +292,7 @@ export default function CalendarEvent(props) {
       }
       // if(props.Data.manuallycustomerAdded == true || 'true'){
         if(props.Data.manuallycustomerAdded == true || props.Data.manuallycustomerAdded == 'true'){
-        console.log(props.Data.manuallyrenewalCustomer[0].Name, 'name======>');
+        // console.log(props.Data.manuallyrenewalCustomer[0].Name, 'name======>');
       setCustomerNameText(props.Data.manuallyrenewalCustomer[0].Name)
       setCustomerNameCheck(true)
       setCustLastNameCheck(true)
@@ -310,7 +313,7 @@ export default function CalendarEvent(props) {
         setTeamMemberChip(props.Data.teamMember)
       }
       if(props.Data.leadId != null){
-        console.log(customersearchList,'update lead list');
+        // console.log(customersearchList,'update lead list');
         setCustomerListCollectn(props.Data.leadId)
         setCustomerSearchChip(props.Data.leadId)
       }
@@ -328,7 +331,7 @@ export default function CalendarEvent(props) {
       setEventDurationType(props.Data.durationType)
       setModeSelect(props.Data.mode)
       setStatusReasonText(props.Data.statusreason)
-      console.log(moment(1661472000000).format("YYYY-MM-DD"));
+      // console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
   },[])
 
@@ -398,6 +401,7 @@ export default function CalendarEvent(props) {
        ])
 
   const checkTeamMemberFunc = () => {
+    setCheckEventWith('New Prospect')
     setAdvisorCheck(true)
     setProspectCheck(false)
     setCustomerCheck(false)
@@ -443,6 +447,7 @@ export default function CalendarEvent(props) {
   }
 
   const checkCustomerFunc = () => {
+    setCheckEventWith('Existing Lead')
     setAdvisorCheck(false)
     setProspectCheck(false)
     setCustomerCheck(true)
@@ -656,6 +661,9 @@ export default function CalendarEvent(props) {
   const[custLastNameCheck,setCustLastNameCheck]=useState(true);
   const[customerMobileNoCheck,setCustomerMobileNoCheck]=useState(true)
   const[customermblvalid, setCustomerMblValid] = useState(true)
+  const[custLastNamevalid, setCustLastNamevalid] = useState(false)
+  const[custFirstNamevalid, setCustFirstNamevalid] = useState(false)
+  
   const[customerArr,setCustomerArr]=useState([]);
   const[customerHelperArr,setCustomerHelperArr]=useState([]);
   const[customerTagVisible,setCustomerTagVisible]=useState(false);
@@ -747,8 +755,8 @@ export default function CalendarEvent(props) {
   };
 
   const onSelectTeam = (value) => {
-    console.log('ON SELECTION ______________', value);
-    console.log('ONowner colle ______________', hierarAgentList);
+    // console.log('ON SELECTION ______________', value);
+    // console.log('ONowner colle ______________', hierarAgentList);
     let valuesplit = value.split(' ')
     console.log(valuesplit[0]);
     let _data = [...new Set([...teamMemberChip,value])]
@@ -756,7 +764,7 @@ export default function CalendarEvent(props) {
        return item.value == value
       
     })
-    console.log(filteredValue, 'value splitted--->');
+    // console.log(filteredValue, 'value splitted--->');
     let all = [...ownerCollectn, filteredValue[0]]
     console.log(all,'after adding ');
     setOwnerCollectn([...ownerCollectn,...filteredValue])
@@ -765,8 +773,8 @@ export default function CalendarEvent(props) {
   }
 
   const removeTeamMember = (data,ind) => {
-    console.log('removeTeamMember', data);
-    console.log('ownerCollectn=====>>', ownerCollectn);
+    // console.log('removeTeamMember', data);
+    // console.log('ownerCollectn=====>>', ownerCollectn);
     let _arrayOwner = ownerCollectn.filter((item,index) => item.value !== data)
     console.log(_arrayOwner, 'after removing');
     setOwnerCollectn(_arrayOwner)
@@ -845,8 +853,20 @@ export default function CalendarEvent(props) {
   const CustLastNameFunc = (event) => {
     setCustomerLastNameText(event.target.value)
     event.target.value.length > 0 ? setCustLastNameCheck(true) : setCustLastNameCheck(false)
-    // const[custLastNameCheck,setCustLastNameCheck]=useState(true);
   }
+
+  const prospectFirstNameValid = (event) => {
+    let letters = /^[A-Za-z]+$/;
+    event.target.value.match(letters) ? setCustFirstNamevalid(false) : setCustFirstNamevalid(true)
+    if(event.target.value === '') setCustFirstNamevalid(false)
+  }
+
+  const prospectLastNameValid = (event) => {
+      let letters = /^[A-Za-z]+$/;
+      event.target.value.match(letters) ? setCustLastNamevalid(false) : setCustLastNamevalid(true)
+      if(event.target.value === '') setCustLastNamevalid(false)
+    }
+  
   const CustomerMobileNoFunc = (e) => {
     
     // setCustomerMobileNoCheck(true)
@@ -1031,14 +1051,14 @@ export default function CalendarEvent(props) {
       setDurationDateAlert(false)
     }
     const allDayStartDate = (date, dateString) => {
-      console.log(date)
-      console.log(dateString)
+      // console.log(date)
+      // console.log(dateString)
       setDurationStartDate(moment(date))
   let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
 
 
       setDurationStartDateOperation(ms_date)
-      console.log("This is Start Date"+ms_date)
+      // console.log("This is Start Date"+ms_date)
       // if(durationEndDateOperation<ms_date){
       //   setDurationStartDateDiffCheck(false)
       //   console.log("Start Date should we after end date")
@@ -1050,11 +1070,11 @@ export default function CalendarEvent(props) {
     const EndDateFunc = (e,date,dateString) => {
   setDurationEndDate(moment(date))
       let ms_date = new Date(date).setUTCHours(0, 0, 0, 0)
-      console.log()
-      console.log(ms_date, durationStartDateOperation)
+      // console.log()
+      // console.log(ms_date, durationStartDateOperation)
       if(ms_date < durationStartDateOperation){
         setDurationEndDateDiffCheck(false)
-        console.log("End Date should be after start date")
+        // console.log("End Date should be after start date")
         return false
       }else{
         setDurationEndDateDiffCheck(true)
@@ -1063,7 +1083,7 @@ export default function CalendarEvent(props) {
 
           if(((endTimeSelect)<startTimeSelect)&&startTimeSelect!=""&&(ms_date <= durationStartDateOperation)){
             setDurationEndTimeDiffCheck(false)
-      console.log("TIme should be more than start time")
+      // console.log("TIme should be more than start time")
           }
           else{
             setDurationEndTimeDiffCheck(true)
@@ -1076,7 +1096,7 @@ export default function CalendarEvent(props) {
                   setDurationStartTimeDiffCheck(true)
                 }
 
-  console.log("This is end Date"+ms_date)
+  // console.log("This is end Date"+ms_date)
 
 
   //     setDurationEndDate(moment(date).format("YYYY-MM-DD"))
@@ -1103,26 +1123,26 @@ export default function CalendarEvent(props) {
 
     const StartTimeChangeFunc=(e)=>{
 
-      console.log(e.target.value, 'start time--select-->');
+      // console.log(e.target.value, 'start time--select-->');
       setStartTimeSelect(e.target.value)
 
       setDurationStartTimeCheck(true)
-          console.log("This is the start Time"+e.target.value)
+          // console.log("This is the start Time"+e.target.value)
           let parseTime=parseInt(e.target.value)
-          console.log(parseTime, 'time--parse--->');
+          // console.log(parseTime, 'time--parse--->');
           setDurationStartTimeOperation(parseTime)
       let timeDiff=e.target.value
       setDurationEndTimeCheck(true)
       setEndTimeSelect((+timeDiff)+(+"3600000"))
     
  
-    console.log((+timeDiff)+(+"3600000"),'end timevafter start----->');
+    // console.log((+timeDiff)+(+"3600000"),'end timevafter start----->');
     setEndTimeSelect((+timeDiff)+(+"3600000"))
  
     let parseTimeCondition=parseInt()
     setDurationEndTimeCheck(true)
     let endparseTime=parseInt((+timeDiff)+(+"3600000"))
-    console.log(endparseTime, 'time--parse--->');
+    // console.log(endparseTime, 'time--parse--->');
     setDurationEndTimeOperation(endparseTime)
 
 
@@ -1161,7 +1181,7 @@ export default function CalendarEvent(props) {
   //     console.log(e.target.value)
     }
     const EndTimeChangeFunc=(e)=>{
-      console.log(e.target.value, 'start time--select-->');
+      // console.log(e.target.value, 'start time--select-->');
       setEndTimeSelect(e.target.value)
       setDurationEndTimeCheck(true)
       let parseTime=parseInt(e.target.value)
@@ -1170,7 +1190,7 @@ export default function CalendarEvent(props) {
       let timeDiff=e.target.value
       if(((e.target.value)==startTimeSelect)&&startTimeSelect!=""){
         setDurationEndTimeSameCheck(false)
-  console.log("TIme should not be same as start time")
+  // console.log("TIme should not be same as start time")
       }
       else if(((e.target.value)<startTimeSelect)&&(durationEndDateOperation <= durationStartDateOperation)){
   setDurationStartTimeDiffCheck(false)
@@ -1181,7 +1201,7 @@ export default function CalendarEvent(props) {
       }
       if(((e.target.value)<startTimeSelect)&&startTimeSelect!=""&&(durationEndDateOperation <= durationStartDateOperation)){
         setDurationEndTimeDiffCheck(false)
-  console.log("TIme should be more than start time")
+  // console.log("TIme should be more than start time")
       }
       else{
         setDurationEndTimeDiffCheck(true)
@@ -1233,8 +1253,8 @@ export default function CalendarEvent(props) {
   setDurationEndTime(time)
 
       setDurationEndTimeOperation((moment(time).format("HH:mm:ss")))
-          console.log('Selected Time: ', time);
-          console.log('Formatted Selected Time: ', time);
+          // console.log('Selected Time: ', time);
+          // console.log('Formatted Selected Time: ', time);
 
           if(time<durationStartTime){
             setDurationStartTime(moment(time).subtract(1, 'hours'))
@@ -1282,19 +1302,14 @@ export default function CalendarEvent(props) {
     }
 
     const onChangeCustomerSearch = (text,data) => {
-      console.log(text,'text------>')
-      console.log(data, 'data------>')
       setCustomerData(text)
-      // console.log('onSelect___text', text);
-      // console.log('onSelect___data', data);
-      // setOwnerCollectn([...ownerCollectn,data])
     };
   
     const onSelectCustomer = (value) => {
       let valuesplit = value.split(' ')
       console.log(valuesplit[0]);
       let filteredValue = customersearchList.filter(item=>{return item.value == value})
-      console.log(filteredValue, 'value splitted--->');
+      // console.log(filteredValue, 'value splitted--->');
       setCustomerListCollectn([...customerlistcollectn,...filteredValue])
       setCustomerData('')
       let _data = [...new Set([...customersearchchip,value])]
@@ -1303,7 +1318,6 @@ export default function CalendarEvent(props) {
     }
   
     const removeCustomer = (data,ind) => {
-      console.log('removeTeamMember', data);
       // console.log('ownerCollectn=====>>', ownerCollectn);
       let _arrayOwner = customerlistcollectn.filter((item,index) => item.value !== data)
       setCustomerListCollectn(_arrayOwner)
@@ -1313,17 +1327,24 @@ export default function CalendarEvent(props) {
     }
 
     const bookAppointmentAPI = () => {
-      console.warn('prospectCheck _______',prospectCheck)
-      prospectCheck === true ? BookAppointmentFunc() :  bookAppointWithLead()
+      // prospectCheck === true ? BookAppointmentFunc() :  bookAppointWithLead()
+      checkEventWith === 'New Prospect' ? bookAppointWithLead() :  BookAppointmentFunc()
     }
 
-    const bookAppointWithLead = async (e) => {
+    const bookAppointWithLead = async () => {
+      let teammemberclone = []
+      if(ownerCollectn.length > 0){
+        ownerCollectn.map(x => { teammemberclone.push(x._Id) });
+      }
+
+      let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
+      teammemberclone = [...new Set(teammemberclone)]
       let formData = {
         user_id:stoageGetter('user').id,
         leadStatus:"contact",
         appointmentdisPosition:"",
         start_date:durationStartDateOperation,
-        start_time:durationStartTimeOperation,
+        start_time: durationStartTimeOperation,
         remarksfromUser:"",
         remarksfromSource:"",
         // teamMembers:"[]",
@@ -1378,15 +1399,60 @@ export default function CalendarEvent(props) {
         durationType:eventDurationType,
         statusType:statusType.openStatus==true?"open":"close",
         statusreason:statusReasonText,
-        teamMember:ownerCollectn,
+        mode : modeSelect,
+        clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
+        teamMember:_ownerCollectn,
+        teamMember_clone: teammemberclone,
         appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
         event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
         :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
         :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
         :null,
       }
+
+      if(modeSelect == ''){
+        message.warning('Mode is Mandatory');
+        return
+      }
+      if (durationStartDateOperation == undefined){
+        message.warning('Start Date is Mandatory');
+        return
+      } 
+      if (durationStartTimeOperation == undefined || durationStartTimeOperation == ''){
+        message.warning('Start Time is Mandatory');
+        return
+      } 
+      if (durationEndTimeOperation == undefined || durationEndTimeOperation ==  ''){
+        message.warning('End Time is Mandatory');
+        return
+      }
+
+      if(customerNameText == ''){
+        message.warning('Prospect Firstname is Mandatory');
+        return
+      }
+      if(customerLastNameText == ''){
+        message.warning('Prospect Lastname is Mandatory');
+        return
+      }
+      if(customerMobileNoText == ''){
+        message.warning('Mobile Number is Mandatory');
+        return
+      }
+
+      setDurationModeAlert(false)
+      setDurationDateAlert(false)
+      setDurationTimeAlert(false)
+      setDurationEndDateAlert(false)
+      setDurationEndTimeAlert(false)
+
       dispatch(actions.createLead(formData)).then((res) => {
-        console.warn('ADD___LEADD_______',res)
+        // console.warn('ADD___LEADD_______',res)
+        if (res.type === "CREATE_LEAD_SUCCESS") {
+          if(props.api != undefined) props.api()
+          if(props.getdata) props.getdata(true)
+          props.setIsModalVisible(false)
+        }
       })
     }
 
@@ -1450,9 +1516,9 @@ export default function CalendarEvent(props) {
           message.warning('Search Prospect is Mandatory');
         }else if (durationStartDateOperation == undefined){
           message.warning('Start Date is Mandatory');
-        }else if (durationStartTimeOperation == undefined || ''){
+        }else if (durationStartTimeOperation == undefined || durationStartTimeOperation == ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndTimeOperation == undefined || ''){
+        }else if (durationEndTimeOperation == undefined || durationEndTimeOperation == ''){
           message.warning('End Time is Mandatory');
         }else{
           setDurationModeAlert(false)
@@ -1460,10 +1526,12 @@ export default function CalendarEvent(props) {
           setDurationTimeAlert(false)
           setDurationEndDateAlert(false)
           setDurationEndTimeAlert(false)
-          console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
+
+          let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
+          teammemberclone = [...new Set(teammemberclone)]
+          // console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
         let result = await axiosRequest.put('user/updateAppointment', {
           userId: stoageGetter('user').id,
-          //userId : '60069a18579be233d2decf04',
           appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
           event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
             :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
@@ -1472,22 +1540,14 @@ export default function CalendarEvent(props) {
           tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
           :"",
           clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
-        // partnerId:  advisorCheck?{
-          
-        //     contactNo: searchAdvisorObject.contactNo,
-        //     partnerId: searchAdvisorObject.partnerId,
-        //     partnerName: searchAdvisorObject.partnerName,
-        //     _id: searchAdvisorObject._id,
-  
-        // }:"",
-        Appointment_id : Appointmentid,
-        leadId: "",
+          Appointment_id : Appointmentid,
+          leadId: "",
           durationType: eventDurationType,
           start_date:durationStartDateOperation,
-            start_time:durationStartTimeOperation,
-            end_date:durationEndDateOperation,
-            end_time:durationEndTimeOperation,
-          teamMember:ownerCollectn,
+          start_time:durationStartTimeOperation,
+          end_date:durationEndDateOperation,
+          end_time:durationEndTimeOperation,
+          teamMember:_ownerCollectn,
           statusType:statusType.openStatus==true?"open":"close",
           statusreason:statusReasonText,
           manuallycustomerAdded:addManuallyButtonCheck?true:false,
@@ -1505,7 +1565,7 @@ export default function CalendarEvent(props) {
           }, { secure: true });
 
           props.setIsModalVisible(false)
-          console.log(result, 'book update appointment result-------->')
+          // console.log(result, 'book update appointment result-------->')
 
           if(result.length !== 0){
             if(props.api != undefined){  props.api() }
@@ -1528,20 +1588,8 @@ export default function CalendarEvent(props) {
     
             return false
           }
-          
-          console.log(addEvents)
-    
-          console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
-        
       }
       else{
-      
-        console.log('book appointment ---->')
-        console.log(durationStartDateOperation,'start date value ')
-        console.log(durationStartTimeOperation,'start time value ')
-        console.log(durationEndDateOperation,'end date value ')
-        console.log(durationEndTimeOperation,'end time value ')
-
         let teammemberclone = []
         if(ownerCollectn.length > 0){
           ownerCollectn.map(x => { teammemberclone.push(x._Id) });
@@ -1557,143 +1605,118 @@ export default function CalendarEvent(props) {
           message.warning('Search Prospect is Mandatory');
         }else if (durationStartDateOperation == undefined){
           message.warning('Start Date is Mandatory');
-        }else if (durationStartTimeOperation == undefined || ''){
+        }else if (durationStartTimeOperation == undefined || durationStartTimeOperation == ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndTimeOperation == undefined || ''){
+        }else if (durationEndTimeOperation == undefined || durationEndTimeOperation == ''){
           message.warning('End Time is Mandatory');
         }else{
           if(eventDurationType == 'customedatetime'){
-            if( durationEndDateOperation == undefined || ''){
+            if( durationEndDateOperation == undefined || durationEndDateOperation == ''){
               message.warning('End Date is Mandatory');
             }else{
               setDurationModeAlert(false)
-          setDurationDateAlert(false)
-          setDurationTimeAlert(false)
-          setDurationEndDateAlert(false)
-          setDurationEndTimeAlert(false)
-          console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
-        let result = await axiosRequest.post('user/bookAppointment', {
-           userId: stoageGetter('user').id,
-         // userId : '60069a18579be233d2decf04',
-          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
-          event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
-            :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
-            :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
-            :null,
-          tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
-          :"",
-          clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
-        // partnerId:  advisorCheck?{
-          
-        //     contactNo: searchAdvisorObject.contactNo,
-        //     partnerId: searchAdvisorObject.partnerId,
-        //     partnerName: searchAdvisorObject.partnerName,
-        //     _id: searchAdvisorObject._id,
-  
-        // }:"",
-          durationType: eventDurationType,
-          start_date:durationStartDateOperation,
-            start_time:durationStartTimeOperation,
-            end_date:durationEndDateOperation,
-            end_time:durationEndTimeOperation,
-          teamMember:ownerCollectn,
-          statusType:statusType.openStatus==true?"open":"close",
-          statusreason:statusReasonText,
-          manuallycustomerAdded:addManuallyButtonCheck?true:false,
-          manuallyrenewalCustomer:addManuallyButtonCheck? [
-            {
-              Name:customerNameText,
-              MobileNumber:customerMobileNoText,
-            }
-          ]:[],
-          customerId:"",
-          teamMember_clone: teammemberclone,
-          leadId : leadlist[0],
-          remarkText : '',
-          mode : modeSelect,
-          }, { secure: true });
+              setDurationDateAlert(false)
+              setDurationTimeAlert(false)
+              setDurationEndDateAlert(false)
+              setDurationEndTimeAlert(false)
+              // console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
+              let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
+              teammemberclone = [...new Set(teammemberclone)]
+              let result = await axiosRequest.post('user/bookAppointment', {
+                userId: stoageGetter('user').id,
+                appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
+                event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+                  :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+                  :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+                  :null,
+                tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
+                :"",
+                clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
+                durationType: eventDurationType,
+                start_date:durationStartDateOperation,
+                start_time:durationStartTimeOperation,
+                end_date:durationEndDateOperation,
+                end_time:durationEndTimeOperation,
+                teamMember:_ownerCollectn,
+                statusType:statusType.openStatus==true?"open":"close",
+                statusreason:statusReasonText,
+                manuallycustomerAdded:addManuallyButtonCheck?true:false,
+                manuallyrenewalCustomer:addManuallyButtonCheck? [
+                  {
+                    Name:customerNameText,
+                    MobileNumber:customerMobileNoText,
+                  }
+                ]:[],
+                customerId:"",
+                teamMember_clone: teammemberclone,
+                leadId : leadlist[0],
+                remarkText : '',
+                mode : modeSelect,
+              }, { secure: true });
 
-          console.log(result, 'book appointment result-------->')
-
-          if(result.length !== 0){
-            console.log('book appointment--yes no length')
-            if(props.api != undefined){
-              props.api()}
-           if(props.getdata){ props.getdata(true) }
-            props.setIsModalVisible(false)
-          }
+              if(result.length !== 0){
+                if(props.api != undefined){props.api()}
+                if(props.getdata){ props.getdata(true) }
+                props.setIsModalVisible(false)
+              }
             }
           }else {
             setDurationModeAlert(false)
-          setDurationDateAlert(false)
-          setDurationTimeAlert(false)
-          setDurationEndDateAlert(false)
-          setDurationEndTimeAlert(false)
-          console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
+            setDurationDateAlert(false)
+            setDurationTimeAlert(false)
+            setDurationEndDateAlert(false)
+            setDurationEndTimeAlert(false)
+            let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
+            teammemberclone = [...new Set(teammemberclone)]
+
         let result = await axiosRequest.post('user/bookAppointment', {
-           userId: stoageGetter('user').id,
-         // userId : '60069a18579be233d2decf04',
-          appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
-          event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
-            :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
-            :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
-            :null,
-          tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
-          :"",
-          clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
-        // partnerId:  advisorCheck?{
-          
-        //     contactNo: searchAdvisorObject.contactNo,
-        //     partnerId: searchAdvisorObject.partnerId,
-        //     partnerName: searchAdvisorObject.partnerName,
-        //     _id: searchAdvisorObject._id,
-  
-        // }:"",
-          durationType: eventDurationType,
-          start_date:durationStartDateOperation,
+            userId: stoageGetter('user').id,
+            appointment_type:customerCheck?"customer": prospectCheck?"existingapplication":"existingapplication",
+            event_type:customerCollection.phone_call_customer||prospectCollection.phone_call||advisorCollection.phone_call_advisor?"phonecall"
+              :customerCollection.appointment_customer||advisorCollection.appointment_advisor?"appointment"
+              :customerCollection.policy_renewal?"policyrenewals":prospectCollection.training_prospect||advisorCollection.training?"training"
+              :null,
+            tata_appointment_type: customerCollection.appointment_customer||advisorCollection.appointment_advisor? appointmenttypes
+            :"",
+            clientVisit : customerCollection.phone_call_customer == true||prospectCollection.phone_call == true ||advisorCollection.phone_call_advisor == true? clientvisit : '',
+            durationType: eventDurationType,
+            start_date:durationStartDateOperation,
             start_time:durationStartTimeOperation,
             end_date:durationEndDateOperation,
             end_time:durationEndTimeOperation,
-          teamMember:ownerCollectn,
-          statusType:statusType.openStatus==true?"open":"close",
-          statusreason:statusReasonText,
-          manuallycustomerAdded:addManuallyButtonCheck?true:false,
-          manuallyrenewalCustomer:addManuallyButtonCheck? [
-            {
-              Name:customerNameText,
-              MobileNumber:customerMobileNoText,
-            }
-          ]:[],
-          customerId:"",
-          teamMember_clone:[
-            
-          ],
-          remarkText : '',
-          mode : modeSelect,
+            teamMember:_ownerCollectn,
+            statusType:statusType.openStatus==true?"open":"close",
+            statusreason:statusReasonText,
+            manuallycustomerAdded:addManuallyButtonCheck?true:false,
+            manuallyrenewalCustomer:addManuallyButtonCheck? [
+              {
+                Name:customerNameText,
+                MobileNumber:customerMobileNoText,
+              }
+            ]:[],
+            customerId:"",
+            leadId : leadlist[0],
+            teamMember_clone:teammemberclone,
+            remarkText : '',
+            mode : modeSelect,
           }, { secure: true });
 
           if(result.length !== 0){
-            props.api()
-            props.getdata(true)
+            if(props.api != undefined){props.api()}
+            if(props.getdata){ props.getdata(true) }
             props.setIsModalVisible(false)
           }
           }
-  if (startTimeSelect == "" && durationButton.select_time == true) {
+      if (startTimeSelect == "" && durationButton.select_time == true) {
         setDurationStartTimeCheck(false)
         setDurationTimeAlert(true)
         return false
       }
-  if (endTimeSelect == "" && durationButton.select_time == true) {
+      if (endTimeSelect == "" && durationButton.select_time == true) {
         setDurationEndTimeCheck(false)
         setDurationTimeAlert(true)
-      
-
         return false
       }
-      
-      console.log(addEvents)
-
-      console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
     }
       }
     }
@@ -2431,7 +2454,6 @@ export default function CalendarEvent(props) {
       setAddManuallyButtonCheck(false)
     setStartTimeSelect("")
     setEndTimeSelect("")
-      // alert(e.dateStr)
       // setDurationStartDate(e.dateStr)
       // setDurationEndDate(e.dateStr)
       // alert("this is the start" + e.startStr)
@@ -2443,21 +2465,6 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(false)
       let ms_date = new Date(e.date).setUTCHours(0, 0, 0, 0)
         
-    // alert(ms_date)
-  // console.log(new_date)
-      
-  // let ms_date = new Date(e.date).setHours(0, 0, 0, 0)
-  // if (typeof e.date === 'string' || e.date instanceof String)
-  // {
-  //   alert("It is a string")
-  // }
-
-  // // it's a string
-  // else{
-  //   alert("It is not")
-  // }
-  // it's something else
-  // console.log(test_date)
       setDurationStartDate( moment(e.date))
       setDurationEndDate( moment(e.date))
 
@@ -2468,9 +2475,6 @@ export default function CalendarEvent(props) {
       setClickedDate(e.dateStr)
       props.setIsModalVisible(true)
       setMultiSelectDate(false)
-      // alert(value)
-      // setAddEvents([...addEvents{title:eventText,date:moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")}])
-      // setAddEvents([addEvents,{title:eventText,date:moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")}])
     }
     const datecl = () => {
       console.log('it works')
@@ -3137,12 +3141,14 @@ export default function CalendarEvent(props) {
                         disabled={manualCustomerCheck==true?true:false}
                         value={customerNameText}
                         onChange={CustomerNameFunc}
+                        onInput={prospectFirstNameValid}
                         className={customerNameCheck == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
                         type="text"
                         placeholder="Enter the Name"
                         required
                       />
                       {customerNameCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
+                      {custFirstNamevalid == true ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Only Alphabets are Allowed</h4> : null}
                     </div>
                     <div className="CalendarEvent-Modal-date-column-flex">
                       <h4 className={custLastNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
@@ -3151,6 +3157,7 @@ export default function CalendarEvent(props) {
                         disabled={manualCustomerCheck==true?true:false}
                         value={customerLastNameText}
                         onChange={CustLastNameFunc}
+                        onInput={prospectLastNameValid}
                         className={custLastNameCheck == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
                         type="text"
                         placeholder="Enter the Name"
@@ -3158,6 +3165,7 @@ export default function CalendarEvent(props) {
                       />
                       
                       {custLastNameCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
+                      {custLastNamevalid == true ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Only Alphabets are Allowed</h4> : null}
                     </div>
                   
                     <div className="CalendarEvent-Modal-date-column-flex">
@@ -3312,7 +3320,7 @@ export default function CalendarEvent(props) {
                   <div
                     className="CalendarEvent-Modal-date-column-flex"
                   >
-                    {console.log(durationStartDate, 'start date--- in code--->')}
+                    {/* {console.log(durationStartDate, 'start date--- in code--->')} */}
                     <h4
               className={durationStartDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                       // className="CalendarEvent-Modal-Card-header-type"
@@ -3489,12 +3497,12 @@ export default function CalendarEvent(props) {
                             <Search  placeholder="Search by Name" />
                           </AutoComplete>
                     </div>
-                    {console.log(teamMemberChip,'team member chip----->')}
+                    {/* {console.log(teamMemberChip,'team member chip----->')} */}
                     { teamMemberChip?.length !== 0 &&
                         <div style={{display:'flex',flexFlow:'wrap',alignItems:'center'}}>
                           {
                             teamMemberChip?.map((item,index) =>{
-                              console.log(item,'item--team member-->')
+                              // console.log(item,'item--team member-->')
                               return(
                                 <div style={{marginRight:10,marginTop:10,}}>
                                  { updateEventCheck==true?
@@ -3550,7 +3558,7 @@ export default function CalendarEvent(props) {
         >
         {teamOnClickVal}
         </Tag> */}
-        {console.log(ownerCollectn, 'owner--->')}
+        {/* {console.log(ownerCollectn, 'owner--->')} */}
             <div
               className="CalendarEvent-Modal-Card-vertical-line"
             >
@@ -3618,67 +3626,6 @@ export default function CalendarEvent(props) {
        onChange={OnEndTimeChange}
       defaultValue={moment('12:00', format)} format={format} /> */}
       </Modal>
-
-      {/* <FullCalendar
-        height={width<="767"?"100vh":null}
-        //  defaultAllDay="false"
-        //  selectOverlap={ function(event) {
-        // //  alert("Doesnt work"+event.rendering)
-        //   // return event.rendering === 'background';
-        // }}
-        select={MultiSelect}
-        // eventOverlap="false"
-        // eventOverlap={function(stillEvent, movingEvent) {
-        //   return stillEvent.allDay && movingEvent.allDay;
-        // }}
-
-        editable="true"
-        timeZone='UTC'
-        droppable="true"
-        headerToolbar={{
-          left: "prev,next,today",
-          center: "title",
-          right: "dayGridMonth,dayGridWeek,dayGridDay"
-        }}
-        // eventClick={ function(info) {
-        //   alert('Event: ' + info.event.start);
-        //   alert('Event: ' + info.event.end);
-        //   alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-        //   alert('View: ' + info.view.type);
-      
-        //   // change the border color just for fun
-        //   info.el.style.borderColor = 'red';
-        // }}
-        eventClick={showModal}
-
-        // eventClick={
-        //   function(arg){
-        //     alert(arg.event.title)
-        //     alert(arg.event.start)
-        //   }
-        // }
-        select={ 
-          MultiSelectDateFunc
-        //   function(info) {
-        //   alert('selected ' + info.startStr + ' to ' + info.endStr);
-        // }
-      }
-    
-      forceEventDuration="true"
-        dateClick={DateClick}
-        selectable="true"
-        // selectMirror="true"
-
-        // function(arg) {
-        // $("#myModal").modal("show");
-        // $(".modal-body").html("");
-        // $(".modal-body").html("<h3>"+arg.dateStr+"</h3>");
-
-        defaultView="dayGridMonth"
-        plugins={[dayGridPlugin, interactionPlugin]}
-        events={addEvents}
-      /> */}
- 
     </div>
   );
 }
