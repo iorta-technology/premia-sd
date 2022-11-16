@@ -460,14 +460,22 @@ const NewLead = React.memo((props) => {
   // const { lastupdatedOn } = storeFormData
 
   // lead summary
-  const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
+  // const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
-  let storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
-  let storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
-  // let storeEmailValue = useSelector((state) => state.newLead.formData.email)
-  let storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
-  let storeStateValue = useSelector((state) => state.newLead.formData.state)
-  let storeCityValue = useSelector((state) => state.newLead.formData.city)
+  // let storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
+  // let storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
+  // // let storeEmailValue = useSelector((state) => state.newLead.formData.email)
+  // let storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
+  // let storeStateValue = useSelector((state) => state.newLead.formData.state)
+  // let storeCityValue = useSelector((state) => state.newLead.formData.city)
+
+
+  const [leadIDSummary, setleadIDSummary] = useState('')
+  const [firstNameSummary, setFirstNameSummary] = useState('')
+  const [lastNameSummary, setLastNameSummary] = useState('')
+  const [mobileNoSummary, setMobileNoSummary] = useState('')
+  const [stateSummary, setStateSummary] = useState('')
+  const [citySummary, setCitySummary] = useState('')
 
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
@@ -628,8 +636,6 @@ const NewLead = React.memo((props) => {
       let diffDays = Math.round(Math.abs((leadData.created_date - Date.now()) / (oneDay))) + " days ago";
       setDaysCount(diffDays);
 
-      setAllocatedToUser(leadData?.userId?.first_name)
-
       // console.warn('__++++++++++++++ userTreeData +++++++++++>>',userTreeData)
       
       // setAddTeamMemb(_teamData)
@@ -653,6 +659,14 @@ const NewLead = React.memo((props) => {
           setTeamTableData(_finalData)
         }
       }
+
+      setleadIDSummary(leadData?.lead_Id)
+      setFirstNameSummary(leadData?.firstName)
+      setLastNameSummary(leadData?.lastName)
+      setMobileNoSummary(leadData?.primaryMobile)
+      setStateSummary(leadData?.state)
+      setCitySummary(leadData?.city)
+      setAllocatedToUser(leadData?.userId?.first_name)
       
       setFirstName(leadData?.firstName)
       setLastName(leadData?.lastName)
@@ -1280,12 +1294,21 @@ const NewLead = React.memo((props) => {
             console.log('success:', res.formData[0]);
             // setErrorMessage(successMsg)
             setIsNewLead(false)
-            storefirstNameValue = res.formData[0].firstName
-            storelastNameValue = res.formData[0].lastName
-            storePrimaryMobileValue = res.formData[0].primaryMobile
-            storeStateValue = res.formData[0].state
-            storeCityValue = res.formData[0].city
+            // storefirstNameValue = res.formData[0].firstName
+            // storelastNameValue = res.formData[0].lastName
+            // storePrimaryMobileValue = res.formData[0].primaryMobile
+            // storeStateValue = res.formData[0].state
+            // storeCityValue = res.formData[0].city
             // _leadID = res.formData[0]._id
+
+            setleadIDSummary(res.formData[0]?.lead_Id)
+            setFirstNameSummary(res.formData[0]?.firstName)
+            setLastNameSummary(res.formData[0]?.lastName)
+            setMobileNoSummary(res.formData[0]?.primaryMobile)
+            setStateSummary(res.formData[0]?.state)
+            setCitySummary(res.formData[0]?.city)
+            setAllocatedToUser(res.formData[0]?.userId?.first_name)
+
             setLeadIdData(res.formData[0]._id)
           }
           // else if (res.type === 'CREATE_LEAD_FAIL') {
@@ -1736,9 +1759,10 @@ const NewLead = React.memo((props) => {
                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
                   <p className="form-title">Summary</p>
                   <Row>
+                  
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Lead ID</p>
-                      <p className="lead-detail">{leadIdValue} <br /> </p>
+                      <p className="lead-detail">{leadIDSummary} <br /> </p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Source</p>
@@ -1750,11 +1774,11 @@ const NewLead = React.memo((props) => {
                   <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Name</p>
-                      <p className="lead-detail">{storefirstNameValue} {storelastNameValue} <br /></p>
+                      <p className="lead-detail">{firstNameSummary} {lastNameSummary} <br /></p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label"> Mobile Number </p>
-                      <p className="lead-detail"><a href={`tel:${storePrimaryMobileValue}`}></a> {storePrimaryMobileValue}</p>
+                      <p className="lead-detail"><a href={`tel:${mobileNoSummary}`}></a> {mobileNoSummary}</p>
                     </Col>
                   </Row>
                   <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
@@ -1762,11 +1786,11 @@ const NewLead = React.memo((props) => {
                   <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">State</p>
-                      <p className="lead-detail">{storeStateValue} <br /> </p>
+                      <p className="lead-detail">{stateSummary} <br /> </p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">City</p>
-                      <p className="lead-detail">{storeCityValue}</p>
+                      <p className="lead-detail">{citySummary}</p>
                     </Col>
                   </Row>
                   <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
