@@ -1128,6 +1128,11 @@ export default function CalendarEvent(props) {
 
       setDurationStartTimeCheck(true)
           // console.log("This is the start Time"+e.target.value)
+          if(e.target.value == ''){
+            setDurationStartTimeOperation('')
+            setDurationEndTimeOperation('')
+            setEndTimeSelect(e.target.value)
+          }else{
           let parseTime=parseInt(e.target.value)
           // console.log(parseTime, 'time--parse--->');
           setDurationStartTimeOperation(parseTime)
@@ -1179,15 +1184,22 @@ export default function CalendarEvent(props) {
   //       }
   // // alert((+timeDiff)+(+"3600000")) 
   //     console.log(e.target.value)
+          }
     }
     const EndTimeChangeFunc=(e)=>{
       // console.log(e.target.value, 'start time--select-->');
       setEndTimeSelect(e.target.value)
-      setDurationEndTimeCheck(true)
+      let timeDiff=e.target.value
+      if(e.target.value == ''){
+        setDurationEndTimeDiffCheck(false)
+        setDurationEndTimeOperation('')
+      }else{
+        setDurationEndTimeDiffCheck(true)
+        setDurationEndTimeCheck(true)
       let parseTime=parseInt(e.target.value)
       setDurationEndTimeOperation(parseTime)
-      console.log(e.target.value)
-      let timeDiff=e.target.value
+      console.log(parseTime)
+     
       if(((e.target.value)==startTimeSelect)&&startTimeSelect!=""){
         setDurationEndTimeSameCheck(false)
   // console.log("TIme should not be same as start time")
@@ -1206,6 +1218,7 @@ export default function CalendarEvent(props) {
       else{
         setDurationEndTimeDiffCheck(true)
       }
+    }
       if(startTimeSelect==""){
         setStartTimeSelect((+timeDiff)-(+"36000000"))
         let parseTime=parseInt((+timeDiff)-(+"36000000"))
@@ -1490,8 +1503,10 @@ export default function CalendarEvent(props) {
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || durationStartTimeOperation == ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndTimeOperation == undefined || durationEndTimeOperation == ''){
+        }else if (durationEndTimeOperation == undefined || durationEndTimeOperation == '' || durationEndTimeDiffCheck == false){
           message.warning('End Time is Mandatory');
+        }else if (durationEndDateOperation == undefined || durationEndDateOperation == ''){
+          message.warning('End Date is Mandatory');
         }else{
           setDurationModeAlert(false)
           setDurationDateAlert(false)
@@ -1579,7 +1594,7 @@ export default function CalendarEvent(props) {
           message.warning('Start Date is Mandatory');
         }else if (durationStartTimeOperation == undefined || durationStartTimeOperation == ''){
           message.warning('Start Time is Mandatory');
-        }else if (durationEndTimeOperation == undefined || durationEndTimeOperation == ''){
+        }else if (durationEndTimeOperation == undefined || durationEndTimeOperation == '' || durationEndTimeDiffCheck == false){
           message.warning('End Time is Mandatory');
         }else{
           if(eventDurationType == 'customedatetime'){
