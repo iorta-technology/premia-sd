@@ -10,7 +10,7 @@ import {
 // import { ProposalTabs } from './components/Applications/Proposals';
 import BenefitIllustrator from "./components/BenefitIllustrator/BenefitIllustrator";
 import ProposalFulfilment from "./components/ProposalFulfilment/ProposalFulfilment";
-// import { LeadReport } from './components/LeadReport/LeadReport';
+// import { LeadReport } from './components/LeadReport/LpeadReport';
 // import { LeadReport2 } from './components/LeadReport/LeadReport2';
 
 import { Spin } from "antd";
@@ -26,6 +26,11 @@ const AdvisorList = React.lazy(() =>
 const StatusLead = React.lazy(() =>
   import("./components/StatusLead/StatusLead")
 );
+
+const LeadBulkUpload = React.lazy(() =>
+  import("./components/StatusLead/LeadBulkUpload")
+);
+
 const PersonalDetails = React.lazy(() =>
   import("./components/LeadDetails/PersonalDetails/PersonalDetails")
 );
@@ -370,6 +375,10 @@ function App() {
                   <Route
                     path="/leadmasterpage/statuslead"
                     component={StatusLead}
+                  ></Route>
+                  <Route
+                    path="/leadmasterpage/leadBulkUpload"
+                    component={LeadBulkUpload}
                   ></Route>
                   <Route
                     path="/leadmasterpage/leaddetails/personallead"
