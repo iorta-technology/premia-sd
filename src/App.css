@@ -54,6 +54,12 @@ h1,h2,h3,h4,h5,h6{
     align-items: center;
     opacity: 1;
 }
+.loader .ant-spin-spinning {
+    position: static;
+    /* display: inline-block; */
+    display: flex;
+    opacity: 1;
+}
 
 a{
     text-decoration: none !important;

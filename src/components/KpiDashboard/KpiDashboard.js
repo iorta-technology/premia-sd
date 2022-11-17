@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Moment from "moment";
 import "./KpiDashboard.css";
 import "../Activitity Tracker/ActivityCalender.css";
-import { Row, Col } from "antd";
-import { Button } from "antd";
-import { TeamOutlined, UserOutlined } from "@ant-design/icons";
-import { Table, Tag, Space } from "antd";
-import { Select } from "antd";
+import { Table, Tag, Space ,Row, Col , Button , Select } from "antd";
 import { Column } from "@ant-design/charts";
 import { checkAgent, stoageGetter } from "../../helpers";
 import Tabs from "../../components/Tab/Tab";
@@ -33,13 +29,6 @@ const KpiDashboard = () => {
   useEffect(() => {
     category_data();
   }, []);
-  // useEffect(() => {
-  // const { id, channelCode } = stoageGetter("user");
-
-  // // dispatch(actions.kpiDashboard(finalKpiDataDropdown, id, channelCode._id));
-  // getKpiData('')
-
-  // }, [dispatch]);
 
   const [finalKpiDataDropdown, setFinalKpiDataDropdown] = useState(["GPW"]);
   const kpi_data = useSelector((state) => state.kpiDashboard.kpi_data);
@@ -138,77 +127,6 @@ const KpiDashboard = () => {
     // }
   }, []);
 
-  // const dailyDataArray = [
-  // {
-  // month: "",
-  // type: "MTD",
-  // date: "",
-  // gwpData: "",
-  // year: "",
-  // title: "Total GWP in ₹ Lac",
-  // },
-  // {
-  // month: "",
-  // type: "MTD",
-  // date: "",
-  // gwpData: "",
-  // year: "",
-  // title: "Active Branches",
-  // },
-  // {
-  // month: "",
-  // type: "MTD",
-  // date: "",
-  // gwpData: "",
-  // year: "",
-  // title: "Total GWP Retention in ₹",
-  // },
-  // {
-  // month: "",
-  // type: "MTD",
-  // date: "",
-  // gwpData: "",
-  // year: "",
-  // title: "% Issuance",
-  // },
-  // {
-  // month: "",
-  // type: "MTD",
-  // date: "",
-  // gwpData: "",
-  // year: "",
-  // title: "Pendancy(GWP Pendancy vs. GWP Ach)",
-  // },
-  // {
-  // month: "",
-  // type: "MTD",
-  // date: "",
-  // gwpData: "",
-  // year: "",
-  // title: "GWP Unallocated in ₹",
-  // },
-  // ];
-
-  const budgetKeys = {
-    "Branch Activation": [
-      "branch_activation_budget",
-      "branch_activation_actual",
-      "branch_activation_achievement",
-    ],
-    GPW: ["gpw_budget", "gpw_actual", "gpw_achievement"],
-    "NOP Retention": [
-      "nop_retention_budget",
-      "nop_retention_actual",
-      "nop_retention_achievement",
-    ],
-    "GWP Retention": [
-      "gwp_retention_budget",
-      "gwp_retention_actual",
-      "gwp_retention_achievement",
-    ],
-    Dummy: ["dummy_budget", "dummy_actual", "dummy_achievement"],
-  };
-
   const category_data = async () => {
     let _channelId = login_user_data.channelCode._id;
     let _userId = login_user_data.id;
@@ -226,13 +144,6 @@ const KpiDashboard = () => {
       };
       gpwDropDwnList.push(data);
     }
-    // let category = gpwDropDwnList[0].value
-    // actualHeader = dataSelected = category == 'Branch Activation' ? '% Active Branches' : category
-    // inLacSectn = category == 'Branch Activation' ? '' : '(in ₹ Lac)'
-
-    // gpwHead = gpwDropDwnList[0].value
-    // gpwDrpdwn = gpwDropDwnList[0].value
-
     setCategory(gpwDropDwnList);
     setFinalKpiDataDropdown(gpwDropDwnList[0].value);
     let _data = gpwDropDwnList[0].value;

@@ -374,8 +374,8 @@ const NewLead = React.memo((props) => {
     },
     {
       title: "Team Member's",
-      dataIndex: "teamMember",
-      key: "teamMember",
+      dataIndex: "teamName",
+      key: "teamName",
     },
     {
       title: 'Action',
@@ -399,6 +399,11 @@ const NewLead = React.memo((props) => {
       setIsNewLead(false)
     }else{
       setIsNewLead(true)
+      form.setFieldsValue({
+        "leadType":'NewBusiness',
+        "leadStatus":['newleadentery']
+      })
+      // ['newleadentery','','']
       // storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
     }
     
@@ -455,14 +460,22 @@ const NewLead = React.memo((props) => {
   // const { lastupdatedOn } = storeFormData
 
   // lead summary
-  const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
+  // const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
   const createdDateValue = useSelector((state) => state.newLead.formData.created_date)
-  let storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
-  let storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
-  // let storeEmailValue = useSelector((state) => state.newLead.formData.email)
-  let storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
-  let storeStateValue = useSelector((state) => state.newLead.formData.state)
-  let storeCityValue = useSelector((state) => state.newLead.formData.city)
+  // let storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
+  // let storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
+  // // let storeEmailValue = useSelector((state) => state.newLead.formData.email)
+  // let storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
+  // let storeStateValue = useSelector((state) => state.newLead.formData.state)
+  // let storeCityValue = useSelector((state) => state.newLead.formData.city)
+
+
+  const [leadIDSummary, setleadIDSummary] = useState('')
+  const [firstNameSummary, setFirstNameSummary] = useState('')
+  const [lastNameSummary, setLastNameSummary] = useState('')
+  const [mobileNoSummary, setMobileNoSummary] = useState('')
+  const [stateSummary, setStateSummary] = useState('')
+  const [citySummary, setCitySummary] = useState('')
 
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
@@ -476,7 +489,7 @@ const NewLead = React.memo((props) => {
   const [email, setEmail] = useState('')
   const [primaryNo, setPrimaryNo] = useState('')
   const [mobileNoValid, setmobileNoValid] = useState('')
-  const [leadStatus, setLeadStatus] = useState('')
+  const [leadStatus, setLeadStatus] = useState('newleadentery')
   const [leadDisposition, setLeadDisposition] = useState('')
   const [leadSubDisposition, setLeadSubDisposition] = useState('')
   const [appointmentStatus, setAppointmentStatus] = useState()
@@ -491,7 +504,7 @@ const NewLead = React.memo((props) => {
   const [remarkFromSource, setRemarkFromSource] = useState('')
   const [remarkFromUser, setRemarkFromUser] = useState('')
   // const [leadType, setLeadType] = useState(storeLeadTypeValue !== '' ? storeLeadTypeValue : 'select')
-  const [leadType, setLeadType] = useState('select')
+  const [leadType, setLeadType] = useState('NewBusiness')
   // const [product, setProduct] = useState(storeProductValue !== '' ? storeProductValue : 'select')
   const [product, setProduct] = useState('select')
   // const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue !== '' ? storeInsuranceCompanyValue : 'select')
@@ -502,7 +515,7 @@ const NewLead = React.memo((props) => {
   const [cityProvince, setCityProvince] = useState('')
   const [errorMessage, setErrorMessage] = useState()
   const [isNewLead, setIsNewLead] = useState(false)
-  const [leadStatusData, setLeadStatusData] = useState([])
+  const [leadStatusData, setLeadStatusData] = useState(['newleadentery'])
   const [hierarAgentList ,setHierarAgentList]=useState([])
   const [desigDataOwner ,setDesigDataOwner]=useState('')
   const [teamDataOwner ,setTeamDataOwner]=useState('')
@@ -511,10 +524,13 @@ const NewLead = React.memo((props) => {
   const [teamData ,setTeamData]=useState('')
   const [showLeadStatus, setshowLeadStatusVisiblity] = React.useState(false);
   const [addTeamMemb ,setAddTeamMemb]=useState([])
+  const [addTeamMemAPIStruct ,setAddTeamMemAPIStruct]=useState([])
   const [teamTableData ,setTeamTableData]=useState([])
   const [leadIdData ,setLeadIdData]=useState('')
   const [teamDesig ,setTeamDesig]=useState(null)
   const [totalDaysCount, setDaysCount] = React.useState('');
+  const [allocatedToUser, setAllocatedToUser] = React.useState('');
+  
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
   const [hierarAgentListOwner ,setHierarAgentListOwner]=useState([])
@@ -570,101 +586,122 @@ const NewLead = React.memo((props) => {
   }
 
   const loadValuesToFields = (leadData) =>{
-    console.warn('__++++++++++++++ leadData +++++++++++>>',leadData)
-    // console.warn('__++++++++++++++ leadData +++++++++++>>',JSON.parse(leadData.teamMembers))
-    let _appntDate = ''
-    let _appntTime = ''
-    let leadArr = []
-    if (leadData.leadDisposition === 'appointment' && leadData.leadStatus === 'contact') {
-      setshowLeadStatusVisiblity(true)
-      leadArr.push(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
-      leadArr.push('newApptmnt')
-      leadArr.push('Untouched / Not updated Appointment')
+    try{
+      console.warn('__++++++++++++++ leadData +++++++++++>>',leadData)
+      // console.warn('__++++++++++++++ leadData +++++++++++>>',JSON.parse(leadData.teamMembers))
+      let _appntDate = ''
+      let _appntTime = ''
+      let leadArr = []
+      if (leadData.leadDisposition === 'appointment' && leadData.leadStatus === 'contact') {
+        setshowLeadStatusVisiblity(true)
+        leadArr.push(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
+        leadArr.push('newApptmnt')
+        leadArr.push('Untouched / Not updated Appointment')
 
-      setAppointmentStatus(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
-      setAppointmentDisposition('newApptmnt')
-      setAppointmentSubDisposition('Untouched / Not updated Appointment')
-      setLeadDisposition(leadData.leadDisposition)
-      
-      setLeadStatus(leadData.leadStatus)
-      setLeadStatusData(leadArr)
-      // only when, the date and time is exist in the object
-      if (leadData.appointmentDetails) {
-        // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
-        // setDate(readableDateFormat);
-        let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
-        _appntDate = moment(leadData.appointmentDetails.start_date)
-        _appntTime = leadData.appointmentDetails.start_time.toString()
-        setAppointmentDate(moment(leadData.appointmentDetails.start_date))
-        setAppointmentDatePost(newDate)
-        setAppointmentTime(_appntTime)
-      }
-    } else {
-      if (leadData.leadDisposition === 'callback' && leadData.leadStatus === 'contact') {
+        setAppointmentStatus(leadData.appointment_status === '' ? 'newappointment' : leadData.appointment_status)
+        setAppointmentDisposition('newApptmnt')
+        setAppointmentSubDisposition('Untouched / Not updated Appointment')
+        setLeadDisposition(leadData.leadDisposition)
+        
+        setLeadStatus(leadData.leadStatus)
+        setLeadStatusData(leadArr)
+        // only when, the date and time is exist in the object
         if (leadData.appointmentDetails) {
+          // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
+          // setDate(readableDateFormat);
+          let newDate = moment(leadData.appointmentDetails.start_date).valueOf()
           _appntDate = moment(leadData.appointmentDetails.start_date)
           _appntTime = leadData.appointmentDetails.start_time.toString()
           setAppointmentDate(moment(leadData.appointmentDetails.start_date))
+          setAppointmentDatePost(newDate)
           setAppointmentTime(_appntTime)
         }
+      } else {
+        if (leadData.leadDisposition === 'callback' && leadData.leadStatus === 'contact') {
+          if (leadData.appointmentDetails) {
+            _appntDate = moment(leadData.appointmentDetails.start_date)
+            _appntTime = leadData.appointmentDetails.start_time.toString()
+            setAppointmentDate(moment(leadData.appointmentDetails.start_date))
+            setAppointmentTime(_appntTime)
+          }
+        }
+        setshowLeadStatusVisiblity(false)
+        setLeadStatus(leadData.leadStatus)
+        setLeadDisposition(leadData.hasOwnProperty('leadDisposition') ? leadData.leadDisposition : '')
+        setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
+        setLeadStatusData(leadData.leadStatusArr)
       }
-      setshowLeadStatusVisiblity(false)
-      setLeadStatus(leadData.leadStatus)
-      setLeadDisposition(leadData.hasOwnProperty('leadDisposition') ? leadData.leadDisposition : '')
-      setLeadSubDisposition(leadData.hasOwnProperty('leadsubDisposition') ? leadData.leadsubDisposition : '')
-      setLeadStatusData(leadData.leadStatusArr)
+      // const [totalDaysCount, setDaysCount] = React.useState('');
+      let oneDay = (24 * 60 * 60 * 1000);
+      let diffDays = Math.round(Math.abs((leadData.created_date - Date.now()) / (oneDay))) + " days ago";
+      setDaysCount(diffDays);
+
+      // console.warn('__++++++++++++++ userTreeData +++++++++++>>',userTreeData)
+      
+      // setAddTeamMemb(_teamData)
+      let _data = {}
+      // checkAgent() === false
+      if(leadData.hasOwnProperty('teamMembers')){
+        let _teamData = JSON.parse(leadData?.teamMembers)
+        setAddTeamMemAPIStruct(_teamData)
+        if(checkAgent() === false){
+          let _arryy = _teamData.map(el =>{
+            userTreeData.reporting_users.filter(event => {
+              if(event._id === el.Id){
+                _data = { designation:event.hierarchyName, teamName:event.full_name ,teamMem_id:event._id, }
+              }
+            })
+            return _data
+          })
+          // console.warn('__++++++++++++++ _arryy +++++++++++>>',Object.keys(_arryy[0]).length)
+          let _finalData = _arryy.length > 0 ? Object.keys(_arryy[0]).length > 0 ? _arryy : [] : []
+          setAddTeamMemb(_finalData)
+          setTeamTableData(_finalData)
+        }
+      }
+
+      setleadIDSummary(leadData?.lead_Id)
+      setFirstNameSummary(leadData?.firstName)
+      setLastNameSummary(leadData?.lastName)
+      setMobileNoSummary(leadData?.primaryMobile)
+      setStateSummary(leadData?.state)
+      setCitySummary(leadData?.city)
+      setAllocatedToUser(leadData?.userId?.first_name)
+      
+      setFirstName(leadData?.firstName)
+      setLastName(leadData?.lastName)
+      setEmail(leadData?.email)
+      setPrimaryNo(leadData?.primaryMobile)
+      setStateProvince(leadData?.state)
+      setCityProvince(leadData?.city)
+      setLeadType(leadData?.leadType)
+      setProduct(leadData?.Product)
+      setInsuranceComapany(leadData?.Insurance_Company)
+      
+      setRemarkFromSource(leadData?.remarksfromSource)
+      setRemarkFromUser(leadData?.remarksfromUser)
+
+      form.setFieldsValue({
+        "firstname": leadData.firstName,
+        "lastname": leadData.lastName,
+        "email": leadData.email,
+        "phone": leadData.primaryMobile,
+        "state": leadData.state,
+        "city": leadData.city,
+        "leadType": leadData.leadType,
+        "product": leadData.Product,
+        "insuranceCompany": leadData.Insurance_Company,
+        "remarksfromsource": leadData.remarksfromSource,
+        "remarksfromuser": leadData.remarksfromUser,
+        "leadStatus":leadData.leadStatusArr,
+        "appointmentStatus": leadArr,
+        "appointmentDate": _appntDate,
+        "appointmentTime": _appntTime
+      })
+
+    }catch(err){
+      console.log('__++++++++++++++ err +++++++++++>>',err)
     }
-    // const [totalDaysCount, setDaysCount] = React.useState('');
-    let oneDay = (24 * 60 * 60 * 1000);
-    let diffDays = Math.round(Math.abs((leadData.created_date - Date.now()) / (oneDay))) + " days ago";
-    setDaysCount(diffDays);
-
-    let _teamData = JSON.parse(leadData.teamMembers)
-    // let _team = _teamData
-    setAddTeamMemb(_teamData)
-    let _arryy = _teamData.map(el =>{
-      let _data = {
-        designation:el.designation.label,
-        teamMember:el.teamName.label,
-      }
-      return _data
-      // setTeamTableData([...teamTableData,_data])
-    })
-    setTeamTableData(_arryy)
-    
-    
-    console.warn('__++++++++++++++ teamTableData +++++++++++>>',teamTableData)
-    
-    setFirstName(leadData?.firstName)
-    setLastName(leadData?.lastName)
-    setEmail(leadData?.email)
-    setPrimaryNo(leadData?.primaryMobile)
-    setStateProvince(leadData?.state)
-    setCityProvince(leadData?.city)
-    setLeadType(leadData?.leadType)
-    setProduct(leadData?.Product)
-    setInsuranceComapany(leadData?.Insurance_Company)
-    
-    setRemarkFromSource(leadData?.remarksfromSource)
-    setRemarkFromUser(leadData?.remarksfromUser)
-
-    form.setFieldsValue({
-      "firstname": leadData.firstName,
-      "lastname": leadData.lastName,
-      "email": leadData.email,
-      "phone": leadData.primaryMobile,
-      "state": leadData.state,
-      "city": leadData.city,
-      "leadType": leadData.leadType,
-      "product": leadData.Product,
-      "insuranceCompany": leadData.Insurance_Company,
-      "remarksfromsource": leadData.remarksfromSource,
-      "remarksfromuser": leadData.remarksfromUser,
-      "leadStatus":leadData.leadStatusArr,
-      "appointmentStatus": leadArr,
-      "appointmentDate": _appntDate,
-      "appointmentTime": _appntTime
-    })
   }
   
   // add team Member modal state control
@@ -678,6 +715,10 @@ const NewLead = React.memo((props) => {
   const handleCancel = () => {
     setDesigDataOwner('')
     setTeamDataOwner('')
+    form.setFieldsValue({
+      "Select Owner Designation": '',
+      "Select Owner Team Member": '',
+    })
     setOwnerArray([])
     setLeadOwner('')
 
@@ -963,6 +1004,10 @@ const NewLead = React.memo((props) => {
   const showChangeOwnerModal = () => {
     setDesigDataOwner('')
     setTeamDataOwner('')
+    form.setFieldsValue({
+      "Select Owner Designation": '',
+      "Select Owner Team Member": '',
+    })
     setVisibleChangeOwnerModel(true);
   };
 
@@ -1072,9 +1117,6 @@ const NewLead = React.memo((props) => {
     setInsuranceComapany(event)
   }
 
-
-
-
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth)
     window.addEventListener("resize", handleWindowResize);
@@ -1083,15 +1125,13 @@ const NewLead = React.memo((props) => {
   }, [width]);
 
 
-
-
-  // const getDesignation= ()=>{
-
-  // }
-
   const toggleTeamMember = () => {
     setDesigData('')
     setTeamData('')
+    form.setFieldsValue({
+      "Select Designation": '',
+      "Select Team Member": '',
+    })
     setVisibleTeamMemberModal(!visibleTeamMemberModal);
     !visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode))
     
@@ -1099,25 +1139,35 @@ const NewLead = React.memo((props) => {
 
   };
   const saveTeamMemberData = () => {
-    console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
+    // console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
     let _dataArr = addTeamMemb.map(el =>{
       let _data = {
-        designation:el.designation.label,
-        teamMember:el.teamName.label,
+        designation:el.designation,
+        teamName:el.teamName,
+        teamMem_id:el.teamMem_id,
       }
       return _data
     })
   
     setTeamTableData(_dataArr)
-    // setTeamTableData([...teamTableData,_dataArr])
-    // console.warn('teamTableData ====((((((((((===>>>>>>>>>>', teamTableData)
     setVisibleTeamMemberModal(false);
 
   };
 
   const deleteTableRow = (el) => {
-    const newData = teamTableData.filter((item) => item.teamMember !== el.teamMember);
+    // console.warn('el ====((((((((((===>>>>>>>>>>', el)
+    const newData = teamTableData.filter((item) => item.teamMem_id !== el.teamMem_id);
     setTeamTableData(newData);
+    let _data = {}
+    let _arryy = newData.map(el =>{
+      userTreeData.reporting_users.filter(event => {
+        if(event._id === el.teamMem_id){
+          _data = { first_name:event.first_name, last_name:event.last_name, Id:event._id, }
+        }
+      })
+      return _data
+    })
+    setAddTeamMemAPIStruct(_arryy)
   }
 
   // validations 
@@ -1139,18 +1189,18 @@ const NewLead = React.memo((props) => {
     }
   }
   const formData = {
-    user_id: id,
+    user_id: !teamDataOwner ? id : teamDataOwner,
     leadStatus: leadStatus,
     leadDisposition: leadDisposition,
     leadsubDisposition: leadSubDisposition,
     appointmentdisPosition: checkValidity(appointmentDisposition),
     remarksfromUser: remarkFromUser,
     remarksfromSource: remarkFromSource,
-    teamMembers: JSON.stringify(addTeamMemb),
+    teamMembers: JSON.stringify(addTeamMemAPIStruct),
     leadSource: null,
     appointment_status: checkValidity(appointmentStatus),
     appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
-    lead_Owner_Id: teamDataOwner,
+    lead_Owner_Id: !teamDataOwner ? id : teamDataOwner,
     lead_Creator_Id: id,
     LeadType: leadType,
     Product: product,
@@ -1204,7 +1254,7 @@ const NewLead = React.memo((props) => {
     remarksfromSource: remarkFromSource,
     leadsubDisposition: leadSubDisposition,
     leadDisposition: leadDisposition,
-    teamMembers: JSON.stringify(addTeamMemb),
+    teamMembers: JSON.stringify(addTeamMemAPIStruct),
     leadSource: '',
 
     appointment_status: checkValidity(appointmentStatus),
@@ -1212,9 +1262,9 @@ const NewLead = React.memo((props) => {
     appointmentsubdisPosition: checkValidity(appointmentSubDisposition),
 
 
-    lead_Owner_Id: teamDataOwner,
+    lead_Owner_Id: !teamDataOwner ? id : teamDataOwner,
     lead_Creator_Id: id,
-    user_id: id,
+    user_id: !teamDataOwner ? id : teamDataOwner,
     LeadType: leadType,
     Product: product,
     Insurance_Company: insuranceCompany ,
@@ -1235,7 +1285,7 @@ const NewLead = React.memo((props) => {
     console.log(error)
   }
   const submitHandler = event => {
-    
+    console.warn('(((((((isNewLead a___BBB))))))):', isNewLead);
     if (isNewLead) {
       dispatch(actions.createLead(createFormData))
         .then((res) => {
@@ -1244,18 +1294,15 @@ const NewLead = React.memo((props) => {
             console.log('success:', res.formData[0]);
             // setErrorMessage(successMsg)
             setIsNewLead(false)
-            storefirstNameValue = res.formData[0].firstName
-            storelastNameValue = res.formData[0].lastName
-            storePrimaryMobileValue = res.formData[0].primaryMobile
-            storeStateValue = res.formData[0].state
-            storeCityValue = res.formData[0].city
-            // _leadID = res.formData[0]._id
-            setLeadIdData(res.formData[0]._id)
-            // console.warn('(((((((storefirstNameValue))))))):', storefirstNameValue);
-            // console.warn('(((((((storelastNameValue))))))):', storelastNameValue);
-            // console.warn('(((((((storePrimaryMobileValue))))))):', storePrimaryMobileValue);
-            // console.warn('(((((((storeStateValue))))))):', storeStateValue);
+            setleadIDSummary(res.formData[0]?.lead_Id)
+            setFirstNameSummary(res.formData[0]?.firstName)
+            setLastNameSummary(res.formData[0]?.lastName)
+            setMobileNoSummary(res.formData[0]?.primaryMobile)
+            setStateSummary(res.formData[0]?.state)
+            setCitySummary(res.formData[0]?.city)
+            setAllocatedToUser(res.formData[0]?.userId?.first_name)
 
+            setLeadIdData(res.formData[0]._id)
           }
           // else if (res.type === 'CREATE_LEAD_FAIL') {
           //   console.log('failed:', res);
@@ -1288,10 +1335,14 @@ const NewLead = React.memo((props) => {
   
   const handleDesignationData = (event,data) =>{
     // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
+    // console.warn('data(((((--------------(((((===>>>>>>>>>>', data)
     setDesigData(event)
     setTeamData('')
+    form.setFieldsValue({
+      "Select Team Member": '',
+    })
     // const [teamDesig ,setTeamDesig]=useState(null)
-    let _team = { ['designation']: data }
+    let _team = { ['designation']: data.label }
     setTeamDesig(_team)
     
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
@@ -1303,31 +1354,31 @@ const NewLead = React.memo((props) => {
     // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
     setDesigDataOwner(event)
     setTeamDataOwner('')
-    // const [teamDesig ,setTeamDesig]=useState(null)
-    // let _team = { ['designation']: data }
-    // setTeamDesig(_team)
+    form.setFieldsValue({
+      "Select Owner Team Member": '',
+    })
     
     let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
     setTeamMemberListOwner(_teamData)
   }
 
-  // const [desigDataOwner ,setDesigDataOwner]=useState('')
-  // const [teamDataOwner ,setTeamDataOwner]=useState('')
   const handleTeamListData = (event,data) =>{
     setTeamData(event)
-    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', addTeamMemb)
+    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
 
-    let _memberData = {
-      dispValue:data.label,
-      label:data.label,
-      value:data.value,
+    let apiBody = {
+      first_name:data.first_name,
+      last_name:data.last_name,
+      Id:data._id,
     }
 
-    let _team = { ...teamDesig, ['teamName']: _memberData }
-    // setAddTeamMemb(_team)
+    let _team = { ...teamDesig, ['teamName']: data.label , ['teamMem_id']: data.value }
+    // Data Structure for Table Data
     setAddTeamMemb([...addTeamMemb,_team])
-    // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
-    console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
+    // Data Structure for API Request Body
+    setAddTeamMemAPIStruct([...addTeamMemAPIStruct,apiBody])
+    // console.warn('addTeamMemAPIStruct((((((((((===>>>>>>>>>>', addTeamMemAPIStruct)
+    // console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
     
   }
 
@@ -1337,7 +1388,7 @@ const NewLead = React.memo((props) => {
     // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
   }
   const saveOwnerData = () =>{
-    console.warn('ownerArray ====((((((((((===>>>>>>>>>>', ownerArray)
+    // console.warn('ownerArray ====((((((((((===>>>>>>>>>>', ownerArray)
     setVisibleChangeOwnerModel(false)
     setLeadOwner(ownerArray?.first_name)
     
@@ -1701,9 +1752,10 @@ const NewLead = React.memo((props) => {
                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24} >
                   <p className="form-title">Summary</p>
                   <Row>
+                  
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Lead ID</p>
-                      <p className="lead-detail">{leadIdValue} <br /> </p>
+                      <p className="lead-detail">{leadIDSummary} <br /> </p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Source</p>
@@ -1715,11 +1767,11 @@ const NewLead = React.memo((props) => {
                   <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Name</p>
-                      <p className="lead-detail">{storefirstNameValue} {storelastNameValue} <br /></p>
+                      <p className="lead-detail">{firstNameSummary} {lastNameSummary} <br /></p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label"> Mobile Number </p>
-                      <p className="lead-detail"><a href={`tel:${storePrimaryMobileValue}`}></a> {storePrimaryMobileValue}</p>
+                      <p className="lead-detail"><a href={`tel:${mobileNoSummary}`}></a> {mobileNoSummary}</p>
                     </Col>
                   </Row>
                   <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
@@ -1727,11 +1779,11 @@ const NewLead = React.memo((props) => {
                   <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">State</p>
-                      <p className="lead-detail">{storeStateValue} <br /> </p>
+                      <p className="lead-detail">{stateSummary} <br /> </p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">City</p>
-                      <p className="lead-detail">{storeCityValue}</p>
+                      <p className="lead-detail">{citySummary}</p>
                     </Col>
                   </Row>
                   <div style={{ backgroundColor: 'gray', height: '1px', width: 'auto', opacity: '0.3', margin: '5px 0px 5px 0px' }} ></div>
@@ -1739,7 +1791,7 @@ const NewLead = React.memo((props) => {
                   <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Allocated To</p>
-                      <p className="lead-detail">Himanshu</p>
+                      <p className="lead-detail">{allocatedToUser}</p>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12} >
                       <p className="lead-summ-label">Created on</p>
@@ -2016,7 +2068,7 @@ const NewLead = React.memo((props) => {
                                 },
                               ]}
                             >
-                            
+      
                               <Select 
                                 size="large" 
                                 value={teamDataOwner} 

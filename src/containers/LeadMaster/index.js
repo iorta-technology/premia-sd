@@ -14,14 +14,22 @@ const LeadMaster = (props) => {
   const [current, setcurrent] = useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
+  console.warn('current----------------->>>>>',current)
+  // console.warn('props----------------->>>>>',props)
 
     dispatch(actions.headerName('Opportunities'));
 
     const [width, setWidth] = useState(window.innerWidth)
+    const [skipVal,setSkipVal] = useState(0);
     const breakpoint = 620
 
   useEffect(() => {
-    const { id } = stoageGetter("user");
+    setcurrent(1)
+    console.warn('props----------------->>>>>',props)
+  }, [props]);
+
+  useEffect(() => {
+    // const { id } = stoageGetter("user");
     // dispatch(actions.fetchAllLeads(id,'',current))
 
     const handleWindowResize = () => setWidth(window.innerWidth);
@@ -70,8 +78,21 @@ const LeadMaster = (props) => {
   }
 
   const handlePageClick = (page) => {
+    // let _decrement = 0
+    // let _increment = 0
+
+    // if(current > page){
+    //     _decrement = skipVal - 15
+    //     setSkipVal(_decrement)
+    //     // getTodoData(_decrement)
+    // }else if(current < page) {
+    //     _increment = skipVal + 15
+    //     setSkipVal(_increment)
+    //     // getTodoData(_increment)
+    // }
+
     setcurrent(page)
-    console.log(page)
+    console.log('page----------->>>>>',page)
 }
 const tabMenu = [
     {
@@ -99,32 +120,26 @@ const tabMenu = [
 // console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
     return (
         <div style={{backgroundColor:'#fafafa'}}>
-            <Tab 
-                tabMenu={tabMenu} 
-                header="Lead" 
-                // current={current}
-                />
-                {/* <Button type='primary' className="export-btn">Export</Button>
-                <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button> */}
-      {/* <Button type='primary' className='dashboard-btn' onClick={ ()=> history.push('/dashboard') }>Dashboard</Button>
-                <Button type='primary' className="export-btn">Export</Button>
-                <Button className="list-btn" onClick={ ()=> history.push('/list-creation-master') } type='primary'>List Creation</Button> */}
-      {/* <div className="export-btn-holder">
-            </div> */}
-      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
-      <div className="page-holder Pagination-Mapbranch">
-        <Pagination
-          responsive
-          current={current}
-          onChange={handlePageClick}
-          total={totalLeads}
-          defaultPageSize={15}
-          itemRender={itemRender}
-        />
-      </div>
-      {/* {(breakpoint > width) ? null : <FloatButton />} */}
-    </div>
-  );
+          <Tab 
+              tabMenu={tabMenu} 
+              header="Lead" 
+              current={current}
+          />
+              
+          <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
+          <div className="page-holder Pagination-Mapbranch">
+            <Pagination
+              responsive
+              current={current}
+              onChange={handlePageClick}
+              total={totalLeads}
+              defaultPageSize={15}
+              itemRender={itemRender}
+            />
+          </div>
+          {/* {(breakpoint > width) ? null : <FloatButton />} */}
+        </div>
+    );
 };
 
 export default LeadMaster;
