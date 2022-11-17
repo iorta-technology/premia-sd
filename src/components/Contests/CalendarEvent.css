@@ -258,9 +258,9 @@ height: 40px;
    */
 }
 .CalendarEvent-Modal-Card-customer-event-button-flex {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
-  width: 45%;
+  /* width: 45%; */
   margin-top: 10px;
   /* background-color: #f7f7f7 !important; */
   /* background-color: blanchedalmond; */

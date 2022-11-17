@@ -212,7 +212,7 @@ function App() {
   //   )
   // }
   return (
-    <React.Suspense fallback={<Spin size="large" className="loader" />}>
+    <React.Suspense fallback={<div className="loader"> <Spin size="large"  /> </div>}>
       <Router>
         <div className="box-size">
           <Switch>

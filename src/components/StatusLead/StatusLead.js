@@ -1285,7 +1285,7 @@ const NewLead = React.memo((props) => {
     console.log(error)
   }
   const submitHandler = event => {
-    
+    console.warn('(((((((isNewLead a___BBB))))))):', isNewLead);
     if (isNewLead) {
       dispatch(actions.createLead(createFormData))
         .then((res) => {
@@ -1294,13 +1294,6 @@ const NewLead = React.memo((props) => {
             console.log('success:', res.formData[0]);
             // setErrorMessage(successMsg)
             setIsNewLead(false)
-            // storefirstNameValue = res.formData[0].firstName
-            // storelastNameValue = res.formData[0].lastName
-            // storePrimaryMobileValue = res.formData[0].primaryMobile
-            // storeStateValue = res.formData[0].state
-            // storeCityValue = res.formData[0].city
-            // _leadID = res.formData[0]._id
-
             setleadIDSummary(res.formData[0]?.lead_Id)
             setFirstNameSummary(res.formData[0]?.firstName)
             setLastNameSummary(res.formData[0]?.lastName)
@@ -1395,7 +1388,7 @@ const NewLead = React.memo((props) => {
     // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
   }
   const saveOwnerData = () =>{
-    console.warn('ownerArray ====((((((((((===>>>>>>>>>>', ownerArray)
+    // console.warn('ownerArray ====((((((((((===>>>>>>>>>>', ownerArray)
     setVisibleChangeOwnerModel(false)
     setLeadOwner(ownerArray?.first_name)
     

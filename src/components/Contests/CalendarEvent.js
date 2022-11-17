@@ -1271,34 +1271,6 @@ export default function CalendarEvent(props) {
           }
           setDurationStartTimeCheck(true)
           setDurationTimeAlert(false)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      // setDurationEndTime(moment(time))
-
-      // setDurationEndTimeOperation(timeString,"H:mm:ss")
-      //     console.log('Selected Time: ', time);
-      //     console.log('Formatted Selected Time: ', time);
-      //     if(time<durationStartTime){
-      //       setDurationStartTime(moment(time).subtract(1, 'hours'))
-      //       setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("T H:mm:ss z"))
-      //     }
-      // //  if(durationEndTime<time){
-      // //   setDurationStartTime(moment(time).subtract(1, 'hours'))
-      // //   setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("T H:mm:ss z"))
-      // // }
-      //     if (durationStartTime == "") {
-      //       setDurationStartTime(moment(time).subtract(1, 'hours'))
-      //       setDurationStartTimeOperation(moment(time).subtract(1, 'hours').format("T H:mm:ss z"))
-      //       alert("Start Time "+moment(time).subtract(1, 'hours').format("H:mm:ss z"))
-      //     }
-      //     setDurationTimeAlert(false)
     }
 
     const onChangeCustomerSearch = (text,data) => {
@@ -1307,7 +1279,7 @@ export default function CalendarEvent(props) {
   
     const onSelectCustomer = (value) => {
       let valuesplit = value.split(' ')
-      console.log(valuesplit[0]);
+      // console.log(valuesplit[0]);
       let filteredValue = customersearchList.filter(item=>{return item.value == value})
       // console.log(filteredValue, 'value splitted--->');
       setCustomerListCollectn([...customerlistcollectn,...filteredValue])
