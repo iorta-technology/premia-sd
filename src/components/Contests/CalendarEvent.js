@@ -1188,6 +1188,10 @@ export default function CalendarEvent(props) {
       setDurationEndTimeOperation(parseTime)
       console.log(e.target.value)
       let timeDiff=e.target.value
+      if(e.target.value == ''){
+        setDurationEndTimeDiffCheck(false)
+      }else{
+        setDurationEndTimeDiffCheck(true)
       if(((e.target.value)==startTimeSelect)&&startTimeSelect!=""){
         setDurationEndTimeSameCheck(false)
   // console.log("TIme should not be same as start time")
@@ -1206,6 +1210,7 @@ export default function CalendarEvent(props) {
       else{
         setDurationEndTimeDiffCheck(true)
       }
+    }
       if(startTimeSelect==""){
         setStartTimeSelect((+timeDiff)-(+"36000000"))
         let parseTime=parseInt((+timeDiff)-(+"36000000"))
