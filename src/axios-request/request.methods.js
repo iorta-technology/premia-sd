@@ -58,6 +58,9 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
           resolve(data.errMsg);
         } else if (errCode === 2601) {
           resolve(data.errMsg);
+        }else if (errCode === 2061) {
+          resolve(data.errMsg);
+          message.success(data.errMsg);
         } else {
           // alert(data.errMsg);
           if (config.method !== "get") message.error(data.errMsg);

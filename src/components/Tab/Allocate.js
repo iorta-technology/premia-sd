@@ -53,10 +53,11 @@ export const AllocateModal = React.memo((props) => {
   };
 
   let getMangerName = (findId) => {
+    // console.warn('---------managerName------->>',managerName)
     let manager = "";
     managerName.map((res) => {
       if (res._id === findId) {
-        manager = res.first_name + " " + res.last_name;
+        manager = res.first_name + " " + res.last_name + ' (' +res.employeeCode+') ';
       }
     });
     return manager;
@@ -64,13 +65,13 @@ export const AllocateModal = React.memo((props) => {
 
   const handleAllocateLead = () => {
     let payload = {
-      userId: "5d80e8b084dfaa4a37a6b760",
+      userId: id,
       Allocated_user_id: viewDetails._id,
       Lead_Id_List: checkedLead.map((res) => ({ _id: res.id })),
     };
 
     axiosRequest
-      .post(`admin/manualAllocation_lead`, payload, {
+      .put(`user/manualAllocation_lead`, payload, {
         secure: true,
       })
       .then((res) => {
@@ -81,8 +82,9 @@ export const AllocateModal = React.memo((props) => {
   };
 
   const handleViewDetails = (lead) => {
+    console.warn('VIEW___DETAIL___ID',lead)
     axiosRequest
-      .get(`user/v2/getleads_team_count/${id}`, {
+      .get(`user/v2/getleads_team_count/${lead._id}`, {
         secure: true,
       })
       .then((res) => {
@@ -321,37 +323,30 @@ export const AllocateModal = React.memo((props) => {
                 <div
                   key={viewDetails.id}
                   style={{
-                    display: "flex",
                     backgroundColor: "#F7FBFF",
-                    height: "8rem",
-                    width: "auto",
-                    marginBottom: "1rem",
-                    position: "relative",
-                    alignItems: "end",
+                    padding:12
                   }}
                 >
-                  <Avatar
-                    style={{
-                      textTransform: "uppercase",
-                      position: "absolute",
-                      left: "7px",
-                      top: "20px",
-                    }}
-                    size={{ xl: 50 }}
-                  >
-                    {viewDetails.first_name && viewDetails.first_name.charAt(0)}{" "}
-                    {viewDetails.last_name && viewDetails.last_name.charAt(0)}
-                  </Avatar>
-                  <div style={{ margin: 10 }}>
-                    <div style={{ color: "#00acc1", fontWeight: "bolder" }}>
-                      Agent
+                  <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
+                    <div style={{display: "flex",flexDirection:'column',alignItems:'center'}}>
+                      <Avatar
+                        style={{
+                          textTransform: "uppercase",
+                        }}
+                        size={{ xl: 50 }}
+                      >
+                        {viewDetails.first_name && viewDetails.first_name.charAt(0)}{""}
+                        {viewDetails.last_name && viewDetails.last_name.charAt(0)}
+                      </Avatar>
+                      <div style={{ color: "#00acc1", fontWeight: "bolder" }}>Agent</div>
                     </div>
-                    <div>Reports to :</div>
+                    <div style={{marginLeft:10}}>
+                      <p style={{marginBottom:0}}>{viewDetails.first_name + ' ' +viewDetails.last_name}</p>
+                      <p style={{marginBottom:0,color: "gray"}}>{viewDetails.employeeCode}</p>
+                    </div>
                   </div>
-                  <div style={{ margin: 10, color: "gray" }}>
-                    <div></div>
-                    {/* <div>{viewDetails.reporting_manager} </div> */}
-                    <div>{getMangerName(viewDetails.reporting_manager)} </div>
+                  <div style={{marginTop:10 }}>
+                    <p style={{marginBottom:0}}>Reports to : <span style={{  color: "gray" }}>{getMangerName(viewDetails.reporting_manager)}</span> </p>
                   </div>
                 </div>
 
@@ -362,6 +357,7 @@ export const AllocateModal = React.memo((props) => {
                     padding: "10px",
                     marginLeft: "15px",
                     marginRight: "15px",
+                    marginTop: "15px",
                     height: "2.5rem",
                   }}
                 >
