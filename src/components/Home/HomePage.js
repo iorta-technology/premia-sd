@@ -302,29 +302,35 @@ const HomePage = () => {
     );
     console.log("Business CARD", _resp);
     // dispatch(actions.businessCardData(_resp))
-    let _businessCardResp = _resp[0].data;
-    setBusinessArrData(_businessCardResp)
-
+    
     let _bussDropArr = [];
 
-    console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
-    if (_businessCardResp.length > 0) {
-      for (let _kpi of _businessCardResp) {
-        let data = {
-          label: _kpi.year_month,
-          value: _kpi.year_month,
-          // index: _kpi.id === "last_two_month" ? "1" : "2",
-        };
-        _bussDropArr.push(data);
-        _bussDropArr = _.uniqBy(_bussDropArr,'value'); 
-        // setBusinessDropArray([...businessDropArray,data]);
-        setBusinessDropArray(_bussDropArr);
-        setBusinessDropdown(_bussDropArr[0].value);
+    
+    if(_resp.length > 0){
+      let _businessCardResp = _resp[0]?.data;
+      setBusinessArrData(_businessCardResp)
+      console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
+
+      if (_businessCardResp.length > 0) {
+        for (let _kpi of _businessCardResp) {
+          let data = {
+            label: _kpi.year_month,
+            value: _kpi.year_month,
+            // index: _kpi.id === "last_two_month" ? "1" : "2",
+          };
+          _bussDropArr.push(data);
+          _bussDropArr = _.uniqBy(_bussDropArr,'value'); 
+          // setBusinessDropArray([...businessDropArray,data]);
+          setBusinessDropArray(_bussDropArr);
+          setBusinessDropdown(_bussDropArr[0].value);
+        }
+        // console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
+        handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
+      } else {
+        handleBusinessDropdown("", _businessCardResp);
       }
-      // console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
-      handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
-    } else {
-      handleBusinessDropdown("", _businessCardResp);
+    }else{
+      handleBusinessDropdown("",null);
     }
   };
 
@@ -646,10 +652,12 @@ const HomePage = () => {
   const handleBusinessDropdown = (event, data) => {
     setBusinessDropdown(event);
     let _selectMonthData = []
-    if(data.length !== undefined){
-      _selectMonthData = data.filter((el) => event === el.year_month);
-    }else{
-      _selectMonthData = businessArrData.filter((el) => event === el.year_month);
+    if(data !== null){
+      if(data.length !== undefined){
+        _selectMonthData = data.filter((el) => event === el.year_month);
+      }else{
+        _selectMonthData = businessArrData.filter((el) => event === el.year_month);
+      }
     }
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
     if (event !== "") {

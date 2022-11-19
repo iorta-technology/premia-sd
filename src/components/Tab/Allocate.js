@@ -71,7 +71,7 @@ export const AllocateModal = React.memo((props) => {
     };
 
     axiosRequest
-      .put(`user/manualAllocation_lead`, payload, {
+      .put(`user/manualAllocation_lead?user_type=user`, payload, {
         secure: true,
       })
       .then((res) => {
