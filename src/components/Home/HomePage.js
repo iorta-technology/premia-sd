@@ -302,39 +302,12 @@ const HomePage = () => {
     );
     console.log("Business CARD", _resp);
     // dispatch(actions.businessCardData(_resp))
-<<<<<<< HEAD
-    let _businessCardResp = _resp[0].data;
-    setBusinessArrData(_businessCardResp);
 
     let _bussDropArr = [];
 
-    console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
-    // if (_businessCardResp.length > 0) {
-    //   for (let _kpi of _businessCardResp) {
-    //     let data = {
-    //       label: _kpi.year_month,
-    //       value: _kpi.year_month,
-    //       // index: _kpi.id === "last_two_month" ? "1" : "2",
-    //     };
-    //     _bussDropArr.push(data);
-    //     _bussDropArr = _.uniqBy(_bussDropArr, "value");
-    //     // setBusinessDropArray([...businessDropArray,data]);
-    //     setBusinessDropArray(_bussDropArr);
-    //     setBusinessDropdown(_bussDropArr[0].value);
-    //   }
-    //   // console.warn("((((((((_bussDropArr))))))))", _bussDropArr);
-    //   handleBusinessDropdown(_bussDropArr[0].value, _businessCardResp);
-    // } else {
-    //   handleBusinessDropdown("", _businessCardResp);
-    // }
-=======
-    
-    let _bussDropArr = [];
-
-    
-    if(_resp.length > 0){
+    if (_resp.length > 0) {
       let _businessCardResp = _resp[0]?.data;
-      setBusinessArrData(_businessCardResp)
+      setBusinessArrData(_businessCardResp);
       console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
 
       if (_businessCardResp.length > 0) {
@@ -345,7 +318,7 @@ const HomePage = () => {
             // index: _kpi.id === "last_two_month" ? "1" : "2",
           };
           _bussDropArr.push(data);
-          _bussDropArr = _.uniqBy(_bussDropArr,'value'); 
+          _bussDropArr = _.uniqBy(_bussDropArr, "value");
           // setBusinessDropArray([...businessDropArray,data]);
           setBusinessDropArray(_bussDropArr);
           setBusinessDropdown(_bussDropArr[0].value);
@@ -355,10 +328,9 @@ const HomePage = () => {
       } else {
         handleBusinessDropdown("", _businessCardResp);
       }
-    }else{
-      handleBusinessDropdown("",null);
+    } else {
+      handleBusinessDropdown("", null);
     }
->>>>>>> d406444fcb4d8007940d42dd89245748c0623c40
   };
 
   let getOpportunities = async () => {
@@ -678,23 +650,15 @@ const HomePage = () => {
 
   const handleBusinessDropdown = (event, data) => {
     setBusinessDropdown(event);
-<<<<<<< HEAD
     let _selectMonthData = [];
-    if (data.length !== undefined) {
-      _selectMonthData = data.filter((el) => event === el.year_month);
-    } else {
-      _selectMonthData = businessArrData.filter(
-        (el) => event === el.year_month
-      );
-=======
-    let _selectMonthData = []
-    if(data !== null){
-      if(data.length !== undefined){
+    if (data !== null) {
+      if (data.length !== undefined) {
         _selectMonthData = data.filter((el) => event === el.year_month);
-      }else{
-        _selectMonthData = businessArrData.filter((el) => event === el.year_month);
+      } else {
+        _selectMonthData = businessArrData.filter(
+          (el) => event === el.year_month
+        );
       }
->>>>>>> d406444fcb4d8007940d42dd89245748c0623c40
     }
     // console.warn('((((((((_selectMonthData))))))))',_selectMonthData)
     if (event !== "") {
