@@ -2,6 +2,7 @@ import React, { useState, useEffect, createRef } from "react";
 import useInput from "../hooks/use-input";
 import "./LeadBulkUpload.css";
 import { CloudUploadOutlined, DownloadOutlined } from "@ant-design/icons";
+import { stoageGetter } from "../../helpers";
 import {
   Row,
   Col,
@@ -36,24 +37,120 @@ import { checkAgent, milToDateString } from "../../helpers";
 import moment from "moment";
 import { Link, useHistory } from "react-router-dom";
 import axiosRequest from "../../axios-request/request.methods";
+import * as XLSX from "xlsx/xlsx.mjs";
+import { color, style } from "@mui/system";
 
 const LeadBulkUpload = React.memo((props) => {
-  const uploadData = {
-    name: "file",
-    // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    // headers: {
-    //   authorization: "authorization-text",
-    // },
-    onChange(info) {
-      var str = info.file.name;
-      var index = str.lastIndexOf(".");
-      var type = str.slice(index + 1, str.length);
-      if (type === "xls" || type === "xlsx" || type === "csv") {
-        console.log("next step");
+  const { id, channelCode } = stoageGetter("user");
+  const [file, setFile] = useState([]);
+
+  const jsonupload = (e) => {
+    console.log("Event is", e.target.value);
+    let split = e.target.value;
+    console.log("array is", split);
+    let fileLink = e.target.value;
+    let excelfilename = e.target.files[0].name;
+
+    //Reference the FileUpload element.
+    // let fileUpload = document.getElementById("fileUpload");
+    let fileUpload = e.target;
+    console.log("File is", fileUpload.value);
+
+    //Validate whether File is valid Excel file.
+    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx)$/;
+    if (regex.test(fileUpload.value.toLowerCase())) {
+      if (typeof FileReader != "undefined") {
+        var reader = new FileReader();
+        //For Browsers other than IE.
+        if (reader.readAsBinaryString) {
+          //For NON IE Browser.
+          reader.addEventListener("load", (e) => {
+            ProcessExcel(e.target.result);
+          });
+          reader.readAsBinaryString(fileUpload.files[0]);
+        } else {
+          //For IE Browser.
+          reader.addEventListener("load", (e) => {
+            var data = "";
+            var bytes = new Uint8Array(e.target.result);
+            for (var i = 0; i < bytes.byteLength; i++) {
+              data += String.fromCharCode(bytes[i]);
+            }
+            ProcessExcel(data);
+          });
+          reader.readAsArrayBuffer(fileUpload.files[0]);
+        }
       } else {
-        console.log("formate is not allowed");
+        // this.vSnackBar("error","This browser does not support HTML5.");
       }
-    },
+    } else {
+      // this.vSnackBar("error","Please upload a valid Excel file.");
+      alert("This format is not allowed");
+    }
+  };
+
+  const ProcessExcel = (data) => {
+    //Read the Excel File data.
+    var workbook = XLSX.read(data, {
+      type: "binary",
+    });
+    console.log("Workbook is", workbook.Strings);
+    var first_sheet_name = workbook.SheetNames[0];
+    /* Get worksheet */
+    var worksheet = workbook.Sheets[first_sheet_name];
+    //    console.log("Final Value",XLSX.utils.sheet_to_json(worksheet, {
+    //        raw: true
+    //    }));
+    var excelData = [];
+    excelData = XLSX.utils.sheet_to_csv(worksheet);
+    // var json_object = JSON.stringify(XL_row_object);
+    console.log("excelData", excelData);
+    var lines = excelData.split("\n");
+
+    var result = [];
+
+    var headers = lines[0].split(",");
+    console.log("Lines are", lines);
+
+    for (var i = 1; i < lines.length; i++) {
+      var obj = {};
+      var currentline = lines[i].split(",");
+      for (var j = 0; j < currentline.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+      result.push(obj);
+    }
+    let res = [];
+    console.log("JSON IS", result);
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].accessOpt !== "") {
+        res.push(result[i]);
+      }
+    }
+    alert("File Uploaded Successfully");
+    setFile(JSON.stringify(res));
+  };
+
+  const goToNextTab = async () => {
+    if (file && file.length > 0) {
+      try {
+        let res = await axiosRequest.post(
+          `admin/bulk_upload/${id}`,
+          {
+            leadInJson: file,
+            campaign_id: id,
+            lead_source_id: id,
+          },
+          {
+            secure: true,
+          }
+        );
+        console.log("response", res);
+        setActiveTab(2);
+      } catch (error) {
+        console.log("error API " + error);
+      }
+    }
   };
 
   const [form] = Form.useForm();
@@ -63,10 +160,6 @@ const LeadBulkUpload = React.memo((props) => {
   const breakpoint = 620;
   const submitHandler = () => {
     console.log("ss");
-  };
-
-  const goToNextTab = () => {
-    setActiveTab(2);
   };
 
   useEffect(() => {
@@ -83,13 +176,15 @@ const LeadBulkUpload = React.memo((props) => {
         <Row justify={"center"} className="mb-5">
           <button
             onClick={() => setActiveTab(1)}
+            style={{ color: activeTab === 1 ? "#fff" : "#000" }}
             className={`${activeTab === 1 && "active"} TabButton`}
           >
             <div style={{ fontWeight: "bolder" }}>Step 1</div>
             <div>Import Lead</div>
           </button>
           <button
-            onClick={() => setActiveTab(2)}
+            onClick={() => setActiveTab(file && file.length ? 2 : 1)}
+            style={{ color: activeTab === 2 ? "#fff" : "#000" }}
             className={`${activeTab === 2 && "active"} TabButton`}
           >
             <div style={{ fontWeight: "bolder" }}>Step 2</div>
@@ -112,19 +207,7 @@ const LeadBulkUpload = React.memo((props) => {
               >
                 <p className="form-title">Bulk Upload Lead</p>
                 <div className="my-3 upload_div">
-                  <Upload {...uploadData} maxCount={1}>
-                    <Button
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        fontWeight: "bold",
-                      }}
-                      type="primary"
-                      icon={<CloudUploadOutlined />}
-                    >
-                      Upload
-                    </Button>
-                  </Upload>
+                  <input type="file" onChange={(e) => jsonupload(e)} />
                 </div>
                 <div className="my-3">Files Support - .xls, xlsx, and .csv</div>
                 <div className="my-3">
@@ -140,7 +223,7 @@ const LeadBulkUpload = React.memo((props) => {
                 </div>
                 <div className="mt-5">
                   <a
-                    href="https://image-upload-bucket-2019.s3.amazonaws.com/955a4e90228ac8d836bc2afd75d26ad69925a9e2.xlsx"
+                    href="https://image-upload-bucket-2019.s3.amazonaws.com/sdx-bucket-uat/c28a93542185c6c9028c57698580ef6781b84c4404e46808817b6e1353ee285b.xlsx"
                     download
                   >
                     <Button

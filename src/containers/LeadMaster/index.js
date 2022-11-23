@@ -14,18 +14,18 @@ const LeadMaster = (props) => {
   const [current, setcurrent] = useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
-  console.warn('current----------------->>>>>',current)
+  console.warn("current----------------->>>>>", current);
   // console.warn('props----------------->>>>>',props)
 
-    dispatch(actions.headerName('Opportunities'));
+  dispatch(actions.headerName("Opportunities"));
 
-    const [width, setWidth] = useState(window.innerWidth)
-    const [skipVal,setSkipVal] = useState(0);
-    const breakpoint = 620
+  const [width, setWidth] = useState(window.innerWidth);
+  const [skipVal, setSkipVal] = useState(0);
+  const breakpoint = 620;
 
   useEffect(() => {
-    setcurrent(1)
-    console.warn('props----------------->>>>>',props)
+    setcurrent(1);
+    console.warn("props----------------->>>>>", props);
   }, [props]);
 
   useEffect(() => {
@@ -91,55 +91,50 @@ const LeadMaster = (props) => {
     //     // getTodoData(_increment)
     // }
 
-    setcurrent(page)
-    console.log('page----------->>>>>',page)
-}
-const tabMenu = [
+    setcurrent(page);
+    console.log("page----------->>>>>", page);
+  };
+  const tabMenu = [
     {
-        id: 'all',
-        value: "All"
+      id: "all",
+      value: "All",
     },
     {
-        id: 'fortoday',
-        value: "For Today"
+      id: "fortoday",
+      value: "For Today",
     },
     {
-        id: 'open',
-        value: "Open"
+      id: "open",
+      value: "Open",
     },
     {
-        id: 'converted',
-        value: "Converted"
+      id: "converted",
+      value: "Converted",
     },
     {
-        id: 'failed',
-        value: "Failed"
+      id: "failed",
+      value: "Failed",
     },
+  ];
+  // console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
+  return (
+    <div style={{ backgroundColor: "#fafafa" }}>
+      <Tab tabMenu={tabMenu} header="Lead" current={current} />
 
-]
-// console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
-    return (
-        <div style={{backgroundColor:'#fafafa'}}>
-          <Tab 
-              tabMenu={tabMenu} 
-              header="Lead" 
-              current={current}
-          />
-              
-          <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
-          <div className="page-holder Pagination-Mapbranch">
-            <Pagination
-              responsive
-              current={current}
-              onChange={handlePageClick}
-              total={totalLeads}
-              defaultPageSize={15}
-              itemRender={itemRender}
-            />
-          </div>
-          {/* {(breakpoint > width) ? null : <FloatButton />} */}
-        </div>
-    );
+      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
+      <div className="page-holder Pagination-Mapbranch">
+        <Pagination
+          responsive
+          current={current}
+          onChange={handlePageClick}
+          total={totalLeads}
+          defaultPageSize={15}
+          itemRender={itemRender}
+        />
+      </div>
+      {/* {(breakpoint > width) ? null : <FloatButton />} */}
+    </div>
+  );
 };
 
 export default LeadMaster;

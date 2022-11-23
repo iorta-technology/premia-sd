@@ -40,13 +40,11 @@
 .status_boxes{
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-basis: 1;
 }
 
 .status_boxes div{
     background-color:gray;
-    /* border:1px solid #fff; */
     flex:1;
     text-align: center;
     padding: 20px;
