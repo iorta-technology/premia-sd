@@ -194,7 +194,7 @@ export default function CalendarEvent(props) {
           //     servicing: false
           //   })
           // }
-          else if (props.Data.tata_appointment_type == 'Joint customer Meeting'){
+          else if (props.Data.tata_appointment_type == 'Joint Customer Meeting'){
             setAdvisorCollection({
               appointment_advisor: true,
               businessPlanning_review: false,
@@ -1133,6 +1133,27 @@ export default function CalendarEvent(props) {
             setDurationEndTimeOperation('')
             setEndTimeSelect(e.target.value)
           }else{
+            if(e.target.value == '77400000'){
+              let parseTime=parseInt(e.target.value)
+              setDurationStartTimeOperation(parseTime)
+          let timeDiff=e.target.value
+          setDurationEndTimeCheck(true)
+          setEndTimeSelect((+timeDiff))
+        let parseTimeCondition=parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime=parseInt((+timeDiff))
+        setDurationEndTimeOperation(endparseTime)
+            }else if (e.target.value == '75600000'){
+              let parseTime=parseInt(e.target.value)
+              setDurationStartTimeOperation(parseTime)
+          let timeDiff=e.target.value
+          setDurationEndTimeCheck(true)
+          setEndTimeSelect((+timeDiff)+(+"1800000"))
+        let parseTimeCondition=parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime=parseInt((+timeDiff)+(+"1800000"))
+        setDurationEndTimeOperation(endparseTime)
+            }else{
           let parseTime=parseInt(e.target.value)
           // console.log(parseTime, 'time--parse--->');
           setDurationStartTimeOperation(parseTime)
@@ -1185,6 +1206,7 @@ export default function CalendarEvent(props) {
   // // alert((+timeDiff)+(+"3600000")) 
   //     console.log(e.target.value)
           }
+        }
     }
     const EndTimeChangeFunc=(e)=>{
       // console.log(e.target.value, 'start time--select-->');
@@ -1835,7 +1857,7 @@ export default function CalendarEvent(props) {
         joint_customer_visit: true,
         servicing: false
       })
-      setAppointmentType('Joint customer Meeting')
+      setAppointmentType('Joint Customer Meeting')
     }
     const AppointmentAdvisorBusinessPlanningFunc = () => {
       setAdvisorCollection({

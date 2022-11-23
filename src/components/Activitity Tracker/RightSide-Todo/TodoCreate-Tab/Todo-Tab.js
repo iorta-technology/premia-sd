@@ -375,6 +375,7 @@ const TodoTab = (props) => {
 
         console.warn('ownerCollectn________',ownerCollectn)
         let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
+        allocationdata = [...new Set(allocationdata)];
         
         let formData ={
           dateOfReminder: reminderDateString,
@@ -415,6 +416,7 @@ const TodoTab = (props) => {
             allocationdata.push(id);
         }
         let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
+        allocationdata = [...new Set(allocationdata)];
         let formData ={
           dateOfReminder: reminderDateString,
           description: todoDesc,

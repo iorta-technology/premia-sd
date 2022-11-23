@@ -140,7 +140,7 @@ const TodoCards = forwardRef((props, ref) => {
                     textOverLine : _textOverline,
                     wholeData:_data
                 }
-                // console.warn('objstrct',objstrct)
+                // console.warn('((((((((((((((objstrct------>>>))))))))))))))',objstrct)
                 arrData.push(objstrct)
                 
             }
@@ -365,8 +365,9 @@ const TodoCards = forwardRef((props, ref) => {
                     inAppNotification : ev.inAppNotification,
                     remarkNotification  : ev.remarkNotification
                 }
+                _teamMembers.push(_data);
             }
-            _teamMembers.push(_data);
+            
 
         })
         console.log('_teamMembers _____________***>>',_teamMembers)
@@ -442,6 +443,7 @@ const TodoCards = forwardRef((props, ref) => {
                             { element.searchdata.map((data,ind) =>{
                                 return(
                                     <div>
+                                        {console.log('TASKKKKKKK OWNEERR',element.taskOwner_id ,'ORGI---->>',loginUserID)}
                                         { element.taskOwner_id === loginUserID ?
                                             <div className="TodoCard-Footer">
                                                 <div className='TodoCard-Footer-Main'>
@@ -455,31 +457,33 @@ const TodoCards = forwardRef((props, ref) => {
                                             </div>
                                             :
                                             <div className="TodoCard-Footer">
-                                                <div className='TodoCard-Footer-Main'>
-                                                    <div>
-                                                        <p style={{marginBottom:3,fontSize:13}} >Please enter the remark before ticking the checkbox</p>
+                                                { data._Id == loginUserID &&
+                                                    <div className='TodoCard-Footer-Main'>
+                                                        <div>
+                                                            <p style={{marginBottom:3,fontSize:13}} >Please enter the remark before ticking the checkbox</p>
+                                                        </div>
+                                                        <div>
+                                                            { data.remarkData == '' ? 
+                                                                // value={remarkDataEnt}
+                                                                <Input type='text' placeholder='Enter Remark' onChange={(e) => setRemarkDataEnt(e.target.value)}/>
+                                                                :
+                                                                <div style={{border:'1px solid #C1C8CC',padding:4}}>
+                                                                    <p style={{color:'grey',fontSize:12,marginBottom:0}}>{!data.remarkData ? '-': data.remarkData}</p>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                        <div style={{display: 'flex',justifyContent:'flex-end',marginTop:10}}>
+                                                            <Button 
+                                                                disabled={data.disableSubmit} 
+                                                                // size="small" 
+                                                                onClick={() => submitRemark(ind,remarkDataEnt,data._Id)}
+                                                                type="primary" 
+                                                                style={{ backgroundColor: '#E46A25',borderRadius:3,border: 'none'}} >
+                                                                Submit
+                                                            </Button>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        { data.remarkData == '' ? 
-                                                            // value={remarkDataEnt}
-                                                            <Input type='text' placeholder='Enter Remark' onChange={(e) => setRemarkDataEnt(e.target.value)}/>
-                                                            :
-                                                            <div style={{border:'1px solid #C1C8CC',padding:4}}>
-                                                                <p style={{color:'grey',fontSize:12,marginBottom:0}}>{!data.remarkData ? '-': data.remarkData}</p>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                    <div style={{display: 'flex',justifyContent:'flex-end',marginTop:10}}>
-                                                        <Button 
-                                                            disabled={data.disableSubmit} 
-                                                            // size="small" 
-                                                            onClick={() => submitRemark(ind,remarkDataEnt,data._Id)}
-                                                            type="primary" 
-                                                            style={{ backgroundColor: '#E46A25',borderRadius:3,border: 'none'}} >
-                                                            Submit
-                                                        </Button>
-                                                    </div>
-                                                </div>
+                                                }
                                             </div>
                                         }
 
