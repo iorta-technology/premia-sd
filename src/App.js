@@ -247,7 +247,7 @@ function App() {
               ></Route>
               <div>
                 <Sidebar />
-                <div style={{ marginTop: "15px" }}>
+                <div style={{ marginTop: "70px" }}>
                   <Route path="/clubsMaster" component={ClubsMaster}></Route>
                   <Route path="/birthday" component={Birthday}></Route>
                   <Route path="/home" component={HomePage}></Route>
