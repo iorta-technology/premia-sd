@@ -8,7 +8,11 @@ import {
   Typography,
   Divider,
   Descriptions,
+  Modal,
 } from "antd";
+
+import { FileDoneOutlined } from "@ant-design/icons";
+import moment from "moment";
 import React, { useDebugValue, useState, useEffect } from "react";
 import { Card, Select } from "antd";
 import { Button } from "antd";
@@ -46,6 +50,7 @@ import axiosRequest from "../../axios-request/request.methods";
 import * as actions from "../../store/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
+import { getImage } from "@antv/l7plot/dist/lib/core/map/register";
 const { Meta } = Card;
 const tabMenu = [
   {
@@ -103,68 +108,6 @@ const ResourceCenter = () => {
   const videoSrc = video;
   const poster = "video.mp4";
 
-  // const marketingTab = () => {
-  // setMarketing(true);
-  // setInsurance(false);
-  // };
-
-  // const insuranceTab = () => {
-  // setInsurance(true);
-  // setMarketing(false);
-  // };
-
-  // const Video = async () => {
-  //   setType("VIDEO");
-  //   try {
-  //     let res = await axiosRequest.get(
-  //       "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=video&skip=0",
-  //       { secure: true }
-  //     );
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const Pdf = async () => {
-  // setType("PDF");
-  // try {
-  // let res = await axiosRequest.get(
-  // "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=pdf&skip=0",
-
-  // { secure: true }
-  // );
-  // console.log(res);
-  // } catch (error) {
-  // console.log(error);
-  // }
-  // };
-
-  // const Articles = async () => {
-  // setType("ARTICLE");
-  // try {
-  // let res = await axiosRequest.get(
-  // "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=articles&skip=0",
-  // { secure: true }
-  // );
-  // console.log(res);
-  // } catch (error) {
-  // console.log(error);
-  // }
-  // };
-
-  // const Infographic = async () => {
-  // setType("INFOGRAPHIC");
-  // try {
-  // let res = await axiosRequest.get(
-  // "admin/fetch_resources?channel_code=CH1&role_code=ZSM03&filter=1&filter_by=5d8f12d819a6cb5e86c6f994&filterByMediaCategory=infographic&skip=0",
-  // { secure: true }
-  // );
-  // console.log(res);
-  // } catch (error) {
-  // console.log(error);
-  // }
-  // };
-
   useEffect(() => {
     typeData();
   }, [type]);
@@ -206,6 +149,7 @@ const ResourceCenter = () => {
         )
         .then((res) => {
           setCurrentData(res[0]);
+          console.log("res", res[0]);
         })
         .catch((err) => console.log(err));
   };
@@ -241,8 +185,116 @@ const ResourceCenter = () => {
     setType("all");
   };
 
+  const getImage = (type) => {
+    if (type === "articles")
+      return {
+        backgroundImage:
+          'url("https://pocbanca.iorta.in/assets/Group19132x.png")',
+      };
+
+    if (type === "pdf")
+      return {
+        backgroundImage:
+          'url("https://pocbanca.iorta.in/assets/Group19112x.png")',
+      };
+
+    if (type === "videos")
+      return {
+        backgroundImage:
+          'url("https://pocbanca.iorta.in/assets/Group19122x.png")',
+      };
+
+    return {
+      backgroundImage:
+        'url("https://pocbanca.iorta.in/assets/Group19142x.png")',
+    };
+  };
+
+  const setCurrentTriggerData = (data) => {
+    setCurrentImageAndData(data);
+    if (
+      data.contentCategory === "infographic" &&
+      data.contentCategory === "video"
+    ) {
+      setImageModel(true);
+    } else if (data.contentCategory === "articles") {
+      setArticleModel(true);
+    } else if (data.contentCategory === "pdf") {
+      window.open(data.thumbnail, "_blank");
+    }
+    console.log("data", data);
+  };
+
+  const [imageModel, setImageModel] = useState(false);
+  const [articleModel, setArticleModel] = useState(false);
+  const [currentImageAndData, setCurrentImageAndData] = useState("");
+
   return (
-    <div>
+    <>
+      <Modal
+        centered
+        visible={imageModel}
+        onOk={() => setImageModel(false)}
+        onCancel={() => setImageModel(false)}
+        footer={<div />}
+      >
+        <img
+          width="100%"
+          alt="example"
+          className="card_img"
+          src={currentImageAndData.thumbnail}
+        />
+      </Modal>
+      <Modal
+        className="article_modal"
+        centered
+        visible={articleModel}
+        onOk={() => setArticleModel(false)}
+        onCancel={() => setArticleModel(false)}
+        footer={<div />}
+      >
+        <h4 style={{ fontSize: "large", fontWeight: "600" }}>Article</h4>
+        <div className="article_content">
+          <img
+            width="100%"
+            alt="example"
+            className="card_img"
+            src={currentImageAndData.thumbnail}
+          />
+          <div
+            style={{ display: "flex", alignItems: "center", marginTop: "10px" }}
+          >
+            <FileDoneOutlined />{" "}
+            {moment(currentImageAndData.created_date).format("LLLL")}
+          </div>
+          <hr />
+          <div>{currentImageAndData.content}</div>
+          <br />
+          <div style={{ marginBottom: "5px" }}>
+            <b>Tags</b>
+          </div>
+          <div>
+            {currentImageAndData.tags &&
+              currentImageAndData.tags.length > 0 &&
+              currentImageAndData.tags.map((res) => (
+                <button
+                  style={{
+                    border: "none",
+                    color: "#fff",
+                    backgroundColor: "#1fb3ab",
+                    outline: "none",
+                    marginRight: 10,
+                    padding: "1px 8px",
+                    borderRadius: "2px",
+                  }}
+                >
+                  {res}
+                </button>
+              ))}
+          </div>
+        </div>
+      </Modal>
+
       {width > "600" ? (
         <div className="header">
           <Row>
@@ -528,7 +580,10 @@ const ResourceCenter = () => {
                 </Col>
               </Row>
               <hr />
-              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+              <Row
+                style={{ margin: 0 }}
+                gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+              >
                 {currentData && currentData.length > 0 ? (
                   <Col className="maincard gutter-row">
                     {currentData?.map((res, index) => (
@@ -545,7 +600,7 @@ const ResourceCenter = () => {
                         cover={
                           <img
                             alt="example"
-                            class="card_img"
+                            className="card_img"
                             src={res.thumbnail}
                           />
                         }
@@ -553,7 +608,14 @@ const ResourceCenter = () => {
                         <a href={"mailto:" + mailSendTo}>
                           <ShareAltOutlined className="share_button" />
                         </a>
-                        <div className="center_icon"></div>
+                        {/* contentCategory */}
+                        <div
+                          style={getImage(res.contentCategory)}
+                          className="center_icon"
+                          onClick={() => {
+                            setCurrentTriggerData(res);
+                          }}
+                        ></div>
 
                         <div style={{ width: "100%" }}>
                           <div className="Body_text">
@@ -600,7 +662,13 @@ const ResourceCenter = () => {
           </Col>
         </Row>
       </div>
-    </div>
+
+      <Modal title="Basic Modal">
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+    </>
   );
 };
 export default ResourceCenter;

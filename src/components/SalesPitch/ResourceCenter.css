@@ -257,12 +257,30 @@
     padding: 7px 20px;
 }
 
+.article_modal, .article_modal .ant-modal-content{
+    height: 95%;
+    background-color:rgb(240, 240, 240);
+}
+
+.article_modal .article_content{
+    height: 100%;
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding:20px;
+    margin: 10px 0;
+}
+
+.article_modal .ant-modal-body{
+   height: 100%;
+   padding: 18px;
+}
+
 .center_icon{
     position: absolute;
     left: 50%;
     top: 35%;
     transform: translate(-50%,-50%);
-    background-image: url("https://pocbanca.iorta.in/assets/Group19142x.png");
+    /* background-image: url("https://pocbanca.iorta.in/assets/Group19142x.png"); */
     width: 20px;
     height: 20px;
     width: 60px;
