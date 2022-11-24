@@ -58,6 +58,9 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
           resolve(data.errMsg);
         } else if (errCode === 2601) {
           // resolve(data.errMsg);
+          if (config.method === "put") {
+            if (config.url.includes("manualAllocation_lead")) message.warning("No matching leads are found");
+          }
           resolve([]);
         }else if (errCode === 2061) {
           resolve(data.errMsg);

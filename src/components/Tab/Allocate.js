@@ -22,7 +22,7 @@ export const AllocateModal = React.memo((props) => {
   const [viewDetails, setviewDetails] = useState("");
   const [cardData, setCardData] = useState([]);
   const breakpoint = 620;
-  console.log("state === ", state);
+  console.log("props_______props === ", props);
   const userTreeData = useSelector(
     (state) => state?.home?.user_tree.reporting_users
   );
@@ -75,8 +75,12 @@ export const AllocateModal = React.memo((props) => {
         secure: true,
       })
       .then((res) => {
-        handleCloseAllocate();
-        setviewDetails("");
+        console.warn('res---------->>>>>>>>>>>',res)
+        if(res.length !== 0){
+          handleCloseAllocate();
+          setviewDetails("");
+          dispatch(actions.fetchAllLeads(id, props.tabSelected, 1));
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -441,10 +445,10 @@ export const AllocateModal = React.memo((props) => {
   );
 });
 
-function AllocateModalShow({ id }) {
+function AllocateModalShow({ id ,tabSelected}) {
   return (
     <>
-      <AllocateModal id={id} />
+      <AllocateModal id={id} tabSelected={tabSelected} />
     </>
   );
 }

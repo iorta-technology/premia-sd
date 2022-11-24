@@ -205,7 +205,7 @@
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.businessCardStyle .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+.businessCardStyle .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
   padding-right: 18px;
   color: #fff;
 }
