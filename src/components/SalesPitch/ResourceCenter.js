@@ -43,8 +43,8 @@ import shareit from "../../assets/shareit.png";
 import viewicon from "../../assets/viewicon.png";
 import actionNoData from "../../assets/Actionnodata.png";
 import axiosRequest from "../../axios-request/request.methods";
-import * as actions from '../../store/actions/index';
-import { useDispatch, useSelector } from 'react-redux';
+import * as actions from "../../store/actions/index";
+import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 const { Meta } = Card;
 const tabMenu = [
@@ -70,8 +70,8 @@ const contentStyle = {
 };
 const { Title } = Typography;
 const ResourceCenter = () => {
-  const dispatch = useDispatch()
-  dispatch(actions.headerName('Resource Center'));
+  const dispatch = useDispatch();
+  dispatch(actions.headerName("Resource Center"));
   let _store = useSelector((state) => state.login.user);
   console.log("_store", _store.channelCode.channelCode);
   let { innerWidth: width, innerHeight: height } = window;
@@ -95,6 +95,8 @@ const ResourceCenter = () => {
   const [type, setType] = useState("all");
   const [productData, SetProductData] = useState([]);
   const [activeId, setActiveId] = useState("");
+  const [activeTabName, setActiveTabName] = useState("");
+  const [mailSendTo, setMailSendTo] = useState(_store.primaryEmail);
   const changeTabPosition = (e) => {
     setTabPosition(e.target.value);
   };
@@ -184,6 +186,7 @@ const ResourceCenter = () => {
       .then((res) => {
         SetProductData(res);
         setActiveId(res[0]?._id);
+        setActiveTabName(res[0]?.ResourceCenterName);
         console.log("res[0]._id", res);
       })
       .catch((err) => console.log(err));
@@ -255,7 +258,10 @@ const ResourceCenter = () => {
                     className={`resourceCenter primaryBtn ${
                       item._id === activeId && "top-tab-header-active"
                     }`}
-                    onClick={() => setActiveId(item._id)}
+                    onClick={() => {
+                      setActiveId(item._id);
+                      setActiveTabName(item.ResourceCenterName);
+                    }}
                   >
                     {item.ResourceCenterName}
                   </Button>
@@ -500,9 +506,10 @@ const ResourceCenter = () => {
                       color: "rgb(0, 172, 193)",
                       fontSize: 20,
                       fontWeight: "bold",
+                      textTransform: "capitalize",
                     }}
                   >
-                    Marketing
+                    {activeTabName}
                   </p>
                 </Col>
                 <Col span={2}>
@@ -543,7 +550,7 @@ const ResourceCenter = () => {
                           />
                         }
                       >
-                        <a href="mailto:hasansadiqu@gmail.com">
+                        <a href={"mailto:" + mailSendTo}>
                           <ShareAltOutlined className="share_button" />
                         </a>
                         <div className="center_icon"></div>

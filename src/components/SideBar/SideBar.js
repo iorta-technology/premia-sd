@@ -36,13 +36,8 @@ const Nav = styled.div`
   justify-content: flex-end;
   column-gap: 20px;
   align-items: center;
-<<<<<<< HEAD
-  padding-left: 2rem;
-  padding-right: 2rem;
-=======
   padding-left: 1rem;
   padding-right: 1rem;
->>>>>>> d618f27f50274a142aa23750dcac51aaa34414a2
   position: fixed;
   top: 0;
   left: 0;
@@ -342,7 +337,17 @@ const Sidebar = () => {
                         </div>{" "}
                         <img src={right_black_img} />
                       </li>
-                      {/* <li><div><img src={rapps_img}/> &nbsp;<span>Add Bulk Lead</span></div> <img src={right_black_img}/></li> */}
+                      <li
+                        onClick={() => {
+                          history.push("/leadmasterpage/LeadBulkUpload");
+                        }}
+                      >
+                        <div>
+                          <img src={rapps_img} /> &nbsp;
+                          <span>Add Bulk Lead</span>
+                        </div>{" "}
+                        <img src={right_black_img} />
+                      </li>
                     </ul>
                   </>
                 )}
