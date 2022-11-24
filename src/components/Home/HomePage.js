@@ -866,7 +866,7 @@ const HomePage = () => {
             <div className="dataCardLabel"></div>
           </Col>
         </Row>
-        <Row gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center">
+        <Row style={{marginLeft:0,marginRight:0}} gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center">
           {showActivityTracker && (
             <Col>
               <div

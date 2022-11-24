@@ -239,10 +239,10 @@ const NewLead = React.memo((props) => {
     { value: "1 week before", label: "1 week before" },
   ];
   const leadTypeOptions = [
-    {
-      label: "Select",
-      value: "select",
-    },
+    // {
+    //   label: 'Select',
+    //   value: 'select'
+    // },
     {
       label: "New Business",
       value: "NewBusiness",
@@ -257,10 +257,10 @@ const NewLead = React.memo((props) => {
     },
   ];
   const insuranceCompanyOptions = [
-    {
-      label: "Select",
-      value: "select",
-    },
+    // {
+    //   label: 'Select',
+    //   value: 'select'
+    // },
     {
       label: "TATA AIG General Insurance Company",
       value: "TATA AIG General Insurance Company",
@@ -285,10 +285,10 @@ const NewLead = React.memo((props) => {
     },
   ];
   const leadProductOptions = [
-    {
-      label: "Select",
-      value: "select",
-    },
+    // {
+    //   label: 'Select',
+    //   value: 'select'
+    // },
     {
       label: "Health",
       value: "Health",
@@ -561,9 +561,9 @@ const NewLead = React.memo((props) => {
   // const [leadType, setLeadType] = useState(storeLeadTypeValue !== '' ? storeLeadTypeValue : 'select')
   const [leadType, setLeadType] = useState("NewBusiness");
   // const [product, setProduct] = useState(storeProductValue !== '' ? storeProductValue : 'select')
-  const [product, setProduct] = useState("select");
+  const [product, setProduct] = useState('')
   // const [insuranceCompany, setInsuranceComapany] = useState(storeInsuranceCompanyValue !== '' ? storeInsuranceCompanyValue : 'select')
-  const [insuranceCompany, setInsuranceComapany] = useState("select");
+  const [insuranceCompany, setInsuranceComapany] = useState('')
   // const [stateProvince, setStateProvince] = useState(storeStateValue !== '' ? storeStateValue : 'Select')
   const [stateProvince, setStateProvince] = useState("");
   // const [cityProvince, setCityProvince] = useState(storeCityValue !== '' ? storeCityValue : 'Select')
@@ -578,14 +578,15 @@ const NewLead = React.memo((props) => {
   const [teamMemberList, setTeamMemberList] = useState([]);
   const [teamData, setTeamData] = useState("");
   const [showLeadStatus, setshowLeadStatusVisiblity] = React.useState(false);
-  const [addTeamMemb, setAddTeamMemb] = useState([]);
-  const [addTeamMemAPIStruct, setAddTeamMemAPIStruct] = useState([]);
-  const [teamTableData, setTeamTableData] = useState([]);
-  const [leadIdData, setLeadIdData] = useState("");
-  const [teamDesig, setTeamDesig] = useState(null);
-  const [totalDaysCount, setDaysCount] = React.useState("");
-  const [allocatedToUser, setAllocatedToUser] = React.useState("");
-
+  const [addTeamMemb ,setAddTeamMemb]=useState([])
+  const [addTeamMemAPIStruct ,setAddTeamMemAPIStruct]=useState([])
+  const [teamTableData ,setTeamTableData]=useState([])
+  const [leadIdData ,setLeadIdData]=useState('')
+  const [teamDesig ,setTeamDesig]=useState(null)
+  const [totalDaysCount, setDaysCount] = React.useState('');
+  const [allocatedToUser, setAllocatedToUser] = React.useState('');
+  console.warn('((((((((((( stateProvince )))))))))))',stateProvince)
+  
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
   const [hierarAgentListOwner, setHierarAgentListOwner] = useState([]);

@@ -303,7 +303,7 @@ const Tab = ({
                         Self
                       </figcaption>{" "}
                     </figure>
-                    <AllocateModalShow />
+                    <AllocateModalShow tabSelected={leadTabFilter} />
                   </>
                 )}
                 <GlobalFilters
@@ -386,7 +386,7 @@ const Tab = ({
                     />{" "}
                     Team
                   </button>
-                  <AllocateModalShow />
+                  <AllocateModalShow tabSelected={leadTabFilter} />
                 </>
               )}
               <GlobalFilters

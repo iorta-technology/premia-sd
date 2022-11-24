@@ -208,86 +208,95 @@ const TodoCards = forwardRef((props, ref) => {
     }
 
     const removListFromToDo = (data,rowIndex) => {
-        // console.log('Check box data',data);
+        // console.warn('((((((((Check box data))))))))------->>>',data.removeBtn);
+        // console.warn('((((((((Check box data___rowIndex))))))))------->>>',rowIndex);
         const {id} = stoageGetter('user')
 
         let _teamMembers = []
-        let newData = getTodoDataArray;
-        // return getTodoDataArray.map((item,index) =>{
-        if(data.removeBtn === false){
-            
-            newData[rowIndex].removeBtn = true
-            newData[rowIndex].icon = truecheckbox
-            newData[rowIndex].textOverLine.textDecorationLine = 'line-through'
-            setGetTodoDataArray(newData)
+        // let newData = getTodoDataArray;
 
-            if(newData[rowIndex].taskOwner_id !== id){
+        if(data.removeBtn === false){
+            let _data = getTodoDataArray.map((ev,index)=>{
+                if(rowIndex === index){
+                    ev.removeBtn = true
+                    ev.icon = truecheckbox
+                    ev.textOverLine.textDecorationLine = 'line-through'
+                }
+                return ev
+            })
+            setGetTodoDataArray(_data)
+
+            if(_data[rowIndex].taskOwner_id !== id){
                 let object={
-                    FullName:newData[rowIndex].searchdata[0].FullName,
-                    designation:newData[rowIndex].searchdata[0].designation,
-                    _Id:newData[rowIndex].searchdata[0]._Id,
-                    ShortId:newData[rowIndex].searchdata[0].ShortId,
-                    remarkText: newData[rowIndex].searchdata[0].remarkText,
+                    FullName:_data[rowIndex].searchdata[0].FullName,
+                    designation:_data[rowIndex].searchdata[0].designation,
+                    _Id:_data[rowIndex].searchdata[0]._Id,
+                    ShortId:_data[rowIndex].searchdata[0].ShortId,
+                    remarkText: _data[rowIndex].searchdata[0].remarkText,
                     taskDone: true,
-                    inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
-                    remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
+                    inAppNotification: _data[rowIndex].searchdata[0].inAppNotification,
+                    remarkNotification: _data[rowIndex].searchdata[0].remarkNotification,
                 }
                 _teamMembers.push(object);
 
                 let formdata={
                     userId:id,
-                    taskOwner : newData[rowIndex].taskOwner_id,
-                    taskId :newData[rowIndex].todoid,
+                    taskOwner : _data[rowIndex].taskOwner_id,
+                    taskId :_data[rowIndex].todoid,
                     owernersCollectionDetails:_teamMembers
                 }
+                console.warn('((((((((______ formdata REMOVEE___FALSEE _____))))))))------->>>',formdata);
                 updateTODOTaskApi(formdata)
             }else{
                 let formdata = {
                     userId:id,
-                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskOwner : _data[rowIndex].taskOwner_id,
                     taskId: data.todoid,
                     taskDone : true
                 }
                 updateTODOTaskApi(formdata)
             }
         }else{
-            newData[rowIndex].removeBtn = false
-            newData[rowIndex].icon = checkboxoutline
-            newData[rowIndex].textOverLine.textDecorationLine = ''
-            setGetTodoDataArray(newData)
+            let _data = getTodoDataArray.map((ev,index)=>{
+                if(rowIndex === index){
+                    ev.removeBtn = false
+                    ev.icon = checkboxoutline
+                    ev.textOverLine.textDecorationLine = ''
+                }
+                return ev
+            })
+            setGetTodoDataArray(_data)
 
-            if(newData[rowIndex].taskOwner_id !== id){
+            if(_data[rowIndex].taskOwner_id !== id){
                 let object={
-                    FullName:newData[rowIndex].searchdata[0].FullName,
-                    designation:newData[rowIndex].searchdata[0].designation,
-                    _Id:newData[rowIndex].searchdata[0]._Id,
-                    ShortId:newData[rowIndex].searchdata[0].ShortId,
-                    remarkText: newData[rowIndex].searchdata[0].remarkText,
+                    FullName:_data[rowIndex].searchdata[0].FullName,
+                    designation:_data[rowIndex].searchdata[0].designation,
+                    _Id:_data[rowIndex].searchdata[0]._Id,
+                    ShortId:_data[rowIndex].searchdata[0].ShortId,
+                    remarkText: _data[rowIndex].searchdata[0].remarkText,
                     taskDone: false,
-                    inAppNotification: newData[rowIndex].searchdata[0].inAppNotification,
-                    remarkNotification: newData[rowIndex].searchdata[0].remarkNotification,
+                    inAppNotification: _data[rowIndex].searchdata[0].inAppNotification,
+                    remarkNotification: _data[rowIndex].searchdata[0].remarkNotification,
                 }
                 _teamMembers.push(object);
 
                 let formdata={
                     userId:id,
-                    taskOwner : newData[rowIndex].taskOwner_id,
-                    taskId :newData[rowIndex].todoid,
+                    taskOwner : _data[rowIndex].taskOwner_id,
+                    taskId :_data[rowIndex].todoid,
                     owernersCollectionDetails:_teamMembers
                 }
                 updateTODOTaskApi(formdata)
             }else{
                 let formdata = {
                     userId:id,
-                    taskOwner : newData[rowIndex].taskOwner_id,
+                    taskOwner : _data[rowIndex].taskOwner_id,
                     taskId: data.todoid,
                     taskDone : false
                 }
                 updateTODOTaskApi(formdata)
             }
-
         }
-        // })                    
     }
 
     const updateTODOTaskApi = async (data) =>{
