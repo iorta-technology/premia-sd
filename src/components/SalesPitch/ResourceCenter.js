@@ -198,7 +198,7 @@ const ResourceCenter = () => {
           'url("https://pocbanca.iorta.in/assets/Group19112x.png")',
       };
 
-    if (type === "videos")
+    if (type === "video")
       return {
         backgroundImage:
           'url("https://pocbanca.iorta.in/assets/Group19122x.png")',
@@ -213,7 +213,7 @@ const ResourceCenter = () => {
   const setCurrentTriggerData = (data) => {
     setCurrentImageAndData(data);
     if (
-      data.contentCategory === "infographic" &&
+      data.contentCategory === "infographic" ||
       data.contentCategory === "video"
     ) {
       setImageModel(true);
@@ -264,8 +264,8 @@ const ResourceCenter = () => {
           <div
             style={{ display: "flex", alignItems: "center", marginTop: "10px" }}
           >
-            <FileDoneOutlined />{" "}
-            {moment(currentImageAndData.created_date).format("LLLL")}
+            <FileDoneOutlined />
+            {" " + moment(currentImageAndData.created_date).format("LLLL")}
           </div>
           <hr />
           <div>{currentImageAndData.content}</div>
@@ -625,9 +625,23 @@ const ResourceCenter = () => {
                             <p>{res.contentCategory}</p>
                           </div>
                           <div style={{ padding: "6px" }}>
-                            <button type="button" className="cardbutton block">
-                              View Now
-                            </button>
+                            {res.contentCategory !== "pdf" ? (
+                              <button
+                                onClick={() => setCurrentTriggerData(res)}
+                                type="button"
+                                className="cardbutton block"
+                              >
+                                View Now
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => setCurrentTriggerData(res)}
+                                type="button"
+                                className="cardbutton block"
+                              >
+                                Download Now
+                              </button>
+                            )}
                           </div>
                         </div>
                       </Card>
@@ -662,12 +676,6 @@ const ResourceCenter = () => {
           </Col>
         </Row>
       </div>
-
-      <Modal title="Basic Modal">
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
     </>
   );
 };
