@@ -42,6 +42,10 @@ import { color, style } from "@mui/system";
 
 const LeadBulkUpload = React.memo((props) => {
   const { id, channelCode } = stoageGetter("user");
+  const [recordStatus, setRecordStatus] = useState({
+    failed: 0,
+    success: 0,
+  });
   const [file, setFile] = useState([]);
 
   const jsonupload = (e) => {
@@ -146,6 +150,13 @@ const LeadBulkUpload = React.memo((props) => {
           }
         );
         console.log("response", res);
+
+        setRecordStatus((item) => ({
+          ...item,
+          failed: res.failed,
+          success: res.success,
+        }));
+
         setActiveTab(2);
       } catch (error) {
         console.log("error API " + error);
@@ -288,15 +299,18 @@ const LeadBulkUpload = React.memo((props) => {
                 <div className="status_boxes my-4">
                   <div>
                     <p>Total Records Available</p>
-                    <h3>34</h3>
+                    <h3>
+                      {parseInt(recordStatus.success) +
+                        parseInt(recordStatus.failed)}
+                    </h3>
                   </div>
                   <div>
                     <p>Successfully Imported</p>
-                    <h3>34</h3>
+                    <h3>{recordStatus.success}</h3>
                   </div>
                   <div>
                     <p>Failed During Import</p>
-                    <h3>34</h3>
+                    <h3>{recordStatus.failed}</h3>
                   </div>
                 </div>
 
