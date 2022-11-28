@@ -444,13 +444,14 @@ const NewLead = React.memo((props) => {
     },
   ];
 
-  let formRef = createRef();
+  // let formRef = createRef();
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
   useEffect(() => {
     // dispatch(actions.fetchTeamMember())
     // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
+    dispatch(actions.headerName('New Lead'));
     if (props.location.state !== undefined) {
       let _leadID = props.location.state.leadID;
       // setshowLeadStatusVisiblity(true)
