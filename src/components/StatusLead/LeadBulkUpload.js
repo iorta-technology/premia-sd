@@ -18,6 +18,7 @@ import {
   Table,
   TimePicker,
   Spin,
+  message
 } from "antd";
 import {
   ArrowRightOutlined,
@@ -89,7 +90,8 @@ const LeadBulkUpload = React.memo((props) => {
       }
     } else {
       // this.vSnackBar("error","Please upload a valid Excel file.");
-      alert("This format is not allowed");
+      // alert("This format is not allowed");
+      message.warning("This format is not allowed");
     }
   };
 
@@ -131,7 +133,8 @@ const LeadBulkUpload = React.memo((props) => {
         res.push(result[i]);
       }
     }
-    alert("File Uploaded Successfully");
+    // alert("File Uploaded Successfully");
+    message.success("File Uploaded Successfully");
     setFile(JSON.stringify(res));
   };
 

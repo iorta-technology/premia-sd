@@ -187,6 +187,16 @@ const Sidebar = () => {
     history.push("/multichannel");
     setSidebar(false);
   };
+  const addBulkLead = () => {
+    history.push("/leadmasterpage/LeadBulkUpload");
+    setSidebar(false);
+  };
+
+  const addSingleLead = () => {
+    history.push("/leadmasterpage/statuslead");
+    setSidebar(false);
+  }
+  
 
   const defaultChannel = () => {
     history.push("/defaultchannel");
@@ -328,7 +338,8 @@ const Sidebar = () => {
                     <ul>
                       <li
                         onClick={() => {
-                          history.push("/leadmasterpage/statuslead");
+                          addSingleLead()
+                         
                         }}
                       >
                         <div>
@@ -339,7 +350,8 @@ const Sidebar = () => {
                       </li>
                       <li
                         onClick={() => {
-                          history.push("/leadmasterpage/LeadBulkUpload");
+                          addBulkLead()
+                          
                         }}
                       >
                         <div>
