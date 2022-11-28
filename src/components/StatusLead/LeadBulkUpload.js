@@ -45,6 +45,7 @@ const LeadBulkUpload = React.memo((props) => {
   const [recordStatus, setRecordStatus] = useState({
     failed: 0,
     success: 0,
+    link: "",
   });
   const [file, setFile] = useState([]);
 
@@ -155,6 +156,7 @@ const LeadBulkUpload = React.memo((props) => {
           ...item,
           failed: res.failed,
           success: res.success,
+          link: res.link,
         }));
 
         setActiveTab(2);
@@ -194,7 +196,14 @@ const LeadBulkUpload = React.memo((props) => {
             <div>Import Lead</div>
           </button>
           <button
-            onClick={() => setActiveTab(file && file.length ? 2 : 1)}
+            // onClick={() => setActiveTab(file && file.length ? 2 : 1)}
+            onClick={() =>
+              setActiveTab(
+                recordStatus.link && recordStatus.failed && recordStatus.success
+                  ? 2
+                  : 1
+              )
+            }
             style={{ color: activeTab === 2 ? "#fff" : "#000" }}
             className={`${activeTab === 2 && "active"} TabButton`}
           >
@@ -218,7 +227,11 @@ const LeadBulkUpload = React.memo((props) => {
               >
                 <p className="form-title">Bulk Upload Lead</p>
                 <div className="my-3 upload_div">
-                  <input type="file" onChange={(e) => jsonupload(e)} />
+                  <input
+                    type="file"
+                    onChange={(e) => jsonupload(e)}
+                    disabled={recordStatus && recordStatus.link}
+                  />
                 </div>
                 <div className="my-3">Files Support - .xls, xlsx, and .csv</div>
                 <div className="my-3">
@@ -317,10 +330,7 @@ const LeadBulkUpload = React.memo((props) => {
                 <div className="mt-5">Download the list of failed records</div>
 
                 <div className="mt-3">
-                  <a
-                    href="https://image-upload-bucket-2019.s3.amazonaws.com/955a4e90228ac8d836bc2afd75d26ad69925a9e2.xlsx"
-                    download
-                  >
+                  <a href={recordStatus.link} download>
                     <Button
                       style={{
                         display: "flex",
