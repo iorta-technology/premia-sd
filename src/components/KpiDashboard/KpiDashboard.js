@@ -133,21 +133,26 @@ const KpiDashboard = () => {
     let data = await axiosRequest.get(
       `user/fetchKPIMaster/main_category?channel=${_channelId}&usertype=user&userId=${userId}`
     );
-    // console.log("mydatatatatat----",data);
-    let _resp = data[0];
-    let gpwDropDwnList = [];
+    console.log("mydatatatatat----",data);
+    if(data.length !== 0){
+      let _resp = data[0];
+      let gpwDropDwnList = [];
 
-    for (let i = 0; i < _resp.length; i++) {
-      let data = {
-        value: _resp[i].categoryName,
-        label: _resp[i].categoryName,
-      };
-      gpwDropDwnList.push(data);
+      for (let i = 0; i < _resp.length; i++) {
+        let data = {
+          value: _resp[i].categoryName,
+          label: _resp[i].categoryName,
+        };
+        gpwDropDwnList.push(data);
+      }
+      setCategory(gpwDropDwnList);
+      setFinalKpiDataDropdown(gpwDropDwnList[0].value);
+      let _data = gpwDropDwnList[0].value;
+      getKpiData(_data, _userId, _channelId);
+    }else{
+      getKpiData('GPW', _userId, _channelId);
     }
-    setCategory(gpwDropDwnList);
-    setFinalKpiDataDropdown(gpwDropDwnList[0].value);
-    let _data = gpwDropDwnList[0].value;
-    getKpiData(_data, _userId, _channelId);
+    
   };
 
   const getKpiData = async (category, userId, channelId) => {
