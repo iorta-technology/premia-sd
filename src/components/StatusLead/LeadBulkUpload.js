@@ -18,7 +18,7 @@ import {
   Table,
   TimePicker,
   Spin,
-  message
+  message,
 } from "antd";
 import {
   ArrowRightOutlined,
@@ -200,13 +200,7 @@ const LeadBulkUpload = React.memo((props) => {
           </button>
           <button
             // onClick={() => setActiveTab(file && file.length ? 2 : 1)}
-            onClick={() =>
-              setActiveTab(
-                recordStatus.link && recordStatus.failed && recordStatus.success
-                  ? 2
-                  : 1
-              )
-            }
+            onClick={() => setActiveTab(recordStatus.link ? 2 : 1)}
             style={{ color: activeTab === 2 ? "#fff" : "#000" }}
             className={`${activeTab === 2 && "active"} TabButton`}
           >
