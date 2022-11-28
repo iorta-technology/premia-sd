@@ -57,7 +57,8 @@ export const AllocateModal = React.memo((props) => {
     let manager = "";
     managerName.map((res) => {
       if (res._id === findId) {
-        manager = res.first_name + " " + res.last_name + ' (' +res.employeeCode+') ';
+        manager =
+          res.first_name + " " + res.last_name + " (" + res.employeeCode + ") ";
       }
     });
     return manager;
@@ -75,8 +76,8 @@ export const AllocateModal = React.memo((props) => {
         secure: true,
       })
       .then((res) => {
-        console.warn('res---------->>>>>>>>>>>',res)
-        if(res.length !== 0){
+        console.warn("res---------->>>>>>>>>>>", res);
+        if (res.length !== 0) {
           handleCloseAllocate();
           setviewDetails("");
           dispatch(actions.fetchAllLeads(id, props.tabSelected, 1));
@@ -86,7 +87,7 @@ export const AllocateModal = React.memo((props) => {
   };
 
   const handleViewDetails = (lead) => {
-    console.warn('VIEW___DETAIL___ID',lead)
+    console.warn("VIEW___DETAIL___ID", lead);
     axiosRequest
       .get(`user/v2/getleads_team_count/${lead._id}`, {
         secure: true,
@@ -221,6 +222,7 @@ export const AllocateModal = React.memo((props) => {
               flexDirection: "column",
               justifyContent: "start",
               marginBottom: "5px",
+              overflowY: "auto",
             }}
           >
             {cardData?.map((item, ind) => {
@@ -328,29 +330,55 @@ export const AllocateModal = React.memo((props) => {
                   key={viewDetails.id}
                   style={{
                     backgroundColor: "#F7FBFF",
-                    padding:12
+                    padding: 12,
                   }}
                 >
-                  <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
-                    <div style={{display: "flex",flexDirection:'column',alignItems:'center'}}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
                       <Avatar
                         style={{
                           textTransform: "uppercase",
                         }}
                         size={{ xl: 50 }}
                       >
-                        {viewDetails.first_name && viewDetails.first_name.charAt(0)}{""}
-                        {viewDetails.last_name && viewDetails.last_name.charAt(0)}
+                        {viewDetails.first_name &&
+                          viewDetails.first_name.charAt(0)}
+                        {""}
+                        {viewDetails.last_name &&
+                          viewDetails.last_name.charAt(0)}
                       </Avatar>
-                      <div style={{ color: "#00acc1", fontWeight: "bolder" }}>Agent</div>
+                      <div style={{ color: "#00acc1", fontWeight: "bolder" }}>
+                        Agent
+                      </div>
                     </div>
-                    <div style={{marginLeft:10}}>
-                      <p style={{marginBottom:0}}>{viewDetails.first_name + ' ' +viewDetails.last_name}</p>
-                      <p style={{marginBottom:0,color: "gray"}}>{viewDetails.employeeCode}</p>
+                    <div style={{ marginLeft: 10 }}>
+                      <p style={{ marginBottom: 0 }}>
+                        {viewDetails.first_name + " " + viewDetails.last_name}
+                      </p>
+                      <p style={{ marginBottom: 0, color: "gray" }}>
+                        {viewDetails.employeeCode}
+                      </p>
                     </div>
                   </div>
-                  <div style={{marginTop:10 }}>
-                    <p style={{marginBottom:0}}>Reports to : <span style={{  color: "gray" }}>{getMangerName(viewDetails.reporting_manager)}</span> </p>
+                  <div style={{ marginTop: 10 }}>
+                    <p style={{ marginBottom: 0 }}>
+                      Reports to :{" "}
+                      <span style={{ color: "gray" }}>
+                        {getMangerName(viewDetails.reporting_manager)}
+                      </span>{" "}
+                    </p>
                   </div>
                 </div>
 
@@ -445,7 +473,7 @@ export const AllocateModal = React.memo((props) => {
   );
 });
 
-function AllocateModalShow({ id ,tabSelected}) {
+function AllocateModalShow({ id, tabSelected }) {
   return (
     <>
       <AllocateModal id={id} tabSelected={tabSelected} />
