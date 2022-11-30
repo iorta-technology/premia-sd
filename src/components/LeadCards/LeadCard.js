@@ -53,6 +53,10 @@ const LeadCard = React.memo((props) => {
 
   useEffect(() => {
     setChkId(checkedLead?.map((res) => res.id));
+    dispatch({
+      type: "UPDATE_ALLCATION_TAB_POSSITION",
+      allocateTab: false,
+    });
   }, []);
 
   useEffect(() => {
