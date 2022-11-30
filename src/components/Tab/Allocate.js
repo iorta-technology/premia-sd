@@ -118,7 +118,7 @@ export const AllocateModal = React.memo((props) => {
         <div
           style={{
             backgroundColor: "rgb(33, 150, 243)",
-            position: "absolute",
+            position: "fixed",
             left: "50%",
             top: "60px",
             width: "320px",
