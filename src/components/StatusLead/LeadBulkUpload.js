@@ -134,7 +134,6 @@ const LeadBulkUpload = React.memo((props) => {
         res.push(result[i]);
       }
     }
-    // alert("File Uploaded Successfully");
     message.success("File Uploaded Successfully");
     setFile(JSON.stringify(res));
   };

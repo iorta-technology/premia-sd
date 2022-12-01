@@ -14,6 +14,7 @@ import { updateCheckAllocatedLead } from "../../store/actions/leads";
 const LeadCard = React.memo((props) => {
   const dispatch = useDispatch();
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
+  console.log("allocateBtnStatus", allocateBtnStatus);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
   const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead);
   const LeadData = useSelector((state) => state?.newLead?.payloadFormData);
@@ -38,19 +39,28 @@ const LeadCard = React.memo((props) => {
   const [chkID, setChkId] = useState("");
 
   function checkboxes(data, e) {
+    console.log(e.target.checked);
     e.target.checked
       ? dispatch(updateCheckAllocatedLead([...checkedLead, data]))
       : dispatch(
           updateCheckAllocatedLead(
-            checkedLead?.filter((a) => a.id !== data.id) || []
+            checkedLead?.filter((res) => res.id !== data.id) || []
           )
         );
     setChkId(data.id);
-    console.log("data ======= ", data, e);
+    console.log("checkedLead = ", checkedLead);
   }
 
   useEffect(() => {
-    !checkedLead.length && setChkId("");
+    setChkId(checkedLead?.map((res) => res.id));
+    dispatch({
+      type: "UPDATE_ALLCATION_TAB_POSSITION",
+      allocateTab: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    checkedLead.length <= 0 && setChkId("");
   }, [checkedLead]);
 
   const leadComponent =
@@ -137,13 +147,12 @@ const LeadCard = React.memo((props) => {
             type="checkbox"
             checked={
               chkID &&
-              checkedLead.length &&
-              checkedLead?.filter((a) => a.id.includes(chkID))
+              checkedLead?.length &&
+              checkedLead?.find((res) => res.id === props.id)
             }
             onChange={(e) => checkboxes(props, e)}
           ></input>
         )}
-
         <div className="main-avtar">
           <div className="avatar-and-status">
             <Avatar
@@ -166,7 +175,7 @@ const LeadCard = React.memo((props) => {
           {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
           {/* {leadComponent} */}
         </div>
-        <div className="content" style={{flex:1}}>
+        <div className="content" style={{ flex: 1 }}>
           <div className="content-header">
             <p className="user-name-text capitalize">{leadName}</p>
             <span className="user-id uppercase">{lead_Id}</span>
@@ -180,56 +189,51 @@ const LeadCard = React.memo((props) => {
               color: "lightgray",
             }}
           />
-          <div style={{display:'flex',flexDirection:'row'}}>
-            <div className="content-body Datainfo-Main-Container" style={{flex:1}}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              className="content-body Datainfo-Main-Container"
+              style={{ flex: 1 }}
+            >
               <div className="Dateinfo-Container">
-                <div  className="grid-style">
+                <div className="grid-style">
                   <p className="text-type">Created on</p>
                   <p className="text-content">{created_date}</p>
                 </div>
-                <div
-                  className="grid-style AllocatedBy-Heading"
-                >
+                <div className="grid-style AllocatedBy-Heading">
                   <p className="text-type">Allocated on</p>
                   <p className="text-content">{allocatedDate}</p>
                 </div>
-                <div
-                  className="grid-style Appoinment-Heading"
-                >
+                <div className="grid-style Appoinment-Heading">
                   <p className="text-type">Appointment on</p>
                   <p className="text-content">{appointmentOn}</p>
                 </div>
 
                 {/* Please dont delete the below line */}
                 {/* <div className="grid-style Appoinment-Heading"></div> */}
-              
               </div>
               <div className="Dateinfo-Container">
-                <div  className="grid-style">
-                    <p className="text-type">Mobile No.</p>
-                    <p className="text-content">{primaryMobile}</p>
-                  </div>
-                  <div
-                    className="grid-style AllocatedBy-Heading"
-                  >
-                    <p className="text-type">Allocated by</p>
-                    <p className="text-content capitalize">{allocatedBy}</p>
-                  </div>
-                  <div
-                    className="grid-style Appoinment-Heading"
-                  >
-                    <p className="text-type">Allocated to</p>
-                    <p className="text-content capitalize">{allocatedTo}</p>
-                  </div>
+                <div className="grid-style">
+                  <p className="text-type">Mobile No.</p>
+                  <p className="text-content">{primaryMobile}</p>
+                </div>
+                <div className="grid-style AllocatedBy-Heading">
+                  <p className="text-type">Allocated by</p>
+                  <p className="text-content capitalize">{allocatedBy}</p>
+                </div>
+                <div className="grid-style Appoinment-Heading">
+                  <p className="text-type">Allocated to</p>
+                  <p className="text-content capitalize">{allocatedTo}</p>
+                </div>
               </div>
             </div>
-            <div style={{display:'flex'}}>
-              <button className="update-btn" onClick={() => updateHandler(id)}>Update</button>
+            <div style={{ display: "flex" }}>
+              <button className="update-btn" onClick={() => updateHandler(id)}>
+                Update
+              </button>
             </div>
           </div>
         </div>
         {/* <div className="Update-Btn"></div> */}
-
       </Card>
     </div>
   );
@@ -248,7 +252,7 @@ const LeadCard = React.memo((props) => {
             checked={
               chkID &&
               checkedLead.length &&
-              checkedLead?.filter((a) => a.id.includes(chkID))
+              checkedLead?.filter((res) => res.id === chkID).length > 0
             }
             onChange={(e) => checkboxes(props, e)}
           ></input>
