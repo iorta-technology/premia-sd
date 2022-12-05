@@ -22,7 +22,7 @@ const useWidowsSize = () => {
     return size;
 }
 
-const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, SelfHere}) => {
+const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, SelfHere,Dataupdate}) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [editData, setEditData] = useState({})
   //   const [isModalVisible, setIsModalVisible] = useState(
@@ -135,9 +135,11 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
 
   useEffect(()=>{
      api();
-    
+    if(Dataupdate != undefined && Dataupdate.length != 0){
+      setDataContainer(Dataupdate)
+    }
      console.log(TeamHere, 'self team here--->');
-  },[SelfMonthYear,TeamData,history,getdata,isModalVisible]);
+  },[SelfMonthYear,TeamData,history,getdata,isModalVisible, Dataupdate]);
 
   
 

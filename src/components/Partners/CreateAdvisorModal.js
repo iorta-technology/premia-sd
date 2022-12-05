@@ -895,83 +895,83 @@ const[eventDurationType,setEventDurationType]=useState("")
   const[fetchEventArray,setFetchEventArray]=useState([])
 
 
-useEffect(()=>{
-  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=upcoming `)
-  .then((res)=>{
-    console.log(res.data.errMsg)
-    setFetchEventCheck(true)
-    setFetchUpcomingArr(res.data.errMsg)
-res.data.errMsg.map((item)=>{
-  setFetchEventArray(fetchEvents=>[...fetchEvents,{
-    id:item._id,
-    start_date:parseInt(item.start_date),
-    start_time:parseInt(item.start_time),
-    end_date:parseInt(item.end_date),
-    end_time:parseInt(item.end_time),
-    durationType: item.durationType,
-    manuallyrenewalCustomer:[{
-      Name:item.Name,
-      MobileNumber:item.MobileNumber
-    }]
-  }])
-})
+// useEffect(()=>{
+//   axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=upcoming `)
+//   .then((res)=>{
+//     console.log(res.data.errMsg)
+//     setFetchEventCheck(true)
+//     setFetchUpcomingArr(res.data.errMsg)
+// res.data.errMsg.map((item)=>{
+//   setFetchEventArray(fetchEvents=>[...fetchEvents,{
+//     id:item._id,
+//     start_date:parseInt(item.start_date),
+//     start_time:parseInt(item.start_time),
+//     end_date:parseInt(item.end_date),
+//     end_time:parseInt(item.end_time),
+//     durationType: item.durationType,
+//     manuallyrenewalCustomer:[{
+//       Name:item.Name,
+//       MobileNumber:item.MobileNumber
+//     }]
+//   }])
+// })
 
 
-res.data.errMsg.map((item)=>{
-  setAddEvents(addEvents=>[
-      ...addEvents,{
-          id:item._id,
-          title:item.event_type+" with",
-          start:parseInt(item.start_date)+parseInt(item.start_time),
-          end:parseInt(item.end_date)+parseInt(item.end_time),
+// res.data.errMsg.map((item)=>{
+//   setAddEvents(addEvents=>[
+//       ...addEvents,{
+//           id:item._id,
+//           title:item.event_type+" with",
+//           start:parseInt(item.start_date)+parseInt(item.start_time),
+//           end:parseInt(item.end_date)+parseInt(item.end_time),
           
-        }])
-})
+//         }])
+// })
 
-console.log(res.data.errMsg)
-
-
-console.log(res.data.errMsg)
+// console.log(res.data.errMsg)
 
 
+// console.log(res.data.errMsg)
 
 
 
 
-  })
-  .catch((err)=>{
-    console.log(err.msg)
-  })
 
 
-  axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=past `)
-  .then((res)=>{
-    console.log(res.data.errMsg)
-    setFetchEventCheck(true)
-    res.data.errMsg.map((item)=>{
-      setFetchEventArray(fetchEvents=>[...fetchEvents,{
-        id:item._id,
-        start_date:parseInt(item.start_date),
-        start_time:parseInt(item.start_time),
-        end_date:parseInt(item.end_date),
-        end_time:parseInt(item.end_time)
-      }])
-    })
-    res.data.errMsg.map((item)=>{
-      setAddEvents(addEvents=>[...addEvents,{
-              id:item._id,
-              title:item.event_type+" with",
-              start:parseInt(item.start_date)+parseInt(item.start_time),
-              end:parseInt(item.end_date)+parseInt(item.end_time),
-            }])
-    })
+//   })
+//   .catch((err)=>{
+//     console.log(err.msg)
+//   })
+
+
+//   axios.get(`https://sdtatadevlmsv2.iorta.in/auth/user/fetch_appointments/61519f9a8ce8772eab9838cb?teamdata=0&filter=${month}&category=past `)
+//   .then((res)=>{
+//     console.log(res.data.errMsg)
+//     setFetchEventCheck(true)
+//     res.data.errMsg.map((item)=>{
+//       setFetchEventArray(fetchEvents=>[...fetchEvents,{
+//         id:item._id,
+//         start_date:parseInt(item.start_date),
+//         start_time:parseInt(item.start_time),
+//         end_date:parseInt(item.end_date),
+//         end_time:parseInt(item.end_time)
+//       }])
+//     })
+//     res.data.errMsg.map((item)=>{
+//       setAddEvents(addEvents=>[...addEvents,{
+//               id:item._id,
+//               title:item.event_type+" with",
+//               start:parseInt(item.start_date)+parseInt(item.start_time),
+//               end:parseInt(item.end_date)+parseInt(item.end_time),
+//             }])
+//     })
   
 
-  })
-  .catch((err)=>{
-    console.log(err.msg)
-  })
-},[eventLoadCheck])
+//   })
+//   .catch((err)=>{
+//     console.log(err.msg)
+//   })
+// },[eventLoadCheck])
 
 
 

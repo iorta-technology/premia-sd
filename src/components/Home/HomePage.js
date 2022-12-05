@@ -301,6 +301,7 @@ const HomePage = () => {
       { secure: true }
     );
     console.log("Business CARD", _resp);
+    // console.warn("((((((((businessDropArray))))))))", businessDropArray);
     // dispatch(actions.businessCardData(_resp))
 
     let _bussDropArr = [];
@@ -649,6 +650,7 @@ const HomePage = () => {
   };
 
   const handleBusinessDropdown = (event, data) => {
+    
     setBusinessDropdown(event);
     let _selectMonthData = [];
     if (data !== null) {
@@ -1181,20 +1183,19 @@ const HomePage = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <p
-                        onClick={() => history.push("/kpi-dashboard")}
-                        className="ttile_name"
-                      >
+                      <p onClick={() => history.push("/kpi-dashboard")} className="ttile_name">
                         Business
                       </p>
-                      <Select
-                        value={businessDropdown}
-                        options={businessDropArray}
-                        onChange={(event, data) =>
-                          handleBusinessDropdown(event, data)
-                        }
-                        style={{ width: "50%" }}
-                      ></Select>
+                      { businessDropArray.length > 0 &&
+                        <Select
+                          value={businessDropdown}
+                          options={businessDropArray}
+                          onChange={(event, data) =>
+                            handleBusinessDropdown(event, data)
+                          }
+                          style={{ width: "50%" }}
+                        ></Select>
+                      } 
                     </div>
                     <div className="horizontalLine"></div>
                   </div>

@@ -73,9 +73,9 @@ const SidebarWrap = styled.div`
 
 // let currentRoute = history.location.pathname.replace('/', '')
 // console.log("path name",currentRoute)
-const login_user_data = stoageGetter("user");
-console.warn("LOGIN USER", login_user_data);
-if (login_user_data === null) window.location.replace("/login");
+// const login_user_data = stoageGetter("user");
+// console.warn("LOGIN USER", login_user_data);
+// if (login_user_data === null) window.location.replace("/login");
 
 function Modal1({ children, shown, close }) {
   return shown ? (
@@ -95,6 +95,8 @@ function Modal1({ children, shown, close }) {
 
 const Sidebar = () => {
   const state = useSelector((state) => state);
+  // console.log("((((((((((STATEEEEEEE))))))))))",state?.login?.user)
+  const login_user_data = state?.login?.user
   const headerName = useSelector((state) => state?.login?.headerName);
   const userId = useSelector((state) => state.login.userId);
   const history = useHistory();

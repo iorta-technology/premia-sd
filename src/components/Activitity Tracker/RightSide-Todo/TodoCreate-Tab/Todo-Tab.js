@@ -348,19 +348,19 @@ const TodoTab = (props) => {
     // return
       if(buttonName === 'Create'){
         if(todoDesc === ''){
-            message.success('Please Add Task Name');
+            message.warning('Please Add Task Name');
             return
         }
         if(priorityBtn === ''){
-            message.success('Please select priority');
+            message.warning('Please select priority');
             return
         }
         if(reminderDate === ''){
-            message.success('Please select due date');
+            message.warning('Please select due date');
             return
         }
-        if(selectedTime === ''){
-            message.success('Please select time');
+        if(selectedTime === '' || selectedTime === 'select'){
+            message.warning('Please select time');
             return
         }
 
@@ -373,7 +373,8 @@ const TodoTab = (props) => {
             allocationdata.push(id);
         }
 
-        console.warn('ownerCollectn________',ownerCollectn)
+        // console.warn('ownerCollectn________',ownerCollectn)
+        console.warn('selectedTime ________',selectedTime)
         let _ownerCollectn = _.uniqBy(ownerCollectn,'ShortId'); 
         allocationdata = [...new Set(allocationdata)];
         

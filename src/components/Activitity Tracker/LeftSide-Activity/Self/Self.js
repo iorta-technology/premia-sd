@@ -14,6 +14,7 @@ const Self = () => {
   let currentMonth = _date.getMonth();
   let currentyear = _date.getFullYear();
   const [month,setMonth]=useState(currentMonth+1)
+  const [DataContainer,setDataContainer]=useState();
   const [year,setyear]=useState(currentyear)
   const [PastDataContainer,setPastDataContainer]=useState();
   const [CurentOrPast,setCurentOrPast]=useState()
@@ -36,9 +37,10 @@ const Self = () => {
 // },[month,year,CurentOrPast]);
   let {id}=stoageGetter('user');
   const api = async ()=>{
-    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}`);
-    console.log(data, 'pastt-------t');
+    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=upcoming`);
+    console.log(data, 'pastt-- second second second-----t');
     setPastDataContainer(data);
+    setDataContainer(data)
   }
 
   const currentpastapi = async ()=>{
@@ -118,6 +120,7 @@ const Self = () => {
           // ref={childRef}
           getFunc={api}
           getdata = {getshow}
+          Dataupdate = {DataContainer}
         />
     </div>
   )
