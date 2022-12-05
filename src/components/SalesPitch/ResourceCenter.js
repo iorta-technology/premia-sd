@@ -212,11 +212,11 @@ const ResourceCenter = () => {
 
   const setCurrentTriggerData = (data) => {
     setCurrentImageAndData(data);
-    if (
-      data.contentCategory === "infographic" ||
-      data.contentCategory === "video"
-    ) {
+    if (data.contentCategory === "infographic") {
       setImageModel(true);
+    } else if (data.contentCategory === "videos") {
+      console.log("data==", data?.mediaFiles[0]?.location);
+      setVideoModel(true);
     } else if (data.contentCategory === "articles") {
       setArticleModel(true);
     } else if (data.contentCategory === "pdf") {
@@ -226,11 +226,31 @@ const ResourceCenter = () => {
   };
 
   const [imageModel, setImageModel] = useState(false);
+  const [videoModel, setVideoModel] = useState(false);
   const [articleModel, setArticleModel] = useState(false);
   const [currentImageAndData, setCurrentImageAndData] = useState("");
 
   return (
     <>
+      <Modal
+        centered
+        visible={videoModel}
+        onOk={() => setVideoModel(false)}
+        onCancel={() => setVideoModel(false)}
+        footer={<div />}
+      >
+        <video width="100%" height="500px" controls>
+          <source
+            src={
+              currentImageAndData &&
+              currentImageAndData?.mediaFiles[0] &&
+              currentImageAndData?.mediaFiles[0]?.location
+            }
+            type="video/mp4"
+          />
+        </video>
+      </Modal>
+
       <Modal
         centered
         visible={imageModel}

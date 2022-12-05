@@ -633,7 +633,7 @@ const LoanProducts = () => {
         title="Share Product Brochure"
         visible={isModalVisible1}
         // onOk={handleOk1}
-        // onCancel={handleCancel1}
+        onCancel={() => setIsModalVisible1(false)}
         width={800}
         footer={[
           <Button className="send" type="submit" onClick={handleOk1} key="1">
@@ -643,7 +643,6 @@ const LoanProducts = () => {
             <CloseOutlined /> Cancel
           </Button>,
         ]}
-        closable={false}
         className="modalStyle"
       >
         <form>
