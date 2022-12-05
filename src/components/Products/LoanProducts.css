@@ -322,8 +322,6 @@
       /* font-family: robotobold; */
       font-size: 10px;
       text-align: center;
-
-
   }
   .loan-product-tabs .bullet-points{
     margin-left: 11px;
@@ -607,4 +605,8 @@ img, svg {
   text-align: center;
   font-weight: 700;
   font-size: 18px;
+}
+
+.modalStyle .anticon.anticon-close.ant-modal-close-icon{
+  color: #fff;
 }
