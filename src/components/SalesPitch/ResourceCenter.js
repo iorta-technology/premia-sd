@@ -316,18 +316,18 @@ const ResourceCenter = () => {
       </Modal>
 
       {width > "600" ? (
-        <div className="header">
+        <div className="headerResource">
           <Row>
             <Col>
               <p className="product-title">Resource Center</p>
             </Col>
           </Row>
           <div>
-            <Row className="tabs resourceCenter primaryBtn">
+            <Row className="tabsResource resourceCenter primaryBtnResource">
               {productData?.map((item) => (
                 <Col key={item._id} style={{ marginRight: 15 }}>
                   <Button
-                    className={`resourceCenter primaryBtn ${
+                    className={`resourceCenter ${
                       item._id === activeId && "top-tab-header-active"
                     }`}
                     onClick={() => {
