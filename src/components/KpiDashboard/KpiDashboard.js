@@ -259,7 +259,7 @@ const KpiDashboard = () => {
           } else if (_kpiResp[i].id === `${gpwDataKey}_last_six_month`) {
             gpwFinalData = gpwGraphData(
               _kpiResp[i],
-              `${gpwDataKey}_last_two_month`
+              `${gpwDataKey}_last_six_month`
             );
             console.log(
               "*********************(( gpwFinalData ))******************",
