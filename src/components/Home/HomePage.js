@@ -52,19 +52,19 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const getPercenTage = (x, y) => {
-    let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
-    return isFloat(val)
-      ? parseInt(val).toPrecision(3)
-      : parseInt(val).toPrecision(3);
-  };
-
   const isFloat = (n) => {
     try {
       return Number(n) === n && n % 1 !== 0;
     } catch (err) {
       console.log(err, "72b52752-02a7-4b70-b910-69810435b32b");
     }
+  };
+
+  const getPercenTage = (x, y) => {
+    let val = isNaN(y / x) * 100 ? 0 : checkValidity((y / x) * 100);
+    return isFloat(val)
+      ? parseInt(val).toPrecision(3)
+      : parseInt(val).toPrecision(3);
   };
 
   const checkValidity = (data) => {
@@ -650,7 +650,6 @@ const HomePage = () => {
   };
 
   const handleBusinessDropdown = (event, data) => {
-    
     setBusinessDropdown(event);
     let _selectMonthData = [];
     if (data !== null) {
@@ -868,7 +867,11 @@ const HomePage = () => {
             <div className="dataCardLabel"></div>
           </Col>
         </Row>
-        <Row style={{marginLeft:0,marginRight:0}} gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]} justify="center">
+        <Row
+          style={{ marginLeft: 0, marginRight: 0 }}
+          gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]}
+          justify="center"
+        >
           {showActivityTracker && (
             <Col>
               <div
@@ -1183,10 +1186,13 @@ const HomePage = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <p onClick={() => history.push("/kpi-dashboard")} className="ttile_name">
+                      <p
+                        onClick={() => history.push("/kpi-dashboard")}
+                        className="ttile_name"
+                      >
                         Business
                       </p>
-                      { businessDropArray.length > 0 &&
+                      {businessDropArray.length > 0 && (
                         <Select
                           value={businessDropdown}
                           options={businessDropArray}
@@ -1195,7 +1201,7 @@ const HomePage = () => {
                           }
                           style={{ width: "50%" }}
                         ></Select>
-                      } 
+                      )}
                     </div>
                     <div className="horizontalLine"></div>
                   </div>

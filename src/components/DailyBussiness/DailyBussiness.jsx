@@ -45,6 +45,7 @@ const DailyBussiness = () => {
   });
 
   const showModal = async () => {
+    form.resetFields();
     setShowAreYouSure(false);
     setAreYouSure(false);
 
