@@ -1179,7 +1179,7 @@ const HomePage = () => {
                     <div
                       style={{
                         display: "flex",
-                        alignItems: "baseline",
+                        alignItems: "center",
                         justifyContent: "space-between",
                       }}
                     >
@@ -1193,7 +1193,7 @@ const HomePage = () => {
                           onChange={(event, data) =>
                             handleBusinessDropdown(event, data)
                           }
-                          style={{ width: "50%" }}
+                          style={{ width: "50%",marginBottom:15 }}
                         ></Select>
                       } 
                     </div>
