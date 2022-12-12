@@ -210,7 +210,13 @@ const ResourceCenter = () => {
     };
   };
 
+  const [imageModel, setImageModel] = useState(false);
+  const [videoModel, setVideoModel] = useState(false);
+  const [articleModel, setArticleModel] = useState(false);
+  const [currentImageAndData, setCurrentImageAndData] = useState("");
+
   const setCurrentTriggerData = (data) => {
+    console.log(data);
     setCurrentImageAndData(data);
     if (data.contentCategory === "infographic") {
       setImageModel(true);
@@ -224,11 +230,6 @@ const ResourceCenter = () => {
     }
     console.log("data", data);
   };
-
-  const [imageModel, setImageModel] = useState(false);
-  const [videoModel, setVideoModel] = useState(false);
-  const [articleModel, setArticleModel] = useState(false);
-  const [currentImageAndData, setCurrentImageAndData] = useState("");
 
   return (
     <>
