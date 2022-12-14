@@ -29,6 +29,7 @@ export const fetchAllLeadsFail = (error) => {
 
 export const fetchAllLeads = (id, leads, pageNo) => {
   console.log(id);
+  console.log("pageNo ===== ", pageNo);
   // const leadFilter = getLeadFilter(leads)
   let skipVal;
   pageNo === 1 ? (skipVal = 0) : (skipVal = (pageNo - 1) * 15);
@@ -61,7 +62,11 @@ export const fetchAllLeads = (id, leads, pageNo) => {
       // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
       dispatch(
         fetchAllLeadsSuccess(
-          supportLead.readSortDataFromAPI(leads, result === 'No leads found' ? [] : result[0], this),
+          supportLead.readSortDataFromAPI(
+            leads,
+            result === "No leads found" ? [] : result[0],
+            this
+          ),
           result[1][0].count
         )
       );
@@ -116,7 +121,11 @@ export const fetchDataAfterFilter = (
     if (result.length > 0) {
       dispatch(
         fetchAllLeadsSuccess(
-          supportLead.readSortDataFromAPI(leadfilter, result === 'No leads found' ? [] : result[0], this),
+          supportLead.readSortDataFromAPI(
+            leadfilter,
+            result === "No leads found" ? [] : result[0],
+            this
+          ),
           result[1][0].count
         )
       );
