@@ -130,7 +130,7 @@ const LeadCards = (props) => {
     });
     // let _teamData = reporting_users.filter(el => el.hierarchy_id === event)
     let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.hierarchy_id === event
+      (el) => el.designation === event
     );
     // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
     setSecondDropData(_teamData);

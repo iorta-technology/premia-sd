@@ -213,7 +213,11 @@
 .businessCardStyle .ant-select-single.ant-select-open .ant-select-selection-item {
   color: #fff;
 }
-.ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+.businessCardStyle .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+  padding-right: 18px;
+  color: #fff;
+}
+.businessCardStyle .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
   padding-right: 18px;
   color: #fff;
 }

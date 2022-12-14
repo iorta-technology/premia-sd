@@ -256,6 +256,32 @@ const NewLead = React.memo((props) => {
       value: "CrossSell",
     },
   ];
+
+  const occupationOptions = [
+    // { label: 'Select',value: 'select'},
+    { label: "Businessman",value: "Businessman"},
+    { label: "Govt job",value: "Govt job"},
+    { label: "Private job",value: "Private job"},
+    { label: "Professional (Doctor etc)",value: "Professional (Doctor etc)"},
+    { label: "Others",value: "Others"},
+    
+  ];
+  const vehicleOwnedOptions = [
+    // { label: 'Select',value: 'select'},
+    { label: "4 wheeler",value: "4 wheeler"},
+    { label: "2 wheeler",value: "2 wheeler"},
+    { label: "No",value: "No"},
+    
+  ];
+  const sourceOfActivityOptions = [
+    // { label: 'Select',value: 'select'},
+    { label: 'Petrol Pump',value: 'Petrol Pump'},
+    { label: 'Door to door',value: 'Door to door'},
+    { label: 'Mall',value: 'Mall'},
+    { label: 'School/Park/Temple',value: 'School/Park/Temple'},
+    { label: 'Others',value: 'Others'},
+    
+  ];
   const insuranceCompanyOptions = [
     // {
     //   label: 'Select',
@@ -476,6 +502,7 @@ const NewLead = React.memo((props) => {
   const states = useSelector((state) => state.address.states);
   const minValue = useSelector((state) => state.login.minValue);
   const levelCode = useSelector((state) => state.login);
+  
 
   // store form data
   let storeFormData = useSelector((state) => state?.newLead?.formData);
@@ -487,30 +514,6 @@ const NewLead = React.memo((props) => {
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading);
   // let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
   let storeLeadId = useSelector((state) => state.newLead.leadId);
-  // const leadDataloading = useSelector((state) => state.newLead.leadDataloading)
-  // let storefirstNameValue = ''
-  // let storelastNameValue = ''
-  // // let storeEmailValue = useSelector((state) => state.newLead.formData.email)
-  // let storePrimaryMobileValue = ''
-  // let storeStateValue = ''
-  // let storeCityValue = ''
-  // const storeLeadTypeValue = useSelector((state) => state.newLead.formData.LeadType)
-  // // console.warn('((((((((((( storefirstNameValue )))))))))))',storefirstNameValue)
-  // const storeProductValue = useSelector((state) => state.newLead.formData.Product)
-  // const storeInsuranceCompanyValue = useSelector((state) => state.newLead.formData.Insurance_Company)
-  // const storeLeadStatusValue = useSelector((state) => state.newLead.formData.leadStatus)
-  // const storeLeadDispositionValue = useSelector((state) => state.newLead.formData.leadDisposition)
-  // const storeLeadSubDispositionValue = useSelector((state) => state.newLead.formData.leadDisposition)
-  // const storeLeadStatsArr = useSelector((state) => state.newLead.formData.leadStatusArr)
-  // const start_date = useSelector((state) => state.newLead.formData.start_date)
-  // const start_time = useSelector((state) => state.newLead.formData.start_time)
-  // const {start_date,start_time} = storeAppointmentData
-  // const storeReminderValue = useSelector((state)=>state.newLead.formData.reminder)
-  // console.warn('((((((((((( storeFormData )))))))))))',storeFormData)
-  // const storeRemarkFromSourceValue = useSelector((state) => state.newLead.formData.remarksfromSource)
-  // const storeRemarkFromUserValue = useSelector((state) => state.newLead.formData.remarksfromUser)
-  // const fetchLeadId = useSelector((state) => state.newLead.fetcLeadId)
-  // const errorMsg = useSelector((state) => state.newLead.createLeadError)
   const successMsg = useSelector((state) => state.newLead.successMsg);
   // const errorMsg = useSelector((state) => state.newLead.errorMessage)
   // const { lastupdatedOn } = storeFormData
@@ -520,19 +523,19 @@ const NewLead = React.memo((props) => {
   const createdDateValue = useSelector(
     (state) => state.newLead.formData.created_date
   );
-  // let storefirstNameValue = useSelector((state) => state.newLead.formData.firstName)
-  // let storelastNameValue = useSelector((state) => state.newLead.formData.lastName)
-  // // let storeEmailValue = useSelector((state) => state.newLead.formData.email)
-  // let storePrimaryMobileValue = useSelector((state) => state.newLead.formData.primaryMobile)
-  // let storeStateValue = useSelector((state) => state.newLead.formData.state)
-  // let storeCityValue = useSelector((state) => state.newLead.formData.city)
-
   const [leadIDSummary, setleadIDSummary] = useState("");
   const [firstNameSummary, setFirstNameSummary] = useState("");
   const [lastNameSummary, setLastNameSummary] = useState("");
   const [mobileNoSummary, setMobileNoSummary] = useState("");
   const [stateSummary, setStateSummary] = useState("");
   const [citySummary, setCitySummary] = useState("");
+  
+  const [leadAge, setLeadAge] = useState("");
+  const [leadGender, setLeadGender] = useState("");
+  const [maritalStatus, setMaritalStatus] = useState("");
+  const [leadOccupation, setLeadOccupation] = useState("");
+  const [leadVehiclesOwned, setLeadVehiclesOwned] = useState("");
+  const [leadSourceOfactivity, setLeadSourceOfactivity] = useState("");
 
   // responsive styling hook
   const [width, setWidth] = useState(window.innerWidth);
@@ -779,6 +782,20 @@ const NewLead = React.memo((props) => {
       setRemarkFromSource(leadData?.remarksfromSource);
       setRemarkFromUser(leadData?.remarksfromUser);
 
+      setLeadAge(leadData?.age);
+      setLeadGender(leadData?.gender);
+      setMaritalStatus(leadData?.maritalStatus);
+      setLeadOccupation(leadData?.vehiclesOwned);
+      setLeadVehiclesOwned(leadData?.vehiclesOwned);
+      setLeadSourceOfactivity(leadData?.sourceOfActivity);
+
+      // const [leadAge, setLeadAge] = useState("");
+      // const [leadGender, setLeadGender] = useState("");
+      // const [maritalStatus, setMaritalStatus] = useState("");
+      // const [leadOccupation, setLeadOccupation] = useState("");
+      // const [leadVehiclesOwned, setLeadVehiclesOwned] = useState("");
+      // const [leadSourceOfactivity, setLeadSourceOfactivity] = useState("");
+
       form.setFieldsValue({
         firstname: leadData.firstName,
         lastname: leadData.lastName,
@@ -795,6 +812,13 @@ const NewLead = React.memo((props) => {
         appointmentStatus: leadArr,
         appointmentDate: _appntDate,
         appointmentTime: _appntTime,
+        age:leadData?.age,
+        gender:leadData?.gender,
+        maritalStatus:leadData?.maritalStatus,
+        occupation:leadData?.professionType,
+        vehiclesOwned:leadData?.vehiclesOwned,
+        sourceOfactivity:leadData?.sourceOfActivity,
+  
       });
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
@@ -1036,7 +1060,25 @@ const NewLead = React.memo((props) => {
     setEmail(event.target.value);
   };
 
-  // let _selectObj = {label: 'Select', value: 'Select'};
+  const leadAgeHandler = (event) => {
+    setLeadAge(event.target.value);
+  };
+  const genderHandler = (event) => {
+    setLeadGender(event.target.value);
+  };
+  const maritalStatusHandler = (event) => {
+    setMaritalStatus(event.target.value);
+  };
+
+  const occupationHandler = (event) => {
+    setLeadOccupation(event);
+  };
+  const vehicleOwnedHandler = (event) => {
+    setLeadVehiclesOwned(event);
+  };
+  const sourceOfActivityHandler = (event) => {
+    setLeadSourceOfactivity(event);
+  };
 
   let stateOptions =
     states && !_.isEmpty(states)
@@ -1187,9 +1229,12 @@ const NewLead = React.memo((props) => {
     // console.log('stateChangetHandler__________:', event);
     // setStateProvince(event.target.value)
     setStateProvince(event);
-    setCityProvince("");
 
-    form.setFieldsValue({ city: "" });
+    if(cityProvince !== ''){
+      setCityProvince("");
+      form.setFieldsValue({ city: "" });
+    }
+    
   };
 
   const cityChangeHandler = (event) => {
@@ -1317,14 +1362,19 @@ const NewLead = React.memo((props) => {
     firstName: firstName,
     lastName: lastName,
     dob: "",
-    gender: "",
-    maritalStatus: "",
+    
+    professionType: leadOccupation,
+    maritalStatus: maritalStatus,
+    age: leadAge,
+    gender: leadGender,
+    sourceOfActivity: leadSourceOfactivity,
+    vehiclesOwned: leadVehiclesOwned,
+
     childStatus: "",
     ChildInfo: "[]",
     education: "",
     incomeGroup: "",
     annuaLincome: null,
-    professionType: "",
     productCategory: "",
     productType: "",
     solution: "",
@@ -1370,6 +1420,13 @@ const NewLead = React.memo((props) => {
 
     firstName: firstName,
     lastName: lastName,
+
+    professionType: leadOccupation,
+    maritalStatus: maritalStatus,
+    age: leadAge,
+    gender: leadGender,
+    sourceOfActivity: leadSourceOfactivity,
+    vehiclesOwned: leadVehiclesOwned,
   };
 
   let formIsValid = false;
@@ -1436,12 +1493,13 @@ const NewLead = React.memo((props) => {
     setTeamDesig(_team);
 
     let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.hierarchy_id === event
+      (el) => el.designation === event
     );
     setTeamMemberList(_teamData);
   };
   const handleDesignationDataOwner = (event, data) => {
-    // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
+    // console.warn('event(((((--------------(((((===>>>>>>>>>>', event)
+    // console.warn('data(((((--------------(((((===>>>>>>>>>>', data)
     setDesigDataOwner(event);
     setTeamDataOwner("");
     form.setFieldsValue({
@@ -1449,11 +1507,11 @@ const NewLead = React.memo((props) => {
     });
 
     let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.hierarchy_id === event
+      (el) => el.designation === event
     );
     setTeamMemberListOwner(_teamData);
   };
-
+  
   const handleTeamListData = (event, data) => {
     setTeamData(event);
     // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
@@ -1618,10 +1676,10 @@ const NewLead = React.memo((props) => {
                     name="lastname"
                     label="Last Name"
                     rules={[
-                      {
-                        required: true,
-                        message: "Last Name is required",
-                      },
+                      // {
+                      //   required: true,
+                      //   message: "Last Name is required",
+                      // },
                       {
                         message: "Only Alphabets are Allowed",
                         pattern: new RegExp(/^[a-zA-Z ]+$/),
@@ -1676,21 +1734,7 @@ const NewLead = React.memo((props) => {
                         message: "Number must be 10 digits",
                         pattern: new RegExp("^[6-9][0-9]{9}$"),
                       },
-                      // () => ({
-                      //   validator(_, value) {
-                      //     if (value.length !== 10) {
-                      //       return Promise.reject("Number must be 10 digitsAA");
-                      //     }
-                      //     return Promise.resolve();
-                      //   },
-                      // }),
-                      // !mobileNoCheck || {
-                      //   // type:'phone',
-                      //   min: 10,
-                      //   max: 10,
-                      //   pattern: '^([-]?[1-9][0-9]*|0)$',
-                      //   message: 'Enter a valid Mobile No'
-                      // }
+
                     ]}
                     style={{ marginBottom: "1rem" }}
                   >
@@ -1791,12 +1835,12 @@ const NewLead = React.memo((props) => {
                     className="form-item-name label-color"
                     name="product"
                     label="Product"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Select Product",
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Select Product",
+                    //   },
+                    // ]}
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
@@ -1817,12 +1861,12 @@ const NewLead = React.memo((props) => {
                     className="form-item-name label-color"
                     name="insuranceCompany"
                     label="Insurance Company"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Insurance Company",
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Insurance Company",
+                    //   },
+                    // ]}
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
@@ -1834,6 +1878,168 @@ const NewLead = React.memo((props) => {
                       placeholder="Select Insurance"
                       onChange={(item) => insuranceCompanyHandler(item)}
                       options={insuranceCompanyOptions}
+                    ></Select>
+                  </Form.Item>
+                </Col>
+                
+                {/* New Fields added on 9 Dec Below ↓ */}
+                
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="age"
+                    label="Age"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Age is required",
+                      },
+                      {
+                        message: "Only Numbers are allowed",
+                        pattern: new RegExp("^[0-9]*$"),
+                      },
+                    ]}
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <Input
+                      className="phone-no input-box"
+                      size="large"
+                      placeholder="Enter Age"
+                      maxLength="10"
+                      value={leadAge}
+                      onChange={(item) => leadAgeHandler(item)}
+                    />
+                  </Form.Item>
+                </Col>
+
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="gender"
+                    label="Sex/Gender"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Sex/Gender is required",
+                      }
+                    ]}
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <Input
+                      className="first-name input-box"
+                      size="large"
+                      placeholder="Enter Sex/Gender"
+                      maxLength="10"
+                      value={leadGender}
+                      onChange={(item) => genderHandler(item)}
+                    />
+                  </Form.Item>
+                </Col>
+
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="maritalStatus"
+                    label="Marital Status"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Marital Status is required",
+                      }
+                    ]}
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <Input
+                      className="first-name input-box"
+                      size="large"
+                      placeholder="Enter Marital Status"
+                      maxLength="10"
+                      value={maritalStatus}
+                      onChange={(item) => maritalStatusHandler(item)}
+                    />
+                  </Form.Item>
+                </Col>
+
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="occupation"
+                    label="Occupation"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Occupation",
+                    //   },
+                    // ]}
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <Select
+                      bordered={false}
+                      className="select-box"
+                      value={leadOccupation}
+                      // defaultValue={insuranceCompany}
+                      size="large"
+                      placeholder="Select Occupation"
+                      onChange={(item) => occupationHandler(item)}
+                      options={occupationOptions}
+                    ></Select>
+                  </Form.Item>
+                </Col>
+                
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="vehiclesOwned"
+                    label="Vehicles owned"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Vehicles owned",
+                    //   },
+                    // ]}
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <Select
+                      bordered={false}
+                      className="select-box"
+                      value={leadVehiclesOwned}
+                      // defaultValue={insuranceCompany}
+                      size="large"
+                      placeholder="Select Vehicles owned"
+                      onChange={(item) => vehicleOwnedHandler(item)}
+                      options={vehicleOwnedOptions}
+                    ></Select>
+                  </Form.Item>
+                </Col>
+
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color"
+                    name="sourceOfactivity"
+                    label="Source of activity"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Source of activity",
+                    //   },
+                    // ]}
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <Select
+                      bordered={false}
+                      className="select-box"
+                      value={leadSourceOfactivity}
+                      // defaultValue={insuranceCompany}
+                      size="large"
+                      placeholder="Select Source of activity"
+                      onChange={(item) => sourceOfActivityHandler(item)}
+                      options={sourceOfActivityOptions}
                     ></Select>
                   </Form.Item>
                 </Col>

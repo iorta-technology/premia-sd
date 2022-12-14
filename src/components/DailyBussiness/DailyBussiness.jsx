@@ -340,7 +340,7 @@ const DailyBussiness = () => {
   const getReportingUsers = (e) => {
     console.log(e);
     setReporting_users(
-      userTreeData.reporting_users.filter((el) => el.hierarchy_id === e)
+      userTreeData.reporting_users.filter((el) => el.designation === e)
     );
   };
 

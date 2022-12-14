@@ -820,7 +820,7 @@ const KpiDashboard = () => {
     setDesigData(event);
     setTeamData("Select");
     // console.warn('userTreeData((((((((((===>>>>>>>>>>', userTreeData)
-    let _teamData = userTreeData.reporting_users.filter(el => el.hierarchy_id === event)
+    let _teamData = userTreeData.reporting_users.filter(el => el.designation === event)
     console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
     setTeamMemberList(_teamData)
     setShowTeamDrop(true)
