@@ -1918,11 +1918,11 @@ const NewLead = React.memo((props) => {
                     {...formItemLayout}
                     className="form-item-name label-color"
                     name="gender"
-                    label="Sex/Gender is required"
+                    label="Sex/Gender"
                     rules={[
                       {
                         required: true,
-                        message: "Sex/Gender",
+                        message: "Sex/Gender is required",
                       }
                     ]}
                     style={{ marginBottom: "1rem" }}
