@@ -1493,12 +1493,13 @@ const NewLead = React.memo((props) => {
     setTeamDesig(_team);
 
     let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.hierarchy_id === event
+      (el) => el.designation === event
     );
     setTeamMemberList(_teamData);
   };
   const handleDesignationDataOwner = (event, data) => {
-    // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
+    // console.warn('event(((((--------------(((((===>>>>>>>>>>', event)
+    // console.warn('data(((((--------------(((((===>>>>>>>>>>', data)
     setDesigDataOwner(event);
     setTeamDataOwner("");
     form.setFieldsValue({
@@ -1506,11 +1507,11 @@ const NewLead = React.memo((props) => {
     });
 
     let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.hierarchy_id === event
+      (el) => el.designation === event
     );
     setTeamMemberListOwner(_teamData);
   };
-
+  
   const handleTeamListData = (event, data) => {
     setTeamData(event);
     // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
