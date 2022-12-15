@@ -30,7 +30,7 @@ const LeadMaster = (props) => {
 
   useEffect(() => {
     // const { id } = stoageGetter("user");
-    // dispatch(actions.fetchAllLeads(id,'',current))
+    // dispatch(actions.fetchAllLeads(id, "", current));
 
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);

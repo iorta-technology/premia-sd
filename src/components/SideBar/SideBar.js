@@ -96,7 +96,7 @@ function Modal1({ children, shown, close }) {
 const Sidebar = () => {
   const state = useSelector((state) => state);
   // console.log("((((((((((STATEEEEEEE))))))))))",state?.login?.user)
-  const login_user_data = state?.login?.user
+  const login_user_data = state?.login?.user;
   const headerName = useSelector((state) => state?.login?.headerName);
   const userId = useSelector((state) => state.login.userId);
   const history = useHistory();
@@ -129,8 +129,6 @@ const Sidebar = () => {
     } catch (error) {
       console.log("error", error);
     }
-
-    // setClearBtn(false);
   };
 
   const [_notify, set_Notify] = useState([]);
@@ -197,8 +195,7 @@ const Sidebar = () => {
   const addSingleLead = () => {
     history.push("/leadmasterpage/statuslead");
     setSidebar(false);
-  }
-  
+  };
 
   const defaultChannel = () => {
     history.push("/defaultchannel");
@@ -340,8 +337,7 @@ const Sidebar = () => {
                     <ul>
                       <li
                         onClick={() => {
-                          addSingleLead()
-                         
+                          addSingleLead();
                         }}
                       >
                         <div>
@@ -352,8 +348,7 @@ const Sidebar = () => {
                       </li>
                       <li
                         onClick={() => {
-                          addBulkLead()
-                          
+                          addBulkLead();
                         }}
                       >
                         <div>

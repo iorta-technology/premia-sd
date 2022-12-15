@@ -114,6 +114,8 @@ const ResourceCenter = () => {
 
   useEffect(() => {
     getData();
+    setTagSwitch("");
+    setType("all");
   }, [activeId]);
 
   useEffect(() => {
@@ -216,7 +218,7 @@ const ResourceCenter = () => {
   const [currentImageAndData, setCurrentImageAndData] = useState("");
 
   const setCurrentTriggerData = (data) => {
-    console.log(data);
+    console.log("data", data);
     setCurrentImageAndData(data);
     if (data.contentCategory === "infographic") {
       setImageModel(true);
@@ -601,73 +603,79 @@ const ResourceCenter = () => {
                 </Col>
               </Row>
               <hr />
-              <Row
-                style={{ margin: 0 }}
-                gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
-              >
+              <Row style={{ margin: 0 }}>
                 {currentData && currentData.length > 0 ? (
-                  <Col className="maincard gutter-row">
+                  <Row
+                    className="gutter-row"
+                    gutter={16}
+                    // gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+                  >
                     {currentData?.map((res, index) => (
-                      <Card
-                        hoverable
-                        style={{
-                          width: 280,
-                          marginBottom: "10px",
-                          margin: "5px",
-                          overflow: "hidden",
-                          position: "relative",
-                        }}
-                        className="card_body"
-                        cover={
-                          <img
-                            alt="example"
-                            className="card_img"
-                            src={res.thumbnail}
-                          />
-                        }
+                      <Col
+                        className="gutter-row"
+                        xs={{ span: 24 }}
+                        sm={{ span: 12 }}
+                        md={{ span: 8 }}
+                        lg={{ span: 8 }}
                       >
-                        <a href={"mailto:" + mailSendTo}>
-                          <ShareAltOutlined className="share_button" />
-                        </a>
-                        {/* contentCategory */}
-                        <div
-                          style={getImage(res.contentCategory)}
-                          className="center_icon"
-                          onClick={() => {
-                            setCurrentTriggerData(res);
+                        <Card
+                          hoverable
+                          style={{
+                            width: "100%",
+                            marginBottom: "10px",
+                            overflow: "hidden",
+                            position: "relative",
                           }}
-                        ></div>
-
-                        <div style={{ width: "100%" }}>
-                          <div className="Body_text">
-                            <p>{res.title}</p>
+                          className="card_body"
+                          cover={
+                            <img
+                              alt="example"
+                              className="card_img"
+                              src={res.thumbnail}
+                            />
+                          }
+                        >
+                          <a href={"mailto:" + mailSendTo}>
+                            <ShareAltOutlined className="share_button" />
+                          </a>
+                          <div
+                            style={getImage(res.contentCategory)}
+                            className="center_icon"
+                            onClick={() => {
+                              setCurrentTriggerData(res);
+                            }}
+                          ></div>
+                          <div style={{ width: "100%" }}>
+                            <div className="Body_text">
+                              <p>{res.title}</p>
+                            </div>
+                            <div className="Body_text2">
+                              <p>{res.contentCategory}</p>
+                            </div>
+                            <div style={{ padding: "6px" }}>
+                              {res.contentCategory !== "pdf" ? (
+                                <button
+                                  onClick={() => setCurrentTriggerData(res)}
+                                  type="button"
+                                  className="cardbutton block"
+                                >
+                                  View Now
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() => setCurrentTriggerData(res)}
+                                  type="button"
+                                  className="cardbutton block"
+                                >
+                                  Download Now
+                                </button>
+                              )}
+                            </div>
                           </div>
-                          <div className="Body_text2">
-                            <p>{res.contentCategory}</p>
-                          </div>
-                          <div style={{ padding: "6px" }}>
-                            {res.contentCategory !== "pdf" ? (
-                              <button
-                                onClick={() => setCurrentTriggerData(res)}
-                                type="button"
-                                className="cardbutton block"
-                              >
-                                View Now
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => setCurrentTriggerData(res)}
-                                type="button"
-                                className="cardbutton block"
-                              >
-                                Download Now
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </Col>
                     ))}
-                  </Col>
+                  </Row>
                 ) : (
                   <Card className="card" style={{ width: "100%" }}>
                     <div
