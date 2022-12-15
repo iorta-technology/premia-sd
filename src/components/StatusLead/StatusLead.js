@@ -785,16 +785,9 @@ const NewLead = React.memo((props) => {
       setLeadAge(leadData?.age);
       setLeadGender(leadData?.gender);
       setMaritalStatus(leadData?.maritalStatus);
-      setLeadOccupation(leadData?.vehiclesOwned);
+      setLeadOccupation(leadData?.professionType);
       setLeadVehiclesOwned(leadData?.vehiclesOwned);
       setLeadSourceOfactivity(leadData?.sourceOfActivity);
-
-      // const [leadAge, setLeadAge] = useState("");
-      // const [leadGender, setLeadGender] = useState("");
-      // const [maritalStatus, setMaritalStatus] = useState("");
-      // const [leadOccupation, setLeadOccupation] = useState("");
-      // const [leadVehiclesOwned, setLeadVehiclesOwned] = useState("");
-      // const [leadSourceOfactivity, setLeadSourceOfactivity] = useState("");
 
       form.setFieldsValue({
         firstname: leadData.firstName,

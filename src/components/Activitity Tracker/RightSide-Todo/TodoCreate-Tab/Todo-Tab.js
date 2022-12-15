@@ -68,7 +68,7 @@ const TodoTab = (props) => {
     if(props.button === 'Update' && props.isModalVisible === true) setButtonName(props.button)
 
     if(Object.keys(props.editData).length !== 0 || props.editData !== undefined){
-      console.log('I AM HEREEEE____CHIPPP',props);
+      // console.log('I AM HEREEEE____CHIPPP',props);
       let _teamMember = props.editData.searchdata.map(el =>{ return toCapitalize(el.FullName) + ' ' + '('+el.designation+')' })
       setTeamMemberChip(_teamMember)
       setOwnerCollectn(props.editData.searchdata)
