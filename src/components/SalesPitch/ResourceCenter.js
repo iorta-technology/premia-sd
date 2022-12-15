@@ -114,8 +114,6 @@ const ResourceCenter = () => {
 
   useEffect(() => {
     getData();
-    setTagSwitch("");
-    setType("all");
   }, [activeId]);
 
   useEffect(() => {
@@ -151,6 +149,7 @@ const ResourceCenter = () => {
         )
         .then((res) => {
           setCurrentData(res[0]);
+          resetDataFilter();
           console.log("res", res[0]);
         })
         .catch((err) => console.log(err));
@@ -607,12 +606,12 @@ const ResourceCenter = () => {
                 {currentData && currentData.length > 0 ? (
                   <Row
                     className="gutter-row"
-                    gutter={16}
+                    gutter={8}
+                    style={{ width: "100%" }}
                     // gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
                   >
                     {currentData?.map((res, index) => (
                       <Col
-                        className="gutter-row"
                         xs={{ span: 24 }}
                         sm={{ span: 12 }}
                         md={{ span: 8 }}
