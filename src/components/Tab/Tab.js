@@ -303,9 +303,10 @@ const Tab = ({
                         Self
                       </figcaption>{" "}
                     </figure>
-                    <AllocateModalShow tabSelected={leadTabFilter} />
+                    {/* <AllocateModalShow tabSelected={leadTabFilter} /> */}
                   </>
                 )}
+                <AllocateModalShow tabSelected={leadTabFilter} />
                 <GlobalFilters
                   show={show}
                   onHide={handleClose}
@@ -386,9 +387,10 @@ const Tab = ({
                     />{" "}
                     Team
                   </button>
-                  <AllocateModalShow tabSelected={leadTabFilter} />
+                  {/* <AllocateModalShow tabSelected={leadTabFilter} /> */}
                 </>
               )}
+              <AllocateModalShow tabSelected={leadTabFilter} />
               <GlobalFilters
                 show={show}
                 onHide={handleClose}
