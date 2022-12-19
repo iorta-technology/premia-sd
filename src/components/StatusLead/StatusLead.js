@@ -482,9 +482,11 @@ const NewLead = React.memo((props) => {
       let _leadID = props.location.state.leadID;
       // setshowLeadStatusVisiblity(true)
       getLeadDetails(_leadID);
+      setMobileDisable(true);
       setIsNewLead(false);
     } else {
       setIsNewLead(true);
+      setMobileDisable(false);
       form.setFieldsValue({
         leadType: "NewBusiness",
         leadStatus: ["newleadentery"],
@@ -529,6 +531,7 @@ const NewLead = React.memo((props) => {
   const [mobileNoSummary, setMobileNoSummary] = useState("");
   const [stateSummary, setStateSummary] = useState("");
   const [citySummary, setCitySummary] = useState("");
+  const [mobileDisable, setMobileDisable] = useState(false);
   
   const [leadAge, setLeadAge] = useState("");
   const [leadGender, setLeadGender] = useState("");
@@ -1733,6 +1736,7 @@ const NewLead = React.memo((props) => {
                   >
                     <Input
                       className="phone-no input-box"
+                      disabled={mobileDisable}
                       size="large"
                       placeholder="Enter Primary Mobile"
                       maxLength="10"
@@ -1916,7 +1920,11 @@ const NewLead = React.memo((props) => {
                       {
                         required: true,
                         message: "Sex/Gender is required",
-                      }
+                      },
+                      {
+                        message: "Only Alphabets are Allowed",
+                        pattern: new RegExp(/^[a-zA-Z ]+$/),
+                      },
                     ]}
                     style={{ marginBottom: "1rem" }}
                   >
@@ -1941,7 +1949,11 @@ const NewLead = React.memo((props) => {
                       {
                         required: true,
                         message: "Marital Status is required",
-                      }
+                      },
+                      {
+                        message: "Only Alphabets are Allowed",
+                        pattern: new RegExp(/^[a-zA-Z ]+$/),
+                      },
                     ]}
                     style={{ marginBottom: "1rem" }}
                   >
@@ -2370,7 +2382,7 @@ const NewLead = React.memo((props) => {
                   }
                 ></Col>
 
-                {checkAgent() === false && (
+                {/* {checkAgent() === false && ( */}
                   <>
                     <Col
                       xs={24}
@@ -2479,9 +2491,9 @@ const NewLead = React.memo((props) => {
                       </Row>
                     </Modal>
                   </>
-                )}
+                {/* )} */}
 
-                {checkAgent() === false && (
+                {/* {checkAgent() === false && ( */}
                   <>
                     <Col
                       xs={24}
@@ -2593,9 +2605,9 @@ const NewLead = React.memo((props) => {
                       </Modal>
                     </>
                   </>
-                )}
-
-                {checkAgent() === false && teamTableData.length > 0 && (
+                {/* )} */}
+                  {/* checkAgent() === false &&  */}
+                {teamTableData.length > 0 && (
                   <Col xs={12} sm={12} md={12}>
                     <Table
                       pagination={false}
