@@ -122,7 +122,6 @@ const FloatButton = React.memo(() => {
   };
 
   const floatButtonHandler = () => {
-    console.log("hello SALMANN");
     setisopen(!isopen);
   };
   const open = {

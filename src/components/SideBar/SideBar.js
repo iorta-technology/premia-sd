@@ -197,6 +197,11 @@ const Sidebar = () => {
     setSidebar(false);
   };
 
+  const openLeadList = () => {
+    history.push("/leadMaster/all_leads");
+    setSidebar(false);
+  };
+
   const defaultChannel = () => {
     history.push("/defaultchannel");
     setSidebar(false);
@@ -354,6 +359,17 @@ const Sidebar = () => {
                         <div>
                           <img src={rapps_img} /> &nbsp;
                           <span>Add Bulk Lead</span>
+                        </div>{" "}
+                        <img src={right_black_img} />
+                      </li>
+                      <li
+                        onClick={() => {
+                          openLeadList();
+                        }}
+                      >
+                        <div>
+                          <img src={draftr_img} /> &nbsp;
+                          <span>Show Leads</span>
                         </div>{" "}
                         <img src={right_black_img} />
                       </li>
