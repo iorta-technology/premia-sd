@@ -38,15 +38,15 @@ const Self = () => {
   let {id}=stoageGetter('user');
   const api = async ()=>{
     let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=upcoming`);
-    console.log(data, 'pastt-- second second second-----t');
+    // console.log(data, 'pastt-- second second second-----t');
     setPastDataContainer(data);
     setDataContainer(data)
   }
 
   const currentpastapi = async ()=>{
-    console.log(month,'month----><<<<<');
+    // console.log(month,'month----><<<<<');
     let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=past`);
-    console.log(data, 'curent pastt-------t');
+    // console.log(data, 'curent pastt-------t');
     setCurrentPastData(data);
     setCurrentPastDataLn(data.length)
   }
@@ -55,7 +55,7 @@ const Self = () => {
     if(PastDataContainer){
       for(let i = 0; i < PastDataContainer?.length; i++){
         let a = 1+new Date(PastDataContainer[i].start_time_MS).getMonth();
-        console.log(a);
+        // console.log(a);
         let b = 1+ new Date().getMonth();
         if(a==b){
           const filterCurrentData = PastDataContainer?.filter((element,index,arr)=>((1 + new Date(element?.start_time_MS).getDate()) <= (1 + new Date().getDate())))
@@ -65,24 +65,26 @@ const Self = () => {
         }
       }
     } 
-  },[PastDataContainer])
+  },[])
+  // },[PastDataContainer])
 
   useEffect(()=>{
    if( (month == 1+new Date().getMonth() && year == new Date().getFullYear())){
-    console.log('yesssss curent past data here----->')
+    // console.log('yesssss curent past data here----->')
     currentpastapi();
    }
-   console.log(month.toString().length, 'length==================');
+  //  console.log(month.toString().length, 'length==================');
    if(month.toString().length >1){
     setMonth(month)
    }else{
     let num =  month.toString()
     let add = '0' + num
     setMonth(add)
-    console.log(add);
+    // console.log(add);
    }
   
-  },[month,year])
+  // },[month,year])
+  },[])
  
   return (
     <div className='Self-Container'>

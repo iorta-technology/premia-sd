@@ -300,7 +300,7 @@ const HomePage = () => {
       `user/fetch_business_card_data?csmId=${userId}&channel=${channelData._id}`,
       { secure: true }
     );
-    console.log("Business CARD", _resp);
+    // console.log("Business CARD", _resp);
     // console.warn("((((((((businessDropArray))))))))", businessDropArray);
     // dispatch(actions.businessCardData(_resp))
 
@@ -309,7 +309,7 @@ const HomePage = () => {
     if (_resp.length > 0) {
       let _businessCardResp = _resp[0]?.data;
       setBusinessArrData(_businessCardResp);
-      console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
+      // console.warn("((((((((_businessCardResp))))))))", _businessCardResp);
 
       if (_businessCardResp.length > 0) {
         for (let _kpi of _businessCardResp) {
@@ -534,7 +534,7 @@ const HomePage = () => {
       let _resp = await axiosRequest.put(`user/update_task_status`, formData, {
         secure: true,
       });
-      console.log("DATA Update:: Archived", _resp);
+      // console.log("DATA Update:: Archived", _resp);
       setGetTodoDataArray([]);
       getTodoData(0);
     } catch (err) {
@@ -635,7 +635,7 @@ const HomePage = () => {
     let _resp = await axiosRequest.put(`user/update_task_status`, data, {
       secure: true,
     });
-    console.log("UPDATE___RESPPP__", _resp);
+    // console.log("UPDATE___RESPPP__", _resp);
     getTodoData(0);
   };
 

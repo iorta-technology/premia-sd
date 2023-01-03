@@ -161,7 +161,7 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
             Past Date
             <span className="pastEventChange">Show</span>
             {pastData?.length == 0 ? '0' : teampastData?.length == 0 ? '0' : pastDataln ? pastDataln : teamPast }
-            {console.log(pastDataln,'past data--len--<<<<')}
+            {/* {console.log(pastDataln,'past data--len--<<<<')} */}
             <span className="pastEventChange">Events from past</span>
           </span>
         </div>
@@ -169,7 +169,7 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
         <Typography>{historyEvent}</Typography>
       )}
 
-        {console.log(pastData?.length, ' circle plus-->')}
+        {/* {console.log(pastData?.length, ' circle plus-->')} */}
       {pastData?.length == 0 || teampastData?.length == 0 ?  "" : (Team ?
         Self ? (
           <PlusCircleFilled
@@ -182,7 +182,7 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
           <MinusCircleFilled
             style={{ fontSize: "20px", marginRight: "7px", marginTop : 5 }}
             onClick={(e) => {
-              console.log(e);
+              // console.log(e);
               setSelf(true);
             }}
           />
@@ -205,7 +205,7 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
           <MinusCircleFilled
             style={{ fontSize: "20px", marginRight: "7px",marginTop : 5 }}
             onClick={(e) => {
-              console.log(e);
+              // console.log(e);
               setTeamData(true);
             }}
           />

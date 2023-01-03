@@ -138,7 +138,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
     if(Dataupdate != undefined && Dataupdate.length != 0){
       setDataContainer(Dataupdate)
     }
-     console.log(TeamHere, 'self team here--->');
+    //  console.log(TeamHere, 'self team here--->');
   },[SelfMonthYear,TeamData,history,getdata,isModalVisible, Dataupdate]);
 
   
@@ -153,44 +153,44 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
       const currentYear =new Date().getFullYear();
       const monthYear=currentMonth+'/'+currentYear;
       const MonthCompare = monthYear === SelfMonthYear;
-      console.log(typeof(SelfMonthYear),'monthyearrr------<<>><>M<M<');
-      console.log(TeamData, 'team yr---<><mvc><</mvc>');
-      console.log(history,'history------>');
+      // console.log(typeof(SelfMonthYear),'monthyearrr------<<>><>M<M<');
+      // console.log(TeamData, 'team yr---<><mvc><</mvc>');
+      // console.log(history,'history------>');
 
       if(SelfHere == 'self'){
         var dS = SelfMonthYear.split("/");
         var d1 = new Date(dS[1], (+dS[0]));
         var today = new Date();
-        console.log(d1)
-        console.log(today)
+        // console.log(d1)
+        // console.log(today)
         if (d1 >= today) {
           let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear}&category=upcoming`)
               setDataContainer(result)
-              console.log(result, 'd is greater');
+              // console.log(result, 'd is greater');
         } else {
           let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear}&category=past`)
           setDataContainer(result)
-          console.log(result, 'today is greater');
+          // console.log(result, 'today is greater');
         }
       }
 
       if(TeamHere == true || TeamData != undefined){
-        console.log('yes moved to team');
+        // console.log('yes moved to team');
         var dS = TeamData.split("/");
         var d1 = new Date(dS[1], (+dS[0]));
         var today = new Date();
-        console.log(d1)
-        console.log(today)
+        // console.log(d1)
+        // console.log(today)
         if (d1 >= today) {
-          console.log('yes moved to team ---> future & current');
+          // console.log('yes moved to team ---> future & current');
           let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${TeamData}&category=upcoming&agentCode=${agent_id}`)
               setDataContainer(result)
-              console.log(result, 'd is greater');
+              // console.log(result, 'd is greater');
         } else {
-          console.log('yes moved to team ---> past');
+          // console.log('yes moved to team ---> past');
           let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${TeamData}&category=past&agentCode=${agent_id}`)
           setDataContainer(result)
-          console.log(result, 'today is greater');
+          // console.log(result, 'today is greater');
         }
       }
       
@@ -239,7 +239,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
   return (
 
     <div className='dataField'>
-    {console.log(DataContainer, 'final upcoming')}
+    {/* {console.log(DataContainer, 'final upcoming')} */}
     {
         windowWidth > breakpoint &&
 

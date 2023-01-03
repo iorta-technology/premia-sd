@@ -592,7 +592,7 @@ const NewLead = React.memo((props) => {
   const [teamDesig ,setTeamDesig]=useState(null)
   const [totalDaysCount, setDaysCount] = React.useState('');
   const [allocatedToUser, setAllocatedToUser] = React.useState('');
-  console.warn('((((((((((( stateProvince )))))))))))',stateProvince)
+  // console.warn('((((((((((( stateProvince )))))))))))',stateProvince)
   
   // const forceUpdate: () => void = React.useState().firstName.bind(null,{});
 
@@ -635,7 +635,7 @@ const NewLead = React.memo((props) => {
       result[0]["leadStatusArr"] = leadArr;
 
       // result.forEach(el =>{ el.leadStatusArr = leadArr })
-      console.warn("__++++++++++++++ getlead_details +++++++++++>>>", result);
+      // console.warn("__++++++++++++++ getlead_details +++++++++++>>>", result);
       if (result.length > 0) {
         dispatch(actions.fetchLeadDetailsSuccess(result[0]));
         if (result.length > 1) {
@@ -1285,10 +1285,13 @@ const NewLead = React.memo((props) => {
 
   const deleteTableRow = (el) => {
     // console.warn('el ====((((((((((===>>>>>>>>>>', el)
+    // console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
     const newData = teamTableData.filter(
       (item) => item.teamMem_id !== el.teamMem_id
     );
     setTeamTableData(newData);
+    setAddTeamMemb(newData);
+    // console.warn('newData ====((((((((((===>>>>>>>>>>', newData)
     let _data = {};
     let _arryy = newData.map((el) => {
       userTreeData.reporting_users.filter((event) => {

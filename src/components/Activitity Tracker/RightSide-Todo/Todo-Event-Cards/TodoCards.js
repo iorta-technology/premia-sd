@@ -409,9 +409,11 @@ const TodoCards = forwardRef((props, ref) => {
                                     <text style={{color:element.status === 'Soon' ? element.sooncolor : element.status === 'Overdue' ? element.overduecolor : '#000',fontSize:14,fontWeight:'bolder'}}>{element.stringtimeofreminder} : {element.dateofreminder}</text>
                                 </div>
                             </Col>
-                            <div style={{paddingLeft:10,paddingRight:5}}>
-                                <img alt='' src={hamburger} style={{height:15, width:3,cursor:"pointer"}} onClick={(e)=>{ Showpopuptodo(index,element) }}/>
-                            </div>
+                            { element.taskOwner_id === loginUserID &&
+                                <div style={{paddingLeft:10,paddingRight:5}}>
+                                    <img alt='' src={hamburger} style={{height:15, width:3,cursor:"pointer"}} onClick={(e)=>{ Showpopuptodo(index,element) }}/>
+                                </div>
+                            }
                             <div className='Hamburger-Edit'>
                             {
                                 element.showarchiedpopup === true &&
@@ -452,7 +454,7 @@ const TodoCards = forwardRef((props, ref) => {
                             { element.searchdata.map((data,ind) =>{
                                 return(
                                     <div>
-                                        {console.log('TASKKKKKKK OWNEERR',element.taskOwner_id ,'ORGI---->>',loginUserID)}
+                                        {/* {console.log('TASKKKKKKK OWNEERR',element.taskOwner_id ,'ORGI---->>',loginUserID)} */}
                                         { element.taskOwner_id === loginUserID ?
                                             <div className="TodoCard-Footer">
                                                 <div className='TodoCard-Footer-Main'>

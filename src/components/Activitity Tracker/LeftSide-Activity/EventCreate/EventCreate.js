@@ -47,10 +47,10 @@ const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
   monthData(count);
   yearData(year);
 
-  useEffect(()=>{
+//   useEffect(()=>{
   
-    // console.log(isModalVisible, 'modal visible changes---> after exit');
- },[isModalVisible]);
+//     // console.log(isModalVisible, 'modal visible changes---> after exit');
+//  },[isModalVisible]);
 
   // {console.log(count, 'month=========------->')}
 // {console.log(year, 'year=========------->')}
