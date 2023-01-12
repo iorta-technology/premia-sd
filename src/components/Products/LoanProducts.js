@@ -550,7 +550,7 @@ const LoanProducts = () => {
                         </h4>
 
                         {/* <span onClick={showModal} style={{ margin: '150px 150px 0px 0px', borderRadius: '50px', padding: '8px', color: '#00ACC1', cursor: 'pointer' }}><ShareAltOutlined /></span> */}
-                        <Carousel style={{ marginTop: 12 }} autoplay={true}>
+                        <Carousel dots={true} style={{ marginTop: 12 }} autoplay={true}>
                           {item.productImages.map((item) => {
                             return (
                               <div style={contentStyle}>

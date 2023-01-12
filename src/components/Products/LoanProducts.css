@@ -3,9 +3,9 @@
   height: 300vh;
 } */
 
-.ant-carousel .slick-dots{
-  display:none !important;
-}
+/* .ant-carousel .slick-dots{
+  display:block !important;
+} */
 .header-loan-prod{
     background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
     background-size: cover;

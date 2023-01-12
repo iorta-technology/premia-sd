@@ -124,7 +124,7 @@ import moment from 'moment'
  
      arrangeData(resObj){
         let self = this
-        //  console.log('Response :   ', resObj?.appointmentDate);
+         console.log('Response :   ', resObj);
          let dataStructure = {};
          dataStructure.personName = resObj.cust_name
          dataStructure.id = resObj._id;
@@ -135,7 +135,7 @@ import moment from 'moment'
          dataStructure.appointDate = !resObj?.appointmentDate ? '-' : moment(parseInt(resObj?.appointmentDate)).format('DD/MM/YYYY')
         //  let _address_ = resObj.address[0];
         //  dataStructure.address = this.completeAddress(_address_.line1, _address_.line2, _address_.line3, resObj.pincode);
-         dataStructure.allocationDate = moment(parseInt(resObj?.created_date)).format('DD/MM/YYYY')
+         dataStructure.allocationDate = moment(parseInt(resObj?.allocatedDate)).format('DD/MM/YYYY')
         //  new Date(parseInt(resObj.created_date)).toLocaleDateString();
  
          // dataStructure.appointDate = 'start_date' in resObj ? new Date(parseInt(resObj.start_date)).toLocaleDateString() : "-";
