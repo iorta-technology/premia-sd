@@ -845,19 +845,22 @@ const HomePage = () => {
 
       <Col className="cardHolder" justify="center">
         {/* home-ml10 */}
-        <Row className="alignUserLabel">
+        <Row className="alignUserLabel" style={{backgroundColor:'#3b371e',zIndex:-1,height:300,alignItems:'center'}}>
           <Col>
             <div className="dataCardLabel">
+              <p style={{fontWeight: "bold",marginBottom:0,color:'#fff',fontSize:18}}>GOOD MORNING</p>
               <p
                 style={{
                   textTransform: "capitalize",
                   fontWeight: "bold",
-                  fontSize: "16px",
-                  marginBottom: "8px",
+                  fontSize: "24px",
+                  marginBottom: "0px",
+                  color:'#fff'
                 }}
               >
-                Hi {logged_in_user}, Welcome to Salesdrive
+                {logged_in_user}
               </p>
+              <p style={{marginBottom:8,color:'#fff',fontSize:12,fontWeight: "lighter"}}>Last Login: 07-02-2021 | 12:00:00 AM</p>
             </div>
           </Col>
           <Col>
@@ -868,7 +871,7 @@ const HomePage = () => {
           </Col>
         </Row>
         <Row
-          style={{ marginLeft: 0, marginRight: 0 }}
+          style={{ marginLeft: 0, marginRight: 0,zIndex:1,position:'absolute',top:200 }}
           gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]}
           justify="center"
         >
@@ -995,7 +998,7 @@ const HomePage = () => {
               <div
                 className=" dataCard"
                 bordered="false"
-                style={{ backgroundColor: "#86ACEC" }}
+                style={{ backgroundColor: "#00ACC1" }}
               >
                 <Link to="/leadMaster/all_leads">
                   <div className="card-content">
@@ -1022,143 +1025,43 @@ const HomePage = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    marginTop: "10px",
+                    marginTop: "20px",
                   }}
                 >
                   <div
                     style={{
-                      padding: "0 30px",
-                      borderRight: "1px solid #fff",
+                      padding: "0 15px",
+                      // borderRight: "1px solid #fff",
                       textAlign: "center",
                       color: "#fff",
                     }}
                   >
-                    <p>For Today</p>
-                    <span style={{ color: "#fff", fontSize: "50px" }}>
+                    <p style={{marginBottom:0}}>For Today</p>
+                    <p style={{ color: "#fff",fontWeight:'bold', fontSize: "50px",marginBottom:0 }}>{home_data?.today ? home_data.today : "00"}</p>
+                    {/* <span style={{ color: "#fff", fontSize: "50px" }}>
                       {home_data?.today ? home_data.today : "00"}
-                    </span>
+                    </span> */}
                   </div>
                   <div
                     style={{
-                      padding: "0 30px",
+                      padding: "0 15px",
                       textAlign: "center",
                       color: "#fff",
                     }}
                   >
-                    <p>Open</p>
-                    <span style={{ color: "#fff", fontSize: "50px" }}>
+                    <p style={{marginBottom:0}}>Open</p>
+                    <p style={{ color: "#fff",fontWeight:'bold', fontSize: "50px",marginBottom:0 }}>{home_data?.open_lead ? home_data.open_lead : "00"}</p>
+                    {/* <span style={{ color: "#fff", fontSize: "50px" }}>
                       {home_data?.open_lead ? home_data.open_lead : "00"}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </div>
             </Col>
           )}
 
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#00ACC1" }}
-            >
-              <div className="card-content">
-                <Link to={"/applications"}>
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={application_img}
-                      alt="Opportunities"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Applications</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </Link>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "40px",
-                  marginRight: "36px",
-                }}
-              >
-                <div
-                  style={{
-                    padding: "0px 60px 20px 20px",
-                    borderRight: "1px solid #fff ",
-                    textAlign: "center",
-                    color: "#fff",
-                  }}
-                >
-                  <p>Login</p>
-                  <span style={{ color: "#fff", fontSize: "50px" }}>00</span>
-                </div>
-                <div
-                  style={{
-                    padding: "0px 0px 20px 45px",
-                    textAlign: "center",
-                    color: "#fff",
-                  }}
-                >
-                  <p>CFR</p>
-                  <span style={{ color: "#fff", fontSize: "50px" }}>
-                    {home_data?.cfr_count_team
-                      ? home_data.cfr_count_team
-                      : "23"}
-                  </span>
-                </div>
-              </div>
-
-              <hr
-                style={{
-                  border: "none",
-                  borderBottom: "2px solid #fff",
-                  opacity: "0.5",
-                  width: "240px",
-                  margin: "10px 0px 0px 60px",
-                }}
-              />
-              {/* <hr style={{ border: "none", borderBottom: "1px solid #fff", width: "200px"}} /> */}
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px",
-                }}
-              >
-                <div
-                  style={{
-                    padding: "2px 60px 20px 0px",
-                    borderRight: "1px solid #fff",
-                    textAlign: "center",
-                    color: "#fff",
-                  }}
-                >
-                  <p>Draft</p>
-                  <span style={{ color: "#fff", fontSize: "50px" }}>00</span>
-                </div>
-                <div
-                  style={{
-                    padding: "0px 0px 20px 40px",
-                    textAlign: "center",
-                    color: "#fff",
-                  }}
-                >
-                  <p>Recruitment</p>
-                  <span style={{ color: "#fff", fontSize: "50px" }}>00</span>
-                </div>
-              </div>
-            </div>
-          </Col>
-
           {showKpi && (
-            <Col>
+            <Col style={{ display: "none" }}>
               <div
                 className=" dataCard"
                 bordered="false"
@@ -1445,7 +1348,7 @@ const HomePage = () => {
           )}
 
           {showDailyBusiness && (
-            <Col>
+            <Col style={{ display: "none" }}>
               <div
                 className=" dataCard"
                 bordered="false"
@@ -1554,147 +1457,12 @@ const HomePage = () => {
             </Col>
           )}
 
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#00ACC1", overflow: "hidden" }}
-            >
-              <div className="card-content">
-                <div className="activity-icon">
-                  <Image
-                    preview={false}
-                    width={55}
-                    height={55}
-                    src={todo_img}
-                    alt="Actions"
-                  />
-                </div>
-                <div className="activities-text">
-                  <p className="ttile_name">Actions</p>
-                  {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '480%', margin: '-6px' }} /> */}
-                  <div className="horizontalLine"></div>
-                </div>
-                <div className="action-cards-content">
-                  <div style={{ width: "100%", padding: "10px" }}>
-                    <p style={{ width: "100%", margin: "0" }}>
-                      New Leads{" "}
-                      <span
-                        style={{
-                          float: "right",
-                          color: "#00ACC1",
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
-                      >
-                        Dismiss
-                      </span>
-                    </p>
-                    <h1 style={{ marginTop: "-10px" }}>
-                      <b style={{ color: "#00ACC1" }}>10</b>{" "}
-                      <span
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          fontFamily: "robotoregular",
-                        }}
-                      >
-                        Unallocated leads in the list
-                      </span>
-                    </h1>
-                  </div>
-                  <div style={{ width: "100%", padding: "10px" }}>
-                    <p style={{ width: "100%", margin: "0" }}>
-                      New Leads{" "}
-                      <span
-                        style={{
-                          float: "right",
-                          color: "#00ACC1",
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
-                      >
-                        Dismiss
-                      </span>
-                    </p>
-                    <h1 style={{ marginTop: "-10px" }}>
-                      <b style={{ color: "#00ACC1" }}>10</b>{" "}
-                      <span
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          fontFamily: "robotoregular",
-                        }}
-                      >
-                        Unallocated leads in the list
-                      </span>
-                    </h1>
-                  </div>
-                  <div style={{ width: "100%", padding: "10px" }}>
-                    <p style={{ width: "100%", margin: "0" }}>
-                      New Leads{" "}
-                      <span
-                        style={{
-                          float: "right",
-                          color: "#00ACC1",
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
-                      >
-                        Dismiss
-                      </span>
-                    </p>
-                    <h1 style={{ marginTop: "-10px" }}>
-                      <b style={{ color: "#00ACC1" }}>10</b>{" "}
-                      <span
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          fontFamily: "robotoregular",
-                        }}
-                      >
-                        Unallocated leads in the list
-                      </span>
-                    </h1>
-                  </div>
-                  <div style={{ width: "100%", padding: "10px" }}>
-                    <p style={{ width: "100%", margin: "0" }}>
-                      New Leads{" "}
-                      <span
-                        style={{
-                          float: "right",
-                          color: "#00ACC1",
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
-                      >
-                        Dismiss
-                      </span>
-                    </p>
-                    <h1 style={{ marginTop: "-10px" }}>
-                      <b style={{ color: "#00ACC1" }}>10</b>{" "}
-                      <span
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          fontFamily: "robotoregular",
-                        }}
-                      >
-                        Unallocated leads in the list
-                      </span>
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-
           {showTodo && (
             <Col>
               <div
                 className=" dataCard"
                 bordered="false"
-                style={{ backgroundColor: "#00ACC1" }}
+                style={{ backgroundColor: "#5ec0ad" }}
               >
                 <Link to="/calendar">
                   <div className="card-content">
@@ -1875,223 +1643,8 @@ const HomePage = () => {
             </Col>
           )}
 
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#5EC0AD" }}
-            >
-              <Link to="/renewalMaster/allRenewals">
-                <div className="card-content">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={mapped_img}
-                      alt="Customers"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Renewals</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '350%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </div>
-              </Link>
-              <div className="rewardscorner-text">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "1rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      padding: "0 50px",
-                      borderRight: "1px solid #fff",
-                      textAlign: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <p>Renewals</p>
-                    <h1 style={{ color: "#fff", fontSize: "50px" }}>
-                      {home_data?.Renewal_count_team
-                        ? home_data.Renewal_count_team
-                        : "00"}
-                    </h1>
-                    <p>
-                      <b>New</b>
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      padding: "0 50px",
-                      textAlign: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <p>Customers</p>
-                    <h1 style={{ color: "#fff", fontSize: "50px" }}>
-                      {home_data?.customer_count_team
-                        ? home_data.customer_count_team
-                        : "00"}
-                    </h1>
-                    <p>
-                      <b>New</b>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#00ACC1" }}
-            >
-              <div className="card-content">
-                <Link to="/rewardscorner/contests/allcontest">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={reward_img}
-                      alt="Rewards Corner"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Rewards Corner</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '240%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </Link>
-                <div className="rewardscorner-text">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "1rem",
-                    }}
-                  >
-                    <Link to="/rewardscorner/contests/allcontest">
-                      <div
-                        style={{
-                          padding: "0 50px",
-                          cursor: "pointer",
-                          borderRight: "1px solid #fff",
-                          textAlign: "center",
-                          color: "#fff",
-                        }}
-                      >
-                        <Image
-                          preview={false}
-                          width={90}
-                          height={90}
-                          src={contest_img}
-                          alt="contests"
-                          hspace="20"
-                        />
-                        <p>Contests</p>
-                      </div>
-                    </Link>
-                    <Link to="/clubsmaster">
-                      <div
-                        style={{
-                          padding: "0 50px",
-                          cursor: "pointer",
-                          textAlign: "center",
-                          color: "#fff",
-                        }}
-                      >
-                        <Image
-                          preview={false}
-                          width={90}
-                          height={90}
-                          src={club_img}
-                          alt="clubs"
-                        />
-                        <p>Clubs</p>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#86ACEC" }}
-            >
-              <div className="card-content">
-                <div className="activity-icon">
-                  <Image
-                    preview={false}
-                    width={55}
-                    height={55}
-                    src={sales_guide_img}
-                    alt="Sales Guide"
-                  />
-                </div>
-                <Link to="/servicecorner/all">
-                  <div className="activities-text">
-                    <p className="ttile_name">Service Corner</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </Link>
-                <div className="salesGuideCont">
-                  <div>
-                    <p>WIP</p>
-                    <h1>00</h1>
-                  </div>
-                  <div>
-                    <p>Closed</p>
-                    <h1>00</h1>
-                  </div>
-                  <div>
-                    <p>Claim</p>
-                    <h1>00</h1>
-                  </div>
-                </div>
-                <div style={{ marginTop: "30px", textAlign: "center" }}>
-                  <p
-                    className="sales-content"
-                    style={{
-                      height: 35,
-                      width: "fit-content",
-                      padding: "5px 15px",
-                      display: "inline-block",
-                    }}
-                  >
-                    Downloads
-                  </p>
-                  <p
-                    className="sales-content"
-                    style={{
-                      height: 35,
-                      width: "fit-content",
-                      padding: "5px 15px",
-                      display: "inline-block",
-                      marginLeft: "10px",
-                    }}
-                  >
-                    FAQ's
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Col>
-
           {showSalesGuide && (
-            <Col>
+            <Col style={{ display: "none" }}>
               <div
                 className=" dataCard"
                 bordered="false"
@@ -2218,252 +1771,6 @@ const HomePage = () => {
               </div>
             </Col>
           )}
-
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#CEA0E1" }}
-            >
-              <div className="card-content">
-                <Link to="/birthday">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={birthday_img}
-                      alt="Birthday"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Birthday</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '420%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </Link>
-                <div className="birthday-slides">
-                  <Image
-                    preview={false}
-                    width={32}
-                    height={32}
-                    src={left_arrow}
-                    alt="left arrow"
-                  />
-                  <Image
-                    preview={false}
-                    width={32}
-                    height={32}
-                    src={right_arrow}
-                    alt="right arrow"
-                  />
-                </div>
-              </div>
-            </div>
-          </Col>
-
-          {/* <Col>
-          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#5EC0AD' }}>
-            <Link to="/mappedbranches">
-              <div className="card-content">
-                <div className="activity-icon">
-                  <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3381.png" alt="Customers" />
-                </div>
-                <div className="activities-text">
-                  <p className='ttile_name'>Mapped Branches</p>
-                  <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} />
-                </div>
-              </div>
-            </Link>
-            <div className="events-body">
-              <Image className="stars" preview={false} src="https://pocbanca.iorta.in/assets/Actionnodata.png" alt="Events" />
-              <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Branches Found</p>
-              <p style={{ color: '#CEA0E1', fontSize: '20px', width: "fit-content", margin: "auto" }}>No Events Exist</p>
-            </div>
-          </div>
-        </Col> */}
-
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#5EC0AD" }}
-            >
-              <Link to="/mappedbranches">
-                <div className="card-content">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={mapped_img}
-                      alt="Customers"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Mapped Branches</p>
-                    {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '200%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </div>
-              </Link>
-              <div className="events-body">
-                <Image
-                  className="stars"
-                  preview={false}
-                  src={action_data_img}
-                  alt="Events"
-                />
-                <p
-                  style={{
-                    color: "#00ACC1",
-                    fontSize: "18px",
-                    fontWeight: "600",
-                    margin: "0 auto",
-                    width: "fit-content",
-                  }}
-                >
-                  No Branches Found
-                </p>
-              </div>
-            </div>
-          </Col>
-
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#5EC0AD" }}
-            >
-              <Link to="/existingpartner">
-                <div className="card-content">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={mapped_img}
-                      alt="Customers"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Existing Partner</p>
-                    {/* <hr style={{ backgroundColor: '#fff', height: '1px', width: '200%', margin: '-6px' }} /> */}
-                    <div className="horizontalLine"></div>
-                  </div>
-                </div>
-              </Link>
-              <div style={{ height: "75%" }} className="events-body">
-                <p
-                  style={{
-                    color: "#00ACC1",
-                    fontSize: "18px",
-                    fontWeight: "600",
-                    margin: "0 auto",
-                    width: "fit-content",
-                    paddingTop: "50%",
-                  }}
-                >
-                  No Branches Found
-                </p>
-              </div>
-            </div>
-          </Col>
-
-          {/* <Col>
-          <div className=" dataCard" bordered="false" style={{ backgroundColor: '#00ACC1' }}>
-            <div className="card-content">
-              <div className="activity-icon">
-                <Image preview={false} width={55} height={55} src="https://sdrestdemo.iorta.in/assets/DashboardIconNew/Group3375.png" alt="ToDo" />
-              </div>
-              <div className="activities-text">
-                <p className='ttile_name'>To Do</p>
-                <hr style={{ backgroundColor: '#ececec', height: '1px', width: '590%', margin: '-6px' }} />
-              </div>
-            </div>
-            <div style={{ height: "75%" }} className="events-body">
-              <p style={{ color: '#00ACC1', fontSize: '18px', fontWeight: "600", margin: "0 auto", width: "fit-content", paddingTop: "50%" }}>No Active Task</p>
-            </div>
-          </div>
-        </Col> */}
-
-          {/* <Col className="dummy-home-card"></Col> */}
-
-          <Col style={{ display: "none" }}>
-            <div
-              className=" dataCard"
-              bordered="false"
-              style={{ backgroundColor: "#00ACC1" }}
-            >
-              <div className="card-content">
-                <Link to="/renewalreport">
-                  <div className="activity-icon">
-                    <Image
-                      preview={false}
-                      width={55}
-                      height={55}
-                      src={reward_img}
-                      alt="dashboards"
-                    />
-                  </div>
-                  <div className="activities-text">
-                    <p className="ttile_name">Dashboards</p>
-                    <hr className="horizontalLine" />
-                  </div>
-                </Link>
-                <div className="rewardscorner-text">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "1rem",
-                    }}
-                  >
-                    <Link to="/renewalreport">
-                      <div
-                        style={{
-                          padding: "0 50px",
-                          cursor: "pointer",
-                          borderRight: "1px solid #fff",
-                          textAlign: "center",
-                          color: "#fff",
-                        }}
-                      >
-                        <Image
-                          preview={false}
-                          width={90}
-                          height={90}
-                          src={contest_img}
-                          alt="contests"
-                          hspace="20"
-                        />
-                        <p>Renewal Report</p>
-                      </div>
-                    </Link>
-                    <Link to="/salespendency">
-                      <div
-                        style={{
-                          padding: "0 50px",
-                          cursor: "pointer",
-                          textAlign: "center",
-                          color: "#fff",
-                        }}
-                      >
-                        <Image
-                          preview={false}
-                          width={90}
-                          height={90}
-                          src={club_img}
-                          alt="clubs"
-                        />
-                        <p>Sales Pendency</p>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
 
           <Col className="dummy-home-card"></Col>
           <Col className="dummy-home-card"></Col>

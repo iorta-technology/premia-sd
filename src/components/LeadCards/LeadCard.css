@@ -61,15 +61,17 @@
   transition: all 0.3s;
 } */
 .main-avtar {
-  display: flex;
+  /* display: flex; */
   /* background-color: rebeccapurple; */
-  height: auto;
-  margin-top: 20px;
+  /* height: auto; */
+  /* margin-top: 20px; */
+  padding: 10px;
 }
 .avatar-and-status {
-  justify-content: center;
-  padding: 16px;
-  text-align: center;
+  display: flex;
+  /* justify-content: center; */
+  /* padding: 16px; */
+  /* text-align: center; */
   font-family: robotoregular;
   /* font-variant: small-caps; */
 }
@@ -78,16 +80,16 @@
   font-size: 25px;
   text-transform: uppercase;
   text-align: center;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   justify-content: center;
 }
 .ant-card-body > span > span {
   text-transform: uppercase;
 }
 .content-header {
-  display: flex;
+  /* display: flex; */
   align-items: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   margin-bottom: -0.7rem;
 }
 .phoneicon {
@@ -150,8 +152,8 @@
   /* margin-left: 3rem !important; */
   /* height: 2rem !important ;  */
   margin-right: 18px !important;
-  padding: 5px !important;
-  margin-bottom: 1px !important;
+  padding: 6px !important;
+  /* margin-bottom: 1px !important; */
   width: 90px;
 
 }
@@ -175,21 +177,25 @@
   }
   .lead-card-desktop > .ant-card-body {
     padding: 5px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
-    position: relative;
+    /* position: relative; */
     bottom: 10px;
+    border-radius: 8px;
   }
   .user-name-text {
-    margin: 5px 0;
-    padding: 5px;
-    font-size: 12px;
+    /* margin: 5px 0; */
+    margin-bottom: 0px;
+    /* padding: 5px; */
+    margin-left: 10px;
+    font-size: 14px;
     font-weight: bold;
+    color:grey;
   }
   .user-id {
     margin-left: 10px;
     font-size: 12px;
-    font-weight: 400;
+    /* font-weight: 400; */
   }
   .text-type {
     font-size: 11px;
@@ -205,17 +211,18 @@
   }
   .update-btn {
     margin: 0 30px 7px -30px;
-    padding: 0.4rem 1.2rem;
-    background-color: #ffffff;
-    color: #000000;
+    /* padding: 0.4rem 1.2rem; */
+    background-color: #3b371e;
+    color: #ffff;
+    border-radius:5px;
     align-self: flex-end;
     flex-grow: 1;
     font-weight: 500;
-    font-size: 11px;
+    font-size: 15px;
     border: 1.2px solid #000;
-    cursor: pointer;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
+    /* cursor: pointer; */
+    /* border-radius: 2px; */
+    /* -webkit-border-radius: 2px; */
     -moz-border-radius: 2px;
     -ms-border-radius: 2px;
     -o-border-radius: 2px;

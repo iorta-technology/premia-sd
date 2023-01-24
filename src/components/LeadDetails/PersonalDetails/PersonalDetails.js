@@ -35,24 +35,24 @@ const personalRoute = "/leadmasterpage/leaddetails/personallead"
 const tabMenu = [
     {
         id: 1,
-        value: "Status",
-    },
-    // {
-    //     id: 2,
-    //     value: "Lead Details"
-    // },
-    // {
-    //     id: 3,
-    //     value: "Proposal Details"
-    // },
-    // {
-    //     id: 4,
-    //     value: "Documents Upload"
-    // },
-    // {
-    //     id: 2,
-    //     value: "History"
-    // },
+        value: "Opportunity Details",
+      },
+      {
+        id: 2,
+        value: "Company Intelligence"
+      },
+      // {
+      //   id: 3,
+      //   value: "Proposal Details"
+      // },
+      // {
+      //   id: 4,
+      //   value: "Documents Upload"
+      // },
+      {
+        id: 3,
+        value: "History",
+      },
 
 ]
 
@@ -65,9 +65,10 @@ const PersonalDetails = () => {
     const [genderRadio, setGenderRadio] = useState('Apple');
 
     let storeFormData = useSelector((state) => state.newLead.formData)
+    console.log('storeFormData----->>>>>', storeFormData)
     const storeLeadId = useSelector((state) => state.newLead.leadId)
     let storeChildInfo = useSelector((state) => state.newLead.formData.ChildInfo)
-    if (storeChildInfo === '' || storeChildInfo === '[]' || storeChildInfo === undefined) {
+    if (storeChildInfo === '' || storeChildInfo.length === 0 || storeChildInfo === undefined) {
         storeChildInfo = []
     }
 
@@ -181,11 +182,11 @@ const PersonalDetails = () => {
             "maritalstatus": maritalStatus
         })
     }, [
-        firstName,
-        lastName,
-        dob,
-        maritalStatusOptions,
-        form
+        // firstName,
+        // lastName,
+        // dob,
+        // maritalStatusOptions,
+        // form
     ])
     const onChangeFirstName = (e) => {
         setFirstName(e.target.value)
@@ -309,9 +310,7 @@ const PersonalDetails = () => {
             render: () => <CloseCircleOutlined />
         },
     ]
-    useEffect(() => {
-        // console.log(childModel)
-    }, [storeChildInfo])
+   
 
     const formData = {
         ...storeFormData,
@@ -420,7 +419,7 @@ const PersonalDetails = () => {
                 >
                     <div className='form-container2'>
                     <LeadDetailsTab activeKey="1" />
-                        <Row className="m0a" gutter={[0, 30]} justify="center">
+                        <Row className="m0a" gutter={[0, 30]}>
                             
                             <Col className="form-body p40 " sm={24} md={16} lg={15} xl={15} span={23} offset={2}>
                                 <p className="form-title">Personal Details</p>

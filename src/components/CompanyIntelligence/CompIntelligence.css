@@ -1,0 +1,159 @@
+.kdmStyle .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #565656;
+    text-shadow: 0 0 0.25px currentcolor;
+}
+
+.kdmStyle .ant-tabs-large > .ant-tabs-nav .ant-tabs-tab {
+    font-size: 14px;
+}
+
+.kdmStyle .ant-tabs-tab-active {
+    background-color: #e0e9f3;
+}
+
+.kdmStyle .ant-form-item-label > label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    height: 32px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 13px;
+}
+
+.kdmStyle .ant-btn .anticon.anticon-plus > svg {
+    shape-rendering: optimizespeed;
+    height: 18px;
+    width: 18px;
+}
+.kdmStyle .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane {
+    padding-left: 15px
+}
+
+.risk-add{
+    /* padding: 40px; */
+    border-radius: 7px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    height: 300px;
+    width: 385px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.risk-card-det{
+    border-radius: 7px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    height: 300px;
+    width: 385px;
+    margin-bottom: 20px;
+}
+.risk-profile{
+    height:60px;
+    width:60px;
+    background-color:#8ae1ec;
+    opacity: 0.4;
+    border-radius:50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.risk-profile-name{
+    color: #00acc1;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.kdmStyle .ant-divider {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    border-top: 2px solid rgba(0, 0, 0, 0.06);
+}
+
+.modalStyle .ant-modal-header {
+    padding: 16px 24px;
+    color: #fff;
+    background: #3a361d;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+}
+.modalStyle .ant-modal-title {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    word-wrap: break-word;
+}
+.modalStyle .ant-modal-close {
+    position: absolute;
+    top: -3;
+    right: 0;
+    z-index: 10;
+    padding: 0;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.cancelBtn {
+    display:flex;
+    flex:1;
+    align-items:center;
+    justify-content:center;
+    /* border-radius:5; */
+    border:1px solid #3a361d
+}
+
+.submitBtn {
+    display:flex;
+    flex:1;
+    align-items:center;
+    justify-content:center;
+    /* border-radius:5; */
+    color:#ffff;
+    background-color:#3a361d;
+    margin-left: 10px;
+}
+.ant-btn-lg {
+    height: 40px;
+    padding: 6.4px 15px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+/* .modalStyle .ant-modal {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    pointer-events: none;
+    position: relative;
+    top: 100px;
+    width: 700px;
+    max-width: calc(100vw - 32px);
+    margin: 0 auto;
+    padding-bottom: 24px;
+} */

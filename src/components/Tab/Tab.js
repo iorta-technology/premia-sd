@@ -43,10 +43,7 @@ const Tab = ({
   current,
   filterdata,
 }) => {
-  // console.log("tabMenu*****Data", tabMenu);
   const currentLocation = useLocation();
-  // console.log("YE ARAR", props)
-
   // console.log('************************ current ___ *********************===========>>>',current)
 
   const dispatch = useDispatch();
@@ -70,16 +67,10 @@ const Tab = ({
     if (header === "Lead")  getDataForOpen(leadTabFilter);
   }, [current])
 
-  // useEffect(() => {
-    
-  //   if (header === "Lead") getDataForOpen("all");
-  // }, []);
-
   // ************************Api *********************
 
   const getDataForOpen = async (leadInc) => {
     setLeadTabFilter(leadInc)
-    // let leadtyp = leadInc;
     const { id } = stoageGetter("user");
     // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
     let _pageNo = current === undefined || current === null ? 1 : current
@@ -87,53 +78,10 @@ const Tab = ({
       dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
     } else {
       const teamId = stoageGetter("teamMemberId");
-      console.warn("teamId______===========>>>", teamId);
+      // console.warn("teamId______===========>>>", teamId);
       dispatch(actions.fetchAllLeads(teamId === null || teamId === undefined ? id :  teamId, leadInc, _pageNo));
     }
-
-    // const response = await getOpenTabApi(id, leadtyp);
-    // if (response?.data?.errCode == -1) {
-    //   if (response?.data?.errMsg) {
-    //     dispatch(
-    //       actions.fetchAllLeadsSuccess(
-    //         response?.data?.errMsg[0],
-    //         response?.data?.errMsg[1][0]?.count
-    //       )
-    //     );
-    //   }
-    // } else {
-    //   dispatch(actions.fetchAllLeadsSuccess([], 0));
-    //   throw response?.data?.errMsg;
-    // }
   };
-
-  // const getAlldataofTeamMainTab = async () => {
-  //   const response = await getTeamMainTabApi();
-  //   if (response?.data?.errCode == -1) {
-  //     if (response?.data?.errMsg) {
-  //       // setAllData(response?.data?.errMsg[0])
-  //       dispatch(
-  //         actions.fetchAllLeadsSuccess(
-  //           response?.data?.errMsg[0],
-  //           response?.data?.errMsg[1][0]?.count
-  //         )
-  //       );
-  //     }
-  //   } else {
-  //     dispatch(actions.fetchAllLeadsSuccess([], 0));
-  //     throw response?.data?.errMsg;
-  //     // dispatch(fetchAllLeadsFail(error))
-  //   }
-  //   // const response2 = await getFirstDropdownValueApi()
-  //   // const response3 = await getSecondDropdownValueApi()
-  //   // const response4 = await getFormByIdApi("")
-  //   // console.log("response",response)
-  //   // console.log("response2",response2)
-  //   // console.log("response3",response3)
-  //   // console.log("response4",response4)
-  // };
-
-  // -****************************************
 
   const handler = (activeKey) => {
     console.log("activeKey------------->>>>>>>>", activeKey);
@@ -166,13 +114,13 @@ const Tab = ({
 
         case "1":
           return history.push("/leadmasterpage/statuslead");
-        // case '2':
-        //   return history.push('/leadmasterpage/leaddetails/personallead')
+        case '2':
+          return history.push('/company-intelligence')
         // case '3':
         //   return history.push('/leadmasterpage/proposal')
         // case '4':
         //   return history.push('/leadmasterpage/leadmasterdoc/leaddoc')
-        case "2":
+        case "3":
           return history.push("/leadmasterpage/leadhistory");
 
         case "calendar":
@@ -196,12 +144,6 @@ const Tab = ({
         case "lapsedrenewals":
           return history.push("/renewalMaster/lapsedRenewals");
 
-        // case "benefitillustrator": return history.push('/master/benefitillustrator');
-        // case "proposalfulfilment": return history.push('/master/proposalfulfilment');
-        // case "prepaymentreview": return history.push('/master/prepaymentreview');
-        // case "paymentoptions": return history.push('/master/paymentoptions');
-        // case "uploaddocuments": return history.push('/master/uploaddocuments');
-        // case "proposalhistory": return history.push('/master/proposalhistory');
         default:
           return history.push("/home");
       }
@@ -270,7 +212,7 @@ const Tab = ({
             </div>
           </div>
 
-          <div style={{ display: "flex" }}>
+          {/* <div style={{ display: "flex" }}>
             {tabPane.key === activeKey ? (
               <div className="round-card-main-Tab">
                 {checkAgent() === false && (
@@ -303,7 +245,6 @@ const Tab = ({
                         Self
                       </figcaption>{" "}
                     </figure>
-                    {/* <AllocateModalShow tabSelected={leadTabFilter} /> */}
                   </>
                 )}
                 <AllocateModalShow tabSelected={leadTabFilter} />
@@ -316,7 +257,7 @@ const Tab = ({
                 />
               </div>
             ) : null}
-          </div>
+          </div> */}
         </div>
       ) : (
         // FOR MOBILE WEB
@@ -407,35 +348,3 @@ const Tab = ({
 };
 
 export default Tab;
-/* <Tabs defaultActiveKey="1" tabBarGutter={10} style={style} centered={true} type="card">
-<TabPane tab={card} key="1"  style={gridStyle}>
-</TabPane>
-<TabPane tab="All leads" key="1"  >
-</TabPane>
-<TabPane tab="All leads" key="1"  >
-</TabPane>
-</Tabs>
-<Menu  mode="horizontal">
-<Menu.Item key="mail" style={gridStyle}>
-All leads
-</Menu.Item>
-<Menu.Item key="mail" style={gridStyle}>
-All leads
-</Menu.Item>
-<Menu.Item key="mail" >
-{card}
-</Menu.Item>
-</Menu> */
-
-// let card2 = <Card className="tab-pane">
-//                     Open
-//                     <Button type="primary" danger={true} shape="circle" size="small">
-//                         10
-//                     </Button>
-//                 </Card>
-//     let card3 = <Card className="tab-pane">
-//                     Failed
-//                     <Button type="primary" danger={true} shape="circle" size="small">
-//                         12
-//                     </Button>
-//                 </Card>

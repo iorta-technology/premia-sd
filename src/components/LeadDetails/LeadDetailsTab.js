@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Row, Col,Tabs } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './LeadDetailsTab.css'
+import PersonalDetails from './PersonalDetails/PersonalDetails';
 const style = {
     color:"#000",
     background:'#fff',
@@ -31,19 +32,19 @@ const LeadDetailsTab = (props) => {
         // console.log('history ___',history)
         // console.log('KEYSSSS___',key)
         // setactiveKey(key)
-        switch (key) {
-            case "1": return history.push('/leadmasterpage/leaddetails/personallead');
-            case "2": return history.push('/leadmasterpage/leaddetails/contactlead');
-            case "3": return history.push('/leadmasterpage/leaddetails/professionallead');
-            case "4": return history.push('/leadmasterpage/leaddetails/existinglead');
-            case "5": return history.push('/leadmasterpage/leaddetails/productlead');
-            default:  return history.push('/leadmasterpage/leaddetails/personallead');
-        }
+        // switch (key) {
+        //     case "1": return history.push('/leadmasterpage/leaddetails/personallead');
+        //     case "2": return history.push('/leadmasterpage/leaddetails/contactlead');
+        //     case "3": return history.push('/leadmasterpage/leaddetails/professionallead');
+        //     case "4": return history.push('/leadmasterpage/leaddetails/existinglead');
+        //     case "5": return history.push('/leadmasterpage/leaddetails/productlead');
+        //     default:  return history.push('/leadmasterpage/leaddetails/personallead');
+        // }
     }
 
     return (
         <>
-            <Col className="internal-tab"  xs={28} sm={24} md={4} lg={4} xl={4} offset={2}>
+            <Col className="internal-tab" offset={2}>
                 <Tabs
                     tabBarGutter={0}
                     tabPosition={width > breakpoint ? 'left' : 'top'}
@@ -52,8 +53,13 @@ const LeadDetailsTab = (props) => {
                     onTabClick={tabClick}
                     activeKey={props.activeKey}
                 >
-                    <TabPane key="1" tab="Personal Details" ></TabPane>
-                    <TabPane key="2" tab="Contact Details"></TabPane>
+                    <TabPane key="1" tab="Personal Details" >
+                        <div>
+                        <p>SALMAnSALMAnSALMAnSALMAnSALMAn</p>
+                        </div>
+                        {/* <PersonalDetails/> */}
+                    </TabPane>
+                    <TabPane key="2" tab="Contact Detail"></TabPane>
                     <TabPane key="3" tab="Professional Details"></TabPane>
                     <TabPane key="4" tab="Existing Insurance"></TabPane>
                     <TabPane key="5" tab="Proposed Product"></TabPane>

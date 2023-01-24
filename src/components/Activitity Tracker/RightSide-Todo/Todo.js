@@ -29,14 +29,14 @@ const Todo = () => {
     <div className='Todo-Container'>
         <div className='Todo-Top'>
             {/* <Typography>To Do</Typography> */}
-            <Title level={5} style={{color: '#545454'}}>To Do</Title>
+            <Title level={5} style={{color: '#545454',fontWeight:500}}>To Do List</Title>
             <div className='Todo-CreateBtn'>
-                <Typography>Create new Task</Typography>
+                {/* <Typography>Create new Task</Typography> */}
                 <PlusCircleFilled onClick={showModal}/>
                 <TodoTab getTodoData={ getTodo } button={'Create'} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
             </div>
         </div>
-        <div className='Todo-Button'>
+        {/* <div className='Todo-Button'>
           <div className='Todo-Button-Todo'>
             <button 
               className={isActive ? "active TodoButtons":"TodoButtons"}
@@ -57,14 +57,14 @@ const Todo = () => {
               Archive
             </button>
           </div>
-        </div>
+        </div> */}
         <div className='TodoCards'>
-          {
-            isActive ?
+          {/* {
+            isActive ? */}
             <TodoCards ref={childRef}/>
-            :
+            {/* :
             <Archive/>
-          }
+          } */}
         </div>
     </div>
   )

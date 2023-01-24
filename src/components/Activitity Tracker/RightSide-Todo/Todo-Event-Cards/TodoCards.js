@@ -39,7 +39,7 @@ const TodoCards = forwardRef((props, ref) => {
     const [remarkDataEnt,setRemarkDataEnt]=useState('');
 
     const showModal = (event,ind) => {
-        console.log('TODO__CARDD___DATA__',event)
+        // console.log('TODO__CARDD___DATA__',event)
         // setButtonName('Update')
         getTodoDataArray[ind].showarchiedpopup = false
         setUpdateData(event)
@@ -245,7 +245,7 @@ const TodoCards = forwardRef((props, ref) => {
                     taskId :_data[rowIndex].todoid,
                     owernersCollectionDetails:_teamMembers
                 }
-                console.warn('((((((((______ formdata REMOVEE___FALSEE _____))))))))------->>>',formdata);
+                // console.warn('((((((((______ formdata REMOVEE___FALSEE _____))))))))------->>>',formdata);
                 updateTODOTaskApi(formdata)
             }else{
                 let formdata = {
@@ -302,7 +302,7 @@ const TodoCards = forwardRef((props, ref) => {
     const updateTODOTaskApi = async (data) =>{
         setGetTodoDataArray([])
         let _resp = await axiosRequest.put(`user/update_task_status`,data, { secure: true })
-        console.log('UPDATE___RESPPP__',_resp)
+        // console.log('UPDATE___RESPPP__',_resp)
         getTodoData(0)
 
     };
@@ -379,7 +379,7 @@ const TodoCards = forwardRef((props, ref) => {
             
 
         })
-        console.log('_teamMembers _____________***>>',_teamMembers)
+        // console.log('_teamMembers _____________***>>',_teamMembers)
 
         let formdata={
             userId:loginUserID,
@@ -396,7 +396,7 @@ const TodoCards = forwardRef((props, ref) => {
             // console.log('DATATATATA____',element)
             return(
                 <div className='TodoCard-Container' key={index}>
-                    <div className='TodoCards-Top'>
+                    {/* <div className='TodoCards-Top'>
                         <div className='TodoCards-TimedateArchive' sm>
                             <Col className='TodoCards-TopClock'>
                                 <div className='todoCard-mr15'>
@@ -428,18 +428,14 @@ const TodoCards = forwardRef((props, ref) => {
                             </div>
                             
                         </div>
-                    </div>
+                    </div> */}
                     <div className='TodoCards-Body'>
-                            {/* <div className='TodoCard-Body-CheckBox'>
-                                <input type='checkbox'   onClick={(e)=>{Uncheck(element.taskOwner_id)}}/>
-                            </div> */}
-                            <div className='TodoCard-Body-CheckBox todoCard-mr15' onClick = {()=> removListFromToDo(element ,index)}>
-                                <img src={element.icon} className='archive-trueCheckBox' alt='trueCheckBox'/>
-                            </div>
-                            <p style={{textDecorationLine : element.textOverLine.textDecorationLine}} >{element.content}</p>
-                            {/* <p style={[{textDecorationLine : element.textOverLine.textDecorationLine}]} className={element.removeBtn ?"textDecoration":""}>{element.content}</p> */}
+                        <div className='TodoCard-Body-CheckBox todoCard-mr15' onClick = {()=> removListFromToDo(element ,index)}>
+                            <img src={element.icon} className='archive-trueCheckBox' alt='trueCheckBox'/>
+                        </div>
+                        <p style={{textDecorationLine : element.textOverLine.textDecorationLine}} >{element.content}</p>
                     </div>
-                    <div className='Todo-Footer'>
+                    {/* <div className='Todo-Footer'>
                         <p style={{textTransform: 'capitalize',fontWeight:'bolder'}}>{element.ownername}</p>
                         <button style={{textTransform: 'capitalize',backgroundColor:element.priorityIndicatorColor}}>{element.taskPriority}</button>
                        {element.searchdata.length !== 0 &&
@@ -447,14 +443,13 @@ const TodoCards = forwardRef((props, ref) => {
                        }
 
                     
-                    </div>
-                    <div style={{backgroundColor:'#C1C8CC',height:1}}></div>
-                        { element.showMemberRemark === true &&
+                    </div> */}
+                    {/* <div style={{backgroundColor:'#C1C8CC',height:1}}></div> */}
+                        {/* { element.showMemberRemark === true &&
                             <>
                             { element.searchdata.map((data,ind) =>{
                                 return(
                                     <div>
-                                        {/* {console.log('TASKKKKKKK OWNEERR',element.taskOwner_id ,'ORGI---->>',loginUserID)} */}
                                         { element.taskOwner_id === loginUserID ?
                                             <div className="TodoCard-Footer">
                                                 <div className='TodoCard-Footer-Main'>
@@ -503,7 +498,7 @@ const TodoCards = forwardRef((props, ref) => {
                             })
                             }
                             </>
-                        }
+                        } */}
                 </div>
             )
     

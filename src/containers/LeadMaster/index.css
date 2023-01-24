@@ -1,7 +1,10 @@
 .page-holder{
-    margin: 2rem 0rem;
-    text-align: end;
+    /* margin: 2rem 0rem; */
+    /* text-align: end; */
     margin-right: 50px;
+    position: absolute;
+    right: 10px;
+    top: 192px;
 }
 
 .page-holder>ul>.ant-pagination-item a{

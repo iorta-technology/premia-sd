@@ -40,6 +40,8 @@ const LeadMaster = (props) => {
 
   //Accessing LeadCard data  from store
   const leadsData = useSelector((state) => state.leads.allLeads);
+  const _leadCount = useSelector((state) => state?.home?.home_obj);
+  // console.warn("_leadCount ----------------->>>>>", _leadCount);
   //Loading leads data
   const leadDataLoading = useSelector(
     (state) => state.leads.fetch_allLeads_Loading
@@ -97,23 +99,23 @@ const LeadMaster = (props) => {
   const tabMenu = [
     {
       id: "all",
-      value: "All",
+      value: "All" + " ("+_leadCount.all_lead+")",
     },
     {
       id: "fortoday",
-      value: "For Today",
+      value: "For Today" + " ("+_leadCount.today+")",
     },
     {
       id: "open",
-      value: "Open",
+      value: "Open" + " ("+_leadCount.open_lead+")",
     },
     {
       id: "converted",
-      value: "Converted",
+      value: "Converted" + " ("+_leadCount.converted+")",
     },
     {
       id: "failed",
-      value: "Failed",
+      value: "Failed" + " ("+_leadCount.failed+")",
     },
   ];
   // console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
@@ -122,7 +124,7 @@ const LeadMaster = (props) => {
       <Tab tabMenu={tabMenu} header="Lead" current={current} />
 
       <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
-      <div className="page-holder Pagination-Mapbranch">
+      <div className="page-holder">
         <Pagination
           responsive
           current={current}

@@ -1,7 +1,8 @@
 .EventCreate-dateChange{
     display: flex;
     justify-content: space-between;
-    margin:30px 0 ;
+    /* margin:30px 0 ; */
+    margin-bottom: 30px;
     text-align: center;
 }
 .EventCreate-dateChange div{
@@ -31,8 +32,8 @@
         display: flex;
     }
     .EventCreate-Right p{
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 22px;
+        /* font-weight: bold; */
         margin: 0 5px;
     }
 }

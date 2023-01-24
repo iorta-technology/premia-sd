@@ -30,7 +30,7 @@ import needhelp_img from "../../assets/needhelp.png";
 import all_clear_img from "../../assets/MaterialUiIcons/notifications_grey_192x192.png";
 
 const Nav = styled.div`
-  background: #15171c;
+  background: #3b371e;
   height: 60px;
   display: flex;
   justify-content: flex-end;
@@ -216,7 +216,7 @@ const Sidebar = () => {
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
-          <div style={{ display: "flex", flex: 1 }}>
+          {/* <div style={{ display: "flex", flex: 1 }}>
             <NavIcon to="#">
               {headerName !== "Home" && (
                 <FaIcons.FaArrowLeft onClick={() => routeBack()} />
@@ -232,8 +232,8 @@ const Sidebar = () => {
                 {headerName}
               </p>
             </NavIcon>
-          </div>
-          <div style={{ display: "flex", flex: 1 }}>
+          </div> */}
+          <div >
             <img
               onClick={() => {
                 history.push("/home");
@@ -250,7 +250,7 @@ const Sidebar = () => {
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
 
           <div style={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <NavIcon to="#">
+            <NavIcon style={{ marginRight: 15 }} to="#">
               <FaIcons.FaBell onClick={() => toggleModalBox()} />
               {_notify?.length &&
               _notify?.length > 0 &&
@@ -259,8 +259,13 @@ const Sidebar = () => {
                 <div className="dot"></div>
               ) : null}
             </NavIcon>
-            <NavIcon style={{ marginLeft: 25 }} onClick={showSidebar} to="#">
-              <FaIcons.FaUserCircle />
+            <div style={{height:40,width:0.5,backgroundColor:'#ccc',marginTop:19}}></div>
+            <NavIcon style={{ marginLeft: 15 }} onClick={showSidebar} to="#">
+              <FaIcons.FaUserCircle style={{height:30,width:30}} />
+              <div style={{marginLeft:10}}>
+                <p style={{marginBottom:0,color:'#fff',fontSize:14}}>{logged_in_user}</p>
+                <p style={{marginBottom:0,marginTop:-4,color:'#fff',fontSize:10}}>Agent ID: {agent_id}</p>
+              </div>
             </NavIcon>
           </div>
         </Nav>

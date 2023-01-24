@@ -102,7 +102,7 @@ const Self = () => {
               :""
             }
         </div>
-        <div className='upcoming'>
+        {/* <div className='upcoming'>
           {
               (month == (1+new Date().getMonth()) && year == (new Date().getFullYear()))
               ?
@@ -115,7 +115,7 @@ const Self = () => {
                 :
                 <p>PAST</p>
           }
-        </div>
+        </div> */}
         <DataField SelfMonthYear = {month +'/'+ year}
           history={CurentOrPast}
           SelfHere='self'

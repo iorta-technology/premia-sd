@@ -49,12 +49,12 @@ const formItemLayout = {
 const tabMenu = [
   {
     id: 1,
-    value: "Status",
+    value: "Opportunity Details",
   },
-  // {
-  //   id: 2,
-  //   value: "Lead Details"
-  // },
+  {
+    id: 2,
+    value: "Company Intelligence"
+  },
   // {
   //   id: 3,
   //   value: "Proposal Details"
@@ -64,7 +64,7 @@ const tabMenu = [
   //   value: "Documents Upload"
   // },
   {
-    id: 2,
+    id: 3,
     value: "History",
   },
 ];
@@ -1597,35 +1597,8 @@ const NewLead = React.memo((props) => {
 
       <div className="form-container">
         <Form
-          // layout="horizontal"
-          // className="contact-detail-form"
-          // validateMessages={validateMessages}
-          // scrollToFirstError
           form={form}
-          // help={errorMessage}
           onFinish={submitHandler}
-          // onFinishFailedFucn={failedHandler}
-          // ref={formRef}
-          // initialValues={{
-          //   "firstname": firstName,
-          //   "lastname": lastName,
-          //   "email": email,
-
-          //   "phone": primaryNo,
-          //   "state": stateProvince,
-          //   "city": cityProvince,
-          //   "leadType": leadType,
-          //   "product": product,
-          //   "insuranceCompany": insuranceCompany,
-          //   "appointmentDate": appointmentDate,
-          //   "appointmentTime": appointmentTime,
-          //   "remarksfromsource": remarkFromSource,
-          //   "remarksfromuser": remarkFromUser,
-          //   "reminder": reminder,
-          //   "leadStatus": leadStatusData,
-          //   "appointmentStatus": ['newappointment', 'newApptmnt']
-          // }}
-          // onFinishFailed={onFinishFailedFucn}
         >
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}>
             <Col
@@ -1638,7 +1611,7 @@ const NewLead = React.memo((props) => {
               span={23}
               offset={width > breakpoint ? 2 : 0}
             >
-              <p className="form-title">Contact Details</p>
+              <p className="form-title">Company Details</p>
               <Row gutter={16} className="mb-2 statsLead">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item

@@ -157,12 +157,9 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
     <div className="PastFuture">
       {Self ? (
         <div className="pastEvent">
-          <span style={{ padding: "0px" }}>
-            Past Date
-            <span className="pastEventChange">Show</span>
-            {pastData?.length == 0 ? '0' : teampastData?.length == 0 ? '0' : pastDataln ? pastDataln : teamPast }
-            {/* {console.log(pastDataln,'past data--len--<<<<')} */}
-            <span className="pastEventChange">Events from past</span>
+          <span style={{ padding: "0px" }}>AM
+            {/* {pastData?.length == 0 ? '0' : teampastData?.length == 0 ? '0' : pastDataln ? pastDataln : teamPast } */}
+            <span className="pastEventChange">(Till 11:59 am)</span>
           </span>
         </div>
       ) : (
@@ -170,7 +167,7 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
       )}
 
         {/* {console.log(pastData?.length, ' circle plus-->')} */}
-      {pastData?.length == 0 || teampastData?.length == 0 ?  "" : (Team ?
+      {/* {pastData?.length == 0 || teampastData?.length == 0 ?  "" : (Team ?
         Self ? (
           <PlusCircleFilled
             style={{ fontSize: "20px", marginRight: "7px", marginTop : 5 }}
@@ -190,10 +187,10 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
           ""
         )
       ) 
-      }
+      } */}
 
 
-      {pastData?.length == 0 || teampastData?.length == 0 ?  "" : (Team == false ? (
+      {/* {pastData?.length == 0 || teampastData?.length == 0 ?  "" : (Team == false ? (
         Teamdata ? (
           <PlusCircleFilled
             style={{ fontSize: "20px", marginRight: "7px",marginTop : 5 }}
@@ -214,7 +211,7 @@ const Index = ({ Remove, CurentOrPast, pastData, teamPast,pastDataln,teampastDat
         ""
       )
       )
-    }
+    } */}
 
   
     </div>

@@ -201,6 +201,10 @@ const TodoMobile = React.lazy(() =>
   import("./components/Activitity Tracker/TodoMobile")
 );
 
+const CompIntelligence = React.lazy(() =>
+  import("./components/CompanyIntelligence/CompIntelligence")
+);
+
 function App() {
   // const logindata = stoageGetter('user')
   // if(!logindata){
@@ -247,7 +251,7 @@ function App() {
               ></Route>
               <div>
                 <Sidebar />
-                <div style={{ marginTop: "70px" }}>
+                <div >
                   <Route path="/clubsMaster" component={ClubsMaster}></Route>
                   <Route path="/birthday" component={Birthday}></Route>
                   <Route path="/home" component={HomePage}></Route>
@@ -391,6 +395,13 @@ function App() {
                     path="/leadmasterpage/leaddetails/personallead"
                     component={PersonalDetails}
                   ></Route>
+
+                  <Route
+                    path="/company-intelligence"
+                    component={CompIntelligence}
+                  ></Route>
+
+
                   <Route
                     path="/leadmasterpage/leaddetails/contactlead"
                     component={ContactDetails}

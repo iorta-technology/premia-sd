@@ -18,24 +18,24 @@ const { Step } = Steps;
 let historyRoute = "/leadmasterpage/leadhistorymaster/leadhistory"
 const tabMenu = [
     {
-        id: 1,
-        value: "Status",
+    id: 1,
+    value: "Opportunity Details",
+    },
+    {
+    id: 2,
+    value: "Company Intelligence"
     },
     // {
-    //     id: 2,
-    //     value: "Lead Details"
+    //   id: 3,
+    //   value: "Proposal Details"
     // },
     // {
-    //     id: 3,
-    //     value: "Proposal Details"
-    // },
-    // {
-    //     id: 4,
-    //     value: "Documents Upload"
+    //   id: 4,
+    //   value: "Documents Upload"
     // },
     {
-        id: 2,
-        value: "History"
+    id: 3,
+    value: "History",
     },
 
 ]
@@ -153,7 +153,7 @@ return (
             tabMenu={tabMenu}
             header="New Lead"
             detailsRouteTab={historyRoute}
-            activeKey="2"
+            activeKey="3"
 
         />
         <div className="form-container">

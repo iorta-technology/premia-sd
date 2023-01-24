@@ -89,6 +89,10 @@ const App = () => {
             <Card>
               <Todo />
             </Card>
+
+            <Card style={{marginTop:20}}>
+              <Todo />
+            </Card>
           </Col>
         )}
       </Row>

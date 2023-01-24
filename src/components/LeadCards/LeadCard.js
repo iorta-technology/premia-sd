@@ -157,31 +157,27 @@ const LeadCard = React.memo((props) => {
           <div className="avatar-and-status">
             <Avatar
               style={{
-                paddingTop: "-40px",
-                lineHeight: "none",
-                backgroundColor: getRandomColor(),
+                // paddingTop: "-40px",
+                // lineHeight: "none",
+                backgroundColor: '#d8d8d8',
               }}
               size={{ xl: 50 }}
             >
               {nameShorter(leadName)}
             </Avatar>
-            {/* <div style={{ display: 'flex' }}>{leadStatus === "newleadentery" ? <div style={{ fontSize: '10px' }}>NEW<div>LEADENTRY</div></div> : leadStatus}</div> */}
-            {leadComponent}
+            {/* {leadComponent} */}
+
+            <div className="content-header">
+              <p className="user-name-text capitalize">{leadName}</p>
+              <span className="user-id uppercase">{lead_Id}</span>
+              {/* <a href={`tel:${primaryMobile}`}></a> */}
+              {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
+            </div>
           </div>
-          {/* <Avatar style={{paddingTop:'-40px',lineHeight:'none' }} size={{ xl: 50 }}>
-            {avatar}
-          </Avatar> */}
-          {/* <div style={{display:'flex'}}>{leadStatus === "newleadentery"? <div style={{fontSize:'10px'}}>NEW<div>LEADENTRY</div></div> : leadStatus}</div> */}
-          {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
-          {/* {leadComponent} */}
+         
         </div>
         <div className="content" style={{ flex: 1 }}>
-          <div className="content-header">
-            <p className="user-name-text capitalize">{leadName}</p>
-            <span className="user-id uppercase">{lead_Id}</span>
-            <a href={`tel:${primaryMobile}`}></a>
-            {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
-          </div>
+          
           <hr
             style={{
               margin: "3px 0px 4px 0px",
@@ -192,7 +188,7 @@ const LeadCard = React.memo((props) => {
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div
               className="content-body Datainfo-Main-Container"
-              style={{ flex: 1 }}
+              style={{ flex: 3 }}
             >
               <div className="Dateinfo-Container">
                 <div className="grid-style">
@@ -226,8 +222,8 @@ const LeadCard = React.memo((props) => {
                 </div>
               </div>
             </div>
-            <div style={{ display: "flex" }}>
-              <button className="update-btn" onClick={() => updateHandler(id)}>
+            <div style={{ display: "flex",flex:1 }}>
+              <button type="primary" className="update-btn" onClick={() => updateHandler(id)}>
                 Update
               </button>
             </div>
