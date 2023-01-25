@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, createRef } from "react";
 import useInput from "../hooks/use-input";
 import "./StatusLead.css";
@@ -73,7 +72,7 @@ const tabMenu = [
   },
   {
     id: 2,
-    value: "Company Intelligence"
+    value: "Company Intelligence",
   },
   // {
   //   id: 3,
@@ -94,9 +93,16 @@ const isNumberValid = (value) => value.trim() !== "" && value.length === 10;
 
 const NewLead = React.memo((props) => {
   const [collaborators, setCollaborators] = useState([]);
-  const addCollaborators = (e) => {
-    alert(e.targer.value);
-    setCollaborators((res) => [...res, e.target.value]);
+  const [remark, setRemark] = useState([]);
+  const [remarkVal, setRemarkVal] = useState("");
+  const [collaboratorsVal, setCollaboratorsVal] = useState("");
+
+  const addCollaborators = () => {
+    setCollaborators((res) => [...res, collaboratorsVal]);
+  };
+
+  const addRemarks = () => {
+    setRemark((res) => [...res, remarkVal]);
   };
 
   // let formRef = createRef();
@@ -759,9 +765,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -786,9 +789,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -827,47 +827,13 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
                       value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
                     ></Select>
                   </Form.Item>
                 </Col>
-                {/* New Fields added on 9 Dec Below ↓ */}
-
-                {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="age"
-                    label="Age"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Age is required",
-                      },
-                      {
-                        message: "Only Numbers are allowed",
-                        pattern: new RegExp("^[0-9]*$"),
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Input
-                      className="phone-no "
-                      size="large"
-                      placeholder="Enter Age"
-                      maxLength="10"
-                      value={leadAge}
-                      onChange={(item) => leadAgeHandler(item)}
-                    />
-                  </Form.Item>
-                </Col> */}
               </Row>
             </Col>
             <Col
@@ -924,7 +890,7 @@ const NewLead = React.memo((props) => {
                       <Row className="d-flex justify-content-start align-items-center">
                         <Col span={8}>
                           <div className="event_box">
-                            <h2 className="d-flex align-items-center">
+                            <h2 className="d-flex align-items-center mb-1">
                               <CalendarOutlined style={{ marginRight: 5 }} />{" "}
                               Events
                             </h2>
@@ -936,7 +902,7 @@ const NewLead = React.memo((props) => {
                         </Col>
                         <Col span={16}>
                           <div className="todo_box">
-                            <h2 className="d-flex align-items-center">
+                            <h2 className="d-flex align-items-center mb-1">
                               <FileDoneOutlined style={{ marginRight: 5 }} /> To
                               Do
                             </h2>
@@ -985,9 +951,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -1012,9 +975,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -1091,9 +1051,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -1118,9 +1075,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -1145,9 +1099,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -1173,9 +1124,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -1199,9 +1147,6 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
@@ -1225,7 +1170,7 @@ const NewLead = React.memo((props) => {
             >
               <p className="form-title">Opportunities Status</p>
               <Row gutter={16} className="mb-2 statsLead">
-                <Col span={24} className="d-flex align-items-center">
+                <Col span={18} className="d-flex align-items-center">
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color w-100"
@@ -1243,8 +1188,8 @@ const NewLead = React.memo((props) => {
                       className="phone-no"
                       size="large"
                       placeholder="Enter"
-                      value={leadAge}
-                      // onChange={(item) => leadAgeHandler(item)}
+                      value={collaboratorsVal}
+                      onChange={(e) => setCollaboratorsVal(e.target.value)}
                     />
                   </Form.Item>
                   <Button
@@ -1255,20 +1200,27 @@ const NewLead = React.memo((props) => {
                       alignItems: "center",
                       height: "40px",
                       marginTop: "17px",
+                      marginLeft: 10,
                     }}
                     icon={<PlusOutlined />}
                     htmlType="submit"
-                    onClick={() => addCollaborators}
+                    onClick={addCollaborators}
                   >
                     ADD
                   </Button>
                 </Col>
-                <Col>
+                <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
-                    {collaborators.map((res) => (
-                      <div className="add_collaborators_items shadow-sm">
+                    {collaborators.map((res, index) => (
+                      <div
+                        key={index}
+                        className="add_collaborators_items shadow-sm"
+                      >
                         {res + " "}
                         <CloseOutlined
+                          onClick={() =>
+                            setCollaborators((res) => res.splice(index, 1))
+                          }
                           style={{ marginLeft: 10, fontWeight: "bolder" }}
                         />
                       </div>
@@ -1294,8 +1246,8 @@ const NewLead = React.memo((props) => {
                       className="phone-no"
                       size="large"
                       placeholder="Enter"
-                      value={leadAge}
-                      // onChange={(item) => leadAgeHandler(item)}
+                      value={remarkVal}
+                      onChange={(e) => setRemarkVal(e.target.value)}
                     />
                   </Form.Item>
                   <Button
@@ -1306,9 +1258,11 @@ const NewLead = React.memo((props) => {
                       alignItems: "center",
                       height: "40px",
                       marginTop: "17px",
+                      marginLeft: 10,
                     }}
                     icon={<PlusOutlined />}
                     htmlType="submit"
+                    onClick={addRemarks}
                   >
                     ADD
                   </Button>
@@ -1318,30 +1272,20 @@ const NewLead = React.memo((props) => {
                   className="post mt-3 w-100"
                   style={{ fontSize: "smaller" }}
                 >
-                  <div className="d-flex justify-content-start mb-3 p-2">
-                    <div className="me-3">15:03 03/01/2023</div>
-                    <div>
+                  {remark.map((res, index) => (
+                    <div
+                      key={index}
+                      className="d-flex justify-content-start w-100 mb-3 p-2 remarks_bg"
+                    >
+                      <div className="me-3">15:03 03/01/2023</div>
                       <div>
-                        This account may see challenges in handling the KDMs
-                        objections, especially the CFO
-                      </div>
-                      <div>
-                        <i>by Amey Jaini</i>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-start w-100 mb-3 p-2">
-                    <div className="me-3">15:03 03/01/2023</div>
-                    <div>
-                      <div>
-                        This account may see challenges in handling the KDMs
-                        objections, especially the CFO
-                      </div>
-                      <div>
-                        <i>by Amey Jaini</i>
+                        <div>{res}</div>
+                        <div>
+                          <i>by Amey Jaini</i>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </Col>
               </Row>
             </Col>

@@ -118,7 +118,7 @@ const DocUpload = () => {
       >
         <p className="form-title">Document Upload</p>
         <Row gutter={16} className="mb-2 statsLead kdmStyle">
-          <Col xs={24} sm={12} md={24} lg={12} xl={8}>
+          <Col span={12}>
             <Form.Item
               {...formItemLayout}
               className="form-item-name label-color"
@@ -172,7 +172,7 @@ const DocUpload = () => {
             </Form.Item>
           </Col>
         </Row>
-        <div className="m-4 upload_list shadow-sm">
+        <div className="upload_list shadow-sm">
           {fileData && fileData.length > 0 && (
             <div className="row px-3 py-2 head">
               <div className="col-2">Image</div>
