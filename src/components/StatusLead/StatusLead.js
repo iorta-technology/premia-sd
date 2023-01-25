@@ -1632,7 +1632,7 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Input
-                      className="first-name input-box "
+                      // className="first-name input-box "
                       size="large"
                       placeholder="Enter First Name"
                       value={firstName}

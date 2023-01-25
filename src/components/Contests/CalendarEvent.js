@@ -4,7 +4,7 @@ import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import './CalendarEvent.css';
-import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag, Space, message, AutoComplete } from 'antd';
+import { TimePicker, Button, Modal, Card, Input, DatePicker, Alert ,Tag, Space, message, AutoComplete,Col } from 'antd';
 import { CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
@@ -17,7 +17,7 @@ import Form from "antd/lib/form/Form";
 import Item from "antd/lib/list/Item";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index';
-const { Search } = Input;
+const { Search ,TextArea } = Input;
 
 let dateFormat = 'YYYY/MM/DD';
 
@@ -37,6 +37,11 @@ export default function CalendarEvent(props) {
   const [appointmenttypes, setAppointmentType] = useState('New Proposition Meeting')
   const [clientvisit, setclientVisit] = useState('')
   const [duration, setDuration] = useState('')
+  const [stakeholdrName, setStakeholdrName] = useState('')
+  const [timelineDateData, setTimelineDateData] = useState('')
+  const [eventAgenda, setEventAgenda] = useState('')
+  
+  
   const [durationButton, setDurationButton] = useState({
     select_time: true,
     all_day: false
@@ -844,6 +849,11 @@ export default function CalendarEvent(props) {
   const AddManuallyFunc=()=>{
     setAddManuallyButtonCheck(true)
   }
+
+  
+  const onChangeTimelineDate = (date, dateString) => {
+    setTimelineDateData(dateString)
+  }
   // const[customerLastNameText,setCustomerLastNameText]=useState("");
   const CustomerNameFunc = (e) => {
 
@@ -866,6 +876,10 @@ export default function CalendarEvent(props) {
       event.target.value.match(letters) ? setCustLastNamevalid(false) : setCustLastNamevalid(true)
       if(event.target.value === '') setCustLastNamevalid(false)
     }
+
+  const onChangeAgenda = (e) => {
+    setEventAgenda(e.target.value)
+  }
   
   const CustomerMobileNoFunc = (e) => {
     
@@ -2501,7 +2515,7 @@ export default function CalendarEvent(props) {
           title={
             updateEventCheck==true?"Update Event":
            
-               <div style={{fontWeight:"bold",fontSize:'16px', }}>{props.click =="UPDATE EVENT"?"UPDATE EVENT":"CREATE EVENT"}</div>
+               <div style={{fontWeight:"500",fontSize:'16px',color:'#fff' }}>{props.click =="UPDATE EVENT"?"Update An Event":"Create An Event"}</div>
             } visible={props.isModalVisible} onOk={handleOk}
           closable={durationDateAlert == true || durationTimeAlert == true ? false : true}
           onCancel={handleCancel}
@@ -2520,27 +2534,17 @@ export default function CalendarEvent(props) {
             // className={prospectCollection.first_meeting == true && prospectCheck == true ? "CalendarEvent-Modal-Card-height" : "CalendarEvent-Modal-Card-style"}
         className="CalendarEvent-Modal-Card-style"
         > */}
-            <div
-              className="CalendarEvent-Modal-Card-content"
-            >
-              <h4
+            <div className="CalendarEvent-Modal-Card-content">
+              {/* <h4
                 className="CalendarEvent-Modal-Card-header-type"
               >Event With</h4>
-              <div
-                className="CalendarEvent-Modal-Card-button-flex"
-              >
+              <div className="CalendarEvent-Modal-Card-button-flex">
 
                 <button
-                disabled={updateEventCheck==true?true:false}
+                  disabled={updateEventCheck==true?true:false}
                   onClick={checkTeamMemberFunc}
                   className={advisorCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                 >New Prospect</button>
-                {/* <button
-                  disabled={updateEventCheck==true?true:false}
-                  onClick={checkProspectFunc}
-                  className={prospectCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
-                >Prospect</button> */}
-
               
                 <button
                   disabled={updateEventCheck==true?true:false}
@@ -2549,7 +2553,15 @@ export default function CalendarEvent(props) {
                   className={customerCheck == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
                 >Existing Lead</button>
                
-              </div>
+              </div> */}
+              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                 <p style={{marginBottom:5,color:'#646666'}}>Stakeholder Name</p>
+                  <Input
+                      placeholder="Enter Stakeholder Name"
+                      value={stakeholdrName}
+                      onChange={(item) => setStakeholdrName(item.target.value)}
+                  />
+              </Col>
               <div
                 className="CalendarEvent-Modal-Card-vertical-line"
               >
@@ -3023,7 +3035,7 @@ export default function CalendarEvent(props) {
                     >
                       <h4
                         className={prospectFirstNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
-                      >Prospect First Name *</h4>
+                      >Location</h4>
                       <input
                         value={prospectFirstNameText}
                         onChange={ProspectFirstNameFunc}
@@ -3150,7 +3162,7 @@ export default function CalendarEvent(props) {
                   <div className="CalendarEvent-Modal-datePicker-button-flex">
                     <div className="CalendarEvent-Modal-date-column-flex">
                       <h4 className={customerNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
-                      >Prospect First Name *</h4>
+                      >Location</h4>
                       <input
                         disabled={manualCustomerCheck==true?true:false}
                         value={customerNameText}
@@ -3158,16 +3170,18 @@ export default function CalendarEvent(props) {
                         onInput={prospectFirstNameValid}
                         className={customerNameCheck == false ? "CalendarEvent-Modal-empty-customer-textbox-style" : "CalendarEvent-Modal-customer-textbox-style"}
                         type="text"
-                        placeholder="Enter the Name"
+                        placeholder="Enter location"
                         required
                       />
                       {customerNameCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
                       {custFirstNamevalid == true ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Only Alphabets are Allowed</h4> : null}
                     </div>
+
+
                     <div className="CalendarEvent-Modal-date-column-flex">
                       <h4 className={custLastNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
-                      >Prospect Last Name *</h4>
-                      <input
+                      >Timeline</h4>
+                      {/* <input
                         disabled={manualCustomerCheck==true?true:false}
                         value={customerLastNameText}
                         onChange={CustLastNameFunc}
@@ -3176,16 +3190,30 @@ export default function CalendarEvent(props) {
                         type="text"
                         placeholder="Enter the Name"
                         required
+                      /> */}
+                      <DatePicker 
+                          onChange={onChangeTimelineDate} 
+                          value={timelineDateData}
+                          format="DD-MM-YYYY"
+                          className={"CalendarEvent-Modal-customer-textbox-style"}
                       />
                       
                       {custLastNameCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
                       {custLastNamevalid == true ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Only Alphabets are Allowed</h4> : null}
                     </div>
                   
-                    <div className="CalendarEvent-Modal-date-column-flex">
+                    <div className="CalendarEvent-Modal-date-column-flex" style={{width:'100%'}}>
                       <h4 className={customerMobileNoCheck  == false || customermblvalid == false  ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
-                      >Mobile Number *</h4>
-                        <input
+                      >Agenda</h4>
+                        <input 
+                          value={eventAgenda}
+                          onChange={onChangeAgenda}
+                          placeholder="Enter Agenda"
+                          className={"CalendarEvent-Modal-customer-textbox-style"}
+                          style={{width:'98%'}}
+                          required
+                        />
+                        {/* <input
                         disabled={manualCustomerCheck==true?true:false}
                         value={customerMobileNoText}
                         onChange={CustomerMobileNoFunc}
@@ -3193,9 +3221,20 @@ export default function CalendarEvent(props) {
                         type="number"
                         placeholder="Enter the Mobile Number"
                         required
-                      />
-                      {customerMobileNoCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
-                      {customermblvalid == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Enter valid mobile no.</h4> : null}
+                      /> */}
+                      {/* {customerMobileNoCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
+                      {customermblvalid == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Enter valid mobile no.</h4> : null} */}
+                    </div>
+
+                    <div className="CalendarEvent-Modal-date-column-flex" style={{width:'100%'}}>
+                      <h4 className={customerMobileNoCheck  == false || customermblvalid == false  ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
+                      >Minutes of Meeting</h4>
+                        <TextArea 
+                          onChange={onChangeAgenda}
+                          className={"CalendarEvent-Modal-customer-textbox-style"}
+                          placeholder="Enter"
+                          style={{width:'98%'}} />
+                       
                     </div>
                   </div>
                  

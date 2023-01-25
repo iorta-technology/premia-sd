@@ -49,7 +49,7 @@ const App = () => {
       <Row style={{ color: "#f7f7f7", marginTop: "20px" }} justify="center">
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
-            {checkAgent() === false && 
+            {/* {checkAgent() === false && 
             <div className="CardBody" style={{ marginLeft: "-10px",display:'flex',flexDirection:'row' }}>
               <button
                 style={{ width:95,display:'flex',alignItems:'center',justifyContent:'center' }}
@@ -63,7 +63,7 @@ const App = () => {
                   className="person"
                   alt="person_png"
                 />
-                Self
+                Selfsss
               </button>
               <button
                 style={{ width: 95,display:'flex',alignItems:'center',justifyContent:'center' }}
@@ -80,17 +80,13 @@ const App = () => {
                 Team
               </button>
             </div>
-            }
+            } */}
             {TeamSelf ? <Self /> : <Team />}
           </Card>
         </Col>
         {windowWidth > breakpoint && (
           <Col xl={7} md={8} className="ActivityCalender-container-TodoCard">
             <Card>
-              <Todo />
-            </Card>
-
-            <Card style={{marginTop:20}}>
               <Todo />
             </Card>
           </Col>

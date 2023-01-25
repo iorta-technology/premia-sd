@@ -61,8 +61,8 @@ const Tab = ({
 
   useEffect(() => {
 
-    // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
-    console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
+    console.log('************************ header ___*(*(*((**)))) *********************===========>>>',header)
+    // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead")  getDataForOpen(leadTabFilter);
   }, [current])
@@ -129,21 +129,6 @@ const Tab = ({
         case "todo":
           return history.push("/todo");
 
-        case "advisorpitch":
-          return history.push("/masterpresales/advisordetail/advisorpitch");
-
-        case "customerpitch":
-          return history.push("/masterpresales/customerdetails/salespitch");
-
-        case "allrenewals":
-          return history.push("/renewalMaster/allRenewals");
-        case "paidrenewals":
-          return history.push("/renewalMaster/paidRenewals");
-        case "unpaidrenewals":
-          return history.push("/renewalMaster/unpaidRenewals");
-        case "lapsedrenewals":
-          return history.push("/renewalMaster/lapsedRenewals");
-
         default:
           return history.push("/home");
       }
@@ -190,7 +175,8 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        <div className="header-img-tabs tabsStyle">
+        // className="header-img-tabs header-img-height tabsStyle"
+        <div className={header === "Lead" ? 'header-img-tabs header-img-height tabsStyle' :'header-img-tabs tabsStyle'}>
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
@@ -211,7 +197,7 @@ const Tab = ({
               </Tabs>
             </div>
           </div>
-
+          {/* header === "Lead" */}
           {/* <div style={{ display: "flex" }}>
             {tabPane.key === activeKey ? (
               <div className="round-card-main-Tab">
@@ -280,7 +266,7 @@ const Tab = ({
               {tabPane}
             </Tabs>
           </div>
-          {header === "Lead" && (
+          {/* {header === "Lead" && (
             <div
               style={{
                 display: "flex",
@@ -328,7 +314,6 @@ const Tab = ({
                     />{" "}
                     Team
                   </button>
-                  {/* <AllocateModalShow tabSelected={leadTabFilter} /> */}
                 </>
               )}
               <AllocateModalShow tabSelected={leadTabFilter} />
@@ -340,7 +325,7 @@ const Tab = ({
                 tabFilter={leadTabFilter}
               />
             </div>
-          )}
+          )} */}
         </div>
       )}
     </>
