@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, createRef } from "react";
 import useInput from "../hooks/use-input";
 import "./StatusLead.css";
@@ -68,12 +69,12 @@ const formItemLayout = {
 const tabMenu = [
   {
     id: 1,
-    value: "Status",
+    value: "Opportunity Details",
   },
-  // {
-  //   id: 2,
-  //   value: "Lead Details"
-  // },
+  {
+    id: 2,
+    value: "Company Intelligence"
+  },
   // {
   //   id: 3,
   //   value: "Proposal Details"
@@ -83,7 +84,7 @@ const tabMenu = [
   //   value: "Documents Upload"
   // },
   {
-    id: 2,
+    id: 3,
     value: "History",
   },
 ];
@@ -731,9 +732,9 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={false}
-                      className="select-box"
-                      size="large"
+                      bordered={true}
+                      // className="select-box"
+                      // size="large"
                       placeholder="Select"
                       options={optionsData}
                       onSelect={stateSelectHandler}
