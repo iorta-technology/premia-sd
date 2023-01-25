@@ -26,6 +26,8 @@ import {
   DeleteOutlined,
   PlusOutlined,
   CloseOutlined,
+  CalendarOutlined,
+  FileDoneOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
@@ -40,6 +42,20 @@ import axiosRequest from "../../axios-request/request.methods";
 
 const minimumDate = moment().format("YYYY-MM-DD");
 const { Option } = Select;
+const optionsData = [
+  {
+    value: "jack",
+    label: "Jack",
+  },
+  {
+    value: "lucy",
+    label: "Lucy",
+  },
+  {
+    value: "disabled",
+    label: "Disabled",
+  },
+];
 const formItemLayout = {
   labelCol: {
     span: 24,
@@ -76,399 +92,11 @@ const isEmail = (value) => value.includes("@");
 const isNumberValid = (value) => value.trim() !== "" && value.length === 10;
 
 const NewLead = React.memo((props) => {
-  const appointmentOptions = [
-    {
-      value: "newappointment",
-      label: "New Appointment",
-      children: [
-        {
-          value: "newApptmnt",
-          label: "New Appointment",
-          children: [
-            {
-              value: "Untouched / Not updated Appointment",
-              label: "Untouched / Not updated Appointment",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "followup",
-      label: "Follow Up",
-      children: [
-        {
-          value: "metcustomer",
-          label: "Met Customer, in follow up for closure",
-          children: [
-            {
-              value: "Met Customer, in follow up for closure",
-              label: "Met Customer, in follow up for closure",
-            },
-          ],
-        },
-        {
-          value: "notmet",
-          label: "Not Met - Reschedule Appt",
-          children: [
-            {
-              value: "Customer agreed to meet at another time",
-              label: "Customer agreed to meet at another time",
-            },
-            {
-              value: "Not Met - Reschedule Appt as phone keeps on ringing",
-              label: "Not Met - Reschedule Appt as phone keeps on ringing",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "notintrested",
-      label: "Not Interested",
-      children: [
-        {
-          value: "apptDenies",
-          label: "Client denies giving appointment",
-          children: [
-            {
-              value: "Client denies giving appointment",
-              label: "Client denies giving appointment",
-            },
-          ],
-        },
-        {
-          value: "metFollowupNotIntrested",
-          label: "Met, followed up, then not interested",
-          children: [
-            {
-              value: "Met, followed up, then not interested",
-              label: "Met, followed up, then not interested",
-            },
-            {
-              value: "Bought policy from competition",
-              label: "Bought policy from competition",
-            },
-            {
-              value: "Wants to check options and buy online",
-              label: "Wants to check options and buy online",
-            },
-            {
-              value: "Lack of funds",
-              label: "Lack of funds",
-            },
-            {
-              value: "Interested in other investment tools",
-              label: "Interested in other investment tools",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "notavailable",
-      label: "Not Available",
-      children: [
-        {
-          value: "phoneNtAvailble",
-          label: "Phone not available always",
-          children: [
-            {
-              value: "Not reachable / no answer / switched off always",
-              label: "Not reachable / no answer / switched off always",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "wrngnumber",
-      label: "Wrong Number",
-      children: [
-        {
-          value: "Wrong_Number",
-          label: "Wrong Number",
-          children: [
-            {
-              value: "Wrong Number",
-              label: "Wrong Number",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "convertd",
-      label: "Converted",
-      children: [
-        {
-          value: "leadconverted",
-          label: "Convinced for a new policy",
-          children: [
-            {
-              value: "Successfully closed appt, Convinced for a new policy",
-              label: "Successfully closed appt, Convinced for a new policy",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "renewalcollected",
-      label: "Renewal Collected",
-      children: [
-        {
-          value: "ConvinceRenPay",
-          label: "Convinced for renewal payment",
-          children: [
-            {
-              value: "Successfully closed appt, Convinced for renewal payment",
-              label: "Successfully closed appt, Convinced for renewal payment",
-            },
-          ],
-        },
-      ],
-    },
-  ];
-  const setReminderOptions = [
-    { value: "5 minutes before", label: "5 minutes before" },
-    { value: "10 minutes before", label: "10 minutes before" },
-    { value: "15 minutes before", label: "15 minutes before" },
-    { value: "30 minutes before", label: "30 minutes before" },
-    { value: "1 hours before", label: "1 hours before" },
-    { value: "2 hours before", label: "2 hours before" },
-    { value: "1 day before", label: "1 day before" },
-    { value: "2 days before", label: "2 days before" },
-    { value: "1 week before", label: "1 week before" },
-  ];
-  const leadTypeOptions = [
-    // {
-    //   label: 'Select',
-    //   value: 'select'
-    // },
-    {
-      label: "New Business",
-      value: "NewBusiness",
-    },
-    {
-      label: "Renewal",
-      value: "Renewal",
-    },
-    {
-      label: "Cross Sell",
-      value: "CrossSell",
-    },
-  ];
-
-  const occupationOptions = [
-    // { label: 'Select',value: 'select'},
-    { label: "Businessman", value: "Businessman" },
-    { label: "Govt job", value: "Govt job" },
-    { label: "Private job", value: "Private job" },
-    { label: "Professional (Doctor etc)", value: "Professional (Doctor etc)" },
-    { label: "Others", value: "Others" },
-  ];
-  const vehicleOwnedOptions = [
-    // { label: 'Select',value: 'select'},
-    { label: "4 wheeler", value: "4 wheeler" },
-    { label: "2 wheeler", value: "2 wheeler" },
-    { label: "No", value: "No" },
-  ];
-  const sourceOfActivityOptions = [
-    // { label: 'Select',value: 'select'},
-    { label: "Petrol Pump", value: "Petrol Pump" },
-    { label: "Door to door", value: "Door to door" },
-    { label: "Mall", value: "Mall" },
-    { label: "School/Park/Temple", value: "School/Park/Temple" },
-    { label: "Others", value: "Others" },
-  ];
-  const insuranceCompanyOptions = [
-    // {
-    //   label: 'Select',
-    //   value: 'select'
-    // },
-    {
-      label: "TATA AIG General Insurance Company",
-      value: "TATA AIG General Insurance Company",
-    },
-
-    {
-      label: "ICICI Lombard Genral Insurance Company",
-      value: "ICICI Lombard Genral Insurance Company",
-    },
-
-    {
-      label: "ICICI Prudential Life Insurance Company",
-      value: "ICICI Prudential Life Insurance Company",
-    },
-    {
-      label: "Manipal Cigna Health Insurance Company",
-      value: "Manipal Cigna Health Insurance Company",
-    },
-    {
-      label: "Exide Life Insurance Company Limited",
-      value: "Exide Life Insurance Company Limited",
-    },
-  ];
-  const leadProductOptions = [
-    // {
-    //   label: 'Select',
-    //   value: 'select'
-    // },
-    {
-      label: "Health",
-      value: "Health",
-    },
-    {
-      label: "Motor",
-      value: "Motor",
-    },
-    {
-      label: "Travel",
-      value: "Travel",
-    },
-    {
-      label: "Personal Accident",
-      value: "Personal Accident",
-    },
-    {
-      label: "Term",
-      value: "Term",
-    },
-    {
-      label: "ULIP",
-      value: "ULIP",
-    },
-  ];
-  const appointmentTimeOptions = [
-    { label: "8:00 AM", value: "28800000" },
-    { label: "8:30 AM", value: "30600000" },
-    {
-      label: "9:00 AM",
-      value: "32400000",
-    },
-    {
-      label: "9:30 AM",
-      value: "34200000",
-    },
-    {
-      label: "10:00 AM",
-      value: "36000000",
-    },
-    {
-      label: "10:30 AM",
-      value: "37800000",
-    },
-    {
-      label: "11:00 AM",
-      value: "39600000",
-    },
-    {
-      label: "11:30 AM",
-      value: "41400000",
-    },
-    {
-      label: "12:00 PM",
-      value: "43200000",
-    },
-    {
-      label: "12:30 PM",
-      value: "45000000",
-    },
-    {
-      label: "1:00 PM",
-      value: "46800000",
-    },
-    {
-      label: "1:30 PM",
-      value: "48600000",
-    },
-    {
-      value: "50400000",
-      label: "2:00 PM",
-    },
-    {
-      label: "2:30 PM",
-      value: "52200000",
-    },
-    {
-      label: "3:00 PM",
-      value: "54000000",
-    },
-    {
-      label: "3:30 PM",
-      value: "55800000",
-    },
-    {
-      label: "4:00 PM",
-      value: "57600000",
-    },
-    {
-      label: "4:30 PM",
-      value: "59400000",
-    },
-    {
-      label: "5:00 PM",
-      value: "61200000",
-    },
-    {
-      label: "5:30 PM",
-      value: "63000000",
-    },
-    {
-      label: "6:00 PM",
-      value: "64800000",
-    },
-    {
-      label: "6:30 PM",
-      value: "66600000",
-    },
-    {
-      label: "7:00 PM",
-      value: "68400000",
-    },
-    {
-      label: "7:30 PM",
-      value: "70200000",
-    },
-    {
-      label: "8:00 PM",
-      value: "72000000",
-    },
-    {
-      label: "8:30 PM",
-      value: "73800000",
-    },
-    {
-      label: "9:00 PM",
-      value: "75600000",
-    },
-    {
-      label: "9:30 PM",
-      value: "77400000",
-    },
-  ];
-
-  const teamTableHeader = [
-    {
-      title: "Designation",
-      dataIndex: "designation",
-      key: "designation",
-    },
-    {
-      title: "Team Member's",
-      dataIndex: "teamName",
-      key: "teamName",
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
-      render: (_, record) => (
-        <DeleteOutlined onClick={() => deleteTableRow(record)} />
-      ),
-    },
-  ];
+  const [collaborators, setCollaborators] = useState([]);
+  const addCollaborators = (e) => {
+    alert(e.targer.value);
+    setCollaborators((res) => [...res, e.target.value]);
+  };
 
   // let formRef = createRef();
   const dispatch = useDispatch();
@@ -827,253 +455,6 @@ const NewLead = React.memo((props) => {
   const [changeOwnerLoading, setChangeOwnerLoading] = useState(false);
   // const [modalText, setModalText] = useState('Content of the modal');
 
-  const handleCancel = () => {
-    setDesigDataOwner("");
-    setTeamDataOwner("");
-    form.setFieldsValue({
-      "Select Owner Designation": "",
-      "Select Owner Team Member": "",
-    });
-    setOwnerArray([]);
-    setLeadOwner("");
-
-    setVisibleChangeOwnerModel(false);
-  };
-
-  const leadOptions = [
-    {
-      value: "newleadentery",
-      label: "New Lead Entry",
-      // disabled: !isNewLead
-    },
-    {
-      value: "nocontact",
-      label: "No Contact",
-      children: [
-        {
-          value: "notreachable",
-          label: "Not Reachable",
-          children: [
-            {
-              value: "Not reachable",
-              label: "Not reachable",
-            },
-          ],
-        },
-        {
-          value: "ringingbusy",
-          label: "Ringing Busy",
-          children: [
-            {
-              value: "Ringing Busy",
-              label: "Ringing Busy",
-            },
-          ],
-        },
-        {
-          value: "wrongnumber",
-          label: "Wrong Number",
-          children: [
-            {
-              value: "Wrong number",
-              label: "Wrong number",
-            },
-          ],
-        },
-        {
-          value: "invalid",
-          label: "Invalid Number",
-          children: [
-            {
-              value: "Invalid Number",
-              label: "Invalid Number",
-            },
-          ],
-        },
-        {
-          value: "switchoff",
-          label: "Switched off",
-          children: [
-            {
-              value: "Switched off",
-              label: "Switched off",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "contact",
-      label: "Contact",
-      children: [
-        {
-          value: "appointment",
-          label: "Appointment",
-          isSelected: true,
-          children: [
-            {
-              value: "Client has given appointment",
-              label: "Client has given appointment",
-            },
-          ],
-        },
-        {
-          value: "callback",
-          label: "Callback",
-          isSelected: false,
-          children: [
-            {
-              value: "Asked to call back later",
-              label: "Asked to call back later",
-            },
-            {
-              value: "Decision maker unavailable",
-              label: "Decision maker unavailable",
-            },
-            {
-              value: "ECS is active asked to call on due date",
-              label: "ECS is active asked to call on due date",
-            },
-          ],
-        },
-        // {
-        //   value: 'followup',
-        //   label: 'Follow-up',
-        //   isSelected: false,
-        //   children: [
-        //     {
-        //       value: 'Met-in follow-up for closure',
-        //       label: 'Met-in follow-up for closure',
-        //     },
-        //     {
-        //       value: 'Not Met - Reschedule appointment',
-        //       label: 'Not Met - Reschedule appointment',
-        //     }
-        //   ],
-        // },
-        {
-          value: "shorthangup",
-          label: "Short hang up",
-          children: [
-            {
-              value: "Short hang up",
-              label: "Short hang up",
-            },
-          ],
-        },
-        {
-          value: "notinterested",
-          label: "Not interested",
-          children: [
-            {
-              value: "Not interested to Meet",
-              label: "Not interested to Meet",
-            },
-            {
-              value: "Did not Enquire",
-              label: "Did not Enquire",
-            },
-            {
-              value: "Too Expensive",
-              label: "Too Expensive",
-            },
-            {
-              value: "Not interested to continue Existing Policy",
-              label: "Not interested to continue Existing Policy",
-            },
-          ],
-        },
-        {
-          value: "nonserviceloc",
-          label: "Non Servicable location",
-          children: [
-            {
-              value: "Non Servicable location",
-              label: "Non Servicable location",
-            },
-          ],
-        },
-        {
-          value: "noteligible",
-          label: "Not Eligible",
-          children: [
-            {
-              value: "NE - Income",
-              label: "NE - Income",
-            },
-            {
-              value: "NE - Age",
-              label: "NE - Age",
-            },
-          ],
-        },
-        // {
-        //   value: 'notavailable',
-        //   label: 'Not Available',
-        //   children: [
-        //     {
-        //       value: 'Not Reachable',
-        //       label: 'Not Reachable',
-        //     },
-        //     {
-        //       value: 'No Answer',
-        //       label: 'No Answer',
-        //     },
-        //     {
-        //       value: 'Alway Switched off',
-        //       label: 'Alway Switched off',
-        //     },
-        //   ],
-        // },
-        // {
-        //   value: 'converted',
-        //   label: 'Converted',
-        //   children: [
-        //     {
-        //       value: 'Closed with success',
-        //       label: 'Closed with success',
-        //     },
-        //   ],
-        // },
-      ],
-    },
-  ];
-
-  const onChangeFirstName = (e) => {
-    // console.warn('FIRSTNAME',e)
-    setFirstName(e.target.value);
-  };
-
-  const onChangeLastName = (e) => {
-    setLastName(e.target.value);
-  };
-  const primaryNoHandler = (event) => {
-    setPrimaryNo(event.target.value);
-  };
-  const emailAddressHandler = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const leadAgeHandler = (event) => {
-    setLeadAge(event.target.value);
-  };
-  const genderHandler = (event) => {
-    setLeadGender(event.target.value);
-  };
-  const maritalStatusHandler = (event) => {
-    setMaritalStatus(event.target.value);
-  };
-
-  const occupationHandler = (event) => {
-    setLeadOccupation(event);
-  };
-  const vehicleOwnedHandler = (event) => {
-    setLeadVehiclesOwned(event);
-  };
-  const sourceOfActivityHandler = (event) => {
-    setLeadSourceOfactivity(event);
-  };
-
   let stateOptions =
     states && !_.isEmpty(states)
       ? states.map((state) => {
@@ -1099,19 +480,6 @@ const NewLead = React.memo((props) => {
       : null;
   // citiesOptions.unshift(_selectObj)
 
-  const disabledDate = (current) => {
-    // Can not select days before today and today
-    return current && current < moment().startOf("second");
-  };
-
-  const getDisabledHours = () => {
-    var hours = [];
-    for (var i = 0; i < moment().hour(); i++) {
-      hours.push(i);
-    }
-    return hours;
-  };
-
   const getDisabledMinutes = (selectedHour) => {
     var minutes = [];
     if (selectedHour === moment().hour()) {
@@ -1131,76 +499,6 @@ const NewLead = React.memo((props) => {
           return newCities;
         })
       : null;
-
-  const handleAddMember = () => {
-    // setModalText('Updating changes ');
-    visibleTeamMemberModal && dispatch(actions.fetchTeamMember(channelCode));
-  };
-  const showChangeOwnerModal = () => {
-    setDesigDataOwner("");
-    setTeamDataOwner("");
-    form.setFieldsValue({
-      "Select Owner Designation": "",
-      "Select Owner Team Member": "",
-    });
-    setVisibleChangeOwnerModel(true);
-  };
-
-  const handleChangeOwner = () => {
-    // setModalText('Updating changes ');
-    setChangeOwnerLoading(true);
-    setTimeout(() => {
-      setVisibleChangeOwnerModel(false);
-      setChangeOwnerLoading(false);
-    }, 2000);
-  };
-
-  const leadHandler = (value) => {
-    // console.log('LEADSSS___STATUSSS', value)
-    setLeadStatus(value[0]);
-    setLeadDisposition(value[1]);
-    setLeadSubDisposition(value[2]);
-  };
-  const appointmentStatusHandler = (value) => {
-    setAppointmentStatus(value[0]);
-    setAppointmentDisposition(value[1]);
-    setAppointmentSubDisposition(value[2]);
-  };
-
-  const appointmentDateHandler = (date, dateString) => {
-    // setAppointmentDate(Date.parse(dateString))
-    let newDate = moment(date).valueOf();
-    // let ms_date = new Date(newDate).setUTCHours(0, 0, 0, 0)
-    // console.log('old',ms_date)
-    console.log("new moment", newDate);
-    setAppointmentDate(date);
-    setAppointmentDatePost(newDate);
-  };
-  // console.log(appointmentDatePost)
-  // const newDate = moment.unix(appointmentDate/1000).format("DD MM YYYY ")
-  // console.log(appointmentDate)
-
-  const updateDateHandler = (date, dateString) => {
-    // setAppointmentDate(Date.parse(dateString))
-    setAppointmentDate(moment(1635070237883));
-  };
-
-  const startTimeHandler = (value) => {
-    // const hourInMilisec = (new Date(time).getHours() + 24) % 12 || 12
-    // const minInMilisec = new Date(time).getMinutes()
-    // const res = (+parseInt(hourInMilisec) * (60000 * 60)) + (+parseInt(minInMilisec) * 60000)
-    // console.log(res)
-    // console.log(hourInMilisec)
-    console.log(typeof value);
-    setAppointmentTime(value);
-  };
-  const remarkFromSourceHandler = (event) => {
-    setRemarkFromSource(event.target.value);
-  };
-
-  const remarkFromUserHandler = (event) => {
-    setRemarkFromUser(event.target.value);
-  };
 
   const onFinish = (errorMessage) => {
     alert(errorMessage);
@@ -1230,24 +528,6 @@ const NewLead = React.memo((props) => {
     }
   };
 
-  const cityChangeHandler = (event) => {
-    // setCityProvince(event.target.value)
-    setCityProvince(event);
-  };
-  const leadTypeHandler = (event) => {
-    // setLeadType(event.target.value)
-    // console.log('leadTypeHandler __________:', event);
-    setLeadType(event);
-  };
-  const productHandler = (event) => {
-    // setProduct(event.target.value)
-    setProduct(event);
-  };
-  const insuranceCompanyHandler = (event) => {
-    // setInsuranceComapany(event.target.value)
-    setInsuranceComapany(event);
-  };
-
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
@@ -1255,67 +535,6 @@ const NewLead = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const toggleTeamMember = () => {
-    setDesigData("");
-    setTeamData("");
-    form.setFieldsValue({
-      "Select Designation": "",
-      "Select Team Member": "",
-    });
-    setVisibleTeamMemberModal(!visibleTeamMemberModal);
-    !visibleTeamMemberModal && dispatch(actions.fetchDesignation(channelCode));
-  };
-  const saveTeamMemberData = () => {
-    // console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
-    let _dataArr = addTeamMemb.map((el) => {
-      let _data = {
-        designation: el.designation,
-        teamName: el.teamName,
-        teamMem_id: el.teamMem_id,
-      };
-      return _data;
-    });
-
-    setTeamTableData(_dataArr);
-    setVisibleTeamMemberModal(false);
-  };
-
-  const deleteTableRow = (el) => {
-    // console.warn('el ====((((((((((===>>>>>>>>>>', el)
-    // console.warn('addTeamMemb ====(((((IIIIIIIII(((((===>>>>>>>>>>', addTeamMemb)
-    const newData = teamTableData.filter(
-      (item) => item.teamMem_id !== el.teamMem_id
-    );
-    setTeamTableData(newData);
-    setAddTeamMemb(newData);
-    // console.warn('newData ====((((((((((===>>>>>>>>>>', newData)
-    let _data = {};
-    let _arryy = newData.map((el) => {
-      userTreeData.reporting_users.filter((event) => {
-        if (event._id === el.teamMem_id) {
-          _data = {
-            first_name: event.first_name,
-            last_name: event.last_name,
-            Id: event._id,
-          };
-        }
-      });
-      return _data;
-    });
-    setAddTeamMemAPIStruct(_arryy);
-  };
-
-  // validations
-  const validateMessages = {
-    // required: `${label} is required!`,
-    types: {
-      email: `Email id must include @`,
-    },
-    // number: {
-    //   phone: 'Not a valid no'
-    //   range: 'Number must be 10 digits',
-    // },
-  };
   const checkValidity = (data) => {
     if (data === "" || data === undefined || data === null) {
       return "";
@@ -1425,8 +644,6 @@ const NewLead = React.memo((props) => {
     vehiclesOwned: leadVehiclesOwned,
   };
 
-  let formIsValid = false;
-
   const failedHandler = (error) => {
     alert(error);
     console.log(error);
@@ -1476,133 +693,9 @@ const NewLead = React.memo((props) => {
     // setErrorMessage( res.data.errMsg)
   };
 
-  const handleDesignationData = (event, data) => {
-    // console.warn('addTeamMemb(((((--------------(((((===>>>>>>>>>>', addTeamMemb)
-    // console.warn('data(((((--------------(((((===>>>>>>>>>>', data)
-    setDesigData(event);
-    setTeamData("");
-    form.setFieldsValue({
-      "Select Team Member": "",
-    });
-    // const [teamDesig ,setTeamDesig]=useState(null)
-    let _team = { ["designation"]: data.label };
-    setTeamDesig(_team);
-
-    let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.designation === event
-    );
-    setTeamMemberList(_teamData);
-  };
-  const handleDesignationDataOwner = (event, data) => {
-    // console.warn('event(((((--------------(((((===>>>>>>>>>>', event)
-    // console.warn('data(((((--------------(((((===>>>>>>>>>>', data)
-    setDesigDataOwner(event);
-    setTeamDataOwner("");
-    form.setFieldsValue({
-      "Select Owner Team Member": "",
-    });
-
-    let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.designation === event
-    );
-    setTeamMemberListOwner(_teamData);
-  };
-
-  const handleTeamListData = (event, data) => {
-    setTeamData(event);
-    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
-
-    let apiBody = {
-      first_name: data.first_name,
-      last_name: data.last_name,
-      Id: data._id,
-    };
-
-    let _team = {
-      ...teamDesig,
-      ["teamName"]: data.label,
-      ["teamMem_id"]: data.value,
-    };
-    // Data Structure for Table Data
-    setAddTeamMemb([...addTeamMemb, _team]);
-    // Data Structure for API Request Body
-    setAddTeamMemAPIStruct([...addTeamMemAPIStruct, apiBody]);
-    // console.warn('addTeamMemAPIStruct((((((((((===>>>>>>>>>>', addTeamMemAPIStruct)
-    // console.warn('AFTERRR====((((((((((===>>>>>>>>>>', addTeamMemb)
-  };
-
-  const handleTeamListDataOwner = (event, data) => {
-    setTeamDataOwner(event);
-    setOwnerArray(data);
-    // console.warn('BEFORE====((((((((((===>>>>>>>>>>', data)
-  };
-  const saveOwnerData = () => {
-    // console.warn('ownerArray ====((((((((((===>>>>>>>>>>', ownerArray)
-    setVisibleChangeOwnerModel(false);
-    setLeadOwner(ownerArray?.first_name);
-  };
-
-  // const proceedHandler = event => {
-  //   event.preventDefault();
-
-  //   if (!formIsValid) {
-  //     return;
-  //   } else {
-  //     dispatch(actions.storeLead(formData))
-  //     history.push('leaddetails/personallead')
-  //   }
-
-  //   setErrorMessage('Form submitted successfully')
-  //   setIsNewLead(false)
-  //   // setErrorMessage( res.data.errMsg)
-
-  //   // resetFirstName();
-  //   // resetLastName();
-  //   // resetEmail();
-  // };
-
-  // const updateLeadHandler = event => {
-  //   event.preventDefault();
-
-  //   dispatch(actions.editLead(formData, storeLeadId))
-  //   // if (!formIsValid) {
-  //   //   return;
-  //   // }else{
-  //   // }
-
-  //   setErrorMessage('Form updated successfully')
-  //   setIsNewLead(false)
-  // }
-
-  // useEffect(() => {
-  //   if(designationsOptions===undefined){
-  //     return
-  //   }else{
-  //     const getDesignation= designationsOptions
-
-  //   }
-
-  // }, [designationsOptions])
-
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
-
-  const optionsData = [
-    {
-      value: "jack",
-      label: "Jack",
-    },
-    {
-      value: "lucy",
-      label: "Lucy",
-    },
-    {
-      value: "disabled",
-      disabled: true,
-      label: "Disabled",
-    },
-  ];
 
   return (
     <>
@@ -1778,7 +871,7 @@ const NewLead = React.memo((props) => {
             </Col>
             <Col
               className="form-body p40"
-              style={{ marginLeft: width > breakpoint ? "20px" : "0" }}
+              style={{ padding: 20 }}
               xs={{ order: width > breakpoint ? 2 : 1 }}
               sm={6}
               md={6}
@@ -1789,97 +882,78 @@ const NewLead = React.memo((props) => {
               <Row>
                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                   <p className="form-title">Summary</p>
-                  <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label">Lead ID</p>
-                      <p className="lead-detail">
-                        {leadIDSummary} <br />{" "}
-                      </p>
-                    </Col>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label">Source</p>
-                      <p className="lead-detail">-</p>
-                    </Col>
-                  </Row>
-                  <div
-                    style={{
-                      backgroundColor: "gray",
-                      height: "1px",
-                      width: "auto",
-                      opacity: "0.3",
-                      margin: "5px 0px 5px 0px",
-                    }}
-                  ></div>
 
-                  <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label">Name</p>
-                      <p className="lead-detail">
-                        {firstNameSummary} {lastNameSummary} <br />
+                  <Row className="mb-4">
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                      <p className="summary_heading">Opportunity Name</p>
+                      <p className="summary_data">
+                        Fire Insurance 380 HDFC Branchs
                       </p>
-                    </Col>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label"> Mobile Number </p>
-                      <p className="lead-detail">
-                        <a href={`tel:${mobileNoSummary}`}></a>{" "}
-                        {mobileNoSummary}
+                      <p className="summary_sub_data">
+                        Incorporation Date:21/12/2022
                       </p>
                     </Col>
                   </Row>
-                  <div
-                    style={{
-                      backgroundColor: "gray",
-                      height: "1px",
-                      width: "auto",
-                      opacity: "0.3",
-                      margin: "5px 0px 5px 0px",
-                    }}
-                  ></div>
 
-                  <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label">State</p>
-                      <p className="lead-detail">
-                        {stateSummary} <br />{" "}
-                      </p>
-                    </Col>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label">City</p>
-                      <p className="lead-detail">{citySummary}</p>
+                  <Row className="mb-4">
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                      <p className="summary_heading">Opportunity Name</p>
+                      <p className="summary_data">HDFC Bank Mumbai</p>
                     </Col>
                   </Row>
-                  <div
-                    style={{
-                      backgroundColor: "gray",
-                      height: "1px",
-                      width: "auto",
-                      opacity: "0.3",
-                      margin: "5px 0px 5px 0px",
-                    }}
-                  ></div>
 
-                  <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label">Allocated To</p>
-                      <p className="lead-detail">{allocatedToUser}</p>
-                    </Col>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} span={12}>
-                      <p className="lead-summ-label">Created on</p>
-                      <p className="lead-detail">
-                        {new Date(createdDateValue).toLocaleDateString("in")}
+                  <Row className="mb-4">
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                      <p className="summary_heading">Opportunity Name</p>
+                      <p className="summary_data">
+                        Fire Insurance 380 HDFC Branchs
                       </p>
-                      <p className="lead-date">{totalDaysCount}</p>
+                      <i
+                        className="summary_sub_data"
+                        style={{ fontStyle: "italic" }}
+                      >
+                        - As on 02/02/2023
+                      </i>
                     </Col>
                   </Row>
-                  <div
-                    style={{
-                      backgroundColor: "gray",
-                      height: "1px",
-                      width: "auto",
-                      opacity: "0.3",
-                      margin: "5px 0px 5px 0px",
-                    }}
-                  ></div>
+
+                  <Row className="mb-4">
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                      <p className="summary_heading">Opportunity Name</p>
+                      <Row className="d-flex justify-content-start align-items-center">
+                        <Col span={8}>
+                          <div className="event_box">
+                            <h2 className="d-flex align-items-center">
+                              <CalendarOutlined style={{ marginRight: 5 }} />{" "}
+                              Events
+                            </h2>
+                            <div className="d-flex justify-content-center align-items-center">
+                              <div className="count">04</div>
+                              <div className="label">Events Created</div>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col span={16}>
+                          <div className="todo_box">
+                            <h2 className="d-flex align-items-center">
+                              <FileDoneOutlined style={{ marginRight: 5 }} /> To
+                              Do
+                            </h2>
+                            <div className="d-flex">
+                              <div className="d-flex justify-content-center align-items-center">
+                                <div className="count">04</div>
+                                <div className="label">Todo Created</div>
+                              </div>
+                              <div className="d-flex justify-content-center align-items-center">
+                                <div className="count">40</div>
+                                <div className="label">Todo Completed</div>
+                              </div>
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Col>
@@ -2183,30 +1257,21 @@ const NewLead = React.memo((props) => {
                     }}
                     icon={<PlusOutlined />}
                     htmlType="submit"
+                    onClick={() => addCollaborators}
                   >
                     ADD
                   </Button>
                 </Col>
                 <Col>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
-                    <div className="add_collaborators_items shadow-sm">
-                      hello <CloseOutlined style={{ marginLeft: 10 }} />
-                    </div>
-                    <div className="add_collaborators_items shadow-sm">
-                      hello
-                    </div>
-                    <div className="add_collaborators_items shadow-sm">
-                      hello
-                    </div>
-                    <div className="add_collaborators_items shadow-sm">
-                      hello
-                    </div>
-                    <div className="add_collaborators_items shadow-sm">
-                      hello
-                    </div>
-                    <div className="add_collaborators_items shadow-sm">
-                      hello
-                    </div>
+                    {collaborators.map((res) => (
+                      <div className="add_collaborators_items shadow-sm">
+                        {res + " "}
+                        <CloseOutlined
+                          style={{ marginLeft: 10, fontWeight: "bolder" }}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </Col>
 
@@ -2248,8 +1313,11 @@ const NewLead = React.memo((props) => {
                   </Button>
                 </Col>
 
-                <Col className="mt-3 w-100" style={{ fontSize: "smaller" }}>
-                  <div className="d-flex justify-content-start bg-light mb-3 p-2">
+                <Col
+                  className="post mt-3 w-100"
+                  style={{ fontSize: "smaller" }}
+                >
+                  <div className="d-flex justify-content-start mb-3 p-2">
                     <div className="me-3">15:03 03/01/2023</div>
                     <div>
                       <div>
@@ -2261,7 +1329,7 @@ const NewLead = React.memo((props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="d-flex justify-content-start bg-light w-100 mb-3 p-2">
+                  <div className="d-flex justify-content-start w-100 mb-3 p-2">
                     <div className="me-3">15:03 03/01/2023</div>
                     <div>
                       <div>

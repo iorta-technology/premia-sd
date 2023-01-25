@@ -156,15 +156,137 @@
   font-size: 11px;
 }
 
+.upload_input .ant-upload.ant-upload-select {
+  display: block !important;
+}
+.upload_input .ant-upload.ant-upload-select button {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.post > div {
+  background-color: rgba(134, 172, 236, 0.35);
+  color: #425c87;
+  font-weight: bold;
+}
+
 .add_collaborators_items {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 25px;
+  padding: 7px 0;
+  padding-left: 20px;
+  padding-right: 10px;
   border-radius: 50px;
   margin-right: 10px;
-  background-color: #6d8c9be5;
-  color: #3a6174;
+  background-color: rgba(134, 172, 236, 0.35);
+  color: #425c87;
+  font-weight: 700;
+}
+
+.summary_heading {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14.06px;
+  color: #737373;
+  margin-bottom: 5px !important;
+}
+
+.summary_data {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #444444;
+  margin-bottom: 2px !important;
+}
+
+.summary_sub_data {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #444444;
+  margin-bottom: 2px !important;
+}
+
+.event_box {
+  padding: 12px;
+  background: rgba(0, 172, 193, 0.08);
+  border-bottom: 1px solid #00acc1;
+}
+
+.todo_box {
+  padding: 12px;
+  background: rgba(206, 160, 225, 0.12);
+  border-bottom: 1px solid #cea0e1;
+}
+
+.event_box h2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #00acc1;
+  margin-bottom: 10px !important;
+}
+
+.todo_box h2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #cea0e1;
+  margin-bottom: 10px !important;
+}
+
+.event_box .count,
+.todo_box .count {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 33px;
+  margin-right: 5px;
+}
+
+.event_box .label,
+.todo_box .label {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.upload_list .row .col-6.data {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #737373;
+}
+
+.upload_list {
+  overflow: hidden;
+  border: 1px solid rgb(202, 202, 202);
+  border-radius: 5px;
+}
+
+.upload_list .head {
+  border: 1px solid #d8d8d8;
+  background-color: #f5f5f5;
+}
+
+.upload_list .head div {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 19px;
+  color: #444444;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 524px) {
