@@ -159,7 +159,7 @@ const LeadCard = React.memo((props) => {
               style={{
                 // paddingTop: "-40px",
                 // lineHeight: "none",
-                backgroundColor: '#d8d8d8',
+                backgroundColor: "#d8d8d8",
               }}
               size={{ xl: 50 }}
             >
@@ -174,10 +174,8 @@ const LeadCard = React.memo((props) => {
               {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
             </div>
           </div>
-         
         </div>
         <div className="content" style={{ flex: 1 }}>
-          
           <hr
             style={{
               margin: "3px 0px 4px 0px",
@@ -222,8 +220,12 @@ const LeadCard = React.memo((props) => {
                 </div>
               </div>
             </div>
-            <div style={{ display: "flex",flex:1 }}>
-              <button type="primary" className="update-btn" onClick={() => updateHandler(id)}>
+            <div style={{ display: "flex", flex: 1 }}>
+              <button
+                type="primary"
+                className="update-btn"
+                onClick={() => updateHandler(id)}
+              >
                 Update
               </button>
             </div>

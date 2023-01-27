@@ -92,18 +92,47 @@ const isEmail = (value) => value.includes("@");
 const isNumberValid = (value) => value.trim() !== "" && value.length === 10;
 
 const NewLead = React.memo((props) => {
-  const [collaborators, setCollaborators] = useState([]);
-  const [remark, setRemark] = useState([]);
-  const [remarkVal, setRemarkVal] = useState("");
-  const [collaboratorsVal, setCollaboratorsVal] = useState("");
+  const [collaborators, setCollaborators] = useState("sadiqu");
+  const [remark, setRemark] = useState("sadiqu");
 
   const addCollaborators = () => {
-    setCollaborators((res) => [...res, collaboratorsVal]);
+    setFormItem((res) => ({
+      ...res,
+      collaborators: [...formItem.collaborators, collaborators],
+    }));
+    setCollaborators("");
   };
 
   const addRemarks = () => {
-    setRemark((res) => [...res, remarkVal]);
+    setFormItem((res) => ({
+      ...res,
+      remarks: [...formItem.remarks, remark],
+    }));
+    setRemark("");
   };
+
+  const submitHandler = () => {
+    console.log("formItem", formItem);
+  };
+
+  const [formItem, setFormItem] = useState({
+    companyName: "",
+    parentCompanyName: "",
+    industry: "",
+    empaneled: false,
+    clientLocation: "",
+    LOBForOpportunity: "",
+    productForOpportunity: "",
+    opportunityName: "",
+    tenderDriver: false,
+    status: "",
+    disposition: "",
+    subDisposition: "",
+    appointmentDate: "",
+    appointmentTime: "",
+    collaborators: [],
+    remarks: [],
+  });
 
   // let formRef = createRef();
   const dispatch = useDispatch();
@@ -655,50 +684,6 @@ const NewLead = React.memo((props) => {
     alert(error);
     console.log(error);
   };
-  const submitHandler = (event) => {
-    console.warn("(((((((isNewLead a___BBB))))))):", isNewLead);
-    if (isNewLead) {
-      dispatch(actions.createLead(createFormData)).then((res) => {
-        // console.log('CREATE_LEAD_SUCCESS:', res);
-        if (res.type === "CREATE_LEAD_SUCCESS") {
-          console.log("success:", res.formData[0]);
-          // setErrorMessage(successMsg)
-          setIsNewLead(false);
-          setleadIDSummary(res.formData[0]?.lead_Id);
-          setFirstNameSummary(res.formData[0]?.firstName);
-          setLastNameSummary(res.formData[0]?.lastName);
-          setMobileNoSummary(res.formData[0]?.primaryMobile);
-          setStateSummary(res.formData[0]?.state);
-          setCitySummary(res.formData[0]?.city);
-          setAllocatedToUser(res.formData[0]?.userId?.first_name);
-
-          setLeadIdData(res.formData[0]._id);
-        }
-        // else if (res.type === 'CREATE_LEAD_FAIL') {
-        //   console.log('failed:', res);
-
-        //   failedHandler(res.error)
-        //   console.log(res)
-        // }
-        // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
-      });
-    } else {
-      let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
-      dispatch(actions.editLead(formData, _lead_id)).then((res) => {
-        if (res.type === "EDIT_LEAD_SUCCESS") {
-          console.log("success:", res);
-          setErrorMessage(successMsg);
-          setIsNewLead(false);
-        } else if (res.type === "EDIT_LEAD_FAIL") {
-          console.log("failed:", res);
-
-          failedHandler(res.error);
-        }
-      });
-      // history.push('leaddetails/personallead')
-    }
-    // setErrorMessage( res.data.errMsg)
-  };
 
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
@@ -738,14 +723,15 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
-                      bordered={true}
-                      // className="select-box"
-                      // size="large"
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.companyName}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          companyName: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -767,9 +753,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.parentCompanyName}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          parentCompanyName: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -791,9 +781,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.industry}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          industry: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -805,7 +799,16 @@ const NewLead = React.memo((props) => {
                     label="TATA AIG is empaneled?"
                     style={{ marginBottom: "1rem" }}
                   >
-                    <Radio.Group name="radiogroup" defaultValue={false}>
+                    <Radio.Group
+                      name="radiogroup"
+                      onChange={(e) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          empaneled: e.target.value,
+                        }))
+                      }
+                      value={formItem.empaneled}
+                    >
                       <Radio value={true}>Yes</Radio>
                       <Radio value={false}>No</Radio>
                     </Radio.Group>
@@ -829,8 +832,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
+                      value={formItem.clientLocation}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          clientLocation: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -953,9 +961,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.LOBForOpportunity}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          LOBForOpportunity: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -977,9 +989,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.productForOpportunity}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          productForOpportunity: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -1002,8 +1018,13 @@ const NewLead = React.memo((props) => {
                       className="phone-no"
                       size="large"
                       placeholder="Full Name"
-                      value={leadAge}
-                      // onChange={(item) => leadAgeHandler(item)}
+                      value={formItem.opportunityName}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          opportunityName: val.target.value,
+                        }))
+                      }
                     />
                   </Form.Item>
                 </Col>
@@ -1015,7 +1036,16 @@ const NewLead = React.memo((props) => {
                     label="Tender Driver"
                     style={{ marginBottom: "1rem" }}
                   >
-                    <Radio.Group name="radiogroup" defaultValue={false}>
+                    <Radio.Group
+                      name="radiogroup"
+                      value={formItem.tenderDriver}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          tenderDriver: val.target.value,
+                        }))
+                      }
+                    >
                       <Radio value={true}>Yes</Radio>
                       <Radio value={false}>No</Radio>
                     </Radio.Group>
@@ -1053,9 +1083,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.status}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          status: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -1077,9 +1111,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.disposition}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          disposition: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -1101,9 +1139,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.subDisposition}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          subDisposition: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -1126,9 +1168,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.appointmentDate}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          appointmentDate: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -1149,9 +1195,13 @@ const NewLead = React.memo((props) => {
                     <Select
                       placeholder="Select"
                       options={optionsData}
-                      onSelect={stateSelectHandler}
-                      value={stateProvince}
-                      // onChange={(item) => stateChangetHandler(item)}
+                      value={formItem.appointmentTime}
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          appointmentTime: val,
+                        }))
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -1185,25 +1235,26 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Input
+                      value={collaborators}
+                      type="text"
                       className="phone-no"
                       size="large"
                       placeholder="Enter"
-                      value={collaboratorsVal}
-                      onChange={(e) => setCollaboratorsVal(e.target.value)}
+                      onChange={(e) => setCollaborators(e.target.value)}
                     />
                   </Form.Item>
                   <Button
-                    type="primary"
                     style={{
                       border: "none",
                       display: "flex",
                       alignItems: "center",
                       height: "40px",
-                      marginTop: "17px",
+                      marginTop: "16px",
                       marginLeft: 10,
+                      backgroundColor: "#00ACC1",
+                      color: "#fff",
                     }}
                     icon={<PlusOutlined />}
-                    htmlType="submit"
                     onClick={addCollaborators}
                   >
                     ADD
@@ -1211,7 +1262,7 @@ const NewLead = React.memo((props) => {
                 </Col>
                 <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
-                    {collaborators.map((res, index) => (
+                    {formItem.collaborators.map((res, index) => (
                       <div
                         key={index}
                         className="add_collaborators_items shadow-sm"
@@ -1219,7 +1270,10 @@ const NewLead = React.memo((props) => {
                         {res + " "}
                         <CloseOutlined
                           onClick={() =>
-                            setCollaborators((res) => res.splice(index, 1))
+                            setFormItem((res) => ({
+                              ...res,
+                              collaborators: res.collaborators.splice(index, 1),
+                            }))
                           }
                           style={{ marginLeft: 10, fontWeight: "bolder" }}
                         />
@@ -1243,11 +1297,12 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Input
+                      type="text"
                       className="phone-no"
                       size="large"
                       placeholder="Enter"
-                      value={remarkVal}
-                      onChange={(e) => setRemarkVal(e.target.value)}
+                      value={remark}
+                      onChange={(e) => setRemark(e.target.value)}
                     />
                   </Form.Item>
                   <Button
@@ -1257,11 +1312,11 @@ const NewLead = React.memo((props) => {
                       display: "flex",
                       alignItems: "center",
                       height: "40px",
-                      marginTop: "17px",
+                      marginTop: "16px",
                       marginLeft: 10,
+                      backgroundColor: "#00ACC1",
                     }}
                     icon={<PlusOutlined />}
-                    htmlType="submit"
                     onClick={addRemarks}
                   >
                     ADD
@@ -1272,7 +1327,7 @@ const NewLead = React.memo((props) => {
                   className="post mt-3 w-100"
                   style={{ fontSize: "smaller" }}
                 >
-                  {remark.map((res, index) => (
+                  {formItem.remarks.map((res, index) => (
                     <div
                       key={index}
                       className="d-flex justify-content-start w-100 mb-3 p-2 remarks_bg"
@@ -1311,8 +1366,8 @@ const NewLead = React.memo((props) => {
                       display: "flex",
                       alignItems: "center",
                     }}
-                    icon={<FileTextOutlined />}
                     htmlType="submit"
+                    icon={<FileTextOutlined />}
                   >
                     Submit & Update
                   </Button>
