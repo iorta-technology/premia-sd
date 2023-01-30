@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef } from "react";
 import useInput from "../hooks/use-input";
 import "../../components/StatusLead/StatusLead.css";
-import './CompIntelligence.css'
+import "./CompIntelligence.css";
 // components/CompanyIntelligence/CompanyIntelligence.css
 import {
   Row,
@@ -31,8 +31,8 @@ import moment from "moment";
 import { Link, useHistory } from "react-router-dom";
 import axiosRequest from "../../axios-request/request.methods";
 
-import KDMDetails from "./KdmDetails"
-import ProducerVAS from "./ProducerAndVAS"
+import KDMDetails from "./KdmDetails";
+import ProducerVAS from "./ProducerAndVAS";
 import Expectation from "./Expectation";
 import RiskDetails from "./RiskDetails";
 import DocUpload from "./DocumentUpload";
@@ -56,7 +56,7 @@ const tabMenu = [
   },
   {
     id: 2,
-    value: "Company Intelligence"
+    value: "Company Intelligence",
   },
   {
     id: 3,
@@ -64,11 +64,9 @@ const tabMenu = [
   },
 ];
 const CompanyIntelligence = React.memo((props) => {
-
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
-  
 
   // store form data
   let storeFormData = useSelector((state) => state?.newLead?.formData);
@@ -92,9 +90,6 @@ const CompanyIntelligence = React.memo((props) => {
     });
   }, []);
 
- 
-  
-
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
@@ -109,59 +104,48 @@ const CompanyIntelligence = React.memo((props) => {
       return data;
     }
   };
-  
-  const tabClick = (key) => {
 
-  }
+  const tabClick = (key) => {};
 
   const tabStyle = {
-    color:"#000",
-    background:'#fff',
+    color: "#000",
+    background: "#fff",
     borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#f0f0f0',
-    height:220,
-    width:320
-}
-    // const tabMenu = [
-    //     { label: "Key Decison Makers ( KDM ) Details",key: '1'},
-    //     { label: "Risk Details",key: '2'},
-    //     { label: "Producer and VAS",key: '3'},
-    //     { label: "Expectation",key: '4'},
-    //     { label: "Document Upload",key: '5'},
-    // ];
+    borderStyle: "solid",
+    borderColor: "#f0f0f0",
+    height: 220,
+    width: 320,
+  };
 
   return (
     <>
       <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="2" />
 
       <div className="form-container ml10rem kdmStyle ">
-            <Tabs
-                tabBarGutter={0}
-                tabPosition={width > breakpoint ? 'left' : 'top'}
-                size={width > breakpoint ? 'large' : 'small'}
-                // style={{ height: 240}}
-                // items={tabMenu}
-                tabBarStyle={tabStyle}
-                onTabClick={tabClick}
-                defaultActiveKey={1}
-            >
-                <TabPane key="1" tab="Key Decison Makers ( KDM ) Details" >
-                    <KDMDetails/>
-                </TabPane>
-                <TabPane key="2" tab="Risk Details">
-                    <RiskDetails/>
-                </TabPane>
-                <TabPane key="3" tab="Producer and VAS">
-                    <ProducerVAS/>
-                </TabPane>
-                <TabPane key="4" tab="Expectation">
-                    <Expectation/>
-                </TabPane>
-                <TabPane key="5" tab="Document Upload">
-                    <DocUpload/>
-                </TabPane>
-            </Tabs>
+        <Tabs
+          tabBarGutter={0}
+          tabPosition={width > breakpoint ? "left" : "top"}
+          size={width > breakpoint ? "large" : "small"}
+          tabBarStyle={tabStyle}
+          onTabClick={tabClick}
+          defaultActiveKey={1}
+        >
+          <TabPane key="1" tab="Key Decison Makers ( KDM ) Details">
+            <KDMDetails />
+          </TabPane>
+          <TabPane key="2" tab="Risk Details">
+            <RiskDetails />
+          </TabPane>
+          <TabPane key="3" tab="Producer and VAS">
+            <ProducerVAS />
+          </TabPane>
+          <TabPane key="4" tab="Expectation">
+            <Expectation />
+          </TabPane>
+          <TabPane key="5" tab="Document Upload">
+            <DocUpload />
+          </TabPane>
+        </Tabs>
       </div>
     </>
   );

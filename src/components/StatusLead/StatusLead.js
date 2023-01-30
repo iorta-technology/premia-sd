@@ -74,6 +74,10 @@ const tabMenu = [
     id: 2,
     value: "Company Intelligence",
   },
+  {
+    id: 3,
+    value: "History",
+  },
   // {
   //   id: 3,
   //   value: "Proposal Details"
@@ -82,10 +86,6 @@ const tabMenu = [
   //   id: 4,
   //   value: "Documents Upload"
   // },
-  {
-    id: 3,
-    value: "History",
-  },
 ];
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.includes("@");
