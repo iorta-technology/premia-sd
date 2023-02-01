@@ -216,11 +216,11 @@ const RiskDetails = () => {
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="entities"
-                                    label="No. of Entities"
+                                    label="Name of enitity"
                                     style={{ marginBottom: "1rem" }}
                                 >
                                     <Input
-                                        placeholder="Enter No. of Entities"
+                                        placeholder="Enter Name of enitity"
                                         value={noOfEntities}
                                         onChange={(item) => setNoOfEntities(item.target.value)}
                                     />

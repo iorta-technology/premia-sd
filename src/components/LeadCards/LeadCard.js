@@ -23,17 +23,15 @@ const LeadCard = React.memo((props) => {
   const {
     id,
     lead_Id,
-    leadStatus,
-    // firstName,
-    // lastName,
-    leadName,
-    created_date,
-    allocatedDate,
-    primaryMobile,
-    allocatedBy,
-    allocatedTo,
-    appointmentOn,
+    companyName,
+    industryName,
+    KDM_Name,
+    mobileNo,
+    branch_Name,
+    appointDate,
+    location,
   } = props;
+
   // console.warn('PROPSSSS___________',props)
 
   const [chkID, setChkId] = useState("");
@@ -63,18 +61,18 @@ const LeadCard = React.memo((props) => {
     checkedLead.length <= 0 && setChkId("");
   }, [checkedLead]);
 
-  const leadComponent =
-    leadStatus === "Converted" ? (
-      <p className="user-status-text capitalize converted">{leadStatus}</p>
-    ) : leadStatus === "Failed" ? (
-      <p className="user-status-text capitalize failed">{leadStatus}</p>
-    ) : leadStatus === "Closed" ? (
-      <p className="user-status-text capitalize" style={{ color: "#D04949" }}>
-        {leadStatus}
-      </p>
-    ) : (
-      <p className="user-status-text capitalize open">{leadStatus}</p>
-    );
+  // const leadComponent =
+  //   leadStatus === "Converted" ? (
+  //     <p className="user-status-text capitalize converted">{leadStatus}</p>
+  //   ) : leadStatus === "Failed" ? (
+  //     <p className="user-status-text capitalize failed">{leadStatus}</p>
+  //   ) : leadStatus === "Closed" ? (
+  //     <p className="user-status-text capitalize" style={{ color: "#D04949" }}>
+  //       {leadStatus}
+  //     </p>
+  //   ) : (
+  //     <p className="user-status-text capitalize open">{leadStatus}</p>
+  //   );
 
   // let avatar = leadName
 
@@ -163,18 +161,25 @@ const LeadCard = React.memo((props) => {
               }}
               size={{ xl: 50 }}
             >
-              {nameShorter(leadName)}
+              {nameShorter(companyName)}
             </Avatar>
             {/* {leadComponent} */}
 
             <div className="content-header">
-              <p className="user-name-text capitalize">{leadName}</p>
+              <p className="user-name-text capitalize">{companyName}</p>
               <span className="user-id uppercase">{lead_Id}</span>
               {/* <a href={`tel:${primaryMobile}`}></a> */}
               {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
             </div>
           </div>
         </div>
+        {/* companyName,
+    industryName,
+    KDM_Name,
+    mobileNo,
+    branch_Name,
+    appointDate,
+    location, */}
         <div className="content" style={{ flex: 1 }}>
           <hr
             style={{
@@ -190,16 +195,16 @@ const LeadCard = React.memo((props) => {
             >
               <div className="Dateinfo-Container">
                 <div className="grid-style">
-                  <p className="text-type">Created on</p>
-                  <p className="text-content">{created_date}</p>
+                  <p className="text-type">Industry</p>
+                  <p className="text-content">{industryName}</p>
                 </div>
                 <div className="grid-style AllocatedBy-Heading">
-                  <p className="text-type">Allocated on</p>
-                  <p className="text-content">{allocatedDate}</p>
+                  <p className="text-type">KDM Name</p>
+                  <p className="text-content">{KDM_Name}</p>
                 </div>
                 <div className="grid-style Appoinment-Heading">
-                  <p className="text-type">Appointment on</p>
-                  <p className="text-content">{appointmentOn}</p>
+                  <p className="text-type">Branch</p>
+                  <p className="text-content">{branch_Name}</p>
                 </div>
 
                 {/* Please dont delete the below line */}
@@ -208,15 +213,15 @@ const LeadCard = React.memo((props) => {
               <div className="Dateinfo-Container">
                 <div className="grid-style">
                   <p className="text-type">Mobile No.</p>
-                  <p className="text-content">{primaryMobile}</p>
+                  <p className="text-content">{mobileNo}</p>
                 </div>
                 <div className="grid-style AllocatedBy-Heading">
-                  <p className="text-type">Allocated by</p>
-                  <p className="text-content capitalize">{allocatedBy}</p>
+                  <p className="text-type">Appointment on</p>
+                  <p className="text-content capitalize">{appointDate}</p>
                 </div>
                 <div className="grid-style Appoinment-Heading">
-                  <p className="text-type">Allocated to</p>
-                  <p className="text-content capitalize">{allocatedTo}</p>
+                  <p className="text-type">Location</p>
+                  <p className="text-content capitalize">{location}</p>
                 </div>
               </div>
             </div>
@@ -269,11 +274,11 @@ const LeadCard = React.memo((props) => {
             backgroundColor: "blue",
           }}
         >
-          {nameShorter(leadName)}
+          {nameShorter(companyName)}
         </Avatar>
         <div className="card-content-text capitalize">
-          <p className="user-name-text">{leadName}</p>
-          {leadComponent}
+          <p className="user-name-text">{companyName}</p>
+          {/* {leadComponent} */}
           {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
           {/* <PhoneOutlined
             style={{ color: "green", cursor: "pointer" }}

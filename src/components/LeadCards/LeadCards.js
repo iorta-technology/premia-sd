@@ -228,16 +228,14 @@ const LeadCards = (props) => {
                   key={lead.id}
                   id={lead.id}
                   lead_Id={lead.lead_Id}
-                  leadStatus={lead.status}
-                  leadName={lead.personName}
-                  // firstName={lead.first_name}
-                  // lastName={lead.last_name}
-                  created_date={lead.allocationDate}
-                  allocatedDate={lead.allocationDate}
-                  primaryMobile={lead.mobileNo}
-                  allocatedBy={lead.allocBy}
-                  allocatedTo={lead.allocTo}
-                  appointmentOn={lead.appointDate}
+                  companyName={lead.companyName}
+                  industryName={lead.industryName}
+                  KDM_Name={lead.KDM_Name}
+                  mobileNo={lead.mobileNo}
+                  branch_Name={lead.branch_Name}
+                  appointDate={lead.appointDate}
+                  location={lead.location}
+
                   loading={props.leadDataLoading}
                 />
               </Col>
@@ -337,16 +335,13 @@ const LeadCards = (props) => {
               key={lead.id}
               id={lead.id}
               lead_Id={lead.lead_Id}
-              leadStatus={lead.status}
-              leadName={lead.personName}
-              // firstName={lead.firstName}
-              // lastName={lead.lastName}
-              created_date={lead.allocationDate}
-              allocatedDate={lead.allocationDate}
-              primaryMobile={lead.mobileNo}
-              allocatedBy={lead.allocBy}
-              allocatedTo={lead.allocTo}
-              appointmentOn={lead.appointDate}
+              companyName={lead.companyName}
+              industryName={lead.industryName}
+              KDM_Name={lead.KDM_Name}
+              mobileNo={lead.mobileNo}
+              branch_Name={lead.branch_Name}
+              appointDate={lead.appointDate}
+              location={lead.location}
               loading={props.leadDataLoading}
             />
           </Col>

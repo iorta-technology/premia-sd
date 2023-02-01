@@ -80,17 +80,47 @@ const KDMDetails = () => {
         {label:'TBI',value:'TBI'}
     ]
 
-    const onChangeKdmName = (e) => {
-        // console.warn('FIRSTNAME',e)
-        setKdmName(e.target.value);
+    const onChangeKdmName = (e,ind) => {
+        // console.warn('FIRSTNAME',kdmDetArr)
+        // console.warn('ind',ind)
+        kdmDetArr[ind].kdmName = e.target.value
     };
 
-    const onChangeKdmRole = (e) => {
-        setKdmRole(e.target.value);
+    const onChangeKdmRole = (e,ind) => {
+        kdmDetArr[ind].kdmRole = e.target.value
     };
 
-    const onChangeKdmDOB = (date, dateString) => {
-        setKdmDOBData(dateString);
+    const onChangeKdmDesig = (e,ind) => {
+        kdmDetArr[ind].kdmDesignation = e.target.value
+    };
+
+    const onChangeKdmPrimMob = (e,ind) => {
+        kdmDetArr[ind].kdmPrimContact = e.target.value
+    };
+
+    const onChangeKdmAltMob = (e,ind) => {
+        kdmDetArr[ind].kdmAltContact = e.target.value
+    };
+
+    const onChangeKdmEmail = (e,ind) => {
+        kdmDetArr[ind].kdmEmailId = e.target.value
+    };
+
+    const onChangeKdmState = (e,ind) => {
+        kdmDetArr[ind].kdmState = e.target.value
+    };
+
+    const onChangeKdmCity = (e,ind) => {
+        kdmDetArr[ind].kdmCity = e.target.value
+    };
+
+    const onChangeKdmBranch = (e,ind) => {
+        kdmDetArr[ind].kdmBranch = e.target.value
+    };
+    
+    const onChangeKdmDOB = (date, kdmDOB) => {
+        setKdmDOBData(kdmDOB);
+        // kdmDetArr[ind].kdmDOB = kdmDOB
     };
 
     const addKDM = (data) => {
@@ -145,6 +175,79 @@ const KDMDetails = () => {
         setkdmDetArr([..._kdmArr])
         
     };
+
+    const updateKDMDetails = () =>{
+        // const [kdmDetArr, setkdmDetArr] = useState([
+        //     {
+        //         kdmName:'',
+        //         kdmRole:'',
+        //         kdmDesignation:'',
+        //         kdmPrimContact:'',
+        //         kdmAltContact:'',
+        //         kdmEmailId:'',
+        //         kdmDOB:'',
+        //         kdmState:'',
+        //         kdmCity:'',
+        //         kdmBranch:'',
+        //         noOfKDM:''
+        //     },
+        // ]);
+        console.warn('kdmDetArr------>>>>>',kdmDetArr)
+        // let updateLeadFormData = {
+        //     company_details: {
+        //       company_name: formItem.companyName,
+        //       parent_company: formItem.parentCompanyName,
+        //       industry_name: formItem.industry,
+        //       tata_aig_empaneled:formItem.empaneled === true ? 'Yes' : 'No',
+        //       client_location: formItem.clientLocation,
+        //     },
+        //     leadStatus: formItem.status,
+        //     leadDisposition: formItem.disposition,
+        //     leadsubDisposition: formItem.subDisposition,
+        //     opportunity_name: formItem.opportunityName,
+        //     tender_driven: formItem.tenderDriver === true ? 'Yes' : 'No',
+        //     LOB_opportunity: formItem.LOBForOpportunity,
+        //     product_for_opportunity: formItem.productForOpportunity,
+        //     remarks: formItem.remarks,
+        //     teamMembers : "[]",
+        //     lead_Owner_Id: id,
+        //     lead_Creator_Id: id,
+        //     user_id: id,
+        //     company_id: company_id,
+        //     start_date: formItem.appointmentDate,
+        //     start_time:formItem.appointmentTime,
+        //     client_expectations: "",
+        //     red_flags: "",
+        //     our_ask: "",
+        //     channel_name: "",
+        //     producer: "",
+        //     VAS_executed: "Yes",
+        //     kdm_details: [{
+        //         decision_maker_name: "",
+        //         role: "ROLE",
+        //         designation: "zzz",
+        //         primaryContact: "",
+        //         alternateContact: "",
+        //         emailAddress: "",
+        //         date_of_birth: "",
+        //         city: "Mumbai",
+        //         state: "Maharashtra",
+        //         branch: "Andheri"
+        //     }],
+        //     risk_details: [{
+        //         total_entities: "",
+        //         product_name: "",
+        //         total_premium: "0",
+        //         tagic_presence_percentage: "",
+        //         tagic_premium: "",
+        //         leader: "",
+        //         lead_insurer: "",
+        //         leader_share: "",
+        //         inception_date: ""
+        //     }]
+        
+        // }
+    }
     
     
     
@@ -191,7 +294,7 @@ return (
                                     placeholder="Enter Key Decison Maker Name"
                                     value={el.kdmName}
                                     // defaultValue={kdmName}
-                                    onChange={(item) => onChangeKdmName(item)}
+                                    onChange={(item) => onChangeKdmName(item,index)}
                                 />
                             </Form.Item>
                         </Col>
@@ -209,7 +312,7 @@ return (
                                     options={el.kdmRole}
                                     value={kdmRole}
                                     // defaultValue={citiesOptions}
-                                    onChange={(item) => onChangeKdmRole(item)}
+                                    onChange={(item) => onChangeKdmRole(item,index)}
                                 ></Select>
                             </Form.Item>
                         </Col>
@@ -230,7 +333,7 @@ return (
                                     placeholder="Enter KDM Designation"
                                     value={el.kdmDesignation}
                                     // defaultValue={kdmName}
-                                    onChange={(item) => onChangeKdmName(item)}
+                                    onChange={(item) => onChangeKdmDesig(item,index)}
                                 />
                             </Form.Item>
                         </Col>
@@ -251,7 +354,7 @@ return (
                                     placeholder="Enter KDM Primary Contact"
                                     value={el.kdmPrimContact}
                                     // defaultValue={kdmName}
-                                    onChange={(item) => onChangeKdmName(item)}
+                                    onChange={(item) => onChangeKdmPrimMob(item,index)}
                                 />
                             </Form.Item>
                         </Col>
@@ -272,7 +375,7 @@ return (
                                     placeholder="Enter KDM Alternate Contact"
                                     value={el.kdmAltContact}
                                     // defaultValue={kdmName}
-                                    onChange={(item) => onChangeKdmName(item)}
+                                    onChange={(item) => onChangeKdmAltMob(item,index)}
                                 />
                             </Form.Item>
                         </Col>
@@ -293,7 +396,7 @@ return (
                                     placeholder="Enter KDM Email ID"
                                     value={el.kdmEmailId}
                                     // defaultValue={kdmName}
-                                    onChange={(item) => onChangeKdmName(item)}
+                                    onChange={(item) => onChangeKdmEmail(item,index)}
                                 />
                             </Form.Item>
                         </Col>
@@ -329,7 +432,7 @@ return (
                                     options={kdmRoleArr}
                                     value={el.kdmState}
                                     // defaultValue={citiesOptions}
-                                    onChange={(item) => onChangeKdmRole(item)}
+                                    onChange={(item) => onChangeKdmState(item,index)}
                                 ></Select>
                             </Form.Item>
                         </Col>
@@ -348,7 +451,7 @@ return (
                                     options={kdmRoleArr}
                                     value={el.kdmCity}
                                     // defaultValue={citiesOptions}
-                                    onChange={(item) => onChangeKdmRole(item)}
+                                    onChange={(item) => onChangeKdmCity(item,index)}
                                 ></Select>
                             </Form.Item>
                         </Col>
@@ -369,7 +472,7 @@ return (
                                     placeholder="Enter Branch"
                                     value={el.kdmBranch}
                                     // defaultValue={kdmName}
-                                    onChange={(item) => onChangeKdmName(item)}
+                                    onChange={(item) => onChangeKdmBranch(item,index)}
                                 />
                             </Form.Item>
                         </Col>
@@ -385,7 +488,7 @@ return (
 
             
             <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
-                <Button style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
+                <Button onClick={()=> updateKDMDetails()} style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
             </div>
         </Col>
     </>

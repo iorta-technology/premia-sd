@@ -26,31 +26,13 @@ export const createLeadFail = (error) => {
 export const createLead = (formData) => {
   return async (dispatch) => {
     dispatch(createLeadStart());
-    // return axios.post(`user/addlead`,formData)
-    //     .then(res => {
-    //         if(res.data.errCode===-1){
-    //             const response = res.data.errMsg
-    //             const succMsg = 'Lead Created Successfully'
-    //             console.log('creat action',response)
-    //             return dispatch(createLeadSuccess(...response,succMsg))
-
-    //         }else{
-    //             throw res
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //         const errorMessage = error.data.errMsg
-    //         return dispatch(createLeadFail(errorMessage))
-    //     })
-
     let result = await axiosRequest.post("user/addlead", formData, {
       secure: true,
     });
     console.log("create LEADDDD_______", result);
-    if (result.length > 0) {
+    // if (result.length > 0) {
       return dispatch(createLeadSuccess(result));
-    }
+    // }
   };
 };
 
@@ -77,30 +59,14 @@ export const editLeadFail = (error) => {
 export const editLead = (formData, id) => {
   return async (dispatch) => {
     dispatch(editLeadStart());
-    // return axios.put(`user/updateLead/${id}`,formData)
-    //     .then(res => {
-    //         if(res.data.errCode===-1){
-    //             let formData = res.data.errMsg[0]
-    //             let appointmentData = res.data.errMsg[1]
-
-    //             return dispatch(editLeadSuccess(formData,appointmentData))
-    //         }else{
-    //             throw res
-    //         }
-    //     })
-    //     .catch(error => {
-    //         const errorMessage = error.data.errMsg
-
-    //         return dispatch(editLeadFail(errorMessage))
-    //     })
-
+   
     let result = await axiosRequest.put(`user/updateLead/${id}`, formData, {
       secure: true,
     });
     console.warn("update LEADDDD_______", result);
-    if (result.length > 0) {
+    // if (result.length > 0) {
       return dispatch(editLeadSuccess(result));
-    }
+    // }
   };
 };
 
