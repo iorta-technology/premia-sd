@@ -16,7 +16,7 @@ const initialState = {
   hierarchy: {},
   minValue: "",
   checkAgent: false,
-  headerName:"",
+  headerName: "",
 };
 
 let user = stoageGetter("user");
@@ -45,8 +45,6 @@ const headerNameData = (state, action) => {
     fetch_allLeads_Loading: false,
   });
 };
-
-
 
 const loginSuccess = (state, action) => {
   console.log("id_______DATATATATTAAT", action);
@@ -81,7 +79,6 @@ const logoutStart = (state, action) => {
 };
 
 const logoutSuccess = (state, action) => {
-
   stoageSetter("user", null);
   stoageSetter("headers", {});
   window.localStorage.removeItem("user");
