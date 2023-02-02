@@ -169,8 +169,10 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true)
     }//1661472000000
     if (props.Data) {
-      console.warn(props.Data,'yes update');
+      console.warn(props.Data,
+        moment(props.Data.start_date), moment(props.Data.timeline),'yes update');
       setEventId(props.Data._id)
+      setStatusReasonText(props.Data.statusReason)
       if (props.Data.appointment_type == 'existingapplication') {
         setCheckEventWith('New Prospect')
         setAdvisorCheck(true)
@@ -292,6 +294,7 @@ export default function CalendarEvent(props) {
           closeStatus: false
         })
       } else {
+        
         setEventStatus("close")
         setStatusType({
           openStatus: false,
@@ -332,7 +335,7 @@ export default function CalendarEvent(props) {
       setEventAgenda(props.Data.title)
       setMinutesofMeet(props.Data.meeting_content)
       setAppointmentid(props.Data._id)
-      setStatusReasonText(props.Data.statusreason)
+      // setStatusReasonText(props.Data.statusreason)
       setDurationStartTimeOperation(props.Data.start_time)
       setDurationEndTimeOperation(props.Data.end_time)
       setDurationEndDateOperation(props.Data.end_date)
@@ -343,7 +346,7 @@ export default function CalendarEvent(props) {
       setEndTimeSelect(props.Data.end_time)
       setEventDurationType(props.Data.durationType)
       setModeSelect(props.Data.mode)
-      setStatusReasonText(props.Data.statusreason)
+      // setStatusReasonText(props.Data.statusreason)
       // console.log(moment(1661472000000).format("YYYY-MM-DD"));
     }
   }, [])
@@ -1613,12 +1616,12 @@ export default function CalendarEvent(props) {
           // ] : [],
           // customerId: "",
           // teamMember_clone: teammemberclone,
-          // remarkText: '',
+          statusreason: statusReasonText,
           // leadId : leadlist[0],
           // mode: modeSelect,
           // stakeHolder_name: stakeholdrName,
           // location: customerNameText,
-          // timeline_date: timelineDateData,
+          timeline_date: timelineDateData,
           // agenda: eventAgenda,
           meeting_content: minutesofmeet,
           eventId : eventid,
@@ -3243,7 +3246,9 @@ export default function CalendarEvent(props) {
                       /> */}
                   <DatePicker
                     onChange={onChangeTimelineDate}
-                    disabled={updateEventCheck == true ? true : false}
+                    allowClear={false}
+                    // disabled={updateEventCheck == true ? true : false}
+                    defaultValue={timelineDatestring}
                     value={timelineDatestring}
                     format="DD-MM-YYYY"
                     className={"CalendarEvent-Modal-customer-textbox-style"}
