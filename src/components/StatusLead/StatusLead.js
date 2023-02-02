@@ -1097,6 +1097,8 @@ const NewLead = React.memo((props) => {
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
+  console.warn('(((((((props.location.state ___BBB))))))):', props.location.state);
+  console.warn('(((((((leadIdData ___BBB))))))):', leadIdData);
 
   return (
     <>
@@ -1105,7 +1107,7 @@ const NewLead = React.memo((props) => {
         header="New Lead" 
         activeKey="1" 
         resetDataFields={resetDataFields} 
-        routeLeadData={props.location.state !== undefined ? props.location.state.leadID : leadIdData } 
+        routeLeadData={props.location.state !== undefined ? props.location.state.hasOwnProperty('_leadData') ? props.location.state._leadData._id :  props.location.state.leadID : leadIdData } 
         updateFormData={updateLeadFormData}  />
 
       <div className="form-container">

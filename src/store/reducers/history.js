@@ -119,7 +119,7 @@ const fetchHistorySuccess = (state, action) => {
         }
       }
     } else {
-      if (historydetail.Status === "newleadentery") {
+      if (historydetail.leadId.leadStatus === "newleadentery") {
         desc =
           doSentenceCase(historydetail.Details1) +
           " " +

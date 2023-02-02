@@ -251,7 +251,7 @@ const KDMDetails = (props) => {
 
     const deleteKDM = (data,ind) => {
         console.warn('KDMMMM',data)
-        let _kdmArr = kdmDetArr.filter(el => el.noOfKDM !== data.noOfKDM)
+        let _kdmArr = kdmDetArr.filter(el => el.kdmName !== data.kdmName)
         // console.warn('KDMMMM_______kdmArr',_kdmArr)
         setkdmDetArr([..._kdmArr])
         
@@ -338,7 +338,7 @@ return (
                     {/* <Form form={form} > */}
                         <Row style={{alignItems:'center'}} justify='space-between'>
                             <p className="form-title">{index + 1} - Key Decison Makers ( KDM ) Details</p>
-                            { el.noOfKDM !== '' &&
+                            { index !== 0 &&
                                 <p onClick={()=> deleteKDM(el,index)} style={{color:'indianred',fontSize:14,cursor: 'pointer'}}>DELETE</p>
                             }
                         </Row>
