@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Steps, Timeline, Divider, Image, Tabs } from "antd";
+import { Row, Col, Steps, Timeline, Divider, Image, Tabs, Card } from "antd";
 
 import "./History.css";
 import "../StatusLead/StatusLead.css";
@@ -13,6 +13,7 @@ import * as actions from "../../store/actions/history";
 import _ from "lodash";
 import { dataFormatting } from "../../helpers";
 import axiosRequest from "../../axios-request/request.methods";
+import actionNoData from "../../assets/Actionnodata.png";
 
 const { Step } = Steps;
 const breakpoint = 620;
@@ -50,20 +51,25 @@ const tabMenu = [
 ];
 
 const History = () => {
-  const storeLeadId = useSelector((state) => state.newLead.leadId);
-  const storeUserId = useSelector((state) => state.newLead.userId);
+  const data = useSelector((state) => state?.newLead?.formData?._id);
+  const leadId = useSelector((state) => state.newLead.leadId);
+  const userId = useSelector((state) => state.newLead.userId);
   const leadArrObject = useSelector((state) => state.history.leadData);
   const appointmentArrObject = useSelector(
     (state) => state.history.appointmentData
   );
-  const proposalArrObject = useSelector((state) => state.history.proposalData);
-
-  const hist = useSelector((state) => state.history);
-  console.log("histrory datta--- ", hist);
-
-  const [leadId, setleadId] = useState(storeLeadId);
-  const [userId, setuserId] = useState(storeUserId);
   const dispatch = useDispatch();
+
+  console.log("data ===== ", data);
+
+  const proposalArrObject = useSelector((state) => state.history.proposalData);
+  const historyLeadData = useSelector((state) => state.history.leadData);
+  const appointmentData = useSelector((state) => state.history.appointmentData);
+  console.log("histrory data ---------------- ", appointmentData);
+
+  useEffect(() => {
+    dispatch(actions.fetchHistory(leadId, userId));
+  }, [dispatch]);
 
   let { innerWidth: width, innerHeight: height } = window;
   const { TabPane } = Tabs;
@@ -79,6 +85,43 @@ const History = () => {
       : "left"
   );
 
+  const NoRecords = () => {
+    return (
+      <Col
+        className="form-body ci-p20 mb-2"
+        xs={24}
+        sm={24}
+        md={16}
+        lg={15}
+        xl={20}
+        span={23}
+      >
+        <Card className="card" style={{ width: "100%" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <img src={actionNoData} />
+            <p
+              style={{
+                fontFamily: "roboto",
+                fontWeight: 600,
+                color: "#01b4bb",
+                fontSize: "22px",
+              }}
+            >
+              No Records Found!
+            </p>
+          </div>
+        </Card>
+      </Col>
+    );
+  };
+
   const Leads = () => (
     <>
       <Col
@@ -91,61 +134,67 @@ const History = () => {
         span={23}
       >
         <h1 class="form-title mb-4">Lead Data</h1>
-        <div className="notification_box ps-4 mb-3">
-          <div className="notification_data">
-            <div className="py-4 px-3">
-              <div className="d-flex justify-content-between align-items-center">
-                <div style={{ fontWeight: "700" }}>New Lead Created</div>
-                <div className="text-secondary text-end">Sachin</div>
-              </div>
-              <div className="d-flex justify-content-between align-items-center mt-2">
-                <div className="text-secondary">K k 989344506</div>
-                <div className="text-end">1/02/2021, 5:03:35 PM</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="notification_box ps-4 mb-3">
-          <div className="notification_data">
-            <div className="py-4 px-3">
-              <div className="d-flex justify-content-between align-items-center">
-                <div style={{ fontWeight: "700" }}>New Lead Created</div>
-                <div className="text-secondary text-end">Sachin</div>
-              </div>
-              <div className="d-flex justify-content-between align-items-center mt-2">
-                <div className="text-secondary">K k 989344506</div>
-                <div className="text-end">1/02/2021, 5:03:35 PM</div>
+
+        {historyLeadData &&
+          historyLeadData?.map((res) => (
+            <div className="notification_box ps-4 mb-3">
+              <div className="notification_data">
+                <div className="py-4 px-3">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div style={{ fontWeight: "700" }}>{res.title}</div>
+                    <div className="text-secondary text-end">{res.owner}</div>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center mt-2">
+                    <div className="text-secondary">{res.desc}</div>
+                    <div className="text-end">{res.date}</div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="notification_box ps-4 mb-3">
-          <div className="notification_data">
-            <div className="py-4 px-3">
-              <div className="d-flex justify-content-between align-items-center">
-                <div style={{ fontWeight: "700" }}>New Lead Created</div>
-                <div className="text-secondary text-end">Sachin</div>
-              </div>
-              <div className="d-flex justify-content-between align-items-center mt-2">
-                <div className="text-secondary">K k 989344506</div>
-                <div className="text-end">1/02/2021, 5:03:35 PM</div>
-              </div>
-            </div>
-          </div>
-        </div>
+          ))}
       </Col>
     </>
   );
 
-  useEffect(() => {
-    dispatch(actions.fetchHistory(leadId, userId));
-  }, [dispatch]);
+  const Appoinments = () => (
+    <>
+      <Col
+        className="form-body ci-p20 mb-2"
+        xs={24}
+        sm={24}
+        md={16}
+        lg={15}
+        xl={20}
+        span={23}
+      >
+        <h1 class="form-title mb-4">Appoinment Data</h1>
+
+        {appointmentData &&
+          appointmentData?.map((res) => (
+            <div className="notification_box ps-4 mb-3">
+              <div className="notification_data">
+                <div className="py-4 px-3">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div style={{ fontWeight: "700" }}>{res.title}</div>
+                    <div className="text-secondary text-end">{res.owner}</div>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center mt-2">
+                    <div className="text-secondary">{res.desc}</div>
+                    <div className="text-end">{res.date}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+      </Col>
+    </>
+  );
 
   return (
     <>
-      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="1" />
+      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="3" />
 
-      <div className="form-container ml10rem kdmStyle ">
+      <div className="form-container ml10rem kdmStyle">
         <Tabs
           tabBarGutter={0}
           tabPosition={width > breakpoint ? "left" : "top"}
@@ -154,10 +203,18 @@ const History = () => {
           defaultActiveKey={1}
         >
           <TabPane key="1" tab="Lead">
-            <Leads />
+            {historyLeadData && historyLeadData.length > 0 ? (
+              <Leads />
+            ) : (
+              <NoRecords />
+            )}
           </TabPane>
           <TabPane key="2" tab="Appointment">
-            <Leads />
+            {appointmentData && appointmentData.length > 0 ? (
+              <Appoinments />
+            ) : (
+              <NoRecords />
+            )}
           </TabPane>
         </Tabs>
       </div>
@@ -166,12 +223,3 @@ const History = () => {
 };
 
 export default History;
-
-//   <Row gutter={["", 20]} justify="center">
-//     <Col className="form-body" xs={22} sm={24} md={16} lg={16} xl={16}>
-//       <div className="proposal">
-//         <div className="bg-norecord"></div>
-//         <p className="norecord-title">No Records Found 123</p>
-//       </div>
-//     </Col>
-//   </Row>
