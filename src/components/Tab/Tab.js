@@ -17,6 +17,7 @@ import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
 import { useLocation } from "react-router-dom";
+import { PlusOutlined } from '@ant-design/icons';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
@@ -42,6 +43,7 @@ const Tab = ({
   activeRenewalkey,
   current,
   filterdata,
+  resetDataFields
 }) => {
   const currentLocation = useLocation();
   // console.log('************************ current ___ *********************===========>>>',current)
@@ -61,7 +63,7 @@ const Tab = ({
 
   useEffect(() => {
 
-    console.log('************************ header ___*(*(*((**)))) *********************===========>>>',header)
+    // console.log('************************ header ___*(*(*((**)))) *********************===========>>>',header)
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead")  getDataForOpen(leadTabFilter);
@@ -172,6 +174,10 @@ const Tab = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const addNewOpportunity = () => {
+    resetDataFields()
+  }
+  
   return (
     <>
       {width > breakpoint ? (
@@ -197,6 +203,15 @@ const Tab = ({
               </Tabs>
             </div>
           </div>
+          
+          { (header !== "Lead" && activeKey === '1') &&
+          <div style={{display:'flex',alignItems:'flex-end',marginBottom:15}}>
+              <Button onClick={()=> addNewOpportunity()} style={{display:'flex',alignItems:'center',borderRadius:5,backgroundColor:'#00ACC1',border: 'transparent',color:'#fff'}} size='large' > 
+                <PlusOutlined style={{fontSize:16,marginRight:10}} /> Add New Opportunity
+              </Button>
+          </div>
+     
+          }
           {/* header === "Lead" */}
           {/* <div style={{ display: "flex" }}>
             {tabPane.key === activeKey ? (

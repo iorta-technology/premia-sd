@@ -24,7 +24,7 @@ const Login = () => {
 
   const onLogin = () => {
     axios
-      .post(`https://abinsurancenode.salesdrive.app/sdx-api/auth/user/login`, {
+      .post(`https://b2bnodedev.salesdrive.app/b2b/auth/user/login`, {
         email,
         password,
       })

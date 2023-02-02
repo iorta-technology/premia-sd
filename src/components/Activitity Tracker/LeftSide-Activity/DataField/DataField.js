@@ -161,14 +161,16 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
         var dS = SelfMonthYear.split("/");
         var d1 = new Date(dS[1], (+dS[0]));
         var today = new Date();
-        // console.log(d1)
-        // console.log(today)
+        console.log(d1,'d1----->')
+        console.log(SelfMonthYear.split("/"),'split of minth')
+        console.log(('0' + dS[0]).slice(-2));
+        let finalMonthYear = (('0' + dS[0]).slice(-2)) + '/' + dS[1]
         if (d1 >= today) {
-          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear}&category=upcoming`)
+          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${finalMonthYear}&category=upcoming`)
               setDataContainer(result)
               // console.log(result, 'd is greater');
         } else {
-          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${SelfMonthYear}&category=past`)
+          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${finalMonthYear}&category=past`)
           setDataContainer(result)
           // console.log(result, 'today is greater');
         }
