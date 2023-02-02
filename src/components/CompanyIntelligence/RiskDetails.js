@@ -34,7 +34,7 @@ const RiskDetails = (props) => {
     const dispatch = useDispatch()
     const _StoreData = useSelector((state) => state?.newLead?.formData);
     const user_id = useSelector((state) => state.login.user.id);
-    // console.log('(((((((((_StoreData____RISKKKK)))))))))---->>>>',_StoreData)
+    console.log('(((((((((_StoreData____RISKKKK)))))))))---->>>>',_StoreData)
     // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
 
     const [noOfEntities, setNoOfEntities] = useState("");
@@ -53,8 +53,10 @@ const RiskDetails = (props) => {
     const [showRiskDetailsPopup, setShowRiskDetailsPopup] = useState(false);
 
     useEffect(() => {
+        let _dataArr = []
         if(_StoreData?.company_id?.risk_details.length > 0){
             _StoreData?.company_id?.risk_details.map(el =>{
+                // console.log('(((((((((el)))))))))---->>>>',el)
                 let _data = {
                     riskName: !el.product_name ? '-' : el.product_name,
                     riskType: !el.total_entities ? '-' : el.total_entities,
@@ -67,9 +69,12 @@ const RiskDetails = (props) => {
                     leaderFollower: !el.leader ? '' : el.leader,
                     inceptionDate: !el.inception_date ? '' : el.inception_date,
                 }
+                _dataArr.push(_data)
                 
-                setRiskDataArr([...riskDataArr,_data])
+                // setRiskDataArr([...riskDataArr,_data])
             })
+            console.log('_dataArr========>>>>',_dataArr)
+            setRiskDataArr(_dataArr)
 
         }
 
@@ -240,13 +245,13 @@ const RiskDetails = (props) => {
             our_ask: _StoreData?.our_ask,
             channel_name: _StoreData?.channel_name,
             producer: _StoreData?.producer,
-            VAS_executed: _StoreData?.VAS_executed,
+            VAS_executed: !_StoreData?.VAS_executed ? 'Yes' : _StoreData?.VAS_executed,
             kdm_details: _StoreData?.company_id?.kdm_details,
             risk_details: _riskDetailsData
         }
         console.warn('formBody ------>>>>>',formBody)
         dispatch(actions.fetchLeadUpdateBody(formBody))
-        dispatch(actions.editLead(formBody, props.leadDetails.leadID))
+        dispatch(actions.editLead(formBody, props.leadDetails))
     }
     
     

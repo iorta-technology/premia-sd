@@ -36,7 +36,7 @@ const kdmRolesArr = [
 
 const KDMDetails = (props) => {
     const dispatch = useDispatch();
-    const [form] = Form.useForm();
+    // const [form] = Form.useForm();
     
     // const storeLeadId = useSelector((state) => state.newLead.leadId)
     // const storeUserId = useSelector((state) => state.newLead.userId)
@@ -44,20 +44,22 @@ const KDMDetails = (props) => {
     const user_id = useSelector((state) => state.login.user.id);
     const states = useSelector((state) => state.address.states);
     console.log('(((((((((_StoreData)))))))))---->>>>',_StoreData)
-    // console.log('(((((((((updateFormData)))))))))---->>>>',props.updateFormData)
+    console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
     
 
     const [kdmDetCount, setKdmDetCount] = useState(2);
     const [showKdmBtn, setShowKdmBtn] = useState(true);
+    const [Name, setName] = useState('');
     const [kdmDetArr, setkdmDetArr] = useState([
         {
-            kdmName:'',
+            kdmName:null,
             kdmRole:'',
             kdmDesignation:'',
             kdmPrimContact:'',
             kdmAltContact:'',
             kdmEmailId:'',
             kdmDOB:'',
+            kdmDOBString:'',
             kdmState:'',
             kdmCity:'',
             kdmBranch:'',
@@ -77,11 +79,12 @@ const KDMDetails = (props) => {
                     kdmPrimContact:el.primaryContact,
                     kdmAltContact:el.alternateContact,
                     kdmEmailId:el.emailAddress,
-                    kdmDOB: moment(el.date_of_birt, "MM/DD/YYYY"),
+                    kdmDOB: moment(el.date_of_birth, "MM/DD/YYYY"),
+                    kdmDOBString:el.date_of_birth,
                     kdmState:el.state,
                     kdmCity:el.city,
                     kdmBranch:el.branch,
-                    noOfKDM:''
+                    noOfKDM:'2'
                 }
                 _dataArr.push(_data)
 
@@ -151,31 +154,39 @@ const KDMDetails = (props) => {
         // console.warn('FIRSTNAME',kdmDetArr)
         // console.warn('ind',ind)
         kdmDetArr[ind].kdmName = e.target.value
+        setkdmDetArr([...kdmDetArr])
     };
 
     const onChangeKdmRole = (e,ind) => {
+        // console.warn('onChangeKdmRole=========>>>>',e)
         kdmDetArr[ind].kdmRole = e
+        setkdmDetArr([...kdmDetArr])
     };
 
     const onChangeKdmDesig = (e,ind) => {
         kdmDetArr[ind].kdmDesignation = e.target.value
+        setkdmDetArr([...kdmDetArr])
     };
 
     const onChangeKdmPrimMob = (e,ind) => {
         kdmDetArr[ind].kdmPrimContact = e.target.value
+        setkdmDetArr([...kdmDetArr])
     };
 
     const onChangeKdmAltMob = (e,ind) => {
         kdmDetArr[ind].kdmAltContact = e.target.value
+        setkdmDetArr([...kdmDetArr])
     };
 
     const onChangeKdmEmail = (e,ind) => {
         kdmDetArr[ind].kdmEmailId = e.target.value
+        setkdmDetArr([...kdmDetArr])
     };
 
     const onChangeKdmState = (e,ind) => {
         kdmDetArr[ind].kdmState = e
         kdmDetArr[ind].kdmCity = ''
+        setkdmDetArr([...kdmDetArr])
 
         // if(cityProvince !== ''){
         //     setCityProvince("");
@@ -190,15 +201,21 @@ const KDMDetails = (props) => {
 
     const onChangeKdmCity = (e,ind) => {
         kdmDetArr[ind].kdmCity = e
+        setkdmDetArr([...kdmDetArr])
     };
 
     const onChangeKdmBranch = (e,ind) => {
         kdmDetArr[ind].kdmBranch = e.target.value
+        setkdmDetArr([...kdmDetArr])
     };
     
     const onChangeKdmDOB = (date, kdmDOB,ind) => {
         // setKdmDOBData(kdmDOB);
-        kdmDetArr[ind].kdmDOB = kdmDOB
+        console.warn('date--------->>>>>',date)
+        console.warn('kdmDOB--------->>>>>',kdmDOB)
+        kdmDetArr[ind].kdmDOB = date
+        kdmDetArr[ind].kdmDOBString = kdmDOB
+        setkdmDetArr([...kdmDetArr])
     };
 
     const addKDM = (data) => {
@@ -213,6 +230,7 @@ const KDMDetails = (props) => {
                 kdmAltContact:'',
                 kdmEmailId:'',
                 kdmDOB:'',
+                kdmDOBString:'',
                 kdmState:'',
                 kdmCity:'',
                 kdmBranch:'',
@@ -227,6 +245,7 @@ const KDMDetails = (props) => {
 
         }
         kdmDetArr.length === 3 ? setShowKdmBtn(false) : setShowKdmBtn(true)
+        // console.warn('kdmDetArr--------->>>>>',kdmDetArr)
         
     };
 
@@ -249,7 +268,7 @@ const KDMDetails = (props) => {
                 primaryContact: el.kdmPrimContact,
                 alternateContact: el.kdmAltContact,
                 emailAddress: el.kdmEmailId,
-                date_of_birth: el.kdmDOB,
+                date_of_birth: el.kdmDOBString,
                 city: el.kdmCity,
                 state: el.kdmState,
                 branch: el.kdmBranch,
@@ -290,14 +309,14 @@ const KDMDetails = (props) => {
             our_ask: _StoreData?.our_ask,
             channel_name: _StoreData?.channel_name,
             producer: _StoreData?.producer,
-            VAS_executed: _StoreData?.VAS_executed,
+            VAS_executed: !_StoreData?.VAS_executed ? 'Yes' : _StoreData?.VAS_executed,
             kdm_details: _kdmDetailsData,
             risk_details: _StoreData?.company_id?.risk_details
         }
 
         console.warn('formBody ------>>>>>',formBody)
         dispatch(actions.fetchLeadUpdateBody(formBody))
-        dispatch(actions.editLead(formBody, props.leadDetails.leadID))
+        dispatch(actions.editLead(formBody, props.leadDetails))
         
     }
     
@@ -316,7 +335,7 @@ return (
             { kdmDetArr &&
                 kdmDetArr.map((el,index) =>(
                 <>
-                    <Form form={form} >
+                    {/* <Form form={form} > */}
                         <Row style={{alignItems:'center'}} justify='space-between'>
                             <p className="form-title">{index + 1} - Key Decison Makers ( KDM ) Details</p>
                             { el.noOfKDM !== '' &&
@@ -325,7 +344,7 @@ return (
                         </Row>
                         <Row gutter={16} className="statsLead kdmStyle" style={{marginBottom:40}}>
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmName"
@@ -335,37 +354,41 @@ return (
                                         { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
                                     ]}
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                    <p style={{marginBottom:6}}>Key Decison Maker Name</p>
                                     <Input
                                         placeholder="Enter Key Decison Maker Name"
                                         value={el.kdmName}
+                                        style={{ marginBottom: "1rem" }}
                                         // defaultValue={kdmName}
                                         onChange={(item) => onChangeKdmName(item,index)}
                                     />
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmRole"
                                     label="KDM Role"
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                    <p style={{marginBottom:6}}>KDM Role</p>
                                     <Select
                                         bordered={true}
                                         placeholder="Select KDM Role"
                                         options={kdmRolesArr}
                                         value={el.kdmRole}
+                                        style={{ marginBottom: "1rem",display: 'flex' }}
                                         
                                         // defaultValue={citiesOptions}
                                         onChange={(item) => onChangeKdmRole(item,index)}
                                     ></Select>
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmDesig"
@@ -375,18 +398,20 @@ return (
                                     //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
                                     // ]}
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                <p style={{marginBottom:6}}>KDM Designation</p>
                                     <Input
                                         placeholder="Enter KDM Designation"
                                         value={el.kdmDesignation}
+                                        style={{ marginBottom: "1rem" }}
                                         // defaultValue={kdmName}
                                         onChange={(item) => onChangeKdmDesig(item,index)}
                                     />
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmPrimContact"
@@ -404,19 +429,21 @@ return (
                 
                                     ]}
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                    <p style={{marginBottom:6}}>KDM Primary Contact</p>
                                     <Input
                                         placeholder="Enter KDM Primary Contact"
                                         value={el.kdmPrimContact}
                                         maxLength="10"
+                                        style={{ marginBottom: "1rem" }}
                                         // defaultValue={kdmName}
                                         onChange={(item) => onChangeKdmPrimMob(item,index)}
                                     />
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmAltContact"
@@ -433,19 +460,21 @@ return (
                                         { message: "Only Numbers are Allowed",pattern: new RegExp(/^[0-9 ]+$/),},
                                     ]}
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                <p style={{marginBottom:6}}>KDM Alternate Contact</p>
                                     <Input
                                         placeholder="Enter KDM Alternate Contact"
                                         value={el.kdmAltContact}
                                         maxLength="10"
+                                        style={{ marginBottom: "1rem" }}
                                         // defaultValue={kdmName}
                                         onChange={(item) => onChangeKdmAltMob(item,index)}
                                     />
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmEmail"
@@ -455,74 +484,81 @@ return (
                                     //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
                                     // ]}
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                <p style={{marginBottom:6}}>KDM Email ID</p>
                                     <Input
                                         placeholder="Enter KDM Email ID"
                                         value={el.kdmEmailId}
+                                        style={{ marginBottom: "1rem" }}
                                         // defaultValue={kdmName}
                                         onChange={(item) => onChangeKdmEmail(item,index)}
                                     />
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmDOB"
                                     label="Date Of Birth"
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                <p style={{marginBottom:6}}>Date Of Birth</p>
                                     <DatePicker 
                                         onChange={ (date,dateString) => onChangeKdmDOB(date,dateString,index) } 
                                         value={el.kdmDOB}
-                                        format="DD-MM-YYYY"
-                                        style={{display:'flex',flex:1}}
+                                        format="MM/DD/YYYY"
+                                        style={{display:'flex',flex:1,marginBottom: "1rem"}}
                                     />
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmState"
                                     label="State"
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                <p style={{marginBottom:6}}>State</p>
                                     <Select
                                         bordered={true}
                                         placeholder="Select State"
                                         options={stateOptions}
                                         value={el.kdmState}
                                         onSelect={stateSelectHandler}
+                                        style={{ marginBottom: "1rem",display: 'flex' }}
                                         // defaultValue={citiesOptions}
                                         onChange={(item) => onChangeKdmState(item,index)}
                                     ></Select>
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmCity"
                                     label="City"
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                <p style={{marginBottom:6}}>City</p>
                                     <Select
                                         bordered={true}
                                         placeholder="Select City"
                                         options={citiesOptions}
                                         value={el.kdmCity}
+                                        style={{ marginBottom: "1rem",display: 'flex' }}
                                         // defaultValue={citiesOptions}
                                         onChange={(item) => onChangeKdmCity(item,index)}
                                     ></Select>
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
                                     name="kdmBranch"
@@ -532,17 +568,19 @@ return (
                                     //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
                                     // ]}
                                     style={{ marginBottom: "1rem" }}
-                                >
+                                > */}
+                                <p style={{marginBottom:6}}>Branch (if applicable)</p>
                                     <Input
                                         placeholder="Enter Branch"
                                         value={el.kdmBranch}
+                                        style={{ marginBottom: "1rem" }}
                                         // defaultValue={kdmName}
                                         onChange={(item) => onChangeKdmBranch(item,index)}
                                     />
-                                </Form.Item>
+                                {/* </Form.Item> */}
                             </Col>
                         </Row>
-                    </Form>
+                    {/* </Form> */}
                 </>
                 ))
             }

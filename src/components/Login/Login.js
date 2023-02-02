@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import loginLogo from "../../images/ABIB_LOGO.jpg";
+import loginLogo from "../../images/salesDrivelogo.png";
 import axios from "axios";
 import { stoageSetter } from "../../helpers";
 
@@ -73,7 +73,7 @@ const Login = () => {
             <div className="logo">
               <Image
                 preview={false}
-                width={350}
+                width={210}
                 src={loginLogo}
                 alt="login-logo"
               />

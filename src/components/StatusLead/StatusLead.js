@@ -458,7 +458,7 @@ const NewLead = React.memo((props) => {
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   
-  // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', storeFormData)
+  console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', storeFormData)
 
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading);
   let storeLeadId = useSelector((state) => state?.newLead?.formData?._id);
@@ -955,17 +955,17 @@ const NewLead = React.memo((props) => {
       company_id: company_id,
       start_date: apptDateString,
       start_time:formItem.appointmentTime,
-      client_expectations: storeFormData?.client_expectations,
-      red_flags: storeFormData?.red_flags,
-      our_ask: storeFormData?.our_ask,
-      channel_name: storeFormData?.channel_name,
-      producer: storeFormData?.producer,
-      VAS_executed: storeFormData?.VAS_executed,
-      kdm_details: storeFormData?.company_id?.kdm_details,
-      risk_details: storeFormData?.company_id?.isk_details
+      client_expectations: !storeFormData?.client_expectations ? '' : storeFormData?.client_expectations ,
+      red_flags: !storeFormData?.red_flags  ? '' : storeFormData?.red_flags ,
+      our_ask: !storeFormData?.our_ask  ? '' : storeFormData?.our_ask ,
+      channel_name: !storeFormData?.channel_name  ? '' : storeFormData?.channel_name ,
+      producer: !storeFormData?.producer  ? '' : storeFormData?.producer ,
+      VAS_executed: !storeFormData?.VAS_executed ? 'Yes' : storeFormData?.VAS_executed,
+      kdm_details: !storeFormData?.company_id?.kdm_details  ? [] : storeFormData?.kdm_details ,
+      risk_details: !storeFormData?.company_id?.risk_details  ? [] : storeFormData?.risk_details 
     }
   // }
-  // console.warn("(((((((leadStoreData a___BBB))))))):", leadStoreData);
+  // console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
 
   const submitHandler = () => {
 
@@ -993,7 +993,15 @@ const NewLead = React.memo((props) => {
       user_id: id,
       company_id: company_id ,
       start_date: apptDateString,
-      start_time: formItem.appointmentTime
+      start_time: formItem.appointmentTime,
+      client_expectations: "",
+      red_flags: "",
+      our_ask: "",
+      channel_name: "",
+      producer: "",
+      VAS_executed: "Yes",
+      kdm_details: [],
+      risk_details: []
     }
 
   //   {   REMARKSSS
@@ -1092,7 +1100,13 @@ const NewLead = React.memo((props) => {
 
   return (
     <>
-      <Tabs tabMenu={tabMenu} header="New Lead" activeKey="1" resetDataFields={resetDataFields} routeLeadData={props.location.state} updateFormData={updateLeadFormData}  />
+      <Tabs 
+        tabMenu={tabMenu} 
+        header="New Lead" 
+        activeKey="1" 
+        resetDataFields={resetDataFields} 
+        routeLeadData={props.location.state !== undefined ? props.location.state.leadID : leadIdData } 
+        updateFormData={updateLeadFormData}  />
 
       <div className="form-container">
         <Form form={form} onFinish={submitHandler}>

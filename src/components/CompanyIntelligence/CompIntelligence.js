@@ -67,27 +67,22 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
-    console.warn('COMPPP____PROPSS',props.location.state.leadData)
-  // store form data
+    // console.warn('COMPPP____PROPSS',props.location.state.leadData)
   let storeFormData = useSelector((state) => state?.newLead?.formData);
-  const userTreeData = useSelector((state) => state?.home?.user_tree);
 
-  let leadDataLoading = useSelector((state) => state.newLead.leadDataloading);
-  // let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
-  let storeLeadId = useSelector((state) => state.newLead.leadId);
 
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
   useEffect(() => {
     // if(userTreeData.length > 0){
-    userTreeData.reporting_hierarchies.forEach((el) => {
-      el.label = el.dispValue;
-    });
-    userTreeData.reporting_users.forEach((el) => {
-      el.label = el.full_name;
-      el.value = el._id;
-    });
+    // userTreeData.reporting_hierarchies.forEach((el) => {
+    //   el.label = el.dispValue;
+    // });
+    // userTreeData.reporting_users.forEach((el) => {
+    //   el.label = el.full_name;
+    //   el.value = el._id;
+    // });
   }, []);
 
   useEffect(() => {
