@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/components/BulkAction/BulkAction.css"],"names":[],"mappings":"AAAA,uBACI,YAAa,CACb,iBACJ","file":"48.72aa6128.chunk.css","sourcesContent":[".subtab1 .ant-tabs-tab {\r\n    width: 33.33%;\r\n    text-align: center;\r\n}\r\n"]}
