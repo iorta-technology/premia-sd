@@ -231,6 +231,10 @@
   padding-bottom: 30px;
 }
 
+.kdmStyle .ant-tabs-tab-active {
+  background-color: #e0e9f3;
+}
+
 .notification_box {
   height: 100px;
   box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.06);
