@@ -67,7 +67,7 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
-
+    console.warn('COMPPP____PROPSS',props.location.state.leadData)
   // store form data
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
@@ -119,7 +119,7 @@ const CompanyIntelligence = React.memo((props) => {
 
   return (
     <>
-      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="2" />
+      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="2" statusLeadData={storeFormData} />
 
       <div className="form-container ml10rem kdmStyle ">
         <Tabs
@@ -131,19 +131,19 @@ const CompanyIntelligence = React.memo((props) => {
           defaultActiveKey={1}
         >
           <TabPane key="1" tab="Key Decison Makers ( KDM ) Details">
-            <KDMDetails />
+            <KDMDetails leadDetails={props.location.state.leadData} updateFormData={props.location.state.updateFormData} />
           </TabPane>
           <TabPane key="2" tab="Risk Details">
-            <RiskDetails />
+            <RiskDetails leadDetails={props.location.state.leadData} updateFormData={props.location.state.updateFormData}/>
           </TabPane>
           <TabPane key="3" tab="Producer and VAS">
-            <ProducerVAS />
+            <ProducerVAS leadDetails={props.location.state.leadData} updateFormData={props.location.state.updateFormData}/>
           </TabPane>
           <TabPane key="4" tab="Expectation">
-            <Expectation />
+            <Expectation leadDetails={props.location.state.leadData} updateFormData={props.location.state.updateFormData}/>
           </TabPane>
           <TabPane key="5" tab="Document Upload">
-            <DocUpload />
+            <DocUpload leadDetails={props.location.state.leadData} updateFormData={props.location.state.updateFormData}/>
           </TabPane>
         </Tabs>
       </div>

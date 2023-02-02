@@ -229,6 +229,7 @@ const LeadCards = (props) => {
                   id={lead.id}
                   lead_Id={lead.lead_Id}
                   companyName={lead.companyName}
+                  opportunityName={lead.opportunityName}
                   industryName={lead.industryName}
                   KDM_Name={lead.KDM_Name}
                   mobileNo={lead.mobileNo}
@@ -336,6 +337,7 @@ const LeadCards = (props) => {
               id={lead.id}
               lead_Id={lead.lead_Id}
               companyName={lead.companyName}
+              opportunityName={lead.opportunityName}
               industryName={lead.industryName}
               KDM_Name={lead.KDM_Name}
               mobileNo={lead.mobileNo}

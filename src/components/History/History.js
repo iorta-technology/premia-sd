@@ -22,6 +22,7 @@ const tabStyle = {
   borderWidth: 1,
   borderStyle: "solid",
   borderColor: "#f0f0f0",
+  height:90,
   width: 320,
 };
 
@@ -143,7 +144,7 @@ const History = () => {
 
   return (
     <>
-      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="1" />
+      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="3" />
 
       <div className="form-container ml10rem kdmStyle ">
         <Tabs

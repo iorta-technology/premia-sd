@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Radio, Tabs, Form, Input , Select, Button  } from 'antd';
 import '../StatusLead/StatusLead.css'
-import * as actions from "../../store/actions/history";
+import * as actions from "../../store/actions/index";
 import _ from "lodash";
-import { dataFormatting } from '../../helpers'
-import axiosRequest from '../../axios-request/request.methods'  
-import { PlusOutlined } from '@ant-design/icons';
 
 
 const tabMenu = [
@@ -25,16 +22,28 @@ const tabMenu = [
 
 ]
 
-const Expectation = () => {
+const Expectation = (props) => {
     
     // const storeLeadId = useSelector((state) => state.newLead.leadId)
     // const storeUserId = useSelector((state) => state.newLead.userId)
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
+
+    const _StoreData = useSelector((state) => state?.newLead?.formData);
+    const user_id = useSelector((state) => state.login.user.id);
+    // console.log('(((((((((_StoreData)))))))))---->>>>',_StoreData)
+    // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
 
 
     const [ourAskData, setOurAskData] = useState("");
     const [redFlagData, setRedFlagData] = useState('');
     const [clientExpectationData, setClientExpectationData] = useState('');
+
+
+    useEffect(() => {
+        setOurAskData(!_StoreData.ourAskData ? '-' : _StoreData?.ourAskData)
+        setRedFlagData(!_StoreData.redFlagData ? '-' : _StoreData?.redFlagData)
+        setClientExpectationData(!_StoreData.clientExpectationData ? '-' : _StoreData?.clientExpectationData)
+    }, []);
     
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
@@ -69,10 +78,50 @@ const Expectation = () => {
         setRedFlagData(e.target.value);
     };
 
-   
-// useEffect(() => {
-    
-// }, []);
+    const updateExpectation = (event) =>{
+        // let formBody = {
+        //     ...props.updateFormData,
+        //     client_expectations: clientExpectationData,
+        //     red_flags: redFlagData,
+        //     our_ask: ourAskData,
+        // }
+
+        let formBody = {
+            company_details: {
+              company_name: _StoreData?.company_id?.company_name,
+              parent_company: _StoreData?.company_id?.parent_company,
+              industry_name: _StoreData?.company_id?.industry_name,
+              tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
+              client_location: _StoreData?.company_id?.client_location,
+            },
+            leadStatus: _StoreData?.leadStatus,
+            leadDisposition: _StoreData?.leadDisposition,
+            leadsubDisposition: _StoreData?.leadsubDisposition,
+            opportunity_name: _StoreData?.opportunity_name,
+            tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
+            LOB_opportunity: _StoreData?.lob_for_opportunity,
+            product_for_opportunity: _StoreData?.product_for_opportunity,
+            remarks: _StoreData?.remarks,
+            teamMembers : "[]",
+            lead_Owner_Id: user_id,
+            lead_Creator_Id: user_id,
+            user_id: user_id,
+            company_id: _StoreData?.company_id?._id,
+            start_date: _StoreData?.start_date,
+            start_time:_StoreData?.start_time,
+            client_expectations: clientExpectationData,
+            red_flags: redFlagData,
+            our_ask: ourAskData,
+            channel_name: _StoreData?.channel_name,
+            producer: _StoreData?.producer,
+            VAS_executed: _StoreData?.VAS_executed,
+            kdm_details: _StoreData?.company_id?.kdm_details,
+            risk_details: _StoreData?.company_id?.risk_details,
+        }
+        // console.warn('formBody ------>>>>>',formBody)
+        dispatch(actions.fetchLeadUpdateBody(formBody))
+        dispatch(actions.editLead(formBody, props.leadDetails.leadID))
+    }
 
 return (
     <>
@@ -85,7 +134,7 @@ return (
             xl={20}
             span={23}
             >
-            <p className="form-title">Producer and VAS</p>
+            <p className="form-title">Expectation</p>
             <Row gutter={16} className="mb-2 statsLead kdmStyle">
 
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
@@ -155,7 +204,7 @@ return (
                 
             </Row>
             <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
-                <Button style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
+                <Button onClick={()=> updateExpectation()} style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
             </div>
         </Col>
     </>

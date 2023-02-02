@@ -145,79 +145,42 @@ const FloatButton = React.memo(() => {
 
   const addNewLead = () => {
     if(showOpportunities){
-      const formData = {
-        // statusLeadData: {
-        leadStatus: "",
-        leadDisposition: "",
-        leadsubDisposition: "",
-        appointment_status: "",
-        appointmentdisPosition: "",
-        appointmentsubdisPosition: "",
-        lead_Owner_Id: "",
-        // user_id: id,
-        lead_Id: "",
-        lead_Creator_Id: "",
-        start_date: "",
-        start_time: "",
-        remarksfromSource: "",
-        remarksfromUser: "",
-        teamMembers: "",
-        productId: "",
-        proposalId: "",
-        leadSource: "",
-        LeadType: "",
-        Product: "",
-        Insurance_Company: "",
-        // },
-        // personalLeadData: {
-        firstName: "",
-        lastName: "",
-        dob: "",
-        gender: "",
-        maritalStatus: "",
-        childStatus: "",
-        ChildInfo: [],
-        // },
-        // contactLeadData: {
-        primaryMobile: "",
-        state: "",
-        city: "",
-        email: "",
-        address: {
-          line1: "",
-          line2: "",
-          line3: "",
-        },
-        country: "",
-        pincode: "",
-        secondaryMobile: "",
-        landlineNo: "",
-        socialSecurityAdharNo: "",
-        mailingAddressStatus: "",
-        mailingAddressSecond: {
-          mailingaddress: {
-            line1: "",
-            line2: "",
-            line3: "",
-          },
-          state: "",
-          city: "",
-          country: "",
-          pincode: "",
-          // user_Id:id,
-        },
-        HaveLifeInsurance: {
-          ExistHealthInsur: "",
-          ExistInsur: "",
-        },
-        HaveLifeInsurance_details: [],
-        Insurancedetails: [],
-        //professional data
-        education: "",
-        professionType: "",
-        incomeGroup: "",
-      };
-      // dispatch(actions.storeLead(formData));
+      // let leadUpdateFormdata = {
+      //   company_details: {
+      //     company_name: '',
+      //     parent_company: '',
+      //     industry_name: '',
+      //     tata_aig_empaneled:'',
+      //     client_location: '',
+      //   },
+      //   leadStatus: '',
+      //   leadDisposition: '',
+      //   leadsubDisposition: '',
+      //   opportunity_name: '',
+      //   tender_driven: '',
+      //   LOB_opportunity: '',
+      //   product_for_opportunity: '',
+      //   remarks: '',
+      //   teamMembers : "[]",
+      //   lead_Owner_Id: '',
+      //   lead_Creator_Id: '',
+      //   user_id: '',
+      //   company_id: '',
+      //   start_date: '',
+      //   start_time:'',
+      //   client_expectations: "",
+      //   red_flags: "",
+      //   our_ask: "",
+      //   channel_name: "",
+      //   producer: "",
+      //   VAS_executed: "Yes",
+      //   kdm_details: [],
+      //   risk_details: []
+      // }
+      dispatch(actions.fetchLeadUpdateBody({}))
+      dispatch(actions.fetchLeadDetailsSuccess({}))
+      
+      // dispatch(actions.storeLead(leadUpdateFormdata));
       history.push("/leadmasterpage/statuslead");
     }else{
       message.info('This feature is currently not accessible');

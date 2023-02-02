@@ -43,7 +43,10 @@ const Tab = ({
   activeRenewalkey,
   current,
   filterdata,
-  resetDataFields
+  resetDataFields,
+  routeLeadData,
+  updateFormData,
+  statusLeadData
 }) => {
   const currentLocation = useLocation();
   // console.log('************************ current ___ *********************===========>>>',current)
@@ -115,9 +118,10 @@ const Tab = ({
         }
 
         case "1":
-          return history.push("/leadmasterpage/statuslead");
+          return history.push("/leadmasterpage/statuslead",{_leadData:statusLeadData});
         case '2':
-          return history.push('/company-intelligence')
+          // return history.push('/company-intelligence')
+          return history.push("/company-intelligence", { leadData: routeLeadData, updateFormData: updateFormData });
         // case '3':
         //   return history.push('/leadmasterpage/proposal')
         // case '4':
@@ -177,7 +181,7 @@ const Tab = ({
   const addNewOpportunity = () => {
     resetDataFields()
   }
-  
+
   return (
     <>
       {width > breakpoint ? (
