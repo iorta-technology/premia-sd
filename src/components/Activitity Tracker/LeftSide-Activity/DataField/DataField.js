@@ -248,6 +248,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
     DataContainer?.length>0 ? DataContainer?.map((element,index)=>{
       return(
           <div className='dataField-Card' key={index}>
+            {console.log(element,'full elemenet list')}
             {/* {
             ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
             && element== DataContainer?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
@@ -331,23 +332,24 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
                       </div>
                       <div className='bodyData-side'>
                           <Typography className={`closeOpen ${element.statusType =='open' ?'Open':"Close"}`}>
-                              {element.statusType}
+                              {element.statusType =='open' ?'Open':"Close"}
                           </Typography>
                           <FormOutlined onClick={()=>showModal(element)}/>
                       </div>
                   </div>
                   <div className='footer'>
-                      {element.remarkHistory?.length >0 ?
+                      {element.statusReason != '' ?
                           <Typography>
                               <img src={commentIcon} className='footerPng'/>
-                              {
+                              {/* {
                                 element.remarkHistory.map((element)=>{
                                   return element.remark;
                                 })
-                              }
+                              } */}
+                               {element.statusReason}
                           </Typography>
-                          :""
-                      }
+                           :""
+                      } 
                   </div>
               </div>
           </div>
@@ -434,7 +436,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
                                          <Col sm={9} xs={9} md={9}>
                                          <div className='bodyData-side'>
                                          <Typography style={{fontSize : 12, fontWeight : 'bold' }} className={`closeOpen ${element.statusType =='open' ?'Open':"Close"}`}>
-                                         {element.statusType}
+                                         {element.statusType =='open' ?'Open':"Close"}
                                         </Typography>
                                         </div>
                                         </Col>
@@ -452,18 +454,18 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
                               </Row>
                               <Row>
                                 <div className='footer'>
-                                  {
-                                    element.remarkHistory?.length >0 ?
-                                      <Typography>
-                                        <img src={commentIcon} className='footerPng'/>
-                                        {
-                                          element.remarkHistory.map((element)=>{
-                                            return element.remark;
-                                        })
-                                        }
-                                      </Typography>
-                                    :""
-                                  }
+                                {element.statusReason != '' ?
+                          <Typography>
+                              <img src={commentIcon} className='footerPng'/>
+                              {/* {
+                                element.remarkHistory.map((element)=>{
+                                  return element.remark;
+                                })
+                              } */}
+                               {element.statusReason}
+                          </Typography>
+                           :""
+                      } 
                                 </div>
                               </Row>
                               <hr style={{marginTop : 10, marginBottom : 10}}/>
