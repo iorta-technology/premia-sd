@@ -85,6 +85,9 @@ const DocUpload = (props) => {
 
   useEffect(() => {
    console.log(props.leadDetails,'lead id----->');
+   console.log( _StoreData.documents    ,'useefeect documents')
+   setFileData(_StoreData.documents)
+   setdocData(_StoreData.documents)
   }, []);
 
   const kdmRoleArr = [{ label: "TBI", value: "TBI" }];
@@ -303,7 +306,7 @@ const DocUpload = (props) => {
                 </div>
               </div>
               <div className="col-6 data flex-center">
-                Photo ID
+              Photo ID, Aadhar Card
               </div>
               <div className="col-3 flex-center">
                 <DeleteOutlined

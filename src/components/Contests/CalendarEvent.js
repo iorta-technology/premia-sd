@@ -650,7 +650,33 @@ export default function CalendarEvent(props) {
       dispValue: "Joint call",
       value: "Joint call"
     },])
+    const [durationList, setDurationList] = useState([
+      {
+        dispValue: "30 min",
+        value: "30 min"
+      }, {
+        dispValue: "1 hr",
+        value: "1 hr"
+      }, {
+        dispValue: "2 hr",
+        value: "2 hr"
+      }, {
+        dispValue: "3 hr",
+        value: "3 hr"
+      }, {
+        dispValue: "4 hr",
+        value: "4 hr"
+      },
+      {
+        dispValue: "5 hr",
+        value: "5 hr"
+      },{
+        dispValue: "6 hr",
+        value: "6 hr"
+      }])
   const [modeSelect, setModeSelect] = useState("")
+  const [startdatevalue, setStartDateValue] = useState("")
+  const [durationSelect, setDurationSelect] = useState("")
   const [startTimeSelect, setStartTimeSelect] = useState("")
   const [endTimeSelect, setEndTimeSelect] = useState("");
   const [durationDateAlert, setDurationDateAlert] = useState(false)
@@ -1152,6 +1178,92 @@ export default function CalendarEvent(props) {
   const ModeChangeFunc = (e) => {
     setModeSelect(e.target.value)
   }
+  const DurationChangeFunc = (e) => {
+    setDurationSelect(e.target.value)
+        if(e.target.value == '30 min'){
+        let parseTime = durationStartTimeOperation
+        let timeDiff = startTimeSelect
+        setDurationEndTimeCheck(true)
+        setEndTimeSelect((+timeDiff) + (+"1800000"))
+        setEndTimeSelect((+timeDiff) + (+"1800000"))
+
+        let parseTimeCondition = parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime = parseInt((+timeDiff) + (+"1800000"))
+        setDurationEndTimeOperation(endparseTime)
+        }
+        else if(e.target.value == '1 hr'){
+       let parseTime = durationStartTimeOperation
+        let timeDiff = startTimeSelect
+        setDurationEndTimeCheck(true)
+        setEndTimeSelect((+timeDiff) + (+"3600000"))
+        setEndTimeSelect((+timeDiff) + (+"3600000"))
+
+        let parseTimeCondition = parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime = parseInt((+timeDiff) + (+"3600000"))
+        setDurationEndTimeOperation(endparseTime)
+        }
+        else if(e.target.value == '2 hr'){
+        let parseTime = durationStartTimeOperation
+        let timeDiff = startTimeSelect
+        setDurationEndTimeCheck(true)
+        setEndTimeSelect((+timeDiff) + (+"7200000"))
+        setEndTimeSelect((+timeDiff) + (+"7200000"))
+
+        let parseTimeCondition = parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime = parseInt((+timeDiff) + (+"7200000"))
+        setDurationEndTimeOperation(endparseTime)
+        }else if(e.target.value == '3 hr'){
+        let parseTime = durationStartTimeOperation
+        let timeDiff = startTimeSelect
+        setDurationEndTimeCheck(true)
+        setEndTimeSelect((+timeDiff) + (+"10800000"))
+        setEndTimeSelect((+timeDiff) + (+"10800000"))
+
+        let parseTimeCondition = parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime = parseInt((+timeDiff) + (+"10800000"))
+        setDurationEndTimeOperation(endparseTime)
+        }
+        else if(e.target.value == '4 hr'){
+        let parseTime = durationStartTimeOperation
+        let timeDiff = startTimeSelect
+        setDurationEndTimeCheck(true)
+        setEndTimeSelect((+timeDiff) + (+"14400000"))
+        setEndTimeSelect((+timeDiff) + (+"14400000"))
+
+        let parseTimeCondition = parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime = parseInt((+timeDiff) + (+"14400000"))
+        setDurationEndTimeOperation(endparseTime)
+        }
+        else if(e.target.value == '5 hr'){
+        let parseTime = durationStartTimeOperation
+        let timeDiff = startTimeSelect
+        setDurationEndTimeCheck(true)
+        setEndTimeSelect((+timeDiff) + (+"18000000"))
+        setEndTimeSelect((+timeDiff) + (+"18000000"))
+
+        let parseTimeCondition = parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime = parseInt((+timeDiff) + (+"18000000"))
+        setDurationEndTimeOperation(endparseTime)
+        } 
+        else if(e.target.value == '6 hr'){
+        let parseTime = durationStartTimeOperation
+        let timeDiff = startTimeSelect
+        setDurationEndTimeCheck(true)
+        setEndTimeSelect((+timeDiff) + (+"216000000"))
+        setEndTimeSelect((+timeDiff) + (+"216000000"))
+
+        let parseTimeCondition = parseInt()
+        setDurationEndTimeCheck(true)
+        let endparseTime = parseInt((+timeDiff) + (+"216000000"))
+        setDurationEndTimeOperation(endparseTime)
+        }
+  }
 
   const StartTimeChangeFunc = (e) => {
 
@@ -1187,56 +1299,18 @@ export default function CalendarEvent(props) {
         setDurationEndTimeOperation(endparseTime)
       } else {
         let parseTime = parseInt(e.target.value)
-        // console.log(parseTime, 'time--parse--->');
         setDurationStartTimeOperation(parseTime)
         let timeDiff = e.target.value
         setDurationEndTimeCheck(true)
         setEndTimeSelect((+timeDiff) + (+"3600000"))
 
-
-        // console.log((+timeDiff)+(+"3600000"),'end timevafter start----->');
         setEndTimeSelect((+timeDiff) + (+"3600000"))
 
         let parseTimeCondition = parseInt()
         setDurationEndTimeCheck(true)
         let endparseTime = parseInt((+timeDiff) + (+"3600000"))
-        // console.log(endparseTime, 'time--parse--->');
         setDurationEndTimeOperation(endparseTime)
 
-
-        // if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
-        //     setDurationStartTimeDiffCheck(false)
-        //     console.log("TIme should be less than end time")
-        //         }
-
-
-
-        //     setStartTimeSelect(e.target.value)
-        //     setDurationStartTimeCheck(true)
-        //     console.log("This is the start Time"+e.target.value)
-        //     let parseTime=parseInt(e.target.value)
-        //     setDurationStartTimeOperation(parseTime)
-        // let timeDiff=e.target.value
-        // if(endTimeSelect==""){
-        //   setEndTimeSelect((+timeDiff)+(+"3600000"))
-        // console.log("THis is endTIme"+(+timeDiff)+(+"1800000"))
-        //   let parseTimeCondition=parseInt()
-        //   setDurationEndTimeCheck(true)
-        //   let parseTime=parseInt((+timeDiff)+(+"3600000"))
-        //   setDurationEndTimeOperation(parseTime)
-        // }
-        // if(((e.target.value)>=endTimeSelect)&&endTimeSelect!=""){
-        //   setDurationStartTimeDiffCheck(false)
-        //   console.log("TIme should be less than end time")
-        //       }
-        //       else if(((e.target.value)>=endTimeSelect)){
-        //         setDurationStartTimeDiffCheck(false)
-        //       }
-        //       else{
-        //         setDurationStartTimeDiffCheck(true)
-        //       }
-        // // alert((+timeDiff)+(+"3600000")) 
-        //     console.log(e.target.value)
       }
     }
   }
@@ -1599,7 +1673,7 @@ export default function CalendarEvent(props) {
           // clientVisit: customerCollection.phone_call_customer == true || prospectCollection.phone_call == true || advisorCollection.phone_call_advisor == true ? clientvisit : '',
           // Appointment_id : Appointmentid,
           // leadId: "",
-          durationType: eventDurationType,
+          durationType: durationSelect,
           start_date: durationStartDateOperation,
           start_time: durationStartTimeOperation,
           end_date: durationEndDateOperation,
@@ -1707,7 +1781,7 @@ export default function CalendarEvent(props) {
       clientVisit: customerCollection.phone_call_customer == true || prospectCollection.phone_call == true || advisorCollection.phone_call_advisor == true ? clientvisit : '',
       // Appointment_id : Appointmentid,
       // leadId: "",
-      durationType: eventDurationType,
+      durationType: durationSelect,
       start_date: durationStartDateOperation,
       start_time: durationStartTimeOperation,
       end_date: durationEndDateOperation,
@@ -2608,12 +2682,21 @@ export default function CalendarEvent(props) {
               </div> */}
           <Col xs={24} sm={12} md={24} lg={12} xl={12}>
             <p style={{ marginBottom: 5, color: '#646666' }}>Stakeholder Name</p>
-            <Input
+            {/* <Input
               placeholder="Enter Stakeholder Name"
               value={stakeholdrName}
               disabled={updateEventCheck == true ? true : false}
               onChange={(item) => setStakeholdrName(item.target.value)}
-            />
+            /> */}
+             <input
+                    value={stakeholdrName}
+                    onChange={(item) => setStakeholdrName(item.target.value)}
+                    disabled={updateEventCheck == true ? true : false}
+                    placeholder="Enter Stakeholder Name"
+                    className={"CalendarEvent-Modal-customer-textbox-style"}
+                    style={{ width: '98%' }}
+                    required
+                  />
           </Col>
           <div
             className="CalendarEvent-Modal-Card-vertical-line"
@@ -3212,6 +3295,7 @@ export default function CalendarEvent(props) {
                       Add Manually
                     </Button>
                   </div> */}
+           
               <div className="CalendarEvent-Modal-datePicker-button-flex">
                 <div className="CalendarEvent-Modal-date-column-flex">
                   <h4 className={customerNameCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
@@ -3258,6 +3342,12 @@ export default function CalendarEvent(props) {
                   {custLastNamevalid == true ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Only Alphabets are Allowed</h4> : null}
                 </div>
 
+          <div
+            className="CalendarEvent-Modal-Card-vertical-line"
+          >
+
+          </div>
+
                 <div className="CalendarEvent-Modal-date-column-flex" style={{ width: '100%' }}>
                   <h4 className={customerMobileNoCheck == false || customermblvalid == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
                   >Agenda</h4>
@@ -3282,6 +3372,12 @@ export default function CalendarEvent(props) {
                   {/* {customerMobileNoCheck == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">This field is required</h4> : null}
                       {customermblvalid == false ? <h4 className="CalendarEvent-Modal-Card-empty-text-bottom-type">Enter valid mobile no.</h4> : null} */}
                 </div>
+
+                <div
+            className="CalendarEvent-Modal-Card-vertical-line"
+          >
+
+          </div>
 
                 <div className="CalendarEvent-Modal-date-column-flex" style={{ width: '100%' }}>
                   <h4 className={customerMobileNoCheck == false || customermblvalid == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
@@ -3486,7 +3582,7 @@ export default function CalendarEvent(props) {
                 </div>
 
               </div>
-              <div
+              {/* <div
                 className="CalendarEvent-Modal-duration-style"
               >
                 <div
@@ -3497,12 +3593,10 @@ export default function CalendarEvent(props) {
                   >
                     <h4
                       className={durationEndDateDiffCheck == false ? "CalendarEvent-Modal-Card-empty-text-header-type" : "CalendarEvent-Modal-Card-header-type"}
-                    // className="CalendarEvent-Modal-Card-header-type"
                     >End Date *</h4>
                     <div className="Input-date" style={{ marginTop: 10 }}>
                       <DatePicker onChange={EndDateFunc}
                         allowClear={false}
-                        // defaultValue={durationEndDate}
                         disabledDate={d => !d || d.isBefore(minimumDate)}
                         format="YYYY-MM-DD"
                         value={durationEndDate}
@@ -3526,7 +3620,6 @@ export default function CalendarEvent(props) {
                         className={durationEndTimeDiffCheck == false ? "CalendarEvent-Modal-empty-TimePicker-style" : "CalendarEvent-Modal-TimePicker-style"}
                       >
                         <option value="" >Select</option>
-                        {/* {updateEventCheck==true?<option value={editEndTime} selected={true}>{editEndDisp}</option>:null }  */}
                         {timeList.map((time) => {
                           return (
                             <option value={time.value}>{time.dispValue}</option>
@@ -3544,16 +3637,12 @@ export default function CalendarEvent(props) {
 
                           : null}
 
-                      {/* <TimePicker onChange={EndTimeFunc}
-                        value={durationEndTime} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                        className="CalendarEvent-Modal-picker-style"
-                      /> */}
                     </div>
                   </div>
 
                 </div>
 
-              </div>
+              </div> */}
             </div> :
             <div>
               <div
@@ -3586,6 +3675,46 @@ export default function CalendarEvent(props) {
             className="CalendarEvent-Modal-Card-vertical-line"
           >
           </div>
+
+          <div
+            className="CalendarEvent-Modal-date-column-flex"
+          >
+            <h4
+              className="CalendarEvent-Modal-Card-header-type"
+            >Duration </h4>
+            <div className="Input-date">
+              <select
+                value={durationSelect}
+                onChange={DurationChangeFunc}
+                className="CalendarEvent-Modal-TimePicker-style"
+              // className="CalendarEvent-Modal-TimePicker-style"
+              >
+
+                <option value="" >Select</option>
+
+                {durationList.map((time) => {
+                  return (
+
+                    <option value={time.value}>{time.dispValue}</option>
+                    //  <option value={editStartTime} selected>{editStartDisp}</option>
+                  )
+                })}
+
+              </select>
+              {/* {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null} */}
+              {/* <TimePicker onChange={StartTimeFunc}
+                      value={durationStartTime}
+                      defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                      className="CalendarEvent-Modal-picker-style"
+                    /> */}
+            </div>
+          </div>
+
+          <div
+            className="CalendarEvent-Modal-Card-vertical-line"
+          >
+          </div>
+
           <h4
             className="CalendarEvent-Modal-Card-header-type"
           >Add Team Member</h4>
