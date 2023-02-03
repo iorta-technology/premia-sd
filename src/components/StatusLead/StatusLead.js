@@ -377,8 +377,9 @@ const NewLead = React.memo((props) => {
   const [remark, setRemark] = useState("");
   const [reamrkDataArr, setreamrkDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
+  const login_user = useSelector((state) => state.login.user);
   // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
-  // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', _StoreData)
+  // console.warn('((((((((((( login_user )))))))))))', login_user)
 
   const addCollaborators = () => {
     setFormItem((res) => ({
@@ -392,9 +393,16 @@ const NewLead = React.memo((props) => {
   };
 
   const addRemarks = () => {
+    let _remark = [
+      {
+        description: remark,
+        dateTime: new Date().toLocaleString('en-US'),
+      }
+    ]
     setFormItem((res) => ({
       ...res,
-      remarks: [...formItem.remarks, remark],
+      // remarks: [...formItem.remarks, remark],
+      remarks: _remark,
     }));
     setRemark("");
     form.setFieldsValue({
@@ -407,7 +415,7 @@ const NewLead = React.memo((props) => {
         remark_id: remID.toString()
     }
 
-    console.log('REMARK__STRCUTTT_------',_data);
+    // console.log('REMARK__STRCUTTT_------',_data);
 
     setreamrkDataArr([...reamrkDataArr,_data])
   };
@@ -431,22 +439,15 @@ const NewLead = React.memo((props) => {
     remarks: [],
   });
 
-  // let formRef = createRef();
   const dispatch = useDispatch();
-  // const history = useHistory()
   const [form] = Form.useForm();
-  // const [mobileDisable, setMobileDisable] = useState(false);
 
   useEffect(() => {
-    // dispatch(actions.fetchTeamMember())
-    // _leadData
     // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
     dispatch(actions.headerName("New Lead"));
     if (props.location.state !== undefined) {
       let _leadID = props.location.state.leadID;
-      // setshowLeadStatusVisiblity(true)
       getLeadDetails(_leadID);
-      // setMobileDisable(true);
       setIsNewLead(false);
 
       if(props.location.state.hasOwnProperty('_leadData')){
@@ -660,9 +661,19 @@ const NewLead = React.memo((props) => {
       setCurrentStatsDateSummary(new Date(leadData?.created_date).toLocaleDateString("in"))
 
       setCompany_id(leadData?.company_id?._id)
+      setreamrkDataArr(leadData?.remarks)
 
       changeLobOpprtunity(leadData?.lob_for_opportunity)
-      
+      setRemark('')
+
+      let _remArr = []
+      leadData?.remarks.map(el =>{
+        let _remark = {
+          description: el.description,
+          dateTime: el.date,
+        }
+        _remArr.push(_remark)
+      })
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_id?.company_name,
@@ -680,9 +691,8 @@ const NewLead = React.memo((props) => {
         appointmentDate: _apptDateFormat,
         appointmentTime: _appntTime,
         collaborators: JSON.parse(leadData?.teamMembers),
-        // remarks: leadData?.remarks,
+        remarks: _remArr,
       }))
-      // setreamrkDataArr()
 
       form.setFieldsValue({
         company_name: leadData?.company_id?.company_name,
@@ -699,7 +709,7 @@ const NewLead = React.memo((props) => {
         appointment_date: _apptDateFormat,
         appointment_time: _appntTime,
         collaborators: JSON.parse(leadData?.teamMembers),
-        // remarks: leadData?.remarks,
+        // remarks: _remArr,
       });
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
@@ -1763,11 +1773,11 @@ const NewLead = React.memo((props) => {
                       key={index}
                       className="d-flex justify-content-start w-100 mb-3 p-2 remarks_bg"
                     >
-                      <div className="me-3">15:03 03/01/2023</div>
+                      <div className="me-3">{res.dateTime}</div>
                       <div>
-                        <div>{res}</div>
+                        <div>{res.description}</div>
                         <div>
-                          <i>by Amey Jaini</i>
+                          <i>by {login_user.firstName + ' ' +login_user.lastName}</i>
                         </div>
                       </div>
                     </div>

@@ -406,7 +406,7 @@ const LeadCards = (props) => {
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
         {!secondValue ? card : cards}
         {/* this is just a presentational card  */}
-        <Col
+        {/* <Col
           sm={18}
           md={18}
           lg={11}
@@ -461,7 +461,7 @@ const LeadCards = (props) => {
               <button className="update-btn">Update</button>
             </Card>
           </>
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

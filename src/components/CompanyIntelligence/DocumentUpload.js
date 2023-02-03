@@ -231,7 +231,7 @@ const DocUpload = (props) => {
       >
         <p className="form-title">Document Upload</p>
         <Row gutter={16} className="mb-2 statsLead kdmStyle">
-          <Col span={12}>
+          {/* <Col span={12}>
             <Form.Item
               {...formItemLayout}
               className="form-item-name label-color"
@@ -253,7 +253,7 @@ const DocUpload = (props) => {
                 onChange={(item) => onChangeClientExpect(item)}
               />
             </Form.Item>
-          </Col>
+          </Col> */}
 
           <Col xs={24} sm={12} md={24} lg={12} xl={12}>
             <Form.Item
@@ -275,7 +275,7 @@ const DocUpload = (props) => {
                   style={{
                     width: "100%",
                     display: "flex",
-                    alignItems: "end",
+                    alignItems: "center",
                     justifyContent: "center",
                   }}
                   icon={<CloudUploadOutlined />}
