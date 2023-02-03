@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Radio, Tabs, Form, Input , Select, Button,Divider,Typography,Modal, DatePicker  } from 'antd';
+import { Row, Col, Radio, Tabs, Form, Input , Select, Button,Divider,Typography,Modal, DatePicker,Tooltip  } from 'antd';
 import '../StatusLead/StatusLead.css'
 import * as actions from "../../store/actions/index";
 import _ from "lodash";
@@ -154,10 +154,10 @@ const RiskDetails = (props) => {
     }
 
     const submitRiskDetails = (event) =>{
-        console.warn('(((((RISK editIndex Befff ))))) -------->>>>',editIndex)
+        // console.warn('(((((RISK editIndex Befff ))))) -------->>>>',editIndex)
 
         // setShowRiskDetailsPopup(false)
-        console.warn('(((((RISK Details ))))) -------->>>>',riskDataArr)
+        // console.warn('(((((RISK Details ))))) -------->>>>',riskDataArr)
 
         
 
@@ -196,7 +196,7 @@ const RiskDetails = (props) => {
     const updateRiskDetails = (event) =>{
         let _riskDetailsData = []
         riskDataArr.map(el =>{
-            console.warn('(((((el Details ))))) -------->>>>',el)
+            // console.warn('(((((el Details ))))) -------->>>>',el)
             let _data = {
                 total_entities: el.riskType,
                 product_name: el.riskName,
@@ -210,7 +210,7 @@ const RiskDetails = (props) => {
             }
             _riskDetailsData.push(_data)
         })
-        console.warn('_riskDetailsData ------>>>>>',_riskDetailsData)
+        // console.warn('_riskDetailsData ------>>>>>',_riskDetailsData)
         
         // let formBody = {
         //     ...props.updateFormData,
@@ -276,6 +276,18 @@ const RiskDetails = (props) => {
         setLeadInsurerData(event.leadInsurer)
         setLeaderShareData(event.leaderShare)
         setInceptionDateData(moment(event.inceptionDate, "MM/DD/YYYY"))
+
+        form.setFieldsValue({
+            nameOfentity:event.riskType,
+            productName:event.riskName,
+            totPrem:event.totalPrem,
+            tagicPresence:event.tagicPresence,
+            tagicPremium:event.tagicPremium,
+            leadrFollowr:event.leaderFollower,
+            leadeInsurer:event.leadInsurer,
+            leaderShare:event.leaderShare,
+            incepDate:moment(event.inceptionDate, "MM/DD/YYYY"),
+        });
         // const [editIndex, setEditIndex] = useState('');
     }
 
@@ -313,11 +325,11 @@ const RiskDetails = (props) => {
                 sm={24}
                 md={16}
                 lg={15}
-                xl={20}
+                xl={21}
                 span={23}
                 >
                 <p className="form-title">Risk Details</p>
-                <Row gutter={16} className="mb-2 statsLead kdmStyle" justify='space-between'>
+                <Row gutter={16} className="mb-2 statsLead kdmStyle" style={{padding:15}} justify='space-between'>
                     { riskDataArr.length > 0 &&
                         riskDataArr.map((el,index) =>(
                             <div className='risk-card-det'>
@@ -350,7 +362,13 @@ const RiskDetails = (props) => {
                                     <Row style={{alignItems:'center',marginTop:20}} justify='space-between'>
                                         <div style={{flex:1}}>
                                             <p className="form-title" style={{marginBottom:0,color:'darkslategrey'}}>Lead Insurer</p>
-                                            <p className="form-title" style={{marginBottom:0,color:'grey'}}>{el.leadInsurer}</p>
+                                            <Tooltip placement="top" title={el.leadInsurer}>
+                                                <p 
+                                                    className="form-title" 
+                                                    style={{marginBottom:0,color:'grey',width:170,textOverflow:'ellipsis',whiteSpace:'nowrap',overflow:'hidden'}}>
+                                                    {el.leadInsurer}
+                                                </p>
+                                            </Tooltip>
                                         </div>
                                         <div style={{flex:1}}>
                                             <p className="form-title" style={{marginBottom:0,color:'darkslategrey'}}>Leader Share %</p>
