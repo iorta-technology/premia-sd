@@ -41,7 +41,7 @@ import moment from "moment";
 import { Link, useHistory } from "react-router-dom";
 import axiosRequest from "../../axios-request/request.methods";
 
-const minimumDate = moment().format("YYYY-MM-DD");
+// const minimumDate = moment().format("YYYY-MM-DD");
 const { Option } = Select;
 const lobOpportunityItems = [
   { label: "Affinity Benefits", value: "Affinity Benefits" },
@@ -311,108 +311,108 @@ const no_contactItems = [
 ];
 
 const appointmentTimeOptions = [
-  { label: "8:00 AM", value: "28800000" },
-  { label: "8:30 AM", value: "30600000" },
-  { label: "9:00 AM", value: "32400000" },
+  { label: "8:00 AM", value: "8:00 AM" },
+  { label: "8:30 AM", value: "8:30 AM" },
+  { label: "9:00 AM", value: "9:00 AM" },
   {
     label: "9:30 AM",
-    value: "34200000",
+    value: "9:30 AM",
   },
   {
     label: "10:00 AM",
-    value: "36000000",
+    value: "10:00 AM",
   },
   {
     label: "10:30 AM",
-    value: "37800000",
+    value: "10:30 AM",
   },
   {
     label: "11:00 AM",
-    value: "39600000",
+    value: "11:00 AM",
   },
   {
     label: "11:30 AM",
-    value: "41400000",
+    value: "11:30 AM",
   },
   {
     label: "12:00 PM",
-    value: "43200000",
+    value: "12:00 PM",
   },
   {
     label: "12:30 PM",
-    value: "45000000",
+    value: "12:30 PM",
   },
   {
     label: "1:00 PM",
-    value: "46800000",
+    value: "1:00 PM",
   },
   {
     label: "1:30 PM",
-    value: "48600000",
+    value: "1:30 PM",
   },
   {
-    value: "50400000",
     label: "2:00 PM",
+    value: "2:00 PM",
   },
   {
     label: "2:30 PM",
-    value: "52200000",
+    value: "2:30 PM",
   },
   {
     label: "3:00 PM",
-    value: "54000000",
+    value: "3:00 PM",
   },
   {
     label: "3:30 PM",
-    value: "55800000",
+    value: "3:30 PM",
   },
   {
     label: "4:00 PM",
-    value: "57600000",
+    value: "4:00 PM",
   },
   {
     label: "4:30 PM",
-    value: "59400000",
+    value: "4:30 PM",
   },
   {
     label: "5:00 PM",
-    value: "61200000",
+    value: "5:00 PM",
   },
   {
     label: "5:30 PM",
-    value: "63000000",
+    value: "5:30 PM",
   },
   {
     label: "6:00 PM",
-    value: "64800000",
+    value: "6:00 PM",
   },
   {
     label: "6:30 PM",
-    value: "66600000",
+    value: "6:30 PM",
   },
   {
     label: "7:00 PM",
-    value: "68400000",
+    value: "7:00 PM",
   },
   {
     label: "7:30 PM",
-    value: "70200000",
+    value: "7:30 PM",
   },
   {
     label: "8:00 PM",
-    value: "72000000",
+    value: "8:00 PM",
   },
   {
     label: "8:30 PM",
-    value: "73800000",
+    value: "8:30 PM",
   },
   {
     label: "9:00 PM",
-    value: "75600000",
+    value: "9:00 PM",
   },
   {
     label: "9:30 PM",
-    value: "77400000",
+    value: "9:30 PM",
   },
 ];
 
@@ -460,12 +460,18 @@ const isNumberValid = (value) => value.trim() !== "" && value.length === 10;
 const NewLead = React.memo((props) => {
   const [collaborators, setCollaborators] = useState("");
   const [remark, setRemark] = useState("");
+  const id = useSelector((state) => state.login.user.id);
+  // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
+  // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', _StoreData)
 
   const addCollaborators = () => {
     setFormItem((res) => ({
       ...res,
       collaborators: [...formItem.collaborators, collaborators],
     }));
+    form.setFieldsValue({
+      collaborators: "",
+    });
     setCollaborators("");
   };
 
@@ -501,8 +507,10 @@ const NewLead = React.memo((props) => {
   // const history = useHistory()
   const [form] = Form.useForm();
   // const [mobileDisable, setMobileDisable] = useState(false);
+
   useEffect(() => {
     // dispatch(actions.fetchTeamMember())
+    // _leadData
     // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
     dispatch(actions.headerName("New Lead"));
     if (props.location.state !== undefined) {
@@ -511,104 +519,53 @@ const NewLead = React.memo((props) => {
       getLeadDetails(_leadID);
       // setMobileDisable(true);
       setIsNewLead(false);
+
+      if (props.location.state.hasOwnProperty("_leadData")) {
+        loadValuesToFields(storeFormData);
+      }
+
+      // console.warn('((((((((((( NOT NEW )))))))))))')
     } else {
       setIsNewLead(true);
       // setMobileDisable(false);
       form.setFieldsValue({
         lead_status: "newleadentery",
       });
+      // console.warn('(((((((((((  NEW )))))))))))')
     }
 
     // dispatch(actions.fetchLeadDetails(_leadID));
-    dispatch(actions.fetchAllState());
+    // dispatch(actions.fetchAllState(id));
   }, [dispatch]);
-
-  const id = useSelector((state) => state.login.user.id);
-  const channelCode = useSelector((state) => state.login.user.channelCode);
-  const states = useSelector((state) => state.address.states);
-  const minValue = useSelector((state) => state.login.minValue);
-  const levelCode = useSelector((state) => state.login);
 
   // store form data
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
-  // console.warn('((((((((((( levelCode )))))))))))', levelCode)
-  delete storeFormData["appointmentId"];
-  delete storeFormData["appointmentDate"];
+
+  console.warn("((((((((((( _StoreData__STATUSLEAD )))))))))))", storeFormData);
 
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading);
-  // let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
-  let storeLeadId = useSelector((state) => state.newLead.leadId);
+  let storeLeadId = useSelector((state) => state?.newLead?.formData?._id);
   const successMsg = useSelector((state) => state.newLead.successMsg);
-  // const errorMsg = useSelector((state) => state.newLead.errorMessage)
-  // const { lastupdatedOn } = storeFormData
 
-  // lead summary
-  // const leadIdValue = useSelector((state) => state.newLead.formData.lead_Id)
-  const createdDateValue = useSelector(
-    (state) => state.newLead.formData.created_date
-  );
-
-  const [leadAge, setLeadAge] = useState("");
-  const [leadGender, setLeadGender] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [leadOccupation, setLeadOccupation] = useState("");
-  const [leadVehiclesOwned, setLeadVehiclesOwned] = useState("");
-  const [leadSourceOfactivity, setLeadSourceOfactivity] = useState("");
-
-  // responsive styling hook
+  // console.log('storeLeadId------------>>>.',storeLeadId)
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
-  const [firstName, setFirstName] = useState("");
-  // console.warn('((((((((((( storefirstNameValue )))))))))))',storefirstNameValue)
-  // console.warn('((((((((((( firstName )))))))))))',firstName)
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [primaryNo, setPrimaryNo] = useState("");
-  const [mobileNoValid, setmobileNoValid] = useState("");
-  const [leadStatus, setLeadStatus] = useState("newleadentery");
-  const [leadDisposition, setLeadDisposition] = useState("");
-  const [leadSubDisposition, setLeadSubDisposition] = useState("");
   const [appointmentStatus, setAppointmentStatus] = useState();
   const [appointmentDisposition, setAppointmentDisposition] = useState();
   const [appointmentSubDisposition, setAppointmentSubDisposition] = useState();
   const [reminder, setReminder] = useState();
-  const [appointmentDate, setAppointmentDate] = useState("");
-  // moment(start_date)
-  const [appointmentDatePost, setAppointmentDatePost] = useState();
-  const [appointmentTime, setAppointmentTime] = useState("");
-  // parseInt(start_time)
-  const [remarkFromSource, setRemarkFromSource] = useState("");
-  const [remarkFromUser, setRemarkFromUser] = useState("");
-  const [leadType, setLeadType] = useState("NewBusiness");
-  const [product, setProduct] = useState("");
-  const [insuranceCompany, setInsuranceComapany] = useState("");
-  const [stateProvince, setStateProvince] = useState("");
-  const [cityProvince, setCityProvince] = useState("");
   const [errorMessage, setErrorMessage] = useState();
   const [isNewLead, setIsNewLead] = useState(false);
-  const [leadStatusData, setLeadStatusData] = useState(["newleadentery"]);
-  const [hierarAgentList, setHierarAgentList] = useState([]);
-  const [desigDataOwner, setDesigDataOwner] = useState("");
-  const [teamDataOwner, setTeamDataOwner] = useState("");
-  const [desigData, setDesigData] = useState("");
-  const [teamMemberList, setTeamMemberList] = useState([]);
-  const [teamData, setTeamData] = useState("");
   const [showLeadStatus, setshowLeadStatusVisiblity] = React.useState(false);
-  const [addTeamMemb, setAddTeamMemb] = useState([]);
-  const [addTeamMemAPIStruct, setAddTeamMemAPIStruct] = useState([]);
-  const [teamTableData, setTeamTableData] = useState([]);
   const [leadIdData, setLeadIdData] = useState("");
-  const [teamDesig, setTeamDesig] = useState(null);
-  const [totalDaysCount, setDaysCount] = React.useState("");
-  const [allocatedToUser, setAllocatedToUser] = React.useState("");
   // console.warn('((((((((((( stateProvince )))))))))))',stateProvince)
 
   const [companyArray, setCompanyArray] = useState([]);
   const [parentCompArray, setparentCompArray] = useState([]);
   const [industryArray, setIndustryArray] = useState([]);
-  const [company_id, setCompany_id] = useState([]);
+  const [company_id, setCompany_id] = useState("");
   const [prodForOpportunityArr, setProdForOpportunityArr] = useState([]);
   const [dispoArr, setDispoArr] = useState([]);
   const [subdispoArr, setSubDispoArr] = useState([]);
@@ -624,6 +581,7 @@ const NewLead = React.memo((props) => {
   const [eventCountSummary, setEventCountSummary] = useState("00");
   const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
   const [todoComplteSummary, setTodoComplteSummary] = useState("00");
+  const [apptDateString, setApptDateString] = useState("");
 
   const [disableParentComp, setDisableParentComp] = useState(false);
 
@@ -639,11 +597,6 @@ const NewLead = React.memo((props) => {
     // setHierarAgentList(userTreeData.reporting_hierarchies);
 
     getCompanyDetails();
-
-    // console.log('((((((((((((storeFormData))))))))))))',storeFormData)
-    // console.log('((((((((((((lead_Id))))))))))))',storeFormData.lead_Id)
-    // storeFormData.lead_Id !== '' ? setIsNewLead(false) : setIsNewLead(true)
-    // primaryNo.length === 10 ? setmobileNoValid(true) : setmobileNoValid(false);
   }, []);
 
   const getCompanyDetails = async (lead_id) => {
@@ -681,27 +634,16 @@ const NewLead = React.memo((props) => {
         secure: true,
       });
       // console.warn('__++++++++++++++ RESPPPP',result)
-      // let leadArr = [];
-      // result[0].leadStatus !== "" && leadArr.push(result[0].leadStatus);
-      // result[0].leadDisposition !== "" &&
-      //   leadArr.push(result[0].leadDisposition);
-      // result[0].leadsubDisposition !== "" &&
-      //   leadArr.push(result[0].leadsubDisposition);
-
-      // result[0]["leadStatusArr"] = leadArr;
-
-      // result.forEach(el =>{ el.leadStatusArr = leadArr })
-      // console.warn("__++++++++++++++ getlead_details +++++++++++>>>", result);
+      // console.warn("__++++++++++++++ getlead_details +++++++++++>>>", result.length);
       if (result.length > 0) {
         dispatch(actions.fetchLeadDetailsSuccess(result[0]));
         if (result.length > 1) {
           let combined = {
             ...result[0],
-            appointmentDetails: {
-              ...result[1],
-            },
+            // appointmentDetails: {
+            //   ...result[1],
+            // },
           };
-
           loadValuesToFields(combined);
         } else {
           loadValuesToFields({ ...result[0], appointmentDetails: null });
@@ -713,23 +655,20 @@ const NewLead = React.memo((props) => {
   const loadValuesToFields = (leadData) => {
     try {
       console.warn("__++++++++++++++ leadData +++++++++++>>", leadData);
-      // console.warn('__++++++++++++++ leadData +++++++++++>>',JSON.parse(leadData.teamMembers))
+      // setLeadStoreData(leadData)
+
+      // console.warn('__++++++++++++++ leadData__TEAMMMM +++++++++++>>',JSON.parse(leadData.teamMembers))
       let _appntDate = "";
       let _appntTime = "";
+      let _apptDateFormat = "";
+      let _teamData = JSON.parse(leadData.teamMembers);
       // let leadArr = [];
+      changeLeadStatus(leadData.leadStatus);
       if (
         leadData.leadDisposition === "appointment" &&
         leadData.leadStatus === "contact"
       ) {
-        setshowLeadStatusVisiblity(true);
-        // leadArr.push(
-        //   leadData.appointment_status === ""
-        //     ? "newappointment"
-        //     : leadData.appointment_status
-        // );
-        // leadArr.push("newApptmnt");
-        // leadArr.push("Untouched / Not updated Appointment");
-
+        // setshowLeadStatusVisiblity(true)
         setAppointmentStatus(
           leadData.appointment_status === ""
             ? "newappointment"
@@ -742,72 +681,75 @@ const NewLead = React.memo((props) => {
         // setLeadStatus(leadData.leadStatus);
         // setLeadStatusData(leadArr);
         // only when, the date and time is exist in the object
-        if (leadData.appointmentDetails) {
-          // let readableDateFormat = moment(leadData.appointmentDetails.start_date).format("DD/MM/YYYY")
-          // setDate(readableDateFormat);
-          let newDate = moment(
-            leadData.appointmentDetails.start_date
-          ).valueOf();
-          _appntDate = moment(leadData.appointmentDetails.start_date);
-          _appntTime = leadData.appointmentDetails.start_time.toString();
-          setAppointmentDate(moment(leadData.appointmentDetails.start_date));
-          setAppointmentDatePost(newDate);
-          setAppointmentTime(_appntTime);
+        if (leadData.appointmentDate) {
+          _appntDate = moment(leadData.appointmentDate).format("MM/DD/YYYY");
+          _appntTime = moment(leadData.appointmentDate).format("LT");
+          setApptDateString(_appntDate);
+
+          _apptDateFormat = moment(
+            moment(leadData.appointmentDate).format("MM/DD/YYYY"),
+            "MM/DD/YYYY"
+          );
         }
+
+        setShowLeadSubDisposition(true);
+        setShowLeadDisposition(true);
+        setShowAppointmentFields(true);
       } else {
         if (
           leadData.leadDisposition === "callback" &&
           leadData.leadStatus === "contact"
         ) {
           if (leadData.appointmentDetails) {
-            _appntDate = moment(leadData.appointmentDetails.start_date);
-            _appntTime = leadData.appointmentDetails.start_time.toString();
-            setAppointmentDate(moment(leadData.appointmentDetails.start_date));
-            setAppointmentTime(_appntTime);
+            _appntDate = moment(leadData.appointmentDate).format("MM/DD/YYYY");
+            _appntTime = moment(leadData.appointmentDate).format("LT");
+            setApptDateString(_appntDate);
+
+            _apptDateFormat = moment(
+              moment(leadData.appointmentDate).format("MM/DD/YYYY"),
+              "MM/DD/YYYY"
+            );
           }
+
+          setShowLeadSubDisposition(true);
+          setShowLeadDisposition(true);
+          setShowAppointmentFields(true);
         }
-        setshowLeadStatusVisiblity(false);
+
+        setShowLeadDisposition(false);
+        setShowAppointmentFields(false);
+        setShowLeadSubDisposition(false);
+
+        // setshowLeadStatusVisiblity(false);
       }
 
-      // setleadIDSummary(leadData?.lead_Id);
-      // setFirstNameSummary(leadData?.firstName);
-      // setLastNameSummary(leadData?.lastName);
-      // setMobileNoSummary(leadData?.primaryMobile);
-      // setStateSummary(leadData?.state);
-      // setCitySummary(leadData?.city);
-      // setAllocatedToUser(leadData?.userId?.first_name);
+      setDisableParentComp(true);
+      setOpportunityNameSummary(leadData?.opportunity_name);
+      setCompanySummary(leadData?.company_id?.company_name);
+      setCurrentStatusSummary(leadData?.leadStage);
+      setIncorpDateSummary(
+        new Date(leadData?.created_date).toLocaleDateString("in")
+      );
+      setCurrentStatsDateSummary(
+        new Date(leadData?.created_date).toLocaleDateString("in")
+      );
 
-      // setFirstName(leadData?.firstName);
-      // setLastName(leadData?.lastName);
-      // setEmail(leadData?.email);
-      // setPrimaryNo(leadData?.primaryMobile);
-      // setStateProvince(leadData?.state);
-      // setCityProvince(leadData?.city);
-      // setLeadType(leadData?.leadType);
-      // setProduct(leadData?.Product);
-      // setInsuranceComapany(leadData?.Insurance_Company);
+      setCompany_id(leadData?.company_id?._id);
 
-      // setRemarkFromSource(leadData?.remarksfromSource);
-      // setRemarkFromUser(leadData?.remarksfromUser);
-
-      // setLeadAge(leadData?.age);
-      // setLeadGender(leadData?.gender);
-      // setMaritalStatus(leadData?.maritalStatus);
-      // setLeadOccupation(leadData?.professionType);
-      // setLeadVehiclesOwned(leadData?.vehiclesOwned);
-      // setLeadSourceOfactivity(leadData?.sourceOfActivity);
+      changeLobOpprtunity(leadData?.lob_for_opportunity);
 
       setFormItem((res) => ({
         ...res,
-        companyName: leadData?.company_details?.company_name,
-        parentCompanyName: leadData?.company_details?.parent_company,
-        industry: leadData?.company_details?.industry_name,
-        empaneled: leadData?.company_details?.tata_aig_empaneled,
-        clientLocation: leadData?.company_details?.client_location,
-        LOBForOpportunity: leadData?.LOB_opportunity,
+        companyName: leadData?.company_id?.company_name,
+        parentCompanyName: leadData?.company_id?.parent_company,
+        industry: leadData?.company_id?.industry_name,
+        empaneled:
+          leadData?.company_id?.tata_aig_empaneled === "Yes" ? true : false,
+        clientLocation: leadData?.company_id?.client_location,
+        LOBForOpportunity: leadData?.lob_for_opportunity,
         productForOpportunity: leadData?.product_for_opportunity,
         opportunityName: leadData?.opportunity_name,
-        tenderDriver: leadData?.tender_driven,
+        tenderDriver: leadData?.tender_driven === "Yes" ? true : false,
         status: leadData?.leadStatus,
         disposition: leadData.hasOwnProperty("leadDisposition")
           ? leadData.leadDisposition
@@ -815,18 +757,18 @@ const NewLead = React.memo((props) => {
         subDisposition: leadData.hasOwnProperty("leadsubDisposition")
           ? leadData.leadsubDisposition
           : "",
-        appointmentDate: _appntDate,
+        appointmentDate: _apptDateFormat,
         appointmentTime: _appntTime,
-        collaborators: leadData?.teamMembers,
-        remarks: leadData?.remarks,
+        collaborators: JSON.parse(leadData?.teamMembers),
+        // remarks: leadData?.remarks,
       }));
 
       form.setFieldsValue({
-        company_name: leadData?.company_details?.company_name,
-        parent_company: leadData?.company_details?.parent_company,
-        industry: leadData?.company_details?.industry_name,
-        client_location: leadData?.company_details?.client_location,
-        lob_for_opportunity: leadData?.LOB_opportunity,
+        company_name: leadData?.company_id?.company_name,
+        parent_company: leadData?.company_id?.parent_company,
+        industry: leadData?.company_id?.industry_name,
+        client_location: leadData?.company_id?.client_location,
+        lob_for_opportunity: leadData?.lob_for_opportunity,
         product_for_opportunity: leadData?.product_for_opportunity,
         opportunity_name: leadData?.opportunity_name,
 
@@ -837,10 +779,10 @@ const NewLead = React.memo((props) => {
         sub_disposition: leadData.hasOwnProperty("leadsubDisposition")
           ? leadData.leadsubDisposition
           : "",
-        appointment_date: _appntDate,
+        appointment_date: _apptDateFormat,
         appointment_time: _appntTime,
-        collaborators: leadData?.teamMembers,
-        remarks: leadData?.remarks,
+        collaborators: JSON.parse(leadData?.teamMembers),
+        // remarks: leadData?.remarks,
       });
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
@@ -893,13 +835,7 @@ const NewLead = React.memo((props) => {
     });
 
     setDisableParentComp(false);
-
-    // console.warn('result__ADD COMPANY ----->>>:', result);
-    // console.warn('companyArray----->>>:', companyArray);
-    // console.warn('onCompanyChange----event----->>>:', event);
-    // console.warn('onCompanyChange--------->>>:', data);
     // let _data = companyArray.filter(el => el.label === event)
-    // console.warn('_data --------->>>:', _data);
   };
 
   const changeProductOpprtunity = (event) => {
@@ -1108,10 +1044,14 @@ const NewLead = React.memo((props) => {
   };
 
   const onChangeAppointData = (date, dateString) => {
+    // console.warn('APOOOOO__DATE___',date)
+    // console.warn('APOOOOO__DATE',dateString)
     setFormItem((res) => ({
       ...res,
-      appointmentDate: dateString,
+      appointmentDate: date,
     }));
+    setApptDateString(dateString);
+    // const [apptDateString, setApptDateString] = useState("");
   };
 
   const onIndustryChange = (event, data) => {
@@ -1134,8 +1074,54 @@ const NewLead = React.memo((props) => {
     form.setFieldsValue({ parent_company: event });
   };
 
+  // console.warn("(((((((leadStoreData a___BBB))))))):", storeFormData);
+  // if(Object.keys(storeFormData).length){
+  let updateLeadFormData = {
+    company_details: {
+      company_name: formItem.companyName,
+      parent_company: formItem.parentCompanyName,
+      industry_name: formItem.industry,
+      tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
+      client_location: formItem.clientLocation,
+    },
+    leadStatus: formItem.status,
+    leadDisposition: formItem.disposition,
+    leadsubDisposition: formItem.subDisposition,
+    opportunity_name: formItem.opportunityName,
+    tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
+    LOB_opportunity: formItem.LOBForOpportunity,
+    product_for_opportunity: formItem.productForOpportunity,
+    remarks: formItem.remarks,
+    teamMembers: "[]",
+    lead_Owner_Id: id,
+    lead_Creator_Id: id,
+    user_id: id,
+    company_id: company_id,
+    start_date: apptDateString,
+    start_time: formItem.appointmentTime,
+    client_expectations: !storeFormData?.client_expectations
+      ? ""
+      : storeFormData?.client_expectations,
+    red_flags: !storeFormData?.red_flags ? "" : storeFormData?.red_flags,
+    our_ask: !storeFormData?.our_ask ? "" : storeFormData?.our_ask,
+    channel_name: !storeFormData?.channel_name
+      ? ""
+      : storeFormData?.channel_name,
+    producer: !storeFormData?.producer ? "" : storeFormData?.producer,
+    VAS_executed: !storeFormData?.VAS_executed
+      ? "Yes"
+      : storeFormData?.VAS_executed,
+    kdm_details: !storeFormData?.company_id?.kdm_details
+      ? []
+      : storeFormData?.kdm_details,
+    risk_details: !storeFormData?.company_id?.risk_details
+      ? []
+      : storeFormData?.risk_details,
+  };
+  // }
+  // console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
+
   const submitHandler = () => {
-    console.log("formItem", formItem);
     // return
     let addLeadFormData = {
       company_details: {
@@ -1159,8 +1145,16 @@ const NewLead = React.memo((props) => {
       lead_Creator_Id: id,
       user_id: id,
       company_id: company_id,
-      start_date: formItem.appointmentDate,
+      start_date: apptDateString,
       start_time: formItem.appointmentTime,
+      client_expectations: "",
+      red_flags: "",
+      our_ask: "",
+      channel_name: "",
+      producer: "",
+      VAS_executed: "Yes",
+      kdm_details: [],
+      risk_details: [],
     };
 
     //   {   REMARKSSS
@@ -1191,69 +1185,15 @@ const NewLead = React.memo((props) => {
           // setEventCountSummary(res.formData)
           // setTodoCreatdSummary(res.formData)
           // setTodoComplteSummary(res.formData)
+          setLeadIdData(res.formData._id);
         }
         // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
       });
     } else {
-      let updateLeadFormData = {
-        company_details: {
-          company_name: formItem.companyName,
-          parent_company: formItem.parentCompanyName,
-          industry_name: formItem.industry,
-          tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
-          client_location: formItem.clientLocation,
-        },
-        leadStatus: formItem.status,
-        leadDisposition: formItem.disposition,
-        leadsubDisposition: formItem.subDisposition,
-        opportunity_name: formItem.opportunityName,
-        tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
-        LOB_opportunity: formItem.LOBForOpportunity,
-        product_for_opportunity: formItem.productForOpportunity,
-        remarks: formItem.remarks,
-        teamMembers: "[]",
-        lead_Owner_Id: id,
-        lead_Creator_Id: id,
-        user_id: id,
-        company_id: company_id,
-        start_date: formItem.appointmentDate,
-        start_time: formItem.appointmentTime,
-        client_expectations: "",
-        red_flags: "",
-        our_ask: "",
-        channel_name: "",
-        producer: "",
-        VAS_executed: "Yes",
-        kdm_details: [
-          {
-            decision_maker_name: "",
-            role: "ROLE",
-            designation: "zzz",
-            primaryContact: "",
-            alternateContact: "",
-            emailAddress: "",
-            date_of_birth: "",
-            city: "Mumbai",
-            state: "Maharashtra",
-            branch: "Andheri",
-          },
-        ],
-        risk_details: [
-          {
-            total_entities: "",
-            product_name: "",
-            total_premium: "0",
-            tagic_presence_percentage: "",
-            tagic_premium: "",
-            leader: "",
-            lead_insurer: "",
-            leader_share: "",
-            inception_date: "",
-          },
-        ],
-      };
+      dispatch(actions.fetchLeadUpdateBody(updateLeadFormData));
 
       let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
+      // console.log('_lead_id=-------->>>>',_lead_id)
       dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
         if (res.type === "EDIT_LEAD_SUCCESS") {
           console.log("success:", res);
@@ -1310,6 +1250,11 @@ const NewLead = React.memo((props) => {
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
+  console.warn(
+    "(((((((props.location.state ___BBB))))))):",
+    props.location.state
+  );
+  console.warn("(((((((leadIdData ___BBB))))))):", leadIdData);
 
   return (
     <>
@@ -1318,6 +1263,14 @@ const NewLead = React.memo((props) => {
         header="New Lead"
         activeKey="1"
         resetDataFields={resetDataFields}
+        routeLeadData={
+          props.location.state !== undefined
+            ? props.location.state.hasOwnProperty("_leadData")
+              ? props.location.state._leadData._id
+              : props.location.state.leadID
+            : leadIdData
+        }
+        updateFormData={updateLeadFormData}
       />
 
       <div className="form-container">
@@ -1855,7 +1808,6 @@ const NewLead = React.memo((props) => {
                       value={collaborators}
                       type="text"
                       className="phone-no"
-                      size="large"
                       placeholder="Enter"
                       onChange={(e) => setCollaborators(e.target.value)}
                     />
@@ -1865,7 +1817,6 @@ const NewLead = React.memo((props) => {
                       border: "none",
                       display: "flex",
                       alignItems: "center",
-                      height: "40px",
                       marginTop: "16px",
                       marginLeft: 10,
                       backgroundColor: "#00ACC1",
@@ -1879,27 +1830,31 @@ const NewLead = React.memo((props) => {
                 </Col>
                 <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
-                    {formItem.collaborators.map((res, index) => (
-                      <div
-                        key={index}
-                        className="add_collaborators_items shadow-sm"
-                      >
-                        {res + " "}
-                        <CloseOutlined
-                          onClick={() =>
-                            setFormItem((res) => ({
-                              ...res,
-                              collaborators: res.collaborators.splice(index, 1),
-                            }))
-                          }
-                          style={{ marginLeft: 10, fontWeight: "bolder" }}
-                        />
-                      </div>
-                    ))}
+                    {formItem.collaborators &&
+                      formItem.collaborators.map((res, index) => (
+                        <div
+                          key={index}
+                          className="add_collaborators_items shadow-sm"
+                        >
+                          {res + " "}
+                          <CloseOutlined
+                            onClick={() =>
+                              setFormItem((res) => ({
+                                ...res,
+                                collaborators: res.collaborators.splice(
+                                  index,
+                                  1
+                                ),
+                              }))
+                            }
+                            style={{ marginLeft: 10, fontWeight: "bolder" }}
+                          />
+                        </div>
+                      ))}
                   </div>
                 </Col>
 
-                <Col span={24} className="d-flex align-items-center">
+                <Col span={18} className="d-flex align-items-center">
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color w-100"
@@ -1916,7 +1871,6 @@ const NewLead = React.memo((props) => {
                     <Input
                       type="text"
                       className="phone-no"
-                      size="large"
                       placeholder="Enter"
                       value={remark}
                       onChange={(e) => setRemark(e.target.value)}
@@ -1928,7 +1882,6 @@ const NewLead = React.memo((props) => {
                       border: "none",
                       display: "flex",
                       alignItems: "center",
-                      height: "40px",
                       marginTop: "16px",
                       marginLeft: 10,
                       backgroundColor: "#00ACC1",
