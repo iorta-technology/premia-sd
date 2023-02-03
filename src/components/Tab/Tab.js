@@ -17,7 +17,7 @@ import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
 import { useLocation } from "react-router-dom";
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from "@ant-design/icons";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
@@ -43,7 +43,7 @@ const Tab = ({
   activeRenewalkey,
   current,
   filterdata,
-  resetDataFields
+  resetDataFields,
 }) => {
   const currentLocation = useLocation();
   // console.log('************************ current ___ *********************===========>>>',current)
@@ -54,7 +54,7 @@ const Tab = ({
   const [activeTab, setactiveTab] = useState();
   const [showTab, setShowTab] = useState();
   const [showModal, setShowModal] = useState(false);
-  const [leadTabFilter, setLeadTabFilter] = useState('all');
+  const [leadTabFilter, setLeadTabFilter] = useState("all");
 
   let history = useHistory();
   let _currentTab = "self";
@@ -62,26 +62,31 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
   useEffect(() => {
-
     // console.log('************************ header ___*(*(*((**)))) *********************===========>>>',header)
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
-    if (header === "Lead")  getDataForOpen(leadTabFilter);
-  }, [current])
+    if (header === "Lead") getDataForOpen(leadTabFilter);
+  }, [current]);
 
   // ************************Api *********************
 
   const getDataForOpen = async (leadInc) => {
-    setLeadTabFilter(leadInc)
+    setLeadTabFilter(leadInc);
     const { id } = stoageGetter("user");
     // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
-    let _pageNo = current === undefined || current === null ? 1 : current
+    let _pageNo = current === undefined || current === null ? 1 : current;
     if (_currentTab === "self") {
       dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
     } else {
       const teamId = stoageGetter("teamMemberId");
       // console.warn("teamId______===========>>>", teamId);
-      dispatch(actions.fetchAllLeads(teamId === null || teamId === undefined ? id :  teamId, leadInc, _pageNo));
+      dispatch(
+        actions.fetchAllLeads(
+          teamId === null || teamId === undefined ? id : teamId,
+          leadInc,
+          _pageNo
+        )
+      );
     }
   };
 
@@ -116,8 +121,8 @@ const Tab = ({
 
         case "1":
           return history.push("/leadmasterpage/statuslead");
-        case '2':
-          return history.push('/company-intelligence')
+        case "2":
+          return history.push("/company-intelligence");
         // case '3':
         //   return history.push('/leadmasterpage/proposal')
         // case '4':
@@ -175,14 +180,20 @@ const Tab = ({
   const handleShow = () => setShow(true);
 
   const addNewOpportunity = () => {
-    resetDataFields()
-  }
-  
+    resetDataFields();
+  };
+
   return (
     <>
       {width > breakpoint ? (
         // className="header-img-tabs header-img-height tabsStyle"
-        <div className={header === "Lead" ? 'header-img-tabs header-img-height tabsStyle' :'header-img-tabs tabsStyle'}>
+        <div
+          className={
+            header === "Lead"
+              ? "header-img-tabs header-img-height tabsStyle"
+              : "header-img-tabs tabsStyle"
+          }
+        >
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
@@ -203,15 +214,32 @@ const Tab = ({
               </Tabs>
             </div>
           </div>
-          
-          { (header !== "Lead" && activeKey === '1') &&
-          <div style={{display:'flex',alignItems:'flex-end',marginBottom:15}}>
-              <Button onClick={()=> addNewOpportunity()} style={{display:'flex',alignItems:'center',borderRadius:5,backgroundColor:'#00ACC1',border: 'transparent',color:'#fff'}} size='large' > 
-                <PlusOutlined style={{fontSize:16,marginRight:10}} /> Add New Opportunity
+
+          {header !== "Lead" && activeKey === "1" && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                marginBottom: 15,
+              }}
+            >
+              <Button
+                onClick={() => addNewOpportunity()}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  borderRadius: 5,
+                  backgroundColor: "#00ACC1",
+                  border: "transparent",
+                  color: "#fff",
+                }}
+                size="large"
+              >
+                <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} /> Add
+                New Opportunity
               </Button>
-          </div>
-     
-          }
+            </div>
+          )}
           {/* header === "Lead" */}
           {/* <div style={{ display: "flex" }}>
             {tabPane.key === activeKey ? (

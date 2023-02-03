@@ -113,18 +113,20 @@ const CompanyIntelligence = React.memo((props) => {
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "#f0f0f0",
-    height: 220,
-    width: 320,
+    height: width > 1090 ? 220 : "",
+    width: width > 1090 ? 320 : width > 720 ? "66.33%" : "100%",
   };
 
   return (
     <>
       <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="2" />
 
-      <div className="form-container ml10rem kdmStyle ">
+      <div
+        className={`form-container kdmStyle ${width > 768 ? "ml10rem" : ""}`}
+      >
         <Tabs
           tabBarGutter={0}
-          tabPosition={width > breakpoint ? "left" : "top"}
+          tabPosition={width > 1090 ? "left" : "top"}
           size={width > breakpoint ? "large" : "small"}
           tabBarStyle={tabStyle}
           onTabClick={tabClick}

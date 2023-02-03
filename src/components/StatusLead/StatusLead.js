@@ -16,7 +16,7 @@ import {
   TimePicker,
   Spin,
   Radio,
-  AutoComplete
+  AutoComplete,
 } from "antd";
 import {
   ArrowRightOutlined,
@@ -43,189 +43,277 @@ import axiosRequest from "../../axios-request/request.methods";
 
 const minimumDate = moment().format("YYYY-MM-DD");
 const { Option } = Select;
-const  lobOpportunityItems = [
-  { label: "Affinity Benefits",value: "Affinity Benefits" },
-  { label: "AIGC",value: "AIGC" },
-  { label: "Aviation",value: "Aviation" },
-  { label: "BTA",value: "BTA" },
-  { label: "Casualty",value: "Casualty" },
-  { label: "Extended Warantee",value: "Extended Warantee" },
-  { label: "Financial Lines",value: "Financial Lines" },
-  { label: "GMC",value: "GMC" },
-  { label: "GPA",value: "GPA" },
-  { label: "Retail Health",value: "Retail Health" },
-  { label: "IPA",value: "IPA" },
-  { label: "LTA",value: "LTA" },
-  { label: "Marine",value: "Marine" },
-  { label: "Motor",value: "Motor" },
-  { label: "P&E&C",value: "P&E&C" },
-  { label: "PCG",value: "PCG" },
-  { label: "PEP",value: "PEP" },
-  { label: "Plus",value: "Plus" },
-  { label: "Rural",value: "Rural" },
-  { label: "Rural- Weather",value: "Rural- Weather" },
-  { label: "Trade Credit",value: "Trade Credit" },
+const lobOpportunityItems = [
+  { label: "Affinity Benefits", value: "Affinity Benefits" },
+  { label: "AIGC", value: "AIGC" },
+  { label: "Aviation", value: "Aviation" },
+  { label: "BTA", value: "BTA" },
+  { label: "Casualty", value: "Casualty" },
+  { label: "Extended Warantee", value: "Extended Warantee" },
+  { label: "Financial Lines", value: "Financial Lines" },
+  { label: "GMC", value: "GMC" },
+  { label: "GPA", value: "GPA" },
+  { label: "Retail Health", value: "Retail Health" },
+  { label: "IPA", value: "IPA" },
+  { label: "LTA", value: "LTA" },
+  { label: "Marine", value: "Marine" },
+  { label: "Motor", value: "Motor" },
+  { label: "P&E&C", value: "P&E&C" },
+  { label: "PCG", value: "PCG" },
+  { label: "PEP", value: "PEP" },
+  { label: "Plus", value: "Plus" },
+  { label: "Rural", value: "Rural" },
+  { label: "Rural- Weather", value: "Rural- Weather" },
+  { label: "Trade Credit", value: "Trade Credit" },
   // { label: "AIGC",value: "AIGC" },
-]
+];
 
 const affinityBenefitsItems = [
-  { label: "Group Sickness Accidental Hospital Cash",value: "GroupSicknessAccidentalHospitalCash" },
-  { label: "Group Mediprime Insurance Policy",value: "GroupMediprimeInsurancePolicy" },
-]
+  {
+    label: "Group Sickness Accidental Hospital Cash",
+    value: "GroupSicknessAccidentalHospitalCash",
+  },
+  {
+    label: "Group Mediprime Insurance Policy",
+    value: "GroupMediprimeInsurancePolicy",
+  },
+];
 
 const aigcItems = [
-  { label: "AIG Combined Package Policy",value: "AIGCombinedPackagePolicy" },
-  { label: "Workmens Compensation",value: "WorkmensCompensation" },
-  { label: "Business Guard Laghu Udyam Suraksha",value: "BusinessGuardLaghuUdyamSuraksha" },
-  { label: "Business Guard Sookshma Udyam Suraksha",value: "BusinessGuardSookshmaUdyamSuraksha" },
-]
+  { label: "AIG Combined Package Policy", value: "AIGCombinedPackagePolicy" },
+  { label: "Workmens Compensation", value: "WorkmensCompensation" },
+  {
+    label: "Business Guard Laghu Udyam Suraksha",
+    value: "BusinessGuardLaghuUdyamSuraksha",
+  },
+  {
+    label: "Business Guard Sookshma Udyam Suraksha",
+    value: "BusinessGuardSookshmaUdyamSuraksha",
+  },
+];
 
 const aviationItems = [
-  { label: "Airport Owners and Operators Liability Insurance",value: "Airport Owners and Operators Liability Insurance" },
-  { label: "Aviation Hull All Risk",value: "Aviation Hull All Risk" },
-]
+  {
+    label: "Airport Owners and Operators Liability Insurance",
+    value: "Airport Owners and Operators Liability Insurance",
+  },
+  { label: "Aviation Hull All Risk", value: "Aviation Hull All Risk" },
+];
 
 const btaItems = [
-  { label: "Business Travel Guard",value: "Business Travel Guard" },
-  { label: "Group Business Travel",value: "Group Business Travel" },
-  { label: "Group Business Travel Accident",value: "GroupBusinessTravelAccident" },
-]
+  { label: "Business Travel Guard", value: "Business Travel Guard" },
+  { label: "Group Business Travel", value: "Group Business Travel" },
+  {
+    label: "Group Business Travel Accident",
+    value: "GroupBusinessTravelAccident",
+  },
+];
 const casualtyItems = [
-  { label: "Clinical Trials Insurance",value: "Clinical Trials Insurance" },
-  { label: "Commerical General Liability",value: "CommericalGeneralLiability" },
-  { label: "Comprehensive Product Liability",value: "ComprehensiveProductLiability" },
-  { label: "Pollution Legal Liability",value: "Pollution Legal Liability" },
-  { label: "Public Liability Act",value: "Public Liability Act" },
-]
+  { label: "Clinical Trials Insurance", value: "Clinical Trials Insurance" },
+  {
+    label: "Commerical General Liability",
+    value: "CommericalGeneralLiability",
+  },
+  {
+    label: "Comprehensive Product Liability",
+    value: "ComprehensiveProductLiability",
+  },
+  { label: "Pollution Legal Liability", value: "Pollution Legal Liability" },
+  { label: "Public Liability Act", value: "Public Liability Act" },
+];
 
 const extend_warrantyItems = [
-  { label: "Extended Warranty",value: "Extended Warranty" },
-]
+  { label: "Extended Warranty", value: "Extended Warranty" },
+];
 const finance_linesItems = [
-  { label: "Crime Manager",value: "CrimeManager" },
-  { label: "Crisis Coverage Insurance Policy",value: "CrisisCoverageInsurancePolicy" },
-  { label: "Cyber Risk Protector",value: "Cyber Risk Protector" },
-  { label: "Director And Officer Liability",value: "DirectorAndOfficerLiability" },
-  { label: "Fidelity Guard Policy",value: "Fidelity Guard Policy" },
-  { label: "Financial Institution",value: "FinancialInstitution" },
-  { label: "Highlight Named Peril D&O Insurance",value: "Highlight Named Peril D&O Insurance" },
-  { label: "Management Liability Insurance Policy",value: "ManagementLiabilityInsurancePolicy" },
-  { label: "Professional Indemnity",value: "Professional Indemnity" },
-  { label: "Represntations And Warranties",value: "Represntations And Warranties" },
-]
+  { label: "Crime Manager", value: "CrimeManager" },
+  {
+    label: "Crisis Coverage Insurance Policy",
+    value: "CrisisCoverageInsurancePolicy",
+  },
+  { label: "Cyber Risk Protector", value: "Cyber Risk Protector" },
+  {
+    label: "Director And Officer Liability",
+    value: "DirectorAndOfficerLiability",
+  },
+  { label: "Fidelity Guard Policy", value: "Fidelity Guard Policy" },
+  { label: "Financial Institution", value: "FinancialInstitution" },
+  {
+    label: "Highlight Named Peril D&O Insurance",
+    value: "Highlight Named Peril D&O Insurance",
+  },
+  {
+    label: "Management Liability Insurance Policy",
+    value: "ManagementLiabilityInsurancePolicy",
+  },
+  { label: "Professional Indemnity", value: "Professional Indemnity" },
+  {
+    label: "Represntations And Warranties",
+    value: "Represntations And Warranties",
+  },
+];
 const gmcItems = [
-  { label: "Group Medicare Policy",value: "GroupMedicarePolicy" },
-  { label: "Group MediPrime",value: "GroupMediPrime" },
-  { label: "Group Mediprime Insurance Policy",value: "GroupMediprimeInsurancePolicy" },
-]
+  { label: "Group Medicare Policy", value: "GroupMedicarePolicy" },
+  { label: "Group MediPrime", value: "GroupMediPrime" },
+  {
+    label: "Group Mediprime Insurance Policy",
+    value: "GroupMediprimeInsurancePolicy",
+  },
+];
 const gpaItems = [
-  { label: "Domestic Travel Guard Policy",value: "Domestic Travel Guard Policy" },
-  { label: "GPA and Business Travel",value: "GPA and Business Travel" },
-  { label: "Group Janta Personal Accident",value: "GroupJantaPersonalAccident" },
-  { label: "Group Personal Accident",value: "GroupPersnalAccident" },
-]
+  {
+    label: "Domestic Travel Guard Policy",
+    value: "Domestic Travel Guard Policy",
+  },
+  { label: "GPA and Business Travel", value: "GPA and Business Travel" },
+  {
+    label: "Group Janta Personal Accident",
+    value: "GroupJantaPersonalAccident",
+  },
+  { label: "Group Personal Accident", value: "GroupPersnalAccident" },
+];
 const retail_healthItems = [
-  { label: "Critical Illness",value: "Critical Illness" },
-  { label: "MediCare",value: "MediCare" },
-  { label: "Wellsurance Executive",value: "Wellsurance Executive" },
-]
+  { label: "Critical Illness", value: "Critical Illness" },
+  { label: "MediCare", value: "MediCare" },
+  { label: "Wellsurance Executive", value: "Wellsurance Executive" },
+];
 const ipaItems = [
-  { label: "Accident Guard Plus",value: "AccidentGuardPlus" },
-  { label: "Income Guard",value: "IncomeGuard" },
-  { label: "Secured Future Plan",value: "Secured Future Plan" },
-]
+  { label: "Accident Guard Plus", value: "AccidentGuardPlus" },
+  { label: "Income Guard", value: "IncomeGuard" },
+  { label: "Secured Future Plan", value: "Secured Future Plan" },
+];
 const ltaItems = [
-  { label: "Asia Travel Guard Policy",value: "Asia Travel Guard Policy" },
-  { label: "Domestic Travel Guard",value: "Domestic Travel Guard" },
-  { label: "Group Travel Secure",value: "Group Travel Secure" },
-  { label: "Travel Care",value: "Travel Care" },
-]
+  { label: "Asia Travel Guard Policy", value: "Asia Travel Guard Policy" },
+  { label: "Domestic Travel Guard", value: "Domestic Travel Guard" },
+  { label: "Group Travel Secure", value: "Group Travel Secure" },
+  { label: "Travel Care", value: "Travel Care" },
+];
 const marineItems = [
-  { label: "Inland Marine Cargo RT Major",value: "Inland Marine Cargo RT Major" },
-  { label: "Marine Liabilities Policy",value: "MarineLiabilitiesPolicy" },
-  { label: "Marine Specific Policy",value: "MarineSpecificPolicy" },
-  { label: "Open Policy Marine Cargo",value: "OpenPolicyMarineCargo" },
-]
+  {
+    label: "Inland Marine Cargo RT Major",
+    value: "Inland Marine Cargo RT Major",
+  },
+  { label: "Marine Liabilities Policy", value: "MarineLiabilitiesPolicy" },
+  { label: "Marine Specific Policy", value: "MarineSpecificPolicy" },
+  { label: "Open Policy Marine Cargo", value: "OpenPolicyMarineCargo" },
+];
 const motorItems = [
-  { label: "Auto Secure - Private Car Package Policy",value: "Auto Secure - Private Car Package Policy" },
-  { label: "Commercial Vehicle",value: "Commercial Vehicle" },
-  { label: "Private Car Insurance",value: "Private Car Insurance" },
-]
+  {
+    label: "Auto Secure - Private Car Package Policy",
+    value: "Auto Secure - Private Car Package Policy",
+  },
+  { label: "Commercial Vehicle", value: "Commercial Vehicle" },
+  { label: "Private Car Insurance", value: "Private Car Insurance" },
+];
 const p_e_cItems = [
-  { label: "All Risk Insurance",value: "All Risk Insurance" },
-  { label: "All Risk Portable Insurance",value: "AllRiskPortableInsurance" },
-  { label: "Baggage Insurance",value: "Baggage Insurance" },
-  { label: "Boiler & Pressure Vessel",value: "Boiler & Pressure Vessel" },
-  { label: "Burglary Insurance",value: "Burglary Insurance" },
-  { label: "Business Guard - Commercial Policy",value: "Business Guard - Commercial Policy" },
-  { label: "CAR/EAR",value: "CAR/EAR" },
-  { label: "Chemical RT PD/BI",value: "Chemical RT PD/BI" },
-  { label: "Consequential Loss Insurance",value: "ConsequentialLossInsurance" },
-  { label: "Contractors Plant & Machinery",value: "Contractors Plant & Machinery" },
-  { label: "Electronic Equipment Insurance",value: "Electronic Equipment Insurance" },
-  { label: "Fidelity Guarantee Ins",value: "FidelityGuaranteeIns" },
-  { label: "IAR Property Major",value: "IAR Property Major" },
-  { label: "Industrial All Risk Insurance",value: "Industrial All Risk Insurance" },
-  { label: "Industrial All Risk Insurance",value: "IndustrialAllRiskInsurance" },
-  { label: "Machinery Breakdown Insurance",value: "Machinery Breakdown Insurance" },
-  { label: "Machinery Loss Of Profit Ins",value: "MachineryLossOfProfitIns" },
-  { label: "Mega Risk",value: "Mega Risk" },
-  { label: "Money Insurance",value: "Money Insurance" },
-  { label: "Multinational Program",value: "MultinationalProgram" },
-  { label: "Oil & Petro RT PD/BI",value: "Oil & Petro RT PD/BI" },
-  { label: "Plate Glass Ins",value: "PlateGlassIns" },
-  { label: "Project Insurance",value: "ProjectInsurance" },
-  { label: "Standard Fire and Special Perils",value: "Standard Fire and Special Perils" },
-  { label: "Title Insurance",value: "Title Insurance" },
-  { label: "Utilities RT PD/BI",value: "Utilities RT PD/BI" },
-]
+  { label: "All Risk Insurance", value: "All Risk Insurance" },
+  { label: "All Risk Portable Insurance", value: "AllRiskPortableInsurance" },
+  { label: "Baggage Insurance", value: "Baggage Insurance" },
+  { label: "Boiler & Pressure Vessel", value: "Boiler & Pressure Vessel" },
+  { label: "Burglary Insurance", value: "Burglary Insurance" },
+  {
+    label: "Business Guard - Commercial Policy",
+    value: "Business Guard - Commercial Policy",
+  },
+  { label: "CAR/EAR", value: "CAR/EAR" },
+  { label: "Chemical RT PD/BI", value: "Chemical RT PD/BI" },
+  {
+    label: "Consequential Loss Insurance",
+    value: "ConsequentialLossInsurance",
+  },
+  {
+    label: "Contractors Plant & Machinery",
+    value: "Contractors Plant & Machinery",
+  },
+  {
+    label: "Electronic Equipment Insurance",
+    value: "Electronic Equipment Insurance",
+  },
+  { label: "Fidelity Guarantee Ins", value: "FidelityGuaranteeIns" },
+  { label: "IAR Property Major", value: "IAR Property Major" },
+  {
+    label: "Industrial All Risk Insurance",
+    value: "Industrial All Risk Insurance",
+  },
+  {
+    label: "Industrial All Risk Insurance",
+    value: "IndustrialAllRiskInsurance",
+  },
+  {
+    label: "Machinery Breakdown Insurance",
+    value: "Machinery Breakdown Insurance",
+  },
+  { label: "Machinery Loss Of Profit Ins", value: "MachineryLossOfProfitIns" },
+  { label: "Mega Risk", value: "Mega Risk" },
+  { label: "Money Insurance", value: "Money Insurance" },
+  { label: "Multinational Program", value: "MultinationalProgram" },
+  { label: "Oil & Petro RT PD/BI", value: "Oil & Petro RT PD/BI" },
+  { label: "Plate Glass Ins", value: "PlateGlassIns" },
+  { label: "Project Insurance", value: "ProjectInsurance" },
+  {
+    label: "Standard Fire and Special Perils",
+    value: "Standard Fire and Special Perils",
+  },
+  { label: "Title Insurance", value: "Title Insurance" },
+  { label: "Utilities RT PD/BI", value: "Utilities RT PD/BI" },
+];
 const pcgItems = [
-  { label: "PCG Home",value: "PCGHome" },
-  { label: "Private Client Group Home Secure Policy",value: "Private Client Group Home Secure Policy" },
-]
+  { label: "PCG Home", value: "PCGHome" },
+  {
+    label: "Private Client Group Home Secure Policy",
+    value: "Private Client Group Home Secure Policy",
+  },
+];
 const pepItems = [
-  { label: "Personal Protection Product",value: "Personal Protection Product" },
-  { label: "Personal Extended Protection",value: "PersonalExtendedProtection" },
-]
-const plusItems = [
-  { label: "Personal All Risk",value: "PersonalAllRisk" },
-]
+  {
+    label: "Personal Protection Product",
+    value: "Personal Protection Product",
+  },
+  {
+    label: "Personal Extended Protection",
+    value: "PersonalExtendedProtection",
+  },
+];
+const plusItems = [{ label: "Personal All Risk", value: "PersonalAllRisk" }];
 const ruralItems = [
-  { label: "Rural Package Policy",value: "RuralPackagePolicy" },
-]
+  { label: "Rural Package Policy", value: "RuralPackagePolicy" },
+];
 const rural_weatherItems = [
-  { label: "Modified National Agriculture Insurance Scheme",value: "Modified National Agriculture Insurance Scheme" },
-  { label: "PMFBY",value: "PMFBY" },
-]
+  {
+    label: "Modified National Agriculture Insurance Scheme",
+    value: "Modified National Agriculture Insurance Scheme",
+  },
+  { label: "PMFBY", value: "PMFBY" },
+];
 const trade_creditItems = [
-  { label: "Political Risk Insurance",value: "Political Risk Insurance" },
-  { label: "Trade Credit Insurance",value: "Trade Credit Insurance" },
-]
+  { label: "Political Risk Insurance", value: "Political Risk Insurance" },
+  { label: "Trade Credit Insurance", value: "Trade Credit Insurance" },
+];
 
 const leadStatusItems = [
-  { label: "New Lead",value: "newleadentery" },
-  { label: "Contacted",value: "contact" },
-  { label: "No Contact",value: "no_contact" },
-]
+  { label: "New Lead", value: "newleadentery" },
+  { label: "Contacted", value: "contact" },
+  { label: "No Contact", value: "no_contact" },
+];
 
 const contactItems = [
-  { label: "Appointment",value: "appointment" },
-  { label: "Callback",value: "callback" },
-  { label: "Converted",value: "leadconverted" },
-  { label: "Not Interested",value: "notinterested" },
-  { label: "Not Eligible",value: "noteligible" },
-  { label: "Interested",value: "interested" },
-]
+  { label: "Appointment", value: "appointment" },
+  { label: "Callback", value: "callback" },
+  { label: "Converted", value: "leadconverted" },
+  { label: "Not Interested", value: "notinterested" },
+  { label: "Not Eligible", value: "noteligible" },
+  { label: "Interested", value: "interested" },
+];
 
 const no_contactItems = [
-  { label: "Wrong/Invalid Number",value: "invalid" },
-  { label: "Not Reachable",value: "notreachable" },
-]
+  { label: "Wrong/Invalid Number", value: "invalid" },
+  { label: "Not Reachable", value: "notreachable" },
+];
 
 const appointmentTimeOptions = [
   { label: "8:00 AM", value: "28800000" },
   { label: "8:30 AM", value: "30600000" },
-  { label: "9:00 AM", value: "32400000",},
+  { label: "9:00 AM", value: "32400000" },
   {
     label: "9:30 AM",
     value: "34200000",
@@ -327,9 +415,6 @@ const appointmentTimeOptions = [
     value: "77400000",
   },
 ];
-
-
-
 
 const optionsData = [
   {
@@ -463,7 +548,6 @@ const NewLead = React.memo((props) => {
   const createdDateValue = useSelector(
     (state) => state.newLead.formData.created_date
   );
-  
 
   const [leadAge, setLeadAge] = useState("");
   const [leadGender, setLeadGender] = useState("");
@@ -521,7 +605,6 @@ const NewLead = React.memo((props) => {
   const [allocatedToUser, setAllocatedToUser] = React.useState("");
   // console.warn('((((((((((( stateProvince )))))))))))',stateProvince)
 
-
   const [companyArray, setCompanyArray] = useState([]);
   const [parentCompArray, setparentCompArray] = useState([]);
   const [industryArray, setIndustryArray] = useState([]);
@@ -543,7 +626,7 @@ const NewLead = React.memo((props) => {
   const [todoComplteSummary, setTodoComplteSummary] = useState("00");
 
   const [disableParentComp, setDisableParentComp] = useState(false);
-  
+
   useEffect(() => {
     // if(userTreeData.length > 0){
     // userTreeData.reporting_hierarchies.forEach((el) => {
@@ -555,7 +638,7 @@ const NewLead = React.memo((props) => {
     // });
     // setHierarAgentList(userTreeData.reporting_hierarchies);
 
-    getCompanyDetails()
+    getCompanyDetails();
 
     // console.log('((((((((((((storeFormData))))))))))))',storeFormData)
     // console.log('((((((((((((lead_Id))))))))))))',storeFormData.lead_Id)
@@ -564,31 +647,33 @@ const NewLead = React.memo((props) => {
   }, []);
 
   const getCompanyDetails = async (lead_id) => {
-    let result = await axiosRequest.get(`admin/company/companies`, {secure: true,});
+    let result = await axiosRequest.get(`admin/company/companies`, {
+      secure: true,
+    });
     // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
     // if (result.length > 0) {
-      let _compArr = []
-      let _parentCompArr = []
-      let _industryArr = []
-      result.companies.map((el) => {
-        let _data = { value:el.company_name, _id:el._id }
-        _compArr.push(_data)
-      })
-      setCompanyArray(_compArr)
+    let _compArr = [];
+    let _parentCompArr = [];
+    let _industryArr = [];
+    result.companies.map((el) => {
+      let _data = { value: el.company_name, _id: el._id };
+      _compArr.push(_data);
+    });
+    setCompanyArray(_compArr);
 
-      result.parent_company.map((el) => {
-        let _data = { label:el, value:el }
-        _parentCompArr.push(_data)
-      })
-      setparentCompArray(_parentCompArr)
+    result.parent_company.map((el) => {
+      let _data = { label: el, value: el };
+      _parentCompArr.push(_data);
+    });
+    setparentCompArray(_parentCompArr);
 
-      result.industries.map((el) => {
-        let _data = { label:el, value:el }
-        _industryArr.push(_data)
-      })
-      setIndustryArray(_industryArr)
+    result.industries.map((el) => {
+      let _data = { label: el, value: el };
+      _industryArr.push(_data);
+    });
+    setIndustryArray(_industryArr);
     // }
-  }
+  };
 
   const getLeadDetails = async (lead_id) => {
     try {
@@ -711,7 +796,7 @@ const NewLead = React.memo((props) => {
       // setLeadOccupation(leadData?.professionType);
       // setLeadVehiclesOwned(leadData?.vehiclesOwned);
       // setLeadSourceOfactivity(leadData?.sourceOfActivity);
-      
+
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_details?.company_name,
@@ -724,13 +809,17 @@ const NewLead = React.memo((props) => {
         opportunityName: leadData?.opportunity_name,
         tenderDriver: leadData?.tender_driven,
         status: leadData?.leadStatus,
-        disposition: leadData.hasOwnProperty("leadDisposition") ? leadData.leadDisposition : "" ,
-        subDisposition: leadData.hasOwnProperty("leadsubDisposition") ? leadData.leadsubDisposition : "",
+        disposition: leadData.hasOwnProperty("leadDisposition")
+          ? leadData.leadDisposition
+          : "",
+        subDisposition: leadData.hasOwnProperty("leadsubDisposition")
+          ? leadData.leadsubDisposition
+          : "",
         appointmentDate: _appntDate,
         appointmentTime: _appntTime,
         collaborators: leadData?.teamMembers,
         remarks: leadData?.remarks,
-      }))
+      }));
 
       form.setFieldsValue({
         company_name: leadData?.company_details?.company_name,
@@ -742,8 +831,12 @@ const NewLead = React.memo((props) => {
         opportunity_name: leadData?.opportunity_name,
 
         lead_status: leadData?.leadStatus,
-        lead_disposition: leadData.hasOwnProperty("leadDisposition") ? leadData.leadDisposition : "" ,
-        sub_disposition: leadData.hasOwnProperty("leadsubDisposition") ? leadData.leadsubDisposition : "",
+        lead_disposition: leadData.hasOwnProperty("leadDisposition")
+          ? leadData.leadDisposition
+          : "",
+        sub_disposition: leadData.hasOwnProperty("leadsubDisposition")
+          ? leadData.leadsubDisposition
+          : "",
         appointment_date: _appntDate,
         appointment_time: _appntTime,
         collaborators: leadData?.teamMembers,
@@ -754,20 +847,24 @@ const NewLead = React.memo((props) => {
     }
   };
 
-  const onSelectCompany = async (event,data) =>{
-    console.warn('onSelectCompany ----->>>:',event,data);
-    setCompany_id(data._id)
-    setDisableParentComp(true)
-    let result = await axiosRequest.get(`admin/company/companies?company_id=${data._id}`, {secure: true,});
+  const onSelectCompany = async (event, data) => {
+    console.warn("onSelectCompany ----->>>:", event, data);
+    setCompany_id(data._id);
+    setDisableParentComp(true);
+    let result = await axiosRequest.get(
+      `admin/company/companies?company_id=${data._id}`,
+      { secure: true }
+    );
     // console.warn('COMP___RESPPP --------->>>:', result);
     setFormItem((res) => ({
       ...res,
       companyName: event,
       clientLocation: result.companies[0].client_location,
-      empaneled: result.companies[0].tata_aig_empaneled === 'Yes' ? true : false,
+      empaneled:
+        result.companies[0].tata_aig_empaneled === "Yes" ? true : false,
       industry: result.companies[0].industry_name,
       parentCompanyName: result.companies[0].parent_company,
-    }))
+    }));
 
     form.setFieldsValue({
       company_name: event,
@@ -775,32 +872,28 @@ const NewLead = React.memo((props) => {
       industry: result.companies[0].industry_name,
       client_location: result.companies[0].client_location,
     });
-  }
-  
-  const onCompanyChange = (event,data) => {
-    console.warn('onCompanyChange----event----->>>:', event);
-    setCompany_id('')
+  };
+
+  const onCompanyChange = (event, data) => {
+    console.warn("onCompanyChange----event----->>>:", event);
+    setCompany_id("");
     setFormItem((res) => ({
       ...res,
       companyName: event,
-      parentCompanyName: '',
-      industry: '',
-      clientLocation: '',
-      empaneled:false
-    }))
+      parentCompanyName: "",
+      industry: "",
+      clientLocation: "",
+      empaneled: false,
+    }));
     form.setFieldsValue({
       company_name: event,
-      parent_company: '',
-      industry: '',
-      client_location: '',
+      parent_company: "",
+      industry: "",
+      client_location: "",
     });
-    
-    setDisableParentComp(false)
-                      
-                      
-    
 
-    
+    setDisableParentComp(false);
+
     // console.warn('result__ADD COMPANY ----->>>:', result);
     // console.warn('companyArray----->>>:', companyArray);
     // console.warn('onCompanyChange----event----->>>:', event);
@@ -809,146 +902,190 @@ const NewLead = React.memo((props) => {
     // console.warn('_data --------->>>:', _data);
   };
 
-  const changeProductOpprtunity = (event) =>{
+  const changeProductOpprtunity = (event) => {
     setFormItem((res) => ({
       ...res,
       productForOpportunity: event,
-    }))
-  }
+    }));
+  };
 
-  const changeLobOpprtunity = (event) =>{
+  const changeLobOpprtunity = (event) => {
     // console.warn('LOB OPPORTUNITY --------->>>:', event);
     setFormItem((res) => ({
       ...res,
       LOBForOpportunity: event,
-      productForOpportunity:""
-    }))
+      productForOpportunity: "",
+    }));
     form.setFieldsValue({
-      product_for_opportunity:'',
+      product_for_opportunity: "",
     });
 
-
-    event === 'Affinity Benefits' ? setProdForOpportunityArr(affinityBenefitsItems) :
-    event === 'AIGC' ? setProdForOpportunityArr(aigcItems) :
-    event === 'Aviation' ? setProdForOpportunityArr(aviationItems) :
-    event === 'BTA' ? setProdForOpportunityArr(btaItems) :
-    event === 'Casualty' ? setProdForOpportunityArr(casualtyItems) :
-    event === 'Extended Warantee' ? setProdForOpportunityArr(extend_warrantyItems) :
-    event === 'Financial Lines' ? setProdForOpportunityArr(finance_linesItems) :
-    event === 'GMC' ? setProdForOpportunityArr(gmcItems) :
-    event === 'GPA' ? setProdForOpportunityArr(gpaItems) :
-    event === 'Retail Health' ? setProdForOpportunityArr(retail_healthItems) :
-    event === 'IPA' ? setProdForOpportunityArr(ipaItems) :
-    event === 'LTA' ? setProdForOpportunityArr(ltaItems) :
-    event === 'Marine' ? setProdForOpportunityArr(marineItems) :
-    event === 'Motor' ? setProdForOpportunityArr(motorItems) :
-    event === 'P&E&C' ? setProdForOpportunityArr(p_e_cItems) :
-    event === 'PCG' ? setProdForOpportunityArr(pcgItems) :
-    event === 'PEP' ? setProdForOpportunityArr(pepItems) :
-    event === 'Plus' ? setProdForOpportunityArr(plusItems) :
-    event === 'Rural' ? setProdForOpportunityArr(ruralItems) :
-    event === 'Rural- Weather' ? setProdForOpportunityArr(rural_weatherItems) :
-    event === 'Trade Credit' ? setProdForOpportunityArr(trade_creditItems) : setProdForOpportunityArr(affinityBenefitsItems)
+    event === "Affinity Benefits"
+      ? setProdForOpportunityArr(affinityBenefitsItems)
+      : event === "AIGC"
+      ? setProdForOpportunityArr(aigcItems)
+      : event === "Aviation"
+      ? setProdForOpportunityArr(aviationItems)
+      : event === "BTA"
+      ? setProdForOpportunityArr(btaItems)
+      : event === "Casualty"
+      ? setProdForOpportunityArr(casualtyItems)
+      : event === "Extended Warantee"
+      ? setProdForOpportunityArr(extend_warrantyItems)
+      : event === "Financial Lines"
+      ? setProdForOpportunityArr(finance_linesItems)
+      : event === "GMC"
+      ? setProdForOpportunityArr(gmcItems)
+      : event === "GPA"
+      ? setProdForOpportunityArr(gpaItems)
+      : event === "Retail Health"
+      ? setProdForOpportunityArr(retail_healthItems)
+      : event === "IPA"
+      ? setProdForOpportunityArr(ipaItems)
+      : event === "LTA"
+      ? setProdForOpportunityArr(ltaItems)
+      : event === "Marine"
+      ? setProdForOpportunityArr(marineItems)
+      : event === "Motor"
+      ? setProdForOpportunityArr(motorItems)
+      : event === "P&E&C"
+      ? setProdForOpportunityArr(p_e_cItems)
+      : event === "PCG"
+      ? setProdForOpportunityArr(pcgItems)
+      : event === "PEP"
+      ? setProdForOpportunityArr(pepItems)
+      : event === "Plus"
+      ? setProdForOpportunityArr(plusItems)
+      : event === "Rural"
+      ? setProdForOpportunityArr(ruralItems)
+      : event === "Rural- Weather"
+      ? setProdForOpportunityArr(rural_weatherItems)
+      : event === "Trade Credit"
+      ? setProdForOpportunityArr(trade_creditItems)
+      : setProdForOpportunityArr(affinityBenefitsItems);
     // setProdForOpportunityArr()
-    
-  }
+  };
 
-  const changeLeadStatus = (event) =>{
+  const changeLeadStatus = (event) => {
     setFormItem((res) => ({
       ...res,
       status: event,
-    }))
+    }));
     form.setFieldsValue({
-      lead_disposition:'',
+      lead_disposition: "",
     });
-    setShowLeadSubDisposition(false)
+    setShowLeadSubDisposition(false);
 
-    if(event === 'newleadentery'){
-      setDispoArr([])
-      setShowLeadDisposition(false)
+    if (event === "newleadentery") {
+      setDispoArr([]);
+      setShowLeadDisposition(false);
       // setShowLeadSubDisposition(false)
-
-    }else if(event === 'contact'){
-      setDispoArr(contactItems)
-      setShowLeadDisposition(true)
-    }else if(event === 'no_contact'){
-      setDispoArr(no_contactItems)
-      setShowLeadDisposition(true)
-      
+    } else if (event === "contact") {
+      setDispoArr(contactItems);
+      setShowLeadDisposition(true);
+    } else if (event === "no_contact") {
+      setDispoArr(no_contactItems);
+      setShowLeadDisposition(true);
     }
-    
 
     // const [dispoArr, setDispoArr] = useState([]);
-  }
+  };
 
-  const changeDispoStatus = (event) =>{
+  const changeDispoStatus = (event) => {
     setFormItem((res) => ({
       ...res,
       disposition: event,
-    }))
-    
-    setShowLeadSubDisposition(true)
+    }));
 
-   
-    if(event === 'leadconverted') {
-      setSubDispoArr([{ label: "Application Started",value: "Application Started" },{ label: "Application Submitted",value: "Application Submitted" }])
-      setShowAppointmentFields(false)
-      setFormItem((res) => ({...res, subDisposition: 'Application Started' }))
-      form.setFieldsValue({ sub_disposition:'Application Started' });
+    setShowLeadSubDisposition(true);
 
-    } else if(event === 'notinterested') {
-      setSubDispoArr([{ label: "Lost to Competition",value: "Lost to Competition" },{ label: "High Price",value: "High Price" }])
-      setShowAppointmentFields(false)
+    if (event === "leadconverted") {
+      setSubDispoArr([
+        { label: "Application Started", value: "Application Started" },
+        { label: "Application Submitted", value: "Application Submitted" },
+      ]);
+      setShowAppointmentFields(false);
+      setFormItem((res) => ({ ...res, subDisposition: "Application Started" }));
+      form.setFieldsValue({ sub_disposition: "Application Started" });
+    } else if (event === "notinterested") {
+      setSubDispoArr([
+        { label: "Lost to Competition", value: "Lost to Competition" },
+        { label: "High Price", value: "High Price" },
+      ]);
+      setShowAppointmentFields(false);
 
-      setFormItem((res) => ({...res, subDisposition: 'Lost to Competition' }))
-      form.setFieldsValue({ sub_disposition:'Lost to Competition' });
+      setFormItem((res) => ({ ...res, subDisposition: "Lost to Competition" }));
+      form.setFieldsValue({ sub_disposition: "Lost to Competition" });
+    } else if (event === "noteligible") {
+      setSubDispoArr([
+        { label: "Risk not feasible", value: "Risk not feasible" },
+      ]);
+      setShowAppointmentFields(false);
 
-    } else if(event === 'noteligible') {
-      setSubDispoArr([{ label: "Risk not feasible",value: "Risk not feasible" }])
-      setShowAppointmentFields(false)
+      setFormItem((res) => ({ ...res, subDisposition: "Risk not feasible" }));
+      form.setFieldsValue({ sub_disposition: "Risk not feasible" });
+    } else if (event === "interested") {
+      setSubDispoArr([
+        { label: "Proposal in progress", value: "Proposal in progress" },
+        { label: "Proposal Submitted", value: "Proposal Submitted" },
+      ]);
+      setShowAppointmentFields(false);
 
-      setFormItem((res) => ({...res, subDisposition: 'Risk not feasible' }))
-      form.setFieldsValue({ sub_disposition:'Risk not feasible' });
+      setFormItem((res) => ({
+        ...res,
+        subDisposition: "Proposal in progress",
+      }));
+      form.setFieldsValue({ sub_disposition: "Proposal in progress" });
+    } else if (event === "callback") {
+      setSubDispoArr([
+        { label: "Ask to call back later", value: "Ask to call back later" },
+        {
+          label: "Decision maker unavailable",
+          value: "Decision maker unavailable",
+        },
+      ]);
+      setShowAppointmentFields(true);
 
-    } else if(event === 'interested') {
-      setSubDispoArr([{ label: "Proposal in progress",value: "Proposal in progress" },{ label: "Proposal Submitted",value: "Proposal Submitted" }])
-      setShowAppointmentFields(false)
+      setFormItem((res) => ({
+        ...res,
+        subDisposition: "Ask to call back later",
+      }));
+      form.setFieldsValue({ sub_disposition: "Ask to call back later" });
+    } else if (event === "appointment") {
+      setSubDispoArr([
+        {
+          label: "Client has given appointment",
+          value: "Client has given appointment",
+        },
+      ]);
+      setShowAppointmentFields(true);
 
-      setFormItem((res) => ({...res, subDisposition: 'Proposal in progress' }))
-      form.setFieldsValue({ sub_disposition:'Proposal in progress' });
+      setFormItem((res) => ({
+        ...res,
+        subDisposition: "Client has given appointment",
+      }));
+      form.setFieldsValue({ sub_disposition: "Client has given appointment" });
+    } else if (event === "invalid") {
+      setSubDispoArr([
+        { label: "Wrong/Invalid Number", value: "Wrong/Invalid Number" },
+      ]);
+      setShowAppointmentFields(false);
 
-    } else if(event === 'callback') {
-      setSubDispoArr([{ label: "Ask to call back later",value: "Ask to call back later" },{ label: "Decision maker unavailable",value: "Decision maker unavailable" }])
-      setShowAppointmentFields(true)
+      setFormItem((res) => ({
+        ...res,
+        subDisposition: "Wrong/Invalid Number",
+      }));
+      form.setFieldsValue({ sub_disposition: "Wrong/Invalid Number" });
+    } else if (event === "notreachable") {
+      setSubDispoArr([{ label: "Not Reachable", value: "Not Reachable" }]);
+      setShowAppointmentFields(false);
 
-      setFormItem((res) => ({...res, subDisposition: 'Ask to call back later' }))
-      form.setFieldsValue({ sub_disposition:'Ask to call back later' });
-      
-    } else if(event === 'appointment') {
-      setSubDispoArr([{ label: "Client has given appointment",value: "Client has given appointment" }])
-      setShowAppointmentFields(true)
-
-      setFormItem((res) => ({...res, subDisposition: 'Client has given appointment' }))
-      form.setFieldsValue({ sub_disposition:'Client has given appointment' });
-      
-    } else if(event === 'invalid') {
-      setSubDispoArr([{ label: "Wrong/Invalid Number",value: "Wrong/Invalid Number" }])
-      setShowAppointmentFields(false)
-
-      setFormItem((res) => ({...res, subDisposition: 'Wrong/Invalid Number' }))
-      form.setFieldsValue({ sub_disposition:'Wrong/Invalid Number' });
-      
-    } else if(event === 'notreachable') {
-      setSubDispoArr([{ label: "Not Reachable",value: "Not Reachable" }])
-      setShowAppointmentFields(false)
-
-      setFormItem((res) => ({...res, subDisposition: 'Not Reachable' }))
-      form.setFieldsValue({ sub_disposition:'Not Reachable' });
-      
+      setFormItem((res) => ({ ...res, subDisposition: "Not Reachable" }));
+      form.setFieldsValue({ sub_disposition: "Not Reachable" });
     }
 
     // setShowLeadSubDisposition(true)
-  }
+  };
 
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
@@ -970,36 +1107,34 @@ const NewLead = React.memo((props) => {
     console.log(error);
   };
 
-  const onChangeAppointData = (date,dateString) =>{
+  const onChangeAppointData = (date, dateString) => {
     setFormItem((res) => ({
       ...res,
       appointmentDate: dateString,
-    }))
-  }
+    }));
+  };
 
-  const onIndustryChange = (event,data) =>{
-    setFormItem((res) => ({...res,industry: event }))
-    form.setFieldsValue({industry: event });
-  }
+  const onIndustryChange = (event, data) => {
+    setFormItem((res) => ({ ...res, industry: event }));
+    form.setFieldsValue({ industry: event });
+  };
 
-  const onSelectIndustry = (event,data) =>{
-    setFormItem((res) => ({...res,industry: event }))
-    form.setFieldsValue({industry: event });
-  }
+  const onSelectIndustry = (event, data) => {
+    setFormItem((res) => ({ ...res, industry: event }));
+    form.setFieldsValue({ industry: event });
+  };
 
-  const onParentCompanyChange = (event,data) =>{
-    setFormItem((res) => ({...res,parentCompanyName: event }))
-    form.setFieldsValue({parent_company: event });
-  }
+  const onParentCompanyChange = (event, data) => {
+    setFormItem((res) => ({ ...res, parentCompanyName: event }));
+    form.setFieldsValue({ parent_company: event });
+  };
 
-  const onSelectParentCompany = (event,data) =>{
-    setFormItem((res) => ({...res,parentCompanyName: event }))
-    form.setFieldsValue({parent_company: event });
-  }
-  
+  const onSelectParentCompany = (event, data) => {
+    setFormItem((res) => ({ ...res, parentCompanyName: event }));
+    form.setFieldsValue({ parent_company: event });
+  };
 
   const submitHandler = () => {
-
     console.log("formItem", formItem);
     // return
     let addLeadFormData = {
@@ -1007,86 +1142,90 @@ const NewLead = React.memo((props) => {
         company_name: formItem.companyName,
         parent_company: formItem.parentCompanyName,
         industry_name: formItem.industry,
-        tata_aig_empaneled:formItem.empaneled === true ? 'Yes' : 'No',
+        tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
         client_location: formItem.clientLocation,
       },
       leadStatus: formItem.status,
       leadDisposition: formItem.disposition,
       leadsubDisposition: formItem.subDisposition,
       opportunity_name: formItem.opportunityName,
-      tender_driven: formItem.tenderDriver === true ? 'Yes' : 'No',
+      tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
       LOB_opportunity: formItem.LOBForOpportunity,
       product_for_opportunity: formItem.productForOpportunity,
       remarks: formItem.remarks,
       // teamMembers : "[{\"first_name\":\"Prithvi\",\"last_name\":\"Raj\",\"Id\":\"63ad6488d19ed8185f3b0d00\"}]",
-      teamMembers : "[]",
+      teamMembers: "[]",
       lead_Owner_Id: id,
       lead_Creator_Id: id,
       user_id: id,
-      company_id: company_id ,
+      company_id: company_id,
       start_date: formItem.appointmentDate,
-      start_time: formItem.appointmentTime
-    }
+      start_time: formItem.appointmentTime,
+    };
 
-  //   {   REMARKSSS
-  //     description: "xyz",
-  //     date: 1674637658517,
-  //     remark_id: "16746372"
-  // }
+    //   {   REMARKSSS
+    //     description: "xyz",
+    //     date: 1674637658517,
+    //     remark_id: "16746372"
+    // }
 
-  console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
-  // return
-  if (isNewLead) {
-    dispatch(actions.createLead(addLeadFormData)).then((res) => {
-      console.log('CREATE_LEAD_SUCCESS:', res);
-      if (res.type === "CREATE_LEAD_SUCCESS") {
-        console.log("success:", res.formData);
-        // setErrorMessage(successMsg)
-        setIsNewLead(false);
-        
-        setOpportunityNameSummary(res.formData.opportunity_name)
-        setCompanySummary(res.formData.lob_for_opportunity)
-        setCurrentStatusSummary(res.formData.leadStage)
-        setIncorpDateSummary(new Date(res.formData.created_date).toLocaleDateString("in"))
-        setCurrentStatsDateSummary(new Date(res.formData.created_date).toLocaleDateString("in"))
-        // setEventCountSummary(res.formData)
-        // setTodoCreatdSummary(res.formData)
-        // setTodoComplteSummary(res.formData)
-       
-      }
-      // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
-    });
-  } else {
-    let updateLeadFormData = {
+    console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
+    // return
+    if (isNewLead) {
+      dispatch(actions.createLead(addLeadFormData)).then((res) => {
+        console.log("CREATE_LEAD_SUCCESS:", res);
+        if (res.type === "CREATE_LEAD_SUCCESS") {
+          console.log("success:", res.formData);
+          // setErrorMessage(successMsg)
+          setIsNewLead(false);
+
+          setOpportunityNameSummary(res.formData.opportunity_name);
+          setCompanySummary(res.formData.lob_for_opportunity);
+          setCurrentStatusSummary(res.formData.leadStage);
+          setIncorpDateSummary(
+            new Date(res.formData.created_date).toLocaleDateString("in")
+          );
+          setCurrentStatsDateSummary(
+            new Date(res.formData.created_date).toLocaleDateString("in")
+          );
+          // setEventCountSummary(res.formData)
+          // setTodoCreatdSummary(res.formData)
+          // setTodoComplteSummary(res.formData)
+        }
+        // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
+      });
+    } else {
+      let updateLeadFormData = {
         company_details: {
           company_name: formItem.companyName,
           parent_company: formItem.parentCompanyName,
           industry_name: formItem.industry,
-          tata_aig_empaneled:formItem.empaneled === true ? 'Yes' : 'No',
+          tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
           client_location: formItem.clientLocation,
         },
         leadStatus: formItem.status,
         leadDisposition: formItem.disposition,
         leadsubDisposition: formItem.subDisposition,
         opportunity_name: formItem.opportunityName,
-        tender_driven: formItem.tenderDriver === true ? 'Yes' : 'No',
+        tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
         LOB_opportunity: formItem.LOBForOpportunity,
         product_for_opportunity: formItem.productForOpportunity,
         remarks: formItem.remarks,
-        teamMembers : "[]",
+        teamMembers: "[]",
         lead_Owner_Id: id,
         lead_Creator_Id: id,
         user_id: id,
         company_id: company_id,
         start_date: formItem.appointmentDate,
-        start_time:formItem.appointmentTime,
+        start_time: formItem.appointmentTime,
         client_expectations: "",
         red_flags: "",
         our_ask: "",
         channel_name: "",
         producer: "",
         VAS_executed: "Yes",
-        kdm_details: [{
+        kdm_details: [
+          {
             decision_maker_name: "",
             role: "ROLE",
             designation: "zzz",
@@ -1096,9 +1235,11 @@ const NewLead = React.memo((props) => {
             date_of_birth: "",
             city: "Mumbai",
             state: "Maharashtra",
-            branch: "Andheri"
-        }],
-        risk_details: [{
+            branch: "Andheri",
+          },
+        ],
+        risk_details: [
+          {
             total_entities: "",
             product_name: "",
             total_premium: "0",
@@ -1107,27 +1248,26 @@ const NewLead = React.memo((props) => {
             leader: "",
             lead_insurer: "",
             leader_share: "",
-            inception_date: ""
-        }]
-    
+            inception_date: "",
+          },
+        ],
+      };
+
+      let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
+      dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
+        if (res.type === "EDIT_LEAD_SUCCESS") {
+          console.log("success:", res);
+          setErrorMessage(successMsg);
+          setIsNewLead(false);
+        } else if (res.type === "EDIT_LEAD_FAIL") {
+          failedHandler(res.error);
+        }
+      });
+      // history.push('leaddetails/personallead')
     }
-
-    let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
-    dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
-      if (res.type === "EDIT_LEAD_SUCCESS") {
-        console.log("success:", res);
-        setErrorMessage(successMsg);
-        setIsNewLead(false);
-      } else if (res.type === "EDIT_LEAD_FAIL") {
-        failedHandler(res.error);
-      }
-    });
-    // history.push('leaddetails/personallead')
-  }
-
   };
 
-  const resetDataFields = () =>{
+  const resetDataFields = () => {
     // console.log('RESET FUNCTIONNNN ___----->>> ')
     setFormItem((res) => ({
       ...res,
@@ -1147,25 +1287,25 @@ const NewLead = React.memo((props) => {
       appointmentTime: "",
       collaborators: [],
       remarks: [],
-    }))
+    }));
 
     form.setFieldsValue({
-      company_name: '',
-      parent_company: '',
-      industry: '',
-      client_location: '',
-      lob_for_opportunity: '',
-      product_for_opportunity: '',
-      opportunity_name: '',
-      lead_status: '',
-      lead_disposition: '',
-      sub_disposition: '',
-      appointment_date: '',
-      appointment_time: '',
+      company_name: "",
+      parent_company: "",
+      industry: "",
+      client_location: "",
+      lob_for_opportunity: "",
+      product_for_opportunity: "",
+      opportunity_name: "",
+      lead_status: "",
+      lead_disposition: "",
+      sub_disposition: "",
+      appointment_date: "",
+      appointment_time: "",
       collaborators: [],
       remarks: [],
     });
-  }
+  };
 
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
@@ -1173,18 +1313,23 @@ const NewLead = React.memo((props) => {
 
   return (
     <>
-      <Tabs tabMenu={tabMenu} header="New Lead" activeKey="1" resetDataFields={resetDataFields}  />
+      <Tabs
+        tabMenu={tabMenu}
+        header="New Lead"
+        activeKey="1"
+        resetDataFields={resetDataFields}
+      />
 
       <div className="form-container">
         <Form form={form} onFinish={submitHandler}>
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}>
             <Col
               className="form-body p50 mb-2"
-              xs={24}
-              sm={24}
-              md={16}
-              lg={15}
-              xl={15}
+              xs={{ span: 24, order: 2 }}
+              sm={{ span: 16, order: 2 }}
+              md={{ span: 16, order: 2 }}
+              lg={{ span: 15, order: 1 }}
+              xl={{ span: 15, order: 1 }}
               span={23}
               offset={width > breakpoint ? 2 : 0}
             >
@@ -1208,12 +1353,13 @@ const NewLead = React.memo((props) => {
                       placeholder="Select"
                       options={companyArray}
                       value={formItem.companyName}
-                      onChange={(val,data) => onCompanyChange(val,data) }
-                      onSelect={(val,data) => onSelectCompany(val,data)}
+                      onChange={(val, data) => onCompanyChange(val, data)}
+                      onSelect={(val, data) => onSelectCompany(val, data)}
                       filterOption={(inputValue, option) =>
-                        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                        option.value
+                          .toUpperCase()
+                          .indexOf(inputValue.toUpperCase()) !== -1
                       }
-                       
                     ></AutoComplete>
                   </Form.Item>
                 </Col>
@@ -1237,12 +1383,13 @@ const NewLead = React.memo((props) => {
                       placeholder="Select"
                       options={parentCompArray}
                       value={formItem.parentCompanyName}
-                      onChange={(val,data) => onParentCompanyChange(val,data) }
-                      onSelect={(val,data) => onSelectParentCompany(val,data)}
+                      onChange={(val, data) => onParentCompanyChange(val, data)}
+                      onSelect={(val, data) => onSelectParentCompany(val, data)}
                       filterOption={(inputValue, option) =>
-                        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                        option.value
+                          .toUpperCase()
+                          .indexOf(inputValue.toUpperCase()) !== -1
                       }
-                       
                     ></AutoComplete>
                   </Form.Item>
                 </Col>
@@ -1261,18 +1408,18 @@ const NewLead = React.memo((props) => {
                     ]}
                     style={{ marginBottom: "1rem" }}
                   >
-                   
                     <AutoComplete
                       disabled={disableParentComp}
                       placeholder="Select"
                       options={industryArray}
                       value={formItem.industry}
-                      onChange={(val,data) => onIndustryChange(val,data) }
-                      onSelect={(val,data) => onSelectIndustry(val,data)}
+                      onChange={(val, data) => onIndustryChange(val, data)}
+                      onSelect={(val, data) => onSelectIndustry(val, data)}
                       filterOption={(inputValue, option) =>
-                        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                        option.value
+                          .toUpperCase()
+                          .indexOf(inputValue.toUpperCase()) !== -1
                       }
-                       
                     ></AutoComplete>
                   </Form.Item>
                 </Col>
@@ -1289,7 +1436,7 @@ const NewLead = React.memo((props) => {
                       onChange={(e) =>
                         setFormItem((res) => ({
                           ...res,
-                          empaneled: e.target.value ,
+                          empaneled: e.target.value,
                         }))
                       }
                       value={formItem.empaneled}
@@ -1328,14 +1475,15 @@ const NewLead = React.memo((props) => {
                 </Col>
               </Row>
             </Col>
+
             <Col
-              className="form-body p40"
+              className={`form-body p40 mb-2 ${width > 991 ? "p40" : "p50"}`}
               style={{ padding: 20 }}
-              xs={{ order: width > breakpoint ? 2 : 1 }}
-              sm={6}
-              md={6}
-              lg={6}
-              xl={6}
+              xs={{ span: 24, order: 1 }}
+              sm={{ span: 16, order: 1 }}
+              md={{ span: 16, order: 1 }}
+              lg={{ span: 6, order: 1 }}
+              xl={{ span: 6, order: 1 }}
               span={23}
             >
               <Row>
@@ -1345,9 +1493,7 @@ const NewLead = React.memo((props) => {
                   <Row className="mb-4">
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                       <p className="summary_heading">Opportunity Name</p>
-                      <p className="summary_data">
-                        {opportunityNameSummary}
-                      </p>
+                      <p className="summary_data">{opportunityNameSummary}</p>
                       <p className="summary_sub_data">
                         Incorporation Date: {incorpDateSummary}
                       </p>
@@ -1364,9 +1510,7 @@ const NewLead = React.memo((props) => {
                   <Row className="mb-4">
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                       <p className="summary_heading">Current Status</p>
-                      <p className="summary_data">
-                        {currentStatusSummary}
-                      </p>
+                      <p className="summary_data">{currentStatusSummary}</p>
                       <i
                         className="summary_sub_data"
                         style={{ fontStyle: "italic" }}
@@ -1404,7 +1548,9 @@ const NewLead = React.memo((props) => {
                                 <div className="label">Todo Created</div>
                               </div>
                               <div className="d-flex justify-content-center align-items-center">
-                                <div className="count">{todoComplteSummary}</div>
+                                <div className="count">
+                                  {todoComplteSummary}
+                                </div>
                                 <div className="label">Todo Completed</div>
                               </div>
                             </div>
@@ -1561,115 +1707,115 @@ const NewLead = React.memo((props) => {
                     ></Select>
                   </Form.Item>
                 </Col>
-              
-              { showLeadDisposition &&
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="lead_disposition"
-                    label="Disposition"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Select
-                      placeholder="Select"
-                      options={dispoArr}
-                      value={formItem.disposition}
-                      onChange={(val) => changeDispoStatus(val)}
-                    ></Select>
-                  </Form.Item>
-                </Col>
-              }
 
-              {showLeadSubDisposition &&
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="sub_disposition"
-                    label="Sub Disposition"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Select
-                      placeholder="Select"
-                      options={subdispoArr}
-                      value={formItem.subDisposition}
-                      onChange={(val) =>
-                        setFormItem((res) => ({
-                          ...res,
-                          subDisposition: val,
-                        }))
-                      }
-                    ></Select>
-                  </Form.Item>
-                </Col>
-                }
+                {showLeadDisposition && (
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="lead_disposition"
+                      label="Disposition"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Select
+                        placeholder="Select"
+                        options={dispoArr}
+                        value={formItem.disposition}
+                        onChange={(val) => changeDispoStatus(val)}
+                      ></Select>
+                    </Form.Item>
+                  </Col>
+                )}
+
+                {showLeadSubDisposition && (
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="sub_disposition"
+                      label="Sub Disposition"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Select
+                        placeholder="Select"
+                        options={subdispoArr}
+                        value={formItem.subDisposition}
+                        onChange={(val) =>
+                          setFormItem((res) => ({
+                            ...res,
+                            subDisposition: val,
+                          }))
+                        }
+                      ></Select>
+                    </Form.Item>
+                  </Col>
+                )}
               </Row>
-              { showAppointmentFields &&
-              <Row gutter={16} className="mb-2 statsLead">
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="appointment_date"
-                    label="Appointment Date"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <DatePicker 
-                        onChange={ onChangeAppointData } 
+              {showAppointmentFields && (
+                <Row gutter={16} className="mb-2 statsLead">
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="appointment_date"
+                      label="Appointment Date"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <DatePicker
+                        onChange={onChangeAppointData}
                         value={formItem.appointmentDate}
                         format="DD-MM-YYYY"
-                        style={{display:'flex',flex:1}}
-                    />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="appointment_time"
-                    label="Appointment Time"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Select
-                      placeholder="Select"
-                      options={appointmentTimeOptions}
-                      value={formItem.appointmentTime}
-                      onChange={(val) =>
-                        setFormItem((res) => ({
-                          ...res,
-                          appointmentTime: val,
-                        }))
-                      }
-                    ></Select>
-                  </Form.Item>
-                </Col>
-              </Row>
-              }
+                        style={{ display: "flex", flex: 1 }}
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="appointment_time"
+                      label="Appointment Time"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Select
+                        placeholder="Select"
+                        options={appointmentTimeOptions}
+                        value={formItem.appointmentTime}
+                        onChange={(val) =>
+                          setFormItem((res) => ({
+                            ...res,
+                            appointmentTime: val,
+                          }))
+                        }
+                      ></Select>
+                    </Form.Item>
+                  </Col>
+                </Row>
+              )}
             </Col>
 
             <Col
@@ -1679,12 +1825,19 @@ const NewLead = React.memo((props) => {
               md={16}
               lg={15}
               xl={15}
-              span={24}
+              span={23}
               offset={width > breakpoint ? 2 : 0}
             >
               <p className="form-title">Opportunities Status</p>
               <Row gutter={16} className="mb-2 statsLead">
-                <Col span={18} className="d-flex align-items-center">
+                <Col
+                  className="d-flex align-items-center"
+                  xs={24}
+                  sm={12}
+                  md={24}
+                  lg={12}
+                  xl={12}
+                >
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color w-100"
@@ -1811,33 +1964,32 @@ const NewLead = React.memo((props) => {
 
             <Col
               className="form-body p30 mb-5"
-              xs={{ order: 5 }}
-              sm={24}
+              xs={{ order: 5, span: 23 }}
+              sm={16}
               md={16}
               lg={15}
               xl={15}
               span={23}
               offset={width > breakpoint ? 2 : 0}
-              style={{display:'flex',justifyContent:'flex-end'}}
-             
+              style={{ display: "flex", justifyContent: "flex-end" }}
             >
               {/* <Row  > */}
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    style={{
-                      backgroundColor: "rgb(59, 55, 30)",
-                      border: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      borderRadius:5,
-                      padding:20
-                    }}
-                    htmlType="submit"
-                  >
-                    Save and Update
-                  </Button>
-                </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  style={{
+                    backgroundColor: "rgb(59, 55, 30)",
+                    border: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: 5,
+                    padding: 20,
+                  }}
+                  htmlType="submit"
+                >
+                  Save and Update
+                </Button>
+              </Form.Item>
 
               {/* </Row> */}
             </Col>
