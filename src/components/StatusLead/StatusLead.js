@@ -460,6 +460,7 @@ const isNumberValid = (value) => value.trim() !== "" && value.length === 10;
 const NewLead = React.memo((props) => {
   const [collaborators, setCollaborators] = useState("");
   const [remark, setRemark] = useState("");
+  const [reamrkDataArr, setreamrkDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
   // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', _StoreData)
@@ -481,6 +482,19 @@ const NewLead = React.memo((props) => {
       remarks: [...formItem.remarks, remark],
     }));
     setRemark("");
+    form.setFieldsValue({
+      remarks: "",
+    });
+    let remID = Math.floor(1000 + Math.random() * 9000);
+    let _data = {
+      description: remark,
+      date: new Date().toLocaleDateString().valueOf(),
+      remark_id: remID.toString(),
+    };
+
+    console.log("REMARK__STRCUTTT_------", _data);
+
+    setreamrkDataArr([...reamrkDataArr, _data]);
   };
 
   const [formItem, setFormItem] = useState({
@@ -542,7 +556,7 @@ const NewLead = React.memo((props) => {
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
 
-  console.warn("((((((((((( _StoreData__STATUSLEAD )))))))))))", storeFormData);
+  // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', storeFormData)
 
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading);
   let storeLeadId = useSelector((state) => state?.newLead?.formData?._id);
@@ -716,9 +730,9 @@ const NewLead = React.memo((props) => {
           setShowAppointmentFields(true);
         }
 
-        setShowLeadDisposition(false);
-        setShowAppointmentFields(false);
-        setShowLeadSubDisposition(false);
+        // setShowLeadDisposition(false)
+        // setShowAppointmentFields(false)
+        // setShowLeadSubDisposition(true)
 
         // setshowLeadStatusVisiblity(false);
       }
@@ -762,6 +776,7 @@ const NewLead = React.memo((props) => {
         collaborators: JSON.parse(leadData?.teamMembers),
         // remarks: leadData?.remarks,
       }));
+      // setreamrkDataArr()
 
       form.setFieldsValue({
         company_name: leadData?.company_id?.company_name,
@@ -1074,8 +1089,7 @@ const NewLead = React.memo((props) => {
     form.setFieldsValue({ parent_company: event });
   };
 
-  // console.warn("(((((((leadStoreData a___BBB))))))):", storeFormData);
-  // if(Object.keys(storeFormData).length){
+  // console.warn("(((((((storeFormData a___BBB))))))):", storeFormData);
   let updateLeadFormData = {
     company_details: {
       company_name: formItem.companyName,
@@ -1091,7 +1105,8 @@ const NewLead = React.memo((props) => {
     tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
     LOB_opportunity: formItem.LOBForOpportunity,
     product_for_opportunity: formItem.productForOpportunity,
-    remarks: formItem.remarks,
+    // remarks: formItem.remarks,
+    remarks: reamrkDataArr,
     teamMembers: "[]",
     lead_Owner_Id: id,
     lead_Creator_Id: id,
@@ -1113,12 +1128,11 @@ const NewLead = React.memo((props) => {
       : storeFormData?.VAS_executed,
     kdm_details: !storeFormData?.company_id?.kdm_details
       ? []
-      : storeFormData?.kdm_details,
+      : storeFormData?.company_id?.kdm_details,
     risk_details: !storeFormData?.company_id?.risk_details
       ? []
-      : storeFormData?.risk_details,
+      : storeFormData?.company_id?.risk_details,
   };
-  // }
   // console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
 
   const submitHandler = () => {
@@ -1138,7 +1152,8 @@ const NewLead = React.memo((props) => {
       tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
       LOB_opportunity: formItem.LOBForOpportunity,
       product_for_opportunity: formItem.productForOpportunity,
-      remarks: formItem.remarks,
+      // remarks: formItem.remarks,
+      remarks: reamrkDataArr,
       // teamMembers : "[{\"first_name\":\"Prithvi\",\"last_name\":\"Raj\",\"Id\":\"63ad6488d19ed8185f3b0d00\"}]",
       teamMembers: "[]",
       lead_Owner_Id: id,
@@ -1205,56 +1220,112 @@ const NewLead = React.memo((props) => {
       });
       // history.push('leaddetails/personallead')
     }
+
+    //
+
+    // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
+    // return
+    if (isNewLead) {
+      dispatch(actions.createLead(addLeadFormData)).then((res) => {
+        console.log("CREATE_LEAD_SUCCESS:", res);
+        if (res.type === "CREATE_LEAD_SUCCESS") {
+          console.log("success:", res.formData);
+          // setErrorMessage(successMsg)
+          setIsNewLead(false);
+
+          setOpportunityNameSummary(res.formData.opportunity_name);
+          setCompanySummary(res.formData.lob_for_opportunity);
+          setCurrentStatusSummary(res.formData.leadStage);
+          setIncorpDateSummary(
+            new Date(res.formData.created_date).toLocaleDateString("in")
+          );
+          setCurrentStatsDateSummary(
+            new Date(res.formData.created_date).toLocaleDateString("in")
+          );
+          // setEventCountSummary(res.formData)
+          // setTodoCreatdSummary(res.formData)
+          // setTodoComplteSummary(res.formData)
+          setLeadIdData(res.formData._id);
+          // dispatch(actions.fetchLeadDetailsSuccess({}))
+        }
+        // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
+      });
+    } else {
+      dispatch(actions.fetchLeadUpdateBody(updateLeadFormData));
+
+      let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
+      // console.log('_lead_id=-------->>>>',_lead_id)
+      dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
+        if (res.type === "EDIT_LEAD_SUCCESS") {
+          console.log("success:", res);
+          setErrorMessage(successMsg);
+          setIsNewLead(false);
+        } else if (res.type === "EDIT_LEAD_FAIL") {
+          failedHandler(res.error);
+        }
+      });
+      // history.push('leaddetails/personallead')
+    }
   };
 
   const resetDataFields = () => {
     // console.log('RESET FUNCTIONNNN ___----->>> ')
     setFormItem((res) => ({
       ...res,
-      companyName: "",
-      parentCompanyName: "",
-      industry: "",
-      empaneled: false,
-      clientLocation: "",
-      LOBForOpportunity: "",
-      productForOpportunity: "",
+      // companyName: "",
+      // parentCompanyName: "",
+      // industry: "",
+      // empaneled: false,
+      // clientLocation: "",
+      // LOBForOpportunity: "",
+      // productForOpportunity: "",
       opportunityName: "",
-      tenderDriver: false,
+      // tenderDriver: false,
       status: "newleadentery",
       disposition: "",
       subDisposition: "",
       appointmentDate: "",
       appointmentTime: "",
-      collaborators: [],
-      remarks: [],
+      // collaborators: [],
+      // remarks: [],
     }));
+    setIsNewLead(true);
+    setOpportunityNameSummary("-");
+    setCompanySummary("-");
+    setCurrentStatusSummary("-");
+    setIncorpDateSummary("-");
+    setCurrentStatsDateSummary("-");
+    // setEventCountSummary('00')
+    // setTodoCreatdSummary('00')
+    // setTodoComplteSummary('00')
+
+    setShowLeadSubDisposition(false);
+    setShowLeadDisposition(false);
+    setShowAppointmentFields(false);
 
     form.setFieldsValue({
-      company_name: "",
-      parent_company: "",
-      industry: "",
-      client_location: "",
-      lob_for_opportunity: "",
-      product_for_opportunity: "",
+      // company_name: '',
+      // parent_company: '',
+      // industry: '',
+      // client_location: '',
+      // lob_for_opportunity: '',
+      // product_for_opportunity: '',
       opportunity_name: "",
-      lead_status: "",
+      lead_status: "newleadentery",
       lead_disposition: "",
       sub_disposition: "",
       appointment_date: "",
       appointment_time: "",
-      collaborators: [],
-      remarks: [],
+      // collaborators: [],
+      // remarks: [],
     });
   };
 
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
-  console.warn(
-    "(((((((props.location.state ___BBB))))))):",
-    props.location.state
-  );
-  console.warn("(((((((leadIdData ___BBB))))))):", leadIdData);
+  // console.warn('(((((((props.location.state ___BBB))))))):', props.location.state);
+  // console.warn('(((((((leadIdData ___BBB))))))):', leadIdData);
 
   return (
     <>
@@ -1636,7 +1707,7 @@ const NewLead = React.memo((props) => {
               span={23}
               offset={width > breakpoint ? 2 : 0}
             >
-              <p className="form-title">Collaborator</p>
+              <p className="form-title">Opportunities Status</p>
               <Row gutter={16} className="mb-2 statsLead">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item
@@ -1781,7 +1852,7 @@ const NewLead = React.memo((props) => {
               span={23}
               offset={width > breakpoint ? 2 : 0}
             >
-              <p className="form-title">Opportunities Status</p>
+              <p className="form-title">Collaborator</p>
               <Row gutter={16} className="mb-2 statsLead">
                 <Col
                   className="d-flex align-items-center"

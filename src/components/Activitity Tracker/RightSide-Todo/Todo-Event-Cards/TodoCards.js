@@ -396,7 +396,7 @@ const TodoCards = forwardRef((props, ref) => {
             // console.log('DATATATATA____',element)
             return(
                 <div className='TodoCard-Container' key={index}>
-                    {/* <div className='TodoCards-Top'>
+                    <div className='TodoCards-Top'>
                         <div className='TodoCards-TimedateArchive' sm>
                             <Col className='TodoCards-TopClock'>
                                 <div className='todoCard-mr15'>
@@ -428,22 +428,22 @@ const TodoCards = forwardRef((props, ref) => {
                             </div>
                             
                         </div>
-                    </div> */}
+                    </div>
                     <div className='TodoCards-Body'>
                         <div className='TodoCard-Body-CheckBox todoCard-mr15' onClick = {()=> removListFromToDo(element ,index)}>
                             <img src={element.icon} className='archive-trueCheckBox' alt='trueCheckBox'/>
                         </div>
                         <p style={{textDecorationLine : element.textOverLine.textDecorationLine}} >{element.content}</p>
                     </div>
-                    {/* <div className='Todo-Footer'>
+                    <div className='Todo-Footer'>
                         <p style={{textTransform: 'capitalize',fontWeight:'bolder'}}>{element.ownername}</p>
                         <button style={{textTransform: 'capitalize',backgroundColor:element.priorityIndicatorColor}}>{element.taskPriority}</button>
-                       {element.searchdata.length !== 0 &&
+                       {/* {element.searchdata.length !== 0 &&
                         <p style={{color:"#00acc1"}} onClick={()=> memberRemarks(index) } >{element.showMemText}</p>
-                       }
+                       } */}
 
                     
-                    </div> */}
+                    </div>
                     {/* <div style={{backgroundColor:'#C1C8CC',height:1}}></div> */}
                         {/* { element.showMemberRemark === true &&
                             <>

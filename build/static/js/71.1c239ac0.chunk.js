@@ -1,2 +1,0 @@
-(this["webpackJsonpsd-v3"]=this["webpackJsonpsd-v3"]||[]).push([[71],{716:function(i,n,s){},783:function(i,n,s){"use strict";s.r(n);s(0),s(716);var t=s(2);n.default=function(){return Object(t.jsx)("h1",{children:"hiii"})}}}]);
-//# sourceMappingURL=71.1c239ac0.chunk.js.map
