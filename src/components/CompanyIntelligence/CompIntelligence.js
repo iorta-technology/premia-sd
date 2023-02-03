@@ -67,7 +67,7 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
-    console.warn('COMPPP____PROPSS',props.location.state.leadData)
+    // console.warn('COMPPP____PROPSS',props.location.state.leadData)
   let storeFormData = useSelector((state) => state?.newLead?.formData);
 
 
