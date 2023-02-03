@@ -506,6 +506,7 @@ const NewLead = React.memo((props) => {
 
   const [opportunityNameSummary, setOpportunityNameSummary] = useState("-");
   const [companySummary, setCompanySummary] = useState("-");
+  const [leadIdSummary, setLeadIdSummary] = useState("-");
   const [currentStatusSummary, setCurrentStatusSummary] = useState("-");
   const [incorpDateSummary, setIncorpDateSummary] = useState("-");
   const [currentStatsDateSummary, setCurrentStatsDateSummary] = useState("-");
@@ -653,6 +654,7 @@ const NewLead = React.memo((props) => {
       setDisableParentComp(true)
       setOpportunityNameSummary(leadData?.opportunity_name)
       setCompanySummary(leadData?.company_id?.company_name)
+      setLeadIdSummary(leadData?.lead_Id)
       setCurrentStatusSummary(leadData?.leadStage)
       setIncorpDateSummary(new Date(leadData?.created_date).toLocaleDateString("in"))
       setCurrentStatsDateSummary(new Date(leadData?.created_date).toLocaleDateString("in"))
@@ -1034,6 +1036,7 @@ const NewLead = React.memo((props) => {
         setOpportunityNameSummary(res.formData.opportunity_name)
         setCompanySummary(res.formData.lob_for_opportunity)
         setCurrentStatusSummary(res.formData.leadStage)
+        setLeadIdSummary(res.formData.lead_Id)
         setIncorpDateSummary(new Date(res.formData.created_date).toLocaleDateString("in"))
         setCurrentStatsDateSummary(new Date(res.formData.created_date).toLocaleDateString("in"))
         // setEventCountSummary(res.formData)
@@ -1091,6 +1094,7 @@ const NewLead = React.memo((props) => {
     setOpportunityNameSummary('-')
     setCompanySummary('-')
     setCurrentStatusSummary('-')
+    setLeadIdSummary('')
     setIncorpDateSummary('-')
     setCurrentStatsDateSummary('-')
     // setEventCountSummary('00')
@@ -1315,9 +1319,14 @@ const NewLead = React.memo((props) => {
                   </Row>
 
                   <Row className="mb-4">
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} span={24}>
                       <p className="summary_heading">Company</p>
                       <p className="summary_data">{companySummary}</p>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} span={24}>
+                      <p className="summary_heading">Lead Id</p>
+                      <p className="summary_data" style={{textTransform:'uppercase'}}>{leadIdSummary}</p>
                     </Col>
                   </Row>
 

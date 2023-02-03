@@ -23,7 +23,6 @@ const tabStyle = {
   borderWidth: 1,
   borderStyle: "solid",
   borderColor: "#f0f0f0",
-  height:90,
   width: 320,
 };
 
@@ -157,67 +156,16 @@ const History = () => {
     </>
   );
 
-  const Appoinments = () => (
-    <>
-      <Col
-        className="form-body ci-p20 mb-2"
-        xs={24}
-        sm={24}
-        md={16}
-        lg={15}
-        xl={20}
-        span={23}
-      >
-        <h1 class="form-title mb-4">Appoinment Data</h1>
-
-        {appointmentData &&
-          appointmentData?.map((res) => (
-            <div className="notification_box ps-4 mb-3">
-              <div className="notification_data">
-                <div className="py-4 px-3">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div style={{ fontWeight: "700" }}>{res.title}</div>
-                    <div className="text-secondary text-end">{res.owner}</div>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center mt-2">
-                    <div className="text-secondary">{res.desc}</div>
-                    <div className="text-end">{res.date}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-      </Col>
-    </>
-  );
-
   return (
     <>
       <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="3" />
 
-      <div className="form-container ml10rem kdmStyle">
-        <Tabs
-          tabBarGutter={0}
-          tabPosition={width > breakpoint ? "left" : "top"}
-          size={width > breakpoint ? "large" : "small"}
-          tabBarStyle={tabStyle}
-          defaultActiveKey={1}
-        >
-          <TabPane key="1" tab="Lead">
-            {historyLeadData && historyLeadData.length > 0 ? (
-              <Leads />
-            ) : (
-              <NoRecords />
-            )}
-          </TabPane>
-          <TabPane key="2" tab="Appointment">
-            {appointmentData && appointmentData.length > 0 ? (
-              <Appoinments />
-            ) : (
-              <NoRecords />
-            )}
-          </TabPane>
-        </Tabs>
+      <div className="form-container kdmStyle d-flex justify-content-center">
+        {historyLeadData && historyLeadData.length > 0 ? (
+          <Leads />
+        ) : (
+          <NoRecords />
+        )}
       </div>
     </>
   );

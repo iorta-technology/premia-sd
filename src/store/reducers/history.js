@@ -121,7 +121,7 @@ const fetchHistorySuccess = (state, action) => {
     } else {
       if (historydetail.leadId.leadStatus === "newleadentery") {
         desc =
-          doSentenceCase(historydetail.Details1) +
+          doSentenceCase(historydetail.description) +
           " " +
           historydetail.Details2.split("|")[0];
         historydetail.allocated === true
