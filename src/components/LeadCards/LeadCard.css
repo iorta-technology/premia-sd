@@ -61,11 +61,13 @@
   transition: all 0.3s;
 } */
 .main-avtar {
-  /* display: flex; */
+  display: flex;
   /* background-color: rebeccapurple; */
   /* height: auto; */
   /* margin-top: 20px; */
   padding: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 .avatar-and-status {
   display: flex;

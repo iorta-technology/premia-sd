@@ -462,8 +462,9 @@ const NewLead = React.memo((props) => {
   const [remark, setRemark] = useState("");
   const [reamrkDataArr, setreamrkDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
+  const login_user = useSelector((state) => state.login.user);
   // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
-  // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', _StoreData)
+  // console.warn('((((((((((( login_user )))))))))))', login_user)
 
   const addCollaborators = () => {
     setFormItem((res) => ({
@@ -477,9 +478,16 @@ const NewLead = React.memo((props) => {
   };
 
   const addRemarks = () => {
+    let _remark = [
+      {
+        description: remark,
+        dateTime: new Date().toLocaleString("en-US"),
+      },
+    ];
     setFormItem((res) => ({
       ...res,
-      remarks: [...formItem.remarks, remark],
+      // remarks: [...formItem.remarks, remark],
+      remarks: _remark,
     }));
     setRemark("");
     form.setFieldsValue({
@@ -492,7 +500,7 @@ const NewLead = React.memo((props) => {
       remark_id: remID.toString(),
     };
 
-    console.log("REMARK__STRCUTTT_------", _data);
+    // console.log('REMARK__STRCUTTT_------',_data);
 
     setreamrkDataArr([...reamrkDataArr, _data]);
   };
@@ -516,22 +524,15 @@ const NewLead = React.memo((props) => {
     remarks: [],
   });
 
-  // let formRef = createRef();
   const dispatch = useDispatch();
-  // const history = useHistory()
   const [form] = Form.useForm();
-  // const [mobileDisable, setMobileDisable] = useState(false);
 
   useEffect(() => {
-    // dispatch(actions.fetchTeamMember())
-    // _leadData
     // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
     dispatch(actions.headerName("New Lead"));
     if (props.location.state !== undefined) {
       let _leadID = props.location.state.leadID;
-      // setshowLeadStatusVisiblity(true)
       getLeadDetails(_leadID);
-      // setMobileDisable(true);
       setIsNewLead(false);
 
       if (props.location.state.hasOwnProperty("_leadData")) {
@@ -589,6 +590,7 @@ const NewLead = React.memo((props) => {
 
   const [opportunityNameSummary, setOpportunityNameSummary] = useState("-");
   const [companySummary, setCompanySummary] = useState("-");
+  const [leadIdSummary, setLeadIdSummary] = useState("-");
   const [currentStatusSummary, setCurrentStatusSummary] = useState("-");
   const [incorpDateSummary, setIncorpDateSummary] = useState("-");
   const [currentStatsDateSummary, setCurrentStatsDateSummary] = useState("-");
@@ -740,6 +742,7 @@ const NewLead = React.memo((props) => {
       setDisableParentComp(true);
       setOpportunityNameSummary(leadData?.opportunity_name);
       setCompanySummary(leadData?.company_id?.company_name);
+      setLeadIdSummary(leadData?.lead_Id);
       setCurrentStatusSummary(leadData?.leadStage);
       setIncorpDateSummary(
         new Date(leadData?.created_date).toLocaleDateString("in")
@@ -749,9 +752,19 @@ const NewLead = React.memo((props) => {
       );
 
       setCompany_id(leadData?.company_id?._id);
+      setreamrkDataArr(leadData?.remarks);
 
       changeLobOpprtunity(leadData?.lob_for_opportunity);
+      setRemark("");
 
+      let _remArr = [];
+      leadData?.remarks.map((el) => {
+        let _remark = {
+          description: el.description,
+          dateTime: el.date,
+        };
+        _remArr.push(_remark);
+      });
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_id?.company_name,
@@ -774,9 +787,8 @@ const NewLead = React.memo((props) => {
         appointmentDate: _apptDateFormat,
         appointmentTime: _appntTime,
         collaborators: JSON.parse(leadData?.teamMembers),
-        // remarks: leadData?.remarks,
+        remarks: _remArr,
       }));
-      // setreamrkDataArr()
 
       form.setFieldsValue({
         company_name: leadData?.company_id?.company_name,
@@ -797,7 +809,7 @@ const NewLead = React.memo((props) => {
         appointment_date: _apptDateFormat,
         appointment_time: _appntTime,
         collaborators: JSON.parse(leadData?.teamMembers),
-        // remarks: leadData?.remarks,
+        // remarks: _remArr,
       });
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
@@ -850,6 +862,7 @@ const NewLead = React.memo((props) => {
     });
 
     setDisableParentComp(false);
+
     // let _data = companyArray.filter(el => el.label === event)
   };
 
@@ -1172,55 +1185,6 @@ const NewLead = React.memo((props) => {
       risk_details: [],
     };
 
-    //   {   REMARKSSS
-    //     description: "xyz",
-    //     date: 1674637658517,
-    //     remark_id: "16746372"
-    // }
-
-    console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
-    // return
-    if (isNewLead) {
-      dispatch(actions.createLead(addLeadFormData)).then((res) => {
-        console.log("CREATE_LEAD_SUCCESS:", res);
-        if (res.type === "CREATE_LEAD_SUCCESS") {
-          console.log("success:", res.formData);
-          // setErrorMessage(successMsg)
-          setIsNewLead(false);
-
-          setOpportunityNameSummary(res.formData.opportunity_name);
-          setCompanySummary(res.formData.lob_for_opportunity);
-          setCurrentStatusSummary(res.formData.leadStage);
-          setIncorpDateSummary(
-            new Date(res.formData.created_date).toLocaleDateString("in")
-          );
-          setCurrentStatsDateSummary(
-            new Date(res.formData.created_date).toLocaleDateString("in")
-          );
-          // setEventCountSummary(res.formData)
-          // setTodoCreatdSummary(res.formData)
-          // setTodoComplteSummary(res.formData)
-          setLeadIdData(res.formData._id);
-        }
-        // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
-      });
-    } else {
-      dispatch(actions.fetchLeadUpdateBody(updateLeadFormData));
-
-      let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
-      // console.log('_lead_id=-------->>>>',_lead_id)
-      dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
-        if (res.type === "EDIT_LEAD_SUCCESS") {
-          console.log("success:", res);
-          setErrorMessage(successMsg);
-          setIsNewLead(false);
-        } else if (res.type === "EDIT_LEAD_FAIL") {
-          failedHandler(res.error);
-        }
-      });
-      // history.push('leaddetails/personallead')
-    }
-
     //
 
     // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
@@ -1236,6 +1200,7 @@ const NewLead = React.memo((props) => {
           setOpportunityNameSummary(res.formData.opportunity_name);
           setCompanySummary(res.formData.lob_for_opportunity);
           setCurrentStatusSummary(res.formData.leadStage);
+          setLeadIdSummary(res.formData.lead_Id);
           setIncorpDateSummary(
             new Date(res.formData.created_date).toLocaleDateString("in")
           );
@@ -1293,6 +1258,7 @@ const NewLead = React.memo((props) => {
     setOpportunityNameSummary("-");
     setCompanySummary("-");
     setCurrentStatusSummary("-");
+    setLeadIdSummary("");
     setIncorpDateSummary("-");
     setCurrentStatsDateSummary("-");
     // setEventCountSummary('00')
@@ -1499,7 +1465,6 @@ const NewLead = React.memo((props) => {
                 </Col>
               </Row>
             </Col>
-
             <Col
               className={`form-body p40 mb-2 ${width > 991 ? "p40" : "p50"}`}
               style={{ padding: 20 }}
@@ -1525,9 +1490,19 @@ const NewLead = React.memo((props) => {
                   </Row>
 
                   <Row className="mb-4">
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} span={24}>
                       <p className="summary_heading">Company</p>
                       <p className="summary_data">{companySummary}</p>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={24} lg={12} xl={12} span={24}>
+                      <p className="summary_heading">Lead Id</p>
+                      <p
+                        className="summary_data"
+                        style={{ textTransform: "uppercase" }}
+                      >
+                        {leadIdSummary}
+                      </p>
                     </Col>
                   </Row>
 
@@ -1806,7 +1781,7 @@ const NewLead = React.memo((props) => {
                       <DatePicker
                         onChange={onChangeAppointData}
                         value={formItem.appointmentDate}
-                        format="DD-MM-YYYY"
+                        format="MM/DD/YYYY"
                         style={{ display: "flex", flex: 1 }}
                       />
                     </Form.Item>
@@ -1849,19 +1824,12 @@ const NewLead = React.memo((props) => {
               md={16}
               lg={15}
               xl={15}
-              span={23}
+              span={24}
               offset={width > breakpoint ? 2 : 0}
             >
               <p className="form-title">Collaborator</p>
               <Row gutter={16} className="mb-2 statsLead">
-                <Col
-                  className="d-flex align-items-center"
-                  xs={24}
-                  sm={12}
-                  md={24}
-                  lg={12}
-                  xl={12}
-                >
+                <Col span={12} className="d-flex align-items-center">
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name label-color w-100"
@@ -1973,11 +1941,14 @@ const NewLead = React.memo((props) => {
                       key={index}
                       className="d-flex justify-content-start w-100 mb-3 p-2 remarks_bg"
                     >
-                      <div className="me-3">15:03 03/01/2023</div>
+                      <div className="me-3">{res.dateTime}</div>
                       <div>
-                        <div>{res}</div>
+                        <div>{res.description}</div>
                         <div>
-                          <i>by Amey Jaini</i>
+                          <i>
+                            by{" "}
+                            {login_user.firstName + " " + login_user.lastName}
+                          </i>
                         </div>
                       </div>
                     </div>

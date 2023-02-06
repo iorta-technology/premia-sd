@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-common';
+import axiosRequest from "../../axios-request/request.methods";
 
 
 // Fetch leads data
@@ -24,10 +25,17 @@ export const fetchStateFail = (error) => {
     }
 }
 
-export const fetchAllState = (leads,pageNo) => {
+export const fetchAllState =  (userID,pageNo) => {
         
-    return dispatch => {
+    return async dispatch => {
         dispatch(fetchStateStart())
+
+        // let result = await axiosRequest.get(`admin/getState_city?userId=${userID}&getstate=allstate`, {secure: true,});
+        // console.log("GETT STATE CITYY_______", result);
+        // if (result.length > 0) {
+        // return dispatch(fetchStateSuccess(result));
+        // }
+
         return axios.get(`admin/getState_city?userId=5b3b4cc28fa96d39870443e3&getstate=allstate`)
             .then(res => {
                 // console.log(res.data.errMsg[1][0].count)

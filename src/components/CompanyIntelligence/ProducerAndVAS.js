@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Radio, Tabs, Form, Input , Select, Button  } from 'antd';
 import '../StatusLead/StatusLead.css'
-import * as actions from "../../store/actions/history";
+import * as actions from "../../store/actions/index";
 import _ from "lodash";
 import { dataFormatting } from '../../helpers'
 import axiosRequest from '../../axios-request/request.methods'  
@@ -25,16 +25,22 @@ const tabMenu = [
 
 ]
 
-const ProducerAndVas = () => {
+const ProducerAndVas = (props) => {
     
     // const storeLeadId = useSelector((state) => state.newLead.leadId)
     // const storeUserId = useSelector((state) => state.newLead.userId)
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
+    const [form] = Form.useForm();
+
+    const _StoreData = useSelector((state) => state?.newLead?.formData);
+    const user_id = useSelector((state) => state.login.user.id);
+    console.log('(((((((((_StoreData___VASS)))))))))---->>>>',_StoreData)
+    // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
 
 
     const [channelData, setChannelData] = useState("");
     const [producerData, setProducerData] = useState("");
-    const [vasExecuted, setVasExecuted] = useState(1);
+    const [vasExecuted, setVasExecuted] = useState('No');
 
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
@@ -51,8 +57,25 @@ const ProducerAndVas = () => {
         },
     };
 
-    const kdmRoleArr = [
-        {label:'TBI',value:'TBI'}
+    useEffect(() => {
+        setChannelData( _StoreData?.channel_name)
+        setProducerData( _StoreData?.producer)
+        setVasExecuted( _StoreData?.VAS_executed)
+
+        form.setFieldsValue({
+            kdmChannel:_StoreData?.channel_name,
+            kdmProducer:_StoreData?.producer,
+        });
+    }, []);
+
+    const channelDataArr = [
+        {label:'Agency',value:'Agency'},
+        {label:'Direct',value:'Direct'},
+        {label:'MAP',value:'MAP'},
+        {label:'Broker - A',value:'Broker - A'},
+        {label:'Broker - B&C',value:'Broker - B&C'},
+        {label:'Banca',value:'Banca'},
+        {label:'HOM',value:'HOM'},
     ]
 
     const onChangeProducer = (e) => {
@@ -62,7 +85,7 @@ const ProducerAndVas = () => {
     };
 
     const onChangeChannel = (e) => {
-        setChannelData(e.target.value);
+        setChannelData(e);
     };
 
     const onChangeVasExec = (e) => {
@@ -70,10 +93,51 @@ const ProducerAndVas = () => {
         setVasExecuted(e.target.value);
     };
 
-   
-// useEffect(() => {
-    
-// }, []);
+    const updateProdVas = (event) =>{
+
+        // let formBody = {
+        //     ...props.updateFormData,
+        //     channel_name: channelData,
+        //     producer: producerData,
+        //     VAS_executed: vasExecuted,
+        // }
+
+        let formBody = {
+            company_details: {
+              company_name: _StoreData?.company_id?.company_name,
+              parent_company: _StoreData?.company_id?.parent_company,
+              industry_name: _StoreData?.company_id?.industry_name,
+              tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
+              client_location: _StoreData?.company_id?.client_location,
+            },
+            leadStatus: _StoreData?.leadStatus,
+            leadDisposition: _StoreData?.leadDisposition,
+            leadsubDisposition: _StoreData?.leadsubDisposition,
+            opportunity_name: _StoreData?.opportunity_name,
+            tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
+            LOB_opportunity: _StoreData?.lob_for_opportunity,
+            product_for_opportunity: _StoreData?.product_for_opportunity,
+            remarks: _StoreData?.remarks,
+            teamMembers : "[]",
+            lead_Owner_Id: user_id,
+            lead_Creator_Id: user_id,
+            user_id: user_id,
+            company_id: _StoreData?.company_id?._id,
+            start_date: _StoreData?.start_date,
+            start_time:_StoreData?.start_time,
+            client_expectations: _StoreData?.client_expectations,
+            red_flags: _StoreData?.red_flags,
+            our_ask: _StoreData?.our_ask,
+            channel_name: channelData,
+            producer: producerData,
+            VAS_executed: vasExecuted,
+            kdm_details: _StoreData?.company_id?.kdm_details,
+            risk_details: _StoreData?.company_id?.risk_details,
+        }
+        console.warn('formBody ------>>>>>',formBody)
+        dispatch(actions.fetchLeadUpdateBody(formBody))
+        dispatch(actions.editLead(formBody, props.leadDetails))
+    }
 
 return (
     <>
@@ -87,71 +151,66 @@ return (
             span={23}
             >
             <p className="form-title">Producer and VAS</p>
-            <Row gutter={16} className="mb-2 statsLead kdmStyle">
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <Form.Item
-                        {...formItemLayout}
-                        className="form-item-name label-color"
-                        name="kdmChannel"
-                        label="Channel"
-                        style={{ marginBottom: "1rem" }}
-                    >
-                        <Select
-                            bordered={true}
-                            placeholder="Select Channel"
-                            options={kdmRoleArr}
-                            value={channelData}
-                            // defaultValue={citiesOptions}
-                            onChange={(item) => onChangeChannel(item)}
-                        ></Select>
-                    </Form.Item>
-                </Col>
+            <Form form={form} >
+                <Row gutter={16} className="mb-2 statsLead kdmStyle">
+                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                        <Form.Item
+                            {...formItemLayout}
+                            className="form-item-name label-color"
+                            name="kdmChannel"
+                            label="Channel"
+                            style={{ marginBottom: "1rem" }}
+                        >
+                            <Select
+                                bordered={true}
+                                placeholder="Select Channel"
+                                options={channelDataArr}
+                                value={channelData}
+                                // defaultValue={citiesOptions}
+                                onChange={(item) => onChangeChannel(item)}
+                            ></Select>
+                        </Form.Item>
+                    </Col>
 
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <Form.Item
-                        {...formItemLayout}
-                        className="form-item-name label-color"
-                        name="kdmProducer"
-                        label="Producer"
-                        rules={[
-                            // { required: true, message: "First Name is required",},
-                            { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                        ]}
-                        style={{ marginBottom: "1rem" }}
-                    >
-                        <Input
-                            placeholder="Enter Producer"
-                            value={producerData}
-                            // defaultValue={kdmName}
-                            onChange={(item) => onChangeProducer(item)}
-                        />
-                    </Form.Item>
-                </Col>
+                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                        <Form.Item
+                            {...formItemLayout}
+                            className="form-item-name label-color"
+                            name="kdmProducer"
+                            label="Producer"
+                            rules={[
+                                // { required: true, message: "First Name is required",},
+                                { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                            ]}
+                            style={{ marginBottom: "1rem" }}
+                        >
+                            <Input
+                                placeholder="Enter Producer"
+                                value={producerData}
+                                // defaultValue={kdmName}
+                                onChange={(item) => onChangeProducer(item)}
+                            />
+                        </Form.Item>
+                    </Col>
 
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <Form.Item
-                        {...formItemLayout}
-                        className="form-item-name label-color"
-                        name="kdmVasExec"
-                        label="VAS Executed"
-                        rules={[
-                            // { required: true, message: "First Name is required",},
-                            { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                        ]}
-                        style={{ marginBottom: "1rem" }}
-                    >
-                        <Radio.Group onChange={onChangeVasExec  } value={vasExecuted}>
-                            <Radio value={1}>Yes</Radio>
-                            <Radio value={2}>No</Radio>
-                        </Radio.Group>
-                    </Form.Item>
-                </Col>
-
-
-                
-            </Row>
+                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                        <Form.Item
+                            {...formItemLayout}
+                            className="form-item-name label-color"
+                            label="VAS Executed"
+                            style={{ marginBottom: "1rem" }}
+                        >
+                            <Radio.Group name="radiogroup" onChange={onChangeVasExec  } value={vasExecuted}>
+                                <Radio value={'Yes'}>Yes</Radio>
+                                <Radio value={'No'}>No</Radio>
+                            </Radio.Group>
+                        </Form.Item>
+                    </Col>
+                    
+                </Row>
+            </Form>
             <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
-                <Button style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
+                <Button onClick={()=> updateProdVas()} style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
             </div>
         </Col>
     </>

@@ -55,6 +55,7 @@ const History = () => {
   const leadId = useSelector((state) => state.newLead.leadId);
   const userId = useSelector((state) => state.newLead.userId);
   const leadArrObject = useSelector((state) => state.history.leadData);
+  let storeFormData = useSelector((state) => state?.newLead?.formData);
   const appointmentArrObject = useSelector(
     (state) => state.history.appointmentData
   );
@@ -65,7 +66,7 @@ const History = () => {
   const proposalArrObject = useSelector((state) => state.history.proposalData);
   const historyLeadData = useSelector((state) => state.history.leadData);
   const appointmentData = useSelector((state) => state.history.appointmentData);
-  console.log("histrory data ---------------- ", appointmentData);
+  console.log("histrory data ---------------- ", historyLeadData);
 
   useEffect(() => {
     dispatch(actions.fetchHistory(leadId, userId));
@@ -142,11 +143,15 @@ const History = () => {
                 <div className="py-4 px-3">
                   <div className="d-flex justify-content-between align-items-center">
                     <div style={{ fontWeight: "700" }}>{res.title}</div>
-                    <div className="text-secondary text-end">{res.owner}</div>
+                    <div className="text-secondary text-end">
+                      {res.userId.first_name + " " + res.userId.last_name}
+                    </div>
                   </div>
                   <div className="d-flex justify-content-between align-items-center mt-2">
-                    <div className="text-secondary">{res.desc}</div>
-                    <div className="text-end">{res.date}</div>
+                    <div className="text-secondary">{res.description}</div>
+                    <div className="text-end">
+                      {new Date(res.created_at).toLocaleString("en-US")}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -158,7 +163,12 @@ const History = () => {
 
   return (
     <>
-      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="3" />
+      <TabsComp
+        tabMenu={tabMenu}
+        header="New Lead"
+        activeKey="3"
+        statusLeadData={storeFormData}
+      />
 
       <div className="form-container kdmStyle d-flex justify-content-center">
         {historyLeadData && historyLeadData.length > 0 ? (

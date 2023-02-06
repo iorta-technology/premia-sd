@@ -41,79 +41,40 @@ const initialState = {
     start_time: "",
   },
   formData: {
-    // statusLeadData: {
-    leadStatus: "",
-    leadDisposition: "",
-    leadsubDisposition: "",
-    appointment_status: "",
-    appointmentdisPosition: "",
-    appointmentsubdisPosition: "",
-    lead_Owner_Id: "",
-    user_id: id,
-    lead_Creator_Id: "",
-    start_date: "",
-    start_time: "",
-    remarksfromSource: "",
-    remarksfromUser: "",
-    teamMembers: "",
-    productId: "",
-    proposalId: "",
-    leadSource: "",
-    LeadType: "",
-    Product: "",
-    Insurance_Company: "",
+    // company_details: {
+    //   company_name: '',
+    //   parent_company: '',
+    //   industry_name: '',
+    //   tata_aig_empaneled:'',
+    //   client_location: '',
     // },
-    // personalLeadData: {
-    firstName: "",
-    lastName: "",
-    dob: "",
-    gender: "",
-    maritalStatus: "",
-    childStatus: "",
-    ChildInfo: [],
-    // },
-    // contactLeadData: {
-    primaryMobile: "",
-    state: "",
-    city: "",
-    email: "",
-    address: {
-      line1: "",
-      line2: "",
-      line3: "",
-    },
-    country: "",
-    pincode: "",
-    secondaryMobile: "",
-    landlineNo: "",
-    socialSecurityAdharNo: "",
-    mailingAddressStatus: "",
-    mailingAddressSecond: {
-      mailingaddress: {
-        line1: "",
-        line2: "",
-        line3: "",
-      },
-      state: "",
-      city: "",
-      country: "",
-      pincode: "",
-      user_Id: id,
-    },
-    HaveLifeInsurance: {
-      ExistHealthInsur: "",
-      ExistInsur: "",
-    },
-    HaveLifeInsurance_details: [],
-    Insurancedetails: [],
-    //professional data
-    education: "",
-    professionType: "",
-    incomeGroup: "",
+    // leadStatus: '',
+    // leadDisposition: '',
+    // leadsubDisposition: '',
+    // opportunity_name: '',
+    // tender_driven: '',
+    // LOB_opportunity: '',
+    // product_for_opportunity: '',
+    // remarks: '',
+    // teamMembers : "[]",
+    // lead_Owner_Id: '',
+    // lead_Creator_Id: '',
+    // user_id: '',
+    // company_id: '',
+    // start_date: '',
+    // start_time:'',
+    // client_expectations: "",
+    // red_flags: "",
+    // our_ask: "",
+    // channel_name: "",
+    // producer: "",
+    // VAS_executed: "Yes",
+    // kdm_details: [],
+    // risk_details: []
 
-    // }
   },
   errorMessage: "",
+  leadUpdateFormdata:{},
 };
 
 const createLeadStart = (state, action) => {
@@ -153,13 +114,14 @@ const editLeadStart = (state, action) => {
 
 const editLeadSuccess = (state, action) => {
   const payload = { ...state.formData, ...action.formData };
+  // console.log('editLeadSuccess----------->>>>',action.formData)
 
   return updateObject(state, {
     editLeadLoading: false,
     createLeadLoading: false,
     formData: payload,
-    leadId: action.formData[0]._id,
-    appointmentData: action.appointmentDetails,
+    leadId: action.formData._id,
+    // appointmentData: action.appointmentDetails,
 
     // userId:action.formData[0].userId
   });
@@ -179,11 +141,18 @@ const fetchLeadDetailsStart = (state, action) => {
   });
 };
 
+const fetchLeadUpdateBody = (state, action) => {
+  console.log('fetchLeadUpdateBody ----------->>>>',action)
+  return updateObject(state, {
+    leadUpdateFormdata: action.leadUpdateFormdata 
+  });
+};
+
 const fetchLeadDetailsSuccess = (state, action) => {
-  const addSecond = {
-    ...state.mailingAddressSecond,
-    ...action.mailingAddressSecond,
-  };
+  // const addSecond = {
+  //   ...state.mailingAddressSecond,
+  //   ...action.mailingAddressSecond,
+  // };
   // const Insurancedetails = [...state.Insurancedetails,...action.Insurancedetails]
   // const Insurancedetails = action.leadDetails.Insurancedetails
 
@@ -202,9 +171,11 @@ const fetchLeadDetailsSuccess = (state, action) => {
   //         //  addObj2 = JSON.parse(address2)
   // }
   // const {mailingaddress:{line1}={line1:'hello'}} = action.leadDetails.mailingAddress
-  const fetchLeadId = action.fetchLeadId;
-  const { Insurancedetails } = action.leadDetails;
-  const { HaveLifeInsurance_details } = action.leadDetails;
+  // const fetchLeadId = action.fetchLeadId;
+  console.log('(((ACTIONS)))------->>>',action)
+  console.log('(((STATEEE)))------->>>',state)
+  // const { Insurancedetails } = action.leadDetails;
+  // const { HaveLifeInsurance_details } = action.leadDetails;
   // if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){
 
   //     var  healthInsObject = JSON.parse(Insurancedetails)
@@ -212,10 +183,10 @@ const fetchLeadDetailsSuccess = (state, action) => {
   //     var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
   // }
   const payload = {
-    ...state.formData,
+    // ...state.formData,
     ...action.leadDetails,
-    ...state.appointmentData,
-    ...action.appointmentDetails,
+    // ...state.appointmentData,
+    // ...action.appointmentDetails,
   };
   return updateObject(state, {
     leadDataloading: false,
@@ -224,14 +195,14 @@ const fetchLeadDetailsSuccess = (state, action) => {
     payloadFormData: payload,
     // mailingAddress:address1,
     // mailingAddressSecond:address2,
-    leadId: action.leadDetails._id,
-    userId: action.leadDetails.userId._id,
+    leadId: action?.leadDetails?._id,
+    userId: action?.leadDetails?.userId?._id,
     // Insurancedetails:healthInsObject,
     // HaveLifeInsurance_details:lifeInsObject,
-    address: action.leadDetails.address[0],
-    mailingAddressSecond: addSecond,
-    fetchLeadId: fetchLeadId,
-    appointmentData: action.appointmentDetails,
+    // address: action.leadDetails.address[0],
+    // mailingAddressSecond: addSecond,
+    // fetchLeadId: fetchLeadId,
+    // appointmentData: action.appointmentDetails,
   });
 };
 const fetchLeadDetailsFail = (state, action) => {
@@ -279,6 +250,10 @@ const reducer = (state = initialState, action) => {
       return fetchLeadDetailsStart(state, action);
     case actionTypes.FETCH_LEAD_DETAILS_SUCCESS:
       return fetchLeadDetailsSuccess(state, action);
+
+    case actionTypes.FETCH_LEAD_UPDATE_BODY:
+      return fetchLeadUpdateBody(state, action);
+
     case actionTypes.FETCH_LEAD_DETAILS_FAIL:
       return fetchLeadDetailsFail(state, action);
 

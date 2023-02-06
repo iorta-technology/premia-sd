@@ -11,10 +11,6 @@
   background-color: #e0e9f3;
 }
 
-.kdmStyle .ant-tabs-nav-wrap.ant-tabs-nav-wrap-ping-right {
-  width: 90000px;
-}
-
 .kdmStyle .ant-form-item-label > label {
   position: relative;
   display: inline-flex;
@@ -145,6 +141,10 @@
   padding: 6.4px 15px;
   font-size: 16px;
   border-radius: 6px;
+}
+
+.kdmStyle .ant-tabs-nav-wrap.ant-tabs-nav-wrap-ping-right {
+  width: 90000px;
 }
 
 /* .modalStyle .ant-modal {

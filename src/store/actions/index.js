@@ -1,6 +1,7 @@
 export { fetchAllLeads, fetchDesignation, fetchTeamMember } from "./leads";
 export {
   fetchLeadDetailsSuccess,
+  fetchLeadUpdateBody,
   fetchLeadDetails,
   createLead,
   storeLead,

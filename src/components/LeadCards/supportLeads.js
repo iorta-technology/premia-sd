@@ -31,6 +31,7 @@ import moment from 'moment'
          let dataStructure = {};
 
          dataStructure.companyName = !resObj?.company_id?.company_name ? '-' : resObj?.company_id?.company_name
+         dataStructure.opportunityName = !resObj?.opportunity_name ? '-' : resObj?.opportunity_name
          dataStructure.lead_Id = resObj.lead_Id;
          dataStructure.industryName = !resObj?.company_id?.industry_name ? '-' : resObj?.company_id?.industry_name
          dataStructure.KDM_Name = !resObj?.company_id?.kdm_details[0]?.decision_maker_name ? '-' : resObj?.company_id?.kdm_details[0]?.decision_maker_name

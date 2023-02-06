@@ -67,27 +67,21 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
-
-  // store form data
+  // console.warn('COMPPP____PROPSS',props.location.state.leadData)
   let storeFormData = useSelector((state) => state?.newLead?.formData);
-  const userTreeData = useSelector((state) => state?.home?.user_tree);
-
-  let leadDataLoading = useSelector((state) => state.newLead.leadDataloading);
-  // let payloadFormData = useSelector((state) => state.newLead.payloadFormData)
-  let storeLeadId = useSelector((state) => state.newLead.leadId);
 
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
   useEffect(() => {
     // if(userTreeData.length > 0){
-    userTreeData.reporting_hierarchies.forEach((el) => {
-      el.label = el.dispValue;
-    });
-    userTreeData.reporting_users.forEach((el) => {
-      el.label = el.full_name;
-      el.value = el._id;
-    });
+    // userTreeData.reporting_hierarchies.forEach((el) => {
+    //   el.label = el.dispValue;
+    // });
+    // userTreeData.reporting_users.forEach((el) => {
+    //   el.label = el.full_name;
+    //   el.value = el._id;
+    // });
   }, []);
 
   useEffect(() => {
@@ -119,7 +113,12 @@ const CompanyIntelligence = React.memo((props) => {
 
   return (
     <>
-      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="2" />
+      <TabsComp
+        tabMenu={tabMenu}
+        header="New Lead"
+        activeKey="2"
+        statusLeadData={storeFormData}
+      />
 
       <div
         className={`form-container kdmStyle ${width > 768 ? "ml10rem" : ""}`}
@@ -133,19 +132,34 @@ const CompanyIntelligence = React.memo((props) => {
           defaultActiveKey={1}
         >
           <TabPane key="1" tab="Key Decison Makers ( KDM ) Details">
-            <KDMDetails />
+            <KDMDetails
+              leadDetails={props.location.state.leadData}
+              updateFormData={props.location.state.updateFormData}
+            />
           </TabPane>
           <TabPane key="2" tab="Risk Details">
-            <RiskDetails />
+            <RiskDetails
+              leadDetails={props.location.state.leadData}
+              updateFormData={props.location.state.updateFormData}
+            />
           </TabPane>
           <TabPane key="3" tab="Producer and VAS">
-            <ProducerVAS />
+            <ProducerVAS
+              leadDetails={props.location.state.leadData}
+              updateFormData={props.location.state.updateFormData}
+            />
           </TabPane>
           <TabPane key="4" tab="Expectation">
-            <Expectation />
+            <Expectation
+              leadDetails={props.location.state.leadData}
+              updateFormData={props.location.state.updateFormData}
+            />
           </TabPane>
           <TabPane key="5" tab="Document Upload">
-            <DocUpload />
+            <DocUpload
+              leadDetails={props.location.state.leadData}
+              updateFormData={props.location.state.updateFormData}
+            />
           </TabPane>
         </Tabs>
       </div>
