@@ -309,9 +309,9 @@
 /*sadiqu css end */
 
 @media (max-width: 991px) {
-  .form-container .ant-row,
-  .form-container .ant-col-offset-2,
-  .form-container .p50 {
+  .form-container > .ant-row,
+  .form-container > .ant-col-offset-2,
+  .form-container > .p50 {
     margin-left: 0 !important;
     justify-content: center;
   }

@@ -481,15 +481,9 @@ const NewLead = React.memo((props) => {
     let _remark = [
       {
         description: remark,
-<<<<<<< HEAD
         dateTime: new Date().toLocaleString("en-US"),
       },
     ];
-=======
-        dateTime: new Date().toLocaleString('en-US'),
-      }
-    ]
->>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
     setFormItem((res) => ({
       ...res,
       // remarks: [...formItem.remarks, remark],
@@ -744,7 +738,6 @@ const NewLead = React.memo((props) => {
 
         // setshowLeadStatusVisiblity(false);
       }
-<<<<<<< HEAD
 
       setDisableParentComp(true);
       setOpportunityNameSummary(leadData?.opportunity_name);
@@ -772,31 +765,6 @@ const NewLead = React.memo((props) => {
         };
         _remArr.push(_remark);
       });
-=======
-      
-      setDisableParentComp(true)
-      setOpportunityNameSummary(leadData?.opportunity_name)
-      setCompanySummary(leadData?.company_id?.company_name)
-      setLeadIdSummary(leadData?.lead_Id)
-      setCurrentStatusSummary(leadData?.leadStage)
-      setIncorpDateSummary(new Date(leadData?.created_date).toLocaleDateString("in"))
-      setCurrentStatsDateSummary(new Date(leadData?.created_date).toLocaleDateString("in"))
-
-      setCompany_id(leadData?.company_id?._id)
-      setreamrkDataArr(leadData?.remarks)
-
-      changeLobOpprtunity(leadData?.lob_for_opportunity)
-      setRemark('')
-
-      let _remArr = []
-      leadData?.remarks.map(el =>{
-        let _remark = {
-          description: el.description,
-          dateTime: el.date,
-        }
-        _remArr.push(_remark)
-      })
->>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_id?.company_name,
@@ -820,11 +788,7 @@ const NewLead = React.memo((props) => {
         appointmentTime: _appntTime,
         collaborators: JSON.parse(leadData?.teamMembers),
         remarks: _remArr,
-<<<<<<< HEAD
       }));
-=======
-      }))
->>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
 
       form.setFieldsValue({
         company_name: leadData?.company_id?.company_name,
@@ -1267,56 +1231,53 @@ const NewLead = React.memo((props) => {
       });
       // history.push('leaddetails/personallead')
     }
-<<<<<<< HEAD
-=======
 
-  //  
+    //
 
-  // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
-  // return
-  if (isNewLead) {
-    dispatch(actions.createLead(addLeadFormData)).then((res) => {
-      console.log('CREATE_LEAD_SUCCESS:', res);
-      if (res.type === "CREATE_LEAD_SUCCESS") {
-        console.log("success:", res.formData);
-        // setErrorMessage(successMsg)
-        setIsNewLead(false);
-        
-        setOpportunityNameSummary(res.formData.opportunity_name)
-        setCompanySummary(res.formData.lob_for_opportunity)
-        setCurrentStatusSummary(res.formData.leadStage)
-        setLeadIdSummary(res.formData.lead_Id)
-        setIncorpDateSummary(new Date(res.formData.created_date).toLocaleDateString("in"))
-        setCurrentStatsDateSummary(new Date(res.formData.created_date).toLocaleDateString("in"))
-        // setEventCountSummary(res.formData)
-        // setTodoCreatdSummary(res.formData)
-        // setTodoComplteSummary(res.formData)
-        setLeadIdData(res.formData._id);
-        // dispatch(actions.fetchLeadDetailsSuccess({}))
-       
-      }
-      // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
-    });
-  } else {
+    // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
+    // return
+    if (isNewLead) {
+      dispatch(actions.createLead(addLeadFormData)).then((res) => {
+        console.log("CREATE_LEAD_SUCCESS:", res);
+        if (res.type === "CREATE_LEAD_SUCCESS") {
+          console.log("success:", res.formData);
+          // setErrorMessage(successMsg)
+          setIsNewLead(false);
 
-    dispatch(actions.fetchLeadUpdateBody(updateLeadFormData))
-    
+          setOpportunityNameSummary(res.formData.opportunity_name);
+          setCompanySummary(res.formData.lob_for_opportunity);
+          setCurrentStatusSummary(res.formData.leadStage);
+          setLeadIdSummary(res.formData.lead_Id);
+          setIncorpDateSummary(
+            new Date(res.formData.created_date).toLocaleDateString("in")
+          );
+          setCurrentStatsDateSummary(
+            new Date(res.formData.created_date).toLocaleDateString("in")
+          );
+          // setEventCountSummary(res.formData)
+          // setTodoCreatdSummary(res.formData)
+          // setTodoComplteSummary(res.formData)
+          setLeadIdData(res.formData._id);
+          // dispatch(actions.fetchLeadDetailsSuccess({}))
+        }
+        // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
+      });
+    } else {
+      dispatch(actions.fetchLeadUpdateBody(updateLeadFormData));
 
-    let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
-    // console.log('_lead_id=-------->>>>',_lead_id)
-    dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
-      if (res.type === "EDIT_LEAD_SUCCESS") {
-        console.log("success:", res);
-        setErrorMessage(successMsg);
-        setIsNewLead(false);
-      } else if (res.type === "EDIT_LEAD_FAIL") {
-        failedHandler(res.error);
-      }
-    });
-    // history.push('leaddetails/personallead')
-  }
-
->>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
+      let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
+      // console.log('_lead_id=-------->>>>',_lead_id)
+      dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
+        if (res.type === "EDIT_LEAD_SUCCESS") {
+          console.log("success:", res);
+          setErrorMessage(successMsg);
+          setIsNewLead(false);
+        } else if (res.type === "EDIT_LEAD_FAIL") {
+          failedHandler(res.error);
+        }
+      });
+      // history.push('leaddetails/personallead')
+    }
   };
 
   const resetDataFields = () => {
@@ -1341,21 +1302,12 @@ const NewLead = React.memo((props) => {
       // remarks: [],
     }));
     setIsNewLead(true);
-<<<<<<< HEAD
     setOpportunityNameSummary("-");
     setCompanySummary("-");
     setCurrentStatusSummary("-");
     setLeadIdSummary("");
     setIncorpDateSummary("-");
     setCurrentStatsDateSummary("-");
-=======
-    setOpportunityNameSummary('-')
-    setCompanySummary('-')
-    setCurrentStatusSummary('-')
-    setLeadIdSummary('')
-    setIncorpDateSummary('-')
-    setCurrentStatsDateSummary('-')
->>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
     // setEventCountSummary('00')
     // setTodoCreatdSummary('00')
     // setTodoComplteSummary('00')
@@ -1592,16 +1544,12 @@ const NewLead = React.memo((props) => {
 
                     <Col xs={24} sm={24} md={24} lg={12} xl={12} span={24}>
                       <p className="summary_heading">Lead Id</p>
-<<<<<<< HEAD
                       <p
                         className="summary_data"
                         style={{ textTransform: "uppercase" }}
                       >
                         {leadIdSummary}
                       </p>
-=======
-                      <p className="summary_data" style={{textTransform:'uppercase'}}>{leadIdSummary}</p>
->>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
                     </Col>
                   </Row>
 
@@ -2044,14 +1992,10 @@ const NewLead = React.memo((props) => {
                       <div>
                         <div>{res.description}</div>
                         <div>
-<<<<<<< HEAD
                           <i>
                             by{" "}
                             {login_user.firstName + " " + login_user.lastName}
                           </i>
-=======
-                          <i>by {login_user.firstName + ' ' +login_user.lastName}</i>
->>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
                         </div>
                       </div>
                     </div>
