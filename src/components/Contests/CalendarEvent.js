@@ -77,6 +77,7 @@ export default function CalendarEvent(props) {
     policy_renewal: false
   })
   const [teamMemberData, setTeamMemberData] = useState('')
+  const [startd, setStartD] = useState('')
   const [customerData, setCustomerData] = useState('')
   const [hierarAgentList, setHierarAgentList] = useState([])
   const [customersearchList, setCustomerSearchList] = useState([])
@@ -1075,8 +1076,8 @@ export default function CalendarEvent(props) {
     setTeamTagVisible(false)
   }
   const StartDateFunc = (date, dateString) => {
-    console.log(date)
-    console.log(dateString)
+    console.log(moment(new Date()).format("YYYY-MM-DD") == moment(date).format("YYYY-MM-DD"))
+    console.log(moment(date).format("YYYY-MM-DD"))
     setDurationStartDate(moment(date))
     setDurationEndDate(moment(date))
     setDurationEndDateDiffCheck(true)
@@ -1266,7 +1267,24 @@ export default function CalendarEvent(props) {
   }
 
   const StartTimeChangeFunc = (e) => {
-
+    // var currentTime = (new Date().getHours() + ':' + ("0" + (new Date().getMinutes())).slice(-2))
+    //             console.log('current time--->', currentTime)
+    //             var currentDay = (new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2))
+    //             console.log('current day---->', typeof(durationStartDateOperation + parseInt(e.target.value)))
+    //             var date = new Date((durationStartDateOperation + parseInt(e.target.value) ));
+                // Hours part from the timestamp
+                // var finalDate = date.toUTCString()
+                // var hours = finalDate.getHours().getHours();
+                // // Minutes part from the timestamp
+                // var minutes = "0" + finalDate.getHours().getMinutes();
+                // // Seconds part from the timestamp
+                // var seconds = "0" + finalDate.getHours().getSeconds();
+                
+                // // Will display time in 10:30:23 format
+                // var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                
+              
+           
     // console.log(e.target.value, 'start time--select-->');
     setStartTimeSelect(e.target.value)
 
@@ -1624,6 +1642,11 @@ export default function CalendarEvent(props) {
       if (ownerCollectn.length > 0) {
         ownerCollectn.map(x => { teammemberclone.push(x._Id) });
       }
+      var date = new Date((durationStartDateOperation + parseInt(startTimeSelect)))
+      console.log(date.getUTCHours());
+      console.log(date.toUTCString().toString().slice(17,22));
+          var currentTime = (new Date().getHours() + ':' + ("0" + (new Date().getMinutes())).slice(-2))
+                console.log('current time--->', currentTime)
       let leadlist = []
       if (customerlistcollectn.length > 0) {
         customerlistcollectn.map(x => { leadlist.push(x._Id) });
@@ -1651,7 +1674,9 @@ export default function CalendarEvent(props) {
         message.warning('End Time is Mandatory');
       } else if (durationEndDateOperation == undefined || durationEndDateOperation == '') {
         message.warning('End Date is Mandatory');
-      } else {
+      }else if(moment(new Date()).format("YYYY-MM-DD") == moment(durationStartDate).format("YYYY-MM-DD") && currentTime >= (date.toUTCString().toString().slice(17,22))){
+        message.warning('Start time should be less than or equal to current time');
+      }  else {
         setDurationModeAlert(false)
         setDurationDateAlert(false)
         setDurationTimeAlert(false)
@@ -1731,6 +1756,11 @@ export default function CalendarEvent(props) {
       if (ownerCollectn.length > 0) {
         ownerCollectn.map(x => { teammemberclone.push(x._Id) });
       }
+      var date = new Date((durationStartDateOperation + parseInt(startTimeSelect)))
+      console.log(date.getUTCHours());
+      console.log(date.toUTCString().toString().slice(17,22));
+          var currentTime = (new Date().getHours() + ':' + ("0" + (new Date().getMinutes())).slice(-2))
+                console.log('current time--->', currentTime)
       let leadlist = []
       if (customerlistcollectn.length > 0) {
         customerlistcollectn.map(x => { leadlist.push(x._Id) });
@@ -1744,7 +1774,7 @@ export default function CalendarEvent(props) {
       // } 
       else if (durationStartDateOperation == undefined) {
         message.warning('Start Date is Mandatory');
-      } else if (stakeholdrName == undefined || stakeholdrName == '') {
+      }else if (stakeholdrName == undefined || stakeholdrName == '') {
         message.warning('Stakeholder Name is Mandatory');
       }else if (customerNameText == undefined || customerNameText == '') {
         message.warning('Location is Mandatory');
@@ -1756,7 +1786,9 @@ export default function CalendarEvent(props) {
         message.warning('Start Time is Mandatory');
       } else if (durationEndTimeOperation == undefined || durationEndTimeOperation == '' || durationEndTimeDiffCheck == false) {
         message.warning('End Time is Mandatory');
-      } else {
+      }else if(moment(new Date()).format("YYYY-MM-DD") == moment(durationStartDate).format("YYYY-MM-DD") && currentTime >= (date.toUTCString().toString().slice(17,22))){
+        message.warning('Start time should be less than or equal to current time');
+      }  else {
         if (eventDurationType == 'customedatetime') {
           if (durationEndDateOperation == undefined || durationEndDateOperation == '') {
             message.warning('End Date is Mandatory');
