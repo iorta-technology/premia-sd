@@ -67,7 +67,11 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
+<<<<<<< HEAD
   // console.warn('COMPPP____PROPSS',props.location.state.leadData)
+=======
+    // console.warn('COMPPP____PROPSS',props.location.state.leadData)
+>>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
   let storeFormData = useSelector((state) => state?.newLead?.formData);
 
   const [width, setWidth] = useState(window.innerWidth);

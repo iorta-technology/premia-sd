@@ -143,6 +143,7 @@ const History = () => {
                 <div className="py-4 px-3">
                   <div className="d-flex justify-content-between align-items-center">
                     <div style={{ fontWeight: "700" }}>{res.title}</div>
+<<<<<<< HEAD
                     <div className="text-secondary text-end">
                       {res.userId.first_name + " " + res.userId.last_name}
                     </div>
@@ -152,6 +153,13 @@ const History = () => {
                     <div className="text-end">
                       {new Date(res.created_at).toLocaleString("en-US")}
                     </div>
+=======
+                    <div className="text-secondary text-end">{res.userId.first_name+ ' '+res.userId.last_name}</div>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center mt-2">
+                    <div className="text-secondary">{res.description}</div>
+                    <div className="text-end">{new Date(res.created_at).toLocaleString('en-US')}</div>
+>>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
                   </div>
                 </div>
               </div>
@@ -163,12 +171,16 @@ const History = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <TabsComp
         tabMenu={tabMenu}
         header="New Lead"
         activeKey="3"
         statusLeadData={storeFormData}
       />
+=======
+      <TabsComp tabMenu={tabMenu} header="New Lead" activeKey="3" statusLeadData={storeFormData} />
+>>>>>>> 26a8c843bb0065fd15c941cbc9ee4f7bc6e5950c
 
       <div className="form-container kdmStyle d-flex justify-content-center">
         {historyLeadData && historyLeadData.length > 0 ? (
