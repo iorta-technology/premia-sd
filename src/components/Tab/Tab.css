@@ -19,6 +19,38 @@
     height: 240px;
 }
 
+.CardBodySelf button{
+    border: none;
+    /* margin: 0 6px; */
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    padding: 0;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    padding: 5px;
+    cursor: pointer;
+    /* width: 90px; */
+    color: #000;
+}
+.personSelf{
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+.CardBodySelf .activateSelf{
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 0;
+    padding: 5px;
+    background-color: #3c3d3d;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    cursor: pointer;
+    width: 90px;
+    /* background-image: url('../i'); */
+}
+
 @media (max-width:1080px) {
     .header-img-tabs{
         flex-direction: column;
@@ -35,7 +67,7 @@
 .round-card-main-Tab{
     display: flex;
     align-items: center;
-    flex: 1;
+    /* flex: 1; */
     justify-content: center;
     /* float: right; */
     /* width: 15.5rem; */
@@ -233,6 +265,18 @@ button.tabs_button img, button.active_tabs_button img{
 }
 .tabsStyle .ant-tabs-tab{
     font-size: 16px;
+}
+
+@media (min-width:320px){
+    .round-card-main-Tab{
+        display: flex;
+        align-items: center;
+        /* flex: 1; */
+        justify-content: unset;
+        /* float: right; */
+        /* width: 15.5rem; */
+        /* margin-right: 5rem !important; */ 
+    }
 }
 
 @media (max-width:620px) {

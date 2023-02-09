@@ -27,5 +27,40 @@
 }
 .dropdown-container{
     display: flex;
+    margin-top: 10px;
     
+}
+.lead-ml60{
+    margin-left: 60px;
+}
+.lead-ml15{
+    margin-left: 15px;
+}
+
+@media (min-width:320px){
+    .dropdown-container{
+        display: block;
+        margin-top: 0px;
+        
+    }
+    .lead-ml60{
+        margin-left: 30px;
+    }
+    .lead-ml15{
+        margin-left: 30px;
+    }
+}
+
+@media (min-width:920px){
+    .dropdown-container{
+        display: flex;
+        margin-top: 10px;
+        
+    }
+    .lead-ml60{
+        margin-left: 60px;
+    }
+    .lead-ml15{
+        margin-left: 15px;
+    }
 }

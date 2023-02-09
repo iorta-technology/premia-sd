@@ -63,7 +63,7 @@ const App = () => {
                   className="person"
                   alt="person_png"
                 />
-                Selfsss
+                Self
               </button>
               <button
                 style={{ width: 95,display:'flex',alignItems:'center',justifyContent:'center' }}
