@@ -190,12 +190,7 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true);
     } //1661472000000
     if (props.Data) {
-      console.warn(
-        props.Data,
-        moment(props.Data.start_date),
-        moment(props.Data.timeline),
-        "yes update"
-      );
+      // console.warn(props.Data,moment(props.Data.start_date), moment(props.Data.timeline),'yes update');
       setEventId(props.Data._id);
       setStatusReasonText(props.Data.statusReason);
       if (props.Data.appointment_type == "existingapplication") {

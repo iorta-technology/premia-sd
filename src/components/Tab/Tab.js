@@ -58,6 +58,7 @@ const Tab = ({
   const [showTab, setShowTab] = useState();
   const [showModal, setShowModal] = useState(false);
   const [leadTabFilter, setLeadTabFilter] = useState("all");
+  const [TeamSelf, setTeamSelf] = useState(true);
 
   let history = useHistory();
   let _currentTab = "self";
@@ -65,7 +66,10 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
   useEffect(() => {
-    // console.log('************************ header ___*(*(*((**)))) *********************===========>>>',header)
+    console.log(
+      "************************ header ___*(*(*((**)))) *********************===========>>>",
+      header
+    );
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead") getDataForOpen(leadTabFilter);
@@ -172,6 +176,7 @@ const Tab = ({
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
+    currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
     console.log("good bye currentActiveTab", currentActiveTab);
     _currentTab = currentTab;
     setCurrentActiveTab(currentTab);
@@ -196,13 +201,9 @@ const Tab = ({
     <>
       {width > breakpoint ? (
         // className="header-img-tabs header-img-height tabsStyle"
-        <div
-          className={
-            header === "Lead"
-              ? "header-img-tabs header-img-height tabsStyle"
-              : "header-img-tabs tabsStyle"
-          }
-        >
+        // <div>
+        // <div className={header === "Lead" ? 'header-img-tabs header-img-height tabsStyle' :'header-img-tabs tabsStyle'}>
+        <div className={"header-img-tabs tabsStyle"}>
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
@@ -251,58 +252,51 @@ const Tab = ({
             </div>
           )}
           {/* header === "Lead" */}
-          {/* <div style={{ display: "flex" }}>
+          {/* <div >
             {tabPane.key === activeKey ? (
               <div className="round-card-main-Tab">
                 {checkAgent() === false && (
                   <>
-                    <figure
-                      className={
-                        currentActiveTab === "team"
-                          ? "round-cards1-active"
-                          : "round-cards1"
-                      }
-                      onClick={() => handleChangeTab("team")}
-                      key={"team"}
-                    >
-                      {" "}
-                      <figcaption className="card-caption">
-                        Team
-                      </figcaption>{" "}
-                    </figure>
-                    <figure
-                      className={
-                        currentActiveTab === "self"
-                          ? "round-cards2-active"
-                          : "round-cards2"
-                      }
-                      onClick={() => handleChangeTab("self")}
-                      key={"self"}
-                    >
-                      {" "}
-                      <figcaption className="card-caption">
+                    <div className="CardBodySelf" style={{ marginLeft: "-10px",display:'flex',flexDirection:'row' }}>
+                      <button
+                        style={{ width:95,display:'flex',alignItems:'center',justifyContent:'center' }}
+                        className={TeamSelf ? "activateSelf" : " "}
+                        onClick={() => handleChangeTab("self")}
+                      >
+                        <img
+                          src={TeamSelf ? person_white : person_black}
+                          className="personSelf"
+                          alt="person_png"
+                        />
                         Self
-                      </figcaption>{" "}
-                    </figure>
+                      </button>
+                      <button
+                        style={{ width: 95,display:'flex',alignItems:'center',justifyContent:'center' }}
+                        className={!TeamSelf ? "activateSelf" : ""}
+                        onClick={() => handleChangeTab("team")}
+                      >
+                        <img
+                          src={TeamSelf ? group_black : group_white}
+                          className="personSelf"
+                          alt="group_png"
+                        />
+                        Team
+                      </button>
+                    </div>
                   </>
                 )}
-                <AllocateModalShow tabSelected={leadTabFilter} />
-                <GlobalFilters
-                  show={show}
-                  onHide={handleClose}
-                  handleShow={handleShow}
-                  setShow={setShow}
-                  tabFilter={leadTabFilter}
-                />
+              
               </div>
             ) : null}
           </div> */}
         </div>
       ) : (
+        // </div>
+
         // FOR MOBILE WEB
         <div
           className="tabsStyle"
-          style={{ display: "flex", flexDirection: "Column" }}
+          style={{ display: "flex", flexDirection: "Column", marginTop: 75 }}
         >
           <div>
             <Tabs

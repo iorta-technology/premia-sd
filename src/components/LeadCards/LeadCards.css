@@ -5,8 +5,8 @@
     gap:1rem; */
   /* margin: 20px 0; */
   /* background-color: #fafafa; */
-  position: absolute;
-  top: 240px;
+  /* position: absolute; */
+  /* top: 240px; */
   width: 100%;
 }
 .dummy-card-mobile {
@@ -36,5 +36,43 @@
     position: absolute;
     top: 25%;
     width: 100%;
+  }
+}
+
+/*****************pull****************/
+.dropdown-container {
+  display: flex;
+  margin-top: 10px;
+}
+.lead-ml60 {
+  margin-left: 60px;
+}
+.lead-ml15 {
+  margin-left: 15px;
+}
+
+@media (min-width: 320px) {
+  .dropdown-container {
+    display: block;
+    margin-top: 25px;
+  }
+  .lead-ml60 {
+    margin-left: 30px;
+  }
+  .lead-ml15 {
+    margin-left: 30px;
+  }
+}
+
+@media (min-width: 920px) {
+  .dropdown-container {
+    display: flex;
+    margin-top: 10px;
+  }
+  .lead-ml60 {
+    margin-left: 60px;
+  }
+  .lead-ml15 {
+    margin-left: 15px;
   }
 }

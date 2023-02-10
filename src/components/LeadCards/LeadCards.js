@@ -6,8 +6,13 @@ import { Row, Col, Avatar, Card, Select } from "antd";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import { useDispatch, useSelector } from "react-redux";
 import { AllocateModal } from "../Tab/Allocate";
-import { stoageSetter } from "../../helpers";
+import { checkAgent, stoageSetter, stoageGetter } from "../../helpers";
 import * as actions from "../../store/actions/leads";
+
+import person_black from "./../Activitity Tracker/icons/person_black.png";
+import person_white from "./../Activitity Tracker/icons/person_white.png";
+import group_white from "./../Activitity Tracker/icons/group_white.png";
+import group_black from "./../Activitity Tracker/icons/group_black.png";
 // stoageSetter('user', user);
 
 import {
@@ -23,12 +28,16 @@ import {
 import { fetchAllLeadsSuccess } from "../../store/actions/leads";
 
 const { Option } = Select;
+let _currentTab = "self";
 
 const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   // console.warn('userTreeData==========>>>>>>>',userTreeData)
+
+  // console.warn('leadsData ==========>>>>>>>',leadsData)
+  // console.warn('props ==========>>>>>>>',props)
   const { user } = loginState;
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
@@ -39,6 +48,7 @@ const LeadCards = (props) => {
   const [firstValue, setFirstValue] = useState("Select");
   const [secondDropData, setSecondDropData] = useState([]);
   const [secondValue, setSecondValue] = useState("Select");
+  const [TeamSelf, setTeamSelf] = useState(true);
   // const [hierarAgentList ,setHierarAgentList]=useState([])
 
   const [cards, setcard] = useState([]);
@@ -54,18 +64,6 @@ const LeadCards = (props) => {
   }, [leadsData]);
 
   const getDataForFirstDropdownTeam = () => {
-    // const response = await getFirstDropdownValueApi(user && user.id);
-    // if (response.status == 200) {
-    //   if (response?.data?.errMsg?.reporting_hierarchies) {
-    //     setFirstDrop(response?.data?.errMsg.reporting_hierarchies);
-    //     setSecondDropData(response?.data?.errMsg.reporting_users);
-    //   }
-    // } else {
-    //   throw response?.data?.errMsg;
-    // }
-
-    // if(userTreeData.length > 0){
-    // if(userTreeData.length == 0){
     userTreeData.reporting_hierarchies.forEach((el) => {
       el.label = el.dispValue;
     });
@@ -84,40 +82,10 @@ const LeadCards = (props) => {
   useEffect(() => {
     // if (secondValue) {
     // getDataAfterFilterTeam()
-    cardShow();
+    // cardShow();
     // }
   }, [leadsData.allLeads]);
 
-  // useEffect(() => {
-  //   // if (secondValue) {
-  //   // getDataAfterFilterTeam()
-  //   cardShow();
-  //   // }
-  // }, []);
-
-  // const getDataForSecondDropdownTeam = async () => {
-  //   const response = await getSecondDropdownValueApi()
-  //   if (response.status == 200) {
-  //     if (response?.data?.errMsg) {
-  //       const filterValue = []
-  //       const dropDownData = []
-  //       _.map(response.data.errMsg, function (layar) {
-  //         return _.map(layar, function (layarTwo) {
-  //           filterValue.push(layarTwo[0])
-  //         })
-  //       })
-  //       filterValue &&
-  //         _.map(filterValue, function (layar) {
-  //           _.map(layar.subCategories, function (data) {
-  //             dropDownData.push(data)
-  //           })
-  //         })
-  //       setSecondDropData(dropDownData)
-  //     }
-  //   } else {
-  //     throw response?.data?.errMsg
-  //   }
-  // }
   const handleFirstDropdown = (event) => {
     // console.warn('event___HIERARCHYYY((((((((((===>>>>>>>>>>', event)
     event ? setOpenSecond(true) : setOpenSecond(false);
@@ -130,7 +98,7 @@ const LeadCards = (props) => {
     });
     // let _teamData = reporting_users.filter(el => el.hierarchy_id === event)
     let _teamData = userTreeData.reporting_users.filter(
-      (el) => el.designation === event
+      (el) => el.hierarchy_id === event
     );
     // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
     setSecondDropData(_teamData);
@@ -168,188 +136,125 @@ const LeadCards = (props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const cardShow = () => {
-    if (secondValue) {
-      let newCards = leadsData.allLeads;
-      // .filter((data) =>
-      //   data.reporting_manager === secondValue
-      // );
-      // console.warn('leAD___CARDSSSSSS',newCards)
+  const handleChangeTab = (currentTab) => {
+    // console.log("good bye ",currentTab)
+    currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
+    console.log("good bye currentActiveTab", currentTab);
+    _currentTab = currentTab;
+    // setCurrentActiveTab(currentTab);
+    getDataForOpen("all");
+    dispatch(actions.updateTabOfDashboard(currentTab));
 
-      if (_.isEmpty(newCards)) {
-        return (
-          <>
-            <div className="dropdown-container">
-              {leadsData?.globalTab === "team" && (
-                <div>
-                  <p style={{ marginLeft: "3.8rem", marginBottom: "5px" }}>
-                    Select Hierarchy
-                  </p>
-                  <Select
-                    className="firstdropdown"
-                    value={firstValue}
-                    style={{ width: 150, marginLeft: "60px", marginBottom: 15 }}
-                    onChange={handleFirstDropdown}
-                    placeholder="Select Hierarchy"
-                    options={firsrDrop}
-                  ></Select>
-                </div>
-              )}
-              {openSecond && leadsData?.globalTab === "team" && (
-                <div>
-                  <p style={{ marginLeft: "1.3rem", marginBottom: "5px" }}>
-                    Select Team Member
-                  </p>
-                  <Select
-                    className="seconddropdown"
-                    value={secondValue}
-                    style={{ width: 150, marginLeft: "20px", marginBottom: 15 }}
-                    onChange={(item) => handleSecondDropdown(item)}
-                    placeholder="Select Team Member"
-                    options={secondDropData}
-                  ></Select>
-                </div>
-              )}
-            </div>
-
-            <NoRecordsFound />
-          </>
-        );
-      }
-      if (!_.isEmpty(newCards)) {
-        let card = [];
-        card = _.map(newCards, (lead, index) => {
-          // console.warn('leAD___CARDSSSSSS',lead)
-          return (
-            <>
-              <Col sm={18} md={18} lg={11} xl={11}>
-                <LeadCard
-                  className="lead-agent-card"
-                  key={lead.id}
-                  id={lead.id}
-                  lead_Id={lead.lead_Id}
-                  companyName={lead.companyName}
-                  opportunityName={lead.opportunityName}
-                  industryName={lead.industryName}
-                  KDM_Name={lead.KDM_Name}
-                  mobileNo={lead.mobileNo}
-                  branch_Name={lead.branch_Name}
-                  appointDate={lead.appointDate}
-                  location={lead.location}
-                  loading={props.leadDataLoading}
-                />
-              </Col>
-            </>
-          );
-        });
-        setcard(card);
-      }
-    }
-    //  else {
-
-    //   let card = [];
-    //   if (_.isEmpty(props.leads)) { return <NoRecordsFound /> }
-    //   if (!_.isEmpty(props.leads)) {
-    //     card = _.map(props.leads, (lead, index) => {
-    //       return (
-    //         <>
-    //           <Col sm={18} md={18} lg={11} xl={11} >
-    //             <LeadCard className='lead-agent-card'
-    //               key={lead._id}
-    //               id={lead._id}
-    //               lead_Id={lead.lead_Id}
-    //               leadStatus={lead.leadStatus}
-    //               firstName={lead.firstName}
-    //               lastName={lead.lastName}
-    //               created_date={lead.created_date}
-    //               allocatedDate={lead.allocatedDate}
-    //               primaryMobile={lead.primaryMobile}
-    //               allocatedBy={lead.lead_allocated_by === null ? '' : lead.lead_allocated_by.first_name + ' ' + lead.lead_allocated_by.last_name}
-    //               allocatedTo={lead.leadOwnerId === null ? '' : lead.leadOwnerId.first_name + ' ' + lead.leadOwnerId.last_name}
-    //               appointmentOn={lead?.appointmentId?.start_date}
-    //               loading={props.leadDataLoading}
-    //             />
-    //           </Col>
-    //         </>
-    //       )
-    //     })
-    //     setcard(card)
-    //   }
-    // }
+    // if (currentTab === "team") getDataForOpen();
+    // currentTab !== currentActiveTab &&
+    // dispatch(actions.updateAllocateOfOpportunities(false));
   };
 
-  // secondValue ?
-  // "hi"
-  // :
-  // (
-  // console.warn('leAD___CARDSSSSSS',props.leads)
-  // return
-  let card = [];
-  if (_.isEmpty(props.leads)) {
-    return (
-      <>
-        <div className="dropdown-container">
-          {leadsData?.globalTab === "team" && (
-            <div>
-              <p style={{ marginLeft: "3.8rem", marginBottom: "5px" }}>
-                Select Hierarchy
-              </p>
-              <Select
-                className="firstdropdown"
-                value={firstValue}
-                style={{ width: 150, marginLeft: "60px", marginBottom: 15 }}
-                onChange={handleFirstDropdown}
-                placeholder="Select Hierarchy"
-                options={firsrDrop}
-              ></Select>
-            </div>
-          )}
-          {openSecond && leadsData?.globalTab === "team" && (
-            <div>
-              <p style={{ marginLeft: "1.3rem", marginBottom: "5px" }}>
-                Select Team Member
-              </p>
-              <Select
-                className="seconddropdown"
-                value={secondValue}
-                style={{ width: 150, marginLeft: "20px", marginBottom: 15 }}
-                onChange={(item) => handleSecondDropdown(item)}
-                placeholder="Select Team Member"
-                options={secondDropData}
-              ></Select>
-            </div>
-          )}
-        </div>
-        <NoRecordsFound />
-      </>
-    );
-  }
-  if (!_.isEmpty(props.leads)) {
-    card = _.map(props.leads, (lead, index) => {
-      // console.warn('leAD___CARDSSSSSS__HEREEE',lead)
-      return (
-        <>
-          <Col sm={18} md={18} lg={11} xl={11}>
-            <LeadCard
-              className="lead-agent-card"
-              key={lead.id}
-              id={lead.id}
-              lead_Id={lead.lead_Id}
-              companyName={lead.companyName}
-              opportunityName={lead.opportunityName}
-              industryName={lead.industryName}
-              KDM_Name={lead.KDM_Name}
-              mobileNo={lead.mobileNo}
-              branch_Name={lead.branch_Name}
-              appointDate={lead.appointDate}
-              location={lead.location}
-              loading={props.leadDataLoading}
-            />
-          </Col>
-        </>
+  const getDataForOpen = async (leadInc) => {
+    // setLeadTabFilter(leadInc)
+    const { id } = stoageGetter("user");
+    // let _pageNo = current === undefined || current === null ? 1 : current
+    let _pageNo = 1;
+    if (_currentTab === "self") {
+      dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
+    } else {
+      const teamId = stoageGetter("teamMemberId");
+      // console.warn("teamId______===========>>>", teamId);
+      dispatch(
+        actions.fetchAllLeads(
+          teamId === null || teamId === undefined ? id : teamId,
+          leadInc,
+          _pageNo
+        )
       );
-    });
-  }
+    }
+  };
+
+  // const cardShow = () => {
+  //   if (secondValue) {
+  //     let newCards = leadsData.allLeads;
+  //     let card = [];
+
+  //     if (_.isEmpty(newCards)) {
+
+  //       return (
+  //         <>
+  //           <NoRecordsFound />
+  //         </>
+  //       );
+  //     }
+  //     if (!_.isEmpty(newCards)) {
+
+  //       card = _.map(newCards, (lead, index) => {
+  //         // console.warn('leAD___CARDSSSSSS',lead)
+  //         return (
+  //           <>
+  //             <Col sm={18} md={18} lg={11} xl={11}>
+  //               <LeadCard
+  //                 className="lead-agent-card"
+  //                 key={lead.id}
+  //                 id={lead.id}
+  //                 lead_Id={lead.lead_Id}
+  //                 companyName={lead.companyName}
+  //                 opportunityName={lead.opportunityName}
+  //                 industryName={lead.industryName}
+  //                 KDM_Name={lead.KDM_Name}
+  //                 mobileNo={lead.mobileNo}
+  //                 branch_Name={lead.branch_Name}
+  //                 appointDate={lead.appointDate}
+  //                 location={lead.location}
+
+  //                 loading={props.leadDataLoading}
+  //               />
+  //             </Col>
+  //           </>
+  //         );
+  //       });
+  //       setcard(card);
+  //     }
+  //   }
+
+  // };
+
+  // let card = [];
+  // if (_.isEmpty(props.leads)) {
+  //   // card.push(
+  //   //   <>
+  //   //     <NoRecordsFound />
+  //   //   </>
+  //   // )
+  //   return (
+  //     <>
+  //       <NoRecordsFound />
+  //     </>
+  //   );
+  // }
+  // if (!_.isEmpty(props.leads)) {
+  //   card = _.map(props.leads, (lead, index) => {
+  //     // console.warn('leAD___CARDSSSSSS__HEREEE',lead)
+  //     return (
+  //       <>
+  //         <Col sm={18} md={18} lg={11} xl={11}>
+  //           <LeadCard
+  //             className="lead-agent-card"
+  //             key={lead.id}
+  //             id={lead.id}
+  //             lead_Id={lead.lead_Id}
+  //             companyName={lead.companyName}
+  //             opportunityName={lead.opportunityName}
+  //             industryName={lead.industryName}
+  //             KDM_Name={lead.KDM_Name}
+  //             mobileNo={lead.mobileNo}
+  //             branch_Name={lead.branch_Name}
+  //             appointDate={lead.appointDate}
+  //             location={lead.location}
+  //             loading={props.leadDataLoading}
+  //           />
+  //         </Col>
+  //       </>
+  //     );
+  //   });
+  // }
   // )
 
   const getDataAfterFilterTeam = async () => {
@@ -371,15 +276,66 @@ const LeadCards = (props) => {
   return (
     <div className="cards-container cards_data">
       <div className="dropdown-container">
+        <div className="round-card-main-Tab">
+          {checkAgent() === false && (
+            <>
+              <div
+                className="CardBodySelf lead-ml60"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginBottom: 25,
+                }}
+              >
+                <button
+                  style={{
+                    width: 95,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className={TeamSelf ? "activateSelf" : " "}
+                  onClick={() => handleChangeTab("self")}
+                >
+                  <img
+                    src={TeamSelf ? person_white : person_black}
+                    className="personSelf"
+                    alt="person_png"
+                  />
+                  Self
+                </button>
+                <button
+                  style={{
+                    width: 95,
+                    display: "flex",
+                    marginLeft: 15,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className={!TeamSelf ? "activateSelf" : ""}
+                  onClick={() => handleChangeTab("team")}
+                >
+                  <img
+                    src={TeamSelf ? group_black : group_white}
+                    className="personSelf"
+                    alt="group_png"
+                  />
+                  Team
+                </button>
+              </div>
+            </>
+          )}
+        </div>
         {leadsData?.globalTab === "team" && (
-          <div>
-            <p style={{ marginLeft: "3.8rem", marginBottom: "5px" }}>
-              Select Hierarchy
-            </p>
+          <div
+            className="lead-ml15"
+            style={{ position: "relative", bottom: 26 }}
+          >
+            <p style={{ marginBottom: "5px" }}>Hierarchy</p>
             <Select
-              className="firstdropdown"
+              // className="firstdropdown"
               value={firstValue}
-              style={{ width: 150, marginLeft: "60px", marginBottom: 15 }}
+              style={{ width: 250 }}
               onChange={handleFirstDropdown}
               placeholder="Select Hierarchy"
               options={firsrDrop}
@@ -387,14 +343,15 @@ const LeadCards = (props) => {
           </div>
         )}
         {openSecond && leadsData?.globalTab === "team" && (
-          <div>
-            <p style={{ marginLeft: "1.3rem", marginBottom: "5px" }}>
-              Select Team Member
-            </p>
+          <div
+            className="lead-ml15"
+            style={{ position: "relative", bottom: 26 }}
+          >
+            <p style={{ marginBottom: "5px" }}>Team Member</p>
             <Select
-              className="seconddropdown"
+              // className="seconddropdown"
               value={secondValue}
-              style={{ width: 150, marginLeft: "20px", marginBottom: 15 }}
+              style={{ width: 250 }}
               onChange={(item) => handleSecondDropdown(item)}
               placeholder="Select Team Member"
               options={secondDropData}
@@ -403,64 +360,52 @@ const LeadCards = (props) => {
         )}
       </div>
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
-        {!secondValue ? card : cards}
+        {!_.isEmpty(leadsData.allLeads) ? (
+          _.map(leadsData.allLeads, (lead, index) => {
+            return (
+              <>
+                <Col sm={18} md={18} lg={11} xl={11}>
+                  <LeadCard
+                    className="lead-agent-card"
+                    key={lead.id}
+                    id={lead.id}
+                    lead_Id={lead.lead_Id}
+                    companyName={lead.companyName}
+                    opportunityName={lead.opportunityName}
+                    industryName={lead.industryName}
+                    KDM_Name={lead.KDM_Name}
+                    mobileNo={lead.mobileNo}
+                    branch_Name={lead.branch_Name}
+                    appointDate={lead.appointDate}
+                    location={lead.location}
+                    loading={props.leadDataLoading}
+                  />
+                </Col>
+              </>
+            );
+          })
+        ) : (
+          <Col sm={18} md={18} lg={22} xl={22}>
+            <NoRecordsFound />
+          </Col>
+        )}
+        {/* {!secondValue ? card : cards} */}
         {/* this is just a presentational card  */}
-        {/* <Col
-          sm={18}
-          md={18}
-          lg={11}
-          xl={11}
-          className={
-            width < breakpoint ? "dummy-card-mobile" : "dummy-card-desktop"
-          }
-        >
-          <>
-            <Card
-              // key={id}
-              // loading={props.loading}
-              className="lead-card-desktop"
-              hoverable={true}
-            >
-              <div className="avatar-and-status">
-                <Avatar size={{ xl: 50 }}></Avatar>
-              </div>
-              <div className="content">
-                <div className="content-header">
-                  <p className="user-name-text capitalize">
-                    <span className="user-id uppercase"></span>
-                  </p>
-                </div>
-                <div className="content-body">
-                  <Card.Grid hoverable={false} className="grid-style">
-                    <p className="text-type">Created on</p>
-                    <p className="text-content"></p>
-                  </Card.Grid>
-                  <Card.Grid hoverable={false} className="grid-style">
-                    <p className="text-type">Created on</p>
-                    <p className="text-content"></p>
-                  </Card.Grid>
-                  <Card.Grid hoverable={false} className="grid-style">
-                    <p className="text-type">Appointment on</p>
-                    <p className="text-content">-</p>
-                  </Card.Grid>
-                  <Card.Grid hoverable={false} className="grid-style">
-                    <p className="text-type">Mobile No.</p>
-                    <p className="text-content"></p>
-                  </Card.Grid>
-                  <Card.Grid hoverable={false} className="grid-style">
-                    <p className="text-type">Allocated by</p>
-                    <p className="text-content capitalize"></p>
-                  </Card.Grid>
-                  <Card.Grid hoverable={false} className="grid-style">
-                    <p className="text-type">Allocated to</p>
-                    <p className="text-content capitalize"></p>
-                  </Card.Grid>
-                </div>
-              </div>
-              <button className="update-btn">Update</button>
-            </Card>
-          </>
-        </Col> */}
+        {!_.isEmpty(leadsData.allLeads) && (
+          <Col
+            sm={18}
+            md={18}
+            lg={11}
+            xl={11}
+            className={
+              width < breakpoint ? "dummy-card-mobile" : "dummy-card-desktop"
+            }
+          >
+            <>
+              <Card className="lead-card-desktop" hoverable={true}></Card>
+            </>
+          </Col>
+        )}
       </Row>
     </div>
   );

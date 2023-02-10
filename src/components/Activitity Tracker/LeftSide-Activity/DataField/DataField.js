@@ -474,7 +474,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
               
         )
       })
-    :<EventCreateButton api={"getFunc"} />
+    :<EventCreateButton api={getFunc} />
   }
   {
     isModalVisible == true ?

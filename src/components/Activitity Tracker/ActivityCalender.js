@@ -49,8 +49,8 @@ const App = () => {
       <Row style={{ color: "#f7f7f7", marginTop: "20px" }} justify="center">
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
-            {/* {checkAgent() === false && 
-            <div className="CardBody" style={{ marginLeft: "-10px",display:'flex',flexDirection:'row' }}>
+            {checkAgent() === false && 
+            <div className="CardBody" style={{display:'flex',flexDirection:'row' }}>
               <button
                 style={{ width:95,display:'flex',alignItems:'center',justifyContent:'center' }}
                 className={TeamSelf ? "activate" : " "}
@@ -63,10 +63,10 @@ const App = () => {
                   className="person"
                   alt="person_png"
                 />
-                Selfsss
+                Self
               </button>
               <button
-                style={{ width: 95,display:'flex',alignItems:'center',justifyContent:'center' }}
+                style={{ width: 95,display:'flex',alignItems:'center',justifyContent:'center',marginLeft:15 }}
                 className={!TeamSelf ? "activate" : ""}
                 onClick={(e) => {
                   setTeamSelf(false);
@@ -80,7 +80,7 @@ const App = () => {
                 Team
               </button>
             </div>
-            } */}
+            }
             {TeamSelf ? <Self /> : <Team />}
           </Card>
         </Col>

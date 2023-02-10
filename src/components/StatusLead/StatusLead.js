@@ -458,9 +458,11 @@ const isEmail = (value) => value.includes("@");
 const isNumberValid = (value) => value.trim() !== "" && value.length === 10;
 
 const NewLead = React.memo((props) => {
-  const [collaborators, setCollaborators] = useState("");
+  // const [collaborators, setCollaborators] = useState("");
+  const [teamMemberData, setTeamMemberData] = useState("");
   const [remark, setRemark] = useState("");
   const [reamrkDataArr, setreamrkDataArr] = useState([]);
+  const [teamDataArr, setTeamDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
   const login_user = useSelector((state) => state.login.user);
   // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
@@ -469,12 +471,25 @@ const NewLead = React.memo((props) => {
   const addCollaborators = () => {
     setFormItem((res) => ({
       ...res,
-      collaborators: [...formItem.collaborators, collaborators],
+      collaborators: [...formItem.collaborators, teamMemberData],
     }));
     form.setFieldsValue({
       collaborators: "",
     });
-    setCollaborators("");
+    setTeamMemberData("");
+    // let _dataArr = []
+    hierarAgentList.map((item) => {
+      if (item.value === teamMemberData) {
+        let apiBody = {
+          first_name: item.firstname,
+          last_name: item.lastname,
+          Id: item._Id,
+        };
+        // _dataArr.push(apiBody)
+        setTeamDataArr([...teamDataArr, apiBody]);
+      }
+    });
+    //  setTeamDataArr(_dataArr)
   };
 
   const addRemarks = () => {
@@ -576,7 +591,7 @@ const NewLead = React.memo((props) => {
   const [showLeadStatus, setshowLeadStatusVisiblity] = React.useState(false);
   const [leadIdData, setLeadIdData] = useState("");
   // console.warn('((((((((((( stateProvince )))))))))))',stateProvince)
-
+  const [hierarAgentList, setHierarAgentList] = useState([]);
   const [companyArray, setCompanyArray] = useState([]);
   const [parentCompArray, setparentCompArray] = useState([]);
   const [industryArray, setIndustryArray] = useState([]);
@@ -600,20 +615,56 @@ const NewLead = React.memo((props) => {
   const [apptDateString, setApptDateString] = useState("");
 
   const [disableParentComp, setDisableParentComp] = useState(false);
+  let _teamMember = [];
 
   useEffect(() => {
-    // if(userTreeData.length > 0){
-    // userTreeData.reporting_hierarchies.forEach((el) => {
-    //   el.label = el.dispValue;
-    // });
-    // userTreeData.reporting_users.forEach((el) => {
-    //   el.label = el.full_name;
-    //   el.value = el._id;
-    // });
-    // setHierarAgentList(userTreeData.reporting_hierarchies);
-
+    getHierarData();
     getCompanyDetails();
   }, []);
+
+  useEffect(() => {}, []);
+
+  const getHierarData = () => {
+    try {
+      userTreeData.reporting_users.map((el) => {
+        let sortarray = {
+          FullName: el.full_name,
+          ShortId: el.employeeCode,
+          firstname: el.first_name,
+          lastname: el.last_name,
+          employecode: el.employeeCode,
+          designation: el.hierarchyName,
+          _Id: el._id,
+          value:
+            toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+        };
+        _teamMember.push(sortarray);
+        sortarray = {};
+      });
+
+      setHierarAgentList(_teamMember);
+      // console.warn('((((((((((( hierarAgentList )))))))))))',hierarAgentList)
+    } catch (err) {}
+  };
+
+  let toCapitalize = (strText) => {
+    try {
+      if (strText !== "" && strText !== null && typeof strText !== undefined) {
+        var _str = strText.toLowerCase();
+        var collection = _str.split(" ");
+        var modifyStrigs = [];
+        _str = "";
+        for (var i = 0; i < collection.length; i++) {
+          modifyStrigs[i] =
+            collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+          _str = _str + modifyStrigs[i] + " ";
+        }
+        return _str;
+      } else {
+        return "";
+      }
+    } catch (err) {}
+  };
 
   const getCompanyDetails = async (lead_id) => {
     let result = await axiosRequest.get(`admin/company/companies`, {
@@ -672,12 +723,15 @@ const NewLead = React.memo((props) => {
     try {
       console.warn("__++++++++++++++ leadData +++++++++++>>", leadData);
       // setLeadStoreData(leadData)
-
-      // console.warn('__++++++++++++++ leadData__TEAMMMM +++++++++++>>',JSON.parse(leadData.teamMembers))
+      // console.warn('__++++++++++++++ _teamMember +++++++++++>>',_teamMember)
+      // console.warn('__++++++++++++++ hierarAgentList +++++++++++>>',hierarAgentList)
       let _appntDate = "";
       let _appntTime = "";
       let _apptDateFormat = "";
+      let _collabotrs = [];
       let _teamData = JSON.parse(leadData.teamMembers);
+      setTeamDataArr(_teamData);
+
       // let leadArr = [];
       changeLeadStatus(leadData.leadStatus);
       if (
@@ -765,6 +819,12 @@ const NewLead = React.memo((props) => {
         };
         _remArr.push(_remark);
       });
+
+      _teamMember.map((item) => {
+        _teamData.map((el) => {
+          if (el.Id === item._Id) _collabotrs.push(item.value);
+        });
+      });
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_id?.company_name,
@@ -786,7 +846,7 @@ const NewLead = React.memo((props) => {
           : "",
         appointmentDate: _apptDateFormat,
         appointmentTime: _appntTime,
-        collaborators: JSON.parse(leadData?.teamMembers),
+        collaborators: _collabotrs,
         remarks: _remArr,
       }));
 
@@ -808,7 +868,7 @@ const NewLead = React.memo((props) => {
           : "",
         appointment_date: _apptDateFormat,
         appointment_time: _appntTime,
-        collaborators: JSON.parse(leadData?.teamMembers),
+        collaborators: "",
         // remarks: _remArr,
       });
     } catch (err) {
@@ -817,7 +877,7 @@ const NewLead = React.memo((props) => {
   };
 
   const onSelectCompany = async (event, data) => {
-    console.warn("onSelectCompany ----->>>:", event, data);
+    // console.warn("onSelectCompany ----->>>:", event, data);
     setCompany_id(data._id);
     setDisableParentComp(true);
     let result = await axiosRequest.get(
@@ -1120,7 +1180,7 @@ const NewLead = React.memo((props) => {
     product_for_opportunity: formItem.productForOpportunity,
     // remarks: formItem.remarks,
     remarks: reamrkDataArr,
-    teamMembers: "[]",
+    teamMembers: JSON.stringify(teamDataArr),
     lead_Owner_Id: id,
     lead_Creator_Id: id,
     user_id: id,
@@ -1168,7 +1228,7 @@ const NewLead = React.memo((props) => {
       // remarks: formItem.remarks,
       remarks: reamrkDataArr,
       // teamMembers : "[{\"first_name\":\"Prithvi\",\"last_name\":\"Raj\",\"Id\":\"63ad6488d19ed8185f3b0d00\"}]",
-      teamMembers: "[]",
+      teamMembers: JSON.stringify(teamDataArr),
       lead_Owner_Id: id,
       lead_Creator_Id: id,
       user_id: id,
@@ -1184,53 +1244,6 @@ const NewLead = React.memo((props) => {
       kdm_details: [],
       risk_details: [],
     };
-
-    //
-
-    // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
-    // return
-    if (isNewLead) {
-      dispatch(actions.createLead(addLeadFormData)).then((res) => {
-        console.log("CREATE_LEAD_SUCCESS:", res);
-        if (res.type === "CREATE_LEAD_SUCCESS") {
-          console.log("success:", res.formData);
-          // setErrorMessage(successMsg)
-          setIsNewLead(false);
-
-          setOpportunityNameSummary(res.formData.opportunity_name);
-          setCompanySummary(res.formData.lob_for_opportunity);
-          setCurrentStatusSummary(res.formData.leadStage);
-          setLeadIdSummary(res.formData.lead_Id);
-          setIncorpDateSummary(
-            new Date(res.formData.created_date).toLocaleDateString("in")
-          );
-          setCurrentStatsDateSummary(
-            new Date(res.formData.created_date).toLocaleDateString("in")
-          );
-          // setEventCountSummary(res.formData)
-          // setTodoCreatdSummary(res.formData)
-          // setTodoComplteSummary(res.formData)
-          setLeadIdData(res.formData._id);
-          // dispatch(actions.fetchLeadDetailsSuccess({}))
-        }
-        // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
-      });
-    } else {
-      dispatch(actions.fetchLeadUpdateBody(updateLeadFormData));
-
-      let _lead_id = storeLeadId !== undefined ? storeLeadId : leadIdData;
-      // console.log('_lead_id=-------->>>>',_lead_id)
-      dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
-        if (res.type === "EDIT_LEAD_SUCCESS") {
-          console.log("success:", res);
-          setErrorMessage(successMsg);
-          setIsNewLead(false);
-        } else if (res.type === "EDIT_LEAD_FAIL") {
-          failedHandler(res.error);
-        }
-      });
-      // history.push('leaddetails/personallead')
-    }
 
     //
 
@@ -1334,11 +1347,34 @@ const NewLead = React.memo((props) => {
     });
   };
 
+  const onSelectTeam = (value) => {
+    // console.log('ON SELECTION ______________', value);
+  };
+
+  const onChangeTeam = (text, data) => {
+    // console.log(text, 'text------>')
+    // console.log(data, 'data------>')
+    setTeamMemberData(text);
+  };
+
+  const removeCollaborators = (data, index) => {
+    // console.log('ON data ______________', data.split(' '));
+    // console.log('ON index ______________', index);
+    setFormItem((res) => ({
+      ...res,
+      collaborators: res.collaborators.filter((item, ind) => index !== ind),
+    }));
+
+    let _dataArr = teamDataArr.filter(
+      (item) => item.first_name !== data.split(" ")[0]
+    );
+    //  console.log('ON _dataArr ______________', _dataArr);
+    setTeamDataArr(_dataArr);
+  };
+
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
-  // console.warn('(((((((props.location.state ___BBB))))))):', props.location.state);
-  // console.warn('(((((((leadIdData ___BBB))))))):', leadIdData);
 
   return (
     <>
@@ -1876,44 +1912,54 @@ const NewLead = React.memo((props) => {
             >
               <p className="form-title">Collaborator</p>
               <Row gutter={16} className="mb-2 statsLead">
-                <Col span={12} className="d-flex align-items-center">
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color w-100"
-                    name="collaborators"
-                    label="Add Collaborators"
-                    rules={[
-                      {
-                        required: false,
-                        message: "",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Input
-                      value={collaborators}
-                      type="text"
-                      className="phone-no"
-                      placeholder="Enter"
-                      onChange={(e) => setCollaborators(e.target.value)}
-                    />
-                  </Form.Item>
-                  <Button
-                    style={{
-                      border: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      marginTop: "16px",
-                      marginLeft: 10,
-                      backgroundColor: "#00ACC1",
-                      color: "#fff",
-                    }}
-                    icon={<PlusOutlined />}
-                    onClick={addCollaborators}
-                  >
-                    ADD
-                  </Button>
-                </Col>
+                {checkAgent() === false && (
+                  <Col span={12} className="d-flex align-items-center">
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color w-100"
+                      name="collaborators"
+                      label="Add Collaborators"
+                      rules={[
+                        {
+                          required: false,
+                          message: "",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <AutoComplete
+                        value={teamMemberData}
+                        style={{ width: "100%" }}
+                        options={hierarAgentList}
+                        onChange={(text, data) => onChangeTeam(text, data)}
+                        onSelect={onSelectTeam}
+                        notFoundContent="No Result Found"
+                        filterOption={(inputValue, option) =>
+                          option.value
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                        }
+                      >
+                        {/* <Search placeholder="Search by Name" /> */}
+                      </AutoComplete>
+                    </Form.Item>
+                    <Button
+                      style={{
+                        border: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: "16px",
+                        marginLeft: 10,
+                        backgroundColor: "#00ACC1",
+                        color: "#fff",
+                      }}
+                      icon={<PlusOutlined />}
+                      onClick={addCollaborators}
+                    >
+                      ADD
+                    </Button>
+                  </Col>
+                )}
                 <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
                     {formItem.collaborators &&
@@ -1924,15 +1970,7 @@ const NewLead = React.memo((props) => {
                         >
                           {res + " "}
                           <CloseOutlined
-                            onClick={() =>
-                              setFormItem((res) => ({
-                                ...res,
-                                collaborators: res.collaborators.splice(
-                                  index,
-                                  1
-                                ),
-                              }))
-                            }
+                            onClick={() => removeCollaborators(res, index)}
                             style={{ marginLeft: 10, fontWeight: "bolder" }}
                           />
                         </div>
