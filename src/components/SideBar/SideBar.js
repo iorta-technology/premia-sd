@@ -207,6 +207,11 @@ const Sidebar = () => {
     setSidebar(false);
   };
 
+  const closeNotificPop = () => {
+    history.push("/notifypage");
+    setSidebar(false);
+  };
+
   const routeBack = () => {
     // console.warn("history_____routeBack", history);
     history.goBack();
@@ -476,11 +481,7 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="notification_footer view_button">
-              <button
-                onClick={() => {
-                  history.push("/notifypage");
-                }}
-              >
+              <button onClick={() => closeNotificPop()} >
                 View All
               </button>
             </div>

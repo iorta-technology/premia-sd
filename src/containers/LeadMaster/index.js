@@ -123,7 +123,7 @@ const LeadMaster = (props) => {
     <div style={{ backgroundColor: "#fafafa" }}>
       <Tab tabMenu={tabMenu} header="Lead" current={current} />
 
-      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
+      
       <div className="page-holder">
         <Pagination
           responsive
@@ -134,6 +134,7 @@ const LeadMaster = (props) => {
           itemRender={itemRender}
         />
       </div>
+      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
       {/* {(breakpoint > width) ? null : <FloatButton />} */}
     </div>
   );

@@ -1917,6 +1917,7 @@ const NewLead = React.memo((props) => {
             >
               <p className="form-title">Collaborator</p>
               <Row gutter={16} className="mb-2 statsLead">
+                {checkAgent() === false &&
                 <Col span={12} className="d-flex align-items-center">
                   <Form.Item
                     {...formItemLayout}
@@ -1931,13 +1932,6 @@ const NewLead = React.memo((props) => {
                     ]}
                     style={{ marginBottom: "1rem" }}
                   >
-                    {/* <Input
-                      value={collaborators}
-                      type="text"
-                      className="phone-no"
-                      placeholder="Enter"
-                      onChange={(e) => setCollaborators(e.target.value)}
-                    /> */}
                     <AutoComplete
                       value={teamMemberData}
                       style={{ width: '100%' }}
@@ -1967,6 +1961,7 @@ const NewLead = React.memo((props) => {
                     ADD
                   </Button>
                 </Col>
+                }
                 <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
                     {formItem.collaborators &&

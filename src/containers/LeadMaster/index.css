@@ -1,10 +1,15 @@
 .page-holder{
     /* margin: 2rem 0rem; */
     /* text-align: end; */
-    margin-right: 50px;
-    position: absolute;
+    margin-right: 60px;
+    /* position: absolute;
     right: 10px;
-    top: 250px;
+    top: 250px; */
+    display: flex;
+    justify-content: flex-end;
+    margin-top:10px;
+    margin-bottom: 10px;
+
 }
 
 .page-holder>ul>.ant-pagination-item a{

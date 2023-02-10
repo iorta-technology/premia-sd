@@ -363,7 +363,7 @@ const TodoCards = forwardRef((props, ref) => {
         let _data = {}
 
         getTodoDataArray[ind].searchdata.map(ev => {
-            console.log('MAPPPPPPP ______REMMMsUBMIT_______***>>',ev)
+            // console.log('MAPPPPPPP ______REMMMsUBMIT_______***>>',ev)
             if(userId == ev._Id){
                 ev.remarkData = remark
                 _data = {
@@ -440,14 +440,14 @@ const TodoCards = forwardRef((props, ref) => {
                     <div className='Todo-Footer'>
                         <p style={{textTransform: 'capitalize',fontWeight:'bolder'}}>{element.ownername}</p>
                         <button style={{textTransform: 'capitalize',backgroundColor:element.priorityIndicatorColor}}>{element.taskPriority}</button>
-                       {/* {element.searchdata.length !== 0 &&
+                       {element.searchdata.length !== 0 &&
                         <p style={{color:"#00acc1"}} onClick={()=> memberRemarks(index) } >{element.showMemText}</p>
-                       } */}
+                       }
 
                     
                     </div>
-                    {/* <div style={{backgroundColor:'#C1C8CC',height:1}}></div> */}
-                        {/* { element.showMemberRemark === true &&
+                    <div style={{backgroundColor:'#C1C8CC',height:1}}></div>
+                        { element.showMemberRemark === true &&
                             <>
                             { element.searchdata.map((data,ind) =>{
                                 return(
@@ -500,7 +500,7 @@ const TodoCards = forwardRef((props, ref) => {
                             })
                             }
                             </>
-                        } */}
+                        }
                 </div>
             )
     

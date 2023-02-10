@@ -13,6 +13,9 @@
     margin-left: 5PX;
     margin-top: 25px;
 }
+.Self-Container{
+    margin: 20px 0 0 5px;
+}
 .eventChange span p{
     background-color: #545454;
     color: #fff;

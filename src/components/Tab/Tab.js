@@ -67,7 +67,7 @@ const Tab = ({
 
   useEffect(() => {
 
-    // console.log('************************ header ___*(*(*((**)))) *********************===========>>>',header)
+    console.log('************************ header ___*(*(*((**)))) *********************===========>>>',header)
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead")  getDataForOpen(leadTabFilter);
@@ -212,7 +212,7 @@ const Tab = ({
             </div>
           </div>
           
-          { (header !== "Lead" && activeKey === '1') &&
+          { (header === "New Lead" && activeKey === '1') &&
           <div style={{display:'flex',alignItems:'flex-end',marginBottom:15}}>
               <Button onClick={()=> addNewOpportunity()} style={{display:'flex',alignItems:'center',borderRadius:5,backgroundColor:'#00ACC1',border: 'transparent',color:'#fff'}} size='large' > 
                 <PlusOutlined style={{fontSize:16,marginRight:10}} /> Add New Opportunity

@@ -44,53 +44,54 @@ const _date = new Date();
   const [currentpastdata, setCurrentPastData] = useState();
   const [currentpastdataln, setCurrentPastDataLn] = useState();
   const breakpoint = 620;
-  const options=["All","Zonal Manager","Area Manager","Sales Manager"];
-  const options2=["Ankit Singh","Rahul Patali","Otter","Sawa"];
+//   const options=["All","Zonal Manager","Area Manager","Sales Manager"];
+//   const options2=["Ankit Singh","Rahul Patali","Otter","Sawa"];
   const RemoveData=false; 
+  const [DataContainer,setDataContainer]=useState();
 
   const _dataStore = useSelector((state) => state?.home?.user_tree)
-  console.log(_dataStore, 'datastore before----->')
+//   console.log(_dataStore, 'datastore before----->')
 
   let {id}=stoageGetter('user');
   const login_user_data = stoageGetter("user");
   const agent_id = login_user_data.agentId;
-  const currentpastapi = async ()=>{
-    console.log(month,'month----><<<<<');
-    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${month}/${year}&category=past&agentCode=${agent_id}`);
-    console.log(data, 'curent pastt-------t');
-    setCurrentPastData(data);
-    setCurrentPastDataLn(data.length)
-  }
+//   const currentpastapi = async ()=>{
+//     // console.log(month,'month----><<<<<');
+//     let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${month}/${year}&category=past&agentCode=${agent_id}`);
+//     // console.log(data, 'curent pastt-------t');
+//     setCurrentPastData(data);
+//     setCurrentPastDataLn(data.length)
+//   }
 
   useEffect(()=>{
-    if( (month == 1+new Date().getMonth() && year == new Date().getFullYear())){
-        console.log('yesssss curent past data here----->')
-        currentpastapi();
-       }
-    console.log(month.toString().length, 'length==================');
+    // if( (month == 1+new Date().getMonth() && year == new Date().getFullYear())){
+    //     // console.log('yesssss curent past data here----->')
+    //     currentpastapi();
+    // }
+    // console.log(month.toString().length, 'length==================');
     if(month.toString().length >1){
      setMonth(month)
     }else{
      let num =  month.toString()
      let add = '0' + num
      setMonth(add)
-     console.log(add);
+     console.log('MONTHH=====>>>',add);
     }
    
-   },[month,year])
+   },[])
   useEffect(() => {
     try{
     
     let reportingHierarchies = _dataStore.reporting_hierarchies
     let hiererchyusers = _dataStore.reporting_users
-    console.log(reportingHierarchies, 'reporting Hierarchies before----->')
+    // console.log(reportingHierarchies, 'reporting Hierarchies before----->')
     if(reportingHierarchies != undefined){
         let all = [{value : 'All', dispValue : 'All'}]
         let final = [...all,...reportingHierarchies]
         setFinalHierarchy(final)
         setSelected(final[0].value)
         setSelectedValue(final[0].dispValue)
-        console.log(reportingHierarchies, 'reporting Hierarchies----->')
+        // console.log(reportingHierarchies, 'reporting Hierarchies----->')
         setUsers(hiererchyusers)
         setSelected1()
     }else{
@@ -99,7 +100,7 @@ const _date = new Date();
         setFinalHierarchy(final)
         setSelected(final[0].value)
         setSelectedValue(final[0].dispValue)
-        console.log(reportingHierarchies, 'reporting Hierarchies----->')
+        // console.log(reportingHierarchies, 'reporting Hierarchies----->')
         setUsers(hiererchyusers)
     }
     }catch(err){
@@ -113,7 +114,7 @@ const _date = new Date();
         // setSelectedValue(element.dispValue)
         setActive(false)
         let filterdata = _dataStore.reporting_users.filter(((data,index,arr) => data.hierarchy_id == element))
-        console.log(filterdata,'filter data')
+        // console.log(filterdata,'filter data')
         let all = [{full_name : 'Select' , hierarchy_id : 'Select'}]
         let final = [...all,...filterdata]
         setUsers(final)
@@ -122,10 +123,19 @@ const _date = new Date();
     }
     
     const userOnchange =(element) =>{
-        console.log(element)
+        // console.log(element)
         setSelected1(element);
+        // eventsGetAPI(element)
         // setSelectedValue(element.dispValue)
         setActive1(false)
+    }
+
+    const eventsGetAPI = async (userId)=>{
+        // console.log( 'MONTHHH-----dd>>-----t',month.toString().length);
+        let _month = month.toString().length === 1 ? '0'+month : month
+        let data = await axiosRequest.get(`user/fetch_appointments/${userId}?teamdata=0&filter=${_month}/${year}&category=upcoming`);
+        // console.log(data, 'pastt-- second second second-----t');
+        setDataContainer(data)
     }
 
     // let reportingHierarchies = _dataStore.reporting_hierarchies
@@ -133,99 +143,89 @@ const _date = new Date();
     //     console.log(reportingHierarchies, 'reporting Hierarchies----->')
   return (
     <div className='Team'>
-
-     
         
-    {/* {
-        windowWidth > breakpoint &&
-        <Row>
-        <Col md={9} lg={9} xl={9}>
-        <Typography>Hierarchy</Typography>
-        <div style={{marginTop : 10}}>
-       <Select value={selected} onChange={hierarchyOnchange}>
-       {
-                                finalhierarchy?.map((element,index)=>{
-                                    return(
-                                        <Option
-                                            value={element.value}
-                                            key={index} >{element.dispValue}
-                                        </Option>
-                                    )
-                                })
-                            }    
-       </Select>
-       </div>
-       </Col>
-       <Col md={9} lg={9} xl={9} offset={1}>                     
-       {
-        selected !='All' && selected.length>1 ?
-        <div >
-            <Typography>Circle Manager</Typography>
-            <div style={{marginTop : 10}}>
-       <Select value={selected1}  onChange={userOnchange}>
-       {
-                                users?.map((element,index)=>{
-                                    return(
-                                        <Option
-                                        value={element.hierarchy_id}
-                                            key={index} >{element.full_name}
-                                        </Option>
-                                    )
-                                })
-                            }    
-       </Select>
-       </div> 
-       </div>
-       : null 
-       }
-       </Col>
+    { windowWidth > breakpoint &&
+        <Row style={{marginBottom:15}}>
+            <Col md={9} lg={9} xl={9}>
+                <Typography>Hierarchy</Typography>
+                <div style={{marginTop : 5}}>
+                    <Select style={{width:'100%'}} value={selected} onChange={hierarchyOnchange}>
+                    {
+                        finalhierarchy?.map((element,index)=>{
+                            return(
+                                <Option
+                                    value={element.value}
+                                    key={index} >{element.dispValue}
+                                </Option>
+                            )
+                        })
+                    }    
+                    </Select>
+                </div>
+            </Col>
+            <Col md={9} lg={9} xl={9} style={{marginLeft:15}}>                     
+                { selected !== 'All' && selected.length>1 ?
+                    <div >
+                        <Typography>Team Member</Typography>
+                        <div style={{marginTop : 5}}>
+                            <Select style={{width:'100%'}} value={selected1}  onChange={userOnchange}>
+                                { users?.map((element,index)=>{
+                                        return(
+                                            <Option
+                                            value={element.hierarchy_id}
+                                                key={index} >{element.full_name}
+                                            </Option>
+                                        )
+                                    })
+                                }    
+                            </Select>
+                        </div> 
+                </div> : null 
+                }
+            </Col>
         </Row>
-    } */}
+    }
 
-    {/* {
-        windowWidth < breakpoint &&
+    { windowWidth < breakpoint &&
         <div>
-            
-                        <Typography>Hierarchy</Typography>
-                        <div style={{marginTop : 10}}>
-                    <Select value={selected} onChange={hierarchyOnchange}>
-                    {
-                                                finalhierarchy?.map((element,index)=>{
-                                                    return(
-                                                        <Option
-                                                            value={element.value}
-                                                            key={index} >{element.dispValue}
-                                                        </Option>
-                                                    )
-                                                })
-                                            }    
-                    </Select>
-                    </div>
+            <Typography>Hierarchy</Typography>
+            <div style={{marginTop : 10}}>
+                <Select value={selected} onChange={hierarchyOnchange}>
+                {
+                    finalhierarchy?.map((element,index)=>{
+                        return(
+                            <Option
+                                value={element.value}
+                                key={index} >{element.dispValue}
+                            </Option>
+                        )
+                    })
+                }    
+                </Select>
+            </div>
 
-                    {
-                        selected !='All' && selected.length>1 ?
-                        <div style={{marginTop : 10}}>
-                            <Typography>Circle Manager</Typography>
-                            <div style={{marginTop : 10}}>
-                    <Select value={selected1}  onChange={userOnchange}>
-                    {
-                                                users?.map((element,index)=>{
-                                                    return(
-                                                        <Option
-                                                        value={element.hierarchy_id}
-                                                            key={index} >{element.full_name}
-                                                        </Option>
-                                                    )
-                                                })
-                                            }    
-                    </Select>
+            { selected !='All' && selected.length>1 ?
+                <div style={{marginTop : 10}}>
+                    <Typography>Circle Manager</Typography>
+                    <div style={{marginTop : 10}}>
+                        <Select value={selected1}  onChange={userOnchange}>
+                        {
+                            users?.map((element,index)=>{
+                                return(
+                                    <Option
+                                    value={element.hierarchy_id}
+                                        key={index} >{element.full_name}
+                                    </Option>
+                                )
+                            })
+                        }    
+                        </Select>
                     </div> 
-                    </div>
-                    : null 
-                    }
-                    
+                </div>
+            : null 
+            }
         </div>
-    } */}
+    }
            
         {/* <div className="Team-Calender">
         {
@@ -266,10 +266,10 @@ const _date = new Date();
         }
         </div> */}
         <EventCreate monthData={setMonth} yearData={setyear} />
-        <div className=''>
+        {/* <div className=''>
 
-        </div>
-        {   
+        </div> */}
+        {/* {   
             ((month) == ( 1 + new Date().getMonth()) && (year) == (new Date().getFullYear())) 
             ?
             <HistoryTab Remove={RemoveData} CurentOrPast={setCurentOrPast} teamPast= {currentpastdataln} teampastData = {currentpastdata}/>
@@ -279,10 +279,12 @@ const _date = new Date();
             <Typography className='Team-Past'>UPCOMING</Typography>    
             :
             <Typography className='Team-Past'>PAST</Typography>
-        }
+        } */}
         <div className='Team-Information'>
-            <DataField TeamData={month+'/'+year}
-            TeamHere={(month) ==(1 + new Date().getMonth()) && (year) ==(new Date().getFullYear())}
+            <DataField 
+                TeamData={month+'/'+year}
+                TeamHere={(month) ==(1 + new Date().getMonth()) && (year) ==(new Date().getFullYear())}
+                Dataupdate = {DataContainer}
             />
         </div>
     </div>

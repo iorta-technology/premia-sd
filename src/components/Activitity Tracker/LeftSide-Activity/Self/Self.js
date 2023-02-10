@@ -43,13 +43,13 @@ const Self = () => {
     setDataContainer(data)
   }
 
-  const currentpastapi = async ()=>{
-    // console.log(month,'month----><<<<<');
-    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=past`);
-    // console.log(data, 'curent pastt-------t');
-    setCurrentPastData(data);
-    setCurrentPastDataLn(data.length)
-  }
+  // const currentpastapi = async ()=>{
+  //   // console.log(month,'month----><<<<<');
+  //   let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=past`);
+  //   // console.log(data, 'curent pastt-------t');
+  //   setCurrentPastData(data);
+  //   setCurrentPastDataLn(data.length)
+  // }
 
   useEffect(()=>{
     if(PastDataContainer){
@@ -69,10 +69,10 @@ const Self = () => {
   // },[PastDataContainer])
 
   useEffect(()=>{
-   if( (month == 1+new Date().getMonth() && year == new Date().getFullYear())){
-    // console.log('yesssss curent past data here----->')
-    currentpastapi();
-   }
+  //  if( (month == 1+new Date().getMonth() && year == new Date().getFullYear())){
+  //   // console.log('yesssss curent past data here----->')
+  //   currentpastapi();
+  //  }
   //  console.log(month.toString().length, 'length==================');
    if(month.toString().length >1){
     setMonth(month)
