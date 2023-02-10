@@ -30,7 +30,7 @@ const LeadCard = React.memo((props) => {
     branch_Name,
     appointDate,
     location,
-    opportunityName
+    opportunityName,
   } = props;
 
   // console.warn('PROPSSSS___________',props)
@@ -173,11 +173,19 @@ const LeadCard = React.memo((props) => {
               {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
             </div>
           </div>
-          <div style={{padding:'5px 15px 5px 15px',backgroundColor:'#00ACC1',borderRadius:20,display:'flex',justifyContent:'center'}}>
-            <p style={{marginBottom:0,color:'#fff'}}>{companyName}</p>
+          <div
+            style={{
+              padding: "5px 15px 5px 15px",
+              backgroundColor: "#00ACC1",
+              borderRadius: 20,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <p style={{ marginBottom: 0, color: "#fff" }}>{companyName}</p>
           </div>
         </div>
-       
+
         <div className="content" style={{ flex: 1 }}>
           <hr
             style={{

@@ -99,30 +99,29 @@ const LeadMaster = (props) => {
   const tabMenu = [
     {
       id: "all",
-      value: "All" + " ("+_leadCount.all_lead+")",
+      value: "All" + " (" + _leadCount.all_lead + ")",
     },
     {
       id: "fortoday",
-      value: "For Today" + " ("+_leadCount.today+")",
+      value: "For Today" + " (" + _leadCount.today + ")",
     },
     {
       id: "open",
-      value: "Open" + " ("+_leadCount.open_lead+")",
+      value: "Open" + " (" + _leadCount.open_lead + ")",
     },
     {
       id: "converted",
-      value: "Converted" + " ("+_leadCount.converted+")",
+      value: "Converted" + " (" + _leadCount.converted + ")",
     },
     {
       id: "failed",
-      value: "Failed" + " ("+_leadCount.failed+")",
+      value: "Failed" + " (" + _leadCount.failed + ")",
     },
   ];
   // console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
   return (
     <div style={{ backgroundColor: "#fafafa" }}>
       <Tab tabMenu={tabMenu} header="Lead" current={current} />
-
       <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
       <div className="page-holder">
         <Pagination

@@ -251,7 +251,7 @@ function App() {
               ></Route>
               <div>
                 <Sidebar />
-                <div >
+                <div>
                   <Route path="/clubsMaster" component={ClubsMaster}></Route>
                   <Route path="/birthday" component={Birthday}></Route>
                   <Route path="/home" component={HomePage}></Route>
@@ -400,7 +400,6 @@ function App() {
                     path="/company-intelligence"
                     component={CompIntelligence}
                   ></Route>
-
 
                   <Route
                     path="/leadmasterpage/leaddetails/contactlead"

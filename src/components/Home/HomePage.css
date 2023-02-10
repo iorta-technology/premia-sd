@@ -1,8 +1,7 @@
-
 .cardHolder {
   margin-bottom: 30px;
   /* margin: 0 auto; */
-   /* display: flex; */
+  /* display: flex; */
   /* flex-wrap: wrap;
   flex-direction: row;
   padding: 30px 0px;
@@ -53,14 +52,14 @@
   margin-right: 15px;
 }
 .activities-text {
-   /* display: inline-block;  */
-   margin-left: 10%; 
+  /* display: inline-block;  */
+  margin-left: 10%;
 }
-.separator{
+.separator {
   max-width: 150px;
   margin: 2rem auto;
 }
-.separator .line{
+.separator .line {
   height: 3px;
   flex: 1;
   background-color: #000;
@@ -173,7 +172,7 @@
     border-bottom: none;
     border-top: none;
 } */
-.salesGuideNewStyle{
+.salesGuideNewStyle {
   display: flex;
   flex: 1;
   align-items: center;
@@ -195,7 +194,9 @@
 .action-cards-content {
   padding: 0;
 }
-.businessCardStyle .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+.businessCardStyle
+  .ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
   position: relative;
   background-color: transparent;
   border: 1px solid #d9d9d9;
@@ -210,18 +211,28 @@
   color: #fff;
 } */
 
-.businessCardStyle .ant-select-single.ant-select-open .ant-select-selection-item {
+.businessCardStyle
+  .ant-select-single.ant-select-open
+  .ant-select-selection-item {
   color: #fff;
 }
-.businessCardStyle .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+.businessCardStyle
+  .ant-select-single.ant-select-show-arrow
+  .ant-select-selection-placeholder {
   padding-right: 18px;
   color: #fff;
 }
-.businessCardStyle .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+.businessCardStyle
+  .ant-select-single.ant-select-show-arrow
+  .ant-select-selection-item {
   padding-right: 18px;
   color: #fff;
 }
-.businessCardStyle .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+.businessCardStyle
+  .ant-select-focused:not(.ant-select-disabled).ant-select:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
   border-color: transparent;
   box-shadow: none;
   border-right-width: 1px !important;
@@ -232,7 +243,7 @@
 } */
 
 @media screen and (min-width: 320px) {
-  .home-ml10{
+  .home-ml10 {
     margin-left: 10px;
   }
   .cardHolder .dataCard {
@@ -244,8 +255,8 @@
     border-radius: 8px;
     box-shadow: rgb(107, 100, 100) 0px 0px 4px;
   }
-  .alignUserLabel{
-    justify-content:unset;
+  .alignUserLabel {
+    justify-content: unset;
     margin-left: 10px;
   }
   /* .cardHolder{
@@ -253,8 +264,14 @@
     margin-right: 10px;
   } */
 }
+
+@media screen and (max-width: 990px) {
+  .alignUserLabel {
+    margin-left: 0 !important;
+    padding: 0 20px;
+  }
+}
 @media screen and (min-width: 768px) {
-  
   /* .cardHolder{
     margin-left: 80px;
     margin-right: 80px;
@@ -262,7 +279,7 @@
 }
 
 @media screen and (min-width: 992px) {
-  .home-ml10{
+  .home-ml10 {
     margin-left: 100px;
   }
   /* .cardHolder{
@@ -282,7 +299,7 @@
   .dataCardLabel {
     width: 400px !important;
   }
-  .alignUserLabel{
+  .alignUserLabel {
     justify-content: center;
     margin-left: -35px;
   }
@@ -293,8 +310,6 @@
     margin-left: 80px;
   }
 } */
-
-
 
 /* @media screen and (min-width: 390px) {
   .cardHolder .dataCard {
@@ -307,13 +322,12 @@
   }
 } */
 
-
 /* my css */
 .appointment_data {
-  display: flex;                  
-  flex-direction: row;            
-  flex-wrap: nowrap;              
-  justify-content: space-between; 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   cursor: pointer;
 }
 
@@ -326,29 +340,26 @@
   cursor: pointer;
 }
 
-.todo-home{
+.todo-home {
   background-color: #fff;
   border-radius: 3px;
 }
 
-.horizontalLine{
+.horizontalLine {
   background-color: rgb(255, 255, 255);
   height: 1px;
   opacity: 0.5;
   margin-left: 35px;
   margin-top: -10px;
 }
-.ttile_name{
+.ttile_name {
   font-size: 18px;
   color: #fff;
 }
 
-.appoinment_date{
-   font-weight: 700;
+.appoinment_date {
+  font-weight: 700;
   cursor: pointer;
   width: 100%;
   margin-bottom: 5px;
 }
-
-
-

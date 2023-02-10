@@ -236,7 +236,6 @@ const LeadCards = (props) => {
                   branch_Name={lead.branch_Name}
                   appointDate={lead.appointDate}
                   location={lead.location}
-
                   loading={props.leadDataLoading}
                 />
               </Col>
@@ -370,7 +369,7 @@ const LeadCards = (props) => {
   };
 
   return (
-    <div className="cards-container">
+    <div className="cards-container cards_data">
       <div className="dropdown-container">
         {leadsData?.globalTab === "team" && (
           <div>

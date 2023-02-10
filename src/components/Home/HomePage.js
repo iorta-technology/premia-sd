@@ -845,22 +845,48 @@ const HomePage = () => {
 
       <Col className="cardHolder" justify="center">
         {/* home-ml10 */}
-        <Row className="alignUserLabel" style={{backgroundColor:'#3b371e',zIndex:-1,height:300,alignItems:'center'}}>
+        <Row
+          className="alignUserLabel"
+          style={{
+            backgroundColor: "#3b371e",
+            zIndex: -1,
+            height: 300,
+            alignItems: "center",
+          }}
+        >
           <Col>
             <div className="dataCardLabel">
-              <p style={{fontWeight: "bold",marginBottom:0,color:'#fff',fontSize:18}}>GOOD MORNING</p>
+              <p
+                style={{
+                  fontWeight: "bold",
+                  marginBottom: 0,
+                  color: "#fff",
+                  fontSize: 18,
+                }}
+              >
+                GOOD MORNING
+              </p>
               <p
                 style={{
                   textTransform: "capitalize",
                   fontWeight: "bold",
                   fontSize: "24px",
                   marginBottom: "0px",
-                  color:'#fff'
+                  color: "#fff",
                 }}
               >
                 {logged_in_user}
               </p>
-              <p style={{marginBottom:8,color:'#fff',fontSize:12,fontWeight: "lighter"}}>Last Login: 07-02-2021 | 12:00:00 AM</p>
+              <p
+                style={{
+                  marginBottom: 8,
+                  color: "#fff",
+                  fontSize: 12,
+                  fontWeight: "lighter",
+                }}
+              >
+                Last Login: 07-02-2021 | 12:00:00 AM
+              </p>
             </div>
           </Col>
           <Col>
@@ -871,7 +897,13 @@ const HomePage = () => {
           </Col>
         </Row>
         <Row
-          style={{ marginLeft: 0, marginRight: 0,zIndex:1,position:'absolute',top:200 }}
+          style={{
+            marginLeft: 0,
+            marginRight: 0,
+            zIndex: 1,
+            position: "absolute",
+            top: 200,
+          }}
           gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]}
           justify="center"
         >
@@ -1036,8 +1068,17 @@ const HomePage = () => {
                       color: "#fff",
                     }}
                   >
-                    <p style={{marginBottom:0}}>For Today</p>
-                    <p style={{ color: "#fff",fontWeight:'bold', fontSize: "50px",marginBottom:0 }}>{home_data?.today ? home_data.today : "00"}</p>
+                    <p style={{ marginBottom: 0 }}>For Today</p>
+                    <p
+                      style={{
+                        color: "#fff",
+                        fontWeight: "bold",
+                        fontSize: "50px",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {home_data?.today ? home_data.today : "00"}
+                    </p>
                     {/* <span style={{ color: "#fff", fontSize: "50px" }}>
                       {home_data?.today ? home_data.today : "00"}
                     </span> */}
@@ -1049,8 +1090,17 @@ const HomePage = () => {
                       color: "#fff",
                     }}
                   >
-                    <p style={{marginBottom:0}}>Open</p>
-                    <p style={{ color: "#fff",fontWeight:'bold', fontSize: "50px",marginBottom:0 }}>{home_data?.open_lead ? home_data.open_lead : "00"}</p>
+                    <p style={{ marginBottom: 0 }}>Open</p>
+                    <p
+                      style={{
+                        color: "#fff",
+                        fontWeight: "bold",
+                        fontSize: "50px",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {home_data?.open_lead ? home_data.open_lead : "00"}
+                    </p>
                     {/* <span style={{ color: "#fff", fontSize: "50px" }}>
                       {home_data?.open_lead ? home_data.open_lead : "00"}
                     </span> */}
@@ -1102,7 +1152,7 @@ const HomePage = () => {
                           onChange={(event, data) =>
                             handleBusinessDropdown(event, data)
                           }
-                          style={{ width: "50%",marginBottom:15 }}
+                          style={{ width: "50%", marginBottom: 15 }}
                         ></Select>
                       )}
                     </div>
