@@ -32,7 +32,7 @@ const _date = new Date();
   const [isActive,setActive] =useState(false);
   const [isActive1,setActive1] =useState(false);
   const[finalhierarchy, setFinalHierarchy] = useState()
-  const [selected, setSelected]=useState("");
+  const [selected, setSelected]=useState("Select");
   const [selectedvalue, setSelectedValue]=useState("");
   const [selected1, setSelected1]=useState("");
   const [users, setUsers] = useState('')
@@ -81,43 +81,88 @@ const _date = new Date();
    },[])
   useEffect(() => {
     try{
-    
-    let reportingHierarchies = _dataStore.reporting_hierarchies
-    let hiererchyusers = _dataStore.reporting_users
-    // console.log(reportingHierarchies, 'reporting Hierarchies before----->')
-    if(reportingHierarchies != undefined){
-        let all = [{value : 'All', dispValue : 'All'}]
-        let final = [...all,...reportingHierarchies]
-        setFinalHierarchy(final)
-        setSelected(final[0].value)
-        setSelectedValue(final[0].dispValue)
-        // console.log(reportingHierarchies, 'reporting Hierarchies----->')
-        setUsers(hiererchyusers)
-        setSelected1()
-    }else{
-        let all = [{value : 'All', dispValue : 'All'}]
-        let final = [...all]
-        setFinalHierarchy(final)
-        setSelected(final[0].value)
-        setSelectedValue(final[0].dispValue)
-        // console.log(reportingHierarchies, 'reporting Hierarchies----->')
-        setUsers(hiererchyusers)
-    }
+        _dataStore.reporting_hierarchies.forEach((el) => {
+            el.label = el.dispValue;
+        });
+        _dataStore.reporting_users.forEach((el) => {
+            el.label = el.full_name;
+            el.value = el._id;
+        });
+        let _hierarList = [{value : 'Select', label : 'Select'},..._dataStore.reporting_hierarchies]
+        setFinalHierarchy(_hierarList);
+        // setSelected(_dataStore.reporting_hierarchies[0].value)
+        // setSelectedValue(_dataStore.reporting_hierarchies[0].dispValue)
+
+        
+        // let reportingHierarchies = _dataStore.reporting_hierarchies
+        // let hiererchyusers = _dataStore.reporting_users
+        // // console.log(reportingHierarchies, 'reporting Hierarchies before----->')
+        // if(reportingHierarchies != undefined){
+        //     let all = [{value : 'All', dispValue : 'All'}]
+        //     let final = [...all,...reportingHierarchies]
+        //     setFinalHierarchy(final)
+        //     setSelected(final[0].value)
+        //     setSelectedValue(final[0].dispValue)
+        //     // console.log(reportingHierarchies, 'reporting Hierarchies----->')
+        //     setUsers(hiererchyusers)
+        //     setSelected1()
+        // }else{
+        //     let all = [{value : 'All', dispValue : 'All'}]
+        //     let final = [...all]
+        //     setFinalHierarchy(final)
+        //     setSelected(final[0].value)
+        //     setSelectedValue(final[0].dispValue)
+        //     // console.log(reportingHierarchies, 'reporting Hierarchies----->')
+        //     setUsers(hiererchyusers)
+        // }
     }catch(err){
         console.log(err)
     }
     }, [])
-
+    let toCapitalize = (strText) => {
+        try {
+          if (strText !== "" && strText !== null && typeof strText !== undefined) {
+            var _str = strText.toLowerCase();
+            var collection = _str.split(" ");
+            var modifyStrigs = [];
+            _str = "";
+            for (var i = 0; i < collection.length; i++) {
+              modifyStrigs[i] =
+                collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+              _str = _str + modifyStrigs[i] + " ";
+            }
+            return _str;
+          } else {
+            return "";
+          }
+        } catch (err) {}
+    };
     const hierarchyOnchange =(element) =>{
-        console.log(element)
+        // console.log(element)
         setSelected(element);
         // setSelectedValue(element.dispValue)
         setActive(false)
-        let filterdata = _dataStore.reporting_users.filter(((data,index,arr) => data.hierarchy_id == element))
+        // let filterdata = _dataStore.reporting_users.filter(((data,index,arr) => data.hierarchy_id == element))
         // console.log(filterdata,'filter data')
-        let all = [{full_name : 'Select' , hierarchy_id : 'Select'}]
-        let final = [...all,...filterdata]
-        setUsers(final)
+        // let all = [{full_name : 'Select' , hierarchy_id : 'Select'}]
+        // let final = [...all,...filterdata]
+        // setUsers(final)
+        // setSelectedValue1('Select')
+        // setSelected1('Select')
+        console.warn('hierarchyOnchange((((((((((===>>>>>>>>>>', element)
+
+
+        _dataStore.reporting_users.forEach((el) => {
+            el.label = toCapitalize(el.full_name);
+            el.value = el._id;
+        });
+        let _teamData = _dataStore.reporting_users.filter(
+            (el) => el.hierarchy_id === element
+        );
+        console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
+
+        let _userList = [{label : 'Select' , value : 'Select'},..._teamData]
+        setUsers(_userList);
         setSelectedValue1('Select')
         setSelected1('Select')
     }
@@ -125,7 +170,7 @@ const _date = new Date();
     const userOnchange =(element) =>{
         // console.log(element)
         setSelected1(element);
-        // eventsGetAPI(element)
+        eventsGetAPI(element)
         // setSelectedValue(element.dispValue)
         setActive1(false)
     }
@@ -138,9 +183,6 @@ const _date = new Date();
         setDataContainer(data)
     }
 
-    // let reportingHierarchies = _dataStore.reporting_hierarchies
-    //     setFinalHierarchy(reportingHierarchies)
-    //     console.log(reportingHierarchies, 'reporting Hierarchies----->')
   return (
     <div className='Team'>
         
@@ -149,36 +191,29 @@ const _date = new Date();
             <Col md={9} lg={9} xl={9}>
                 <Typography>Hierarchy</Typography>
                 <div style={{marginTop : 5}}>
-                    <Select style={{width:'100%'}} value={selected} onChange={hierarchyOnchange}>
-                    {
-                        finalhierarchy?.map((element,index)=>{
-                            return(
-                                <Option
-                                    value={element.value}
-                                    key={index} >{element.dispValue}
-                                </Option>
-                            )
-                        })
-                    }    
-                    </Select>
+                    <Select
+                        // className="firstdropdown"
+                        value={selected}
+                        style={{ width:'100%' }}
+                        onChange={hierarchyOnchange}
+                        placeholder="Select Hierarchy"
+                        options={finalhierarchy}
+                    ></Select>
                 </div>
             </Col>
             <Col md={9} lg={9} xl={9} style={{marginLeft:15}}>                     
-                { selected !== 'All' && selected.length>1 ?
+                { selected !== 'Select' && selected.length>1 ?
                     <div >
                         <Typography>Team Member</Typography>
                         <div style={{marginTop : 5}}>
-                            <Select style={{width:'100%'}} value={selected1}  onChange={userOnchange}>
-                                { users?.map((element,index)=>{
-                                        return(
-                                            <Option
-                                            value={element.hierarchy_id}
-                                                key={index} >{element.full_name}
-                                            </Option>
-                                        )
-                                    })
-                                }    
-                            </Select>
+                            <Select
+                                // className="firstdropdown"
+                                value={selected1}
+                                style={{ width:'100%' }}
+                                onChange={userOnchange}
+                                placeholder="Select Team Member"
+                                options={users}
+                            ></Select>
                         </div> 
                 </div> : null 
                 }
@@ -190,36 +225,28 @@ const _date = new Date();
         <div>
             <Typography>Hierarchy</Typography>
             <div style={{marginTop : 10}}>
-                <Select value={selected} onChange={hierarchyOnchange}>
-                {
-                    finalhierarchy?.map((element,index)=>{
-                        return(
-                            <Option
-                                value={element.value}
-                                key={index} >{element.dispValue}
-                            </Option>
-                        )
-                    })
-                }    
-                </Select>
+            <Select
+                // className="firstdropdown"
+                value={selected}
+                style={{ width:'100%' }}
+                onChange={hierarchyOnchange}
+                placeholder="Select Hierarchy"
+                options={finalhierarchy}
+            ></Select>
             </div>
 
-            { selected !='All' && selected.length>1 ?
+            { selected !== 'Select' && selected.length>1 ?
                 <div style={{marginTop : 10}}>
                     <Typography>Circle Manager</Typography>
                     <div style={{marginTop : 10}}>
-                        <Select value={selected1}  onChange={userOnchange}>
-                        {
-                            users?.map((element,index)=>{
-                                return(
-                                    <Option
-                                    value={element.hierarchy_id}
-                                        key={index} >{element.full_name}
-                                    </Option>
-                                )
-                            })
-                        }    
-                        </Select>
+                        <Select
+                            // className="firstdropdown"
+                            value={selected1}
+                            style={{ width:'100%' }}
+                            onChange={userOnchange}
+                            placeholder="Select Team Member"
+                            options={users}
+                        ></Select>
                     </div> 
                 </div>
             : null 

@@ -177,23 +177,24 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
       }
 
       if(TeamHere == true || TeamData != undefined){
-        // console.log('yes moved to team');
-        var dS = TeamData.split("/");
-        var d1 = new Date(dS[1], (+dS[0]));
-        var today = new Date();
+        console.log('yes moved to team',Dataupdate);
+        setDataContainer(Dataupdate)
+        // var dS = TeamData.split("/");
+        // var d1 = new Date(dS[1], (+dS[0]));
+        // var today = new Date();
         // console.log(d1)
         // console.log(today)
-        if (d1 >= today) {
-          // console.log('yes moved to team ---> future & current');
-          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${TeamData}&category=upcoming&agentCode=${agent_id}`)
-              setDataContainer(result)
-              // console.log(result, 'd is greater');
-        } else {
-          // console.log('yes moved to team ---> past');
-          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${TeamData}&category=past&agentCode=${agent_id}`)
-          setDataContainer(result)
-          // console.log(result, 'today is greater');
-        }
+        // if (d1 >= today) {
+        //   // console.log('yes moved to team ---> future & current');
+        //   let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${TeamData}&category=upcoming&agentCode=${agent_id}`)
+        //       setDataContainer(result)
+        //       // console.log(result, 'd is greater');
+        // } else {
+        //   // console.log('yes moved to team ---> past');
+        //   let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=1&filter=${TeamData}&category=past&agentCode=${agent_id}`)
+        //   setDataContainer(result)
+        //   // console.log(result, 'today is greater');
+        // }
       }
       
 
