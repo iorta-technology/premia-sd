@@ -2,3 +2,21 @@
 /* .export-btn-holder{
     position: relative;
 } */
+
+@media (max-width: 419px) {
+  body {
+    width: 123% !important;
+  }
+}
+
+@media (max-width: 341px) {
+  body {
+    width: 135% !important;
+  }
+}
+
+@media (max-width: 251px) {
+  body {
+    width: 167% !important;
+  }
+}
