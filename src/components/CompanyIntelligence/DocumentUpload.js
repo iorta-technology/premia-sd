@@ -45,17 +45,16 @@ const tabMenu = [
 ];
 
 const DocUpload = (props) => {
+  const [fileList, setFileList] = useState([]);
+  const [fileData, setFileData] = useState([]);
   // const storeLeadId = useSelector((state) => state.newLead.leadId)
   // const storeUserId = useSelector((state) => state.newLead.userId)
   const dispatch = useDispatch();
 
   const _StoreData = useSelector((state) => state?.newLead?.formData);
   const user_id = useSelector((state) => state.login.user.id);
-
   const [ourAskData, setOurAskData] = useState("");
   const [redFlagData, setRedFlagData] = useState("");
-  const [fileList, setFileList] = useState([]);
-  const [fileData, setFileData] = useState([]);
   const [docData, setdocData] = useState([]);
   const [clientExpectationData, setClientExpectationData] = useState("");
 
@@ -107,15 +106,14 @@ const DocUpload = (props) => {
   };
 
   const handleChangeFile = async (info) => {
+    console.log("fileData", fileData);
     const _store = store.getState();
-    console.log(info.file.originFileObj, "info file---->");
-    let newArr = [...fileData];
     let documentType = "PDF";
 
-    newArr.push(info.file.originFileObj);
+    let newArr = [...fileData];
+    newArr.push(info.file);
     setFileData(newArr);
     console.log("fileList--->", newArr);
-
     // Update the formData object
 
     // let axiosConfig = {
