@@ -108,7 +108,7 @@ const CompanyIntelligence = React.memo((props) => {
     borderStyle: "solid",
     borderColor: "#f0f0f0",
     height: width > 1090 ? 220 : "",
-    width: width > 1090 ? 320 : width > 720 ? "66.33%" : "100%",
+    width: width > 1090 ? 320 : width > 767 ? "66.33%" : "100%",
   };
 
   return (

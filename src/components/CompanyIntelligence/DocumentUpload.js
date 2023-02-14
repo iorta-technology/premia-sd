@@ -47,7 +47,7 @@ const tabMenu = [
 const DocUpload = (props) => {
   // const storeLeadId = useSelector((state) => state.newLead.leadId)
   // const storeUserId = useSelector((state) => state.newLead.userId)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const _StoreData = useSelector((state) => state?.newLead?.formData);
   const user_id = useSelector((state) => state.login.user.id);
@@ -65,12 +65,12 @@ const DocUpload = (props) => {
     width <= "374"
       ? "top"
       : width <= "424"
-        ? "top"
-        : width <= "767"
-          ? "top"
-          : width <= "1023"
-            ? "top"
-            : "left"
+      ? "top"
+      : width <= "767"
+      ? "top"
+      : width <= "1023"
+      ? "top"
+      : "left"
   );
 
   const breakpoint = 620;
@@ -84,10 +84,10 @@ const DocUpload = (props) => {
   };
 
   useEffect(() => {
-   console.log(props.leadDetails,'lead id----->');
-   console.log( _StoreData.documents    ,'useefeect documents')
-   setFileData(_StoreData.documents)
-   setdocData(_StoreData.documents)
+    console.log(props.leadDetails, "lead id----->");
+    console.log(_StoreData.documents, "useefeect documents");
+    setFileData(_StoreData.documents);
+    setdocData(_StoreData.documents);
   }, []);
 
   const kdmRoleArr = [{ label: "TBI", value: "TBI" }];
@@ -108,12 +108,15 @@ const DocUpload = (props) => {
 
   const handleChangeFile = async (info) => {
     const _store = store.getState();
-    console.log(info.file.originFileObj, 'info file---->');
+    console.log(info.file.originFileObj, "info file---->");
     let newArr = [...fileData];
     let documentType = "PDF";
 
-    // Update the formData object
+    newArr.push(info.file.originFileObj);
+    setFileData(newArr);
+    console.log("fileList--->", newArr);
 
+    // Update the formData object
 
     // let axiosConfig = {
     //   headers: {
@@ -125,7 +128,7 @@ const DocUpload = (props) => {
     // .post(
     //     "https://b2bnodedev.salesdrive.app/b2b/secure/admin/v2/uploadFile",
     //     {media_upload : info.file},
-    //     axiosConfig  
+    //     axiosConfig
     // )
     // .then((res) => {
     //   console.log(res,'fina res of upload------->');
@@ -137,49 +140,49 @@ const DocUpload = (props) => {
     //     throw err;
     //   }
     // }
-
-
-
-    newArr.push(
-      info.file.originFileObj,
-    );
-    setFileData(newArr);
-    console.log("fileList--->", newArr);
   };
 
   const Save = async () => {
-    var finalData = []
+    var finalData = [];
     if (fileData.length != 0) {
       fileData?.map(async (item, index) => {
         let formData = new FormData();
-        formData.append('media_upload', item);
-        console.log(Object.fromEntries(formData), 'formdata------->')
+        formData.append("media_upload", item);
+        console.log(Object.fromEntries(formData), "formdata------->");
         // Details of the uploaded file
 
-
-        let result = await axiosRequest.post(`admin/v2/uploadFile`, formData, { secure: true, multipart: true });
-        console.log(result.location, 'upload result--====>')
+        let result = await axiosRequest.post(`admin/v2/uploadFile`, formData, {
+          secure: true,
+          multipart: true,
+        });
+        console.log(result.location, "upload result--====>");
         let obj = {
-          "url": result.location,
-          "doc_category": "Photo ID, Aadhar Card"
-        }
-        finalData.push(obj)
-        console.log(finalData, 'final data before all subit----->');
-        if (index == fileData.length - 1 && finalData.length == fileData.length) {
-          setdocData(finalData)
+          url: result.location,
+          doc_category: "Photo ID, Aadhar Card",
+        };
+        finalData.push(obj);
+        console.log(finalData, "final data before all subit----->");
+        if (
+          index == fileData.length - 1 &&
+          finalData.length == fileData.length
+        ) {
+          setdocData(finalData);
           let formBody = {
             company_details: {
               company_name: _StoreData?.company_id?.company_name,
               parent_company: _StoreData?.company_id?.parent_company,
               industry_name: _StoreData?.company_id?.industry_name,
-              tata_aig_empaneled: _StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
+              tata_aig_empaneled:
+                _StoreData?.company_id?.tata_aig_empaneled === true
+                  ? "Yes"
+                  : "No",
               client_location: _StoreData?.company_id?.client_location,
             },
             leadStatus: _StoreData?.leadStatus,
             leadDisposition: _StoreData?.leadDisposition,
             leadsubDisposition: _StoreData?.leadsubDisposition,
             opportunity_name: _StoreData?.opportunity_name,
-            tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
+            tender_driven: _StoreData?.tender_driven === true ? "Yes" : "No",
             LOB_opportunity: _StoreData?.lob_for_opportunity,
             product_for_opportunity: _StoreData?.product_for_opportunity,
             remarks: _StoreData?.remarks,
@@ -198,21 +201,20 @@ const DocUpload = (props) => {
             VAS_executed: _StoreData?.VAS_executed,
             kdm_details: _StoreData?.company_id?.kdm_details,
             risk_details: _StoreData?.company_id?.risk_details,
-            documents: finalData
-          }
-          console.warn('formBody ------>>>>>', formBody)
-          dispatch(actions.fetchLeadUpdateBody(formBody))
-          dispatch(actions.editLead(formBody, props.leadDetails))
+            documents: finalData,
+          };
+          console.warn("formBody ------>>>>>", formBody);
+          dispatch(actions.fetchLeadUpdateBody(formBody));
+          dispatch(actions.editLead(formBody, props.leadDetails));
         }
-      })
-      console.log(finalData.length,fileData.length)
+      });
+      console.log(finalData.length, fileData.length);
       if (docData?.length > 0) {
-        console.log(finalData.length,fileData.length,'here-->')
-        console.log(finalData, 'final data after all subit----->');
-       
+        console.log(finalData.length, fileData.length, "here-->");
+        console.log(finalData, "final data after all subit----->");
       }
     }
-  }
+  };
 
   const delDoc = (i) => {
     setFileData((res) => res.splice(i, 1));
@@ -294,8 +296,8 @@ const DocUpload = (props) => {
               <div className="col-3">Action</div>
             </div>
           )}
-          {console.log(fileData, 'uploaded data----->')}
-          {fileData.map((item, index) => (
+          {console.log(fileData, "uploaded data----->")}
+          {fileData?.map((item, index) => (
             <div className="row px-3 py-2">
               <div className="col-2">
                 <div
@@ -306,7 +308,7 @@ const DocUpload = (props) => {
                 </div>
               </div>
               <div className="col-6 data flex-center">
-              Photo ID, Aadhar Card
+                Photo ID, Aadhar Card
               </div>
               <div className="col-3 flex-center">
                 <DeleteOutlined
