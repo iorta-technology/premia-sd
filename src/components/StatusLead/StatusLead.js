@@ -1911,7 +1911,9 @@ const NewLead = React.memo((props) => {
               span={24}
               offset={width > breakpoint ? 2 : 0}
             >
-              <p className="form-title">Collaborator</p>
+              {checkAgent() === false && (
+                <p className="form-title">Collaborator</p>
+              )}
               <Row gutter={16} className="mb-2 statsLead">
                 {checkAgent() === false && (
                   <Col span={12} className="d-flex align-items-center">
