@@ -465,6 +465,7 @@ const NewLead = React.memo((props) => {
   const [teamDataArr, setTeamDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
   const login_user = useSelector((state) => state.login.user);
+  console.log("login_user ", login_user);
   // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   // console.warn('((((((((((( login_user )))))))))))', login_user)
 
@@ -1380,7 +1381,7 @@ const NewLead = React.memo((props) => {
     <>
       <Tabs
         tabMenu={tabMenu}
-        header="New Lead"
+        header="Update Lead"
         activeKey="1"
         resetDataFields={resetDataFields}
         routeLeadData={

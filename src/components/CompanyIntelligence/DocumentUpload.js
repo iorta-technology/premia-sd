@@ -85,7 +85,7 @@ const DocUpload = (props) => {
 
   useEffect(() => {
     console.log(props.leadDetails, "lead id----->");
-    console.log(_StoreData.documents, "useefeect documents");
+    console.log(_StoreData.documents, "useefeects documents");
     setFileData(_StoreData.documents);
     setdocData(_StoreData.documents);
   }, []);

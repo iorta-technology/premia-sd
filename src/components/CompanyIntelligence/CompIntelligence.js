@@ -115,7 +115,7 @@ const CompanyIntelligence = React.memo((props) => {
     <>
       <TabsComp
         tabMenu={tabMenu}
-        header="New Lead"
+        header="Update Lead"
         activeKey="2"
         statusLeadData={storeFormData}
       />
