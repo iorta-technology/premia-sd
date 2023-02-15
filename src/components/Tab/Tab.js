@@ -59,6 +59,7 @@ const Tab = ({
   const [showModal, setShowModal] = useState(false);
   const [leadTabFilter, setLeadTabFilter] = useState("all");
   const [TeamSelf, setTeamSelf] = useState(true);
+  let storeFormData = useSelector((state) => state?.newLead?.formData);
 
   let history = useHistory();
   let _currentTab = "self";
@@ -225,32 +226,35 @@ const Tab = ({
             </div>
           </div>
 
-          {header !== "Lead" && activeKey === "1" && (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "flex-end",
-                marginBottom: 15,
-              }}
-            >
-              <Button
-                onClick={() => addNewOpportunity()}
+          {header !== "Lead" &&
+            activeKey === "1" &&
+            storeFormData &&
+            storeFormData._id && (
+              <div
                 style={{
                   display: "flex",
-                  alignItems: "center",
-                  borderRadius: 5,
-                  backgroundColor: "#00ACC1",
-                  border: "transparent",
-                  color: "#fff",
-                  marginLeft: "40px",
+                  alignItems: "flex-end",
+                  marginBottom: 15,
                 }}
-                size="large"
               >
-                <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} /> Add
-                New Opportunity
-              </Button>
-            </div>
-          )}
+                <Button
+                  onClick={() => addNewOpportunity()}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: 5,
+                    backgroundColor: "#00ACC1",
+                    border: "transparent",
+                    color: "#fff",
+                    marginLeft: "40px",
+                  }}
+                  size="large"
+                >
+                  <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} /> Add
+                  New Opportunity
+                </Button>
+              </div>
+            )}
           {/* header === "Lead" */}
           {/* <div >
             {tabPane.key === activeKey ? (

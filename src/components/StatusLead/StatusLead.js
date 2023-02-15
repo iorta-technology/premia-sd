@@ -465,7 +465,6 @@ const NewLead = React.memo((props) => {
   const [teamDataArr, setTeamDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
   const login_user = useSelector((state) => state.login.user);
-  console.log("login_user ", login_user);
   // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   // console.warn('((((((((((( login_user )))))))))))', login_user)
 
@@ -571,6 +570,7 @@ const NewLead = React.memo((props) => {
 
   // store form data
   let storeFormData = useSelector((state) => state?.newLead?.formData);
+  console.log(storeFormData, "storeFormData");
   const userTreeData = useSelector((state) => state?.home?.user_tree);
 
   // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', storeFormData)
@@ -1381,7 +1381,8 @@ const NewLead = React.memo((props) => {
     <>
       <Tabs
         tabMenu={tabMenu}
-        header="Update Lead"
+        // header={opportunityNameSummary === "-" ? "New Lead" : "Update Lead"}
+        header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         activeKey="1"
         resetDataFields={resetDataFields}
         routeLeadData={
@@ -1911,9 +1912,7 @@ const NewLead = React.memo((props) => {
               span={24}
               offset={width > breakpoint ? 2 : 0}
             >
-              {checkAgent() === false && (
-                <p className="form-title">Collaborator</p>
-              )}
+              <p className="form-title">Collaborator</p>
               <Row gutter={16} className="mb-2 statsLead">
                 {checkAgent() === false && (
                   <Col span={12} className="d-flex align-items-center">

@@ -165,7 +165,7 @@ const History = () => {
     <>
       <TabsComp
         tabMenu={tabMenu}
-        header="Update Lead"
+        header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         activeKey="3"
         statusLeadData={storeFormData}
       />
