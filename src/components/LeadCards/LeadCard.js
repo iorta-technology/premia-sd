@@ -105,16 +105,22 @@ const LeadCard = React.memo((props) => {
     statusStyle: "",
     bgColor: "",
   };
+  
   const nameShorter = (str) => {
     try {
       if (str !== "") {
         str = str.toUpperCase();
         let arr = str.split(" ");
-        let fLatter = arr[0].charAt(0);
-        let sLatter = arr[1].charAt(0);
-        // fLatter = fLatter.charAt(0);
-        // sLatter = sLatter.charAt(0);
-        str = fLatter + sLatter;
+        if(arr.length === 1){
+          let fLatter = arr[0]?.charAt(0);
+          str = fLatter ;
+        }else{
+          let fLatter = arr[0]?.charAt(0);
+          let sLatter = arr[1]?.charAt(0);
+          str = fLatter + sLatter;
+        }
+        
+        
       }
       return str;
     } catch (error) {
@@ -122,14 +128,7 @@ const LeadCard = React.memo((props) => {
     }
   };
 
-  const getRandomColor = () => {
-    var letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
+  
   // Card for desktop
 
   let card = (

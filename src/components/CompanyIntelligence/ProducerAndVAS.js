@@ -41,7 +41,9 @@ const ProducerAndVas = (props) => {
     const [channelData, setChannelData] = useState("");
     const [producerData, setProducerData] = useState("");
     const [vasExecuted, setVasExecuted] = useState('No');
-
+    const [showVasInput, setShowVasInput] = useState(false);
+    const [vasInputData, setVasInputData] = useState('');
+    
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
     const [tabPosition, setTabPosition] = useState(width <= "374" ? "top" : width <= "424" ? "top" :
@@ -61,7 +63,8 @@ const ProducerAndVas = (props) => {
         setChannelData( _StoreData?.channel_name)
         setProducerData( _StoreData?.producer)
         setVasExecuted( _StoreData?.VAS_executed)
-
+        setShowVasInput(_StoreData?.VAS_executed === 'Yes' ? true : false)
+        // setVasInputData(_StoreData?.VAS_executed)
         form.setFieldsValue({
             kdmChannel:_StoreData?.channel_name,
             kdmProducer:_StoreData?.producer,
@@ -84,6 +87,13 @@ const ProducerAndVas = (props) => {
         setProducerData(e.target.value);
     };
 
+    const onChangeVasInput = (e) => {
+        // console.warn('FIRSTNAME',e)
+        
+        setVasInputData(e.target.value);
+    };
+    
+
     const onChangeChannel = (e) => {
         setChannelData(e);
     };
@@ -91,6 +101,7 @@ const ProducerAndVas = (props) => {
     const onChangeVasExec = (e) => {
         console.log('radio checked', e.target.value);
         setVasExecuted(e.target.value);
+        e.target.value === 'Yes' ? setShowVasInput(true) : setShowVasInput(false)
     };
 
     const updateProdVas = (event) =>{
@@ -206,6 +217,29 @@ return (
                             </Radio.Group>
                         </Form.Item>
                     </Col>
+                    
+                    { showVasInput &&
+                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Form.Item
+                                {...formItemLayout}
+                                className="form-item-name label-color"
+                                name="vasInput"
+                                label="VAS"
+                                // rules={[
+                                //     // { required: true, message: "First Name is required",},
+                                //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                                // ]}
+                                style={{ marginBottom: "1rem" }}
+                            >
+                                <Input
+                                    placeholder="Enter VAS"
+                                    value={vasInputData}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeVasInput(item)}
+                                />
+                            </Form.Item>
+                        </Col>
+                    }
                     
                 </Row>
             </Form>

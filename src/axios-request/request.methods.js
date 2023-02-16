@@ -29,6 +29,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
       .then((res) => {
         const errCode = res.data.errCode;
         const data = res.data;
+        message.destroy()
         if (errCode === -1) {
           if (typeof data.errMsg === "string") {
             // alert(data.errMsg)
@@ -73,6 +74,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
         }
       })
       .catch((error) => {
+        message.destroy()
         if (error.response) {
           console.log(error.response);
           // alert(error.response.data.errMsg);

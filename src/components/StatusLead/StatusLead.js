@@ -17,6 +17,7 @@ import {
   Spin,
   Radio,
   AutoComplete,
+  message,
 } from "antd";
 import {
   ArrowRightOutlined,
@@ -622,28 +623,54 @@ const NewLead = React.memo((props) => {
     getCompanyDetails();
   }, []);
 
-  useEffect(() => {}, []);
+  const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
+
+ 
   const getHierarData = () => {
     try {
-      userTreeData.reporting_users.map((el) => {
-        let sortarray = {
-          FullName: el.full_name,
-          ShortId: el.employeeCode,
-          firstname: el.first_name,
-          lastname: el.last_name,
-          employecode: el.employeeCode,
-          designation: el.hierarchyName,
-          _Id: el._id,
-          value:
-            toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-        };
-        _teamMember.push(sortarray);
-        sortarray = {};
-      });
+      // console.log('(((((((((((((((login_user)))))))))))))))=====>>>>',login_user)
+      // console.log('(((((((((((((((_reportManager)))))))))))))))=====>>>>',_reportManager)
+      let _teamMember = [];
+      if(checkAgent() === false){
+        userTreeData.reporting_users.map((el) => {
+          let sortarray = {
+            FullName: el.full_name,
+            ShortId: el.employeeCode,
+            firstname: el.first_name,
+            lastname: el.last_name,
+            employecode: el.employeeCode,
+            designation: el.hierarchyName,
+            _Id: el._id,
+            value:
+              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+          };
+          _teamMember.push(sortarray);
+          sortarray = {};
+        });
+        let _finalData = [..._teamMember,_reportManager]
+        setHierarAgentList(_finalData);
+      }else{
+        if(login_user.hasOwnProperty('reportingManager')){
+          // login_user.reportingManager 
+            let _reporting = login_user.reportingManager 
 
-      setHierarAgentList(_teamMember);
-      // console.warn('((((((((((( hierarAgentList )))))))))))',hierarAgentList)
+            let sortarray = {
+              FullName: _reporting.full_name,
+              ShortId: _reporting.employeeCode,
+              firstname: _reporting.first_name,
+              lastname: _reporting.last_name,
+              employecode: _reporting.employeeCode,
+              designation: _reporting.hierarchyName,
+              _Id: _reporting._id,
+              value:
+                toCapitalize(_reporting.full_name) + " " + "(" + _reporting.hierarchyName + ")",
+            };
+            _teamMember.push(sortarray);
+            // sortarray = {};
+            setHierarAgentList(_teamMember);
+        }
+      }
     } catch (err) {}
   };
 
@@ -1209,7 +1236,28 @@ const NewLead = React.memo((props) => {
   // console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
 
   const submitHandler = () => {
+    message.destroy()
     // return
+    if(formItem.opportunityName === ''){
+      return message.warning('Opportunity Name is required')
+    }
+    if(formItem.LOBForOpportunity === ''){
+      return message.warning('LOB for Opportunity is required')
+    }
+    if(formItem.productForOpportunity === ''){
+      return message.warning('Product for Opportunity is required')
+    }
+
+    if(formItem.companyName === ''){
+      return message.warning('Company Name is required')
+    }
+    if(formItem.parentCompanyName === ''){
+      return message.warning('Parent Company Name is required')
+    }
+    if(formItem.industry === ''){
+      return message.warning('Industry is required')
+    }
+
     let addLeadFormData = {
       company_details: {
         company_name: formItem.companyName,
@@ -1245,10 +1293,7 @@ const NewLead = React.memo((props) => {
       risk_details: [],
     };
 
-    //
-
     // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
-    // return
     if (isNewLead) {
       dispatch(actions.createLead(addLeadFormData)).then((res) => {
         console.log("CREATE_LEAD_SUCCESS:", res);
@@ -1912,7 +1957,6 @@ const NewLead = React.memo((props) => {
             >
               <p className="form-title">Collaborator</p>
               <Row gutter={16} className="mb-2 statsLead">
-                {checkAgent() === false && (
                   <Col span={12} className="d-flex align-items-center">
                     <Form.Item
                       {...formItemLayout}
@@ -1959,7 +2003,6 @@ const NewLead = React.memo((props) => {
                       ADD
                     </Button>
                   </Col>
-                )}
                 <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
                     {formItem.collaborators &&
