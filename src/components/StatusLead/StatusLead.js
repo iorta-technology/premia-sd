@@ -571,6 +571,7 @@ const NewLead = React.memo((props) => {
 
   // store form data
   let storeFormData = useSelector((state) => state?.newLead?.formData);
+  console.log(storeFormData, "storeFormData");
   const userTreeData = useSelector((state) => state?.home?.user_tree);
 
   // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', storeFormData)
@@ -1425,7 +1426,8 @@ const NewLead = React.memo((props) => {
     <>
       <Tabs
         tabMenu={tabMenu}
-        header="New Lead"
+        // header={opportunityNameSummary === "-" ? "New Lead" : "Update Lead"}
+        header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         activeKey="1"
         resetDataFields={resetDataFields}
         routeLeadData={

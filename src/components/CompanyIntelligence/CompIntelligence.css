@@ -143,8 +143,8 @@
   border-radius: 6px;
 }
 
-.kdmStyle .ant-tabs-nav-wrap.ant-tabs-nav-wrap-ping-right {
-  width: 90000px;
+.ant-tabs-nav-operations {
+  width: initial !important;
 }
 
 /* .modalStyle .ant-modal {
