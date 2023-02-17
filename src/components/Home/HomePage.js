@@ -394,19 +394,19 @@ const HomePage = () => {
         let _textOverline = {};
         if (_data.taskOwner._id !== id) {
           _textOverline =
-            _data.owernersCollectionDetails[0].taskDone === false
+            _data?.owernersCollectionDetails[0]?.taskDone === false
               ? { textDecorationLine: "", opacity: "0" }
               : { textDecorationLine: "line-through", opacity: "0" };
           _icon =
-            _data.owernersCollectionDetails[0].taskDone === false
+            _data?.owernersCollectionDetails[0]?.taskDone === false
               ? checkboxoutline
               : truecheckbox;
         } else {
           _textOverline =
-            _data.taskDone === false
+            _data?.taskDone === false
               ? { textDecorationLine: "", opacity: "0" }
               : { textDecorationLine: "line-through", opacity: "0" };
-          _icon = _data.taskDone === false ? checkboxoutline : truecheckbox;
+          _icon = _data?.taskDone === false ? checkboxoutline : truecheckbox;
         }
 
         // _data.owernersCollectionDetails.forEach(event => {
@@ -425,24 +425,24 @@ const HomePage = () => {
         // })
 
         let objstrct = {
-          content: _data.description,
-          removeBtn: _data.taskDone,
+          content: _data?.description,
+          removeBtn: _data?.taskDone,
           icon: _icon,
-          createddate: _data.createdDate,
-          dateofreminder: moment(_data.dateOfReminder).format("L"),
-          timeofreminder: parseInt(_data.timeOfReminder),
-          todoid: _data._id,
-          stringtimeofreminder: _data._stringVersionTimeOfReminder,
+          createddate: _data?.createdDate,
+          dateofreminder: moment(_data?.dateOfReminder).format("L"),
+          timeofreminder: parseInt(_data?.timeOfReminder),
+          todoid: _data?._id,
+          stringtimeofreminder: _data?._stringVersionTimeOfReminder,
           ownername:
-            _data.taskOwner.first_name + " " + _data.taskOwner.last_name,
+            _data?.taskOwner?.first_name + " " + _data?.taskOwner?.last_name,
           status: setTodoStatus(
-            _data.dateOfReminder,
-            parseInt(_data.timeOfReminder)
+            _data?.dateOfReminder,
+            parseInt(_data?.timeOfReminder)
           ),
-          searchdata: _data.owernersCollectionDetails,
-          taskOwner_id: _data.taskOwner._id,
-          taskPriority: _data.taskPriority,
-          priorityIndicatorColor: _data.priorityIndicatorColor,
+          searchdata: _data?.owernersCollectionDetails,
+          taskOwner_id: _data?.taskOwner?._id,
+          taskPriority: _data?.taskPriority,
+          priorityIndicatorColor: _data?.priorityIndicatorColor,
           showMemberRemark: false,
           showMemText: "Show More",
           sooncolor: "#E46A25",

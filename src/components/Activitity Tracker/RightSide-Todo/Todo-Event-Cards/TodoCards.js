@@ -89,50 +89,50 @@ const TodoCards = forwardRef((props, ref) => {
             console.warn('((((((sval))))))',sval)
 
             for(let _data of respData){
-                // console.log('DATATATATA',_data)
+                console.log('DATATATATA',_data)
                 let _icon = ''
                 let _remark = ''
                 // let _enableRemark = null
                 // let _disableSubmit = null
                 let _textOverline = {}
                 if(_data.taskOwner._id !== id){
-                    _textOverline = _data.owernersCollectionDetails[0].taskDone === false ? {textDecorationLine: '',opacity: '0'}:{textDecorationLine: 'line-through',opacity: '0'}
-                    _icon = _data.owernersCollectionDetails[0].taskDone === false ? checkboxoutline : truecheckbox
+                    _textOverline = _data?.owernersCollectionDetails[0]?.taskDone === false ? {textDecorationLine: '',opacity: '0'}:{textDecorationLine: 'line-through',opacity: '0'}
+                    _icon = _data?.owernersCollectionDetails[0]?.taskDone === false ? checkboxoutline : truecheckbox
                 }else{
-                    _textOverline = _data.taskDone === false ? {textDecorationLine: '',opacity: '0'}:{textDecorationLine: 'line-through',opacity: '0'}
-                    _icon = _data.taskDone === false ? checkboxoutline : truecheckbox
+                    _textOverline = _data?.taskDone === false ? {textDecorationLine: '',opacity: '0'}:{textDecorationLine: 'line-through',opacity: '0'}
+                    _icon = _data?.taskDone === false ? checkboxoutline : truecheckbox
+                }
+                // console.log("*********************** _data ****************",_data.taskId);
+                if(_data.owernersCollectionDetails.length > 0){
+                    _data?.owernersCollectionDetails.forEach(event => { 
+                        // console.log("*********************** owernersCollectionDetails ****************",event.remarkText);
+                        if(event.remarkText !== ''){
+                            event.remarkData = event.remarkText
+                            event.disableSubmit = true
+                        }else{
+                            event.remarkData = event.remarkText
+                            event.disableSubmit = false
+                        }
+                    })
                 }
 
-                _data.owernersCollectionDetails.forEach(event => { 
-                    // console.log("*********************** owernersCollectionDetails ****************",event.remarkText);
-                    if(event.remarkText !== ''){
-                        // _enableRemark = false
-                        // _disableSubmit = true
-                        event.remarkData = event.remarkText
-                        event.disableSubmit = true
-                    }else{
-                        // _enableRemark = true
-                        // _disableSubmit = false
-                        event.remarkData = event.remarkText
-                        event.disableSubmit = false
-                    }
-                })
+                // console.log("*********************** _data ****************",_data.taskId);
 
                 let objstrct = {
-                    content: _data.description,
-                    removeBtn: _data.taskDone,
+                    content: _data?.description,
+                    removeBtn: _data?.taskDone,
                     icon :_icon ,
-                    createddate: _data.createdDate,
-                    dateofreminder : moment(_data.dateOfReminder).format('L'),
-                    timeofreminder : parseInt(_data.timeOfReminder),
-                    todoid :_data._id,
-                    stringtimeofreminder:_data._stringVersionTimeOfReminder,
-                    ownername:_data.taskOwner.first_name+' '+_data.taskOwner.last_name,
-                    status : setTodoStatus(_data.dateOfReminder,parseInt(_data.timeOfReminder)),
-                    searchdata: _data.owernersCollectionDetails,
-                    taskOwner_id:_data.taskOwner._id, 
-                    taskPriority:_data.taskPriority,
-                    priorityIndicatorColor:_data.priorityIndicatorColor,
+                    createddate: _data?.createdDate,
+                    dateofreminder : moment(_data?.dateOfReminder).format('L'),
+                    timeofreminder : parseInt(_data?.timeOfReminder),
+                    todoid :_data?._id,
+                    stringtimeofreminder:_data?._stringVersionTimeOfReminder,
+                    ownername:_data?.taskOwner?.first_name+' '+_data?.taskOwner?.last_name,
+                    status : setTodoStatus(_data?.dateOfReminder,parseInt(_data?.timeOfReminder)),
+                    searchdata: _data?.owernersCollectionDetails,
+                    taskOwner_id:_data?.taskOwner._id, 
+                    taskPriority:_data?.taskPriority,
+                    priorityIndicatorColor:_data?.priorityIndicatorColor,
                     showMemberRemark:false,
                     showMemText:'Show More',
                     sooncolor: '#E46A25',
@@ -146,8 +146,9 @@ const TodoCards = forwardRef((props, ref) => {
                 arrData.push(objstrct)
                 
             }
+            // console.warn('((((((((((((((arrData------>>>))))))))))))))',arrData)
             setGetTodoDataArray(arrData);
-            console.warn('getTodoDataArray____DATAA',getTodoDataArray)
+            // console.warn('getTodoDataArray____DATAA',getTodoDataArray)
             setShowData(true)
         }catch(err){
 

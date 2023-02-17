@@ -1,6 +1,33 @@
 import React, { useState, useEffect, createRef } from "react";
-import useInput from "../hooks/use-input";
 import "./StatusLead.css";
+import {
+  affinityBenefitsItems,
+  aigcItems,aviationItems,
+  btaItems,casualtyItems,
+  extend_warrantyItems,
+  finance_linesItems,
+  gmcItems,
+  gpaItems,
+  retail_healthItems,
+  ipaItems,
+  ltaItems,
+  marineItems,
+  motorItems,
+  p_e_cItems,
+  pcgItems,
+  pepItems,
+  plusItems,
+  ruralItems,
+  rural_weatherItems,
+  trade_creditItems,
+  no_contactItems,
+  lobOpportunityItems,
+  leadStatusItems,
+  appointmentTimeOptions,
+  contactItems,
+  industryDataArr
+} 
+  from './dataSet'
 import {
   Row,
   Col,
@@ -8,12 +35,9 @@ import {
   Button,
   Input,
   Select,
-  Cascader,
   DatePicker,
   Space,
   Modal,
-  Table,
-  TimePicker,
   Spin,
   Radio,
   AutoComplete,
@@ -34,403 +58,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Tabs from "../../components/Tab/Tab";
-import FloatButton from "../FloatButton/FloatButton";
-import { msToDateString } from "../../helpers";
 import _ from "lodash";
-import { checkAgent, milToDateString } from "../../helpers";
+import { checkAgent, milToDateString,doSentenceCase } from "../../helpers";
 import moment from "moment";
-import { Link, useHistory } from "react-router-dom";
 import axiosRequest from "../../axios-request/request.methods";
 
 // const minimumDate = moment().format("YYYY-MM-DD");
 const { Option } = Select;
-const lobOpportunityItems = [
-  { label: "Affinity Benefits", value: "Affinity Benefits" },
-  { label: "AIGC", value: "AIGC" },
-  { label: "Aviation", value: "Aviation" },
-  { label: "BTA", value: "BTA" },
-  { label: "Casualty", value: "Casualty" },
-  { label: "Extended Warantee", value: "Extended Warantee" },
-  { label: "Financial Lines", value: "Financial Lines" },
-  { label: "GMC", value: "GMC" },
-  { label: "GPA", value: "GPA" },
-  { label: "Retail Health", value: "Retail Health" },
-  { label: "IPA", value: "IPA" },
-  { label: "LTA", value: "LTA" },
-  { label: "Marine", value: "Marine" },
-  { label: "Motor", value: "Motor" },
-  { label: "P&E&C", value: "P&E&C" },
-  { label: "PCG", value: "PCG" },
-  { label: "PEP", value: "PEP" },
-  { label: "Plus", value: "Plus" },
-  { label: "Rural", value: "Rural" },
-  { label: "Rural- Weather", value: "Rural- Weather" },
-  { label: "Trade Credit", value: "Trade Credit" },
-  // { label: "AIGC",value: "AIGC" },
-];
 
-const affinityBenefitsItems = [
-  {
-    label: "Group Sickness Accidental Hospital Cash",
-    value: "GroupSicknessAccidentalHospitalCash",
-  },
-  {
-    label: "Group Mediprime Insurance Policy",
-    value: "GroupMediprimeInsurancePolicy",
-  },
-];
-
-const aigcItems = [
-  { label: "AIG Combined Package Policy", value: "AIGCombinedPackagePolicy" },
-  { label: "Workmens Compensation", value: "WorkmensCompensation" },
-  {
-    label: "Business Guard Laghu Udyam Suraksha",
-    value: "BusinessGuardLaghuUdyamSuraksha",
-  },
-  {
-    label: "Business Guard Sookshma Udyam Suraksha",
-    value: "BusinessGuardSookshmaUdyamSuraksha",
-  },
-];
-
-const aviationItems = [
-  {
-    label: "Airport Owners and Operators Liability Insurance",
-    value: "Airport Owners and Operators Liability Insurance",
-  },
-  { label: "Aviation Hull All Risk", value: "Aviation Hull All Risk" },
-];
-
-const btaItems = [
-  { label: "Business Travel Guard", value: "Business Travel Guard" },
-  { label: "Group Business Travel", value: "Group Business Travel" },
-  {
-    label: "Group Business Travel Accident",
-    value: "GroupBusinessTravelAccident",
-  },
-];
-const casualtyItems = [
-  { label: "Clinical Trials Insurance", value: "Clinical Trials Insurance" },
-  {
-    label: "Commerical General Liability",
-    value: "CommericalGeneralLiability",
-  },
-  {
-    label: "Comprehensive Product Liability",
-    value: "ComprehensiveProductLiability",
-  },
-  { label: "Pollution Legal Liability", value: "Pollution Legal Liability" },
-  { label: "Public Liability Act", value: "Public Liability Act" },
-];
-
-const extend_warrantyItems = [
-  { label: "Extended Warranty", value: "Extended Warranty" },
-];
-const finance_linesItems = [
-  { label: "Crime Manager", value: "CrimeManager" },
-  {
-    label: "Crisis Coverage Insurance Policy",
-    value: "CrisisCoverageInsurancePolicy",
-  },
-  { label: "Cyber Risk Protector", value: "Cyber Risk Protector" },
-  {
-    label: "Director And Officer Liability",
-    value: "DirectorAndOfficerLiability",
-  },
-  { label: "Fidelity Guard Policy", value: "Fidelity Guard Policy" },
-  { label: "Financial Institution", value: "FinancialInstitution" },
-  {
-    label: "Highlight Named Peril D&O Insurance",
-    value: "Highlight Named Peril D&O Insurance",
-  },
-  {
-    label: "Management Liability Insurance Policy",
-    value: "ManagementLiabilityInsurancePolicy",
-  },
-  { label: "Professional Indemnity", value: "Professional Indemnity" },
-  {
-    label: "Represntations And Warranties",
-    value: "Represntations And Warranties",
-  },
-];
-const gmcItems = [
-  { label: "Group Medicare Policy", value: "GroupMedicarePolicy" },
-  { label: "Group MediPrime", value: "GroupMediPrime" },
-  {
-    label: "Group Mediprime Insurance Policy",
-    value: "GroupMediprimeInsurancePolicy",
-  },
-];
-const gpaItems = [
-  {
-    label: "Domestic Travel Guard Policy",
-    value: "Domestic Travel Guard Policy",
-  },
-  { label: "GPA and Business Travel", value: "GPA and Business Travel" },
-  {
-    label: "Group Janta Personal Accident",
-    value: "GroupJantaPersonalAccident",
-  },
-  { label: "Group Personal Accident", value: "GroupPersnalAccident" },
-];
-const retail_healthItems = [
-  { label: "Critical Illness", value: "Critical Illness" },
-  { label: "MediCare", value: "MediCare" },
-  { label: "Wellsurance Executive", value: "Wellsurance Executive" },
-];
-const ipaItems = [
-  { label: "Accident Guard Plus", value: "AccidentGuardPlus" },
-  { label: "Income Guard", value: "IncomeGuard" },
-  { label: "Secured Future Plan", value: "Secured Future Plan" },
-];
-const ltaItems = [
-  { label: "Asia Travel Guard Policy", value: "Asia Travel Guard Policy" },
-  { label: "Domestic Travel Guard", value: "Domestic Travel Guard" },
-  { label: "Group Travel Secure", value: "Group Travel Secure" },
-  { label: "Travel Care", value: "Travel Care" },
-];
-const marineItems = [
-  {
-    label: "Inland Marine Cargo RT Major",
-    value: "Inland Marine Cargo RT Major",
-  },
-  { label: "Marine Liabilities Policy", value: "MarineLiabilitiesPolicy" },
-  { label: "Marine Specific Policy", value: "MarineSpecificPolicy" },
-  { label: "Open Policy Marine Cargo", value: "OpenPolicyMarineCargo" },
-];
-const motorItems = [
-  {
-    label: "Auto Secure - Private Car Package Policy",
-    value: "Auto Secure - Private Car Package Policy",
-  },
-  { label: "Commercial Vehicle", value: "Commercial Vehicle" },
-  { label: "Private Car Insurance", value: "Private Car Insurance" },
-];
-const p_e_cItems = [
-  { label: "All Risk Insurance", value: "All Risk Insurance" },
-  { label: "All Risk Portable Insurance", value: "AllRiskPortableInsurance" },
-  { label: "Baggage Insurance", value: "Baggage Insurance" },
-  { label: "Boiler & Pressure Vessel", value: "Boiler & Pressure Vessel" },
-  { label: "Burglary Insurance", value: "Burglary Insurance" },
-  {
-    label: "Business Guard - Commercial Policy",
-    value: "Business Guard - Commercial Policy",
-  },
-  { label: "CAR/EAR", value: "CAR/EAR" },
-  { label: "Chemical RT PD/BI", value: "Chemical RT PD/BI" },
-  {
-    label: "Consequential Loss Insurance",
-    value: "ConsequentialLossInsurance",
-  },
-  {
-    label: "Contractors Plant & Machinery",
-    value: "Contractors Plant & Machinery",
-  },
-  {
-    label: "Electronic Equipment Insurance",
-    value: "Electronic Equipment Insurance",
-  },
-  { label: "Fidelity Guarantee Ins", value: "FidelityGuaranteeIns" },
-  { label: "IAR Property Major", value: "IAR Property Major" },
-  {
-    label: "Industrial All Risk Insurance",
-    value: "Industrial All Risk Insurance",
-  },
-  {
-    label: "Industrial All Risk Insurance",
-    value: "IndustrialAllRiskInsurance",
-  },
-  {
-    label: "Machinery Breakdown Insurance",
-    value: "Machinery Breakdown Insurance",
-  },
-  { label: "Machinery Loss Of Profit Ins", value: "MachineryLossOfProfitIns" },
-  { label: "Mega Risk", value: "Mega Risk" },
-  { label: "Money Insurance", value: "Money Insurance" },
-  { label: "Multinational Program", value: "MultinationalProgram" },
-  { label: "Oil & Petro RT PD/BI", value: "Oil & Petro RT PD/BI" },
-  { label: "Plate Glass Ins", value: "PlateGlassIns" },
-  { label: "Project Insurance", value: "ProjectInsurance" },
-  {
-    label: "Standard Fire and Special Perils",
-    value: "Standard Fire and Special Perils",
-  },
-  { label: "Title Insurance", value: "Title Insurance" },
-  { label: "Utilities RT PD/BI", value: "Utilities RT PD/BI" },
-];
-const pcgItems = [
-  { label: "PCG Home", value: "PCGHome" },
-  {
-    label: "Private Client Group Home Secure Policy",
-    value: "Private Client Group Home Secure Policy",
-  },
-];
-const pepItems = [
-  {
-    label: "Personal Protection Product",
-    value: "Personal Protection Product",
-  },
-  {
-    label: "Personal Extended Protection",
-    value: "PersonalExtendedProtection",
-  },
-];
-const plusItems = [{ label: "Personal All Risk", value: "PersonalAllRisk" }];
-const ruralItems = [
-  { label: "Rural Package Policy", value: "RuralPackagePolicy" },
-];
-const rural_weatherItems = [
-  {
-    label: "Modified National Agriculture Insurance Scheme",
-    value: "Modified National Agriculture Insurance Scheme",
-  },
-  { label: "PMFBY", value: "PMFBY" },
-];
-const trade_creditItems = [
-  { label: "Political Risk Insurance", value: "Political Risk Insurance" },
-  { label: "Trade Credit Insurance", value: "Trade Credit Insurance" },
-];
-
-const leadStatusItems = [
-  { label: "New Lead", value: "newleadentery" },
-  { label: "Contacted", value: "contact" },
-  { label: "No Contact", value: "no_contact" },
-];
-
-const contactItems = [
-  { label: "Appointment", value: "appointment" },
-  { label: "Callback", value: "callback" },
-  { label: "Converted", value: "leadconverted" },
-  { label: "Not Interested", value: "notinterested" },
-  { label: "Not Eligible", value: "noteligible" },
-  { label: "Interested", value: "interested" },
-];
-
-const no_contactItems = [
-  { label: "Wrong/Invalid Number", value: "invalid" },
-  { label: "Not Reachable", value: "notreachable" },
-];
-
-const appointmentTimeOptions = [
-  { label: "8:00 AM", value: "8:00 AM" },
-  { label: "8:30 AM", value: "8:30 AM" },
-  { label: "9:00 AM", value: "9:00 AM" },
-  {
-    label: "9:30 AM",
-    value: "9:30 AM",
-  },
-  {
-    label: "10:00 AM",
-    value: "10:00 AM",
-  },
-  {
-    label: "10:30 AM",
-    value: "10:30 AM",
-  },
-  {
-    label: "11:00 AM",
-    value: "11:00 AM",
-  },
-  {
-    label: "11:30 AM",
-    value: "11:30 AM",
-  },
-  {
-    label: "12:00 PM",
-    value: "12:00 PM",
-  },
-  {
-    label: "12:30 PM",
-    value: "12:30 PM",
-  },
-  {
-    label: "1:00 PM",
-    value: "1:00 PM",
-  },
-  {
-    label: "1:30 PM",
-    value: "1:30 PM",
-  },
-  {
-    label: "2:00 PM",
-    value: "2:00 PM",
-  },
-  {
-    label: "2:30 PM",
-    value: "2:30 PM",
-  },
-  {
-    label: "3:00 PM",
-    value: "3:00 PM",
-  },
-  {
-    label: "3:30 PM",
-    value: "3:30 PM",
-  },
-  {
-    label: "4:00 PM",
-    value: "4:00 PM",
-  },
-  {
-    label: "4:30 PM",
-    value: "4:30 PM",
-  },
-  {
-    label: "5:00 PM",
-    value: "5:00 PM",
-  },
-  {
-    label: "5:30 PM",
-    value: "5:30 PM",
-  },
-  {
-    label: "6:00 PM",
-    value: "6:00 PM",
-  },
-  {
-    label: "6:30 PM",
-    value: "6:30 PM",
-  },
-  {
-    label: "7:00 PM",
-    value: "7:00 PM",
-  },
-  {
-    label: "7:30 PM",
-    value: "7:30 PM",
-  },
-  {
-    label: "8:00 PM",
-    value: "8:00 PM",
-  },
-  {
-    label: "8:30 PM",
-    value: "8:30 PM",
-  },
-  {
-    label: "9:00 PM",
-    value: "9:00 PM",
-  },
-  {
-    label: "9:30 PM",
-    value: "9:30 PM",
-  },
-];
-
-const optionsData = [
-  {
-    value: "jack",
-    label: "Jack",
-  },
-  {
-    value: "lucy",
-    label: "Lucy",
-  },
-  {
-    value: "disabled",
-    label: "Disabled",
-  },
-];
 const formItemLayout = {
   labelCol: {
     span: 24,
@@ -479,15 +114,26 @@ const NewLead = React.memo((props) => {
     });
     setTeamMemberData("");
     // let _dataArr = []
+    console.warn('((((((((((( teamDataArr )))))))))))', teamDataArr)
+    console.warn('((((((((((( teamMemberData )))))))))))', teamMemberData)
+    let _checkDuplicate = null
+    teamDataArr.map(el =>{ 
+      _checkDuplicate = teamMemberData.includes(el.first_name) ? true : false
+    })
+    console.warn('((((((((((( _checkDuplicate )))))))))))', _checkDuplicate)
     hierarAgentList.map((item) => {
-      if (item.value === teamMemberData) {
-        let apiBody = {
-          first_name: item.firstname,
-          last_name: item.lastname,
-          Id: item._Id,
-        };
-        // _dataArr.push(apiBody)
-        setTeamDataArr([...teamDataArr, apiBody]);
+      if(_checkDuplicate){
+        
+      }else{
+        if (item.value === teamMemberData) {
+          let apiBody = {
+            first_name: item.firstname,
+            last_name: item.lastname,
+            Id: item._Id,
+          };
+          // _dataArr.push(apiBody)
+          setTeamDataArr([...teamDataArr, apiBody]);
+        }
       }
     });
     //  setTeamDataArr(_dataArr)
@@ -632,7 +278,7 @@ const NewLead = React.memo((props) => {
     try {
       // console.log('(((((((((((((((login_user)))))))))))))))=====>>>>',login_user)
       // console.log('(((((((((((((((_reportManager)))))))))))))))=====>>>>',_reportManager)
-      let _teamMember = [];
+      // let _teamMember = [];
       if(checkAgent() === false){
         userTreeData.reporting_users.map((el) => {
           let sortarray = {
@@ -644,7 +290,7 @@ const NewLead = React.memo((props) => {
             designation: el.hierarchyName,
             _Id: el._id,
             value:
-              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+            doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
           };
           _teamMember.push(sortarray);
           sortarray = {};
@@ -665,31 +311,12 @@ const NewLead = React.memo((props) => {
               designation: _reporting.hierarchyName,
               _Id: _reporting._id,
               value:
-                toCapitalize(_reporting.full_name) + " " + "(" + _reporting.hierarchyName + ")",
+              doSentenceCase(_reporting.full_name) + " " + "(" + _reporting.hierarchyName + ")",
             };
             _teamMember.push(sortarray);
             // sortarray = {};
             setHierarAgentList(_teamMember);
         }
-      }
-    } catch (err) {}
-  };
-
-  let toCapitalize = (strText) => {
-    try {
-      if (strText !== "" && strText !== null && typeof strText !== undefined) {
-        var _str = strText.toLowerCase();
-        var collection = _str.split(" ");
-        var modifyStrigs = [];
-        _str = "";
-        for (var i = 0; i < collection.length; i++) {
-          modifyStrigs[i] =
-            collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
-          _str = _str + modifyStrigs[i] + " ";
-        }
-        return _str;
-      } else {
-        return "";
       }
     } catch (err) {}
   };
@@ -702,7 +329,7 @@ const NewLead = React.memo((props) => {
     // if (result.length > 0) {
     let _compArr = [];
     let _parentCompArr = [];
-    let _industryArr = [];
+    // let _industryArr = [];
     result.companies.map((el) => {
       let _data = { value: el.company_name, _id: el._id };
       _compArr.push(_data);
@@ -715,11 +342,11 @@ const NewLead = React.memo((props) => {
     });
     setparentCompArray(_parentCompArr);
 
-    result.industries.map((el) => {
-      let _data = { label: el, value: el };
-      _industryArr.push(_data);
-    });
-    setIndustryArray(_industryArr);
+    // result.industries.map((el) => {
+    //   let _data = { label: el, value: el };
+    //   _industryArr.push(_data);
+    // });
+    setIndustryArray(industryDataArr);
     // }
   };
 
@@ -728,8 +355,6 @@ const NewLead = React.memo((props) => {
       let result = await axiosRequest.get(`user/getlead_details/${lead_id}`, {
         secure: true,
       });
-      // console.warn('__++++++++++++++ RESPPPP',result)
-      // console.warn("__++++++++++++++ getlead_details +++++++++++>>>", result.length);
       if (result.length > 0) {
         dispatch(actions.fetchLeadDetailsSuccess(result[0]));
         if (result.length > 1) {
@@ -798,7 +423,7 @@ const NewLead = React.memo((props) => {
           leadData.leadDisposition === "callback" &&
           leadData.leadStatus === "contact"
         ) {
-          if (leadData.appointmentDetails) {
+          // if (leadData.appointmentDetails) {
             _appntDate = moment(leadData.appointmentDate).format("MM/DD/YYYY");
             _appntTime = moment(leadData.appointmentDate).format("LT");
             setApptDateString(_appntDate);
@@ -807,7 +432,7 @@ const NewLead = React.memo((props) => {
               moment(leadData.appointmentDate).format("MM/DD/YYYY"),
               "MM/DD/YYYY"
             );
-          }
+          // }
 
           setShowLeadSubDisposition(true);
           setShowLeadDisposition(true);
@@ -853,6 +478,7 @@ const NewLead = React.memo((props) => {
           if (el.Id === item._Id) _collabotrs.push(item.value);
         });
       });
+
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_id?.company_name,
@@ -932,7 +558,7 @@ const NewLead = React.memo((props) => {
   };
 
   const onCompanyChange = (event, data) => {
-    console.warn("onCompanyChange----event----->>>:", event);
+    // console.warn("onCompanyChange----event----->>>:", event);
     setCompany_id("");
     setFormItem((res) => ({
       ...res,
@@ -1146,14 +772,6 @@ const NewLead = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const checkValidity = (data) => {
-    if (data === "" || data === undefined || data === null) {
-      return "";
-    } else {
-      return data;
-    }
-  };
-
   const failedHandler = (error) => {
     alert(error);
     console.log(error);
@@ -1237,7 +855,7 @@ const NewLead = React.memo((props) => {
   // console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
 
   const submitHandler = () => {
-    message.destroy()
+    // message.destroy()
     // return
     if(formItem.opportunityName === ''){
       return message.warning('Opportunity Name is required')
@@ -1404,8 +1022,6 @@ const NewLead = React.memo((props) => {
   };
 
   const removeCollaborators = (data, index) => {
-    // console.log('ON data ______________', data.split(' '));
-    // console.log('ON index ______________', index);
     setFormItem((res) => ({
       ...res,
       collaborators: res.collaborators.filter((item, ind) => index !== ind),
@@ -1418,9 +1034,15 @@ const NewLead = React.memo((props) => {
     setTeamDataArr(_dataArr);
   };
 
+  const filterCollaborators = (inputValue,option) =>{
+      return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+  }
+
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
+
+  let _chipData = [...new Set(formItem.collaborators)]
 
   return (
     <>
@@ -1975,16 +1597,14 @@ const NewLead = React.memo((props) => {
                     >
                       <AutoComplete
                         value={teamMemberData}
+                        searchValue={teamMemberData}
                         style={{ width: "100%" }}
                         options={hierarAgentList}
                         onChange={(text, data) => onChangeTeam(text, data)}
                         onSelect={onSelectTeam}
                         notFoundContent="No Result Found"
-                        filterOption={(inputValue, option) =>
-                          option.value
-                            .toUpperCase()
-                            .indexOf(inputValue.toUpperCase()) !== -1
-                        }
+                        placeholder='Enter Collaborator'
+                        filterOption={(inputValue, option) => filterCollaborators(inputValue, option)}
                       >
                         {/* <Search placeholder="Search by Name" /> */}
                       </AutoComplete>
@@ -2007,8 +1627,10 @@ const NewLead = React.memo((props) => {
                   </Col>
                 <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
-                    {formItem.collaborators &&
-                      formItem.collaborators.map((res, index) => (
+                  
+                  {/* {console.log('formItem.collaborators--->>>',_chipData)} */}
+                    {_chipData &&
+                      _chipData.map((res, index) => (
                         <div
                           key={index}
                           className="add_collaborators_items shadow-sm"
@@ -2120,7 +1742,6 @@ const NewLead = React.memo((props) => {
             </Col>
           </Row>
         </Form>
-        {/* <FloatButton /> */}
       </div>
     </>
   );
