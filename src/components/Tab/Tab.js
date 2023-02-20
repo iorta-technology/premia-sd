@@ -251,7 +251,23 @@ const Tab = ({
                   size="large"
                 >
                   <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} /> Add
-                  New Opportunity
+                  Create To Do
+                </Button>
+                <Button
+                  onClick={() => addNewOpportunity()}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: 5,
+                    backgroundColor: "#00ACC1",
+                    border: "transparent",
+                    color: "#fff",
+                    marginLeft: "10px",
+                  }}
+                  size="large"
+                >
+                  <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} />
+                  Add New Opportunity
                 </Button>
               </div>
             )}

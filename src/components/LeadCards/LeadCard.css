@@ -153,10 +153,10 @@
   /* width: 15% !important; */
   /* margin-left: 3rem !important; */
   /* height: 2rem !important ;  */
-  margin-right: 18px !important;
+  /* margin-right: 18px !important; */
   padding: 6px !important;
   /* margin-bottom: 1px !important; */
-  width: 90px;
+  width: 90%;
 }
 .round-card-main {
   margin-top: -20px;
@@ -212,7 +212,7 @@
     /* font-weight: 600; */
   }
   .update-btn {
-    margin: 0 30px 7px -30px;
+    /* margin: 0 30px 7px -30px; */
     /* padding: 0.4rem 1.2rem; */
     background-color: #3b371e;
     color: #ffff;

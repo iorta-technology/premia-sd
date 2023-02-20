@@ -31,6 +31,7 @@ const LeadCard = React.memo((props) => {
     appointDate,
     location,
     opportunityName,
+    owner_name,
   } = props;
 
   // console.warn('PROPSSSS___________',props)
@@ -212,9 +213,10 @@ const LeadCard = React.memo((props) => {
                   <p className="text-type">Branch</p>
                   <p className="text-content">{branch_Name}</p>
                 </div>
-
-                {/* Please dont delete the below line */}
-                {/* <div className="grid-style Appoinment-Heading"></div> */}
+                <div className="grid-style Appoinment-Heading">
+                  <p className="text-type">Owner Name</p>
+                  <p className="text-content">{owner_name}</p>
+                </div>
               </div>
               <div className="Dateinfo-Container">
                 <div className="grid-style">
@@ -229,9 +231,18 @@ const LeadCard = React.memo((props) => {
                   <p className="text-type">Location</p>
                   <p className="text-content capitalize">{location}</p>
                 </div>
+                <div className="grid-style Appoinment-Heading">
+                  <button
+                    type="primary"
+                    className="update-btn"
+                    onClick={() => updateHandler(id)}
+                  >
+                    Update
+                  </button>
+                </div>
               </div>
             </div>
-            <div style={{ display: "flex", flex: 1 }}>
+            {/* <div style={{ display: "flex", flex: 1 }}>
               <button
                 type="primary"
                 className="update-btn"
@@ -239,7 +250,7 @@ const LeadCard = React.memo((props) => {
               >
                 Update
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* <div className="Update-Btn"></div> */}

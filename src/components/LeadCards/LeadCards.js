@@ -32,6 +32,7 @@ let _currentTab = "self";
 
 const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads);
+  console.log("leadsData ========== ", leadsData);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   // console.warn('userTreeData==========>>>>>>>',userTreeData)
@@ -170,7 +171,6 @@ const LeadCards = (props) => {
     }
   };
 
- 
   const getDataAfterFilterTeam = async () => {
     const response = await getFormByIdApi({ id: secondValue });
     if (response.status == 200) {
@@ -293,6 +293,7 @@ const LeadCards = (props) => {
                     appointDate={lead.appointDate}
                     location={lead.location}
                     loading={props.leadDataLoading}
+                    owner_name={lead.companyName}
                   />
                 </Col>
               </>
