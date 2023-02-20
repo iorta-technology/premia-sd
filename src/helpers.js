@@ -134,17 +134,29 @@ export function getLabel(item) {
 }
 export function doSentenceCase(strText) {
   try {
-    var _str = strText.toLowerCase();
-    var collection = _str.split(" ");
-    var modifyStrigs = [];
-    _str = "";
-    for (var i = 0; i < collection.length; i++) {
-      modifyStrigs[i] =
-        collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
-      _str = _str + modifyStrigs[i] + " ";
+    if (strText !== "" && strText !== null && typeof strText !== undefined) {
+      var _str = strText.toLowerCase();
+      var collection = _str.split(" ");
+      var modifyStrigs = [];
+      _str = "";
+      for (var i = 0; i < collection.length; i++) {
+        modifyStrigs[i] =
+          collection[i].charAt(0).toUpperCase() + collection[i].slice(1);
+        _str = _str + modifyStrigs[i] + " ";
+      }
+      return _str.trim();
+    } else {
+      return "";
     }
-    return _str.trim();
   } catch (err) {}
+}
+
+export function checkValidity(data){
+  if (data === "" || data === undefined || data === null) {
+    return "";
+  } else {
+    return data;
+  }
 }
 
 export function milisecondToTime(milisecond) {

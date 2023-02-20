@@ -5,7 +5,7 @@ import moment from 'moment';
 import './Todo-Tab.css'
 import axiosRequest from '../../../../axios-request/request.methods';
 
-import {stoageGetter} from '../../../../helpers'
+import {stoageGetter,checkAgent} from '../../../../helpers'
 import { useDispatch, useSelector } from 'react-redux';
 import _ from "lodash";
 
@@ -32,28 +32,54 @@ const TodoTab = (props) => {
   const [teamMemberData ,setTeamMemberData]=useState('')
 
   const _dataStore = useSelector((state) => state?.home?.user_tree)
+  const _reportManager = useSelector((state) => state?.login?.reportingManager);
+  const login_user = useSelector((state) => state.login.user);
   const minimumDate = moment().format("YYYY-MM-DD")
 
   useEffect(() => {
     console.log('USER HIERARCHYY ___DATA__',_dataStore)
     let _teamMember = []
     if(Object.keys(_dataStore).length !== 0){
-      _dataStore.reporting_users.map(el => {
+      // let _teamMember = [];
+      if(checkAgent() === false){
+        _dataStore.reporting_users.map((el) => {
           let sortarray = {
-              FullName: el.full_name,
-              ShortId: el.employeeCode,
-              firstname: el.first_name,
-              lastname: el.last_name,
-              employecode: el.employeeCode,
-              designation: el.hierarchyName,
-              _Id: el._id,
-              value:toCapitalize(el.full_name) + ' ' + '('+el.hierarchyName+')'
-          }
-          _teamMember.push(sortarray)
+            FullName: el.full_name,
+            ShortId: el.employeeCode,
+            firstname: el.first_name,
+            lastname: el.last_name,
+            employecode: el.employeeCode,
+            designation: el.hierarchyName,
+            _Id: el._id,
+            value:
+              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+          };
+          _teamMember.push(sortarray);
           sortarray = {};
+        });
+        let _finalData = [..._teamMember,_reportManager]
+        setHierarAgentList(_finalData);
+      }else{
+        if(login_user.hasOwnProperty('reportingManager')){
+          // login_user.reportingManager 
+            let _reporting = login_user.reportingManager 
 
-      })
-      setHierarAgentList(_teamMember)
+            let sortarray = {
+              FullName: _reporting.full_name,
+              ShortId: _reporting.employeeCode,
+              firstname: _reporting.first_name,
+              lastname: _reporting.last_name,
+              employecode: _reporting.employeeCode,
+              designation: _reporting.hierarchyName,
+              _Id: _reporting._id,
+              value:
+                toCapitalize(_reporting.full_name) + " " + "(" + _reporting.hierarchyName + ")",
+            };
+            _teamMember.push(sortarray);
+            // sortarray = {};
+            setHierarAgentList(_teamMember);
+        }
+      }
     }
   },[])
 

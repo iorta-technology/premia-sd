@@ -49,13 +49,25 @@ const headerNameData = (state, action) => {
 const loginSuccess = (state, action) => {
   console.log("id_______DATATATATTAAT", action);
   let user = camelCaseKeys({ ...action.login_agent_data[0][0] });
+  console.log("LOGIN REPORTTTTING", user);
   // localStorage.setItem('user',user)
   stoageSetter("user", user);
+  let sortarray = {
+    FullName: user?.reportingManager?.full_name,
+    ShortId: user?.reportingManager?.employeeCode,
+    firstname: user?.reportingManager?.first_name,
+    lastname: user?.reportingManager?.last_name,
+    employecode: user?.reportingManager?.employeeCode,
+    designation: user?.reportingManager?.hierarchyName,
+    _Id: user?.reportingManager?._id,
+    value: user?.reportingManager?.full_name + " " + "(" + user?.reportingManager?.hierarchyName + ")",
+  };
 
   return updateObject(state, {
     fetch_allLeads_Loading: false,
     // login_agent_data: action.login_agent_data,
     user: user,
+    reportingManager: sortarray,
     userList: action.login_agent_data[0],
     user_name:
       action.login_agent_data[0][0].first_name +

@@ -23,7 +23,7 @@ import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
 import Icon from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
-import { stoageGetter } from "../../helpers";
+import { stoageGetter,checkAgent } from "../../helpers";
 import axios from "axios";
 import _ from "lodash";
 import Form from "antd/lib/form/Form";
@@ -101,27 +101,59 @@ export default function CalendarEvent(props) {
   const [customerlistcollectn, setCustomerListCollectn] = useState([]);
   const [checkEventWith, setCheckEventWith] = useState("New Prospect");
   const _dataStore = useSelector((state) => state?.home?.user_tree);
+  const loginUserData = useSelector((state) => state?.login?.user);
+  const _reportManager = useSelector((state) => state?.login?.reportingManager);
+
 
   useEffect(() => {
     try {
       // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
+      console.log('(((((((((((((((loginUserData)))))))))))))))=====>>>>',loginUserData)
+      console.log('(((((((((((((((_reportManager)))))))))))))))=====>>>>',_reportManager)
       let _teamMember = [];
-      _dataStore.reporting_users.map((el) => {
-        let sortarray = {
-          FullName: el.full_name,
-          ShortId: el.employeeCode,
-          firstname: el.first_name,
-          lastname: el.last_name,
-          employecode: el.employeeCode,
-          designation: el.hierarchyName,
-          _Id: el._id,
-          value:
-            toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-        };
-        _teamMember.push(sortarray);
-        sortarray = {};
-      });
-      setHierarAgentList(_teamMember);
+      if(checkAgent() === false){
+        _dataStore.reporting_users.map((el) => {
+          let sortarray = {
+            FullName: el.full_name,
+            ShortId: el.employeeCode,
+            firstname: el.first_name,
+            lastname: el.last_name,
+            employecode: el.employeeCode,
+            designation: el.hierarchyName,
+            _Id: el._id,
+            value:
+              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+          };
+          _teamMember.push(sortarray);
+          sortarray = {};
+        });
+        let _finalData = [..._teamMember,_reportManager]
+        setHierarAgentList(_finalData);
+      }else{
+        if(loginUserData.hasOwnProperty('reportingManager')){
+          // loginUserData.reportingManager 
+            let _reporting = loginUserData.reportingManager 
+
+            let sortarray = {
+              FullName: _reporting.full_name,
+              ShortId: _reporting.employeeCode,
+              firstname: _reporting.first_name,
+              lastname: _reporting.last_name,
+              employecode: _reporting.employeeCode,
+              designation: _reporting.hierarchyName,
+              _Id: _reporting._id,
+              value:
+                toCapitalize(_reporting.full_name) + " " + "(" + _reporting.hierarchyName + ")",
+            };
+            _teamMember.push(sortarray);
+            // sortarray = {};
+            setHierarAgentList(_teamMember);
+        }
+      }
+      // console.log('(((((((((((((((loginUserData)))))))))))))))=====>>>>',loginUserData)
+      
+      console.log('(((((((((((((((_teamMember)))))))))))))))=====>>>>',_teamMember)
+
     } catch (err) {}
   }, []);
 
@@ -3927,7 +3959,7 @@ export default function CalendarEvent(props) {
                     <DatePicker
                       onChange={StartDateFunc}
                       allowClear={false}
-                      disabledDate={(d) => !d || d.isBefore(minimumDate)}
+                      // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                       defaultValue={durationStartDate}
                       value={durationStartDate}
                       format="YYYY-MM-DD"
