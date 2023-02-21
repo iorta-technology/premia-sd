@@ -170,7 +170,7 @@ const TodoCards = forwardRef((props, ref) => {
       }
       // console.warn('((((((((((((((arrData------>>>))))))))))))))',arrData)
       setGetTodoDataArray(arrData);
-      // console.warn('getTodoDataArray____DATAA',getTodoDataArray)
+      // console.warn("getTodoDataArray____DATAA", getTodoDataArray);
       setShowData(true);
     } catch (err) {}
   };
@@ -439,8 +439,6 @@ const TodoCards = forwardRef((props, ref) => {
                           : element.status === "Overdue"
                           ? element.overduecolor
                           : "#000",
-                      fontSize: 14,
-                      fontWeight: "bolder",
                     }}
                   >
                     {element.status}{" "}
@@ -455,14 +453,13 @@ const TodoCards = forwardRef((props, ref) => {
                           : element.status === "Overdue"
                           ? element.overduecolor
                           : "#000",
-                      fontSize: 14,
-                      fontWeight: "bolder",
                     }}
                   >
-                    {element.stringtimeofreminder} : {element.dateofreminder}
+                    : {element.dateofreminder} : {element.stringtimeofreminder}
                   </text>
                 </div>
               </Col>
+
               {element.taskOwner_id === loginUserID && (
                 <div style={{ paddingLeft: 10, paddingRight: 5 }}>
                   <img
@@ -511,6 +508,12 @@ const TodoCards = forwardRef((props, ref) => {
                 )}
               </div>
             </div>
+          </div>
+          <div className="TodoCards-Body flex-wrap py-1">
+            <p className="w-50 value">Iorta</p>
+            <p className="w-50 value">Java</p>
+            <p className="w-50 term">Opportunity Name</p>
+            <p className="w-50 term">Company Name</p>
           </div>
           <div className="TodoCards-Body">
             <div
