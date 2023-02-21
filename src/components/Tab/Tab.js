@@ -198,6 +198,10 @@ const Tab = ({
     resetDataFields();
   };
 
+  const addCreateToDo = () => {
+    console.log("create to do");
+  };
+
   return (
     <>
       {width > breakpoint ? (
@@ -238,7 +242,7 @@ const Tab = ({
                 }}
               >
                 <Button
-                  onClick={() => addNewOpportunity()}
+                  onClick={() => addCreateToDo()}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -267,7 +271,7 @@ const Tab = ({
                   size="large"
                 >
                   <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} />
-                  Add New Opportunity
+                  Add new Opportunity
                 </Button>
               </div>
             )}

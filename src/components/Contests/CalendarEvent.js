@@ -23,7 +23,7 @@ import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
 import Icon from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
-import { stoageGetter,checkAgent } from "../../helpers";
+import { stoageGetter, checkAgent } from "../../helpers";
 import axios from "axios";
 import _ from "lodash";
 import Form from "antd/lib/form/Form";
@@ -104,14 +104,19 @@ export default function CalendarEvent(props) {
   const loginUserData = useSelector((state) => state?.login?.user);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
-
   useEffect(() => {
     try {
       // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
-      console.log('(((((((((((((((loginUserData)))))))))))))))=====>>>>',loginUserData)
-      console.log('(((((((((((((((_reportManager)))))))))))))))=====>>>>',_reportManager)
+      console.log(
+        "(((((((((((((((loginUserData)))))))))))))))=====>>>>",
+        loginUserData
+      );
+      console.log(
+        "(((((((((((((((_reportManager)))))))))))))))=====>>>>",
+        _reportManager
+      );
       let _teamMember = [];
-      if(checkAgent() === false){
+      if (checkAgent() === false) {
         _dataStore.reporting_users.map((el) => {
           let sortarray = {
             FullName: el.full_name,
@@ -127,33 +132,39 @@ export default function CalendarEvent(props) {
           _teamMember.push(sortarray);
           sortarray = {};
         });
-        let _finalData = [..._teamMember,_reportManager]
+        let _finalData = [..._teamMember, _reportManager];
         setHierarAgentList(_finalData);
-      }else{
-        if(loginUserData.hasOwnProperty('reportingManager')){
-          // loginUserData.reportingManager 
-            let _reporting = loginUserData.reportingManager 
+      } else {
+        if (loginUserData.hasOwnProperty("reportingManager")) {
+          // loginUserData.reportingManager
+          let _reporting = loginUserData.reportingManager;
 
-            let sortarray = {
-              FullName: _reporting.full_name,
-              ShortId: _reporting.employeeCode,
-              firstname: _reporting.first_name,
-              lastname: _reporting.last_name,
-              employecode: _reporting.employeeCode,
-              designation: _reporting.hierarchyName,
-              _Id: _reporting._id,
-              value:
-                toCapitalize(_reporting.full_name) + " " + "(" + _reporting.hierarchyName + ")",
-            };
-            _teamMember.push(sortarray);
-            // sortarray = {};
-            setHierarAgentList(_teamMember);
+          let sortarray = {
+            FullName: _reporting.full_name,
+            ShortId: _reporting.employeeCode,
+            firstname: _reporting.first_name,
+            lastname: _reporting.last_name,
+            employecode: _reporting.employeeCode,
+            designation: _reporting.hierarchyName,
+            _Id: _reporting._id,
+            value:
+              toCapitalize(_reporting.full_name) +
+              " " +
+              "(" +
+              _reporting.hierarchyName +
+              ")",
+          };
+          _teamMember.push(sortarray);
+          // sortarray = {};
+          setHierarAgentList(_teamMember);
         }
       }
       // console.log('(((((((((((((((loginUserData)))))))))))))))=====>>>>',loginUserData)
-      
-      console.log('(((((((((((((((_teamMember)))))))))))))))=====>>>>',_teamMember)
 
+      console.log(
+        "(((((((((((((((_teamMember)))))))))))))))=====>>>>",
+        _teamMember
+      );
     } catch (err) {}
   }, []);
 

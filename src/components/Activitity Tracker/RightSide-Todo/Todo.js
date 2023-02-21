@@ -1,42 +1,49 @@
-import React,{useState , useRef , useEffect} from 'react'
-import { Typography } from 'antd'
-import {PlusCircleFilled} from '@ant-design/icons'
-import TodoCards from '../RightSide-Todo/Todo-Event-Cards/TodoCards'
-import Archive from './Archive/Archive'
-import TodoTab from './TodoCreate-Tab/Todo-Tab'
-import './Todo.css'
+import React, { useState, useRef, useEffect } from "react";
+import { Typography } from "antd";
+import { PlusCircleFilled } from "@ant-design/icons";
+import TodoCards from "../RightSide-Todo/Todo-Event-Cards/TodoCards";
+import Archive from "./Archive/Archive";
+import TodoTab from "./TodoCreate-Tab/Todo-Tab";
+import "./Todo.css";
 // import axiosRequest from '../../../axios-request/request.methods';
 // import {stoageGetter} from '../../../helpers'
 const { Title } = Typography;
 
 const Todo = () => {
-  const [isActive,setIsActive]=useState(true);
+  const [isActive, setIsActive] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const childRef = useRef(null);
+  const getTodo = () => {
+    childRef.current.getTodoData(0);
+  };
+
   const showModal = () => {
     setIsModalVisible(true);
   };
-  const getTodo = () => {
-    childRef.current.getTodoData(0)
-  }
-
   // useEffect(()=> {
   //   getUserTreeAPI()
   // },[])
 
   return (
-    <div className='Todo-Container'>
-        <div className='Todo-Top'>
-            {/* <Typography>To Do</Typography> */}
-            <Title level={5} style={{color: '#545454',fontWeight:500}}>To Do List</Title>
-            <div className='Todo-CreateBtn'>
-                {/* <Typography>Create new Task</Typography> */}
-                <PlusCircleFilled onClick={showModal}/>
-                <TodoTab getTodoData={ getTodo } button={'Create'} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
-            </div>
+    <div className="Todo-Container">
+      <div className="Todo-Top">
+        {/* <Typography>To Do</Typography> */}
+        <Title level={5} style={{ color: "#545454", fontWeight: 500 }}>
+          To Do List
+        </Title>
+        <div className="Todo-CreateBtn">
+          {/* <Typography>Create new Task</Typography> */}
+          <PlusCircleFilled onClick={showModal} />
+          <TodoTab
+            getTodoData={getTodo}
+            button={"Create"}
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+          />
         </div>
-        {/* <div className='Todo-Button'>
+      </div>
+      {/* <div className='Todo-Button'>
           <div className='Todo-Button-Todo'>
             <button 
               className={isActive ? "active TodoButtons":"TodoButtons"}
@@ -58,16 +65,16 @@ const Todo = () => {
             </button>
           </div>
         </div> */}
-        <div className='TodoCards'>
-          {/* {
+      <div className="TodoCards">
+        {/* {
             isActive ? */}
-            <TodoCards ref={childRef}/>
-            {/* :
+        <TodoCards ref={childRef} />
+        {/* :
             <Archive/>
           } */}
-        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Todo
+export default Todo;
