@@ -238,7 +238,7 @@ const Sidebar = () => {
               </p>
             </NavIcon>
           </div> */}
-          <div >
+          <div>
             <img
               onClick={() => {
                 history.push("/home");
@@ -264,12 +264,30 @@ const Sidebar = () => {
                 <div className="dot"></div>
               ) : null}
             </NavIcon>
-            <div style={{height:40,width:0.5,backgroundColor:'#ccc',marginTop:19}}></div>
+            <div
+              style={{
+                height: 40,
+                width: 0.5,
+                backgroundColor: "#ccc",
+                marginTop: 19,
+              }}
+            ></div>
             <NavIcon style={{ marginLeft: 15 }} onClick={showSidebar} to="#">
-              <FaIcons.FaUserCircle style={{height:30,width:30}} />
-              <div style={{marginLeft:10}}>
-                <p style={{marginBottom:0,color:'#fff',fontSize:14}}>{logged_in_user}</p>
-                <p style={{marginBottom:0,marginTop:-4,color:'#fff',fontSize:10}}>Agent ID: {agent_id}</p>
+              <FaIcons.FaUserCircle style={{ height: 30, width: 30 }} />
+              <div style={{ marginLeft: 10 }}>
+                <p style={{ marginBottom: 0, color: "#fff", fontSize: 14 }}>
+                  {logged_in_user}
+                </p>
+                <p
+                  style={{
+                    marginBottom: 0,
+                    marginTop: -4,
+                    color: "#fff",
+                    fontSize: 10,
+                  }}
+                >
+                  Agent ID: {agent_id}
+                </p>
               </div>
             </NavIcon>
           </div>
@@ -481,9 +499,7 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="notification_footer view_button">
-              <button onClick={() => closeNotificPop()} >
-                View All
-              </button>
+              <button onClick={() => closeNotificPop()}>View All</button>
             </div>
           </div>
         </Modal1>

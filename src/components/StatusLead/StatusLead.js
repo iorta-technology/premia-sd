@@ -2,8 +2,10 @@ import React, { useState, useEffect, createRef } from "react";
 import "./StatusLead.css";
 import {
   affinityBenefitsItems,
-  aigcItems,aviationItems,
-  btaItems,casualtyItems,
+  aigcItems,
+  aviationItems,
+  btaItems,
+  casualtyItems,
   extend_warrantyItems,
   finance_linesItems,
   gmcItems,
@@ -25,9 +27,8 @@ import {
   leadStatusItems,
   appointmentTimeOptions,
   contactItems,
-  industryDataArr
-} 
-  from './dataSet'
+  industryDataArr,
+} from "./dataSet";
 import {
   Row,
   Col,
@@ -59,7 +60,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Tabs from "../../components/Tab/Tab";
 import _ from "lodash";
-import { checkAgent, milToDateString,doSentenceCase } from "../../helpers";
+import { checkAgent, milToDateString, doSentenceCase } from "../../helpers";
 import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
 
@@ -114,17 +115,16 @@ const NewLead = React.memo((props) => {
     });
     setTeamMemberData("");
     // let _dataArr = []
-    console.warn('((((((((((( teamDataArr )))))))))))', teamDataArr)
-    console.warn('((((((((((( teamMemberData )))))))))))', teamMemberData)
-    let _checkDuplicate = null
-    teamDataArr.map(el =>{ 
-      _checkDuplicate = teamMemberData.includes(el.first_name) ? true : false
-    })
-    console.warn('((((((((((( _checkDuplicate )))))))))))', _checkDuplicate)
+    console.warn("((((((((((( teamDataArr )))))))))))", teamDataArr);
+    console.warn("((((((((((( teamMemberData )))))))))))", teamMemberData);
+    let _checkDuplicate = null;
+    teamDataArr.map((el) => {
+      _checkDuplicate = teamMemberData.includes(el.first_name) ? true : false;
+    });
+    console.warn("((((((((((( _checkDuplicate )))))))))))", _checkDuplicate);
     hierarAgentList.map((item) => {
-      if(_checkDuplicate){
-        
-      }else{
+      if (_checkDuplicate) {
+      } else {
         if (item.value === teamMemberData) {
           let apiBody = {
             first_name: item.firstname,
@@ -272,14 +272,12 @@ const NewLead = React.memo((props) => {
 
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
-
- 
   const getHierarData = () => {
     try {
       // console.log('(((((((((((((((login_user)))))))))))))))=====>>>>',login_user)
       // console.log('(((((((((((((((_reportManager)))))))))))))))=====>>>>',_reportManager)
       // let _teamMember = [];
-      if(checkAgent() === false){
+      if (checkAgent() === false) {
         userTreeData.reporting_users.map((el) => {
           let sortarray = {
             FullName: el.full_name,
@@ -290,32 +288,36 @@ const NewLead = React.memo((props) => {
             designation: el.hierarchyName,
             _Id: el._id,
             value:
-            doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
+              doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
           };
           _teamMember.push(sortarray);
           sortarray = {};
         });
-        let _finalData = [..._teamMember,_reportManager]
+        let _finalData = [..._teamMember, _reportManager];
         setHierarAgentList(_finalData);
-      }else{
-        if(login_user.hasOwnProperty('reportingManager')){
-          // login_user.reportingManager 
-            let _reporting = login_user.reportingManager 
+      } else {
+        if (login_user.hasOwnProperty("reportingManager")) {
+          // login_user.reportingManager
+          let _reporting = login_user.reportingManager;
 
-            let sortarray = {
-              FullName: _reporting.full_name,
-              ShortId: _reporting.employeeCode,
-              firstname: _reporting.first_name,
-              lastname: _reporting.last_name,
-              employecode: _reporting.employeeCode,
-              designation: _reporting.hierarchyName,
-              _Id: _reporting._id,
-              value:
-              doSentenceCase(_reporting.full_name) + " " + "(" + _reporting.hierarchyName + ")",
-            };
-            _teamMember.push(sortarray);
-            // sortarray = {};
-            setHierarAgentList(_teamMember);
+          let sortarray = {
+            FullName: _reporting.full_name,
+            ShortId: _reporting.employeeCode,
+            firstname: _reporting.first_name,
+            lastname: _reporting.last_name,
+            employecode: _reporting.employeeCode,
+            designation: _reporting.hierarchyName,
+            _Id: _reporting._id,
+            value:
+              doSentenceCase(_reporting.full_name) +
+              " " +
+              "(" +
+              _reporting.hierarchyName +
+              ")",
+          };
+          _teamMember.push(sortarray);
+          // sortarray = {};
+          setHierarAgentList(_teamMember);
         }
       }
     } catch (err) {}
@@ -424,14 +426,14 @@ const NewLead = React.memo((props) => {
           leadData.leadStatus === "contact"
         ) {
           // if (leadData.appointmentDetails) {
-            _appntDate = moment(leadData.appointmentDate).format("MM/DD/YYYY");
-            _appntTime = moment(leadData.appointmentDate).format("LT");
-            setApptDateString(_appntDate);
+          _appntDate = moment(leadData.appointmentDate).format("MM/DD/YYYY");
+          _appntTime = moment(leadData.appointmentDate).format("LT");
+          setApptDateString(_appntDate);
 
-            _apptDateFormat = moment(
-              moment(leadData.appointmentDate).format("MM/DD/YYYY"),
-              "MM/DD/YYYY"
-            );
+          _apptDateFormat = moment(
+            moment(leadData.appointmentDate).format("MM/DD/YYYY"),
+            "MM/DD/YYYY"
+          );
           // }
 
           setShowLeadSubDisposition(true);
@@ -857,24 +859,24 @@ const NewLead = React.memo((props) => {
   const submitHandler = () => {
     // message.destroy()
     // return
-    if(formItem.opportunityName === ''){
-      return message.warning('Opportunity Name is required')
+    if (formItem.opportunityName === "") {
+      return message.warning("Opportunity Name is required");
     }
-    if(formItem.LOBForOpportunity === ''){
-      return message.warning('LOB for Opportunity is required')
+    if (formItem.LOBForOpportunity === "") {
+      return message.warning("LOB for Opportunity is required");
     }
-    if(formItem.productForOpportunity === ''){
-      return message.warning('Product for Opportunity is required')
+    if (formItem.productForOpportunity === "") {
+      return message.warning("Product for Opportunity is required");
     }
 
-    if(formItem.companyName === ''){
-      return message.warning('Company Name is required')
+    if (formItem.companyName === "") {
+      return message.warning("Company Name is required");
     }
-    if(formItem.parentCompanyName === ''){
-      return message.warning('Parent Company Name is required')
+    if (formItem.parentCompanyName === "") {
+      return message.warning("Parent Company Name is required");
     }
-    if(formItem.industry === ''){
-      return message.warning('Industry is required')
+    if (formItem.industry === "") {
+      return message.warning("Industry is required");
     }
 
     let addLeadFormData = {
@@ -1034,15 +1036,15 @@ const NewLead = React.memo((props) => {
     setTeamDataArr(_dataArr);
   };
 
-  const filterCollaborators = (inputValue,option) =>{
-      return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-  }
+  const filterCollaborators = (inputValue, option) => {
+    return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+  };
 
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
 
-  let _chipData = [...new Set(formItem.collaborators)]
+  let _chipData = [...new Set(formItem.collaborators)];
 
   return (
     <>
@@ -1581,54 +1583,55 @@ const NewLead = React.memo((props) => {
             >
               <p className="form-title">Collaborator</p>
               <Row gutter={16} className="mb-2 statsLead">
-                  <Col span={12} className="d-flex align-items-center">
-                    <Form.Item
-                      {...formItemLayout}
-                      className="form-item-name label-color w-100"
-                      name="collaborators"
-                      label="Add Collaborators"
-                      rules={[
-                        {
-                          required: false,
-                          message: "",
-                        },
-                      ]}
-                      style={{ marginBottom: "1rem" }}
+                <Col span={12} className="d-flex align-items-center">
+                  <Form.Item
+                    {...formItemLayout}
+                    className="form-item-name label-color w-100"
+                    name="collaborators"
+                    label="Add Collaborators"
+                    rules={[
+                      {
+                        required: false,
+                        message: "",
+                      },
+                    ]}
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <AutoComplete
+                      value={teamMemberData}
+                      searchValue={teamMemberData}
+                      style={{ width: "100%" }}
+                      options={hierarAgentList}
+                      onChange={(text, data) => onChangeTeam(text, data)}
+                      onSelect={onSelectTeam}
+                      notFoundContent="No Result Found"
+                      placeholder="Enter Collaborator"
+                      filterOption={(inputValue, option) =>
+                        filterCollaborators(inputValue, option)
+                      }
                     >
-                      <AutoComplete
-                        value={teamMemberData}
-                        searchValue={teamMemberData}
-                        style={{ width: "100%" }}
-                        options={hierarAgentList}
-                        onChange={(text, data) => onChangeTeam(text, data)}
-                        onSelect={onSelectTeam}
-                        notFoundContent="No Result Found"
-                        placeholder='Enter Collaborator'
-                        filterOption={(inputValue, option) => filterCollaborators(inputValue, option)}
-                      >
-                        {/* <Search placeholder="Search by Name" /> */}
-                      </AutoComplete>
-                    </Form.Item>
-                    <Button
-                      style={{
-                        border: "none",
-                        display: "flex",
-                        alignItems: "center",
-                        marginTop: "16px",
-                        marginLeft: 10,
-                        backgroundColor: "#00ACC1",
-                        color: "#fff",
-                      }}
-                      icon={<PlusOutlined />}
-                      onClick={addCollaborators}
-                    >
-                      ADD
-                    </Button>
-                  </Col>
+                      {/* <Search placeholder="Search by Name" /> */}
+                    </AutoComplete>
+                  </Form.Item>
+                  <Button
+                    style={{
+                      border: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: "16px",
+                      marginLeft: 10,
+                      backgroundColor: "#00ACC1",
+                      color: "#fff",
+                    }}
+                    icon={<PlusOutlined />}
+                    onClick={addCollaborators}
+                  >
+                    ADD
+                  </Button>
+                </Col>
                 <Col span={24}>
                   <div className="d-flex flex-wrap justify-content-start mb-2">
-                  
-                  {/* {console.log('formItem.collaborators--->>>',_chipData)} */}
+                    {/* {console.log('formItem.collaborators--->>>',_chipData)} */}
                     {_chipData &&
                       _chipData.map((res, index) => (
                         <div

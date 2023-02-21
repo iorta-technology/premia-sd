@@ -49,8 +49,6 @@ const Tab = ({
   statusLeadData,
 }) => {
   const currentLocation = useLocation();
-  // console.log('************************ current ___ *********************===========>>>',current)
-
   const dispatch = useDispatch();
   const { leadType } = useParams();
   const { masterType } = useParams();
