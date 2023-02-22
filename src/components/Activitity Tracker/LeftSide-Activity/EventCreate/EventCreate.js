@@ -10,6 +10,7 @@ import axios from 'axios'
 import './EventCreate.css'
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from "../../../../store/actions/index";
+import { PlusCircleFilled } from "@ant-design/icons";
 
 
 
@@ -77,9 +78,10 @@ const EventCreate = ({monthData,yearData, getFunc, getdata}) => {
             }
           <div className='EventCreate-btn'>
             {/* <Typography>Create an Event</Typography> */}
-            <img src={Addactivity} alt='Addactivity' 
+            {/* <img src={Addactivity} alt='Addactivity' 
             style={{backgroundSize: '100% 100%',cursor:"pointer"}} 
-            onClick={showModal}/>
+            onClick={showModal}/> */}
+            <PlusCircleFilled style={{marginTop:5,color:'#3b371e'}} onClick={showModal} />
           </div>
             
         </div>

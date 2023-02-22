@@ -44,6 +44,7 @@ const Tab = ({
   current,
   filterdata,
   resetDataFields,
+  openTodoPopup,
   routeLeadData,
   updateFormData,
   statusLeadData,
@@ -196,8 +197,8 @@ const Tab = ({
     resetDataFields();
   };
 
-  const addCreateToDo = () => {
-    console.log("create to do");
+  const openCreateTodoPop = () => {
+    openTodoPopup();
   };
 
   return (
@@ -240,7 +241,7 @@ const Tab = ({
                 }}
               >
                 <Button
-                  onClick={() => addCreateToDo()}
+                  onClick={() => openCreateTodoPop()}
                   style={{
                     display: "flex",
                     alignItems: "center",
