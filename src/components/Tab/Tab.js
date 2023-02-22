@@ -44,6 +44,7 @@ const Tab = ({
   current,
   filterdata,
   resetDataFields,
+  openTodoPopup,
   routeLeadData,
   updateFormData,
   statusLeadData,
@@ -198,6 +199,10 @@ const Tab = ({
     resetDataFields();
   };
 
+  const openCreateTodoPop = () => {
+    openTodoPopup();
+  };
+
   return (
     <>
       {width > breakpoint ? (
@@ -238,7 +243,7 @@ const Tab = ({
                 }}
               >
                 <Button
-                  onClick={() => addNewOpportunity()}
+                  onClick={() => openCreateTodoPop()}
                   style={{
                     display: "flex",
                     alignItems: "center",

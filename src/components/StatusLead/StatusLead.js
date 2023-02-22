@@ -1011,6 +1011,10 @@ const NewLead = React.memo((props) => {
     });
   };
 
+  const openTodoPopup = () => {
+    console.log('TODO POPUPPPP ______________');
+  };
+
   const onSelectTeam = (value) => {
     // console.log('ON SELECTION ______________', value);
   };
@@ -1052,6 +1056,7 @@ const NewLead = React.memo((props) => {
         header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         activeKey="1"
         resetDataFields={resetDataFields}
+        openTodoPopup={openTodoPopup}
         routeLeadData={
           props.location.state !== undefined
             ? props.location.state.hasOwnProperty("_leadData")
