@@ -140,16 +140,16 @@ const NewLead = React.memo((props) => {
   };
 
   const addRemarks = () => {
-    let _remark = [
-      {
-        description: remark,
-        dateTime: new Date().toLocaleString("en-US"),
-      },
-    ];
+    console.log("=======", formItem.remarks);
+    let _remark = {
+      description: remark,
+      dateTime: new Date().toLocaleString("en-US"),
+    };
+
     setFormItem((res) => ({
       ...res,
-      // remarks: [...formItem.remarks, remark],
-      remarks: _remark,
+      remarks: [...formItem.remarks, _remark],
+      // remarks: _remark,
     }));
     setRemark("");
     form.setFieldsValue({
@@ -1691,21 +1691,22 @@ const NewLead = React.memo((props) => {
                   className="post mt-3 w-100"
                   style={{ fontSize: "smaller" }}
                 >
+                  <div className="mb-3 remarks_bg left">
+                    <div className="d-flex justify-content-between w-100">
+                      <div className="">sadiqu hasan</div>
+                      <div className="me-3">2/22/2023 12:26:58 PM</div>
+                    </div>
+                    <div>lorem lorem lorem lorem lorem lorem lorem</div>
+                  </div>
                   {formItem.remarks.map((res, index) => (
-                    <div
-                      key={index}
-                      className="d-flex justify-content-start w-100 mb-3 p-2 remarks_bg"
-                    >
-                      <div className="me-3">{res.dateTime}</div>
-                      <div>
-                        <div>{res.description}</div>
-                        <div>
-                          <i>
-                            by{" "}
-                            {login_user.firstName + " " + login_user.lastName}
-                          </i>
+                    <div className="mb-3 remarks_bg right">
+                      <div className="d-flex justify-content-between w-100">
+                        <div className="">
+                          {login_user.firstName + " " + login_user.lastName}
                         </div>
+                        <div className="me-3">{res.dateTime}</div>
                       </div>
+                      <div>{res.description}</div>
                     </div>
                   ))}
                 </Col>

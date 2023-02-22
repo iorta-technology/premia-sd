@@ -290,9 +290,21 @@
 }
 
 .remarks_bg {
-  background-color: rgba(134, 172, 236, 0.35) !important;
-  color: #425c87;
+  background-color: #26c6da !important;
+  color: #fff;
   font-weight: 600;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 12px 21px;
+  width: 85%;
+}
+
+.remarks_bg.right {
+  background-color: #26c6da !important;
+  margin-left: auto;
+}
+.remarks_bg.left {
+  background-color: #00ccbe !important;
 }
 
 .add_collaborators_items {
