@@ -1560,6 +1560,7 @@ const HomePage = () => {
                                           ? element.overduecolor
                                           : "red",
                                       fontSize: 12,
+                                      fontWeight: 700,
                                     }}
                                   >
                                     {element.status}{" "}
@@ -1575,10 +1576,11 @@ const HomePage = () => {
                                           ? element.overduecolor
                                           : "red",
                                       fontSize: 12,
+                                      fontWeight: 700,
                                     }}
                                   >
-                                    {element.stringtimeofreminder} :{" "}
-                                    {element.dateofreminder}
+                                    {" : " + element.dateofreminder + " : "}
+                                    {element.stringtimeofreminder}
                                   </h4>
                                 </div>
                               </Col>
@@ -1625,6 +1627,12 @@ const HomePage = () => {
                                 )}
                               </div>
                             </div>
+                          </div>
+                          <div className="TodoCards-Body flex-wrap py-1">
+                            <p className="w-50 value">Iorta</p>
+                            <p className="w-50 value">Java</p>
+                            <p className="w-50 term">Opportunity Name</p>
+                            <p className="w-50 term">Company Name</p>
                           </div>
                           <div className="TodoCards-Body">
                             <div

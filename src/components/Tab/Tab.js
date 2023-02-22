@@ -50,8 +50,6 @@ const Tab = ({
   statusLeadData,
 }) => {
   const currentLocation = useLocation();
-  // console.log('************************ current ___ *********************===========>>>',current)
-
   const dispatch = useDispatch();
   const { leadType } = useParams();
   const { masterType } = useParams();
@@ -272,7 +270,7 @@ const Tab = ({
                   size="large"
                 >
                   <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} />
-                  Add New Opportunity
+                  Add new Opportunity
                 </Button>
               </div>
             )}

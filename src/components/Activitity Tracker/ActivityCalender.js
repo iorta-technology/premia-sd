@@ -49,38 +49,52 @@ const App = () => {
       <Row style={{ color: "#f7f7f7", marginTop: "20px" }} justify="center">
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
-            {checkAgent() === false && 
-            <div className="CardBody" style={{display:'flex',flexDirection:'row' }}>
-              <button
-                style={{ width:95,display:'flex',alignItems:'center',justifyContent:'center' }}
-                className={TeamSelf ? "activate" : " "}
-                onClick={(e) => {
-                  setTeamSelf(true);
-                }}
+            {checkAgent() === false && (
+              <div
+                className="CardBody"
+                style={{ display: "flex", flexDirection: "row" }}
               >
-                <img
-                  src={TeamSelf ? person_white : person_black}
-                  className="person"
-                  alt="person_png"
-                />
-                Self
-              </button>
-              <button
-                style={{ width: 95,display:'flex',alignItems:'center',justifyContent:'center',marginLeft:15 }}
-                className={!TeamSelf ? "activate" : ""}
-                onClick={(e) => {
-                  setTeamSelf(false);
-                }}
-              >
-                <img
-                  src={TeamSelf ? group_black : group_white}
-                  className="person"
-                  alt="group_png"
-                />
-                Team
-              </button>
-            </div>
-            }
+                <button
+                  style={{
+                    width: 95,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className={TeamSelf ? "activate" : " "}
+                  onClick={(e) => {
+                    setTeamSelf(true);
+                  }}
+                >
+                  <img
+                    src={TeamSelf ? person_white : person_black}
+                    className="person"
+                    alt="person_png"
+                  />
+                  Self
+                </button>
+                <button
+                  style={{
+                    width: 95,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginLeft: 15,
+                  }}
+                  className={!TeamSelf ? "activate" : ""}
+                  onClick={(e) => {
+                    setTeamSelf(false);
+                  }}
+                >
+                  <img
+                    src={TeamSelf ? group_black : group_white}
+                    className="person"
+                    alt="group_png"
+                  />
+                  Team
+                </button>
+              </div>
+            )}
             {TeamSelf ? <Self /> : <Team />}
           </Card>
         </Col>
