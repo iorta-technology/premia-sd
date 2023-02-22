@@ -424,7 +424,7 @@ const TodoCards = forwardRef((props, ref) => {
       // console.log('DATATATATA____',element)
       return (
         <div className="TodoCard-Container" key={index}>
-          <div className="TodoCards-Top">
+          <div className="TodoCards-Top" style={{borderBottom: '1px solid #e6e9eb'}}>
             <div className="TodoCards-TimedateArchive" sm>
               <Col className="TodoCards-TopClock">
                 <div className="todoCard-mr15">

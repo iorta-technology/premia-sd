@@ -29,17 +29,17 @@ const Todo = () => {
     <div className="Todo-Container">
       <div className="Todo-Top">
         {/* <Typography>To Do</Typography> */}
-        <Title level={5} style={{ color: "#545454", fontWeight: 600 }}>
+        <Title level={5} style={{ color: "#545454", fontWeight: 500 }}>
           To do List
         </Title>
         <div className="Todo-CreateBtn">
           <Title
             level={5}
-            style={{ color: "#545454", fontWeight: 600, marginRight: 5 }}
+            style={{ color: "#545454", fontWeight: 500, marginRight: 5 }}
           >
             Add to do
           </Title>
-          <PlusCircleFilled onClick={showModal} />
+          <PlusCircleFilled style={{marginTop:5}} onClick={showModal} />
           <TodoTab
             getTodoData={getTodo}
             button={"Create"}

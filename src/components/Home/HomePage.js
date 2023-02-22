@@ -1544,7 +1544,7 @@ const HomePage = () => {
                           className="TodoCard-Container todo-home"
                           key={index}
                         >
-                          <div className="TodoCards-Top">
+                          <div className="TodoCards-Top" style={{borderBottom: '1px solid #e6e9eb'}}>
                             <div className="TodoCards-TimedateArchive">
                               <Col className="TodoCards-TopClock">
                                 <div className="todoCard-mr15">
