@@ -14,7 +14,8 @@ import { updateCheckAllocatedLead } from "../../store/actions/leads";
 const LeadCard = React.memo((props) => {
   const dispatch = useDispatch();
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
-  console.log("allocateBtnStatus", allocateBtnStatus);
+  const dataVal = useSelector((state) => state);
+  console.log("allocateBtnStatus ==== ", dataVal);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
   const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead);
   const LeadData = useSelector((state) => state?.newLead?.payloadFormData);
@@ -33,6 +34,7 @@ const LeadCard = React.memo((props) => {
     opportunityName,
     owner_name,
   } = props;
+  console.log("props", props);
 
   // console.warn('PROPSSSS___________',props)
 
@@ -211,7 +213,9 @@ const LeadCard = React.memo((props) => {
                 </div>
                 <div className="grid-style Appoinment-Heading">
                   <p className="text-type">Owner Name</p>
-                  <p className="text-content">{owner_name}</p>
+                  <p className="text-content">
+                    {owner_name.first_name} {owner_name.last_name}
+                  </p>
                 </div>
               </div>
               <div className="Dateinfo-Container">

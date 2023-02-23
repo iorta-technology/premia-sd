@@ -34,12 +34,11 @@ let _currentTab = "self";
 
 const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads);
-  console.log("leadsData ========== ", leadsData);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   // console.warn('userTreeData==========>>>>>>>',userTreeData)
 
-  // console.warn('leadsData ==========>>>>>>>',leadsData)
+  console.warn("leadsData ==========>>>>>>>", leadsData.allLeads);
   // console.warn('props ==========>>>>>>>',props)
   const { user } = loginState;
   const dispatch = useDispatch();
@@ -324,7 +323,7 @@ const LeadCards = (props) => {
                     appointDate={lead.appointDate}
                     location={lead.location}
                     loading={props.leadDataLoading}
-                    owner_name={lead.companyName}
+                    owner_name={lead.userId}
                   />
                 </Col>
               </>
