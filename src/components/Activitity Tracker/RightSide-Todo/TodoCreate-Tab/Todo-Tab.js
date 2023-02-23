@@ -7,6 +7,7 @@ import {
   Select,
   message,
   AutoComplete,
+  Row,Col
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
@@ -22,7 +23,14 @@ const { Option } = Select;
 const { Search } = Input;
 
 const TodoTab = (props) => {
-  // console.log('editData ____________',props)
+  console.log('editData ___TODOO_________',props)
+  useEffect(() => {
+    if(props.hasOwnProperty('company_Name') && props.hasOwnProperty('opportunity_Name') ){
+      // console.warn("PROPSSSSSSS--------------", props);
+      setTodoCompName(props?.company_Name)
+      setTodoOpportunityName(props?.opportunity_Name)
+    }
+  },[props.company_Name])
 
   const [isHighButtonClick, setIsHighButtonClick] = useState(false);
   const [isMediumButtonClick, setIsMediumButtonClick] = useState(false);
@@ -38,11 +46,17 @@ const TodoTab = (props) => {
   const [teamMemberChip, setTeamMemberChip] = useState([]);
   const [ownerCollectn, setOwnerCollectn] = useState([]);
   const [teamMemberData, setTeamMemberData] = useState("");
+  const [todoCompName, setTodoCompName] = useState("");
+  const [todoOpportunityName, setTodoOpportunityName] = useState("");
+  const [companyArray, setCompanyArray] = useState([]);
+  const [opportunityNameArray, setOpportunityNameArray] = useState([]);
 
   const _dataStore = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
   const login_user = useSelector((state) => state.login.user);
   const minimumDate = moment().format("YYYY-MM-DD");
+
+  // console.log("USER login_user ___DATA__", login_user);
 
   useEffect(() => {
     console.log("USER HIERARCHYY ___DATA__", _dataStore);
@@ -165,6 +179,38 @@ const TodoTab = (props) => {
         return "";
       }
     } catch (err) {}
+  };
+
+  useEffect(() => {
+    getCompanyDetails();
+    
+  },[])
+
+  const getCompanyDetails = async (lead_id) => {
+    let result = await axiosRequest.get(`admin/company/companies`, {
+      secure: true,
+    });
+    // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+    let _compArr = [];
+    result.companies.map((el) => {
+      let _data = { value: el.company_name, label: el.company_name, _id: el._id };
+      _compArr.push(_data);
+    });
+    setCompanyArray(_compArr);
+
+
+    let _opportunityAPI = await axiosRequest.get(`user/v2/getLead/${login_user.id}?leadfilter=open&skip=0&limit=no`, {
+      secure: true,
+    });
+
+    console.warn('__++++++_opportunityAPI++++++++ RESPPPP',_opportunityAPI)
+    // const [opportunityNameArray, setOpportunityNameArray] = useState([]);
+    let _opporArr = [];
+    _opportunityAPI[0].map((el) => {
+      let _data = { label: el.opportunity_name,value: el.opportunity_name, _id: el.id };
+      _opporArr.push(_data);
+    });
+    setOpportunityNameArray(_opporArr);
   };
 
   let timeListText = [
@@ -493,7 +539,15 @@ const TodoTab = (props) => {
         taskPriority: priorityBtn,
         timeOfReminder: selectedTime,
         userId: id,
+        company_id:'',
+        leadId:'',
       };
+      if(props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ){
+        // if(!props.companyID && props.leadID !== '-'){}
+        formData["company_id"] = props.companyID;
+        formData["leadId"] = props.leadID;
+      }
+      
       let _resp = await axiosRequest.post(`user/todo_task`, formData, {
         secure: true,
       });
@@ -598,25 +652,66 @@ const TodoTab = (props) => {
     setTeamMemberChip(_array);
   };
 
+  const changeOpportunityName = (value) => {
+    setTodoOpportunityName(value)
+  }
+
+  const changeCompanyName = (value) => {
+    setTodoCompName(value)
+  }
+
   return (
     <>
       <Modal
-        title="To Do"
+        title="Add To Do"
         visible={props.isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        className="todo-popup-container-width"
+        className="todo-popup-container-width todo-header-style"
       >
         <div className="Todo-Create-Container">
-          <div className="Todo-Col-shadow-box">
+          <div className="" style={{backgroundColor:'#fff'}}>
+            <Row style={{marginBottom:10}}>
+              <Col style={{flex:1}}>
+                <p style={{ marginBottom: 5 }}> Company Name </p>
+                <Select
+                  placeholder="Select"
+                  style={{width: '100%'}}
+                  options={companyArray}
+                  value={todoCompName}
+                  onChange={(val) => changeCompanyName(val)}
+                ></Select>
+              </Col>
+              
+              <Col style={{flex:1,marginLeft:10}}>
+                <p style={{ marginBottom: 5 }}> Opportunity Name </p>
+                {/* <Select
+                  placeholder="Select"
+                  style={{width: '100%'}}
+                  // options={leadStatusItems}
+                  value={todoOpportunityName}
+                  onChange={(val) => changeOpportunityName(val)}
+                ></Select> */}
+
+                <AutoComplete
+                  placeholder="Select"
+                  options={opportunityNameArray}
+                  style={{width: '100%'}}
+                  value={todoOpportunityName}
+                  onChange={(val, data) => changeOpportunityName(val, data)}
+                  // onSelect={(val, data) => onSelectCompany(val, data)}
+                  filterOption={(inputValue, option) =>
+                    option.label
+                      .toUpperCase()
+                      .indexOf(inputValue.toUpperCase()) !== -1
+                  }
+                ></AutoComplete>
+              </Col>
+            </Row>
             <div className="Todo-Create-Header" style={{ marginBottom: 5 }}>
               <p style={{ marginBottom: 0 }}> Add Team Member </p>
             </div>
             <div className="Todo-Create-SearchBox todoSearch">
-              {/* <input type='text' placeholder='Search by Name'/> */}
-              {/* <SearchOutlined /> */}
-              {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
-              {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
               <AutoComplete
                 value={teamMemberData}
                 style={{ width: "100%" }}

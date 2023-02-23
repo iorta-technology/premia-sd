@@ -163,6 +163,8 @@ const TodoCards = forwardRef((props, ref) => {
           showarchiedpopup: false,
           remarkData: _remark,
           textOverLine: _textOverline,
+          companyName: _data?.company_id?.company_name,
+          opportunityName: _data?.leadId?.opportunity_name,
           wholeData: _data,
         };
         // console.warn('((((((((((((((objstrct------>>>))))))))))))))',objstrct)
@@ -421,7 +423,7 @@ const TodoCards = forwardRef((props, ref) => {
 
   let fetchTodo = () => {
     return getTodoDataArray.map((element, index) => {
-      // console.log('DATATATATA____',element)
+    //   console.log('DATATATATA____',element)
       return (
         <div className="TodoCard-Container" key={index}>
           <div className="TodoCards-Top" style={{borderBottom: '1px solid #e6e9eb'}}>
@@ -510,8 +512,8 @@ const TodoCards = forwardRef((props, ref) => {
             </div>
           </div>
           <div className="TodoCards-Body flex-wrap py-1">
-            <p className="w-50 value">Iorta</p>
-            <p className="w-50 value">Java</p>
+            <p className="w-50 value">{!element.companyName ? '-' : element.companyName}</p>
+            <p className="w-50 value">{!element.opportunityName ? '-' : element.opportunityName}</p>
             <p className="w-50 term">Opportunity Name</p>
             <p className="w-50 term">Company Name</p>
           </div>

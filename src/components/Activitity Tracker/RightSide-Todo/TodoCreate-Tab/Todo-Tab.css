@@ -27,7 +27,7 @@
     box-shadow: 0 5px 45px rgb(0 0 0 / 50%);
 } */
 .todo-popup-container-width{
-    width: 55% !important;
+    width: 45% !important;
 }
 .Todo-Create-Container{
     background-color: rgb(247, 247, 247);
@@ -81,13 +81,35 @@
     outline: none;
 }
 .Todo-Create-Priority>p,.Todo-Create-Header>p{
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 14px;
 }
 .Todo-Create-Priority>button{
     margin: 5px;
     width: 85px;
     border-radius: 5px;
+}
+.todo-header-style > div > .ant-modal-header {
+    /* box-shadow: 0px 5px 7px #00000029; */
+    background-color: #3b371e;
+    /* height: 100vh !important; */
+}
+
+.todo-header-style .ant-modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 .todoSearch .ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
     border-top-left-radius: 5px !important;
@@ -106,7 +128,7 @@
 }
 .Todo-Create-FooterReminder>p{
     font-size: 14px;
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-bottom: 5px;
     margin-left: 5px;
 }
@@ -138,7 +160,7 @@
 }
 .ant-modal-title {
     margin: 0;
-    color: black;
+    color: #fff;
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
