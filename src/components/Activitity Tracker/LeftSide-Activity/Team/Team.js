@@ -220,7 +220,7 @@ const Team = () => {
                     value={selected1}
                     style={{ width: "100%" }}
                     onChange={userOnchange}
-                    placeholder="Select Team Member"
+                    placeholder="Select "
                     options={users}
                   ></Select>
                 </div>

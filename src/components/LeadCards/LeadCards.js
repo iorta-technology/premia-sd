@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import LeadCard from "./LeadCard";
 import "./LeadCards.css";
 import _ from "lodash";
-import { Row, Col, Avatar, Card, Select } from "antd";
+import { Row, Col, Avatar, Card, Select, Button, message } from "antd";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import { useDispatch, useSelector } from "react-redux";
 import { AllocateModal } from "../Tab/Allocate";
 import { checkAgent, stoageSetter, stoageGetter } from "../../helpers";
 import * as actions from "../../store/actions/leads";
+import { DownloadOutlined } from "@ant-design/icons";
+import axiosRequest from "../../axios-request/request.methods";
 
 import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
@@ -32,12 +34,11 @@ let _currentTab = "self";
 
 const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads);
-  console.log("leadsData ========== ", leadsData);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   // console.warn('userTreeData==========>>>>>>>',userTreeData)
 
-  // console.warn('leadsData ==========>>>>>>>',leadsData)
+  console.warn("leadsData ==========>>>>>>>", leadsData.allLeads);
   // console.warn('props ==========>>>>>>>',props)
   const { user } = loginState;
   const dispatch = useDispatch();
@@ -59,6 +60,10 @@ const LeadCards = (props) => {
     setSecondValue("Select");
     setOpenSecond(false);
   }, [leadsData.globalTab]);
+
+  // useEffect(() => {
+  //   handleChangeTab(leadsData.globalTab);
+  // }, []);
 
   useEffect(() => {
     if (leadsData?.globalTab === "team") getDataForFirstDropdownTeam();
@@ -187,6 +192,12 @@ const LeadCards = (props) => {
     }
   };
 
+  const exportReport = async () => {
+    let data = await axiosRequest.get(
+      `admin/opportunity-dump?userId=${user.id}`
+    );
+  };
+
   return (
     <div className="cards-container cards_data">
       <div className="dropdown-container">
@@ -272,6 +283,25 @@ const LeadCards = (props) => {
             ></Select>
           </div>
         )}
+        {openSecond && leadsData?.globalTab === "team" && secondValue && (
+          <div
+            className="lead-ml15"
+            style={{ position: "relative", bottom: 26 }}
+          >
+            <p style={{ marginBottom: "5px" }}>Opportunity Dump</p>
+            <Button
+              onClick={exportReport}
+              style={{
+                backgroundColor: "#3c3d3d",
+                color: "#fff",
+                borderRadius: 5,
+              }}
+              className="d-flex align-items-center justify-content-center"
+            >
+              <DownloadOutlined /> Export
+            </Button>
+          </div>
+        )}
       </div>
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
         {!_.isEmpty(leadsData.allLeads) ? (
@@ -293,7 +323,7 @@ const LeadCards = (props) => {
                     appointDate={lead.appointDate}
                     location={lead.location}
                     loading={props.leadDataLoading}
-                    owner_name={lead.companyName}
+                    owner_name={lead.userId}
                   />
                 </Col>
               </>

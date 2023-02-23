@@ -56,7 +56,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
       `user/v2/getLead/${id}?leadfilter=${leads}&skip=${skipVal}`,
       { secure: true }
     );
-    // console.warn('+++++++++ GET LEAD DATA ++++++++', result)
+    // console.warn("+++++++++ GET LEAD DATA ++++++++", result);
     if (result.length > 0) {
       // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
       // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
