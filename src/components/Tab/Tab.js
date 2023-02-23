@@ -269,7 +269,7 @@ const Tab = ({
                   }}
                   size="large"
                 >
-                  <PlusOutlined style={{ fontSize: 16, marginRight: 10 }} />
+                  <PlusOutlined style={{ sfontSize: 16, marginRight: 10 }} />
                   Add new Opportunity
                 </Button>
               </div>

@@ -106,22 +106,20 @@ const LeadCard = React.memo((props) => {
     statusStyle: "",
     bgColor: "",
   };
-  
+
   const nameShorter = (str) => {
     try {
       if (str !== "") {
         str = str.toUpperCase();
         let arr = str.split(" ");
-        if(arr.length === 1){
+        if (arr.length === 1) {
           let fLatter = arr[0]?.charAt(0);
-          str = fLatter ;
-        }else{
+          str = fLatter;
+        } else {
           let fLatter = arr[0]?.charAt(0);
           let sLatter = arr[1]?.charAt(0);
           str = fLatter + sLatter;
         }
-        
-        
       }
       return str;
     } catch (error) {
@@ -129,7 +127,6 @@ const LeadCard = React.memo((props) => {
     }
   };
 
-  
   // Card for desktop
 
   let card = (
