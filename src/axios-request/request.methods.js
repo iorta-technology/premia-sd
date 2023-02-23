@@ -29,7 +29,8 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
       .then((res) => {
         const errCode = res.data.errCode;
         const data = res.data;
-        message.destroy()
+        message.destroy();
+
         if (errCode === -1) {
           if (typeof data.errMsg === "string") {
             // alert(data.errMsg)
@@ -57,15 +58,18 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
             // if (config.method === "put") message.success("Data updated successfully");
           }
           resolve(data.errMsg);
+        } else if (errCode === 2061) {
+          resolve(data.errMsg);
+          message.success(data.errMsg);
         } else if (errCode === 2601) {
           // resolve(data.errMsg);
           if (config.method === "put") {
-            if (config.url.includes("manualAllocation_lead")) message.warning("No matching leads are found");
+            if (config.url.includes("manualAllocation_lead"))
+              message.warning("No matching leads are found");
+          } else if (config.method === "get") {
+            message.warning(data.errMsg);
           }
           resolve([]);
-        }else if (errCode === 2061) {
-          resolve(data.errMsg);
-          message.success(data.errMsg);
         } else {
           // alert(data.errMsg);
           if (config.method !== "get") message.error(data.errMsg);
@@ -74,7 +78,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
         }
       })
       .catch((error) => {
-        message.destroy()
+        message.destroy();
         if (error.response) {
           console.log(error.response);
           // alert(error.response.data.errMsg);
