@@ -24,7 +24,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
         }
       : headers;
     config.url = `${baseURL}${options.secure ? secure : auth}${config.url}`;
-    console.log("Request: ", { ...config, headers: headers });
+    // console.log("Request: ", { ...config, headers: headers });
     axios({ ...config, headers: headers })
       .then((res) => {
         const errCode = res.data.errCode;
@@ -82,7 +82,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
         // message.destroy();
         if (config.method !== "get") message.destroy();
         if (error.response) {
-          console.log(error.response);
+          // console.log(error.response);
           // alert(error.response.data.errMsg);
           message.error(error.response.data.errMsg);
           if (error.response.status === 400 || error.response.status === 401) {

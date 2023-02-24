@@ -67,7 +67,7 @@ const Tab = ({
 
   useEffect(() => {
     console.log(
-      "************************ header ___*(*(*((**)))) *********************===========>>>",
+      // "************************ header ___*(*(*((**)))) *********************===========>>>",
       header
     );
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
@@ -98,7 +98,7 @@ const Tab = ({
   };
 
   const handler = (activeKey) => {
-    console.log("activeKey------------->>>>>>>>", activeKey);
+    // console.log("activeKey------------->>>>>>>>", activeKey);
     setactiveTab(activeKey);
     // dispatch(actions.fetchAllLeads(activeTab,current))
 

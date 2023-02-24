@@ -285,12 +285,22 @@
   justify-content: space-between;
   /* cursor: pointer; */
 }
-.action-cards-content-activity {
+.lead-action-cards-content-activity {
   padding: 10px;
   background-color: #fff;
   /* margin-top: 10px; */
   border-radius: 6px;
   border: 1px solid #e6e9eb;
+  flex:1;
+  margin-bottom: 10px;
+}
+#truncateLongTextsLead {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* margin-bottom: -20px; */
+  /* margin-top: -10px; */
+  cursor: pointer;
 }
 
 .summary_heading {

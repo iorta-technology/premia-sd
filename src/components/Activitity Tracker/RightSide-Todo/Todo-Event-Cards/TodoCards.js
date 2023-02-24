@@ -75,7 +75,7 @@ const TodoCards = forwardRef((props, ref) => {
         `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`,
         { secure: true }
       );
-      console.log("TODO__GETTTT___RESPPPP", _resp);
+    //   console.log("TODO__GETTTT___RESPPPP", _resp);
       let respData = _resp[0];
 
       setTotalPage(_resp[1][0].count / 5);
@@ -96,10 +96,10 @@ const TodoCards = forwardRef((props, ref) => {
         setSval(totolDataCount);
       }
 
-      console.warn("((((((sval))))))", sval);
+    //   console.warn("((((((sval))))))", sval);
 
       for (let _data of respData) {
-        console.log("DATATATATA", _data);
+        // console.log("DATATATATA", _data);
         let _icon = "";
         let _remark = "";
         // let _enableRemark = null

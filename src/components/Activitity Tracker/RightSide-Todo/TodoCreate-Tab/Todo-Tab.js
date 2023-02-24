@@ -23,7 +23,7 @@ const { Option } = Select;
 const { Search } = Input;
 
 const TodoTab = (props) => {
-  console.log('editData ___TODOO_________',props)
+  // console.log('editData ___TODOO_________',props)
   useEffect(() => {
     if(props.hasOwnProperty('company_Name') && props.hasOwnProperty('opportunity_Name') ){
       // console.warn("PROPSSSSSSS--------------", props);
@@ -59,7 +59,7 @@ const TodoTab = (props) => {
   // console.log("USER login_user ___DATA__", login_user);
 
   useEffect(() => {
-    console.log("USER HIERARCHYY ___DATA__", _dataStore);
+    // console.log("USER HIERARCHYY ___DATA__", _dataStore);
     let _teamMember = [];
     if (Object.keys(_dataStore).length !== 0) {
       // let _teamMember = [];
@@ -203,7 +203,7 @@ const TodoTab = (props) => {
       secure: true,
     });
 
-    console.warn('__++++++_opportunityAPI++++++++ RESPPPP',_opportunityAPI)
+    // console.warn('__++++++_opportunityAPI++++++++ RESPPPP',_opportunityAPI)
     // const [opportunityNameArray, setOpportunityNameArray] = useState([]);
     let _opporArr = [];
     _opportunityAPI[0].map((el) => {

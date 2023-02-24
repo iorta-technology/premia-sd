@@ -200,38 +200,31 @@ const NewLead = React.memo((props) => {
     if (props.location.state !== undefined) {
       let _leadID = props.location.state.leadID;
       getLeadDetails(_leadID);
+      getAppointmentList(_leadID);
+      setUpdateLeadID(_leadID)
+      getEventTodoCountAPI(_leadID);
       setIsNewLead(false);
 
       if (props.location.state.hasOwnProperty("_leadData")) {
         loadValuesToFields(storeFormData);
       }
-
-      // console.warn('((((((((((( NOT NEW )))))))))))')
     } else {
       setIsNewLead(true);
       // setMobileDisable(false);
       form.setFieldsValue({
         lead_status: "newleadentery",
       });
-      // console.warn('(((((((((((  NEW )))))))))))')
     }
 
-    // dispatch(actions.fetchLeadDetails(_leadID));
-    // dispatch(actions.fetchAllState(id));
   }, [dispatch]);
 
-  // store form data
   let storeFormData = useSelector((state) => state?.newLead?.formData);
-  console.log(storeFormData, "storeFormData");
   const userTreeData = useSelector((state) => state?.home?.user_tree);
-
   // console.warn('((((((((((( _StoreData__STATUSLEAD )))))))))))', storeFormData)
 
   let leadDataLoading = useSelector((state) => state.newLead.leadDataloading);
   let storeLeadId = useSelector((state) => state?.newLead?.formData?._id);
   const successMsg = useSelector((state) => state.newLead.successMsg);
-
-  // console.log('storeLeadId------------>>>.',storeLeadId)
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 
@@ -243,7 +236,6 @@ const NewLead = React.memo((props) => {
   const [isNewLead, setIsNewLead] = useState(false);
   const [showLeadStatus, setshowLeadStatusVisiblity] = React.useState(false);
   const [leadIdData, setLeadIdData] = useState("");
-  // console.warn('((((((((((( stateProvince )))))))))))',stateProvince)
   const [hierarAgentList, setHierarAgentList] = useState([]);
   const [companyArray, setCompanyArray] = useState([]);
   const [parentCompArray, setparentCompArray] = useState([]);
@@ -270,6 +262,7 @@ const NewLead = React.memo((props) => {
   const [eventCountBgColor, setEventCountBgColor] = useState("#00acc114");
   const [showEventTodoList, setShowEventTodoList] = useState(false);
   const [activities_data, setActivities_data] = useState([]);
+  const [updateLeadID, setUpdateLeadID] = useState('');
   
   const [disableParentComp, setDisableParentComp] = useState(false);
   let _teamMember = [];
@@ -277,7 +270,8 @@ const NewLead = React.memo((props) => {
   useEffect(() => {
     getHierarData();
     getCompanyDetails();
-    getAppointmentList();
+    
+    
   }, []);
 
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
@@ -360,10 +354,28 @@ const NewLead = React.memo((props) => {
     // }
   };
 
-  const getAppointmentList = async () => {
-    let _result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${storeLeadId}`, {secure: true,});
-    console.log('APPOINTMENT DATA---->>>',_result)
+  const getAppointmentList = async (lead_id) => {
+    // setUpdateLeadID(lead_id)
+    let _result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${lead_id}`, {secure: true,});
+    // console.log('APPOINTMENT DATA---->>>',_result)
     setActivities_data(_result)
+   
+  };
+  const getEventTodoCountAPI = async (lead_id) => {
+    // setUpdateLeadID(lead_id)
+    let _result = await axiosRequest.get(`user/get-event-todo-count/${lead_id}`, {secure: true,});
+    console.log('COUTNTTTTT DATA---->>>',_result)
+    // setActivities_data(_result)
+    let _eventCreated = _result.totalEventCount.toString().length === 1 ? '0' + _result.totalEventCount : _result.totalEventCount
+    let _todoCompleted = _result.totalTaskdone.toString().length === 1 ? '0' + _result.totalTaskdone : _result.totalTaskdone
+    let _todoCreated = _result.totalTodoCount.toString().length === 1 ? '0' + _result.totalTodoCount : _result.totalTodoCount
+    setEventCountSummary(_eventCreated)
+    setTodoCreatdSummary(_todoCreated)
+    setTodoComplteSummary(_todoCompleted)
+
+  //   const [eventCountSummary, setEventCountSummary] = useState("00");
+  // const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
+  // const [todoComplteSummary, setTodoComplteSummary] = useState("00");
    
   };
   const getLeadDetails = async (lead_id) => {
@@ -1102,7 +1114,7 @@ const NewLead = React.memo((props) => {
   }
 
   let _chipData = [...new Set(formItem.collaborators)];
-
+  // console.warn('((((((((((( NOT NEW__updateLeadID )))))))))))',updateLeadID)
   return (
     <>
       <Tabs
@@ -1232,8 +1244,7 @@ const NewLead = React.memo((props) => {
                           {activities_data?.map((item) => {
                             return (
                               <div
-                                className="action-cards-content-activity"
-                                style={{flex:1}}
+                                className="lead-action-cards-content-activity"
                                 key={item._id}
                               >
                                 <div>
@@ -1241,17 +1252,17 @@ const NewLead = React.memo((props) => {
                                     {moment(item.start_date).format("D MMM YYYY")}{" "}
                                   </p>
                                   <div className="lead-appointment_data">
-                                    <p>
+                                    <p style={{marginBottom:5}}>
                                       {dateFun(item.start_time)}
                                     </p>
-                                    <p style={{ fontWeight: "bold" }}>
+                                    <p style={{ fontWeight: "bold",marginBottom:5 }}>
                                       {item.event_name}
                                     </p>
-                                    <p>
+                                    <p style={{marginBottom:5}}>
                                       {dateFun(item.end_time)}
                                     </p>
                                   </div>
-                                  <div id="truncateLongTexts">
+                                  <div id="truncateLongTextsLead">
                                     <p style={{marginBottom:0}}>{add3Dots(item.event_description, 50)}</p>
                                   </div>
                                 </div>
@@ -1284,7 +1295,7 @@ const NewLead = React.memo((props) => {
                       <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
                       <p style={{fontSize:16,marginTop:10}}>To Do</p>
                       <div className="TodoCards">
-                        <TodoCards leadID={storeLeadId} ref={childRef} />
+                        <TodoCards leadID={updateLeadID} ref={childRef} />
                       </div>
                     </>
                   }
@@ -1892,7 +1903,7 @@ const NewLead = React.memo((props) => {
       <TodoTab
         getTodoData={getTodo}
         button={"Create"}
-        leadID={storeLeadId}
+        leadID={updateLeadID}
         companyID={company_id}
         company_Name={formItem.companyName}
         opportunity_Name={formItem.opportunityName}
