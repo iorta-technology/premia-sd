@@ -185,7 +185,7 @@ const DocUpload = (props) => {
             tender_driven: _StoreData?.tender_driven === true ? "Yes" : "No",
             LOB_opportunity: _StoreData?.lob_for_opportunity,
             product_for_opportunity: _StoreData?.product_for_opportunity,
-            remarks: _StoreData?.remarks,
+            // remarks: _StoreData?.remarks,
             teamMembers: "[]",
             lead_Owner_Id: user_id,
             lead_Creator_Id: user_id,

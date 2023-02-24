@@ -15,7 +15,7 @@ const LeadCard = React.memo((props) => {
   const dispatch = useDispatch();
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const dataVal = useSelector((state) => state);
-  console.log("allocateBtnStatus ==== ", dataVal);
+  // console.log("allocateBtnStatus ==== ", dataVal);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
   const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead);
   const LeadData = useSelector((state) => state?.newLead?.payloadFormData);
@@ -34,7 +34,7 @@ const LeadCard = React.memo((props) => {
     opportunityName,
     owner_name,
   } = props;
-  console.log("props", props);
+  // console.log("props", props);
 
   // console.warn('PROPSSSS___________',props)
 
