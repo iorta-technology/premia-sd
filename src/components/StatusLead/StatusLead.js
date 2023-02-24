@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef,useRef } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import "./StatusLead.css";
 import {
   affinityBenefitsItems,
@@ -28,8 +28,7 @@ import {
   appointmentTimeOptions,
   contactItems,
   industryDataArr,
-  timeList
-  
+  timeList,
 } from "./dataSet";
 import {
   Row,
@@ -71,7 +70,6 @@ import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/Tod
 import noDataIcon from "../../assets/078e54aa9d@2x.png";
 // const minimumDate = moment().format("YYYY-MM-DD");
 const { Option } = Select;
-
 
 const formItemLayout = {
   labelCol: {
@@ -144,30 +142,47 @@ const NewLead = React.memo((props) => {
     //  setTeamDataArr(_dataArr)
   };
 
-  const addRemarks = () => {
+  const addRemarks = async () => {
+    let result = await axiosRequest.post(
+      `user/add-opporunity-remark/${props.location.state.leadID}`,
+      { new_remark: remark },
+      { secure: true }
+    );
+
+    setRemark("");
+    form.setFieldsValue({
+      remarks: "",
+    });
+
+    setreamrkDataArr([...reamrkDataArr, result]);
+    return console.log("result", reamrkDataArr);
+
     let _remark = [
       {
         description: remark,
         dateTime: new Date().toLocaleString("en-US"),
       },
     ];
+    setRemark("");
+
     setFormItem((res) => ({
       ...res,
-      // remarks: [...formItem.remarks, remark],
       remarks: _remark,
+      // remarks: [...formItem.remarks, remark],
     }));
-    setRemark("");
+
     form.setFieldsValue({
       remarks: "",
     });
+
     let remID = Math.floor(1000 + Math.random() * 9000);
     let _data = {
       description: remark,
       date: new Date().toLocaleDateString().valueOf(),
       remark_id: remID.toString(),
+      // userId: new ObjectId("63dce7c80ae6868961079fe8"),
+      // isLeadOwner: true,
     };
-
-    // console.log('REMARK__STRCUTTT_------',_data);
 
     setreamrkDataArr([...reamrkDataArr, _data]);
   };
@@ -201,7 +216,7 @@ const NewLead = React.memo((props) => {
       let _leadID = props.location.state.leadID;
       getLeadDetails(_leadID);
       getAppointmentList(_leadID);
-      setUpdateLeadID(_leadID)
+      setUpdateLeadID(_leadID);
       getEventTodoCountAPI(_leadID);
       setIsNewLead(false);
 
@@ -210,13 +225,12 @@ const NewLead = React.memo((props) => {
       }
     } else {
       setIsNewLead(true);
-      setActivities_data([])
+      setActivities_data([]);
       // setMobileDisable(false);
       form.setFieldsValue({
         lead_status: "newleadentery",
       });
     }
-
   }, [dispatch]);
 
   let storeFormData = useSelector((state) => state?.newLead?.formData);
@@ -263,16 +277,14 @@ const NewLead = React.memo((props) => {
   const [eventCountBgColor, setEventCountBgColor] = useState("#00acc114");
   const [showEventTodoList, setShowEventTodoList] = useState(false);
   const [activities_data, setActivities_data] = useState([]);
-  const [updateLeadID, setUpdateLeadID] = useState('');
-  
+  const [updateLeadID, setUpdateLeadID] = useState("");
+
   const [disableParentComp, setDisableParentComp] = useState(false);
   let _teamMember = [];
 
   useEffect(() => {
     getHierarData();
     getCompanyDetails();
-    
-    
   }, []);
 
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
@@ -357,28 +369,40 @@ const NewLead = React.memo((props) => {
 
   const getAppointmentList = async (lead_id) => {
     // setUpdateLeadID(lead_id)
-    let _result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${lead_id}`, {secure: true,});
+    let _result = await axiosRequest.get(
+      `user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${lead_id}`,
+      { secure: true }
+    );
     // console.log('APPOINTMENT DATA---->>>',_result)
-    setActivities_data(_result)
-    // setShowEventTodoList(false)
-   
+    setActivities_data(_result);
   };
   const getEventTodoCountAPI = async (lead_id) => {
     // setUpdateLeadID(lead_id)
-    let _result = await axiosRequest.get(`user/get-event-todo-count/${lead_id}`, {secure: true,});
-    console.log('COUTNTTTTT DATA---->>>',_result)
+    let _result = await axiosRequest.get(
+      `user/get-event-todo-count/${lead_id}`,
+      { secure: true }
+    );
+    console.log("COUTNTTTTT DATA---->>>", _result);
     // setActivities_data(_result)
-    let _eventCreated = _result.totalEventCount.toString().length === 1 ? '0' + _result.totalEventCount : _result.totalEventCount
-    let _todoCompleted = _result.totalTaskdone.toString().length === 1 ? '0' + _result.totalTaskdone : _result.totalTaskdone
-    let _todoCreated = _result.totalTodoCount.toString().length === 1 ? '0' + _result.totalTodoCount : _result.totalTodoCount
-    setEventCountSummary(_eventCreated)
-    setTodoCreatdSummary(_todoCreated)
-    setTodoComplteSummary(_todoCompleted)
+    let _eventCreated =
+      _result.totalEventCount.toString().length === 1
+        ? "0" + _result.totalEventCount
+        : _result.totalEventCount;
+    let _todoCompleted =
+      _result.totalTaskdone.toString().length === 1
+        ? "0" + _result.totalTaskdone
+        : _result.totalTaskdone;
+    let _todoCreated =
+      _result.totalTodoCount.toString().length === 1
+        ? "0" + _result.totalTodoCount
+        : _result.totalTodoCount;
+    setEventCountSummary(_eventCreated);
+    setTodoCreatdSummary(_todoCreated);
+    setTodoComplteSummary(_todoCompleted);
 
-  //   const [eventCountSummary, setEventCountSummary] = useState("00");
-  // const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
-  // const [todoComplteSummary, setTodoComplteSummary] = useState("00");
-   
+    //   const [eventCountSummary, setEventCountSummary] = useState("00");
+    // const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
+    // const [todoComplteSummary, setTodoComplteSummary] = useState("00");
   };
   const getLeadDetails = async (lead_id) => {
     try {
@@ -939,7 +963,7 @@ const NewLead = React.memo((props) => {
       channel_name: "",
       producer: "",
       VAS_executed: "Yes",
-      VAS_input: '',
+      VAS_input: "",
       kdm_details: [],
       risk_details: [],
     };
@@ -1046,10 +1070,10 @@ const NewLead = React.memo((props) => {
   // console.log('TODO POPUPPPP _____DATAA_________',childRef);
 
   const openTodoPopup = () => {
-    console.log('TODO POPUPPPP ______________');
+    console.log("TODO POPUPPPP ______________");
     setIsModalVisible(true);
   };
-  
+
   const getTodo = () => {
     childRef.current.getTodoData(0);
   };
@@ -1065,19 +1089,17 @@ const NewLead = React.memo((props) => {
   };
 
   const showEventAndTodo = (event) => {
-    console.log('event------>',event)
-    if(event === 'todo'){
-      setTodoCountBgColor('#cea0e11f')
-      setEventCountBgColor('')
-      setShowEventTodoList(true)
-    }else{
-      setTodoCountBgColor('')
-      setEventCountBgColor('#00acc114')
-      setShowEventTodoList(false)
+    console.log("event------>", event);
+    if (event === "todo") {
+      setTodoCountBgColor("#cea0e11f");
+      setEventCountBgColor("");
+      setShowEventTodoList(true);
+    } else {
+      setTodoCountBgColor("");
+      setEventCountBgColor("#00acc114");
+      setShowEventTodoList(false);
     }
-
   };
-  
 
   const removeCollaborators = (data, index) => {
     setFormItem((res) => ({
@@ -1102,7 +1124,7 @@ const NewLead = React.memo((props) => {
       string = string.substring(0, limit) + dots;
     }
     return string;
-  }
+  };
   const dateFun = (time) => {
     let finalTimeobj = timeList.filter((item) => {
       return item.value == time;
@@ -1139,9 +1161,9 @@ const NewLead = React.memo((props) => {
       <div className="form-container">
         <Form form={form} onFinish={submitHandler}>
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}>
-          <Col
+            <Col
               className={`form-body p40 mb-2 ${width > 991 ? "p40" : "p50"}`}
-              style={{ padding: 20,height:'max-content' }}
+              style={{ padding: 20, height: "max-content" }}
               xs={{ span: 24, order: 1 }}
               sm={{ span: 16, order: 1 }}
               md={{ span: 16, order: 1 }}
@@ -1197,8 +1219,12 @@ const NewLead = React.memo((props) => {
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                       <p className="summary_heading">Engagement</p>
                       <Row className="d-flex justify-content-start align-items-center">
-                        <Col  span={8}>
-                          <div onClick={()=> showEventAndTodo('events')} style={{backgroundColor:eventCountBgColor}} className="event_box">
+                        <Col span={8}>
+                          <div
+                            onClick={() => showEventAndTodo("events")}
+                            style={{ backgroundColor: eventCountBgColor }}
+                            className="event_box"
+                          >
                             <h2 className="d-flex align-items-center mb-1">
                               <CalendarOutlined style={{ marginRight: 5 }} />{" "}
                               Events
@@ -1209,8 +1235,12 @@ const NewLead = React.memo((props) => {
                             </div>
                           </div>
                         </Col>
-                        <Col  span={15} style={{marginLeft:5}}>
-                          <div onClick={()=> showEventAndTodo('todo')} style={{backgroundColor:todoCountBgColor}} className="todo_box">
+                        <Col span={15} style={{ marginLeft: 5 }}>
+                          <div
+                            onClick={() => showEventAndTodo("todo")}
+                            style={{ backgroundColor: todoCountBgColor }}
+                            className="todo_box"
+                          >
                             <h2 className="d-flex align-items-center mb-1">
                               <FileDoneOutlined style={{ marginRight: 5 }} /> To
                               Do
@@ -1232,77 +1262,95 @@ const NewLead = React.memo((props) => {
                       </Row>
                     </Col>
                   </Row>
-                  { !isNewLead &&
+                  {!isNewLead && (
                     <>
-                      {!showEventTodoList ?
-                      <>
-                        <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
-                        <p style={{fontSize:16,marginTop:10}}>Events</p>
+                      {!showEventTodoList ? (
+                        <>
+                          <div
+                            style={{ height: 1, backgroundColor: "#e6e9eb" }}
+                          ></div>
+                          <p style={{ fontSize: 16, marginTop: 10 }}>Events</p>
 
-                        {activities_data &&
-                        !_.isEmpty(activities_data) &&
-                        activities_data !== "No appointment " ? (
-                          <div className="lead-activity-block">
-                            {activities_data?.map((item) => {
-                              return (
-                                <div
-                                  className="lead-action-cards-content-activity"
-                                  key={item._id}
-                                >
-                                  <div>
-                                    <p className="appoinment_date">
-                                      {moment(item.start_date).format("D MMM YYYY")}{" "}
-                                    </p>
-                                    <div className="lead-appointment_data">
-                                      <p style={{marginBottom:5}}>
-                                        {dateFun(item.start_time)}
+                          {activities_data &&
+                          !_.isEmpty(activities_data) &&
+                          activities_data !== "No appointment " ? (
+                            <div className="lead-activity-block">
+                              {activities_data?.map((item) => {
+                                return (
+                                  <div
+                                    className="lead-action-cards-content-activity"
+                                    key={item._id}
+                                  >
+                                    <div>
+                                      <p className="appoinment_date">
+                                        {moment(item.start_date).format(
+                                          "D MMM YYYY"
+                                        )}{" "}
                                       </p>
-                                      <p style={{ fontWeight: "bold",marginBottom:5 }}>
-                                        {item.event_name}
-                                      </p>
-                                      <p style={{marginBottom:5}}>
-                                        {dateFun(item.end_time)}
-                                      </p>
-                                    </div>
-                                    <div id="truncateLongTextsLead">
-                                      <p style={{marginBottom:0}}>{add3Dots(item.event_description, 50)}</p>
+                                      <div className="lead-appointment_data">
+                                        <p style={{ marginBottom: 5 }}>
+                                          {dateFun(item.start_time)}
+                                        </p>
+                                        <p
+                                          style={{
+                                            fontWeight: "bold",
+                                            marginBottom: 5,
+                                          }}
+                                        >
+                                          {item.event_name}
+                                        </p>
+                                        <p style={{ marginBottom: 5 }}>
+                                          {dateFun(item.end_time)}
+                                        </p>
+                                      </div>
+                                      <div id="truncateLongTextsLead">
+                                        <p style={{ marginBottom: 0 }}>
+                                          {add3Dots(item.event_description, 50)}
+                                        </p>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        ) : (
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              padding: 50,
-                            }}
-                          >
-                            <img src={noDataIcon} style={{ height: 150, width: 100 }} />
-                            <div style={{ marginTop: 10 }}>
-                              <text style={{ textAlign: "center", fontSize: 14 }}>
-                                {" "}
-                                No records found{" "}
-                              </text>
+                                );
+                              })}
                             </div>
+                          ) : (
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                padding: 50,
+                              }}
+                            >
+                              <img
+                                src={noDataIcon}
+                                style={{ height: 150, width: 100 }}
+                              />
+                              <div style={{ marginTop: 10 }}>
+                                <text
+                                  style={{ textAlign: "center", fontSize: 14 }}
+                                >
+                                  {" "}
+                                  No records found{" "}
+                                </text>
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            style={{ height: 1, backgroundColor: "#e6e9eb" }}
+                          ></div>
+                          <p style={{ fontSize: 16, marginTop: 10 }}>To Do</p>
+                          <div className="TodoCards">
+                            <TodoCards leadID={updateLeadID} ref={childRef} />
                           </div>
-                        )}
-                      </>
-                      :
-                      <>
-                        <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
-                        <p style={{fontSize:16,marginTop:10}}>To Do</p>
-                        <div className="TodoCards">
-                          <TodoCards leadID={updateLeadID} ref={childRef} />
-                        </div>
-                      </>
-                    }
+                        </>
+                      )}
                     </>
-                  }
+                  )}
                 </Col>
               </Row>
             </Col>
@@ -1315,7 +1363,7 @@ const NewLead = React.memo((props) => {
               xl={{ span: 16, order: 1 }}
               span={23}
               // offset={width > breakpoint ? 2 : 0}
-              style={{height:'max-content'}}
+              style={{ height: "max-content" }}
             >
               <Col
                 className="form-body p50 mb-3"
@@ -1378,8 +1426,12 @@ const NewLead = React.memo((props) => {
                         placeholder="Select"
                         options={parentCompArray}
                         value={formItem.parentCompanyName}
-                        onChange={(val, data) => onParentCompanyChange(val, data)}
-                        onSelect={(val, data) => onSelectParentCompany(val, data)}
+                        onChange={(val, data) =>
+                          onParentCompanyChange(val, data)
+                        }
+                        onSelect={(val, data) =>
+                          onSelectParentCompany(val, data)
+                        }
                         filterOption={(inputValue, option) =>
                           option.value
                             .toUpperCase()
@@ -1470,7 +1522,7 @@ const NewLead = React.memo((props) => {
                   </Col>
                 </Row>
               </Col>
-              
+
               <Col
                 className="form-body  p50 mb-3"
                 xs={{ order: 3 }}
@@ -1828,6 +1880,7 @@ const NewLead = React.memo((props) => {
                     </Form.Item>
                     <Button
                       type="primary"
+                      disabled={!(storeFormData && storeFormData._id)}
                       style={{
                         border: "none",
                         display: "flex",
@@ -1847,20 +1900,20 @@ const NewLead = React.memo((props) => {
                     className="post mt-3 w-100"
                     style={{ fontSize: "smaller" }}
                   >
-                    <div className="mb-3 remarks_bg left">
-                      <div className="d-flex justify-content-between w-100">
-                        <div className="">sadiqu hasan</div>
-                        <div className="me-3">2/22/2023 12:26:58 PM</div>
-                      </div>
-                      <div>lorem lorem lorem lorem lorem lorem lorem</div>
-                    </div>
-                    {formItem.remarks.map((res, index) => (
-                      <div className="mb-3 remarks_bg right">
+                    {reamrkDataArr.map((res, index) => (
+                      <div
+                        key={res.date}
+                        className={
+                          "mb-3 remarks_bg " +
+                          (login_user.id === res.userId ? "right" : "left")
+                        }
+                      >
                         <div className="d-flex justify-content-between w-100">
-                          <div className="">
-                            {login_user.firstName + " " + login_user.lastName}
+                          {/* <div className="">{login_user.full_name}</div> */}
+                          <div className="me-3">{res.userId.full_name}</div>
+                          <div className="me-3">
+                            {moment(res.date).format("DD/MM/YYYY hh:mm:ss a")}
                           </div>
-                          <div className="me-3">{res.dateTime}</div>
                         </div>
                         <div>{res.description}</div>
                       </div>
