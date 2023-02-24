@@ -1042,9 +1042,9 @@ const NewLead = React.memo((props) => {
     setLeadIdSummary("");
     setIncorpDateSummary("-");
     setCurrentStatsDateSummary("-");
-    // setEventCountSummary('00')
-    // setTodoCreatdSummary('00')
-    // setTodoComplteSummary('00')
+    setEventCountSummary('00')
+    setTodoCreatdSummary('00')
+    setTodoComplteSummary('00')
 
     setShowLeadSubDisposition(false);
     setShowLeadDisposition(false);

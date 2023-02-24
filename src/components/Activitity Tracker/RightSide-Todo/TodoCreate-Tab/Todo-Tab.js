@@ -187,30 +187,30 @@ const TodoTab = (props) => {
   },[])
 
   const getCompanyDetails = async (lead_id) => {
-    let result = await axiosRequest.get(`admin/company/companies`, {
+    let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
     });
-    // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+    console.warn('__++++++COMPANY++++++++ RESPPPP',result)
     let _compArr = [];
-    result.companies.map((el) => {
+    result[0].company_id.map((el) => {
       let _data = { value: el.company_name, label: el.company_name, _id: el._id };
       _compArr.push(_data);
     });
     setCompanyArray(_compArr);
 
 
-    let _opportunityAPI = await axiosRequest.get(`user/v2/getLead/${login_user.id}?leadfilter=open&skip=0&limit=no`, {
-      secure: true,
-    });
+    // let _opportunityAPI = await axiosRequest.get(`user/v2/getLead/${login_user.id}?leadfilter=open&skip=0&limit=no`, {
+    //   secure: true,
+    // });
 
-    // console.warn('__++++++_opportunityAPI++++++++ RESPPPP',_opportunityAPI)
-    // const [opportunityNameArray, setOpportunityNameArray] = useState([]);
-    let _opporArr = [];
-    _opportunityAPI[0].map((el) => {
-      let _data = { label: el.opportunity_name,value: el.opportunity_name, _id: el.id };
-      _opporArr.push(_data);
-    });
-    setOpportunityNameArray(_opporArr);
+    // // console.warn('__++++++_opportunityAPI++++++++ RESPPPP',_opportunityAPI)
+    // // const [opportunityNameArray, setOpportunityNameArray] = useState([]);
+    // let _opporArr = [];
+    // _opportunityAPI[0].map((el) => {
+    //   let _data = { label: el.opportunity_name,value: el.opportunity_name, _id: el.id };
+    //   _opporArr.push(_data);
+    // });
+    // setOpportunityNameArray(_opporArr);
   };
 
   let timeListText = [
@@ -641,8 +641,8 @@ const TodoTab = (props) => {
   };
 
   const removeTeamMember = (data, ind) => {
-    console.log("removeTeamMember", data);
-    console.log("ownerCollectn=====>>", ownerCollectn);
+    // console.log("removeTeamMember", data);
+    // console.log("ownerCollectn=====>>", ownerCollectn);
     let _arrayOwner = ownerCollectn.filter(
       (item, index) => item.value !== data
     );
@@ -655,8 +655,19 @@ const TodoTab = (props) => {
     setTodoOpportunityName(value)
   }
 
-  const changeCompanyName = (value) => {
+  const changeCompanyName = async(value,data) => {
     setTodoCompName(value)
+
+    let _opportunityAPI = await axiosRequest.get(`user/opportunity/distinct/opportunity_names?company_id=${data._id}`, {
+      secure: true,
+    });
+    // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
+    let _opporArr = [];
+    _opportunityAPI.map((el) => {
+      let _data = { label: el.opportunity_name,value: el.opportunity_name, _id: el._id };
+      _opporArr.push(_data);
+    });
+    setOpportunityNameArray(_opporArr);
   }
 
   return (
@@ -678,7 +689,8 @@ const TodoTab = (props) => {
                   style={{width: '100%'}}
                   options={companyArray}
                   value={todoCompName}
-                  onChange={(val) => changeCompanyName(val)}
+                  disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
+                  onChange={(val,data) => changeCompanyName(val,data)}
                 ></Select>
               </Col>
               
@@ -697,6 +709,7 @@ const TodoTab = (props) => {
                   options={opportunityNameArray}
                   style={{width: '100%'}}
                   value={todoOpportunityName}
+                  disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
                   onChange={(val, data) => changeOpportunityName(val, data)}
                   // onSelect={(val, data) => onSelectCompany(val, data)}
                   filterOption={(inputValue, option) =>
