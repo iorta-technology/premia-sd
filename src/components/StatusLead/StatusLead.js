@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef,useRef } from "react";
 import "./StatusLead.css";
 import {
   affinityBenefitsItems,
@@ -28,6 +28,8 @@ import {
   appointmentTimeOptions,
   contactItems,
   industryDataArr,
+  timeList
+  
 } from "./dataSet";
 import {
   Row,
@@ -43,6 +45,7 @@ import {
   Radio,
   AutoComplete,
   message,
+  Image,
 } from "antd";
 import {
   ArrowRightOutlined,
@@ -60,12 +63,15 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Tabs from "../../components/Tab/Tab";
 import _ from "lodash";
-import { checkAgent, milToDateString, doSentenceCase } from "../../helpers";
+import { checkAgent, doSentenceCase } from "../../helpers";
 import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
-
+import TodoTab from "../Activitity Tracker/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
+import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
+import noDataIcon from "../../assets/078e54aa9d@2x.png";
 // const minimumDate = moment().format("YYYY-MM-DD");
 const { Option } = Select;
+
 
 const formItemLayout = {
   labelCol: {
@@ -102,8 +108,11 @@ const NewLead = React.memo((props) => {
   const [teamDataArr, setTeamDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
   const login_user = useSelector((state) => state.login.user);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   // const _StoreData = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   // console.warn('((((((((((( login_user )))))))))))', login_user)
+
+  const childRef = useRef(null);
 
   const addCollaborators = () => {
     setFormItem((res) => ({
@@ -114,14 +123,10 @@ const NewLead = React.memo((props) => {
       collaborators: "",
     });
     setTeamMemberData("");
-    // let _dataArr = []
-    console.warn("((((((((((( teamDataArr )))))))))))", teamDataArr);
-    console.warn("((((((((((( teamMemberData )))))))))))", teamMemberData);
     let _checkDuplicate = null;
     teamDataArr.map((el) => {
       _checkDuplicate = teamMemberData.includes(el.first_name) ? true : false;
     });
-    console.warn("((((((((((( _checkDuplicate )))))))))))", _checkDuplicate);
     hierarAgentList.map((item) => {
       if (_checkDuplicate) {
       } else {
@@ -140,16 +145,16 @@ const NewLead = React.memo((props) => {
   };
 
   const addRemarks = () => {
-    console.log("=======", formItem.remarks);
-    let _remark = {
-      description: remark,
-      dateTime: new Date().toLocaleString("en-US"),
-    };
-
+    let _remark = [
+      {
+        description: remark,
+        dateTime: new Date().toLocaleString("en-US"),
+      },
+    ];
     setFormItem((res) => ({
       ...res,
-      remarks: [...formItem.remarks, _remark],
-      // remarks: _remark,
+      // remarks: [...formItem.remarks, remark],
+      remarks: _remark,
     }));
     setRemark("");
     form.setFieldsValue({
@@ -261,21 +266,24 @@ const NewLead = React.memo((props) => {
   const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
   const [todoComplteSummary, setTodoComplteSummary] = useState("00");
   const [apptDateString, setApptDateString] = useState("");
-
+  const [todoCountBgColor, setTodoCountBgColor] = useState("");
+  const [eventCountBgColor, setEventCountBgColor] = useState("#00acc114");
+  const [showEventTodoList, setShowEventTodoList] = useState(false);
+  const [activities_data, setActivities_data] = useState([]);
+  
   const [disableParentComp, setDisableParentComp] = useState(false);
   let _teamMember = [];
 
   useEffect(() => {
     getHierarData();
     getCompanyDetails();
+    getAppointmentList();
   }, []);
 
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
   const getHierarData = () => {
     try {
-      // console.log('(((((((((((((((login_user)))))))))))))))=====>>>>',login_user)
-      // console.log('(((((((((((((((_reportManager)))))))))))))))=====>>>>',_reportManager)
       // let _teamMember = [];
       if (checkAgent() === false) {
         userTreeData.reporting_users.map((el) => {
@@ -352,6 +360,12 @@ const NewLead = React.memo((props) => {
     // }
   };
 
+  const getAppointmentList = async () => {
+    let _result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${storeLeadId}`, {secure: true,});
+    console.log('APPOINTMENT DATA---->>>',_result)
+    setActivities_data(_result)
+   
+  };
   const getLeadDetails = async (lead_id) => {
     try {
       let result = await axiosRequest.get(`user/getlead_details/${lead_id}`, {
@@ -835,6 +849,7 @@ const NewLead = React.memo((props) => {
     company_id: company_id,
     start_date: apptDateString,
     start_time: formItem.appointmentTime,
+    VAS_input: !storeFormData?.VAS_input ? "" : storeFormData?.VAS_input,
     client_expectations: !storeFormData?.client_expectations
       ? ""
       : storeFormData?.client_expectations,
@@ -910,6 +925,7 @@ const NewLead = React.memo((props) => {
       channel_name: "",
       producer: "",
       VAS_executed: "Yes",
+      VAS_input: '',
       kdm_details: [],
       risk_details: [],
     };
@@ -1012,9 +1028,15 @@ const NewLead = React.memo((props) => {
       // remarks: [],
     });
   };
+  // console.log('TODO POPUPPPP _____DATAA_________',childRef);
 
   const openTodoPopup = () => {
-    console.log("TODO POPUPPPP ______________");
+    console.log('TODO POPUPPPP ______________');
+    setIsModalVisible(true);
+  };
+  
+  const getTodo = () => {
+    childRef.current.getTodoData(0);
   };
 
   const onSelectTeam = (value) => {
@@ -1026,6 +1048,22 @@ const NewLead = React.memo((props) => {
     // console.log(data, 'data------>')
     setTeamMemberData(text);
   };
+
+  const showEventAndTodo = (event) => {
+    console.log('event------>',event)
+    // const [showEventTodoList, setShowEventTodoList] = useState(false);
+    if(event === 'todo'){
+      setTodoCountBgColor('#cea0e11f')
+      setEventCountBgColor('')
+      setShowEventTodoList(true)
+    }else{
+      setTodoCountBgColor('')
+      setEventCountBgColor('#00acc114')
+      setShowEventTodoList(false)
+    }
+
+  };
+  
 
   const removeCollaborators = (data, index) => {
     setFormItem((res) => ({
@@ -1042,6 +1080,21 @@ const NewLead = React.memo((props) => {
 
   const filterCollaborators = (inputValue, option) => {
     return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+  };
+
+  const add3Dots = (string, limit) => {
+    var dots = "...";
+    if (string.length > limit) {
+      string = string.substring(0, limit) + dots;
+    }
+    return string;
+  }
+  const dateFun = (time) => {
+    let finalTimeobj = timeList.filter((item) => {
+      return item.value == time;
+    });
+    let finalTime = finalTimeobj[0]?.dispValue;
+    return finalTime;
   };
 
   if (leadDataLoading && _.isEmpty(storeFormData)) {
@@ -1072,166 +1125,14 @@ const NewLead = React.memo((props) => {
       <div className="form-container">
         <Form form={form} onFinish={submitHandler}>
           <Row justify={width > breakpoint ? "" : "center"} gutter={[0, 24]}>
-            <Col
-              className="form-body p50 mb-2"
-              xs={{ span: 24, order: 2 }}
-              sm={{ span: 16, order: 2 }}
-              md={{ span: 16, order: 2 }}
-              lg={{ span: 15, order: 1 }}
-              xl={{ span: 15, order: 1 }}
-              span={23}
-              offset={width > breakpoint ? 2 : 0}
-            >
-              <p className="form-title">Company Details</p>
-              <Row gutter={16} className="mb-2 statsLead">
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="company_name"
-                    label="Company Name"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select your Company",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <AutoComplete
-                      placeholder="Select"
-                      options={companyArray}
-                      value={formItem.companyName}
-                      onChange={(val, data) => onCompanyChange(val, data)}
-                      onSelect={(val, data) => onSelectCompany(val, data)}
-                      filterOption={(inputValue, option) =>
-                        option.value
-                          .toUpperCase()
-                          .indexOf(inputValue.toUpperCase()) !== -1
-                      }
-                    ></AutoComplete>
-                  </Form.Item>
-                </Col>
-
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="parent_company"
-                    label="Parent Company Name"
-                    // rules={[
-                    //   {
-                    //     required: false,
-                    //     message: "Select your Parent Company",
-                    //   },
-                    // ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <AutoComplete
-                      disabled={disableParentComp}
-                      placeholder="Select"
-                      options={parentCompArray}
-                      value={formItem.parentCompanyName}
-                      onChange={(val, data) => onParentCompanyChange(val, data)}
-                      onSelect={(val, data) => onSelectParentCompany(val, data)}
-                      filterOption={(inputValue, option) =>
-                        option.value
-                          .toUpperCase()
-                          .indexOf(inputValue.toUpperCase()) !== -1
-                      }
-                    ></AutoComplete>
-                  </Form.Item>
-                </Col>
-
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="industry"
-                    label="Industry"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select Industry",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <AutoComplete
-                      disabled={disableParentComp}
-                      placeholder="Select"
-                      options={industryArray}
-                      value={formItem.industry}
-                      onChange={(val, data) => onIndustryChange(val, data)}
-                      onSelect={(val, data) => onSelectIndustry(val, data)}
-                      filterOption={(inputValue, option) =>
-                        option.value
-                          .toUpperCase()
-                          .indexOf(inputValue.toUpperCase()) !== -1
-                      }
-                    ></AutoComplete>
-                  </Form.Item>
-                </Col>
-
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    label="TATA AIG is empaneled?"
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Radio.Group
-                      name="radiogroup"
-                      onChange={(e) =>
-                        setFormItem((res) => ({
-                          ...res,
-                          empaneled: e.target.value,
-                        }))
-                      }
-                      value={formItem.empaneled}
-                    >
-                      <Radio value={true}>Yes</Radio>
-                      <Radio value={false}>No</Radio>
-                    </Radio.Group>
-                  </Form.Item>
-                </Col>
-
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="client_location"
-                    label="Client Location"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select your Location",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Input
-                      placeholder="Enter Location"
-                      value={formItem.clientLocation}
-                      onChange={(val) =>
-                        setFormItem((res) => ({
-                          ...res,
-                          clientLocation: val.target.value,
-                        }))
-                      }
-                    />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Col>
-            <Col
+          <Col
               className={`form-body p40 mb-2 ${width > 991 ? "p40" : "p50"}`}
-              style={{ padding: 20 }}
+              style={{ padding: 20,height:'max-content' }}
               xs={{ span: 24, order: 1 }}
               sm={{ span: 16, order: 1 }}
               md={{ span: 16, order: 1 }}
-              lg={{ span: 6, order: 1 }}
-              xl={{ span: 6, order: 1 }}
+              lg={{ span: 7, order: 2 }}
+              xl={{ span: 7, order: 2 }}
               span={23}
             >
               <Row>
@@ -1282,8 +1183,8 @@ const NewLead = React.memo((props) => {
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                       <p className="summary_heading">Engagement</p>
                       <Row className="d-flex justify-content-start align-items-center">
-                        <Col span={8}>
-                          <div className="event_box">
+                        <Col  span={8}>
+                          <div onClick={()=> showEventAndTodo('events')} style={{backgroundColor:eventCountBgColor}} className="event_box">
                             <h2 className="d-flex align-items-center mb-1">
                               <CalendarOutlined style={{ marginRight: 5 }} />{" "}
                               Events
@@ -1294,8 +1195,8 @@ const NewLead = React.memo((props) => {
                             </div>
                           </div>
                         </Col>
-                        <Col span={16}>
-                          <div className="todo_box">
+                        <Col  span={15} style={{marginLeft:5}}>
+                          <div onClick={()=> showEventAndTodo('todo')} style={{backgroundColor:todoCountBgColor}} className="todo_box">
                             <h2 className="d-flex align-items-center mb-1">
                               <FileDoneOutlined style={{ marginRight: 5 }} /> To
                               Do
@@ -1317,240 +1218,373 @@ const NewLead = React.memo((props) => {
                       </Row>
                     </Col>
                   </Row>
+                  
+                  { !isNewLead &&
+                    !showEventTodoList ?
+                    <>
+                      <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
+                      <p style={{fontSize:16,marginTop:10}}>Events</p>
+
+                      {activities_data &&
+                      !_.isEmpty(activities_data) &&
+                      activities_data !== "No appointment " ? (
+                        <div className="lead-activity-block">
+                          {activities_data?.map((item) => {
+                            return (
+                              <div
+                                className="action-cards-content-activity"
+                                style={{flex:1}}
+                                key={item._id}
+                              >
+                                <div>
+                                  <p className="appoinment_date">
+                                    {moment(item.start_date).format("D MMM YYYY")}{" "}
+                                  </p>
+                                  <div className="lead-appointment_data">
+                                    <p>
+                                      {dateFun(item.start_time)}
+                                    </p>
+                                    <p style={{ fontWeight: "bold" }}>
+                                      {item.event_name}
+                                    </p>
+                                    <p>
+                                      {dateFun(item.end_time)}
+                                    </p>
+                                  </div>
+                                  <div id="truncateLongTexts">
+                                    <p style={{marginBottom:0}}>{add3Dots(item.event_description, 50)}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: 50,
+                          }}
+                        >
+                          <img src={noDataIcon} style={{ height: 150, width: 100 }} />
+                          <div style={{ marginTop: 10 }}>
+                            <text style={{ textAlign: "center", fontSize: 14 }}>
+                              {" "}
+                              No records found{" "}
+                            </text>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                    :
+                    <>
+                      <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
+                      <p style={{fontSize:16,marginTop:10}}>To Do</p>
+                      <div className="TodoCards">
+                        <TodoCards leadID={storeLeadId} ref={childRef} />
+                      </div>
+                    </>
+                  }
                 </Col>
               </Row>
             </Col>
             <Col
-              className="form-body  p50"
-              xs={{ order: 3 }}
-              sm={16}
-              md={16}
-              lg={15}
-              xl={15}
+              // className="form-body p50 mb-2"
+              xs={{ span: 24, order: 2 }}
+              sm={{ span: 16, order: 2 }}
+              md={{ span: 16, order: 2 }}
+              lg={{ span: 16, order: 1 }}
+              xl={{ span: 16, order: 1 }}
               span={23}
-              offset={width > breakpoint ? 2 : 0}
+              // offset={width > breakpoint ? 2 : 0}
+              style={{height:'max-content'}}
             >
-              <p className="form-title">Opportunity Details</p>
-              <Row gutter={16} className="mb-2 statsLead">
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="lob_for_opportunity"
-                    label="LOB for Opportunity"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select LOB Opportunity",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Select
-                      placeholder="Select"
-                      options={lobOpportunityItems}
-                      value={formItem.LOBForOpportunity}
-                      onChange={(val) => changeLobOpprtunity(val)}
-                    ></Select>
-                  </Form.Item>
-                </Col>
-
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="product_for_opportunity"
-                    label="Product for Opportunity"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select product Opportunity",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Select
-                      placeholder="Select"
-                      options={prodForOpportunityArr}
-                      value={formItem.productForOpportunity}
-                      onChange={(val) => changeProductOpprtunity(val)}
-                    ></Select>
-                  </Form.Item>
-                </Col>
-
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="opportunity_name"
-                    label="Opportunity Name"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Age is required",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Input
-                      className="phone-no"
-                      placeholder="Full Name"
-                      value={formItem.opportunityName}
-                      onChange={(val) =>
-                        setFormItem((res) => ({
-                          ...res,
-                          opportunityName: val.target.value,
-                        }))
-                      }
-                    />
-                  </Form.Item>
-                </Col>
-
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    label="Tender Driver"
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Radio.Group
-                      name="radiogroup"
-                      value={formItem.tenderDriver}
-                      onChange={(val) =>
-                        setFormItem((res) => ({
-                          ...res,
-                          tenderDriver: val.target.value,
-                        }))
-                      }
-                    >
-                      <Radio value={true}>Yes</Radio>
-                      <Radio value={false}>No</Radio>
-                    </Radio.Group>
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Col>
-
-            <Col
-              className="form-body  p50"
-              xs={{ order: 3 }}
-              sm={16}
-              md={16}
-              lg={15}
-              xl={15}
-              span={23}
-              offset={width > breakpoint ? 2 : 0}
-            >
-              <p className="form-title">Opportunities Status</p>
-              <Row gutter={16} className="mb-2 statsLead">
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color"
-                    name="lead_status"
-                    label="Status"
-                    rules={[
-                      {
-                        required: false,
-                        message: "Select",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <Select
-                      placeholder="Select"
-                      options={leadStatusItems}
-                      value={formItem.status}
-                      onChange={(val) => changeLeadStatus(val)}
-                    ></Select>
-                  </Form.Item>
-                </Col>
-
-                {showLeadDisposition && (
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <Form.Item
-                      {...formItemLayout}
-                      className="form-item-name label-color"
-                      name="lead_disposition"
-                      label="Disposition"
-                      rules={[
-                        {
-                          required: false,
-                          message: "Select",
-                        },
-                      ]}
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      <Select
-                        placeholder="Select"
-                        options={dispoArr}
-                        value={formItem.disposition}
-                        onChange={(val) => changeDispoStatus(val)}
-                      ></Select>
-                    </Form.Item>
-                  </Col>
-                )}
-
-                {showLeadSubDisposition && (
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                    <Form.Item
-                      {...formItemLayout}
-                      className="form-item-name label-color"
-                      name="sub_disposition"
-                      label="Sub Disposition"
-                      rules={[
-                        {
-                          required: false,
-                          message: "Select",
-                        },
-                      ]}
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      <Select
-                        placeholder="Select"
-                        options={subdispoArr}
-                        value={formItem.subDisposition}
-                        onChange={(val) =>
-                          setFormItem((res) => ({
-                            ...res,
-                            subDisposition: val,
-                          }))
-                        }
-                      ></Select>
-                    </Form.Item>
-                  </Col>
-                )}
-              </Row>
-              {showAppointmentFields && (
+              <Col
+                className="form-body p50 mb-3"
+                // xs={{ span: 24, order: 2 }}
+                // sm={{ span: 16, order: 2 }}
+                // md={{ span: 16, order: 2 }}
+                // lg={{ span: 14, order: 1 }}
+                // xl={{ span: 14, order: 1 }}
+                span={23}
+                offset={width > breakpoint ? 2 : 0}
+                // style={{height:'max-content'}}
+              >
+                <p className="form-title">Company Details</p>
                 <Row gutter={16} className="mb-2 statsLead">
                   <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                     <Form.Item
                       {...formItemLayout}
                       className="form-item-name label-color"
-                      name="appointment_date"
-                      label="Appointment Date"
+                      name="company_name"
+                      label="Company Name"
                       rules={[
                         {
                           required: false,
-                          message: "Select",
+                          message: "Select your Company",
                         },
                       ]}
                       style={{ marginBottom: "1rem" }}
                     >
-                      <DatePicker
-                        onChange={onChangeAppointData}
-                        value={formItem.appointmentDate}
-                        format="MM/DD/YYYY"
-                        style={{ display: "flex", flex: 1 }}
-                      />
+                      <AutoComplete
+                        placeholder="Select"
+                        options={companyArray}
+                        value={formItem.companyName}
+                        onChange={(val, data) => onCompanyChange(val, data)}
+                        onSelect={(val, data) => onSelectCompany(val, data)}
+                        filterOption={(inputValue, option) =>
+                          option.value
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                        }
+                      ></AutoComplete>
                     </Form.Item>
                   </Col>
+
                   <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                     <Form.Item
                       {...formItemLayout}
                       className="form-item-name label-color"
-                      name="appointment_time"
-                      label="Appointment Time"
+                      name="parent_company"
+                      label="Parent Company Name"
+                      // rules={[
+                      //   {
+                      //     required: false,
+                      //     message: "Select your Parent Company",
+                      //   },
+                      // ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <AutoComplete
+                        disabled={disableParentComp}
+                        placeholder="Select"
+                        options={parentCompArray}
+                        value={formItem.parentCompanyName}
+                        onChange={(val, data) => onParentCompanyChange(val, data)}
+                        onSelect={(val, data) => onSelectParentCompany(val, data)}
+                        filterOption={(inputValue, option) =>
+                          option.value
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                        }
+                      ></AutoComplete>
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="industry"
+                      label="Industry"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select Industry",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <AutoComplete
+                        disabled={disableParentComp}
+                        placeholder="Select"
+                        options={industryArray}
+                        value={formItem.industry}
+                        onChange={(val, data) => onIndustryChange(val, data)}
+                        onSelect={(val, data) => onSelectIndustry(val, data)}
+                        filterOption={(inputValue, option) =>
+                          option.value
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                        }
+                      ></AutoComplete>
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      label="TATA AIG is empaneled?"
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Radio.Group
+                        name="radiogroup"
+                        onChange={(e) =>
+                          setFormItem((res) => ({
+                            ...res,
+                            empaneled: e.target.value,
+                          }))
+                        }
+                        value={formItem.empaneled}
+                      >
+                        <Radio value={true}>Yes</Radio>
+                        <Radio value={false}>No</Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="client_location"
+                      label="Client Location"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select your Location",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Input
+                        placeholder="Enter Location"
+                        value={formItem.clientLocation}
+                        onChange={(val) =>
+                          setFormItem((res) => ({
+                            ...res,
+                            clientLocation: val.target.value,
+                          }))
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Col>
+              
+              <Col
+                className="form-body  p50 mb-3"
+                xs={{ order: 3 }}
+                // sm={16}
+                // md={16}
+                // lg={14}
+                // xl={14}
+                span={23}
+                offset={width > breakpoint ? 2 : 0}
+              >
+                <p className="form-title">Opportunity Details</p>
+                <Row gutter={16} className="mb-2 statsLead">
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="lob_for_opportunity"
+                      label="LOB for Opportunity"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select LOB Opportunity",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Select
+                        placeholder="Select"
+                        options={lobOpportunityItems}
+                        value={formItem.LOBForOpportunity}
+                        onChange={(val) => changeLobOpprtunity(val)}
+                      ></Select>
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="product_for_opportunity"
+                      label="Product for Opportunity"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Select product Opportunity",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Select
+                        placeholder="Select"
+                        options={prodForOpportunityArr}
+                        value={formItem.productForOpportunity}
+                        onChange={(val) => changeProductOpprtunity(val)}
+                      ></Select>
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="opportunity_name"
+                      label="Opportunity Name"
+                      rules={[
+                        {
+                          required: false,
+                          message: "Age is required",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Input
+                        className="phone-no"
+                        placeholder="Full Name"
+                        value={formItem.opportunityName}
+                        onChange={(val) =>
+                          setFormItem((res) => ({
+                            ...res,
+                            opportunityName: val.target.value,
+                          }))
+                        }
+                      />
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      label="Tender Driver"
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Radio.Group
+                        name="radiogroup"
+                        value={formItem.tenderDriver}
+                        onChange={(val) =>
+                          setFormItem((res) => ({
+                            ...res,
+                            tenderDriver: val.target.value,
+                          }))
+                        }
+                      >
+                        <Radio value={true}>Yes</Radio>
+                        <Radio value={false}>No</Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Col>
+
+              <Col
+                className="form-body  p50 mb-3"
+                xs={{ order: 3 }}
+                // sm={16}
+                // md={16}
+                // lg={14}
+                // xl={14}
+                span={23}
+                offset={width > breakpoint ? 2 : 0}
+              >
+                <p className="form-title">Opportunities Status</p>
+                <Row gutter={16} className="mb-2 statsLead">
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="lead_status"
+                      label="Status"
                       rules={[
                         {
                           required: false,
@@ -1561,197 +1595,309 @@ const NewLead = React.memo((props) => {
                     >
                       <Select
                         placeholder="Select"
-                        options={appointmentTimeOptions}
-                        value={formItem.appointmentTime}
-                        onChange={(val) =>
-                          setFormItem((res) => ({
-                            ...res,
-                            appointmentTime: val,
-                          }))
-                        }
+                        options={leadStatusItems}
+                        value={formItem.status}
+                        onChange={(val) => changeLeadStatus(val)}
                       ></Select>
                     </Form.Item>
                   </Col>
+
+                  {showLeadDisposition && (
+                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                      <Form.Item
+                        {...formItemLayout}
+                        className="form-item-name label-color"
+                        name="lead_disposition"
+                        label="Disposition"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Select",
+                          },
+                        ]}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <Select
+                          placeholder="Select"
+                          options={dispoArr}
+                          value={formItem.disposition}
+                          onChange={(val) => changeDispoStatus(val)}
+                        ></Select>
+                      </Form.Item>
+                    </Col>
+                  )}
+
+                  {showLeadSubDisposition && (
+                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                      <Form.Item
+                        {...formItemLayout}
+                        className="form-item-name label-color"
+                        name="sub_disposition"
+                        label="Sub Disposition"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Select",
+                          },
+                        ]}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <Select
+                          placeholder="Select"
+                          options={subdispoArr}
+                          value={formItem.subDisposition}
+                          onChange={(val) =>
+                            setFormItem((res) => ({
+                              ...res,
+                              subDisposition: val,
+                            }))
+                          }
+                        ></Select>
+                      </Form.Item>
+                    </Col>
+                  )}
                 </Row>
-              )}
-            </Col>
+                {showAppointmentFields && (
+                  <Row gutter={16} className="mb-2 statsLead">
+                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                      <Form.Item
+                        {...formItemLayout}
+                        className="form-item-name label-color"
+                        name="appointment_date"
+                        label="Appointment Date"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Select",
+                          },
+                        ]}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <DatePicker
+                          onChange={onChangeAppointData}
+                          value={formItem.appointmentDate}
+                          format="MM/DD/YYYY"
+                          style={{ display: "flex", flex: 1 }}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                      <Form.Item
+                        {...formItemLayout}
+                        className="form-item-name label-color"
+                        name="appointment_time"
+                        label="Appointment Time"
+                        rules={[
+                          {
+                            required: false,
+                            message: "Select",
+                          },
+                        ]}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <Select
+                          placeholder="Select"
+                          options={appointmentTimeOptions}
+                          value={formItem.appointmentTime}
+                          onChange={(val) =>
+                            setFormItem((res) => ({
+                              ...res,
+                              appointmentTime: val,
+                            }))
+                          }
+                        ></Select>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                )}
+              </Col>
 
-            <Col
-              className="form-body p50"
-              xs={{ order: 3 }}
-              sm={16}
-              md={16}
-              lg={15}
-              xl={15}
-              span={24}
-              offset={width > breakpoint ? 2 : 0}
-            >
-              <p className="form-title">Collaborator</p>
-              <Row gutter={16} className="mb-2 statsLead">
-                <Col span={12} className="d-flex align-items-center">
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color w-100"
-                    name="collaborators"
-                    label="Add Collaborators"
-                    rules={[
-                      {
-                        required: false,
-                        message: "",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <AutoComplete
-                      value={teamMemberData}
-                      searchValue={teamMemberData}
-                      style={{ width: "100%" }}
-                      options={hierarAgentList}
-                      onChange={(text, data) => onChangeTeam(text, data)}
-                      onSelect={onSelectTeam}
-                      notFoundContent="No Result Found"
-                      placeholder="Enter Collaborator"
-                      filterOption={(inputValue, option) =>
-                        filterCollaborators(inputValue, option)
-                      }
+              <Col
+                className="form-body p50 mb-3"
+                xs={{ order: 3 }}
+                // sm={16}
+                // md={16}
+                // lg={14}
+                // xl={14}
+                span={24}
+                offset={width > breakpoint ? 2 : 0}
+              >
+                <p className="form-title">Collaborator</p>
+                <Row gutter={16} className="mb-2 statsLead">
+                  <Col span={12} className="d-flex align-items-center">
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color w-100"
+                      name="collaborators"
+                      label="Add Collaborators"
+                      rules={[
+                        {
+                          required: false,
+                          message: "",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
                     >
-                      {/* <Search placeholder="Search by Name" /> */}
-                    </AutoComplete>
-                  </Form.Item>
-                  <Button
-                    style={{
-                      border: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      marginTop: "16px",
-                      marginLeft: 10,
-                      backgroundColor: "#00ACC1",
-                      color: "#fff",
-                    }}
-                    icon={<PlusOutlined />}
-                    onClick={addCollaborators}
-                  >
-                    ADD
-                  </Button>
-                </Col>
-                <Col span={24}>
-                  <div className="d-flex flex-wrap justify-content-start mb-2">
-                    {/* {console.log('formItem.collaborators--->>>',_chipData)} */}
-                    {_chipData &&
-                      _chipData.map((res, index) => (
-                        <div
-                          key={index}
-                          className="add_collaborators_items shadow-sm"
-                        >
-                          {res + " "}
-                          <CloseOutlined
-                            onClick={() => removeCollaborators(res, index)}
-                            style={{ marginLeft: 10, fontWeight: "bolder" }}
-                          />
-                        </div>
-                      ))}
-                  </div>
-                </Col>
+                      <AutoComplete
+                        value={teamMemberData}
+                        searchValue={teamMemberData}
+                        style={{ width: "100%" }}
+                        options={hierarAgentList}
+                        onChange={(text, data) => onChangeTeam(text, data)}
+                        onSelect={onSelectTeam}
+                        notFoundContent="No Result Found"
+                        placeholder="Enter Collaborator"
+                        filterOption={(inputValue, option) =>
+                          filterCollaborators(inputValue, option)
+                        }
+                      >
+                        {/* <Search placeholder="Search by Name" /> */}
+                      </AutoComplete>
+                    </Form.Item>
+                    <Button
+                      style={{
+                        border: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: "16px",
+                        marginLeft: 10,
+                        backgroundColor: "#00ACC1",
+                        color: "#fff",
+                      }}
+                      icon={<PlusOutlined />}
+                      onClick={addCollaborators}
+                    >
+                      ADD
+                    </Button>
+                  </Col>
+                  <Col span={24}>
+                    <div className="d-flex flex-wrap justify-content-start mb-2">
+                      {/* {console.log('formItem.collaborators--->>>',_chipData)} */}
+                      {_chipData &&
+                        _chipData.map((res, index) => (
+                          <div
+                            key={index}
+                            className="add_collaborators_items shadow-sm"
+                          >
+                            {res + " "}
+                            <CloseOutlined
+                              onClick={() => removeCollaborators(res, index)}
+                              style={{ marginLeft: 10, fontWeight: "bolder" }}
+                            />
+                          </div>
+                        ))}
+                    </div>
+                  </Col>
 
-                <Col span={18} className="d-flex align-items-center">
-                  <Form.Item
-                    {...formItemLayout}
-                    className="form-item-name label-color w-100"
-                    name="remarks"
-                    label="Remarks"
-                    rules={[
-                      {
-                        required: false,
-                        message: "",
-                      },
-                    ]}
-                    style={{ marginBottom: "1rem" }}
+                  <Col span={18} className="d-flex align-items-center">
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color w-100"
+                      name="remarks"
+                      label="Remarks"
+                      rules={[
+                        {
+                          required: false,
+                          message: "",
+                        },
+                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Input
+                        type="text"
+                        className="phone-no"
+                        placeholder="Enter"
+                        value={remark}
+                        onChange={(e) => setRemark(e.target.value)}
+                      />
+                    </Form.Item>
+                    <Button
+                      type="primary"
+                      style={{
+                        border: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: "16px",
+                        marginLeft: 10,
+                        backgroundColor: "#00ACC1",
+                      }}
+                      icon={<PlusOutlined />}
+                      onClick={addRemarks}
+                    >
+                      ADD
+                    </Button>
+                  </Col>
+
+                  <Col
+                    className="post mt-3 w-100"
+                    style={{ fontSize: "smaller" }}
                   >
-                    <Input
-                      type="text"
-                      className="phone-no"
-                      placeholder="Enter"
-                      value={remark}
-                      onChange={(e) => setRemark(e.target.value)}
-                    />
-                  </Form.Item>
+                    {formItem.remarks.map((res, index) => (
+                      <div
+                        key={index}
+                        className="d-flex justify-content-start w-100 mb-3 p-2 remarks_bg"
+                      >
+                        <div className="me-3">{res.dateTime}</div>
+                        <div>
+                          <div>{res.description}</div>
+                          <div>
+                            <i>
+                              by{" "}
+                              {login_user.firstName + " " + login_user.lastName}
+                            </i>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </Col>
+                </Row>
+              </Col>
+
+              <Col
+                className="form-body p30 mb-3"
+                xs={{ order: 5, span: 23 }}
+                // sm={16}
+                // md={16}
+                // lg={14}
+                // xl={14}
+                span={23}
+                offset={width > breakpoint ? 2 : 0}
+                style={{ display: "flex", justifyContent: "flex-end" }}
+              >
+                {/* <Row  > */}
+                <Form.Item>
                   <Button
                     type="primary"
                     style={{
+                      backgroundColor: "rgb(59, 55, 30)",
                       border: "none",
                       display: "flex",
                       alignItems: "center",
-                      marginTop: "16px",
-                      marginLeft: 10,
-                      backgroundColor: "#00ACC1",
+                      borderRadius: 5,
+                      padding: 20,
                     }}
-                    icon={<PlusOutlined />}
-                    onClick={addRemarks}
+                    htmlType="submit"
                   >
-                    ADD
+                    Save and Update
                   </Button>
-                </Col>
+                </Form.Item>
 
-                <Col
-                  className="post mt-3 w-100"
-                  style={{ fontSize: "smaller" }}
-                >
-                  <div className="mb-3 remarks_bg left">
-                    <div className="d-flex justify-content-between w-100">
-                      <div className="">sadiqu hasan</div>
-                      <div className="me-3">2/22/2023 12:26:58 PM</div>
-                    </div>
-                    <div>lorem lorem lorem lorem lorem lorem lorem</div>
-                  </div>
-                  {formItem.remarks.map((res, index) => (
-                    <div className="mb-3 remarks_bg right">
-                      <div className="d-flex justify-content-between w-100">
-                        <div className="">
-                          {login_user.firstName + " " + login_user.lastName}
-                        </div>
-                        <div className="me-3">{res.dateTime}</div>
-                      </div>
-                      <div>{res.description}</div>
-                    </div>
-                  ))}
-                </Col>
-              </Row>
-            </Col>
-
-            <Col
-              className="form-body p30 mb-5"
-              xs={{ order: 5, span: 23 }}
-              sm={16}
-              md={16}
-              lg={15}
-              xl={15}
-              span={23}
-              offset={width > breakpoint ? 2 : 0}
-              style={{ display: "flex", justifyContent: "flex-end" }}
-            >
-              {/* <Row  > */}
-              <Form.Item>
-                <Button
-                  type="primary"
-                  style={{
-                    backgroundColor: "rgb(59, 55, 30)",
-                    border: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    borderRadius: 5,
-                    padding: 20,
-                  }}
-                  htmlType="submit"
-                >
-                  Save and Update
-                </Button>
-              </Form.Item>
-
-              {/* </Row> */}
+                {/* </Row> */}
+              </Col>
             </Col>
           </Row>
         </Form>
       </div>
+      <TodoTab
+        getTodoData={getTodo}
+        button={"Create"}
+        leadID={storeLeadId}
+        companyID={company_id}
+        company_Name={formItem.companyName}
+        opportunity_Name={formItem.opportunityName}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </>
   );
 });

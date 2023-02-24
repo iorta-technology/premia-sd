@@ -43,6 +43,21 @@
   text-transform: uppercase;
 }
 
+.ant-progress-circle .ant-progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 16px;
+  line-height: 1;
+  white-space: normal;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
 .grid-style {
   padding: 5px;
   box-shadow: none;

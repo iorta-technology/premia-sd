@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Avatar, Switch, Row, Col } from "antd";
+import { Card, Avatar, Switch, Row, Col,Progress } from "antd";
 import { MoreOutlined, PhoneOutlined } from "@ant-design/icons";
 import "./LeadCard.css";
 import * as actions from "../../store/actions/index";
@@ -172,16 +172,28 @@ const LeadCard = React.memo((props) => {
               {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
             </div>
           </div>
-          <div
-            style={{
-              padding: "5px 15px 5px 15px",
-              backgroundColor: "#00ACC1",
-              borderRadius: 20,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <p style={{ marginBottom: 0, color: "#fff" }}>{companyName}</p>
+
+          <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
+            <div>
+              <Progress 
+                strokeColor='aquamarine' 
+                width={40} 
+                format={ (percent, successPercent) => percent}
+                type="circle" 
+                percent={75} />
+            </div>
+            <div
+              style={{
+                padding: "5px 15px 5px 15px",
+                backgroundColor: "#00ACC1",
+                borderRadius: 20,
+                display: "flex",
+                justifyContent: "center",
+                marginLeft:15
+              }}
+            >
+              <p style={{ marginBottom: 0, color: "#fff" }}>{companyName}</p>
+            </div>
           </div>
         </div>
 
@@ -214,7 +226,7 @@ const LeadCard = React.memo((props) => {
                 <div className="grid-style Appoinment-Heading">
                   <p className="text-type">Owner Name</p>
                   <p className="text-content">
-                    {owner_name.first_name} {owner_name.last_name}
+                    {owner_name?.first_name} {owner_name?.last_name}
                   </p>
                 </div>
               </div>

@@ -199,6 +199,7 @@ const DocUpload = (props) => {
             channel_name: _StoreData?.channel_name,
             producer: _StoreData?.producer,
             VAS_executed: _StoreData?.VAS_executed,
+            VAS_input: _StoreData?.VAS_input,
             kdm_details: _StoreData?.company_id?.kdm_details,
             risk_details: _StoreData?.company_id?.risk_details,
             documents: finalData,

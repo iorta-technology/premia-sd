@@ -285,45 +285,45 @@ const TodoCards = forwardRef((props, ref) => {
         updateTODOTaskApi(formdata);
       }
     } else {
-      let _data = getTodoDataArray.map((ev, index) => {
-        if (rowIndex === index) {
-          ev.removeBtn = false;
-          ev.icon = checkboxoutline;
-          ev.textOverLine.textDecorationLine = "";
-        }
-        return ev;
-      });
-      setGetTodoDataArray(_data);
+    //   let _data = getTodoDataArray.map((ev, index) => {
+    //     if (rowIndex === index) {
+    //       ev.removeBtn = false;
+    //       ev.icon = checkboxoutline;
+    //       ev.textOverLine.textDecorationLine = "";
+    //     }
+    //     return ev;
+    //   });
+    //   setGetTodoDataArray(_data);
 
-      if (_data[rowIndex].taskOwner_id !== id) {
-        let object = {
-          FullName: _data[rowIndex].searchdata[0].FullName,
-          designation: _data[rowIndex].searchdata[0].designation,
-          _Id: _data[rowIndex].searchdata[0]._Id,
-          ShortId: _data[rowIndex].searchdata[0].ShortId,
-          remarkText: _data[rowIndex].searchdata[0].remarkText,
-          taskDone: false,
-          inAppNotification: _data[rowIndex].searchdata[0].inAppNotification,
-          remarkNotification: _data[rowIndex].searchdata[0].remarkNotification,
-        };
-        _teamMembers.push(object);
+    //   if (_data[rowIndex].taskOwner_id !== id) {
+    //     let object = {
+    //       FullName: _data[rowIndex].searchdata[0].FullName,
+    //       designation: _data[rowIndex].searchdata[0].designation,
+    //       _Id: _data[rowIndex].searchdata[0]._Id,
+    //       ShortId: _data[rowIndex].searchdata[0].ShortId,
+    //       remarkText: _data[rowIndex].searchdata[0].remarkText,
+    //       taskDone: false,
+    //       inAppNotification: _data[rowIndex].searchdata[0].inAppNotification,
+    //       remarkNotification: _data[rowIndex].searchdata[0].remarkNotification,
+    //     };
+    //     _teamMembers.push(object);
 
-        let formdata = {
-          userId: id,
-          taskOwner: _data[rowIndex].taskOwner_id,
-          taskId: _data[rowIndex].todoid,
-          owernersCollectionDetails: _teamMembers,
-        };
-        updateTODOTaskApi(formdata);
-      } else {
-        let formdata = {
-          userId: id,
-          taskOwner: _data[rowIndex].taskOwner_id,
-          taskId: data.todoid,
-          taskDone: false,
-        };
-        updateTODOTaskApi(formdata);
-      }
+    //     let formdata = {
+    //       userId: id,
+    //       taskOwner: _data[rowIndex].taskOwner_id,
+    //       taskId: _data[rowIndex].todoid,
+    //       owernersCollectionDetails: _teamMembers,
+    //     };
+    //     updateTODOTaskApi(formdata);
+    //   } else {
+    //     let formdata = {
+    //       userId: id,
+    //       taskOwner: _data[rowIndex].taskOwner_id,
+    //       taskId: data.todoid,
+    //       taskDone: false,
+    //     };
+    //     updateTODOTaskApi(formdata);
+    //   }
     }
   };
 

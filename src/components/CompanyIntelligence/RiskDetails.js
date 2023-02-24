@@ -293,6 +293,7 @@ const RiskDetails = (props) => {
       VAS_executed: !_StoreData?.VAS_executed
         ? "Yes"
         : _StoreData?.VAS_executed,
+        VAS_input: _StoreData?.VAS_input,
       kdm_details: _StoreData?.company_id?.kdm_details,
       risk_details: _riskDetailsData,
     };

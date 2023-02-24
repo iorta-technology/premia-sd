@@ -64,10 +64,11 @@ const ProducerAndVas = (props) => {
         setProducerData( _StoreData?.producer)
         setVasExecuted( _StoreData?.VAS_executed)
         setShowVasInput(_StoreData?.VAS_executed === 'Yes' ? true : false)
-        // setVasInputData(_StoreData?.VAS_executed)
+        setVasInputData(_StoreData?.VAS_input)
         form.setFieldsValue({
             kdmChannel:_StoreData?.channel_name,
             kdmProducer:_StoreData?.producer,
+            vasInput:_StoreData?.VAS_input,
         });
     }, []);
 
@@ -142,6 +143,8 @@ const ProducerAndVas = (props) => {
             channel_name: channelData,
             producer: producerData,
             VAS_executed: vasExecuted,
+            VAS_input: vasInputData,
+            // VAS_input: _StoreData?.VAS_input,
             kdm_details: _StoreData?.company_id?.kdm_details,
             risk_details: _StoreData?.company_id?.risk_details,
         }

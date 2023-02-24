@@ -397,3 +397,118 @@ export const lobOpportunityItems = [
     { label: 'Telecom', value: 'Telecom' },
     { label: 'Textile', value: 'Textile' },
   ];
+
+  export const timeList = [
+    {
+        dispValue: "8:00 AM",
+        value: "28800000",
+      },
+      {
+        dispValue: "8:30 AM",
+        value: "30600000",
+      },
+      {
+        dispValue: "9:00 AM",
+        value: "32400000",
+      },
+      {
+        dispValue: "9:30 AM",
+        value: "34200000",
+      },
+      {
+        dispValue: "10:00 AM",
+        value: "36000000",
+      },
+      {
+        dispValue: "10:30 AM",
+        value: "37800000",
+      },
+      {
+        dispValue: "11:00 AM",
+        value: "39600000",
+      },
+      {
+        dispValue: "11:30 AM",
+        value: "41400000",
+      },
+      {
+        dispValue: "12:00 PM",
+        value: "43200000",
+      },
+      {
+        dispValue: "12:30 PM",
+        value: "45000000",
+      },
+      {
+        dispValue: "1:00 PM",
+        value: "46800000",
+      },
+      {
+        dispValue: "1:30 PM",
+        value: "48600000",
+      },
+      {
+        dispValue: "2:00 PM",
+        value: "50400000",
+      },
+      {
+        dispValue: "2:30 PM",
+        value: "52200000",
+      },
+      {
+        dispValue: "3:00 PM",
+        value: "54000000",
+      },
+      {
+        dispValue: "3:30 PM",
+        value: "55800000",
+      },
+      {
+        dispValue: "4:00 PM",
+        value: "57600000",
+      },
+      {
+        dispValue: "4:30 PM",
+        value: "59400000",
+      },
+      {
+        dispValue: "5:00 PM",
+        value: "61200000",
+      },
+      {
+        dispValue: "5:30 PM",
+        value: "63000000",
+      },
+      {
+        dispValue: "6:00 PM",
+        value: "64800000",
+      },
+      {
+        dispValue: "6:30 PM",
+        value: "66600000",
+      },
+      {
+        dispValue: "7:00 PM",
+        value: "68400000",
+      },
+      {
+        dispValue: "7:30 PM",
+        value: "70200000",
+      },
+      {
+        dispValue: "8:00 PM",
+        value: "72000000",
+      },
+      {
+        dispValue: "8:30 PM",
+        value: "73800000",
+      },
+      {
+        dispValue: "9:00 PM",
+        value: "75600000",
+      },
+      {
+        dispValue: "9:30 PM",
+        value: "77400000",
+      },
+  ];
