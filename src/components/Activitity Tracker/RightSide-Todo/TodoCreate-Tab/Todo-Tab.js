@@ -539,9 +539,8 @@ const TodoTab = (props) => {
         taskPriority: priorityBtn,
         timeOfReminder: selectedTime,
         userId: id,
-        company_id:'',
-        leadId:'',
       };
+      // console.log('CHECK PROPPPPSSS ____________', props)
       if(props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ){
         // if(!props.companyID && props.leadID !== '-'){}
         formData["company_id"] = props.companyID;
