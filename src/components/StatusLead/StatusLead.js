@@ -1898,26 +1898,36 @@ const NewLead = React.memo((props) => {
 
                   <Col
                     className="post mt-3 w-100"
-                    style={{ fontSize: "smaller" }}
+                    style={{
+                      fontSize: "smaller",
+                      height:
+                        reamrkDataArr && reamrkDataArr.length > 0
+                          ? "311px"
+                          : "",
+                      overflowY: "auto",
+                    }}
                   >
-                    {reamrkDataArr.map((res, index) => (
-                      <div
-                        key={res.date}
-                        className={
-                          "mb-3 remarks_bg " +
-                          (login_user.id === res.userId ? "right" : "left")
-                        }
-                      >
-                        <div className="d-flex justify-content-between w-100">
-                          {/* <div className="">{login_user.full_name}</div> */}
-                          <div className="me-3">{res.userId.full_name}</div>
-                          <div className="me-3">
-                            {moment(res.date).format("DD/MM/YYYY hh:mm:ss a")}
+                    {reamrkDataArr
+                      .slice(0)
+                      .reverse()
+                      .map((res, index) => (
+                        <div
+                          key={res.date}
+                          className={
+                            "mb-3 remarks_bg " +
+                            (login_user.id === res.userId ? "right" : "left")
+                          }
+                        >
+                          <div className="d-flex justify-content-between w-100">
+                            {/* <div className="">{login_user.full_name}</div> */}
+                            <div className="me-3">{res.userId.full_name}</div>
+                            <div className="me-3">
+                              {moment(res.date).format("DD/MM/YYYY hh:mm:ss a")}
+                            </div>
                           </div>
+                          <div>{res.description}</div>
                         </div>
-                        <div>{res.description}</div>
-                      </div>
-                    ))}
+                      ))}
                   </Col>
                 </Row>
               </Col>
