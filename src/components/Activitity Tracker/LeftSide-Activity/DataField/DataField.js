@@ -161,9 +161,9 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
         var dS = SelfMonthYear.split("/");
         var d1 = new Date(dS[1], (+dS[0]));
         var today = new Date();
-        console.log(d1,'d1----->')
-        console.log(SelfMonthYear.split("/"),'split of minth')
-        console.log(('0' + dS[0]).slice(-2));
+        // console.log(d1,'d1----->')
+        // console.log(SelfMonthYear.split("/"),'split of minth')
+        // console.log(('0' + dS[0]).slice(-2));
         let finalMonthYear = (('0' + dS[0]).slice(-2)) + '/' + dS[1]
         if (d1 >= today) {
           let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${finalMonthYear}&category=all`)
@@ -177,7 +177,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
       }
 
       if(TeamHere == true || TeamData != undefined){
-        console.log('yes moved to team',Dataupdate);
+        // console.log('yes moved to team',Dataupdate);
         setDataContainer(Dataupdate)
         // var dS = TeamData.split("/");
         // var d1 = new Date(dS[1], (+dS[0]));
@@ -249,7 +249,6 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
     DataContainer?.length>0 ? DataContainer?.map((element,index)=>{
       return(
           <div className='dataField-Card' key={index}>
-            {console.log(element,'full elemenet list')}
             {/* {
             ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
             && element== DataContainer?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 

@@ -68,13 +68,14 @@ const TodoCards = forwardRef((props, ref) => {
   }, []);
 
   let getTodoData = async (skip) => {
+    console.warn("TODO___PROPSSSS", props);
     try {
       const { id } = stoageGetter("user");
       let arrData = [];
-      let _resp = await axiosRequest.get(
-        `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`,
-        { secure: true }
-      );
+      let _api = props.leadID ? 
+                `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}&lead_id=${props.leadID}` : 
+                `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`
+      let _resp = await axiosRequest.get(_api,{ secure: true });
     //   console.log("TODO__GETTTT___RESPPPP", _resp);
       let respData = _resp[0];
 

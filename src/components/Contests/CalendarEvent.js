@@ -112,28 +112,28 @@ export default function CalendarEvent(props) {
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
   const login_user = useSelector((state) => state.login.user);
 
-  useEffect(() => {
-    try {
-      // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
-      let _teamMember = [];
-      _dataStore.reporting_users.map((el) => {
-        let sortarray = {
-          FullName: el.full_name,
-          ShortId: el.employeeCode,
-          firstname: el.first_name,
-          lastname: el.last_name,
-          employecode: el.employeeCode,
-          designation: el.hierarchyName,
-          _Id: el._id,
-          value:
-            toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-        };
-        _teamMember.push(sortarray);
-        sortarray = {};
-      });
-      setHierarAgentList(_teamMember);
-    } catch (err) { }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
+  //     let _teamMember = [];
+  //     _dataStore.reporting_users.map((el) => {
+  //       let sortarray = {
+  //         FullName: el.full_name,
+  //         ShortId: el.employeeCode,
+  //         firstname: el.first_name,
+  //         lastname: el.last_name,
+  //         employecode: el.employeeCode,
+  //         designation: el.hierarchyName,
+  //         _Id: el._id,
+  //         value:
+  //           toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+  //       };
+  //       _teamMember.push(sortarray);
+  //       sortarray = {};
+  //     });
+  //     setHierarAgentList(_teamMember);
+  //   } catch (err) { }
+  // }, []);
 
   useEffect(() => {
     // console.log("USER HIERARCHYY ___DATA__", _dataStore);
