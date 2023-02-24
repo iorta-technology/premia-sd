@@ -1042,9 +1042,9 @@ const NewLead = React.memo((props) => {
     setLeadIdSummary("");
     setIncorpDateSummary("-");
     setCurrentStatsDateSummary("-");
-    setEventCountSummary('00')
-    setTodoCreatdSummary('00')
-    setTodoComplteSummary('00')
+    setEventCountSummary("00");
+    setTodoCreatdSummary("00");
+    setTodoComplteSummary("00");
 
     setShowLeadSubDisposition(false);
     setShowLeadDisposition(false);
@@ -1915,7 +1915,7 @@ const NewLead = React.memo((props) => {
                           key={res.date}
                           className={
                             "mb-3 remarks_bg " +
-                            (login_user.id === res.userId ? "right" : "left")
+                            (login_user.id === res.userId ? "left" : "right")
                           }
                         >
                           <div className="d-flex justify-content-between w-100">
