@@ -166,7 +166,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
         console.log(('0' + dS[0]).slice(-2));
         let finalMonthYear = (('0' + dS[0]).slice(-2)) + '/' + dS[1]
         if (d1 >= today) {
-          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${finalMonthYear}&category=upcoming`)
+          let result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${finalMonthYear}&category=all`)
               setDataContainer(result)
               // console.log(result, 'd is greater');
         } else {

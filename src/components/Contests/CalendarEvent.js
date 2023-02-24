@@ -23,7 +23,7 @@ import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
 import Icon from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
-import { stoageGetter, checkAgent } from "../../helpers";
+import { stoageGetter } from "../../helpers";
 import axios from "axios";
 import _ from "lodash";
 import Form from "antd/lib/form/Form";
@@ -91,87 +91,51 @@ export default function CalendarEvent(props) {
     policy_renewal: false,
   });
   const [teamMemberData, setTeamMemberData] = useState("");
+  const [oppData, setOppData] = useState("");
+  const [oppdisable, setOppDisable] = useState(false);
   const [startd, setStartD] = useState("");
   const [customerData, setCustomerData] = useState("");
   const [hierarAgentList, setHierarAgentList] = useState([]);
+  const [oppList, setOppList] = useState([]);
   const [customersearchList, setCustomerSearchList] = useState([]);
   const [teamMemberChip, setTeamMemberChip] = useState([]);
   const [ownerCollectn, setOwnerCollectn] = useState([]);
   const [customersearchchip, setCustomerSearchChip] = useState([]);
   const [customerlistcollectn, setCustomerListCollectn] = useState([]);
+  const [oppChip, setOppChip] = useState([]);
+  const [oppCollectn, setOppCollectn] = useState([]);
+  const [oppsearchchip, setOppSearchChip] = useState([]);
+  const [opplistcollectn, setOppListCollectn] = useState([]);
   const [checkEventWith, setCheckEventWith] = useState("New Prospect");
   const _dataStore = useSelector((state) => state?.home?.user_tree);
-  const loginUserData = useSelector((state) => state?.login?.user);
-  const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
   useEffect(() => {
     try {
       // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
-      console.log(
-        "(((((((((((((((loginUserData)))))))))))))))=====>>>>",
-        loginUserData
-      );
-      console.log(
-        "(((((((((((((((_reportManager)))))))))))))))=====>>>>",
-        _reportManager
-      );
       let _teamMember = [];
-      if (checkAgent() === false) {
-        _dataStore.reporting_users.map((el) => {
-          let sortarray = {
-            FullName: el.full_name,
-            ShortId: el.employeeCode,
-            firstname: el.first_name,
-            lastname: el.last_name,
-            employecode: el.employeeCode,
-            designation: el.hierarchyName,
-            _Id: el._id,
-            value:
-              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-          };
-          _teamMember.push(sortarray);
-          sortarray = {};
-        });
-        let _finalData = [..._teamMember, _reportManager];
-        setHierarAgentList(_finalData);
-      } else {
-        if (loginUserData.hasOwnProperty("reportingManager")) {
-          // loginUserData.reportingManager
-          let _reporting = loginUserData.reportingManager;
-
-          let sortarray = {
-            FullName: _reporting.full_name,
-            ShortId: _reporting.employeeCode,
-            firstname: _reporting.first_name,
-            lastname: _reporting.last_name,
-            employecode: _reporting.employeeCode,
-            designation: _reporting.hierarchyName,
-            _Id: _reporting._id,
-            value:
-              toCapitalize(_reporting.full_name) +
-              " " +
-              "(" +
-              _reporting.hierarchyName +
-              ")",
-          };
-          _teamMember.push(sortarray);
-          // sortarray = {};
-          setHierarAgentList(_teamMember);
-        }
-      }
-      // console.log('(((((((((((((((loginUserData)))))))))))))))=====>>>>',loginUserData)
-
-      console.log(
-        "(((((((((((((((_teamMember)))))))))))))))=====>>>>",
-        _teamMember
-      );
-    } catch (err) {}
+      _dataStore.reporting_users.map((el) => {
+        let sortarray = {
+          FullName: el.full_name,
+          ShortId: el.employeeCode,
+          firstname: el.first_name,
+          lastname: el.last_name,
+          employecode: el.employeeCode,
+          designation: el.hierarchyName,
+          _Id: el._id,
+          value:
+            toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+        };
+        _teamMember.push(sortarray);
+        sortarray = {};
+      });
+      setHierarAgentList(_teamMember);
+    } catch (err) { }
   }, []);
 
   useEffect(() => {
     try {
       customerSearch();
-    } catch (err) {}
+    } catch (err) { }
   }, []);
 
   const customerSearch = async () => {
@@ -180,7 +144,7 @@ export default function CalendarEvent(props) {
       `user/v2/getLead/${id}?leadfilter=open&skip=0&limit=no`,
       { secure: true }
     );
-    // console.warn('+++++++++ GET LEAD DATA ++++++++', result)
+    console.warn('+++++++++ GET LEAD DATA ++++++++', result)
     if (result.length > 0) {
       // console.log(result[0], 'final lead result');
       let customersearch = [];
@@ -188,21 +152,33 @@ export default function CalendarEvent(props) {
         let sortarray = {
           _Id: el._id,
           value:
-            toCapitalize(el.firstName) +
-            el.lastName +
-            " ( " +
-            el.lead_Id +
-            " )",
+            toCapitalize(el.opportunity_name)
+          // el.lastName +
+          // " ( " +
+          // el.lead_Id +
+          // " )",
         };
 
         customersearch.push(sortarray);
-        //  console.log(customersearch, 'customer search array-->>;;;;;');
+        console.log(customersearch, 'customer search array-->>;;;;;');
         sortarray = {};
       });
-      setCustomerSearchList(customersearch);
+      setOppList(customersearch);
+      console.log(props.Data.leadId,'laead id--->');
+      if(props.Data.leadId != null){
+        console.log(customersearch);
+        let opp = customersearch?.filter(item=>{
+          console.log(item._Id, props.Data.leadId._id,'full lidt');
+         return item._Id == props.Data.leadId._id
+        })
+        console.log(opp,'final opp list');
+        setOppChip(opp)
+        setOppCollectn(opp)
+      }
     } else {
       console.log(result, "final lead result");
     }
+
   };
 
   let toCapitalize = (strText) => {
@@ -221,7 +197,7 @@ export default function CalendarEvent(props) {
       } else {
         return "";
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   useEffect(() => {
@@ -233,6 +209,15 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true);
     } //1661472000000
     if (props.Data) {
+      customerSearch()
+      let durationfinal = durationList.filter(item=>{
+       return item.value == props.Data.durationType
+      })
+      console.log(durationfinal,'duration type------>');
+      if(durationfinal.length != 0){
+      setDurationSelect(durationfinal[0].value)
+      }
+     
       // console.warn(props.Data,moment(props.Data.start_date), moment(props.Data.timeline),'yes update');
       setEventId(props.Data._id);
       setStatusReasonText(props.Data.statusReason);
@@ -935,6 +920,47 @@ export default function CalendarEvent(props) {
     setTeamMemberChip(_array);
   };
 
+  const onChangeOpp = (text, data) => {
+    console.log(text, "text------>");
+    console.log(data, "data------>");
+    setOppData(text);
+    // console.log('onSelect___text', text);
+    // console.log('onSelect___data', data);
+    // setOwnerCollectn([...ownerCollectn,data])
+  };
+
+  const onSelectOpp = (value, data) => {
+    console.log('ON SELECTION ______________', data);
+    console.log('ONowner colle ______________', oppList);
+    let valuesplit = value.split(" ");
+    console.log(valuesplit[0]);
+    let _data = [...new Set([...oppChip, value])];
+    let filteredValue = oppList.filter((item) => {
+      return item._Id == data._Id;
+    });
+    // console.log(filteredValue, 'value splitted--->');
+    let all = [...oppCollectn, filteredValue[0]];
+    console.log(all, "after adding ");
+    setOppCollectn([...oppCollectn, ...filteredValue]);
+    setOppData("");
+    setOppChip(_data);
+    setOppDisable(true)
+  };
+
+  const removeOpp = (data, ind) => {
+    // console.log('removeTeamMember', data);
+    // console.log('ownerCollectn=====>>', ownerCollectn);
+    let _arrayOwner = oppCollectn.filter(
+      (item, index) => item.value !== data
+    );
+    console.log(_arrayOwner, "after removing");
+    setOppCollectn(_arrayOwner);
+    let _array = oppChip.filter((item, index) => index !== ind);
+    setOppChip(_array);
+    setOppDisable(false)
+  };
+
+
   const CustomerClickedTag = (id, value) => {
     setCustomerOnClickVal(value);
     searchCustomerArr.map((item) => {
@@ -956,8 +982,8 @@ export default function CalendarEvent(props) {
     }
   };
 
-  const AddCustomerTag = (value) => {};
-  const AddCustomerCloseFunc = () => {};
+  const AddCustomerTag = (value) => { };
+  const AddCustomerCloseFunc = () => { };
 
   const ProspectClickedTag = (id, value) => {
     setProspectOnClickVal(value);
@@ -1174,7 +1200,7 @@ export default function CalendarEvent(props) {
   const StartDateFunc = (date, dateString) => {
     console.log(
       moment(new Date()).format("YYYY-MM-DD") ==
-        moment(date).format("YYYY-MM-DD")
+      moment(date).format("YYYY-MM-DD")
     );
     console.log(moment(date).format("YYYY-MM-DD"));
     setDurationStartDate(moment(date));
@@ -1562,6 +1588,7 @@ export default function CalendarEvent(props) {
   const bookAppointmentAPI = () => {
     // prospectCheck === true ? BookAppointmentFunc() :  bookAppointWithLead()
     BookAppointmentFunc();
+    // console.log(oppCollectn,'opp collection--->');
   };
 
   const bookAppointWithLead = async () => {
@@ -1656,26 +1683,26 @@ export default function CalendarEvent(props) {
       appointment_type: "",
       event_type:
         customerCollection.phone_call_customer ||
-        prospectCollection.phone_call ||
-        advisorCollection.phone_call_advisor
+          prospectCollection.phone_call ||
+          advisorCollection.phone_call_advisor
           ? "phonecall"
           : customerCollection.appointment_customer ||
             advisorCollection.appointment_advisor
-          ? "appointment"
-          : customerCollection.policy_renewal
-          ? "policyrenewals"
-          : prospectCollection.training_prospect || advisorCollection.training
-          ? "training"
-          : null,
+            ? "appointment"
+            : customerCollection.policy_renewal
+              ? "policyrenewals"
+              : prospectCollection.training_prospect || advisorCollection.training
+                ? "training"
+                : null,
       tata_appointment_type:
         customerCollection.appointment_customer ||
-        advisorCollection.appointment_advisor
+          advisorCollection.appointment_advisor
           ? appointmenttypes
           : "",
       clientVisit:
         customerCollection.phone_call_customer == true ||
-        prospectCollection.phone_call == true ||
-        advisorCollection.phone_call_advisor == true
+          prospectCollection.phone_call == true ||
+          advisorCollection.phone_call_advisor == true
           ? clientvisit
           : "",
       // Appointment_id : Appointmentid,
@@ -1691,11 +1718,11 @@ export default function CalendarEvent(props) {
       manuallycustomerAdded: addManuallyButtonCheck ? true : false,
       manuallyrenewalCustomer: addManuallyButtonCheck
         ? [
-            {
-              Name: customerNameText,
-              MobileNumber: customerMobileNoText,
-            },
-          ]
+          {
+            Name: customerNameText,
+            MobileNumber: customerMobileNoText,
+          },
+        ]
         : [],
       customerId: "",
       teamMember_clone: teammemberclone,
@@ -1821,7 +1848,7 @@ export default function CalendarEvent(props) {
         message.warning("End Date is Mandatory");
       } else if (
         moment(new Date()).format("YYYY-MM-DD") ==
-          moment(durationStartDate).format("YYYY-MM-DD") &&
+        moment(durationStartDate).format("YYYY-MM-DD") &&
         currentTime >= date.toUTCString().toString().slice(17, 22)
       ) {
         message.warning(
@@ -1959,7 +1986,7 @@ export default function CalendarEvent(props) {
         message.warning("End Time is Mandatory");
       } else if (
         moment(new Date()).format("YYYY-MM-DD") ==
-          moment(durationStartDate).format("YYYY-MM-DD") &&
+        moment(durationStartDate).format("YYYY-MM-DD") &&
         currentTime >= date.toUTCString().toString().slice(17, 22)
       ) {
         message.warning(
@@ -1988,31 +2015,31 @@ export default function CalendarEvent(props) {
                 appointment_type: customerCheck
                   ? "customer"
                   : prospectCheck
-                  ? "existingapplication"
-                  : "existingapplication",
+                    ? "existingapplication"
+                    : "existingapplication",
                 event_type:
                   customerCollection.phone_call_customer ||
-                  prospectCollection.phone_call ||
-                  advisorCollection.phone_call_advisor
+                    prospectCollection.phone_call ||
+                    advisorCollection.phone_call_advisor
                     ? "phonecall"
                     : customerCollection.appointment_customer ||
                       advisorCollection.appointment_advisor
-                    ? "appointment"
-                    : customerCollection.policy_renewal
-                    ? "policyrenewals"
-                    : prospectCollection.training_prospect ||
-                      advisorCollection.training
-                    ? "training"
-                    : null,
+                      ? "appointment"
+                      : customerCollection.policy_renewal
+                        ? "policyrenewals"
+                        : prospectCollection.training_prospect ||
+                          advisorCollection.training
+                          ? "training"
+                          : null,
                 tata_appointment_type:
                   customerCollection.appointment_customer ||
-                  advisorCollection.appointment_advisor
+                    advisorCollection.appointment_advisor
                     ? appointmenttypes
                     : "",
                 clientVisit:
                   customerCollection.phone_call_customer == true ||
-                  prospectCollection.phone_call == true ||
-                  advisorCollection.phone_call_advisor == true
+                    prospectCollection.phone_call == true ||
+                    advisorCollection.phone_call_advisor == true
                     ? clientvisit
                     : "",
                 // Appointment_id : Appointmentid,
@@ -2028,16 +2055,16 @@ export default function CalendarEvent(props) {
                 manuallycustomerAdded: addManuallyButtonCheck ? true : false,
                 manuallyrenewalCustomer: addManuallyButtonCheck
                   ? [
-                      {
-                        Name: customerNameText,
-                        MobileNumber: customerMobileNoText,
-                      },
-                    ]
+                    {
+                      Name: customerNameText,
+                      MobileNumber: customerMobileNoText,
+                    },
+                  ]
                   : [],
                 customerId: "",
                 teamMember_clone: teammemberclone,
                 remarkText: "",
-                // leadId : leadlist[0],
+                leadId: oppCollectn[0]._Id,
                 mode: modeSelect,
                 stakeHolder_name: stakeholdrName,
                 location: customerNameText,
@@ -2074,31 +2101,31 @@ export default function CalendarEvent(props) {
               appointment_type: customerCheck
                 ? "customer"
                 : prospectCheck
-                ? "existingapplication"
-                : "existingapplication",
+                  ? "existingapplication"
+                  : "existingapplication",
               event_type:
                 customerCollection.phone_call_customer ||
-                prospectCollection.phone_call ||
-                advisorCollection.phone_call_advisor
+                  prospectCollection.phone_call ||
+                  advisorCollection.phone_call_advisor
                   ? "phonecall"
                   : customerCollection.appointment_customer ||
                     advisorCollection.appointment_advisor
-                  ? "appointment"
-                  : customerCollection.policy_renewal
-                  ? "policyrenewals"
-                  : prospectCollection.training_prospect ||
-                    advisorCollection.training
-                  ? "training"
-                  : null,
+                    ? "appointment"
+                    : customerCollection.policy_renewal
+                      ? "policyrenewals"
+                      : prospectCollection.training_prospect ||
+                        advisorCollection.training
+                        ? "training"
+                        : null,
               tata_appointment_type:
                 customerCollection.appointment_customer ||
-                advisorCollection.appointment_advisor
+                  advisorCollection.appointment_advisor
                   ? appointmenttypes
                   : "",
               clientVisit:
                 customerCollection.phone_call_customer == true ||
-                prospectCollection.phone_call == true ||
-                advisorCollection.phone_call_advisor == true
+                  prospectCollection.phone_call == true ||
+                  advisorCollection.phone_call_advisor == true
                   ? clientvisit
                   : "",
               durationType: eventDurationType,
@@ -2112,14 +2139,14 @@ export default function CalendarEvent(props) {
               manuallycustomerAdded: addManuallyButtonCheck ? true : false,
               manuallyrenewalCustomer: addManuallyButtonCheck
                 ? [
-                    {
-                      Name: customerNameText,
-                      MobileNumber: customerMobileNoText,
-                    },
-                  ]
+                  {
+                    Name: customerNameText,
+                    MobileNumber: customerMobileNoText,
+                  },
+                ]
                 : [],
               customerId: "",
-              leadId: leadlist[0],
+              leadId: oppCollectn[0]._Id,
               teamMember_clone: teammemberclone,
               remarkText: "",
               mode: modeSelect,
@@ -2912,27 +2939,8 @@ export default function CalendarEvent(props) {
                 >Existing Lead</button>
                
               </div> */}
-          <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-            <p style={{ marginBottom: 5, color: "#646666" }}>
-              Stakeholder Name
-            </p>
-            {/* <Input
-              placeholder="Enter Stakeholder Name"
-              value={stakeholdrName}
-              disabled={updateEventCheck == true ? true : false}
-              onChange={(item) => setStakeholdrName(item.target.value)}
-            /> */}
-            <input
-              value={stakeholdrName}
-              onChange={(item) => setStakeholdrName(item.target.value)}
-              disabled={updateEventCheck == true ? true : false}
-              placeholder="Enter Stakeholder Name"
-              className={"CalendarEvent-Modal-customer-textbox-style"}
-              style={{ width: "98%" }}
-              required
-            />
-          </Col>
-          <div className="CalendarEvent-Modal-Card-vertical-line"></div>
+
+
           <h4 className="CalendarEvent-Modal-Card-header-type">Event Type</h4>
           {advisorCheck == true ? (
             <div
@@ -2961,7 +2969,7 @@ export default function CalendarEvent(props) {
                     : "CalendarEvent-Modal-Card-eventwith-static-button-style"
                 }
                 onClick={AdvisorPhoneCallFunc}
-                // style={{marginLeft : 10}}
+              // style={{marginLeft : 10}}
               >
                 Phone Call
               </button>
@@ -2999,7 +3007,7 @@ export default function CalendarEvent(props) {
                     : "CalendarEvent-Modal-Card-eventwith-static-button-style"
                 }
                 onClick={ProspectPhoneCallFunc}
-                // style={{marginLeft : 10}}
+              // style={{marginLeft : 10}}
               >
                 Phone Call
               </button>
@@ -3037,7 +3045,7 @@ export default function CalendarEvent(props) {
                     : "CalendarEvent-Modal-Card-eventwith-static-button-style"
                 }
                 onClick={CustomerPhoneCallFunc}
-                // style={{marginLeft : 10}}
+              // style={{marginLeft : 10}}
               >
                 Phone Call
               </button>
@@ -3053,7 +3061,7 @@ export default function CalendarEvent(props) {
 
           <div className="CalendarEvent-Modal-Card-vertical-line"></div>
           {customerCollection.appointment_customer == true &&
-          customerCheck == true ? (
+            customerCheck == true ? (
             <div>
               <h4 className="CalendarEvent-Modal-Card-header-type">
                 Client Visit
@@ -3072,7 +3080,7 @@ export default function CalendarEvent(props) {
             </div>
           ) : null}
           {advisorCollection.appointment_advisor == true &&
-          advisorCheck == true ? (
+            advisorCheck == true ? (
             <div>
               <h4 className="CalendarEvent-Modal-Card-header-type">
                 Appointment Type
@@ -3237,6 +3245,85 @@ export default function CalendarEvent(props) {
               </div>
             </div>
           ) : null}
+
+          {advisorCollection.joint_customer_visit == true || advisorCollection.phone_call_advisor == true ?
+            <div>
+              <div className="CalendarEvent-Modal-Card-vertical-line"></div>
+              <h4 className="CalendarEvent-Modal-Card-header-type">
+                Search Opportunity
+              </h4>
+              <div className="Todo-Create-Search calSearch">
+                {/* <input type='text' placeholder='Search by Name'/> */}
+                {/* <SearchOutlined /> */}
+                {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
+                {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
+                <AutoComplete
+                  disabled={updateEventCheck == true || oppdisable == true ? true : false}
+                  value={oppData}
+                  style={{ width: "100%" }}
+                  options={oppList}
+                  onChange={(text, data) => onChangeOpp(text, data)}
+                  onSelect={onSelectOpp}
+                  notFoundContent="No Result Found"
+                  filterOption={(inputValue, option) =>
+                    option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+                    -1
+                  }
+                >
+                  <Search placeholder="Search by Name" />
+                </AutoComplete>
+              </div>
+              {/* {console.log(teamMemberChip,'team member chip----->')} */}
+              {oppChip?.length !== 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexFlow: "wrap",
+                    alignItems: "center",
+                  }}
+                >
+                  {oppChip?.map((item, index) => {
+                    // console.log(item,'item--team member-->')
+                    return (
+                      <div style={{ marginRight: 10, marginTop: 10 }}>
+                        {updateEventCheck == true ? (
+                          <Button
+                            size="small"
+                            type="primary"
+                            style={{
+                              backgroundColor: "#00ACC1",
+                              border: "none",
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                            shape="round"
+                          >
+                            {item.value}{" "}
+                          </Button>
+                        ) : (
+                          <Button
+                            size="small"
+                            type="primary"
+                            style={{
+                              backgroundColor: "#00ACC1",
+                              border: "none",
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                            shape="round"
+                          >
+                            {item}{" "}
+                            <CloseOutlined
+                              onClick={() => removeOpp(item, index)}
+                            />
+                          </Button>
+                        )}{" "}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div> : null}
 
           {/* {advisorCheck==true ?
                   <div>
@@ -3511,7 +3598,7 @@ export default function CalendarEvent(props) {
                 <h4
                   className={
                     prospectEmailRegCheck == false ||
-                    prospectEmailAddressCheck == false
+                      prospectEmailAddressCheck == false
                       ? "CalendarEvent-Modal-Card-empty-text-header-type"
                       : "CalendarEvent-Modal-Card-header-type"
                   }
@@ -3523,7 +3610,7 @@ export default function CalendarEvent(props) {
                   onChange={ProspectEmailAddressFunc}
                   className={
                     prospectEmailRegCheck == false ||
-                    prospectEmailAddressCheck == false
+                      prospectEmailAddressCheck == false
                       ? "CalendarEvent-Modal-empty-textbox-style"
                       : "CalendarEvent-Modal-textbox-style"
                   }
@@ -3544,7 +3631,7 @@ export default function CalendarEvent(props) {
                 <h4
                   className={
                     prospectMobileRegCheck == false ||
-                    prospectMobileNoCheck == false
+                      prospectMobileNoCheck == false
                       ? "CalendarEvent-Modal-Card-empty-text-header-type"
                       : "CalendarEvent-Modal-Card-header-type"
                   }
@@ -3556,7 +3643,7 @@ export default function CalendarEvent(props) {
                   onChange={ProspectMobileNoFunc}
                   className={
                     prospectMobileRegCheck == false ||
-                    prospectMobileNoCheck == false
+                      prospectMobileNoCheck == false
                       ? "CalendarEvent-Modal-empty-textbox-style"
                       : "CalendarEvent-Modal-textbox-style"
                   }
@@ -3761,6 +3848,28 @@ export default function CalendarEvent(props) {
 
                 <div className="CalendarEvent-Modal-Card-vertical-line"></div>
 
+                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <p style={{ marginBottom: 5, color: "#646666" }}>
+                    Stakeholder Name
+                  </p>
+                  {/* <Input
+              placeholder="Enter Stakeholder Name"
+              value={stakeholdrName}
+              disabled={updateEventCheck == true ? true : false}
+              onChange={(item) => setStakeholdrName(item.target.value)}
+            /> */}
+                  <input
+                    value={stakeholdrName}
+                    onChange={(item) => setStakeholdrName(item.target.value)}
+                    disabled={updateEventCheck == true ? true : false}
+                    placeholder="Enter Stakeholder Name"
+                    className={"CalendarEvent-Modal-customer-textbox-style"}
+                    style={{ width: "98%" }}
+                    required
+                  />
+                </Col>
+
+                <div className="CalendarEvent-Modal-Card-vertical-line"></div>
                 <div
                   className="CalendarEvent-Modal-date-column-flex"
                   style={{ width: "100%" }}
@@ -3768,7 +3877,7 @@ export default function CalendarEvent(props) {
                   <h4
                     className={
                       customerMobileNoCheck == false ||
-                      customermblvalid == false
+                        customermblvalid == false
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
@@ -3806,7 +3915,7 @@ export default function CalendarEvent(props) {
                   <h4
                     className={
                       customerMobileNoCheck == false ||
-                      customermblvalid == false
+                        customermblvalid == false
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
@@ -3895,7 +4004,7 @@ export default function CalendarEvent(props) {
                 value={modeSelect}
                 onChange={ModeChangeFunc}
                 className="CalendarEvent-Modal-TimePicker-style"
-                // className="CalendarEvent-Modal-TimePicker-style"
+              // className="CalendarEvent-Modal-TimePicker-style"
               >
                 <option value="">Select</option>
 
@@ -3962,7 +4071,7 @@ export default function CalendarEvent(props) {
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
-                    // className="CalendarEvent-Modal-Card-header-type"
+                  // className="CalendarEvent-Modal-Card-header-type"
                   >
                     Start Date *
                   </h4>
@@ -3979,7 +4088,7 @@ export default function CalendarEvent(props) {
                           ? "CalendarEvent-Modal-empty-picker-style"
                           : "CalendarEvent-Modal-picker-style"
                       }
-                      // className="CalendarEvent-Modal-picker-style"
+                    // className="CalendarEvent-Modal-picker-style"
                     />
 
                     {durationStartDateDiffCheck == false ? (
@@ -3996,7 +4105,7 @@ export default function CalendarEvent(props) {
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
-                    // className="CalendarEvent-Modal-Card-header-type"
+                  // className="CalendarEvent-Modal-Card-header-type"
                   >
                     Start Time *
                   </h4>
@@ -4009,7 +4118,7 @@ export default function CalendarEvent(props) {
                           ? "CalendarEvent-Modal-empty-TimePicker-style"
                           : "CalendarEvent-Modal-TimePicker-style"
                       }
-                      // className="CalendarEvent-Modal-TimePicker-style"
+                    // className="CalendarEvent-Modal-TimePicker-style"
                     >
                       <option value="">Select</option>
 
@@ -4115,7 +4224,7 @@ export default function CalendarEvent(props) {
                           ? "CalendarEvent-Modal-empty-picker-style"
                           : "CalendarEvent-Modal-picker-style"
                       }
-                      // className="CalendarEvent-Modal-picker-style"
+                    // className="CalendarEvent-Modal-picker-style"
                     />
                   </div>
                 </div>
@@ -4132,7 +4241,7 @@ export default function CalendarEvent(props) {
                 value={durationSelect}
                 onChange={DurationChangeFunc}
                 className="CalendarEvent-Modal-TimePicker-style"
-                // className="CalendarEvent-Modal-TimePicker-style"
+              // className="CalendarEvent-Modal-TimePicker-style"
               >
                 <option value="">Select</option>
 
