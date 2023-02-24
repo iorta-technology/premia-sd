@@ -1915,7 +1915,9 @@ const NewLead = React.memo((props) => {
                           key={res.date}
                           className={
                             "mb-3 remarks_bg " +
-                            (login_user.id === res.userId ? "left" : "right")
+                            (login_user.id === res.userId._id
+                              ? "right"
+                              : "left")
                           }
                         >
                           <div className="d-flex justify-content-between w-100">
