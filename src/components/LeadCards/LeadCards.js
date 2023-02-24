@@ -38,7 +38,7 @@ const LeadCards = (props) => {
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   // console.warn('userTreeData==========>>>>>>>',userTreeData)
 
-  console.warn("leadsData ==========>>>>>>>", leadsData.allLeads);
+  // console.warn("leadsData ==========>>>>>>>", leadsData.allLeads);
   // console.warn('props ==========>>>>>>>',props)
   const { user } = loginState;
   const dispatch = useDispatch();

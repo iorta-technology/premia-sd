@@ -210,6 +210,7 @@ const NewLead = React.memo((props) => {
       }
     } else {
       setIsNewLead(true);
+      setActivities_data([])
       // setMobileDisable(false);
       form.setFieldsValue({
         lead_status: "newleadentery",
@@ -359,6 +360,7 @@ const NewLead = React.memo((props) => {
     let _result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${lead_id}`, {secure: true,});
     // console.log('APPOINTMENT DATA---->>>',_result)
     setActivities_data(_result)
+    // setShowEventTodoList(false)
    
   };
   const getEventTodoCountAPI = async (lead_id) => {
@@ -853,7 +855,7 @@ const NewLead = React.memo((props) => {
     LOB_opportunity: formItem.LOBForOpportunity,
     product_for_opportunity: formItem.productForOpportunity,
     // remarks: formItem.remarks,
-    remarks: reamrkDataArr,
+    // remarks: reamrkDataArr,
     teamMembers: JSON.stringify(teamDataArr),
     lead_Owner_Id: id,
     lead_Creator_Id: id,
@@ -922,7 +924,7 @@ const NewLead = React.memo((props) => {
       LOB_opportunity: formItem.LOBForOpportunity,
       product_for_opportunity: formItem.productForOpportunity,
       // remarks: formItem.remarks,
-      remarks: reamrkDataArr,
+      // remarks: reamrkDataArr,
       // teamMembers : "[{\"first_name\":\"Prithvi\",\"last_name\":\"Raj\",\"Id\":\"63ad6488d19ed8185f3b0d00\"}]",
       teamMembers: JSON.stringify(teamDataArr),
       lead_Owner_Id: id,
@@ -944,6 +946,7 @@ const NewLead = React.memo((props) => {
 
     // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
     if (isNewLead) {
+      dispatch(actions.fetchLeadUpdateBody(addLeadFormData));
       dispatch(actions.createLead(addLeadFormData)).then((res) => {
         console.log("CREATE_LEAD_SUCCESS:", res);
         if (res.type === "CREATE_LEAD_SUCCESS") {
@@ -1005,7 +1008,7 @@ const NewLead = React.memo((props) => {
       subDisposition: "",
       appointmentDate: "",
       appointmentTime: "",
-      // collaborators: [],
+      collaborators: [],
       // remarks: [],
     }));
     setIsNewLead(true);
@@ -1036,7 +1039,7 @@ const NewLead = React.memo((props) => {
       sub_disposition: "",
       appointment_date: "",
       appointment_time: "",
-      // collaborators: [],
+      collaborators: [],
       // remarks: [],
     });
   };
@@ -1063,7 +1066,6 @@ const NewLead = React.memo((props) => {
 
   const showEventAndTodo = (event) => {
     console.log('event------>',event)
-    // const [showEventTodoList, setShowEventTodoList] = useState(false);
     if(event === 'todo'){
       setTodoCountBgColor('#cea0e11f')
       setEventCountBgColor('')
@@ -1230,73 +1232,75 @@ const NewLead = React.memo((props) => {
                       </Row>
                     </Col>
                   </Row>
-                  
                   { !isNewLead &&
-                    !showEventTodoList ?
                     <>
-                      <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
-                      <p style={{fontSize:16,marginTop:10}}>Events</p>
+                      {!showEventTodoList ?
+                      <>
+                        <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
+                        <p style={{fontSize:16,marginTop:10}}>Events</p>
 
-                      {activities_data &&
-                      !_.isEmpty(activities_data) &&
-                      activities_data !== "No appointment " ? (
-                        <div className="lead-activity-block">
-                          {activities_data?.map((item) => {
-                            return (
-                              <div
-                                className="lead-action-cards-content-activity"
-                                key={item._id}
-                              >
-                                <div>
-                                  <p className="appoinment_date">
-                                    {moment(item.start_date).format("D MMM YYYY")}{" "}
-                                  </p>
-                                  <div className="lead-appointment_data">
-                                    <p style={{marginBottom:5}}>
-                                      {dateFun(item.start_time)}
+                        {activities_data &&
+                        !_.isEmpty(activities_data) &&
+                        activities_data !== "No appointment " ? (
+                          <div className="lead-activity-block">
+                            {activities_data?.map((item) => {
+                              return (
+                                <div
+                                  className="lead-action-cards-content-activity"
+                                  key={item._id}
+                                >
+                                  <div>
+                                    <p className="appoinment_date">
+                                      {moment(item.start_date).format("D MMM YYYY")}{" "}
                                     </p>
-                                    <p style={{ fontWeight: "bold",marginBottom:5 }}>
-                                      {item.event_name}
-                                    </p>
-                                    <p style={{marginBottom:5}}>
-                                      {dateFun(item.end_time)}
-                                    </p>
-                                  </div>
-                                  <div id="truncateLongTextsLead">
-                                    <p style={{marginBottom:0}}>{add3Dots(item.event_description, 50)}</p>
+                                    <div className="lead-appointment_data">
+                                      <p style={{marginBottom:5}}>
+                                        {dateFun(item.start_time)}
+                                      </p>
+                                      <p style={{ fontWeight: "bold",marginBottom:5 }}>
+                                        {item.event_name}
+                                      </p>
+                                      <p style={{marginBottom:5}}>
+                                        {dateFun(item.end_time)}
+                                      </p>
+                                    </div>
+                                    <div id="truncateLongTextsLead">
+                                      <p style={{marginBottom:0}}>{add3Dots(item.event_description, 50)}</p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: 50,
-                          }}
-                        >
-                          <img src={noDataIcon} style={{ height: 150, width: 100 }} />
-                          <div style={{ marginTop: 10 }}>
-                            <text style={{ textAlign: "center", fontSize: 14 }}>
-                              {" "}
-                              No records found{" "}
-                            </text>
+                              );
+                            })}
                           </div>
+                        ) : (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              padding: 50,
+                            }}
+                          >
+                            <img src={noDataIcon} style={{ height: 150, width: 100 }} />
+                            <div style={{ marginTop: 10 }}>
+                              <text style={{ textAlign: "center", fontSize: 14 }}>
+                                {" "}
+                                No records found{" "}
+                              </text>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                      :
+                      <>
+                        <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
+                        <p style={{fontSize:16,marginTop:10}}>To Do</p>
+                        <div className="TodoCards">
+                          <TodoCards leadID={updateLeadID} ref={childRef} />
                         </div>
-                      )}
-                    </>
-                    :
-                    <>
-                      <div style={{height:1,backgroundColor:'#e6e9eb'}}></div>
-                      <p style={{fontSize:16,marginTop:10}}>To Do</p>
-                      <div className="TodoCards">
-                        <TodoCards leadID={updateLeadID} ref={childRef} />
-                      </div>
+                      </>
+                    }
                     </>
                   }
                 </Col>
