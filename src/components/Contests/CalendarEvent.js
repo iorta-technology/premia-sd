@@ -164,9 +164,9 @@ export default function CalendarEvent(props) {
         sortarray = {};
       });
       setOppList(customersearch);
-      console.log(props.Data.leadId,'laead id--->');
+      if(props.Data){
       if(props.Data.leadId != null){
-        console.log(customersearch);
+        // console.log(customersearch);
         let opp = customersearch?.filter(item=>{
           console.log(item._Id, props.Data.leadId._id,'full lidt');
          return item._Id == props.Data.leadId._id
@@ -175,6 +175,7 @@ export default function CalendarEvent(props) {
         setOppChip(opp)
         setOppCollectn(opp)
       }
+    }
     } else {
       console.log(result, "final lead result");
     }
@@ -2064,7 +2065,7 @@ export default function CalendarEvent(props) {
                 customerId: "",
                 teamMember_clone: teammemberclone,
                 remarkText: "",
-                leadId: oppCollectn[0]._Id,
+                leadId: oppChip.length!= 0 ? oppCollectn[0]._Id : null,
                 mode: modeSelect,
                 stakeHolder_name: stakeholdrName,
                 location: customerNameText,
