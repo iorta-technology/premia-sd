@@ -451,7 +451,10 @@ export default function CalendarEvent(props) {
       setDurationStartDate(moment(props.Data.start_date));
       setStartTimeSelect(props.Data.start_time);
       setEndTimeSelect(props.Data.end_time);
-      setEventDurationType(props.Data.durationType);
+      if(props.Data.event_session != undefined || props.Data.event_session != null){
+        setEventDurationType(props.Data.event_session);
+        }
+        
       setModeSelect(props.Data.mode);
       // setStatusReasonText(props.Data.statusreason)
       // console.log(moment(1661472000000).format("YYYY-MM-DD"));
@@ -1934,6 +1937,7 @@ export default function CalendarEvent(props) {
             // Appointment_id : Appointmentid,
             // leadId: "",
             durationType: durationSelect,
+            event_session: eventDurationType,
             start_date: durationStartDateOperation,
             start_time: durationStartTimeOperation,
             end_date: durationEndDateOperation,
@@ -2100,6 +2104,7 @@ export default function CalendarEvent(props) {
                 // Appointment_id : Appointmentid,
                 // leadId: "",
                 durationType: durationSelect,
+                event_session: eventDurationType,
                 start_date: durationStartDateOperation,
                 start_time: durationStartTimeOperation,
                 end_date: durationEndDateOperation,
