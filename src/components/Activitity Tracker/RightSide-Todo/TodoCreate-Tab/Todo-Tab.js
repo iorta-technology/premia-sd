@@ -25,10 +25,13 @@ const { Search } = Input;
 const TodoTab = (props) => {
   // console.log('editData ___TODOO_________',props)
   useEffect(() => {
+    console.warn("PROPSSSSSSS---HEREE-----------", props);
+    getCompanyDetails();
     if(props.hasOwnProperty('company_Name') && props.hasOwnProperty('opportunity_Name') ){
-      // console.warn("PROPSSSSSSS--------------", props);
+      console.warn("PROPSSSSSSS--------------", props?.company_Name);
       setTodoCompName(props?.company_Name)
       setTodoOpportunityName(props?.opportunity_Name)
+      // if(props?.company_Name) changeCompanyName(props?.company_Name,props?.companyID)
     }
   },[props.company_Name])
 
@@ -48,6 +51,8 @@ const TodoTab = (props) => {
   const [teamMemberData, setTeamMemberData] = useState("");
   const [todoCompName, setTodoCompName] = useState("");
   const [todoOpportunityName, setTodoOpportunityName] = useState("");
+  const [todoCompId, setTodoCompId] = useState("");
+  const [todoOpporId, settodoOpporId] = useState("");
   const [companyArray, setCompanyArray] = useState([]);
   const [opportunityNameArray, setOpportunityNameArray] = useState([]);
 
@@ -111,6 +116,8 @@ const TodoTab = (props) => {
 
   useEffect(() => {
     try {
+      // console.log('I AM HEREEEE____CHIPPP',props);
+      // changeCompanyName(props?.company_Name,props?.companyID)
       // console.log('Calling func',Object.keys(props.editData));
       if (props.button === "Create" && props.isModalVisible === true) {
         setButtonName(props.button);
@@ -149,6 +156,9 @@ const TodoTab = (props) => {
           setIsLowButtonClick(false);
         }
 
+        setTodoCompName(props?.editData?.companyName)
+        setTodoOpportunityName(props?.editData?.opportunityName)
+
         setPriorityBtn(props.editData.taskPriority);
         setPriorityBtnColr(props.editData.priorityIndicatorColor);
         setReminderDate(_data);
@@ -182,7 +192,7 @@ const TodoTab = (props) => {
   };
 
   useEffect(() => {
-    getCompanyDetails();
+    // getCompanyDetails();
     
   },[])
 
@@ -197,20 +207,6 @@ const TodoTab = (props) => {
       _compArr.push(_data);
     });
     setCompanyArray(_compArr);
-
-
-    // let _opportunityAPI = await axiosRequest.get(`user/v2/getLead/${login_user.id}?leadfilter=open&skip=0&limit=no`, {
-    //   secure: true,
-    // });
-
-    // // console.warn('__++++++_opportunityAPI++++++++ RESPPPP',_opportunityAPI)
-    // // const [opportunityNameArray, setOpportunityNameArray] = useState([]);
-    // let _opporArr = [];
-    // _opportunityAPI[0].map((el) => {
-    //   let _data = { label: el.opportunity_name,value: el.opportunity_name, _id: el.id };
-    //   _opporArr.push(_data);
-    // });
-    // setOpportunityNameArray(_opporArr);
   };
 
   let timeListText = [
@@ -545,6 +541,9 @@ const TodoTab = (props) => {
         // if(!props.companyID && props.leadID !== '-'){}
         formData["company_id"] = props.companyID;
         formData["leadId"] = props.leadID;
+      }else{
+        formData["company_id"] = todoCompId;
+        formData["leadId"] = todoOpporId;
       }
       
       let _resp = await axiosRequest.post(`user/todo_task`, formData, {
@@ -552,8 +551,6 @@ const TodoTab = (props) => {
       });
       console.log("TODO__RESPPPP", _resp);
       // setIsModalVisible(false);
-      // console.log('CHECK PROPPPPSSS ____________', props)
-      // console.log('CHECK TYPEOFFF ____________', typeof(props.getTodoData))
       if (_resp.length !== 0) {
         handleCancel();
         props.getTodoData();
@@ -620,6 +617,11 @@ const TodoTab = (props) => {
     setSelectedTime("select");
     setOwnerCollectn([]);
     setTeamMemberChip([]);
+    if(!props.hasOwnProperty('companyID') && !props.hasOwnProperty('leadID')){
+      setTodoCompName('')
+      setTodoOpportunityName('')
+    }
+    
   };
   const handleTimeChange = (value) => {
     setSelectedTime(value);
@@ -641,8 +643,6 @@ const TodoTab = (props) => {
   };
 
   const removeTeamMember = (data, ind) => {
-    // console.log("removeTeamMember", data);
-    // console.log("ownerCollectn=====>>", ownerCollectn);
     let _arrayOwner = ownerCollectn.filter(
       (item, index) => item.value !== data
     );
@@ -651,20 +651,26 @@ const TodoTab = (props) => {
     setTeamMemberChip(_array);
   };
 
-  const changeOpportunityName = (value) => {
-    setTodoOpportunityName(value)
+  const changeOpportunityName = (value,data) => {
+    settodoOpporId(value)
+    setTodoOpportunityName(data.label)
+    
   }
 
-  const changeCompanyName = async(value,data) => {
+  const changeCompanyName = async(value,compId) => {
+    // console.log("COMPANY NAMEE --------------", value);
+    // console.log("opportunityNameArray IDDD --------------", opportunityNameArray);
     setTodoCompName(value)
+    setTodoCompId(compId)
+    // setOpportunityNameArray([])
 
-    let _opportunityAPI = await axiosRequest.get(`user/opportunity/distinct/opportunity_names?company_id=${data._id}`, {
+    let _opportunityAPI = await axiosRequest.get(`user/opportunity/distinct/opportunity_names?company_id=${compId}`, {
       secure: true,
     });
     // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
     let _opporArr = [];
     _opportunityAPI.map((el) => {
-      let _data = { label: el.opportunity_name,value: el.opportunity_name, _id: el._id };
+      let _data = { label: el.opportunity_name,value:  el._id, _id: el._id };
       _opporArr.push(_data);
     });
     setOpportunityNameArray(_opporArr);
@@ -690,7 +696,7 @@ const TodoTab = (props) => {
                   options={companyArray}
                   value={todoCompName}
                   disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
-                  onChange={(val,data) => changeCompanyName(val,data)}
+                  onChange={(val,data) => changeCompanyName(val,data._id)}
                 ></Select>
               </Col>
               
