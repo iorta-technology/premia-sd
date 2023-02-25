@@ -143,19 +143,22 @@ const NewLead = React.memo((props) => {
   };
 
   const addRemarks = async () => {
-    let result = await axiosRequest.post(
+    let result = "";
+    result = await axiosRequest.post(
       `user/add-opporunity-remark/${props.location.state.leadID}`,
       { new_remark: remark },
       { secure: true }
     );
 
-    setRemark("");
-    form.setFieldsValue({
-      remarks: "",
-    });
+    if (result) {
+      setRemark("");
+      form.setFieldsValue({
+        remarks: "",
+      });
 
-    setreamrkDataArr([...reamrkDataArr, result]);
-    return console.log("result", reamrkDataArr);
+      setreamrkDataArr([...reamrkDataArr, result]);
+      return console.log("result", reamrkDataArr);
+    }
 
     let _remark = [
       {
@@ -1898,6 +1901,7 @@ const NewLead = React.memo((props) => {
 
                   <Col
                     className="post mt-3 w-100"
+                    id="chat_section"
                     style={{
                       fontSize: "smaller",
                       height:
