@@ -334,7 +334,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
                           <Typography className={`closeOpen ${element.statusType =='open' ?'Open':"Close"}`}>
                               {element.statusType =='open' ?'Open':"Close"}
                           </Typography>
-                          <FormOutlined onClick={()=>showModal(element)}/>
+                         { element.statusType =='open' ?<FormOutlined onClick={()=>showModal(element)}/> : null}
                       </div>
                   </div>
                   <div className='footer'>
