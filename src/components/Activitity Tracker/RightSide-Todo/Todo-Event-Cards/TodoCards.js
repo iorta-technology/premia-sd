@@ -35,14 +35,12 @@ const TodoCards = forwardRef((props, ref) => {
 
   const [totalPage, setTotalPage] = useState(0);
   const [current, setCurrent] = useState(1);
-  const [minIndex, setMinIndex] = useState(0);
-  const [maxIndex, setMaxIndex] = useState(0);
-  const [isHamburger, setHamburger] = useState(false);
   const [skipVal, setSkipVal] = useState(0);
   const [fval, setFval] = useState(0);
   const [sval, setSval] = useState(0);
-  const [swap_final_count, setSwap_final_count] = useState(false);
+//   const [swap_final_count, setSwap_final_count] = useState(false);
   const [remarkDataEnt, setRemarkDataEnt] = useState("");
+  let swap_final_count = false
 
   const showModal = (event, ind) => {
     // console.log('TODO__CARDD___DATA__',event)
@@ -90,6 +88,7 @@ const TodoCards = forwardRef((props, ref) => {
       if (checkless_init) {
         // checkinit is true means the final count is more than 15
         var traverse = skip + 5;
+        // var traverse = _resp[0].length < 5 ? totolDataCount : skip + 5;
         setFval(traverse - 4);
         swap_final_count ? setSval(totolDataCount) : setSval(traverse);
       } else {
@@ -343,32 +342,30 @@ const TodoCards = forwardRef((props, ref) => {
     setIsShowMoreIndex(index);
   };
   // console.log(isShowMoreIndex);
-
+  
   const onChangePagination = (page) => {
-    console.log(page);
+    // console.log(page);
     let _decrement = 0;
     let _increment = 0;
 
+    let _total = totalPage.toString()
+    var _res = _total.includes('.') ? parseInt(_total.split(".")[0]) + 1 : _total;
+
+    _res === page ? swap_final_count = true : swap_final_count = false
+    
+    _decrement = (page - 1) * 5;
+    // setSkipVal(_decrement);
+    getTodoData(_decrement);
+
     // if (current > page) {
-    //   _decrement = skipVal - 5;
-    //   setSkipVal(_decrement);
-    //   getTodoData(_decrement);
+    //     _decrement = (page - 1) * 5;
+    //     // setSkipVal(_decrement);
+    //     getTodoData(_decrement);
     // } else if (current < page) {
-    //   _increment = skipVal + 5;
-    //   setSkipVal(_increment);
-    //   getTodoData(_increment);
+    //     _increment = (page - 1) * 5;
+    //     // setSkipVal(_increment);
+    //     getTodoData(_increment);
     // }
-
-
-    if (current > page) {
-        _decrement = (page - 1) * 5;
-        // setSkipVal(_decrement);
-        getTodoData(_decrement);
-    } else if (current < page) {
-        _increment = (page - 1) * 5;
-        // setSkipVal(_increment);
-        getTodoData(_increment);
-    }
     setCurrent(page);
   };
 
@@ -693,9 +690,11 @@ const TodoCards = forwardRef((props, ref) => {
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Pagination
+                showSizeChanger={false}
                 pageSize={5}
                 current={current}
                 total={totolDataCount}
+                // showTotal={(total,range) => onChangeTotal(total,range)}
                 onChange={onChangePagination}
               />
             </div>
