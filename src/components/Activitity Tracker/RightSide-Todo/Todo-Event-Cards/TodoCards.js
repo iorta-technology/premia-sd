@@ -68,7 +68,7 @@ const TodoCards = forwardRef((props, ref) => {
   }, []);
 
   let getTodoData = async (skip) => {
-    console.warn("TODO___PROPSSSS", props);
+    // console.warn("TODO___PROPSSSS", props);
     try {
       const { id } = stoageGetter("user");
       let arrData = [];
@@ -97,7 +97,7 @@ const TodoCards = forwardRef((props, ref) => {
         setSval(totolDataCount);
       }
 
-      console.warn("((((((sval))))))", sval);
+    //   console.warn("((((((sval))))))", sval);
 
       for (let _data of respData) {
         // console.log("DATATATATA", _data);
@@ -349,14 +349,25 @@ const TodoCards = forwardRef((props, ref) => {
     let _decrement = 0;
     let _increment = 0;
 
+    // if (current > page) {
+    //   _decrement = skipVal - 5;
+    //   setSkipVal(_decrement);
+    //   getTodoData(_decrement);
+    // } else if (current < page) {
+    //   _increment = skipVal + 5;
+    //   setSkipVal(_increment);
+    //   getTodoData(_increment);
+    // }
+
+
     if (current > page) {
-      _decrement = skipVal - 5;
-      setSkipVal(_decrement);
-      getTodoData(_decrement);
+        _decrement = (page - 1) * 5;
+        // setSkipVal(_decrement);
+        getTodoData(_decrement);
     } else if (current < page) {
-      _increment = skipVal + 5;
-      setSkipVal(_increment);
-      getTodoData(_increment);
+        _increment = (page - 1) * 5;
+        // setSkipVal(_increment);
+        getTodoData(_increment);
     }
     setCurrent(page);
   };
