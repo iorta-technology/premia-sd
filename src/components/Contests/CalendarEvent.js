@@ -13,10 +13,12 @@ import {
   DatePicker,
   Alert,
   Tag,
+  Select, 
   Space,
   message,
   AutoComplete,
   Col,
+  Row
 } from "antd";
 import { CloseOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { PresetStatusColorTypes } from "antd/lib/_util/colors";
@@ -58,6 +60,12 @@ export default function CalendarEvent(props) {
   const [eventAgenda, setEventAgenda] = useState("");
   const [minutesofmeet, setMinutesofMeet] = useState("");
   const [eventid, setEventId] = useState("");
+  const [todoCompName, setTodoCompName] = useState("");
+  const [todoOpportunityName, setTodoOpportunityName] = useState("");
+  const [todoCompId, setTodoCompId] = useState(null);
+  const [todoOpporId, settodoOpporId] = useState(null);
+  const [companyArray, setCompanyArray] = useState([]);
+  const [opportunityNameArray, setOpportunityNameArray] = useState([]);
 
   const [durationButton, setDurationButton] = useState({
     select_time: true,
@@ -189,6 +197,7 @@ export default function CalendarEvent(props) {
   useEffect(() => {
     try {
       customerSearch();
+      getCompanyDetails();
     } catch (err) { }
   }, []);
 
@@ -268,7 +277,7 @@ export default function CalendarEvent(props) {
       let durationfinal = durationList.filter(item=>{
        return item.value == props.Data.durationType
       })
-      console.log(durationfinal,'duration type------>');
+      console.log(props.Data,'duration type------>');
       if(durationfinal.length != 0){
       setDurationSelect(durationfinal[0].value)
       }
@@ -2124,7 +2133,8 @@ export default function CalendarEvent(props) {
                 customerId: "",
                 teamMember_clone: teammemberclone,
                 remarkText: "",
-                leadId: oppChip.length!= 0 ? oppCollectn[0]._Id : null,
+                leadId: todoOpporId,
+                company_id : todoCompId,
                 mode: modeSelect,
                 stakeHolder_name: stakeholdrName,
                 location: customerNameText,
@@ -2945,6 +2955,75 @@ export default function CalendarEvent(props) {
   const datecl = () => {
     console.log("it works");
   };
+
+  const changeOpportunityName = (value,data) => {
+    console.log(value, data, 'data---of--opp id');
+    settodoOpporId(value)
+    setTodoOpportunityName(data.label)
+    
+  }
+
+  const changeCompanyName = async(value,compId) => {
+    console.log("COMPANY NAMEE --------------", value, compId);
+    // console.log("opportunityNameArray IDDD --------------", opportunityNameArray);
+    setTodoCompName(value)
+    setTodoCompId(compId)
+    // setOpportunityNameArray([])
+
+    let _opportunityAPI = await axiosRequest.get(`user/opportunity/distinct/opportunity_names?company_id=${compId}`, {
+      secure: true,
+    });
+    // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
+    let _opporArr = [];
+    _opportunityAPI.map((el) => {
+      let _data = { label: el.opportunity_name,value:  el._id, _id: el._id };
+      _opporArr.push(_data);
+    });
+    setOpportunityNameArray(_opporArr);
+  }
+
+  const getCompanyDetails = async (lead_id) => {
+    let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
+      secure: true,
+    });
+    console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+    let _compArr = [];
+    result[0].company_id.map((el) => {
+      let _data = { value: el.company_name, label: el.company_name, _id: el._id };
+      _compArr.push(_data);
+    });
+    setCompanyArray(_compArr);
+    if(props.Data){
+      console.log(props.Data,'props full valuess');
+      console.log(_compArr,'full array of company');
+      let finalarrofcmpany = _compArr.filter(item=>{
+       return item._id == props.Data.company_id
+      })
+      setTodoCompName(finalarrofcmpany[0].value)
+      setTodoCompId(props.Data.company_id)
+      // setOpportunityNameArray([])
+  
+      let _opportunityAPI = await axiosRequest.get(`user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`, {
+        secure: true,
+      });
+      // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
+      let _opporArr = [];
+      _opportunityAPI.map((el) => {
+        let _data = { label: el.opportunity_name,value:  el._id, _id: el._id };
+        _opporArr.push(_data);
+      });
+      setOpportunityNameArray(_opporArr);
+      console.log(_opporArr,'opp array---->');
+      if(_opporArr.length > 0){
+        let finalarrofOpp = _opporArr.filter(item=>{
+          return item._id == props.Data.leadId._id
+         })
+      settodoOpporId(finalarrofOpp[0].value)
+      setTodoOpportunityName(finalarrofOpp[0].label)
+      }
+    }
+  };
+
   return (
     <div className="CalendarEvent-main-class">
       <Modal
@@ -3307,83 +3386,122 @@ export default function CalendarEvent(props) {
           ) : null}
 
           {advisorCollection.joint_customer_visit == true || advisorCollection.phone_call_advisor == true ?
-            <div>
-              <div className="CalendarEvent-Modal-Card-vertical-line"></div>
-              <h4 className="CalendarEvent-Modal-Card-header-type">
-                Search Opportunity
-              </h4>
-              <div className="Todo-Create-Search calSearch">
-                {/* <input type='text' placeholder='Search by Name'/> */}
-                {/* <SearchOutlined /> */}
-                {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
-                {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
-                <AutoComplete
-                  disabled={updateEventCheck == true || oppdisable == true ? true : false}
-                  value={oppData}
-                  style={{ width: "100%" }}
-                  options={oppList}
-                  onChange={(text, data) => onChangeOpp(text, data)}
-                  onSelect={onSelectOpp}
-                  notFoundContent="No Result Found"
-                  filterOption={(inputValue, option) =>
-                    option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-                    -1
-                  }
-                >
-                  <Search placeholder="Search by Name" />
-                </AutoComplete>
-              </div>
-              {/* {console.log(teamMemberChip,'team member chip----->')} */}
-              {oppChip?.length !== 0 && (
-                <div
-                  style={{
-                    display: "flex",
-                    flexFlow: "wrap",
-                    alignItems: "center",
-                  }}
-                >
-                  {oppChip?.map((item, index) => {
-                    // console.log(item,'item--team member-->')
-                    return (
-                      <div style={{ marginRight: 10, marginTop: 10 }}>
-                        {updateEventCheck == true ? (
-                          <Button
-                            size="small"
-                            type="primary"
-                            style={{
-                              backgroundColor: "#00ACC1",
-                              border: "none",
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                            shape="round"
-                          >
-                            {item.value}{" "}
-                          </Button>
-                        ) : (
-                          <Button
-                            size="small"
-                            type="primary"
-                            style={{
-                              backgroundColor: "#00ACC1",
-                              border: "none",
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                            shape="round"
-                          >
-                            {item}{" "}
-                            <CloseOutlined
-                              onClick={() => removeOpp(item, index)}
-                            />
-                          </Button>
-                        )}{" "}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div> : null}
+            // <div>
+            //   <div className="CalendarEvent-Modal-Card-vertical-line"></div>
+            //   <h4 className="CalendarEvent-Modal-Card-header-type">
+            //     Search Opportunity
+            //   </h4>
+            //   <div className="Todo-Create-Search calSearch">
+            //     {/* <input type='text' placeholder='Search by Name'/> */}
+            //     {/* <SearchOutlined /> */}
+            //     {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
+            //     {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
+            //     <AutoComplete
+            //       disabled={updateEventCheck == true || oppdisable == true ? true : false}
+            //       value={oppData}
+            //       style={{ width: "100%" }}
+            //       options={oppList}
+            //       onChange={(text, data) => onChangeOpp(text, data)}
+            //       onSelect={onSelectOpp}
+            //       notFoundContent="No Result Found"
+            //       filterOption={(inputValue, option) =>
+            //         option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+            //         -1
+            //       }
+            //     >
+            //       <Search placeholder="Search by Name" />
+            //     </AutoComplete>
+            //   </div>
+            //   {/* {console.log(teamMemberChip,'team member chip----->')} */}
+            //   {oppChip?.length !== 0 && (
+            //     <div
+            //       style={{
+            //         display: "flex",
+            //         flexFlow: "wrap",
+            //         alignItems: "center",
+            //       }}
+            //     >
+            //       {oppChip?.map((item, index) => {
+            //         // console.log(item,'item--team member-->')
+            //         return (
+            //           <div style={{ marginRight: 10, marginTop: 10 }}>
+            //             {updateEventCheck == true ? (
+            //               <Button
+            //                 size="small"
+            //                 type="primary"
+            //                 style={{
+            //                   backgroundColor: "#00ACC1",
+            //                   border: "none",
+            //                   display: "flex",
+            //                   alignItems: "center",
+            //                 }}
+            //                 shape="round"
+            //               >
+            //                 {item.value}{" "}
+            //               </Button>
+            //             ) : (
+            //               <Button
+            //                 size="small"
+            //                 type="primary"
+            //                 style={{
+            //                   backgroundColor: "#00ACC1",
+            //                   border: "none",
+            //                   display: "flex",
+            //                   alignItems: "center",
+            //                 }}
+            //                 shape="round"
+            //               >
+            //                 {item}{" "}
+            //                 <CloseOutlined
+            //                   onClick={() => removeOpp(item, index)}
+            //                 />
+            //               </Button>
+            //             )}{" "}
+            //           </div>
+            //         );
+            //       })}
+            //     </div>
+            //   )}
+            // </div>
+            <Row style={{marginBottom:10}}>
+            <Col style={{flex:1}}>
+              <p style={{ marginBottom: 5 }}> Company Name </p>
+              <Select
+                placeholder="Select"
+                style={{width: '100%'}}
+                options={companyArray}
+                value={todoCompName}
+                disabled={updateEventCheck == true  ? true : false}
+                onChange={(val,data) => changeCompanyName(val,data._id)}
+              ></Select>
+            </Col>
+            
+            <Col style={{flex:1,marginLeft:10}}>
+              <p style={{ marginBottom: 5 }}> Opportunity Name </p>
+              {/* <Select
+                placeholder="Select"
+                style={{width: '100%'}}
+                // options={leadStatusItems}
+                value={todoOpportunityName}
+                onChange={(val) => changeOpportunityName(val)}
+              ></Select> */}
+
+              <AutoComplete
+                placeholder="Select"
+                options={opportunityNameArray}
+                style={{width: '100%'}}
+                value={todoOpportunityName}
+                disabled={updateEventCheck == true  ? true : false}
+                onChange={(val, data) => changeOpportunityName(val, data)}
+                // onSelect={(val, data) => onSelectCompany(val, data)}
+                filterOption={(inputValue, option) =>
+                  option.label
+                    .toUpperCase()
+                    .indexOf(inputValue.toUpperCase()) !== -1
+                }
+              ></AutoComplete>
+            </Col>
+          </Row> : null}
 
           {/* {advisorCheck==true ?
                   <div>
@@ -4275,7 +4393,7 @@ export default function CalendarEvent(props) {
                     <DatePicker
                       onChange={allDayStartDate}
                       allowClear={false}
-                      disabledDate={(d) => !d || d.isBefore(minimumDate)}
+                      // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                       defaultValue={durationStartDate}
                       value={durationStartDate}
                       format="YYYY-MM-DD"

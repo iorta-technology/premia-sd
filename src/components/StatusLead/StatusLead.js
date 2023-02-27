@@ -387,21 +387,23 @@ const NewLead = React.memo((props) => {
     );
     console.log("COUTNTTTTT DATA---->>>", _result);
     // setActivities_data(_result)
-    let _eventCreated =
-      _result.totalEventCount.toString().length === 1
-        ? "0" + _result.totalEventCount
-        : _result.totalEventCount;
-    let _todoCompleted =
-      _result.totalTaskdone.toString().length === 1
-        ? "0" + _result.totalTaskdone
-        : _result.totalTaskdone;
-    let _todoCreated =
-      _result.totalTodoCount.toString().length === 1
-        ? "0" + _result.totalTodoCount
-        : _result.totalTodoCount;
-    setEventCountSummary(_eventCreated);
-    setTodoCreatdSummary(_todoCreated);
-    setTodoComplteSummary(_todoCompleted);
+    if (_result.length > 0) {
+      let _eventCreated =
+        _result.totalEventCount.toString().length === 1
+          ? "0" + _result.totalEventCount
+          : _result.totalEventCount;
+      let _todoCompleted =
+        _result.totalTaskdone.toString().length === 1
+          ? "0" + _result.totalTaskdone
+          : _result.totalTaskdone;
+      let _todoCreated =
+        _result.totalTodoCount.toString().length === 1
+          ? "0" + _result.totalTodoCount
+          : _result.totalTodoCount;
+      setEventCountSummary(_eventCreated);
+      setTodoCreatdSummary(_todoCreated);
+      setTodoComplteSummary(_todoCompleted);
+    }
 
     //   const [eventCountSummary, setEventCountSummary] = useState("00");
     // const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
