@@ -202,8 +202,6 @@ const HomePage = () => {
   const [showTodo, setShowTodo] = useState(
     _accessTodo.props.read === true ? true : false
   );
- 
-
 
   useEffect(() => {
     if (id) dispatch(actions.activities(id, agent_id));
@@ -534,7 +532,6 @@ const HomePage = () => {
     setGetTodoDataArray(_data);
   };
 
- 
   const breakpoint = 620;
   const config = {
     data: opportunities,
@@ -806,20 +803,17 @@ const HomePage = () => {
                       color: "#fff",
                     }}
                   >
-                    <p style={{ marginBottom: 0 }}>For Today</p>
+                    <p style={{ marginBottom: 0 }}>ForToday</p>
                     <p
                       style={{
                         color: "#fff",
                         fontWeight: "bold",
-                        fontSize: "50px",
+                        fontSize: "45px",
                         marginBottom: 0,
                       }}
                     >
                       {home_data?.today ? home_data.today : "00"}
                     </p>
-                    {/* <span style={{ color: "#fff", fontSize: "50px" }}>
-                      {home_data?.today ? home_data.today : "00"}
-                    </span> */}
                   </div>
                   <div
                     style={{
@@ -833,15 +827,50 @@ const HomePage = () => {
                       style={{
                         color: "#fff",
                         fontWeight: "bold",
-                        fontSize: "50px",
+                        fontSize: "45px",
                         marginBottom: 0,
                       }}
                     >
                       {home_data?.open_lead ? home_data.open_lead : "00"}
                     </p>
-                    {/* <span style={{ color: "#fff", fontSize: "50px" }}>
-                      {home_data?.open_lead ? home_data.open_lead : "00"}
-                    </span> */}
+                  </div>
+                  <div
+                    style={{
+                      padding: "0 15px",
+                      textAlign: "center",
+                      color: "#fff",
+                    }}
+                  >
+                    <p style={{ marginBottom: 0 }}>Converted</p>
+                    <p
+                      style={{
+                        color: "#fff",
+                        fontWeight: "bold",
+                        fontSize: "45px",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {home_data?.converted ? home_data.converted : "00"}
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      padding: "0 15px",
+                      textAlign: "center",
+                      color: "#fff",
+                    }}
+                  >
+                    <p style={{ marginBottom: 0 }}>Failed</p>
+                    <p
+                      style={{
+                        color: "#fff",
+                        fontWeight: "bold",
+                        fontSize: "45px",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {home_data?.failed ? home_data.failed : "00"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -884,7 +913,10 @@ const HomePage = () => {
                           className="TodoCard-Container todo-home"
                           key={index}
                         >
-                          <div className="TodoCards-Top" style={{borderBottom: '1px solid #e6e9eb'}}>
+                          <div
+                            className="TodoCards-Top"
+                            style={{ borderBottom: "1px solid #e6e9eb" }}
+                          >
                             <div className="TodoCards-TimedateArchive">
                               <Col className="TodoCards-TopClock">
                                 <div className="todoCard-mr15">

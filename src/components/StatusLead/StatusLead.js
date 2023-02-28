@@ -1179,7 +1179,14 @@ const NewLead = React.memo((props) => {
             >
               <Row>
                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                  <p className="form-title">Summary</p>
+                  {storeFormData && storeFormData._id ? (
+                    <div className="d-flex justify-content-between">
+                      <p className="form-title">Summary</p>
+                      <p className="text-dark">Score - 75</p>
+                    </div>
+                  ) : (
+                    <p className="form-title">Summary</p>
+                  )}
 
                   <Row className="mb-4">
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
@@ -1864,45 +1871,46 @@ const NewLead = React.memo((props) => {
                     </div>
                   </Col>
 
-                  <Col span={18} className="d-flex align-items-center">
-                    <Form.Item
-                      {...formItemLayout}
-                      className="form-item-name label-color w-100"
-                      name="remarks"
-                      label="Remarks"
-                      rules={[
-                        {
-                          required: false,
-                          message: "",
-                        },
-                      ]}
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      <Input
-                        type="text"
-                        className="phone-no"
-                        placeholder="Enter"
-                        value={remark}
-                        onChange={(e) => setRemark(e.target.value)}
-                      />
-                    </Form.Item>
-                    <Button
-                      type="primary"
-                      disabled={!(storeFormData && storeFormData._id)}
-                      style={{
-                        border: "none",
-                        display: "flex",
-                        alignItems: "center",
-                        marginTop: "16px",
-                        marginLeft: 10,
-                        backgroundColor: "#00ACC1",
-                      }}
-                      icon={<PlusOutlined />}
-                      onClick={addRemarks}
-                    >
-                      ADD
-                    </Button>
-                  </Col>
+                  {storeFormData && storeFormData._id && (
+                    <Col span={18} className="d-flex align-items-center">
+                      <Form.Item
+                        {...formItemLayout}
+                        className="form-item-name label-color w-100"
+                        name="remarks"
+                        label="Remarks"
+                        rules={[
+                          {
+                            required: false,
+                            message: "",
+                          },
+                        ]}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <Input
+                          type="text"
+                          className="phone-no"
+                          placeholder="Enter"
+                          value={remark}
+                          onChange={(e) => setRemark(e.target.value)}
+                        />
+                      </Form.Item>
+                      <Button
+                        type="primary"
+                        style={{
+                          border: "none",
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "16px",
+                          marginLeft: 10,
+                          backgroundColor: "#00ACC1",
+                        }}
+                        icon={<PlusOutlined />}
+                        onClick={addRemarks}
+                      >
+                        ADD
+                      </Button>
+                    </Col>
+                  )}
 
                   <Col
                     className="post mt-3 w-100"
@@ -1925,8 +1933,8 @@ const NewLead = React.memo((props) => {
                           className={
                             "mb-3 remarks_bg " +
                             (login_user.id === res.userId._id
-                              ? "right"
-                              : "left")
+                              ? "left"
+                              : "right")
                           }
                         >
                           <div className="d-flex justify-content-between w-100">
