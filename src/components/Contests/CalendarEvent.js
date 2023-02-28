@@ -13,19 +13,19 @@ import {
   DatePicker,
   Alert,
   Tag,
-  Select, 
+  Select,
   Space,
   message,
   AutoComplete,
   Col,
-  Row
+  Row,
 } from "antd";
 import { CloseOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { PresetStatusColorTypes } from "antd/lib/_util/colors";
 import { NavItem } from "react-bootstrap";
 import Icon from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
-import { stoageGetter,checkAgent } from "../../helpers";
+import { stoageGetter, checkAgent } from "../../helpers";
 import axios from "axios";
 import _ from "lodash";
 import Form from "antd/lib/form/Form";
@@ -198,7 +198,7 @@ export default function CalendarEvent(props) {
     try {
       customerSearch();
       getCompanyDetails();
-    } catch (err) { }
+    } catch (err) {}
   }, []);
 
   const customerSearch = async () => {
@@ -207,15 +207,14 @@ export default function CalendarEvent(props) {
       `user/v2/getLead/${id}?leadfilter=open&skip=0&limit=no`,
       { secure: true }
     );
-    console.warn('+++++++++ GET LEAD DATA ++++++++', result)
+    console.warn("+++++++++ GET LEAD DATA ++++++++", result);
     if (result.length > 0) {
       // console.log(result[0], 'final lead result');
       let customersearch = [];
       result[0].map((el) => {
         let sortarray = {
           _Id: el._id,
-          value:
-            toCapitalize(el.opportunity_name)
+          value: toCapitalize(el.opportunity_name),
           // el.lastName +
           // " ( " +
           // el.lead_Id +
@@ -223,26 +222,25 @@ export default function CalendarEvent(props) {
         };
 
         customersearch.push(sortarray);
-        console.log(customersearch, 'customer search array-->>;;;;;');
+        console.log(customersearch, "customer search array-->>;;;;;");
         sortarray = {};
       });
       setOppList(customersearch);
-      if(props.Data){
-      if(props.Data.leadId != null){
-        // console.log(customersearch);
-        let opp = customersearch?.filter(item=>{
-          console.log(item._Id, props.Data.leadId._id,'full lidt');
-         return item._Id == props.Data.leadId._id
-        })
-        console.log(opp,'final opp list');
-        setOppChip(opp)
-        setOppCollectn(opp)
+      if (props.Data) {
+        if (props.Data.leadId != null) {
+          // console.log(customersearch);
+          let opp = customersearch?.filter((item) => {
+            console.log(item._Id, props.Data.leadId._id, "full lidt");
+            return item._Id == props.Data.leadId._id;
+          });
+          console.log(opp, "final opp list");
+          setOppChip(opp);
+          setOppCollectn(opp);
+        }
       }
-    }
     } else {
       console.log(result, "final lead result");
     }
-
   };
 
   let toCapitalize = (strText) => {
@@ -261,7 +259,7 @@ export default function CalendarEvent(props) {
       } else {
         return "";
       }
-    } catch (err) { }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -273,15 +271,15 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true);
     } //1661472000000
     if (props.Data) {
-      customerSearch()
-      let durationfinal = durationList.filter(item=>{
-       return item.value == props.Data.durationType
-      })
-      console.log(props.Data,'duration type------>');
-      if(durationfinal.length != 0){
-      setDurationSelect(durationfinal[0].value)
+      customerSearch();
+      let durationfinal = durationList.filter((item) => {
+        return item.value == props.Data.durationType;
+      });
+      console.log(props.Data, "duration type------>");
+      if (durationfinal.length != 0) {
+        setDurationSelect(durationfinal[0].value);
       }
-     
+
       // console.warn(props.Data,moment(props.Data.start_date), moment(props.Data.timeline),'yes update');
       setEventId(props.Data._id);
       setStatusReasonText(props.Data.statusReason);
@@ -460,10 +458,13 @@ export default function CalendarEvent(props) {
       setDurationStartDate(moment(props.Data.start_date));
       setStartTimeSelect(props.Data.start_time);
       setEndTimeSelect(props.Data.end_time);
-      if(props.Data.event_session != undefined || props.Data.event_session != null){
+      if (
+        props.Data.event_session != undefined ||
+        props.Data.event_session != null
+      ) {
         setEventDurationType(props.Data.event_session);
-        }
-        
+      }
+
       setModeSelect(props.Data.mode);
       // setStatusReasonText(props.Data.statusreason)
       // console.log(moment(1661472000000).format("YYYY-MM-DD"));
@@ -997,8 +998,8 @@ export default function CalendarEvent(props) {
   };
 
   const onSelectOpp = (value, data) => {
-    console.log('ON SELECTION ______________', data);
-    console.log('ONowner colle ______________', oppList);
+    console.log("ON SELECTION ______________", data);
+    console.log("ONowner colle ______________", oppList);
     let valuesplit = value.split(" ");
     console.log(valuesplit[0]);
     let _data = [...new Set([...oppChip, value])];
@@ -1011,22 +1012,19 @@ export default function CalendarEvent(props) {
     setOppCollectn([...oppCollectn, ...filteredValue]);
     setOppData("");
     setOppChip(_data);
-    setOppDisable(true)
+    setOppDisable(true);
   };
 
   const removeOpp = (data, ind) => {
     // console.log('removeTeamMember', data);
     // console.log('ownerCollectn=====>>', ownerCollectn);
-    let _arrayOwner = oppCollectn.filter(
-      (item, index) => item.value !== data
-    );
+    let _arrayOwner = oppCollectn.filter((item, index) => item.value !== data);
     console.log(_arrayOwner, "after removing");
     setOppCollectn(_arrayOwner);
     let _array = oppChip.filter((item, index) => index !== ind);
     setOppChip(_array);
-    setOppDisable(false)
+    setOppDisable(false);
   };
-
 
   const CustomerClickedTag = (id, value) => {
     setCustomerOnClickVal(value);
@@ -1049,8 +1047,8 @@ export default function CalendarEvent(props) {
     }
   };
 
-  const AddCustomerTag = (value) => { };
-  const AddCustomerCloseFunc = () => { };
+  const AddCustomerTag = (value) => {};
+  const AddCustomerCloseFunc = () => {};
 
   const ProspectClickedTag = (id, value) => {
     setProspectOnClickVal(value);
@@ -1267,7 +1265,7 @@ export default function CalendarEvent(props) {
   const StartDateFunc = (date, dateString) => {
     console.log(
       moment(new Date()).format("YYYY-MM-DD") ==
-      moment(date).format("YYYY-MM-DD")
+        moment(date).format("YYYY-MM-DD")
     );
     console.log(moment(date).format("YYYY-MM-DD"));
     setDurationStartDate(moment(date));
@@ -1750,26 +1748,26 @@ export default function CalendarEvent(props) {
       appointment_type: "",
       event_type:
         customerCollection.phone_call_customer ||
-          prospectCollection.phone_call ||
-          advisorCollection.phone_call_advisor
+        prospectCollection.phone_call ||
+        advisorCollection.phone_call_advisor
           ? "phonecall"
           : customerCollection.appointment_customer ||
             advisorCollection.appointment_advisor
-            ? "appointment"
-            : customerCollection.policy_renewal
-              ? "policyrenewals"
-              : prospectCollection.training_prospect || advisorCollection.training
-                ? "training"
-                : null,
+          ? "appointment"
+          : customerCollection.policy_renewal
+          ? "policyrenewals"
+          : prospectCollection.training_prospect || advisorCollection.training
+          ? "training"
+          : null,
       tata_appointment_type:
         customerCollection.appointment_customer ||
-          advisorCollection.appointment_advisor
+        advisorCollection.appointment_advisor
           ? appointmenttypes
           : "",
       clientVisit:
         customerCollection.phone_call_customer == true ||
-          prospectCollection.phone_call == true ||
-          advisorCollection.phone_call_advisor == true
+        prospectCollection.phone_call == true ||
+        advisorCollection.phone_call_advisor == true
           ? clientvisit
           : "",
       // Appointment_id : Appointmentid,
@@ -1785,11 +1783,11 @@ export default function CalendarEvent(props) {
       manuallycustomerAdded: addManuallyButtonCheck ? true : false,
       manuallyrenewalCustomer: addManuallyButtonCheck
         ? [
-          {
-            Name: customerNameText,
-            MobileNumber: customerMobileNoText,
-          },
-        ]
+            {
+              Name: customerNameText,
+              MobileNumber: customerMobileNoText,
+            },
+          ]
         : [],
       customerId: "",
       teamMember_clone: teammemberclone,
@@ -1915,7 +1913,7 @@ export default function CalendarEvent(props) {
         message.warning("End Date is Mandatory");
       } else if (
         moment(new Date()).format("YYYY-MM-DD") ==
-        moment(durationStartDate).format("YYYY-MM-DD") &&
+          moment(durationStartDate).format("YYYY-MM-DD") &&
         currentTime >= date.toUTCString().toString().slice(17, 22)
       ) {
         message.warning(
@@ -2054,7 +2052,7 @@ export default function CalendarEvent(props) {
         message.warning("End Time is Mandatory");
       } else if (
         moment(new Date()).format("YYYY-MM-DD") ==
-        moment(durationStartDate).format("YYYY-MM-DD") &&
+          moment(durationStartDate).format("YYYY-MM-DD") &&
         currentTime >= date.toUTCString().toString().slice(17, 22)
       ) {
         message.warning(
@@ -2083,31 +2081,31 @@ export default function CalendarEvent(props) {
                 appointment_type: customerCheck
                   ? "customer"
                   : prospectCheck
-                    ? "existingapplication"
-                    : "existingapplication",
+                  ? "existingapplication"
+                  : "existingapplication",
                 event_type:
                   customerCollection.phone_call_customer ||
-                    prospectCollection.phone_call ||
-                    advisorCollection.phone_call_advisor
+                  prospectCollection.phone_call ||
+                  advisorCollection.phone_call_advisor
                     ? "phonecall"
                     : customerCollection.appointment_customer ||
                       advisorCollection.appointment_advisor
-                      ? "appointment"
-                      : customerCollection.policy_renewal
-                        ? "policyrenewals"
-                        : prospectCollection.training_prospect ||
-                          advisorCollection.training
-                          ? "training"
-                          : null,
+                    ? "appointment"
+                    : customerCollection.policy_renewal
+                    ? "policyrenewals"
+                    : prospectCollection.training_prospect ||
+                      advisorCollection.training
+                    ? "training"
+                    : null,
                 tata_appointment_type:
                   customerCollection.appointment_customer ||
-                    advisorCollection.appointment_advisor
+                  advisorCollection.appointment_advisor
                     ? appointmenttypes
                     : "",
                 clientVisit:
                   customerCollection.phone_call_customer == true ||
-                    prospectCollection.phone_call == true ||
-                    advisorCollection.phone_call_advisor == true
+                  prospectCollection.phone_call == true ||
+                  advisorCollection.phone_call_advisor == true
                     ? clientvisit
                     : "",
                 // Appointment_id : Appointmentid,
@@ -2124,17 +2122,17 @@ export default function CalendarEvent(props) {
                 manuallycustomerAdded: addManuallyButtonCheck ? true : false,
                 manuallyrenewalCustomer: addManuallyButtonCheck
                   ? [
-                    {
-                      Name: customerNameText,
-                      MobileNumber: customerMobileNoText,
-                    },
-                  ]
+                      {
+                        Name: customerNameText,
+                        MobileNumber: customerMobileNoText,
+                      },
+                    ]
                   : [],
                 customerId: "",
                 teamMember_clone: teammemberclone,
                 remarkText: "",
                 leadId: todoOpporId,
-                company_id : todoCompId,
+                company_id: todoCompId,
                 mode: modeSelect,
                 stakeHolder_name: stakeholdrName,
                 location: customerNameText,
@@ -2171,31 +2169,31 @@ export default function CalendarEvent(props) {
               appointment_type: customerCheck
                 ? "customer"
                 : prospectCheck
-                  ? "existingapplication"
-                  : "existingapplication",
+                ? "existingapplication"
+                : "existingapplication",
               event_type:
                 customerCollection.phone_call_customer ||
-                  prospectCollection.phone_call ||
-                  advisorCollection.phone_call_advisor
+                prospectCollection.phone_call ||
+                advisorCollection.phone_call_advisor
                   ? "phonecall"
                   : customerCollection.appointment_customer ||
                     advisorCollection.appointment_advisor
-                    ? "appointment"
-                    : customerCollection.policy_renewal
-                      ? "policyrenewals"
-                      : prospectCollection.training_prospect ||
-                        advisorCollection.training
-                        ? "training"
-                        : null,
+                  ? "appointment"
+                  : customerCollection.policy_renewal
+                  ? "policyrenewals"
+                  : prospectCollection.training_prospect ||
+                    advisorCollection.training
+                  ? "training"
+                  : null,
               tata_appointment_type:
                 customerCollection.appointment_customer ||
-                  advisorCollection.appointment_advisor
+                advisorCollection.appointment_advisor
                   ? appointmenttypes
                   : "",
               clientVisit:
                 customerCollection.phone_call_customer == true ||
-                  prospectCollection.phone_call == true ||
-                  advisorCollection.phone_call_advisor == true
+                prospectCollection.phone_call == true ||
+                advisorCollection.phone_call_advisor == true
                   ? clientvisit
                   : "",
               durationType: eventDurationType,
@@ -2209,11 +2207,11 @@ export default function CalendarEvent(props) {
               manuallycustomerAdded: addManuallyButtonCheck ? true : false,
               manuallyrenewalCustomer: addManuallyButtonCheck
                 ? [
-                  {
-                    Name: customerNameText,
-                    MobileNumber: customerMobileNoText,
-                  },
-                ]
+                    {
+                      Name: customerNameText,
+                      MobileNumber: customerMobileNoText,
+                    },
+                  ]
                 : [],
               customerId: "",
               leadId: oppCollectn[0]._Id,
@@ -2956,70 +2954,79 @@ export default function CalendarEvent(props) {
     console.log("it works");
   };
 
-  const changeOpportunityName = (value,data) => {
-    console.log(value, data, 'data---of--opp id');
-    settodoOpporId(value)
-    setTodoOpportunityName(data.label)
-    
-  }
+  const changeOpportunityName = (value, data) => {
+    console.log(value, data, "data---of--opp id");
+    settodoOpporId(value);
+    setTodoOpportunityName(data.label);
+  };
 
-  const changeCompanyName = async(value,compId) => {
+  const changeCompanyName = async (value, compId) => {
     console.log("COMPANY NAMEE --------------", value, compId);
     // console.log("opportunityNameArray IDDD --------------", opportunityNameArray);
-    setTodoCompName(value)
-    setTodoCompId(compId)
+    setTodoCompName(value);
+    setTodoCompId(compId);
     // setOpportunityNameArray([])
 
-    let _opportunityAPI = await axiosRequest.get(`user/opportunity/distinct/opportunity_names?company_id=${compId}`, {
-      secure: true,
-    });
+    let _opportunityAPI = await axiosRequest.get(
+      `user/opportunity/distinct/opportunity_names?company_id=${compId}`,
+      {
+        secure: true,
+      }
+    );
     // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
     let _opporArr = [];
     _opportunityAPI.map((el) => {
-      let _data = { label: el.opportunity_name,value:  el._id, _id: el._id };
+      let _data = { label: el.opportunity_name, value: el._id, _id: el._id };
       _opporArr.push(_data);
     });
     setOpportunityNameArray(_opporArr);
-  }
+  };
 
   const getCompanyDetails = async (lead_id) => {
     let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
     });
-    console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+    console.warn("__++++++COMPANY++++++++ RESPPPP", result);
     let _compArr = [];
     result[0].company_id.map((el) => {
-      let _data = { value: el.company_name, label: el.company_name, _id: el._id };
+      let _data = {
+        value: el.company_name,
+        label: el.company_name,
+        _id: el._id,
+      };
       _compArr.push(_data);
     });
     setCompanyArray(_compArr);
-    if(props.Data){
-      console.log(props.Data,'props full valuess');
-      console.log(_compArr,'full array of company');
-      let finalarrofcmpany = _compArr.filter(item=>{
-       return item._id == props.Data.company_id
-      })
-      setTodoCompName(finalarrofcmpany[0].value)
-      setTodoCompId(props.Data.company_id)
-      // setOpportunityNameArray([])
-  
-      let _opportunityAPI = await axiosRequest.get(`user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`, {
-        secure: true,
+    if (props.Data) {
+      console.log(props.Data, "props full valuess");
+      console.log(_compArr, "full array of company");
+      let finalarrofcmpany = _compArr.filter((item) => {
+        return item._id == props.Data.company_id;
       });
+      setTodoCompName(finalarrofcmpany[0].value);
+      setTodoCompId(props.Data.company_id);
+      // setOpportunityNameArray([])
+
+      let _opportunityAPI = await axiosRequest.get(
+        `user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`,
+        {
+          secure: true,
+        }
+      );
       // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
       let _opporArr = [];
       _opportunityAPI.map((el) => {
-        let _data = { label: el.opportunity_name,value:  el._id, _id: el._id };
+        let _data = { label: el.opportunity_name, value: el._id, _id: el._id };
         _opporArr.push(_data);
       });
       setOpportunityNameArray(_opporArr);
-      console.log(_opporArr,'opp array---->');
-      if(_opporArr.length > 0){
-        let finalarrofOpp = _opporArr.filter(item=>{
-          return item._id == props.Data.leadId._id
-         })
-      settodoOpporId(finalarrofOpp[0].value)
-      setTodoOpportunityName(finalarrofOpp[0].label)
+      console.log(_opporArr, "opp array---->");
+      if (_opporArr.length > 0) {
+        let finalarrofOpp = _opporArr.filter((item) => {
+          return item._id == props.Data.leadId._id;
+        });
+        settodoOpporId(finalarrofOpp[0].value);
+        setTodoOpportunityName(finalarrofOpp[0].label);
       }
     }
   };
@@ -3079,7 +3086,6 @@ export default function CalendarEvent(props) {
                
               </div> */}
 
-
           <h4 className="CalendarEvent-Modal-Card-header-type">Event Type</h4>
           {advisorCheck == true ? (
             <div
@@ -3108,7 +3114,7 @@ export default function CalendarEvent(props) {
                     : "CalendarEvent-Modal-Card-eventwith-static-button-style"
                 }
                 onClick={AdvisorPhoneCallFunc}
-              // style={{marginLeft : 10}}
+                // style={{marginLeft : 10}}
               >
                 Phone Call
               </button>
@@ -3146,7 +3152,7 @@ export default function CalendarEvent(props) {
                     : "CalendarEvent-Modal-Card-eventwith-static-button-style"
                 }
                 onClick={ProspectPhoneCallFunc}
-              // style={{marginLeft : 10}}
+                // style={{marginLeft : 10}}
               >
                 Phone Call
               </button>
@@ -3184,7 +3190,7 @@ export default function CalendarEvent(props) {
                     : "CalendarEvent-Modal-Card-eventwith-static-button-style"
                 }
                 onClick={CustomerPhoneCallFunc}
-              // style={{marginLeft : 10}}
+                // style={{marginLeft : 10}}
               >
                 Phone Call
               </button>
@@ -3200,7 +3206,7 @@ export default function CalendarEvent(props) {
 
           <div className="CalendarEvent-Modal-Card-vertical-line"></div>
           {customerCollection.appointment_customer == true &&
-            customerCheck == true ? (
+          customerCheck == true ? (
             <div>
               <h4 className="CalendarEvent-Modal-Card-header-type">
                 Client Visit
@@ -3219,7 +3225,7 @@ export default function CalendarEvent(props) {
             </div>
           ) : null}
           {advisorCollection.appointment_advisor == true &&
-            advisorCheck == true ? (
+          advisorCheck == true ? (
             <div>
               <h4 className="CalendarEvent-Modal-Card-header-type">
                 Appointment Type
@@ -3385,7 +3391,8 @@ export default function CalendarEvent(props) {
             </div>
           ) : null}
 
-          {advisorCollection.joint_customer_visit == true || advisorCollection.phone_call_advisor == true ?
+          {advisorCollection.joint_customer_visit == true ||
+          advisorCollection.phone_call_advisor == true ? (
             // <div>
             //   <div className="CalendarEvent-Modal-Card-vertical-line"></div>
             //   <h4 className="CalendarEvent-Modal-Card-header-type">
@@ -3463,22 +3470,22 @@ export default function CalendarEvent(props) {
             //     </div>
             //   )}
             // </div>
-            <Row style={{marginBottom:10}}>
-            <Col style={{flex:1}}>
-              <p style={{ marginBottom: 5 }}> Company Name </p>
-              <Select
-                placeholder="Select"
-                style={{width: '100%'}}
-                options={companyArray}
-                value={todoCompName}
-                disabled={updateEventCheck == true  ? true : false}
-                onChange={(val,data) => changeCompanyName(val,data._id)}
-              ></Select>
-            </Col>
-            
-            <Col style={{flex:1,marginLeft:10}}>
-              <p style={{ marginBottom: 5 }}> Opportunity Name </p>
-              {/* <Select
+            <Row style={{ marginBottom: 10 }}>
+              <Col style={{ flex: 1 }}>
+                <p style={{ marginBottom: 5 }}> Company Name </p>
+                <Select
+                  placeholder="Select"
+                  style={{ width: "100%" }}
+                  options={companyArray}
+                  value={todoCompName}
+                  disabled={updateEventCheck == true ? true : false}
+                  onChange={(val, data) => changeCompanyName(val, data._id)}
+                ></Select>
+              </Col>
+
+              <Col style={{ flex: 1, marginLeft: 10 }}>
+                <p style={{ marginBottom: 5 }}> Opportunity Name </p>
+                {/* <Select
                 placeholder="Select"
                 style={{width: '100%'}}
                 // options={leadStatusItems}
@@ -3486,22 +3493,23 @@ export default function CalendarEvent(props) {
                 onChange={(val) => changeOpportunityName(val)}
               ></Select> */}
 
-              <AutoComplete
-                placeholder="Select"
-                options={opportunityNameArray}
-                style={{width: '100%'}}
-                value={todoOpportunityName}
-                disabled={updateEventCheck == true  ? true : false}
-                onChange={(val, data) => changeOpportunityName(val, data)}
-                // onSelect={(val, data) => onSelectCompany(val, data)}
-                filterOption={(inputValue, option) =>
-                  option.label
-                    .toUpperCase()
-                    .indexOf(inputValue.toUpperCase()) !== -1
-                }
-              ></AutoComplete>
-            </Col>
-          </Row> : null}
+                <AutoComplete
+                  placeholder="Select"
+                  options={opportunityNameArray}
+                  style={{ width: "100%" }}
+                  value={todoOpportunityName}
+                  disabled={updateEventCheck == true ? true : false}
+                  onChange={(val, data) => changeOpportunityName(val, data)}
+                  // onSelect={(val, data) => onSelectCompany(val, data)}
+                  filterOption={(inputValue, option) =>
+                    option.label
+                      .toUpperCase()
+                      .indexOf(inputValue.toUpperCase()) !== -1
+                  }
+                ></AutoComplete>
+              </Col>
+            </Row>
+          ) : null}
 
           {/* {advisorCheck==true ?
                   <div>
@@ -3776,7 +3784,7 @@ export default function CalendarEvent(props) {
                 <h4
                   className={
                     prospectEmailRegCheck == false ||
-                      prospectEmailAddressCheck == false
+                    prospectEmailAddressCheck == false
                       ? "CalendarEvent-Modal-Card-empty-text-header-type"
                       : "CalendarEvent-Modal-Card-header-type"
                   }
@@ -3788,7 +3796,7 @@ export default function CalendarEvent(props) {
                   onChange={ProspectEmailAddressFunc}
                   className={
                     prospectEmailRegCheck == false ||
-                      prospectEmailAddressCheck == false
+                    prospectEmailAddressCheck == false
                       ? "CalendarEvent-Modal-empty-textbox-style"
                       : "CalendarEvent-Modal-textbox-style"
                   }
@@ -3809,7 +3817,7 @@ export default function CalendarEvent(props) {
                 <h4
                   className={
                     prospectMobileRegCheck == false ||
-                      prospectMobileNoCheck == false
+                    prospectMobileNoCheck == false
                       ? "CalendarEvent-Modal-Card-empty-text-header-type"
                       : "CalendarEvent-Modal-Card-header-type"
                   }
@@ -3821,7 +3829,7 @@ export default function CalendarEvent(props) {
                   onChange={ProspectMobileNoFunc}
                   className={
                     prospectMobileRegCheck == false ||
-                      prospectMobileNoCheck == false
+                    prospectMobileNoCheck == false
                       ? "CalendarEvent-Modal-empty-textbox-style"
                       : "CalendarEvent-Modal-textbox-style"
                   }
@@ -4055,7 +4063,7 @@ export default function CalendarEvent(props) {
                   <h4
                     className={
                       customerMobileNoCheck == false ||
-                        customermblvalid == false
+                      customermblvalid == false
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
@@ -4093,7 +4101,7 @@ export default function CalendarEvent(props) {
                   <h4
                     className={
                       customerMobileNoCheck == false ||
-                        customermblvalid == false
+                      customermblvalid == false
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
@@ -4182,7 +4190,7 @@ export default function CalendarEvent(props) {
                 value={modeSelect}
                 onChange={ModeChangeFunc}
                 className="CalendarEvent-Modal-TimePicker-style"
-              // className="CalendarEvent-Modal-TimePicker-style"
+                // className="CalendarEvent-Modal-TimePicker-style"
               >
                 <option value="">Select</option>
 
@@ -4249,7 +4257,7 @@ export default function CalendarEvent(props) {
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
-                  // className="CalendarEvent-Modal-Card-header-type"
+                    // className="CalendarEvent-Modal-Card-header-type"
                   >
                     Start Date *
                   </h4>
@@ -4266,7 +4274,7 @@ export default function CalendarEvent(props) {
                           ? "CalendarEvent-Modal-empty-picker-style"
                           : "CalendarEvent-Modal-picker-style"
                       }
-                    // className="CalendarEvent-Modal-picker-style"
+                      // className="CalendarEvent-Modal-picker-style"
                     />
 
                     {durationStartDateDiffCheck == false ? (
@@ -4283,7 +4291,7 @@ export default function CalendarEvent(props) {
                         ? "CalendarEvent-Modal-Card-empty-text-header-type"
                         : "CalendarEvent-Modal-Card-header-type"
                     }
-                  // className="CalendarEvent-Modal-Card-header-type"
+                    // className="CalendarEvent-Modal-Card-header-type"
                   >
                     Start Time *
                   </h4>
@@ -4296,7 +4304,7 @@ export default function CalendarEvent(props) {
                           ? "CalendarEvent-Modal-empty-TimePicker-style"
                           : "CalendarEvent-Modal-TimePicker-style"
                       }
-                    // className="CalendarEvent-Modal-TimePicker-style"
+                      // className="CalendarEvent-Modal-TimePicker-style"
                     >
                       <option value="">Select</option>
 
@@ -4402,7 +4410,7 @@ export default function CalendarEvent(props) {
                           ? "CalendarEvent-Modal-empty-picker-style"
                           : "CalendarEvent-Modal-picker-style"
                       }
-                    // className="CalendarEvent-Modal-picker-style"
+                      // className="CalendarEvent-Modal-picker-style"
                     />
                   </div>
                 </div>
@@ -4419,7 +4427,7 @@ export default function CalendarEvent(props) {
                 value={durationSelect}
                 onChange={DurationChangeFunc}
                 className="CalendarEvent-Modal-TimePicker-style"
-              // className="CalendarEvent-Modal-TimePicker-style"
+                // className="CalendarEvent-Modal-TimePicker-style"
               >
                 <option value="">Select</option>
 

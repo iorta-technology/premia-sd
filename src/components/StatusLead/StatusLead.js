@@ -1861,45 +1861,46 @@ const NewLead = React.memo((props) => {
                     </div>
                   </Col>
 
-                  <Col span={18} className="d-flex align-items-center">
-                    <Form.Item
-                      {...formItemLayout}
-                      className="form-item-name label-color w-100"
-                      name="remarks"
-                      label="Remarks"
-                      rules={[
-                        {
-                          required: false,
-                          message: "",
-                        },
-                      ]}
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      <Input
-                        type="text"
-                        className="phone-no"
-                        placeholder="Enter"
-                        value={remark}
-                        onChange={(e) => setRemark(e.target.value)}
-                      />
-                    </Form.Item>
-                    <Button
-                      type="primary"
-                      disabled={!(storeFormData && storeFormData._id)}
-                      style={{
-                        border: "none",
-                        display: "flex",
-                        alignItems: "center",
-                        marginTop: "16px",
-                        marginLeft: 10,
-                        backgroundColor: "#00ACC1",
-                      }}
-                      icon={<PlusOutlined />}
-                      onClick={addRemarks}
-                    >
-                      ADD
-                    </Button>
-                  </Col>
+                  {storeFormData && storeFormData._id && (
+                    <Col span={18} className="d-flex align-items-center">
+                      <Form.Item
+                        {...formItemLayout}
+                        className="form-item-name label-color w-100"
+                        name="remarks"
+                        label="Remarks"
+                        rules={[
+                          {
+                            required: false,
+                            message: "",
+                          },
+                        ]}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <Input
+                          type="text"
+                          className="phone-no"
+                          placeholder="Enter"
+                          value={remark}
+                          onChange={(e) => setRemark(e.target.value)}
+                        />
+                      </Form.Item>
+                      <Button
+                        type="primary"
+                        style={{
+                          border: "none",
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "16px",
+                          marginLeft: 10,
+                          backgroundColor: "#00ACC1",
+                        }}
+                        icon={<PlusOutlined />}
+                        onClick={addRemarks}
+                      >
+                        ADD
+                      </Button>
+                    </Col>
+                  )}
 
                   <Col
                     className="post mt-3 w-100"
