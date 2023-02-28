@@ -2998,6 +2998,7 @@ export default function CalendarEvent(props) {
     });
     setCompanyArray(_compArr);
     if (props.Data) {
+      if(props.Data.company_id != null && props.Data.leadId != null){
       console.log(props.Data, "props full valuess");
       console.log(_compArr, "full array of company");
       let finalarrofcmpany = _compArr.filter((item) => {
@@ -3029,6 +3030,7 @@ export default function CalendarEvent(props) {
         setTodoOpportunityName(finalarrofOpp[0].label);
       }
     }
+  }
   };
 
   return (
