@@ -1178,7 +1178,14 @@ const NewLead = React.memo((props) => {
             >
               <Row>
                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
-                  <p className="form-title">Summary</p>
+                  {storeFormData && storeFormData._id ? (
+                    <div className="d-flex justify-content-between">
+                      <p className="form-title">Summary</p>
+                      <p className="text-dark">Score - 75</p>
+                    </div>
+                  ) : (
+                    <p className="form-title">Summary</p>
+                  )}
 
                   <Row className="mb-4">
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
