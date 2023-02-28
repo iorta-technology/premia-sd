@@ -124,13 +124,11 @@ const DocUpload = (props) => {
         axiosConfig
       )
       .then((res) => {
-        console.log("data", res.data.errMsg);
         newArr.push({ ...res.data.errMsg, recent: true });
         setFileData(newArr);
-        console.log("fileList--->", newArr);
+        document.getElementById("upload-photo").value = "";
       })
       .catch((err) => {
-        console.log("error -----", err);
         throw err;
       });
   };
@@ -280,25 +278,6 @@ const DocUpload = (props) => {
                 accept="application/pdf,image/jpeg"
                 onChange={(e) => handleChangeFile(e.target.files)}
               />
-              {/* <Upload
-                onChange={handleChangeFile}
-                multiple={true}
-                fileList={fileList}
-                style={{ width: "100%" }}
-                accept="application/pdf,image/jpeg"
-              >
-                <Button
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  icon={<CloudUploadOutlined />}
-                >
-                  Upload
-                </Button>
-              </Upload> */}
             </Form.Item>
           </Col>
         </Row>
