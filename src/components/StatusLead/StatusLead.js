@@ -387,27 +387,24 @@ const NewLead = React.memo((props) => {
     );
     console.log("COUTNTTTTT DATA---->>>", _result);
     // setActivities_data(_result)
-    if (_result.length > 0) {
+    // if (_result.length > 0) {
       let _eventCreated =
-        _result.totalEventCount.toString().length === 1
-          ? "0" + _result.totalEventCount
-          : _result.totalEventCount;
+        _result?.totalEventCount.toString().length === 1
+          ? "0" + _result?.totalEventCount
+          : _result?.totalEventCount;
       let _todoCompleted =
-        _result.totalTaskdone.toString().length === 1
-          ? "0" + _result.totalTaskdone
-          : _result.totalTaskdone;
+        _result?.totalTaskdone.toString().length === 1
+          ? "0" + _result?.totalTaskdone
+          : _result?.totalTaskdone;
       let _todoCreated =
-        _result.totalTodoCount.toString().length === 1
-          ? "0" + _result.totalTodoCount
-          : _result.totalTodoCount;
+        _result?.totalTodoCount.toString().length === 1
+          ? "0" + _result?.totalTodoCount
+          : _result?.totalTodoCount;
+
       setEventCountSummary(_eventCreated);
       setTodoCreatdSummary(_todoCreated);
       setTodoComplteSummary(_todoCompleted);
-    }
-
-    //   const [eventCountSummary, setEventCountSummary] = useState("00");
-    // const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
-    // const [todoComplteSummary, setTodoComplteSummary] = useState("00");
+    // }
   };
   const getLeadDetails = async (lead_id) => {
     try {
@@ -981,23 +978,26 @@ const NewLead = React.memo((props) => {
         if (res.type === "CREATE_LEAD_SUCCESS") {
           console.log("success:", res.formData);
           // setErrorMessage(successMsg)
-          setIsNewLead(false);
+          if(res.formData.length > 0){
+            setIsNewLead(false);
 
-          setOpportunityNameSummary(res.formData.opportunity_name);
-          setCompanySummary(res.formData.lob_for_opportunity);
-          setCurrentStatusSummary(res.formData.leadStage);
-          setLeadIdSummary(res.formData.lead_Id);
-          setIncorpDateSummary(
-            new Date(res.formData.created_date).toLocaleDateString("in")
-          );
-          setCurrentStatsDateSummary(
-            new Date(res.formData.created_date).toLocaleDateString("in")
-          );
-          // setEventCountSummary(res.formData)
-          // setTodoCreatdSummary(res.formData)
-          // setTodoComplteSummary(res.formData)
-          setLeadIdData(res.formData._id);
-          // dispatch(actions.fetchLeadDetailsSuccess({}))
+            setOpportunityNameSummary(res.formData.opportunity_name);
+            setCompanySummary(res.formData.lob_for_opportunity);
+            setCurrentStatusSummary(res.formData.leadStage);
+            setLeadIdSummary(res.formData.lead_Id);
+            getEventTodoCountAPI(res.formData._id);
+            setIncorpDateSummary(
+              new Date(res.formData.created_date).toLocaleDateString("in")
+            );
+            setCurrentStatsDateSummary(
+              new Date(res.formData.created_date).toLocaleDateString("in")
+            );
+            // setEventCountSummary(res.formData)
+            // setTodoCreatdSummary(res.formData)
+            // setTodoComplteSummary(res.formData)
+            setLeadIdData(res.formData._id);
+            // dispatch(actions.fetchLeadDetailsSuccess({}))
+          }
         }
         // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
       });
@@ -1008,7 +1008,8 @@ const NewLead = React.memo((props) => {
       // console.log('_lead_id=-------->>>>',_lead_id)
       dispatch(actions.editLead(updateLeadFormData, _lead_id)).then((res) => {
         if (res.type === "EDIT_LEAD_SUCCESS") {
-          console.log("success:", res);
+          console.log("success___UPDATE:", res);
+          getEventTodoCountAPI(res.formData._id);
           setErrorMessage(successMsg);
           setIsNewLead(false);
         } else if (res.type === "EDIT_LEAD_FAIL") {
@@ -1510,6 +1511,7 @@ const NewLead = React.memo((props) => {
                           required: false,
                           message: "Select your Location",
                         },
+                        { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
                       ]}
                       style={{ marginBottom: "1rem" }}
                     >
@@ -1595,8 +1597,9 @@ const NewLead = React.memo((props) => {
                       rules={[
                         {
                           required: false,
-                          message: "Age is required",
+                          message: "Opportunity Name is required",
                         },
+                        { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
                       ]}
                       style={{ marginBottom: "1rem" }}
                     >
