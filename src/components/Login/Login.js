@@ -105,7 +105,7 @@ const Login = () => {
               {/* onBlur={ () => setEmailValidation([])} */}
               <Input
                 size="large"
-                placeholder="Enter PAN Number / Email"
+                placeholder="Enter NTID"
                 prefix={<UserOutlined />}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -131,9 +131,9 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Item>
-            <Link to="/forgotpassword">
+            {/* <Link to="/forgotpassword">
               <p className="forgotpasswordtext">Forgot Password</p>
-            </Link>
+            </Link> */}
             <Button type="primary" htmlType="submit" className="loginbtn" block>
               Login
             </Button>
