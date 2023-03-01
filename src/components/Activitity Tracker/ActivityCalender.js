@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row , Button } from "antd";
+import { Card, Col, Row, Button } from "antd";
 import Self from "./LeftSide-Activity/Self/Self";
 // import EventCreate from './LeftSide-Activity/EventCreate/EventCreate'
 import Team from "./LeftSide-Activity/Team/Team";
@@ -47,9 +47,10 @@ const App = () => {
 
   const loginUserId = useSelector((state) => state?.login?.user?.id);
 
-
   const exportReport = async () => {
-    let data = await axiosRequest.get(`admin/export-event-dump?userId=${loginUserId}`);
+    let data = await axiosRequest.get(
+      `admin/export-event-dump?userId=${loginUserId}`
+    );
     console.log("data -------??????", data);
   };
 
@@ -106,7 +107,7 @@ const App = () => {
                   Team
                 </button>
 
-                <div style={{ marginLeft: 15 }}>
+                {/* <div style={{ marginLeft: 15 }}>
                   <Button
                     onClick={exportReport}
                     style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
@@ -114,7 +115,7 @@ const App = () => {
                   >
                     <DownloadOutlined /> Export
                   </Button>
-                </div>
+                </div> */}
               </div>
             )}
             {TeamSelf ? <Self /> : <Team />}
