@@ -9,6 +9,8 @@ import { useHistory } from "react-router";
 import loginLogo from "../../images/salesDrivelogo.png";
 import axios from "axios";
 import { stoageSetter } from "../../helpers";
+import apiConfig from "../../config/api.config";
+const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -24,7 +26,7 @@ const Login = () => {
 
   const onLogin = () => {
     axios
-      .post(`https://b2bnodedev.salesdrive.app/b2b/auth/user/login`, {
+      .post(`${baseURL}auth/user/login`, {
         email,
         password,
       })

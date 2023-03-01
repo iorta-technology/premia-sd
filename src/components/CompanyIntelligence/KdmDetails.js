@@ -42,6 +42,7 @@ const KDMDetails = (props) => {
     // const storeLeadId = useSelector((state) => state.newLead.leadId)
     // const storeUserId = useSelector((state) => state.newLead.userId)
     const _StoreData = useSelector((state) => state?.newLead?.formData);
+    const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
     const user_id = useSelector((state) => state.login.user.id);
     const states = useSelector((state) => state.address.states);
     console.log('(((((((((_StoreData)))))))))---->>>>',_StoreData)
@@ -270,6 +271,7 @@ const KDMDetails = (props) => {
 
         let _kdmDetailsData = []
         kdmDetArr.map(el =>{
+            console.log('el-------KDM---->>',el)
             let _data = {
                 decision_maker_name: el.kdmName,
                 role: el.kdmRole,
@@ -311,8 +313,8 @@ const KDMDetails = (props) => {
             lead_Creator_Id: user_id,
             user_id: user_id,
             company_id: _StoreData?.company_id?._id,
-            start_date: _StoreData?.start_date,
-            start_time:_StoreData?.start_time,
+            start_date: _UpdateFormBody?.start_date,
+            start_time:_UpdateFormBody?.start_time,
             client_expectations: _StoreData?.client_expectations,
             red_flags: _StoreData?.red_flags,
             our_ask: _StoreData?.our_ask,

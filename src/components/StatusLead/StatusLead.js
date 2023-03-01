@@ -214,9 +214,10 @@ const NewLead = React.memo((props) => {
 
   useEffect(() => {
     // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
+    // console.warn('LEAD__ID__FROM___ROUTE__.leadID_',props.location.state.leadID)
     dispatch(actions.headerName("New Lead"));
     if (props.location.state !== undefined) {
-      let _leadID = props.location.state.leadID;
+      let _leadID = !props.location.state.leadID ? props?.location?.state?._leadData?._id : props.location.state.leadID;
       getLeadDetails(_leadID);
       getAppointmentList(_leadID);
       setUpdateLeadID(_leadID);
@@ -970,7 +971,7 @@ const NewLead = React.memo((props) => {
       risk_details: [],
     };
 
-    // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
+    console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
     if (isNewLead) {
       dispatch(actions.fetchLeadUpdateBody(addLeadFormData));
       dispatch(actions.createLead(addLeadFormData)).then((res) => {
@@ -978,26 +979,27 @@ const NewLead = React.memo((props) => {
         if (res.type === "CREATE_LEAD_SUCCESS") {
           console.log("success:", res.formData);
           // setErrorMessage(successMsg)
-          if(res.formData.length > 0){
+          // if(res.formData.length > 0){
             setIsNewLead(false);
 
-            setOpportunityNameSummary(res.formData.opportunity_name);
-            setCompanySummary(res.formData.lob_for_opportunity);
-            setCurrentStatusSummary(res.formData.leadStage);
-            setLeadIdSummary(res.formData.lead_Id);
-            getEventTodoCountAPI(res.formData._id);
+            setOpportunityNameSummary(res?.formData?.opportunity_name);
+            setCompanySummary(res?.formData?.lob_for_opportunity);
+            setCurrentStatusSummary(res?.formData?.leadStage);
+            setLeadIdSummary(res?.formData?.lead_Id);
+            getEventTodoCountAPI(res?.formData?._id);
+            
             setIncorpDateSummary(
-              new Date(res.formData.created_date).toLocaleDateString("in")
+              new Date(res?.formData?.created_date).toLocaleDateString("in")
             );
             setCurrentStatsDateSummary(
-              new Date(res.formData.created_date).toLocaleDateString("in")
+              new Date(res?.formData?.created_date).toLocaleDateString("in")
             );
-            // setEventCountSummary(res.formData)
-            // setTodoCreatdSummary(res.formData)
-            // setTodoComplteSummary(res.formData)
-            setLeadIdData(res.formData._id);
+            // setEventCountSummary(res?.formData)
+            // setTodoCreatdSummary(res?.formData)
+            // setTodoComplteSummary(res?.formData)
+            setLeadIdData(res?.formData?._id);
             // dispatch(actions.fetchLeadDetailsSuccess({}))
-          }
+          // }
         }
         // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
       });
@@ -1076,12 +1078,13 @@ const NewLead = React.memo((props) => {
   // console.log('TODO POPUPPPP _____DATAA_________',childRef);
 
   const openTodoPopup = () => {
-    console.log("TODO POPUPPPP ______________");
+    // console.log("TODO POPUPPPP ______________");
     setIsModalVisible(true);
   };
 
   const getTodo = () => {
     childRef.current.getTodoData(0);
+    // getEventTodoCountAPI(res.formData._id);
   };
 
   const onSelectTeam = (value) => {

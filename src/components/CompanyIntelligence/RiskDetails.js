@@ -51,6 +51,7 @@ const RiskDetails = (props) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const _StoreData = useSelector((state) => state?.newLead?.formData);
+  const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   const user_id = useSelector((state) => state.login.user.id);
   console.log("(((((((((_StoreData____RISKKKK)))))))))---->>>>", _StoreData);
   // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
@@ -283,8 +284,8 @@ const RiskDetails = (props) => {
       lead_Creator_Id: user_id,
       user_id: user_id,
       company_id: _StoreData?.company_id?._id,
-      start_date: _StoreData?.start_date,
-      start_time: _StoreData?.start_time,
+      start_date: _UpdateFormBody?.start_date,
+      start_time:_UpdateFormBody?.start_time,
       client_expectations: _StoreData?.client_expectations,
       red_flags: _StoreData?.red_flags,
       our_ask: _StoreData?.our_ask,
