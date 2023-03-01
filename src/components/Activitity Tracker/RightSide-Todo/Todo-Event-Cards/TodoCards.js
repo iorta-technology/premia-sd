@@ -135,7 +135,7 @@ const TodoCards = forwardRef((props, ref) => {
           });
         }
 
-        // console.log("*********************** _data ****************",_data.taskId);
+        // console.log("*********************** _data ****************",_data?.owernersCollectionDetails);
 
         let objstrct = {
           content: _data?.description,
@@ -401,23 +401,22 @@ const TodoCards = forwardRef((props, ref) => {
   const submitRemark = (ind, remark, userId) => {
     let _teamMembers = [];
     let _data = {};
-
     getTodoDataArray[ind].searchdata.map((ev) => {
       // console.log('MAPPPPPPP ______REMMMsUBMIT_______***>>',ev)
-      if (userId == ev._Id) {
-        ev.remarkData = remark;
+      // if (userId == ev._Id) {
+        // ev.remarkData = remark;
         _data = {
           FullName: ev.FullName,
           designation: ev.designation,
           _Id: ev._Id,
           ShortId: ev.ShortId,
-          remarkText: remark,
+          remarkText: userId === ev._Id ? remark : ev.remarkText,
           taskDone: ev.taskDone,
           inAppNotification: ev.inAppNotification,
           remarkNotification: ev.remarkNotification,
         };
         _teamMembers.push(_data);
-      }
+      // }
     });
     // console.log('_teamMembers _____________***>>',_teamMembers)
 
@@ -427,6 +426,9 @@ const TodoCards = forwardRef((props, ref) => {
       taskId: getTodoDataArray[ind].todoid,
       owernersCollectionDetails: _teamMembers,
     };
+    // console.log('formdata ------->>>',formdata)
+    // return
+    // console.log('ownerCollectn----@@@@--->>>',ownerCollectn)
     updateTODOTaskApi(formdata);
   };
 
@@ -647,7 +649,7 @@ const TodoCards = forwardRef((props, ref) => {
                                 disabled={data.disableSubmit}
                                 // size="small"
                                 onClick={() =>
-                                  submitRemark(ind, remarkDataEnt, data._Id)
+                                  submitRemark(index, remarkDataEnt, data._Id)
                                 }
                                 type="primary"
                                 style={{

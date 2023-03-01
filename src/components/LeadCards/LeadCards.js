@@ -192,9 +192,12 @@ const LeadCards = (props) => {
     }
   };
 
-  const exportReport = async () => {
+  const exportReport = async (type) => {
+    console.log('TYPEEEE---',leadsData?.globalTab)
+    // let _userID = type === 'self' ? user.id : secondValue
+    let _isTeam = leadsData?.globalTab === 'self' ? 'no' : 'yes'
     let data = await axiosRequest.get(
-      `admin/opportunity-dump?userId=${user.id}`
+      `admin/opportunity-dump?userId=${user.id}&team=${_isTeam}`
     );
   };
 
@@ -202,7 +205,7 @@ const LeadCards = (props) => {
     <div className="cards-container cards_data">
       <div className="dropdown-container">
         <div className="round-card-main-Tab">
-          {checkAgent() === false && (
+          {/* {checkAgent() === false && ( */}
             <>
               <div
                 className="CardBodySelf lead-ml60"
@@ -212,6 +215,7 @@ const LeadCards = (props) => {
                   marginBottom: 25,
                 }}
               >
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -229,6 +233,9 @@ const LeadCards = (props) => {
                   />
                   Self
                 </button>
+                )}
+
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -247,9 +254,22 @@ const LeadCards = (props) => {
                   />
                   Team
                 </button>
+                )}
+                
+                {/* {leadsData?.globalTab !== "team" && ( */}
+                <div style={{ marginLeft: 15 }}>
+                  <Button
+                    onClick={() => exportReport('self')}
+                    style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
+                    className="d-flex justify-content-center align-items-center w-100"
+                  >
+                    <DownloadOutlined /> Export
+                  </Button>
+                </div>
+                {/* )} */}
               </div>
             </>
-          )}
+          {/* )} */}
         </div>
         {leadsData?.globalTab === "team" && (
           <div
@@ -283,7 +303,7 @@ const LeadCards = (props) => {
             ></Select>
           </div>
         )}
-        {openSecond && leadsData?.globalTab === "team" && secondValue && (
+        {/* {openSecond && leadsData?.globalTab === "team" && secondValue && (
           <div
             className="lead-ml15"
             style={{ position: "relative", bottom: 26 }}
@@ -301,7 +321,7 @@ const LeadCards = (props) => {
               <DownloadOutlined /> Export
             </Button>
           </div>
-        )}
+        )} */}
       </div>
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
         {!_.isEmpty(leadsData.allLeads) ? (

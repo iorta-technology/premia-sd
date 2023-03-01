@@ -975,7 +975,7 @@ const NewLead = React.memo((props) => {
       risk_details: [],
     };
 
-    console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
+    // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
     if (isNewLead) {
       dispatch(actions.fetchLeadUpdateBody(addLeadFormData));
       dispatch(actions.createLead(addLeadFormData)).then((res) => {
@@ -983,27 +983,27 @@ const NewLead = React.memo((props) => {
         if (res.type === "CREATE_LEAD_SUCCESS") {
           console.log("success:", res.formData);
           // setErrorMessage(successMsg)
-          // if(res.formData.length > 0){
-          setIsNewLead(false);
+          if (res.formData.length > 0 || Object.keys(res.formData).length > 0) {
+            setIsNewLead(false);
 
-          setOpportunityNameSummary(res?.formData?.opportunity_name);
-          setCompanySummary(res?.formData?.lob_for_opportunity);
-          setCurrentStatusSummary(res?.formData?.leadStage);
-          setLeadIdSummary(res?.formData?.lead_Id);
-          getEventTodoCountAPI(res?.formData?._id);
+            setOpportunityNameSummary(res?.formData?.opportunity_name);
+            setCompanySummary(res?.formData?.lob_for_opportunity);
+            setCurrentStatusSummary(res?.formData?.leadStage);
+            setLeadIdSummary(res?.formData?.lead_Id);
+            getEventTodoCountAPI(res?.formData?._id);
 
-          setIncorpDateSummary(
-            new Date(res?.formData?.created_date).toLocaleDateString("in")
-          );
-          setCurrentStatsDateSummary(
-            new Date(res?.formData?.created_date).toLocaleDateString("in")
-          );
-          // setEventCountSummary(res?.formData)
-          // setTodoCreatdSummary(res?.formData)
-          // setTodoComplteSummary(res?.formData)
-          setLeadIdData(res?.formData?._id);
-          // dispatch(actions.fetchLeadDetailsSuccess({}))
-          // }
+            setIncorpDateSummary(
+              new Date(res?.formData?.created_date).toLocaleDateString("in")
+            );
+            setCurrentStatsDateSummary(
+              new Date(res?.formData?.created_date).toLocaleDateString("in")
+            );
+            // setEventCountSummary(res?.formData)
+            // setTodoCreatdSummary(res?.formData)
+            // setTodoComplteSummary(res?.formData)
+            setLeadIdData(res?.formData?._id);
+            // dispatch(actions.fetchLeadDetailsSuccess({}))
+          }
         }
         // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
       });

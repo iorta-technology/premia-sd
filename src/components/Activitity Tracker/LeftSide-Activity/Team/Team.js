@@ -189,14 +189,14 @@ const Team = () => {
   };
 
   const exportReport = async () => {
-    let data = await axiosRequest.get(`admin/export-event-dump?userId=${id}`);
+    let data = await axiosRequest.get(`admin/export-event-dump?userId=${id}&team=yes`);
     console.log("data", data);
   };
 
   return (
     <div className="Team">
       {windowWidth > breakpoint && (
-        <Row style={{ marginBottom: 15, justifyContent: "space-between" }}>
+        <Row style={{ marginBottom: 15, }}>
           <Col md={9} lg={9} xl={9}>
             <Typography>Hierarchy</Typography>
             <div style={{ marginTop: 5 }}>
@@ -227,11 +227,8 @@ const Team = () => {
               </div>
             ) : null}
           </Col>
-          <Col md={4} lg={4} xl={4} className="download_report">
-            {/* {selected !== "Select" &&
-            selected.length > 1 &&
-            selected1 !== "Select" &&
-            selected1.length > 1 ? ( */}
+          {/* <Col md={4} lg={4} xl={4} className="download_report">
+           
             <Button
               onClick={exportReport}
               style={{
@@ -243,8 +240,7 @@ const Team = () => {
             >
               <DownloadOutlined /> Export
             </Button>
-            {/* ) : null} */}
-          </Col>
+          </Col> */}
         </Row>
       )}
 
@@ -278,11 +274,8 @@ const Team = () => {
             </div>
           ) : null}
 
-          <div style={{ margin: "10px 0" }}>
-            {/* {selected !== "Select" &&
-            selected.length > 1 &&
-            selected1 !== "Select" &&
-            selected1.length > 1 ? ( */}
+          {/* <div style={{ margin: "10px 0" }}>
+
             <Button
               onClick={exportReport}
               style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
@@ -290,8 +283,7 @@ const Team = () => {
             >
               <DownloadOutlined /> Export
             </Button>
-            {/* ) : null} */}
-          </div>
+          </div> */}
         </div>
       )}
 

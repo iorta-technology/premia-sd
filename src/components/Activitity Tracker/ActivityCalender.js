@@ -48,9 +48,9 @@ const App = () => {
   const loginUserId = useSelector((state) => state?.login?.user?.id);
 
   const exportReport = async () => {
-    let data = await axiosRequest.get(
-      `admin/export-event-dump?userId=${loginUserId}`
-    );
+    // &team=yes
+    let _isTeam = TeamSelf ? 'no' : 'yes'
+    let data = await axiosRequest.get(`admin/export-event-dump?userId=${loginUserId}&team=${_isTeam}`);
     console.log("data -------??????", data);
   };
 
@@ -62,11 +62,12 @@ const App = () => {
       <Row style={{ color: "#f7f7f7", marginTop: "20px" }} justify="center">
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
-            {checkAgent() === false && (
+            {/* {checkAgent() === false && ( */}
               <div
                 className="CardBody"
                 style={{ display: "flex", flexDirection: "row" }}
               >
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -86,6 +87,8 @@ const App = () => {
                   />
                   Self
                 </button>
+                )}
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -106,8 +109,9 @@ const App = () => {
                   />
                   Team
                 </button>
-
-                {/* <div style={{ marginLeft: 15 }}>
+                )}
+                {/* {TeamSelf && */}
+                <div style={{ marginLeft: 15 }}>
                   <Button
                     onClick={exportReport}
                     style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
@@ -115,9 +119,10 @@ const App = () => {
                   >
                     <DownloadOutlined /> Export
                   </Button>
-                </div> */}
+                </div>
+                {/* } */}
               </div>
-            )}
+            {/* // )} */}
             {TeamSelf ? <Self /> : <Team />}
           </Card>
         </Col>
