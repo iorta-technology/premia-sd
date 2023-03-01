@@ -612,16 +612,6 @@ const HomePage = () => {
               >
                 {logged_in_user}
               </p>
-              <p
-                style={{
-                  marginBottom: 8,
-                  color: "#fff",
-                  fontSize: 12,
-                  fontWeight: "lighter",
-                }}
-              >
-                Last Login: 07-02-2021 | 12:00:00 AM
-              </p>
             </div>
           </Col>
           <Col>
