@@ -82,7 +82,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
         // message.destroy();
         if (config.method !== "get") message.destroy();
         if (error.response) {
-          // console.log(error.response);
+          // console.log('I AM IN CATCHHHHH',error.response);
           // alert(error.response.data.errMsg);
           message.error(error.response.data.errMsg);
           if (error.response.status === 400 || error.response.status === 401) {
@@ -105,6 +105,9 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
                 //   self.resetStore();
                 //   localStorage.setItem('vue_store', process.env.state);
                 // }, 3000);
+              }else if (error.response.data.errCode === 1) {
+                // console.log('I AM ERRORCODE 1',error.response);
+                // resolve([]);
               }
             } catch (error) {
               // alert(error.response.data.errMsg);

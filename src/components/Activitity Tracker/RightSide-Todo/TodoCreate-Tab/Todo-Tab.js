@@ -25,10 +25,10 @@ const { Search } = Input;
 const TodoTab = (props) => {
   // console.log('editData ___TODOO_________',props)
   useEffect(() => {
-    console.warn("PROPSSSSSSS---HEREE-----------", props);
+    // console.warn("PROPSSSSSSS---HEREE-----------", props);
     getCompanyDetails();
     if(props.hasOwnProperty('company_Name') && props.hasOwnProperty('opportunity_Name') ){
-      console.warn("PROPSSSSSSS--------------", props?.company_Name);
+      // console.warn("PROPSSSSSSS--------------", props?.company_Name);
       setTodoCompName(props?.company_Name)
       setTodoOpportunityName(props?.opportunity_Name)
       // if(props?.company_Name) changeCompanyName(props?.company_Name,props?.companyID)
@@ -694,7 +694,7 @@ const TodoTab = (props) => {
                   placeholder="Select"
                   style={{width: '100%'}}
                   options={companyArray}
-                  value={todoCompName}
+                  value={todoCompName || undefined}
                   disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
                   onChange={(val,data) => changeCompanyName(val,data._id)}
                 ></Select>

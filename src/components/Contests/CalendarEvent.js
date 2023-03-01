@@ -2988,6 +2988,12 @@ export default function CalendarEvent(props) {
     });
     console.warn("__++++++COMPANY++++++++ RESPPPP", result);
     let _compArr = [];
+    let selectobj = {
+      value: 'Select',
+      label: 'Select',
+      _id: 'Select',
+    };
+    _compArr.push(selectobj);
     result[0].company_id.map((el) => {
       let _data = {
         value: el.company_name,
@@ -2996,7 +3002,11 @@ export default function CalendarEvent(props) {
       };
       _compArr.push(_data);
     });
+   
     setCompanyArray(_compArr);
+    setTodoCompName(_compArr[0].value);
+      setTodoCompId(_compArr[0]._id);
+    console.log(_compArr,'after select compare arr');
     if (props.Data) {
       if(props.Data.company_id != null && props.Data.leadId != null){
       console.log(props.Data, "props full valuess");
@@ -3284,6 +3294,7 @@ export default function CalendarEvent(props) {
                   Servicing
                 </button>
               </div>
+             
 
               {/* <div
                     className="CalendarEvent-Modal-appointmenttype-button-flex CalendarEvent-Modal-Unit"
@@ -3337,7 +3348,7 @@ export default function CalendarEvent(props) {
                 Client Visit
               </h4>
 
-              <div className="CalendarEvent-Modal-appointmenttype-button-flex">
+              <div className="CalendarEvent-Modal-appointmenttype-button-flex" >
                 <button
                   disabled={updateEventCheck == true ? true : false}
                   onClick={() => {
@@ -3472,7 +3483,9 @@ export default function CalendarEvent(props) {
             //     </div>
             //   )}
             // </div>
+            
             <Row style={{ marginBottom: 10 }}>
+              <div className="CalendarEvent-Modal-Card-vertical-line"></div>
               <Col style={{ flex: 1 }}>
                 <p style={{ marginBottom: 5 }}> Company Name </p>
                 <Select

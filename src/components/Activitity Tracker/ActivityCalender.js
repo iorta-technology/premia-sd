@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row , Button } from "antd";
 import Self from "./LeftSide-Activity/Self/Self";
 // import EventCreate from './LeftSide-Activity/EventCreate/EventCreate'
 import Team from "./LeftSide-Activity/Team/Team";
@@ -13,6 +13,9 @@ import headerTabs from "./icons/header-tabs.png";
 import "./ActivityCalender.css";
 import Tabs from "../../components/Tab/Tab";
 import { checkAgent } from "../../helpers";
+import { DownloadOutlined } from "@ant-design/icons";
+import axiosRequest from "../../axios-request/request.methods";
+import { useSelector } from "react-redux";
 
 const useWidowsSize = () => {
   const [size, setSize] = useState([window.Width, window.height]);
@@ -41,6 +44,15 @@ const App = () => {
   const [width, height] = useWidowsSize();
   const [windowWidth, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
+
+  const loginUserId = useSelector((state) => state?.login?.user?.id);
+
+
+  const exportReport = async () => {
+    let data = await axiosRequest.get(`admin/export-event-dump?userId=${loginUserId}`);
+    console.log("data -------??????", data);
+  };
+
   return (
     <div className="ActivityCalender-container">
       {windowWidth < breakpoint && (
@@ -93,6 +105,16 @@ const App = () => {
                   />
                   Team
                 </button>
+
+                <div style={{ marginLeft: 15 }}>
+                  <Button
+                    onClick={exportReport}
+                    style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
+                    className="d-flex justify-content-center align-items-center w-100"
+                  >
+                    <DownloadOutlined /> Export
+                  </Button>
+                </div>
               </div>
             )}
             {TeamSelf ? <Self /> : <Team />}
