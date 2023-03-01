@@ -144,50 +144,52 @@ const NewLead = React.memo((props) => {
 
   const addRemarks = async () => {
     let result = "";
-    result = await axiosRequest.post(
-      `user/add-opporunity-remark/${props.location.state.leadID}`,
-      { new_remark: remark },
-      { secure: true }
-    );
+    if (remark && remark != "") {
+      result = await axiosRequest.post(
+        `user/add-opporunity-remark/${props.location.state.leadID}`,
+        { new_remark: remark },
+        { secure: true }
+      );
 
-    if (result) {
+      if (result) {
+        setRemark("");
+        form.setFieldsValue({
+          remarks: "",
+        });
+
+        setreamrkDataArr([...reamrkDataArr, result]);
+        return console.log("result", reamrkDataArr);
+      }
+
+      let _remark = [
+        {
+          description: remark,
+          dateTime: new Date().toLocaleString("en-US"),
+        },
+      ];
       setRemark("");
+
+      setFormItem((res) => ({
+        ...res,
+        remarks: _remark,
+        // remarks: [...formItem.remarks, remark],
+      }));
+
       form.setFieldsValue({
         remarks: "",
       });
 
-      setreamrkDataArr([...reamrkDataArr, result]);
-      return console.log("result", reamrkDataArr);
-    }
-
-    let _remark = [
-      {
+      let remID = Math.floor(1000 + Math.random() * 9000);
+      let _data = {
         description: remark,
-        dateTime: new Date().toLocaleString("en-US"),
-      },
-    ];
-    setRemark("");
+        date: new Date().toLocaleDateString().valueOf(),
+        remark_id: remID.toString(),
+        // userId: new ObjectId("63dce7c80ae6868961079fe8"),
+        // isLeadOwner: true,
+      };
 
-    setFormItem((res) => ({
-      ...res,
-      remarks: _remark,
-      // remarks: [...formItem.remarks, remark],
-    }));
-
-    form.setFieldsValue({
-      remarks: "",
-    });
-
-    let remID = Math.floor(1000 + Math.random() * 9000);
-    let _data = {
-      description: remark,
-      date: new Date().toLocaleDateString().valueOf(),
-      remark_id: remID.toString(),
-      // userId: new ObjectId("63dce7c80ae6868961079fe8"),
-      // isLeadOwner: true,
-    };
-
-    setreamrkDataArr([...reamrkDataArr, _data]);
+      setreamrkDataArr([...reamrkDataArr, _data]);
+    }
   };
 
   const [formItem, setFormItem] = useState({
@@ -217,7 +219,9 @@ const NewLead = React.memo((props) => {
     // console.warn('LEAD__ID__FROM___ROUTE__.leadID_',props.location.state.leadID)
     dispatch(actions.headerName("New Lead"));
     if (props.location.state !== undefined) {
-      let _leadID = !props.location.state.leadID ? props?.location?.state?._leadData?._id : props.location.state.leadID;
+      let _leadID = !props.location.state.leadID
+        ? props?.location?.state?._leadData?._id
+        : props.location.state.leadID;
       getLeadDetails(_leadID);
       getAppointmentList(_leadID);
       setUpdateLeadID(_leadID);
@@ -389,22 +393,22 @@ const NewLead = React.memo((props) => {
     console.log("COUTNTTTTT DATA---->>>", _result);
     // setActivities_data(_result)
     // if (_result.length > 0) {
-      let _eventCreated =
-        _result?.totalEventCount.toString().length === 1
-          ? "0" + _result?.totalEventCount
-          : _result?.totalEventCount;
-      let _todoCompleted =
-        _result?.totalTaskdone.toString().length === 1
-          ? "0" + _result?.totalTaskdone
-          : _result?.totalTaskdone;
-      let _todoCreated =
-        _result?.totalTodoCount.toString().length === 1
-          ? "0" + _result?.totalTodoCount
-          : _result?.totalTodoCount;
+    let _eventCreated =
+      _result?.totalEventCount.toString().length === 1
+        ? "0" + _result?.totalEventCount
+        : _result?.totalEventCount;
+    let _todoCompleted =
+      _result?.totalTaskdone.toString().length === 1
+        ? "0" + _result?.totalTaskdone
+        : _result?.totalTaskdone;
+    let _todoCreated =
+      _result?.totalTodoCount.toString().length === 1
+        ? "0" + _result?.totalTodoCount
+        : _result?.totalTodoCount;
 
-      setEventCountSummary(_eventCreated);
-      setTodoCreatdSummary(_todoCreated);
-      setTodoComplteSummary(_todoCompleted);
+    setEventCountSummary(_eventCreated);
+    setTodoCreatdSummary(_todoCreated);
+    setTodoComplteSummary(_todoCompleted);
     // }
   };
   const getLeadDetails = async (lead_id) => {
@@ -980,25 +984,25 @@ const NewLead = React.memo((props) => {
           console.log("success:", res.formData);
           // setErrorMessage(successMsg)
           // if(res.formData.length > 0){
-            setIsNewLead(false);
+          setIsNewLead(false);
 
-            setOpportunityNameSummary(res?.formData?.opportunity_name);
-            setCompanySummary(res?.formData?.lob_for_opportunity);
-            setCurrentStatusSummary(res?.formData?.leadStage);
-            setLeadIdSummary(res?.formData?.lead_Id);
-            getEventTodoCountAPI(res?.formData?._id);
-            
-            setIncorpDateSummary(
-              new Date(res?.formData?.created_date).toLocaleDateString("in")
-            );
-            setCurrentStatsDateSummary(
-              new Date(res?.formData?.created_date).toLocaleDateString("in")
-            );
-            // setEventCountSummary(res?.formData)
-            // setTodoCreatdSummary(res?.formData)
-            // setTodoComplteSummary(res?.formData)
-            setLeadIdData(res?.formData?._id);
-            // dispatch(actions.fetchLeadDetailsSuccess({}))
+          setOpportunityNameSummary(res?.formData?.opportunity_name);
+          setCompanySummary(res?.formData?.lob_for_opportunity);
+          setCurrentStatusSummary(res?.formData?.leadStage);
+          setLeadIdSummary(res?.formData?.lead_Id);
+          getEventTodoCountAPI(res?.formData?._id);
+
+          setIncorpDateSummary(
+            new Date(res?.formData?.created_date).toLocaleDateString("in")
+          );
+          setCurrentStatsDateSummary(
+            new Date(res?.formData?.created_date).toLocaleDateString("in")
+          );
+          // setEventCountSummary(res?.formData)
+          // setTodoCreatdSummary(res?.formData)
+          // setTodoComplteSummary(res?.formData)
+          setLeadIdData(res?.formData?._id);
+          // dispatch(actions.fetchLeadDetailsSuccess({}))
           // }
         }
         // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
@@ -1521,7 +1525,10 @@ const NewLead = React.memo((props) => {
                           required: false,
                           message: "Select your Location",
                         },
-                        { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                        {
+                          message: "Only Alphabets are Allowed",
+                          pattern: new RegExp(/^[a-zA-Z ]+$/),
+                        },
                       ]}
                       style={{ marginBottom: "1rem" }}
                     >
@@ -1609,7 +1616,10 @@ const NewLead = React.memo((props) => {
                           required: false,
                           message: "Opportunity Name is required",
                         },
-                        { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                        {
+                          message: "Only Alphabets are Allowed",
+                          pattern: new RegExp(/^[a-zA-Z ]+$/),
+                        },
                       ]}
                       style={{ marginBottom: "1rem" }}
                     >
