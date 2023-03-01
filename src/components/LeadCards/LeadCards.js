@@ -194,10 +194,10 @@ const LeadCards = (props) => {
 
   const exportReport = async (type) => {
     console.log('TYPEEEE---',type)
-    // secondValue
-    let _userID = type === 'self' ? user.id : secondValue
+    // let _userID = type === 'self' ? user.id : secondValue
+    let _isTeam = type === 'self' ? 'no' : 'yes'
     let data = await axiosRequest.get(
-      `admin/opportunity-dump?userId=${_userID}`
+      `admin/opportunity-dump?userId=${user.id}&team=${_isTeam}`
     );
   };
 
@@ -205,7 +205,7 @@ const LeadCards = (props) => {
     <div className="cards-container cards_data">
       <div className="dropdown-container">
         <div className="round-card-main-Tab">
-          {checkAgent() === false && (
+          {/* {checkAgent() === false && ( */}
             <>
               <div
                 className="CardBodySelf lead-ml60"
@@ -215,6 +215,7 @@ const LeadCards = (props) => {
                   marginBottom: 25,
                 }}
               >
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -232,6 +233,9 @@ const LeadCards = (props) => {
                   />
                   Self
                 </button>
+                )}
+
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -250,6 +254,8 @@ const LeadCards = (props) => {
                   />
                   Team
                 </button>
+                )}
+                
                 {leadsData?.globalTab !== "team" && (
                 <div style={{ marginLeft: 15 }}>
                   <Button
@@ -263,7 +269,7 @@ const LeadCards = (props) => {
                 )}
               </div>
             </>
-          )}
+          {/* )} */}
         </div>
         {leadsData?.globalTab === "team" && (
           <div

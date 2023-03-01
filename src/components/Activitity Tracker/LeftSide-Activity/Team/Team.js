@@ -189,7 +189,7 @@ const Team = () => {
   };
 
   const exportReport = async () => {
-    let data = await axiosRequest.get(`admin/export-event-dump?userId=${id}`);
+    let data = await axiosRequest.get(`admin/export-event-dump?userId=${id}&team=yes`);
     console.log("data", data);
   };
 

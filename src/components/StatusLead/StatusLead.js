@@ -971,7 +971,7 @@ const NewLead = React.memo((props) => {
       risk_details: [],
     };
 
-    console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
+    // console.warn("(((((((isNewLead a___BBB))))))):", addLeadFormData);
     if (isNewLead) {
       dispatch(actions.fetchLeadUpdateBody(addLeadFormData));
       dispatch(actions.createLead(addLeadFormData)).then((res) => {
@@ -986,7 +986,7 @@ const NewLead = React.memo((props) => {
             setCompanySummary(res?.formData?.lob_for_opportunity);
             setCurrentStatusSummary(res?.formData?.leadStage);
             setLeadIdSummary(res?.formData?.lead_Id);
-            getEventTodoCountAPI(res?.formData?._id);
+            // getEventTodoCountAPI(res?.formData?._id);
             
             setIncorpDateSummary(
               new Date(res?.formData?.created_date).toLocaleDateString("in")

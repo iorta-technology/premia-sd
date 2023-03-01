@@ -49,7 +49,7 @@ const App = () => {
 
 
   const exportReport = async () => {
-    let data = await axiosRequest.get(`admin/export-event-dump?userId=${loginUserId}`);
+    let data = await axiosRequest.get(`admin/export-event-dump?userId=${loginUserId}&team=no`);
     console.log("data -------??????", data);
   };
 
@@ -61,11 +61,12 @@ const App = () => {
       <Row style={{ color: "#f7f7f7", marginTop: "20px" }} justify="center">
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
-            {checkAgent() === false && (
+            {/* {checkAgent() === false && ( */}
               <div
                 className="CardBody"
                 style={{ display: "flex", flexDirection: "row" }}
               >
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -85,6 +86,8 @@ const App = () => {
                   />
                   Self
                 </button>
+                )}
+                {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -105,7 +108,8 @@ const App = () => {
                   />
                   Team
                 </button>
-
+                )}
+                {TeamSelf &&
                 <div style={{ marginLeft: 15 }}>
                   <Button
                     onClick={exportReport}
@@ -115,8 +119,9 @@ const App = () => {
                     <DownloadOutlined /> Export
                   </Button>
                 </div>
+                }
               </div>
-            )}
+            {/* // )} */}
             {TeamSelf ? <Self /> : <Team />}
           </Card>
         </Col>
