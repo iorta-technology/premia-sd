@@ -193,9 +193,9 @@ const LeadCards = (props) => {
   };
 
   const exportReport = async (type) => {
-    console.log('TYPEEEE---',type)
+    console.log('TYPEEEE---',leadsData?.globalTab)
     // let _userID = type === 'self' ? user.id : secondValue
-    let _isTeam = type === 'self' ? 'no' : 'yes'
+    let _isTeam = leadsData?.globalTab === 'self' ? 'no' : 'yes'
     let data = await axiosRequest.get(
       `admin/opportunity-dump?userId=${user.id}&team=${_isTeam}`
     );
@@ -256,7 +256,7 @@ const LeadCards = (props) => {
                 </button>
                 )}
                 
-                {leadsData?.globalTab !== "team" && (
+                {/* {leadsData?.globalTab !== "team" && ( */}
                 <div style={{ marginLeft: 15 }}>
                   <Button
                     onClick={() => exportReport('self')}
@@ -266,7 +266,7 @@ const LeadCards = (props) => {
                     <DownloadOutlined /> Export
                   </Button>
                 </div>
-                )}
+                {/* )} */}
               </div>
             </>
           {/* )} */}
@@ -303,7 +303,7 @@ const LeadCards = (props) => {
             ></Select>
           </div>
         )}
-        {openSecond && leadsData?.globalTab === "team" && secondValue && (
+        {/* {openSecond && leadsData?.globalTab === "team" && secondValue && (
           <div
             className="lead-ml15"
             style={{ position: "relative", bottom: 26 }}
@@ -321,7 +321,7 @@ const LeadCards = (props) => {
               <DownloadOutlined /> Export
             </Button>
           </div>
-        )}
+        )} */}
       </div>
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
         {!_.isEmpty(leadsData.allLeads) ? (

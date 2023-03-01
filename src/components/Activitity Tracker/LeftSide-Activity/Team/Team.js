@@ -196,7 +196,7 @@ const Team = () => {
   return (
     <div className="Team">
       {windowWidth > breakpoint && (
-        <Row style={{ marginBottom: 15, justifyContent: "space-between" }}>
+        <Row style={{ marginBottom: 15, }}>
           <Col md={9} lg={9} xl={9}>
             <Typography>Hierarchy</Typography>
             <div style={{ marginTop: 5 }}>
