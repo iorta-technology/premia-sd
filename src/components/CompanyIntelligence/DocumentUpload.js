@@ -312,7 +312,9 @@ const DocUpload = (props) => {
                 </div>
               </div>
               <div className="col-6 data flex-center">
-                {item.originalname || item.file_name}
+                <a href={item.url} download>
+                  {item.originalname || item.file_name}
+                </a>
               </div>
               <div className="col-3 flex-center">
                 <DeleteOutlined

@@ -192,9 +192,12 @@ const LeadCards = (props) => {
     }
   };
 
-  const exportReport = async () => {
+  const exportReport = async (type) => {
+    console.log('TYPEEEE---',type)
+    // secondValue
+    let _userID = type === 'self' ? user.id : secondValue
     let data = await axiosRequest.get(
-      `admin/opportunity-dump?userId=${user.id}`
+      `admin/opportunity-dump?userId=${_userID}`
     );
   };
 
@@ -247,6 +250,17 @@ const LeadCards = (props) => {
                   />
                   Team
                 </button>
+                {leadsData?.globalTab !== "team" && (
+                <div style={{ marginLeft: 15 }}>
+                  <Button
+                    onClick={() => exportReport('self')}
+                    style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
+                    className="d-flex justify-content-center align-items-center w-100"
+                  >
+                    <DownloadOutlined /> Export
+                  </Button>
+                </div>
+                )}
               </div>
             </>
           )}
@@ -290,7 +304,7 @@ const LeadCards = (props) => {
           >
             <p style={{ marginBottom: "5px" }}>Opportunity Dump</p>
             <Button
-              onClick={exportReport}
+              onClick={() => exportReport('team')}
               style={{
                 backgroundColor: "#3c3d3d",
                 color: "#fff",
