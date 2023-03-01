@@ -310,7 +310,7 @@ const LeadCards = (props) => {
           >
             <p style={{ marginBottom: "5px" }}>Opportunity Dump</p>
             <Button
-              onClick={() => exportReport('team')}
+              onClick={exportReport}
               style={{
                 backgroundColor: "#3c3d3d",
                 color: "#fff",

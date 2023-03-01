@@ -200,13 +200,15 @@ const TodoTab = (props) => {
     let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
     });
-    console.warn('__++++++COMPANY++++++++ RESPPPP',result)
-    let _compArr = [];
-    result[0].company_id.map((el) => {
-      let _data = { value: el.company_name, label: el.company_name, _id: el._id };
-      _compArr.push(_data);
-    });
-    setCompanyArray(_compArr);
+    // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+    if(result.length > 0){
+      let _compArr = [];
+      result[0].company_id.map((el) => {
+        let _data = { value: el.company_name, label: el.company_name, _id: el._id };
+        _compArr.push(_data);
+      });
+      setCompanyArray(_compArr);
+    }
   };
 
   let timeListText = [
@@ -590,6 +592,7 @@ const TodoTab = (props) => {
         taskId: props.editData.todoid,
         userId: id,
       };
+      // return
 
       let _resp = await axiosRequest.put(`user/update_task_status`, formData, {
         secure: true,

@@ -196,7 +196,7 @@ const Team = () => {
   return (
     <div className="Team">
       {windowWidth > breakpoint && (
-        <Row style={{ marginBottom: 15 }}>
+        <Row style={{ marginBottom: 15, justifyContent: "space-between" }}>
           <Col md={9} lg={9} xl={9}>
             <Typography>Hierarchy</Typography>
             <div style={{ marginTop: 5 }}>
@@ -227,24 +227,20 @@ const Team = () => {
               </div>
             ) : null}
           </Col>
-          <Col md={4} lg={4} xl={4} className="download_report">
-            {selected !== "Select" &&
-            selected.length > 1 &&
-            selected1 !== "Select" &&
-            selected1.length > 1 ? (
-              <Button
-                onClick={exportReport}
-                style={{
-                  backgroundColor: "#3c3d3d",
-                  color: "#fff",
-                  borderRadius: 5,
-                }}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <DownloadOutlined /> Export
-              </Button>
-            ) : null}
-          </Col>
+          {/* <Col md={4} lg={4} xl={4} className="download_report">
+           
+            <Button
+              onClick={exportReport}
+              style={{
+                backgroundColor: "#3c3d3d",
+                color: "#fff",
+                borderRadius: 5,
+              }}
+              className="d-flex align-items-center justify-content-center"
+            >
+              <DownloadOutlined /> Export
+            </Button>
+          </Col> */}
         </Row>
       )}
 
@@ -278,20 +274,16 @@ const Team = () => {
             </div>
           ) : null}
 
-          <div style={{ margin: "10px 0" }}>
-            {selected !== "Select" &&
-            selected.length > 1 &&
-            selected1 !== "Select" &&
-            selected1.length > 1 ? (
-              <Button
-                onClick={exportReport}
-                style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
-                className="d-flex justify-content-center align-items-center w-100"
-              >
-                <DownloadOutlined /> Export
-              </Button>
-            ) : null}
-          </div>
+          {/* <div style={{ margin: "10px 0" }}>
+
+            <Button
+              onClick={exportReport}
+              style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
+              className="d-flex justify-content-center align-items-center w-100"
+            >
+              <DownloadOutlined /> Export
+            </Button>
+          </div> */}
         </div>
       )}
 

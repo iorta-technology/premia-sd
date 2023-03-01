@@ -979,14 +979,14 @@ const NewLead = React.memo((props) => {
         if (res.type === "CREATE_LEAD_SUCCESS") {
           console.log("success:", res.formData);
           // setErrorMessage(successMsg)
-          // if(res.formData.length > 0){
+          if(res.formData.length > 0 || Object.keys(res.formData).length > 0){
             setIsNewLead(false);
 
             setOpportunityNameSummary(res?.formData?.opportunity_name);
             setCompanySummary(res?.formData?.lob_for_opportunity);
             setCurrentStatusSummary(res?.formData?.leadStage);
             setLeadIdSummary(res?.formData?.lead_Id);
-            // getEventTodoCountAPI(res?.formData?._id);
+            getEventTodoCountAPI(res?.formData?._id);
             
             setIncorpDateSummary(
               new Date(res?.formData?.created_date).toLocaleDateString("in")
@@ -999,7 +999,7 @@ const NewLead = React.memo((props) => {
             // setTodoComplteSummary(res?.formData)
             setLeadIdData(res?.formData?._id);
             // dispatch(actions.fetchLeadDetailsSuccess({}))
-          // }
+          }
         }
         // console.warn('(((((((leadIdData___BBB))))))):', leadIdData);
       });
