@@ -113,33 +113,34 @@ const NewLead = React.memo((props) => {
   const childRef = useRef(null);
 
   const addCollaborators = () => {
-    setFormItem((res) => ({
-      ...res,
-      collaborators: [...formItem.collaborators, teamMemberData],
-    }));
-    form.setFieldsValue({
-      collaborators: "",
-    });
-    setTeamMemberData("");
-    let _checkDuplicate = null;
-    teamDataArr.map((el) => {
-      _checkDuplicate = teamMemberData.includes(el.first_name) ? true : false;
-    });
-    hierarAgentList.map((item) => {
-      if (_checkDuplicate) {
-      } else {
-        if (item.value === teamMemberData) {
-          let apiBody = {
-            first_name: item.firstname,
-            last_name: item.lastname,
-            Id: item._Id,
-          };
-          // _dataArr.push(apiBody)
-          setTeamDataArr([...teamDataArr, apiBody]);
+    if (teamMemberData && teamMemberData != "") {
+      setFormItem((res) => ({
+        ...res,
+        collaborators: [...formItem.collaborators, teamMemberData],
+      }));
+      form.setFieldsValue({
+        collaborators: "",
+      });
+      setTeamMemberData("");
+      let _checkDuplicate = null;
+      teamDataArr.map((el) => {
+        _checkDuplicate = teamMemberData.includes(el.first_name) ? true : false;
+      });
+      hierarAgentList.map((item) => {
+        if (_checkDuplicate) {
+        } else {
+          if (item.value === teamMemberData) {
+            let apiBody = {
+              first_name: item.firstname,
+              last_name: item.lastname,
+              Id: item._Id,
+            };
+            // _dataArr.push(apiBody)
+            setTeamDataArr([...teamDataArr, apiBody]);
+          }
         }
-      }
-    });
-    //  setTeamDataArr(_dataArr)
+      });
+    }
   };
 
   const addRemarks = async () => {

@@ -319,7 +319,11 @@ const Tab = ({
         // FOR MOBILE WEB
         <div
           className="tabsStyle"
-          style={{ display: "flex", flexDirection: "Column", marginTop: 75 }}
+          style={{
+            display: "flex",
+            flexDirection: "Column",
+            marginTop: 5,
+          }}
         >
           <div>
             <Tabs

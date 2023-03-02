@@ -3,6 +3,11 @@
     position: relative;
 } */
 
+body {
+  overflow-x: auto;
+}
+
+/* 
 @media (max-width: 419px) {
   body {
     width: 123% !important;
@@ -31,4 +36,4 @@
   body {
     width: 205% !important;
   }
-}
+} */
