@@ -94,7 +94,7 @@ const Master = (props) => {
       {/* <div className="export-btn-holder">
             </div> */}
       {/* <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/> */}
-      <div className="page-holder">
+      <div className="">
         <Pagination
           responsive
           current={current}

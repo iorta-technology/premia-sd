@@ -271,8 +271,8 @@
   border: 1px solid red;
   position: absolute;
   border-radius: 5px;
-  right: 203px;
-  top: 20px;
+  right: 16px;
+  top: 30px;
 }
 
 @media (max-width: 436px) {

@@ -49,8 +49,10 @@ const App = () => {
 
   const exportReport = async () => {
     // &team=yes
-    let _isTeam = TeamSelf ? 'no' : 'yes'
-    let data = await axiosRequest.get(`admin/export-event-dump?userId=${loginUserId}&team=${_isTeam}`);
+    let _isTeam = TeamSelf ? "no" : "yes";
+    let data = await axiosRequest.get(
+      `admin/export-event-dump?userId=${loginUserId}&team=${_isTeam}`
+    );
     console.log("data -------??????", data);
   };
 
@@ -63,11 +65,11 @@ const App = () => {
         <Col xl={14} md={14} sm={23} xs={23} className="Activity-Right">
           <Card bordered={false} className="Activity-Right-Card">
             {/* {checkAgent() === false && ( */}
-              <div
-                className="CardBody"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
-                {checkAgent() === false && (
+            <div
+              className="CardBody"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -87,8 +89,8 @@ const App = () => {
                   />
                   Self
                 </button>
-                )}
-                {checkAgent() === false && (
+              )}
+              {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -109,19 +111,19 @@ const App = () => {
                   />
                   Team
                 </button>
-                )}
-                {/* {TeamSelf && */}
-                <div style={{ marginLeft: 15 }}>
-                  <Button
-                    onClick={exportReport}
-                    style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
-                    className="d-flex justify-content-center align-items-center w-100"
-                  >
-                    <DownloadOutlined /> Export
-                  </Button>
-                </div>
-                {/* } */}
+              )}
+              {/* {TeamSelf && */}
+              <div style={{ marginLeft: 15 }}>
+                <Button
+                  onClick={exportReport}
+                  style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
+                  className="d-flex justify-content-center align-items-center w-100"
+                >
+                  <DownloadOutlined /> Export
+                </Button>
               </div>
+              {/* } */}
+            </div>
             {/* // )} */}
             {TeamSelf ? <Self /> : <Team />}
           </Card>
