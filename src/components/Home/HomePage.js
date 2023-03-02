@@ -628,6 +628,7 @@ const HomePage = () => {
             zIndex: 1,
             position: "absolute",
             top: 200,
+            width: "100%",
           }}
           gutter={[18, { xs: 18, sm: 10, md: 10, lg: 18 }]}
           justify="center"
