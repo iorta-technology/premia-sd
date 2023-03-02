@@ -309,23 +309,6 @@
   }
 }
 
-/* @media screen and (min-width: 900px) {
-  .ml10{
-    margin-left: 80px;
-  }
-} */
-
-/* @media screen and (min-width: 390px) {
-  .cardHolder .dataCard {
-    width: 400px !important;
-    height: 380px !important;
-    padding: 20px;
-    flex-wrap: wrap;
-    border-radius: 8px;
-    box-shadow: rgb(107, 100, 100) 0px 0px 4px;
-  }
-} */
-
 /* my css */
 .appointment_data {
   display: flex;
@@ -366,4 +349,14 @@
   cursor: pointer;
   width: 100%;
   margin-bottom: 5px;
+}
+
+@media screen and (max-width: 490px) {
+  .cardHolder .dataCard {
+    width: 100% !important;
+  }
+
+  .home_section {
+    width: 100% !important;
+  }
 }

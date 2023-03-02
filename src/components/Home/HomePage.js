@@ -634,7 +634,7 @@ const HomePage = () => {
           justify="center"
         >
           {showActivityTracker && (
-            <Col>
+            <Col className="home_section">
               <div
                 className="dataCard"
                 bordered="false"
@@ -752,9 +752,9 @@ const HomePage = () => {
           )}
 
           {showOpportunities && (
-            <Col>
+            <Col className="home_section">
               <div
-                className=" dataCard"
+                className="dataCard"
                 bordered="false"
                 style={{ backgroundColor: "#00ACC1" }}
               >
@@ -775,7 +775,9 @@ const HomePage = () => {
                     </div>
                   </div>
                 </Link>
-                <div style={{ marginTop: "30px" }}>
+                <div
+                  style={{ marginTop: "30px", width: "100%", overflow: "auto" }}
+                >
                   <Column {...config} />
                 </div>
                 <div
@@ -868,9 +870,9 @@ const HomePage = () => {
             </Col>
           )}
           {showTodo && (
-            <Col>
+            <Col className="home_section">
               <div
-                className=" dataCard"
+                className="dataCard"
                 bordered="false"
                 style={{ backgroundColor: "#5ec0ad" }}
               >
