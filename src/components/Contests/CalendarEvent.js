@@ -271,6 +271,156 @@ export default function CalendarEvent(props) {
       setUpdateCheckEvent(true);
     } //1661472000000
     if (props.Data) {
+      let timearr = [
+        {
+          dispValue: "8:00 AM",
+          value: "28800000",
+        },
+        {
+          dispValue: "8:30 AM",
+          value: "30600000",
+        },
+        {
+          dispValue: "9:00 AM",
+          value: "32400000",
+        },
+        {
+          dispValue: "9:30 AM",
+          value: "34200000",
+        },
+        {
+          dispValue: "10:00 AM",
+          value: "36000000",
+        },
+        {
+          dispValue: "10:30 AM",
+          value: "37800000",
+        },
+        {
+          dispValue: "11:00 AM",
+          value: "39600000",
+        },
+        {
+          dispValue: "11:30 AM",
+          value: "41400000",
+        },
+        {
+          dispValue: "12:00 PM",
+          value: "43200000",
+        },
+        {
+          dispValue: "12:30 PM",
+          value: "45000000",
+        },
+        {
+          dispValue: "1:00 PM",
+          value: "46800000",
+        },
+        {
+          dispValue: "1:30 PM",
+          value: "48600000",
+        },
+        {
+          dispValue: "2:00 PM",
+          value: "50400000",
+        },
+        {
+          dispValue: "2:30 PM",
+          value: "52200000",
+        },
+        {
+          dispValue: "3:00 PM",
+          value: "54000000",
+        },
+        {
+          dispValue: "3:30 PM",
+          value: "55800000",
+        },
+        {
+          dispValue: "4:00 PM",
+          value: "57600000",
+        },
+        {
+          dispValue: "4:30 PM",
+          value: "59400000",
+        },
+        {
+          dispValue: "5:00 PM",
+          value: "61200000",
+        },
+        {
+          dispValue: "5:30 PM",
+          value: "63000000",
+        },
+        {
+          dispValue: "6:00 PM",
+          value: "64800000",
+        },
+        {
+          dispValue: "6:30 PM",
+          value: "66600000",
+        },
+        {
+          dispValue: "7:00 PM",
+          value: "68400000",
+        },
+        {
+          dispValue: "7:30 PM",
+          value: "70200000",
+        },
+        {
+          dispValue: "8:00 PM",
+          value: "72000000",
+        },
+        {
+          dispValue: "8:30 PM",
+          value: "73800000",
+        },
+        {
+          dispValue: "9:00 PM",
+          value: "75600000",
+        },
+        {
+          dispValue: "9:30 PM",
+          value: "77400000",
+        },
+      ]
+      let finalstarttime = timearr.filter(item=>{
+        console.log(props.Data.start_time,item.value);
+        return props.Data.start_time == item.value
+      })
+       var dt = new Date(props.Data.start_time_MS);
+      var hours = dt.getUTCHours() ; // gives the value in 24 hours format
+      // console.log(hours,'first hours--->');
+      var AmOrPm = hours >= 12 ? 'PM' : 'AM';
+      hours = (hours % 12) || 12;
+      var finalhours = hours.toString().length <= 1 ? ('0' + hours) : hours
+      // console.log(hours.toString().length,finalhours,'second hours--->');
+      var minutes = dt.getUTCMinutes() ;
+      var finalmins = minutes.toString().length <= 1 ? ('0' + minutes) : minutes
+      // console.log(minutes,'second hours--->');
+      var finalTime = finalhours + ":" + (finalmins)+ " "+AmOrPm; 
+      console.log(finalTime, moment(props.Data.start_date).format('MM/DD/YYYY'),  'final start time------>');
+      setDurationStartTimeOperation(finalTime)
+      setStartTimeSelect(finalTime)
+
+      //End time  
+
+      var edt = new Date(1680598800000);
+      var endhours = edt.getUTCHours() ; // gives the value in 24 endhours format
+      console.log(endhours,'first endhours--->');
+      var eAmOrPm = endhours >= 12 ? 'PM' : 'AM';
+      endhours = (endhours % 12) || 12;
+      var efinalhours = endhours.toString().length <= 1 ? ('0' + endhours) : endhours
+      console.log(endhours.toString().length,efinalhours,'second endhours--->');
+      var eminutes = edt.getUTCMinutes() ;
+      var efinalmins = eminutes.toString().length <= 1 ? ('0' + eminutes) : eminutes
+      console.log(eminutes,'second endhours--->');
+      var efinalTime = efinalhours + ":" + (efinalmins)+ " "+eAmOrPm; 
+      console.log(efinalTime, moment(props.Data.start_date).format('MM/DD/YYYY'),  'final start time------>');
+      setDurationEndTimeOperation(efinalTime)
+      setEndTimeSelect(efinalTime)
+
       customerSearch();
       let durationfinal = durationList.filter((item) => {
         return item.value == props.Data.durationType;
@@ -387,7 +537,7 @@ export default function CalendarEvent(props) {
         }
       }
 
-      if (props.Data.durationType == "customedatetime") {
+      if (props.Data.event_session == "customedatetime") {
         setDurationButton({
           select_time: true,
           all_day: false,
@@ -450,18 +600,19 @@ export default function CalendarEvent(props) {
       setMinutesofMeet(props.Data.meeting_content);
       setAppointmentid(props.Data._id);
       // setStatusReasonText(props.Data.statusreason)
-      setDurationStartTimeOperation(props.Data.start_time);
-      setDurationEndTimeOperation(props.Data.end_time);
-      setDurationEndDateOperation(props.Data.end_date);
+      // setDurationStartTimeOperation(props.Data.start_time);
+      // setDurationEndTimeOperation(props.Data.end_time);
+      setDurationEndDateOperation(moment(props.Data.end_date).format('MM/DD/YYYY'));
       setDurationEndDate(moment(props.Data.end_date));
-      setDurationStartDateOperation(props.Data.start_date);
+      setDurationStartDateOperation(moment(props.Data.start_date).format('MM/DD/YYYY'));
       setDurationStartDate(moment(props.Data.start_date));
-      setStartTimeSelect(props.Data.start_time);
-      setEndTimeSelect(props.Data.end_time);
+      // setStartTimeSelect(props.Data.start_time);
+      // setEndTimeSelect(props.Data.end_time);
       if (
         props.Data.event_session != undefined ||
         props.Data.event_session != null
       ) {
+        console.log(props.Data.event_session,'event session enters--->');
         setEventDurationType(props.Data.event_session);
       }
 
@@ -552,7 +703,7 @@ export default function CalendarEvent(props) {
     });
     setAppointmentType("New Proposition Meeting");
     setModeSelect("");
-    setEventDurationType("customedatetime");
+    // setEventDurationType("customedatetime");
     setStartTimeSelect("");
     setEndTimeSelect("");
     setDurationStartDate("");
@@ -584,7 +735,7 @@ export default function CalendarEvent(props) {
     setProspectCheck(false);
     setCustomerCheck(true);
     setModeSelect("");
-    setEventDurationType("customedatetime");
+    // setEventDurationType("customedatetime");
     setStartTimeSelect("");
     setEndTimeSelect("");
     setDurationStartDate("");
@@ -672,116 +823,116 @@ export default function CalendarEvent(props) {
   const [fetchEventCheck, setFetchEventCheck] = useState(false);
   const [timeList, setTimeList] = useState([
     {
-      dispValue: "8:00 AM",
-      value: "28800000",
+      dispValue: "08:00 AM",
+      value: "08:00 AM",
     },
     {
-      dispValue: "8:30 AM",
-      value: "30600000",
+      dispValue: "08:30 AM",
+      value: "08:30 AM",
     },
     {
-      dispValue: "9:00 AM",
-      value: "32400000",
+      dispValue: "09:00 AM",
+      value: "09:00 AM",
     },
     {
-      dispValue: "9:30 AM",
-      value: "34200000",
+      dispValue: "09:30 AM",
+      value: "09:30 AM",
     },
     {
       dispValue: "10:00 AM",
-      value: "36000000",
+      value: "10:00 AM",
     },
     {
       dispValue: "10:30 AM",
-      value: "37800000",
+      value: "10:30 AM",
     },
     {
       dispValue: "11:00 AM",
-      value: "39600000",
+      value: "11:00 AM",
     },
     {
       dispValue: "11:30 AM",
-      value: "41400000",
+      value: "11:30 AM",
     },
     {
       dispValue: "12:00 PM",
-      value: "43200000",
+      value: "12:00 PM",
     },
     {
       dispValue: "12:30 PM",
-      value: "45000000",
+      value: "12:30 PM",
     },
     {
-      dispValue: "1:00 PM",
-      value: "46800000",
+      dispValue: "01:00 PM",
+      value: "01:00 PM",
     },
     {
-      dispValue: "1:30 PM",
-      value: "48600000",
+      dispValue: "01:30 PM",
+      value: "01:30 PM",
     },
     {
-      dispValue: "2:00 PM",
-      value: "50400000",
+      dispValue: "02:00 PM",
+      value: "02:00 PM",
     },
     {
-      dispValue: "2:30 PM",
-      value: "52200000",
+      dispValue: "02:30 PM",
+      value: "02:30 PM",
     },
     {
-      dispValue: "3:00 PM",
-      value: "54000000",
+      dispValue: "03:00 PM",
+      value: "03:00 PM",
     },
     {
-      dispValue: "3:30 PM",
-      value: "55800000",
+      dispValue: "03:30 PM",
+      value: "03:30 PM",
     },
     {
-      dispValue: "4:00 PM",
-      value: "57600000",
+      dispValue: "04:00 PM",
+      value: "04:00 PM",
     },
     {
-      dispValue: "4:30 PM",
-      value: "59400000",
+      dispValue: "04:30 PM",
+      value: "04:30 PM",
     },
     {
-      dispValue: "5:00 PM",
-      value: "61200000",
+      dispValue: "05:00 PM",
+      value: "05:00 PM",
     },
     {
-      dispValue: "5:30 PM",
-      value: "63000000",
+      dispValue: "05:30 PM",
+      value: "05:30 PM",
     },
     {
-      dispValue: "6:00 PM",
-      value: "64800000",
+      dispValue: "06:00 PM",
+      value: "06:00 PM",
     },
     {
-      dispValue: "6:30 PM",
-      value: "66600000",
+      dispValue: "06:30 PM",
+      value: "06:30 PM",
     },
     {
-      dispValue: "7:00 PM",
-      value: "68400000",
+      dispValue: "07:00 PM",
+      value: "07:00 PM",
     },
     {
-      dispValue: "7:30 PM",
-      value: "70200000",
+      dispValue: "07:30 PM",
+      value: "07:30 PM",
     },
     {
-      dispValue: "8:00 PM",
-      value: "72000000",
+      dispValue: "08:00 PM",
+      value: "08:00 PM",
     },
     {
-      dispValue: "8:30 PM",
-      value: "73800000",
+      dispValue: "08:30 PM",
+      value: "08:30 PM",
     },
     {
-      dispValue: "9:00 PM",
-      value: "75600000",
+      dispValue: "09:00 PM",
+      value: "09:00 PM",
     },
     {
-      dispValue: "9:30 PM",
-      value: "77400000",
+      dispValue: "09:30 PM",
+      value: "09:30 PM",
     },
   ]);
 
@@ -1267,7 +1418,7 @@ export default function CalendarEvent(props) {
       moment(new Date()).format("YYYY-MM-DD") ==
         moment(date).format("YYYY-MM-DD")
     );
-    console.log(moment(date).format("YYYY-MM-DD"));
+    console.log(date, dateString,durationStartDateOperation, 'starttt------>');
     setDurationStartDate(moment(date));
     setDurationEndDate(moment(date));
     setDurationEndDateDiffCheck(true);
@@ -1275,7 +1426,7 @@ export default function CalendarEvent(props) {
 
     console.log(ms_date, "ms date---->--->");
 
-    setDurationStartDateOperation(ms_date);
+    setDurationStartDateOperation(dateString);
     setDurationEndDateOperation(ms_date);
     console.log("This is Start Date" + ms_date);
     // if(durationEndDateOperation<ms_date){
@@ -1301,11 +1452,11 @@ export default function CalendarEvent(props) {
   };
   const allDayStartDate = (date, dateString) => {
     // console.log(date)
-    // console.log(dateString)
+    console.log(dateString)
     setDurationStartDate(moment(date));
-    let ms_date = new Date(date).setUTCHours(0, 0, 0, 0);
+    // let ms_date = new Date(date).setUTCHours(0, 0, 0, 0);
 
-    setDurationStartDateOperation(ms_date);
+    setDurationStartDateOperation(dateString);
     // console.log("This is Start Date"+ms_date)
     // if(durationEndDateOperation<ms_date){
     //   setDurationStartDateDiffCheck(false)
@@ -1374,84 +1525,84 @@ export default function CalendarEvent(props) {
   };
   const DurationChangeFunc = (e) => {
     setDurationSelect(e.target.value);
-    if (e.target.value == "30 min") {
-      let parseTime = durationStartTimeOperation;
-      let timeDiff = startTimeSelect;
-      setDurationEndTimeCheck(true);
-      setEndTimeSelect(+timeDiff + +"1800000");
-      setEndTimeSelect(+timeDiff + +"1800000");
+    // if (e.target.value == "30 min") {
+    //   let parseTime = durationStartTimeOperation;
+    //   let timeDiff = startTimeSelect;
+    //   setDurationEndTimeCheck(true);
+    //   setEndTimeSelect(+timeDiff + +"1800000");
+    //   setEndTimeSelect(+timeDiff + +"1800000");
 
-      let parseTimeCondition = parseInt();
-      setDurationEndTimeCheck(true);
-      let endparseTime = parseInt(+timeDiff + +"1800000");
-      setDurationEndTimeOperation(endparseTime);
-    } else if (e.target.value == "1 hr") {
-      let parseTime = durationStartTimeOperation;
-      let timeDiff = startTimeSelect;
-      setDurationEndTimeCheck(true);
-      setEndTimeSelect(+timeDiff + +"3600000");
-      setEndTimeSelect(+timeDiff + +"3600000");
+    //   let parseTimeCondition = parseInt();
+    //   setDurationEndTimeCheck(true);
+    //   let endparseTime = parseInt(+timeDiff + +"1800000");
+    //   setDurationEndTimeOperation(endparseTime);
+    // } else if (e.target.value == "1 hr") {
+    //   let parseTime = durationStartTimeOperation;
+    //   let timeDiff = startTimeSelect;
+    //   setDurationEndTimeCheck(true);
+    //   setEndTimeSelect(+timeDiff + +"3600000");
+    //   setEndTimeSelect(+timeDiff + +"3600000");
 
-      let parseTimeCondition = parseInt();
-      setDurationEndTimeCheck(true);
-      let endparseTime = parseInt(+timeDiff + +"3600000");
-      setDurationEndTimeOperation(endparseTime);
-    } else if (e.target.value == "2 hr") {
-      let parseTime = durationStartTimeOperation;
-      let timeDiff = startTimeSelect;
-      setDurationEndTimeCheck(true);
-      setEndTimeSelect(+timeDiff + +"7200000");
-      setEndTimeSelect(+timeDiff + +"7200000");
+    //   let parseTimeCondition = parseInt();
+    //   setDurationEndTimeCheck(true);
+    //   let endparseTime = parseInt(+timeDiff + +"3600000");
+    //   setDurationEndTimeOperation(endparseTime);
+    // } else if (e.target.value == "2 hr") {
+    //   let parseTime = durationStartTimeOperation;
+    //   let timeDiff = startTimeSelect;
+    //   setDurationEndTimeCheck(true);
+    //   setEndTimeSelect(+timeDiff + +"7200000");
+    //   setEndTimeSelect(+timeDiff + +"7200000");
 
-      let parseTimeCondition = parseInt();
-      setDurationEndTimeCheck(true);
-      let endparseTime = parseInt(+timeDiff + +"7200000");
-      setDurationEndTimeOperation(endparseTime);
-    } else if (e.target.value == "3 hr") {
-      let parseTime = durationStartTimeOperation;
-      let timeDiff = startTimeSelect;
-      setDurationEndTimeCheck(true);
-      setEndTimeSelect(+timeDiff + +"10800000");
-      setEndTimeSelect(+timeDiff + +"10800000");
+    //   let parseTimeCondition = parseInt();
+    //   setDurationEndTimeCheck(true);
+    //   let endparseTime = parseInt(+timeDiff + +"7200000");
+    //   setDurationEndTimeOperation(endparseTime);
+    // } else if (e.target.value == "3 hr") {
+    //   let parseTime = durationStartTimeOperation;
+    //   let timeDiff = startTimeSelect;
+    //   setDurationEndTimeCheck(true);
+    //   setEndTimeSelect(+timeDiff + +"10800000");
+    //   setEndTimeSelect(+timeDiff + +"10800000");
 
-      let parseTimeCondition = parseInt();
-      setDurationEndTimeCheck(true);
-      let endparseTime = parseInt(+timeDiff + +"10800000");
-      setDurationEndTimeOperation(endparseTime);
-    } else if (e.target.value == "4 hr") {
-      let parseTime = durationStartTimeOperation;
-      let timeDiff = startTimeSelect;
-      setDurationEndTimeCheck(true);
-      setEndTimeSelect(+timeDiff + +"14400000");
-      setEndTimeSelect(+timeDiff + +"14400000");
+    //   let parseTimeCondition = parseInt();
+    //   setDurationEndTimeCheck(true);
+    //   let endparseTime = parseInt(+timeDiff + +"10800000");
+    //   setDurationEndTimeOperation(endparseTime);
+    // } else if (e.target.value == "4 hr") {
+    //   let parseTime = durationStartTimeOperation;
+    //   let timeDiff = startTimeSelect;
+    //   setDurationEndTimeCheck(true);
+    //   setEndTimeSelect(+timeDiff + +"14400000");
+    //   setEndTimeSelect(+timeDiff + +"14400000");
 
-      let parseTimeCondition = parseInt();
-      setDurationEndTimeCheck(true);
-      let endparseTime = parseInt(+timeDiff + +"14400000");
-      setDurationEndTimeOperation(endparseTime);
-    } else if (e.target.value == "5 hr") {
-      let parseTime = durationStartTimeOperation;
-      let timeDiff = startTimeSelect;
-      setDurationEndTimeCheck(true);
-      setEndTimeSelect(+timeDiff + +"18000000");
-      setEndTimeSelect(+timeDiff + +"18000000");
+    //   let parseTimeCondition = parseInt();
+    //   setDurationEndTimeCheck(true);
+    //   let endparseTime = parseInt(+timeDiff + +"14400000");
+    //   setDurationEndTimeOperation(endparseTime);
+    // } else if (e.target.value == "5 hr") {
+    //   let parseTime = durationStartTimeOperation;
+    //   let timeDiff = startTimeSelect;
+    //   setDurationEndTimeCheck(true);
+    //   setEndTimeSelect(+timeDiff + +"18000000");
+    //   setEndTimeSelect(+timeDiff + +"18000000");
 
-      let parseTimeCondition = parseInt();
-      setDurationEndTimeCheck(true);
-      let endparseTime = parseInt(+timeDiff + +"18000000");
-      setDurationEndTimeOperation(endparseTime);
-    } else if (e.target.value == "6 hr") {
-      let parseTime = durationStartTimeOperation;
-      let timeDiff = startTimeSelect;
-      setDurationEndTimeCheck(true);
-      setEndTimeSelect(+timeDiff + +"216000000");
-      setEndTimeSelect(+timeDiff + +"216000000");
+    //   let parseTimeCondition = parseInt();
+    //   setDurationEndTimeCheck(true);
+    //   let endparseTime = parseInt(+timeDiff + +"18000000");
+    //   setDurationEndTimeOperation(endparseTime);
+    // } else if (e.target.value == "6 hr") {
+    //   let parseTime = durationStartTimeOperation;
+    //   let timeDiff = startTimeSelect;
+    //   setDurationEndTimeCheck(true);
+    //   setEndTimeSelect(+timeDiff + +"216000000");
+    //   setEndTimeSelect(+timeDiff + +"216000000");
 
-      let parseTimeCondition = parseInt();
-      setDurationEndTimeCheck(true);
-      let endparseTime = parseInt(+timeDiff + +"216000000");
-      setDurationEndTimeOperation(endparseTime);
-    }
+    //   let parseTimeCondition = parseInt();
+    //   setDurationEndTimeCheck(true);
+    //   let endparseTime = parseInt(+timeDiff + +"216000000");
+    //   setDurationEndTimeOperation(endparseTime);
+    // }
   };
 
   const StartTimeChangeFunc = (e) => {
@@ -1473,49 +1624,50 @@ export default function CalendarEvent(props) {
 
     // console.log(e.target.value, 'start time--select-->');
     setStartTimeSelect(e.target.value);
+    setDurationStartTimeOperation(e.target.value);
+    // console.log(e.target.value,'dropdown start time');
+    // setDurationStartTimeCheck(true);
+    // // console.log("This is the start Time"+e.target.value)
+    // if (e.target.value == "") {
+    //   setDurationStartTimeOperation("");
+    //   setDurationEndTimeOperation("");
+    //   setEndTimeSelect(e.target.value);
+    // } else {
+    //   if (e.target.value == "77400000") {
+    //     let parseTime = parseInt(e.target.value);
+    //     setDurationStartTimeOperation(parseTime);
+    //     let timeDiff = e.target.value;
+    //     setDurationEndTimeCheck(true);
+    //     setEndTimeSelect(+timeDiff);
+    //     let parseTimeCondition = parseInt();
+    //     setDurationEndTimeCheck(true);
+    //     let endparseTime = parseInt(+timeDiff);
+    //     setDurationEndTimeOperation(endparseTime);
+    //   } else if (e.target.value == "75600000") {
+    //     let parseTime = parseInt(e.target.value);
+    //     setDurationStartTimeOperation(parseTime);
+    //     let timeDiff = e.target.value;
+    //     setDurationEndTimeCheck(true);
+    //     setEndTimeSelect(+timeDiff + +"1800000");
+    //     let parseTimeCondition = parseInt();
+    //     setDurationEndTimeCheck(true);
+    //     let endparseTime = parseInt(+timeDiff + +"1800000");
+    //     setDurationEndTimeOperation(endparseTime);
+    //   } else {
+    //     let parseTime = parseInt(e.target.value);
+    //     setDurationStartTimeOperation(parseTime);
+    //     let timeDiff = e.target.value;
+    //     setDurationEndTimeCheck(true);
+    //     setEndTimeSelect(+timeDiff + +"3600000");
 
-    setDurationStartTimeCheck(true);
-    // console.log("This is the start Time"+e.target.value)
-    if (e.target.value == "") {
-      setDurationStartTimeOperation("");
-      setDurationEndTimeOperation("");
-      setEndTimeSelect(e.target.value);
-    } else {
-      if (e.target.value == "77400000") {
-        let parseTime = parseInt(e.target.value);
-        setDurationStartTimeOperation(parseTime);
-        let timeDiff = e.target.value;
-        setDurationEndTimeCheck(true);
-        setEndTimeSelect(+timeDiff);
-        let parseTimeCondition = parseInt();
-        setDurationEndTimeCheck(true);
-        let endparseTime = parseInt(+timeDiff);
-        setDurationEndTimeOperation(endparseTime);
-      } else if (e.target.value == "75600000") {
-        let parseTime = parseInt(e.target.value);
-        setDurationStartTimeOperation(parseTime);
-        let timeDiff = e.target.value;
-        setDurationEndTimeCheck(true);
-        setEndTimeSelect(+timeDiff + +"1800000");
-        let parseTimeCondition = parseInt();
-        setDurationEndTimeCheck(true);
-        let endparseTime = parseInt(+timeDiff + +"1800000");
-        setDurationEndTimeOperation(endparseTime);
-      } else {
-        let parseTime = parseInt(e.target.value);
-        setDurationStartTimeOperation(parseTime);
-        let timeDiff = e.target.value;
-        setDurationEndTimeCheck(true);
-        setEndTimeSelect(+timeDiff + +"3600000");
+    //     setEndTimeSelect(+timeDiff + +"3600000");
 
-        setEndTimeSelect(+timeDiff + +"3600000");
-
-        let parseTimeCondition = parseInt();
-        setDurationEndTimeCheck(true);
-        let endparseTime = parseInt(+timeDiff + +"3600000");
-        setDurationEndTimeOperation(endparseTime);
-      }
-    }
+    //     let parseTimeCondition = parseInt();
+    //     setDurationEndTimeCheck(true);
+    //     let endparseTime = parseInt(+timeDiff + +"3600000");
+    //     setDurationEndTimeOperation(endparseTime);
+    //   }
+    // }
   };
   const EndTimeChangeFunc = (e) => {
     // console.log(e.target.value, 'start time--select-->');
@@ -1906,12 +2058,14 @@ export default function CalendarEvent(props) {
         durationEndTimeDiffCheck == false
       ) {
         message.warning("End Time is Mandatory");
-      } else if (
-        durationEndDateOperation == undefined ||
-        durationEndDateOperation == ""
-      ) {
-        message.warning("End Date is Mandatory");
-      } else if (
+      }
+      //  else if (
+      //   durationEndDateOperation == undefined ||
+      //   durationEndDateOperation == ""
+      // ) {
+      //   message.warning("End Date is Mandatory");
+      // } 
+      else if (
         moment(new Date()).format("YYYY-MM-DD") ==
           moment(durationStartDate).format("YYYY-MM-DD") &&
         currentTime >= date.toUTCString().toString().slice(17, 22)
@@ -2044,13 +2198,17 @@ export default function CalendarEvent(props) {
         durationStartTimeOperation == ""
       ) {
         message.warning("Start Time is Mandatory");
-      } else if (
-        durationEndTimeOperation == undefined ||
-        durationEndTimeOperation == "" ||
-        durationEndTimeDiffCheck == false
-      ) {
-        message.warning("End Time is Mandatory");
-      } else if (
+      } else  if (eventDurationType == "customedatetime" && (durationSelect == "" || durationSelect =='Select')){
+        message.warning("Duration is Mandatory");
+      }
+      // else if (
+      //   durationEndTimeOperation == undefined ||
+      //   durationEndTimeOperation == "" ||
+      //   durationEndTimeDiffCheck == false
+      // ) {
+      //   message.warning("End Time is Mandatory");
+      // }
+       else if (
         moment(new Date()).format("YYYY-MM-DD") ==
           moment(durationStartDate).format("YYYY-MM-DD") &&
         currentTime >= date.toUTCString().toString().slice(17, 22)
@@ -2059,7 +2217,7 @@ export default function CalendarEvent(props) {
           "Start time should be less than or equal to current time"
         );
       } else {
-        if (eventDurationType == "customedatetime") {
+        if (eventDurationType == "customedatetime" ) {
           if (
             durationEndDateOperation == undefined ||
             durationEndDateOperation == ""
@@ -2110,10 +2268,10 @@ export default function CalendarEvent(props) {
                     : "",
                 // Appointment_id : Appointmentid,
                 // leadId: "",
-                durationType: durationSelect,
+                durationType: eventDurationType== 'allday' ? null : durationSelect,
                 event_session: eventDurationType,
                 start_date: durationStartDateOperation,
-                start_time: durationStartTimeOperation,
+                start_time: eventDurationType== 'allday' ? "" :durationStartTimeOperation,
                 end_date: durationEndDateOperation,
                 end_time: durationEndTimeOperation,
                 teamMember: _ownerCollectn,
@@ -2196,9 +2354,12 @@ export default function CalendarEvent(props) {
                 advisorCollection.phone_call_advisor == true
                   ? clientvisit
                   : "",
-              durationType: eventDurationType,
+              // Appointment_id : Appointmentid,
+              // leadId: "",
+              durationType: eventDurationType== 'allday' ? null : durationSelect,
+              event_session: eventDurationType,
               start_date: durationStartDateOperation,
-              start_time: durationStartTimeOperation,
+              start_time: eventDurationType== 'allday' ? "" :durationStartTimeOperation,
               end_date: durationEndDateOperation,
               end_time: durationEndTimeOperation,
               teamMember: _ownerCollectn,
@@ -2214,10 +2375,16 @@ export default function CalendarEvent(props) {
                   ]
                 : [],
               customerId: "",
-              leadId: oppCollectn[0]._Id,
               teamMember_clone: teammemberclone,
               remarkText: "",
+              leadId: todoOpporId,
+              company_id: todoCompId,
               mode: modeSelect,
+              stakeHolder_name: stakeholdrName,
+              location: customerNameText,
+              timeline_date: timelineDateData,
+              agenda: eventAgenda,
+              meeting_content: minutesofmeet,
             },
             { secure: true }
           );
@@ -4283,7 +4450,7 @@ export default function CalendarEvent(props) {
                       // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                       defaultValue={durationStartDate}
                       value={durationStartDate}
-                      format="YYYY-MM-DD"
+                      format="MM/DD/YYYY"
                       className={
                         durationStartDateDiffCheck == false
                           ? "CalendarEvent-Modal-empty-picker-style"
@@ -4419,7 +4586,7 @@ export default function CalendarEvent(props) {
                       // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                       defaultValue={durationStartDate}
                       value={durationStartDate}
-                      format="YYYY-MM-DD"
+                      format="MM/DD/YYYY"
                       className={
                         durationStartDateDiffCheck == false
                           ? "CalendarEvent-Modal-empty-picker-style"
@@ -4432,7 +4599,8 @@ export default function CalendarEvent(props) {
               </div>
             </div>
           )}
-
+{eventDurationType== 'allday' ? null :
+<div>
           <div className="CalendarEvent-Modal-Card-vertical-line"></div>
 
           <div className="CalendarEvent-Modal-date-column-flex">
@@ -4462,7 +4630,12 @@ export default function CalendarEvent(props) {
             </div>
           </div>
 
-          <div className="CalendarEvent-Modal-Card-vertical-line"></div>
+        
+          </div>
+}
+
+<div className="CalendarEvent-Modal-Card-vertical-line"></div>
+
 
           <h4 className="CalendarEvent-Modal-Card-header-type">
             Add Team Member

@@ -226,15 +226,17 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
     }
 
     const dateFun=(time)=>{
-      // var dt = new Date(time);
-      // var hours = dt.getUTCHours() ; // gives the value in 24 hours format
-      // var AmOrPm = hours >= 12 ? 'PM' : 'AM';
-      // hours = (hours % 12) || 12;
-      // var minutes = dt.getUTCMinutes() ;
-      // var finalTime = hours + ":" + (minutes == 0 ?"00":"00")+ "  "+AmOrPm; 
-      let finalTimeobj = timeList.filter(item =>{return item.value == time})
-      // console.log(finalTimeobj, 'obj time---->')
-      let finalTime = finalTimeobj[0]?.dispValue
+      var dt = new Date(time);
+      var hours = dt.getUTCHours() ; // gives the value in 24 hours format
+      var AmOrPm = hours >= 12 ? 'PM' : 'AM';
+      hours = (hours % 12) || 12;
+      var finalhours = hours.toString().length <= 1 ? ('0' + hours) : hours
+      var minutes = dt.getUTCMinutes() ;
+      var finalmins = minutes.toString().length <= 1 ? ('0' + minutes) : minutes
+      var finalTime = finalhours + ":" + (finalmins)+ " "+AmOrPm;
+      // let finalTimeobj = timeList.filter(item =>{return item.value == time})
+      console.log(finalTime, 'obj time---->')
+      // let finalTime = finalTimeobj[0]?.dispValue
       // console.log(finalTime, 'val time---->')
       return finalTime;
     }
@@ -293,7 +295,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
                       <div className='TimeToEnd' style={{fontWeight : 'bold'}}>
                               <Typography>
                                 {
-                                  dateFun(element.start_time)
+                                  dateFun(element.start_time_MS)
                                 } 
                               </Typography>
                               <Typography style={{padding:'5px 0'}}>
@@ -301,9 +303,10 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere, getFunc, getdata, S
                               </Typography>
                               <Typography>
                               {
-                                dateFun(element.end_time)
+                                dateFun(element.end_time_MS)
                               }
                               </Typography>
+                             
                       </div>
                       <div className='bodyData-centerContent'>
                           <div className='Event-CenterBody'>
