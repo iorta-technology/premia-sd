@@ -67,6 +67,7 @@ const HomePage = () => {
   const _accessActivityTracker = checkuserAccess("myEvents", _storeData.login); //Activity Tracker
   const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
   const _accessTodo = checkuserAccess("todoTask", _storeData.login); // TODO
+  const _accessSalesGuide = checkuserAccess("sales_guide", _storeData.login); // Sales Guide
   // console.warn('((((((((_storeData))))))))',_storeData)
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -191,6 +192,8 @@ const HomePage = () => {
   ]);
 
   const [opportunities, setOpportunities] = useState([]);
+  const [leadCountPeriod, setLeadCountPeriod] = useState('');
+  
 
   // Access Management
   const [showActivityTracker, setShowActivityTracker] = useState(
@@ -202,6 +205,16 @@ const HomePage = () => {
   const [showTodo, setShowTodo] = useState(
     _accessTodo.props.read === true ? true : false
   );
+
+  const [showSalesGuide, setShowSalesGuide] = useState(
+    _accessSalesGuide.props.read === true ? true : false
+  );
+
+  const leadPeriodArr = [
+    {label:'Today',value:'Today'},
+    {label:'Week',value:'Week'},
+    {label:'Month',value:'Month'},
+  ]
 
   useEffect(() => {
     if (id) dispatch(actions.activities(id, agent_id));
@@ -532,6 +545,10 @@ const HomePage = () => {
     setGetTodoDataArray(_data);
   };
 
+  const changeOpprtunityPeriod = (event) =>{
+    setLeadCountPeriod(event)
+  }
+
   const breakpoint = 620;
   const config = {
     data: opportunities,
@@ -758,9 +775,9 @@ const HomePage = () => {
                 bordered="false"
                 style={{ backgroundColor: "#00ACC1" }}
               >
-                <Link to="/leadMaster/all_leads">
+                {/* <Link to="/leadMaster/all_leads"> */}
                   <div className="card-content">
-                    <div className="activity-icon">
+                    <div className="activity-icon" onClick={() => history.push("/leadMaster/all_leads")}>
                       <Image
                         preview={false}
                         width={55}
@@ -770,11 +787,23 @@ const HomePage = () => {
                       />
                     </div>
                     <div className="activities-text">
-                      <p className="ttile_name">Opportunities</p>
+                      <Row >
+                        <p onClick={() => history.push("/leadMaster/all_leads")} className="ttile_name">Opportunities</p>
+                        <div style={{display:'flex',flex:1,justifyContent:'flex-end'}}>
+                          <Select
+                            placeholder="Select"
+                            style={{width:'70%'}}
+                            options={leadPeriodArr}
+                            value={leadCountPeriod}
+                            onChange={(val) => changeOpprtunityPeriod(val)}
+                          ></Select>
+                        </div>
+                      </Row>
                       <div className="horizontalLine"></div>
                     </div>
+                    
                   </div>
-                </Link>
+                {/* </Link> */}
                 <div
                   style={{ marginTop: "30px", width: "100%", overflow: "auto" }}
                 >
@@ -1062,6 +1091,89 @@ const HomePage = () => {
                     </p>
                   </div>
                 )}
+              </div>
+            </Col>
+          )}
+
+          {showSalesGuide && (
+            <Col>
+              <div
+                className=" dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#CEA0E1" }}
+              >
+                <div className="card-content">
+                  <Link to="/products">
+                    <div className="activity-icon">
+                      <Image
+                        preview={false}
+                        width={55}
+                        height={55}
+                        src={sales_guide_img}
+                        alt="Sales Guide"
+                      />
+                    </div>
+                    <div className="activities-text">
+                      <p className="ttile_name">Sales Guide</p>
+                      {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
+                      <div className="horizontalLine"></div>
+                    </div>
+                  </Link>
+                  <div className="sales-guide-content">
+                    <div className="b1-content">
+                      {/* <div
+                        onClick={() =>
+                          history.push(
+                            "/masterpresales/customerdetails/salespitch"
+                          )
+                        }
+                      >
+                        <div className="salesGuideNewStyle">
+                          <img
+                            src={product_icon}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
+                        </div>
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14 }}>
+                            Sales Pitch
+                          </p>
+                        </div>
+                      </div> */}
+
+                      <div
+                        style={{ marginLeft: 15 }}
+                        onClick={() => history.push("/resourcecenter")}
+                      >
+                        <div className="salesGuideNewStyle">
+                          <img
+                            src={resource_icon}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
+                        </div>
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14 }}>
+                            Resource Center
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* <div onClick={() => history.push("/products")}>
+                        <div className="salesGuideNewStyle">
+                          <img
+                            src={product_icon}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
+                        </div>
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14 }}>
+                            Product
+                          </p>
+                        </div>
+                      </div> */}
+                    </div>
+                  </div>
+                </div>
               </div>
             </Col>
           )}

@@ -31,15 +31,21 @@
 /*end my work*/
 
 .headerResource {
-  background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
+  /* background-image: url("https://pocbanca.iorta.in/assets/header-tabs.png");
+  background-color: #fff;
   background-size: cover;
   height: 11rem;
-  /* width: 100%; */
   margin-bottom: 10px;
-  margin-top: -1rem;
-  /* padding: 10px 20px; */
-  padding: 15px;
-  /* background-size: 100% 100%; */
+  margin-top: 60px;
+  padding: 15px; */
+
+  background-position: 50% 50%;
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 10px;
+  padding: 15px 50px 15px 15px;
+  background-color: #fff;
+  box-shadow: 0 8px 8px #eee;
 }
 .headerResource h1 {
   color: #00acc1;

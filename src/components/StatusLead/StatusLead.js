@@ -921,7 +921,7 @@ const NewLead = React.memo((props) => {
     // message.destroy()
     // return
     if (formItem.opportunityName === "") {
-      return message.warning("Opportunity Name is required");
+      return message.warning("Client Name is required");
     }
     if (formItem.LOBForOpportunity === "") {
       return message.warning("LOB for Opportunity is required");
@@ -1198,7 +1198,7 @@ const NewLead = React.memo((props) => {
 
                   <Row className="mb-4">
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
-                      <p className="summary_heading">Opportunity Name</p>
+                      <p className="summary_heading">CLient Name</p>
                       <p className="summary_data">{opportunityNameSummary}</p>
                       <p className="summary_sub_data">
                         Incorporation Date: {incorpDateSummary}
@@ -1611,11 +1611,11 @@ const NewLead = React.memo((props) => {
                       {...formItemLayout}
                       className="form-item-name label-color"
                       name="opportunity_name"
-                      label="Opportunity Name"
+                      label="Client Name"
                       rules={[
                         {
                           required: false,
-                          message: "Opportunity Name is required",
+                          message: "Client Name is required",
                         },
                         {
                           message: "Only Alphabets are Allowed",
