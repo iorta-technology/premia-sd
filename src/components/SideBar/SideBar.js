@@ -254,15 +254,22 @@ const Sidebar = () => {
           </div>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
 
-          <div style={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <NavIcon style={{ marginRight: 15 }} to="#">
+          <div
+            style={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <NavIcon style={{ marginRight: 15, position: "relative" }} to="#">
               <FaIcons.FaBell onClick={() => toggleModalBox()} />
-              {_notify?.length &&
+              <div className="dot"></div>
+              {/* {_notify?.length &&
               _notify?.length > 0 &&
               // clearBtn &&
               !state.home.notification ? (
                 <div className="dot"></div>
-              ) : null}
+              ) : null} */}
             </NavIcon>
             <div
               style={{

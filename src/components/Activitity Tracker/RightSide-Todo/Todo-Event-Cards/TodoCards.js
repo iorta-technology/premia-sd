@@ -38,9 +38,9 @@ const TodoCards = forwardRef((props, ref) => {
   const [skipVal, setSkipVal] = useState(0);
   const [fval, setFval] = useState(0);
   const [sval, setSval] = useState(0);
-//   const [swap_final_count, setSwap_final_count] = useState(false);
+  //   const [swap_final_count, setSwap_final_count] = useState(false);
   const [remarkDataEnt, setRemarkDataEnt] = useState("");
-  let swap_final_count = false
+  let swap_final_count = false;
 
   const showModal = (event, ind) => {
     // console.log('TODO__CARDD___DATA__',event)
@@ -70,11 +70,11 @@ const TodoCards = forwardRef((props, ref) => {
     try {
       const { id } = stoageGetter("user");
       let arrData = [];
-      let _api = props.leadID ? 
-                `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}&lead_id=${props.leadID}` : 
-                `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`
-      let _resp = await axiosRequest.get(_api,{ secure: true });
-    //   console.log("TODO__GETTTT___RESPPPP", _resp);
+      let _api = props.leadID
+        ? `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}&lead_id=${props.leadID}`
+        : `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`;
+      let _resp = await axiosRequest.get(_api, { secure: true });
+      //   console.log("TODO__GETTTT___RESPPPP", _resp);
       let respData = _resp[0];
 
       setTotalPage(_resp[1][0].count / 5);
@@ -96,7 +96,7 @@ const TodoCards = forwardRef((props, ref) => {
         setSval(totolDataCount);
       }
 
-    //   console.warn("((((((sval))))))", sval);
+      //   console.warn("((((((sval))))))", sval);
 
       for (let _data of respData) {
         // console.log("DATATATATA", _data);
@@ -285,45 +285,43 @@ const TodoCards = forwardRef((props, ref) => {
         updateTODOTaskApi(formdata);
       }
     } else {
-    //   let _data = getTodoDataArray.map((ev, index) => {
-    //     if (rowIndex === index) {
-    //       ev.removeBtn = false;
-    //       ev.icon = checkboxoutline;
-    //       ev.textOverLine.textDecorationLine = "";
-    //     }
-    //     return ev;
-    //   });
-    //   setGetTodoDataArray(_data);
-
-    //   if (_data[rowIndex].taskOwner_id !== id) {
-    //     let object = {
-    //       FullName: _data[rowIndex].searchdata[0].FullName,
-    //       designation: _data[rowIndex].searchdata[0].designation,
-    //       _Id: _data[rowIndex].searchdata[0]._Id,
-    //       ShortId: _data[rowIndex].searchdata[0].ShortId,
-    //       remarkText: _data[rowIndex].searchdata[0].remarkText,
-    //       taskDone: false,
-    //       inAppNotification: _data[rowIndex].searchdata[0].inAppNotification,
-    //       remarkNotification: _data[rowIndex].searchdata[0].remarkNotification,
-    //     };
-    //     _teamMembers.push(object);
-
-    //     let formdata = {
-    //       userId: id,
-    //       taskOwner: _data[rowIndex].taskOwner_id,
-    //       taskId: _data[rowIndex].todoid,
-    //       owernersCollectionDetails: _teamMembers,
-    //     };
-    //     updateTODOTaskApi(formdata);
-    //   } else {
-    //     let formdata = {
-    //       userId: id,
-    //       taskOwner: _data[rowIndex].taskOwner_id,
-    //       taskId: data.todoid,
-    //       taskDone: false,
-    //     };
-    //     updateTODOTaskApi(formdata);
-    //   }
+      //   let _data = getTodoDataArray.map((ev, index) => {
+      //     if (rowIndex === index) {
+      //       ev.removeBtn = false;
+      //       ev.icon = checkboxoutline;
+      //       ev.textOverLine.textDecorationLine = "";
+      //     }
+      //     return ev;
+      //   });
+      //   setGetTodoDataArray(_data);
+      //   if (_data[rowIndex].taskOwner_id !== id) {
+      //     let object = {
+      //       FullName: _data[rowIndex].searchdata[0].FullName,
+      //       designation: _data[rowIndex].searchdata[0].designation,
+      //       _Id: _data[rowIndex].searchdata[0]._Id,
+      //       ShortId: _data[rowIndex].searchdata[0].ShortId,
+      //       remarkText: _data[rowIndex].searchdata[0].remarkText,
+      //       taskDone: false,
+      //       inAppNotification: _data[rowIndex].searchdata[0].inAppNotification,
+      //       remarkNotification: _data[rowIndex].searchdata[0].remarkNotification,
+      //     };
+      //     _teamMembers.push(object);
+      //     let formdata = {
+      //       userId: id,
+      //       taskOwner: _data[rowIndex].taskOwner_id,
+      //       taskId: _data[rowIndex].todoid,
+      //       owernersCollectionDetails: _teamMembers,
+      //     };
+      //     updateTODOTaskApi(formdata);
+      //   } else {
+      //     let formdata = {
+      //       userId: id,
+      //       taskOwner: _data[rowIndex].taskOwner_id,
+      //       taskId: data.todoid,
+      //       taskDone: false,
+      //     };
+      //     updateTODOTaskApi(formdata);
+      //   }
     }
   };
 
@@ -342,17 +340,19 @@ const TodoCards = forwardRef((props, ref) => {
     setIsShowMoreIndex(index);
   };
   // console.log(isShowMoreIndex);
-  
+
   const onChangePagination = (page) => {
     // console.log(page);
     let _decrement = 0;
     let _increment = 0;
 
-    let _total = totalPage.toString()
-    var _res = _total.includes('.') ? parseInt(_total.split(".")[0]) + 1 : _total;
+    let _total = totalPage.toString();
+    var _res = _total.includes(".")
+      ? parseInt(_total.split(".")[0]) + 1
+      : _total;
 
-    _res === page ? swap_final_count = true : swap_final_count = false
-    
+    _res === page ? (swap_final_count = true) : (swap_final_count = false);
+
     _decrement = (page - 1) * 5;
     // setSkipVal(_decrement);
     getTodoData(_decrement);
@@ -404,18 +404,18 @@ const TodoCards = forwardRef((props, ref) => {
     getTodoDataArray[ind].searchdata.map((ev) => {
       // console.log('MAPPPPPPP ______REMMMsUBMIT_______***>>',ev)
       // if (userId == ev._Id) {
-        // ev.remarkData = remark;
-        _data = {
-          FullName: ev.FullName,
-          designation: ev.designation,
-          _Id: ev._Id,
-          ShortId: ev.ShortId,
-          remarkText: userId === ev._Id ? remark : ev.remarkText,
-          taskDone: ev.taskDone,
-          inAppNotification: ev.inAppNotification,
-          remarkNotification: ev.remarkNotification,
-        };
-        _teamMembers.push(_data);
+      // ev.remarkData = remark;
+      _data = {
+        FullName: ev.FullName,
+        designation: ev.designation,
+        _Id: ev._Id,
+        ShortId: ev.ShortId,
+        remarkText: userId === ev._Id ? remark : ev.remarkText,
+        taskDone: ev.taskDone,
+        inAppNotification: ev.inAppNotification,
+        remarkNotification: ev.remarkNotification,
+      };
+      _teamMembers.push(_data);
       // }
     });
     // console.log('_teamMembers _____________***>>',_teamMembers)
@@ -434,10 +434,13 @@ const TodoCards = forwardRef((props, ref) => {
 
   let fetchTodo = () => {
     return getTodoDataArray.map((element, index) => {
-    //   console.log('DATATATATA____',element)
+      //   console.log('DATATATATA____',element)
       return (
         <div className="TodoCard-Container" key={index}>
-          <div className="TodoCards-Top" style={{borderBottom: '1px solid #e6e9eb'}}>
+          <div
+            className="TodoCards-Top"
+            style={{ borderBottom: "1px solid #e6e9eb" }}
+          >
             <div className="TodoCards-TimedateArchive" sm>
               <Col className="TodoCards-TopClock">
                 <div className="todoCard-mr15">
@@ -523,8 +526,12 @@ const TodoCards = forwardRef((props, ref) => {
             </div>
           </div>
           <div className="TodoCards-Body flex-wrap py-1">
-            <p className="w-50 value">{!element.companyName ? '-' : element.companyName}</p>
-            <p className="w-50 value">{!element.opportunityName ? '-' : element.opportunityName}</p>
+            <p className="w-50 value">
+              {!element.companyName ? "-" : element.companyName}
+            </p>
+            <p className="w-50 value">
+              {!element.opportunityName ? "-" : element.opportunityName}
+            </p>
             <p className="w-50 term">Opportunity Name</p>
             <p className="w-50 term">Company Name</p>
           </div>

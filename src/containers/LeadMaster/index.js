@@ -121,7 +121,10 @@ const LeadMaster = (props) => {
   // console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
   return (
     <div
-      style={{ backgroundColor: "#fafafa", marginTop: width <= 620 ? 75 : "" }}
+      style={{
+        backgroundColor: "#fafafa",
+        marginTop: width <= 620 ? (width <= 436 ? 15 : 75) : "",
+      }}
     >
       <Tab tabMenu={tabMenu} header="Lead" current={current} />
       <div className="page-holder">
