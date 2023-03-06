@@ -145,7 +145,7 @@
 }
 .sales-guide-content {
   margin-top: 40px;
-  display: flex;
+  /* display: flex; */
   height: 230px;
   justify-content: center;
   align-items: center;
@@ -178,8 +178,8 @@
   align-items: center;
   background-color: #fff;
   justify-content: center;
-  height: 90px;
-  width: 90px;
+  height: 75px;
+  width: 75px;
   padding: 20px;
   border-radius: 70px;
 }
@@ -338,6 +338,14 @@
   opacity: 0.5;
   margin-left: 35px;
   margin-top: -10px;
+}
+.verticalLine {
+  background-color: rgb(255, 255, 255);
+  height: 90px;
+  width: 1px;
+  /* opacity: 0.5; */
+  /* margin-left: 35px; */
+  /* margin-top: -10px; */
 }
 .ttile_name {
   font-size: 18px;

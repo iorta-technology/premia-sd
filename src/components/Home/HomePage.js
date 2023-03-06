@@ -26,7 +26,12 @@ import business_img from "../../assets/DashboardIconNew/Group3366.png";
 import activity_img from "../../assets/DashboardIconNew/Group3371.png";
 import opportunities_img from "../../assets/DashboardIconNew/Group3367.png";
 import todo_img from "../../assets/DashboardIconNew/Group3375.png";
-import sales_guide_img from "../../assets/DashboardIconNew/Group3369.png";
+import sales_guide_img from "../../assets/resourceHeader.png";
+import resourceVideo from "../../assets/resourceVideo.png";
+import resourcePdf from "../../assets/resourcePdf.png";
+import resourceArticles from "../../assets/resourceArticles.png";
+import resourceInfographic from "../../assets/resourceInfographic.png";
+// Group_427318679.png
 import event_img from "../../assets/DashboardIconNew/Group127.png";
 import application_img from "../../assets/DashboardIconNew/Group3373.png";
 import action_data_img from "../../assets/Actionnodata.png";
@@ -192,7 +197,7 @@ const HomePage = () => {
   ]);
 
   const [opportunities, setOpportunities] = useState([]);
-  const [leadCountPeriod, setLeadCountPeriod] = useState('');
+  const [leadCountPeriod, setLeadCountPeriod] = useState('today');
   
 
   // Access Management
@@ -211,9 +216,9 @@ const HomePage = () => {
   );
 
   const leadPeriodArr = [
-    {label:'Today',value:'Today'},
-    {label:'Week',value:'Week'},
-    {label:'Month',value:'Month'},
+    {label:'Today',value:'today'},
+    {label:'Week',value:'week'},
+    {label:'Month',value:'month'},
   ]
 
   useEffect(() => {
@@ -227,7 +232,8 @@ const HomePage = () => {
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     channelCode && dispatch(actions.fetchHierarchy(userId, channelCode));
-    if (agent_id) dispatch(actions.home(agent_id, userId));
+    // if (agent_id) 
+    dispatch(actions.home(userId,'today'));
     getTodoData(0);
     getOpportunities();
   }, []);
@@ -547,6 +553,7 @@ const HomePage = () => {
 
   const changeOpprtunityPeriod = (event) =>{
     setLeadCountPeriod(event)
+    dispatch(actions.home(userId,event));
   }
 
   const breakpoint = 620;
@@ -1100,10 +1107,10 @@ const HomePage = () => {
               <div
                 className=" dataCard"
                 bordered="false"
-                style={{ backgroundColor: "#CEA0E1" }}
+                style={{ backgroundColor: "#86ACEC" }}
               >
                 <div className="card-content">
-                  <Link to="/products">
+                  <Link to="/resourcecenter">
                     <div className="activity-icon">
                       <Image
                         preview={false}
@@ -1114,63 +1121,88 @@ const HomePage = () => {
                       />
                     </div>
                     <div className="activities-text">
-                      <p className="ttile_name">Sales Guide</p>
+                      <p className="ttile_name">Resource Center</p>
                       {/* <hr style={{ backgroundColor: '#ececec', height: '1px', width: '300%', margin: '-6px' }} /> */}
                       <div className="horizontalLine"></div>
                     </div>
                   </Link>
                   <div className="sales-guide-content">
                     <div className="b1-content">
-                      {/* <div
-                        onClick={() =>
-                          history.push(
-                            "/masterpresales/customerdetails/salespitch"
-                          )
-                        }
-                      >
-                        <div className="salesGuideNewStyle">
-                          <img
-                            src={product_icon}
-                            style={{ height: 55, width: 55, cursor: "pointer" }}
-                          />
-                        </div>
-                        <div>
-                          <p className="sales-content" style={{ fontSize: 14 }}>
-                            Sales Pitch
-                          </p>
-                        </div>
-                      </div> */}
-
                       <div
-                        style={{ marginLeft: 15 }}
+                        // style={{ marginLeft: 15 }}
                         onClick={() => history.push("/resourcecenter")}
                       >
                         <div className="salesGuideNewStyle">
                           <img
-                            src={resource_icon}
+                            src={resourceVideo}
                             style={{ height: 55, width: 55, cursor: "pointer" }}
                           />
                         </div>
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14 }}>
-                            Resource Center
+                          <p className="sales-content" style={{ fontSize: 14,marginTop:10 }}>
+                            Video
                           </p>
                         </div>
                       </div>
 
-                      {/* <div onClick={() => history.push("/products")}>
+                      <div className="verticalLine"></div>
+
+                      <div
+                        // style={{ marginLeft: 15 }}
+                        onClick={() => history.push("/resourcecenter")}
+                      >
                         <div className="salesGuideNewStyle">
                           <img
-                            src={product_icon}
+                            src={resourcePdf}
                             style={{ height: 55, width: 55, cursor: "pointer" }}
                           />
                         </div>
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14 }}>
-                            Product
+                          <p className="sales-content" style={{ fontSize: 14 , marginTop:10 }}>
+                            PDF
                           </p>
                         </div>
-                      </div> */}
+                      </div>
+                    </div>
+
+                    <div className="horizontalLine"></div>
+
+                    <div className="b1-content" style={{marginTop:20}}>
+                      <div
+                        // style={{ marginLeft: 15 }}
+                        onClick={() => history.push("/resourcecenter")}
+                      >
+                        <div className="salesGuideNewStyle">
+                          <img
+                            src={resourceArticles}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
+                        </div>
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14, marginTop:10 }}>
+                            Articles
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="verticalLine"></div>
+
+                      <div
+                        // style={{ marginLeft: 15 }}
+                        onClick={() => history.push("/resourcecenter")}
+                      >
+                        <div className="salesGuideNewStyle">
+                          <img
+                            src={resourceInfographic}
+                            style={{ height: 55, width: 55, cursor: "pointer" }}
+                          />
+                        </div>
+                        <div>
+                          <p className="sales-content" style={{ fontSize: 14, marginTop:10 }}>
+                            Infographic
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

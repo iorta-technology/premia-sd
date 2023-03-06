@@ -369,6 +369,14 @@ const RiskDetails = (props) => {
     setTagicPresence(event.target.value) 
     let _tagicPrem = (totalPremData * event.target.value) / 100
     setTagicPremium(_tagicPrem)
+
+    form.setFieldsValue({
+      tagicPremium: _tagicPrem,
+    });
+  }
+  
+  const changeTagicPremium = (event) =>{
+    setTagicPremium(event.target.value)
   }
 
   return (
@@ -638,7 +646,7 @@ const RiskDetails = (props) => {
                   <Input
                     placeholder="Enter TAGIC Premium"
                     value={tagicPremium}
-                    onChange={(item) => setTagicPremium(item.target.value)}
+                    onChange={(item) => changeTagicPremium(item)}
                   />
                 </Form.Item>
               </Col>

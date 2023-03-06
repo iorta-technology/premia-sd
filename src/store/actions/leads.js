@@ -86,7 +86,7 @@ export const fetchDataAfterFilter = (
   leadfilter,
   lead_disposition,
   leadType,
-  searchType
+  searchType,
 ) => {
   return async (dispatch) => {
     dispatch(fetchAllLeadsStart());

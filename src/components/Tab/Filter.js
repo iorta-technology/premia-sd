@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Radio, Select, Input } from "antd";
+import { Radio, Select, Input , DatePicker, } from "antd";
 import { Option } from "antd/lib/mentions";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,9 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [leadStatusFilter, setLeadStatusFilter] = useState("");
   const [sortByFlter, setSortByFlter] = useState("");
+  const [fromDateFilter, setFromDateFilter] = useState("");
+  const [toDateFilter, setToDateFilter] = useState("");
+  const [lobOpporFilt, setLobOpporFilt] = useState("");
 
   const [shortByStatus, setShortByStatus] = useState("created_date_old");
   const [sortBy, setSortBy] = useState("new_to_old");
@@ -39,12 +42,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     {label:'Allocation Date - Oldest to Newest',status:'old_to_new',filtValue:'allocateddate', value: 'allocation_date_new'},
   ]
 
-  const handleSortByStatus = (ev,data) => {
-    console.log("sort by type_____ev______***", ev);
-    console.log("sort by type______data_____***", data);
-    setSortByFlter(data.filtValue);
-    setSortBy(data.status)
-    setShortByStatus(ev);
+  const handleLobOpprtunity = (ev,data) => {
+    setLobOpporFilt(ev);
   };
   const handleSearchType = (e) => {
     console.log("search type___________***", e.target.value);
@@ -85,7 +84,6 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     let lead_disposition = "";
     let leadType = "";
     let lead_status = "";
-
     dispatch(
       actions.fetchDataAfterFilter(
         id,
@@ -97,7 +95,10 @@ export function OffCanvasForGlobalFilter({ ...props }) {
         leadfilter,
         lead_disposition,
         leadType,
-        searchType
+        searchType,
+        // lobOpporFilt,
+        // fromDateFilter,
+        // toDateFilter,
       )
     );
     handleClose();
@@ -117,6 +118,25 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     setShow(props.show);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
+
+
+  const onChangeFromDate = (date, dateString) => {
+    // console.warn('APOOOOO__DATE___',date)
+    // console.warn('APOOOOO__DATE',dateString)
+    
+    setFromDateFilter(date);
+    // setApptDateString(dateString);
+    // const [fromDateFilter, setFromDateFilter] = useState("");
+    // const [toDateFilter, setToDateFilter] = useState("");
+  };
+
+  const onChangeToDate = (date, dateString) => {
+    // console.warn('APOOOOO__DATE___',date)
+    // console.warn('APOOOOO__DATE',dateString)
+    
+    setToDateFilter(date);
+    // setApptDateString(dateString);
+  };
 
   return (
     <>
@@ -162,7 +182,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
           <Offcanvas.Title>Select Filter</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div
+          {/* <div
             style={{
               width: "auto",
               height: "6rem",
@@ -176,7 +196,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
               Sort by
             </h6>
             <Select
-              onChange={(ev,data)=> handleSortByStatus(ev,data)}
+              onChange={(ev,data)=> handleLobOpprtunity(ev,data)}
               bordered={false}
               name="SortBy"
               value={shortByStatus}
@@ -190,134 +210,72 @@ export function OffCanvasForGlobalFilter({ ...props }) {
               }}
               // defaultValue=""
             >
-              {/* <Option value="new_to_old">
-                Lead Created Date - Newest to Oldest
-              </Option>
-              <Option value="old_to_new">
-                Lead Created Date - Oldest to Newest
-              </Option>
-              <Option value="allo_new_to_old">
-                Allocation Date - Newest to Oldest
-              </Option>
-              <Option value="allo_old_to_new">
-                Allocation Date - Oldest to Newest
-              </Option> */}
             </Select>
-          </div>
+          </div> */}
           <div
             style={{
               width: "auto",
-              height: "10rem",
+              // height: "10rem",
               backgroundColor: "white",
               marginBottom: "0.5rem",
+              padding:10
             }}
           >
-            <h6
-              style={{ fontWeight: "bold", padding: "10px", fontSize: "13px" }}
-            >
-              Search Type Selection
-            </h6>
-            <Radio.Group
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "1rem",
-              }}
-              // onChange={handleSearchType}
-            >
-              <Radio.Button value="fname" onChange={handleSearchType}>
-                Name
-              </Radio.Button>
-              <Radio.Button value="primaryMobile" onChange={handleSearchType}>
-                Mobile
-              </Radio.Button>
-              <Radio.Button value="leadId" onChange={handleSearchType}>
-                Lead ID
-              </Radio.Button>
-            </Radio.Group>
-            <div style={{ marginLeft: "20px" }}>
-              <p>Name</p>
+            <div>
+              <p style={{ fontWeight: "bold", fontSize: "14px" ,marginBottom:5}}>
+                LOB For Opportunity
+              </p>
+              {/* const [lobOpporFilt, setLobOpporFilt] = useState(""); */}
+              <Select
+                onChange={(ev,data)=> handleLobOpprtunity(ev,data)}
+                bordered={true}
+                name="SortBy"
+                value={lobOpporFilt}
+                options={sortByData}
+                style={{
+                  width: "100%",
+                  // marginLeft: "1rem",
+                  // borderBottom: "1px gray solid",
+                  // opacity: "0.5",
+                }}
+              >
+              </Select>
             </div>
-            <Input
-              type="text"
-              style={{
-                border: "none",
-                borderBottom: "1px gray solid",
-                opacity: "0.5",
-                width: "25rem",
-                marginLeft: "1rem",
-                marginTop: "-10px",
-              }}
-              placeholder="Enter Name"
-              size="large"
-              onChange={handleNameSearch}
-            />
+
+            <div>
+              <div>
+                <p style={{ fontWeight: "bold",fontSize: "14px" ,marginTop:10,marginBottom:5}}>
+                  From
+                </p>
+                <DatePicker
+                  onChange={onChangeFromDate}
+                  value={fromDateFilter}
+                  format="MM/DD/YYYY"
+                  style={{ width: "100%", }}
+                />
+              </div>
+
+              <div>
+                <p style={{ fontWeight: "bold", fontSize: "14px" ,marginTop:10,marginBottom:5}}>
+                  To
+                </p>
+                <DatePicker
+                  onChange={onChangeToDate}
+                  value={toDateFilter}
+                  format="MM/DD/YYYY"
+                  style={{ width: "100%", }}
+                />
+              </div>
+            </div>
+
+
+            
+           
+          
           </div>
           <div
             style={{ width: "auto", height: "4rem", backgroundColor: "white" }}
           >
-            {/* <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px', fontSize: '13px' }}>Filter By</h6>
-            <div style={{ width: 'auto', marginTop: '0rem', marginLeft: '0.7rem' }}>
-              <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold', fontSize: '13px' }}>Age Group</p>
-              <Select bordered={false}
-                style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}
-                name='Age Group'
-                value={''}
-                onChange={handleAgeGroup}
-              >
-                <Option value='18-to-28'>18 to 28</Option>
-                <Option value='29-to-35'>29 to 35</Option>
-                <Option value='36-to-45'>36 to 45</Option>
-                <Option value='56-and-above'>56 and above</Option>
-              </Select>
-            </div> */}
-            {/* <div style={{ width: 'auto', marginLeft: '10rem', marginTop: '-4.3rem' }}>
-              <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold', fontSize: '13px' }}>Income Group</p>
-              <Select bordered={false}
-                style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}
-                value={''}
-                name='Income Group'
-                onChange={handleIncomeGroup}
-
-              >
-                <Option value='less-to-2.5'>Less than 2.5 Lacs</Option>
-                <Option value='2.5-to-3.9'>2.5 Lacs to 3.9 Lacs</Option>
-                <Option value='3.5-to-4.99'>3.5 Lacs to 4.99 Lacs</Option>
-                <Option value='5-to-7.99'>5 Lacs to 7.99 Lacs</Option>
-                <Option value='8-to-9.9'>8 Lacs to 9.9 Lacs</Option>
-                <Option vlue='10-to-14.99'>More than 10 Lacs, Less than 14.99 Lacs</Option>
-                <Option value='15-to-20'>More than 15 Lacs, Less than 20 Lacs</Option>
-                <Option value='20-to-more'>More than 20 Lacs</Option>
-              </Select>
-            </div> */}
-            {/* <div style={{ widht: 'auto', marginLeft: '19rem', position: 'relative', top: '-4.3rem' }}>
-              <p style={{ fontFamily: 'robotoregular', fontWeight: 'bold', fontSize: '13px' }}>Marital Status</p>
-              <Select bordered={false}
-                style={{ width: '6rem', borderBottom: '1px gray solid', opacity: '0.5' }}
-                name='Marital Status'
-                value={''}
-                onChange={handleMaritalStatus}
-              >
-                <Option value='Single'>Single</Option>
-                <Option value='Married'>Married, No Kids</Option>
-                <Option value='With-kids'>With Kids</Option>
-              </Select>
-            </div> */}
-            {/* <div style={{ width: 'auto', height: '6rem', backgroundColor: 'white', marginTop: '-2.5rem' }}>
-
-              <h6 style={{ fontFamily: 'robotoregular', fontWeight: 'bold', padding: '10px', fontSize: '13px' }}>Search Between</h6>
-              <Radio.Group
-                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1rem' }}
-                onChange={handleSearchBetween}
-              >
-                <Radio.Button value='Name'>MTD</Radio.Button>
-                <Radio.Button value='Mobile'>YTD</Radio.Button>
-                <Radio.Button value='Lead'>Custom</Radio.Button>
-              </Radio.Group>
-
-            </div> */}
-
             <div
               style={{
                 display: "flex",

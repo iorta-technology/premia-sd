@@ -229,6 +229,16 @@ const Tab = ({
             </div>
           </div>
 
+          {/* { header === "Lead" &&
+            <GlobalFilters
+              show={show}
+              onHide={handleClose}
+              handleShow={handleShow}
+              setShow={setShow}
+              tabFilter={leadTabFilter}
+            />
+          } */}
+
           {header !== "Lead" &&
             activeKey === "1" &&
             storeFormData &&

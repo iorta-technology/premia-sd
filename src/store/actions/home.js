@@ -67,13 +67,13 @@ export const activitiesFail = (error) => {
   };
 };
 
-export const home = (agent_id, userID) => {
+export const home = ( userID,countFor) => {
   //    console.log("agent id in",agent_id)
   return async (dispatch) => {
     dispatch(homeStart());
     // https://pocbancanode.iorta.in/secure/user/getleads_team_count/AG9l7ynu?filter=today&agent_user_id=60e5d6056b18e8309da3fa49
     let _resp = await axiosRequest.get(
-      `user/v2/getleads_team_count/${userID}`,
+      `user/v2/getleads_team_count/${userID}?count_for=${countFor}`,
       { secure: true }
     );
     // console.log("GETTTT LEADD TEAM COUNTT", _resp);
