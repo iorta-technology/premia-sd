@@ -95,7 +95,7 @@ function Modal1({ children, shown, close }) {
 
 const Sidebar = () => {
   const state = useSelector((state) => state);
-  // console.log("((((((((((STATEEEEEEE))))))))))",state?.login?.user)
+  // console.log("((((((((((STATEEEEEEE))))))))))",state)
   const login_user_data = state?.login?.user;
   const headerName = useSelector((state) => state?.login?.headerName);
   const userId = useSelector((state) => state.login.userId);
@@ -153,6 +153,7 @@ const Sidebar = () => {
       console.log("notification received", data);
     });
     console.log("state = ", state.home.notification);
+    // console.log("mySocket =----->>>> ",mySocket);
   }, [mySocket]);
 
   const fetchData = async () => {
@@ -263,13 +264,13 @@ const Sidebar = () => {
           >
             <NavIcon style={{ marginRight: 15, position: "relative" }} to="#">
               <FaIcons.FaBell onClick={() => toggleModalBox()} />
-              <div className="dot"></div>
-              {/* {_notify?.length &&
+              {/* <div className="dot"></div> */}
+              {_notify?.length &&
               _notify?.length > 0 &&
               // clearBtn &&
               !state.home.notification ? (
                 <div className="dot"></div>
-              ) : null} */}
+              ) : null}
             </NavIcon>
             <div
               style={{
@@ -301,7 +302,8 @@ const Sidebar = () => {
         </Nav>
 
         <Modal1 shown={sidebar} close={() => setSidebar(false)}>
-          <div className="sideMenu">
+          <div className="indicationArrowProfile"></div>
+          <div className="sideMenu" >
             <div className="menuHeader">
               <div className="profileLogo">
                 <p
@@ -433,6 +435,7 @@ const Sidebar = () => {
             toggleModal(false);
           }}
         >
+          <div className="indicationArrowNotif"></div>
           <div className="sideMenu1">
             <div className="activity-block1" style={{ height: "350px" }}>
               <div className="notificationHead">

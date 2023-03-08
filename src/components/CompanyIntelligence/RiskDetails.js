@@ -66,6 +66,7 @@ const RiskDetails = (props) => {
   const [leaderShareData, setLeaderShareData] = useState("");
   const [inceptionDateData, setInceptionDateData] = useState("");
   const [editIndex, setEditIndex] = useState("");
+  const [panNo, setPanNo] = useState("");
   const [riskDataArr, setRiskDataArr] = useState([]);
 
   const [showRiskDetailsPopup, setShowRiskDetailsPopup] = useState(false);
@@ -74,7 +75,7 @@ const RiskDetails = (props) => {
     let _dataArr = [];
     if (_StoreData?.company_id?.risk_details.length > 0) {
       _StoreData?.company_id?.risk_details.map((el) => {
-        // console.log('(((((((((el)))))))))---->>>>',el)
+        console.log('(((((((((el)))))))))---->>>>',el)
         let _data = {
           riskName: !el.product_name ? "-" : el.product_name,
           riskType: !el.total_entities ? "-" : el.total_entities,
@@ -88,6 +89,7 @@ const RiskDetails = (props) => {
           tagicPremium: !el.tagic_premium ? "" : el.tagic_premium,
           leaderFollower: !el.leader ? "" : el.leader,
           inceptionDate: !el.inception_date ? "" : el.inception_date,
+          panNo: !el.Pan_no ? "" : el.Pan_no,
         };
         _dataArr.push(_data);
 
@@ -218,6 +220,8 @@ const RiskDetails = (props) => {
       riskDataArr[editIndex].tagicPremium = tagicPremium;
       riskDataArr[editIndex].leaderFollower = leadrFollowerData;
       riskDataArr[editIndex].inceptionDate = inceptionDateData;
+      riskDataArr[editIndex].panNo = panNo;
+      // setPanNo(event.Pan_no);
     } else {
       let _data = {
         riskName: !productNameData ? "-" : productNameData,
@@ -230,6 +234,7 @@ const RiskDetails = (props) => {
         tagicPremium: !tagicPremium ? "" : tagicPremium,
         leaderFollower: !leadrFollowerData ? "" : leadrFollowerData,
         inceptionDate: !inceptionDateData ? "" : inceptionDateData,
+        panNo: !panNo ? "" : panNo,
       };
 
       setRiskDataArr([...riskDataArr, _data]);
@@ -252,6 +257,7 @@ const RiskDetails = (props) => {
         lead_insurer: el.leadInsurer,
         leader_share: el.leaderShare,
         inception_date: el.inceptionDate,
+        Pan_no: el.panNo,
       };
       _riskDetailsData.push(_data);
     });
@@ -310,7 +316,7 @@ const RiskDetails = (props) => {
 
   const editRisk = (event, ind) => {
     console.warn("(((((RISK Details EDIT ))))) -------->>>>", event);
-    console.warn("(((((RISK Details EDIT ind ))))) -------->>>>", ind);
+    // console.warn("(((((RISK Details EDIT ind ))))) -------->>>>", ind);
     setEditIndex(ind);
 
     setShowRiskDetailsPopup(true);
@@ -324,6 +330,8 @@ const RiskDetails = (props) => {
     setLeadInsurerData(event.leadInsurer);
     setLeaderShareData(event.leaderShare);
     setInceptionDateData(moment(event.inceptionDate, "MM/DD/YYYY"));
+    setPanNo(event.Pan_no);
+    // const [panNo, setPanNo] = useState("");
 
     form.setFieldsValue({
       nameOfentity: event.riskType,
@@ -334,6 +342,7 @@ const RiskDetails = (props) => {
       leadrFollowr: event.leaderFollower,
       leadeInsurer: event.leadInsurer,
       leaderShare: event.leaderShare,
+      pan_No: event.Pan_no,
       incepDate: moment(event.inceptionDate, "MM/DD/YYYY"),
     });
     // const [editIndex, setEditIndex] = useState('');
@@ -346,11 +355,12 @@ const RiskDetails = (props) => {
     setTotalPremData("");
     setTagicPresence("");
     setTagicPremium("");
-    setLeadrFollowerData("");
-    setLeadInsurerData("");
+    setLeadrFollowerData(undefined);
+    setLeadInsurerData(undefined);
     setLeaderShareData("");
     setInceptionDateData("");
     setEditIndex("");
+    setPanNo("");
 
     form.setFieldsValue({
       nameOfentity: "",
@@ -358,16 +368,28 @@ const RiskDetails = (props) => {
       totPrem: "",
       tagicPresence: "",
       tagicPremium: "",
-      leadrFollowr: "",
-      leadeInsurer: "",
+      leadrFollowr: undefined,
+      leadeInsurer: undefined,
       leaderShare: "",
       incepDate: "",
+      pan_No:'',
     });
   };
 
   const changeTagicPres = (event) =>{
     setTagicPresence(event.target.value) 
     let _tagicPrem = (totalPremData * event.target.value) / 100
+    setTagicPremium(_tagicPrem)
+
+    form.setFieldsValue({
+      tagicPremium: _tagicPrem,
+    });
+  }
+
+  const changeTotalPrem = (event) =>{
+    setTotalPremData(event.target.value)
+
+    let _tagicPrem = (event.target.value * tagicPresence) / 100
     setTagicPremium(_tagicPrem)
 
     form.setFieldsValue({
@@ -394,7 +416,7 @@ const RiskDetails = (props) => {
         <Row
           gutter={16}
           className="mb-2 statsLead kdmStyle"
-          style={{ padding: 15 }}
+          style={{ paddingTop: 15,paddingLeft:20,paddingRight:20 }}
           justify="space-between"
         >
           {riskDataArr.length > 0 &&
@@ -578,6 +600,13 @@ const RiskDetails = (props) => {
                   name="nameOfentity"
                   label="Name of enitity"
                   style={{ marginBottom: "1rem" }}
+                  rules={[
+                   
+                    {
+                      message: "Only Alphabets are Allowed",
+                      pattern: new RegExp(/^[a-zA-Z ]+$/),
+                    },
+                  ]}
                 >
                   <Input
                     placeholder="Enter Name of enitity"
@@ -594,6 +623,12 @@ const RiskDetails = (props) => {
                   name="productName"
                   label="Product Name"
                   style={{ marginBottom: "1rem" }}
+                  rules={[
+                    {
+                      message: "Only Alphabets are Allowed",
+                      pattern: new RegExp(/^[a-zA-Z ]+$/),
+                    },
+                  ]}
                 >
                   <Input
                     placeholder="Enter Product Name"
@@ -610,11 +645,17 @@ const RiskDetails = (props) => {
                   name="totPrem"
                   label="Total Premium"
                   style={{ marginBottom: "1rem" }}
+                  rules={[
+                    {
+                      message: "Only Numbers are Allowed",
+                      pattern: new RegExp(/^[0-9]+$/),
+                    },
+                  ]}
                 >
                   <Input
                     placeholder="Enter Total Premium"
                     value={totalPremData}
-                    onChange={(item) => setTotalPremData(item.target.value)}
+                    onChange={(item) =>  changeTotalPrem(item) }
                   />
                 </Form.Item>
               </Col>
@@ -626,6 +667,12 @@ const RiskDetails = (props) => {
                   name="tagicPresence"
                   label="TAGIC Presence %"
                   style={{ marginBottom: "1rem" }}
+                  rules={[
+                    {
+                      message: "Only Numbers are Allowed",
+                      pattern: new RegExp(/^[0-9]+$/),
+                    },
+                  ]}
                 >
                   <Input
                     placeholder="Enter TAGIC Presence %"
@@ -642,9 +689,16 @@ const RiskDetails = (props) => {
                   name="tagicPremium"
                   label="TAGIC Premium"
                   style={{ marginBottom: "1rem" }}
+                  rules={[
+                    {
+                      message: "Only Numbers are Allowed",
+                      pattern: new RegExp(/^[0-9]+$/),
+                    },
+                  ]}
                 >
                   <Input
                     placeholder="Enter TAGIC Premium"
+                    disabled={true}
                     value={tagicPremium}
                     onChange={(item) => changeTagicPremium(item)}
                   />
@@ -696,6 +750,12 @@ const RiskDetails = (props) => {
                   name="leaderShare"
                   label="Leader Share %"
                   style={{ marginBottom: "1rem" }}
+                  rules={[
+                    {
+                      message: "Only Numbers are Allowed",
+                      pattern: new RegExp(/^[0-9]+$/),
+                    },
+                  ]}
                 >
                   <Input
                     placeholder="Enter Leader Share %"
@@ -719,6 +779,29 @@ const RiskDetails = (props) => {
                     format="MM/DD/YYYY"
                     style={{ display: "flex", flex: 1 }}
                   />
+                </Form.Item>
+              </Col>
+
+              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                <Form.Item
+                  {...formItemLayout}
+                  className="form-item-name label-color"
+                  name="pan_No"
+                  label="PAN No"
+                  style={{ marginBottom: "1rem" }}
+                  rules={[
+                    {
+                      message: "Enter a valid Pan No",
+                      pattern: new RegExp(/(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/),
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder="Enter PAN No"
+                    value={panNo}
+                    onChange={(item) => setPanNo(item.target.value)}
+                  />
+                  
                 </Form.Item>
               </Col>
             </Row>

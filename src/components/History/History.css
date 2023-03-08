@@ -240,7 +240,7 @@
   box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-.notification_box .notification_data {
+.notification_box .notification_data_hist {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -254,11 +254,11 @@
   position: relative;
 }
 
-.notification_box .notification_data div {
+.notification_box .notification_data_hist div {
   width: 100%;
 }
 
-.notification_data::before {
+.notification_data_hist::before {
   position: absolute;
   top: 45%;
   left: -1px;
@@ -271,7 +271,7 @@
   z-index: 2;
 }
 
-.notification_data::after {
+.notification_data_hist::after {
   position: absolute;
   background-color: #d8d8d8;
   content: "";

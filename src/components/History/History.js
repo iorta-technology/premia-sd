@@ -139,7 +139,7 @@ const History = () => {
         {historyLeadData &&
           historyLeadData?.map((res) => (
             <div className="notification_box ps-4 mb-3">
-              <div className="notification_data">
+              <div className="notification_data_hist">
                 <div className="py-4 px-3">
                   <div className="d-flex justify-content-between align-items-center">
                     <div style={{ fontWeight: "700" }}>{res.title}</div>
