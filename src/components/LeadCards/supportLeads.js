@@ -57,6 +57,8 @@ export default {
     dataStructure.location = !resObj?.company_id?.client_location
       ? "-"
       : resObj?.company_id?.client_location;
+
+    dataStructure.weightage = !resObj?.weightage ? 0 : resObj?.weightage;
     dataStructure.id = resObj._id;
 
     //  dataStructure.personName = resObj.cust_name

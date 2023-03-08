@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LeadCard from "./LeadCard";
 import "./LeadCards.css";
 import _ from "lodash";
-import { Row, Col, Avatar, Card, Select, Button, message } from "antd";
+import { Row, Col, Avatar, Card, Select, Button, message , DatePicker } from "antd";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import { useDispatch, useSelector } from "react-redux";
 import { AllocateModal } from "../Tab/Allocate";
@@ -15,6 +15,8 @@ import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
+
+import { lobOpportunityItems } from "../StatusLead/dataSet";
 // stoageSetter('user', user);
 
 import {
@@ -51,6 +53,11 @@ const LeadCards = (props) => {
   const [secondDropData, setSecondDropData] = useState([]);
   const [secondValue, setSecondValue] = useState("Select");
   const [TeamSelf, setTeamSelf] = useState(true);
+  const [lobOpportData, setLobOpportData] = useState("");
+  const [fromDateFilter, setFromDateFilter] = useState("");
+  const [fromDateString, setFromDateString] = useState("");
+  const [toDateString, setToDateString] = useState("");
+  const [toDateFilter, setToDateFilter] = useState("");
   // const [hierarAgentList ,setHierarAgentList]=useState([])
 
   const [cards, setcard] = useState([]);
@@ -145,11 +152,18 @@ const LeadCards = (props) => {
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
     currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
-    console.log("good bye currentActiveTab", currentTab);
+    // console.log("good bye currentActiveTab", currentTab);
     _currentTab = currentTab;
     // setCurrentActiveTab(currentTab);
     getDataForOpen("all");
     dispatch(actions.updateTabOfDashboard(currentTab));
+
+    setToDateFilter('');
+    setToDateString('');
+    setFromDateFilter('');
+    setFromDateString('');
+    setLobOpportData('');
+    
 
     // if (currentTab === "team") getDataForOpen();
     // currentTab !== currentActiveTab &&
@@ -193,13 +207,67 @@ const LeadCards = (props) => {
   };
 
   const exportReport = async (type) => {
-    console.log('TYPEEEE---',leadsData?.globalTab)
+    // console.log('TYPEEEE---',leadsData?.globalTab)
     // let _userID = type === 'self' ? user.id : secondValue
+
     let _isTeam = leadsData?.globalTab === 'self' ? 'no' : 'yes'
+    // /opportunity-dump?userId=63dce7c80ae6868961079fe6&team=yes&lob_name=xysxx&start_date=01/01/2023&end_date=03/01/2023
+    if(lobOpportData === '' || fromDateFilter === '' || toDateFilter === ''){ 
+      message.warning("Please Select the required fields");
+      return
+    }
     let data = await axiosRequest.get(
-      `admin/opportunity-dump?userId=${user.id}&team=${_isTeam}`
+      `admin/opportunity-dump?userId=${user.id}&team=${_isTeam}&lob_name=${lobOpportData}&start_date=${fromDateString}&end_date=${toDateString}`
     );
   };
+
+  const handleLobOpprtunity = (event) => {
+    // console.warn('handleLobOpprtunity((((((((((===>>>>>>>>>>', event)
+    setLobOpportData(event)
+   
+  };
+
+  const onChangeFromDate = (date, dateString) => {
+    // console.warn('APOOOOO__DATE___',date)
+    // console.warn('APOOOOO__DATE',dateString)
+    
+    
+    const isValidDateRange = validateDateRange(dateString,toDateFilter)
+    // console.log('FROMM___isValidDateRange------->>>',isValidDateRange)
+    if(!isValidDateRange) {
+      message.warning("From Date cannot be greater than To date")
+      setFromDateFilter('');
+      setFromDateString('');
+    }else{
+      setFromDateFilter(date);
+      setFromDateString(dateString);
+    }
+  };
+  const onChangeToDate = (date, dateString) => {
+    // console.warn('APOOOOO__DATE___',date)
+    // console.warn('APOOOOO__DATE',dateString)
+    
+   
+    const isValidDateRange = validateDateRange(fromDateFilter,dateString)
+    // console.log('Too___isValidDateRange------->>>',isValidDateRange)
+    if(!isValidDateRange)  {
+      message.warning("To Date cannot be greater than From date")
+      setToDateFilter('');
+      setToDateString('');
+    }else{
+      setToDateFilter(date);
+      setToDateString(dateString);
+    }
+  };
+
+  const validateDateRange = (startDateStr, endDateStr) => {
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+    if (startDate > endDate) {
+      return false;
+    }
+    return true;
+  }
 
   return (
     <div className="cards-container cards_data">
@@ -255,22 +323,16 @@ const LeadCards = (props) => {
                   Team
                 </button>
                 )}
+
                 
-                {/* {leadsData?.globalTab !== "team" && ( */}
-                <div style={{ marginLeft: 15 }}>
-                  <Button
-                    onClick={() => exportReport('self')}
-                    style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
-                    className="d-flex justify-content-center align-items-center w-100"
-                  >
-                    <DownloadOutlined /> Export
-                  </Button>
-                </div>
-                {/* )} */}
+                
+               
               </div>
             </>
           {/* )} */}
         </div>
+
+
         {leadsData?.globalTab === "team" && (
           <div
             className="lead-ml15"
@@ -280,7 +342,7 @@ const LeadCards = (props) => {
             <Select
               // className="firstdropdown"
               value={firstValue}
-              style={{ width: 250 }}
+              style={{ width: 200 }}
               onChange={handleFirstDropdown}
               placeholder="Select Hierarchy"
               options={firsrDrop}
@@ -296,7 +358,7 @@ const LeadCards = (props) => {
             <Select
               // className="seconddropdown"
               value={secondValue}
-              style={{ width: 250 }}
+              style={{ width: 200 }}
               onChange={(item) => handleSecondDropdown(item)}
               placeholder="Select Team Member"
               options={secondDropData}
@@ -323,6 +385,66 @@ const LeadCards = (props) => {
           </div>
         )} */}
       </div>
+
+      <div className="dropdown-container lead-ml60">
+        <div
+          // className="lead-ml15"
+          style={{ position: "relative", bottom: 26 }}
+        >
+          <p style={{ marginBottom: "5px" }}>LOB Opportunity Name</p>
+          <Select
+            // className="firstdropdown"
+            value={lobOpportData || undefined}
+            style={{ width: 200 }}
+            onChange={handleLobOpprtunity}
+            placeholder="Select Hierarchy"
+            options={lobOpportunityItems}
+          ></Select>
+        </div>
+
+
+        <div
+          className="lead-ml15"
+          style={{ position: "relative", bottom: 26 }}
+        >
+          <p style={{ marginBottom: "5px" }}>From</p>
+          <DatePicker
+            onChange={onChangeFromDate}
+            value={fromDateFilter}
+            format="MM/DD/YYYY"
+            style={{ width: 200 }}
+          />
+        </div>
+
+        <div
+          className="lead-ml15"
+          style={{ position: "relative", bottom: 26 }}
+        >
+          <p style={{ marginBottom: "5px" }}>To</p>
+          <DatePicker
+            onChange={onChangeToDate}
+            value={toDateFilter}
+            format="MM/DD/YYYY"
+            style={{ width: 200 }}
+          />
+        </div>
+
+        {/* {leadsData?.globalTab !== "team" && ( */}
+        <div style={{ marginLeft: 15 }}>
+            <Button
+              onClick={() => exportReport('self')}
+              style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
+              className="d-flex justify-content-center align-items-center w-100"
+            >
+              <DownloadOutlined /> Export
+            </Button>
+          </div>
+          {/* )} */}
+      </div>
+
+         
+
+
       <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
         {!_.isEmpty(leadsData.allLeads) ? (
           _.map(leadsData.allLeads, (lead, index) => {
@@ -344,6 +466,7 @@ const LeadCards = (props) => {
                     location={lead.location}
                     loading={props.leadDataLoading}
                     owner_name={lead.userId}
+                    weightage={lead.weightage}
                   />
                 </Col>
               </>

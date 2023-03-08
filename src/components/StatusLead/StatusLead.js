@@ -281,6 +281,7 @@ const NewLead = React.memo((props) => {
   const [eventCountSummary, setEventCountSummary] = useState("00");
   const [todoCreatdSummary, setTodoCreatdSummary] = useState("00");
   const [todoComplteSummary, setTodoComplteSummary] = useState("00");
+  const [leadScore, setLeadScore] = useState("");
   const [apptDateString, setApptDateString] = useState("");
   const [todoCountBgColor, setTodoCountBgColor] = useState("");
   const [eventCountBgColor, setEventCountBgColor] = useState("#00acc114");
@@ -391,7 +392,7 @@ const NewLead = React.memo((props) => {
       `user/get-event-todo-count/${lead_id}`,
       { secure: true }
     );
-    console.log("COUTNTTTTT DATA---->>>", _result);
+    // console.log("COUTNTTTTT DATA---->>>", _result);
     // setActivities_data(_result)
     // if (_result.length > 0) {
     let _eventCreated =
@@ -512,6 +513,7 @@ const NewLead = React.memo((props) => {
       setOpportunityNameSummary(leadData?.opportunity_name);
       setCompanySummary(leadData?.company_id?.company_name);
       setLeadIdSummary(leadData?.lead_Id);
+      setLeadScore(leadData?.weightage);
       setCurrentStatusSummary(leadData?.leadStage);
       setIncorpDateSummary(
         new Date(leadData?.created_date).toLocaleDateString("in")
@@ -991,6 +993,8 @@ const NewLead = React.memo((props) => {
             setCompanySummary(res?.formData?.lob_for_opportunity);
             setCurrentStatusSummary(res?.formData?.leadStage);
             setLeadIdSummary(res?.formData?.lead_Id);
+            setLeadScore(res?.formData?.weightage);
+            // const [leadScore, setLeadScore] = useState("");
             getEventTodoCountAPI(res?.formData?._id);
 
             setIncorpDateSummary(
@@ -1053,6 +1057,7 @@ const NewLead = React.memo((props) => {
     setCompanySummary("-");
     setCurrentStatusSummary("-");
     setLeadIdSummary("");
+    setLeadScore("");
     setIncorpDateSummary("-");
     setCurrentStatsDateSummary("-");
     setEventCountSummary("00");
@@ -1190,7 +1195,7 @@ const NewLead = React.memo((props) => {
                   {storeFormData && storeFormData._id ? (
                     <div className="d-flex justify-content-between">
                       <p className="form-title">Summary</p>
-                      <p className="text-dark">Score - 75</p>
+                      <p className="text-dark">Score - {leadScore}</p>
                     </div>
                   ) : (
                     <p className="form-title">Summary</p>

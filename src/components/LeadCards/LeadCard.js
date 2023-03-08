@@ -33,6 +33,7 @@ const LeadCard = React.memo((props) => {
     location,
     opportunityName,
     owner_name,
+    weightage
   } = props;
   // console.log("props", props);
 
@@ -180,7 +181,7 @@ const LeadCard = React.memo((props) => {
                 width={40} 
                 format={ (percent, successPercent) => percent}
                 type="circle" 
-                percent={75} />
+                percent={weightage} />
             </div>
             <div
               style={{
