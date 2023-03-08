@@ -3265,7 +3265,7 @@ export default function CalendarEvent(props) {
                
               </div> */}
 
-          <h4 className="CalendarEvent-Modal-Card-header-type">Event Type</h4>
+          <h4 className="CalendarEvent-Modal-Card-header-type">Event Type *</h4>
           {advisorCheck == true ? (
             <div
               className={
@@ -3407,7 +3407,7 @@ export default function CalendarEvent(props) {
           advisorCheck == true ? (
             <div>
               <h4 className="CalendarEvent-Modal-Card-header-type">
-                Appointment Type
+                Appointment Type *
               </h4>
               <div className="CalendarEvent-Modal-appointmenttype-businessPlanning-button-flex">
                 <button
@@ -3531,7 +3531,7 @@ export default function CalendarEvent(props) {
             prospectCheck == true ? (
             <div>
               <h4 className="CalendarEvent-Modal-Card-header-type">
-                Appointment Type
+                Appointment Type *
               </h4>
               <div className="CalendarEvent-Modal-appointmenttype-button-flex CalenderEvent-AppFirst-Meeting">
                 <button
@@ -3916,7 +3916,7 @@ export default function CalendarEvent(props) {
                       : "CalendarEvent-Modal-Card-header-type"
                   }
                 >
-                  Location
+                  Location *
                 </h4>
                 <input
                   value={prospectFirstNameText}
@@ -4144,7 +4144,7 @@ export default function CalendarEvent(props) {
                         : "CalendarEvent-Modal-Card-header-type"
                     }
                   >
-                    Location
+                    Location *
                   </h4>
                   <input
                     disabled={updateEventCheck == true ? true : false}
@@ -4180,7 +4180,7 @@ export default function CalendarEvent(props) {
                         : "CalendarEvent-Modal-Card-header-type"
                     }
                   >
-                    Timeline
+                    Timeline *
                   </h4>
                   {/* <input
                         disabled={manualCustomerCheck==true?true:false}
@@ -4218,7 +4218,7 @@ export default function CalendarEvent(props) {
 
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <p style={{ marginBottom: 5, color: "#646666" }}>
-                    Stakeholder Name
+                    Stakeholder Name *
                   </p>
                   {/* <Input
               placeholder="Enter Stakeholder Name"
@@ -4250,7 +4250,7 @@ export default function CalendarEvent(props) {
                         : "CalendarEvent-Modal-Card-header-type"
                     }
                   >
-                    Agenda
+                    Agenda *
                   </h4>
                   <input
                     value={eventAgenda}
@@ -4402,10 +4402,11 @@ export default function CalendarEvent(props) {
               opacity: ".2",
             }}
           />
-          <h4 className="CalendarEvent-Modal-Card-header-type">Duration</h4>
+          <h4 className="CalendarEvent-Modal-Card-header-type">Duration *</h4>
           <div className="CalendarEvent-Modal-Card-time-duration-flex">
             <button
               onClick={DurationSelectTimeFunc}
+              disabled={updateEventCheck == true ? true : false}
               value={eventDurationType}
               className={
                 durationButton.select_time == true
@@ -4417,6 +4418,7 @@ export default function CalendarEvent(props) {
             </button>
             <button
               onClick={DurationAllDayFunc}
+              disabled={updateEventCheck == true ? true : false}
               value={eventDurationType}
               className={
                 durationButton.all_day == true
@@ -4604,7 +4606,7 @@ export default function CalendarEvent(props) {
           <div className="CalendarEvent-Modal-Card-vertical-line"></div>
 
           <div className="CalendarEvent-Modal-date-column-flex">
-            <h4 className="CalendarEvent-Modal-Card-header-type">Duration </h4>
+            <h4 className="CalendarEvent-Modal-Card-header-type">Duration *</h4>
             <div className="Input-date">
               <select
                 value={durationSelect}
@@ -4757,7 +4759,7 @@ export default function CalendarEvent(props) {
         </Tag> */}
           {/* {console.log(ownerCollectn, 'owner--->')} */}
           <div className="CalendarEvent-Modal-Card-vertical-line"></div>
-          <h4 className="CalendarEvent-Modal-Card-header-type">Status</h4>
+          <h4 className="CalendarEvent-Modal-Card-header-type">Status *</h4>
 
           <div className="CalendarEvent-Modal-Card-status-flex">
             <button
