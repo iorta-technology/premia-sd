@@ -30,9 +30,9 @@ export const createLead = (formData) => {
       secure: true,
     });
     console.log("create LEADDDD_______", result);
-    // if (result.length > 0) {
+    if (result.length > 0 || Object.keys(result).length > 0) {
       return dispatch(createLeadSuccess(result));
-    // }
+    }
   };
 };
 

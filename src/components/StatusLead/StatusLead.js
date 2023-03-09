@@ -983,10 +983,13 @@ const NewLead = React.memo((props) => {
       dispatch(actions.fetchLeadUpdateBody(addLeadFormData));
       dispatch(actions.createLead(addLeadFormData)).then((res) => {
         console.log("CREATE_LEAD_SUCCESS:", res);
-        if (res.type === "CREATE_LEAD_SUCCESS") {
-          console.log("success:", res.formData);
+        if (res?.type === "CREATE_LEAD_SUCCESS") {
+          console.log("success:", res?.formData);
           // setErrorMessage(successMsg)
-          if (res.formData.length > 0 || Object.keys(res.formData).length > 0) {
+          // if (res?.formData.length === 0) return
+           
+          if (res?.formData.length > 0 || Object.keys(res?.formData).length > 0) {
+            // console.warn('(((((((IFFFF))))))):',res?.formData);
             setIsNewLead(false);
 
             setOpportunityNameSummary(res?.formData?.opportunity_name);
