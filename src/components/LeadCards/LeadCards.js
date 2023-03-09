@@ -92,12 +92,12 @@ const LeadCards = (props) => {
     // }
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     // if (secondValue) {
     // getDataAfterFilterTeam()
     // cardShow();
     // }
-  }, [leadsData.allLeads]);
+  // }, [leadsData.allLeads]);
 
   const handleFirstDropdown = (event) => {
     // console.warn('event___HIERARCHYYY((((((((((===>>>>>>>>>>', event)
@@ -151,11 +151,17 @@ const LeadCards = (props) => {
 
   const handleChangeTab = (currentTab) => {
     // console.log("good bye ",currentTab)
-    currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
-    // console.log("good bye currentActiveTab", currentTab);
+    // currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
     _currentTab = currentTab;
+    if(currentTab === "self"){
+      setTeamSelf(true)
+      getDataForOpen("all");
+    }else{
+      setTeamSelf(false);
+    }
+    // console.log("good bye currentActiveTab", currentTab);
+    
     // setCurrentActiveTab(currentTab);
-    getDataForOpen("all");
     dispatch(actions.updateTabOfDashboard(currentTab));
 
     setToDateFilter('');
@@ -164,7 +170,6 @@ const LeadCards = (props) => {
     setFromDateString('');
     setLobOpportData('');
     
-
     // if (currentTab === "team") getDataForOpen();
     // currentTab !== currentActiveTab &&
     // dispatch(actions.updateAllocateOfOpportunities(false));
