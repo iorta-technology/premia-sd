@@ -26,7 +26,7 @@ import {
 } from "@ant-design/icons";
 import rootIndex from "../../store/root_index";
 import apiConfig from "../../config/api.config";
-import { shadows } from "@mui/system";
+import moment from "moment";
 
 const { store } = rootIndex;
 const { baseURL, auth, secure, NODE_ENV } = apiConfig;
@@ -156,6 +156,14 @@ const DocUpload = (props) => {
       });
 
       setdocData(finalData);
+      let _appntDate = ''
+        let _appntTime = ''
+        let _apptDateFormat = ''
+
+        if (_StoreData.appointmentDate) {
+            _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
+            _appntTime = moment(_StoreData.appointmentDate).format("LT");
+        }
       let formBody = {
         company_details: {
           company_name: _StoreData?.company_id?.company_name,
@@ -178,8 +186,10 @@ const DocUpload = (props) => {
         lead_Creator_Id: user_id,
         user_id: user_id,
         company_id: _StoreData?.company_id?._id,
-        start_date: _UpdateFormBody?.start_date,
-        start_time:_UpdateFormBody?.start_time,
+        // start_date: _UpdateFormBody?.start_date,
+        // start_time:_UpdateFormBody?.start_time,
+        start_date: _appntDate,
+        start_time: _appntTime,
         client_expectations: _StoreData?.client_expectations,
         red_flags: _StoreData?.red_flags,
         our_ask: _StoreData?.our_ask,

@@ -532,7 +532,7 @@ const TodoCards = forwardRef((props, ref) => {
             <p className="w-50 value">
               {!element.opportunityName ? "-" : element.opportunityName}
             </p>
-            <p className="w-50 term">Opportunity Name</p>
+            <p className="w-50 term">Client Name</p>
             <p className="w-50 term">Company Name</p>
           </div>
           <div className="TodoCards-Body">

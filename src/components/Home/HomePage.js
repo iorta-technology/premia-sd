@@ -1032,7 +1032,7 @@ const HomePage = () => {
                           <div className="TodoCards-Body flex-wrap py-1">
                             <p className="w-50 value">Iorta</p>
                             <p className="w-50 value">Java</p>
-                            <p className="w-50 term">Opportunity Name</p>
+                            <p className="w-50 term">Client Name</p>
                             <p className="w-50 term">Company Name</p>
                           </div>
                           <div className="TodoCards-Body">

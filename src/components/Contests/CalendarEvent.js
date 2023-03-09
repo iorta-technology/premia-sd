@@ -3666,7 +3666,7 @@ export default function CalendarEvent(props) {
               </Col>
 
               <Col style={{ flex: 1, marginLeft: 10 }}>
-                <p style={{ marginBottom: 5 }}> Opportunity Name </p>
+                <p style={{ marginBottom: 5 }}> Client Name </p>
                 {/* <Select
                 placeholder="Select"
                 style={{width: '100%'}}

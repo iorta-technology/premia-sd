@@ -704,7 +704,7 @@ const TodoTab = (props) => {
               </Col>
               
               <Col style={{flex:1,marginLeft:10}}>
-                <p style={{ marginBottom: 5 }}> Opportunity Name </p>
+                <p style={{ marginBottom: 5 }}> Client Name </p>
                 {/* <Select
                   placeholder="Select"
                   style={{width: '100%'}}
@@ -871,7 +871,7 @@ const TodoTab = (props) => {
                 inputReadOnly={true}
                 value={reminderDate}
                 onChange={onChangeDatePick}
-                disabledDate={(d) => !d || d.isBefore(minimumDate)}
+                // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                 className="todo-ml10"
                 style={{ marginBottom: "10px", flex: 1 }}
               />

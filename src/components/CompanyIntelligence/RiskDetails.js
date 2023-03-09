@@ -267,6 +267,14 @@ const RiskDetails = (props) => {
     //     ...props.updateFormData,
     //     risk_details: _riskDetailsData,
     // }
+    let _appntDate = ''
+    let _appntTime = ''
+    let _apptDateFormat = ''
+
+    if (_StoreData.appointmentDate) {
+      _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
+      _appntTime = moment(_StoreData.appointmentDate).format("LT");
+    }
 
     let formBody = {
       company_details: {
@@ -290,8 +298,10 @@ const RiskDetails = (props) => {
       lead_Creator_Id: user_id,
       user_id: user_id,
       company_id: _StoreData?.company_id?._id,
-      start_date: _UpdateFormBody?.start_date,
-      start_time:_UpdateFormBody?.start_time,
+      // start_date: _UpdateFormBody?.start_date,
+      // start_time:_UpdateFormBody?.start_time,
+      start_date: _appntDate,
+      start_time: _appntTime,
       client_expectations: _StoreData?.client_expectations,
       red_flags: _StoreData?.red_flags,
       our_ask: _StoreData?.our_ask,
@@ -330,7 +340,7 @@ const RiskDetails = (props) => {
     setLeadInsurerData(event.leadInsurer);
     setLeaderShareData(event.leaderShare);
     setInceptionDateData(moment(event.inceptionDate, "MM/DD/YYYY"));
-    setPanNo(event.Pan_no);
+    setPanNo(event.panNo);
     // const [panNo, setPanNo] = useState("");
 
     form.setFieldsValue({
@@ -342,7 +352,7 @@ const RiskDetails = (props) => {
       leadrFollowr: event.leaderFollower,
       leadeInsurer: event.leadInsurer,
       leaderShare: event.leaderShare,
-      pan_No: event.Pan_no,
+      pan_No: event.panNo,
       incepDate: moment(event.inceptionDate, "MM/DD/YYYY"),
     });
     // const [editIndex, setEditIndex] = useState('');

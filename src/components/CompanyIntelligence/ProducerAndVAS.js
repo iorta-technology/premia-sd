@@ -7,6 +7,7 @@ import _ from "lodash";
 import { dataFormatting } from '../../helpers'
 import axiosRequest from '../../axios-request/request.methods'  
 import { PlusOutlined } from '@ant-design/icons';
+import moment from "moment";
 
 
 const tabMenu = [
@@ -114,6 +115,14 @@ const ProducerAndVas = (props) => {
         //     producer: producerData,
         //     VAS_executed: vasExecuted,
         // }
+        let _appntDate = ''
+        let _appntTime = ''
+        let _apptDateFormat = ''
+
+        if (_StoreData.appointmentDate) {
+            _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
+            _appntTime = moment(_StoreData.appointmentDate).format("LT");
+        }
 
         let formBody = {
             company_details: {
@@ -136,8 +145,10 @@ const ProducerAndVas = (props) => {
             lead_Creator_Id: user_id,
             user_id: user_id,
             company_id: _StoreData?.company_id?._id,
-            start_date: _UpdateFormBody?.start_date,
-            start_time:_UpdateFormBody?.start_time,
+            // start_date: _UpdateFormBody?.start_date,
+            // start_time:_UpdateFormBody?.start_time,
+            start_date: _appntDate,
+            start_time: _appntTime,
             client_expectations: _StoreData?.client_expectations,
             red_flags: _StoreData?.red_flags,
             our_ask: _StoreData?.our_ask,

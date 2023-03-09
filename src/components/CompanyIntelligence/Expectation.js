@@ -4,6 +4,7 @@ import { Row, Col, Radio, Tabs, Form, Input , Select, Button  } from 'antd';
 import '../StatusLead/StatusLead.css'
 import * as actions from "../../store/actions/index";
 import _ from "lodash";
+import moment from "moment";
 
 
 const tabMenu = [
@@ -94,6 +95,15 @@ const Expectation = (props) => {
         //     our_ask: ourAskData,
         // }
 
+        let _appntDate = ''
+        let _appntTime = ''
+        let _apptDateFormat = ''
+
+        if (_StoreData.appointmentDate) {
+            _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
+            _appntTime = moment(_StoreData.appointmentDate).format("LT");
+        }
+
         let formBody = {
             company_details: {
               company_name: _StoreData?.company_id?.company_name,
@@ -115,8 +125,10 @@ const Expectation = (props) => {
             lead_Creator_Id: user_id,
             user_id: user_id,
             company_id: _StoreData?.company_id?._id,
-            start_date: _UpdateFormBody?.start_date,
-            start_time:_UpdateFormBody?.start_time,
+            // start_date: _UpdateFormBody?.start_date,
+            // start_time:_UpdateFormBody?.start_time,
+            start_date: _appntDate,
+            start_time: _appntTime,
             client_expectations: clientExpectationData,
             red_flags: redFlagData,
             our_ask: ourAskData,
