@@ -67,7 +67,7 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   // const history = useHistory()
   const [form] = Form.useForm();
-  console.warn("COMPPP____PROPSS", props.location.state.leadData);
+  console.warn("COMPPP____PROPSS", props?.location?.state?.leadData);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -133,32 +133,32 @@ const CompanyIntelligence = React.memo((props) => {
         >
           <TabPane key="1" tab="Key Decison Makers ( KDM ) Details">
             <KDMDetails
-              leadDetails={props.location.state.leadData}
-              updateFormData={props.location.state.updateFormData}
+              leadDetails={props?.location?.state?.leadData}
+              updateFormData={props?.location?.state?.updateFormData}
             />
           </TabPane>
           <TabPane key="2" tab="Risk Details">
             <RiskDetails
-              leadDetails={props.location.state.leadData}
-              updateFormData={props.location.state.updateFormData}
+              leadDetails={props?.location?.state?.leadData}
+              updateFormData={props?.location?.state?.updateFormData}
             />
           </TabPane>
           <TabPane key="3" tab="Producer and VAS">
             <ProducerVAS
-              leadDetails={props.location.state.leadData}
-              updateFormData={props.location.state.updateFormData}
+              leadDetails={props?.location?.state?.leadData}
+              updateFormData={props?.location?.state?.updateFormData}
             />
           </TabPane>
           <TabPane key="4" tab="Expectation">
             <Expectation
-              leadDetails={props.location.state.leadData}
-              updateFormData={props.location.state.updateFormData}
+              leadDetails={props?.location?.state?.leadData}
+              updateFormData={props?.location?.state?.updateFormData}
             />
           </TabPane>
           <TabPane key="5" tab="Document Upload">
             <DocUpload
-              leadDetails={props.location.state.leadData}
-              updateFormData={props.location.state.updateFormData}
+              leadDetails={props?.location?.state?.leadData}
+              updateFormData={props?.location?.state?.updateFormData}
             />
           </TabPane>
         </Tabs>

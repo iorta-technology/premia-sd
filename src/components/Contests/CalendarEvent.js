@@ -207,7 +207,7 @@ export default function CalendarEvent(props) {
       `user/v2/getLead/${id}?leadfilter=open&skip=0&limit=no`,
       { secure: true }
     );
-    console.warn("+++++++++ GET LEAD DATA ++++++++", result);
+    // console.warn("+++++++++ GET LEAD DATA ++++++++", result);
     if (result.length > 0) {
       // console.log(result[0], 'final lead result');
       let customersearch = [];
@@ -222,7 +222,7 @@ export default function CalendarEvent(props) {
         };
 
         customersearch.push(sortarray);
-        console.log(customersearch, "customer search array-->>;;;;;");
+        // console.log(customersearch, "customer search array-->>;;;;;");
         sortarray = {};
       });
       setOppList(customersearch);
@@ -230,10 +230,10 @@ export default function CalendarEvent(props) {
         if (props.Data.leadId != null) {
           // console.log(customersearch);
           let opp = customersearch?.filter((item) => {
-            console.log(item._Id, props.Data.leadId._id, "full lidt");
+            // console.log(item._Id, props.Data.leadId._id, "full lidt");
             return item._Id == props.Data.leadId._id;
           });
-          console.log(opp, "final opp list");
+          // console.log(opp, "final opp list");
           setOppChip(opp);
           setOppCollectn(opp);
         }
@@ -595,7 +595,8 @@ export default function CalendarEvent(props) {
       setStakeholdrName(props.Data.stakeholder_name);
       setCustomerNameText(props.Data.location);
       setTimelineDateData(props.Data.timeline);
-      setTimelineDateString(moment(props.Data.timeline));
+      console.warn('PROPSSS----->>>',props.Data)
+      setTimelineDateString(!props.Data.timeline ? '' : moment(props.Data.timeline));
       setEventAgenda(props.Data.title);
       setMinutesofMeet(props.Data.meeting_content);
       setAppointmentid(props.Data._id);
@@ -603,9 +604,9 @@ export default function CalendarEvent(props) {
       // setDurationStartTimeOperation(props.Data.start_time);
       // setDurationEndTimeOperation(props.Data.end_time);
       setDurationEndDateOperation(moment(props.Data.end_date).format('MM/DD/YYYY'));
-      setDurationEndDate(moment(props.Data.end_date));
+      setDurationEndDate(!props.Data.end_date ? '' : moment(props.Data.end_date));
       setDurationStartDateOperation(moment(props.Data.start_date).format('MM/DD/YYYY'));
-      setDurationStartDate(moment(props.Data.start_date));
+      setDurationStartDate(!props.Data.start_date ? '' : moment(props.Data.start_date));
       // setStartTimeSelect(props.Data.start_time);
       // setEndTimeSelect(props.Data.end_time);
       if (

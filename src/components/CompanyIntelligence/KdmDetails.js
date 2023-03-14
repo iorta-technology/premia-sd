@@ -93,8 +93,8 @@ const KDMDetails = (props) => {
                     kdmPrimContact:el.primaryContact,
                     kdmAltContact:el.alternateContact,
                     kdmEmailId:el.emailAddress,
-                    kdmDOB: moment(el.date_of_birth, "MM/DD/YYYY"),
-                    kdmDOBString:el.date_of_birth,
+                    kdmDOB: !el.date_of_birth ? '' : moment(el.date_of_birth, "MM/DD/YYYY"),
+                    kdmDOBString:!el.date_of_birth ? '' : el.date_of_birth,
                     kdmState:el.state,
                     kdmCity:el.city,
                     kdmBranch:el.branch,
@@ -118,7 +118,8 @@ const KDMDetails = (props) => {
                     // setkdmDetArr([...kdmDetArr,_data])
                 // })
             })
-            console.log('_dataArr========>>>>',_dataArr)
+            // console.log('_dataArr========>>>>',_dataArr)
+            _dataArr.length < 4 ? setShowKdmBtn(true) : setShowKdmBtn(false)
             setkdmDetArr(_dataArr)
         }
 
@@ -221,8 +222,8 @@ const KDMDetails = (props) => {
     
     const onChangeKdmDOB = (date, kdmDOB,ind) => {
         // setKdmDOBData(kdmDOB);
-        console.warn('date--------->>>>>',date)
-        console.warn('kdmDOB--------->>>>>',kdmDOB)
+        // console.warn('date--------->>>>>',date)
+        // console.warn('kdmDOB--------->>>>>',kdmDOB)
         kdmDetArr[ind].kdmDOB = date
         kdmDetArr[ind].kdmDOBString = kdmDOB
         setkdmDetArr([...kdmDetArr])
@@ -247,22 +248,22 @@ const KDMDetails = (props) => {
                 noOfKDM:kdmDetCount + ' - '
             }
             setkdmDetArr([...kdmDetArr,_data])
-            // kdmDetArr.forEach((el,index) =>{
-            //     el.noOfKDM = (index+1) + ' - '
-            //     return el
-            // })
-            // setkdmDetArr([...kdmDetArr,_data])
-
         }
         kdmDetArr.length === 3 ? setShowKdmBtn(false) : setShowKdmBtn(true)
         // console.warn('kdmDetArr--------->>>>>',kdmDetArr)
         
     };
 
-    const deleteKDM = (data,ind) => {
-        console.warn('KDMMMM',data)
-        let _kdmArr = kdmDetArr.filter(el => el.kdmName !== data.kdmName)
-        // console.warn('KDMMMM_______kdmArr',_kdmArr)
+    const deleteKDM = (data,index) => {
+        // console.warn('KDMMMM___',data)
+        // console.warn('KDMMMM___INDEX',index)
+        let _kdmArr = kdmDetArr.filter((el,ind) => ind !== index )
+        // let _kdmArr = kdmDetArr.filter((el,ind) => {
+        //     console.warn('FILTERR',ind)
+        //     // el.kdmName !== data.kdmName
+        // })
+        // console.warn('KDMMMM_______kdmArr',_kdmArr.length)
+        _kdmArr.length < 4 ? setShowKdmBtn(true) : setShowKdmBtn(false)
         setkdmDetArr([..._kdmArr])
         
     };
@@ -271,7 +272,7 @@ const KDMDetails = (props) => {
 
         let _kdmDetailsData = []
         kdmDetArr.map(el =>{
-            console.log('el-------KDM---->>',el)
+            // console.log('el-------KDM---->>',el)
             let _data = {
                 decision_maker_name: el.kdmName,
                 role: el.kdmRole,
@@ -286,7 +287,7 @@ const KDMDetails = (props) => {
             }
             _kdmDetailsData.push(_data)
         })
-        console.warn('_kdmDetailsData ------>>>>>',_kdmDetailsData)
+        // console.warn('_kdmDetailsData ------>>>>>',_kdmDetailsData)
 
         // let formBody = {
         //     ...props.updateFormData,

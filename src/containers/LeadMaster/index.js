@@ -130,10 +130,12 @@ const LeadMaster = (props) => {
       <div className="page-holder">
         <Pagination
           responsive
+          showSizeChanger={false}
           current={current}
           onChange={handlePageClick}
           total={totalLeads}
           defaultPageSize={15}
+          // pageSize={15}
           itemRender={itemRender}
         />
       </div>

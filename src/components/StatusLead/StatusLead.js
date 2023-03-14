@@ -721,13 +721,16 @@ const NewLead = React.memo((props) => {
     if (event === "newleadentery") {
       setDispoArr([]);
       setShowLeadDisposition(false);
+      setShowAppointmentFields(false)
       // setShowLeadSubDisposition(false)
     } else if (event === "contact") {
       setDispoArr(contactItems);
       setShowLeadDisposition(true);
+      setShowAppointmentFields(false)
     } else if (event === "no_contact") {
       setDispoArr(no_contactItems);
       setShowLeadDisposition(true);
+      setShowAppointmentFields(false)
     }
 
     // const [dispoArr, setDispoArr] = useState([]);
@@ -999,6 +1002,7 @@ const NewLead = React.memo((props) => {
             setLeadScore(res?.formData?.weightage);
             // const [leadScore, setLeadScore] = useState("");
             getEventTodoCountAPI(res?.formData?._id);
+            getAppointmentList(res?.formData?._id);
 
             setIncorpDateSummary(
               new Date(res?.formData?.created_date).toLocaleDateString("in")
@@ -1024,6 +1028,7 @@ const NewLead = React.memo((props) => {
         if (res.type === "EDIT_LEAD_SUCCESS") {
           console.log("success___UPDATE:", res);
           getEventTodoCountAPI(res.formData._id);
+          getAppointmentList(res.formData._id);
           setErrorMessage(successMsg);
           setIsNewLead(false);
         } else if (res.type === "EDIT_LEAD_FAIL") {

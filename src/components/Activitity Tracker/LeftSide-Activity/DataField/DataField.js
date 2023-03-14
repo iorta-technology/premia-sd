@@ -278,7 +278,7 @@ const DataField = ({
     var finalmins = minutes.toString().length <= 1 ? "0" + minutes : minutes;
     var finalTime = finalhours + ":" + finalmins + " " + AmOrPm;
     // let finalTimeobj = timeList.filter(item =>{return item.value == time})
-    console.log(finalTime, "obj time---->");
+    // console.log(finalTime, "obj time---->");
     // let finalTime = finalTimeobj[0]?.dispValue
     // console.log(finalTime, 'val time---->')
     return finalTime;

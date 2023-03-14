@@ -66,10 +66,7 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
   useEffect(() => {
-    console.log(
-      // "************************ header ___*(*(*((**)))) *********************===========>>>",
-      header
-    );
+    console.log("************************ header ___*(*(*((**)))) *********************===========>>>",header);
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead") getDataForOpen(leadTabFilter);
@@ -238,8 +235,7 @@ const Tab = ({
               tabFilter={leadTabFilter}
             />
           } */}
-
-          {header !== "Lead" &&
+          {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&
             storeFormData &&
             storeFormData._id && (

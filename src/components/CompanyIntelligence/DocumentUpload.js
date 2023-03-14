@@ -111,27 +111,44 @@ const DocUpload = (props) => {
     const formData = new FormData();
     formData.append("media_upload", info[0]);
 
+    // console.warn('newArr--------------->>>>',newArr)
+    // console.warn('formData --------------->>>>',formData)
+    
+    let _isDup = checkDupDate(info[0])
+    console.warn('_isDup --------------->>>>',_isDup)
+
     let axiosConfig = {
       headers: {
         "Content-Type": "multipart/form-data",
         authorization: "Bearer " + _store.login.token,
       },
     };
+    if(!_isDup){
+      axios
+        .post(
+          `${baseURL}secure/admin/v2/uploadFile`,
+          formData,
+          axiosConfig
+        )
+        .then((res) => {
+          newArr.push({ ...res.data.errMsg, recent: true });
+          setFileData(newArr);
+          document.getElementById("upload-photo").value = "";
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }else{
+      message.warning("File Already Uploaded");
+    }
+  };
 
-    axios
-      .post(
-        `${baseURL}secure/admin/v2/uploadFile`,
-        formData,
-        axiosConfig
-      )
-      .then((res) => {
-        newArr.push({ ...res.data.errMsg, recent: true });
-        setFileData(newArr);
-        document.getElementById("upload-photo").value = "";
-      })
-      .catch((err) => {
-        throw err;
-      });
+  const checkDupDate = (fileUploaded) =>{
+    let _data = null
+    var index = fileData.findIndex(el => el.originalname === fileUploaded.name); 
+    _data = index === -1 ? false : true
+
+    return _data
   };
 
   const Save = async () => {
@@ -292,49 +309,44 @@ const DocUpload = (props) => {
             </Form.Item>
           </Col>
         </Row>
-        <div className="upload_list shadow-sm">
-          {fileData && fileData.length > 0 && (
-            <div className="row px-3 py-2 head">
-              <div className="col-2">Image</div>
-              <div
-                className="col-6"
-                // style={{
-                //   width: 170,
-                //   textOverflow: "ellipsis",
-                //   whiteSpace: "nowrap",
-                //   overflow: "hidden",
-                // }}
-              >
-                Document Name
+        {fileData && fileData.length > 0 && 
+          <div className="upload_list shadow-sm">
+            {fileData && fileData.length > 0 && (
+              <div className="row px-3 py-2 head">
+                <div className="col-2">Image</div>
+                <div className="col-6" style={{display:'flex',flex:1}} >
+                  Document Name
+                </div>
+                <div className="col-3">Action</div>
               </div>
-              <div className="col-3">Action</div>
-            </div>
-          )}
-          {console.log(fileData, "uploaded data----->")}
-          {fileData?.map((item, index) => (
-            <div className="row px-3 py-2">
-              <div className="col-2">
-                <div
-                  style={{ backgroundColor: "#EFEFEF" }}
-                  className="w-75 px-3 py-2 rounded flex-center justify-content-center"
-                >
-                  <FileImageOutlined style={{ color: "gray" }} />
+            )}
+            <div style={{height:1,backgroundColor:'#d8d8d8'}}></div>
+            {/* {console.log(fileData, "uploaded data----->")} */}
+            {fileData?.map((item, index) => (
+              <div className="row px-3 py-2">
+                <div className="col-2">
+                  <div
+                    style={{ backgroundColor: "#EFEFEF" }}
+                    className="w-75 px-3 py-2 rounded flex-center justify-content-center"
+                  >
+                    <FileImageOutlined style={{ color: "gray" }} />
+                  </div>
+                </div>
+                <div style={{display:'flex',flex:1}} className="col-6 data flex-center">
+                  <a href={item.url} download>
+                    {item.originalname || item.file_name}
+                  </a>
+                </div>
+                <div className="col-3 flex-center">
+                  <DeleteOutlined
+                    onClick={() => delDoc(index)}
+                    style={{ color: "#d32f2f" }}
+                  />
                 </div>
               </div>
-              <div className="col-6 data flex-center">
-                <a href={item.url} download>
-                  {item.originalname || item.file_name}
-                </a>
-              </div>
-              <div className="col-3 flex-center">
-                <DeleteOutlined
-                  onClick={() => delDoc(index)}
-                  style={{ color: "#d32f2f" }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        }
 
         <div
           style={{
