@@ -46,7 +46,7 @@ const KDMDetails = (props) => {
     const user_id = useSelector((state) => state.login.user.id);
     const states = useSelector((state) => state.address.states);
     console.log('(((((((((_StoreData)))))))))---->>>>',_StoreData)
-    console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
+    // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
     
 
     const [kdmDetCount, setKdmDetCount] = useState(2);
@@ -60,8 +60,14 @@ const KDMDetails = (props) => {
     const [primContactBorder, setPrimContactBorder] = useState('');
     const [showAltContactErr, setShowAltContactErr] = useState(false);
     const [altContactBorder, setAltContactBorder] = useState('');
+    const [emailAddBorder, setEmailAddBorder] = useState('');
     const [showKdmBranchErr, setShowKdmBranchErr] = useState(false);
-    const [branchBorder, setBranchBorder] = useState('');                                 
+    const [showKdmEmailErr, setShowKdmEmailErr] = useState(false);
+    const [branchBorder, setBranchBorder] = useState('');    
+
+    const [showKdmDOBErr, setShowKdmDOBErr] = useState(false);
+    const [dobBorder, setDobBorder] = useState('');
+    const minimumDate = moment().format("YYYY-MM-DD");                             
                                     
                                     
     const [kdmDetArr, setkdmDetArr] = useState([
@@ -224,6 +230,28 @@ const KDMDetails = (props) => {
         // setKdmDOBData(kdmDOB);
         // console.warn('date--------->>>>>',date)
         // console.warn('kdmDOB--------->>>>>',kdmDOB)
+
+        // let datevalue = moment(date).valueOf()
+        // console.warn('datevalue --------->>>>>',datevalue)
+        let currentdate = Date.now()
+        // console.warn('currentdate --------->>>>>',currentdate)
+        let datesub = moment(currentdate).subtract(18, 'years').format('MM/DD/YYYY');
+        // console.warn('datesub --------->>>>>',datesub)
+
+        if(kdmDOB >= datesub){
+            setShowKdmDOBErr(false)
+            setDobBorder('#d9d9d9')
+        }else{
+            if(!kdmDOB){
+                setShowKdmDOBErr(false)
+                setDobBorder('#d9d9d9')
+            }else{
+                setShowKdmDOBErr(true)
+                setDobBorder('#ff4d4f')
+            }
+        }
+
+
         kdmDetArr[ind].kdmDOB = date
         kdmDetArr[ind].kdmDOBString = kdmDOB
         setkdmDetArr([...kdmDetArr])
@@ -258,11 +286,7 @@ const KDMDetails = (props) => {
         // console.warn('KDMMMM___',data)
         // console.warn('KDMMMM___INDEX',index)
         let _kdmArr = kdmDetArr.filter((el,ind) => ind !== index )
-        // let _kdmArr = kdmDetArr.filter((el,ind) => {
-        //     console.warn('FILTERR',ind)
-        //     // el.kdmName !== data.kdmName
-        // })
-        // console.warn('KDMMMM_______kdmArr',_kdmArr.length)
+       
         _kdmArr.length < 4 ? setShowKdmBtn(true) : setShowKdmBtn(false)
         setkdmDetArr([..._kdmArr])
         
@@ -310,6 +334,7 @@ const KDMDetails = (props) => {
               industry_name: _StoreData?.company_id?.industry_name,
               tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
               client_location: _StoreData?.company_id?.client_location,
+              zone:_StoreData?.company_id?.zone
             },
             leadStatus: _StoreData?.leadStatus,
             leadDisposition: _StoreData?.leadDisposition,
@@ -350,6 +375,7 @@ const KDMDetails = (props) => {
         // console.warn('type ------>>>>>',fieldName)
         let nameRegex =/^[A-Za-z ]+$/;
         // let nameRegex =/^[A-Za-z0-9 ]+$/;
+        let emailFormate = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         let numRegex =/^[0-9 ]+$/;
 
         if(fieldName === 'kdmName'){
@@ -417,8 +443,20 @@ const KDMDetails = (props) => {
                     setBranchBorder('#ff4d4f')
                 }
             }
+        } else if(fieldName === 'email'){
+            if(event.target.value.match(emailFormate)){
+                setShowKdmEmailErr(false)
+                setEmailAddBorder('#d9d9d9')
+            }else{
+                if(event.target.value === ''){
+                    setShowKdmEmailErr(false)
+                    setEmailAddBorder('#d9d9d9')
+                }else{
+                    setShowKdmEmailErr(true)
+                    setEmailAddBorder('#ff4d4f')
+                }
+            }
         } 
-
     }
     
 return (
@@ -574,7 +612,6 @@ return (
                                         placeholder="Enter KDM Alternate Contact"
                                         value={el.kdmAltContact}
                                         maxLength="10"
-                                        
                                         style={{ borderColor: altContactBorder }}
                                         onInput={(item) =>fieldValidation(item,'altContact')}
                                         // defaultValue={kdmName}
@@ -584,7 +621,7 @@ return (
                                 {/* </Form.Item> */}
                             </Col>
 
-                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{marginBottom: "1rem" }}>
                                 {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
@@ -600,14 +637,16 @@ return (
                                     <Input
                                         placeholder="Enter KDM Email ID"
                                         value={el.kdmEmailId}
-                                        style={{ marginBottom: "1rem" }}
+                                        style={{ borderColor: emailAddBorder }}
+                                        onInput={(item) =>fieldValidation(item,'email')}
                                         // defaultValue={kdmName}
                                         onChange={(item) => onChangeKdmEmail(item,index)}
                                     />
+                                    {showKdmEmailErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Enter a valid email address</p>}
                                 {/* </Form.Item> */}
                             </Col>
 
-                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{marginBottom: "1rem"}}>
                                 {/* <Form.Item
                                     {...formItemLayout}
                                     className="form-item-name label-color"
@@ -620,10 +659,13 @@ return (
                                         onChange={ (date,dateString) => onChangeKdmDOB(date,dateString,index) } 
                                         value={el.kdmDOB}
                                         format="MM/DD/YYYY"
-                                        style={{display:'flex',flex:1,marginBottom: "1rem"}}
+                                        disabledDate={(d) => !d || d.isAfter(minimumDate)}
+                                        style={{display:'flex',flex:1,borderColor: dobBorder}}
                                     />
+                                    {showKdmDOBErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Age must be greater than 18 years</p>}
                                 {/* </Form.Item> */}
                             </Col>
+                            
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                                 {/* <Form.Item

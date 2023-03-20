@@ -284,6 +284,7 @@ const RiskDetails = (props) => {
         tata_aig_empaneled:
           _StoreData?.company_id?.tata_aig_empaneled === true ? "Yes" : "No",
         client_location: _StoreData?.company_id?.client_location,
+        zone:_StoreData?.company_id?.zone
       },
       leadStatus: _StoreData?.leadStatus,
       leadDisposition: _StoreData?.leadDisposition,

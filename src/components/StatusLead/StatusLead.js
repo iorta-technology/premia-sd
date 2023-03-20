@@ -29,6 +29,7 @@ import {
   contactItems,
   industryDataArr,
   timeList,
+  cityZoneList,
 } from "./dataSet";
 import {
   Row,
@@ -45,6 +46,7 @@ import {
   AutoComplete,
   message,
   Image,
+  Progress
 } from "antd";
 import {
   ArrowRightOutlined,
@@ -199,6 +201,7 @@ const NewLead = React.memo((props) => {
     industry: "",
     empaneled: false,
     clientLocation: "",
+    clientZone:"",
     LOBForOpportunity: "",
     productForOpportunity: "",
     opportunityName: "",
@@ -241,6 +244,16 @@ const NewLead = React.memo((props) => {
       });
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    let _clientLoc = cityZoneList.map(el =>{
+      let _data = { label:el.City,value:el.City }
+      return _data
+    })
+    setClienLocArr(_clientLoc)
+    // const [clienLocArr, setClienLocArr] = useState([]);
+    // console.warn('((((((((((( _clientLoc )))))))))))', _clientLoc)
+  }, []);
 
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
@@ -288,6 +301,7 @@ const NewLead = React.memo((props) => {
   const [showEventTodoList, setShowEventTodoList] = useState(false);
   const [activities_data, setActivities_data] = useState([]);
   const [updateLeadID, setUpdateLeadID] = useState("");
+  const [clienLocArr, setClienLocArr] = useState([]);
 
   const [disableParentComp, setDisableParentComp] = useState(false);
   let _teamMember = [];
@@ -543,6 +557,8 @@ const NewLead = React.memo((props) => {
         });
       });
 
+      clientLocationChange(leadData?.company_id?.client_location)
+
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_id?.company_name,
@@ -606,7 +622,7 @@ const NewLead = React.memo((props) => {
     setFormItem((res) => ({
       ...res,
       companyName: event,
-      clientLocation: result.companies[0].client_location,
+      // clientLocation: result.companies[0].client_location,
       empaneled:
         result.companies[0].tata_aig_empaneled === "Yes" ? true : false,
       industry: result.companies[0].industry_name,
@@ -617,7 +633,7 @@ const NewLead = React.memo((props) => {
       company_name: event,
       parent_company: result.companies[0].parent_company,
       industry: result.companies[0].industry_name,
-      client_location: result.companies[0].client_location,
+      // client_location: result.companies[0].client_location,
     });
   };
 
@@ -883,6 +899,7 @@ const NewLead = React.memo((props) => {
       industry_name: formItem.industry,
       tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
       client_location: formItem.clientLocation,
+      zone:formItem.clientZone,
     },
     leadStatus: formItem.status,
     leadDisposition: formItem.disposition,
@@ -952,6 +969,7 @@ const NewLead = React.memo((props) => {
         industry_name: formItem.industry,
         tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
         client_location: formItem.clientLocation,
+        zone:formItem.clientZone,
       },
       leadStatus: formItem.status,
       leadDisposition: formItem.disposition,
@@ -1160,6 +1178,23 @@ const NewLead = React.memo((props) => {
     return finalTime;
   };
 
+  const clientLocationChange = (event) =>{
+    // console.log('clientLocationChange------->>>',event)
+    setFormItem((res) => ({ ...res, clientLocation: event }));
+    form.setFieldsValue({ client_location: event })
+
+    let _zoneData = cityZoneList.filter(el => el.City.toLowerCase() === event.toLowerCase() )
+    console.log('_zone ------->>>',_zoneData)
+    if(_zoneData.length > 0){
+      setFormItem((res) => ({ ...res, clientZone: _zoneData[0].Zone }));
+      form.setFieldsValue({ client_zone: _zoneData[0].Zone })
+    }else{
+      setFormItem((res) => ({ ...res, clientZone: '' }));
+      form.setFieldsValue({ client_zone: '' })
+    }
+    
+  };
+
   if (leadDataLoading && _.isEmpty(storeFormData)) {
     return <Spin />;
   }
@@ -1201,9 +1236,19 @@ const NewLead = React.memo((props) => {
               <Row>
                 <Col xs={22} sm={24} md={24} lg={24} xl={24} span={24}>
                   {storeFormData && storeFormData._id ? (
-                    <div className="d-flex justify-content-between">
-                      <p className="form-title">Summary</p>
-                      <p className="text-dark">Score - {leadScore}</p>
+                    <div className="d-flex justify-content-between" style={{alignItems:'center'}}>
+                      <p className="form-title" style={{marginBottom:0}}>Summary</p>
+                      <div>
+                        <p style={{marginBottom:0}} className="text-dark">Score </p>
+                        <Progress 
+                          strokeColor='aquamarine' 
+                          width={40} 
+                          format={ (percent, successPercent) => percent}
+                          type="circle" 
+                          // style={{marginLeft:10}}
+                          percent={leadScore} />
+                      </div>
+                      
                     </div>
                   ) : (
                     <p className="form-title">Summary</p>
@@ -1211,7 +1256,7 @@ const NewLead = React.memo((props) => {
 
                   <Row className="mb-4">
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
-                      <p className="summary_heading">CLient Name</p>
+                      <p className="summary_heading">Client Name</p>
                       <p className="summary_data">{opportunityNameSummary}</p>
                       <p className="summary_sub_data">
                         Incorporation Date: {incorpDateSummary}
@@ -1527,32 +1572,46 @@ const NewLead = React.memo((props) => {
                       </Radio.Group>
                     </Form.Item>
                   </Col>
-
+                  
                   <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                     <Form.Item
                       {...formItemLayout}
                       className="form-item-name label-color"
                       name="client_location"
                       label="Client Location"
-                      rules={[
-                        {
-                          required: false,
-                          message: "Select your Location",
-                        },
-                        {
-                          message: "Only Alphabets are Allowed",
-                          pattern: new RegExp(/^[a-zA-Z ]+$/),
-                        },
-                      ]}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <AutoComplete
+                        placeholder="Select"
+                        options={clienLocArr}
+                        value={formItem.clientLocation}
+                        onChange={(val, data) => clientLocationChange(val, data)}
+                        // onSelect={(val, data) => onSelectIndustry(val, data)}
+                        filterOption={(inputValue, option) =>
+                          option.value
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                        }
+                      ></AutoComplete>
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                    <Form.Item
+                      {...formItemLayout}
+                      className="form-item-name label-color"
+                      name="client_zone"
+                      label="Zone"
                       style={{ marginBottom: "1rem" }}
                     >
                       <Input
-                        placeholder="Enter Location"
-                        value={formItem.clientLocation}
+                        placeholder="Enter zone"
+                        value={formItem.clientZone}
+                        disabled={true}
                         onChange={(val) =>
                           setFormItem((res) => ({
                             ...res,
-                            clientLocation: val.target.value,
+                            clientZone: val.target.value,
                           }))
                         }
                       />

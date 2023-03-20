@@ -121,7 +121,7 @@ const ContactDetails = React.memo(() => {
     }
     // console.log(line1,line2,line3)
     // console.log(storeFormData)
-    dispatch(actions.fetchAllState());
+    // dispatch(actions.fetchAllState());
   }, [dispatch]);
 
   useEffect(() => {

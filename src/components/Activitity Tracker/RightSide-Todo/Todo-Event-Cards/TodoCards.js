@@ -457,7 +457,7 @@ const TodoCards = forwardRef((props, ref) => {
                           : "#000",
                     }}
                   >
-                    {element.status}{" "}
+                    {element.status}{!element.status ? "" :  " : "}
                   </text>
                 </div>
                 <div style={{ marginLeft: 5 }}>
@@ -471,7 +471,7 @@ const TodoCards = forwardRef((props, ref) => {
                           : "#000",
                     }}
                   >
-                    : {element.dateofreminder} : {element.stringtimeofreminder}
+                    {element.dateofreminder} : {element.stringtimeofreminder}
                   </text>
                 </div>
               </Col>

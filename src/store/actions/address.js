@@ -30,7 +30,7 @@ export const fetchAllState =  (userID,pageNo) => {
     return async dispatch => {
         dispatch(fetchStateStart())
 
-        // let result = await axiosRequest.get(`admin/getState_city?userId=${userID}&getstate=allstate`, {secure: true,});
+        // let result = await axiosRequest.get(`admin/fetchCities`, {secure: true,});
         // console.log("GETT STATE CITYY_______", result);
         // if (result.length > 0) {
         // return dispatch(fetchStateSuccess(result));

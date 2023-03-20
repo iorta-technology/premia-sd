@@ -15,6 +15,7 @@ import { stoageGetter } from "../../../../helpers";
 import commentIcon from "../../icons/comment.png";
 import "./DataField.css";
 import { Col, Row } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 
 const useWidowsSize = () => {
   const [size, setSize] = useState([window.Width, window.height]);
@@ -187,6 +188,8 @@ const DataField = ({
   let { id } = stoageGetter("user");
   const login_user_data = stoageGetter("user");
   const agent_id = login_user_data.agentId;
+
+  const user_id = useSelector((state) => state.login.user.id);
   const api = async () => {
     const currentMonth = 1 + new Date().getMonth();
 
@@ -380,7 +383,11 @@ const DataField = ({
                         element.statusType == "open" ? "Open" : "Close"
                       }`}
                     >
-                      {element.statusType == "open" ? "Open" : "Close"}
+                      
+                      {
+                        element?.teamMember_clone.includes(user_id) ?
+                          'Invited' : element.statusType == "open" ? "Open" : "Close"
+                      }
                     </Typography>
                     {element.statusType == "open" ? (
                       <FormOutlined onClick={() => showModal(element)} />

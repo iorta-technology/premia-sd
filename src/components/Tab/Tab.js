@@ -204,7 +204,7 @@ const Tab = ({
         // className="header-img-tabs header-img-height tabsStyle"
         // <div>
         // <div className={header === "Lead" ? 'header-img-tabs header-img-height tabsStyle' :'header-img-tabs tabsStyle'}>
-        <div className={"header-img-tabs tabsStyle"}>
+        <div className={"header-img-tabs tabsStyle"} style={{alignItems: header === "Lead" ? 'center' : 'none'}}>
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
@@ -226,7 +226,7 @@ const Tab = ({
             </div>
           </div>
 
-          {/* { header === "Lead" &&
+          { header === "Lead" &&
             <GlobalFilters
               show={show}
               onHide={handleClose}
@@ -234,7 +234,7 @@ const Tab = ({
               setShow={setShow}
               tabFilter={leadTabFilter}
             />
-          } */}
+          }
           {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&
             storeFormData &&
