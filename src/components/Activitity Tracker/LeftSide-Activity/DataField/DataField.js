@@ -385,8 +385,10 @@ const DataField = ({
                     >
                       
                       {
+                        // element?.teamMember_clone.includes(user_id) ? 'Invited' : element.statusType == "open" ? "Open" : "Close"
                         element?.teamMember_clone.includes(user_id) ?
-                          'Invited' : element.statusType == "open" ? "Open" : "Close"
+                          element.statusType == "close" ? "Close" : "Invited" :
+                          element.statusType == "open" ? "Open" : "Close"
                       }
                     </Typography>
                     {element.statusType == "open" ? (
