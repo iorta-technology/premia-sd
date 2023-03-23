@@ -36,7 +36,7 @@ export const fetchHistory = (leadId,userId) => {
                     return dispatch(fetchHistorySuccess(response))
 
                 }else{
-                    throw res
+                  return dispatch(fetchHistorySuccess(res))
                 }
             })
             .catch(error => {

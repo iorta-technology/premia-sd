@@ -16,6 +16,7 @@ import { checkuserAccess, stoageGetter } from "../../helpers";
 import axiosRequest from "../../axios-request/request.methods";
 import mySocket from "../../Socket";
 import * as actionType from "./../../store/actions/actionTypes";
+import { message } from "antd";
 
 // -- Import Image -- //
 import sales_logo_img from "../../images/salesDrivelogo.png";
@@ -194,8 +195,19 @@ const Sidebar = () => {
   };
 
   const addSingleLead = () => {
-    history.push("/leadmasterpage/statuslead");
-    setSidebar(false);
+    // history.push("/leadmasterpage/statuslead");
+    // setSidebar(false);
+
+    if(showOpportunities){
+      dispatch(actions.fetchLeadUpdateBody({}))
+      dispatch(actions.fetchLeadDetailsSuccess({}))
+      
+      // dispatch(actions.storeLead(leadUpdateFormdata));
+      history.push("/leadmasterpage/statuslead");
+      setSidebar(false);
+    }else{
+      message.info('This feature is currently not accessible');
+    }
   };
 
   const openLeadList = () => {
@@ -340,7 +352,7 @@ const Sidebar = () => {
               </div>
               <div className="menuList">
                 <ul>
-                  <li
+                  {/* <li
                     onClick={() => {
                       switchChannel();
                     }}
@@ -349,8 +361,8 @@ const Sidebar = () => {
                       <img src={switch_img} /> &nbsp;<span>Switch Channel</span>
                     </div>{" "}
                     <img src={right_black_img} />
-                  </li>
-                  <li
+                  </li> */}
+                  {/* <li
                     onClick={() => {
                       defaultChannel();
                     }}
@@ -360,7 +372,7 @@ const Sidebar = () => {
                       <span>Channel Default</span>
                     </div>{" "}
                     <img src={right_black_img} />
-                  </li>
+                  </li> */}
                   {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src={right_black_img}/></li> */}
                   {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75912x.png'/> &nbsp;<span>Download FAQs</span></div> </li> */}
                 </ul>
@@ -388,7 +400,7 @@ const Sidebar = () => {
                         </div>{" "}
                         <img src={right_black_img} />
                       </li>
-                      <li
+                      {/* <li
                         onClick={() => {
                           addBulkLead();
                         }}
@@ -398,7 +410,7 @@ const Sidebar = () => {
                           <span>Add Bulk Lead</span>
                         </div>{" "}
                         <img src={right_black_img} />
-                      </li>
+                      </li> */}
                       <li
                         onClick={() => {
                           openLeadList();

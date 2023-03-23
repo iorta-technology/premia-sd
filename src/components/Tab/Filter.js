@@ -26,7 +26,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [searchType, setSearchType] = useState("fname");
   const [leadDispositionFilter, setleadDispositionFilter] = useState("");
   const [leadTypeFilter, setleadTypeFilter] = useState("");
-  const [fieldLabelName, setFieldLabelName] = useState("Opportunity Name");
+  const [fieldLabelName, setFieldLabelName] = useState("Client Name");
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
   const [companyArray, setCompanyArray] = useState([]);
   // setShowCompanyDropdown(false)
@@ -134,7 +134,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const handleShow = () => {
     // console.log('========PROPSSS99990000***))))>>>>>>============',props)
     setShowCompanyDropdown(false)
-    setFieldLabelName('Opportunity Name')
+    setFieldLabelName('Client Name')
     setShow(true)
   };
 
@@ -245,8 +245,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
               defaultValue="fname"
               // onChange={handleSearchType}
             >
-              <Radio.Button value="fname" onChange={(val,data) => handleSearchType(val,'Opportunity Name')} >
-                Opportunity Name
+              <Radio.Button value="fname" onChange={(val,data) => handleSearchType(val,'Client Name')} >
+                Client Name
               </Radio.Button>
               <Radio.Button value="" onChange={(val,data) => handleSearchType(val,'Company Name')}>
               Company Name

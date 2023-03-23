@@ -233,15 +233,16 @@ const KDMDetails = (props) => {
 
         // let datevalue = moment(date).valueOf()
         // console.warn('datevalue --------->>>>>',datevalue)
+
         let currentdate = Date.now()
         // console.warn('currentdate --------->>>>>',currentdate)
         let datesub = moment(currentdate).subtract(18, 'years').format('MM/DD/YYYY');
         // console.warn('datesub --------->>>>>',datesub)
 
-        if(kdmDOB >= datesub){
-            setShowKdmDOBErr(false)
-            setDobBorder('#d9d9d9')
-        }else{
+        const _inputData = new Date(kdmDOB);
+        const _compareDate = new Date(datesub);
+
+        if(_inputData >= _compareDate){
             if(!kdmDOB){
                 setShowKdmDOBErr(false)
                 setDobBorder('#d9d9d9')
@@ -249,8 +250,10 @@ const KDMDetails = (props) => {
                 setShowKdmDOBErr(true)
                 setDobBorder('#ff4d4f')
             }
+        }else{
+            setShowKdmDOBErr(false)
+            setDobBorder('#d9d9d9')
         }
-
 
         kdmDetArr[ind].kdmDOB = date
         kdmDetArr[ind].kdmDOBString = kdmDOB
