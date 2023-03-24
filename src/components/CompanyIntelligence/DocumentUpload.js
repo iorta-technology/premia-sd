@@ -88,6 +88,14 @@ const DocUpload = (props) => {
 
   const kdmRoleArr = [{ label: "TBI", value: "TBI" }];
 
+  useEffect(() => {
+    console.log(props.leadDetails, "lead id----->");
+    var newArr = _StoreData.documents.map((res) => ({ ...res, recent: false }));
+    // console.log("newArr =========== ", _StoreData);
+    setFileData(newArr);
+    setdocData(_StoreData.documents);
+  }, [_StoreData.documents]);
+
   const onChangeOurAsk = (e) => {
     // console.warn('FIRSTNAME',e)
 
@@ -115,7 +123,7 @@ const DocUpload = (props) => {
     // console.warn('formData --------------->>>>',formData)
     
     let _isDup = checkDupDate(info[0])
-    console.warn('_isDup --------------->>>>',_isDup)
+    // console.warn('_isDup --------------->>>>',_isDup)
 
     let axiosConfig = {
       headers: {
@@ -144,8 +152,9 @@ const DocUpload = (props) => {
   };
 
   const checkDupDate = (fileUploaded) =>{
+    // console.warn('fileData --------------->>>>',fileData)
     let _data = null
-    var index = fileData.findIndex(el => el.originalname === fileUploaded.name); 
+    var index = fileData.findIndex(el => el.originalname || el.file_name === fileUploaded.name); 
     _data = index === -1 ? false : true
 
     return _data
@@ -228,14 +237,6 @@ const DocUpload = (props) => {
       message.info("Please Upload the new File");
     }
   };
-
-  useEffect(() => {
-    console.log(props.leadDetails, "lead id----->");
-    var newArr = _StoreData.documents.map((res) => ({ ...res, recent: false }));
-    console.log("newArr =========== ", _StoreData);
-    setFileData(newArr);
-    setdocData(_StoreData.documents);
-  }, [_StoreData.documents]);
 
   const delDoc = (i) => {
     var newArr = [...fileData];
