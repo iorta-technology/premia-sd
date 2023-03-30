@@ -2071,15 +2071,17 @@ export default function CalendarEvent(props) {
       // ) {
       //   message.warning("End Date is Mandatory");
       // } 
-      else if (
-        moment(new Date()).format("YYYY-MM-DD") ==
-          moment(durationStartDate).format("YYYY-MM-DD") &&
-        currentTime >= date.toUTCString().toString().slice(17, 22)
-      ) {
-        message.warning(
-          "Start time should be less than or equal to current time"
-        );
-      } else {
+      // else if (
+      //   moment(new Date()).format("YYYY-MM-DD") ==
+      //     moment(durationStartDate).format("YYYY-MM-DD") &&
+      //   currentTime >= date.toUTCString().toString().slice(17, 22)
+      // ) {
+      //   message.warning(
+      //     "Start time should be less than or equal to current time"
+      //   );
+      // } 
+      
+      else {
         setDurationModeAlert(false);
         setDurationDateAlert(false);
         setDurationTimeAlert(false);
@@ -2214,15 +2216,16 @@ export default function CalendarEvent(props) {
       // ) {
       //   message.warning("End Time is Mandatory");
       // }
-       else if (
-        moment(new Date()).format("YYYY-MM-DD") ==
-          moment(durationStartDate).format("YYYY-MM-DD") &&
-        currentTime >= date.toUTCString().toString().slice(17, 22)
-      ) {
-        message.warning(
-          "Start time should be less than or equal to current time"
-        );
-      } else {
+      //  else if (
+      //   moment(new Date()).format("YYYY-MM-DD") ==
+      //     moment(durationStartDate).format("YYYY-MM-DD") &&
+      //   currentTime >= date.toUTCString().toString().slice(17, 22)
+      // ) {
+      //   message.warning(
+      //     "Start time should be less than or equal to current time"
+      //   );
+      // } 
+      else {
         if (eventDurationType == "customedatetime" ) {
           if (
             durationEndDateOperation == undefined ||
