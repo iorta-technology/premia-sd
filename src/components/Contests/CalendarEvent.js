@@ -2010,7 +2010,7 @@ export default function CalendarEvent(props) {
     console.log("book app without lead");
 
     if (updateEventCheck == true) {
-      console.log("Update event--->");
+      // console.log("Update event--->");
       let teammemberclone = [];
       if (ownerCollectn.length > 0) {
         ownerCollectn.map((x) => {
@@ -2020,18 +2020,23 @@ export default function CalendarEvent(props) {
       var date = new Date(
         durationStartDateOperation + parseInt(startTimeSelect)
       );
-      console.log(date.getUTCHours());
-      console.log(date.toUTCString().toString().slice(17, 22));
+      // console.log(date.getUTCHours());
+      // console.log(date.toUTCString().toString().slice(17, 22));
       var currentTime =
         new Date().getHours() + ":" + ("0" + new Date().getMinutes()).slice(-2);
-      console.log("current time--->", currentTime);
+      // console.log("current time--->", currentTime);
       let leadlist = [];
       if (customerlistcollectn.length > 0) {
         customerlistcollectn.map((x) => {
           leadlist.push(x._Id);
         });
       }
-      console.log(leadlist, "list of lead;;;;;;");
+
+      console.log("1st Comparision ------>", moment(new Date()).format("YYYY-MM-DD"));
+      console.log("2nd Comparision ------>", moment(durationStartDate).format("YYYY-MM-DD"));
+      console.log("3rd Comparision__currentTime ------>", currentTime);
+      console.log("4th Comparision ------>", date.toUTCString().toString().slice(17, 22));
+      // console.log(leadlist, "list of lead;;;;;;");
       if (modeSelect == "") {
         message.warning("Mode is Mandatory");
       }

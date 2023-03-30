@@ -937,7 +937,7 @@ const NewLead = React.memo((props) => {
       ? []
       : storeFormData?.company_id?.risk_details,
   };
-  // console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
+  console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
 
   const submitHandler = () => {
     // message.destroy()
@@ -1010,7 +1010,7 @@ const NewLead = React.memo((props) => {
           // if (res?.formData.length === 0) return
            
           if (res?.formData.length > 0 || Object.keys(res?.formData).length > 0) {
-            // console.warn('(((((((IFFFF))))))):',res?.formData);
+            console.warn('(((((((IFFFF))))))):',res?.formData);
             setIsNewLead(false);
 
             setOpportunityNameSummary(res?.formData?.opportunity_name);
@@ -1021,6 +1021,7 @@ const NewLead = React.memo((props) => {
             // const [leadScore, setLeadScore] = useState("");
             getEventTodoCountAPI(res?.formData?._id);
             getAppointmentList(res?.formData?._id);
+            setCompany_id(res?.formData?.company_id?._id);
 
             setIncorpDateSummary(
               new Date(res?.formData?.created_date).toLocaleDateString("in")
