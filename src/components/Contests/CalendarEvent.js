@@ -2075,6 +2075,7 @@ export default function CalendarEvent(props) {
       //     "Start time should be less than or equal to current time"
       //   );
       // } 
+      
       else {
         setDurationModeAlert(false);
         setDurationDateAlert(false);
