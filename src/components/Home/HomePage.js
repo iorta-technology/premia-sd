@@ -1103,7 +1103,7 @@ const HomePage = () => {
           )}
 
           {showSalesGuide && (
-            <Col>
+            <Col className="home_section">
               <div
                 className=" dataCard"
                 bordered="false"
