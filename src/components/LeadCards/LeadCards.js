@@ -395,6 +395,7 @@ const LeadCards = (props) => {
         <div
           // className="lead-ml15"
           style={{ position: "relative", bottom: 26 }}
+          className='expt-heading'
         >
           <p style={{ marginBottom: "5px" }}>LOB Opportunity Name</p>
           <Select
@@ -404,6 +405,7 @@ const LeadCards = (props) => {
             onChange={handleLobOpprtunity}
             placeholder="Select Hierarchy"
             options={lobOpportunityItems}
+            className='expt-picker'
           ></Select>
         </div>
 
@@ -418,6 +420,7 @@ const LeadCards = (props) => {
             value={fromDateFilter}
             format="MM/DD/YYYY"
             style={{ width: 200 }}
+            className='expt-picker'
           />
         </div>
 
@@ -431,11 +434,12 @@ const LeadCards = (props) => {
             value={toDateFilter}
             format="MM/DD/YYYY"
             style={{ width: 200 }}
+            className='expt-picker'
           />
         </div>
 
         {/* {leadsData?.globalTab !== "team" && ( */}
-        <div style={{ marginLeft: 15 }}>
+        <div style={{ marginLeft: 15 }} className='expt-btn'>
             <Button
               onClick={() => exportReport('self')}
               style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
@@ -450,7 +454,7 @@ const LeadCards = (props) => {
          
 
 
-      <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}>
+      <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]} className='row-lead'>
         {!_.isEmpty(leadsData.allLeads) ? (
           _.map(leadsData.allLeads, (lead, index) => {
             return (

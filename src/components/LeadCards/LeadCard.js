@@ -273,7 +273,7 @@ const LeadCard = React.memo((props) => {
   //Card for Mobile
   if (width < breakpoint) {
     card = (
-      <Card className="lead-card-mobile" hoverable>
+      <Card className="lead-card-mobile" hoverable onClick={() => updateHandler(id)}>
         {allocateBtnStatus && (
           <input
             style={{
