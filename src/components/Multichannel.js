@@ -11,7 +11,8 @@ import {
   Col,
   Radio,
 } from "antd";
-import loginLogo from "../images/ABIB_LOGO.jpg";
+// "../../images/salesDrivelogo.png";
+import loginLogo from "../images/salesDrivelogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import axiosRequest from "../axios-request/request.methods";
 import * as actions from "../store/actions/index";
@@ -41,14 +42,17 @@ function Multichannel() {
         { secure: true }
       );
 
-      console.log("res.TOKEN ================ ", res.TOKEN);
-      if (res) {
+      console.log("res.TOKEN ================ ", res);
+      if (res.length !== 0) {
         let _loginData = [];
         let _defaultChannel = bankData.filter(
           (item, index) => item.channelCode._id === bankID
         );
         _loginData.push(_defaultChannel, { token: res.TOKEN });
+        console.log("_loginData ================ ", _loginData);
         dispatch(actions.loginSuccess(_loginData));
+        history.push("/home");
+      }else{
         history.push("/home");
       }
     } catch (error) {
@@ -62,11 +66,11 @@ function Multichannel() {
         <Card className="main-card">
           <div className="logo">
             <Image
-              preview={false}
-              width="100%"
-              src={loginLogo}
-              alt="login-logo"
-            />
+                preview={false}
+                width={210}
+                src={loginLogo}
+                alt="login-logo"
+              />
           </div>
           <br />
           <br />

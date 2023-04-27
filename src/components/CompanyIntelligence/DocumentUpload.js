@@ -111,6 +111,7 @@ const DocUpload = (props) => {
   };
 
   const handleChangeFile = async (info) => {
+    console.warn('handleChangeFile --------------->>>>')
     const _store = store.getState();
     console.log(info[0], "info file---->");
     let newArr = [...fileData];
@@ -123,7 +124,7 @@ const DocUpload = (props) => {
     // console.warn('formData --------------->>>>',formData)
     
     let _isDup = checkDupDate(info[0])
-    // console.warn('_isDup --------------->>>>',_isDup)
+    console.warn('_isDup --------------->>>>',_isDup)
 
     let axiosConfig = {
       headers: {
@@ -132,13 +133,7 @@ const DocUpload = (props) => {
       },
     };
     if(!_isDup){
-      axios
-        .post(
-          `${baseURL}secure/admin/v2/uploadFile`,
-          formData,
-          axiosConfig
-        )
-        .then((res) => {
+      axios.post(`${baseURL}secure/admin/v2/uploadFile`,formData,axiosConfig).then((res) => {
           newArr.push({ ...res.data.errMsg, recent: true });
           setFileData(newArr);
           document.getElementById("upload-photo").value = "";

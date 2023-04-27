@@ -352,7 +352,7 @@ const Sidebar = () => {
               </div>
               <div className="menuList">
                 <ul>
-                  {/* <li
+                  <li
                     onClick={() => {
                       switchChannel();
                     }}
@@ -361,7 +361,7 @@ const Sidebar = () => {
                       <img src={switch_img} /> &nbsp;<span>Switch Channel</span>
                     </div>{" "}
                     <img src={right_black_img} />
-                  </li> */}
+                  </li>
                   {/* <li
                     onClick={() => {
                       defaultChannel();

@@ -1,12 +1,11 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Radio, Select, Input } from "antd";
-import { Option } from "antd/lib/mentions";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions/leads";
-import { stoageGetter } from "../../helpers";
+import { stoageGetter ,doSentenceCase } from "../../helpers";
 import axiosRequest from "../../axios-request/request.methods";
 
 export function OffCanvasForGlobalFilter({ ...props }) {
@@ -15,13 +14,11 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   // searchtxt, lead_status, sorByFlter, sort_status, leadfilter, lead_disposition, leadType
   // console.log('========PROPSSS***))))>>>>>>============',props)
   const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [leadStatusFilter, setLeadStatusFilter] = useState("");
   const [sortByFlter, setSortByFlter] = useState("");
 
   const [shortByStatus, setShortByStatus] = useState("created_date_old");
   const [sortBy, setSortBy] = useState("new_to_old");
 
-  const [sortStatusFilter, setsortStatusFilter] = useState("");
   const [leadFilter, setleadFilter] = useState("");
   const [searchType, setSearchType] = useState("fname");
   const [leadDispositionFilter, setleadDispositionFilter] = useState("");
@@ -29,27 +26,22 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [fieldLabelName, setFieldLabelName] = useState("Client Name");
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
   const [companyArray, setCompanyArray] = useState([]);
-  // setShowCompanyDropdown(false)
-  // useEffect(() => {
-  //   // getCompanyDetails();
-  //   console.log('========PROPSSS***))))>>>>>>============',props)
-  //   // setShowCompanyDropdown(false)
-  // }, [props]);
+  
 
-  let sortByData = [
-    {label:'Lead Created date - Newest to oldest',status:'new_to_old',filtValue:'createddate', value: 'created_date_old'},
-    {label:'Lead Created date - Oldest to Newest',status:'old_to_new',filtValue:'createddate', value: 'created_date_new'},
-    {label:'Allocation Date - Newest to Oldest',status:'new_to_old',filtValue:'allocateddate', value: 'allocation_date_old'},
-    {label:'Allocation Date - Oldest to Newest',status:'old_to_new',filtValue:'allocateddate', value: 'allocation_date_new'},
-  ]
+  // let sortByData = [
+  //   {label:'Lead Created date - Newest to oldest',status:'new_to_old',filtValue:'createddate', value: 'created_date_old'},
+  //   {label:'Lead Created date - Oldest to Newest',status:'old_to_new',filtValue:'createddate', value: 'created_date_new'},
+  //   {label:'Allocation Date - Newest to Oldest',status:'new_to_old',filtValue:'allocateddate', value: 'allocation_date_old'},
+  //   {label:'Allocation Date - Oldest to Newest',status:'old_to_new',filtValue:'allocateddate', value: 'allocation_date_new'},
+  // ]
 
-  const handleSortByStatus = (ev,data) => {
-    // console.log("sort by type_____ev______***", ev);
-    // console.log("sort by type______data_____***", data);
-    setSortByFlter(data.filtValue);
-    setSortBy(data.status)
-    setShortByStatus(ev);
-  };
+  // const handleSortByStatus = (ev,data) => {
+  //   // console.log("sort by type_____ev______***", ev);
+  //   // console.log("sort by type______data_____***", data);
+  //   setSortByFlter(data.filtValue);
+  //   setSortBy(data.status)
+  //   setShortByStatus(ev);
+  // };
   useEffect(() => {
     getCompanyDetails();
   }, []);
@@ -69,7 +61,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   };
 
   const handleSearchType = (e,label) => {
-    console.log("search type___________***", e.target.value);
+    // console.log("search type___________***", e.target.value);
     setSearchType(e.target.value)
     setFieldLabelName(label)
     // setShowCompanyDropdown(true)
@@ -77,28 +69,17 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     label === 'Company Name' ? setShowCompanyDropdown(true) : setShowCompanyDropdown(false)
   };
   const handleNameSearch = (event) => {
-    console.log("name search___________***", event);
+    // console.log("searchType___________***", searchType);
+    // console.log("name search___________***", doSentenceCase(event.toLowerCase()));
     setSearchTextFilter(event);
 
-    searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) : setSearchTextFilter(event);
+    searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) : 
+    searchType === 'leadId' ? setSearchTextFilter(doSentenceCase(event.toLowerCase())) : setSearchTextFilter(event);
+    
+    // setSearchTextFilter(event);
 
   };
-  const handleAgeGroup = (e) => {
-    console.log("age grop___________***", e.target.value);
-    setSortByFlter(e.target.value);
-  };
-  const handleIncomeGroup = (e) => {
-    console.log("income grp___________***", e.target.value);
-    setSortByFlter(e.target.value);
-  };
-  const handleMaritalStatus = (e) => {
-    console.log("mertal status___________***", e.target.value);
-    setSortByFlter(e.target.value);
-  };
-  const handleSearchBetween = (e) => {
-    console.log("search between___________***", e.target.value);
-    setSortByFlter(e.target.value);
-  };
+  
   const handleApplyButton = () => {
     const { id } = stoageGetter("user");
     let skip = 0;
@@ -316,7 +297,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 }
 
 function GlobalFilters(props) {
-  console.log("props*******", props);
+  // console.log("props*******", props);
   return (
     <>
       <OffCanvasForGlobalFilter key={"0"} filterdata={props} />

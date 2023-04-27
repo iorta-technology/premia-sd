@@ -142,15 +142,15 @@ const History = () => {
               <div className="notification_data_hist">
                 <div className="py-4 px-3">
                   <div className="d-flex justify-content-between align-items-center">
-                    <div style={{ fontWeight: "700" }}>{res.title}</div>
+                    <div style={{ fontWeight: "700" }}>{res?.title}</div>
                     <div className="text-secondary text-end">
-                      {res.userId.first_name + " " + res.userId.last_name}
+                      {res?.userId?.first_name + " " + res?.userId?.last_name}
                     </div>
                   </div>
                   <div className="d-flex justify-content-between align-items-center mt-2">
-                    <div className="text-secondary">{res.description}</div>
+                    <div className="text-secondary">{res?.description}</div>
                     <div className="text-end">
-                      {new Date(res.created_at).toLocaleString("en-US")}
+                      {new Date(res?.created_at).toLocaleString("en-US")}
                     </div>
                   </div>
                 </div>

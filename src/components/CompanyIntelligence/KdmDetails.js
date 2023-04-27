@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Steps, Timeline, Divider, Image, Tabs, Form, Input , Select, Button , DatePicker  } from 'antd';
+import { Row, Col, Input , Select, Button , DatePicker , message  } from 'antd';
 import '../StatusLead/StatusLead.css'
 // import * as actions from "../../store/actions/history";
 import * as actions from "../../store/actions/index";
 import _ from "lodash";
-import { dataFormatting } from '../../helpers'
-import axiosRequest from '../../axios-request/request.methods'  
 import { PlusOutlined } from '@ant-design/icons';
 import moment from "moment";
 
@@ -53,22 +51,7 @@ const KDMDetails = (props) => {
     const [showKdmBtn, setShowKdmBtn] = useState(true);
     const [showKdmNameErr, setShowKdmNameErr] = useState(false);
     const [Name, setName] = useState('');
-    const [kdmNameBorder, setKdmNameBorder] = useState('');
-    const [showDesigErr, setShowDesigErr] = useState(false);
-    const [desigBorder, setDesigBorder] = useState('');
-    const [showPrimContactErr, setShowPrimContactErr] = useState(false);
-    const [primContactBorder, setPrimContactBorder] = useState('');
-    const [showAltContactErr, setShowAltContactErr] = useState(false);
-    const [altContactBorder, setAltContactBorder] = useState('');
-    const [emailAddBorder, setEmailAddBorder] = useState('');
-    const [showKdmBranchErr, setShowKdmBranchErr] = useState(false);
-    const [showKdmEmailErr, setShowKdmEmailErr] = useState(false);
-    const [branchBorder, setBranchBorder] = useState('');    
-
-    const [showKdmDOBErr, setShowKdmDOBErr] = useState(false);
-    const [dobBorder, setDobBorder] = useState('');
-    const minimumDate = moment().format("YYYY-MM-DD");                             
-                                    
+    const minimumDate = moment().format("YYYY-MM-DD"); 
                                     
     const [kdmDetArr, setkdmDetArr] = useState([
         {
@@ -83,7 +66,21 @@ const KDMDetails = (props) => {
             kdmState:'',
             kdmCity:'',
             kdmBranch:'',
-            noOfKDM:''
+            noOfKDM:'',
+            showKdmNameErr:false,
+            showDesigErr:false,
+            showPrimContactErr:false,
+            showAltContactErr:false,
+            showKdmBranchErr:false,
+            showKdmEmailErr:false,
+            showKdmDOBErr:false,
+            kdmNameBorder:'',
+            desigBorder:'',
+            primContactBorder:'',
+            altContactBorder:'',
+            emailAddBorder:'',
+            branchBorder:'',
+            dobBorder:'',
         },
     ]);
 
@@ -107,22 +104,6 @@ const KDMDetails = (props) => {
                     noOfKDM:'2'
                 }
                 _dataArr.push(_data)
-
-                // form.setFieldsValue({
-                //     kdmName:el.decision_maker_name,
-                //     kdmRole:el.role,
-                //     kdmDesig:el.designation,
-                //     kdmPrimContact:el.primaryContact,
-                //     kdmAltContact:el.alternateContact,
-                //     kdmEmail:el.emailAddress,
-                //     kdmDOB:el.date_of_birth,
-                //     kdmState:el.state,
-                //     kdmCity:el.state,
-                //     kdmBranch:el.branch,
-                // });
-                    
-                    // setkdmDetArr([...kdmDetArr,_data])
-                // })
             })
             // console.log('_dataArr========>>>>',_dataArr)
             _dataArr.length < 4 ? setShowKdmBtn(true) : setShowKdmBtn(false)
@@ -143,29 +124,20 @@ const KDMDetails = (props) => {
           return newState;
         })
       : null;
-  // stateOptions.unshift(_selectObj)
-  // console.warn('stateOptions---------->>',stateOptions)
+    // stateOptions.unshift(_selectObj)
+    // console.warn('stateOptions---------->>',stateOptions)
 
-  const cities = useSelector((state) => state.address.cities);
-  let citiesOptions =
-    cities && !_.isEmpty(cities)
-      ? cities.map((city) => {
-          const label = city.name;
-          const value = city.name;
-          const newCities = { ...city, label, value };
-          return newCities;
-        })
-      : null;
+    const cities = useSelector((state) => state.address.cities);
+    let citiesOptions =
+        cities && !_.isEmpty(cities)
+        ? cities.map((city) => {
+            const label = city.name;
+            const value = city.name;
+            const newCities = { ...city, label, value };
+            return newCities;
+            })
+        : null;
 
-    const breakpoint = 620;
-    const formItemLayout = {
-        labelCol: {
-            span: 24,
-        },
-        wrapperCol: {
-            span: 24,
-        },
-    };
 
     const onChangeKdmName = (e,ind) => {
         // console.warn('FIRSTNAME',kdmDetArr)
@@ -228,31 +200,27 @@ const KDMDetails = (props) => {
     
     const onChangeKdmDOB = (date, kdmDOB,ind) => {
         // setKdmDOBData(kdmDOB);
-        // console.warn('date--------->>>>>',date)
-        // console.warn('kdmDOB--------->>>>>',kdmDOB)
-
         // let datevalue = moment(date).valueOf()
-        // console.warn('datevalue --------->>>>>',datevalue)
 
         let currentdate = Date.now()
-        // console.warn('currentdate --------->>>>>',currentdate)
         let datesub = moment(currentdate).subtract(18, 'years').format('MM/DD/YYYY');
-        // console.warn('datesub --------->>>>>',datesub)
 
         const _inputData = new Date(kdmDOB);
         const _compareDate = new Date(datesub);
+        
+        setkdmDetArr([...kdmDetArr])
 
         if(_inputData >= _compareDate){
             if(!kdmDOB){
-                setShowKdmDOBErr(false)
-                setDobBorder('#d9d9d9')
+                kdmDetArr[ind].showKdmDOBErr = false
+                kdmDetArr[ind].dobBorder = '#d9d9d9'
             }else{
-                setShowKdmDOBErr(true)
-                setDobBorder('#ff4d4f')
+                kdmDetArr[ind].showKdmDOBErr = true
+                kdmDetArr[ind].dobBorder = '#ff4d4f'
             }
         }else{
-            setShowKdmDOBErr(false)
-            setDobBorder('#d9d9d9')
+            kdmDetArr[ind].showKdmDOBErr = false
+            kdmDetArr[ind].dobBorder = '#d9d9d9'
         }
 
         kdmDetArr[ind].kdmDOB = date
@@ -295,11 +263,21 @@ const KDMDetails = (props) => {
         
     };
 
+    let _errMessage = ['showKdmNameErr','showDesigErr','showPrimContactErr','showAltContactErr','showKdmBranchErr','showKdmEmailErr','showKdmDOBErr']
+
     const updateKDMDetails = async() =>{
 
         let _kdmDetailsData = []
+        let _validationError = null
         kdmDetArr.map(el =>{
-            // console.log('el-------KDM---->>',el)
+            let _keys = Object.keys(el)
+
+            _keys.map(item => {
+                if(_errMessage.includes(item)) {
+                    _validationError = el[item] ? true : null
+                }
+            });
+
             let _data = {
                 decision_maker_name: el.kdmName,
                 role: el.kdmRole,
@@ -315,11 +293,12 @@ const KDMDetails = (props) => {
             _kdmDetailsData.push(_data)
         })
         // console.warn('_kdmDetailsData ------>>>>>',_kdmDetailsData)
-
+        // console.log('_validationError .... -------KDM---->>',_validationError)
         // let formBody = {
         //     ...props.updateFormData,
         //     kdm_details: _kdmDetailsData,
         // }
+        // return
         let _appntDate = ''
         let _appntTime = ''
         let _apptDateFormat = ''
@@ -329,6 +308,10 @@ const KDMDetails = (props) => {
             _appntTime = moment(_StoreData.appointmentDate).format("LT");
         }
 
+        if(_validationError){
+            message.warning('Please Enter Correct Data')
+            return
+        }
 
         let formBody = {
             company_details: {
@@ -373,9 +356,10 @@ const KDMDetails = (props) => {
         
     }
 
-    const fieldValidation = (event,fieldName) =>{
+    const fieldValidation = (event,fieldName,ind) =>{
         // console.warn('event ------>>>>>',event)
         // console.warn('type ------>>>>>',fieldName)
+        console.warn('ind ------>>>>>',ind)
         let nameRegex =/^[A-Za-z ]+$/;
         // let nameRegex =/^[A-Za-z0-9 ]+$/;
         let emailFormate = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -383,83 +367,100 @@ const KDMDetails = (props) => {
 
         if(fieldName === 'kdmName'){
             if(event.target.value.match(nameRegex)){
-                setShowKdmNameErr(false)
-                setKdmNameBorder('#d9d9d9')
+                kdmDetArr[ind].showKdmNameErr = false
+                kdmDetArr[ind].kdmNameBorder = '#d9d9d9'
             }else{
                 if(event.target.value === ''){
-                    setShowKdmNameErr(false)
-                    setKdmNameBorder('#d9d9d9')
+                    kdmDetArr[ind].showKdmNameErr = false
+                    kdmDetArr[ind].kdmNameBorder = '#d9d9d9'
                 }else{
-                    setShowKdmNameErr(true)
-                    setKdmNameBorder('#ff4d4f')
+                    kdmDetArr[ind].showKdmNameErr = true
+                    kdmDetArr[ind].kdmNameBorder = '#ff4d4f'
                 }
             }
+            
         }else if(fieldName === 'designation'){
             if(event.target.value.match(nameRegex)){
-                setShowDesigErr(false)
-                setDesigBorder('#d9d9d9')
+                kdmDetArr[ind].showDesigErr = false
+                kdmDetArr[ind].desigBorder = '#d9d9d9'
             }else{
                 if(event.target.value === ''){
-                    setShowDesigErr(false)
-                    setDesigBorder('#d9d9d9')
+                    kdmDetArr[ind].showDesigErr = false
+                    kdmDetArr[ind].desigBorder = '#d9d9d9'
                 }else{
-                    setShowDesigErr(true)
-                    setDesigBorder('#ff4d4f')
+                    kdmDetArr[ind].showDesigErr = true
+                    kdmDetArr[ind].desigBorder = '#ff4d4f'
                 }
             }
         } else if(fieldName === 'primContact'){
             if(event.target.value.match(numRegex)){
-                setShowPrimContactErr(false)
-                setPrimContactBorder('#d9d9d9')
+                if(event.target.value.length < 10){
+                    kdmDetArr[ind].showPrimContactErr = true
+                    kdmDetArr[ind].primContactBorder = '#ff4d4f'
+                }else{
+                    kdmDetArr[ind].showPrimContactErr = false
+                    kdmDetArr[ind].primContactBorder = '#d9d9d9'
+                }
             }else{
                 if(event.target.value === ''){
-                    setShowPrimContactErr(false)
-                    setPrimContactBorder('#d9d9d9')
+                    kdmDetArr[ind].showPrimContactErr = false
+                    kdmDetArr[ind].primContactBorder = '#d9d9d9'
                 }else{
-                    setShowPrimContactErr(true)
-                    setPrimContactBorder('#ff4d4f')
+
+                    kdmDetArr[ind].showPrimContactErr = true
+                    kdmDetArr[ind].primContactBorder = '#ff4d4f'
                 }
             }
         } else if(fieldName === 'altContact'){
             if(event.target.value.match(numRegex)){
-                setShowAltContactErr(false)
-                setAltContactBorder('#d9d9d9')
+                // setShowAltContactErr(false)
+                // setAltContactBorder('#d9d9d9')
+
+                if(event.target.value.length < 10){
+                    kdmDetArr[ind].showAltContactErr = true
+                    kdmDetArr[ind].altContactBorder = '#ff4d4f'
+                }else{
+                    kdmDetArr[ind].showAltContactErr = false
+                    kdmDetArr[ind].altContactBorder = '#d9d9d9'
+                }
             }else{
                 if(event.target.value === ''){
-                    setShowAltContactErr(false)
-                    setAltContactBorder('#d9d9d9')
+                    kdmDetArr[ind].showAltContactErr = false
+                    kdmDetArr[ind].altContactBorder = '#d9d9d9'
                 }else{
-                    setShowAltContactErr(true)
-                    setAltContactBorder('#ff4d4f')
+                    kdmDetArr[ind].showAltContactErr = true
+                    kdmDetArr[ind].altContactBorder = '#ff4d4f'
                 }
             }
         } else if(fieldName === 'kdmBranch'){
             if(event.target.value.match(nameRegex)){
-                setShowKdmBranchErr(false)
-                setBranchBorder('#d9d9d9')
+                kdmDetArr[ind].kdmNameBorder = false
+                kdmDetArr[ind].branchBorder = '#d9d9d9'
             }else{
                 if(event.target.value === ''){
-                    setShowKdmBranchErr(false)
-                    setBranchBorder('#d9d9d9')
+                    kdmDetArr[ind].kdmNameBorder = false
+                    kdmDetArr[ind].branchBorder = '#d9d9d9'
                 }else{
-                    setShowKdmBranchErr(true)
-                    setBranchBorder('#ff4d4f')
+                    kdmDetArr[ind].kdmNameBorder = true
+                    kdmDetArr[ind].branchBorder = '#ff4d4f'
                 }
             }
         } else if(fieldName === 'email'){
             if(event.target.value.match(emailFormate)){
-                setShowKdmEmailErr(false)
-                setEmailAddBorder('#d9d9d9')
+                kdmDetArr[ind].showKdmDOBErr = false
+                kdmDetArr[ind].dobBorder = '#d9d9d9'
             }else{
                 if(event.target.value === ''){
-                    setShowKdmEmailErr(false)
-                    setEmailAddBorder('#d9d9d9')
+                    kdmDetArr[ind].showKdmDOBErr = false
+                    kdmDetArr[ind].dobBorder = '#d9d9d9'
                 }else{
-                    setShowKdmEmailErr(true)
-                    setEmailAddBorder('#ff4d4f')
+                    kdmDetArr[ind].showKdmDOBErr = true
+                    kdmDetArr[ind].dobBorder = '#ff4d4f'
                 }
             }
         } 
+
+        setkdmDetArr([...kdmDetArr])
     }
     
 return (
@@ -486,256 +487,136 @@ return (
                         </Row>
                         <Row gutter={16} className="statsLead kdmStyle" style={{marginBottom:40}}>
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{ marginBottom: "1rem" }}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmName"
-                                    label="Key Decison Maker Name"
-                                    rules={[
-                                        // { required: true, message: "First Name is required",},
-                                        { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                                    ]}
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
-                                    <p style={{marginBottom:6}}>Key Decison Maker Name</p>
-                                    <Input
-                                        placeholder="Enter Key Decison Maker Name"
-                                        value={el.kdmName}
-                                        style={{ borderColor: kdmNameBorder }}
-                                        // defaultValue={kdmName}
-                                        onInput={(item) =>fieldValidation(item,'kdmName')}
-                                        onChange={(item) => onChangeKdmName(item,index)}
-                                    />
-                                    {showKdmNameErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Alphabets are Allowed</p>}
-                                {/* </Form.Item> */}
+                                <p style={{marginBottom:6}}>Key Decison Maker Name</p>
+                                <Input
+                                    placeholder="Enter Key Decison Maker Name"
+                                    value={el.kdmName}
+                                    style={{ borderColor: el.kdmNameBorder }}
+                                    // defaultValue={kdmName}
+                                    onInput={(item) =>fieldValidation(item,'kdmName',index)}
+                                    onChange={(item) => onChangeKdmName(item,index)}
+                                />
+                                {el.showKdmNameErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Alphabets are Allowed</p>}
                             </Col>
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{ marginBottom: "1rem" }}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmRole"
-                                    label="KDM Role"
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
-                                    <p style={{marginBottom:6}}>KDM Role</p>
-                                    <Select
-                                        bordered={true}
-                                        placeholder="Select KDM Role"
-                                        options={kdmRolesArr}
-                                        value={el.kdmRole || undefined}
-                                        style={{ display: 'flex' }}
-                                        
-                                        // defaultValue={citiesOptions}
-                                        onChange={(item) => onChangeKdmRole(item,index)}
-                                    ></Select>
-                                {/* </Form.Item> */}
+                                <p style={{marginBottom:6}}>KDM Role</p>
+                                <Select
+                                    bordered={true}
+                                    placeholder="Select KDM Role"
+                                    options={kdmRolesArr}
+                                    value={el.kdmRole || undefined}
+                                    style={{ display: 'flex' }}
+                                    
+                                    // defaultValue={citiesOptions}
+                                    onChange={(item) => onChangeKdmRole(item,index)}
+                                ></Select>
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{ marginBottom: "1rem" }}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmDesig"
-                                    label="KDM Designation"
-                                    // rules={[
-                                    //     // { required: true, message: "First Name is required",},
-                                    //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                                    // ]}
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
                                 <p style={{marginBottom:6}}>KDM Designation</p>
-                                    <Input
-                                        placeholder="Enter KDM Designation"
-                                        value={el.kdmDesignation}
-                                        style={{ borderColor: desigBorder }}
-                                        onInput={(item) =>fieldValidation(item,'designation')}
-                                        // defaultValue={kdmName}
-                                        onChange={(item) => onChangeKdmDesig(item,index)}
-                                    />
-                                    {showDesigErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Alphabets are Allowed</p>}
-                                {/* </Form.Item> */}
+                                <Input
+                                    placeholder="Enter KDM Designation"
+                                    value={el.kdmDesignation}
+                                    style={{ borderColor: el.desigBorder }}
+                                    onInput={(item) =>fieldValidation(item,'designation',index)}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeKdmDesig(item,index)}
+                                />
+                                {el.showDesigErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Alphabets are Allowed</p>}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{ marginBottom: "1rem" }}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmPrimContact"
-                                    label="KDM Primary Contact"
-                                    rules={[
-                                        {
-                                        required: false,
-                                        message: "KDM Primary Contact is required",
-                                        },
-                                        {
-                                        message: "Number must be 10 digits",
-                                        pattern: new RegExp("^[6-9][0-9]{9}$"),
-                                        },
-                                        { message: "Only Numbers are Allowed",pattern: new RegExp(/^[0-9 ]+$/)},
-                
-                                    ]}
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
-                                    <p style={{marginBottom:6}}>KDM Primary Contact</p>
-                                    <Input
-                                        placeholder="Enter KDM Primary Contact"
-                                        value={el.kdmPrimContact}
-                                        maxLength="10"
-                                        
-                                        style={{ borderColor: primContactBorder }}
-                                        onInput={(item) =>fieldValidation(item,'primContact')}
-                                        // defaultValue={kdmName}
-                                        onChange={(item) => onChangeKdmPrimMob(item,index)}
-                                    />
-                                    {showPrimContactErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Numbers are Allowed</p>}
-                                {/* </Form.Item> */}
+                                <p style={{marginBottom:6}}>KDM Primary Contact</p>
+                                <Input
+                                    placeholder="Enter KDM Primary Contact"
+                                    value={el.kdmPrimContact}
+                                    maxLength="10"
+                                    
+                                    style={{ borderColor: el.primContactBorder }}
+                                    onInput={(item) =>fieldValidation(item,'primContact',index)}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeKdmPrimMob(item,index)}
+                                />
+                                {el.showPrimContactErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Enter a valid Contact Number</p>}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{ marginBottom: "1rem" }}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmAltContact"
-                                    label="KDM Alternate Contact"
-                                    rules={[
-                                        {
-                                        required: false,
-                                        message: "KDM Alternate Contact is required",
-                                        },
-                                        {
-                                        message: "Number must be 10 digits",
-                                        pattern: new RegExp("^[6-9][0-9]{9}$"),
-                                        },
-                                        { message: "Only Numbers are Allowed",pattern: new RegExp(/^[0-9 ]+$/),},
-                                    ]}
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
                                 <p style={{marginBottom:6}}>KDM Alternate Contact</p>
-                                    <Input
-                                        placeholder="Enter KDM Alternate Contact"
-                                        value={el.kdmAltContact}
-                                        maxLength="10"
-                                        style={{ borderColor: altContactBorder }}
-                                        onInput={(item) =>fieldValidation(item,'altContact')}
-                                        // defaultValue={kdmName}
-                                        onChange={(item) => onChangeKdmAltMob(item,index)}
-                                    />
-                                    {showAltContactErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Numbers are Allowed</p>}
-                                {/* </Form.Item> */}
+                                <Input
+                                    placeholder="Enter KDM Alternate Contact"
+                                    value={el.kdmAltContact}
+                                    maxLength="10"
+                                    style={{ borderColor: el.altContactBorder }}
+                                    onInput={(item) =>fieldValidation(item,'altContact',index)}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeKdmAltMob(item,index)}
+                                />
+                                {el.showAltContactErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Enter a valid Contact Number</p>}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{marginBottom: "1rem" }}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmEmail"
-                                    label="KDM Email ID"
-                                    // rules={[
-                                    //     // { required: true, message: "First Name is required",},
-                                    //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                                    // ]}
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
+                                
                                 <p style={{marginBottom:6}}>KDM Email ID</p>
-                                    <Input
-                                        placeholder="Enter KDM Email ID"
-                                        value={el.kdmEmailId}
-                                        style={{ borderColor: emailAddBorder }}
-                                        onInput={(item) =>fieldValidation(item,'email')}
-                                        // defaultValue={kdmName}
-                                        onChange={(item) => onChangeKdmEmail(item,index)}
-                                    />
-                                    {showKdmEmailErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Enter a valid email address</p>}
-                                {/* </Form.Item> */}
+                                <Input
+                                    placeholder="Enter KDM Email ID"
+                                    value={el.kdmEmailId}
+                                    style={{ borderColor: el.emailAddBorder }}
+                                    onInput={(item) =>fieldValidation(item,'email',index)}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeKdmEmail(item,index)}
+                                />
+                                {el.showKdmEmailErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Enter a valid email address</p>}
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{marginBottom: "1rem"}}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmDOB"
-                                    label="Date Of Birth"
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
                                 <p style={{marginBottom:6}}>Date Of Birth</p>
-                                    <DatePicker 
-                                        onChange={ (date,dateString) => onChangeKdmDOB(date,dateString,index) } 
-                                        value={el.kdmDOB}
-                                        format="MM/DD/YYYY"
-                                        disabledDate={(d) => !d || d.isAfter(minimumDate)}
-                                        style={{display:'flex',flex:1,borderColor: dobBorder}}
-                                    />
-                                    {showKdmDOBErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Age must be greater than 18 years</p>}
-                                {/* </Form.Item> */}
+                                <DatePicker 
+                                    onChange={ (date,dateString) => onChangeKdmDOB(date,dateString,index) } 
+                                    value={el.kdmDOB}
+                                    format="MM/DD/YYYY"
+                                    disabledDate={(d) => !d || d.isAfter(minimumDate)}
+                                    style={{display:'flex',flex:1,borderColor: el.dobBorder}}
+                                />
+                                {el.showKdmDOBErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Age must be greater than 18 years</p>}
                             </Col>
                             
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmState"
-                                    label="State"
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
                                 <p style={{marginBottom:6}}>State</p>
-                                    <Select
-                                        bordered={true}
-                                        placeholder="Select State"
-                                        options={stateOptions}
-                                        value={el.kdmState || undefined}
-                                        onSelect={stateSelectHandler}
-                                        style={{ marginBottom: "1rem",display: 'flex' }}
-                                        // defaultValue={citiesOptions}
-                                        onChange={(item) => onChangeKdmState(item,index)}
-                                    ></Select>
-                                {/* </Form.Item> */}
+                                <Select
+                                    bordered={true}
+                                    placeholder="Select State"
+                                    options={stateOptions}
+                                    value={el.kdmState || undefined}
+                                    onSelect={stateSelectHandler}
+                                    style={{ marginBottom: "1rem",display: 'flex' }}
+                                    onChange={(item) => onChangeKdmState(item,index)}
+                                ></Select>
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmCity"
-                                    label="City"
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
                                 <p style={{marginBottom:6}}>City</p>
-                                    <Select
-                                        bordered={true}
-                                        placeholder="Select City"
-                                        options={citiesOptions}
-                                        value={el.kdmCity || undefined}
-                                        style={{ marginBottom: "1rem",display: 'flex' }}
-                                        // defaultValue={citiesOptions}
-                                        onChange={(item) => onChangeKdmCity(item,index)}
-                                    ></Select>
-                                {/* </Form.Item> */}
+                                <Select
+                                    bordered={true}
+                                    placeholder="Select City"
+                                    options={citiesOptions}
+                                    value={el.kdmCity || undefined}
+                                    style={{ marginBottom: "1rem",display: 'flex' }}
+                                    // defaultValue={citiesOptions}
+                                    onChange={(item) => onChangeKdmCity(item,index)}
+                                ></Select>
                             </Col>
 
                             <Col xs={24} sm={12} md={24} lg={12} xl={12} style={{ marginBottom: "1rem" }}>
-                                {/* <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="kdmBranch"
-                                    label="Branch (if applicable)"
-                                    // rules={[
-                                    //     // { required: true, message: "First Name is required",},
-                                    //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                                    // ]}
-                                    style={{ marginBottom: "1rem" }}
-                                > */}
                                 <p style={{marginBottom:6}}>Branch (if applicable)</p>
-                                    <Input
-                                        placeholder="Enter Branch"
-                                        value={el.kdmBranch}
-                                        style={{ borderColor: branchBorder }}
-                                        // defaultValue={kdmName}
-                                        onInput={(item) =>fieldValidation(item,'kdmBranch')}
-                                        onChange={(item) => onChangeKdmBranch(item,index)}
-                                    />
-                                    {showKdmBranchErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Alphabets are Allowed</p>}
-                                {/* </Form.Item> */}
+                                <Input
+                                    placeholder="Enter Branch"
+                                    value={el.kdmBranch}
+                                    style={{ borderColor: el.branchBorder }}
+                                    onInput={(item) =>fieldValidation(item,'kdmBranch',index)}
+                                    onChange={(item) => onChangeKdmBranch(item,index)}
+                                />
+                                {el.showKdmBranchErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Only Alphabets are Allowed</p>}
                             </Col>
                         </Row>
                     {/* </Form> */}

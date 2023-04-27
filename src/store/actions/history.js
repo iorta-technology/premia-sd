@@ -29,7 +29,6 @@ export const fetchHistory = (leadId,userId) => {
         dispatch(fetchHistoryStart())
         return axiosRequest.get(`user/leadhistory/${leadId}?user_id=${userId}`, { secure: true })
             .then(res => {
-                console.log("shubham---", res);
                 if(res.length > 0){
                    const  response = res
                    console.log("dgdf122222-----",res)
