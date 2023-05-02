@@ -197,7 +197,7 @@ const NewLead = React.memo((props) => {
 
   const [formItem, setFormItem] = useState({
     companyName: "",
-    parentCompanyName: "",
+    parentCompanyName: null,
     industry: "",
     empaneled: false,
     clientLocation: "",
@@ -643,14 +643,14 @@ const NewLead = React.memo((props) => {
     setFormItem((res) => ({
       ...res,
       companyName: event,
-      parentCompanyName: "",
+      parentCompanyName: null,
       industry: "",
       clientLocation: "",
       empaneled: false,
     }));
     form.setFieldsValue({
       company_name: event,
-      parent_company: "",
+      parent_company: null,
       industry: "",
       client_location: "",
     });
@@ -882,11 +882,15 @@ const NewLead = React.memo((props) => {
   };
 
   const onParentCompanyChange = (event, data) => {
-    setFormItem((res) => ({ ...res, parentCompanyName: event }));
+    // console.warn("(((((((event a___ CHANGE))))))):", event);
+    // console.warn("(((((((data a___ CHANGE))))))):", data);
+    setFormItem((res) => ({ ...res, parentCompanyName: data._id }));
     form.setFieldsValue({ parent_company: event });
   };
 
   const onSelectParentCompany = (event, data) => {
+    // console.warn("(((((((event a___ SELECT))))))):", event);
+    // console.warn("(((((((data a___ SELECT))))))):", data);
     setFormItem((res) => ({ ...res, parentCompanyName: event }));
     form.setFieldsValue({ parent_company: event });
   };
@@ -937,7 +941,7 @@ const NewLead = React.memo((props) => {
       ? []
       : storeFormData?.company_id?.risk_details,
   };
-  console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
+  // console.warn("(((((((updateLeadFormData a___BBB))))))):", updateLeadFormData);
 
   const submitHandler = () => {
     // message.destroy()
@@ -955,9 +959,9 @@ const NewLead = React.memo((props) => {
     if (formItem.companyName === "") {
       return message.warning("Company Name is required");
     }
-    if (formItem.parentCompanyName === "") {
-      return message.warning("Parent Company Name is required");
-    }
+    // if (formItem.parentCompanyName === "" || formItem.parentCompanyName === null) {
+    //   return message.warning("Parent Company Name is required");
+    // }
     if (formItem.industry === "") {
       return message.warning("Industry is required");
     }
@@ -1501,10 +1505,10 @@ const NewLead = React.memo((props) => {
                       // ]}
                       style={{ marginBottom: "1rem" }}
                     >
-                      <AutoComplete
+                      {/* <AutoComplete
                         disabled={disableParentComp}
                         placeholder="Select"
-                        options={parentCompArray}
+                        options={companyArray}
                         value={formItem.parentCompanyName}
                         onChange={(val, data) =>
                           onParentCompanyChange(val, data)
@@ -1517,7 +1521,15 @@ const NewLead = React.memo((props) => {
                             .toUpperCase()
                             .indexOf(inputValue.toUpperCase()) !== -1
                         }
-                      ></AutoComplete>
+                      ></AutoComplete> */}
+
+                      <Select
+                        disabled={disableParentComp}
+                        placeholder="Select"
+                        options={companyArray}
+                        value={formItem.parentCompanyName}
+                        onChange={(val,data) => onParentCompanyChange(val,data)}
+                      ></Select>
                     </Form.Item>
                   </Col>
 
