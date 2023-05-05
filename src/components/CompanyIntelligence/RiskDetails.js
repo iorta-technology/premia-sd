@@ -14,6 +14,7 @@ import {
   Modal,
   DatePicker,
   Tooltip,
+  AutoComplete
 } from "antd";
 import "../StatusLead/StatusLead.css";
 import * as actions from "../../store/actions/index";
@@ -182,6 +183,12 @@ const RiskDetails = (props) => {
     },
     { label: "Shriram General Insurance", value: "Shriram General Insurance" },
   ];
+  leadInsurerItems.sort((a, b) => {
+    const a_first = a.label.split(" ")[0];
+    const b_first = b.label.split(" ")[0];
+    const result = a_first.localeCompare(b_first);
+    return result !== 0 ? result : a.name.localeCompare(b.name);
+  });
   // let riskDataArr = [
   //     {
   //         riskName:'JSW Steels',
@@ -389,23 +396,34 @@ const RiskDetails = (props) => {
 
   const changeTagicPres = (event) =>{
     setTagicPresence(event.target.value) 
-    let _tagicPrem = (totalPremData * event.target.value) / 100
-    setTagicPremium(_tagicPrem)
+    
 
-    form.setFieldsValue({
-      tagicPremium: _tagicPrem,
-    });
+
+    if(!event.target.value){
+      setTagicPremium(totalPremData)
+      form.setFieldsValue({tagicPremium: totalPremData});
+    }else {
+      let _tagicPrem = (totalPremData * event.target.value) / 100
+      setTagicPremium(_tagicPrem)
+
+      form.setFieldsValue({tagicPremium: _tagicPrem,});
+    }
   }
 
   const changeTotalPrem = (event) =>{
     setTotalPremData(event.target.value)
 
-    let _tagicPrem = (event.target.value * tagicPresence) / 100
-    setTagicPremium(_tagicPrem)
+    if(!tagicPresence){
+      setTagicPremium(event.target.value)
+      form.setFieldsValue({tagicPremium: event.target.value});
+    }else {
+      let _tagicPrem = (event.target.value * tagicPresence) / 100
+      setTagicPremium(_tagicPrem)
 
-    form.setFieldsValue({
-      tagicPremium: _tagicPrem,
-    });
+      form.setFieldsValue({
+        tagicPremium: _tagicPrem,
+      });
+    }
   }
   
   const changeTagicPremium = (event) =>{
@@ -681,7 +699,7 @@ const RiskDetails = (props) => {
                   rules={[
                     {
                       message: "Only Numbers are Allowed",
-                      pattern: new RegExp(/^[0-9]+$/),
+                      pattern: new RegExp(/^[0-9.]+$/),
                     },
                   ]}
                 >
@@ -743,14 +761,26 @@ const RiskDetails = (props) => {
                   label="Lead Insurer"
                   style={{ marginBottom: "1rem" }}
                 >
-                  <Select
+                  {/* <Select
                     bordered={true}
                     placeholder="Select Lead Insurer"
                     options={leadInsurerItems}
                     value={leadInsurerData}
                     // defaultValue={citiesOptions}
                     onChange={(item) => setLeadInsurerData(item)}
-                  ></Select>
+                  ></Select> */}
+
+                  <AutoComplete
+                    placeholder="Select Lead Insurer"
+                    options={leadInsurerItems}
+                    value={leadInsurerData}
+                    onChange={(val, data) => setLeadInsurerData(val, data)}
+                    filterOption={(inputValue, option) =>
+                      option.value
+                        .toUpperCase()
+                        .indexOf(inputValue.toUpperCase()) !== -1
+                    }
+                  ></AutoComplete>
                 </Form.Item>
               </Col>
 

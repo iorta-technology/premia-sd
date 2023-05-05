@@ -447,15 +447,15 @@ const KDMDetails = (props) => {
             }
         } else if(fieldName === 'email'){
             if(event.target.value.match(emailFormate)){
-                kdmDetArr[ind].showKdmDOBErr = false
-                kdmDetArr[ind].dobBorder = '#d9d9d9'
+                kdmDetArr[ind].showKdmEmailErr = false
+                kdmDetArr[ind].emailAddBorder = '#d9d9d9'
             }else{
                 if(event.target.value === ''){
-                    kdmDetArr[ind].showKdmDOBErr = false
-                    kdmDetArr[ind].dobBorder = '#d9d9d9'
+                    kdmDetArr[ind].showKdmEmailErr = false
+                    kdmDetArr[ind].emailAddBorder = '#d9d9d9'
                 }else{
-                    kdmDetArr[ind].showKdmDOBErr = true
-                    kdmDetArr[ind].dobBorder = '#ff4d4f'
+                    kdmDetArr[ind].showKdmEmailErr = true
+                    kdmDetArr[ind].emailAddBorder = '#ff4d4f'
                 }
             }
         } 
