@@ -202,10 +202,10 @@ const NewLead = React.memo((props) => {
     empaneled: false,
     clientLocation: "",
     clientZone:"",
-    LOBForOpportunity: "",
-    productForOpportunity: "",
+    // LOBForOpportunity: "",
+    // productForOpportunity: "",
     opportunityName: "",
-    tenderDriver: false,
+    // tenderDriver: false,
     status: "newleadentery",
     disposition: "",
     subDisposition: "",
@@ -464,10 +464,7 @@ const NewLead = React.memo((props) => {
 
       // let leadArr = [];
       changeLeadStatus(leadData.leadStatus);
-      if (
-        leadData.leadDisposition === "appointment" &&
-        leadData.leadStatus === "contact"
-      ) {
+      if (leadData.leadDisposition === "appointment" && leadData.leadStatus === "contact") {
         // setshowLeadStatusVisiblity(true)
         setAppointmentStatus(
           leadData.appointment_status === ""
@@ -539,7 +536,7 @@ const NewLead = React.memo((props) => {
       setCompany_id(leadData?.company_id?._id);
       setreamrkDataArr(leadData?.remarks);
 
-      changeLobOpprtunity(leadData?.lob_for_opportunity);
+      // changeLobOpprtunity(leadData?.lob_for_opportunity);
       setRemark("");
 
       let _remArr = [];
@@ -562,15 +559,15 @@ const NewLead = React.memo((props) => {
       setFormItem((res) => ({
         ...res,
         companyName: leadData?.company_id?.company_name,
-        parentCompanyName: leadData?.company_id?.parent_company,
+        parentCompanyName: leadData?.parent_company?._id,
         industry: leadData?.company_id?.industry_name,
         empaneled:
           leadData?.company_id?.tata_aig_empaneled === "Yes" ? true : false,
         clientLocation: leadData?.company_id?.client_location,
-        LOBForOpportunity: leadData?.lob_for_opportunity,
-        productForOpportunity: leadData?.product_for_opportunity,
+        // LOBForOpportunity: leadData?.lob_for_opportunity,
+        // productForOpportunity: leadData?.product_for_opportunity,
         opportunityName: leadData?.opportunity_name,
-        tenderDriver: leadData?.tender_driven === "Yes" ? true : false,
+        // tenderDriver: leadData?.tender_driven === "Yes" ? true : false,
         status: leadData?.leadStatus,
         disposition: leadData.hasOwnProperty("leadDisposition")
           ? leadData.leadDisposition
@@ -586,7 +583,7 @@ const NewLead = React.memo((props) => {
 
       form.setFieldsValue({
         company_name: leadData?.company_id?.company_name,
-        parent_company: leadData?.company_id?.parent_company,
+        parent_company: leadData?.parent_company?.company_name,
         industry: leadData?.company_id?.industry_name,
         client_location: leadData?.company_id?.client_location,
         lob_for_opportunity: leadData?.lob_for_opportunity,
@@ -618,7 +615,7 @@ const NewLead = React.memo((props) => {
       `admin/company/companies?company_id=${data._id}`,
       { secure: true }
     );
-    // console.warn('COMP___RESPPP --------->>>:', result);
+    console.warn('COMP___RESPPP --------->>>:', result);
     setFormItem((res) => ({
       ...res,
       companyName: event,
@@ -626,12 +623,12 @@ const NewLead = React.memo((props) => {
       empaneled:
         result.companies[0].tata_aig_empaneled === "Yes" ? true : false,
       industry: result.companies[0].industry_name,
-      parentCompanyName: result.companies[0].parent_company,
+      parentCompanyName: result.companies[0].parent_company._id,
     }));
 
     form.setFieldsValue({
       company_name: event,
-      parent_company: result.companies[0].parent_company,
+      parent_company: result.companies[0].parent_company.company_name,
       industry: result.companies[0].industry_name,
       // client_location: result.companies[0].client_location,
     });
@@ -667,62 +664,62 @@ const NewLead = React.memo((props) => {
     }));
   };
 
-  const changeLobOpprtunity = (event) => {
-    // console.warn('LOB OPPORTUNITY --------->>>:', event);
-    setFormItem((res) => ({
-      ...res,
-      LOBForOpportunity: event,
-      productForOpportunity: "",
-    }));
-    form.setFieldsValue({
-      product_for_opportunity: "",
-    });
+  // const changeLobOpprtunity = (event) => {
+  //   // console.warn('LOB OPPORTUNITY --------->>>:', event);
+  //   setFormItem((res) => ({
+  //     ...res,
+  //     LOBForOpportunity: event,
+  //     productForOpportunity: "",
+  //   }));
+  //   form.setFieldsValue({
+  //     product_for_opportunity: "",
+  //   });
 
-    event === "Affinity Benefits"
-      ? setProdForOpportunityArr(affinityBenefitsItems)
-      : event === "AIGC"
-      ? setProdForOpportunityArr(aigcItems)
-      : event === "Aviation"
-      ? setProdForOpportunityArr(aviationItems)
-      : event === "BTA"
-      ? setProdForOpportunityArr(btaItems)
-      : event === "Casualty"
-      ? setProdForOpportunityArr(casualtyItems)
-      : event === "Extended Warantee"
-      ? setProdForOpportunityArr(extend_warrantyItems)
-      : event === "Financial Lines"
-      ? setProdForOpportunityArr(finance_linesItems)
-      : event === "GMC"
-      ? setProdForOpportunityArr(gmcItems)
-      : event === "GPA"
-      ? setProdForOpportunityArr(gpaItems)
-      : event === "Retail Health"
-      ? setProdForOpportunityArr(retail_healthItems)
-      : event === "IPA"
-      ? setProdForOpportunityArr(ipaItems)
-      : event === "LTA"
-      ? setProdForOpportunityArr(ltaItems)
-      : event === "Marine"
-      ? setProdForOpportunityArr(marineItems)
-      : event === "Motor"
-      ? setProdForOpportunityArr(motorItems)
-      : event === "P&E&C"
-      ? setProdForOpportunityArr(p_e_cItems)
-      : event === "PCG"
-      ? setProdForOpportunityArr(pcgItems)
-      : event === "PEP"
-      ? setProdForOpportunityArr(pepItems)
-      : event === "Plus"
-      ? setProdForOpportunityArr(plusItems)
-      : event === "Rural"
-      ? setProdForOpportunityArr(ruralItems)
-      : event === "Rural- Weather"
-      ? setProdForOpportunityArr(rural_weatherItems)
-      : event === "Trade Credit"
-      ? setProdForOpportunityArr(trade_creditItems)
-      : setProdForOpportunityArr(affinityBenefitsItems);
-    // setProdForOpportunityArr()
-  };
+  //   event === "Affinity Benefits"
+  //     ? setProdForOpportunityArr(affinityBenefitsItems)
+  //     : event === "AIGC"
+  //     ? setProdForOpportunityArr(aigcItems)
+  //     : event === "Aviation"
+  //     ? setProdForOpportunityArr(aviationItems)
+  //     : event === "BTA"
+  //     ? setProdForOpportunityArr(btaItems)
+  //     : event === "Casualty"
+  //     ? setProdForOpportunityArr(casualtyItems)
+  //     : event === "Extended Warantee"
+  //     ? setProdForOpportunityArr(extend_warrantyItems)
+  //     : event === "Financial Lines"
+  //     ? setProdForOpportunityArr(finance_linesItems)
+  //     : event === "GMC"
+  //     ? setProdForOpportunityArr(gmcItems)
+  //     : event === "GPA"
+  //     ? setProdForOpportunityArr(gpaItems)
+  //     : event === "Retail Health"
+  //     ? setProdForOpportunityArr(retail_healthItems)
+  //     : event === "IPA"
+  //     ? setProdForOpportunityArr(ipaItems)
+  //     : event === "LTA"
+  //     ? setProdForOpportunityArr(ltaItems)
+  //     : event === "Marine"
+  //     ? setProdForOpportunityArr(marineItems)
+  //     : event === "Motor"
+  //     ? setProdForOpportunityArr(motorItems)
+  //     : event === "P&E&C"
+  //     ? setProdForOpportunityArr(p_e_cItems)
+  //     : event === "PCG"
+  //     ? setProdForOpportunityArr(pcgItems)
+  //     : event === "PEP"
+  //     ? setProdForOpportunityArr(pepItems)
+  //     : event === "Plus"
+  //     ? setProdForOpportunityArr(plusItems)
+  //     : event === "Rural"
+  //     ? setProdForOpportunityArr(ruralItems)
+  //     : event === "Rural- Weather"
+  //     ? setProdForOpportunityArr(rural_weatherItems)
+  //     : event === "Trade Credit"
+  //     ? setProdForOpportunityArr(trade_creditItems)
+  //     : setProdForOpportunityArr(affinityBenefitsItems);
+  //   // setProdForOpportunityArr()
+  // };
 
   const changeLeadStatus = (event) => {
     setFormItem((res) => ({
@@ -909,9 +906,9 @@ const NewLead = React.memo((props) => {
     leadDisposition: formItem.disposition,
     leadsubDisposition: formItem.subDisposition,
     opportunity_name: formItem.opportunityName,
-    tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
-    LOB_opportunity: formItem.LOBForOpportunity,
-    product_for_opportunity: formItem.productForOpportunity,
+    // tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
+    // LOB_opportunity: formItem.LOBForOpportunity,
+    // product_for_opportunity: formItem.productForOpportunity,
     // remarks: formItem.remarks,
     // remarks: reamrkDataArr,
     teamMembers: JSON.stringify(teamDataArr),
@@ -949,12 +946,12 @@ const NewLead = React.memo((props) => {
     if (formItem.opportunityName === "") {
       return message.warning("Client Name is required");
     }
-    if (formItem.LOBForOpportunity === "") {
-      return message.warning("LOB for Opportunity is required");
-    }
-    if (formItem.productForOpportunity === "") {
-      return message.warning("Product for Opportunity is required");
-    }
+    // if (formItem.LOBForOpportunity === "") {
+    //   return message.warning("LOB for Opportunity is required");
+    // }
+    // if (formItem.productForOpportunity === "") {
+    //   return message.warning("Product for Opportunity is required");
+    // }
 
     if (formItem.companyName === "") {
       return message.warning("Company Name is required");
@@ -979,9 +976,10 @@ const NewLead = React.memo((props) => {
       leadDisposition: formItem.disposition,
       leadsubDisposition: formItem.subDisposition,
       opportunity_name: formItem.opportunityName,
-      tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
-      LOB_opportunity: formItem.LOBForOpportunity,
-      product_for_opportunity: formItem.productForOpportunity,
+      // tender_driven: formItem.tenderDriver === true ? "Yes" : "No",
+      // LOB_opportunity: formItem.LOBForOpportunity,
+      // product_for_opportunity: formItem.productForOpportunity,
+
       // remarks: formItem.remarks,
       // remarks: reamrkDataArr,
       // teamMembers : "[{\"first_name\":\"Prithvi\",\"last_name\":\"Raj\",\"Id\":\"63ad6488d19ed8185f3b0d00\"}]",
@@ -1645,7 +1643,7 @@ const NewLead = React.memo((props) => {
               >
                 <p className="form-title">Opportunity Details</p>
                 <Row gutter={16} className="mb-2 statsLead">
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                     <Form.Item
                       {...formItemLayout}
                       className="form-item-name label-color"
@@ -1666,9 +1664,9 @@ const NewLead = React.memo((props) => {
                         onChange={(val) => changeLobOpprtunity(val)}
                       ></Select>
                     </Form.Item>
-                  </Col>
+                  </Col> */}
 
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                     <Form.Item
                       {...formItemLayout}
                       className="form-item-name label-color"
@@ -1689,7 +1687,7 @@ const NewLead = React.memo((props) => {
                         onChange={(val) => changeProductOpprtunity(val)}
                       ></Select>
                     </Form.Item>
-                  </Col>
+                  </Col> */}
 
                   <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                     <Form.Item
@@ -1723,7 +1721,7 @@ const NewLead = React.memo((props) => {
                     </Form.Item>
                   </Col>
 
-                  <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                     <Form.Item
                       {...formItemLayout}
                       className="form-item-name label-color"
@@ -1744,7 +1742,7 @@ const NewLead = React.memo((props) => {
                         <Radio value={false}>No</Radio>
                       </Radio.Group>
                     </Form.Item>
-                  </Col>
+                  </Col> */}
                 </Row>
               </Col>
 

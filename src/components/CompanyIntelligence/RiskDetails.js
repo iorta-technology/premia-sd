@@ -16,6 +16,30 @@ import {
   Tooltip,
   AutoComplete
 } from "antd";
+import {
+  affinityBenefitsItems,
+  aigcItems,
+  aviationItems,
+  btaItems,
+  casualtyItems,
+  extend_warrantyItems,
+  finance_linesItems,
+  gmcItems,
+  gpaItems,
+  retail_healthItems,
+  ipaItems,
+  ltaItems,
+  marineItems,
+  motorItems,
+  p_e_cItems,
+  pcgItems,
+  pepItems,
+  plusItems,
+  ruralItems,
+  rural_weatherItems,
+  trade_creditItems,
+  lobOpportunityItems,
+} from "../StatusLead/dataSet";
 import "../StatusLead/StatusLead.css";
 import * as actions from "../../store/actions/index";
 import _ from "lodash";
@@ -68,9 +92,14 @@ const RiskDetails = (props) => {
   const [inceptionDateData, setInceptionDateData] = useState("");
   const [editIndex, setEditIndex] = useState("");
   const [panNo, setPanNo] = useState("");
+  const [LOBForOpportunity, setLOBForOpportunity] = useState('');
+  const [productForOpportunity, setProductForOpportunity] = useState("");
+  const [tenderDriver, setTenderDriver] = useState(false);
+  
   const [riskDataArr, setRiskDataArr] = useState([]);
 
   const [showRiskDetailsPopup, setShowRiskDetailsPopup] = useState(false);
+  const [prodForOpportunityArr, setProdForOpportunityArr] = useState([]);
 
   useEffect(() => {
     let _dataArr = [];
@@ -205,6 +234,68 @@ const RiskDetails = (props) => {
     setLeadrFollowerData(event);
   };
 
+  const changeLobOpprtunity = (event) => {
+    // console.warn('LOB OPPORTUNITY --------->>>:', event);
+    setLOBForOpportunity(event)
+    setProductForOpportunity('')
+    // const [LOBForOpportunity, setLOBForOpportunity] = useState("");
+    // const [productForOpportunity, setProductForOpportunity] = useState("");
+    form.setFieldsValue({
+      lob_for_opportunity:event,
+      product_for_opportunity: "",
+    });
+
+    event === "Affinity Benefits"
+      ? setProdForOpportunityArr(affinityBenefitsItems)
+      : event === "AIGC"
+      ? setProdForOpportunityArr(aigcItems)
+      : event === "Aviation"
+      ? setProdForOpportunityArr(aviationItems)
+      : event === "BTA"
+      ? setProdForOpportunityArr(btaItems)
+      : event === "Casualty"
+      ? setProdForOpportunityArr(casualtyItems)
+      : event === "Extended Warantee"
+      ? setProdForOpportunityArr(extend_warrantyItems)
+      : event === "Financial Lines"
+      ? setProdForOpportunityArr(finance_linesItems)
+      : event === "GMC"
+      ? setProdForOpportunityArr(gmcItems)
+      : event === "GPA"
+      ? setProdForOpportunityArr(gpaItems)
+      : event === "Retail Health"
+      ? setProdForOpportunityArr(retail_healthItems)
+      : event === "IPA"
+      ? setProdForOpportunityArr(ipaItems)
+      : event === "LTA"
+      ? setProdForOpportunityArr(ltaItems)
+      : event === "Marine"
+      ? setProdForOpportunityArr(marineItems)
+      : event === "Motor"
+      ? setProdForOpportunityArr(motorItems)
+      : event === "P&E&C"
+      ? setProdForOpportunityArr(p_e_cItems)
+      : event === "PCG"
+      ? setProdForOpportunityArr(pcgItems)
+      : event === "PEP"
+      ? setProdForOpportunityArr(pepItems)
+      : event === "Plus"
+      ? setProdForOpportunityArr(plusItems)
+      : event === "Rural"
+      ? setProdForOpportunityArr(ruralItems)
+      : event === "Rural- Weather"
+      ? setProdForOpportunityArr(rural_weatherItems)
+      : event === "Trade Credit"
+      ? setProdForOpportunityArr(trade_creditItems)
+      : setProdForOpportunityArr(affinityBenefitsItems);
+    // setProdForOpportunityArr()
+  };
+
+  const changeProductOpprtunity = (event) => {
+    setProductForOpportunity(event)
+    form.setFieldsValue({ product_for_opportunity: event });
+  };
+
   const onChangeIncepDate = (date, dateString) => {
     // console.warn('setInceptionDateData-------->>>>',date)
     // console.warn('(((((dateString))))) -------->>>>',dateString)
@@ -228,6 +319,9 @@ const RiskDetails = (props) => {
       riskDataArr[editIndex].leaderFollower = leadrFollowerData;
       riskDataArr[editIndex].inceptionDate = inceptionDateData;
       riskDataArr[editIndex].panNo = panNo;
+      riskDataArr[editIndex].lobOpportunity = LOBForOpportunity;
+      riskDataArr[editIndex].prodOpportunity = productForOpportunity;
+      riskDataArr[editIndex].tendrDriver = tenderDriver;
       // setPanNo(event.Pan_no);
     } else {
       let _data = {
@@ -242,6 +336,9 @@ const RiskDetails = (props) => {
         leaderFollower: !leadrFollowerData ? "" : leadrFollowerData,
         inceptionDate: !inceptionDateData ? "" : inceptionDateData,
         panNo: !panNo ? "" : panNo,
+        lobOpportunity: !LOBForOpportunity ? "" : LOBForOpportunity,
+        prodOpportunity: !productForOpportunity ? "" : productForOpportunity,
+        // tendrDriver: !tenderDriver ? "" : tenderDriver,
       };
 
       setRiskDataArr([...riskDataArr, _data]);
@@ -265,6 +362,9 @@ const RiskDetails = (props) => {
         leader_share: el.leaderShare,
         inception_date: el.inceptionDate,
         Pan_no: el.panNo,
+        tender_driven: el.tendrDriver === true ? "Yes" : "No",
+        lob_for_opportunity: el.lobOpportunity,
+        product_for_opportunity: el.prodOpportunity,
       };
       _riskDetailsData.push(_data);
     });
@@ -297,9 +397,9 @@ const RiskDetails = (props) => {
       leadDisposition: _StoreData?.leadDisposition,
       leadsubDisposition: _StoreData?.leadsubDisposition,
       opportunity_name: _StoreData?.opportunity_name,
-      tender_driven: _StoreData?.tender_driven === true ? "Yes" : "No",
-      LOB_opportunity: _StoreData?.lob_for_opportunity,
-      product_for_opportunity: _StoreData?.product_for_opportunity,
+      // tender_driven: _StoreData?.tender_driven === true ? "Yes" : "No",
+      // LOB_opportunity: _StoreData?.lob_for_opportunity,
+      // product_for_opportunity: _StoreData?.product_for_opportunity,
       // remarks: _StoreData?.remarks,
       teamMembers: "[]",
       lead_Owner_Id: user_id,
@@ -645,7 +745,7 @@ const RiskDetails = (props) => {
                 </Form.Item>
               </Col>
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -664,6 +764,69 @@ const RiskDetails = (props) => {
                     value={productNameData}
                     onChange={(item) => setProductNameData(item.target.value)}
                   />
+                </Form.Item>
+              </Col> */}
+              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                <Form.Item
+                  {...formItemLayout}
+                  className="form-item-name label-color"
+                  name="lob_for_opportunity"
+                  label="LOB for Opportunity"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Select LOB Opportunity",
+                    },
+                  ]}
+                  style={{ marginBottom: "1rem" }}
+                >
+                  <Select
+                    placeholder="Select"
+                    options={lobOpportunityItems}
+                    value={LOBForOpportunity}
+                    onChange={(val) => changeLobOpprtunity(val)}
+                  ></Select>
+                </Form.Item>
+              </Col>
+
+              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                <Form.Item
+                  {...formItemLayout}
+                  className="form-item-name label-color"
+                  name="product_for_opportunity"
+                  label="Product for Opportunity"
+                  rules={[
+                    {
+                      required: false,
+                      message: "Select product Opportunity",
+                    },
+                  ]}
+                  style={{ marginBottom: "1rem" }}
+                >
+                  <Select
+                    placeholder="Select"
+                    options={prodForOpportunityArr}
+                    value={productForOpportunity}
+                    onChange={(val) => changeProductOpprtunity(val)}
+                  ></Select>
+                </Form.Item>
+              </Col>
+
+              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                <Form.Item
+                  {...formItemLayout}
+                  className="form-item-name label-color"
+                  label="Tender Driver"
+                  style={{ marginBottom: "1rem" }}
+                >
+                  <Radio.Group
+                    name="radiogroup"
+                    value={tenderDriver}
+                    onChange={(val) => setTenderDriver(val.target.value) }
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
                 </Form.Item>
               </Col>
 

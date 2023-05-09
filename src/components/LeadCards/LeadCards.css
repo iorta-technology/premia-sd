@@ -106,5 +106,6 @@
   }
   .lead-ml15 {
     margin-left: 15px;
+    margin-top: unset;
   }
 }
