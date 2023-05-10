@@ -48,7 +48,6 @@ const LeadMaster = (props) => {
   );
   // lead count of the page
   const totalLeads = useSelector((state) => {
-    // console.log(state.leads.count[0].count)
     return state.leads.count;
   });
 
@@ -135,12 +134,10 @@ const LeadMaster = (props) => {
           onChange={handlePageClick}
           total={totalLeads}
           defaultPageSize={15}
-          // pageSize={15}
           itemRender={itemRender}
         />
       </div>
       <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
-      {/* {(breakpoint > width) ? null : <FloatButton />} */}
     </div>
   );
 };

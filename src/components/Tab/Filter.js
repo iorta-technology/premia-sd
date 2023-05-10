@@ -2,17 +2,23 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Radio, Select, Input } from "antd";
-
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions/leads";
-import { stoageGetter ,doSentenceCase } from "../../helpers";
+import { stoageGetter, doSentenceCase } from "../../helpers";
 import axiosRequest from "../../axios-request/request.methods";
+import { useSelector } from "react-redux";
+import { Row, Col, Avatar, Card, message, DatePicker } from "antd";
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import moment from "moment";
+
 
 export function OffCanvasForGlobalFilter({ ...props }) {
   const dispatch = useDispatch();
 
-  // searchtxt, lead_status, sorByFlter, sort_status, leadfilter, lead_disposition, leadType
-  // console.log('========PROPSSS***))))>>>>>>============',props)
+  //declaring varibles to stores the dates
+  const [dateFilter, setDateFilter] = useState("");
+  const [dateString, setDateString] = useState("");
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [sortByFlter, setSortByFlter] = useState("");
 
@@ -26,68 +32,90 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [fieldLabelName, setFieldLabelName] = useState("Client Name");
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
   const [companyArray, setCompanyArray] = useState([]);
-  
 
-  // let sortByData = [
-  //   {label:'Lead Created date - Newest to oldest',status:'new_to_old',filtValue:'createddate', value: 'created_date_old'},
-  //   {label:'Lead Created date - Oldest to Newest',status:'old_to_new',filtValue:'createddate', value: 'created_date_new'},
-  //   {label:'Allocation Date - Newest to Oldest',status:'new_to_old',filtValue:'allocateddate', value: 'allocation_date_old'},
-  //   {label:'Allocation Date - Oldest to Newest',status:'old_to_new',filtValue:'allocateddate', value: 'allocation_date_new'},
-  // ]
+  // inception dates
 
-  // const handleSortByStatus = (ev,data) => {
-  //   // console.log("sort by type_____ev______***", ev);
-  //   // console.log("sort by type______data_____***", data);
-  //   setSortByFlter(data.filtValue);
-  //   setSortBy(data.status)
-  //   setShortByStatus(ev);
-  // };
+  const [inceptionDates, setInceptionDates] = useState([]);
+
+  const state = useSelector((state) => state?.login?.user);
+
+
   useEffect(() => {
     getCompanyDetails();
+    getDates();
   }, []);
+
+
+
+  //for fetching the inception dates using the API calls
+  const getDates = async () => {
+    let result = await axiosRequest.get(`user/getInceptionDates?userId=${state.id}`, {
+      secure: true,
+    });
+
+    console.log(result)
+    setInceptionDates(result[0].inception_dates);
+  }
+  //disabling dates
+  
+  const disabledDate=(current)=>{
+    let day = current.date();
+    if (day < 10) day = '0' + day;
+    let month = current.month() + 1;
+    if (month < 10) month = '0' + month;
+    let year = current.year();
+    let date = day + '/' + month + '/' + year;
+    return !(inceptionDates.includes(date));
+  }
+
+
+
 
   const getCompanyDetails = async (lead_id) => {
     let result = await axiosRequest.get(`admin/company/companies`, {
       secure: true,
     });
-    // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
     let _compArr = [];
     result.companies.map((el) => {
       let _data = { label: el.company_name, value: el._id };
       _compArr.push(_data);
     });
     setCompanyArray(_compArr);
-
   };
 
-  const handleSearchType = (e,label) => {
-    // console.log("search type___________***", e.target.value);
+  //calling the function when date is changing
+  const onChangeFromDate = (date, dateString) => {
+
+    setDateFilter(date);
+    setDateString(dateString);
+    // setDateString(dateString);
+  };
+
+
+  const validateDateRange = (startDateStr, endDateStr) => {
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+    if (startDate > endDate) {
+      return false;
+    }
+    return true;
+  }
+
+  const handleSearchType = (e, label) => {
     setSearchType(e.target.value)
     setFieldLabelName(label)
-    // setShowCompanyDropdown(true)
-    // setSortByFlter(e.target.value);
     label === 'Company Name' ? setShowCompanyDropdown(true) : setShowCompanyDropdown(false)
   };
   const handleNameSearch = (event) => {
-    // console.log("searchType___________***", searchType);
-    // console.log("name search___________***", doSentenceCase(event.toLowerCase()));
     setSearchTextFilter(event);
-
-    searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) : 
-    searchType === 'leadId' ? setSearchTextFilter(doSentenceCase(event.toLowerCase())) : setSearchTextFilter(event);
-    
-    // setSearchTextFilter(event);
-
+    searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) :
+      searchType === 'leadId' ? setSearchTextFilter(doSentenceCase(event.toLowerCase())) : setSearchTextFilter(event);
   };
-  
+
   const handleApplyButton = () => {
     const { id } = stoageGetter("user");
     let skip = 0;
-    // let searchtxt = searchTextFilter;
-    // let sorByFlter = sortByFlter;
-    // let sort_status = shortByStatus
     let leadfilter = props.filterdata.tabFilter;
-
     let lead_disposition = "";
     let leadType = "";
     let lead_status = "";
@@ -113,7 +141,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
-    // console.log('========PROPSSS99990000***))))>>>>>>============',props)
+
     setShowCompanyDropdown(false)
     setFieldLabelName('Client Name')
     setShow(true)
@@ -128,23 +156,22 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     setShow(props.show);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
+  const [startDate, setStartDate] = useState(new Date());
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow} className="me-2">
-        Filter
-      </Button> */}
+
       <figure
         style={
           !(breakpoint <= width)
             ? {
-                position: "fixed",
-                bottom: "8%",
-                zIndex: "99999",
-                boxShadow: "0px 0px 4px 1px black",
-                right: "5.5%",
-                transform: "scale(0.9)",
-              }
+              position: "fixed",
+              bottom: "8%",
+              zIndex: "99999",
+              boxShadow: "0px 0px 4px 1px black",
+              right: "5.5%",
+              transform: "scale(0.9)",
+            }
             : {}
         }
         className="round-cards43"
@@ -173,40 +200,10 @@ export function OffCanvasForGlobalFilter({ ...props }) {
           <Offcanvas.Title>Select Filter</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {/* <div
-            style={{
-              width: "auto",
-              height: "6rem",
-              backgroundColor: "white",
-              marginBottom: "0.5rem",
-            }}
-          >
-            <h6
-              style={{ fontWeight: "bold", padding: "10px", fontSize: "13px",marginLeft:5 }}
-            >
-              Sort by
-            </h6>
-            <Select
-              onChange={(ev,data)=> handleSortByStatus(ev,data)}
-              bordered={false}
-              name="SortBy"
-              value={shortByStatus}
-              options={sortByData}
-              style={{
-                width: "20rem",
-                marginLeft: "1rem",
-                // marginTop: "1rem",
-                borderBottom: "1px gray solid",
-                opacity: "0.5",
-              }}
-              // defaultValue=""
-            >
-            </Select>
-          </div> */}
+
           <div
             style={{
               width: "auto",
-              // height: "10rem",
               backgroundColor: "white",
               marginBottom: "0.5rem",
             }}
@@ -224,34 +221,34 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                 marginTop: "1rem",
               }}
               defaultValue="fname"
-              // onChange={handleSearchType}
+            // onChange={handleSearchType}
             >
-              <Radio.Button value="fname" onChange={(val,data) => handleSearchType(val,'Client Name')} >
+              <Radio.Button value="fname" onChange={(val, data) => handleSearchType(val, 'Client Name')} >
                 Client Name
               </Radio.Button>
-              <Radio.Button value="" onChange={(val,data) => handleSearchType(val,'Company Name')}>
-              Company Name
+              <Radio.Button value="" onChange={(val, data) => handleSearchType(val, 'Company Name')}>
+                Company Name
               </Radio.Button>
-              <Radio.Button value="leadId" onChange={(val,data) => handleSearchType(val,'Lead ID')}>
+              <Radio.Button value="leadId" onChange={(val, data) => handleSearchType(val, 'Lead ID')}>
                 Lead ID
               </Radio.Button>
             </Radio.Group>
-            <div style={{ marginLeft: "20px",marginTop:15 }}>
-              <p style={{marginBottom:5}}>{fieldLabelName}</p>
+            <div style={{ marginLeft: "20px", marginTop: 15 }}>
+              <p style={{ marginBottom: 5 }}>{fieldLabelName}</p>
             </div>
-            { showCompanyDropdown ?
-             
-                <Select
-                  placeholder="Select"
-                  options={companyArray}
-                  // value={formItem.LOBForOpportunity}
-                  style={{
-                    width: "25rem",
-                    marginLeft: "1rem",
-                    marginBottom: "15px"
-                  }}
-                  onChange={(val) => handleNameSearch(val)}
-                ></Select>
+            
+            {showCompanyDropdown ?
+
+              <Select
+                placeholder="Select"
+                options={companyArray}
+                style={{
+                  width: "25rem",
+                  marginLeft: "1rem",
+                  marginBottom: "15px"
+                }}
+                onChange={(val) => handleNameSearch(val)}
+              ></Select>
               :
               <Input
                 type="text"
@@ -261,11 +258,45 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   marginBottom: "15px"
                 }}
                 placeholder={`Enter ${fieldLabelName}`}
-                onChange={(val) =>handleNameSearch(val.target.value)}
+                onChange={(val) => handleNameSearch(val.target.value)}
               />
-              
             }
+             <div style={{ marginLeft: "20px", marginTop: 15 }}>
+              <p style={{ marginBottom: 5 }}>Creation Date</p>
+            </div>
+             <div style={{ margin: "10px", marginLeft: "20px" }}>
+              {/* declearing the date picker */}
+              <DatePicker style={{
+                  width: "25rem",
+                  marginBottom: "15px"
+                }}
+                onChange={onChangeFromDate}
+                value={dateFilter}
+                disabledDate={disabledDate}
+                dateRender={current => {
+                  const style = {};
+                  let day = current.date();
+                  if (day < 10) day = '0' + day;
+                  let month = current.month() + 1;
+                  if (month < 10) month = '0' + month;
+                  let year = current.year();
+                  let date = day + '/' + month + '/' + year;
+                  if (inceptionDates.includes(date)) {
+                    style.color = 'white'
+                    style.backgroundColor = '#00acc1';
+                  }
+                  return (
+                    <div className="ant-calendar-date" style={style}>
+                      {current.date()}
+                    </div>
+                  );
+                }}
+                format="DD/MM/YYYY"
+                className='expt-picker'
+              />
+            </div>
           </div>
+         
           <div
             style={{ width: "auto", height: "4rem", backgroundColor: "white" }}
           >
@@ -297,7 +328,6 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 }
 
 function GlobalFilters(props) {
-  // console.log("props*******", props);
   return (
     <>
       <OffCanvasForGlobalFilter key={"0"} filterdata={props} />
