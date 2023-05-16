@@ -54,7 +54,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     });
 
     console.log(result)
-    setInceptionDates(result[0].inception_dates);
+    setInceptionDates(result[0]?.inception_dates);
   }
   //disabling dates
   
@@ -131,7 +131,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
         leadfilter,
         lead_disposition,
         leadType,
-        searchType
+        searchType,
+        dateFilter
       )
     );
     handleClose();
@@ -262,7 +263,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
               />
             }
              <div style={{ marginLeft: "20px", marginTop: 15 }}>
-              <p style={{ marginBottom: 5 }}>Creation Date</p>
+              <p style={{ marginBottom: 5 }}>Inception Date</p>
             </div>
              <div style={{ margin: "10px", marginLeft: "20px" }}>
               {/* declearing the date picker */}

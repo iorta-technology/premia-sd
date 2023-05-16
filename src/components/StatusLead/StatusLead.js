@@ -623,12 +623,12 @@ const NewLead = React.memo((props) => {
       empaneled:
         result.companies[0].tata_aig_empaneled === "Yes" ? true : false,
       industry: result.companies[0].industry_name,
-      parentCompanyName: result.companies[0].parent_company._id,
+      parentCompanyName: !result.companies[0].parent_company ? null : result.companies[0].parent_company._id,
     }));
 
     form.setFieldsValue({
       company_name: event,
-      parent_company: result.companies[0].parent_company.company_name,
+      parent_company: !result.companies[0].parent_company ? undefined : result.companies[0].parent_company.company_name,
       industry: result.companies[0].industry_name,
       // client_location: result.companies[0].client_location,
     });

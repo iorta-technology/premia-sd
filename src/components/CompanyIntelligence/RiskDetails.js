@@ -105,7 +105,7 @@ const RiskDetails = (props) => {
     let _dataArr = [];
     if (_StoreData?.company_id?.risk_details.length > 0) {
       _StoreData?.company_id?.risk_details.map((el) => {
-        console.log('(((((((((el)))))))))---->>>>',el)
+        // console.log('(((((((((el......)))))))))---->>>>',el)
         let _data = {
           riskName: !el.product_name ? "-" : el.product_name,
           riskType: !el.total_entities ? "-" : el.total_entities,
@@ -120,6 +120,9 @@ const RiskDetails = (props) => {
           leaderFollower: !el.leader ? "" : el.leader,
           inceptionDate: !el.inception_date ? "" : el.inception_date,
           panNo: !el.Pan_no ? "" : el.Pan_no,
+          lobOpportunity: !el.lob_for_opportunity ? "" : el.lob_for_opportunity,
+          prodOpportunity: !el.product_for_opportunity ? "" : el.product_for_opportunity,
+          tendrDriver: !el.tender_driven ? "" : el.tender_driven === 'No' ? false : true,
         };
         _dataArr.push(_data);
 
@@ -338,8 +341,11 @@ const RiskDetails = (props) => {
         panNo: !panNo ? "" : panNo,
         lobOpportunity: !LOBForOpportunity ? "" : LOBForOpportunity,
         prodOpportunity: !productForOpportunity ? "" : productForOpportunity,
-        // tendrDriver: !tenderDriver ? "" : tenderDriver,
+        tendrDriver: !tenderDriver ? "" : tenderDriver,
       };
+
+      // console.warn('(((((RISK Details ))))) -------->>>>',riskDataArr)
+      // console.warn('(((((RISK Details_____data ))))) -------->>>>',_data)
 
       setRiskDataArr([...riskDataArr, _data]);
     }
@@ -350,7 +356,7 @@ const RiskDetails = (props) => {
   const updateRiskDetails = (event) => {
     let _riskDetailsData = [];
     riskDataArr.map((el) => {
-      // console.warn('(((((el Details ))))) -------->>>>',el)
+      console.warn('(((((el Details ))))) -------->>>>',el)
       let _data = {
         total_entities: el.riskType,
         product_name: el.riskName,
@@ -479,6 +485,9 @@ const RiskDetails = (props) => {
     setInceptionDateData("");
     setEditIndex("");
     setPanNo("");
+    setLOBForOpportunity("");
+    setProductForOpportunity("");
+    setTenderDriver(false);
 
     form.setFieldsValue({
       nameOfentity: "",
@@ -491,6 +500,8 @@ const RiskDetails = (props) => {
       leaderShare: "",
       incepDate: "",
       pan_No:'',
+      lob_for_opportunity:'' || undefined,
+      product_for_opportunity:'' || undefined,
     });
   };
 
@@ -788,7 +799,7 @@ const RiskDetails = (props) => {
                   ></Select>
                 </Form.Item>
               </Col>
-
+              
               <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}

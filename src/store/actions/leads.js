@@ -56,7 +56,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
       `user/v2/getLead/${id}?leadfilter=${leads}&skip=${skipVal}`,
       { secure: true }
     );
-    // console.warn("+++++++++ GET LEAD DATA ++++++++", result);
+    console.warn("+++++++++ GET LEAD DATA ++++++++", result);
     if (result.length > 0) {
       // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
       // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
@@ -71,6 +71,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
         )
       );
     } else {
+      // fetchAllLeadsSuccess([])
       dispatch(fetchAllLeadsFail());
     }
   };
@@ -87,6 +88,7 @@ export const fetchDataAfterFilter = (
   lead_disposition,
   leadType,
   searchType,
+  dateFilter
 ) => {
   return async (dispatch) => {
     dispatch(fetchAllLeadsStart());
@@ -115,6 +117,7 @@ export const fetchDataAfterFilter = (
     if (leadType.trim().length) {
       url += `&leadType=${leadType}`;
     }
+    if (dateFilter.trim().length) url += `&inceptionDate=${dateFilter}`;
 
     let result = await axiosRequest.get(url);
     console.warn("_______Filter", result);

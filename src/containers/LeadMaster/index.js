@@ -14,7 +14,7 @@ const LeadMaster = (props) => {
   const [current, setcurrent] = useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
-  console.warn("current----------------->>>>>", current);
+  // console.warn("current----------------->>>>>", current);
   // console.warn('props----------------->>>>>',props)
 
   dispatch(actions.headerName("Opportunities"));
@@ -25,7 +25,7 @@ const LeadMaster = (props) => {
 
   useEffect(() => {
     setcurrent(1);
-    console.warn("props----------------->>>>>", props);
+    // console.warn("props----------------->>>>>", props);
   }, [props]);
 
   useEffect(() => {
@@ -47,9 +47,10 @@ const LeadMaster = (props) => {
     (state) => state.leads.fetch_allLeads_Loading
   );
   // lead count of the page
-  const totalLeads = useSelector((state) => {
-    return state.leads.count;
-  });
+  const totalLeads = useSelector((state) => state?.leads?.count );
+  // const _storeee = useSelector((state) => state );
+  // console.warn("totalLeads ----------------->>>>>", totalLeads);
+  // console.warn("_storeee ----------------->>>>>", _storeee);
 
   //Pagination numbers function
   function itemRender(cur, type, originalElement) {
