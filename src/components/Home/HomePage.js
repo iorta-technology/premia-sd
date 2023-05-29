@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./HomePage.css";
 import "../Activitity Tracker/RightSide-Todo/Todo&Archive-Css/TodoCards.css";
-import { Image, Button, Row, Col, Card, Select } from "antd";
+import { Image, Button, Row, Col, Card, Select, Avatar } from "antd";
 // import { Bar } from '@ant-design/charts';
 import "antd/dist/antd.css";
 import * as actions from "../../store/actions/index";
@@ -24,7 +24,10 @@ import {
 // import image -----
 import business_img from "../../assets/DashboardIconNew/Group3366.png";
 import activity_img from "../../assets/DashboardIconNew/Group3371.png";
-import opportunities_img from "../../assets/DashboardIconNew/Group3367.png";
+import contact_opportunity_img from "../../assets/DashboardIconNew/Group3367.png";
+import opportunities_img from "../../assets/DashboardIconNew/Group3373.png";
+import contact_opportunity_cake from "../../assets/DashboardNewIcon/Cake.png";
+import contact_opportunity_alarm from "../../assets/DashboardNewIcon/Alarm.png";
 import todo_img from "../../assets/DashboardIconNew/Group3375.png";
 import sales_guide_img from "../../assets/resourceHeader.png";
 import resourceVideo from "../../assets/resourceVideo.png";
@@ -48,6 +51,7 @@ import checkboxoutline from "../../assets/checkboxoutline.png";
 import truecheckbox from "../../assets/CalenderIcons/truecheckbox.png";
 import product_icon from "../../assets/resorceico/Producticon.png";
 import resource_icon from "../../assets/resorceico/resourcecenter.png";
+import newLeadCreation from '../StatusLead/NewLeadCreation'
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
@@ -197,8 +201,9 @@ const HomePage = () => {
   ]);
 
   const [opportunities, setOpportunities] = useState([]);
-  const [leadCountPeriod, setLeadCountPeriod] = useState('today');
-  
+  const [leadCountPeriod, setLeadCountPeriod] = useState("today");
+
+  const [showOverlay, setShowOverlay] = useState(false);
 
   // Access Management
   const [showActivityTracker, setShowActivityTracker] = useState(
@@ -216,10 +221,10 @@ const HomePage = () => {
   );
 
   const leadPeriodArr = [
-    {label:'Today',value:'today'},
-    {label:'Week',value:'week'},
-    {label:'Month',value:'month'},
-  ]
+    { label: "Today", value: "today" },
+    { label: "Week", value: "week" },
+    { label: "Month", value: "month" },
+  ];
 
   useEffect(() => {
     if (id) dispatch(actions.activities(id, agent_id));
@@ -232,8 +237,8 @@ const HomePage = () => {
     // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     channelCode && dispatch(actions.fetchHierarchy(userId, channelCode));
-    // if (agent_id) 
-    dispatch(actions.home(userId,'today'));
+    // if (agent_id)
+    dispatch(actions.home(userId, "today"));
     getTodoData(0);
     getOpportunities();
   }, []);
@@ -551,10 +556,10 @@ const HomePage = () => {
     setGetTodoDataArray(_data);
   };
 
-  const changeOpprtunityPeriod = (event) =>{
-    setLeadCountPeriod(event)
-    dispatch(actions.home(userId,event));
-  }
+  const changeOpprtunityPeriod = (event) => {
+    setLeadCountPeriod(event);
+    dispatch(actions.home(userId, event));
+  };
 
   const breakpoint = 620;
   const config = {
@@ -783,123 +788,78 @@ const HomePage = () => {
                 style={{ backgroundColor: "#00ACC1" }}
               >
                 {/* <Link to="/leadMaster/all_leads"> */}
-                  <div className="card-content">
-                    <div className="activity-icon" onClick={() => history.push("/leadMaster/all_leads")}>
-                      <Image
-                        preview={false}
-                        width={55}
-                        height={55}
-                        src={opportunities_img}
-                        alt="Opportunities"
-                      />
-                    </div>
-                    <div className="activities-text">
-                      <Row >
-                        <p onClick={() => history.push("/leadMaster/all_leads")} className="ttile_name">Opportunities</p>
-                        <div style={{display:'flex',flex:1,justifyContent:'flex-end'}}>
-                          <Select
-                            placeholder="Select"
-                            style={{width:'70%'}}
-                            options={leadPeriodArr}
-                            value={leadCountPeriod}
-                            onChange={(val) => changeOpprtunityPeriod(val)}
-                          ></Select>
-                        </div>
-                      </Row>
-                      <div className="horizontalLine"></div>
-                    </div>
-                    
+                <div className="card-content">
+                  <div
+                    className="activity-icon"
+                    onClick={() => history.push("/leadMaster/all_leads")}
+                  >
+                    <Image
+                      preview={false}
+                      width={55}
+                      height={55}
+                      src={opportunities_img}
+                      alt="Opportunities"
+                    />
                   </div>
+                  <div className="activities-text">
+                    <Row>
+                      <p
+                        onClick={() => history.push("/leadMaster/all_leads")}
+                        className="ttile_name"
+                      >
+                        Company Listing
+                      </p>
+                    </Row>
+                    <div className="horizontalLine"></div>
+                  </div>
+                </div>
                 {/* </Link> */}
                 <div
-                  style={{ marginTop: "30px", width: "100%", overflow: "auto" }}
+                  style={{ marginTop: "20px", width: "100%", overflow: "hidden" }}
                 >
-                  <Column {...config} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: "20px",
-                  }}
-                >
-                  <div
-                    style={{
-                      padding: "0 15px",
-                      // borderRight: "1px solid #fff",
-                      textAlign: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <p style={{ marginBottom: 0 }}>ForToday</p>
-                    <p
-                      style={{
-                        color: "#fff",
-                        fontWeight: "bold",
-                        fontSize: "45px",
-                        marginBottom: 0,
-                      }}
-                    >
-                      {home_data?.today ? home_data.today : "00"}
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      padding: "0 15px",
-                      textAlign: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <p style={{ marginBottom: 0 }}>Open</p>
-                    <p
-                      style={{
-                        color: "#fff",
-                        fontWeight: "bold",
-                        fontSize: "45px",
-                        marginBottom: 0,
-                      }}
-                    >
-                      {home_data?.open_lead ? home_data.open_lead : "00"}
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      padding: "0 15px",
-                      textAlign: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <p style={{ marginBottom: 0 }}>Converted</p>
-                    <p
-                      style={{
-                        color: "#fff",
-                        fontWeight: "bold",
-                        fontSize: "45px",
-                        marginBottom: 0,
-                      }}
-                    >
-                      {home_data?.converted ? home_data.converted : "00"}
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      padding: "0 15px",
-                      textAlign: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <p style={{ marginBottom: 0 }}>Failed</p>
-                    <p
-                      style={{
-                        color: "#fff",
-                        fontWeight: "bold",
-                        fontSize: "45px",
-                        marginBottom: 0,
-                      }}
-                    >
-                      {home_data?.failed ? home_data.failed : "00"}
-                    </p>
+                  <div class="container-opp">
+                    <div class="column-opp">
+                      <div class="head-opp">Renewals In</div>
+                      <div class="row-opp">
+                        <span className="num-opp">16</span>
+                        <br />{" "}
+                        <span className="child1-opp-1">Next 30 Days</span>
+                      </div>
+                      <span className="hLine"></span>
+                      <div class="row-opp">
+                        <span className="num-opp">06</span>
+                        <br /> <span className="child1-opp-1">Last 30 Days</span>
+                      </div>
+                    </div>
+                    <div class="vertical-line">
+                    <div class="row-opp">
+                      <div className="vLine"></div>
+                      </div>
+                    </div>
+                    <div class="column-opp">
+                      <div class="head-opp">TAGIC Presence</div>
+                      <div class="row-opp-1">
+                        {" "}
+                        <span className="child1-opp">>10%</span>{" "}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span className="num-opp-1">04</span> <br />
+                        <div className="hLine-r1"></div>
+                      </div>
+                      <div class="row-opp-2">
+                        {" "}
+                        <span className="child1-opp">>25%</span>{" "}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span className="num-opp-1">12</span> <br />
+                        <div className="hLine-r1"></div>
+                      </div>
+                      <div class="row-opp-3">
+                        {" "}
+                        <span className="child1-opp">>40%</span>{" "}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span className="num-opp-1">16</span> <br />
+                        {/* <div className="hLine-r1"></div> */}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1139,7 +1099,10 @@ const HomePage = () => {
                           />
                         </div>
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14,marginTop:10 }}>
+                          <p
+                            className="sales-content"
+                            style={{ fontSize: 14, marginTop: 10 }}
+                          >
                             Video
                           </p>
                         </div>
@@ -1158,7 +1121,10 @@ const HomePage = () => {
                           />
                         </div>
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14 , marginTop:10 }}>
+                          <p
+                            className="sales-content"
+                            style={{ fontSize: 14, marginTop: 10 }}
+                          >
                             PDF
                           </p>
                         </div>
@@ -1167,7 +1133,7 @@ const HomePage = () => {
 
                     <div className="horizontalLine"></div>
 
-                    <div className="b1-content" style={{marginTop:20}}>
+                    <div className="b1-content" style={{ marginTop: 20 }}>
                       <div
                         // style={{ marginLeft: 15 }}
                         onClick={() => history.push("/resourcecenter")}
@@ -1179,7 +1145,10 @@ const HomePage = () => {
                           />
                         </div>
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14, marginTop:10 }}>
+                          <p
+                            className="sales-content"
+                            style={{ fontSize: 14, marginTop: 10 }}
+                          >
                             Articles
                           </p>
                         </div>
@@ -1198,13 +1167,176 @@ const HomePage = () => {
                           />
                         </div>
                         <div>
-                          <p className="sales-content" style={{ fontSize: 14, marginTop:10 }}>
+                          <p
+                            className="sales-content"
+                            style={{ fontSize: 14, marginTop: 10 }}
+                          >
                             Infographic
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </Col>
+          )}
+
+          { (
+            <Col className="home_section">
+              <div
+                className="dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#5EC0AD" }}
+              >
+                {/* <Link to="/leadMaster/all_leads"> */}
+                <div className="card-content">
+                  <div
+                    className="activity-icon"
+                    onClick={() => history.push("/leadMaster/all_leads")}
+                  >
+                    <Image
+                      preview={false}
+                      width={55}
+                      height={55}
+                      src={contact_opportunity_img}
+                      alt="Opportunities"
+                    />
+                  </div>
+                  <div className="activities-text">
+                    <Row>
+                      <p
+                        onClick={() => history.push("/leadMaster/all_leads")}
+                        className="ttile_name"
+                      >
+                        Contact Opportunities
+                      </p>
+                    </Row>
+                    <div className="horizontalLine"></div>
+                  </div>
+                </div>
+                {/* </Link> */}
+                <div
+                  style={{ marginTop: "30px", width: "100%", overflow: "hidden" }}
+                >
+                  <div class="scrollable-card">
+                  {/* <div class="main-card"> */}
+                    <div class="nested-card-container">
+                      <div class="nested-card">
+                        <div className="avatar-and-status">
+                          <Avatar
+                            style={{
+                              backgroundColor: "#d8d8d8",
+                            }}
+                            size={{ xl: 40 }}
+                          >
+                            <div className="avatar_font">TS</div>
+                          </Avatar>
+                          <div className="content-header">
+                            <p className="user-name-text capitalize">Karan Avatar</p>
+                            <span className="user-id uppercase">Ceo</span>
+                          </div>
+                        </div>
+                        <p class="card-title">
+                              <Image
+                            preview={false}
+                            width={24}
+                            height={24}
+                            src={contact_opportunity_cake}
+                            alt="Opportunities"
+                          />
+                          <div className="contact-card-date"> 12th May</div>
+                          <div className="contact-card-sendWish"> Send Wish</div>
+                          </p>
+                      </div>
+                      <div class="nested-card">
+                        <div className="avatar-and-status">
+                        <Avatar
+                            style={{
+                              backgroundColor: "#d8d8d8",
+                            }}
+                            size={{ xl: 40 }}
+                          >
+                            <div className="avatar_font">TS</div>
+                          </Avatar>
+                          <div className="content-header">
+                            <p className="user-name-text capitalize">Karan Avatar</p>
+                            <span className="user-id uppercase">Ceo</span>
+                          </div>
+                        </div>
+                        <p class="card-title">
+                              <Image
+                            preview={false}
+                            width={24}
+                            height={24}
+                            src={contact_opportunity_alarm}
+                            alt="Opportunities"
+                          />
+                          <div className="contact-card-date"> 12th May</div>
+                          <div className="contact-card-due"> Renewal Due</div>
+                          </p>
+                      </div>
+                      
+                    </div>
+                    <div class="nested-card-container">
+                      <div class="nested-card">
+                        <div className="avatar-and-status">
+                        <Avatar
+                            style={{
+                              backgroundColor: "#d8d8d8",
+                            }}
+                            size={{ xl: 40 }}
+                          >
+                            <div className="avatar_font">TS</div>
+                          </Avatar>
+                          <div className="content-header">
+                            <p className="user-name-text capitalize">Karan Avatar</p>
+                            <span className="user-id uppercase">Ceo</span>
+                          </div>
+                        </div>
+                        <p class="card-title">
+                              <Image
+                            preview={false}
+                            width={24}
+                            height={24}
+                            src={contact_opportunity_alarm}
+                            alt="Opportunities"
+                          />
+                          <div className="contact-card-date"> 12th May</div>
+                          <div className="contact-card-due"> Renewal Due</div>
+                          </p>
+                      </div>
+                      <div class="nested-card">
+                        <div className="avatar-and-status">
+                        <Avatar
+                            style={{
+                              backgroundColor: "#d8d8d8",
+                            }}
+                            size={{ xl: 40 }}
+                          >
+                            <div className="avatar_font">TS</div>
+                          </Avatar>
+                          <div className="content-header">
+                            <p className="user-name-text capitalize">Karan Avatar</p>
+                            <span className="user-id uppercase">Ceo</span>
+                          </div>
+                        </div>
+                        <p class="card-title">
+                              <Image
+                            preview={false}
+                            width={24}
+                            height={24}
+                            src={contact_opportunity_alarm}
+                            alt="Opportunities"
+                          />
+                          <div className="contact-card-date"> 12th May</div>
+                          <div className="contact-card-due"> Renewal Due</div>
+                          </p>
+                      </div>
+                      
+                    </div>
+                  {/* </div> */}
+                </div>
                 </div>
               </div>
             </Col>

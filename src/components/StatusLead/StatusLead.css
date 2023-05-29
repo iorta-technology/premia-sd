@@ -501,3 +501,104 @@ label {
     /* left: 10rem; */
   }
 }
+
+.modalStyle .ant-modal-header {
+  padding: 16px 24px;
+  color: #fff;
+  background: #3a361d;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 2px 2px 0 0;
+}
+.modalStyle .ant-modal-title {
+  margin: 0;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  word-wrap: break-word;
+}
+.modalStyle .ant-modal-close {
+  position: absolute;
+  top: -3;
+  right: 0;
+  z-index: 10;
+  padding: 0;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+@media (min-width: 991px) {
+  .txt_color{
+    color: #444444;;
+  }
+  .cancel_txt{
+    color: #3B371E;
+  }
+  .cancel_btn{
+    box-sizing: border-box;
+    width: 327px;
+    height: 43px;
+    background: #fff;
+    border: 1px solid #3B371E;
+    box-shadow: 0px 2px 4px rgba(59, 55, 30, 0.12);
+    border-radius: 4px;
+  }
+  .cancel_btn:hover{
+    background: #fff;
+    border: 1px solid #3B371E;
+  }
+  .submit_btn{
+    box-sizing: border-box;
+    width: 327px;
+    height: 43px;
+    background: #3B371E;
+    border: 1px solid #3B371E;
+    box-shadow: 0px 2px 10px rgba(59, 55, 30, 0.3);
+    border-radius: 4px;
+  }
+  .submit_btn:hover{
+    background: #3B371E;
+    border: 1px solid #3B371E;
+  }
+}
+@media (max-width: 991px) {
+  .txt_color{
+    color: #444444;;
+  }
+  .cancel_txt{
+    color: #3B371E;
+  }
+  .cancel_btn{
+    box-sizing: border-box;
+    width: 327px;
+    height: 43px;
+    background: #fff;
+    border: 1px solid #3B371E;
+    box-shadow: 0px 2px 4px rgba(59, 55, 30, 0.12);
+    border-radius: 4px;
+  }
+  .cancel_btn:hover{
+    background: #fff;
+    border: 1px solid #3B371E;
+  }
+  .submit_btn{
+    box-sizing: border-box;
+    width: 327px;
+    height: 43px;
+    background: #3B371E;
+    border: 1px solid #3B371E;
+    box-shadow: 0px 2px 10px rgba(59, 55, 30, 0.3);
+    border-radius: 4px;
+  }
+  .submit_btn:hover{
+    background: #3B371E;
+    border: 1px solid #3B371E;
+  }
+}
