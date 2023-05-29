@@ -201,9 +201,6 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        // className="header-img-tabs header-img-height tabsStyle"
-        // <div>
-        // <div className={header === "Lead" ? 'header-img-tabs header-img-height tabsStyle' :'header-img-tabs tabsStyle'}>
         <div className={"header-img-tabs tabsStyle"} style={{alignItems: header === "Lead" ? 'center' : 'none'}}>
           <div>
             <div>

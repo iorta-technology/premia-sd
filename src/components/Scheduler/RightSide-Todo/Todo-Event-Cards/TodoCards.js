@@ -86,7 +86,7 @@ const TodoCards = forwardRef((props, ref) => {
 
       // if less than 15 we have second value same as total value as no pagination will occur
       if (checkless_init) {
-        // checkinit is true means the final count is more than 15
+        // checkinit is true means the final count is more than 15F
         var traverse = skip + 5;
         // var traverse = _resp[0].length < 5 ? totolDataCount : skip + 5;
         setFval(traverse - 4);
@@ -174,7 +174,7 @@ const TodoCards = forwardRef((props, ref) => {
       setGetTodoDataArray(arrData);
       // console.warn("getTodoDataArray____DATAA", getTodoDataArray);
       setShowData(true);
-    } catch (err) {}
+    } catch (err) { }
   };
 
   let setTodoStatus = (reminderDate, reminderTime) => {
@@ -443,36 +443,40 @@ const TodoCards = forwardRef((props, ref) => {
           >
             <div className="TodoCards-TimedateArchive" sm>
               <Col className="TodoCards-TopClock">
-                <div className="todoCard-mr15">
+                {/* <div className="todoCard-mr15">
                   <img src={TodoClock} alt="alarm" />
-                </div>
+                </div> */}
                 <div>
-                  <text
+                  {/* <text
                     style={{
                       color:
                         element.status === "Soon"
                           ? element.sooncolor
                           : element.status === "Overdue"
-                          ? element.overduecolor
-                          : "#000",
+                            ? element.overduecolor
+                            : "#000",
                     }}
                   >
-                    {element.status}{!element.status ? "" :  " : "}
-                  </text>
+                    {element.status}{!element.status ? "" : " : "}
+                  </text> */}
                 </div>
-                <div style={{ marginLeft: 5 }}>
-                  <text
+                <div style={{ marginLeft: 5,color:"#444444" }}>
+                  {/* <text
                     style={{
                       color:
                         element.status === "Soon"
                           ? element.sooncolor
                           : element.status === "Overdue"
-                          ? element.overduecolor
-                          : "#000",
+                            ? element.overduecolor
+                            : "#000",
                     }}
-                  >
+                  > */}
                     {element.dateofreminder} : {element.stringtimeofreminder}
-                  </text>
+                  {/* </text> */}
+                </div>
+                <div className='priority'>
+                  <div style={{backgroundColor:element.priorityIndicatorColor}} className="priority-circle"></div>
+                  <div style={{textTransform:"capitalize",color:element.priorityIndicatorColor}}>{element.taskPriority}</div>
                 </div>
               </Col>
 
@@ -525,16 +529,6 @@ const TodoCards = forwardRef((props, ref) => {
               </div>
             </div>
           </div>
-          <div className="TodoCards-Body flex-wrap py-1">
-            <p className="w-50 value">
-              {!element.companyName ? "-" : element.companyName}
-            </p>
-            <p className="w-50 value">
-              {!element.opportunityName ? "-" : element.opportunityName}
-            </p>
-            <p className="w-50 term">Client Name</p>
-            <p className="w-50 term">Company Name</p>
-          </div>
           <div className="TodoCards-Body">
             <div
               className="TodoCard-Body-CheckBox todoCard-mr15"
@@ -554,18 +548,28 @@ const TodoCards = forwardRef((props, ref) => {
               {element.content}
             </p>
           </div>
+          <div className="TodoCards-Body flex-wrap py-1">
+            <p className="w-50 value">
+              {!element.companyName ? "-" : element.companyName}
+            </p>
+            <p className="w-50 value">
+              {!element.opportunityName ? "-" : element.opportunityName}
+            </p>
+            <p className="w-50 term">Client Name</p>
+            <p className="w-50 term">Company Name</p>
+          </div>
           <div className="Todo-Footer">
             <p style={{ textTransform: "capitalize", fontWeight: "bolder" }}>
               {element.ownername}
             </p>
-            <button
+            {/* <button
               style={{
                 textTransform: "capitalize",
                 backgroundColor: element.priorityIndicatorColor,
               }}
             >
               {element.taskPriority}
-            </button>
+            </button> */}
             {element.searchdata.length !== 0 && (
               <p
                 style={{ color: "#00acc1" }}
@@ -618,6 +622,7 @@ const TodoCards = forwardRef((props, ref) => {
                             </div>
                             <div>
                               {data.remarkData == "" ? (
+                                // value={remarkDataEnt}
                                 <Input
                                   type="text"
                                   placeholder="Enter Remark"
