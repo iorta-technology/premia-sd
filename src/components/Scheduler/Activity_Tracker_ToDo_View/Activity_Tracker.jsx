@@ -288,7 +288,7 @@ const Datescheduler = () => {
 		setCreate_event(true);
 	}
 	const callback1 = () => {
-		setRefresh(!refresh);
+		getScheduler();
 	}
 	
 
