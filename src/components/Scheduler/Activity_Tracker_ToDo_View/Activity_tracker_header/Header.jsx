@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import "./Header.css";
 import {IoIosSearch} from 'react-icons/io';
 import {AiOutlinePlus} from 'react-icons/ai';
-import EventCreateComponent from "../../../Contests/CalendarEvent";
+import EventCreateComponent from "../../CalendarEvent";
 const Header = ({callback}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [click,setClick]=useState(false);
