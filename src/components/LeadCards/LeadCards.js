@@ -41,7 +41,7 @@ const LeadCards = (props) => {
   // console.warn('userTreeData==========>>>>>>>',userTreeData)
 
   // console.warn("leadsData ==========>>>>>>>", leadsData.allLeads);
-  // console.warn('props ==========>>>>>>>',props)
+  // console.log("props lead card ==========>>>>>>>", props)
   const { user } = loginState;
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
@@ -93,10 +93,10 @@ const LeadCards = (props) => {
   };
 
   // useEffect(() => {
-    // if (secondValue) {
-    // getDataAfterFilterTeam()
-    // cardShow();
-    // }
+  // if (secondValue) {
+  // getDataAfterFilterTeam()
+  // cardShow();
+  // }
   // }, [leadsData.allLeads]);
 
   const handleFirstDropdown = (event) => {
@@ -160,7 +160,7 @@ const LeadCards = (props) => {
       setTeamSelf(false);
     }
     // console.log("good bye currentActiveTab", currentTab);
-    
+
     // setCurrentActiveTab(currentTab);
     dispatch(actions.updateTabOfDashboard(currentTab));
 
@@ -169,7 +169,7 @@ const LeadCards = (props) => {
     setFromDateFilter('');
     setFromDateString('');
     setLobOpportData('');
-    
+
     // if (currentTab === "team") getDataForOpen();
     // currentTab !== currentActiveTab &&
     // dispatch(actions.updateAllocateOfOpportunities(false));
@@ -215,11 +215,11 @@ const LeadCards = (props) => {
     // console.log('TYPEEEE---',leadsData?.globalTab)
     // let _userID = type === 'self' ? user.id : secondValue
 
-    let _isTeam = leadsData?.globalTab === 'self' ? 'no' : 'yes'
+    let _isTeam = leadsData?.globalTab === "self" ? "no" : "yes";
     // /opportunity-dump?userId=63dce7c80ae6868961079fe6&team=yes&lob_name=xysxx&start_date=01/01/2023&end_date=03/01/2023
-    if(lobOpportData === '' || fromDateFilter === '' || toDateFilter === ''){ 
+    if (lobOpportData === "" || fromDateFilter === "" || toDateFilter === "") {
       message.warning("Please Select the required fields");
-      return
+      return;
     }
     let data = await axiosRequest.get(
       `admin/opportunity-dump?userId=${user.id}&team=${_isTeam}&lob_name=${lobOpportData}&start_date=${fromDateString}&end_date=${toDateString}`
@@ -227,20 +227,18 @@ const LeadCards = (props) => {
   };
 
   const handleLobOpprtunity = (event) => {
-    // console.warn('handleLobOpprtunity((((((((((===>>>>>>>>>>', event)
-    setLobOpportData(event)
-   
+    // console.log("-------loboportunity-------", event);
+    setLobOpportData(event);
   };
 
   const onChangeFromDate = (date, dateString) => {
     // console.warn('APOOOOO__DATE___',date)
     // console.warn('APOOOOO__DATE',dateString)
-    
-    
-    const isValidDateRange = validateDateRange(dateString,toDateFilter)
+
+    const isValidDateRange = validateDateRange(dateString, toDateFilter);
     // console.log('FROMM___isValidDateRange------->>>',isValidDateRange)
-    if(!isValidDateRange) {
-      message.warning("From Date cannot be greater than To date")
+    if (!isValidDateRange) {
+      message.warning("From Date cannot be greater than To date");
       setFromDateFilter('');
       setFromDateString('');
     }else{
@@ -251,15 +249,14 @@ const LeadCards = (props) => {
   const onChangeToDate = (date, dateString) => {
     // console.warn('APOOOOO__DATE___',date)
     // console.warn('APOOOOO__DATE',dateString)
-    
-   
-    const isValidDateRange = validateDateRange(fromDateFilter,dateString)
+
+    const isValidDateRange = validateDateRange(fromDateFilter, dateString);
     // console.log('Too___isValidDateRange------->>>',isValidDateRange)
-    if(!isValidDateRange)  {
-      message.warning("To Date cannot be greater than From date")
+    if (!isValidDateRange) {
+      message.warning("To Date cannot be greater than From date");
       setToDateFilter('');
       setToDateString('');
-    }else{
+    } else {
       setToDateFilter(date);
       setToDateString(dateString);
     }
@@ -272,23 +269,23 @@ const LeadCards = (props) => {
       return false;
     }
     return true;
-  }
+  };
 
   return (
     <div className="cards-container cards_data">
       <div className="dropdown-container">
         <div className="round-card-main-Tab">
           {/* {checkAgent() === false && ( */}
-            <>
-              <div
-                className="CardBodySelf lead-ml60"
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginBottom: 25,
-                }}
-              >
-                {checkAgent() === false && (
+          <>
+            <div
+              className="CardBodySelf lead-ml60"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginBottom: 25,
+              }}
+            >
+              {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -306,9 +303,9 @@ const LeadCards = (props) => {
                   />
                   Self
                 </button>
-                )}
+              )}
 
-                {checkAgent() === false && (
+              {checkAgent() === false && (
                 <button
                   style={{
                     width: 95,
@@ -327,16 +324,11 @@ const LeadCards = (props) => {
                   />
                   Team
                 </button>
-                )}
-
-                
-                
-               
-              </div>
-            </>
+              )}
+            </div>
+          </>
           {/* )} */}
         </div>
-
 
         {leadsData?.globalTab === "team" && (
           <div
@@ -395,7 +387,7 @@ const LeadCards = (props) => {
         <div
           // className="lead-ml15"
           style={{ position: "relative", bottom: 26 }}
-          className='expt-heading'
+          className="expt-heading"
         >
           <p style={{ marginBottom: "5px" }}>LOB Opportunity Name</p>
           <Select
@@ -405,58 +397,53 @@ const LeadCards = (props) => {
             onChange={handleLobOpprtunity}
             placeholder="Select Hierarchy"
             options={lobOpportunityItems}
-            className='expt-picker'
+            className="expt-picker"
           ></Select>
         </div>
 
-
-        <div
-          className="lead-ml15"
-          style={{ position: "relative", bottom: 26 }}
-        >
+        <div className="lead-ml15" style={{ position: "relative", bottom: 26 }}>
           <p style={{ marginBottom: "5px" }}>From</p>
           <DatePicker
             onChange={onChangeFromDate}
             value={fromDateFilter}
             format="MM/DD/YYYY"
             style={{ width: 200 }}
-            className='expt-picker'
+            className="expt-picker"
           />
         </div>
 
-        <div
-          className="lead-ml15"
-          style={{ position: "relative", bottom: 26 }}
-        >
+        <div className="lead-ml15" style={{ position: "relative", bottom: 26 }}>
           <p style={{ marginBottom: "5px" }}>To</p>
           <DatePicker
             onChange={onChangeToDate}
             value={toDateFilter}
             format="MM/DD/YYYY"
             style={{ width: 200 }}
-            className='expt-picker'
+            className="expt-picker"
           />
         </div>
 
         {/* {leadsData?.globalTab !== "team" && ( */}
-        <div style={{ marginLeft: 15 }} className='expt-btn'>
-            <Button
-              onClick={() => exportReport('self')}
-              style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
-              className="d-flex justify-content-center align-items-center w-100"
-            >
-              <DownloadOutlined /> Export
-            </Button>
-          </div>
-          {/* )} */}
+        <div style={{ marginLeft: 15 }} className="expt-btn">
+          <Button
+            onClick={() => exportReport("self")}
+            style={{ backgroundColor: "#3c3d3d", color: "#fff" }}
+            className="d-flex justify-content-center align-items-center w-100"
+          >
+            <DownloadOutlined /> Export
+          </Button>
+        </div>
+        {/* )} */}
       </div>
 
-         
-
-
-      <Row justify="center" gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]} className='row-lead'>
+      <Row
+        justify="center"
+        gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}
+        className="row-lead"
+      >
         {!_.isEmpty(leadsData.allLeads) ? (
           _.map(leadsData.allLeads, (lead, index) => {
+            // console.log("---------lead-----", lead);
             return (
               <>
                 <Col sm={18} md={18} lg={11} xl={11}>
@@ -476,6 +463,10 @@ const LeadCards = (props) => {
                     loading={props.leadDataLoading}
                     owner_name={lead.userId}
                     weightage={lead.weightage}
+                    lob={lead.lob_for_opportunity}
+                    tagic_premium={lead.tagic_premium}
+                    total_premium={lead.total_premium}
+                    inception_date={lead.inception_date}
                   />
                 </Col>
               </>

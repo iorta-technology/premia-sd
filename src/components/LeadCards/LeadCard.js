@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Avatar, Switch, Row, Col,Progress } from "antd";
+import { Card, Avatar, Switch, Row, Col, Progress } from "antd";
 import { MoreOutlined, PhoneOutlined } from "@ant-design/icons";
 import "./LeadCard.css";
 import * as actions from "../../store/actions/index";
@@ -33,9 +33,13 @@ const LeadCard = React.memo((props) => {
     location,
     opportunityName,
     owner_name,
-    weightage
+    weightage,
+    lob,
+    total_premium,
+    tagic_premium,
+    inception_date,
   } = props;
-  // console.log("props", props);
+  console.log("props", props);
 
   // console.warn('PROPSSSS___________',props)
 
@@ -163,13 +167,13 @@ const LeadCard = React.memo((props) => {
               }}
               size={{ xl: 50 }}
             >
-              {nameShorter(opportunityName)}
+              {nameShorter(companyName)}
             </Avatar>
             {/* {leadComponent} */}
 
             <div className="content-header">
-              <p className="user-name-text capitalize">{opportunityName}</p>
-              <span className="user-id uppercase">{lead_Id}</span>
+              <p className="user-name-text capitalize">{companyName}</p>
+              <span className="user-id uppercase">{" "}</span>
               {/* <a href={`tel:${primaryMobile}`}></a> */}
               {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
             </div>
@@ -177,12 +181,13 @@ const LeadCard = React.memo((props) => {
 
           <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
             <div>
-              <Progress 
-                strokeColor='aquamarine' 
-                width={40} 
-                format={ (percent, successPercent) => percent}
-                type="circle" 
-                percent={weightage} />
+              <Progress
+                strokeColor="aquamarine"
+                width={40}
+                format={(percent, successPercent) => percent}
+                type="circle"
+                percent={weightage}
+              />
             </div>
             <div
               style={{
@@ -191,10 +196,10 @@ const LeadCard = React.memo((props) => {
                 borderRadius: 20,
                 display: "flex",
                 justifyContent: "center",
-                marginLeft:15
+                marginLeft: 15,
               }}
             >
-              <p style={{ marginBottom: 0, color: "#fff" }}>{companyName}</p>
+              <p style={{ marginBottom: 0, color: "#fff" }}> {location} </p>
             </div>
           </div>
         </div>
@@ -214,36 +219,38 @@ const LeadCard = React.memo((props) => {
             >
               <div className="Dateinfo-Container">
                 <div className="grid-style">
-                  <p className="text-type">Industry</p>
-                  <p className="text-content">{industryName}</p>
+                  <p className="text-content">{lob}</p>
+                  <p className="text-type">LOB</p>
                 </div>
                 <div className="grid-style AllocatedBy-Heading">
-                  <p className="text-type">KDM Name</p>
-                  <p className="text-content">{KDM_Name}</p>
-                </div>
-                <div className="grid-style Appoinment-Heading">
-                  <p className="text-type">Branch</p>
-                  <p className="text-content">{branch_Name}</p>
-                </div>
-                <div className="grid-style Appoinment-Heading">
-                  <p className="text-type">Owner Name</p>
                   <p className="text-content">
                     {owner_name?.first_name} {owner_name?.last_name}
                   </p>
+                  <p className="text-type">Owner</p>
+                </div>
+                <div className="grid-style Appoinment-Heading">
+                  <p className="text-content">{appointDate}</p>
+                  <p className="text-type">Appointment on</p>
+                </div>
+                <div className="grid-style Appoinment-Heading">
+                  {/* <p className="text-type">Owner Name</p>
+                  <p className="text-content">
+                    {owner_name?.first_name} {owner_name?.last_name}
+                  </p> */}
                 </div>
               </div>
               <div className="Dateinfo-Container">
                 <div className="grid-style">
-                  <p className="text-type">Mobile No.</p>
-                  <p className="text-content">{mobileNo}</p>
+                  <p className="text-content">{inception_date}</p>
+                  <p className="text-type">Inception Date</p>
                 </div>
                 <div className="grid-style AllocatedBy-Heading">
-                  <p className="text-type">Appointment on</p>
-                  <p className="text-content capitalize">{appointDate}</p>
+                  <p className="text-content capitalize">{total_premium}</p>
+                  <p className="text-type">Total Premium</p>
                 </div>
                 <div className="grid-style Appoinment-Heading">
-                  <p className="text-type">Location</p>
-                  <p className="text-content capitalize">{location}</p>
+                  <p className="text-content capitalize">{tagic_premium}</p>
+                  <p className="text-type">Tagic Premium</p>
                 </div>
                 <div className="grid-style Appoinment-Heading">
                   <button
@@ -274,7 +281,11 @@ const LeadCard = React.memo((props) => {
   //Card for Mobile
   if (width < breakpoint) {
     card = (
-      <Card className="lead-card-mobile" hoverable onClick={() => updateHandler(id)}>
+      <Card
+        className="lead-card-mobile"
+        hoverable
+        onClick={() => updateHandler(id)}
+      >
         {allocateBtnStatus && (
           <input
             style={{
@@ -321,6 +332,7 @@ const LeadCard = React.memo((props) => {
       </Card>
     );
   }
+
   return <div key={id}>{card}</div>;
 });
 

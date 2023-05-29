@@ -11,7 +11,7 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import "../LeadCards/LeadCard.css";
-import "./AdvisorCard.scss";
+// import "./AdvisorCard.scss";
 import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router-dom";
 

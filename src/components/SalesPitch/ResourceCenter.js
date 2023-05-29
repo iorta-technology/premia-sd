@@ -413,24 +413,7 @@ const ResourceCenter = () => {
                   </div>
                 ))}
 
-                {/* <div>
-                  <button
-                    style={{
-                      borderColor: "#C1C8CC",
-                      borderStyle: "solid",
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      padding: 3,
-                      marginLeft: 10,
-                    }}
-                    className={
-                      tagSwitch === "marketing" ? "active" : "inactive"
-                    }
-                    onClick={() => setTagSwitch("marketing")}
-                  >
-                    Marketing
-                  </button>
-                </div> */}
+               
               </Row>
               <div style={{ marginTop: 30, marginBottom: 10, color: "black" }}>
                 <p style={{ fontSize: 14, fontWeight: "bold" }}>Content Type</p>

@@ -431,7 +431,6 @@ const CreateTask = () => {
                                                                             style={{
                                                                                 fontSize: "18px",
                                                                                 marginTop: "15px",
-
                                                                             }}
                                                                         />
                                                                     </Popover>
