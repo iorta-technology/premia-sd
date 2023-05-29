@@ -233,7 +233,7 @@ const FloatButton = React.memo(() => {
             className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr}`}
             style={isopen ? open : close}
           /> */}
-        <div onClick={addNewLead} className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
+        <div onClick={() => history.push("/leadmasterpage/newleadcreation")} className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
           {/* <FileTextOutlined /> */}
           <img src={lead_icon} style={{height:25, width:25,cursor:"pointer"}}/>
         </div>

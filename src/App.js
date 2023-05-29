@@ -26,6 +26,9 @@ const AdvisorList = React.lazy(() =>
 const StatusLead = React.lazy(() =>
   import("./components/StatusLead/StatusLead")
 );
+const NewLeadCreation = React.lazy(() =>
+  import("./components/StatusLead/NewLeadCreation")
+);
 
 const LeadBulkUpload = React.lazy(() =>
   import("./components/StatusLead/LeadBulkUpload")
@@ -386,6 +389,10 @@ function App() {
                   <Route
                     path="/leadmasterpage/statuslead"
                     component={StatusLead}
+                  ></Route>
+                  <Route
+                    path="/leadmasterpage/newleadcreation"
+                    component={NewLeadCreation}
                   ></Route>
                   <Route
                     path="/leadmasterpage/leadBulkUpload"
