@@ -121,7 +121,7 @@
   
 }
 @media (min-width:621px){
-    .ant-tabs-tab{
+    .mainTabsStyle .ant-tabs-tab{
         min-width: 135px;
     }
     /* .ant-tabs-tab-btn{

@@ -245,7 +245,7 @@ button.active_tabs_button img {
   color: #6d8baa;
   background-color: #d2dde8;
 }
-.ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
+.tabsStyle .ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
   display: none;
 }
 .tabsStyle .ant-tabs-tab-btn {
