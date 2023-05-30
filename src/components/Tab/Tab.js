@@ -123,11 +123,11 @@ const Tab = ({
           return history.push("/leadMaster/pendingproposal");
         }
 
+        // case "1":
+        //   return history.push("/leadmasterpage/statuslead", {
+        //     _leadData: statusLeadData,
+        //   });
         case "1":
-          return history.push("/leadmasterpage/statuslead", {
-            _leadData: statusLeadData,
-          });
-        case "2":
           // return history.push('/company-intelligence')
           return history.push("/company-intelligence", {
             leadData: routeLeadData,
@@ -137,7 +137,7 @@ const Tab = ({
         //   return history.push('/leadmasterpage/proposal')
         // case '4':
         //   return history.push('/leadmasterpage/leadmasterdoc/leaddoc')
-        case "3":
+        case "2":
           return history.push("/leadmasterpage/leadhistory");
 
         case "calendar":
@@ -201,9 +201,6 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        // className="header-img-tabs header-img-height tabsStyle"
-        // <div>
-        // <div className={header === "Lead" ? 'header-img-tabs header-img-height tabsStyle' :'header-img-tabs tabsStyle'}>
         <div className={"header-img-tabs tabsStyle"} style={{alignItems: header === "Lead" ? 'center' : 'none'}}>
           <div>
             <div>
@@ -235,7 +232,7 @@ const Tab = ({
               tabFilter={leadTabFilter}
             />
           }
-          {(header !== "Lead" && header !== "Notification" ) &&
+          {/* {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&
             storeFormData &&
             storeFormData._id && (
@@ -279,7 +276,7 @@ const Tab = ({
                   Add new Opportunity
                 </Button>
               </div>
-            )}
+            )} */}
           {/* header === "Lead" */}
           {/* <div >
             {tabPane.key === activeKey ? (

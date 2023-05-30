@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Radio, Tabs, Form, Input , Select, Button  } from 'antd';
+import { Row, Col, Radio, Tabs, Form, Input , Select, Button , Modal  } from 'antd';
 import '../StatusLead/StatusLead.css'
 import * as actions from "../../store/actions/index";
 import _ from "lodash";
@@ -147,90 +147,101 @@ const Expectation = (props) => {
 
 return (
     <>
-        <Col
-            className="form-body ci-p20 mb-2"
-            xs={24}
-            sm={24}
-            md={16}
-            lg={15}
-            xl={20}
-            span={23}
-            >
-            <p className="form-title">Expectation</p>
-            <Form form={form} >
-                <Row gutter={16} className="mb-2 statsLead kdmStyle">
+        <Modal
+            title="Expectation"
+            centered={true}
+            visible={props.showExpectationModal}
+            width={700}
+            className="modalStyle"
+            onCancel={() => props.setShowExpectationModal(false) }
+            footer={null}
+        >
+            <Col
+                className="mb-2"
+                xs={24}
+                sm={24}
+                md={16}
+                lg={15}
+                xl={24}
+                span={23}
+                >
+                {/* <p className="form-title">Expectation</p> */}
+                <Form form={form} >
+                    <Row gutter={16} className="mb-2 statsLead kdmStyle">
 
-                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                        <Form.Item
-                            {...formItemLayout}
-                            className="form-item-name label-color"
-                            name="kdmClientExpectation"
-                            label="Client Expectation"
-                            // rules={[
-                            //     // { required: true, message: "First Name is required",},
-                            //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                            // ]}
-                            style={{ marginBottom: "1rem" }}
-                        >
-                            <Input
-                                placeholder="Enter Client Expectation"
-                                value={clientExpectationData}
-                                // defaultValue={kdmName}
-                                onChange={(item) => onChangeClientExpect(item)}
-                            />
-                        </Form.Item>
-                    </Col>
+                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Form.Item
+                                {...formItemLayout}
+                                className="form-item-name label-color"
+                                name="kdmClientExpectation"
+                                label="Client Expectation"
+                                // rules={[
+                                //     // { required: true, message: "First Name is required",},
+                                //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                                // ]}
+                                style={{ marginBottom: "1rem" }}
+                            >
+                                <Input
+                                    placeholder="Enter Client Expectation"
+                                    value={clientExpectationData}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeClientExpect(item)}
+                                />
+                            </Form.Item>
+                        </Col>
 
-                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                        <Form.Item
-                            {...formItemLayout}
-                            className="form-item-name label-color"
-                            name="kdmRedFlag"
-                            label="Red Flags"
-                            // rules={[
-                            //     // { required: true, message: "First Name is required",},
-                            //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                            // ]}
-                            style={{ marginBottom: "1rem" }}
-                        >
-                            <Input
-                                placeholder="Enter Red Flags"
-                                value={redFlagData}
-                                // defaultValue={kdmName}
-                                onChange={(item) => onChangeRedFlag(item)}
-                            />
-                        </Form.Item>
-                    </Col>
+                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Form.Item
+                                {...formItemLayout}
+                                className="form-item-name label-color"
+                                name="kdmRedFlag"
+                                label="Red Flags"
+                                // rules={[
+                                //     // { required: true, message: "First Name is required",},
+                                //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                                // ]}
+                                style={{ marginBottom: "1rem" }}
+                            >
+                                <Input
+                                    placeholder="Enter Red Flags"
+                                    value={redFlagData}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeRedFlag(item)}
+                                />
+                            </Form.Item>
+                        </Col>
 
-                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                        <Form.Item
-                            {...formItemLayout}
-                            className="form-item-name label-color"
-                            name="kdmOurAsk"
-                            label="Our Ask"
-                            // rules={[
-                            //     // { required: true, message: "First Name is required",},
-                            //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                            // ]}
-                            style={{ marginBottom: "1rem" }}
-                        >
-                            <Input
-                                placeholder="Enter Our Ask"
-                                value={ourAskData}
-                                // defaultValue={kdmName}
-                                onChange={(item) => onChangeOurAsk(item)}
-                            />
-                        </Form.Item>
-                    </Col>
+                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Form.Item
+                                {...formItemLayout}
+                                className="form-item-name label-color"
+                                name="kdmOurAsk"
+                                label="Our Ask"
+                                // rules={[
+                                //     // { required: true, message: "First Name is required",},
+                                //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                                // ]}
+                                style={{ marginBottom: "1rem" }}
+                            >
+                                <Input
+                                    placeholder="Enter Our Ask"
+                                    value={ourAskData}
+                                    // defaultValue={kdmName}
+                                    onChange={(item) => onChangeOurAsk(item)}
+                                />
+                            </Form.Item>
+                        </Col>
 
 
-                    
-                </Row>
-            </Form>
-            <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
-                <Button onClick={()=> updateExpectation()} style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
-            </div>
-        </Col>
+                        
+                    </Row>
+                </Form>
+                <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
+                    <Button size='large' onClick={()=> props.setShowExpectationModal(false)} style={{flex:1,borderRadius:5,border:'1px solid #3B371E',color:'#3B371E'}} >Cancel</Button>
+                    <Button size='large' onClick={()=> updateExpectation()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
+                </div>
+            </Col>
+        </Modal>
     </>
 )
 }

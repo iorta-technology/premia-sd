@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Radio, Tabs, Form, Input , Select, Button  } from 'antd';
+import { Row, Col, Radio, Tabs, Form, Input , Select, Button , Modal  } from 'antd';
 import '../StatusLead/StatusLead.css'
 import * as actions from "../../store/actions/index";
 import _ from "lodash";
@@ -164,105 +164,117 @@ const ProducerAndVas = (props) => {
         console.warn('formBody ------>>>>>',formBody)
         dispatch(actions.fetchLeadUpdateBody(formBody))
         dispatch(actions.editLead(formBody, props.leadDetails))
+        props.setShowVasModal(false)
     }
 
 return (
     <>
-        <Col
-            className="form-body ci-p20 mb-2"
-            xs={24}
-            sm={24}
-            md={16}
-            lg={15}
-            xl={20}
-            span={23}
-            >
-            <p className="form-title">Producer and VAS</p>
-            <Form form={form} >
-                <Row gutter={16} className="mb-2 statsLead kdmStyle">
-                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                        <Form.Item
-                            {...formItemLayout}
-                            className="form-item-name label-color"
-                            name="kdmChannel"
-                            label="Channel"
-                            style={{ marginBottom: "1rem" }}
-                        >
-                            <Select
-                                bordered={true}
-                                placeholder="Select Channel"
-                                options={channelDataArr}
-                                value={channelData}
-                                // defaultValue={citiesOptions}
-                                onChange={(item) => onChangeChannel(item)}
-                            ></Select>
-                        </Form.Item>
-                    </Col>
-
-                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                        <Form.Item
-                            {...formItemLayout}
-                            className="form-item-name label-color"
-                            name="kdmProducer"
-                            label="Producer"
-                            rules={[
-                                // { required: true, message: "First Name is required",},
-                                { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                            ]}
-                            style={{ marginBottom: "1rem" }}
-                        >
-                            <Input
-                                placeholder="Enter Producer"
-                                value={producerData}
-                                // defaultValue={kdmName}
-                                onChange={(item) => onChangeProducer(item)}
-                            />
-                        </Form.Item>
-                    </Col>
-
-                    <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                        <Form.Item
-                            {...formItemLayout}
-                            className="form-item-name label-color"
-                            label="VAS Executed"
-                            style={{ marginBottom: "1rem" }}
-                        >
-                            <Radio.Group name="radiogroup" onChange={onChangeVasExec  } value={vasExecuted}>
-                                <Radio value={'Yes'}>Yes</Radio>
-                                <Radio value={'No'}>No</Radio>
-                            </Radio.Group>
-                        </Form.Item>
-                    </Col>
-                    
-                    { showVasInput &&
+        <Modal
+            title="Producer and VAS"
+            centered={true}
+            visible={props.showVasModal}
+            width={700}
+            className="modalStyle"
+            onCancel={() => props.setShowVasModal(false) }
+            footer={null}
+        >
+            <Col
+                className="mb-2"
+                xs={24}
+                sm={24}
+                md={16}
+                lg={15}
+                xl={24}
+                span={23}
+                >
+                {/* <p className="form-title">Producer and VAS</p> */}
+                <Form form={form} >
+                    <Row gutter={16} className="mb-2 statsLead kdmStyle">
                         <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                             <Form.Item
                                 {...formItemLayout}
                                 className="form-item-name label-color"
-                                name="vasInput"
-                                label="VAS"
-                                // rules={[
-                                //     // { required: true, message: "First Name is required",},
-                                //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
-                                // ]}
+                                name="kdmChannel"
+                                label="Channel"
+                                style={{ marginBottom: "1rem" }}
+                            >
+                                <Select
+                                    bordered={true}
+                                    placeholder="Select Channel"
+                                    options={channelDataArr}
+                                    value={channelData}
+                                    // defaultValue={citiesOptions}
+                                    onChange={(item) => onChangeChannel(item)}
+                                ></Select>
+                            </Form.Item>
+                        </Col>
+
+                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Form.Item
+                                {...formItemLayout}
+                                className="form-item-name label-color"
+                                name="kdmProducer"
+                                label="Producer"
+                                rules={[
+                                    // { required: true, message: "First Name is required",},
+                                    { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                                ]}
                                 style={{ marginBottom: "1rem" }}
                             >
                                 <Input
-                                    placeholder="Enter VAS"
-                                    value={vasInputData}
+                                    placeholder="Enter Producer"
+                                    value={producerData}
                                     // defaultValue={kdmName}
-                                    onChange={(item) => onChangeVasInput(item)}
+                                    onChange={(item) => onChangeProducer(item)}
                                 />
                             </Form.Item>
                         </Col>
-                    }
-                    
-                </Row>
-            </Form>
-            <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
-                <Button onClick={()=> updateProdVas()} style={{borderRadius:5,backgroundColor:'#3b371e',color:'#fff'}} >Save and Update</Button>
-            </div>
-        </Col>
+
+                        <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                            <Form.Item
+                                {...formItemLayout}
+                                className="form-item-name label-color"
+                                label="VAS Executed"
+                                style={{ marginBottom: "1rem" }}
+                            >
+                                <Radio.Group name="radiogroup" onChange={onChangeVasExec  } value={vasExecuted}>
+                                    <Radio value={'Yes'}>Yes</Radio>
+                                    <Radio value={'No'}>No</Radio>
+                                </Radio.Group>
+                            </Form.Item>
+                        </Col>
+                        
+                        { showVasInput &&
+                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                <Form.Item
+                                    {...formItemLayout}
+                                    className="form-item-name label-color"
+                                    name="vasInput"
+                                    label="VAS"
+                                    // rules={[
+                                    //     // { required: true, message: "First Name is required",},
+                                    //     { message: "Only Alphabets are Allowed",pattern: new RegExp(/^[a-zA-Z ]+$/),},
+                                    // ]}
+                                    style={{ marginBottom: "1rem" }}
+                                >
+                                    <Input
+                                        placeholder="Enter VAS"
+                                        value={vasInputData}
+                                        // defaultValue={kdmName}
+                                        onChange={(item) => onChangeVasInput(item)}
+                                    />
+                                </Form.Item>
+                            </Col>
+                        }
+                        
+                    </Row>
+                </Form>
+                <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
+                    <Button size='large' onClick={()=> props.setShowVasModal(false)} style={{flex:1,borderRadius:5,border:'1px solid #3B371E',color:'#3B371E'}} >Cancel</Button>
+                    <Button size='large' onClick={()=> updateProdVas()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
+                </div>
+            </Col>
+        </Modal>
     </>
 )
 }

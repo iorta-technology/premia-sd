@@ -1,0 +1,198 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+}
+.left-div{
+    width: 85%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+.right-div{
+    width: 20%;
+    margin-left: 20px;
+    display: none;
+}
+
+.right-div-btn{
+    position:absolute;
+    top:12px;
+    right:40px;
+    z-index: 10;
+}
+.right-div-button{
+    border: none;
+    background: white;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 4px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.right-div-button .text{
+    margin-left: 3px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.main-box{
+    margin-top: 64px;
+    height: 900px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    overflow: scroll;
+    overflow-x: hidden;
+
+}
+.main-box-heading{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.main-box-cards{
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.box-card{
+    width: 100%;
+    padding:15px;
+    border-radius: 5px;
+    background: darkmagenta;
+    color: white;
+}
+.box-card-head{
+    width: 100%;
+    display: flex;
+    margin-bottom: 8px;
+    justify-content: space-between;
+    margin-top: 10px;
+
+}
+.first-part{
+    margin-left: 5px;
+   
+}
+.second-part{
+    margin-right: 5px;
+}
+.avatars{
+    margin-right: 3px;
+    width: 25px;
+    background: violet;
+    color: white;
+    border-radius: 4px;
+    padding: 3px;
+    cursor: pointer;
+}
+.first-part-p{
+
+    justify-content: flex-end;
+}
+.second-part-p{
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.left{
+    display: flex;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftside {
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.rightside {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.purpose{
+    margin-top: 10px;
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+} 
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.left-div {
+    box-sizing: border-box;
+    position: absolute;
+    width: 983px;
+    height: 671px;
+ 
+
+    background: #FFFFFF;
+    border: 1px solid #EFEFEF;
+
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+} */
+
+/* .ActivityCalender-container-TodoCard {
+    border-radius: 2px;
+    height: 100%;
+    width: 96%;
+    margin-bottom: 10px;
+    position: absolute;
+    height: 788px;
+    left: 1065px;
+    border: 1px solid #EFEFEF;
+
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+
+
+}
+/* .main-div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.left-div{
+width: 60%;
+height: 671px;
+
+}
+.right-div{
+    
+  
+}
+.ActivityCalender-container-TodoCard{
+    width: 80%;
+    margin-left: 20px;
+} */

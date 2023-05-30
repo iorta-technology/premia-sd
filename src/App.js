@@ -6,13 +6,10 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-// import { Applications } from './components/Applications/Applications';
-// import { ProposalTabs } from './components/Applications/Proposals';
 import BenefitIllustrator from "./components/BenefitIllustrator/BenefitIllustrator";
 import ProposalFulfilment from "./components/ProposalFulfilment/ProposalFulfilment";
-// import { LeadReport } from './components/LeadReport/LpeadReport';
-// import { LeadReport2 } from './components/LeadReport/LeadReport2';
-
+import DateScheduler from "./components/Scheduler/Activity_Tracker_ToDo_View/Activity_Tracker";
+// import DateScheduler from "./components/Scheduler/DateScheduler_List_View/DateScheduler";
 import { Spin } from "antd";
 import Multichannel from "./components/Multichannel";
 import DefaultChannel from "./components/DefaultChannel/DefaultChannel";
@@ -208,21 +205,15 @@ const CompIntelligence = React.lazy(() =>
   import("./components/CompanyIntelligence/CompIntelligence")
 );
 
-function App() {
-  // const logindata = stoageGetter('user')
-  // if(!logindata){
-  //   console.log(true)
+//importing Our Scheduler
 
-  //   return (
-  //     <Router>
-  //       <Switch>
-  //         <Route exact path="/">
-  //                 <Redirect to="/himanshu" />
-  //         </Route>
-  //       </Switch>
-  //     </Router>
-  //   )
-  // }
+// const scheduler=React.lazy(()=>{
+//   import("./components/Scheduler/Scheduler")
+// });
+
+
+
+function App() {
   return (
     <React.Suspense
       fallback={
@@ -238,6 +229,9 @@ function App() {
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>
+            {/* creating a route of scheduler */}
+            {/* <Route path="/datescheduler" component={DateScheduler}></Route> */}
+
             <Route path="/login" component={Login}></Route>
             <Route path="/forgotpassword" component={ForgotPassword}></Route>
             <Route path="/changepassword" component={ChangePassword}></Route>
@@ -278,12 +272,11 @@ function App() {
                     path="/rewardscorner/contests/activecontestdetails"
                     component={ActiveContestDetails}
                   />
-                  <Route path="/calendar" component={Calendar1} />
+                  <Route path="/calendar" component={DateScheduler} />
                   <Route path="/todo" component={TodoMobile} />
 
                   <Route path="/kpi-dashboard" component={KpiDashboard} />
                   <Route path="/daily-bussienss" component={DailyBussiness} />
-
                   <Route path="/notifypage" component={NotifyPage} />
 
                   <Route
@@ -448,17 +441,16 @@ function App() {
                     path="/PropsalFulfilment"
                     component={ProposalFulfilment}
                   ></Route>
-                  {/* <Route path="/leads-report" component={LeadReport}></Route> */}
-                  {/* <Route path="/leads-report2" component={LeadReport2}></Route> */}
-                  {/* <Route path="/Applications" component={Applications}></Route> */}
-                  {/* <Route path="/BenefitIllustrator" component={BenefitIllustrator}></Route> */}
+
+                  {/* creating a route of scheduler */}
+
                 </div>
               </div>
-              {/* <Route path="/existingpartner" component={ExistingPartner}/> */}
-              {/* <Route path="/mappedbranches" component={MappedBranches}></Route> */}
               <Route path="/products" component={LoanProducts} />
               <Route path="/bulkaction" component={BulkAction} />
+              
             </div>
+            
           </Switch>
         </div>
       </Router>

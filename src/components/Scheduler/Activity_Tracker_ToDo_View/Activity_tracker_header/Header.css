@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main_div{
+    margin-top: 60px;
+    width: 100%;
+    height: 94px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+}
+.left_div{
+    font-size: 24px;
+    color: #444444;
+    margin-left: 60px;
+    font-weight: 500;
+}
+.input-field{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.right_div{
+    display: flex;
+    flex-direction: row;
+    margin-right: 60px;
+}
+.form-control{
+width: 387px;
+background: #FFFFFF;
+border: 1px solid #FFFFFF;
+box-shadow: 0px 0px 6px rgba(68, 68, 68, 0.28);
+border-radius: 4px;
+}
+.search-icon{
+    position: absolute;
+    right: 260px;
+}
+.button{
+    width: 165px;
+    height: 34px;
+    display: flex;
+    flex-direction: row;
+    background: #00ACC1;
+    color: white;
+    align-items: center;
+    padding: 4px;
+    box-shadow: 0px 0px 6px rgba(68, 68, 68, 0.28);
+    border-radius: 4px;
+   margin-left: 15px;
+   cursor: pointer;
+
+}
+.plus-icon{
+    margin-left: 12px;
+    margin-right: 5px;
+}
+.btn-content{
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 4px;
+}

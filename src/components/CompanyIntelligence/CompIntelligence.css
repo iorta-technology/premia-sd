@@ -1,14 +1,14 @@
-.kdmStyle .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+/* .kdmStyle .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #565656;
   text-shadow: 0 0 0.25px currentcolor;
 }
 
 .kdmStyle .ant-tabs-large > .ant-tabs-nav .ant-tabs-tab {
   font-size: 14px;
-}
+} */
 
-.kdmStyle .ant-tabs-tab-active {
-  background-color: #e0e9f3;
+.remarkTab .ant-tabs-tab-active {
+  background-color: #fff;
 }
 
 .kdmStyle .ant-form-item-label > label {
@@ -26,13 +26,25 @@
   height: 18px;
   width: 18px;
 }
-.kdmStyle
+.kdmTabs{
+  padding: 2px 15px 2px 15px;
+  border-radius: 20px;
+  /* background-color: #3a361d; */
+  background-color: #fff;
+  margin-right: 10px;
+  box-shadow: 0px 4px 6px rgba(68, 68, 68, 0.08);
+}
+
+.kdmTabsActive{
+  background-color: #3a361d;
+}
+/* .kdmStyle
   .ant-tabs-left
   > .ant-tabs-content-holder
   > .ant-tabs-content
   > .ant-tabs-tabpane {
   padding-left: 15px;
-}
+} */
 
 .risk-add {
   /* padding: 40px; */
@@ -47,6 +59,69 @@
   flex-direction: column;
   cursor: pointer;
   margin-bottom: 20px;
+}
+
+/* .kdm-tabs {
+  margin-top: 0px;
+  padding-top: 0px;
+  text-align: center;
+  justify-content: center;
+}
+.kdm-tabs .ant-tabs-nav-list {
+  height: 34px;
+} */
+
+.remarkTab .ant-tabs-tab {
+  min-width: 170px;
+  justify-content: center;
+}
+
+.remarkTab .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #00ACC1;
+  text-shadow: 0 0 0.25px currentcolor;
+}
+
+.remarkTab .ant-tabs-ink-bar {
+  position: absolute;
+  background: #00ACC1;
+  pointer-events: none;
+}
+
+.compIntContainer{
+  margin: 2rem 4rem 3rem 4rem;
+}
+
+.app-card-head{
+  background-color:#ffff;
+  flex:1;
+  /* padding:10px; */
+  border-top-right-radius:5px;
+  border-top-left-radius:5px;
+  box-shadow: 0px 2.86081px 17.1648px rgba(16, 36, 43, 0.1)
+}
+
+.compIntStyle .ant-card-body {
+  padding: 0px;
+}
+.app-font{
+  font-size: 16px;
+  font-weight: 500;
+  color: #5C596E;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.text-font{
+  font-size: 14px;
+  font-weight: 500;
+  color: #5C596E;
+  margin-bottom: 0px;
+}
+.label-font{
+  font-size: 12px;
+  font-weight: 400;
+  color: #adb5bd;
+  margin-bottom: 0px;
 }
 
 .risk-card-det {
@@ -143,9 +218,9 @@
   border-radius: 6px;
 }
 
-.ant-tabs-nav-operations {
+/* .ant-tabs-nav-operations {
   width: initial !important;
-}
+} */
 
 /* .modalStyle .ant-modal {
     box-sizing: border-box;

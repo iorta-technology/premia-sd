@@ -29,16 +29,7 @@ const useWidowsSize = () => {
   return size;
 };
 
-const DataField = ({
-  SelfMonthYear,
-  history,
-  TeamData,
-  TeamHere,
-  getFunc,
-  getdata,
-  SelfHere,
-  Dataupdate,
-}) => {
+const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,SelfHere,Dataupdate,}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editData, setEditData] = useState({});
   //   const [isModalVisible, setIsModalVisible] = useState(
@@ -51,6 +42,7 @@ const DataField = ({
   const breakpoint = 620;
   const showModal = (e) => {
     setIsModalVisible(true);
+    console.log(e);
     setEditData(e);
     // setIsModalVisible({
     //   check:true,
@@ -196,17 +188,11 @@ const DataField = ({
     const currentYear = new Date().getFullYear();
     const monthYear = currentMonth + "/" + currentYear;
     const MonthCompare = monthYear === SelfMonthYear;
-    // console.log(typeof(SelfMonthYear),'monthyearrr------<<>><>M<M<');
-    // console.log(TeamData, 'team yr---<><mvc><</mvc>');
-    // console.log(history,'history------>');
-
+ 
     if (SelfHere == "self") {
       var dS = SelfMonthYear.split("/");
       var d1 = new Date(dS[1], +dS[0]);
       var today = new Date();
-      // console.log(d1,'d1----->')
-      // console.log(SelfMonthYear.split("/"),'split of minth')
-      // console.log(('0' + dS[0]).slice(-2));
       let finalMonthYear = ("0" + dS[0]).slice(-2) + "/" + dS[1];
       if (d1 >= today) {
         let result = await axiosRequest.get(
@@ -292,17 +278,10 @@ const DataField = ({
       {/* {console.log(DataContainer, 'final upcoming')} */}
       {windowWidth > breakpoint && DataContainer?.length > 0 ? (
         DataContainer?.map((element, index) => {
+          // console.log(element);
           return (
             <div className="dataField-Card" key={index}>
-              {/* {
-            ((1 + new Date(element.start_time_MS).getDate()) >= (1 + new Date().getDate())) 
-            && element== DataContainer?.filter((element,index,arr)=>((new Date(element?.start_time_MS).getDate()+1) >=(1 + new Date().getDate()) 
-            && (1+ new Date(element?.start_time_MS).getMonth()) >= (1+new Date().getMonth())))[0]
-            ?
-              <div className='head-cad-text'>
-                <p>UPCOMING</p>
-              </div>:""
-            } */}
+            
               <div className="dataContainer">
                 <div className="bodyData">
                   <div className="bodyData-Date">
@@ -385,7 +364,6 @@ const DataField = ({
                     >
                       
                       {
-                        // element?.teamMember_clone.includes(user_id) ? 'Invited' : element.statusType == "open" ? "Open" : "Close"
                         element?.teamMember_clone.includes(user_id) ?
                           element.statusType == "close" ? "Close" : "Invited" :
                           element.statusType == "open" ? "Open" : "Close"
@@ -400,11 +378,7 @@ const DataField = ({
                   {element.statusReason != "" ? (
                     <Typography>
                       <img src={commentIcon} className="footerPng" />
-                      {/* {
-                                element.remarkHistory.map((element)=>{
-                                  return element.remark;
-                                })
-                              } */}
+                      
                       {element.statusReason}
                     </Typography>
                   ) : (
@@ -543,11 +517,6 @@ const DataField = ({
                   {element.statusReason != "" ? (
                     <Typography>
                       <img src={commentIcon} className="footerPng" />
-                      {/* {
-                                element.remarkHistory.map((element)=>{
-                                  return element.remark;
-                                })
-                              } */}
                       {element.statusReason}
                     </Typography>
                   ) : (

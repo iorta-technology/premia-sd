@@ -618,7 +618,6 @@ const TodoCards = forwardRef((props, ref) => {
                             </div>
                             <div>
                               {data.remarkData == "" ? (
-                                // value={remarkDataEnt}
                                 <Input
                                   type="text"
                                   placeholder="Enter Remark"
