@@ -19,6 +19,7 @@ import { message } from "antd";
 import lead_icon from '../../assets/Agreement_white_24dp.png'
 import event_icon from '../../assets/Questinairee_white_24dp.png'
 import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png'
+import NewLead from '../StatusLead/NewLeadCreation'
 
 // const logindata = stoageGetter('user')
 // let id = ''
@@ -191,6 +192,12 @@ const FloatButton = React.memo(() => {
     // setIsModalVisible(true);
     showActivityTracker ? history.push("/calendar") : message.info('This feature is currently not accessible')
   };
+
+  const onclick_float = () => {
+    return (
+      <NewLead></NewLead>
+    )
+  }
   return (
     <>
       <PlusCircleFilled className={styles.icon} onClick={floatButtonHandler} />
@@ -217,7 +224,7 @@ const FloatButton = React.memo(() => {
       {/* </Link> */}
   
       <>
-        <p
+        <p onClick={onclick_float}
           className={`${styles.paragraph} ${styles.leadpg} ${styles.pgpfr}`}
           style={isopen ? open : close}
         >
@@ -233,7 +240,7 @@ const FloatButton = React.memo(() => {
             className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr}`}
             style={isopen ? open : close}
           /> */}
-        <div onClick={() => history.push("/leadmasterpage/newleadcreation")} className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
+        <div  className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
           {/* <FileTextOutlined /> */}
           <img src={lead_icon} style={{height:25, width:25,cursor:"pointer"}}/>
         </div>

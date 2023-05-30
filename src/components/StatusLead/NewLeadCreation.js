@@ -70,10 +70,18 @@ const NewLead = React.memo((props) => {
   const [teamDataArr, setTeamDataArr] = useState([]);
   const id = useSelector((state) => state.login.user.id);
   const login_user = useSelector((state) => state.login.user);
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showRiskDetailsPopup, setShowRiskDetailsPopup] = useState(true);
   const history = useHistory();
   const childRef = useRef(null);
+
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const _StoreData = useSelector((state) => state?.newLead?.formData);
+  const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
+  const user_id = useSelector((state) => state.login.user.id);
+  console.log("(((((((((_StoreData____RISKKKK)))))))))---->>>>", _StoreData);
 
   const addCollaborators = () => {
     if (teamMemberData && teamMemberData != "") {
@@ -176,8 +184,6 @@ const NewLead = React.memo((props) => {
     remarks: [],
   });
 
-  const dispatch = useDispatch();
-  const [form] = Form.useForm();
 
   useEffect(() => {
     // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)

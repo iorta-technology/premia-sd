@@ -567,7 +567,7 @@ label {
     background: #3B371E;
     border: 1px solid #3B371E;
   }
-}
+} 
 @media (max-width: 991px) {
   .txt_color{
     color: #444444;;
