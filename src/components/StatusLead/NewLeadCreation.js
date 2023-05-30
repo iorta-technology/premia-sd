@@ -380,7 +380,7 @@ const NewLead = React.memo((props) => {
                     <Button
                       type="primary"
                       className="cancel_btn"
-                      onClick={() => props.set(false)}
+                      onClick={() => props.setShowVasModal(false)}
                       size="large"
                     >
                       <p className="cancel_txt">Cancel</p>
