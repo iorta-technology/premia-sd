@@ -367,9 +367,8 @@ const Datescheduler = () => {
 				</div>
 				{/* <div className="right-div"> */}
 				{windowWidth > breakpoint && (
-					<Col xl={7} md={8} className="ActivityCalender-container-TodoCard" style={{ marginLeft: "24px",marginRight:"62px",
-					borderRadius:"4px",boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.06)" }}>
-						<Card >
+					<Col xl={7} md={8} className="ActivityCalender-container-TodoCard" style={{ marginLeft: "24px",marginRight:"62px"}}>
+						<Card style={{borderRadius:"4px",boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.06)"}}>
 							<Todo />
 						</Card>
 					</Col>
