@@ -266,7 +266,7 @@ const Datescheduler = () => {
 			<div className="buttons">
 				<RadioGroup
 					aria-label="Views"
-					style={{ flexDirection: 'row' }}
+					style={{ flexDirection: 'row',color:"black" }}
 					name="views"
 					value={currentViewName}
 					onChange={onChange}

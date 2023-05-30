@@ -33,12 +33,12 @@ const Todo = () => {
           To-Do List
         </Title>
         <div className="Todo-CreateBtn">
-          <Title
+          {/* <Title
             level={5}
             style={{ color: "#545454", fontWeight: 500, marginRight: 5 }}
           >
             Add to do
-          </Title>
+          </Title> */}
           <PlusCircleFilled style={{marginTop:5}} onClick={showModal} />
           <TodoTab
             getTodoData={getTodo}
