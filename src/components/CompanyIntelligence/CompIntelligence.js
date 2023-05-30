@@ -26,7 +26,8 @@ import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
 import { FormOutlined , PlusCircleOutlined ,UploadOutlined,CalendarOutlined , DeleteOutlined } from "@ant-design/icons";
 import TodoTab from "../Activitity Tracker/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
-import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
+// import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
+import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import noDataIcon from "../../assets/078e54aa9d@2x.png";
 import {
   timeList,
@@ -507,7 +508,7 @@ const CompanyIntelligence = React.memo((props) => {
                   <TabPane tab="Collaborators" key="2" >
                     <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
                       <p className="text-font" style={{color:'#444444'}}>Collaborators</p>
-                      <PlusCircleOutlined onClick={() => setShowOpportunityModal(true)} style={{fontSize:18}} />
+                      <PlusCircleOutlined onClick={() => setShowCollabortrModal(true)} style={{fontSize:18}} />
                     </Row>
                   </TabPane>
               </Tabs>
@@ -541,7 +542,7 @@ const CompanyIntelligence = React.memo((props) => {
 
                 <Row style={{marginTop:10}}>
                   <Col style={{flex:1}}>
-                    <p className="text-font">{checkValidity(opportunityDetails.appointmentDate)}</p>
+                    <p className="text-font">{checkValidity(moment(opportunityDetails.appointmentDate).format("MM/DD/YYYY") )}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
@@ -805,11 +806,10 @@ const CompanyIntelligence = React.memo((props) => {
                 onChange={remarkCollabChange}
               >
                   <TabPane tab="Events" key="1" >
-                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
+                    {/* <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
                       <p className="text-font" style={{color:'#444444'}}>Create Event</p>
                       <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
-                    </Row>
-
+                    </Row> */}
                     <>
                       {activities_data &&
                       !_.isEmpty(activities_data) &&
@@ -818,8 +818,8 @@ const CompanyIntelligence = React.memo((props) => {
                           {activities_data?.map((item) => {
                             return (
                               <Col style={eventCardStyle}>
-                                <Row style={{flex:1}}>
-                                  <CalendarOutlined style={{color:'#fff',marginTop:3,marginRight:5,fontSize:15}} />
+                                <Row style={{flex:1,alignItems:'baseline'}}>
+                                  <CalendarOutlined style={{color:'#fff',marginRight:5,fontSize:15}} />
                                   <p className="text-font" style={{color:'#fff',textTransform:'capitalize'}}>{item.stakeholder_name}</p>
                                 </Row>
                                 <Row>
