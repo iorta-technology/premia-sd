@@ -749,7 +749,7 @@ const TodoTab = (props) => {
               </div>
               </div>
               <div className="date-picker" >
-                <div className="due-remi">Set a Due Reminder</div>
+                <div className="due-remi" >Set a Due Reminder</div>
                 <div style={{display:"flex",flexDirection:"row"}}>
                   <DatePicker
                     inputReadOnly={true}
@@ -757,12 +757,12 @@ const TodoTab = (props) => {
                     onChange={onChangeDatePick}
                     // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                     className="todo-ml11"
-                    style={{ marginBottom: "10px", flex: 1,width:"50%",marginLeft:"6px",height:"100%"}}
+                    style={{ marginBottom: "10px", flex: 1,width:"50%",marginLeft:"12px",height:"100%"}}
                   />
                   <Select
                     value={selectedTime}
                     className="todo-mb20 todo-ml10"
-                    style={{ flex: 1,width:"50%" ,marginLeft:"10px",height:"100%"}}
+                    style={{ flex: 1,width:"50%" ,marginLeft:"12px",height:"100%"}}
                     onChange={(time) => handleTimeChange(time)}
                   >
                     {timeListText.map((e, index) => (
