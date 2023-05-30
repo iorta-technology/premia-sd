@@ -29,6 +29,7 @@ import NewLead from '../StatusLead/NewLeadCreation'
 // }
 
 const FloatButton = React.memo(() => {
+  const [showVasModal, setShowVasModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const [isopen, setisopen] = useState(false);
@@ -195,12 +196,14 @@ const FloatButton = React.memo(() => {
   };
 
   const onclick_float = () => {
-    return (
-      <NewLead></NewLead>
-    )
-  }
+    setShowVasModal(true)
+    console.log("----clicked---")
+    
+  };
+  
   return (
     <>
+      <NewLead showVasModal={showVasModal} setShowVasModal={setShowVasModal} />
       <PlusCircleFilled className={styles.icon} onClick={floatButtonHandler} />
       <p
         className={`${styles.paragraph}  ${styles.eventpg} ${styles.pgpfr}`}
@@ -208,16 +211,7 @@ const FloatButton = React.memo(() => {
       >
         Create an Event
       </p>
-      {/* <Link to="/calendar"> */}
-        {/* <Button
-          type="primary"
-          shape="circle"
-          size="large"
-          icon={<CalendarOutlined />}
-          className={`${styles.floatBtn} ${styles.eventicon} ${styles.iconpfr}`}
-          style={isopen ? open : close}
-          onClick={openCalendarPage}
-        /> */}
+      
         <div onClick={openCalendarPage} className={`${styles.floatBtn} ${styles.eventicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
           {/* <CalendarOutlined /> */}
           <img src={event_icon} style={{height:25, width:25,cursor:"pointer"}}/>
