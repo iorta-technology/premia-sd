@@ -181,7 +181,8 @@ const FloatButton = React.memo(() => {
       dispatch(actions.fetchLeadDetailsSuccess({}))
       
       // dispatch(actions.storeLead(leadUpdateFormdata));
-      history.push("/leadmasterpage/statuslead");
+      // history.push("/leadmasterpage/statuslead");
+      history.push("/company-intelligence");
     }else{
       message.info('This feature is currently not accessible');
     }

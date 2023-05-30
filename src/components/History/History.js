@@ -28,12 +28,12 @@ const tabStyle = {
 
 let historyRoute = "/leadmasterpage/leadhistorymaster/leadhistory";
 const tabMenu = [
+  // {
+  //   id: 1,
+  //   value: "Opportunity Details",
+  // },
   {
     id: 1,
-    value: "Opportunity Details",
-  },
-  {
-    id: 2,
     value: "Company Intelligence",
   },
   // {
@@ -45,7 +45,7 @@ const tabMenu = [
   //   value: "Documents Upload"
   // },
   {
-    id: 3,
+    id: 2,
     value: "History",
   },
 ];
@@ -166,7 +166,7 @@ const History = () => {
       <TabsComp
         tabMenu={tabMenu}
         header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
-        activeKey="3"
+        activeKey="2"
         statusLeadData={storeFormData}
       />
 

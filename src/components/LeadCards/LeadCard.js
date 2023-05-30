@@ -103,7 +103,8 @@ const LeadCard = React.memo((props) => {
     // console.log('_data___LEADDDD',_data)
     // console.log('history-----------',history)
     // LeadData._id === id && history.push("/leadmasterpage/statuslead");
-    history.push("/leadmasterpage/statuslead", { leadID: id });
+    // history.push("/leadmasterpage/statuslead", { leadID: id });
+    history.push("/company-intelligence", { leadID: id });
   };
   let statusColors = {
     closed: "#D04949",
