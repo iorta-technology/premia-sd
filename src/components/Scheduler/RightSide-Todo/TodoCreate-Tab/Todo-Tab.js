@@ -749,7 +749,7 @@ const TodoTab = (props) => {
               </div>
               </div>
               <div className="date-picker" >
-                <div className="due-remi">Set a Due Reminder</div>
+                <div className="due-remi" >Set a Due Reminder</div>
                 <div style={{display:"flex",flexDirection:"row"}}>
                   <DatePicker
                     inputReadOnly={true}
