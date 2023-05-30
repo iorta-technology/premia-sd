@@ -730,7 +730,7 @@ const TodoTab = (props) => {
             </Row>
             <div className="due-reminder" >
               <div className="Todo-Create-Header" >
-                <p style={{ marginBottom: "10px"}}> Add Team Member </p>
+                <p style={{ marginBottom: "5px"}}> Add Team Member </p>
               <div className="Todo-Create-SearchBox todoSearch">
                 <AutoComplete
                   value={teamMemberData}
@@ -749,7 +749,7 @@ const TodoTab = (props) => {
               </div>
               </div>
               <div className="date-picker" >
-                <p style={{paddingLeft:"4px"}}>Set a Due Reminder</p>
+                <div className="due-remi">Set a Due Reminder</div>
                 <div style={{display:"flex",flexDirection:"row"}}>
                   <DatePicker
                     inputReadOnly={true}
@@ -757,12 +757,12 @@ const TodoTab = (props) => {
                     onChange={onChangeDatePick}
                     // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                     className="todo-ml11"
-                    style={{ marginBottom: "10px", flex: 1,width:"50%",marginLeft:"6px"}}
+                    style={{ marginBottom: "10px", flex: 1,width:"50%",marginLeft:"6px",height:"100%"}}
                   />
                   <Select
                     value={selectedTime}
                     className="todo-mb20 todo-ml10"
-                    style={{ flex: 1,width:"50%" ,marginLeft:"10px"}}
+                    style={{ flex: 1,width:"50%" ,marginLeft:"10px",height:"100%"}}
                     onChange={(time) => handleTimeChange(time)}
                   >
                     {timeListText.map((e, index) => (
@@ -804,13 +804,13 @@ const TodoTab = (props) => {
                 })}
               </div>
             )}
-            <div className="Todo-Create-TextBox">
-            <p style={{marginLeft:"4px"}}>Enter To-Do</p>
+            <div className="Todo-Create-TextBox" style={{marginBottom:"10px"}}>
+            <div style={{marginBottom:"5px"}}>Enter To-Do</div>
               <input
                 value={todoDesc}
                 onChange={(e) => setTodoDesc(e.target.value)}
                 type="text"
-                placeholder="Type.."
+                placeholder="Enter To-Do ..."
                 style={{height:"88px",border: "1px solid #D8D8D8",borderRadius: "4px"}}
               />
             </div>
@@ -822,7 +822,7 @@ const TodoTab = (props) => {
               }}
             /> */}
             <div className="Todo-Create-Priority">
-              <p style={{ marginBottom: 0,marginTop:"20px" }}>Add Priority</p>
+              <p style={{ marginBottom: "5px" }}>Add Priority</p>
               <Button
                 style={{ backgroundColor: "#ff5252", color: "#fff" }}
                 onClick={() => {
@@ -924,7 +924,7 @@ const TodoTab = (props) => {
                   className="Todo-Create-FooterReminder-Button todo-mb20"
                   style={{ cursor: "pointer",width:"360px",background: "#3B371E",color:"white"}}
                 >
-                  <text>Update</text>
+                  <text>Save</text>
                 </div>
               </div>
             </div>

@@ -12,6 +12,7 @@
 
 .main-div .left-div {
     width: 70%;
+    margin-left: 62px;
 }
 
 .header {
@@ -85,6 +86,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 24px;
+    background: #fff;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #EFEFEF;
+
 }
 
 .event-heading {
@@ -143,6 +149,12 @@ justify-content: center; */
     border-radius: 8px;
     margin: 16px;
     cursor: pointer;
+}
+.css-vnscjq-MuiButtonBase-root-MuiButton-root.OpenButton-textButton {
+    color: black;
+}
+.css-71a9mb-MuiButtonBase-root-MuiIconButton-root.NavigationButton-button {
+    color: black;
 }
 
 .parent {

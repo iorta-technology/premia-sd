@@ -97,7 +97,7 @@ const Datescheduler = () => {
 				{...restProps}
 				style={{
 					...style,
-					backgroundColor: '#FFC107',
+					backgroundColor: '#00ACC1',
 					borderRadius: '8px',
 					display: "flex",
 					alignItems: "center",
@@ -298,14 +298,6 @@ const Datescheduler = () => {
 			<div className="main-div">
 
 				<div className="left-div">
-					{/* <div className="parent">
-					<div className="event-heading">Events Calender </div>
-					<div className="buttons">
-						<div className="navi-btn1" onClick={() => {}}>Today</div>
-						<div className="navi-btn2" onClick={() => { }}>Week</div>
-						<div className="navi-btn3" onClick={() => { }} >Month</div>
-					</div>
-				</div> */}
 					<ExternalViewSwitcher
 						currentViewName={currentViewName}
 						onChange={currentViewNameChange}
@@ -375,7 +367,7 @@ const Datescheduler = () => {
 				</div>
 				{/* <div className="right-div"> */}
 				{windowWidth > breakpoint && (
-					<Col xl={7} md={8} className="ActivityCalender-container-TodoCard" style={{ marginLeft: "20px" }}>
+					<Col xl={7} md={8} className="ActivityCalender-container-TodoCard" style={{ marginLeft: "24px",marginRight:"62px" }}>
 						<Card>
 							<Todo />
 						</Card>
