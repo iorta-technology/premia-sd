@@ -30,7 +30,8 @@ import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
 import { FormOutlined, PlusCircleOutlined, UploadOutlined, CalendarOutlined, DeleteOutlined } from "@ant-design/icons";
 import TodoTab from "../Activitity Tracker/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
-import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
+// import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
+import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import noDataIcon from "../../assets/078e54aa9d@2x.png";
 import {
   timeList,
@@ -526,18 +527,18 @@ const CompanyIntelligence = React.memo((props) => {
                 centered
                 onChange={remarkCollabChange}
               >
-                <TabPane tab="Remarks" key="1" >
-                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
-                    <p className="text-font" style={{ color: '#444444' }}>Remarks</p>
-                    <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{ fontSize: 18 }} />
-                  </Row>
-                </TabPane>
-                <TabPane tab="Collaborators" key="2" >
-                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
-                    <p className="text-font" style={{ color: '#444444' }}>Collaborators</p>
-                    <PlusCircleOutlined onClick={() => setShowOpportunityModal(true)} style={{ fontSize: 18 }} />
-                  </Row>
-                </TabPane>
+                  <TabPane tab="Remarks" key="1" >
+                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
+                      <p className="text-font" style={{color:'#444444'}}>Remarks</p>
+                      <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
+                    </Row>
+                  </TabPane>
+                  <TabPane tab="Collaborators" key="2" >
+                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
+                      <p className="text-font" style={{color:'#444444'}}>Collaborators</p>
+                      <PlusCircleOutlined onClick={() => setShowCollabortrModal(true)} style={{fontSize:18}} />
+                    </Row>
+                  </TabPane>
               </Tabs>
 
             </Card>
@@ -567,9 +568,9 @@ const CompanyIntelligence = React.memo((props) => {
                   </Col>
                 </Row>
 
-                <Row style={{ marginTop: 10 }}>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(opportunityDetails.appointmentDate)}</p>
+                <Row style={{marginTop:10}}>
+                  <Col style={{flex:1}}>
+                    <p className="text-font">{checkValidity(moment(opportunityDetails.appointmentDate).format("MM/DD/YYYY") )}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
@@ -817,7 +818,7 @@ const CompanyIntelligence = React.memo((props) => {
                     <p className="label-font">Branch</p>
                   </Col>
                 </Row>
-              </Col>
+              </Col>``````
             </Card>
 
 
@@ -832,29 +833,28 @@ const CompanyIntelligence = React.memo((props) => {
                 centered
                 onChange={remarkCollabChange}
               >
-                <TabPane tab="Events" key="1" >
-                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
-                    <p className="text-font" style={{ color: '#444444' }}>Create Event</p>
-                    <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{ fontSize: 18 }} />
-                  </Row>
-
-                  <>
-                    {activities_data &&
+                  <TabPane tab="Events" key="1" >
+                    {/* <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
+                      <p className="text-font" style={{color:'#444444'}}>Create Event</p>
+                      <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
+                    </Row> */}
+                    <>
+                      {activities_data &&
                       !_.isEmpty(activities_data) &&
                       activities_data !== "No appointment " ? (
-                      <div className="lead-activity-block" style={{ margin: '0px 10px 0px 10px' }}>
-                        {activities_data?.map((item) => {
-                          return (
-                            <Col style={eventCardStyle}>
-                              <Row style={{ flex: 1 }}>
-                                <CalendarOutlined style={{ color: '#fff', marginTop: 3, marginRight: 5, fontSize: 15 }} />
-                                <p className="text-font" style={{ color: '#fff', textTransform: 'capitalize' }}>{item.stakeholder_name}</p>
-                              </Row>
-                              <Row>
-                                <Col style={{ flex: 1, marginTop: 5 }}>
-                                  <p className="label-font" style={{ color: '#fff' }}>Date</p>
-                                  <p className="text-font" style={{ color: '#fff' }}>{moment(item.start_date).format("D MMM YYYY")}</p>
-                                </Col>
+                        <div className="lead-activity-block" style={{margin:'0px 10px 0px 10px'}}>
+                          {activities_data?.map((item) => {
+                            return (
+                              <Col style={eventCardStyle}>
+                                <Row style={{flex:1,alignItems:'baseline'}}>
+                                  <CalendarOutlined style={{color:'#fff',marginRight:5,fontSize:15}} />
+                                  <p className="text-font" style={{color:'#fff',textTransform:'capitalize'}}>{item.stakeholder_name}</p>
+                                </Row>
+                                <Row>
+                                  <Col style={{flex:1,marginTop:5}}>
+                                    <p className="label-font" style={{color:'#fff'}}>Date</p>
+                                    <p className="text-font" style={{color:'#fff'}}>{moment(item.start_date).format("D MMM YYYY")}</p>
+                                  </Col>
 
                                 <Col style={{ flex: 1, marginTop: 5 }}>
                                   <p className="label-font" style={{ color: '#fff' }}>Time</p>
@@ -925,7 +925,6 @@ const CompanyIntelligence = React.memo((props) => {
                           <div className="eye" onClick={() => { handleShow(index) }}><img src={eye} /></div>
                           <div className="trash" onClick={() => delDoc(index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
                         </div>
-
                       </div>
                     ))
                   }</div>
@@ -933,8 +932,6 @@ const CompanyIntelligence = React.memo((props) => {
                 </Row>
               </Col>
             </Card>
-
-
           </Col>
         </Row>
 
