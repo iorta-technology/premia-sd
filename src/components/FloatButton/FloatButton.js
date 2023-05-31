@@ -19,6 +19,7 @@ import { message } from "antd";
 import lead_icon from '../../assets/Agreement_white_24dp.png'
 import event_icon from '../../assets/Questinairee_white_24dp.png'
 import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png'
+import NewLead from '../StatusLead/NewLeadCreation'
 
 // const logindata = stoageGetter('user')
 // let id = ''
@@ -28,6 +29,7 @@ import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png'
 // }
 
 const FloatButton = React.memo(() => {
+  const [showVasModal, setShowVasModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const [isopen, setisopen] = useState(false);
@@ -192,8 +194,16 @@ const FloatButton = React.memo(() => {
     // setIsModalVisible(true);
     showActivityTracker ? history.push("/calendar") : message.info('This feature is currently not accessible')
   };
+
+  const onclick_float = () => {
+    setShowVasModal(true)
+    console.log("----clicked---")
+    
+  };
+  
   return (
     <>
+      <NewLead showVasModal={showVasModal} setShowVasModal={setShowVasModal} />
       <PlusCircleFilled className={styles.icon} onClick={floatButtonHandler} />
       <p
         className={`${styles.paragraph}  ${styles.eventpg} ${styles.pgpfr}`}
@@ -201,16 +211,7 @@ const FloatButton = React.memo(() => {
       >
         Create an Event
       </p>
-      {/* <Link to="/calendar"> */}
-        {/* <Button
-          type="primary"
-          shape="circle"
-          size="large"
-          icon={<CalendarOutlined />}
-          className={`${styles.floatBtn} ${styles.eventicon} ${styles.iconpfr}`}
-          style={isopen ? open : close}
-          onClick={openCalendarPage}
-        /> */}
+      
         <div onClick={openCalendarPage} className={`${styles.floatBtn} ${styles.eventicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
           {/* <CalendarOutlined /> */}
           <img src={event_icon} style={{height:25, width:25,cursor:"pointer"}}/>
@@ -218,7 +219,7 @@ const FloatButton = React.memo(() => {
       {/* </Link> */}
   
       <>
-        <p
+        <p onClick={onclick_float}
           className={`${styles.paragraph} ${styles.leadpg} ${styles.pgpfr}`}
           style={isopen ? open : close}
         >
@@ -234,7 +235,7 @@ const FloatButton = React.memo(() => {
             className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr}`}
             style={isopen ? open : close}
           /> */}
-        <div onClick={() => history.push("/leadmasterpage/newleadcreation")} className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
+        <div  className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
           {/* <FileTextOutlined /> */}
           <img src={lead_icon} style={{height:25, width:25,cursor:"pointer"}}/>
         </div>

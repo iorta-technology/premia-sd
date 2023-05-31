@@ -19,6 +19,7 @@ import * as actions from "../../store/actions/index";
 import _ from "lodash";
 import { dataFormatting } from "../../helpers";
 import axiosRequest from "../../axios-request/request.methods";
+// import CompanyIntelligence from "./CompIntelligence";
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -28,6 +29,7 @@ import {
 import rootIndex from "../../store/root_index";
 import apiConfig from "../../config/api.config";
 import moment from "moment";
+import { Callbacks } from "jquery";
 
 const { store } = rootIndex;
 const { baseURL, auth, secure, NODE_ENV } = apiConfig;
@@ -137,8 +139,10 @@ const DocUpload = (props) => {
     if(!_isDup){
       axios.post(`${baseURL}secure/admin/v2/uploadFile`,formData,axiosConfig).then((res) => {
           newArr.push({ ...res.data.errMsg, recent: true });
-          setFileData(newArr);
-          document.getElementById("upload-photo").value = "";
+          // console.log(newArr,"this is the new upload");
+          // setFileData(newArr);
+          props.callback(newArr);
+         // document.getElementById("upload-photo").value = "";
         })
         .catch((err) => {
           throw err;
@@ -317,9 +321,9 @@ const DocUpload = (props) => {
               </Form.Item>
             </Col>
           </Row>
-          {fileData && fileData.length > 0 && 
-            <div className="upload_list shadow-sm">
-              {fileData && fileData.length > 0 && (
+          {/* {fileData && fileData.length > 0 &&  */}
+            {/* // <div className="upload_list shadow-sm"> */}
+              {/* {fileData && fileData.length > 0 && (
                 <div className="row px-3 py-2 head">
                   <div className="col-2">Image</div>
                   <div className="col-6" style={{display:'flex',flex:1}} >
@@ -329,8 +333,10 @@ const DocUpload = (props) => {
                 </div>
               )}
               <div style={{height:1,backgroundColor:'#d8d8d8'}}></div>
-              {/* {console.log(fileData, "uploaded data----->")} */}
-              {fileData?.map((item, index) => (
+              {fileData?.map((item, index) => 
+              
+              (
+              
                 <div className="row px-3 py-2">
                   <div className="col-2">
                     <div
@@ -352,8 +358,8 @@ const DocUpload = (props) => {
                     />
                   </div>
                 </div>
-              ))}
-            </div>
+              ))} */
+            // </div>
           }
         
           <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>

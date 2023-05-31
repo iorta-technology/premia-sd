@@ -1,0 +1,32 @@
+.data-field{
+    display: flex;
+    height: 56px;
+    border-bottom: 1px solid #EFEFEF;
+border-radius: 0px 0px 4px 4px;
+}
+.page{
+    width: 8px;
+    height: 10px;
+    margin-right: 10px;
+}
+.eye{
+    width: 14px;
+    height: 6px;
+    margin-right: 20px;
+    cursor: pointer;
+
+}
+.trash{
+width: 24px;
+height: 24px;
+cursor: pointer;
+}
+
+.wrapper1{
+    display: flex;
+    flex-direction: row;
+}
+.wrapper2{
+    display: flex;
+    flex-direction: row;
+}
