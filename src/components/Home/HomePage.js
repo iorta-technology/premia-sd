@@ -51,10 +51,18 @@ import checkboxoutline from "../../assets/checkboxoutline.png";
 import truecheckbox from "../../assets/CalenderIcons/truecheckbox.png";
 import product_icon from "../../assets/resorceico/Producticon.png";
 import resource_icon from "../../assets/resorceico/resourcecenter.png";
-import newLeadCreation from '../StatusLead/NewLeadCreation'
+import newLeadCreation from "../StatusLead/NewLeadCreation";
 
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
+
+let CompanyListingResponse;
+let renewal_Last_30;
+let count10;
+let count25;
+let count40;
+let kdm_name;
+let birthdate;
 
 const HomePage = () => {
   const [activitydata, setActivityData] = useState();
@@ -241,8 +249,56 @@ const HomePage = () => {
     dispatch(actions.home(userId, "today"));
     getTodoData(0);
     getOpportunities();
+    getContactOpportunity();
+    getCompanyListing();
+    
   }, []);
 
+  let getCompanyListing = async () => {
+    try {
+      let res = await axiosRequest.get(`user/getrenewal/${id}`, {
+        secure: true,
+      });
+      if (res) {
+        const rrenewal_next_30 = res[0]["Renewals Next 30 days"];
+        const rrenewal_last_30 = res[0]["Renewals Last 30 days"];
+        const ccount10 = res[0]["count10%"];
+        const ccount25 = res[0]["count25%"];
+        const ccount40 = res[0]["count40%"];
+        CompanyListingResponse = rrenewal_next_30;
+        renewal_Last_30 = rrenewal_last_30;
+        count10 = ccount10;
+        count25 = ccount25;
+        count40 = ccount40;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(
+    "---company listing ==--",
+    CompanyListingResponse,
+    renewal_Last_30,
+    count10,
+    count25,
+    count40
+  );
+
+  let getContactOpportunity = async () => {
+    const count_10 = "count10%";
+    try {
+      let res = await axiosRequest.get(`user/company/birthday`, {
+        secure: true,
+      });
+      if (res) {
+        kdm_name = res[0]["kdm_name"];
+        birthdate = res[0]["birthdate"];
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   const home_data = useSelector((state) => state.home.home_obj);
   let activities_data = useSelector((state) => state.activities.activities_obj);
 
@@ -815,48 +871,49 @@ const HomePage = () => {
                 </div>
                 {/* </Link> */}
                 <div
-                  style={{ marginTop: "20px", width: "100%", overflow: "hidden" }}
+                  style={{
+                    marginTop: "20px",
+                    width: "100%",
+                    overflow: "hidden",
+                  }}
                 >
                   <div class="container-opp">
                     <div class="column-opp">
                       <div class="head-opp">Renewals In</div>
                       <div class="row-opp">
-                        <span className="num-opp">16</span>
-                        <br />{" "}
-                        <span className="child1-opp-1">Next 30 Days</span>
+                        <div className="num-opp">{CompanyListingResponse}</div>
+
+                        <div className="child1-opp-1">Next 30 Days</div>
                       </div>
                       <span className="hLine"></span>
                       <div class="row-opp">
-                        <span className="num-opp">06</span>
-                        <br /> <span className="child1-opp-1">Last 30 Days</span>
+                        <div className="num-opp">{renewal_Last_30}</div>
+
+                        <div className="child1-opp-1">Last 30 Days</div>
                       </div>
                     </div>
                     <div class="vertical-line">
-                    <div class="row-opp">
-                      <div className="vLine"></div>
+                      <div class="row-opp">
+                        <div className="vLine"></div>
                       </div>
                     </div>
                     <div class="column-opp">
                       <div class="head-opp">TAGIC Presence</div>
                       <div class="row-opp-1">
-                        {" "}
-                        <span className="child1-opp">>10%</span>{" "}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span className="num-opp-1">04</span> <br />
-                        <div className="hLine-r1"></div>
+                        <span className="child1-opp">>10%</span>
+
+                        <span className="num-opp-1">{count10}</span>
                       </div>
+                      {/* <div className="hLine-r1"></div> */}
                       <div class="row-opp-2">
-                        {" "}
-                        <span className="child1-opp">>25%</span>{" "}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span className="num-opp-1">12</span> <br />
-                        <div className="hLine-r1"></div>
+                        <span className="child1-opp">>25%</span>
+                        <span className="num-opp-1">{count25}</span> <br />
+                        {/* <div className="hLine-r1"></div> */}
                       </div>
                       <div class="row-opp-3">
-                        {" "}
-                        <span className="child1-opp">>40%</span>{" "}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span className="num-opp-1">16</span> <br />
+                        <span className="child1-opp">>40%</span>
+
+                        <span className="num-opp-1">{count40}</span>
                         {/* <div className="hLine-r1"></div> */}
                       </div>
                     </div>
@@ -1182,7 +1239,7 @@ const HomePage = () => {
             </Col>
           )}
 
-          { (
+          {
             <Col className="home_section">
               <div
                 className="dataCard"
@@ -1217,10 +1274,77 @@ const HomePage = () => {
                 </div>
                 {/* </Link> */}
                 <div
-                  style={{ marginTop: "30px", width: "100%", overflow: "hidden" }}
+                  style={{
+                    marginTop: "30px",
+                    width: "100%",
+                    overflow: "hidden",
+                  }}
                 >
                   <div class="scrollable-card">
-                  {/* <div class="main-card"> */}
+                    {/* <div class="main-card"> */}
+                    <div class="nested-card-container">
+                      <div class="nested-card">
+                        <div className="avatar-and-status">
+                          <Avatar
+                            style={{
+                              backgroundColor: "#d8d8d8",
+                            }}
+                            size={{ xl: 40 }}
+                          >
+                            <div className="avatar_font">{kdm_name}</div>
+                          </Avatar>
+                          <div className="content-header">
+                            <p className="user-name-text capitalize">
+                              {kdm_name}
+                            </p>
+                            <span className="user-id uppercase">Ceo</span>
+                          </div>
+                        </div>
+                        <p class="card-title">
+                          <Image
+                            preview={false}
+                            width={24}
+                            height={24}
+                            src={contact_opportunity_cake}
+                            alt="Opportunities"
+                          />
+                          <div className="contact-card-date"> {birthdate}</div>
+                          <div className="contact-card-sendWish">
+                            {" "}
+                            Send Wish
+                          </div>
+                        </p>
+                      </div>
+                      <div class="nested-card">
+                        <div className="avatar-and-status">
+                          <Avatar
+                            style={{
+                              backgroundColor: "#d8d8d8",
+                            }}
+                            size={{ xl: 40 }}
+                          >
+                            <div className="avatar_font">TS</div>
+                          </Avatar>
+                          <div className="content-header">
+                            <p className="user-name-text capitalize">
+                              Karan Avatar
+                            </p>
+                            <span className="user-id uppercase">Ceo</span>
+                          </div>
+                        </div>
+                        <p class="card-title">
+                          <Image
+                            preview={false}
+                            width={24}
+                            height={24}
+                            src={contact_opportunity_alarm}
+                            alt="Opportunities"
+                          />
+                          <div className="contact-card-date"> 12th May</div>
+                          <div className="contact-card-due"> Renewal Due</div>
+                        </p>
+                      </div>
+                    </div>
                     <div class="nested-card-container">
                       <div class="nested-card">
                         <div className="avatar-and-status">
@@ -1233,39 +1357,14 @@ const HomePage = () => {
                             <div className="avatar_font">TS</div>
                           </Avatar>
                           <div className="content-header">
-                            <p className="user-name-text capitalize">Karan Avatar</p>
+                            <p className="user-name-text capitalize">
+                              Karan Avatar
+                            </p>
                             <span className="user-id uppercase">Ceo</span>
                           </div>
                         </div>
                         <p class="card-title">
-                              <Image
-                            preview={false}
-                            width={24}
-                            height={24}
-                            src={contact_opportunity_cake}
-                            alt="Opportunities"
-                          />
-                          <div className="contact-card-date"> 12th May</div>
-                          <div className="contact-card-sendWish"> Send Wish</div>
-                          </p>
-                      </div>
-                      <div class="nested-card">
-                        <div className="avatar-and-status">
-                        <Avatar
-                            style={{
-                              backgroundColor: "#d8d8d8",
-                            }}
-                            size={{ xl: 40 }}
-                          >
-                            <div className="avatar_font">TS</div>
-                          </Avatar>
-                          <div className="content-header">
-                            <p className="user-name-text capitalize">Karan Avatar</p>
-                            <span className="user-id uppercase">Ceo</span>
-                          </div>
-                        </div>
-                        <p class="card-title">
-                              <Image
+                          <Image
                             preview={false}
                             width={24}
                             height={24}
@@ -1274,73 +1373,44 @@ const HomePage = () => {
                           />
                           <div className="contact-card-date"> 12th May</div>
                           <div className="contact-card-due"> Renewal Due</div>
-                          </p>
+                        </p>
                       </div>
-                      
+                      <div class="nested-card">
+                        <div className="avatar-and-status">
+                          <Avatar
+                            style={{
+                              backgroundColor: "#d8d8d8",
+                            }}
+                            size={{ xl: 40 }}
+                          >
+                            <div className="avatar_font">TS</div>
+                          </Avatar>
+                          <div className="content-header">
+                            <p className="user-name-text capitalize">
+                              Karan Avatar
+                            </p>
+                            <span className="user-id uppercase">Ceo</span>
+                          </div>
+                        </div>
+                        <p class="card-title">
+                          <Image
+                            preview={false}
+                            width={24}
+                            height={24}
+                            src={contact_opportunity_alarm}
+                            alt="Opportunities"
+                          />
+                          <div className="contact-card-date"> 12th May</div>
+                          <div className="contact-card-due"> Renewal Due</div>
+                        </p>
+                      </div>
                     </div>
-                    <div class="nested-card-container">
-                      <div class="nested-card">
-                        <div className="avatar-and-status">
-                        <Avatar
-                            style={{
-                              backgroundColor: "#d8d8d8",
-                            }}
-                            size={{ xl: 40 }}
-                          >
-                            <div className="avatar_font">TS</div>
-                          </Avatar>
-                          <div className="content-header">
-                            <p className="user-name-text capitalize">Karan Avatar</p>
-                            <span className="user-id uppercase">Ceo</span>
-                          </div>
-                        </div>
-                        <p class="card-title">
-                              <Image
-                            preview={false}
-                            width={24}
-                            height={24}
-                            src={contact_opportunity_alarm}
-                            alt="Opportunities"
-                          />
-                          <div className="contact-card-date"> 12th May</div>
-                          <div className="contact-card-due"> Renewal Due</div>
-                          </p>
-                      </div>
-                      <div class="nested-card">
-                        <div className="avatar-and-status">
-                        <Avatar
-                            style={{
-                              backgroundColor: "#d8d8d8",
-                            }}
-                            size={{ xl: 40 }}
-                          >
-                            <div className="avatar_font">TS</div>
-                          </Avatar>
-                          <div className="content-header">
-                            <p className="user-name-text capitalize">Karan Avatar</p>
-                            <span className="user-id uppercase">Ceo</span>
-                          </div>
-                        </div>
-                        <p class="card-title">
-                              <Image
-                            preview={false}
-                            width={24}
-                            height={24}
-                            src={contact_opportunity_alarm}
-                            alt="Opportunities"
-                          />
-                          <div className="contact-card-date"> 12th May</div>
-                          <div className="contact-card-due"> Renewal Due</div>
-                          </p>
-                      </div>
-                      
-                    </div>
-                  {/* </div> */}
-                </div>
+                    {/* </div> */}
+                  </div>
                 </div>
               </div>
             </Col>
-          )}
+          }
 
           <Col className="dummy-home-card"></Col>
           <Col className="dummy-home-card"></Col>
