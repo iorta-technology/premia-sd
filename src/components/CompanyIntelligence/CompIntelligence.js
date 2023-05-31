@@ -1,5 +1,8 @@
-import React, { useState, useEffect, createRef ,useRef } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import "../../components/StatusLead/StatusLead.css";
+import page from "./icons/page.svg"
+import eye from "./icons/Eye.svg";
+import Trash from "./icons/Trash.svg";
 import "./CompIntelligence.css";
 import {
   Row,
@@ -16,6 +19,7 @@ import {
   Tooltip
 } from "antd";
 
+
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import TabsComp from "../../components/Tab/Tab";
@@ -24,7 +28,7 @@ import _ from "lodash";
 import { checkAgent, milToDateString } from "../../helpers";
 import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
-import { FormOutlined , PlusCircleOutlined ,UploadOutlined,CalendarOutlined , DeleteOutlined } from "@ant-design/icons";
+import { FormOutlined, PlusCircleOutlined, UploadOutlined, CalendarOutlined, DeleteOutlined } from "@ant-design/icons";
 import TodoTab from "../Activitity Tracker/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
 import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import noDataIcon from "../../assets/078e54aa9d@2x.png";
@@ -40,7 +44,10 @@ import DocUpload from "./DocumentUpload";
 import RemarkComp from "./RemarksModal";
 import CollaboratorComp from "./CollaboratorModal";
 import OpportunityStatus from "./OpportunityStatusModal";
+// import { Document, Page } from 'react-pdf';
+// import { pdfjs } from 'react-pdf';
 
+// import PDFViewer from "pdf-viewer-reactjs";
 
 
 const minimumDate = moment().format("YYYY-MM-DD");
@@ -104,7 +111,28 @@ const CompanyIntelligence = React.memo((props) => {
   const [kdmDataSet, setKdmDataSet] = useState({});
   const [riskDataSet, setriskDataSet] = useState({});
   const [activities_data, setActivities_data] = useState([]);
-
+  const [fileData, setFileData] = useState([]);
+  const [showFile, setShowFile] = useState(false);
+  const [fileIndex, setFileIndex] = useState(0);
+  const [fileUrl, setFileUrl] = useState('');
+  const [open, setOpen] = useState(false);
+  const callback = (data) => {
+    console.log(data, "this is the pdf data");
+    setFileData( data);
+  }
+  useEffect(() => {
+    console.log(fileData)
+  }, [fileData]);
+  const delDoc = (i) => {
+    let newArr = [...fileData];
+    newArr.splice(i, 1);
+    setFileData([...newArr]);
+  };
+  const handleShow = (index) => {
+    setFileUrl(fileData[index].location || fileData[index].url);
+    setShowFile(!showFile);
+    console.log(fileData[index].location || fileData[index].url, "this is the file location");
+  }
   const [active, setActive] = useState(null)
   const breakpoint = 620;
 
@@ -112,93 +140,93 @@ const CompanyIntelligence = React.memo((props) => {
     marginBottom: 10,
     background: '#f7f7f7',
     borderRadius: 5,
-    // border: '1px solid #ccc',
   };
+
 
   const eventCardStyle = {
     marginBottom: 10,
     background: '#cea0e1',
     borderRadius: 5,
-    padding:10,
+    padding: 10,
     // border: '1px solid #ccc',
   };
 
   const riskDataArr = [
     {
-      riskName:'Tata Chemical',
-      inceptionDate:'14th March,23',
-      tagicPresence:'10',
-      leaderShare:'10',
-      entityName:'Tata Chemical',
-      productName:'Metal',
-      totalPremium:'80000',
-      tagicPremium:'80000',
-      leadFollower:'0',
-      leadInsurer:'Lead',
-      key:'1',
+      riskName: 'Tata Chemical',
+      inceptionDate: '14th March,23',
+      tagicPresence: '10',
+      leaderShare: '10',
+      entityName: 'Tata Chemical',
+      productName: 'Metal',
+      totalPremium: '80000',
+      tagicPremium: '80000',
+      leadFollower: '0',
+      leadInsurer: 'Lead',
+      key: '1',
     },
     {
-      riskName:'Tata Motors',
-      inceptionDate:'14th March,23',
-      tagicPresence:'10',
-      leaderShare:'10',
-      entityName:'Tata Chemical',
-      productName:'Metal',
-      totalPremium:'80000',
-      tagicPremium:'80000',
-      leadFollower:'0',
-      leadInsurer:'Lead',
-      key:'2',
+      riskName: 'Tata Motors',
+      inceptionDate: '14th March,23',
+      tagicPresence: '10',
+      leaderShare: '10',
+      entityName: 'Tata Chemical',
+      productName: 'Metal',
+      totalPremium: '80000',
+      tagicPremium: '80000',
+      leadFollower: '0',
+      leadInsurer: 'Lead',
+      key: '2',
     },
     {
-      riskName:'Tata Steel',
-      inceptionDate:'14th March,23',
-      tagicPresence:'10',
-      leaderShare:'10',
-      entityName:'Tata Chemical',
-      productName:'Metal',
-      totalPremium:'80000',
-      tagicPremium:'80000',
-      leadFollower:'0',
-      leadInsurer:'Lead',
-      key:'3',
+      riskName: 'Tata Steel',
+      inceptionDate: '14th March,23',
+      tagicPresence: '10',
+      leaderShare: '10',
+      entityName: 'Tata Chemical',
+      productName: 'Metal',
+      totalPremium: '80000',
+      tagicPremium: '80000',
+      leadFollower: '0',
+      leadInsurer: 'Lead',
+      key: '3',
     },
   ]
 
   const eventDataArr = [
     {
-      eventName:'Tata Chemical',
-      eventDate:'14th March,23',
-      eventTime:'10:00 AM to 11:00 AM',
-      eventAgenda:'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
+      eventName: 'Tata Chemical',
+      eventDate: '14th March,23',
+      eventTime: '10:00 AM to 11:00 AM',
+      eventAgenda: 'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
     },
     {
-      eventName:'Tata Chemical',
-      eventDate:'14th March,23',
-      eventTime:'10:00 AM to 11:00 AM',
-      eventAgenda:'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
+      eventName: 'Tata Chemical',
+      eventDate: '14th March,23',
+      eventTime: '10:00 AM to 11:00 AM',
+      eventAgenda: 'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
     },
     {
-      eventName:'Tata Chemical',
-      eventDate:'14th March,23',
-      eventTime:'10:00 AM to 11:00 AM',
-      eventAgenda:'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
+      eventName: 'Tata Chemical',
+      eventDate: '14th March,23',
+      eventTime: '10:00 AM to 11:00 AM',
+      eventAgenda: 'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
     },
   ]
 
   let kdmTabsArr = [
-    {id:1,value:'KDM 1'},
-    {id:2,value:'KDM 2'},
-    {id:3,value:'KDM 3'},
-    {id:4,value:'KDM 4'},
+    { id: 1, value: 'KDM 1' },
+    { id: 2, value: 'KDM 2' },
+    { id: 3, value: 'KDM 3' },
+    { id: 4, value: 'KDM 4' },
   ]
 
   let remarkTabs = [
-    {id:'1',label:'Remarks'},
-    {id:'2',label:'Collaborators'},
+    { id: '1', label: 'Remarks' },
+    { id: '2', label: 'Collaborators' },
   ]
 
- 
+
   // let tabPane = [];
   // if (kdmTabsArr && !_.isEmpty(kdmTabsArr)) {
   //   tabPane = _.map(kdmTabsArr, (value, id) => {
@@ -241,7 +269,7 @@ const CompanyIntelligence = React.memo((props) => {
   }, [width]);
 
   useEffect(() => {
-    
+
   }, []);
 
   const getAppointmentList = async (lead_id) => {
@@ -250,7 +278,7 @@ const CompanyIntelligence = React.memo((props) => {
       `user/fetch_appointments/${loginId}?teamdata=0&category=all&lead_id=${lead_id}`,
       { secure: true }
     );
-    console.log('APPOINTMENT DATA---->>>',_result)
+    console.log('APPOINTMENT DATA---->>>', _result)
     setActivities_data(_result);
   };
 
@@ -273,7 +301,7 @@ const CompanyIntelligence = React.memo((props) => {
           loadValuesToFields({ ...result[0], appointmentDetails: null });
         }
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const loadValuesToFields = (leadData) => {
@@ -286,37 +314,37 @@ const CompanyIntelligence = React.memo((props) => {
 
       // Setting Opportunity data
       let _opportunity = {
-        appointmentDate : leadData?.appointmentDate,
-        appointmentDetails : leadData?.appointmentDetails,
-        appointmentId : leadData?.appointmentId,
-        appointmentTime : leadData?.appointmentTime,
-        leadStatus:leadData?.leadStatus,
-        leadDisposition:leadData?.leadDisposition,
-        leadsubDisposition:leadData?.leadsubDisposition,
-        appointment_status:leadData?.appointment_status,
+        appointmentDate: leadData?.appointmentDate,
+        appointmentDetails: leadData?.appointmentDetails,
+        appointmentId: leadData?.appointmentId,
+        appointmentTime: leadData?.appointmentTime,
+        leadStatus: leadData?.leadStatus,
+        leadDisposition: leadData?.leadDisposition,
+        leadsubDisposition: leadData?.leadsubDisposition,
+        appointment_status: leadData?.appointment_status,
       }
       setOpportunityDetails(_opportunity)
 
       // Setting PRODUCER & VAS data
       let _vas = {
-        VAS_executed:leadData?.VAS_executed,
-        VAS_input:leadData?.VAS_input,
-        channel_name:leadData?.channel_name,
-        producer:leadData?.producer,
+        VAS_executed: leadData?.VAS_executed,
+        VAS_input: leadData?.VAS_input,
+        channel_name: leadData?.channel_name,
+        producer: leadData?.producer,
       }
       setProducerVasDetails(_vas)
 
       // Setting EXPECTATION data
       let _expectation = {
-        client_expectations:leadData?.client_expectations,
-        red_flags:leadData?.red_flags,
-        our_ask:leadData?.our_ask,
+        client_expectations: leadData?.client_expectations,
+        red_flags: leadData?.red_flags,
+        our_ask: leadData?.our_ask,
       }
       setExpectationDetails(_expectation)
 
       setRiskDetailsArr(leadData?.company_id?.risk_details)
 
-      leadData?.company_id?.kdm_details.forEach((el,index) =>{
+      leadData?.company_id?.kdm_details.forEach((el, index) => {
         el.kdmTabs = `KDM ${index + 1}`
       })
       setKdmDetailsArr(leadData?.company_id?.kdm_details)
@@ -326,7 +354,7 @@ const CompanyIntelligence = React.memo((props) => {
 
 
       // const [riskDetails, setRiskDetails] = useState({});
-  // const [kdmDetailsArr, setKdmDetails] = useState({});
+      // const [kdmDetailsArr, setKdmDetails] = useState({});
 
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
@@ -348,9 +376,9 @@ const CompanyIntelligence = React.memo((props) => {
     }
     return string;
   };
-  
 
-  const tabClick = (key) => {};
+
+  const tabClick = (key) => { };
 
   const openProdVasModal = () => {
     setShowVasModal(true)
@@ -365,7 +393,7 @@ const CompanyIntelligence = React.memo((props) => {
     setShowExpectationModal(true)
   };
 
-  const openRiskModal = (event,data,index) => {
+  const openRiskModal = (event, data, index) => {
     setShowRiskModal(true)
     setRiskType(event)
     setriskDataSet(data)
@@ -388,13 +416,13 @@ const CompanyIntelligence = React.memo((props) => {
     // getEventTodoCountAPI(res.formData._id);
   };
 
-  
 
-  
-  
-  
 
-  const handleCollapse = (event,data, ind) => {
+
+
+
+
+  const handleCollapse = (event, data, ind) => {
     setRiskInd(ind)
     // console.log('data--------->>>>',data)
     // console.log('ind--------->>>>',ind)
@@ -411,14 +439,14 @@ const CompanyIntelligence = React.memo((props) => {
     // console.log('remarkCollabChange',key);
   };
 
-  const checkValidity = (data) =>{
+  const checkValidity = (data) => {
     if (data === "" || data === undefined || data === null) {
       return "-";
     } else {
       return data;
     }
   }
-  
+
   const tabStyle = {
     color: "#000",
     background: "#fff",
@@ -461,28 +489,28 @@ const CompanyIntelligence = React.memo((props) => {
           <Col sm={24} md={12} lg={8} xlg={8}>
             {/* Company Details */}
             <Card bordered={false} className="app-card-head">
-              <Col style={{alignItems:'center',padding:5}} >
-                <p className="app-font" style={{color:'#444444',marginLeft:10}}>Company Details</p>
+              <Col style={{ alignItems: 'center', padding: 5 }} >
+                <p className="app-font" style={{ color: '#444444', marginLeft: 10 }}>Company Details</p>
               </Col>
-              <div style={{height:1,backgroundColor:'#D8D8D8'}}></div>
-              <Col style={{padding:10}}>
+              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              <Col style={{ padding: 10 }}>
                 <Row>
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{companyDetails?.company_name}</p>
                     <p className="label-font">Name</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{'-'}</p>
                     <p className="label-font">LOB</p>
                   </Col>
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{companyDetails?.client_location}</p>
                     <p className="label-font">Location</p>
                   </Col>
                 </Row>
-                <Row style={{marginTop:10}}>
-                  <Col style={{flex:1}}>
+                <Row style={{ marginTop: 10 }}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{companyDetails?.industry_name}</p>
                     <p className="label-font">Industry</p>
                   </Col>
@@ -491,113 +519,113 @@ const CompanyIntelligence = React.memo((props) => {
             </Card>
 
             {/* Remarks and Collaborators */}
-            <Card bordered={false} style={{marginTop:20}} className="app-card-head remarkTab">
-              <Tabs 
+            <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head remarkTab">
+              <Tabs
                 defaultActiveKey="1"
                 // items={items} 
                 centered
                 onChange={remarkCollabChange}
               >
-                  <TabPane tab="Remarks" key="1" >
-                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
-                      <p className="text-font" style={{color:'#444444'}}>Remarks</p>
-                      <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
-                    </Row>
-                  </TabPane>
-                  <TabPane tab="Collaborators" key="2" >
-                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
-                      <p className="text-font" style={{color:'#444444'}}>Collaborators</p>
-                      <PlusCircleOutlined onClick={() => setShowOpportunityModal(true)} style={{fontSize:18}} />
-                    </Row>
-                  </TabPane>
+                <TabPane tab="Remarks" key="1" >
+                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
+                    <p className="text-font" style={{ color: '#444444' }}>Remarks</p>
+                    <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{ fontSize: 18 }} />
+                  </Row>
+                </TabPane>
+                <TabPane tab="Collaborators" key="2" >
+                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
+                    <p className="text-font" style={{ color: '#444444' }}>Collaborators</p>
+                    <PlusCircleOutlined onClick={() => setShowOpportunityModal(true)} style={{ fontSize: 18 }} />
+                  </Row>
+                </TabPane>
               </Tabs>
 
             </Card>
 
             {/* Opportunity Status */}
-            <Card bordered={false} style={{marginTop:20}} className="app-card-head">
-              <Row justify="space-between" style={{alignItems:'center',padding:'5px 10px 5px 10px'}} >
-                <p className="app-font" style={{color:'#444444'}}>Opportunity Status</p>
-                <FormOutlined onClick={() => setShowOpportunityModal(true)} style={{fontSize:20}} />
+            <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
+              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
+                <p className="app-font" style={{ color: '#444444' }}>Opportunity Status</p>
+                <FormOutlined onClick={() => setShowOpportunityModal(true)} style={{ fontSize: 20 }} />
               </Row>
-              <div style={{height:1,backgroundColor:'#D8D8D8'}}></div>
-              <Col style={{padding:10}}>
+              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              <Col style={{ padding: 10 }}>
                 <Row>
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(opportunityDetails.leadStatus)}</p>
                     <p className="label-font">Status</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(opportunityDetails.leadDisposition)}</p>
                     <p className="label-font">Disposition</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(opportunityDetails.leadsubDisposition)}</p>
                     <p className="label-font">Sub Disposition</p>
                   </Col>
                 </Row>
 
-                <Row style={{marginTop:10}}>
-                  <Col style={{flex:1}}>
+                <Row style={{ marginTop: 10 }}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(opportunityDetails.appointmentDate)}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(opportunityDetails.appointmentTime)}</p>
                     <p className="label-font">Appointment TIme</p>
                   </Col>
 
-                  <Col style={{flex:1}}></Col>
+                  <Col style={{ flex: 1 }}></Col>
                 </Row>
               </Col>
             </Card>
 
             {/* Producer and VAS */}
-            <Card bordered={false} style={{marginTop:20}} className="app-card-head">
-              <Row justify="space-between" style={{alignItems:'center',padding:'5px 10px 5px 10px'}} >
-                <p className="app-font" style={{color:'#444444'}}>Producer and VAS</p>
-                <FormOutlined onClick={() => openProdVasModal()} style={{fontSize:20}}/>
+            <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
+              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
+                <p className="app-font" style={{ color: '#444444' }}>Producer and VAS</p>
+                <FormOutlined onClick={() => openProdVasModal()} style={{ fontSize: 20 }} />
               </Row>
-              <div style={{height:1,backgroundColor:'#D8D8D8'}}></div>
-              <Col style={{padding:10}}>
+              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              <Col style={{ padding: 10 }}>
                 <Row>
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(producerVasDetails?.channel_name)}</p>
                     <p className="label-font">Channel Name</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(producerVasDetails?.producer)}</p>
                     <p className="label-font">Producer</p>
                   </Col>
-                  <Col style={{flex:1}}></Col>
+                  <Col style={{ flex: 1 }}></Col>
                 </Row>
               </Col>
             </Card>
 
             {/* Expectation */}
-            <Card bordered={false} style={{marginTop:20}} className="app-card-head">
-              <Row justify="space-between" style={{alignItems:'center',padding:'5px 10px 5px 10px'}} >
-                <p className="app-font" style={{color:'#444444'}}>Expectation</p>
-                <FormOutlined onClick={() => openExpectationModal()} style={{fontSize:20}}/>
+            <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
+              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
+                <p className="app-font" style={{ color: '#444444' }}>Expectation</p>
+                <FormOutlined onClick={() => openExpectationModal()} style={{ fontSize: 20 }} />
               </Row>
-              <div style={{height:1,backgroundColor:'#D8D8D8'}}></div>
-              <Col style={{padding:10}}>
+              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              <Col style={{ padding: 10 }}>
                 <Row>
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(expectationDetails?.client_expectations)}</p>
                     <p className="label-font">Client Expectation</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(expectationDetails?.red_flags)}</p>
                     <p className="label-font">Red Flag</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(expectationDetails?.our_ask)}</p>
                     <p className="label-font">Our Ask</p>
                   </Col>
@@ -610,51 +638,51 @@ const CompanyIntelligence = React.memo((props) => {
           <Col sm={24} md={12} lg={8} xlg={8}>
             {/* Risk Details */}
             <Card bordered={false} className="app-card-head">
-              <Row justify="space-between" style={{alignItems:'center',padding:'5px 10px 5px 10px'}} >
-                <p className="app-font" style={{color:'#444444'}}>Risk Details</p>
-                <PlusCircleOutlined onClick={() => openRiskModal('create')} style={{fontSize:20}} />
+              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
+                <p className="app-font" style={{ color: '#444444' }}>Risk Details</p>
+                <PlusCircleOutlined onClick={() => openRiskModal('create')} style={{ fontSize: 20 }} />
               </Row>
-              <div style={{height:1,backgroundColor:'#D8D8D8'}}></div>
-              <Col style={{padding:10}}>
-              {riskDetailsArr &&
-                riskDetailsArr.map((el,index) =>
-                  <Collapse accordion={true} onChange={(text)=> handleCollapse(text,el,index)} expandIconPosition={'right'} style={panelStyle} defaultActiveKey={['1']}>
-                    <Panel 
-                      header={el.total_entities} 
-                      key={el.key} 
-                      extra={
-                        <Row style={{marginTop:3}} onClick={e => e.stopPropagation()}>
-                          <DeleteOutlined style={{fontSize:18,marginRight:10,color:'#737373'}} onClick={genExtra}/>
-                          <FormOutlined onClick={() => openRiskModal('edit',el,index)} style={{fontSize:16,color:'#737373'}} />
-                        </Row>
-                      }
+              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              <Col style={{ padding: 10 }}>
+                {riskDetailsArr &&
+                  riskDetailsArr.map((el, index) =>
+                    <Collapse accordion={true} onChange={(text) => handleCollapse(text, el, index)} expandIconPosition={'right'} style={panelStyle} defaultActiveKey={['1']}>
+                      <Panel
+                        header={el.total_entities}
+                        key={el.key}
+                        extra={
+                          <Row style={{ marginTop: 3 }} onClick={e => e.stopPropagation()}>
+                            <DeleteOutlined style={{ fontSize: 18, marginRight: 10, color: '#737373' }} onClick={genExtra} />
+                            <FormOutlined onClick={() => openRiskModal('edit', el, index)} style={{ fontSize: 16, color: '#737373' }} />
+                          </Row>
+                        }
                       >
-                      <Row>
-                        <Col style={{flex:1}}>
-                          <p className="text-font">{el.inception_date}</p>
-                          <p className="label-font">Inception Date</p>
-                        </Col>
+                        <Row>
+                          <Col style={{ flex: 1 }}>
+                            <p className="text-font">{el.inception_date}</p>
+                            <p className="label-font">Inception Date</p>
+                          </Col>
 
-                        <Col style={{flex:1}}>
-                          <p className="text-font">{el.tagic_presence_percentage}</p>
-                          <p className="label-font">TAGIC Presence</p>
-                        </Col>
+                          <Col style={{ flex: 1 }}>
+                            <p className="text-font">{el.tagic_presence_percentage}</p>
+                            <p className="label-font">TAGIC Presence</p>
+                          </Col>
 
-                        <Col style={{flex:1}}>
-                          <p className="text-font">{el.leader_share}</p>
-                          <p className="label-font">Leader Share %</p>
-                        </Col>
-                      </Row>
+                          <Col style={{ flex: 1 }}>
+                            <p className="text-font">{el.leader_share}</p>
+                            <p className="label-font">Leader Share %</p>
+                          </Col>
+                        </Row>
 
-                      <Row style={{marginTop:10}}>
-                        <Col style={{flex:1}}>
-                          <p className="text-font">{el.total_entities}</p>
-                          <p className="label-font">Name of Entities</p>
-                        </Col>
+                        <Row style={{ marginTop: 10 }}>
+                          <Col style={{ flex: 1 }}>
+                            <p className="text-font">{el.total_entities}</p>
+                            <p className="label-font">Name of Entities</p>
+                          </Col>
 
-                        <Col style={{flex:1}}>
-                          {/* <p className="text-font">{el.product_for_opportunity}</p> */}
-                          <Tooltip placement="top" title={el.product_for_opportunity}>
+                          <Col style={{ flex: 1 }}>
+                            {/* <p className="text-font">{el.product_for_opportunity}</p> */}
+                            <Tooltip placement="top" title={el.product_for_opportunity}>
                               <p
                                 className="form-title"
                                 style={{
@@ -669,29 +697,29 @@ const CompanyIntelligence = React.memo((props) => {
                                 {el.product_for_opportunity}
                               </p>
                             </Tooltip>
-                          <p className="label-font">Product Name</p>
-                        </Col>
+                            <p className="label-font">Product Name</p>
+                          </Col>
 
-                        <Col style={{flex:1}}>
-                          <p className="text-font">{el.total_premium}</p>
-                          <p className="label-font">Total Premium</p>
-                        </Col>
-                      </Row>
+                          <Col style={{ flex: 1 }}>
+                            <p className="text-font">{el.total_premium}</p>
+                            <p className="label-font">Total Premium</p>
+                          </Col>
+                        </Row>
 
-                      <Row style={{marginTop:10}}>
-                        <Col style={{flex:1}}>
-                          <p className="text-font">{el.tagic_premium}</p>
-                          <p className="label-font">TAGIC Premium</p>
-                        </Col>
+                        <Row style={{ marginTop: 10 }}>
+                          <Col style={{ flex: 1 }}>
+                            <p className="text-font">{el.tagic_premium}</p>
+                            <p className="label-font">TAGIC Premium</p>
+                          </Col>
 
-                        <Col style={{flex:1}}>
-                          <p className="text-font">{el.leader}</p>
-                          <p className="label-font">Lead/Follower</p>
-                        </Col>
+                          <Col style={{ flex: 1 }}>
+                            <p className="text-font">{el.leader}</p>
+                            <p className="label-font">Lead/Follower</p>
+                          </Col>
 
-                        <Col style={{flex:1}}>
-                          {/* <p className="text-font">{el.lead_insurer}</p> */}
-                          <Tooltip placement="top" title={el.lead_insurer}>
+                          <Col style={{ flex: 1 }}>
+                            {/* <p className="text-font">{el.lead_insurer}</p> */}
+                            <Tooltip placement="top" title={el.lead_insurer}>
                               <p
                                 className="form-title"
                                 style={{
@@ -706,85 +734,85 @@ const CompanyIntelligence = React.memo((props) => {
                                 {el.lead_insurer}
                               </p>
                             </Tooltip>
-                          <p className="label-font">Lead Insurer</p>
-                        </Col>
-                      </Row>
-                    </Panel>
-                  </Collapse>
-                )
-              }
+                            <p className="label-font">Lead Insurer</p>
+                          </Col>
+                        </Row>
+                      </Panel>
+                    </Collapse>
+                  )
+                }
               </Col>
             </Card>
 
-             {/* KDM Details */}
-             <Card bordered={false} style={{marginTop:20}} className="app-card-head">
-              <Row justify="space-between" style={{alignItems:'center',padding:'5px 10px 5px 10px'}} >
-                <p className="app-font" style={{color:'#444444'}}>KDM Details</p>
+            {/* KDM Details */}
+            <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
+              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
+                <p className="app-font" style={{ color: '#444444' }}>KDM Details</p>
                 <Row>
-                  <PlusCircleOutlined onClick={() => openKDMModal('create')} style={{fontSize:20}}/>
-                  <FormOutlined onClick={() => openKDMModal('edit')} style={{marginLeft:15,fontSize:20}} />
+                  <PlusCircleOutlined onClick={() => openKDMModal('create')} style={{ fontSize: 20 }} />
+                  <FormOutlined onClick={() => openKDMModal('edit')} style={{ marginLeft: 15, fontSize: 20 }} />
                 </Row>
               </Row>
-              <div style={{height:1,backgroundColor:'#D8D8D8'}}></div>
-              <Col style={{padding:10}}>
+              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              <Col style={{ padding: 10 }}>
                 <Row>
-                  { kdmDetailsArr && 
-                    kdmDetailsArr.map((el,index) => 
+                  {kdmDetailsArr &&
+                    kdmDetailsArr.map((el, index) =>
                       <Col onClick={() => handleKdmTabs(el)} className={`kdmTabs ${active === el._id && 'kdmTabsActive'}`}>
-                        <p style={{margin:0,color:`${active === el._id ? '#fff' : '#737373'}`,fontWeight:400, fontSize:12}}>{el.kdmTabs}</p>
+                        <p style={{ margin: 0, color: `${active === el._id ? '#fff' : '#737373'}`, fontWeight: 400, fontSize: 12 }}>{el.kdmTabs}</p>
                       </Col>
                     )
                   }
                 </Row>
               </Col>
 
-              <Col style={{padding:10}}>
+              <Col style={{ padding: 10 }}>
                 <Row>
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.decision_maker_name)}</p>
                     <p className="label-font">Name</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.role)}</p>
                     <p className="label-font">Role</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.designation)}</p>
                     <p className="label-font">Designition</p>
                   </Col>
                 </Row>
 
-                <Row style={{marginTop:10}}>
-                  <Col style={{flex:1}}>
+                <Row style={{ marginTop: 10 }}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.primaryContact)}</p>
                     <p className="label-font">Phone Number</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.emailAddress)}</p>
                     <p className="label-font">Email ID</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.date_of_birth)}</p>
                     <p className="label-font">Date Of Birth</p>
                   </Col>
                 </Row>
 
-                <Row style={{marginTop:10}}>
-                  <Col style={{flex:1}}>
+                <Row style={{ marginTop: 10 }}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.city)}</p>
                     <p className="label-font">City</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.state)}</p>
                     <p className="label-font">State</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{checkValidity(kdmDataSet?.branch)}</p>
                     <p className="label-font">Branch</p>
                   </Col>
@@ -792,111 +820,125 @@ const CompanyIntelligence = React.memo((props) => {
               </Col>
             </Card>
 
-           
+
           </Col>
 
           {/* 3rd Column */}
           <Col sm={24} md={12} lg={8} xlg={8}>
             {/* Event Details & TODO */}
             <Card bordered={false} className="app-card-head remarkTab">
-              <Tabs 
+              <Tabs
                 defaultActiveKey="1"
                 centered
                 onChange={remarkCollabChange}
               >
-                  <TabPane tab="Events" key="1" >
-                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
-                      <p className="text-font" style={{color:'#444444'}}>Create Event</p>
-                      <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
-                    </Row>
+                <TabPane tab="Events" key="1" >
+                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
+                    <p className="text-font" style={{ color: '#444444' }}>Create Event</p>
+                    <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{ fontSize: 18 }} />
+                  </Row>
 
-                    <>
-                      {activities_data &&
+                  <>
+                    {activities_data &&
                       !_.isEmpty(activities_data) &&
                       activities_data !== "No appointment " ? (
-                        <div className="lead-activity-block" style={{margin:'0px 10px 0px 10px'}}>
-                          {activities_data?.map((item) => {
-                            return (
-                              <Col style={eventCardStyle}>
-                                <Row style={{flex:1}}>
-                                  <CalendarOutlined style={{color:'#fff',marginTop:3,marginRight:5,fontSize:15}} />
-                                  <p className="text-font" style={{color:'#fff',textTransform:'capitalize'}}>{item.stakeholder_name}</p>
-                                </Row>
-                                <Row>
-                                  <Col style={{flex:1,marginTop:5}}>
-                                    <p className="label-font" style={{color:'#fff'}}>Date</p>
-                                    <p className="text-font" style={{color:'#fff'}}>{moment(item.start_date).format("D MMM YYYY")}</p>
-                                  </Col>
+                      <div className="lead-activity-block" style={{ margin: '0px 10px 0px 10px' }}>
+                        {activities_data?.map((item) => {
+                          return (
+                            <Col style={eventCardStyle}>
+                              <Row style={{ flex: 1 }}>
+                                <CalendarOutlined style={{ color: '#fff', marginTop: 3, marginRight: 5, fontSize: 15 }} />
+                                <p className="text-font" style={{ color: '#fff', textTransform: 'capitalize' }}>{item.stakeholder_name}</p>
+                              </Row>
+                              <Row>
+                                <Col style={{ flex: 1, marginTop: 5 }}>
+                                  <p className="label-font" style={{ color: '#fff' }}>Date</p>
+                                  <p className="text-font" style={{ color: '#fff' }}>{moment(item.start_date).format("D MMM YYYY")}</p>
+                                </Col>
 
-                                  <Col style={{flex:1,marginTop:5}}>
-                                    <p className="label-font" style={{color:'#fff'}}>Time</p>
-                                    <p className="text-font" style={{color:'#fff'}}>{dateFun(item.start_time)} to {dateFun(item.end_time)}</p>
-                                  </Col>
-                                </Row>
-                                <Row>
-                                  <Col style={{flex:1,marginTop:5}}>
-                                    <p className="label-font" style={{color:'#fff'}}>Agenda</p>
-                                    <p className="text-font" style={{color:'#fff'}}>{add3Dots(item.event_description, 50)}</p>
-                                  </Col>
-                                </Row>
+                                <Col style={{ flex: 1, marginTop: 5 }}>
+                                  <p className="label-font" style={{ color: '#fff' }}>Time</p>
+                                  <p className="text-font" style={{ color: '#fff' }}>{dateFun(item.start_time)} to {dateFun(item.end_time)}</p>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col style={{ flex: 1, marginTop: 5 }}>
+                                  <p className="label-font" style={{ color: '#fff' }}>Agenda</p>
+                                  <p className="text-font" style={{ color: '#fff' }}>{add3Dots(item.event_description, 50)}</p>
+                                </Col>
+                              </Row>
                             </Col>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <div style={{display: "flex",flexDirection: "column",justifyContent: "center",alignItems: "center",padding: 50}}>
-                          <img src={noDataIcon} style={{ height: 150, width: 100 }} />
-                          <div style={{ marginTop: 10 }}>
-                            <text style={{ textAlign: "center", fontSize: 14 }}>{" "}No records found{" "}</text>
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  </TabPane>
-                  <TabPane tab="To Do" key="2" >
-                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 0px 15px'}} >
-                      <p className="text-font" style={{color:'#444444'}}>Create To Do</p>
-                      <PlusCircleOutlined onClick={() => setShowTodoModal(true)} style={{fontSize:18}} />
-                    </Row>
-
-                    <>
-                      <div className="TodoCards" style={{padding:10}}>
-                        <TodoCards leadID={updateLeadID} ref={childRef} />
+                          );
+                        })}
                       </div>
-                    </>
-                  </TabPane>
+                    ) : (
+                      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 50 }}>
+                        <img src={noDataIcon} style={{ height: 150, width: 100 }} />
+                        <div style={{ marginTop: 10 }}>
+                          <text style={{ textAlign: "center", fontSize: 14 }}>{" "}No records found{" "}</text>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                </TabPane>
+                <TabPane tab="To Do" key="2" >
+                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 0px 15px' }} >
+                    <p className="text-font" style={{ color: '#444444' }}>Create To Do</p>
+                    <PlusCircleOutlined onClick={() => setShowTodoModal(true)} style={{ fontSize: 18 }} />
+                  </Row>
+
+                  <>
+                    <div className="TodoCards" style={{ padding: 10 }}>
+                      <TodoCards leadID={updateLeadID} ref={childRef} />
+                    </div>
+                  </>
+                </TabPane>
               </Tabs>
-             
+
             </Card>
 
             {/* Documents Uploaded */}
-            <Card bordered={false} style={{marginTop:20}} className="app-card-head">
-              <Row justify="space-between" style={{alignItems:'center',padding:'5px 10px 5px 10px'}} >
-                <p className="app-font" style={{color:'#444444'}}>Documents Uploaded</p>
-                <UploadOutlined onClick={() => openDocumentModal()} style={{fontSize:20}}/>
+            <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
+              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
+                <p className="app-font" style={{ color: '#444444' }}>Document Uploaded</p>
+                <UploadOutlined onClick={() => openDocumentModal()} style={{ fontSize: 20 }} />
               </Row>
-              <div style={{height:1,backgroundColor:'#D8D8D8'}}></div>
-              <Col style={{padding:10}}>
+              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              <Col style={{ padding: 10 }}>
                 <Row>
-                  <Col style={{flex:1}}>
-                    <p className="text-font">Direct</p>
-                    <p className="label-font">Channel Name</p>
-                  </Col>
+                  <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>{
+                    fileData && 
+                    fileData?.map((item, index) => (
+                      <div className="data-field">
+                        <div className="wrapper1">
+                          <div className="page" ><img src={page} /></div>
+                          <div style={{
+                            marginBottom: 0,
+                            color: "grey",
+                            width: 180,
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                          }} >{item.originalname || item.file_name}</div>
+                        </div>
+                        <div className="wrapper2">
+                          <div className="eye" onClick={() => { handleShow(index) }}><img src={eye} /></div>
+                          <div className="trash" onClick={() => delDoc(index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
+                        </div>
 
-                  <Col style={{flex:1}}>
-                    <p className="text-font">Rahul</p>
-                    <p className="label-font">Producer</p>
-                  </Col>
-                  <Col style={{flex:1}}></Col>
+                      </div>
+                    ))
+                  }</div>
+                  <Col style={{ flex: 1 }}></Col>
                 </Row>
               </Col>
             </Card>
 
-           
+
           </Col>
         </Row>
-        
-              {/* MODAL COMPONENTS */}
+
+        {/* MODAL COMPONENTS */}
         <TodoTab
           getTodoData={getTodo}
           button={"Create"}
@@ -908,7 +950,7 @@ const CompanyIntelligence = React.memo((props) => {
           setIsModalVisible={setShowTodoModal}
         />
         <>
-          <KDMDetails kdmDataSet={ kdmType ==='create' ? {} : kdmDataSet} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
+          <KDMDetails kdmDataSet={kdmType === 'create' ? {} : kdmDataSet} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
         </>
         <>
           <ProducerVAS producerVasDetails={producerVasDetails} showVasModal={showVasModal} setShowVasModal={setShowVasModal} />
@@ -917,10 +959,10 @@ const CompanyIntelligence = React.memo((props) => {
           <Expectation expectationDetails={expectationDetails} showExpectationModal={showExpectationModal} setShowExpectationModal={setShowExpectationModal} />
         </>
         <>
-          <RiskDetails riskDataSet={riskType ==='create' ? {} : riskDataSet} showRiskModal={showRiskModal} setShowRiskModal={setShowRiskModal} />
+          <RiskDetails riskDataSet={riskType === 'create' ? {} : riskDataSet} showRiskModal={showRiskModal} setShowRiskModal={setShowRiskModal} />
         </>
         <>
-          <DocUpload showDocumntModal={showDocumntModal} setShowDocumntModal={setShowDocumntModal} />
+          <DocUpload showDocumntModal={showDocumntModal} setShowDocumntModal={setShowDocumntModal} callback={callback} />
         </>
         <>
           <RemarkComp showRemarkModal={showRemarkModal} setShowRemarkModal={setShowRemarkModal} />
@@ -932,9 +974,14 @@ const CompanyIntelligence = React.memo((props) => {
         <>
           <OpportunityStatus showOpportunityModal={showOpportunityModal} setShowOpportunityModal={setShowOpportunityModal} opportunityDetails={opportunityDetails} />
         </>
-
-        
+        {showFile ?
+          <Modal title="Basic Modal" open={showFile} onOk={() => { setShowFile(false) }} onCancel={() => { setShowFile(false) }}>
+            <embed src="https://www.africau.edu/images/default/sample.pdf" width="500px" height="700px" />
+          </Modal>
+          : ""
+        }
       </div>
+
     </>
   );
 });

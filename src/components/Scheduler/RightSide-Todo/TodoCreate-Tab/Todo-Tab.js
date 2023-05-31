@@ -757,12 +757,12 @@ const TodoTab = (props) => {
                     onChange={onChangeDatePick}
                     // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                     className="todo-ml11"
-                    style={{ marginBottom: "10px", flex: 1,width:"50%",marginLeft:"12px",height:"100%"}}
+                    style={{ marginBottom: "10px", flex: 1,width:"50%",marginLeft:"12px",height:"100%",borderRadius:"4px"}}
                   />
                   <Select
                     value={selectedTime}
                     className="todo-mb20 todo-ml10"
-                    style={{ flex: 1,width:"50%" ,marginLeft:"12px",height:"100%"}}
+                    style={{flex: 1,width:"50%" ,marginLeft:"12px",height:"100%"}}
                     onChange={(time) => handleTimeChange(time)}
                   >
                     {timeListText.map((e, index) => (
@@ -915,14 +915,14 @@ const TodoTab = (props) => {
                 <div
                   onClick={() => handleCancel()}
                   className="Todo-Create-FooterReminder-Button todo-mb20"
-                  style={{ cursor: "pointer" ,width:"360px",color:"#3B371E",marginRight:"10px",background:"white",border:"1px solid #3B371E"}}
+                  style={{width:"361px",color:"#3B371E",marginRight:"10px",background:"white",border:"1px solid #3B371E"}}
                 >
                   <text>Cancel</text>
                 </div>
                 <div
                   onClick={() => submitTodoData()}
                   className="Todo-Create-FooterReminder-Button todo-mb20"
-                  style={{ cursor: "pointer",width:"360px",background: "#3B371E",color:"white"}}
+                  style={{ width:"361px",background: "#3B371E",color:"white"}}
                 >
                   <text>Save</text>
                 </div>

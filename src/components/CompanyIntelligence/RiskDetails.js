@@ -789,7 +789,6 @@ const RiskDetails = (props) => {
                   label="Name of enitity"
                   style={{ marginBottom: "1rem" }}
                   rules={[
-                   
                     {
                       message: "Only Alphabets are Allowed",
                       pattern: new RegExp(/^[a-zA-Z ]+$/),
