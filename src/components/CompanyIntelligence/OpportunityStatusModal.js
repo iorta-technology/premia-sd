@@ -39,6 +39,7 @@ const OpportunityComp = (props) => {
     const user_id = useSelector((state) => state.login.user.id);
     // console.log('(((((((((_StoreData___VASS)))))))))---->>>>',_StoreData)
     // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
+    
 
     const [dispoArr, setDispoArr] = useState([]);
     const [subdispoArr, setSubDispoArr] = useState([]);
@@ -46,6 +47,9 @@ const OpportunityComp = (props) => {
     const [showLeadSubDisposition, setShowLeadSubDisposition] = useState(false);
     const [showAppointmentFields, setShowAppointmentFields] = useState(false);
     const [apptDateString, setApptDateString] = useState("");
+    const [appointmentStatus, setAppointmentStatus] = useState();
+    const [appointmentDisposition, setAppointmentDisposition] = useState();
+    const [appointmentSubDisposition, setAppointmentSubDisposition] = useState();
 
     const [formItem, setFormItem] = useState({
         status: "newleadentery",
@@ -65,16 +69,64 @@ const OpportunityComp = (props) => {
 
     const breakpoint = 620;
     
+    // console.log('(((((((((opportunityDetails)))))))))---->>>>',props.opportunityDetails)
 
     useEffect(() => {
         // Data from Store
-        if(props.opportunityDetails){
-            changeLeadStatus(props.opportunityDetails.leadStatus);
+        // console.log('((((((_props.opportunityDetails_)))))))',props)
+        if(props?.opportunityDetails){
+            // changeLeadStatus(props.opportunityDetails.leadStatus);
+
+            let _appntDate = "";
+            let _appntTime = "";
+            let _apptDateFormat = "";
+            let _collabotrs = [];
+
+            changeLeadStatus(props?.opportunityDetails?.leadStatus);
+            if (props?.opportunityDetails?.leadDisposition === "appointment" && props?.opportunityDetails?.leadStatus === "contact") {
+              console.log('((((((AM HEREE)))))))',props)
+              setAppointmentStatus(props?.opportunityDetails?.appointment_status === "" ? "newappointment" : props?.opportunityDetails?.appointment_status);
+              setAppointmentDisposition("newApptmnt");
+              setAppointmentSubDisposition("Untouched / Not updated Appointment");
+
+              if (props?.opportunityDetails?.appointmentDate) {
+                _appntDate = moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY");
+                _appntTime = moment(props?.opportunityDetails?.appointmentDate).format("LT");
+                setApptDateString(_appntDate);
+
+                _apptDateFormat = moment(moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY"),"MM/DD/YYYY");
+              }
+
+              setShowLeadSubDisposition(true);
+              setShowLeadDisposition(true);
+              setShowAppointmentFields(true);
+            } else {
+              if (props?.opportunityDetails?.leadDisposition === "callback" && props?.opportunityDetails?.leadStatus === "contact") {
+                // if (props?.opportunityDetails?.appointmentDetails) {
+                _appntDate = moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY");
+                _appntTime = moment(props?.opportunityDetails?.appointmentDate).format("LT");
+                setApptDateString(_appntDate);
+
+                _apptDateFormat = moment(moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY"),"MM/DD/YYYY");
+                // }
+                setShowLeadSubDisposition(true);
+                setShowLeadDisposition(true);
+                setShowAppointmentFields(true);
+              }
+            }
+            form.setFieldsValue({
+              lead_status: props?.opportunityDetails?.leadStatus,
+              lead_disposition: props?.opportunityDetails.hasOwnProperty("leadDisposition") ? props?.opportunityDetails.leadDisposition : "",
+              sub_disposition: props?.opportunityDetails.hasOwnProperty("leadsubDisposition") ? props?.opportunityDetails.leadsubDisposition : "",
+              appointment_date: _apptDateFormat,
+              appointment_time: _appntTime,
+            });
         }
         
-    }, []);
+    }, [props]);
 
     const changeLeadStatus = (event) => {
+      // console.log('((((((changeLeadStatus)))))))',event)
         setFormItem((res) => ({ ...res,status: event }));
         form.setFieldsValue({lead_disposition: "",});
         setShowLeadSubDisposition(false);

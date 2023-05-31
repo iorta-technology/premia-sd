@@ -470,22 +470,46 @@ const CompanyIntelligence = React.memo((props) => {
                 <Row>
                   <Col style={{flex:1}}>
                     <p className="text-font">{companyDetails?.company_name}</p>
-                    <p className="label-font">Name</p>
+                    <p className="label-font">Company Name</p>
                   </Col>
 
                   <Col style={{flex:1}}>
-                    <p className="text-font">{'-'}</p>
-                    <p className="label-font">LOB</p>
+                    <p className="text-font">{companyDetails?.company_name}</p>
+                    <p className="label-font">Parent Company</p>
                   </Col>
+                  
                   <Col style={{flex:1}}>
-                    <p className="text-font">{companyDetails?.client_location}</p>
-                    <p className="label-font">Location</p>
+                    {/* <p className="text-font">{companyDetails?.industry_name}</p> */}
+                    <Tooltip placement="top" title={companyDetails?.industry_name}>
+                      <p
+                        className="text-font"
+                        style={{
+                          marginBottom: 0,
+                          width: 120,
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {companyDetails?.industry_name}
+                      </p>
+                    </Tooltip>
+                    <p className="label-font">Industry</p>
                   </Col>
                 </Row>
                 <Row style={{marginTop:10}}>
                   <Col style={{flex:1}}>
-                    <p className="text-font">{companyDetails?.industry_name}</p>
-                    <p className="label-font">Industry</p>
+                    <p className="text-font">{companyDetails?.client_location}</p>
+                    <p className="label-font">Client Location</p>
+                  </Col>
+
+                  <Col style={{flex:1}}>
+                    <p className="text-font">{companyDetails?.zone}</p>
+                    <p className="label-font">Zone</p>
+                  </Col>
+                  <Col style={{flex:1}}>
+                    <p className="text-font">{companyDetails?.tata_aig_empaneled}</p>
+                    <p className="label-font">Tata AIG empaneled</p>
                   </Col>
                 </Row>
               </Col>
@@ -535,7 +559,21 @@ const CompanyIntelligence = React.memo((props) => {
                   </Col>
 
                   <Col style={{flex:1}}>
-                    <p className="text-font">{checkValidity(opportunityDetails.leadsubDisposition)}</p>
+                    {/* <p className="text-font">{}</p> */}
+                    <Tooltip placement="top" title={checkValidity(opportunityDetails.leadsubDisposition)}>
+                      <p
+                        className="text-font"
+                        style={{
+                          marginBottom: 0,
+                          width: 120,
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {checkValidity(opportunityDetails.leadsubDisposition)}
+                      </p>
+                    </Tooltip>
                     <p className="label-font">Sub Disposition</p>
                   </Col>
                 </Row>
@@ -657,10 +695,9 @@ const CompanyIntelligence = React.memo((props) => {
                           {/* <p className="text-font">{el.product_for_opportunity}</p> */}
                           <Tooltip placement="top" title={el.product_for_opportunity}>
                               <p
-                                className="form-title"
+                                className="text-font"
                                 style={{
                                   marginBottom: 0,
-                                  color: "grey",
                                   width: 120,
                                   textOverflow: "ellipsis",
                                   whiteSpace: "nowrap",
@@ -694,10 +731,9 @@ const CompanyIntelligence = React.memo((props) => {
                           {/* <p className="text-font">{el.lead_insurer}</p> */}
                           <Tooltip placement="top" title={el.lead_insurer}>
                               <p
-                                className="form-title"
+                                className="text-font"
                                 style={{
                                   marginBottom: 0,
-                                  color: "grey",
                                   width: 120,
                                   textOverflow: "ellipsis",
                                   whiteSpace: "nowrap",
@@ -930,7 +966,7 @@ const CompanyIntelligence = React.memo((props) => {
         </>
 
         <>
-          <OpportunityStatus showOpportunityModal={showOpportunityModal} setShowOpportunityModal={setShowOpportunityModal} opportunityDetails={opportunityDetails} />
+          <OpportunityStatus opportunityDetails={opportunityDetails} showOpportunityModal={showOpportunityModal} setShowOpportunityModal={setShowOpportunityModal}  />
         </>
 
         

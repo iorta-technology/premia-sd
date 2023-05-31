@@ -79,7 +79,7 @@ const RiskDetails = (props) => {
   const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   const user_id = useSelector((state) => state.login.user.id);
   // console.log("(((((((((_StoreData____RISKKKK)))))))))---->>>>", _StoreData);
-  console.log('(((((((((RISKSKKSKS)))))))))---->>>>',props.riskDataSet)
+  // console.log('(((((((((RISKSKKSKS)))))))))---->>>>',props.riskDataSet)
 
   const [noOfEntities, setNoOfEntities] = useState("");
   const [productNameData, setProductNameData] = useState("");
@@ -104,30 +104,7 @@ const RiskDetails = (props) => {
   useEffect(() => {
     let _dataArr = [];
     if (Object.keys(props.riskDataSet).length > 0) {
-      // _StoreData?.company_id?.risk_details.map((el) => {
-        // console.log('(((((((((el......)))))))))---->>>>',props.riskDataSet)
-        // let _data = {
-        //   riskName: !props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities,
-        //   // riskType: !props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities,
-        //   totalPrem: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
-          // tagicPresence: !props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage,
-        //   leadInsurer: !props.riskDataSet.lead_insurer ? "-" : props.riskDataSet.lead_insurer,
-        //   leaderShare: !props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share,
 
-        //   tagicPremium: !props.riskDataSet.tagic_premium ? "" : props.riskDataSet.tagic_premium,
-        //   leaderFollower: !props.riskDataSet.leader ? "" : props.riskDataSet.leader,
-        //   inceptionDate: !props.riskDataSet.inception_date ? "" : props.riskDataSet.inception_date,
-        //   panNo: !props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no,
-        //   lobOpportunity: !props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity,
-        //   prodOpportunity: !props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity,
-        //   tendrDriver: !props.riskDataSet.tender_driven ? "" : props.riskDataSet.tender_driven === 'No' ? false : true,
-        // };
-        // _dataArr.push(_data);
-        // setRiskDataArr(_dataArr);
-
-        // setRiskDataArr([...riskDataArr,_data])
-      // });
-      // console.log("_dataArr========>>>>", _dataArr);
       setShowRiskDetailsPopup(true);
       setNoOfEntities(!props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities);
       // setProductNameData("");
@@ -161,23 +138,6 @@ const RiskDetails = (props) => {
       
     }else{
       addNewRiskDetails()
-      // let _data = {
-      //   riskName:'',
-      //   riskType:'',
-      //   totalPrem:'',
-      //   tagicPresence:'',
-      //   leadInsurer:'',
-      //   leaderShare:'',
-      //   tagicPremium:'',
-      //   leaderFollower:'',
-      //   inceptionDate:'',
-      //   panNo:'',
-      //   lobOpportunity:'',
-      //   prodOpportunity:'',
-      //   tendrDriver:'',
-      // };
-      // _dataArr.push(_data);
-      // setRiskDataArr(_dataArr);
     }
 
     
