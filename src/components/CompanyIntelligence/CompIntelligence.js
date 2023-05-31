@@ -971,16 +971,15 @@ const CompanyIntelligence = React.memo((props) => {
         <>
           <OpportunityStatus showOpportunityModal={showOpportunityModal} setShowOpportunityModal={setShowOpportunityModal} opportunityDetails={opportunityDetails} />
         </>
-        {showFile ?
+        {/* {showFile ?
           <Modal title="Basic Modal" open={showFile} onOk={() => { setShowFile(false) }} onCancel={() => { setShowFile(false) }}>
             <embed src="https://www.africau.edu/images/default/sample.pdf" width="500px" height="700px" />
           </Modal>
           : ""
-        }
+        } */}
       </div>
 
     </>
   );
 });
-
 export default CompanyIntelligence;
