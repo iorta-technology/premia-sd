@@ -20,7 +20,7 @@ const fetchHomeStart = (state, action) => {
 };
 
 const fetchHomeSuccess = (state, action) => {
-  console.log("actions of home", action);
+  // console.log("actions of home", action);
   return updateObject(state, {
     fetch_Home_Loading: false,
     home_obj: action.home,
@@ -29,7 +29,7 @@ const fetchHomeSuccess = (state, action) => {
 };
 
 const fetchUserTreeData = (state, action) => {
-  console.log("actions USER TREEEEE", action);
+  // console.log("actions USER TREEEEE", action);
   return updateObject(state, {
     fetch_Home_Loading: false,
     user_tree: action.home,
@@ -58,7 +58,7 @@ const fetchActivitiesStart = (state, action) => {
 };
 
 const fetchActivitiesSuccess = (state, action) => {
-  console.log("actions of activities", action);
+  // console.log("actions of activities", action);
   return updateObject(state, {
     fetch_Activities_Loading: false,
     activities_obj: action.activities,

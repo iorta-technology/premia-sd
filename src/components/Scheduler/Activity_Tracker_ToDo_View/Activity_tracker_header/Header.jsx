@@ -16,7 +16,7 @@ const Header = ({callback}) => {
         <div className='left_div'>Activity Tracker</div>
         <div className='right_div'>
             <div className='input-field'>
-            <input type="text" class="form-control" placeholder="Search"/>
+            <input type="text" className="form-control" placeholder="Search"/>
             <span className='search-icon'><IoIosSearch size={20}/></span>
             </div>
             <div className='button'>

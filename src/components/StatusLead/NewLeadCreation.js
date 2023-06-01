@@ -69,7 +69,7 @@ const NewLead = React.memo((props) => {
 
   const getLocationDetails = async (lead_id) => {
     let result = await axiosRequest.get(`admin/getlocationData`, {secure: true });
-    console.log('getLocationDetails-------',result)
+    // console.log('getLocationDetails-------',result)
     let _locationArr = [];
     setCityZoneList(result)
     result.map((el) => {

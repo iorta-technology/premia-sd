@@ -199,7 +199,7 @@ export const fetchHierarchy = (userId, channelCode) => {
       `admin/getHierarchy?userId=5d80e8b084dfaa4a37a6b760&channelCode=${channelCode._id}&skip=0&hierarchy_type=1`,
       { secure: true }
     );
-    console.log(" login getHierarchy", result);
+    // console.log(" login getHierarchy", result);
     if (result.length > 0) {
       dispatch(fetchHierarchySuccess(result));
     }

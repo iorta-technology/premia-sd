@@ -147,11 +147,11 @@ const Sidebar = () => {
   useEffect(() => {
     mySocket.on("notification", (data) => {
       dispatch(notificationIndicator(false));
-      console.log("data ========= ", data);
+      // console.log("data ========= ", data);
     });
 
     mySocket.on("message", (data) => {
-      console.log("notification received", data);
+      // console.log("notification received", data);
     });
     console.log("state = ", state.home.notification);
     // console.log("mySocket =----->>>> ",mySocket);
@@ -163,7 +163,7 @@ const Sidebar = () => {
         `user/getnotification/${userId}?notification_type=alerts&readStatus=0`
       );
       set_Notify(data[0]);
-      console.log("notification", data[0]);
+      // console.log("notification", data[0]);
     } catch (error) {
       console.log("error", error);
     }

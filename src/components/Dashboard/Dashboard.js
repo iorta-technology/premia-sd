@@ -428,7 +428,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Col>
-                            <div class="vl"></div>
+                            <div className="vl"></div>
                             <Col>
                                 <h4 className='dashboard-head4'>CONTACTED</h4>
                                 <div style={{ width: '80%', height: '80%' }}>
@@ -458,7 +458,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Col>
-                            <div class="vl"></div>
+                            <div className="vl"></div>
                             <Col>
                                 <h4 className='dashboard-head4'>MET</h4>
                                 <div style={{ width: '80%', height: '80%' }}>

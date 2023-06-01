@@ -311,7 +311,7 @@ const UploadDocuments = () => {
                               </Form.Item>
                             </Col>
                             <Col>
-                              <div class="box">
+                              <div className="box">
                                 Please ensure that that image you upload is
                                 clear and verifiable.
                               </div>
@@ -474,7 +474,7 @@ const UploadDocuments = () => {
                               </Form.Item>
                             </Col>
                             <Col>
-                              <div class="box">
+                              <div className="box">
                                 Please ensure that that image you upload is
                                 clear and verifiable.
                               </div>
@@ -636,7 +636,7 @@ const UploadDocuments = () => {
                               </Form.Item>
                             </Col>
                             <Col>
-                              <div class="box">
+                              <div className="box">
                                 Please ensure that that image you upload is
                                 clear and verifiable.
                               </div>
@@ -800,7 +800,7 @@ const UploadDocuments = () => {
                               </Form.Item>
                             </Col>
                             <Col>
-                              <div class="box">
+                              <div className="box">
                                 Please ensure that that image you upload is
                                 clear and verifiable.
                               </div>
@@ -962,7 +962,7 @@ const UploadDocuments = () => {
                               </Form.Item>
                             </Col>
                             <Col>
-                              <div class="box">
+                              <div className="box">
                                 Please ensure that that image you upload is
                                 clear and verifiable.
                               </div>
@@ -1126,7 +1126,7 @@ const UploadDocuments = () => {
                               </Form.Item>
                             </Col>
                             <Col>
-                              <div class="box">
+                              <div className="box">
                                 Please ensure that that image you upload is
                                 clear and verifiable.
                               </div>

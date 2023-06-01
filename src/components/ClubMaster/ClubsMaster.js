@@ -96,19 +96,19 @@ const ClubsMaster = () => {
                                         <div className="Card">
                                             <Carousel autoplay>
                                                 <div className="Image">
-                                                    <Card style={contentStyle} cover={<img alt="example" src="card1.jpg" class="responsive" />}>
+                                                    <Card style={contentStyle} cover={<img alt="example" src="card1.jpg" className="responsive" />}>
                                                     </Card>
                                                 </div>
                                                 <div className="Image">
-                                                    <Card style={contentStyle} cover={<img alt="example" src="card2.jpg" class="responsive" />}>
+                                                    <Card style={contentStyle} cover={<img alt="example" src="card2.jpg" className="responsive" />}>
                                                     </Card>
                                                 </div>
                                                 <div className="Image">
-                                                    <Card style={contentStyle} cover={<img alt="example" src="card3.jpg" class="responsive" />}>
+                                                    <Card style={contentStyle} cover={<img alt="example" src="card3.jpg" className="responsive" />}>
                                                     </Card>
                                                 </div>
                                                 <div className="Image">
-                                                    <Card style={contentStyle} cover={<img alt="example" src="card4.jpg" class="responsive" />}>
+                                                    <Card style={contentStyle} cover={<img alt="example" src="card4.jpg" className="responsive" />}>
                                                     </Card>
                                                 </div>
                                             </Carousel>
@@ -229,32 +229,32 @@ const ClubsMaster = () => {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <div class="grid-container">
-                                                            <div class="grid-item">
+                                                        <div className="grid-container">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">NOP</p>
                                                                 <h2 className="Head-tag2">55</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">Vintage</p>
                                                                 <h2 className="Head-tag2">44</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">WRP</p>
                                                                 <h2 className="Head-tag2">50</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">FY 16 NOP</p>
                                                                 <h2 className="Head-tag2">35</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">13th Month Persistency</p>
                                                                 <h2 className="Head-tag2">75%</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">FY 15 NOP</p>
                                                                 <h2 className="Head-tag2">20</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">25th Month Persistency</p>
                                                                 <h2 className="Head-tag2">65%</h2>
                                                             </div>
@@ -430,32 +430,32 @@ const ClubsMaster = () => {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <div class="grid-container">
-                                                            <div class="grid-item">
+                                                        <div className="grid-container">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">NOP</p>
                                                                 <h2 className="Head-tag2">55</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">Vintage</p>
                                                                 <h2 className="Head-tag2">44</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">WRP</p>
                                                                 <h2 className="Head-tag2">50</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">FY 16 NOP</p>
                                                                 <h2 className="Head-tag2">35</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">13th Month Persistency</p>
                                                                 <h2 className="Head-tag2">75%</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">FY 15 NOP</p>
                                                                 <h2 className="Head-tag2">20</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">25th Month Persistency</p>
                                                                 <h2 className="Head-tag2">65%</h2>
                                                             </div>
@@ -630,32 +630,32 @@ const ClubsMaster = () => {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <div class="grid-container">
-                                                            <div class="grid-item">
+                                                        <div className="grid-container">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">NOP</p>
                                                                 <h2 className="Head-tag2">55</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">Vintage</p>
                                                                 <h2 className="Head-tag2">44</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">WRP</p>
                                                                 <h2 className="Head-tag2">50</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">FY 16 NOP</p>
                                                                 <h2 className="Head-tag2">35</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">13th Month Persistency</p>
                                                                 <h2 className="Head-tag2">75%</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">FY 15 NOP</p>
                                                                 <h2 className="Head-tag2">20</h2><Divider />
                                                             </div>
-                                                            <div class="grid-item">
+                                                            <div className="grid-item">
                                                                 <p className="Paragraph">25th Month Persistency</p>
                                                                 <h2 className="Head-tag2">65%</h2>
                                                             </div>
@@ -725,19 +725,19 @@ const ClubsMaster = () => {
                                     <div className="Card">
                                         <Carousel autoplay>
                                             <div className="Image">
-                                                <Card style={contentStyle} cover={<img alt="example" src="card1.jpg" class="responsive" />}>
+                                                <Card style={contentStyle} cover={<img alt="example" src="card1.jpg" className="responsive" />}>
                                                 </Card>
                                             </div>
                                             <div className="Image">
-                                                <Card style={contentStyle} cover={<img alt="example" src="card2.jpg" class="responsive" />}>
+                                                <Card style={contentStyle} cover={<img alt="example" src="card2.jpg" className="responsive" />}>
                                                 </Card>
                                             </div>
                                             <div className="Image">
-                                                <Card style={contentStyle} cover={<img alt="example" src="card3.jpg" class="responsive" />}>
+                                                <Card style={contentStyle} cover={<img alt="example" src="card3.jpg" className="responsive" />}>
                                                 </Card>
                                             </div>
                                             <div className="Image">
-                                                <Card style={contentStyle} cover={<img alt="example" src="card4.jpg" class="responsive" />}>
+                                                <Card style={contentStyle} cover={<img alt="example" src="card4.jpg" className="responsive" />}>
                                                 </Card>
                                             </div>
                                         </Carousel>
@@ -857,32 +857,32 @@ const ClubsMaster = () => {
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="grid-container">
-                                                        <div class="grid-item">
+                                                    <div className="grid-container">
+                                                        <div className="grid-item">
                                                             <p className="Paragraph">NOP</p>
                                                             <h2 className="Head-tag2">55</h2><Divider />
                                                         </div>
-                                                        <div class="grid-item">
+                                                        <div className="grid-item">
                                                             <p className="Paragraph">Vintage</p>
                                                             <h2 className="Head-tag2">44</h2><Divider />
                                                         </div>
-                                                        <div class="grid-item">
+                                                        <div className="grid-item">
                                                             <p className="Paragraph">WRP</p>
                                                             <h2 className="Head-tag2">50</h2><Divider />
                                                         </div>
-                                                        <div class="grid-item">
+                                                        <div className="grid-item">
                                                             <p className="Paragraph">FY 16 NOP</p>
                                                             <h2 className="Head-tag2">35</h2><Divider />
                                                         </div>
-                                                        <div class="grid-item">
+                                                        <div className="grid-item">
                                                             <p className="Paragraph">13th Month Persistency</p>
                                                             <h2 className="Head-tag2">75%</h2><Divider />
                                                         </div>
-                                                        <div class="grid-item">
+                                                        <div className="grid-item">
                                                             <p className="Paragraph">FY 15 NOP</p>
                                                             <h2 className="Head-tag2">20</h2><Divider />
                                                         </div>
-                                                        <div class="grid-item">
+                                                        <div className="grid-item">
                                                             <p className="Paragraph">25th Month Persistency</p>
                                                             <h2 className="Head-tag2">65%</h2>
                                                         </div>

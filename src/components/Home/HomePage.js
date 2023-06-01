@@ -242,7 +242,6 @@ const HomePage = () => {
     // dispatch(actions.getBusinessCardAPI(userId,channelCode));
 
     dispatch(leadActions.updateTabOfDashboard("self"));
-    // console.log('ROUTEEE___HISTORYYY',history)
     // userId && dispatch(actions.fetchUserDetails(userId))
     channelCode && dispatch(actions.fetchHierarchy(userId, channelCode));
     // if (agent_id)
@@ -275,14 +274,6 @@ const HomePage = () => {
       console.log(error);
     }
   };
-  console.log(
-    "---company listing ==--",
-    CompanyListingResponse,
-    renewal_Last_30,
-    count10,
-    count25,
-    count40
-  );
 
   let getContactOpportunity = async () => {
     const count_10 = "count10%";
@@ -330,8 +321,6 @@ const HomePage = () => {
           });
         }
       }
-
-      // console.log("opportunities =========== ", opportunities);
     } catch (error) {
       console.log(error);
     }
@@ -345,11 +334,9 @@ const HomePage = () => {
         `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`,
         { secure: true }
       );
-      // console.log("TODO__GETTTT___RESPPPP", _resp);
       let respData = _resp[0];
 
       for (let _data of respData) {
-        // console.log('DATATATATA',_data)
         let _icon = "";
         // let _remark = ''
         // let _enableRemark = null
@@ -373,7 +360,6 @@ const HomePage = () => {
         }
 
         // _data.owernersCollectionDetails.forEach(event => {
-        //     // console.log("*********************** owernersCollectionDetails ****************",event.remarkText);
         //     if(event.remarkText !== ''){
         //         _enableRemark = false
         //         // _disableSubmit = true
@@ -414,11 +400,9 @@ const HomePage = () => {
           textOverLine: _textOverline,
           wholeData: _data,
         };
-        // console.warn('objstrct',objstrct)
         arrData.push(objstrct);
       }
       setGetTodoDataArray(arrData);
-      // console.warn("getTodoDataArray____DATAA", getTodoDataArray);
       setShowData(true);
     } catch (err) {}
   };
@@ -448,8 +432,6 @@ const HomePage = () => {
     dispatch(actions.logout());
     history.push("/login");
   };
-  // console.log("Home-Data", home_data)
-  // console.log("activities-data", activities_data);
   if (activities_data !== undefined || activities_data !== null) {
     if (activities_data?.length != 0) {
       activities_data = activities_data?.filter((item) => {
@@ -468,14 +450,11 @@ const HomePage = () => {
     let finalTimeobj = timeList.filter((item) => {
       return item.value == time;
     });
-    // console.warn( "obj time-------------->",finalTimeobj);
     let finalTime = finalTimeobj[0]?.dispValue;
-    // console.log(finalTime, "val time---->");
     return finalTime;
   };
 
   const showModal = (event, ind) => {
-    // console.log("TODO__CARDD___DATA__", event);
     // setButtonName('Update')
     getTodoDataArray[ind].showarchiedpopup = false;
     setUpdateData(event);
@@ -483,7 +462,6 @@ const HomePage = () => {
   };
 
   const archiveData = async (event) => {
-    // console.log('TODO__CARDD___DATA__',event)
     //   setIsModalVisible(true);
     const { id } = stoageGetter("user");
     try {
@@ -497,7 +475,6 @@ const HomePage = () => {
       let _resp = await axiosRequest.put(`user/update_task_status`, formData, {
         secure: true,
       });
-      // console.log("DATA Update:: Archived", _resp);
       setGetTodoDataArray([]);
       getTodoData(0);
     } catch (err) {
@@ -506,9 +483,6 @@ const HomePage = () => {
   };
 
   const removListFromToDo = (data, rowIndex) => {
-    // console.log('Check box data',data);
-    // console.log('Index::',rowIndex);
-    // console.log("From if condition")
     const { id } = stoageGetter("user");
     // userId:id,
 
@@ -598,7 +572,6 @@ const HomePage = () => {
     let _resp = await axiosRequest.put(`user/update_task_status`, data, {
       secure: true,
     });
-    // console.log("UPDATE___RESPPP__", _resp);
     getTodoData(0);
   };
 
@@ -658,7 +631,6 @@ const HomePage = () => {
     // },
     color: ["#ADD8E6", "#f1f1f1"],
   };
-  // console.warn('========businessDropArray==========>>>>',businessDropArray)
   return (
     <Fragment>
       <FloatButton />
@@ -877,41 +849,41 @@ const HomePage = () => {
                     overflow: "hidden",
                   }}
                 >
-                  <div class="container-opp">
-                    <div class="column-opp">
-                      <div class="head-opp">Renewals In</div>
-                      <div class="row-opp">
+                  <div className="container-opp">
+                    <div className="column-opp">
+                      <div className="head-opp">Renewals In</div>
+                      <div className="row-opp">
                         <div className="num-opp">{CompanyListingResponse}</div>
 
                         <div className="child1-opp-1">Next 30 Days</div>
                       </div>
                       <span className="hLine"></span>
-                      <div class="row-opp">
+                      <div className="row-opp">
                         <div className="num-opp">{renewal_Last_30}</div>
 
                         <div className="child1-opp-1">Last 30 Days</div>
                       </div>
                     </div>
-                    <div class="vertical-line">
-                      <div class="row-opp">
+                    <div className="vertical-line">
+                      <div className="row-opp">
                         <div className="vLine"></div>
                       </div>
                     </div>
-                    <div class="column-opp">
-                      <div class="head-opp">TAGIC Presence</div>
-                      <div class="row-opp-1">
-                        <span className="child1-opp">>10%</span>
+                    <div className="column-opp">
+                      <div className="head-opp">TAGIC Presence</div>
+                      <div className="row-opp-1">
+                        <span className="child1-opp">{'>10%'}</span>
 
                         <span className="num-opp-1">{count10}</span>
                       </div>
                       {/* <div className="hLine-r1"></div> */}
-                      <div class="row-opp-2">
-                        <span className="child1-opp">>25%</span>
+                      <div className="row-opp-2">
+                        <span className="child1-opp">{'>25%'}</span>
                         <span className="num-opp-1">{count25}</span> <br />
                         {/* <div className="hLine-r1"></div> */}
                       </div>
-                      <div class="row-opp-3">
-                        <span className="child1-opp">>40%</span>
+                      <div className="row-opp-3">
+                        <span className="child1-opp">{'>40%'}</span>
 
                         <span className="num-opp-1">{count40}</span>
                         {/* <div className="hLine-r1"></div> */}
@@ -953,7 +925,6 @@ const HomePage = () => {
                 getTodoDataArray !== "No appointment " ? (
                   <div className="activity-block">
                     {getTodoDataArray.map((element, index, item) => {
-                      // console.log('DATATATATA____',element)
                       return (
                         <div
                           className="TodoCard-Container todo-home"
@@ -1280,10 +1251,10 @@ const HomePage = () => {
                     overflow: "hidden",
                   }}
                 >
-                  <div class="scrollable-card">
-                    {/* <div class="main-card"> */}
-                    <div class="nested-card-container">
-                      <div class="nested-card">
+                  <div className="scrollable-card">
+                    {/* <div className="main-card"> */}
+                    <div className="nested-card-container">
+                      <div className="nested-card">
                         <div className="avatar-and-status">
                           <Avatar
                             style={{
@@ -1300,7 +1271,7 @@ const HomePage = () => {
                             <span className="user-id uppercase">Ceo</span>
                           </div>
                         </div>
-                        <p class="card-title">
+                        <p className="card-title">
                           <Image
                             preview={false}
                             width={24}
@@ -1315,7 +1286,7 @@ const HomePage = () => {
                           </div>
                         </p>
                       </div>
-                      <div class="nested-card">
+                      <div className="nested-card">
                         <div className="avatar-and-status">
                           <Avatar
                             style={{
@@ -1332,7 +1303,7 @@ const HomePage = () => {
                             <span className="user-id uppercase">Ceo</span>
                           </div>
                         </div>
-                        <p class="card-title">
+                        <p className="card-title">
                           <Image
                             preview={false}
                             width={24}
@@ -1345,8 +1316,8 @@ const HomePage = () => {
                         </p>
                       </div>
                     </div>
-                    <div class="nested-card-container">
-                      <div class="nested-card">
+                    <div className="nested-card-container">
+                      <div className="nested-card">
                         <div className="avatar-and-status">
                           <Avatar
                             style={{
@@ -1363,7 +1334,7 @@ const HomePage = () => {
                             <span className="user-id uppercase">Ceo</span>
                           </div>
                         </div>
-                        <p class="card-title">
+                        <p className="card-title">
                           <Image
                             preview={false}
                             width={24}
@@ -1375,7 +1346,7 @@ const HomePage = () => {
                           <div className="contact-card-due"> Renewal Due</div>
                         </p>
                       </div>
-                      <div class="nested-card">
+                      <div className="nested-card">
                         <div className="avatar-and-status">
                           <Avatar
                             style={{
@@ -1392,7 +1363,7 @@ const HomePage = () => {
                             <span className="user-id uppercase">Ceo</span>
                           </div>
                         </div>
-                        <p class="card-title">
+                        <p className="card-title">
                           <Image
                             preview={false}
                             width={24}

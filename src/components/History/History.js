@@ -14,6 +14,7 @@ import _ from "lodash";
 import { dataFormatting } from "../../helpers";
 import axiosRequest from "../../axios-request/request.methods";
 import actionNoData from "../../assets/Actionnodata.png";
+import * as actionsLead from "../../store/actions/index";
 
 const { Step } = Steps;
 const breakpoint = 620;
@@ -28,22 +29,10 @@ const tabStyle = {
 
 let historyRoute = "/leadmasterpage/leadhistorymaster/leadhistory";
 const tabMenu = [
-  // {
-  //   id: 1,
-  //   value: "Opportunity Details",
-  // },
   {
     id: 1,
     value: "Company Intelligence",
   },
-  // {
-  //   id: 3,
-  //   value: "Proposal Details"
-  // },
-  // {
-  //   id: 4,
-  //   value: "Documents Upload"
-  // },
   {
     id: 2,
     value: "History",
@@ -61,14 +50,20 @@ const History = () => {
   );
   const dispatch = useDispatch();
 
-  console.log("data ===== ", data);
+  // console.log("data ===== ", data);
 
   const proposalArrObject = useSelector((state) => state.history.proposalData);
   const historyLeadData = useSelector((state) => state.history.leadData);
   const appointmentData = useSelector((state) => state.history.appointmentData);
-  console.log("histrory data ---------------- ", historyLeadData);
+  // console.log("histrory data ---------------- ", historyLeadData);
 
   useEffect(() => {
+    // console.log("COMANY ===== ", storeFormData?.company_id?.company_name);
+    // dispatch(actionsLead.headerName(storeFormData?.company_id?.company_name.toUpperCase()));
+  }, []);
+
+  useEffect(() => {
+    dispatch(actionsLead.headerName(storeFormData?.company_id?.company_name.toUpperCase()));
     dispatch(actions.fetchHistory(leadId, userId));
   }, [dispatch]);
 
@@ -134,7 +129,7 @@ const History = () => {
         xl={20}
         span={23}
       >
-        <h1 class="form-title mb-4">Lead Data</h1>
+        <h1 className="form-title mb-4">Lead Data</h1>
 
         {historyLeadData &&
           historyLeadData?.map((res) => (
@@ -165,7 +160,9 @@ const History = () => {
     <>
       <TabsComp
         tabMenu={tabMenu}
-        header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
+        
+        header={storeFormData?.company_id?.company_name.toUpperCase()}
+        // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         activeKey="2"
         statusLeadData={storeFormData}
       />

@@ -62,10 +62,10 @@ const tabMenu = [
                     <Col xs={{ order: 1 }} sm={24} md={24} lg={{ order: 1 }} xl={{ order: 1 }} span={22}>
                         <Row gutter={[16, 16]}>
                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
-                                <div class="div1">
+                                <div className="div1">
                                     <p className="prepayment-title">Life Assured Details</p>
                                 </div>
-                                <div class="div2">
+                                <div className="div2">
                                     <Row justify="center" gutter={[40, 12]}>
                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <text className="prepayment-text">Name: </text>
@@ -91,10 +91,10 @@ const tabMenu = [
                                 </div>
                             </Col >
                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
-                                <div class="div1">
+                                <div className="div1">
                                     <p className="prepayment-title">Proposer Details</p>
                                 </div>
-                                <div class="div2">
+                                <div className="div2">
                                     <Row justify="center" gutter={[40, 12]}>
                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <text className="prepayment-text">Name : </text>
@@ -124,10 +124,10 @@ const tabMenu = [
                                 </div>
                             </Col >
                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
-                                <div class="div1">
+                                <div className="div1">
                                     <p className="prepayment-title">Appointee/Nominee Details</p>
                                 </div>
-                                <div class="div2">
+                                <div className="div2">
                                     <Row justify="center" gutter={[40, 12]}>
                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <text className="prepayment-text">DOB : </text>
@@ -149,10 +149,10 @@ const tabMenu = [
                                 </div>
                             </Col >
                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
-                                <div class="div1">
+                                <div className="div1">
                                     <p className="prepayment-title">Plan Details</p>
                                 </div>
-                                <div class="div2">
+                                <div className="div2">
                                     <Row justify="center" gutter={[40, 12]}>
                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <text className="prepayment-text">Plan Name : </text>
@@ -178,10 +178,10 @@ const tabMenu = [
                                 </div>
                             </Col >
                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
-                                <div class="div1">
+                                <div className="div1">
                                     <p className="prepayment-title">Premium Details</p>
                                 </div>
-                                <div class="div2">
+                                <div className="div2">
                                     <Row justify="center" gutter={[40, 12]}>
                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <text className="prepayment-text">Premium Type : </text>
@@ -203,10 +203,10 @@ const tabMenu = [
                                 </div>
                             </Col >
                             <Col xs={24} sm={12} md={8} lg={8} xl={8} span={24}>
-                                <div class="div1">
+                                <div className="div1">
                                     <p className="prepayment-title">Other Details</p>
                                 </div>
-                                <div class="div2">
+                                <div className="div2">
                                     <Row justify="center" gutter={[40, 12]}>
                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} span={24}>
                                             <text className="prepayment-text">Name : </text>
