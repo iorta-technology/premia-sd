@@ -33,7 +33,7 @@ const Expectation = (props) => {
     const _StoreData = useSelector((state) => state?.newLead?.formData);
     const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
     const user_id = useSelector((state) => state.login.user.id);
-    console.log('(((((((((_StoreData___EXPECT)))))))))---->>>>',_StoreData)
+    // console.log('(((((((((_StoreData___EXPECT)))))))))---->>>>',_StoreData)
     // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
 
 
@@ -88,61 +88,20 @@ const Expectation = (props) => {
     };
 
     const updateExpectation = (event) =>{
-        // let formBody = {
-        //     ...props.updateFormData,
-        //     client_expectations: clientExpectationData,
-        //     red_flags: redFlagData,
-        //     our_ask: ourAskData,
-        // }
-
-        let _appntDate = ''
-        let _appntTime = ''
-        let _apptDateFormat = ''
-
-        if (_StoreData.appointmentDate) {
-            _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-            _appntTime = moment(_StoreData.appointmentDate).format("LT");
-        }
 
         let formBody = {
-            company_details: {
-              company_name: _StoreData?.company_id?.company_name,
-              parent_company: _StoreData?.company_id?.parent_company,
-              industry_name: _StoreData?.company_id?.industry_name,
-              tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
-              client_location: _StoreData?.company_id?.client_location,
-              zone:_StoreData?.company_id?.zone
+            lead_id: _StoreData._id,
+            expectation: {
+                client_expectations: clientExpectationData,
+                red_flags: redFlagData,
+                our_ask: ourAskData
             },
-            leadStatus: _StoreData?.leadStatus,
-            leadDisposition: _StoreData?.leadDisposition,
-            leadsubDisposition: _StoreData?.leadsubDisposition,
-            opportunity_name: _StoreData?.opportunity_name,
-            // tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
-            // LOB_opportunity: _StoreData?.lob_for_opportunity,
-            // product_for_opportunity: _StoreData?.product_for_opportunity,
-            // remarks: _StoreData?.remarks,
-            teamMembers : "[]",
-            lead_Owner_Id: user_id,
-            lead_Creator_Id: user_id,
-            user_id: user_id,
-            company_id: _StoreData?.company_id?._id,
-            // start_date: _UpdateFormBody?.start_date,
-            // start_time:_UpdateFormBody?.start_time,
-            start_date: _appntDate,
-            start_time: _appntTime,
-            client_expectations: clientExpectationData,
-            red_flags: redFlagData,
-            our_ask: ourAskData,
-            channel_name: _StoreData?.channel_name,
-            producer: _StoreData?.producer,
-            VAS_executed: !_StoreData?.VAS_executed ? 'Yes' : _StoreData?.VAS_executed,
-            VAS_input: _StoreData?.VAS_input,
-            kdm_details: _StoreData?.company_id?.kdm_details,
-            risk_details: _StoreData?.company_id?.risk_details,
+        
         }
         // console.warn('formBody ------>>>>>',formBody)
-        dispatch(actions.fetchLeadUpdateBody(formBody))
-        dispatch(actions.editLead(formBody, props.leadDetails))
+        // dispatch(actions.fetchLeadUpdateBody(formBody))
+        dispatch(actions.editLead(formBody, _StoreData._id))
+        props.setShowExpectationModal(false)
     }
 
 return (

@@ -16,7 +16,8 @@ import {
   Tabs,
   Card,
   Collapse,
-  Tooltip
+  Tooltip,
+  message,
 } from "antd";
 
 
@@ -32,7 +33,7 @@ import { FormOutlined, PlusCircleOutlined, UploadOutlined, CalendarOutlined, Del
 import TodoTab from "../Activitity Tracker/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
 // import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards";
-import noDataIcon from "../../assets/078e54aa9d@2x.png";
+import noDataIcon from "../../assets/NoDataFound.png";
 import {
   timeList,
 } from "../StatusLead/dataSet";
@@ -45,11 +46,11 @@ import DocUpload from "./DocumentUpload";
 import RemarkComp from "./RemarksModal";
 import CollaboratorComp from "./CollaboratorModal";
 import OpportunityStatus from "./OpportunityStatusModal";
+import axios from 'axios';
+
+import apiConfig from "../../config/api.config";
+const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 // import { Document, Page } from 'react-pdf';
-// import { pdfjs } from 'react-pdf';
-
-// import PDFViewer from "pdf-viewer-reactjs";
-
 
 const minimumDate = moment().format("YYYY-MM-DD");
 const { TabPane } = Tabs;
@@ -66,10 +67,6 @@ const formItemLayout = {
 };
 
 const tabMenu = [
-  // {
-  //   id: 1,
-  //   value: "Opportunity Details",
-  // },
   {
     id: 1,
     value: "Company Intelligence",
@@ -86,6 +83,7 @@ const CompanyIntelligence = React.memo((props) => {
   // console.warn("COMPPP____PROPSS", props?.location?.state?.leadData);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const loginId = useSelector((state) => state?.login?.user?.id);
+  const loggedInUserToken = useSelector((state) => state?.login?.token);
 
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
@@ -118,12 +116,12 @@ const CompanyIntelligence = React.memo((props) => {
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
   const callback = (data) => {
-    console.log(data, "this is the pdf data");
+    // console.log(data, "this is the pdf data");
     setFileData( data);
   }
-  useEffect(() => {
-    console.log(fileData)
-  }, [fileData]);
+  // useEffect(() => {
+  //   console.log(fileData)
+  // }, [fileData]);
   const delDoc = (i) => {
     let newArr = [...fileData];
     newArr.splice(i, 1);
@@ -152,115 +150,25 @@ const CompanyIntelligence = React.memo((props) => {
     // border: '1px solid #ccc',
   };
 
-  const riskDataArr = [
-    {
-      riskName: 'Tata Chemical',
-      inceptionDate: '14th March,23',
-      tagicPresence: '10',
-      leaderShare: '10',
-      entityName: 'Tata Chemical',
-      productName: 'Metal',
-      totalPremium: '80000',
-      tagicPremium: '80000',
-      leadFollower: '0',
-      leadInsurer: 'Lead',
-      key: '1',
-    },
-    {
-      riskName: 'Tata Motors',
-      inceptionDate: '14th March,23',
-      tagicPresence: '10',
-      leaderShare: '10',
-      entityName: 'Tata Chemical',
-      productName: 'Metal',
-      totalPremium: '80000',
-      tagicPremium: '80000',
-      leadFollower: '0',
-      leadInsurer: 'Lead',
-      key: '2',
-    },
-    {
-      riskName: 'Tata Steel',
-      inceptionDate: '14th March,23',
-      tagicPresence: '10',
-      leaderShare: '10',
-      entityName: 'Tata Chemical',
-      productName: 'Metal',
-      totalPremium: '80000',
-      tagicPremium: '80000',
-      leadFollower: '0',
-      leadInsurer: 'Lead',
-      key: '3',
-    },
-  ]
-
-  const eventDataArr = [
-    {
-      eventName: 'Tata Chemical',
-      eventDate: '14th March,23',
-      eventTime: '10:00 AM to 11:00 AM',
-      eventAgenda: 'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
-    },
-    {
-      eventName: 'Tata Chemical',
-      eventDate: '14th March,23',
-      eventTime: '10:00 AM to 11:00 AM',
-      eventAgenda: 'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
-    },
-    {
-      eventName: 'Tata Chemical',
-      eventDate: '14th March,23',
-      eventTime: '10:00 AM to 11:00 AM',
-      eventAgenda: 'DONENENENENNE EJHEHJjhdjas dasjdhjhjdahjd dabdjhajhjd',
-    },
-  ]
-
-  let kdmTabsArr = [
-    { id: 1, value: 'KDM 1' },
-    { id: 2, value: 'KDM 2' },
-    { id: 3, value: 'KDM 3' },
-    { id: 4, value: 'KDM 4' },
-  ]
-
-  let remarkTabs = [
-    { id: '1', label: 'Remarks' },
-    { id: '2', label: 'Collaborators' },
-  ]
-
-
-  // let tabPane = [];
-  // if (kdmTabsArr && !_.isEmpty(kdmTabsArr)) {
-  //   tabPane = _.map(kdmTabsArr, (value, id) => {
-  //     return <TabPane key={value.id} tab={value.value}></TabPane>;
-  //   });
-  // }
   useEffect(() => {
-    // console.warn('LEAD__ID__FROM___ROUTE___',props.location.state)
-    // console.warn('LEAD__ID__FROM___ROUTE__.leadID_',props.location.state.leadID)
     dispatch(actions.headerName("New Lead"));
-    if (props?.location?.state !== undefined) {
-      let _leadID = !props.location.state.leadID
-        ? props?.location?.state?._leadData?._id
-        : props.location.state.leadID;
-      getLeadDetails(_leadID);
-      getAppointmentList(_leadID)
-      // getAppointmentList(_leadID);
-      // setUpdateLeadID(_leadID);
-      // getEventTodoCountAPI(_leadID);
-      // setIsNewLead(false);
+    // console.warn('storeFormData--------->>>>>',storeFormData)
+    loadValuesToFields(storeFormData);
+    getAppointmentList(storeFormData._id)
+  }, [storeFormData]);
 
-      // if (props.location.state.hasOwnProperty("_leadData")) {
-      //   loadValuesToFields(storeFormData);
-      // }
-    } else {
-      // setIsNewLead(true);
-      // setActivities_data([]);
-      // setMobileDisable(false);
-      // form.setFieldsValue({
-      //   lead_status: "newleadentery",
-      // });
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+    
+  //   // console.warn('LEAD__ID__FROM___ROUTE__.leadID_',props.location.state.leadID)
+  //   // dispatch(actions.headerName("New Lead"));
+  //   if (props?.location?.state !== undefined) {
+  //     let _leadID = !props.location.state.leadID ? props?.location?.state?._leadData?._id : props.location.state.leadID;
+  //     getLeadDetails(_leadID);
+  //     getAppointmentList(_leadID)
+  //   } else {
+     
+  //   }
+  // }, [dispatch]);
 
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
@@ -269,9 +177,9 @@ const CompanyIntelligence = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  useEffect(() => {
+  
 
-  }, []);
+  
 
   const getAppointmentList = async (lead_id) => {
     // setUpdateLeadID(lead_id)
@@ -283,27 +191,24 @@ const CompanyIntelligence = React.memo((props) => {
     setActivities_data(_result);
   };
 
-  const getLeadDetails = async (lead_id) => {
-    try {
-      let result = await axiosRequest.get(`user/getlead_details/${lead_id}`, {
-        secure: true,
-      });
-      if (result.length > 0) {
-        dispatch(actions.fetchLeadDetailsSuccess(result[0]));
-        if (result.length > 1) {
-          let combined = {
-            ...result[0],
-            // appointmentDetails: {
-            //   ...result[1],
-            // },
-          };
-          loadValuesToFields(combined);
-        } else {
-          loadValuesToFields({ ...result[0], appointmentDetails: null });
-        }
-      }
-    } catch (err) { }
-  };
+  // const getLeadDetails = async (lead_id) => {
+  //   try {
+  //     let result = await axiosRequest.get(`user/getlead_details/${lead_id}`, {
+  //       secure: true,
+  //     });
+  //     if (result.length > 0) {
+  //       dispatch(actions.fetchLeadDetailsSuccess(result[0]));
+  //       if (result.length > 1) {
+  //         let combined = {
+  //           ...result[0],
+  //         };
+  //         loadValuesToFields(combined);
+  //       } else {
+  //         loadValuesToFields({ ...result[0], appointmentDetails: null });
+  //       }
+  //     }
+  //   } catch (err) { }
+  // };
 
   const loadValuesToFields = (leadData) => {
     try {
@@ -343,13 +248,16 @@ const CompanyIntelligence = React.memo((props) => {
       }
       setExpectationDetails(_expectation)
 
-      setRiskDetailsArr(leadData?.company_id?.risk_details)
+      setRiskDetailsArr(leadData?.risk_details)
 
       leadData?.company_id?.kdm_details.forEach((el, index) => {
         el.kdmTabs = `KDM ${index + 1}`
       })
       setKdmDetailsArr(leadData?.company_id?.kdm_details)
-      handleKdmTabs(leadData?.company_id?.kdm_details[0])
+      if(leadData?.company_id?.kdm_details.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
+
+      var newArr = leadData?.documents?.map((res) => ({ ...res, recent: false }));
+      setFileData(newArr)
 
       // console.warn("__++++++++++++++ KDM +++++++++++>>", leadData?.company_id?.kdm_details);
 
@@ -400,6 +308,18 @@ const CompanyIntelligence = React.memo((props) => {
     setriskDataSet(data)
   };
 
+  const deleteRiskData = async (data, index) => {
+    // console.log('loggedInUser DATA---->>>', loggedInUserToken)
+    const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
+    axios.delete(`${baseURL}secure/user/deleteRiskDetails?userId=${loginId}&lead_Id=${storeFormData.lead_Id}&riskId=${data?._id}`,{ headers }).then(res =>{
+        // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
+        if(res.data.errCode === -1){
+          dispatch(actions.fetchLeadDetails(storeFormData._id))
+          message.success("Risk Details Deleted Successfully");
+        }
+    })
+  };
+
   const openDocumentModal = () => {
     setShowDocumntModal(true)
   };
@@ -416,11 +336,6 @@ const CompanyIntelligence = React.memo((props) => {
     childRef.current.getTodoData(0);
     // getEventTodoCountAPI(res.formData._id);
   };
-
-
-
-
-
 
 
   const handleCollapse = (event, data, ind) => {
@@ -447,30 +362,6 @@ const CompanyIntelligence = React.memo((props) => {
       return data;
     }
   }
-
-  const tabStyle = {
-    color: "#000",
-    background: "#fff",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#f0f0f0",
-    height: width > 1090 ? 220 : "",
-    width: width > 1090 ? 320 : width > 767 ? "66.33%" : "100%",
-  };
-
-  const genExtra = (ind) => {
-    // riskInd === ind &&
-    // showEditBtn ?
-    // <FormOutlined
-    //   onClick={(event) => {
-    //     console.log('EDIT BTN CLICK',event)
-    //     // If you don't want click extra trigger collapse, you can prevent this:
-    //     event.stopPropagation();
-    //   }}
-    // />
-    // : null
-    // console.log('Collapse.isActive------',Collapse)
-  };
 
   return (
     <>
@@ -577,7 +468,7 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(opportunityDetails.leadStatus)}</p>
+                    <p className="text-font">{!opportunityDetails.leadStatus ? '-' : opportunityDetails.leadStatus === "newleadentery" ? 'New Lead' : '' }</p>
                     <p className="label-font">Status</p>
                   </Col>
 
@@ -587,7 +478,6 @@ const CompanyIntelligence = React.memo((props) => {
                   </Col>
 
                   <Col style={{flex:1}}>
-                    {/* <p className="text-font">{}</p> */}
                     <Tooltip placement="top" title={checkValidity(opportunityDetails.leadsubDisposition)}>
                       <p
                         className="text-font"
@@ -608,7 +498,7 @@ const CompanyIntelligence = React.memo((props) => {
 
                 <Row style={{marginTop:10}}>
                   <Col style={{flex:1}}>
-                    <p className="text-font">{checkValidity(moment(opportunityDetails.appointmentDate).format("MM/DD/YYYY") )}</p>
+                    <p className="text-font">{!opportunityDetails.appointmentDate ? '-' : moment(opportunityDetails.appointmentDate).format("MM/DD/YYYY")}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
@@ -683,7 +573,7 @@ const CompanyIntelligence = React.memo((props) => {
               </Row>
               <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
               <Col style={{ padding: 10 }}>
-                {riskDetailsArr &&
+                {riskDetailsArr.length > 0 ?
                   riskDetailsArr.map((el, index) =>
                     <Collapse accordion={true} onChange={(text) => handleCollapse(text, el, index)} expandIconPosition={'right'} style={panelStyle} defaultActiveKey={['1']}>
                       <Panel
@@ -691,7 +581,7 @@ const CompanyIntelligence = React.memo((props) => {
                         key={el.key}
                         extra={
                           <Row style={{ marginTop: 3 }} onClick={e => e.stopPropagation()}>
-                            <DeleteOutlined style={{ fontSize: 18, marginRight: 10, color: '#737373' }} onClick={genExtra} />
+                            <DeleteOutlined onClick={() => deleteRiskData(el, index)} style={{ fontSize: 18, marginRight: 10, color: '#737373' }} />
                             <FormOutlined onClick={() => openRiskModal('edit', el, index)} style={{ fontSize: 16, color: '#737373' }} />
                           </Row>
                         }
@@ -777,6 +667,15 @@ const CompanyIntelligence = React.memo((props) => {
                       </Panel>
                     </Collapse>
                   )
+                  :
+                  <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
+                    <img src={noDataIcon} style={{ height: 100, width: 100 }} />
+                    <div style={{ marginTop: 10 }}>
+                      <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Risk details available.  
+                        <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Details</span>
+                      </text>
+                    </div>
+                  </div>
                 }
               </Col>
             </Card>
@@ -803,58 +702,70 @@ const CompanyIntelligence = React.memo((props) => {
                 </Row>
               </Col>
 
-              <Col style={{ padding: 10 }}>
-                <Row>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.decision_maker_name)}</p>
-                    <p className="label-font">Name</p>
-                  </Col>
+              {console.log('kdmDetailsArr-------',kdmDetailsArr)}
+              {kdmDetailsArr.length > 0 ?
+                <Col style={{ padding: 10 }}>
+                  <Row>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.decision_maker_name)}</p>
+                      <p className="label-font">Name</p>
+                    </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.role)}</p>
-                    <p className="label-font">Role</p>
-                  </Col>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.role)}</p>
+                      <p className="label-font">Role</p>
+                    </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.designation)}</p>
-                    <p className="label-font">Designition</p>
-                  </Col>
-                </Row>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.designation)}</p>
+                      <p className="label-font">Designition</p>
+                    </Col>
+                  </Row>
 
-                <Row style={{ marginTop: 10 }}>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.primaryContact)}</p>
-                    <p className="label-font">Phone Number</p>
-                  </Col>
+                  <Row style={{ marginTop: 10 }}>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.primaryContact)}</p>
+                      <p className="label-font">Phone Number</p>
+                    </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.emailAddress)}</p>
-                    <p className="label-font">Email ID</p>
-                  </Col>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.emailAddress)}</p>
+                      <p className="label-font">Email ID</p>
+                    </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.date_of_birth)}</p>
-                    <p className="label-font">Date Of Birth</p>
-                  </Col>
-                </Row>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.date_of_birth)}</p>
+                      <p className="label-font">Date Of Birth</p>
+                    </Col>
+                  </Row>
 
-                <Row style={{ marginTop: 10 }}>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.city)}</p>
-                    <p className="label-font">City</p>
-                  </Col>
+                  <Row style={{ marginTop: 10 }}>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.city)}</p>
+                      <p className="label-font">City</p>
+                    </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.state)}</p>
-                    <p className="label-font">State</p>
-                  </Col>
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.state)}</p>
+                      <p className="label-font">State</p>
+                    </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(kdmDataSet?.branch)}</p>
-                    <p className="label-font">Branch</p>
-                  </Col>
-                </Row>
-              </Col>``````
+                    <Col style={{ flex: 1 }}>
+                      <p className="text-font">{checkValidity(kdmDataSet?.branch)}</p>
+                      <p className="label-font">Branch</p>
+                    </Col>
+                  </Row>
+                </Col>
+                :
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
+                  <img src={noDataIcon} style={{ height: 100, width: 100 }} />
+                  <div style={{ marginTop: 10 }}>
+                    <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No KDM details available.  
+                      <span onClick={() => openKDMModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Details</span>
+                    </text>
+                  </div>
+                </div>
+              }
             </Card>
 
 
@@ -908,10 +819,10 @@ const CompanyIntelligence = React.memo((props) => {
                         })}
                       </div>
                     ) : (
-                      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 50 }}>
-                        <img src={noDataIcon} style={{ height: 150, width: 100 }} />
+                      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
+                        <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                         <div style={{ marginTop: 10 }}>
-                          <text style={{ textAlign: "center", fontSize: 14 }}>{" "}No records found{" "}</text>
+                          <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Events to show</text>
                         </div>
                       </div>
                     )}
@@ -942,28 +853,38 @@ const CompanyIntelligence = React.memo((props) => {
               <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
               <Col style={{ padding: 10 }}>
                 <Row>
-                  <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>{
-                    fileData && 
-                    fileData?.map((item, index) => (
-                      <div className="data-field">
-                        <div className="wrapper1">
-                          <div className="page" ><img src={page} /></div>
-                          <div style={{
-                            marginBottom: 0,
-                            color: "grey",
-                            width: 180,
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                          }} >{item.originalname || item.file_name}</div>
+                  <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+                    {fileData.length > 0 ? 
+                      fileData?.map((item, index) => (
+                        <div className="data-field">
+                          <div className="wrapper1">
+                            <div className="page" ><img style={{ height: 15, width: 15 }}  src={page} /></div>
+                            <div style={{
+                              marginBottom: 0,
+                              color: "grey",
+                              width: 180,
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                            }} >{item.originalname || item.file_name}</div>
+                          </div>
+                          <div className="wrapper2">
+                            <div className="eye" onClick={() =>  handleShow(index) }><img  src={eye} /></div>
+                            <div className="trash" onClick={() => delDoc(index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
+                          </div>
                         </div>
-                        <div className="wrapper2">
-                          <div className="eye" onClick={() => { handleShow(index) }}><img src={eye} /></div>
-                          <div className="trash" onClick={() => delDoc(index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
+                      ))
+                      : 
+                      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
+                          <img src={noDataIcon} style={{ height: 100, width: 100 }} />
+                          <div style={{ marginTop: 10 }}>
+                            <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Documents available.  
+                              <span onClick={() => openDocumentModal()} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Documents</span>
+                            </text>
+                          </div>
                         </div>
-                      </div>
-                    ))
-                  }</div>
+                    }
+                  </div>
                   <Col style={{ flex: 1 }}></Col>
                 </Row>
               </Col>

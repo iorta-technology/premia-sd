@@ -84,7 +84,7 @@ const OpportunityComp = (props) => {
 
             changeLeadStatus(props?.opportunityDetails?.leadStatus);
             if (props?.opportunityDetails?.leadDisposition === "appointment" && props?.opportunityDetails?.leadStatus === "contact") {
-              console.log('((((((AM HEREE)))))))',props)
+              // console.log('((((((AM HEREE)))))))',props)
               setAppointmentStatus(props?.opportunityDetails?.appointment_status === "" ? "newappointment" : props?.opportunityDetails?.appointment_status);
               setAppointmentDisposition("newApptmnt");
               setAppointmentSubDisposition("Untouched / Not updated Appointment");

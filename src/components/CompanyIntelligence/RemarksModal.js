@@ -23,6 +23,10 @@ const RemarksModalComp = (props) => {
 
     const _StoreData = useSelector((state) => state?.newLead?.formData);
     const user_id = useSelector((state) => state.login.user.id);
+
+    const [remark, setRemark] = useState("");
+    const [reamrkDataArr, setreamrkDataArr] = useState([]);
+    const [formItem, setFormItem] = useState({ remarks:'' });
     // console.log('(((((((((_StoreData___VASS)))))))))---->>>>',_StoreData)
     // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
 
@@ -38,6 +42,40 @@ const RemarksModalComp = (props) => {
     useEffect(() => {
 
     }, []);
+
+    const addRemarks = async () => {
+        let result = "";
+        if (remark && remark != "") {
+            result = await axiosRequest.post(`user/add-opporunity-remark/${props.location.state.leadID}`,{ new_remark: remark },{ secure: true });
+    
+            if (result) {
+                setRemark("");
+                form.setFieldsValue({remarks: ""});
+                setreamrkDataArr([...reamrkDataArr, result]);
+                return 
+            }
+        
+            let _remark = [
+                {
+                description: remark,
+                dateTime: new Date().toLocaleString("en-US"),
+                },
+            ];
+            setRemark("");
+        
+            setFormItem((res) => ({ ...res,remarks: _remark }));
+            form.setFieldsValue({remarks: ""});
+        
+            let remID = Math.floor(1000 + Math.random() * 9000);
+            let _data = {
+                description: remark,
+                date: new Date().toLocaleDateString().valueOf(),
+                remark_id: remID.toString(),
+            };
+        
+            setreamrkDataArr([...reamrkDataArr, _data]);
+        }
+      };
 
 
     const updateRemark = (event) =>{
@@ -93,7 +131,11 @@ const RemarksModalComp = (props) => {
         // dispatch(actions.editLead(formBody, props.leadDetails))
         props.setShowRemarkModal(false)
     }
+    
 
+    const onChangeRemark = (event) =>{
+        setRemark(event.target.value)
+    }
 return (
     <>
         <Modal
@@ -115,8 +157,31 @@ return (
                 span={23}
                 >
                     <div>
-                        <TextArea rows={4} placeholder="Enter Remark" maxLength={6} />
+                        <TextArea 
+                            rows={4} 
+                            placeholder="Enter Remark" 
+                            // maxLength={6}
+                            onChange={(e) => onChangeRemark(e)}
+                         />
+
+                        {/* <Button
+                            type="primary"
+                            style={{
+                                border: "none",
+                                display: "flex",
+                                alignItems: "center",
+                                marginTop: "16px",
+                                backgroundColor: "#00ACC1",
+                            }}
+                            icon={<PlusOutlined />}
+                            onClick={addRemarks}
+                        >
+                        ADD
+                      </Button> */}
                     </div>
+                    
+
+                    
                
                 <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
                     <Button size='large' onClick={()=> props.setShowRemarkModal(false)} style={{flex:1,borderRadius:5,border:'1px solid #3B371E',color:'#3B371E'}} >Cancel</Button>

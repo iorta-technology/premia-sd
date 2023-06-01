@@ -36,15 +36,15 @@ const ProducerAndVas = (props) => {
     const _StoreData = useSelector((state) => state?.newLead?.formData);
     const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
     const user_id = useSelector((state) => state.login.user.id);
-    console.log('(((((((((_StoreData___VASS)))))))))---->>>>',_StoreData)
+    // console.log('(((((((((_StoreData___VASS)))))))))---->>>>',_StoreData)
     // console.log('(((((((((leadDetails)))))))))---->>>>',props.leadDetails)
 
 
-    const [channelData, setChannelData] = useState("");
-    const [producerData, setProducerData] = useState("");
+    const [channelData, setChannelData] = useState(null);
+    const [producerData, setProducerData] = useState(null);
     const [vasExecuted, setVasExecuted] = useState('No');
     const [showVasInput, setShowVasInput] = useState(false);
-    const [vasInputData, setVasInputData] = useState('');
+    const [vasInputData, setVasInputData] = useState(null);
     
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;
@@ -62,11 +62,11 @@ const ProducerAndVas = (props) => {
     };
 
     useEffect(() => {
-        setChannelData( _StoreData?.channel_name)
-        setProducerData( _StoreData?.producer)
-        setVasExecuted( _StoreData?.VAS_executed)
+        setChannelData( _StoreData?.channel_name || null)
+        setProducerData( _StoreData?.producer || null)
+        setVasExecuted( _StoreData?.VAS_executed || null)
         setShowVasInput(_StoreData?.VAS_executed === 'Yes' ? true : false)
-        setVasInputData(_StoreData?.VAS_input)
+        setVasInputData(_StoreData?.VAS_input || null)
         form.setFieldsValue({
             kdmChannel:_StoreData?.channel_name,
             kdmProducer:_StoreData?.producer,
@@ -108,62 +108,18 @@ const ProducerAndVas = (props) => {
     };
 
     const updateProdVas = (event) =>{
-
-        // let formBody = {
-        //     ...props.updateFormData,
-        //     channel_name: channelData,
-        //     producer: producerData,
-        //     VAS_executed: vasExecuted,
-        // }
-        let _appntDate = ''
-        let _appntTime = ''
-        let _apptDateFormat = ''
-
-        if (_StoreData.appointmentDate) {
-            _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-            _appntTime = moment(_StoreData.appointmentDate).format("LT");
-        }
-
         let formBody = {
-            company_details: {
-              company_name: _StoreData?.company_id?.company_name,
-              parent_company: _StoreData?.company_id?.parent_company,
-              industry_name: _StoreData?.company_id?.industry_name,
-              tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
-              client_location: _StoreData?.company_id?.client_location,
-              zone:_StoreData?.company_id?.zone
-            },
-            leadStatus: _StoreData?.leadStatus,
-            leadDisposition: _StoreData?.leadDisposition,
-            leadsubDisposition: _StoreData?.leadsubDisposition,
-            opportunity_name: _StoreData?.opportunity_name,
-            // tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
-            // LOB_opportunity: _StoreData?.lob_for_opportunity,
-            // product_for_opportunity: _StoreData?.product_for_opportunity,
-            // remarks: _StoreData?.remarks,
-            teamMembers : "[]",
-            lead_Owner_Id: user_id,
-            lead_Creator_Id: user_id,
-            user_id: user_id,
-            company_id: _StoreData?.company_id?._id,
-            // start_date: _UpdateFormBody?.start_date,
-            // start_time:_UpdateFormBody?.start_time,
-            start_date: _appntDate,
-            start_time: _appntTime,
-            client_expectations: _StoreData?.client_expectations,
-            red_flags: _StoreData?.red_flags,
-            our_ask: _StoreData?.our_ask,
-            channel_name: channelData,
-            producer: producerData,
-            VAS_executed: vasExecuted,
-            VAS_input: vasInputData,
-            // VAS_input: _StoreData?.VAS_input,
-            kdm_details: _StoreData?.company_id?.kdm_details,
-            risk_details: _StoreData?.company_id?.risk_details,
+            lead_id: _StoreData._id,
+            producer_vas: {
+                VAS_executed: vasExecuted,
+                channel_name: channelData,
+                VAS_input: vasInputData,
+                producer: producerData
+            }
         }
-        console.warn('formBody ------>>>>>',formBody)
-        dispatch(actions.fetchLeadUpdateBody(formBody))
-        dispatch(actions.editLead(formBody, props.leadDetails))
+        // console.warn('formBody ------>>>>>',formBody)
+        // dispatch(actions.fetchLeadUpdateBody(formBody))
+        dispatch(actions.editLead(formBody, _StoreData._id))
         props.setShowVasModal(false)
     }
 

@@ -29,7 +29,7 @@ import NewLead from '../StatusLead/NewLeadCreation'
 // }
 
 const FloatButton = React.memo(() => {
-  const [showVasModal, setShowVasModal] = useState(false);
+  const [showNewLeadModal, setShowNewLeadModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const [isopen, setisopen] = useState(false);
@@ -147,38 +147,7 @@ const FloatButton = React.memo(() => {
 
   const addNewLead = () => {
     if(showOpportunities){
-      // let leadUpdateFormdata = {
-      //   company_details: {
-      //     company_name: '',
-      //     parent_company: '',
-      //     industry_name: '',
-      //     tata_aig_empaneled:'',
-      //     client_location: '',
-      //   },
-      //   leadStatus: '',
-      //   leadDisposition: '',
-      //   leadsubDisposition: '',
-      //   opportunity_name: '',
-      //   tender_driven: '',
-      //   LOB_opportunity: '',
-      //   product_for_opportunity: '',
-      //   remarks: '',
-      //   teamMembers : "[]",
-      //   lead_Owner_Id: '',
-      //   lead_Creator_Id: '',
-      //   user_id: '',
-      //   company_id: '',
-      //   start_date: '',
-      //   start_time:'',
-      //   client_expectations: "",
-      //   red_flags: "",
-      //   our_ask: "",
-      //   channel_name: "",
-      //   producer: "",
-      //   VAS_executed: "Yes",
-      //   kdm_details: [],
-      //   risk_details: []
-      // }
+
       dispatch(actions.fetchLeadUpdateBody({}))
       dispatch(actions.fetchLeadDetailsSuccess({}))
       
@@ -196,14 +165,13 @@ const FloatButton = React.memo(() => {
   };
 
   const onclick_float = () => {
-    setShowVasModal(true)
-    console.log("----clicked---")
+    setShowNewLeadModal(true)
     
   };
   
   return (
     <>
-      <NewLead showVasModal={showVasModal} setShowVasModal={setShowVasModal} />
+      <NewLead showNewLeadModal={showNewLeadModal} setShowNewLeadModal={setShowNewLeadModal} />
       <PlusCircleFilled className={styles.icon} onClick={floatButtonHandler} />
       <p
         className={`${styles.paragraph}  ${styles.eventpg} ${styles.pgpfr}`}
@@ -235,7 +203,7 @@ const FloatButton = React.memo(() => {
             className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr}`}
             style={isopen ? open : close}
           /> */}
-        <div  className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
+        <div onClick={onclick_float} className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
           {/* <FileTextOutlined /> */}
           <img src={lead_icon} style={{height:25, width:25,cursor:"pointer"}}/>
         </div>

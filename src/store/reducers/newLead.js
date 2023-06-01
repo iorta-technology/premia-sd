@@ -172,8 +172,8 @@ const fetchLeadDetailsSuccess = (state, action) => {
   // }
   // const {mailingaddress:{line1}={line1:'hello'}} = action.leadDetails.mailingAddress
   // const fetchLeadId = action.fetchLeadId;
-  // console.log('(((ACTIONS)))------->>>',action)
-  // console.log('(((STATEEE)))------->>>',state)
+  console.log('(((ACTIONS)))------->>>',action)
+  console.log('(((STATEEE)))------->>>',state)
   // const { Insurancedetails } = action.leadDetails;
   // const { HaveLifeInsurance_details } = action.leadDetails;
   // if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){
@@ -182,17 +182,17 @@ const fetchLeadDetailsSuccess = (state, action) => {
 
   //     var  lifeInsObject = JSON.parse(HaveLifeInsurance_details)
   // }
-  const payload = {
+  // const payload = {
     // ...state.formData,
-    ...action.leadDetails,
+    // ...action.leadDetails,
     // ...state.appointmentData,
     // ...action.appointmentDetails,
-  };
+  // };
   return updateObject(state, {
     leadDataloading: false,
     createLeadLoading: false,
-    formData: payload,
-    payloadFormData: payload,
+    formData: action?.leadDetails,
+    payloadFormData: action?.leadDetails,
     // mailingAddress:address1,
     // mailingAddressSecond:address2,
     leadId: action?.leadDetails?._id,

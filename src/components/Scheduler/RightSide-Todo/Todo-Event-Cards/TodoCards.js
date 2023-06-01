@@ -20,7 +20,8 @@ import axiosRequest from "../../../../axios-request/request.methods";
 import moment from "moment";
 import { stoageGetter } from "../../../../helpers";
 import "../../../Activitity Tracker/Pagenation/Pagenation.css";
-import noDataIcon from "../../../../assets/078e54aa9d@2x.png";
+import noDataIcon from "../../../../assets/NoDataFound.png";
+// import noDataIcon from "../../../../assets/NoDataFound.png";
 
 const TodoCards = forwardRef((props, ref) => {
   // console.log(TodoData.length);
@@ -722,15 +723,14 @@ const TodoCards = forwardRef((props, ref) => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            padding: 50,
+            padding: 40,
           }}
         >
-          <img src={noDataIcon} style={{ height: 150, width: 100 }} />
+          <img src={noDataIcon} style={{ height: 100, width: 100 }} />
           <div style={{ marginTop: 10 }}>
-            <text style={{ textAlign: "center", fontSize: 14 }}>
-              {" "}
-              No records found{" "}
-            </text>
+          <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No To Do to show. 
+            {/* <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Todo</span> */}
+          </text>
           </div>
         </div>
       )}

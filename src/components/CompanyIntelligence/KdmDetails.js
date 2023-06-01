@@ -7,7 +7,7 @@ import * as actions from "../../store/actions/index";
 import _ from "lodash";
 import { PlusOutlined } from '@ant-design/icons';
 import moment from "moment";
-
+import axiosRequest from "../../axios-request/request.methods";
 
 const tabMenu = [
     {
@@ -53,6 +53,8 @@ const KDMDetails = (props) => {
     const [showKdmBtn, setShowKdmBtn] = useState(true);
     const [showKdmNameErr, setShowKdmNameErr] = useState(false);
     const [Name, setName] = useState('');
+    const [kdmTypeData, setKdmTypeData] = useState('');
+    const [editKdmId, setEditKdmId] = useState('');
     const minimumDate = moment().format("YYYY-MM-DD"); 
                                     
     const [kdmDetArr, setkdmDetArr] = useState([
@@ -89,8 +91,10 @@ const KDMDetails = (props) => {
     useEffect(() => {
         let _dataArr = []
         if(Object.keys(props.kdmDataSet).length > 0){
+            setKdmTypeData('update')
             // props.kdmDataSet.map(el =>{
                 // kdmDetArr.forEach(el =>{
+                setEditKdmId(props.kdmDataSet._id)
                 let _data = {
                     kdmName:props.kdmDataSet.decision_maker_name,
                     kdmRole:props.kdmDataSet.role,
@@ -111,6 +115,7 @@ const KDMDetails = (props) => {
             // _dataArr.length < 4 ? setShowKdmBtn(true) : setShowKdmBtn(false)
             setkdmDetArr(_dataArr)
         }else{
+            setKdmTypeData('create')
             let _data = {
                 kdmName:'',
                 kdmRole:'',
@@ -311,21 +316,13 @@ const KDMDetails = (props) => {
             }
             _kdmDetailsData.push(_data)
         })
+        
         // console.warn('_kdmDetailsData ------>>>>>',_kdmDetailsData)
         // console.log('_validationError .... -------KDM---->>',_validationError)
         // let formBody = {
         //     ...props.updateFormData,
         //     kdm_details: _kdmDetailsData,
         // }
-        // return
-        let _appntDate = ''
-        let _appntTime = ''
-        let _apptDateFormat = ''
-
-        if (_StoreData.appointmentDate) {
-            _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-            _appntTime = moment(_StoreData.appointmentDate).format("LT");
-        }
 
         if(_validationError){
             message.warning('Please Enter Correct Data')
@@ -333,45 +330,27 @@ const KDMDetails = (props) => {
         }
 
         let formBody = {
-            company_details: {
-              company_name: _StoreData?.company_id?.company_name,
-              parent_company: _StoreData?.company_id?.parent_company,
-              industry_name: _StoreData?.company_id?.industry_name,
-              tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
-              client_location: _StoreData?.company_id?.client_location,
-              zone:_StoreData?.company_id?.zone
-            },
-            leadStatus: _StoreData?.leadStatus,
-            leadDisposition: _StoreData?.leadDisposition,
-            leadsubDisposition: _StoreData?.leadsubDisposition,
-            opportunity_name: _StoreData?.opportunity_name,
-            // tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
-            // LOB_opportunity: _StoreData?.lob_for_opportunity,
-            // product_for_opportunity: _StoreData?.product_for_opportunity,
-            // remarks: _StoreData?.remarks,
-            teamMembers : "[]",
-            lead_Owner_Id: user_id,
-            lead_Creator_Id: user_id,
-            user_id: user_id,
-            company_id: _StoreData?.company_id?._id,
-            // start_date: _UpdateFormBody?.start_date,
-            // start_time:_UpdateFormBody?.start_time,
-            start_date: _appntDate,
-            start_time: _appntTime,
-            client_expectations: _StoreData?.client_expectations,
-            red_flags: _StoreData?.red_flags,
-            our_ask: _StoreData?.our_ask,
-            channel_name: _StoreData?.channel_name,
-            producer: _StoreData?.producer,
-            VAS_executed: !_StoreData?.VAS_executed ? 'Yes' : _StoreData?.VAS_executed,
-            VAS_input: _StoreData?.VAS_input,
-            kdm_details: _kdmDetailsData,
-            risk_details: _StoreData?.company_id?.risk_details
+            kdmDetails: _kdmDetailsData,
         }
 
-        console.warn('formBody ------>>>>>',formBody)
-        dispatch(actions.fetchLeadUpdateBody(formBody))
-        dispatch(actions.editLead(formBody, props.leadDetails))
+        let _compID = _StoreData?.company_id?._id
+
+        if(kdmTypeData === 'create'){
+            // let result = await axiosRequest.post(`user/postRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}`,formBody,{ secure: true });
+            let result = await axiosRequest.post(`user/postkdmDetails?userId=${user_id}&companyid=${_compID}`,formBody,{ secure: true });
+            dispatch(actions.fetchLeadDetails(_StoreData._id))
+            // message.success("Risk Details Created Successfully");
+        }else{
+            // let result = await axiosRequest.put(`user/updateRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}&riskId=${editRiskId}`,formBody,{ secure: true });
+            let result = await axiosRequest.put(`user/updatekdmDetails?userId=${user_id}&companyid=${_compID}&kdmId=${editKdmId}`,formBody,{ secure: true });
+            dispatch(actions.fetchLeadDetails(_StoreData._id))
+            // message.success("Risk Details Updated Successfully");
+    
+        }
+
+        // console.warn('formBody ------>>>>>',formBody)
+        // dispatch(actions.fetchLeadUpdateBody(formBody))
+        // dispatch(actions.editLead(formBody, props.leadDetails))
         props.setShowKdmModal(false)
         
     }

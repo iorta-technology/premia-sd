@@ -39,7 +39,7 @@ const LeadCard = React.memo((props) => {
     tagic_premium,
     inception_date,
   } = props;
-  console.log("props", props);
+  // console.log("props", props);
 
   // console.warn('PROPSSSS___________',props)
 
@@ -55,7 +55,7 @@ const LeadCard = React.memo((props) => {
           )
         );
     setChkId(data.id);
-    console.log("checkedLead = ", checkedLead);
+    // console.log("checkedLead = ", checkedLead);
   }
 
   useEffect(() => {
@@ -104,7 +104,10 @@ const LeadCard = React.memo((props) => {
     // console.log('history-----------',history)
     // LeadData._id === id && history.push("/leadmasterpage/statuslead");
     // history.push("/leadmasterpage/statuslead", { leadID: id });
+    dispatch(actions.fetchLeadDetails(id));
     history.push("/company-intelligence", { leadID: id });
+    // history.push("/company-intelligence", { leadID: id });
+    
   };
   let statusColors = {
     closed: "#D04949",

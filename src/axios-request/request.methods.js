@@ -47,6 +47,8 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
                 message.success("Event Created successfully");
               if (config.url.includes("addlead"))
                 message.success("Lead Created successfully");
+              if (config.url.includes("postRiskDetails"))
+                message.success("Risk Details Created Successfully");
             } else if (config.method === "put") {
               if (config.url.includes("update_task_status"))
                 message.success("Todo Updated successfully");
@@ -54,6 +56,9 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
                 message.success("Event Updated successfully");
               if (config.url.includes("updateLead"))
                 message.success("Lead Updated successfully");
+
+              if (config.url.includes("updateRiskDetails"))
+                message.success("Risk Details Updated Successfully");
             }
             // if (config.method !== "get") message.success("Your data fetched successfully");
             // if (config.method === "put") message.success("Data updated successfully");

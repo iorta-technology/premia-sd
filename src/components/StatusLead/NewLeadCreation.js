@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
 import "./StatusLead.css";
-import { industryDataArr, cityZoneList } from "./dataSet";
+// import { industryDataArr } from "./dataSet";
 import {
   Row,
   Col,
@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
-import TodoTab from "../Activitity Tracker/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
 
 const { Option } = Select;
 
@@ -44,6 +43,7 @@ const NewLead = React.memo((props) => {
   const [company_id, setCompany_id] = useState("");
   const [clienLocArr, setClienLocArr] = useState([]);
   const [disableParentComp, setDisableParentComp] = useState(false);
+  const [cityZoneList, setCityZoneList] = useState([]);
   const [formItem, setFormItem] = useState({
     companyName: "",
     parentCompanyName: null,
@@ -54,16 +54,41 @@ const NewLead = React.memo((props) => {
   });
 
   useEffect(() => {
-    let _clientLoc = cityZoneList.map((el) => {
-      let _data = { label: el.City, value: el.City };
-      return _data;
-    });
-    setClienLocArr(_clientLoc);
+    // let _clientLoc = cityZoneList.map((el) => {
+    //   let _data = { label: el.City, value: el.City };
+    //   return _data;
+    // });
+    // setClienLocArr(_clientLoc);
   }, []);
 
   useEffect(() => {
     getCompanyDetails();
+    getIndustryDetails();
+    getLocationDetails();
   }, []);
+
+  const getLocationDetails = async (lead_id) => {
+    let result = await axiosRequest.get(`admin/getlocationData`, {secure: true });
+    console.log('getLocationDetails-------',result)
+    let _locationArr = [];
+    setCityZoneList(result)
+    result.map((el) => {
+      let _data = { label: el.city, value: el.city };
+      _locationArr.push(_data);
+    });
+    setClienLocArr(_locationArr);
+  };
+
+  const getIndustryDetails = async (lead_id) => {
+    let result = await axiosRequest.get(`admin/getindustryData`, {secure: true });
+    // console.log('getIndustryDetails-------',result)
+    let _industryArr = [];
+    result.map((el) => {
+      let _data = { label: el.industry, value: el.industry };
+      _industryArr.push(_data);
+    });
+    setIndustryArray(_industryArr);
+  };
 
   const getCompanyDetails = async (lead_id) => {
     let result = await axiosRequest.get(`admin/company/companies`, {
@@ -82,16 +107,13 @@ const NewLead = React.memo((props) => {
       _parentCompArr.push(_data);
     });
     setparentCompArray(_parentCompArr);
-    setIndustryArray(industryDataArr);
+    // setIndustryArray(industryDataArr);
   };
 
   const onSelectCompany = async (event, data) => {
     setCompany_id(data._id);
     setDisableParentComp(true);
-    let result = await axiosRequest.get(
-      `admin/company/companies?company_id=${data._id}`,
-      { secure: true }
-    );
+    let result = await axiosRequest.get(`admin/company/companies?company_id=${data._id}`,{ secure: true });
 
     setFormItem((res) => ({
       ...res,
@@ -137,11 +159,6 @@ const NewLead = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const failedHandler = (error) => {
-    alert(error);
-    console.log(error);
-  };
-
   const onIndustryChange = (event, data) => {
     setFormItem((res) => ({ ...res, industry: event }));
     form.setFieldsValue({ industry: event });
@@ -157,18 +174,18 @@ const NewLead = React.memo((props) => {
     form.setFieldsValue({ parent_company: event });
   };
 
-  let updateLeadFormData = {
-    company_details: {
-      company_name: formItem.companyName,
-      parent_company: formItem.parentCompanyName,
-      industry_name: formItem.industry,
-      tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
-      client_location: formItem.clientLocation,
-      zone: formItem.clientZone,
-    },
-  };
+  // let updateLeadFormData = {
+  //   company_details: {
+  //     company_name: formItem.companyName,
+  //     parent_company: formItem.parentCompanyName,
+  //     industry_name: formItem.industry,
+  //     tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
+  //     client_location: formItem.clientLocation,
+  //     zone: formItem.clientZone,
+  //   },
+  // };
 
-  const submitHandler = () => {
+  const submitCompanyData = async () => {
     if (formItem.companyName === "") {
       return message.warning("Company Name is required");
     }
@@ -177,48 +194,89 @@ const NewLead = React.memo((props) => {
       return message.warning("Industry is required");
     }
 
-    let addLeadFormData = {
-      company_details: {
+    let formData = {
+      // company_details: {
         company_name: formItem.companyName,
         parent_company: formItem.parentCompanyName,
         industry_name: formItem.industry,
         tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
         client_location: formItem.clientLocation,
         zone: formItem.clientZone,
-      },
+      // },
     };
+
+    console.log('company_id-------->>',company_id); 
+
+
+    if(company_id){
+      let formData = {
+        companyDocumentID:company_id
+      }
+      let result = await axiosRequest.post(`admin/company/create-opportunity`,formData,{ secure: true });
+      console.log('OPPORTUNITY RESP',result)
+    }else{
+      let result = await axiosRequest.post(`user/company/add-company`,formData,{ secure: true });
+      console.log('COMPANY RESP',result)
+    }
+
+    closeCompanyModal()
+    
+
+    
   };
+
+  const closeCompanyModal = (event) => {
+    props.setShowNewLeadModal(false)
+    setCompany_id('');
+    setFormItem((res) => ({ 
+      ...res,
+      companyName: "",
+      parentCompanyName: null,
+      industry: "",
+      empaneled: false,
+      clientLocation: "",
+      clientZone: "",
+    }));
+
+    form.setFieldsValue({
+      company_name: '',
+      parent_company: null,
+      industry: "",
+      client_location: "",
+      client_zone:'',
+    });
+    setDisableParentComp(false);
+  }
 
   const clientLocationChange = (event) => {
     setFormItem((res) => ({ ...res, clientLocation: event }));
     form.setFieldsValue({ client_location: event });
 
     let _zoneData = cityZoneList.filter(
-      (el) => el.City.toLowerCase() === event.toLowerCase()
+      (el) => el.city.toLowerCase() === event.toLowerCase()
     );
     if (_zoneData.length > 0) {
-      setFormItem((res) => ({ ...res, clientZone: _zoneData[0].Zone }));
-      form.setFieldsValue({ client_zone: _zoneData[0].Zone });
+      setFormItem((res) => ({ ...res, clientZone: _zoneData[0].zone }));
+      form.setFieldsValue({ client_zone: _zoneData[0].zone });
     } else {
       setFormItem((res) => ({ ...res, clientZone: "" }));
       form.setFieldsValue({ client_zone: "" });
     }
   };
 
-  let _chipData = [...new Set(formItem.collaborators)];
 
   return (
     <>
       <Modal
         title="Add New Lead"
         centered={true}
-        visible={props.showVasModal}
+        visible={props.showNewLeadModal}
         width={700}
         className="modalStyle"
-        onCancel={() => props.setShowVasModal(false)}
+        onCancel={() => closeCompanyModal()}
         footer={null}
       >
-        <Form form={form} onFinish={submitHandler}>
+        <Form form={form}>
           <Row justify={width > breakpoint ? "center" : ""} gutter={[0, 24]}>
             <Col
               xs={{ span: 24, order: 2 }}
@@ -375,12 +433,17 @@ const NewLead = React.memo((props) => {
                   </Form.Item>
                 </Col>
 
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
+                    <Button size='large' onClick={()=> closeCompanyModal()} style={{flex:1,borderRadius:5,border:'1px solid #3B371E',color:'#3B371E'}} >Cancel</Button>
+                    <Button size='large' onClick={()=> submitCompanyData()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Submit</Button>
+                </div>
+
+                {/* <Col style={{marginTop:20}} xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item>
                     <Button
                       type="primary"
                       className="cancel_btn"
-                      onClick={() => props.setShowVasModal(false)}
+                      onClick={() => props.setShowNewLeadModal(false)}
                       size="large"
                     >
                       <p className="cancel_txt">Cancel</p>
@@ -388,7 +451,7 @@ const NewLead = React.memo((props) => {
                   </Form.Item>
                 </Col>
 
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                <Col style={{marginTop:20}} xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item>
                     <Button
                       type="primary"
@@ -399,7 +462,7 @@ const NewLead = React.memo((props) => {
                       Submit
                     </Button>
                   </Form.Item>
-                </Col>
+                </Col> */}
               </Row>
               {/* </Col> */}
             </Col>
@@ -407,13 +470,7 @@ const NewLead = React.memo((props) => {
         </Form>
         {/* </div> */}
       </Modal>
-      <TodoTab
-        button={"Create"}
-        companyID={company_id}
-        company_Name={formItem.companyName}
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
+    
     </>
   );
 });

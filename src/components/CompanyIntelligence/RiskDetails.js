@@ -14,7 +14,8 @@ import {
   Modal,
   DatePicker,
   Tooltip,
-  AutoComplete
+  AutoComplete,
+  message,
 } from "antd";
 import {
   affinityBenefitsItems,
@@ -77,7 +78,7 @@ const RiskDetails = (props) => {
   const dispatch = useDispatch();
   const _StoreData = useSelector((state) => state?.newLead?.formData);
   const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
-  const user_id = useSelector((state) => state.login.user.id);
+  const user_id = useSelector((state) => state?.login?.user?.id);
   // console.log("(((((((((_StoreData____RISKKKK)))))))))---->>>>", _StoreData);
   // console.log('(((((((((RISKSKKSKS)))))))))---->>>>',props.riskDataSet)
 
@@ -91,9 +92,11 @@ const RiskDetails = (props) => {
   const [leaderShareData, setLeaderShareData] = useState("");
   const [inceptionDateData, setInceptionDateData] = useState("");
   const [editIndex, setEditIndex] = useState("");
+  const [riskType, setRiskType] = useState("");
   const [panNo, setPanNo] = useState("");
   const [LOBForOpportunity, setLOBForOpportunity] = useState('');
   const [productForOpportunity, setProductForOpportunity] = useState("");
+  const [editRiskId, setEditRiskId] = useState("");
   const [tenderDriver, setTenderDriver] = useState(false);
   
   const [riskDataArr, setRiskDataArr] = useState([]);
@@ -104,6 +107,9 @@ const RiskDetails = (props) => {
   useEffect(() => {
     let _dataArr = [];
     if (Object.keys(props.riskDataSet).length > 0) {
+      setRiskType('update')
+
+      let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date,"MM/DD/YYYY");
 
       setShowRiskDetailsPopup(true);
       setNoOfEntities(!props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities);
@@ -114,12 +120,14 @@ const RiskDetails = (props) => {
       setLeadrFollowerData(!props.riskDataSet.leader ? "" : props.riskDataSet.leader);
       setLeadInsurerData(!props.riskDataSet.lead_insurer ? "-" : props.riskDataSet.lead_insurer);
       setLeaderShareData(!props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share);
-      // setInceptionDateData(!props.riskDataSet.inception_date ? "" : props.riskDataSet.inception_date);
+      setInceptionDateData(_InceptnDateFormat);
       setEditIndex("");
       setPanNo(!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no);
       setLOBForOpportunity(!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity);
       setProductForOpportunity(!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity);
       setTenderDriver(!props.riskDataSet.tender_driven ? "" : props.riskDataSet.tender_driven === 'No' ? false : true);
+      
+      setEditRiskId(props.riskDataSet._id)
 
       form.setFieldsValue({
         nameOfentity: !props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities,
@@ -130,7 +138,7 @@ const RiskDetails = (props) => {
         leadrFollowr: !props.riskDataSet.leader ? "" : props.riskDataSet.leader,
         leadeInsurer: !props.riskDataSet.lead_insurer ? "-" : props.riskDataSet.lead_insurer,
         leaderShare: !props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share,
-        // incepDate: !props.riskDataSet.inception_date ? "" : props.riskDataSet.inception_date,
+        incepDate: _InceptnDateFormat,
         pan_No:!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no,
         lob_for_opportunity:!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity,
         product_for_opportunity:!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity,
@@ -138,6 +146,7 @@ const RiskDetails = (props) => {
       
     }else{
       addNewRiskDetails()
+      setRiskType('create')
     }
 
     
@@ -363,84 +372,66 @@ const RiskDetails = (props) => {
     setShowRiskDetailsPopup(false);
   };
 
-  const updateRiskDetails = (event) => {
+  const updateRiskDetails = async (event) => {
     let _riskDetailsData = [];
-    riskDataArr.map((el) => {
-      console.warn('(((((el Details ))))) -------->>>>',el)
-      let _data = {
-        total_entities: el.riskType,
-        product_name: el.riskName,
-        total_premium: el.totalPrem,
-        tagic_presence_percentage: el.tagicPresence,
-        tagic_premium: el.tagicPremium,
-        leader: el.leaderFollower,
-        lead_insurer: el.leadInsurer,
-        leader_share: el.leaderShare,
-        inception_date: el.inceptionDate,
-        Pan_no: el.panNo,
-        tender_driven: el.tendrDriver === true ? "Yes" : "No",
-        lob_for_opportunity: el.lobOpportunity,
-        product_for_opportunity: el.prodOpportunity,
-      };
-      _riskDetailsData.push(_data);
-    });
+    // riskDataArr.map((el) => {
+    //   console.warn('(((((el Details ))))) -------->>>>',el)
+    //   let _data = {
+    //     total_entities: el.riskType,
+    //     // product_name: el.riskName,
+    //     total_premium: el.totalPrem,
+    //     tagic_presence_percentage: el.tagicPresence,
+    //     tagic_premium: el.tagicPremium,
+    //     leader: el.leaderFollower,
+    //     lead_insurer: el.leadInsurer,
+    //     leader_share: el.leaderShare,
+    //     inception_date: el.inceptionDate,
+    //     Pan_no: el.panNo,
+    //     tender_driven: el.tendrDriver === true ? "Yes" : "No",
+    //     lob_for_opportunity: el.lobOpportunity,
+    //     product_for_opportunity: el.prodOpportunity,
+    //   };
+    //   _riskDetailsData.push(_data);
+    // });
     // console.warn('_riskDetailsData ------>>>>>',_riskDetailsData)
+    let _data = {
+      total_entities: !noOfEntities ? "-" : noOfEntities,
+      total_premium: !totalPremData ? "0" : totalPremData,
+      tagic_presence_percentage: !tagicPresence ? "0" : tagicPresence,
+      lead_insurer: !leadInsurerData ? "-" : leadInsurerData,
+      leader_share: !leaderShareData ? "0" : leaderShareData,
 
-    // let formBody = {
-    //     ...props.updateFormData,
-    //     risk_details: _riskDetailsData,
-    // }
-    let _appntDate = ''
-    let _appntTime = ''
-    let _apptDateFormat = ''
-
-    if (_StoreData.appointmentDate) {
-      _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-      _appntTime = moment(_StoreData.appointmentDate).format("LT");
-    }
+      tagic_premium: !tagicPremium ? "" : tagicPremium,
+      leader: !leadrFollowerData ? "" : leadrFollowerData,
+      inception_date: !inceptionDateData ? "" : inceptionDateData,
+      Pan_no: !panNo ? "" : panNo,
+      lob_for_opportunity: !LOBForOpportunity ? "" : LOBForOpportunity,
+      product_for_opportunity: !productForOpportunity ? "" : productForOpportunity,
+      tender_driven: !tenderDriver ? "" : tenderDriver,
+    };
+    
+    _riskDetailsData.push(_data);
 
     let formBody = {
-      company_details: {
-        company_name: _StoreData?.company_id?.company_name,
-        parent_company: _StoreData?.company_id?.parent_company,
-        industry_name: _StoreData?.company_id?.industry_name,
-        tata_aig_empaneled:
-          _StoreData?.company_id?.tata_aig_empaneled === true ? "Yes" : "No",
-        client_location: _StoreData?.company_id?.client_location,
-        zone:_StoreData?.company_id?.zone
-      },
-      leadStatus: _StoreData?.leadStatus,
-      leadDisposition: _StoreData?.leadDisposition,
-      leadsubDisposition: _StoreData?.leadsubDisposition,
-      opportunity_name: _StoreData?.opportunity_name,
-      // tender_driven: _StoreData?.tender_driven === true ? "Yes" : "No",
-      // LOB_opportunity: _StoreData?.lob_for_opportunity,
-      // product_for_opportunity: _StoreData?.product_for_opportunity,
-      // remarks: _StoreData?.remarks,
-      teamMembers: "[]",
-      lead_Owner_Id: user_id,
-      lead_Creator_Id: user_id,
-      user_id: user_id,
-      company_id: _StoreData?.company_id?._id,
-      // start_date: _UpdateFormBody?.start_date,
-      // start_time:_UpdateFormBody?.start_time,
-      start_date: _appntDate,
-      start_time: _appntTime,
-      client_expectations: _StoreData?.client_expectations,
-      red_flags: _StoreData?.red_flags,
-      our_ask: _StoreData?.our_ask,
-      channel_name: _StoreData?.channel_name,
-      producer: _StoreData?.producer,
-      VAS_executed: !_StoreData?.VAS_executed
-        ? "Yes"
-        : _StoreData?.VAS_executed,
-        VAS_input: _StoreData?.VAS_input,
-      kdm_details: _StoreData?.company_id?.kdm_details,
-      risk_details: _riskDetailsData,
+      riskDetails: _riskDetailsData,
     };
-    console.warn("formBody ------>>>>>", formBody);
-    dispatch(actions.fetchLeadUpdateBody(formBody));
-    dispatch(actions.editLead(formBody, props.leadDetails));
+    
+    // console.warn("formBody ------>>>>>", formBody);
+    // dispatch(actions.fetchLeadUpdateBody(formBody));
+    // dispatch(actions.editLead(formBody, props.leadDetails));
+    if(riskType === 'create'){
+      let result = await axiosRequest.post(`user/postRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}`,formBody,{ secure: true });
+      dispatch(actions.fetchLeadDetails(_StoreData._id))
+      // message.success("Risk Details Created Successfully");
+    }else{
+
+      let result = await axiosRequest.put(`user/updateRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}&riskId=${editRiskId}`,formBody,{ secure: true });
+      dispatch(actions.fetchLeadDetails(_StoreData._id))
+      // message.success("Risk Details Updated Successfully");
+
+    }
+
+    props.setShowRiskModal(false)
   };
 
   const deleteRisk = (event, ind) => {
@@ -1045,7 +1036,7 @@ const RiskDetails = (props) => {
             </Button>
             <Button
               className="submitBtn"
-              onClick={() => submitRiskDetails()}
+              onClick={() => updateRiskDetails()}
               size="large"
             >
               Submit

@@ -140,8 +140,8 @@ const DocUpload = (props) => {
       axios.post(`${baseURL}secure/admin/v2/uploadFile`,formData,axiosConfig).then((res) => {
           newArr.push({ ...res.data.errMsg, recent: true });
           // console.log(newArr,"this is the new upload");
-          // setFileData(newArr);
-          props.callback(newArr);
+          setFileData(newArr);
+          // props.callback(newArr);
          // document.getElementById("upload-photo").value = "";
         })
         .catch((err) => {
@@ -161,7 +161,7 @@ const DocUpload = (props) => {
     return _data
   };
 
-  const Save = async () => {
+  const saveDocs = async () => {
     var finalData = [];
 
     if (fileData.length != 0 && fileData.length > 0) {
@@ -183,57 +183,21 @@ const DocUpload = (props) => {
       });
 
       setdocData(finalData);
-      let _appntDate = ''
-        let _appntTime = ''
-        let _apptDateFormat = ''
-
-        if (_StoreData.appointmentDate) {
-            _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-            _appntTime = moment(_StoreData.appointmentDate).format("LT");
-        }
+      
       let formBody = {
-        company_details: {
-          company_name: _StoreData?.company_id?.company_name,
-          parent_company: _StoreData?.company_id?.parent_company,
-          industry_name: _StoreData?.company_id?.industry_name,
-          tata_aig_empaneled:
-            _StoreData?.company_id?.tata_aig_empaneled === true ? "Yes" : "No",
-          client_location: _StoreData?.company_id?.client_location,
-          zone:_StoreData?.company_id?.zone
-        },
-        leadStatus: _StoreData?.leadStatus,
-        leadDisposition: _StoreData?.leadDisposition,
-        leadsubDisposition: _StoreData?.leadsubDisposition,
-        opportunity_name: _StoreData?.opportunity_name,
-        // tender_driven: _StoreData?.tender_driven === true ? "Yes" : "No",
-        // LOB_opportunity: _StoreData?.lob_for_opportunity,
-        // product_for_opportunity: _StoreData?.product_for_opportunity,
-        // remarks: _StoreData?.remarks,
-        teamMembers: "[]",
-        lead_Owner_Id: user_id,
-        lead_Creator_Id: user_id,
-        user_id: user_id,
-        company_id: _StoreData?.company_id?._id,
-        // start_date: _UpdateFormBody?.start_date,
-        // start_time:_UpdateFormBody?.start_time,
-        start_date: _appntDate,
-        start_time: _appntTime,
-        client_expectations: _StoreData?.client_expectations,
-        red_flags: _StoreData?.red_flags,
-        our_ask: _StoreData?.our_ask,
-        channel_name: _StoreData?.channel_name,
-        producer: _StoreData?.producer,
-        VAS_executed: !_StoreData?.VAS_executed
-          ? "Yes"
-          : _StoreData?.VAS_executed,
-        VAS_input: _StoreData?.VAS_input,
-        kdm_details: _StoreData?.company_id?.kdm_details,
-        risk_details: _StoreData?.company_id?.risk_details,
-        documents: finalData,
-      };
-      console.warn("formBody ------>>>>>", formBody);
-      dispatch(actions.fetchLeadUpdateBody(formBody));
-      dispatch(actions.editLead(formBody, props.leadDetails));
+          lead_id: _StoreData._id,
+          doc_upload: {
+            documents: finalData
+          }
+        
+        }
+        // console.warn('formBody ------>>>>>',formBody)
+        // dispatch(actions.fetchLeadUpdateBody(formBody))
+        dispatch(actions.editLead(formBody, _StoreData._id))
+      
+      // console.warn("formBody ------>>>>>", formBody);
+      // dispatch(actions.fetchLeadUpdateBody(formBody));
+      // dispatch(actions.editLead(formBody, props.leadDetails));
     } else {
       message.info("Please Upload the new File");
     }
@@ -364,7 +328,7 @@ const DocUpload = (props) => {
         
           <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
               <Button size='large' onClick={()=> props.setShowDocumntModal(false)} style={{flex:1,borderRadius:5,border:'1px solid #3B371E',color:'#3B371E'}} >Cancel</Button>
-              <Button size='large' onClick={()=> Save()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
+              <Button size='large' onClick={()=> saveDocs()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
           </div>
         </Col>
       </Modal>
