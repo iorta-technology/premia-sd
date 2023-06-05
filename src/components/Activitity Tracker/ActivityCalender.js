@@ -8,8 +8,6 @@ import person_black from "./icons/person_black.png";
 import person_white from "./icons/person_white.png";
 import group_white from "./icons/group_white.png";
 import group_black from "./icons/group_black.png";
-import axios from "axios";
-import headerTabs from "./icons/header-tabs.png";
 import "./ActivityCalender.css";
 import Tabs from "../../components/Tab/Tab";
 import { checkAgent } from "../../helpers";
@@ -41,7 +39,7 @@ const tabMenu = [
 
 const App = () => {
   const [TeamSelf, setTeamSelf] = useState(true);
-  const [width, height] = useWidowsSize();
+  // const [width, height] = useWidowsSize();
   const [windowWidth, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
 

@@ -102,8 +102,8 @@
 
 .Team .download_report {
   display: flex;
-  justify-content: end;
-  align-items: end;
+  justify-content: flex-end;
+  align-items: flex-end;
   /* margin: 0 10px; */
 }
 
@@ -111,7 +111,7 @@
   .Team .download_report {
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: flex-end;
     margin-top: 5px 0;
   }
 }

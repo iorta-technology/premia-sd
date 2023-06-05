@@ -374,61 +374,35 @@ const RiskDetails = (props) => {
 
   const updateRiskDetails = async (event) => {
     let _riskDetailsData = [];
-    // riskDataArr.map((el) => {
-    //   console.warn('(((((el Details ))))) -------->>>>',el)
-    //   let _data = {
-    //     total_entities: el.riskType,
-    //     // product_name: el.riskName,
-    //     total_premium: el.totalPrem,
-    //     tagic_presence_percentage: el.tagicPresence,
-    //     tagic_premium: el.tagicPremium,
-    //     leader: el.leaderFollower,
-    //     lead_insurer: el.leadInsurer,
-    //     leader_share: el.leaderShare,
-    //     inception_date: el.inceptionDate,
-    //     Pan_no: el.panNo,
-    //     tender_driven: el.tendrDriver === true ? "Yes" : "No",
-    //     lob_for_opportunity: el.lobOpportunity,
-    //     product_for_opportunity: el.prodOpportunity,
-    //   };
-    //   _riskDetailsData.push(_data);
-    // });
-    // console.warn('_riskDetailsData ------>>>>>',_riskDetailsData)
-    let _data = {
-      total_entities: !noOfEntities ? "-" : noOfEntities,
-      total_premium: !totalPremData ? "0" : totalPremData,
-      tagic_presence_percentage: !tagicPresence ? "0" : tagicPresence,
-      lead_insurer: !leadInsurerData ? "-" : leadInsurerData,
-      leader_share: !leaderShareData ? "0" : leaderShareData,
+    let form_data = {
+      total_entities: !noOfEntities ? null : noOfEntities,
+      total_premium: !totalPremData ? 0 : totalPremData,
+      tagic_presence_percentage: !tagicPresence ? 0 : tagicPresence,
+      lead_insurer: !leadInsurerData ? null : leadInsurerData,
+      leader_share: !leaderShareData ? 0 : leaderShareData,
 
-      tagic_premium: !tagicPremium ? "" : tagicPremium,
-      leader: !leadrFollowerData ? "" : leadrFollowerData,
-      inception_date: !inceptionDateData ? "" : inceptionDateData,
-      Pan_no: !panNo ? "" : panNo,
-      lob_for_opportunity: !LOBForOpportunity ? "" : LOBForOpportunity,
-      product_for_opportunity: !productForOpportunity ? "" : productForOpportunity,
-      tender_driven: !tenderDriver ? "" : tenderDriver,
+      tagic_premium: !tagicPremium ? null : tagicPremium,
+      leader: !leadrFollowerData ? null : leadrFollowerData,
+      inception_date: !inceptionDateData ? null : inceptionDateData,
+      Pan_no: !panNo ? null : panNo,
+      lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
+      product_for_opportunity: !productForOpportunity ? null : productForOpportunity,
+      tender_driven: !tenderDriver ? "No" : tenderDriver,
     };
     
-    _riskDetailsData.push(_data);
+    // _riskDetailsData.push(_data);
 
     let formBody = {
-      riskDetails: _riskDetailsData,
+      ...form_data,
     };
     
     // console.warn("formBody ------>>>>>", formBody);
-    // dispatch(actions.fetchLeadUpdateBody(formBody));
-    // dispatch(actions.editLead(formBody, props.leadDetails));
     if(riskType === 'create'){
-      let result = await axiosRequest.post(`user/postRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}`,formBody,{ secure: true });
+      let result = await axiosRequest.post(`user/postRiskDetailsform?userId=${user_id}&lead_Id=${_StoreData.lead_Id}`,formBody,{ secure: true });
       dispatch(actions.fetchLeadDetails(_StoreData._id))
-      // message.success("Risk Details Created Successfully");
     }else{
-
-      let result = await axiosRequest.put(`user/updateRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}&riskId=${editRiskId}`,formBody,{ secure: true });
+      let result = await axiosRequest.put(`user/updateriskform?userId=${user_id}&lead_Id=${_StoreData.lead_Id}&riskId=${editRiskId}`,formBody,{ secure: true });
       dispatch(actions.fetchLeadDetails(_StoreData._id))
-      // message.success("Risk Details Updated Successfully");
-
     }
 
     props.setShowRiskModal(false)
@@ -440,7 +414,7 @@ const RiskDetails = (props) => {
   };
 
   const editRisk = (event, ind) => {
-    console.warn("(((((RISK Details EDIT ))))) -------->>>>", event);
+    // console.warn("(((((RISK Details EDIT ))))) -------->>>>", event);
     // console.warn("(((((RISK Details EDIT ind ))))) -------->>>>", ind);
     setEditIndex(ind);
 

@@ -49,6 +49,12 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
                 message.success("Lead Created successfully");
               if (config.url.includes("postRiskDetails"))
                 message.success("Risk Details Created Successfully");
+
+              if (config.url.includes("postkdmDetails"))
+                message.success("KDM Details Created Successfully");
+                
+              if (config.url.includes("add-opporunity-remark"))
+                message.success("Remark Added Successfully");
             } else if (config.method === "put") {
               if (config.url.includes("update_task_status"))
                 message.success("Todo Updated successfully");
@@ -59,6 +65,9 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
 
               if (config.url.includes("updateRiskDetails"))
                 message.success("Risk Details Updated Successfully");
+
+              if (config.url.includes("updatekdmDetails"))
+                message.success("KDM Details Updated Successfully");
             }
             // if (config.method !== "get") message.success("Your data fetched successfully");
             // if (config.method === "put") message.success("Data updated successfully");

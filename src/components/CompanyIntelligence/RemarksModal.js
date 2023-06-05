@@ -46,92 +46,40 @@ const RemarksModalComp = (props) => {
     const addRemarks = async () => {
         let result = "";
         if (remark && remark != "") {
-            result = await axiosRequest.post(`user/add-opporunity-remark/${props.location.state.leadID}`,{ new_remark: remark },{ secure: true });
+            result = await axiosRequest.post(`user/add-opporunity-remark/${_StoreData._id}`,{ new_remark: remark },{ secure: true });
     
             if (result) {
                 setRemark("");
                 form.setFieldsValue({remarks: ""});
-                setreamrkDataArr([...reamrkDataArr, result]);
+                // setreamrkDataArr([...reamrkDataArr, result]);
+                props.setShowRemarkModal(false)
+                dispatch(actions.fetchLeadDetails(_StoreData._id))
                 return 
             }
         
-            let _remark = [
-                {
-                description: remark,
-                dateTime: new Date().toLocaleString("en-US"),
-                },
-            ];
-            setRemark("");
+            // let _remark = [
+            //     {
+            //         description: remark,
+            //         dateTime: new Date().toLocaleString("en-US"),
+            //     },
+            // ];
+            // setRemark("");
         
-            setFormItem((res) => ({ ...res,remarks: _remark }));
-            form.setFieldsValue({remarks: ""});
+            // setFormItem((res) => ({ ...res,remarks: _remark }));
+            // form.setFieldsValue({remarks: ""});
         
-            let remID = Math.floor(1000 + Math.random() * 9000);
-            let _data = {
-                description: remark,
-                date: new Date().toLocaleDateString().valueOf(),
-                remark_id: remID.toString(),
-            };
+            // let remID = Math.floor(1000 + Math.random() * 9000);
+            // let _data = {
+            //     description: remark,
+            //     date: new Date().toLocaleDateString().valueOf(),
+            //     remark_id: remID.toString(),
+            // };
         
-            setreamrkDataArr([...reamrkDataArr, _data]);
+            // setreamrkDataArr([...reamrkDataArr, _data]);
+            
         }
       };
 
-
-    const updateRemark = (event) =>{
-
-        // let _appntDate = ''
-        // let _appntTime = ''
-        // let _apptDateFormat = ''
-
-        // if (_StoreData.appointmentDate) {
-        //     _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-        //     _appntTime = moment(_StoreData.appointmentDate).format("LT");
-        // }
-
-        // let formBody = {
-        //     company_details: {
-        //       company_name: _StoreData?.company_id?.company_name,
-        //       parent_company: _StoreData?.company_id?.parent_company,
-        //       industry_name: _StoreData?.company_id?.industry_name,
-        //       tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
-        //       client_location: _StoreData?.company_id?.client_location,
-        //       zone:_StoreData?.company_id?.zone
-        //     },
-        //     leadStatus: _StoreData?.leadStatus,
-        //     leadDisposition: _StoreData?.leadDisposition,
-        //     leadsubDisposition: _StoreData?.leadsubDisposition,
-        //     opportunity_name: _StoreData?.opportunity_name,
-        //     // tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
-        //     // LOB_opportunity: _StoreData?.lob_for_opportunity,
-        //     // product_for_opportunity: _StoreData?.product_for_opportunity,
-        //     // remarks: _StoreData?.remarks,
-        //     teamMembers : "[]",
-        //     lead_Owner_Id: user_id,
-        //     lead_Creator_Id: user_id,
-        //     user_id: user_id,
-        //     company_id: _StoreData?.company_id?._id,
-        //     // start_date: _UpdateFormBody?.start_date,
-        //     // start_time:_UpdateFormBody?.start_time,
-        //     start_date: _appntDate,
-        //     start_time: _appntTime,
-        //     client_expectations: _StoreData?.client_expectations,
-        //     red_flags: _StoreData?.red_flags,
-        //     our_ask: _StoreData?.our_ask,
-        //     channel_name: channelData,
-        //     producer: producerData,
-        //     VAS_executed: vasExecuted,
-        //     VAS_input: vasInputData,
-        //     // VAS_input: _StoreData?.VAS_input,
-        //     kdm_details: _StoreData?.company_id?.kdm_details,
-        //     risk_details: _StoreData?.company_id?.risk_details,
-        // }
-        // console.warn('formBody ------>>>>>',formBody)
-        // dispatch(actions.fetchLeadUpdateBody(formBody))
-        // dispatch(actions.editLead(formBody, props.leadDetails))
-        props.setShowRemarkModal(false)
-    }
-    
 
     const onChangeRemark = (event) =>{
         setRemark(event.target.value)
@@ -160,6 +108,7 @@ return (
                         <TextArea 
                             rows={4} 
                             placeholder="Enter Remark" 
+                            value={remark}
                             // maxLength={6}
                             onChange={(e) => onChangeRemark(e)}
                          />
@@ -185,7 +134,7 @@ return (
                
                 <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
                     <Button size='large' onClick={()=> props.setShowRemarkModal(false)} style={{flex:1,borderRadius:5,border:'1px solid #3B371E',color:'#3B371E'}} >Cancel</Button>
-                    <Button size='large' onClick={()=> updateRemark()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
+                    <Button size='large' onClick={()=> addRemarks()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
                 </div>
             </Col>
         </Modal>

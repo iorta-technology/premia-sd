@@ -1,21 +1,20 @@
 import React, {
   useState,
   useEffect,
-  useRef,
-  useImperativeHandle,
-  forwardRef,
+  // useRef,
+  // useImperativeHandle,
+  // forwardRef,
 } from "react";
 import { Typography } from "antd";
-import { FormOutlined, MessageOutlined } from "@ant-design/icons";
+import { FormOutlined } from "@ant-design/icons";
 import EventCreateButton from "../EventCreateButton/EventCreateButton";
 import EventCreateComponent from "../../../Contests/CalendarEvent";
-import axios from "axios";
 import axiosRequest from "../../../../axios-request/request.methods";
 import { stoageGetter } from "../../../../helpers";
 import commentIcon from "../../icons/comment.png";
 import "./DataField.css";
 import { Col, Row } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const useWidowsSize = () => {
   const [size, setSize] = useState([window.Width, window.height]);
@@ -44,125 +43,8 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
     setIsModalVisible(true);
     console.log(e);
     setEditData(e);
-    // setIsModalVisible({
-    //   check:true,
-    //   Data:e
-    // });
-  };
-  const [timeList, setTimeList] = useState([
-    {
-      dispValue: "8:00 AM",
-      value: "28800000",
-    },
-    {
-      dispValue: "8:30 AM",
-      value: "30600000",
-    },
-    {
-      dispValue: "9:00 AM",
-      value: "32400000",
-    },
-    {
-      dispValue: "9:30 AM",
-      value: "34200000",
-    },
-    {
-      dispValue: "10:00 AM",
-      value: "36000000",
-    },
-    {
-      dispValue: "10:30 AM",
-      value: "37800000",
-    },
-    {
-      dispValue: "11:00 AM",
-      value: "39600000",
-    },
-    {
-      dispValue: "11:30 AM",
-      value: "41400000",
-    },
-    {
-      dispValue: "12:00 PM",
-      value: "43200000",
-    },
-    {
-      dispValue: "12:30 PM",
-      value: "45000000",
-    },
-    {
-      dispValue: "1:00 PM",
-      value: "46800000",
-    },
-    {
-      dispValue: "1:30 PM",
-      value: "48600000",
-    },
-    {
-      dispValue: "2:00 PM",
-      value: "50400000",
-    },
-    {
-      dispValue: "2:30 PM",
-      value: "52200000",
-    },
-    {
-      dispValue: "3:00 PM",
-      value: "54000000",
-    },
-    {
-      dispValue: "3:30 PM",
-      value: "55800000",
-    },
-    {
-      dispValue: "4:00 PM",
-      value: "57600000",
-    },
-    {
-      dispValue: "4:30 PM",
-      value: "59400000",
-    },
-    {
-      dispValue: "5:00 PM",
-      value: "61200000",
-    },
-    {
-      dispValue: "5:30 PM",
-      value: "63000000",
-    },
-    {
-      dispValue: "6:00 PM",
-      value: "64800000",
-    },
-    {
-      dispValue: "6:30 PM",
-      value: "66600000",
-    },
-    {
-      dispValue: "7:00 PM",
-      value: "68400000",
-    },
-    {
-      dispValue: "7:30 PM",
-      value: "70200000",
-    },
-    {
-      dispValue: "8:00 PM",
-      value: "72000000",
-    },
-    {
-      dispValue: "8:30 PM",
-      value: "73800000",
-    },
-    {
-      dispValue: "9:00 PM",
-      value: "75600000",
-    },
-    {
-      dispValue: "9:30 PM",
-      value: "77400000",
-    },
-  ]);
+  }
+  
   const [DataContainer, setDataContainer] = useState();
 
   //   useImperativeHandle(ref, () => ({
@@ -189,7 +71,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
     const monthYear = currentMonth + "/" + currentYear;
     const MonthCompare = monthYear === SelfMonthYear;
  
-    if (SelfHere == "self") {
+    if (SelfHere === "self") {
       var dS = SelfMonthYear.split("/");
       var d1 = new Date(dS[1], +dS[0]);
       var today = new Date();
@@ -209,7 +91,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
       }
     }
 
-    if (TeamHere == true || TeamData != undefined) {
+    if (TeamHere === true || TeamData != undefined) {
       // console.log('yes moved to team',Dataupdate);
       setDataContainer(Dataupdate);
       // var dS = TeamData.split("/");
@@ -286,15 +168,15 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
                 <div className="bodyData">
                   <div className="bodyData-Date">
                     <p>
-                      {new Date(element.start_date).getDate() == 1 ||
-                      new Date(element.start_date).getDate() == 21 ||
-                      new Date(element.start_date).getDate() == 31
+                      {new Date(element.start_date).getDate() === 1 ||
+                      new Date(element.start_date).getDate() === 21 ||
+                      new Date(element.start_date).getDate() === 31
                         ? new Date(element.start_date).getDate() + "st"
-                        : new Date(element.start_date).getDate() == 2 ||
-                          new Date(element.start_date).getDate() == 22
+                        : new Date(element.start_date).getDate() === 2 ||
+                          new Date(element.start_date).getDate() === 22
                         ? new Date(element.start_date).getDate() + "nd"
-                        : new Date(element.start_date).getDate() == 3 ||
-                          new Date(element.start_date).getDate() == 23
+                        : new Date(element.start_date).getDate() === 3 ||
+                          new Date(element.start_date).getDate() === 23
                         ? new Date(element.start_date).getDate() + "rd"
                         : new Date(element.start_date).getDate() + "th"}
                       <span>
@@ -359,17 +241,17 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
                   <div className="bodyData-side">
                     <Typography
                       className={`closeOpen ${
-                        element.statusType == "open" ? "Open" : "Close"
+                        element.statusType === "open" ? "Open" : "Close"
                       }`}
                     >
                       
                       {
                         element?.teamMember_clone.includes(user_id) ?
-                          element.statusType == "close" ? "Close" : "Invited" :
-                          element.statusType == "open" ? "Open" : "Close"
+                          element.statusType === "close" ? "Close" : "Invited" :
+                          element.statusType === "open" ? "Open" : "Close"
                       }
                     </Typography>
-                    {element.statusType == "open" ? (
+                    {element.statusType === "open" ? (
                       <FormOutlined onClick={() => showModal(element)} />
                     ) : null}
                   </div>
@@ -416,15 +298,15 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
                     style={{ paddingTop: 15, paddingBottom: 15 }}
                   >
                     <p>
-                      {new Date(element.start_time_MS).getDate() == 1 ||
-                      new Date(element.start_time_MS).getDate() == 21 ||
-                      new Date(element.start_time_MS).getDate() == 31
+                      {new Date(element.start_time_MS).getDate() === 1 ||
+                      new Date(element.start_time_MS).getDate() === 21 ||
+                      new Date(element.start_time_MS).getDate() === 31
                         ? new Date(element.start_time_MS).getDate() + "st"
-                        : new Date(element.start_time_MS).getDate() == 2 ||
-                          new Date(element.start_time_MS).getDate() == 22
+                        : new Date(element.start_time_MS).getDate() === 2 ||
+                          new Date(element.start_time_MS).getDate() === 22
                         ? new Date(element.start_time_MS).getDate() + "nd"
-                        : new Date(element.start_time_MS).getDate() == 3 ||
-                          new Date(element.start_time_MS).getDate() == 23
+                        : new Date(element.start_time_MS).getDate() === 3 ||
+                          new Date(element.start_time_MS).getDate() === 23
                         ? new Date(element.start_time_MS).getDate() + "rd"
                         : new Date(element.start_time_MS).getDate() + "th"}
                       <span>
@@ -487,10 +369,10 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
                         <Typography
                           style={{ fontSize: 12, fontWeight: "bold" }}
                           className={`closeOpen ${
-                            element.statusType == "open" ? "Open" : "Close"
+                            element.statusType === "open" ? "Open" : "Close"
                           }`}
                         >
-                          {element.statusType == "open" ? "Open" : "Close"}
+                          {element.statusType === "open" ? "Open" : "Close"}
                         </Typography>
                         <Col sm={2} xs={2} md={2}>
                           <FormOutlined onClick={() => showModal(element)} />
@@ -531,7 +413,7 @@ const DataField = ({SelfMonthYear,history,TeamData,TeamHere,getFunc,getdata,Self
       ) : (
         <EventCreateButton api={getFunc} />
       )}
-      {isModalVisible == true ? (
+      {isModalVisible === true ? (
         <EventCreateComponent
           click={"UPDATE EVENT"}
           Data={editData}
