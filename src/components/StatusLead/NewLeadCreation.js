@@ -84,8 +84,11 @@ const NewLead = React.memo((props) => {
     // console.log('getIndustryDetails-------',result)
     let _industryArr = [];
     result.map((el) => {
-      let _data = { label: el.industry, value: el.industry };
-      _industryArr.push(_data);
+      if(el.industry){
+        let _data = { label: el.industry, value: el.industry };
+        _industryArr.push(_data);
+      }
+      
     });
     setIndustryArray(_industryArr);
   };

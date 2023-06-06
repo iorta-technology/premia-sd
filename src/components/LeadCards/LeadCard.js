@@ -176,7 +176,7 @@ const LeadCard = React.memo((props) => {
 
             <div className="content-header">
               <p className="user-name-text capitalize">{companyName}</p>
-              <span className="user-id uppercase">{" "}</span>
+              <span className="user-id uppercase" style={{color:'#B1B1B1'}}>{lead_Id}</span>
               {/* <a href={`tel:${primaryMobile}`}></a> */}
               {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
             </div>
@@ -316,7 +316,7 @@ const LeadCard = React.memo((props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "blue",
+            // backgroundColor: "blue",
           }}
         >
           {nameShorter(opportunityName)}
@@ -324,7 +324,7 @@ const LeadCard = React.memo((props) => {
         <div className="card-content-text capitalize">
           <p className="user-name-text">{opportunityName}</p>
           {/* {leadComponent} */}
-          {/* <p className="user-status-text">{leadStatus === "newleadentery" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
+          {/* <p className="user-status-text">{leadStatus === "newleadentry" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
           {/* <PhoneOutlined
             style={{ color: "green", cursor: "pointer" }}
           ></PhoneOutlined> */}

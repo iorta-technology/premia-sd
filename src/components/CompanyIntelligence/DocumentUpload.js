@@ -215,7 +215,7 @@ const DocUpload = (props) => {
         title="Document Upload"
         centered={true}
         visible={props.showDocumntModal}
-        width={700}
+        width={width < breakpoint ? 370 : 700}
         className="modalStyle"
         onCancel={() => props.setShowDocumntModal(false) }
         footer={null}

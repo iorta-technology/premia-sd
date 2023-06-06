@@ -118,7 +118,7 @@ const RiskDetails = (props) => {
       setTagicPresence(!props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage);
       setTagicPremium(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
       setLeadrFollowerData(!props.riskDataSet.leader ? "" : props.riskDataSet.leader);
-      setLeadInsurerData(!props.riskDataSet.lead_insurer ? "-" : props.riskDataSet.lead_insurer);
+      setLeadInsurerData(!props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer);
       setLeaderShareData(!props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share);
       setInceptionDateData(_InceptnDateFormat);
       setEditIndex("");
@@ -136,7 +136,7 @@ const RiskDetails = (props) => {
         tagicPresence: !props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage,
         tagicPremium: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
         leadrFollowr: !props.riskDataSet.leader ? "" : props.riskDataSet.leader,
-        leadeInsurer: !props.riskDataSet.lead_insurer ? "-" : props.riskDataSet.lead_insurer,
+        leadeInsurer: !props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer,
         leaderShare: !props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share,
         incepDate: _InceptnDateFormat,
         pan_No:!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no,
@@ -240,16 +240,6 @@ const RiskDetails = (props) => {
     const result = a_first.localeCompare(b_first);
     return result !== 0 ? result : a.name.localeCompare(b.name);
   });
-  // let riskDataArr = [
-  //     {
-  //         riskName:'JSW Steels',
-  //         riskType:'Risk 1',
-  //         totalPrem:'100',
-  //         tagicPresence:'0',
-  //         leadInsurer:'ICICI',
-  //         leaderShare:'40%',
-  //     },
-  // ]
 
   const onChangeLeaderFollowerData = (event) => {
     // console.warn('(((((LEADER FOLLOWER ))))) -------->>>>',event)
@@ -455,7 +445,7 @@ const RiskDetails = (props) => {
     setTagicPresence("");
     setTagicPremium("");
     setLeadrFollowerData(undefined);
-    setLeadInsurerData(undefined);
+    setLeadInsurerData('');
     setLeaderShareData("");
     setInceptionDateData("");
     setEditIndex("");
@@ -471,7 +461,7 @@ const RiskDetails = (props) => {
       tagicPresence: "",
       tagicPremium: "",
       leadrFollowr: undefined,
-      leadeInsurer: undefined,
+      leadeInsurer: '',
       leaderShare: "",
       incepDate: "",
       pan_No:'',
@@ -698,7 +688,7 @@ const RiskDetails = (props) => {
         title="Risk Details"
         centered={true}
         visible={props.showRiskModal}
-        width={700}
+        width={width < breakpoint ? 370 : 700}
         className="modalStyle"
         onCancel={() => props.setShowRiskModal(false)}
         footer={null}
@@ -920,7 +910,8 @@ const RiskDetails = (props) => {
                     placeholder="Select Lead Insurer"
                     options={leadInsurerItems}
                     value={leadInsurerData}
-                    onChange={(val, data) => setLeadInsurerData(val, data)}
+                    onChange={(val, data) => setLeadInsurerData(val)}
+                    // onFocus={(val) =>{console.log('vali-----FOcus------>>',val)}}
                     filterOption={(inputValue, option) =>
                       option.value
                         .toUpperCase()

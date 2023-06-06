@@ -29,7 +29,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [searchType, setSearchType] = useState("fname");
   const [leadDispositionFilter, setleadDispositionFilter] = useState("");
   const [leadTypeFilter, setleadTypeFilter] = useState("");
-  const [fieldLabelName, setFieldLabelName] = useState("Client Name");
+  const [fieldLabelName, setFieldLabelName] = useState("Company Name");
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
   const [companyArray, setCompanyArray] = useState([]);
 
@@ -107,6 +107,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     label === 'Company Name' ? setShowCompanyDropdown(true) : setShowCompanyDropdown(false)
   };
   const handleNameSearch = (event) => {
+    // console.log('event------->>',event)
+    // console.log('data------->>',data)
     setSearchTextFilter(event);
     searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) :
       searchType === 'leadId' ? setSearchTextFilter(doSentenceCase(event.toLowerCase())) : setSearchTextFilter(event);
@@ -143,8 +145,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const handleClose = () => setShow(false);
   const handleShow = () => {
 
-    setShowCompanyDropdown(false)
-    setFieldLabelName('Client Name')
+    setShowCompanyDropdown(true)
+    setFieldLabelName('Company Name')
     setShow(true)
   };
 
@@ -221,12 +223,12 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                 alignItems: "center",
                 marginTop: "1rem",
               }}
-              defaultValue="fname"
+              defaultValue=""
             // onChange={handleSearchType}
             >
-              <Radio.Button value="fname" onChange={(val, data) => handleSearchType(val, 'Client Name')} >
+              {/* <Radio.Button value="fname" onChange={(val, data) => handleSearchType(val, 'Client Name')} >
                 Client Name
-              </Radio.Button>
+              </Radio.Button> */}
               <Radio.Button value="" onChange={(val, data) => handleSearchType(val, 'Company Name')}>
                 Company Name
               </Radio.Button>
@@ -248,7 +250,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   marginLeft: "1rem",
                   marginBottom: "15px"
                 }}
-                onChange={(val) => handleNameSearch(val)}
+                onChange={(val,data) => handleNameSearch(data.label)}
               ></Select>
               :
               <Input

@@ -187,7 +187,7 @@ return (
             title="Collaborators"
             centered={true}
             visible={props.showCollabortrModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowCollabortrModal(false) }
             footer={null}
@@ -205,7 +205,7 @@ return (
                         <AutoComplete
                             value={teamMemberData}
                             searchValue={teamMemberData}
-                            style={{ width: "85%" }}
+                            style={{ width: width < breakpoint ? "74%" : "85%" }}
                             options={hierarAgentList}
                             onChange={(text, data) => onChangeTeam(text, data)}
                             notFoundContent="No Result Found"

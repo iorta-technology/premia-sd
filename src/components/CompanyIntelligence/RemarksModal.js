@@ -90,7 +90,7 @@ return (
             title="Remark"
             centered={true}
             visible={props.showRemarkModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowRemarkModal(false) }
             footer={null}

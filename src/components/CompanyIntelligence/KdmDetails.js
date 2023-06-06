@@ -87,6 +87,8 @@ const KDMDetails = (props) => {
             dobBorder:'',
         },
     ]);
+    let { innerWidth: width, innerHeight: height } = window;
+    const breakpoint = 620;
 
     useEffect(() => {
         let _dataArr = []
@@ -467,7 +469,7 @@ return (
             title="Key Decison Makers Details"
             centered={true}
             visible={props.showKdmModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowKdmModal(false) }
             footer={null}

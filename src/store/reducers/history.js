@@ -119,7 +119,7 @@ const fetchHistorySuccess = (state, action) => {
   //       }
   //     }
   //   } else {
-  //     if (historydetail.leadId.leadStatus === "newleadentery") {
+  //     if (historydetail.leadId.leadStatus === "newleadentry") {
   //       desc =
   //         doSentenceCase(historydetail.description) +
   //         " " +

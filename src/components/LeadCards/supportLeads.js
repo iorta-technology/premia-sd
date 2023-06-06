@@ -32,36 +32,12 @@ export default {
     // console.log("length", resObj.company_id.risk_details.length> 0 )
 
 
-    if(resObj.company_id){
-        if(resObj.company_id.risk_details){
-        if(resObj.company_id.risk_details[0]){
-
-          if(resObj.company_id.risk_details[0].lob_for_opportunity){
-            dataStructure.lob_for_opportunity = resObj.company_id.risk_details[0].lob_for_opportunity;
-          }else {
-            dataStructure.lob_for_opportunity = "-";
-          }
-          if(resObj.company_id.risk_details[0].tagic_premium){
-            dataStructure.tagic_premium = resObj.company_id.risk_details[0].tagic_premium;
-          }else {
-            dataStructure.tagic_premium = "-";
-          }
-          if(resObj.company_id.risk_details[0].total_premium){
-            dataStructure.total_premium = resObj.company_id.risk_details[0].total_premium;
-          }else {
-            dataStructure.total_premium ="-"
-          }
-          
-          if(resObj.company_id.risk_details[0].inception_date){
-            dataStructure.inception_date = resObj.company_id.risk_details[0].inception_date;
-          }else {
-            dataStructure.inception_date ="-"
-          }
-        }
-          
-        }
-
-    };
+    if(resObj.risk_details){
+      dataStructure.lob_for_opportunity = !resObj?.risk_details[0]?.lob_for_opportunity ? '-' : resObj?.risk_details[0]?.lob_for_opportunity
+      dataStructure.tagic_premium = !resObj?.risk_details[0]?.tagic_premium ? '-' : resObj?.risk_details[0]?.tagic_premium
+      dataStructure.total_premium = !resObj?.risk_details[0]?.total_premium ? '-' : resObj?.risk_details[0]?.total_premium
+      dataStructure.inception_date = !resObj?.risk_details[0]?.inception_date ? '-' : resObj?.risk_details[0]?.inception_date
+    }
 
     dataStructure.userId = !resObj?.userId ? "-" : resObj?.userId;
     dataStructure.companyName = !resObj?.company_id?.company_name

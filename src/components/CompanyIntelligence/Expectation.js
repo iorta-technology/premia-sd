@@ -110,7 +110,7 @@ return (
             title="Expectation"
             centered={true}
             visible={props.showExpectationModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowExpectationModal(false) }
             footer={null}

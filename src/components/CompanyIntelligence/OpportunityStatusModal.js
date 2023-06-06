@@ -52,7 +52,7 @@ const OpportunityComp = (props) => {
     const [appointmentSubDisposition, setAppointmentSubDisposition] = useState();
 
     const [formItem, setFormItem] = useState({
-        status: "newleadentery",
+        status: "newleadentry",
         disposition: "",
         subDisposition: "",
         appointmentDate: "",
@@ -131,7 +131,7 @@ const OpportunityComp = (props) => {
         form.setFieldsValue({lead_disposition: "",});
         setShowLeadSubDisposition(false);
     
-        if (event === "newleadentery") {
+        if (event === "newleadentry") {
           setDispoArr([]);
           setShowLeadDisposition(false);
           setShowAppointmentFields(false)
@@ -257,8 +257,8 @@ const OpportunityComp = (props) => {
               leadStatus: formItem.status,
               leadDisposition: formItem.disposition,
               leadsubDisposition: formItem.subDisposition,
-              start_date:apptDateString,
-              start_time:formItem.appointmentTime,
+              start_date: !apptDateString ? null : apptDateString,
+              start_time:!formItem.appointmentTime ? null : formItem.appointmentTime ,
           }
       }
 
@@ -272,7 +272,7 @@ return (
             title="Opportunity Status"
             centered={true}
             visible={props.showOpportunityModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowOpportunityModal(false) }
             footer={null}

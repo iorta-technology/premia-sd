@@ -140,7 +140,7 @@ const CompanyIntelligence = React.memo((props) => {
     setShowFile(!showFile);
     console.log(fileData[index].location || fileData[index].url, "this is the file location");
   }
-  const [active, setActive] = useState(null)
+  const [activeKdm, setActiveKdm] = useState(null)
   const breakpoint = 620;
 
   const panelStyle = {
@@ -315,14 +315,27 @@ const CompanyIntelligence = React.memo((props) => {
     })
   };
 
+  const deleteKdmData = async (data, index) => {
+    // console.log('data DATA---->>>', data)
+    // secure/user/deletekdmDetails?userId=63dce7c80ae6868961079fe6&kdmId=64786ff0cac6fc279ab38cc6
+    const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
+    axios.delete(`${baseURL}secure/user/deletekdmDetails?userId=${loginId}&kdmId=${activeKdm}`,{ headers }).then(res =>{
+        // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
+        if(res.data.errCode === -1){
+          dispatch(actions.fetchLeadDetails(storeFormData._id))
+          message.success("KDM Details Deleted Successfully");
+        }
+    })
+  }
+
   const openDocumentModal = () => {
     setShowDocumntModal(true)
   };
 
   const handleKdmTabs = (event) => {
     // console.log('handleKdmTabs -------->>>',event)
-    setActive(event._id)
-
+    setActiveKdm(event._id)
+    // const [activeKdm, setActiveKdm] = useState(null)
     setKdmDataSet(event)
     // const [kdmDataSet, setKdmDataSet] = useState({});
   };
@@ -463,8 +476,8 @@ const CompanyIntelligence = React.memo((props) => {
                       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
                         <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                         <div style={{ marginTop: 10 }}>
-                          <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Risk details available.  
-                            <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Details</span>
+                          <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Remarks available.  
+                            <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Remarks</span>
                           </text>
                         </div>
                       </div>
@@ -489,8 +502,8 @@ const CompanyIntelligence = React.memo((props) => {
                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
                           <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                           <div style={{ marginTop: 10 }}>
-                            <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Risk details available.  
-                              <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Details</span>
+                            <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Collaborators available.  
+                              <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Collaborators</span>
                             </text>
                           </div>
                         </div>
@@ -730,6 +743,7 @@ const CompanyIntelligence = React.memo((props) => {
                 <Row>
                   <PlusCircleOutlined onClick={() => openKDMModal('create')} style={{ fontSize: 20 }} />
                   <FormOutlined onClick={() => openKDMModal('edit')} style={{ marginLeft: 15, fontSize: 20 }} />
+                  <DeleteOutlined onClick={() => deleteKdmData()} style={{ fontSize: 20, marginLeft: 15}} />
                 </Row>
               </Row>
               <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
@@ -737,8 +751,8 @@ const CompanyIntelligence = React.memo((props) => {
                 <Row>
                   {kdmDetailsArr &&
                     kdmDetailsArr.map((el, index) =>
-                      <Col onClick={() => handleKdmTabs(el)} className={`kdmTabs ${active === el._id && 'kdmTabsActive'}`}>
-                        <p style={{ margin: 0, color: `${active === el._id ? '#fff' : '#737373'}`, fontWeight: 400, fontSize: 12 }}>{el.kdmTabs}</p>
+                      <Col onClick={() => handleKdmTabs(el)} className={`kdmTabs ${activeKdm === el._id && 'kdmTabsActive'}`}>
+                        <p style={{ margin: 0, color: `${activeKdm === el._id ? '#fff' : '#737373'}`, fontWeight: 400, fontSize: 12 }}>{el.kdmTabs}</p>
                       </Col>
                     )
                   }
