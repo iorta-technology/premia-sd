@@ -208,7 +208,7 @@ const NewLead = React.memo((props) => {
       // },
     };
 
-    console.log('company_id-------->>',company_id); 
+    // console.log('company_id-------->>',company_id); 
 
 
     if(company_id){
@@ -216,10 +216,10 @@ const NewLead = React.memo((props) => {
         companyDocumentID:company_id
       }
       let result = await axiosRequest.post(`admin/company/create-opportunity`,formData,{ secure: true });
-      console.log('OPPORTUNITY RESP',result)
+      // console.log('OPPORTUNITY RESP',result)
     }else{
       let result = await axiosRequest.post(`user/company/add-company`,formData,{ secure: true });
-      console.log('COMPANY RESP',result)
+      // console.log('COMPANY RESP',result)
     }
 
     closeCompanyModal()

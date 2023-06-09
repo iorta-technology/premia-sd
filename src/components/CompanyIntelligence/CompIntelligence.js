@@ -195,8 +195,15 @@ const CompanyIntelligence = React.memo((props) => {
 
       // Setting Opportunity data
       if (leadData?.appointmentDate) {
-        _appntDate = moment(leadData?.appointmentDate).format("MM/DD/YYYY");
-        _appntTime = moment(leadData?.appointmentDate).format("LT");
+        // _appntDate = moment(leadData?.appointmentDate).format("MM/DD/YYYY");
+        // _appntTime = moment(leadData?.appointmentDate).format("LT");
+        
+        let redable_date = new Date(leadData?.appointmentDate).toLocaleString('en-US', { timeZone: 'UTC' }).split(',')
+        _appntDate = redable_date[0]
+        let _appTime = redable_date[1].trim().split(':')
+        let _appTimeAm = _appTime[2].split(' ')
+        
+        _appntTime = `${_appTime[0]}:${_appTime[1]} ${_appTimeAm[1]}`
       }
       // console.log()
       let _opportunity = {
@@ -204,6 +211,7 @@ const CompanyIntelligence = React.memo((props) => {
         appointmentDetails: leadData?.appointmentDetails,
         appointmentId: leadData?.appointmentId,
         appointmentTime: _appntTime,
+        appoint_Date: _appntDate,
         leadStatus: leadData?.leadStatus,
         leadStatusLabel: opprtunityStatusData(leadData?.leadStatus),
         leadDisposition: leadData?.leadDisposition,
@@ -236,7 +244,7 @@ const CompanyIntelligence = React.memo((props) => {
         el.kdmTabs = `KDM ${index + 1}`
       })
       setKdmDetailsArr(leadData?.company_id?.kdm_details)
-      if(leadData?.company_id?.kdm_details.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
+      if(leadData?.company_id?.kdm_details?.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
 
       var newArr = leadData?.documents?.map((res) => ({ ...res, recent: false }));
       setFileData(newArr)
@@ -281,7 +289,7 @@ const CompanyIntelligence = React.memo((props) => {
     // if(event === 'create') setKdmDataSet({})
     // const [kdmType, setKdmType] = useState("");
     if(event === 'create'){
-      if(kdmDetailsArr.length > 4){
+      if(kdmDetailsArr?.length >= 4){
         message.info("Only 4 KDM's can be Added");
       }else{
         setKdmType(event)
@@ -458,12 +466,12 @@ const CompanyIntelligence = React.memo((props) => {
                     <Col className="post w-100" id="chat_section"
                       style={{
                         fontSize: "smaller",
-                        height: reamrkDataArr && reamrkDataArr.length > 5 ? "311px" : "",
+                        height: reamrkDataArr && reamrkDataArr?.length > 5 ? "311px" : "",
                         overflowY: "auto",
                       }}
                     >
-                    { reamrkDataArr.length > 0 ?
-                      reamrkDataArr.slice(0).reverse().map((res, index) => (
+                    { reamrkDataArr?.length > 0 ?
+                      reamrkDataArr?.slice(0).reverse().map((res, index) => (
                         <div key={res.date} className={"mb-3 remarks_bg " + (loginId === res.userId._id ? "left" : "right")}>
                           <div className="d-flex justify-content-between w-100">
                             <div className="me-3">{res.userId.full_name}</div>
@@ -489,7 +497,7 @@ const CompanyIntelligence = React.memo((props) => {
                       <p className="text-font" style={{color:'#444444'}}>Collaborators</p>
                       <PlusCircleOutlined onClick={() => setShowCollabortrModal(true)} style={{fontSize:18}} />
                     </Row>
-                    { teamDataArr.length > 0 ? 
+                    { teamDataArr?.length > 0 ? 
                         teamDataArr.map((res, index) => (
                           <Col style={{ padding:'0px 15px 10px 15px' }}>
                             <Row style={{ padding: 5,border:'1px solid #adb5bd',alignItems:'center' }}>
@@ -554,7 +562,7 @@ const CompanyIntelligence = React.memo((props) => {
 
                 <Row style={{marginTop:10}}>
                   <Col style={{flex:1}}>
-                    <p className="text-font">{!opportunityDetails.appointmentDate ? '-' : moment(opportunityDetails.appointmentDate).format("MM/DD/YYYY")}</p>
+                    <p className="text-font">{opportunityDetails.appoint_Date}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
@@ -629,8 +637,8 @@ const CompanyIntelligence = React.memo((props) => {
               </Row>
               <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
               <Col style={{ padding: 10 }}>
-                {riskDetailsArr.length > 0 ?
-                  riskDetailsArr.map((el, index) =>
+                {riskDetailsArr?.length > 0 ?
+                  riskDetailsArr?.map((el, index) =>
                     <Collapse accordion={true} onChange={(text) => handleCollapse(text, el, index)} expandIconPosition={'right'} style={panelStyle} defaultActiveKey={['1']}>
                       <Panel
                         header={el.total_entities}
@@ -750,7 +758,7 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   {kdmDetailsArr &&
-                    kdmDetailsArr.map((el, index) =>
+                    kdmDetailsArr?.map((el, index) =>
                       <Col onClick={() => handleKdmTabs(el)} className={`kdmTabs ${activeKdm === el._id && 'kdmTabsActive'}`}>
                         <p style={{ margin: 0, color: `${activeKdm === el._id ? '#fff' : '#737373'}`, fontWeight: 400, fontSize: 12 }}>{el.kdmTabs}</p>
                       </Col>
@@ -759,7 +767,7 @@ const CompanyIntelligence = React.memo((props) => {
                 </Row>
               </Col>
 
-              {kdmDetailsArr.length > 0 ?
+              {kdmDetailsArr?.length > 0 ?
                 <Col style={{ padding: 10 }}>
                   <Row>
                     <Col style={{ flex: 1 }}>
@@ -908,7 +916,7 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                    {fileData.length > 0 ? 
+                    {fileData?.length > 0 ? 
                       fileData?.map((item, index) => (
                         <div className="data-field">
                           <div className="wrapper1">

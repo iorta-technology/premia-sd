@@ -461,7 +461,7 @@ const RiskDetails = (props) => {
       tagicPresence: "",
       tagicPremium: "",
       leadrFollowr: undefined,
-      leadeInsurer: '',
+      leadeInsurer: ' ', //Please do not remove the space from the empty string
       leaderShare: "",
       incepDate: "",
       pan_No:'',
@@ -911,7 +911,7 @@ const RiskDetails = (props) => {
                     options={leadInsurerItems}
                     value={leadInsurerData}
                     onChange={(val, data) => setLeadInsurerData(val)}
-                    // onFocus={(val) =>{console.log('vali-----FOcus------>>',val)}}
+                    onFocus={(val) =>{ form.setFieldsValue({leadeInsurer:''}) } }
                     filterOption={(inputValue, option) =>
                       option.value
                         .toUpperCase()

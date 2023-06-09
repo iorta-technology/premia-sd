@@ -52,9 +52,17 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
 
               if (config.url.includes("postkdmDetails"))
                 message.success("KDM Details Created Successfully");
-                
+
               if (config.url.includes("add-opporunity-remark"))
                 message.success("Remark Added Successfully");
+
+              if (config.url.includes("create-opportunity"))
+                message.success("Opportunity Created Successfully");
+
+              if (config.url.includes("add-company"))
+                message.success("Company Added Successfully");
+
+                
             } else if (config.method === "put") {
               if (config.url.includes("update_task_status"))
                 message.success("Todo Updated successfully");

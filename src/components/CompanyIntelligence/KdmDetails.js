@@ -342,7 +342,7 @@ const KDMDetails = (props) => {
         let _compID = _StoreData?.company_id?._id
 
         if(kdmTypeData === 'create'){
-            let result = await axiosRequest.post(`user/postkdmform?userId=${user_id}&companyid=${_compID}`,formBody,{ secure: true });
+            let result = await axiosRequest.post(`user/postkdmform?userId=${user_id}&companyid=${_compID}&leadId=${_StoreData._id}`,formBody,{ secure: true });
             dispatch(actions.fetchLeadDetails(_StoreData._id))
         }else{
             let result = await axiosRequest.put(`user/updatekdmform?userId=${user_id}&companyid=${_compID}&kdmId=${editKdmId}`,formBody,{ secure: true });

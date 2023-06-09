@@ -26,7 +26,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [sortBy, setSortBy] = useState("new_to_old");
 
   const [leadFilter, setleadFilter] = useState("");
-  const [searchType, setSearchType] = useState("fname");
+  const [searchType, setSearchType] = useState("");
   const [leadDispositionFilter, setleadDispositionFilter] = useState("");
   const [leadTypeFilter, setleadTypeFilter] = useState("");
   const [fieldLabelName, setFieldLabelName] = useState("Company Name");
@@ -54,7 +54,11 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     });
 
     console.log(result)
-    setInceptionDates(result[0]?.inception_dates);
+    let _dates = result[0]?.inception_dates.filter(el =>{
+      if(el) return el
+    })
+    // console.log('INCEPT _dates-------',_dates)
+    setInceptionDates(_dates);
   }
   //disabling dates
   
@@ -64,7 +68,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     let month = current.month() + 1;
     if (month < 10) month = '0' + month;
     let year = current.year();
-    let date = day + '/' + month + '/' + year;
+    let date = month + '/' + day + '/' + year;
     return !(inceptionDates.includes(date));
   }
 
@@ -85,7 +89,6 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 
   //calling the function when date is changing
   const onChangeFromDate = (date, dateString) => {
-
     setDateFilter(date);
     setDateString(dateString);
     // setDateString(dateString);
@@ -134,10 +137,12 @@ export function OffCanvasForGlobalFilter({ ...props }) {
         lead_disposition,
         leadType,
         searchType,
-        dateFilter
+        dateString
       )
     );
     handleClose();
+    setDateFilter('');
+    setDateString('');
   };
 
   const [show, setShow] = useState(false);
@@ -250,7 +255,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   marginLeft: "1rem",
                   marginBottom: "15px"
                 }}
-                onChange={(val,data) => handleNameSearch(data.label)}
+                onChange={(val,data) => handleNameSearch(val)}
               ></Select>
               :
               <Input
@@ -283,7 +288,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   let month = current.month() + 1;
                   if (month < 10) month = '0' + month;
                   let year = current.year();
-                  let date = day + '/' + month + '/' + year;
+                  let date = month + '/' + day + '/' + year;
+                  console.log('INCEPPTTTTTT__DATE-----',date)
                   if (inceptionDates.includes(date)) {
                     style.color = 'white'
                     style.backgroundColor = '#00acc1';
