@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./HomePage.css";
-import "../Activitity Tracker/RightSide-Todo/Todo&Archive-Css/TodoCards.css";
+import "../Scheduler/RightSide-Todo/Todo&Archive-Css/TodoCards.css";
 import { Image, Button, Row, Col, Card, Select, Avatar } from "antd";
 // import { Bar } from '@ant-design/charts';
 import "antd/dist/antd.css";
@@ -384,10 +384,7 @@ const HomePage = () => {
           stringtimeofreminder: _data?._stringVersionTimeOfReminder,
           ownername:
             _data?.taskOwner?.first_name + " " + _data?.taskOwner?.last_name,
-          status: setTodoStatus(
-            _data?.dateOfReminder,
-            parseInt(_data?.timeOfReminder)
-          ),
+          status: setTodoStatus(_data?.dateOfReminder,parseInt(_data?.timeOfReminder)),
           searchdata: _data?.owernersCollectionDetails,
           taskOwner_id: _data?.taskOwner?._id,
           taskPriority: _data?.taskPriority,
@@ -402,6 +399,7 @@ const HomePage = () => {
         };
         arrData.push(objstrct);
       }
+      console.log('arrData------->>>',arrData)
       setGetTodoDataArray(arrData);
       setShowData(true);
     } catch (err) {}
@@ -936,9 +934,9 @@ const HomePage = () => {
                           >
                             <div className="TodoCards-TimedateArchive">
                               <Col className="TodoCards-TopClock">
-                                <div className="todoCard-mr15">
+                                {/* <div className="todoCard-mr15">
                                   <img src={TodoClock} alt="alarm" />
-                                </div>
+                                </div> */}
                                 <div>
                                   <h4
                                     style={{
@@ -956,21 +954,22 @@ const HomePage = () => {
                                   </h4>
                                 </div>
                                 <div style={{ marginLeft: 5 }}>
-                                  <h4
+                                  <text
                                     style={{
                                       color:
                                         element.status === "Soon"
                                           ? element.sooncolor
                                           : element.status === "Overdue"
-                                          ? element.overduecolor
-                                          : "red",
-                                      fontSize: 12,
-                                      fontWeight: 700,
+                                            ? element.overduecolor
+                                            : "#000",
                                     }}
                                   >
-                                    {" : " + element.dateofreminder + " : "}
-                                    {element.stringtimeofreminder}
-                                  </h4>
+                                    {element.dateofreminder} : {element.stringtimeofreminder}
+                                  </text>
+                                </div>
+                                <div className='priority'>
+                                  <div style={{backgroundColor:element.priorityIndicatorColor}} className="priority-circle"></div>
+                                  <div style={{textTransform:"capitalize",color:element.priorityIndicatorColor}}>{element.taskPriority}</div>
                                 </div>
                               </Col>
 
@@ -993,23 +992,8 @@ const HomePage = () => {
                                 {element.showarchiedpopup === true && (
                                   <div className="TodoCard-Container-Hamburger">
                                     <Card className="Hamburger-Card Hamburger-box">
-                                      <hr
-                                        style={{
-                                          color: "#e6e9eb",
-                                          opacity: "0.3",
-                                        }}
-                                      />
-                                      <p
-                                        onClick={() => archiveData(element)}
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                        }}
-                                      >
-                                        <ShopOutlined
-                                          style={{ marginRight: "10px" }}
-                                        />{" "}
-                                        Archive
+                                      <p onClick={() => archiveData(element)} style={{display: "flex",alignItems: "center",}}>
+                                        <ShopOutlined style={{ marginRight: "10px",marginTop:5 }}/>{" "}Archive
                                       </p>
                                     </Card>
                                   </div>
@@ -1017,31 +1001,25 @@ const HomePage = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="TodoCards-Body flex-wrap py-1">
-                            <p className="w-50 value">Iorta</p>
-                            <p className="w-50 value">Java</p>
-                            <p className="w-50 term">Client Name</p>
-                            <p className="w-50 term">Company Name</p>
-                          </div>
-                          <div className="TodoCards-Body">
-                            <div
-                              className="TodoCard-Body-CheckBox todoCard-mr15"
-                              onClick={() => removListFromToDo(element, index)}
-                            >
-                              <img
-                                src={element.icon}
-                                className="archive-trueCheckBox"
-                                alt="trueCheckBox"
-                              />
+                         
+                          <div className="TodoCards-Body" style={{display:'flex',alignItems:'center'}}>
+                            <div className="TodoCard-Body-CheckBox todoCard-mr15" onClick={() => removListFromToDo(element, index)}>
+                              <img src={element.icon} className="archive-trueCheckBox" alt="trueCheckBox"/>
                             </div>
-                            <p
-                              style={{
-                                textDecorationLine:
-                                  element.textOverLine.textDecorationLine,
-                              }}
-                            >
+                            <p style={{textDecorationLine:element.textOverLine.textDecorationLine,}}>
                               {element.content}
                             </p>
+                          </div>
+                         
+                          <div className="TodoCards-Body flex-wrap py-1">
+                            <p className="w-50 value">
+                              {!element.companyName ? "-" : element.companyName}
+                            </p>
+                            {/* <p className="w-50 value">
+                              {!element.opportunityName ? "-" : element.opportunityName}
+                            </p>
+                            <p className="w-50 term">Client Name</p> */}
+                            <p className="w-50 term">Company Name</p>
                           </div>
 
                           <div className="Todo-Footer">

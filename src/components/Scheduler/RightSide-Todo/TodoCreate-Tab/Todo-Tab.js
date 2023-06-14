@@ -541,10 +541,10 @@ const TodoTab = (props) => {
       if (props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID')) {
         // if(!props.companyID && props.leadID !== '-'){}
         formData["company_id"] = props.companyID;
-        formData["leadId"] = props.leadID;
+        // formData["leadId"] = props.leadID;
       } else {
         formData["company_id"] = todoCompId;
-        formData["leadId"] = todoOpporId;
+        // formData["leadId"] = todoOpporId;
       }
 
       let _resp = await axiosRequest.post(`user/todo_task`, formData, {
@@ -701,17 +701,10 @@ const TodoTab = (props) => {
                   onChange={(val, data) => changeCompanyName(val, data._id)}
                 ></Select>
               </Col>
+              <Col style={{ flex: 1,marginLeft: 15 }}></Col>
 
-              <Col style={{ flex: 1, marginLeft: 10 }}>
+              {/* <Col style={{ flex: 1, marginLeft: 10 }}>
                 <p style={{ marginBottom: 5 }}> Client Name </p>
-                {/* <Select
-                  placeholder="Select"
-                  style={{width: '100%'}}
-                  // options={leadStatusItems}
-                  value={todoOpportunityName}
-                  onChange={(val) => changeOpportunityName(val)}
-                ></Select> */}
-
                 <AutoComplete
                   placeholder="Select"
                   options={opportunityNameArray}
@@ -726,29 +719,47 @@ const TodoTab = (props) => {
                       .indexOf(inputValue.toUpperCase()) !== -1
                   }
                 ></AutoComplete>
-              </Col>
+              </Col> */}
             </Row>
             <div className="due-reminder" >
-              <div className="Todo-Create-Header" >
+              {/* <div className="Todo-Create-Header" >
                 <p style={{ marginBottom: "5px"}}> Add Team Member </p>
-              <div className="Todo-Create-SearchBox todoSearch">
+                <div className="Todo-Create-SearchBox todoSearch">
+                  <AutoComplete
+                    value={teamMemberData}
+                    style={{ width: "96%" }}
+                    options={hierarAgentList}
+                    onChange={(text, data) => onChangeTeam(text, data)}
+                    onSelect={onSelectTeam}
+                    filterOption={(inputValue, option) =>
+                      option.value
+                        .toUpperCase()
+                        .indexOf(inputValue.toUpperCase()) !== -1
+                    }
+                  >
+                    <Search placeholder="Search by Name" style={{width:"100%"}}/>
+                  </AutoComplete>
+                </div>
+              </div> */}
+              <Col style={{ flex: 1}} className="searchIcon">
+                <p style={{ marginBottom: 5 }}> Add Team Member </p>
                 <AutoComplete
-                  value={teamMemberData}
-                  style={{ width: "100%" }}
-                  options={hierarAgentList}
-                  onChange={(text, data) => onChangeTeam(text, data)}
-                  onSelect={onSelectTeam}
-                  filterOption={(inputValue, option) =>
-                    option.value
-                      .toUpperCase()
-                      .indexOf(inputValue.toUpperCase()) !== -1
-                  }
-                >
-                  <Search placeholder="Search by Name" style={{width:"100%"}}/>
+                    value={teamMemberData}
+                    style={{ width: "97%" }}
+                    options={hierarAgentList}
+                    onChange={(text, data) => onChangeTeam(text, data)}
+                    onSelect={onSelectTeam}
+                    filterOption={(inputValue, option) =>
+                      option.value
+                        .toUpperCase()
+                        .indexOf(inputValue.toUpperCase()) !== -1
+                    }
+                  >
+                    <Search placeholder="Search by Name" style={{width:"100%"}}/>
                 </AutoComplete>
-              </div>
-              </div>
-              <div className="date-picker" >
+              </Col>
+              
+              <div className="date-picker" style={{marginLeft:0}}>
                 <div className="due-remi" >Set a Due Reminder</div>
                 <div style={{display:"flex",flexDirection:"row"}}>
                   <DatePicker
@@ -757,12 +768,12 @@ const TodoTab = (props) => {
                     onChange={onChangeDatePick}
                     // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                     className="todo-ml11"
-                    style={{ marginBottom: "10px", flex: 1,width:"50%",marginLeft:"12px",height:"100%",borderRadius:"4px"}}
+                    style={{ marginBottom: "10px", flex: 1,width:"50%",borderRadius:"4px"}}
                   />
                   <Select
                     value={selectedTime}
                     className="todo-mb20 todo-ml10"
-                    style={{flex: 1,width:"50%" ,marginLeft:"12px",height:"100%"}}
+                    style={{flex: 1,width:"50%" ,marginLeft:"12px"}}
                     onChange={(time) => handleTimeChange(time)}
                   >
                     {timeListText.map((e, index) => (

@@ -462,7 +462,7 @@ const TodoCards = forwardRef((props, ref) => {
                   </text> */}
                 </div>
                 <div style={{ marginLeft: 5,color:"#444444" }}>
-                  {/* <text
+                  <text
                     style={{
                       color:
                         element.status === "Soon"
@@ -471,9 +471,9 @@ const TodoCards = forwardRef((props, ref) => {
                             ? element.overduecolor
                             : "#000",
                     }}
-                  > */}
+                  >
                     {element.dateofreminder} : {element.stringtimeofreminder}
-                  {/* </text> */}
+                  </text>
                 </div>
                 <div className='priority'>
                   <div style={{backgroundColor:element.priorityIndicatorColor}} className="priority-circle"></div>
@@ -530,7 +530,7 @@ const TodoCards = forwardRef((props, ref) => {
               </div>
             </div>
           </div>
-          <div className="TodoCards-Body">
+          <div className="TodoCards-Body" style={{display:'flex',alignItems:'center'}}>
             <div
               className="TodoCard-Body-CheckBox todoCard-mr15"
               onClick={() => removListFromToDo(element, index)}
@@ -553,10 +553,10 @@ const TodoCards = forwardRef((props, ref) => {
             <p className="w-50 value">
               {!element.companyName ? "-" : element.companyName}
             </p>
-            <p className="w-50 value">
+            {/* <p className="w-50 value">
               {!element.opportunityName ? "-" : element.opportunityName}
             </p>
-            <p className="w-50 term">Client Name</p>
+            <p className="w-50 term">Client Name</p> */}
             <p className="w-50 term">Company Name</p>
           </div>
           <div className="Todo-Footer">

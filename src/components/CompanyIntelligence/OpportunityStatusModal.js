@@ -119,8 +119,9 @@ const OpportunityComp = (props) => {
               lead_disposition: props?.opportunityDetails.hasOwnProperty("leadDisposition") ? props?.opportunityDetails.leadDisposition : "",
               sub_disposition: props?.opportunityDetails.hasOwnProperty("leadsubDisposition") ? props?.opportunityDetails.leadsubDisposition : "",
               appointment_date: _apptDateFormat,
-              appointment_time: _appntTime,
+              appointment_time: props?.opportunityDetails?.appointmentTime,
             });
+            setFormItem((res) => ({...res,appointmentTime: props?.opportunityDetails?.appointmentTime }));
         }
         
     }, [props]);
