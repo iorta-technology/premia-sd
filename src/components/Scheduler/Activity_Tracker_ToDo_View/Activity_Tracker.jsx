@@ -32,6 +32,7 @@ import {
 	ExternalViewSwitcher,
 	MonthView
 } from "@devexpress/dx-react-scheduler-material-ui";
+import { useSelector } from "react-redux";
 import { delay } from "lodash";
 import { createBreakpoints, height, width } from "@mui/system";
 import Radio from '@mui/material/Radio';
@@ -42,6 +43,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 const Datescheduler = () => {
 	// declearing a usestate for storing our data
 	const [data, setData] = useState();
+	const user_id = useSelector((state) => state.login.user.id);
 	const format = "YYYY-MM-DD";
 	let date = new Date();
 	let today = moment(date).format(format);
@@ -114,18 +116,27 @@ const Datescheduler = () => {
 		)
 	};
 	//declearing the headers
-	const Header = (({
-		children, appointmentData, ...restProps
-	}) => (
+	const Header = (({children, appointmentData, ...restProps}) => (
 		<AppointmentTooltip.Header
 			{...restProps}
 		>
 			<div className="header">
 				<div style={{ marginRight: "10px", width: "50px" }}>
+					<text style={{textTransform:'capitalize',fontWeight:'600',color:appointmentData?.item?.statusType === 'close' ? '#e46a2c' : '#18a4c5'}}>
+						{
+							// appointmentData?.item?.statusType
+							appointmentData?.item?.teamMember_clone.includes(user_id) ?
+							appointmentData?.item?.statusType === "close" ? "Close" : "Invited" :
+							appointmentData?.item?.statusType === "open" ? "Open" : "Close"
+						}
+					</text>
+				</div>
+
+				{/* <div style={{ marginRight: "10px", width: "50px" }}>
 					<svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M5.99992 8.88377L2.91392 10.5063L3.50342 7.06977L1.00342 4.63627L4.45342 4.13627L5.99642 1.00977L7.53942 4.13627L10.9894 4.63627L8.48942 7.06977L9.07892 10.5063L5.99992 8.88377Z" fill="#F4C169" stroke="#F4C169" stroke-linecap="round" stroke-linejoin="round" />
 					</svg>
-				</div>
+				</div> */}
 
 				<div style={{ marginRight: "10px", width: "50px", cursor: "pointer" }} onClick={() => { showModal(appointmentData.item); setAppointmentTootip(!appointmentTootip) }}>
 					<svg width="20" height="20" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,11 +180,20 @@ const Datescheduler = () => {
 					<div className="content-dt-time-left"><div>Client</div><div>{appointmentData.client}</div></div>
 					<div className="content-dt-time-right"><div>Location</div><div>{appointmentData.Location}</div></div>
 				</div>
-				<div className="agenda">
-					<div className="agenda-content">
+				<div className="content-dt-time">
+					{/* <div className="agenda-content">
+						<div>Agenda</div>
+						<div>{appointmentData.Agenda}</div>
+					</div> */}
+
+					<div className="content-dt-time-left">
 						<div>Agenda</div>
 						<div>{appointmentData.Agenda}</div>
 					</div>
+					{/* <div className="content-dt-time-right">
+						<div>Status</div>
+						<div>{appointmentData.Location}</div>
+					</div> */}
 				</div>
 				<div className="minutes">
 					<div className="minutes-content">

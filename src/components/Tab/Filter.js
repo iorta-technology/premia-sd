@@ -289,7 +289,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   if (month < 10) month = '0' + month;
                   let year = current.year();
                   let date = month + '/' + day + '/' + year;
-                  console.log('INCEPPTTTTTT__DATE-----',date)
+                  // console.log('INCEPPTTTTTT__DATE-----',date)
                   if (inceptionDates.includes(date)) {
                     style.color = 'white'
                     style.backgroundColor = '#00acc1';
@@ -300,7 +300,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                     </div>
                   );
                 }}
-                format="DD/MM/YYYY"
+                format="MM/DD/YYYY"
                 className='expt-picker'
               />
             </div>

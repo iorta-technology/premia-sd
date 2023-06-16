@@ -137,7 +137,7 @@ const Sidebar = () => {
   const toggleModalBox = () => {
     fetchData();
     toggleModal(!modalShown);
-    dispatch(notificationIndicator(true));
+    dispatch(notificationIndicator(false));
   };
 
   useEffect(() => {
@@ -146,15 +146,15 @@ const Sidebar = () => {
 
   useEffect(() => {
     mySocket.on("notification", (data) => {
-      dispatch(notificationIndicator(false));
-      // console.log("data ========= ", data);
+      dispatch(notificationIndicator(true));
+      console.log("data-------- ========= ", data);
     });
 
     mySocket.on("message", (data) => {
       // console.log("notification received", data);
     });
-    console.log("state = ", state.home.notification);
-    // console.log("mySocket =----->>>> ",mySocket);
+    console.log("state__Notification = ", state?.home?.notification);
+    console.log("mySocket =----->>>> ",mySocket);
   }, [mySocket]);
 
   const fetchData = async () => {
@@ -280,7 +280,7 @@ const Sidebar = () => {
               {_notify?.length &&
               _notify?.length > 0 &&
               // clearBtn &&
-              !state.home.notification ? (
+              state?.home?.notification ? (
                 <div className="dot"></div>
               ) : null}
             </NavIcon>

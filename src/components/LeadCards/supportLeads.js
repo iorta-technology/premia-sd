@@ -31,18 +31,23 @@ export default {
 
     // console.log("length", resObj.company_id.risk_details.length> 0 )
 
-
+    let _inceptDate = ''
     if(resObj.risk_details){
       dataStructure.lob_for_opportunity = !resObj?.risk_details[0]?.lob_for_opportunity ? '-' : resObj?.risk_details[0]?.lob_for_opportunity
       dataStructure.tagic_premium = !resObj?.risk_details[0]?.tagic_premium ? '-' : resObj?.risk_details[0]?.tagic_premium
       dataStructure.total_premium = !resObj?.risk_details[0]?.total_premium ? '-' : resObj?.risk_details[0]?.total_premium
-      dataStructure.inception_date = !resObj?.risk_details[0]?.inception_date ? '-' : resObj?.risk_details[0]?.inception_date
+
+      let redable_date = !resObj?.risk_details[0]?.inception_date ? '-' :  new Date(resObj?.risk_details[0]?.inception_date).toLocaleString('en-US', { timeZone: 'UTC' }).split(',')
+      _inceptDate = redable_date[0]
+      dataStructure.inception_date = _inceptDate
     }
 
+    
+
     dataStructure.userId = !resObj?.userId ? "-" : resObj?.userId;
-    dataStructure.companyName = !resObj?.company_id?.company_name
+    dataStructure.companyName = !resObj?.company_id?.raw_company_name
       ? "-"
-      : resObj?.company_id?.company_name;
+      : resObj?.company_id?.raw_company_name;
 
     dataStructure.opportunityName = !resObj?.opportunity_name
       ? "-"

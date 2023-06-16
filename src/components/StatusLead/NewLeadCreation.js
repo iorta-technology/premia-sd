@@ -98,17 +98,18 @@ const NewLead = React.memo((props) => {
       secure: true,
     });
     let _compArr = [];
-    let _parentCompArr = [];
+    let _parentCompArr = [{label: 'Self', value: 'Self'}];
     result.companies.map((el) => {
       let _data = { value: el.company_name, _id: el._id };
       _compArr.push(_data);
     });
     setCompanyArray(_compArr);
 
-    result.parent_company.map((el) => {
-      let _data = { label: el, value: el };
+    result.companies.map((el) => {
+      let _data = { label: el.company_name, _id: el._id };
       _parentCompArr.push(_data);
     });
+    console.log('_parentCompArr0--------',_parentCompArr)
     setparentCompArray(_parentCompArr);
     // setIndustryArray(industryDataArr);
   };
@@ -331,7 +332,7 @@ const NewLead = React.memo((props) => {
                     <Select
                       disabled={disableParentComp}
                       placeholder="Select"
-                      options={companyArray}
+                      options={parentCompArray}
                       value={formItem.parentCompanyName}
                       onChange={(val, data) => onParentCompanyChange(val, data)}
                     ></Select>

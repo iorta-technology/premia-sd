@@ -28,7 +28,7 @@ import Icon from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
 import { stoageGetter, checkAgent } from "../../helpers";
 import axios from "axios";
-import _ from "lodash";
+import _, { unset } from "lodash";
 import Form from "antd/lib/form/Form";
 import Item from "antd/lib/list/Item";
 import { useDispatch, useSelector } from "react-redux";
@@ -2036,10 +2036,10 @@ export default function CalendarEvent(props) {
         });
       }
 
-      console.log("1st Comparision ------>", moment(new Date()).format("YYYY-MM-DD"));
-      console.log("2nd Comparision ------>", moment(durationStartDate).format("YYYY-MM-DD"));
-      console.log("3rd Comparision__currentTime ------>", currentTime);
-      console.log("4th Comparision ------>", date.toUTCString().toString().slice(17, 22));
+      // console.log("1st Comparision ------>", moment(new Date()).format("YYYY-MM-DD"));
+      // console.log("2nd Comparision ------>", moment(durationStartDate).format("YYYY-MM-DD"));
+      // console.log("3rd Comparision__currentTime ------>", currentTime);
+      // console.log("4th Comparision ------>", date.toUTCString().toString().slice(17, 22));
       // console.log(leadlist, "list of lead;;;;;;");
       if (modeSelect == "") {
         message.warning("Mode is Mandatory");
@@ -3167,60 +3167,63 @@ export default function CalendarEvent(props) {
       secure: true,
     });
     console.warn("__++++++COMPANY++++++++ RESPPPP", result);
-    let _compArr = [];
-    let selectobj = {
-      value: 'Select',
-      label: 'Select',
-      _id: 'Select',
-    };
-    _compArr.push(selectobj);
-    result[0].company_id.map((el) => {
-      let _data = {
-        value: el.company_name,
-        label: el.company_name,
-        _id: el._id,
-      };
-      _compArr.push(_data);
-    });
-   
-    setCompanyArray(_compArr);
-    setTodoCompName(_compArr[0].value);
-      setTodoCompId(_compArr[0]._id);
-    console.log(_compArr,'after select compare arr');
-    if (props.Data) {
-      if(props.Data.company_id != null && props.Data.leadId != null){
-      console.log(props.Data, "props full valuess");
-      console.log(_compArr, "full array of company");
-      let finalarrofcmpany = _compArr.filter((item) => {
-        return item._id == props.Data.company_id;
-      });
-      setTodoCompName(finalarrofcmpany[0].value);
-      setTodoCompId(props.Data.company_id);
-      // setOpportunityNameArray([])
 
-      let _opportunityAPI = await axiosRequest.get(
-        `user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`,
-        {
-          secure: true,
-        }
-      );
-      // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
-      let _opporArr = [];
-      _opportunityAPI.map((el) => {
-        let _data = { label: el.opportunity_name, value: el._id, _id: el._id };
-        _opporArr.push(_data);
+    if(result.length > 0){
+      let _compArr = [];
+      let selectobj = {
+        value: 'Select',
+        label: 'Select',
+        _id: 'Select',
+      };
+      _compArr.push(selectobj);
+      result[0]?.company_id?.map((el) => {
+        let _data = {
+          value: el.company_name,
+          label: el.company_name,
+          _id: el._id,
+        };
+        _compArr.push(_data);
       });
-      setOpportunityNameArray(_opporArr);
-      console.log(_opporArr, "opp array---->");
-      if (_opporArr.length > 0) {
-        let finalarrofOpp = _opporArr.filter((item) => {
-          return item._id == props.Data.leadId._id;
-        });
-        settodoOpporId(finalarrofOpp[0].value);
-        setTodoOpportunityName(finalarrofOpp[0].label);
+    
+      setCompanyArray(_compArr);
+      setTodoCompName(_compArr[0].value);
+        setTodoCompId(_compArr[0]._id);
+      console.log(_compArr,'after select compare arr');
+      if (props.Data) {
+        if(props.Data.company_id != null && props.Data.leadId != null){
+          // console.log(props.Data, "props full valuess");
+          // console.log(_compArr, "full array of company");
+          let finalarrofcmpany = _compArr.filter((item) => {
+            return item._id == props.Data.company_id;
+          });
+          setTodoCompName(finalarrofcmpany[0].value);
+          setTodoCompId(props.Data.company_id);
+          // setOpportunityNameArray([])
+
+          let _opportunityAPI = await axiosRequest.get(
+            `user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`,
+            {
+              secure: true,
+            }
+          );
+          // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
+          let _opporArr = [];
+          _opportunityAPI.map((el) => {
+            let _data = { label: el.opportunity_name, value: el._id, _id: el._id };
+            _opporArr.push(_data);
+          });
+          setOpportunityNameArray(_opporArr);
+          console.log(_opporArr, "opp array---->");
+          if (_opporArr.length > 0) {
+            let finalarrofOpp = _opporArr.filter((item) => {
+              return item._id == props.Data.leadId._id;
+            });
+            settodoOpporId(finalarrofOpp[0].value);
+            setTodoOpportunityName(finalarrofOpp[0].label);
+          }
+        }
       }
     }
-  }
   };
 
   return (
@@ -3586,91 +3589,15 @@ export default function CalendarEvent(props) {
 
           {advisorCollection.joint_customer_visit == true ||
           advisorCollection.phone_call_advisor == true ? (
-            // <div>
-            //   <div className="CalendarEvent-Modal-Card-vertical-line"></div>
-            //   <h4 className="CalendarEvent-Modal-Card-header-type">
-            //     Search Opportunity
-            //   </h4>
-            //   <div className="Todo-Create-Search calSearch">
-            //     {/* <input type='text' placeholder='Search by Name'/> */}
-            //     {/* <SearchOutlined /> */}
-            //     {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
-            //     {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
-            //     <AutoComplete
-            //       disabled={updateEventCheck == true || oppdisable == true ? true : false}
-            //       value={oppData}
-            //       style={{ width: "100%" }}
-            //       options={oppList}
-            //       onChange={(text, data) => onChangeOpp(text, data)}
-            //       onSelect={onSelectOpp}
-            //       notFoundContent="No Result Found"
-            //       filterOption={(inputValue, option) =>
-            //         option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-            //         -1
-            //       }
-            //     >
-            //       <Search placeholder="Search by Name" />
-            //     </AutoComplete>
-            //   </div>
-            //   {/* {console.log(teamMemberChip,'team member chip----->')} */}
-            //   {oppChip?.length !== 0 && (
-            //     <div
-            //       style={{
-            //         display: "flex",
-            //         flexFlow: "wrap",
-            //         alignItems: "center",
-            //       }}
-            //     >
-            //       {oppChip?.map((item, index) => {
-            //         // console.log(item,'item--team member-->')
-            //         return (
-            //           <div style={{ marginRight: 10, marginTop: 10 }}>
-            //             {updateEventCheck == true ? (
-            //               <Button
-            //                 size="small"
-            //                 type="primary"
-            //                 style={{
-            //                   backgroundColor: "#00ACC1",
-            //                   border: "none",
-            //                   display: "flex",
-            //                   alignItems: "center",
-            //                 }}
-            //                 shape="round"
-            //               >
-            //                 {item.value}{" "}
-            //               </Button>
-            //             ) : (
-            //               <Button
-            //                 size="small"
-            //                 type="primary"
-            //                 style={{
-            //                   backgroundColor: "#00ACC1",
-            //                   border: "none",
-            //                   display: "flex",
-            //                   alignItems: "center",
-            //                 }}
-            //                 shape="round"
-            //               >
-            //                 {item}{" "}
-            //                 <CloseOutlined
-            //                   onClick={() => removeOpp(item, index)}
-            //                 />
-            //               </Button>
-            //             )}{" "}
-            //           </div>
-            //         );
-            //       })}
-            //     </div>
-            //   )}
-            // </div>
             
             <Row style={{ marginBottom: 10 }}>
               <div className="CalendarEvent-Modal-Card-vertical-line"></div>
               <Col style={{ flex: 1 }}>
-                <p style={{ marginBottom: 5 }}> Company Name </p>
+                <p className="CalendarEvent-Modal-Card-header-type" style={{ marginBottom: 0 }}> Company Name </p>
                 <Select
                   placeholder="Select"
-                  style={{ width: "100%" }}
+                  style={{ width: "48%" , border:'none',color:'#666767' }}
+                  className="CalendarEvent-Modal-TimePicker-style"
                   options={companyArray}
                   value={todoCompName}
                   disabled={updateEventCheck == true ? true : false}
@@ -3678,16 +3605,8 @@ export default function CalendarEvent(props) {
                 ></Select>
               </Col>
 
-              <Col style={{ flex: 1, marginLeft: 10 }}>
+              {/* <Col style={{ flex: 1, marginLeft: 10 }}>
                 <p style={{ marginBottom: 5 }}> Client Name </p>
-                {/* <Select
-                placeholder="Select"
-                style={{width: '100%'}}
-                // options={leadStatusItems}
-                value={todoOpportunityName}
-                onChange={(val) => changeOpportunityName(val)}
-              ></Select> */}
-
                 <AutoComplete
                   placeholder="Select"
                   options={opportunityNameArray}
@@ -3702,223 +3621,11 @@ export default function CalendarEvent(props) {
                       .indexOf(inputValue.toUpperCase()) !== -1
                   }
                 ></AutoComplete>
-              </Col>
+              </Col> */}
             </Row>
           ) : null}
 
-          {/* {advisorCheck==true ?
-                  <div>
-                  
-                    <hr style={{
-                      width: '100%',
-                      backgroundColor: '#d9dbd1',
-                      // height: '0.1vw',
-                      marginTop: '20px',
-                      marginBottom:'20px',
-                      opacity: '.2'
-                    }}/>
-                    <h4
-                      className="CalendarEvent-Modal-Card-header-type"
-                    >Search Advisor</h4>
-                      <div
-                        className="CalendarEvent-Modal-Search-flex"
-                      >
-                        <div
-                          className="CalendarEvent-Modal-search-style"
-                        >
-                          <Search placeholder="Search By Name" onSearch={searchAdvisorFunc}
-                          disabled={updateEventCheck?true:false}
-                        type="text"
-                        value={searchAdvisorText}
-                        onChange={searchAdvisorTextFunc}
-                            enterButton
-                            className="CalendarEvent-Modal-textinput-style"
-                          />
-                  {advisorOnClickCheck==true?
-        <div>
-      {advisorArr!==null&&Array.isArray(advisorArr)?
-        <div
-        className="CalendarEvent-Modal-search-record-style"
-        >
-        {advisorArr.map((advisor)=>{
-          return(
-            <div>
-            <div
-            className="CalendarEvent-Modal-click-record-style"
-            onClick={()=>AdvisorClickedTag(advisor._id,advisor.partnerName)}
-            >
-              <div
-              className="CalendarEvent-Modal-Card-searchbox-vertical-line"
-              ></div>
-              <h4>{advisor.partnerName}</h4>
-              </div>
-            
-              </div>
-          )
-        })}
-        </div>
-      :null}
-                        
-                          </div>
-              :null}
-                        </div>
-                        
-                        <Tag
-  closable={updateEventCheck?false: true}
-            visible={advisorTagVisible}
-            onClose={AdvisorTagCloseFunc}
-            className="CalendarEvent-Modal-Search-tag-style"
-          >
-          {advisorOnClickVal}
-          </Tag>
-
-
-                      </div>
-
-                    </div>
-
-            
-                : (prospectCollection.phone_call == true || prospectCollection.training_prospect == true || prospectCollection.follow_up == true || prospectCollection.document_collection == true)&&prospectCheck==true ?
-                  <div>
-                    <div
-                      className="CalendarEvent-Modal-Card-vertical-line"
-                    >
-
-                    </div>
-                    <h4
-                      className="CalendarEvent-Modal-Card-header-type"
-                    >Search Prospect</h4>
-
-  <div
-                        className="CalendarEvent-Modal-Search-flex"
-                      >
-                        <div
-                          className="CalendarEvent-Modal-search-style"
-                        >
-                          <Search placeholder="Search By Name" onSearch={searchProspect}
-                          disabled={updateEventCheck?true:false}
-                        type="text"
-                        value={searchProspectText}
-                        onChange={searchProspectTextFunc}
-                            enterButton
-                            className="CalendarEvent-Modal-textinput-style"
-                          />
-                  {prospectOnClickCheck==true?
-        <div>
-      {prospectArr!==null&&Array.isArray(prospectArr)?
-        <div
-        className="CalendarEvent-Modal-search-record-style"
-        >
-        {prospectArr.map((prospect)=>{
-          return(
-            <div>
-            <div
-            className="CalendarEvent-Modal-click-record-style"
-            onClick={()=>ProspectClickedTag(prospect._id,prospect.firstName)}
-            >
-              <div
-              className="CalendarEvent-Modal-Card-searchbox-vertical-line"
-              ></div>
-              <h4>{prospect.fullName}</h4>
-              </div>
-            
-              </div>
-          )
-        })}
-        </div>
-      :null}
-                        
-                          </div>
-              :null}
-                        </div>
-                        
-                        <Tag
-            closable={updateEventCheck?false: true}
-            visible={prospectTagVisible}
-            onClose={ProspectTagCloseFunc}
-            className="CalendarEvent-Modal-Search-tag-style"
-          >
-          {prospectOnClickVal}
-          </Tag>
-
-
-                      </div>
-
-                    </div>
-                  : customerCheck == true ?
-                    <div>
-                      
-                      <h4
-                        className="CalendarEvent-Modal-Card-header-type"
-                      >Search Customer</h4>
-
-
-                      <div
-                        className="CalendarEvent-Modal-Search-flex"
-                      >
-                        <div
-                          className="CalendarEvent-Modal-search-style"
-                        >
-                          <Search placeholder="Search By Name" onSearch={searchCustomer}
-                          disabled={updateEventCheck?true:false}
-                        type="text"
-                        value={searchCustomerText}
-                        onChange={searchCustomerTextFunc}
-                            enterButton
-                            className="CalendarEvent-Modal-textinput-style"
-                          />
-                  {customerOnClickCheck==true?
-        <div>
-      {customerArr!==null&&Array.isArray(customerArr)?
-        <div
-        className="CalendarEvent-Modal-search-record-style"
-        >
-        {customerArr.map((cust)=>{
-          return(
-            <div>
-            <div
-            className="CalendarEvent-Modal-click-record-style"
-            onClick={()=>CustomerClickedTag(cust._id,cust.custName)}
-            >
-              <div
-              className="CalendarEvent-Modal-Card-searchbox-vertical-line"
-              ></div>
-              <h4>{cust.custName}</h4>
-              </div>
-            
-              </div>
-          )
-        })}
-        </div>
-      :null}
-                        
-                          </div>
-              :null}
-                        </div>
-                        
-                        <Tag
-            closable
-            visible={customerTagVisible}
-            onClose={CustomerTagCloseFunc}
-            className="CalendarEvent-Modal-Search-tag-style"
-          >
-          {customerOnClickVal}
-          </Tag>
-
-
-                      </div>
-
-                    </div> : null} */}
-          {/* 
-              {customerCheck == true ?
-                <div>
-                  <div
-                    className="CalendarEvent-Modal-Card-vertical-line"
-                  >
-                  </div>
-                  <h4>ljskjdkj</h4>
-                </div>
-                : null} */}
+        
           {prospectCollection.first_meeting == true && prospectCheck == true ? (
             <div>
               <div className="CalendarEvent-Modal-prospect-meeting-textbox-flex">
@@ -4385,23 +4092,15 @@ export default function CalendarEvent(props) {
                 value={modeSelect}
                 onChange={ModeChangeFunc}
                 className="CalendarEvent-Modal-TimePicker-style"
-                // className="CalendarEvent-Modal-TimePicker-style"
               >
                 <option value="">Select</option>
 
                 {modeList.map((time) => {
                   return (
                     <option value={time.value}>{time.dispValue}</option>
-                    //  <option value={editStartTime} selected>{editStartDisp}</option>
                   );
                 })}
               </select>
-              {/* {durationStartTimeDiffCheck == false ? <p className="CalendarEvent-Modal-Card-empty-text-bottom-type">Start Time should be less than end time</p> : null} */}
-              {/* <TimePicker onChange={StartTimeFunc}
-                      value={durationStartTime}
-                      defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                      className="CalendarEvent-Modal-picker-style"
-                    /> */}
             </div>
           </div>
 

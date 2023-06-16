@@ -202,7 +202,7 @@ const CompanyIntelligence = React.memo((props) => {
         _appntDate = redable_date[0]
         let _appTime = redable_date[1].trim().split(':')
         let _appTimeAm = _appTime[2].split(' ')
-        
+
         _appntTime = `${_appTime[0]}:${_appTime[1]} ${_appTimeAm[1]}`
       }
       // console.log()
@@ -404,12 +404,12 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{companyDetails?.company_name}</p>
+                    <p className="text-font">{companyDetails?.raw_company_name}</p>
                     <p className="label-font">Company Name</p>
                   </Col>
 
                   <Col style={{flex:1}}>
-                    <p className="text-font">{companyDetails?.company_name}</p>
+                    <p className="text-font">{companyDetails?.raw_company_name}</p>
                     <p className="label-font">Parent Company</p>
                   </Col>
                   
@@ -918,23 +918,21 @@ const CompanyIntelligence = React.memo((props) => {
                   <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     {fileData?.length > 0 ? 
                       fileData?.map((item, index) => (
-                        <div className="data-field">
+                        <Row style={{justifyContent:'space-between',alignItems:'center'}}>
                           <div className="wrapper1">
                             <div className="page" ><img style={{ height: 15, width: 15 }}  src={page} /></div>
-                            <div style={{
-                              marginBottom: 0,
-                              color: "grey",
-                              width: 180,
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                            }} >{item.originalname || item.file_name}</div>
+
+                            <div style={{width: 300,textOverflow: "ellipsis",whiteSpace: "nowrap",overflow: "hidden",}} >
+                              <a href={item.url} download>
+                                {item.originalname || item.file_name}
+                              </a>
+                            </div>
                           </div>
                           <div className="wrapper2">
-                            <div className="eye" onClick={() =>  handleShow(index) }><img  src={eye} /></div>
+                            {/* <div className="eye" onClick={() =>  handleShow(index) }><img  src={eye} /></div> */}
                             <div className="trash" onClick={() => delDoc(index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
                           </div>
-                        </div>
+                        </Row>
                       ))
                       : 
                       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
