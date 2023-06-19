@@ -81,7 +81,7 @@ const NewLead = React.memo((props) => {
 
   const getIndustryDetails = async (lead_id) => {
     let result = await axiosRequest.get(`admin/getindustryData`, {secure: true });
-    console.log('getIndustryDetails-------',result)
+    // console.log('getIndustryDetails-------',result)
     let _industryArr = [];
     result[0].map((el) => {
       if(el.industry){
@@ -106,10 +106,10 @@ const NewLead = React.memo((props) => {
     setCompanyArray(_compArr);
 
     result.companies.map((el) => {
-      let _data = { label: el.company_name, _id: el._id };
+      let _data = { label: el.company_name, value: el._id };
       _parentCompArr.push(_data);
     });
-    console.log('_parentCompArr0--------',_parentCompArr)
+    // console.log('_parentCompArr0--------',_parentCompArr)
     setparentCompArray(_parentCompArr);
     // setIndustryArray(industryDataArr);
   };
@@ -174,7 +174,9 @@ const NewLead = React.memo((props) => {
   };
 
   const onParentCompanyChange = (event, data) => {
-    setFormItem((res) => ({ ...res, parentCompanyName: data._id }));
+    // console.log('event--------->>>>',event)
+    // console.log('data--------->>>>',data)
+    setFormItem((res) => ({ ...res, parentCompanyName: event }));
     form.setFieldsValue({ parent_company: event });
   };
 
