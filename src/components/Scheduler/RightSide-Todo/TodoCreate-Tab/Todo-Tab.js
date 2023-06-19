@@ -25,12 +25,13 @@ const { Search } = Input;
 const TodoTab = (props) => {
   // console.log('editData ___TODOO_________',props)
   useEffect(() => {
-    // console.warn("PROPSSSSSSS---HEREE-----------", props);
+    console.warn("PROPSSSSSSS---HEREE-----------", props);
     getCompanyDetails();
-    if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('opportunity_Name')) {
+    if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
       // console.warn("PROPSSSSSSS--------------", props?.company_Name);
       setTodoCompName(props?.company_Name)
-      setTodoOpportunityName(props?.opportunity_Name)
+      setTodoCompId(props?.companyID)
+      // setTodoOpportunityName(props?.opportunity_Name)
       // if(props?.company_Name) changeCompanyName(props?.company_Name,props?.companyID)
     }
   }, [props.company_Name])
@@ -127,10 +128,7 @@ const TodoTab = (props) => {
       if (props.button === "Update" && props.isModalVisible === true)
         setButtonName(props.button);
 
-      if (
-        Object.keys(props.editData).length !== 0 ||
-        props.editData !== undefined
-      ) {
+      if ( Object.keys(props.editData).length !== 0 || props.editData !== undefined) {
         // console.log('I AM HEREEEE____CHIPPP',props);
         let _teamMember = props.editData.searchdata.map((el) => {
           return toCapitalize(el.FullName) + " " + "(" + el.designation + ")";

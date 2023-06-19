@@ -36,7 +36,7 @@ import { checkAgent, milToDateString } from "../../helpers";
 import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
 import { FormOutlined, PlusCircleOutlined, UploadOutlined, CalendarOutlined, DeleteOutlined , UserOutlined } from "@ant-design/icons";
-import TodoTab from "../Activitity Tracker/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
+import TodoTab from "../Scheduler/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
 // import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import noDataIcon from "../../assets/NoDataFound.png";
