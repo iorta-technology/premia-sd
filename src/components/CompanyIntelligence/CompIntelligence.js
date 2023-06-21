@@ -19,6 +19,7 @@ import {
   Tooltip,
   message,
 } from "antd";
+// import { Button, Modal } from 'antd';
 
 
 import { useDispatch, useSelector } from "react-redux";
@@ -47,7 +48,7 @@ import RemarkComp from "./RemarksModal";
 import CollaboratorComp from "./CollaboratorModal";
 import OpportunityStatus from "./OpportunityStatusModal";
 import axios from 'axios';
-
+import ShowPdf from "./ShowPdf";
 import apiConfig from "../../config/api.config";
 const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 // import { Document, Page } from 'react-pdf';
@@ -111,13 +112,15 @@ const CompanyIntelligence = React.memo((props) => {
   const [riskDataSet, setriskDataSet] = useState({});
   const [activities_data, setActivities_data] = useState([]);
   const [fileData, setFileData] = useState([]);
-  const [showFile, setShowFile] = useState(false);
+  // const [showFile, setShowFile] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [fileIndex, setFileIndex] = useState(0);
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
   const callback = (data) => {
     // console.log(data, "this is the pdf data");
-    setFileData( data);
+    setFileData(data);
   }
   // useEffect(() => {
   //   console.log(fileData)
@@ -127,11 +130,19 @@ const CompanyIntelligence = React.memo((props) => {
     newArr.splice(i, 1);
     setFileData([...newArr]);
   };
-  const handleShow = (index) => {
-    setFileUrl(fileData[index].location || fileData[index].url);
-    setShowFile(!showFile);
-    console.log(fileData[index].location || fileData[index].url, "this is the file location");
+  const showModal = () => {
+    console.log('clicked on th eye')
+    // setFileUrl(fileData[index].location || fileData[index].url);
+    // console.log(fileData[index].---- || fileData[index].url);
+    setIsModalOpen(!isModalOpen);
+    console.log(isModalOpen);
   }
+  // useEffect(() => {
+  //  setIsModalOpen(!isModalOpen)
+  // }, [isModalOpen])
+  
+
+
   const [active, setActive] = useState(null)
   const breakpoint = 620;
 
@@ -158,7 +169,7 @@ const CompanyIntelligence = React.memo((props) => {
   }, [storeFormData]);
 
   // useEffect(() => {
-    
+
   //   // console.warn('LEAD__ID__FROM___ROUTE__.leadID_',props.location.state.leadID)
   //   // dispatch(actions.headerName("New Lead"));
   //   if (props?.location?.state !== undefined) {
@@ -166,7 +177,7 @@ const CompanyIntelligence = React.memo((props) => {
   //     getLeadDetails(_leadID);
   //     getAppointmentList(_leadID)
   //   } else {
-     
+
   //   }
   // }, [dispatch]);
 
@@ -177,9 +188,9 @@ const CompanyIntelligence = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  
 
-  
+
+
 
   const getAppointmentList = async (lead_id) => {
     // setUpdateLeadID(lead_id)
@@ -254,7 +265,7 @@ const CompanyIntelligence = React.memo((props) => {
         el.kdmTabs = `KDM ${index + 1}`
       })
       setKdmDetailsArr(leadData?.company_id?.kdm_details)
-      if(leadData?.company_id?.kdm_details.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
+      if (leadData?.company_id?.kdm_details.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
 
       var newArr = leadData?.documents?.map((res) => ({ ...res, recent: false }));
       setFileData(newArr)
@@ -311,12 +322,12 @@ const CompanyIntelligence = React.memo((props) => {
   const deleteRiskData = async (data, index) => {
     // console.log('loggedInUser DATA---->>>', loggedInUserToken)
     const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
-    axios.delete(`${baseURL}secure/user/deleteRiskDetails?userId=${loginId}&lead_Id=${storeFormData.lead_Id}&riskId=${data?._id}`,{ headers }).then(res =>{
-        // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
-        if(res.data.errCode === -1){
-          dispatch(actions.fetchLeadDetails(storeFormData._id))
-          message.success("Risk Details Deleted Successfully");
-        }
+    axios.delete(`${baseURL}secure/user/deleteRiskDetails?userId=${loginId}&lead_Id=${storeFormData.lead_Id}&riskId=${data?._id}`, { headers }).then(res => {
+      // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
+      if (res.data.errCode === -1) {
+        dispatch(actions.fetchLeadDetails(storeFormData._id))
+        message.success("Risk Details Deleted Successfully");
+      }
     })
   };
 
@@ -392,12 +403,12 @@ const CompanyIntelligence = React.memo((props) => {
                     <p className="label-font">Company Name</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{companyDetails?.company_name}</p>
                     <p className="label-font">Parent Company</p>
                   </Col>
-                  
-                  <Col style={{flex:1}}>
+
+                  <Col style={{ flex: 1 }}>
                     {/* <p className="text-font">{companyDetails?.industry_name}</p> */}
                     <Tooltip placement="top" title={companyDetails?.industry_name}>
                       <p
@@ -416,17 +427,17 @@ const CompanyIntelligence = React.memo((props) => {
                     <p className="label-font">Industry</p>
                   </Col>
                 </Row>
-                <Row style={{marginTop:10}}>
-                  <Col style={{flex:1}}>
+                <Row style={{ marginTop: 10 }}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{companyDetails?.client_location}</p>
                     <p className="label-font">Client Location</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{companyDetails?.zone}</p>
                     <p className="label-font">Zone</p>
                   </Col>
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{companyDetails?.tata_aig_empaneled}</p>
                     <p className="label-font">Tata AIG empaneled</p>
                   </Col>
@@ -442,18 +453,18 @@ const CompanyIntelligence = React.memo((props) => {
                 centered
                 onChange={remarkCollabChange}
               >
-                  <TabPane tab="Remarks" key="1" >
-                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
-                      <p className="text-font" style={{color:'#444444'}}>Remarks</p>
-                      <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
-                    </Row>
-                  </TabPane>
-                  <TabPane tab="Collaborators" key="2" >
-                    <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
-                      <p className="text-font" style={{color:'#444444'}}>Collaborators</p>
-                      <PlusCircleOutlined onClick={() => setShowCollabortrModal(true)} style={{fontSize:18}} />
-                    </Row>
-                  </TabPane>
+                <TabPane tab="Remarks" key="1" >
+                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
+                    <p className="text-font" style={{ color: '#444444' }}>Remarks</p>
+                    <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{ fontSize: 18 }} />
+                  </Row>
+                </TabPane>
+                <TabPane tab="Collaborators" key="2" >
+                  <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
+                    <p className="text-font" style={{ color: '#444444' }}>Collaborators</p>
+                    <PlusCircleOutlined onClick={() => setShowCollabortrModal(true)} style={{ fontSize: 18 }} />
+                  </Row>
+                </TabPane>
               </Tabs>
 
             </Card>
@@ -468,7 +479,7 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{!opportunityDetails.leadStatus ? '-' : opportunityDetails.leadStatus === "newleadentery" ? 'New Lead' : '' }</p>
+                    <p className="text-font">{!opportunityDetails.leadStatus ? '-' : opportunityDetails.leadStatus === "newleadentery" ? 'New Lead' : ''}</p>
                     <p className="label-font">Status</p>
                   </Col>
 
@@ -477,7 +488,7 @@ const CompanyIntelligence = React.memo((props) => {
                     <p className="label-font">Disposition</p>
                   </Col>
 
-                  <Col style={{flex:1}}>
+                  <Col style={{ flex: 1 }}>
                     <Tooltip placement="top" title={checkValidity(opportunityDetails.leadsubDisposition)}>
                       <p
                         className="text-font"
@@ -496,8 +507,8 @@ const CompanyIntelligence = React.memo((props) => {
                   </Col>
                 </Row>
 
-                <Row style={{marginTop:10}}>
-                  <Col style={{flex:1}}>
+                <Row style={{ marginTop: 10 }}>
+                  <Col style={{ flex: 1 }}>
                     <p className="text-font">{!opportunityDetails.appointmentDate ? '-' : moment(opportunityDetails.appointmentDate).format("MM/DD/YYYY")}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
@@ -671,8 +682,8 @@ const CompanyIntelligence = React.memo((props) => {
                   <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
                     <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                     <div style={{ marginTop: 10 }}>
-                      <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Risk details available.  
-                        <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Details</span>
+                      <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No Risk details available.
+                        <span onClick={() => openRiskModal('create')} style={{ fontSize: 14, color: '#00ACC1', fontWeight: 500, cursor: 'pointer' }}>Add Details</span>
                       </text>
                     </div>
                   </div>
@@ -702,7 +713,7 @@ const CompanyIntelligence = React.memo((props) => {
                 </Row>
               </Col>
 
-              {console.log('kdmDetailsArr-------',kdmDetailsArr)}
+              {console.log('kdmDetailsArr-------', kdmDetailsArr)}
               {kdmDetailsArr.length > 0 ?
                 <Col style={{ padding: 10 }}>
                   <Row>
@@ -760,8 +771,8 @@ const CompanyIntelligence = React.memo((props) => {
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
                   <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                   <div style={{ marginTop: 10 }}>
-                    <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No KDM details available.  
-                      <span onClick={() => openKDMModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Details</span>
+                    <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No KDM details available.
+                      <span onClick={() => openKDMModal('create')} style={{ fontSize: 14, color: '#00ACC1', fontWeight: 500, cursor: 'pointer' }}>Add Details</span>
                     </text>
                   </div>
                 </div>
@@ -780,28 +791,28 @@ const CompanyIntelligence = React.memo((props) => {
                 centered
                 onChange={remarkCollabChange}
               >
-                  <TabPane tab="Events" key="1" >
-                    {/* <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
+                <TabPane tab="Events" key="1" >
+                  {/* <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
                       <p className="text-font" style={{color:'#444444'}}>Create Event</p>
                       <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
                     </Row> */}
-                    <>
-                      {activities_data &&
+                  <>
+                    {activities_data &&
                       !_.isEmpty(activities_data) &&
                       activities_data !== "No appointment " ? (
-                        <div className="lead-activity-block" style={{margin:'0px 10px 0px 10px'}}>
-                          {activities_data?.map((item) => {
-                            return (
-                              <Col style={eventCardStyle}>
-                                <Row style={{flex:1,alignItems:'baseline'}}>
-                                  <CalendarOutlined style={{color:'#fff',marginRight:5,fontSize:15}} />
-                                  <p className="text-font" style={{color:'#fff',textTransform:'capitalize'}}>{item.stakeholder_name}</p>
-                                </Row>
-                                <Row>
-                                  <Col style={{flex:1,marginTop:5}}>
-                                    <p className="label-font" style={{color:'#fff'}}>Date</p>
-                                    <p className="text-font" style={{color:'#fff'}}>{moment(item.start_date).format("D MMM YYYY")}</p>
-                                  </Col>
+                      <div className="lead-activity-block" style={{ margin: '0px 10px 0px 10px' }}>
+                        {activities_data?.map((item) => {
+                          return (
+                            <Col style={eventCardStyle}>
+                              <Row style={{ flex: 1, alignItems: 'baseline' }}>
+                                <CalendarOutlined style={{ color: '#fff', marginRight: 5, fontSize: 15 }} />
+                                <p className="text-font" style={{ color: '#fff', textTransform: 'capitalize' }}>{item.stakeholder_name}</p>
+                              </Row>
+                              <Row>
+                                <Col style={{ flex: 1, marginTop: 5 }}>
+                                  <p className="label-font" style={{ color: '#fff' }}>Date</p>
+                                  <p className="text-font" style={{ color: '#fff' }}>{moment(item.start_date).format("D MMM YYYY")}</p>
+                                </Col>
 
                                 <Col style={{ flex: 1, marginTop: 5 }}>
                                   <p className="label-font" style={{ color: '#fff' }}>Time</p>
@@ -822,7 +833,7 @@ const CompanyIntelligence = React.memo((props) => {
                       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
                         <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                         <div style={{ marginTop: 10 }}>
-                          <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Events to show</text>
+                          <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No Events to show</text>
                         </div>
                       </div>
                     )}
@@ -851,14 +862,19 @@ const CompanyIntelligence = React.memo((props) => {
                 <UploadOutlined onClick={() => openDocumentModal()} style={{ fontSize: 20 }} />
               </Row>
               <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
+              {/* <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+              </Modal> */}
               <Col style={{ padding: 10 }}>
                 <Row>
                   <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                    {fileData.length > 0 ? 
+                    {fileData.length > 0 ?
                       fileData?.map((item, index) => (
                         <div className="data-field">
                           <div className="wrapper1">
-                            <div className="page" ><img style={{ height: 15, width: 15 }}  src={page} /></div>
+                            <div className="page" ><img style={{ height: 15, width: 15 }} src={page} /></div>
                             <div style={{
                               marginBottom: 0,
                               color: "grey",
@@ -869,20 +885,20 @@ const CompanyIntelligence = React.memo((props) => {
                             }} >{item.originalname || item.file_name}</div>
                           </div>
                           <div className="wrapper2">
-                            <div className="eye" onClick={() =>  handleShow(index) }><img  src={eye} /></div>
+                            <div className="eye" onClick={showModal}><img src={eye} /></div>
                             <div className="trash" onClick={() => delDoc(index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
                           </div>
                         </div>
                       ))
-                      : 
+                      :
                       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
-                          <img src={noDataIcon} style={{ height: 100, width: 100 }} />
-                          <div style={{ marginTop: 10 }}>
-                            <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Documents available.  
-                              <span onClick={() => openDocumentModal()} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Documents</span>
-                            </text>
-                          </div>
+                        <img src={noDataIcon} style={{ height: 100, width: 100 }} />
+                        <div style={{ marginTop: 10 }}>
+                          <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No Documents available.
+                            <span onClick={() => openDocumentModal()} style={{ fontSize: 14, color: '#00ACC1', fontWeight: 500, cursor: 'pointer' }}>Add Documents</span>
+                          </text>
                         </div>
+                      </div>
                     }
                   </div>
                   <Col style={{ flex: 1 }}></Col>
@@ -891,6 +907,7 @@ const CompanyIntelligence = React.memo((props) => {
             </Card>
           </Col>
         </Row>
+
 
         {/* MODAL COMPONENTS */}
         <TodoTab
@@ -926,14 +943,11 @@ const CompanyIntelligence = React.memo((props) => {
         </>
 
         <>
-          <OpportunityStatus opportunityDetails={opportunityDetails} showOpportunityModal={showOpportunityModal} setShowOpportunityModal={setShowOpportunityModal}  />
+          <OpportunityStatus opportunityDetails={opportunityDetails} showOpportunityModal={showOpportunityModal} setShowOpportunityModal={setShowOpportunityModal} />
         </>
-        {/* {showFile ?
-          <Modal title="Basic Modal" open={showFile} onOk={() => { setShowFile(false) }} onCancel={() => { setShowFile(false) }}>
-            <embed src="https://www.africau.edu/images/default/sample.pdf" width="500px" height="700px" />
-          </Modal>
-          : ""
-        } */}
+        <>
+        <ShowPdf show={isModalOpen}/>
+        </>
       </div>
 
     </>
