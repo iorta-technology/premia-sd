@@ -126,10 +126,6 @@ const DocUpload = (props) => {
 
     const formData = new FormData();
     formData.append("media_upload", info[0]);
-
-    // console.warn('newArr--------------->>>>',newArr)
-    // console.warn('formData --------------->>>>',formData)
-    
     let _isDup = checkDupDate(info[0])
     // console.warn('_isDup --------------->>>>',_isDup)
 
@@ -144,7 +140,7 @@ const DocUpload = (props) => {
           newArr.push({ ...res.data.errMsg, recent: true });
           // console.log(newArr,"this is the new upload");
           setFileData(newArr);
-          // props.callback(newArr);
+          props.callback(newArr);
          // document.getElementById("upload-photo").value = "";
         })
         .catch((err) => {
