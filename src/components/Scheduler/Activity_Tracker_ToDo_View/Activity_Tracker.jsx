@@ -271,13 +271,12 @@ const Datescheduler = () => {
 					value={currentViewName}
 					onChange={onChange}
 				>
-					<FormControlLabel value="Day" control={<Radio />} label="Today" />
+					<FormControlLabel onClick={() => {console.log(today); setcurrentDate(today)}} value="Day" control={<Radio />} label="Today" />
 					<FormControlLabel value="Week" control={<Radio />} label="Week" />
 					<FormControlLabel value="Month" control={<Radio />} label="Month" />
 				</RadioGroup>
 			</div>
 		</div>
-	
 	);
 
 	const { currentViewName } = state;
@@ -296,7 +295,6 @@ const Datescheduler = () => {
 		<div>
 			<Activity_Header callback={callback} />
 			<div className="main-div">
-
 				<div className="left-div">
 					<ExternalViewSwitcher
 						currentViewName={currentViewName}
@@ -306,17 +304,17 @@ const Datescheduler = () => {
 						<Paper style={{boxShadow:"none"}}>
 							<Scheduler data={data} >
 								<ViewState
-									defaultCurrentDate={today}
+									defaultCurrentDate={moment(currentDate).format('YYYY-MM-DD')}
 									currentViewName={currentViewName}
 									onCurrentDateChange={currentDateChange}
 								/>
 								<DayView
-									startDayHour={7}
-									endDayHour={18}
+									startDayHour={8}
+									endDayHour={22}
 								/>
 								<WeekView
-									startDayHour={10}
-									endDayHour={19}
+									startDayHour={8}
+									endDayHour={22}
 								/>
 								
 								<MonthView />
