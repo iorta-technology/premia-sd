@@ -2302,7 +2302,7 @@ export default function CalendarEvent(props) {
                 customerId: "",
                 teamMember_clone: teammemberclone,
                 remarkText: "",
-                leadId: todoOpporId,
+                // leadId: todoOpporId,
                 company_id: todoCompId,
                 mode: modeSelect,
                 stakeHolder_name: stakeholdrName,
@@ -2390,7 +2390,7 @@ export default function CalendarEvent(props) {
               customerId: "",
               teamMember_clone: teammemberclone,
               remarkText: "",
-              leadId: todoOpporId,
+              // leadId: todoOpporId,
               company_id: todoCompId,
               mode: modeSelect,
               stakeHolder_name: stakeholdrName,
@@ -3134,11 +3134,11 @@ export default function CalendarEvent(props) {
     console.log("it works");
   };
 
-  const changeOpportunityName = (value, data) => {
-    console.log(value, data, "data---of--opp id");
-    settodoOpporId(value);
-    setTodoOpportunityName(data.label);
-  };
+  // const changeOpportunityName = (value, data) => {
+  //   console.log(value, data, "data---of--opp id");
+  //   settodoOpporId(value);
+  //   setTodoOpportunityName(data.label);
+  // };
 
   const changeCompanyName = async (value, compId) => {
     console.log("COMPANY NAMEE --------------", value, compId);
@@ -3200,27 +3200,27 @@ export default function CalendarEvent(props) {
           setTodoCompId(props.Data.company_id);
           // setOpportunityNameArray([])
 
-          let _opportunityAPI = await axiosRequest.get(
-            `user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`,
-            {
-              secure: true,
-            }
-          );
-          // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
-          let _opporArr = [];
-          _opportunityAPI.map((el) => {
-            let _data = { label: el.opportunity_name, value: el._id, _id: el._id };
-            _opporArr.push(_data);
-          });
-          setOpportunityNameArray(_opporArr);
-          console.log(_opporArr, "opp array---->");
-          if (_opporArr.length > 0) {
-            let finalarrofOpp = _opporArr.filter((item) => {
-              return item._id == props.Data.leadId._id;
-            });
-            settodoOpporId(finalarrofOpp[0].value);
-            setTodoOpportunityName(finalarrofOpp[0].label);
-          }
+          // let _opportunityAPI = await axiosRequest.get(
+          //   `user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`,
+          //   {
+          //     secure: true,
+          //   }
+          // );
+          // // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
+          // let _opporArr = [];
+          // _opportunityAPI.map((el) => {
+          //   let _data = { label: el.opportunity_name, value: el._id, _id: el._id };
+          //   _opporArr.push(_data);
+          // });
+          // setOpportunityNameArray(_opporArr);
+          // console.log(_opporArr, "opp array---->");
+          // if (_opporArr.length > 0) {
+          //   let finalarrofOpp = _opporArr.filter((item) => {
+          //     return item._id == props.Data.leadId._id;
+          //   });
+          //   settodoOpporId(finalarrofOpp[0].value);
+          //   setTodoOpportunityName(finalarrofOpp[0].label);
+          // }
         }
       }
     }

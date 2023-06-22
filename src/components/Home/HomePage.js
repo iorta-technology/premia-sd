@@ -56,13 +56,13 @@ import newLeadCreation from "../StatusLead/NewLeadCreation";
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from "powerbi-client";
 
-let CompanyListingResponse;
-let renewal_Last_30;
-let count10;
-let count25;
-let count40;
-let kdm_name;
-let birthdate;
+// let CompanyListingResponse = 0;
+// let renewal_Last_30 = 0;
+// let count10 = 0;
+// let count25 = 0;
+// let count40 = 0;
+// let kdm_name = 0;
+// let birthdate = 0;
 
 const HomePage = () => {
   const [activitydata, setActivityData] = useState();
@@ -93,6 +93,15 @@ const HomePage = () => {
   const [updateData, setUpdateData] = useState({});
   const [showData, setShowData] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [CompanyListingResponse, setCompanyListingResponse] = useState(0);
+  const [renewal_Last_30, setRenewal_Last_30] = useState(0);
+  const [count10, setCount10] = useState(0);
+  const [count25, setCount25] = useState(0);
+  const [count40, setCount40] = useState(0);
+  const [kdm_name, setKdm_name] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+
   const [timeList, setTimeList] = useState([
     {
       dispValue: "8:00 AM",
@@ -255,20 +264,21 @@ const HomePage = () => {
 
   let getCompanyListing = async () => {
     try {
-      let res = await axiosRequest.get(`user/getrenewal/${id}`, {
-        secure: true,
-      });
-      if (res) {
-        const rrenewal_next_30 = res[0]["Renewals Next 30 days"];
-        const rrenewal_last_30 = res[0]["Renewals Last 30 days"];
-        const ccount10 = res[0]["count10%"];
-        const ccount25 = res[0]["count25%"];
-        const ccount40 = res[0]["count40%"];
-        CompanyListingResponse = rrenewal_next_30;
-        renewal_Last_30 = rrenewal_last_30;
-        count10 = ccount10;
-        count25 = ccount25;
-        count40 = ccount40;
+      let res = await axiosRequest.get(`user/getrenewal/${id}`, {secure: true,});
+      // console.log('getrenewal------------>>>',res)
+      if (res.length > 0) {
+    
+        setCompanyListingResponse(res[0]["Renewals Next 30 days"])
+        setRenewal_Last_30(res[0]["Renewals Last 30 days"])
+        setCount10(res[0]["count10%"])
+        setCount25(res[0]["count25%"])
+        setCount40(res[0]["count40%"])
+      }else{
+        setCompanyListingResponse(0)
+        setRenewal_Last_30(0)
+        setCount10(0)
+        setCount25(0)
+        setCount40(0)
       }
     } catch (error) {
       console.log(error);
@@ -276,14 +286,18 @@ const HomePage = () => {
   };
 
   let getContactOpportunity = async () => {
-    const count_10 = "count10%";
+    // const count_10 = "count10%";
     try {
-      let res = await axiosRequest.get(`user/company/birthday`, {
-        secure: true,
-      });
-      if (res) {
-        kdm_name = res[0]["kdm_name"];
-        birthdate = res[0]["birthdate"];
+      let res = await axiosRequest.get(`user/company/birthday`, {secure: true,});
+      console.log('birthday------------>>>',res)
+      if (res.length > 0) {
+        // kdm_name = res[0]["kdm_name"];
+        // birthdate = res[0]["birthdate"];
+        setKdm_name(res[0]["kdm_name"])
+        setBirthdate(res[0]["birthdate"])
+      }else{
+        setKdm_name("")
+        setBirthdate("")
       }
     } catch (error) {
       console.log(error);
@@ -399,7 +413,7 @@ const HomePage = () => {
         };
         arrData.push(objstrct);
       }
-      console.log('arrData------->>>',arrData)
+      // console.log('arrData------->>>',arrData)
       setGetTodoDataArray(arrData);
       setShowData(true);
     } catch (err) {}

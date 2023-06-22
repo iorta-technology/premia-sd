@@ -18,6 +18,7 @@ import {
   Collapse,
   Tooltip,
   message,
+  Badge
 } from "antd";
 import {
   no_contactItems,
@@ -30,9 +31,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import TabsComp from "../../components/Tab/Tab";
-import { msToDateString } from "../../helpers";
 import _ from "lodash";
-import { checkAgent, milToDateString } from "../../helpers";
+import { doSentenceCase } from "../../helpers";
 import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
 import { FormOutlined, PlusCircleOutlined, UploadOutlined, CalendarOutlined, DeleteOutlined , UserOutlined } from "@ant-design/icons";
@@ -90,6 +90,8 @@ const CompanyIntelligence = React.memo((props) => {
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const loginId = useSelector((state) => state?.login?.user?.id);
   const loggedInUserToken = useSelector((state) => state?.login?.token);
+  const userTreeData = useSelector((state) => state?.home?.user_tree);
+  const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
@@ -123,6 +125,7 @@ const CompanyIntelligence = React.memo((props) => {
   const [fileIndex, setFileIndex] = useState(0);
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
+  let _teamMember = [];
   const callback = (data) => {
     // console.log(data, "this is the pdf data");
     setFileData( data);
@@ -130,10 +133,19 @@ const CompanyIntelligence = React.memo((props) => {
   // useEffect(() => {
   //   console.log(fileData)
   // }, [fileData]);
-  const delDoc = (i) => {
+  const delDoc = (data,ind) => {
     let newArr = [...fileData];
-    newArr.splice(i, 1);
+    newArr.splice(ind, 1);
     setFileData([...newArr]);
+
+    const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
+    axios.delete(`${baseURL}secure/user/delete_documents?userId=${loginId}&docId=${data._id}`,{ headers }).then(res =>{
+        // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
+        if(res.data.errCode === -1){
+          dispatch(actions.fetchLeadDetails(storeFormData._id))
+          message.success("Document Deleted Successfully");
+        }
+    })
   };
   const handleShow = (index) => {
     setFileUrl(fileData[index].location || fileData[index].url);
@@ -252,7 +264,29 @@ const CompanyIntelligence = React.memo((props) => {
       setreamrkDataArr(leadData?.remarks)
       let _teamData = leadData?.teamMembers ? JSON.parse(leadData?.teamMembers) : [];
       // console.log('teamDataArr------------->>>',teamDataArr)
-      setTeamDataArr(_teamData);
+      // setTeamDataArr(_teamData);
+
+      userTreeData.reporting_users.map((el) => {
+        let sortarray = {
+            FullName: el.full_name,
+            ShortId: el.employeeCode,
+            firstname: el.first_name,
+            lastname: el.last_name,
+            employecode: el.employeeCode,
+            designation: el.hierarchyName,
+            _Id: el._id,
+            value:
+            doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
+        };
+        _teamMember.push(sortarray);
+        sortarray = {};
+      });
+      let _finalData = [..._teamMember, _reportManager];
+      // console.log('_finalData------CIII------->>>',_finalData)
+      let _data = _finalData.filter(el => _teamData.some(event => el._Id === event.Id));
+
+      setTeamDataArr(_data);
+      // console.log('_data------CIII------->>>',_data)
 
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
@@ -309,6 +343,13 @@ const CompanyIntelligence = React.memo((props) => {
     setShowRiskModal(true)
     setRiskType(event)
     setriskDataSet(data)
+  };
+
+  const openRemarkModal = () => {
+    setShowRemarkModal(true)
+  };
+  const openCollabModal = () => {
+    setShowCollabortrModal(true)
   };
 
   const deleteRiskData = async (data, index) => {
@@ -485,7 +526,7 @@ const CompanyIntelligence = React.memo((props) => {
                         <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                         <div style={{ marginTop: 10 }}>
                           <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Remarks available.  
-                            <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Remarks</span>
+                            <span onClick={() => openRemarkModal()} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Remarks</span>
                           </text>
                         </div>
                       </div>
@@ -502,7 +543,7 @@ const CompanyIntelligence = React.memo((props) => {
                           <Col style={{ padding:'0px 15px 10px 15px' }}>
                             <Row style={{ padding: 5,border:'1px solid #adb5bd',alignItems:'center' }}>
                               <Avatar icon={<UserOutlined />} />
-                              <p style={{marginLeft:10,color:'#444444'}} className="text-font">{res?.first_name +' '+res?.last_name}</p>
+                              <p style={{marginLeft:10,color:'#444444'}} className="text-font">{res?.FullName}</p>
                             </Row>
                           </Col>
                         ))
@@ -511,7 +552,7 @@ const CompanyIntelligence = React.memo((props) => {
                           <img src={noDataIcon} style={{ height: 100, width: 100 }} />
                           <div style={{ marginTop: 10 }}>
                             <text style={{ textAlign: "center", fontSize: 14,color:'#B1B1B1',fontWeight:500 }}>No Collaborators available.  
-                              <span onClick={() => openRiskModal('create')} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Collaborators</span>
+                              <span onClick={() => openCollabModal()} style={{ fontSize: 14,color:'#00ACC1',fontWeight:500,cursor:'pointer' }}>Add Collaborators</span>
                             </text>
                           </div>
                         </div>
@@ -632,7 +673,14 @@ const CompanyIntelligence = React.memo((props) => {
             {/* Risk Details */}
             <Card bordered={false} className="app-card-head">
               <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
-                <p className="app-font" style={{ color: '#444444' }}>Risk Details</p>
+                <Row>
+                  <p className="app-font" style={{ color: '#444444' }}>Risk Details</p>
+                  {/* <Badge count={riskDetailsArr.length}  color="#faad14" /> */}
+                  <Col style={{display:'flex',alignItems:'center',marginLeft:10}}>
+                    <Badge count={riskDetailsArr.length} style={{background:'#00ACC1'}}/>
+                  </Col>
+                  
+                </Row>
                 <PlusCircleOutlined onClick={() => openRiskModal('create')} style={{ fontSize: 20 }} />
               </Row>
               <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
@@ -918,7 +966,7 @@ const CompanyIntelligence = React.memo((props) => {
                   <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     {fileData?.length > 0 ? 
                       fileData?.map((item, index) => (
-                        <Row style={{justifyContent:'space-between',alignItems:'center'}}>
+                        <Row style={{justifyContent:'space-between',alignItems:'center',marginBottom:10}}>
                           <div className="wrapper1">
                             <div className="page" ><img style={{ height: 15, width: 15 }}  src={page} /></div>
 
@@ -930,7 +978,7 @@ const CompanyIntelligence = React.memo((props) => {
                           </div>
                           <div className="wrapper2">
                             {/* <div className="eye" onClick={() =>  handleShow(index) }><img  src={eye} /></div> */}
-                            <div className="trash" onClick={() => delDoc(index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
+                            <div className="trash" onClick={() => delDoc(item,index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
                           </div>
                         </Row>
                       ))

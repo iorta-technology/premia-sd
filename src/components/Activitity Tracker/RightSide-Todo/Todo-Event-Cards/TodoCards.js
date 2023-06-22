@@ -163,7 +163,7 @@ const TodoCards = forwardRef((props, ref) => {
           showarchiedpopup: false,
           remarkData: _remark,
           textOverLine: _textOverline,
-          companyName: _data?.company_id?.company_name,
+          companyName: _data?.company_id?.raw_company_name,
           opportunityName: _data?.leadId?.opportunity_name,
           wholeData: _data,
         };

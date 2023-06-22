@@ -64,6 +64,7 @@ const DocUpload = (props) => {
   const [fileData, setFileData] = useState([]);
   const [docData, setdocData] = useState([]);
   const [clientExpectationData, setClientExpectationData] = useState("");
+  const [uploadFileName, setUploadFileName] = useState("");
 
   let { innerWidth: width, innerHeight: height } = window;
   const { TabPane } = Tabs;
@@ -93,9 +94,10 @@ const DocUpload = (props) => {
 
   useEffect(() => {
     // console.log(props.leadDetails, "lead id----->");
-    console.log("_StoreData__DOCUMENTS =========== ", _StoreData);
+    // console.log("_StoreData__DOCUMENTS =========== ", _StoreData);
     var newArr = _StoreData?.documents?.map((res) => ({ ...res, recent: false }));
     // console.log("newArr =========== ", _StoreData);
+    setUploadFileName('')
     setFileData(newArr);
     setdocData(_StoreData.documents);
   }, [_StoreData.documents]);
@@ -118,6 +120,7 @@ const DocUpload = (props) => {
     console.warn('handleChangeFile --------------->>>>')
     const _store = store.getState();
     console.log(info[0], "info file---->");
+    setUploadFileName(info[0].name)
     let newArr = [...fileData];
     let documentType = "PDF";
 
@@ -128,7 +131,7 @@ const DocUpload = (props) => {
     // console.warn('formData --------------->>>>',formData)
     
     let _isDup = checkDupDate(info[0])
-    console.warn('_isDup --------------->>>>',_isDup)
+    // console.warn('_isDup --------------->>>>',_isDup)
 
     let axiosConfig = {
       headers: {
@@ -163,7 +166,7 @@ const DocUpload = (props) => {
 
   const saveDocs = async () => {
     var finalData = [];
-
+    console.log("fileData====>>>>>>>>>=============>>>",fileData);
     if (fileData.length != 0 && fileData.length > 0) {
       fileData?.map(async (item, index) => {
         if (item.recent) {
@@ -191,7 +194,7 @@ const DocUpload = (props) => {
           }
         
         }
-        // console.warn('formBody ------>>>>>',formBody)
+        console.warn('formBody ------>>>>>',formBody)
         // dispatch(actions.fetchLeadUpdateBody(formBody))
         dispatch(actions.editLead(formBody, _StoreData._id))
         props.setShowDocumntModal(false)
@@ -256,13 +259,13 @@ const DocUpload = (props) => {
               </Form.Item>
             </Col> */}
 
-            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+            <Row xs={24} sm={12} md={24} lg={12} xl={12} style={{alignItems:'center'}}>
               <Form.Item
                 {...formItemLayout}
                 className="form-item-name label-color upload_input"
                 name="upload"
                 label="Upload"
-                style={{ marginBottom: "1rem" }}
+                style={{ marginBottom: "1rem",marginLeft:'1rem' }}
               >
                 <label
                   for="upload-photo"
@@ -284,7 +287,12 @@ const DocUpload = (props) => {
                   onChange={(e) => handleChangeFile(e.target.files)}
                 />
               </Form.Item>
-            </Col>
+              <Col style={{marginTop:12}}>
+                <i style={{color:'#7c7a7a',fontSize:11}}>{uploadFileName}</i>
+              </Col>
+            </Row>
+           
+            
           </Row>
           {/* {fileData && fileData.length > 0 &&  */}
             {/* // <div className="upload_list shadow-sm"> */}

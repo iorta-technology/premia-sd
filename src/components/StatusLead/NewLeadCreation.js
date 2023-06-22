@@ -203,7 +203,7 @@ const NewLead = React.memo((props) => {
     let formData = {
       // company_details: {
         company_name: formItem.companyName,
-        parent_company: formItem.parentCompanyName,
+        parent_company: formItem.parentCompanyName === 'Self' || !formItem.parentCompanyName ? null : formItem.parentCompanyName,
         industry_name: formItem.industry,
         tata_aig_empaneled: formItem.empaneled === true ? "Yes" : "No",
         client_location: formItem.clientLocation,
@@ -212,7 +212,6 @@ const NewLead = React.memo((props) => {
     };
 
     // console.log('company_id-------->>',company_id); 
-
 
     if(company_id){
       let formData = {

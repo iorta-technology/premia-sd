@@ -15,12 +15,13 @@ const { TextArea } = Input;
 
 
 
-const ProducerAndVas = (props) => {
+const CollaboratorModal = (props) => {
     
     // const storeLeadId = useSelector((state) => state.newLead.leadId)
     // const storeUserId = useSelector((state) => state.newLead.userId)
     const dispatch = useDispatch()
     const [form] = Form.useForm();
+    // console.log('(((((((((COLLABBBB)))))))))---->>>>',props.teamDataArr)
 
     const _StoreData = useSelector((state) => state?.newLead?.formData);
     const user_id = useSelector((state) => state.login.user.id);
@@ -46,12 +47,29 @@ const ProducerAndVas = (props) => {
 
     const userTreeData = useSelector((state) => state?.home?.user_tree);
     const _reportManager = useSelector((state) => state?.login?.reportingManager);
+    // console.log('(((((((((_reportManager)))))))))---->>>>',_reportManager)
 
-    // useEffect(() => {
-    //     // teamDataArr
-    //     console.log('(((((((((teamDataArr)))))))))---->>>>',props.teamDataArr)
-    //     setTeamDataArr(props.teamDataArr)
-    // }, [props]);
+    useEffect(() => {
+        let _teamSelected = []
+        if (Object.keys(props.teamDataArr).length > 0) {
+            props.teamDataArr.map(el =>{
+                _teamSelected.push(el.value)
+                let apiBody = {
+                    first_name: el.firstname,
+                    last_name: el.lastname,
+                    Id: el._Id,
+                };
+                // _dataArr.push(apiBody)
+                setTeamDataArr([...teamDataArr, apiBody]);
+            })
+            // console.log('(((((((((_teamSelected)))))))))---->>>>',_teamSelected)
+            
+            setCollaboratorsList(_teamSelected)
+           
+        }else{
+
+        }
+    }, [props.teamDataArr]);
 
     useEffect(() => {
         getHierarData()
@@ -70,8 +88,7 @@ const ProducerAndVas = (props) => {
                     employecode: el.employeeCode,
                     designation: el.hierarchyName,
                     _Id: el._id,
-                    value:
-                    doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
+                    value: doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
                 };
                 _teamMember.push(sortarray);
                 sortarray = {};
@@ -80,27 +97,22 @@ const ProducerAndVas = (props) => {
             setHierarAgentList(_finalData);
         } else {
             if (login_user.hasOwnProperty("reportingManager")) {
-            // login_user.reportingManager
-            let _reporting = login_user.reportingManager;
+                // login_user.reportingManager
+                let _reporting = login_user.reportingManager;
 
-            let sortarray = {
-                FullName: _reporting.full_name,
-                ShortId: _reporting.employeeCode,
-                firstname: _reporting.first_name,
-                lastname: _reporting.last_name,
-                employecode: _reporting.employeeCode,
-                designation: _reporting.hierarchyName,
-                _Id: _reporting._id,
-                value:
-                doSentenceCase(_reporting.full_name) +
-                " " +
-                "(" +
-                _reporting.hierarchyName +
-                ")",
-            };
-            _teamMember.push(sortarray);
-            // sortarray = {};
-            setHierarAgentList(_teamMember);
+                let sortarray = {
+                    FullName: _reporting.full_name,
+                    ShortId: _reporting.employeeCode,
+                    firstname: _reporting.first_name,
+                    lastname: _reporting.last_name,
+                    employecode: _reporting.employeeCode,
+                    designation: _reporting.hierarchyName,
+                    _Id: _reporting._id,
+                    value: doSentenceCase(_reporting.full_name) + " " + "(" +_reporting.hierarchyName +")",
+                };
+                _teamMember.push(sortarray);
+                // sortarray = {};
+                setHierarAgentList(_teamMember);
             }
         }
         } catch (err) {}
@@ -262,5 +274,5 @@ return (
 )
 }
 
-export default ProducerAndVas
+export default CollaboratorModal
 
