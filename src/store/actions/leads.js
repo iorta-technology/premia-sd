@@ -90,6 +90,7 @@ export const fetchDataAfterFilter = (
   searchType,
   dateFilter
 ) => {
+  console.warn("_______ dateFilter", dateFilter);
   return async (dispatch) => {
     dispatch(fetchAllLeadsStart());
     // &searchType=fname

@@ -26,10 +26,10 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [sortBy, setSortBy] = useState("new_to_old");
 
   const [leadFilter, setleadFilter] = useState("");
-  const [searchType, setSearchType] = useState("fname");
+  const [searchType, setSearchType] = useState("");
   const [leadDispositionFilter, setleadDispositionFilter] = useState("");
   const [leadTypeFilter, setleadTypeFilter] = useState("");
-  const [fieldLabelName, setFieldLabelName] = useState("Client Name");
+  const [fieldLabelName, setFieldLabelName] = useState("Company Name");
   const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
   const [companyArray, setCompanyArray] = useState([]);
 
@@ -54,7 +54,11 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     });
 
     console.log(result)
-    setInceptionDates(result[0]?.inception_dates);
+    let _dates = result[0]?.inception_dates.filter(el =>{
+      if(el) return el
+    })
+    // console.log('INCEPT _dates-------',_dates)
+    setInceptionDates(_dates);
   }
   //disabling dates
   
@@ -64,7 +68,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     let month = current.month() + 1;
     if (month < 10) month = '0' + month;
     let year = current.year();
-    let date = day + '/' + month + '/' + year;
+    let date = month + '/' + day + '/' + year;
     return !(inceptionDates.includes(date));
   }
 
@@ -85,7 +89,6 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 
   //calling the function when date is changing
   const onChangeFromDate = (date, dateString) => {
-
     setDateFilter(date);
     setDateString(dateString);
     // setDateString(dateString);
@@ -107,6 +110,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     label === 'Company Name' ? setShowCompanyDropdown(true) : setShowCompanyDropdown(false)
   };
   const handleNameSearch = (event) => {
+    // console.log('event------->>',event)
+    // console.log('data------->>',data)
     setSearchTextFilter(event);
     searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) :
       searchType === 'leadId' ? setSearchTextFilter(doSentenceCase(event.toLowerCase())) : setSearchTextFilter(event);
@@ -132,10 +137,12 @@ export function OffCanvasForGlobalFilter({ ...props }) {
         lead_disposition,
         leadType,
         searchType,
-        dateFilter
+        dateString
       )
     );
     handleClose();
+    setDateFilter('');
+    setDateString('');
   };
 
   const [show, setShow] = useState(false);
@@ -143,8 +150,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const handleClose = () => setShow(false);
   const handleShow = () => {
 
-    setShowCompanyDropdown(false)
-    setFieldLabelName('Client Name')
+    setShowCompanyDropdown(true)
+    setFieldLabelName('Company Name')
     setShow(true)
   };
 
@@ -221,12 +228,12 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                 alignItems: "center",
                 marginTop: "1rem",
               }}
-              defaultValue="fname"
+              defaultValue=""
             // onChange={handleSearchType}
             >
-              <Radio.Button value="fname" onChange={(val, data) => handleSearchType(val, 'Client Name')} >
+              {/* <Radio.Button value="fname" onChange={(val, data) => handleSearchType(val, 'Client Name')} >
                 Client Name
-              </Radio.Button>
+              </Radio.Button> */}
               <Radio.Button value="" onChange={(val, data) => handleSearchType(val, 'Company Name')}>
                 Company Name
               </Radio.Button>
@@ -248,7 +255,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   marginLeft: "1rem",
                   marginBottom: "15px"
                 }}
-                onChange={(val) => handleNameSearch(val)}
+                onChange={(val,data) => handleNameSearch(val)}
               ></Select>
               :
               <Input
@@ -281,7 +288,8 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   let month = current.month() + 1;
                   if (month < 10) month = '0' + month;
                   let year = current.year();
-                  let date = day + '/' + month + '/' + year;
+                  let date = month + '/' + day + '/' + year;
+                  // console.log('INCEPPTTTTTT__DATE-----',date)
                   if (inceptionDates.includes(date)) {
                     style.color = 'white'
                     style.backgroundColor = '#00acc1';
@@ -292,7 +300,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                     </div>
                   );
                 }}
-                format="DD/MM/YYYY"
+                format="MM/DD/YYYY"
                 className='expt-picker'
               />
             </div>

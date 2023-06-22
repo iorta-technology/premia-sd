@@ -64,8 +64,8 @@ const ProducerAndVas = (props) => {
     useEffect(() => {
         setChannelData( _StoreData?.channel_name || null)
         setProducerData( _StoreData?.producer || null)
-        setVasExecuted( _StoreData?.VAS_executed || null)
-        setShowVasInput(_StoreData?.VAS_executed === 'Yes' ? true : false)
+        setVasExecuted( _StoreData?.VAS_executed || 'No')
+        setShowVasInput( _StoreData?.VAS_executed === 'Yes' ? true : false)
         setVasInputData(_StoreData?.VAS_input || null)
         form.setFieldsValue({
             kdmChannel:_StoreData?.channel_name,
@@ -129,7 +129,7 @@ return (
             title="Producer and VAS"
             centered={true}
             visible={props.showVasModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowVasModal(false) }
             footer={null}

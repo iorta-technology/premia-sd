@@ -246,9 +246,9 @@ export const lobOpportunityItems = [
   ];
   
  export const leadStatusItems = [
-    { label: "New Lead", value: "newleadentery" },
+    { label: "New Lead", value: "newleadentry" },
     { label: "Contacted", value: "contact" },
-    { label: "No Contact", value: "no_contact" },
+    { label: "No Contact", value: "nocontact" },
   ];
   
  export const contactItems = [

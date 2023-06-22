@@ -172,8 +172,8 @@ const fetchLeadDetailsSuccess = (state, action) => {
   // }
   // const {mailingaddress:{line1}={line1:'hello'}} = action.leadDetails.mailingAddress
   // const fetchLeadId = action.fetchLeadId;
-  console.log('(((ACTIONS)))------->>>',action)
-  console.log('(((STATEEE)))------->>>',state)
+  // console.log('(((ACTIONS)))------->>>',action)
+  // console.log('(((STATEEE)))------->>>',state)
   // const { Insurancedetails } = action.leadDetails;
   // const { HaveLifeInsurance_details } = action.leadDetails;
   // if(!isEmpty(Insurancedetails)&& !isEmpty(HaveLifeInsurance_details)){

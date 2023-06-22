@@ -71,8 +71,8 @@ const NewLead = React.memo((props) => {
     let result = await axiosRequest.get(`admin/getlocationData`, {secure: true });
     // console.log('getLocationDetails-------',result)
     let _locationArr = [];
-    setCityZoneList(result)
-    result.map((el) => {
+    setCityZoneList(result[0])
+    result[0].map((el) => {
       let _data = { label: el.city, value: el.city };
       _locationArr.push(_data);
     });
@@ -83,9 +83,12 @@ const NewLead = React.memo((props) => {
     let result = await axiosRequest.get(`admin/getindustryData`, {secure: true });
     // console.log('getIndustryDetails-------',result)
     let _industryArr = [];
-    result.map((el) => {
-      let _data = { label: el.industry, value: el.industry };
-      _industryArr.push(_data);
+    result[0].map((el) => {
+      if(el.industry){
+        let _data = { label: el.industry, value: el.industry };
+        _industryArr.push(_data);
+      }
+      
     });
     setIndustryArray(_industryArr);
   };
@@ -95,17 +98,18 @@ const NewLead = React.memo((props) => {
       secure: true,
     });
     let _compArr = [];
-    let _parentCompArr = [];
+    let _parentCompArr = [{label: 'Self', value: 'Self'}];
     result.companies.map((el) => {
       let _data = { value: el.company_name, _id: el._id };
       _compArr.push(_data);
     });
     setCompanyArray(_compArr);
 
-    result.parent_company.map((el) => {
-      let _data = { label: el, value: el };
+    result.companies.map((el) => {
+      let _data = { label: el.company_name, value: el._id };
       _parentCompArr.push(_data);
     });
+    // console.log('_parentCompArr0--------',_parentCompArr)
     setparentCompArray(_parentCompArr);
     // setIndustryArray(industryDataArr);
   };
@@ -170,7 +174,9 @@ const NewLead = React.memo((props) => {
   };
 
   const onParentCompanyChange = (event, data) => {
-    setFormItem((res) => ({ ...res, parentCompanyName: data._id }));
+    // console.log('event--------->>>>',event)
+    // console.log('data--------->>>>',data)
+    setFormItem((res) => ({ ...res, parentCompanyName: event }));
     form.setFieldsValue({ parent_company: event });
   };
 
@@ -205,7 +211,7 @@ const NewLead = React.memo((props) => {
       // },
     };
 
-    console.log('company_id-------->>',company_id); 
+    // console.log('company_id-------->>',company_id); 
 
 
     if(company_id){
@@ -213,10 +219,10 @@ const NewLead = React.memo((props) => {
         companyDocumentID:company_id
       }
       let result = await axiosRequest.post(`admin/company/create-opportunity`,formData,{ secure: true });
-      console.log('OPPORTUNITY RESP',result)
+      // console.log('OPPORTUNITY RESP',result)
     }else{
       let result = await axiosRequest.post(`user/company/add-company`,formData,{ secure: true });
-      console.log('COMPANY RESP',result)
+      // console.log('COMPANY RESP',result)
     }
 
     closeCompanyModal()
@@ -328,7 +334,7 @@ const NewLead = React.memo((props) => {
                     <Select
                       disabled={disableParentComp}
                       placeholder="Select"
-                      options={companyArray}
+                      options={parentCompArray}
                       value={formItem.parentCompanyName}
                       onChange={(val, data) => onParentCompanyChange(val, data)}
                     ></Select>

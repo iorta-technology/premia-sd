@@ -190,6 +190,7 @@ const DocUpload = (props) => {
         // console.warn('formBody ------>>>>>',formBody)
         // dispatch(actions.fetchLeadUpdateBody(formBody))
         dispatch(actions.editLead(formBody, _StoreData._id))
+        props.setShowDocumntModal(false)
       
       // console.warn("formBody ------>>>>>", formBody);
       // dispatch(actions.fetchLeadUpdateBody(formBody));
@@ -211,7 +212,7 @@ const DocUpload = (props) => {
         title="Document Upload"
         centered={true}
         visible={props.showDocumntModal}
-        width={700}
+        width={width < breakpoint ? 370 : 700}
         className="modalStyle"
         onCancel={() => props.setShowDocumntModal(false) }
         footer={null}

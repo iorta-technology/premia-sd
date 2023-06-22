@@ -321,7 +321,7 @@ const Tab = ({
 
         // FOR MOBILE WEB
         <div
-          className="tabsStyle"
+          className="tabsStyle tabsStyleMob"
           style={{
             display: "flex",
             flexDirection: "Column",
@@ -336,7 +336,7 @@ const Tab = ({
               size="small"
               activeKey={activeKey}
               style={{
-                backgroundColor: "#red",
+                // backgroundColor: "red",
                 boxShadow: "0px 1px 10px 0px #0000003d",
               }}
             >

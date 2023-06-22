@@ -66,7 +66,7 @@ const KDMDetails = (props) => {
             kdmAltContact:'',
             kdmEmailId:'',
             kdmDOB:'',
-            kdmDOBString:'',
+            kdmDOBString:null,
             kdmState:'',
             kdmCity:'',
             kdmBranch:'',
@@ -87,6 +87,8 @@ const KDMDetails = (props) => {
             dobBorder:'',
         },
     ]);
+    let { innerWidth: width, innerHeight: height } = window;
+    const breakpoint = 620;
 
     useEffect(() => {
         let _dataArr = []
@@ -291,7 +293,7 @@ const KDMDetails = (props) => {
 
     const updateKDMDetails = async() =>{
 
-        let _kdmDetailsData = []
+        let _kdmDetailsData = {}
         let _validationError = null
         kdmDetArr.map(el =>{
             let _keys = Object.keys(el)
@@ -303,18 +305,19 @@ const KDMDetails = (props) => {
             });
 
             let _data = {
-                decision_maker_name: el.kdmName,
-                role: el.kdmRole,
-                designation: el.kdmDesignation,
-                primaryContact: el.kdmPrimContact,
-                alternateContact: el.kdmAltContact,
-                emailAddress: el.kdmEmailId,
-                date_of_birth: el.kdmDOBString,
-                city: el.kdmCity,
-                state: el.kdmState,
-                branch: el.kdmBranch,
+                decision_maker_name: !el.kdmName ? null : el.kdmName,
+                role: !el.kdmRole ? null : el.kdmRole,
+                designation: !el.kdmDesignation ? null : el.kdmDesignation,
+                primaryContact: !el.kdmPrimContact ? null : el.kdmPrimContact,
+                alternateContact: !el.kdmAltContact ? null : el.kdmAltContact,
+                emailAddress: !el.kdmEmailId ? null : el.kdmEmailId,
+                date_of_birth: !el.kdmDOBString ? null : el.kdmDOBString,
+                city: !el.kdmCity ? null : el.kdmCity,
+                state: !el.kdmState ? null : el.kdmState,
+                branch: !el.kdmBranch ? null : el.kdmBranch,
             }
-            _kdmDetailsData.push(_data)
+            // _kdmDetailsData.push(_data)
+            _kdmDetailsData = {..._data}
         })
         
         // console.warn('_kdmDetailsData ------>>>>>',_kdmDetailsData)
@@ -330,22 +333,20 @@ const KDMDetails = (props) => {
         }
 
         let formBody = {
-            kdmDetails: _kdmDetailsData,
+            ..._kdmDetailsData,
         }
+        console.warn('formBody ------>>>>>',formBody)
+        // return
+
 
         let _compID = _StoreData?.company_id?._id
 
         if(kdmTypeData === 'create'){
-            // let result = await axiosRequest.post(`user/postRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}`,formBody,{ secure: true });
-            let result = await axiosRequest.post(`user/postkdmDetails?userId=${user_id}&companyid=${_compID}`,formBody,{ secure: true });
+            let result = await axiosRequest.post(`user/postkdmform?userId=${user_id}&companyid=${_compID}&leadId=${_StoreData._id}`,formBody,{ secure: true });
             dispatch(actions.fetchLeadDetails(_StoreData._id))
-            // message.success("Risk Details Created Successfully");
         }else{
-            // let result = await axiosRequest.put(`user/updateRiskDetails?userId=${user_id}&lead_Id=${_StoreData.lead_Id}&riskId=${editRiskId}`,formBody,{ secure: true });
-            let result = await axiosRequest.put(`user/updatekdmDetails?userId=${user_id}&companyid=${_compID}&kdmId=${editKdmId}`,formBody,{ secure: true });
+            let result = await axiosRequest.put(`user/updatekdmform?userId=${user_id}&companyid=${_compID}&kdmId=${editKdmId}`,formBody,{ secure: true });
             dispatch(actions.fetchLeadDetails(_StoreData._id))
-            // message.success("Risk Details Updated Successfully");
-    
         }
 
         // console.warn('formBody ------>>>>>',formBody)
@@ -468,7 +469,7 @@ return (
             title="Key Decison Makers Details"
             centered={true}
             visible={props.showKdmModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowKdmModal(false) }
             footer={null}

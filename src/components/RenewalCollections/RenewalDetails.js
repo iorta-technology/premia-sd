@@ -49,7 +49,7 @@ const RenewalDetails = () => {
                     existingCustomerFlag: "yes",
                     firstName: f_name,
                     lastName: l_name,
-                    leadStatus: "newleadentery",
+                    leadStatus: "newleadentry",
                     leadType: "New Business",
                     lead_Creator_Id: renewalDetails?.BRM_Code?._id,
                     lead_Owner_Id: renewalDetails?.BRM_Code?._id,

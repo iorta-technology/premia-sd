@@ -267,3 +267,18 @@
   cursor: pointer;
 }
 
+@media (min-width: 320px) {
+  .secnd-col-responsive{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 920px) {
+  .secnd-col-responsive{
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}

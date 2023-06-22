@@ -2,7 +2,7 @@ let dispositionMatrix = {
 	leadStatus: [
 		{
 			text: "New Lead Entry",
-			value: "newleadentery",
+			value: "newleadentry",
 			config: {
 				dispositions: false,
 				subdisosition: false,

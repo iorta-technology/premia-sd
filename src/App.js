@@ -15,7 +15,7 @@ import Multichannel from "./components/Multichannel";
 import DefaultChannel from "./components/DefaultChannel/DefaultChannel";
 import ResourceCenter from "./components/SalesPitch/ResourceCenter";
 
-const Master = React.lazy(() => import("./containers/Master/index"));
+// const Master = React.lazy(() => import("./containers/Master/index"));
 const LeadMaster = React.lazy(() => import("./containers/LeadMaster/index"));
 const AdvisorList = React.lazy(() =>
   import("./components/AdvisorOnboarding/AdvisorCard")
@@ -75,31 +75,31 @@ const ActiveContest = React.lazy(() =>
 const ActiveContestDetails = React.lazy(() =>
   import("./components/Contests/ActiveContestDetails")
 );
-const AllContestDetails = React.lazy(() =>
-  import("./components/Contests/AllContestDetails")
-);
-const Calendar1 = React.lazy(() =>
-  import("./components/Activitity Tracker/ActivityCalender")
-);
+// const AllContestDetails = React.lazy(() =>
+//   import("./components/Contests/AllContestDetails")
+// );
+// const Calendar1 = React.lazy(() =>
+//   import("./components/Activitity Tracker/ActivityCalender")
+// );
 const AllContest = React.lazy(() => import("./components/Contests/AllContest"));
-const CompletedContestDetails = React.lazy(() =>
-  import("./components/Contests/CompletedContestDetails")
-);
+// const CompletedContestDetails = React.lazy(() =>
+//   import("./components/Contests/CompletedContestDetails")
+// );
 const MyOverallRanking = React.lazy(() =>
   import("./components/Contests/MyOverallRanking")
 );
-const AllContestDetails1 = React.lazy(() =>
-  import("./components/Contests/AllContestDetails")
-);
-const ActiveContestDetails1 = React.lazy(() =>
-  import("./components/Contests/ActiveContestDetails")
-);
-const CompletedContest1 = React.lazy(() =>
-  import("./components/Contests/CompletedContest")
-);
-const Calendar = React.lazy(() =>
-  import("./components/Contests/CalendarEvent")
-);
+// const AllContestDetails1 = React.lazy(() =>
+//   import("./components/Contests/AllContestDetails")
+// );
+// const ActiveContestDetails1 = React.lazy(() =>
+//   import("./components/Contests/ActiveContestDetails")
+// );
+// const CompletedContest1 = React.lazy(() =>
+//   import("./components/Contests/CompletedContest")
+// );
+// const Calendar = React.lazy(() =>
+//   import("./components/Contests/CalendarEvent")
+// );
 const AgentMicroService = React.lazy(() =>
   import("./components/AgentMicroSite/AgentMicroSite")
 );
@@ -133,9 +133,9 @@ const SalesPitch = React.lazy(() =>
 const ServiceCorner = React.lazy(() =>
   import("./containers/ServiceCorner/index")
 );
-const ServiceCornerAll = React.lazy(() =>
-  import("./components/ServiceCorner/ServiceCorner")
-);
+// const ServiceCornerAll = React.lazy(() =>
+//   import("./components/ServiceCorner/ServiceCorner")
+// );
 const ServiceCornerSelf = React.lazy(() =>
   import("./components/ServiceCorner/ServiceSelf")
 );
@@ -190,9 +190,9 @@ const CreateNewTask = React.lazy(() =>
 const UploadDocuments = React.lazy(() =>
   import("./components/UploadDocuments/UploadDocuments")
 );
-const AdvisorProfile = React.lazy(() =>
-  import("./components/AdvisorProfile/AdvisorProfile")
-);
+// const AdvisorProfile = React.lazy(() =>
+//   import("./components/AdvisorProfile/AdvisorProfile")
+// );
 const Dashboard = React.lazy(() => import("./components/Dashboard/Dashboard"));
 const BulkAction = React.lazy(() =>
   import("./components/BulkAction/BulkAction")

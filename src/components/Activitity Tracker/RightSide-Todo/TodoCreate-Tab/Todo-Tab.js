@@ -542,10 +542,10 @@ const TodoTab = (props) => {
       if(props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ){
         // if(!props.companyID && props.leadID !== '-'){}
         formData["company_id"] = props.companyID;
-        formData["leadId"] = props.leadID;
+        // formData["leadId"] = props.leadID;
       }else{
         formData["company_id"] = todoCompId;
-        formData["leadId"] = todoOpporId;
+        // formData["leadId"] = todoOpporId;
       }
       
       let _resp = await axiosRequest.post(`user/todo_task`, formData, {
@@ -703,15 +703,8 @@ const TodoTab = (props) => {
                 ></Select>
               </Col>
               
-              <Col style={{flex:1,marginLeft:10}}>
+              {/* <Col style={{flex:1,marginLeft:10}}>
                 <p style={{ marginBottom: 5 }}> Client Name </p>
-                {/* <Select
-                  placeholder="Select"
-                  style={{width: '100%'}}
-                  // options={leadStatusItems}
-                  value={todoOpportunityName}
-                  onChange={(val) => changeOpportunityName(val)}
-                ></Select> */}
 
                 <AutoComplete
                   placeholder="Select"
@@ -727,7 +720,7 @@ const TodoTab = (props) => {
                       .indexOf(inputValue.toUpperCase()) !== -1
                   }
                 ></AutoComplete>
-              </Col>
+              </Col> */}
             </Row>
             <div className="Todo-Create-Header" style={{ marginBottom: 5 }}>
               <p style={{ marginBottom: 0 }}> Add Team Member </p>

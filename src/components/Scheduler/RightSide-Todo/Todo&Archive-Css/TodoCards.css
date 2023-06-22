@@ -68,10 +68,10 @@ border-radius: 4px;
 .TodoCards-Body > p {
   margin-bottom: 0em !important;
 }
-.TodoCards-Body {
+/* .TodoCards-Body {
   display: flex;
   align-items: center;
-}
+} */
 .TodoCard-Body-CheckBox > img {
   background-size: 100% 100%;
 }

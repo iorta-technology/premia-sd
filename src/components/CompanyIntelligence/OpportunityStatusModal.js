@@ -52,7 +52,7 @@ const OpportunityComp = (props) => {
     const [appointmentSubDisposition, setAppointmentSubDisposition] = useState();
 
     const [formItem, setFormItem] = useState({
-        status: "newleadentery",
+        status: "newleadentry",
         disposition: "",
         subDisposition: "",
         appointmentDate: "",
@@ -119,8 +119,9 @@ const OpportunityComp = (props) => {
               lead_disposition: props?.opportunityDetails.hasOwnProperty("leadDisposition") ? props?.opportunityDetails.leadDisposition : "",
               sub_disposition: props?.opportunityDetails.hasOwnProperty("leadsubDisposition") ? props?.opportunityDetails.leadsubDisposition : "",
               appointment_date: _apptDateFormat,
-              appointment_time: _appntTime,
+              appointment_time: props?.opportunityDetails?.appointmentTime,
             });
+            setFormItem((res) => ({...res,appointmentTime: props?.opportunityDetails?.appointmentTime }));
         }
         
     }, [props]);
@@ -131,7 +132,7 @@ const OpportunityComp = (props) => {
         form.setFieldsValue({lead_disposition: "",});
         setShowLeadSubDisposition(false);
     
-        if (event === "newleadentery") {
+        if (event === "newleadentry") {
           setDispoArr([]);
           setShowLeadDisposition(false);
           setShowAppointmentFields(false)
@@ -249,61 +250,21 @@ const OpportunityComp = (props) => {
         setApptDateString(dateString);
         // const [apptDateString, setApptDateString] = useState("");
     };
-    
 
+    const submitOpportunity = () =>{
+      let formBody = {
+          lead_id: _StoreData._id,
+          opportunity_status: {
+              leadStatus: formItem.status,
+              leadDisposition: formItem.disposition,
+              leadsubDisposition: formItem.subDisposition,
+              start_date: !apptDateString ? null : apptDateString,
+              start_time:!formItem.appointmentTime ? null : formItem.appointmentTime ,
+          }
+      }
 
-    const updateRemark = (event) =>{
-
-        // let _appntDate = ''
-        // let _appntTime = ''
-        // let _apptDateFormat = ''
-
-        // if (_StoreData.appointmentDate) {
-        //     _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-        //     _appntTime = moment(_StoreData.appointmentDate).format("LT");
-        // }
-
-        // let formBody = {
-        //     company_details: {
-        //       company_name: _StoreData?.company_id?.company_name,
-        //       parent_company: _StoreData?.company_id?.parent_company,
-        //       industry_name: _StoreData?.company_id?.industry_name,
-        //       tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
-        //       client_location: _StoreData?.company_id?.client_location,
-        //       zone:_StoreData?.company_id?.zone
-        //     },
-        //     leadStatus: _StoreData?.leadStatus,
-        //     leadDisposition: _StoreData?.leadDisposition,
-        //     leadsubDisposition: _StoreData?.leadsubDisposition,
-        //     opportunity_name: _StoreData?.opportunity_name,
-        //     // tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
-        //     // LOB_opportunity: _StoreData?.lob_for_opportunity,
-        //     // product_for_opportunity: _StoreData?.product_for_opportunity,
-        //     // remarks: _StoreData?.remarks,
-        //     teamMembers : "[]",
-        //     lead_Owner_Id: user_id,
-        //     lead_Creator_Id: user_id,
-        //     user_id: user_id,
-        //     company_id: _StoreData?.company_id?._id,
-        //     // start_date: _UpdateFormBody?.start_date,
-        //     // start_time:_UpdateFormBody?.start_time,
-        //     start_date: _appntDate,
-        //     start_time: _appntTime,
-        //     client_expectations: _StoreData?.client_expectations,
-        //     red_flags: _StoreData?.red_flags,
-        //     our_ask: _StoreData?.our_ask,
-        //     channel_name: channelData,
-        //     producer: producerData,
-        //     VAS_executed: vasExecuted,
-        //     VAS_input: vasInputData,
-        //     // VAS_input: _StoreData?.VAS_input,
-        //     kdm_details: _StoreData?.company_id?.kdm_details,
-        //     risk_details: _StoreData?.company_id?.risk_details,
-        // }
-        // console.warn('formBody ------>>>>>',formBody)
-        // dispatch(actions.fetchLeadUpdateBody(formBody))
-        // dispatch(actions.editLead(formBody, props.leadDetails))
-        props.setShowOpportunityModal(false)
+      dispatch(actions.editLead(formBody, _StoreData._id))
+      props.setShowOpportunityModal(false)
     }
 
 return (
@@ -312,7 +273,7 @@ return (
             title="Opportunity Status"
             centered={true}
             visible={props.showOpportunityModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowOpportunityModal(false) }
             footer={null}
@@ -475,7 +436,7 @@ return (
                
                 <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>
                     <Button size='large' onClick={()=> props.setShowOpportunityModal(false)} style={{flex:1,borderRadius:5,border:'1px solid #3B371E',color:'#3B371E'}} >Cancel</Button>
-                    <Button size='large' onClick={()=> updateRemark()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
+                    <Button size='large' onClick={()=> submitOpportunity()} style={{flex:1,borderRadius:5,backgroundColor:'#3b371e',color:'#fff',marginLeft:15}} >Update</Button>
                 </div>
             </Col>
         </Modal>

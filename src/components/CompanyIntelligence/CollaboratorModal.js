@@ -47,6 +47,12 @@ const ProducerAndVas = (props) => {
     const userTreeData = useSelector((state) => state?.home?.user_tree);
     const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
+    // useEffect(() => {
+    //     // teamDataArr
+    //     console.log('(((((((((teamDataArr)))))))))---->>>>',props.teamDataArr)
+    //     setTeamDataArr(props.teamDataArr)
+    // }, [props]);
+
     useEffect(() => {
         getHierarData()
     }, []);
@@ -56,19 +62,19 @@ const ProducerAndVas = (props) => {
         // let _teamMember = [];
         if (checkAgent() === false) {
             userTreeData.reporting_users.map((el) => {
-            let sortarray = {
-                FullName: el.full_name,
-                ShortId: el.employeeCode,
-                firstname: el.first_name,
-                lastname: el.last_name,
-                employecode: el.employeeCode,
-                designation: el.hierarchyName,
-                _Id: el._id,
-                value:
-                doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
-            };
-            _teamMember.push(sortarray);
-            sortarray = {};
+                let sortarray = {
+                    FullName: el.full_name,
+                    ShortId: el.employeeCode,
+                    firstname: el.first_name,
+                    lastname: el.last_name,
+                    employecode: el.employeeCode,
+                    designation: el.hierarchyName,
+                    _Id: el._id,
+                    value:
+                    doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
+                };
+                _teamMember.push(sortarray);
+                sortarray = {};
             });
             let _finalData = [..._teamMember, _reportManager];
             setHierarAgentList(_finalData);
@@ -100,10 +106,6 @@ const ProducerAndVas = (props) => {
         } catch (err) {}
     };
 
-    useEffect(() => {
-
-    }, []);
-
     const addCollaborators = () => {
         if (teamMemberData && teamMemberData != "") {
             // setFormItem((res) => ({
@@ -122,15 +124,15 @@ const ProducerAndVas = (props) => {
             hierarAgentList.map((item) => {
                 if (_checkDuplicate) {
                 } else {
-                if (item.value === teamMemberData) {
-                    let apiBody = {
-                    first_name: item.firstname,
-                    last_name: item.lastname,
-                    Id: item._Id,
-                    };
-                    // _dataArr.push(apiBody)
-                    setTeamDataArr([...teamDataArr, apiBody]);
-                }
+                    if (item.value === teamMemberData) {
+                        let apiBody = {
+                            first_name: item.firstname,
+                            last_name: item.lastname,
+                            Id: item._Id,
+                        };
+                        // _dataArr.push(apiBody)
+                        setTeamDataArr([...teamDataArr, apiBody]);
+                    }
                 }
             });
         }
@@ -167,55 +169,13 @@ const ProducerAndVas = (props) => {
 
     const updateRemark = (event) =>{
 
-        // let _appntDate = ''
-        // let _appntTime = ''
-        // let _apptDateFormat = ''
-
-        // if (_StoreData.appointmentDate) {
-        //     _appntDate = moment(_StoreData.appointmentDate).format("MM/DD/YYYY");
-        //     _appntTime = moment(_StoreData.appointmentDate).format("LT");
-        // }
-
-        // let formBody = {
-        //     company_details: {
-        //       company_name: _StoreData?.company_id?.company_name,
-        //       parent_company: _StoreData?.company_id?.parent_company,
-        //       industry_name: _StoreData?.company_id?.industry_name,
-        //       tata_aig_empaneled:_StoreData?.company_id?.tata_aig_empaneled === true ? 'Yes' : 'No',
-        //       client_location: _StoreData?.company_id?.client_location,
-        //       zone:_StoreData?.company_id?.zone
-        //     },
-        //     leadStatus: _StoreData?.leadStatus,
-        //     leadDisposition: _StoreData?.leadDisposition,
-        //     leadsubDisposition: _StoreData?.leadsubDisposition,
-        //     opportunity_name: _StoreData?.opportunity_name,
-        //     // tender_driven: _StoreData?.tender_driven === true ? 'Yes' : 'No',
-        //     // LOB_opportunity: _StoreData?.lob_for_opportunity,
-        //     // product_for_opportunity: _StoreData?.product_for_opportunity,
-        //     // remarks: _StoreData?.remarks,
-        //     teamMembers : "[]",
-        //     lead_Owner_Id: user_id,
-        //     lead_Creator_Id: user_id,
-        //     user_id: user_id,
-        //     company_id: _StoreData?.company_id?._id,
-        //     // start_date: _UpdateFormBody?.start_date,
-        //     // start_time:_UpdateFormBody?.start_time,
-        //     start_date: _appntDate,
-        //     start_time: _appntTime,
-        //     client_expectations: _StoreData?.client_expectations,
-        //     red_flags: _StoreData?.red_flags,
-        //     our_ask: _StoreData?.our_ask,
-        //     channel_name: channelData,
-        //     producer: producerData,
-        //     VAS_executed: vasExecuted,
-        //     VAS_input: vasInputData,
-        //     // VAS_input: _StoreData?.VAS_input,
-        //     kdm_details: _StoreData?.company_id?.kdm_details,
-        //     risk_details: _StoreData?.company_id?.risk_details,
-        // }
+        let formBody = {
+            lead_id: _StoreData._id,
+            collaborators: teamDataArr,
+        }
         // console.warn('formBody ------>>>>>',formBody)
         // dispatch(actions.fetchLeadUpdateBody(formBody))
-        // dispatch(actions.editLead(formBody, props.leadDetails))
+        dispatch(actions.editLead(formBody, _StoreData._id))
         props.setShowCollabortrModal(false)
     }
 
@@ -227,7 +187,7 @@ return (
             title="Collaborators"
             centered={true}
             visible={props.showCollabortrModal}
-            width={700}
+            width={width < breakpoint ? 370 : 700}
             className="modalStyle"
             onCancel={() => props.setShowCollabortrModal(false) }
             footer={null}
@@ -245,7 +205,7 @@ return (
                         <AutoComplete
                             value={teamMemberData}
                             searchValue={teamMemberData}
-                            style={{ width: "85%" }}
+                            style={{ width: width < breakpoint ? "74%" : "85%" }}
                             options={hierarAgentList}
                             onChange={(text, data) => onChangeTeam(text, data)}
                             notFoundContent="No Result Found"

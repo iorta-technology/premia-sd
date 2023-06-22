@@ -241,7 +241,7 @@ export default {
     ],
 
     leadStatusList: [{
-        value: "newleadentery",
+        value: "newleadentry",
         dispValue: "New Lead Entry"
     }, {
         value: "nocontact",

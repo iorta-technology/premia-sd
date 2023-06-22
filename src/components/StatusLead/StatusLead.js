@@ -206,7 +206,7 @@ const NewLead = React.memo((props) => {
     // productForOpportunity: "",
     opportunityName: "",
     // tenderDriver: false,
-    status: "newleadentery",
+    status: "newleadentry",
     disposition: "",
     subDisposition: "",
     appointmentDate: "",
@@ -240,7 +240,7 @@ const NewLead = React.memo((props) => {
       setActivities_data([]);
       // setMobileDisable(false);
       form.setFieldsValue({
-        lead_status: "newleadentery",
+        lead_status: "newleadentry",
       });
     }
   }, [dispatch]);
@@ -731,7 +731,7 @@ const NewLead = React.memo((props) => {
     });
     setShowLeadSubDisposition(false);
 
-    if (event === "newleadentery") {
+    if (event === "newleadentry") {
       setDispoArr([]);
       setShowLeadDisposition(false);
       setShowAppointmentFields(false)
@@ -1073,7 +1073,7 @@ const NewLead = React.memo((props) => {
       // productForOpportunity: "",
       opportunityName: "",
       // tenderDriver: false,
-      status: "newleadentery",
+      status: "newleadentry",
       disposition: "",
       subDisposition: "",
       appointmentDate: "",
@@ -1105,7 +1105,7 @@ const NewLead = React.memo((props) => {
       // lob_for_opportunity: '',
       // product_for_opportunity: '',
       opportunity_name: "",
-      lead_status: "newleadentery",
+      lead_status: "newleadentry",
       lead_disposition: "",
       sub_disposition: "",
       appointment_date: "",

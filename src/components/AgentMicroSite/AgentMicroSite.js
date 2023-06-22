@@ -134,7 +134,7 @@ const AgentMicroService = () => {
         firstName: firstName,
         lastName: lastName,
         primaryMobile: mobile,
-        leadStatus: "newleadentery",
+        leadStatus: "newleadentry",
         lead_allocated_by: "5df77d17009e273b39cae811",
         lead_Owner_Id: "5df77d17009e273b39cae811",
         lead_Creator_Id: "5df77d17009e273b39cae811"
