@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import Tab from "../../components/Tab/Tab";
-import LeadCards from "../../components/LeadCards/LeadCards";
+import Tab from "../../components/Tab_broker_flow/Tab";
+import LeadCards from "../../components/LeadCards_broker_flow/LeadCards";
 import FloatButton from "../../components/FloatButton/FloatButton";
 import * as actions from "../../store/actions/index";
 import { Pagination, Button } from "antd";
@@ -80,32 +80,32 @@ const LeadMaster = (props) => {
   }
 
   const handlePageClick = (page) => {
+    // let _decrement = 0
+    // let _increment = 0
+
+    // if(current > page){
+    //     _decrement = skipVal - 15
+    //     setSkipVal(_decrement)
+    //     // getTodoData(_decrement)
+    // }else if(current < page) {
+    //     _increment = skipVal + 15
+    //     setSkipVal(_increment)
+    //     // getTodoData(_increment)
+    // }
+
     setcurrent(page);
     console.log("page----------->>>>>", page);
   };
   const tabMenu = [
     {
-      id: "all",
+      id: "all_broker",
       value: "All" + " (" + _leadCount.all_lead + ")",
     },
     {
-      id: "fortoday",
+      id: "fortoday_broker",
       value: "For Today" + " (" + _leadCount.today + ")",
-    },
-    {
-      id: "open",
-      value: "Open" + " (" + _leadCount.open_lead + ")",
-    },
-    {
-      id: "converted",
-      value: "Converted" + " (" + _leadCount.converted + ")",
-    },
-    {
-      id: "failed",
-      value: "Failed" + " (" + _leadCount.failed + ")",
-    },
+    }
   ];
-  // console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
   return (
     <div
       style={{
@@ -113,7 +113,7 @@ const LeadMaster = (props) => {
         marginTop: width <= 620 ? (width <= 436 ? 15 : 75) : "",
       }}
     >
-      <Tab tabMenu={tabMenu} header="Lead" current={current} />
+      <Tab tabMenu={tabMenu} header="Broker Listing" current={current} />
       <div className="page-holder">
         <Pagination
           responsive

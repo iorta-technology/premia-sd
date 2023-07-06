@@ -10,7 +10,6 @@ import { checkAgent, stoageSetter, stoageGetter } from "../../helpers";
 import * as actions from "../../store/actions/leads";
 import { DownloadOutlined } from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
-
 import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
@@ -27,9 +26,9 @@ import {
   getOpenTabApi,
   getFortodayTabApi,
   getFailedTabApi,
-} from "../../components/actions/allleadAction";
+} from "../actions/allleadAction";
 
-import { fetchAllLeadsSuccess } from "../../store/actions/leads";
+import { fetchAllLeadsSuccess } from "../../store/actions/leads_broker";
 
 const { Option } = Select;
 let _currentTab = "self";
@@ -271,7 +270,6 @@ const LeadCards = (props) => {
     <div className="cards-container cards_data">
       <div className="dropdown-container">
         <div className="round-card-main-Tab">
-          {/* {checkAgent() === false && ( */}
           <>
             <div
               className="CardBodySelf lead-ml60"
@@ -380,13 +378,11 @@ const LeadCards = (props) => {
 
       <div className="dropdown-container lead-ml60">
         <div
-          // className="lead-ml15"
           style={{ position: "relative", bottom: 26 }}
           className="expt-heading"
         >
           <p style={{ marginBottom: "5px" }}>LOB Opportunity Name</p>
           <Select
-            // className="firstdropdown"
             value={lobOpportData || undefined}
             style={{ width: 200 }}
             onChange={handleLobOpprtunity}
@@ -418,7 +414,6 @@ const LeadCards = (props) => {
           />
         </div>
 
-        {/* {leadsData?.globalTab !== "team" && ( */}
         <div style={{ marginLeft: 15 }} className="expt-btn">
           <Button
             onClick={() => exportReport("self")}
@@ -441,28 +436,36 @@ const LeadCards = (props) => {
             // console.log("---------lead-----", lead);
             return (
               <>
-              {console.log(lead ,"this is the lead")}
+              {console.log(lead,"this is the lead")}
                 <Col sm={18} md={18} lg={11} xl={11}>
                   <LeadCard
                     className="lead-agent-card"
-                    key={lead.id}
-                    id={lead.id}
-                    lead_Id={lead.lead_Id}
-                    companyName={lead.companyName}
-                    opportunityName={lead.opportunityName}
-                    industryName={lead.industryName}
-                    KDM_Name={lead.KDM_Name}
-                    mobileNo={lead.mobileNo}
-                    branch_Name={lead.branch_Name}
-                    appointDate={lead.appointDate}
-                    location={lead.location}
-                    loading={props.leadDataLoading}
-                    owner_name={lead.userId}
-                    weightage={lead.weightage}
-                    lob={lead.lob_for_opportunity}
-                    tagic_premium={lead.tagic_premium}
-                    total_premium={lead.total_premium}
-                    inception_date={lead.inception_date}
+                    key={lead._id}
+                    id={lead._id}
+                    appointment_on={lead.appointment_on}
+                    Owner_name={lead.name}
+                    wallet_size={lead.wallet_size}
+                    producer_name={lead.producer_name}
+                    city={lead.city}
+                    raw_producer_name={lead.raw_producer_name}
+                    lob={lead.lob}
+                    utilization={lead.utilization}
+                    // lead_Id={lead.lead_Id}
+                    // companyName={lead.companyName}
+                    // opportunityName={lead.opportunityName}
+                    // industryName={lead.industryName}
+                    // KDM_Name={lead.KDM_Name}
+                    // mobileNo={lead.mobileNo}
+                    // branch_Name={lead.branch_Name}
+                    // appointDate={lead.appointDate}
+                    // location={lead.location}
+                    // loading={props.leadDataLoading}
+                    // owner_name={lead.userId}
+                    // weightage={lead.weightage}
+                    // lob={lead.lob_for_opportunity}
+                    // tagic_premium={lead.tagic_premium}
+                    // total_premium={lead.total_premium}
+                    // inception_date={lead.inception_date}
                   />
                 </Col>
               </>

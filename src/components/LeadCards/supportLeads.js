@@ -28,51 +28,25 @@ export default {
     let self = this;
     console.log("Response :   ", resObj);
     let dataStructure = {};
-
-    // console.log("length", resObj.company_id.risk_details.length> 0 )
-
-    let _inceptDate = ''
+    let _inceptDate = '';
     if(resObj.risk_details){
       dataStructure.lob_for_opportunity = !resObj?.risk_details[0]?.lob_for_opportunity ? '-' : resObj?.risk_details[0]?.lob_for_opportunity
       dataStructure.tagic_premium = !resObj?.risk_details[0]?.tagic_premium ? '-' : resObj?.risk_details[0]?.tagic_premium
       dataStructure.total_premium = !resObj?.risk_details[0]?.total_premium ? '-' : resObj?.risk_details[0]?.total_premium
-
       let redable_date = !resObj?.risk_details[0]?.inception_date ? '-' :  new Date(resObj?.risk_details[0]?.inception_date).toLocaleString('en-US', { timeZone: 'UTC' }).split(',')
       _inceptDate = redable_date[0]
       dataStructure.inception_date = _inceptDate
     }
-
-    
-
     dataStructure.userId = !resObj?.userId ? "-" : resObj?.userId;
-    dataStructure.companyName = !resObj?.company_id?.raw_company_name
-      ? "-"
-      : resObj?.company_id?.raw_company_name;
-
-    dataStructure.opportunityName = !resObj?.opportunity_name
-      ? "-"
-      : resObj?.opportunity_name;
+    dataStructure.companyName = !resObj?.company_id?.raw_company_name? "-": resObj?.company_id?.raw_company_name;
+    dataStructure.opportunityName = !resObj?.opportunity_name? "-": resObj?.opportunity_name;
     dataStructure.lead_Id = resObj.lead_Id;
-    dataStructure.industryName = !resObj?.company_id?.industry_name
-      ? "-"
-      : resObj?.company_id?.industry_name;
-    dataStructure.KDM_Name = !resObj?.company_id?.kdm_details[0]
-      ?.decision_maker_name
-      ? "-"
-      : resObj?.company_id?.kdm_details[0]?.decision_maker_name;
-    dataStructure.branch_Name = !resObj?.company_id?.kdm_details[0]?.branch
-      ? "-"
-      : resObj?.company_id?.kdm_details[0]?.branch;
-    dataStructure.mobileNo = !resObj?.company_id?.kdm_details[0]?.primaryContact
-      ? "-"
-      : resObj?.company_id?.kdm_details[0]?.primaryContact;
-    dataStructure.appointDate = !resObj?.appointmentDate
-      ? "-"
-      : moment(parseInt(resObj?.appointmentDate)).format("DD/MM/YYYY");
-    dataStructure.location = !resObj?.company_id?.client_location
-      ? "-"
-      : resObj?.company_id?.client_location;
-
+    dataStructure.industryName = !resObj?.company_id?.industry_name? "-": resObj?.company_id?.industry_name;
+    dataStructure.KDM_Name = !resObj?.company_id?.kdm_details[0]?.decision_maker_name? "-": resObj?.company_id?.kdm_details[0]?.decision_maker_name;
+    dataStructure.branch_Name = !resObj?.company_id?.kdm_details[0]?.branch? "-": resObj?.company_id?.kdm_details[0]?.branch;
+    dataStructure.mobileNo = !resObj?.company_id?.kdm_details[0]?.primaryContact? "-": resObj?.company_id?.kdm_details[0]?.primaryContact;
+    dataStructure.appointDate = !resObj?.appointmentDate? "-": moment(parseInt(resObj?.appointmentDate)).format("DD/MM/YYYY");
+    dataStructure.location = !resObj?.company_id?.client_location? "-": resObj?.company_id?.client_location;
     dataStructure.weightage = !resObj?.weightage ? 0 : resObj?.weightage;
     dataStructure.id = resObj._id;
 

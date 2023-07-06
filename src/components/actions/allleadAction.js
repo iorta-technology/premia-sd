@@ -27,7 +27,7 @@ export const getSecondDropdownValueApi = () => {
 export const getFormByIdApi = ({ id }) => {
   return api
     .get(
-      `https://sdrestnode.iorta.in/secure/sd/user/v2/getLead/${id}?leadfilter=all&skip=0`
+      `getbrokerlist?userId=3dce7c80ae6868961079fe6&filter=all`
     )
     .then((res) => res)
     .catch((err) => err);

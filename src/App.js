@@ -17,6 +17,7 @@ import ResourceCenter from "./components/SalesPitch/ResourceCenter";
 
 // const Master = React.lazy(() => import("./containers/Master/index"));
 const LeadMaster = React.lazy(() => import("./containers/LeadMaster/index"));
+const Brokerflow = React.lazy(()=> import("./containers_brokerFlow/LeadMaster/index"))
 const AdvisorList = React.lazy(() =>
   import("./components/AdvisorOnboarding/AdvisorCard")
 );
@@ -373,6 +374,10 @@ function App() {
                   <Route
                     path="/leadMaster/:leadType"
                     component={LeadMaster}
+                  ></Route>
+                   <Route
+                    path="/brokerflow"
+                    component={Brokerflow}
                   ></Route>
                   <Route path="/multichannel" component={Multichannel}></Route>
                   <Route

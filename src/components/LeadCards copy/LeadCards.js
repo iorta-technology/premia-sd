@@ -27,7 +27,7 @@ import {
   getOpenTabApi,
   getFortodayTabApi,
   getFailedTabApi,
-} from "../../components/actions/allleadAction";
+} from "../actions/allleadAction";
 
 import { fetchAllLeadsSuccess } from "../../store/actions/leads";
 
@@ -333,15 +333,16 @@ const LeadCards = (props) => {
           >
             <p style={{ marginBottom: "5px" }}>Hierarchy</p>
             <Select
-              // className="firstdropdown"
               value={firstValue}
               style={{ width: 200}}
               onChange={handleFirstDropdown}
               placeholder="Select Hierarchy"
               options={firsrDrop}
-            ></Select>
+            ></Select>   
           </div>
+          
         )}
+        
         {openSecond && leadsData?.globalTab === "team" && (
           <div
             className="lead-ml15"
@@ -441,7 +442,6 @@ const LeadCards = (props) => {
             // console.log("---------lead-----", lead);
             return (
               <>
-              {console.log(lead ,"this is the lead")}
                 <Col sm={18} md={18} lg={11} xl={11}>
                   <LeadCard
                     className="lead-agent-card"

@@ -5,7 +5,8 @@ import "./Tab.css";
 import _ from "lodash";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/actions/leads";
+import * as actions from "../../store/actions/leads_broker";
+// import * as actions from "../../store/actions/leads";
 import { checkAgent, stoageGetter } from "../../helpers";
 import { Button } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -93,7 +94,25 @@ const Tab = ({
       );
     }
   };
-
+  const getBrokerData = async (leadInc) => {
+    setLeadTabFilter(leadInc);
+    const { id } = stoageGetter("user");
+    // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
+    let _pageNo = current === undefined || current === null ? 1 : current;
+    if (_currentTab === "self") {
+      dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
+    } else {
+      const teamId = stoageGetter("teamMemberId");
+      // console.warn("teamId______===========>>>", teamId);
+      dispatch(
+        actions.fetchAllLeads(
+          teamId === null || teamId === undefined ? id : teamId,
+          leadInc,
+          _pageNo
+        )
+      );
+    }
+  };
   const handler = (activeKey) => {
     // console.log("activeKey------------->>>>>>>>", activeKey);
     setactiveTab(activeKey);
@@ -104,11 +123,7 @@ const Tab = ({
       switch (activeKey) {
         case "all": {
           getDataForOpen("all");
-          return history.push("/leadMaster/all_leads");
-        }
-        case "fortoday": {
-          getDataForOpen("fortoday");
-          return history.push("/leadMaster/fortoday");
+          return history.push("/brokerflow/all_leads");
         }
         case "open": {
           getDataForOpen("open");
@@ -121,6 +136,14 @@ const Tab = ({
         case "failed": {
           getDataForOpen("failed");
           return history.push("/leadMaster/pendingproposal");
+        }
+        case "all_broker": {
+          getBrokerData("all");
+          return history.push("/brokerflow/all_leads");
+        }
+        case "fortoday_broker": {
+          getBrokerData("fortoday");
+          return history.push("/brokerflow/fortoday");
         }
         case "1":
           return history.push("/company-intelligence", {

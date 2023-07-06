@@ -3,7 +3,7 @@ import axios from "../../axios-common";
 import { getLeadFilter } from "../../helpers";
 import axiosLms from "../../axios-lmsv2";
 import axiosRequest from "../../axios-request/request.methods";
-import supportLead from "../../components/LeadCards/supportLeads";
+import supportLead from "../../components/LeadCards_broker_flow/supportLeads";
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -53,7 +53,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
     //     })
 
     let result = await axiosRequest.get(
-      `user/v2/getLead/${id}?leadfilter=${leads}&skip=${skipVal}`,
+      `user/getbrokerlist?userId=${id}&filter=${leads}`,
       { secure: true }
     );
     console.log("+++++++++ GET LEAD DATA ++++++++", result);
@@ -64,7 +64,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
         fetchAllLeadsSuccess(
           supportLead.readSortDataFromAPI(
             leads,
-            result === "No leads found" ? [] : result[0],
+            result === "No leads found" ? [] : result,
             this
           ),
           result[1][0].count

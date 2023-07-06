@@ -906,6 +906,74 @@ const HomePage = () => {
               </div>
             </Col>
           )}
+           {/* {showOpportunities && (
+            <Col className="home_section">
+              <div
+                className="dataCard"
+                bordered="false"
+                style={{ backgroundColor: "#00ACC1" }}
+              >
+                <div className="card-content">
+                  <div
+                    className="activity-icon"
+                    onClick={() => history.push("/leadMaster/all_leads")}
+                  >
+                    <Image
+                      preview={false}
+                      width={55}
+                      height={55}
+                      src={opportunities_img}
+                      alt="Opportunities"
+                    />
+                  </div>
+                  <div className="activities-text">
+                    <Row>
+                      <p
+                        onClick={() => history.push("/brokerflow")}
+                        className="ttile_name"
+                      >
+                        Broker
+                      </p>
+                    </Row>
+                    <div className="horizontalLine"></div>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    marginTop: "20px",
+                    width: "100%",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div className="container-opp" style={{marginTop:"80px"}}>
+                    <div className="column-opp">
+                     
+                      <div className="row-opp">
+                        <div className="child1-opp-1">Producer</div>
+                        <p  className="sales-content"
+                            style={{ fontSize: 14}}>Total Count</p>
+
+                        <div className="num-opp"> 30</div>
+                      </div>
+                    </div>
+                    <div className="vertical-line">
+                    <div className="verticalLine"></div>
+                    </div>
+                    <div className="column-opp">
+                
+                      <div className="row-opp">
+                        <div className="child1-opp-1">Appointment</div>
+                        <p  className="sales-content"
+                            style={{ fontSize: 14}}>Next 30 Days</p>
+
+                        <div className="num-opp"> 23</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          )} */}
           {showTodo && (
             <Col className="home_section">
               <div
