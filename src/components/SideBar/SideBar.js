@@ -29,6 +29,7 @@ import rdone_img from "../../assets/rdone.png";
 import failed_img from "../../assets/failed.png";
 import needhelp_img from "../../assets/needhelp.png";
 import all_clear_img from "../../assets/MaterialUiIcons/notifications_grey_192x192.png";
+import NewLead from '../StatusLead/NewLeadCreation'
 
 const Nav = styled.div`
   background: #3b371e;
@@ -106,6 +107,7 @@ const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
   const [modalShown, toggleModal] = useState(false);
   // const [clearBtn, setClearBtn] = useState(true);
+  const [showNewLeadModal, setShowNewLeadModal] = useState(false);
 
   let _storeData = useSelector((state) => state);
 
@@ -147,14 +149,14 @@ const Sidebar = () => {
   useEffect(() => {
     mySocket.on("notification", (data) => {
       dispatch(notificationIndicator(true));
-      console.log("data-------- ========= ", data);
+      // console.log(",data-------- ========= ", data);
     });
 
     mySocket.on("message", (data) => {
       // console.log("notification received", data);
     });
-    console.log("state__Notification = ", state?.home?.notification);
-    console.log("mySocket =----->>>> ",mySocket);
+    // console.log("state__Notification = ", state?.home?.notification);
+    // console.log("mySocket =----->>>> ",mySocket);
   }, [mySocket]);
 
   const fetchData = async () => {
@@ -199,11 +201,12 @@ const Sidebar = () => {
     // setSidebar(false);
 
     if(showOpportunities){
-      dispatch(actions.fetchLeadUpdateBody({}))
-      dispatch(actions.fetchLeadDetailsSuccess({}))
+      // dispatch(actions.fetchLeadUpdateBody({}))
+      // dispatch(actions.fetchLeadDetailsSuccess({}))
       
-      // dispatch(actions.storeLead(leadUpdateFormdata));
-      history.push("/leadmasterpage/statuslead");
+      // // dispatch(actions.storeLead(leadUpdateFormdata));
+      // history.push("/leadmasterpage/statuslead");
+      setShowNewLeadModal(true)
       setSidebar(false);
     }else{
       message.info('This feature is currently not accessible');
@@ -232,6 +235,7 @@ const Sidebar = () => {
 
   return (
     <>
+      <NewLead showNewLeadModal={showNewLeadModal} setShowNewLeadModal={setShowNewLeadModal} />
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
           {/* <div style={{ display: "flex", flex: 1 }}>
