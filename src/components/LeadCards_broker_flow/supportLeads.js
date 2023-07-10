@@ -7,7 +7,7 @@ let self = null;
 export default {
   readSortDataFromAPI: function (pageName, response, _this) {
     let memory = [];
-    // console.warn('ONNNNN________response ', response);
+    console.log('ONNNNN________response ', response);
     self = _this;
     try {
       for (let i = 0; i < response.length; i++) {
@@ -32,11 +32,12 @@ export default {
     dataStructure.producer_name=resObj.producer_name;
     dataStructure._id=resObj._id;
     dataStructure.city=resObj.city;
-    dataStructure.name=resObj.userId.first_name+resObj.userId.last_name;
+    dataStructure.name=resObj.userId.first_name + resObj.userId.last_name;
     dataStructure.appointment_on='-';
     dataStructure.lob='-'
     dataStructure.raw_producer_name=resObj.raw_producer_name;
     dataStructure.utilization='-'
+    dataStructure.brokerId=resObj.broker._id;
 
     // console.log("length", resObj.company_id.risk_details.length> 0 )
     // let _inceptDate = ''

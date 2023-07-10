@@ -906,7 +906,7 @@ const HomePage = () => {
               </div>
             </Col>
           )}
-           {/* {showOpportunities && (
+           {showOpportunities && (
             <Col className="home_section">
               <div
                 className="dataCard"
@@ -929,7 +929,7 @@ const HomePage = () => {
                   <div className="activities-text">
                     <Row>
                       <p
-                        onClick={() => history.push("/brokerflow")}
+                        onClick={() => history.push("/brokerflow/all_leads")}
                         className="ttile_name"
                       >
                         Broker
@@ -973,7 +973,7 @@ const HomePage = () => {
                 </div>
               </div>
             </Col>
-          )} */}
+          )}
           {showTodo && (
             <Col className="home_section">
               <div

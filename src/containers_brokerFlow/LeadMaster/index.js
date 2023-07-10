@@ -41,7 +41,7 @@ const LeadMaster = (props) => {
   //Accessing LeadCard data  from store
   const leadsData = useSelector((state) => state.leads.allLeads);
   const _leadCount = useSelector((state) => state?.home?.home_obj);
-  // console.warn("_leadCount ----------------->>>>>", _leadCount);
+  console.log("_leadCount ----------------->>>>>", _leadCount);
   //Loading leads data
   const leadDataLoading = useSelector(
     (state) => state.leads.fetch_allLeads_Loading
@@ -49,7 +49,7 @@ const LeadMaster = (props) => {
   // lead count of the page
   const totalLeads = useSelector((state) => state?.leads?.count );
   // const _storeee = useSelector((state) => state );
-  // console.warn("totalLeads ----------------->>>>>", totalLeads);
+  // console.log("totalLeads ----------------->>>>>", totalLeads);
   // console.warn("_storeee ----------------->>>>>", _storeee);
 
   //Pagination numbers function
@@ -69,7 +69,6 @@ const LeadMaster = (props) => {
       );
     }
     if (type === "next") {
-      // console.log(current)
       return (
         <a current={current} onClick={onNext} style={{ color: "#545454" }}>
           Next
@@ -80,19 +79,6 @@ const LeadMaster = (props) => {
   }
 
   const handlePageClick = (page) => {
-    // let _decrement = 0
-    // let _increment = 0
-
-    // if(current > page){
-    //     _decrement = skipVal - 15
-    //     setSkipVal(_decrement)
-    //     // getTodoData(_decrement)
-    // }else if(current < page) {
-    //     _increment = skipVal + 15
-    //     setSkipVal(_increment)
-    //     // getTodoData(_increment)
-    // }
-
     setcurrent(page);
     console.log("page----------->>>>>", page);
   };

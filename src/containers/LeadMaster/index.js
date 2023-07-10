@@ -41,7 +41,7 @@ const LeadMaster = (props) => {
   //Accessing LeadCard data  from store
   const leadsData = useSelector((state) => state.leads.allLeads);
   const _leadCount = useSelector((state) => state?.home?.home_obj);
-  // console.warn("_leadCount ----------------->>>>>", _leadCount);
+  console.log("_leadCount ----------------->>>>>", _leadCount);
   //Loading leads data
   const leadDataLoading = useSelector(
     (state) => state.leads.fetch_allLeads_Loading
@@ -105,7 +105,6 @@ const LeadMaster = (props) => {
       value: "Failed" + " (" + _leadCount.failed + ")",
     },
   ];
-  // console.warn("debug 001",leadsData,"debug 002",leadDataLoading)
   return (
     <div
       style={{

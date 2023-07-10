@@ -59,6 +59,7 @@ export const editLeadFail = (error) => {
 export const editLead = (formData, id) => {
   return async (dispatch) => {
     dispatch(editLeadStart());
+   
     // let result = await axiosRequest.put(`user/updateLead/${id}`, formData, {
     let result = await axiosRequest.put(`user/company/update-opportunity`, formData, {
       secure: true,
@@ -78,7 +79,11 @@ export const fetchLeadDetailsStart = () => {
   };
 };
 
-export const fetchLeadDetailsSuccess = (leadDetails,  id) => {
+export const fetchLeadDetailsSuccess = (
+  leadDetails,
+  // appointmentDetails,
+  id
+) => {
   // console.log('(((leadDetails)))------->>>',leadDetails)
   // console.log('(((id)))------->>>',id)
   return {
@@ -108,24 +113,13 @@ export const fetchLeadDetails = (id) => {
     dispatch(fetchLeadDetailsStart());
 
     let result = await axiosRequest.get(`user/getlead_details/${id}`, {secure: true });
-    console.log('__++++++++++++++ getlead_details',result);
+    // console.warn('__++++++++++++++ getlead_details',result)
     // console.warn("__++++++++++++++ getlead_details", result);
     if (result.length > 0) {
       return dispatch(fetchLeadDetailsSuccess(result[0]));
     }
   };
 };
-export const fetchLeadDetails_broker = (id) => {
-  return async (dispatch) => {
-    dispatch(fetchLeadDetailsStart());
-    let result = await axiosRequest.get(`user/getbrokerDetails?brokerId=${id}`, {secure: true });
-    console.log('__++++++++++++++ getlead_details',result);
-    if (result.length > 0) {
-      return dispatch(fetchLeadDetailsSuccess(result[0]));
-    }
-  };
-};
-
 
 export const storeForm = (formData) => {
   return {

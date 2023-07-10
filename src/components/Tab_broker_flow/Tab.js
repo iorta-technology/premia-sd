@@ -143,7 +143,7 @@ const Tab = ({
         }
         case "fortoday_broker": {
           getBrokerData("fortoday");
-          return history.push("/brokerflow/fortoday");
+          return history.push("/brokerflow/today");
         }
         case "1":
           return history.push("/company-intelligence", {

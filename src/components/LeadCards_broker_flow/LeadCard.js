@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Avatar, Switch, Row, Col, Progress } from "antd";
-import { MoreOutlined, PhoneOutlined } from "@ant-design/icons";
+import { MoreOutlined, PhoneOutlined,EditOutlined } from "@ant-design/icons";
 import "./LeadCard.css";
 import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router-dom";
@@ -32,22 +32,22 @@ const LeadCard = React.memo((props) => {
     appointDate,
     location,
     opportunityName,
-    owner_name,
+    Owner_name,
     weightage,
     lob,
     total_premium,
     tagic_premium,
     inception_date,
-    key,
+    key_broker,
+    brokerID,
     id,
     appointment_on,
-    Owner_name,
+    // Owner_name,
     wallet_size,
     producer_name,
     city,
     raw_producer_name,
     utilization
-
   } = props;
   // console.log("props", props);
 
@@ -106,7 +106,7 @@ const LeadCard = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
   const updateHandler = (id) => {
-    // console.log('____LEADDDD___IDDD',id)
+    console.log('____LEADDDD___IDDD',id)
 
     // dispatch(actions.fetchLeadDetails(id));
     // let _data = actions.fetchLeadDetails(id);
@@ -114,8 +114,8 @@ const LeadCard = React.memo((props) => {
     // console.log('history-----------',history)
     // LeadData._id === id && history.push("/leadmasterpage/statuslead");
     // history.push("/leadmasterpage/statuslead", { leadID: id });
-    dispatch(actions.fetchLeadDetails(id));
-    history.push("/company-intelligence", { leadID: id });
+    dispatch(actions.fetchLeadDetails_broker(id));
+    history.push("/company-intelligence_broker", { leadID: id });
     // history.push("/company-intelligence", { leadID: id });
     
   };
@@ -153,7 +153,7 @@ const LeadCard = React.memo((props) => {
   let card = (
     <div className="LeadCard-Main-Page-Container">
       <Card
-        key={id}
+        key={key_broker}
         loading={props.loading}
         className="lead-card-desktop"
         hoverable={true}
@@ -174,26 +174,23 @@ const LeadCard = React.memo((props) => {
           <div className="avatar-and-status">
             <Avatar
               style={{
-                // paddingTop: "-40px",
-                // lineHeight: "none",
                 backgroundColor: "#d8d8d8",
               }}
               size={{ xl: 50 }}
             >
-              {nameShorter(companyName)}
+              {nameShorter(producer_name)}
             </Avatar>
-            {/* {leadComponent} */}
-
-            <div className="content-header">
-              <p className="user-name-text capitalize">{companyName}</p>
-              <span className="user-id uppercase" style={{color:'#B1B1B1'}}>{lead_Id}</span>
-              {/* <a href={`tel:${primaryMobile}`}></a> */}
-              {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
+            <div className="content-header" style={{marginTop:'10px'}}>
+              <p className="user-name-text capitalize">{producer_name}</p>
+              {/* <span className="user-id uppercase" style={{color:'#B1B1B1'}}>{lead_Id}</span> */}
             </div>
           </div>
 
           <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
             <div>
+            <EditOutlined size={100}  onClick={() => updateHandler(brokerID)}/>
+            </div>
+            {/* <div>
               <Progress
                 strokeColor="aquamarine"
                 width={40}
@@ -201,8 +198,8 @@ const LeadCard = React.memo((props) => {
                 type="circle"
                 percent={weightage}
               />
-            </div>
-            <div
+            </div> */}
+            {/* <div
               style={{
                 padding: "5px 15px 5px 15px",
                 backgroundColor: "#00ACC1",
@@ -213,7 +210,7 @@ const LeadCard = React.memo((props) => {
               }}
             >
               <p style={{ marginBottom: 0, color: "#fff" }}> {location} </p>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -232,7 +229,7 @@ const LeadCard = React.memo((props) => {
             >
               <div className="Dateinfo-Container">
                 <div className="grid-style">
-                  <p className="text-content">{owner_name}</p>
+                  <p className="text-content">{Owner_name}</p>
                   <p className="text-type">Owner</p>
                 </div>
                 <div className="grid-style AllocatedBy-Heading">
@@ -245,12 +242,6 @@ const LeadCard = React.memo((props) => {
                 <div className="grid-style Appoinment-Heading">
                   <p className="text-content">{city}</p>
                   <p className="text-type">City</p>
-                </div>
-                <div className="grid-style Appoinment-Heading">
-                  {/* <p className="text-type">Owner Name</p>
-                  <p className="text-content">
-                    {owner_name?.first_name} {owner_name?.last_name}
-                  </p> */}
                 </div>
               </div>
               <div className="Dateinfo-Container">
@@ -266,7 +257,7 @@ const LeadCard = React.memo((props) => {
                   <p className="text-content capitalize">{lob}</p>
                   <p className="text-type">LOB</p>
                 </div>
-                <div className="grid-style Appoinment-Heading">
+                {/* <div className="grid-style Appoinment-Heading">
                   <button
                     type="primary"
                     className="update-btn"
@@ -274,7 +265,7 @@ const LeadCard = React.memo((props) => {
                   >
                     Update
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* <div style={{ display: "flex", flex: 1 }}>
@@ -347,7 +338,7 @@ const LeadCard = React.memo((props) => {
     );
   }
 
-  return <div key={id}>{card}</div>;
+  return <div key={key_broker}>{card}</div>;
 });
 
 export default LeadCard;

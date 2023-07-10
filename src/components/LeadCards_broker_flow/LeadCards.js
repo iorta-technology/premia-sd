@@ -14,7 +14,6 @@ import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
-
 import { lobOpportunityItems } from "../StatusLead/dataSet";
 // stoageSetter('user', user);
 
@@ -37,15 +36,10 @@ const LeadCards = (props) => {
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
-  // console.warn('userTreeData==========>>>>>>>',userTreeData)
-
-  // console.warn("leadsData ==========>>>>>>>", leadsData.allLeads);
-  // console.log("props lead card ==========>>>>>>>", props)
   const { user } = loginState;
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
-
   const [firsrDrop, setFirstDrop] = useState([]);
   const [openSecond, setOpenSecond] = useState(false);
   const [firstValue, setFirstValue] = useState("Select");
@@ -57,8 +51,6 @@ const LeadCards = (props) => {
   const [fromDateString, setFromDateString] = useState("");
   const [toDateString, setToDateString] = useState("");
   const [toDateFilter, setToDateFilter] = useState("");
-  // const [hierarAgentList ,setHierarAgentList]=useState([])
-
   const [cards, setcard] = useState([]);
 
   useEffect(() => {
@@ -66,10 +58,6 @@ const LeadCards = (props) => {
     setSecondValue("Select");
     setOpenSecond(false);
   }, [leadsData.globalTab]);
-
-  // useEffect(() => {
-  //   handleChangeTab(leadsData.globalTab);
-  // }, []);
 
   useEffect(() => {
     if (leadsData?.globalTab === "team") getDataForFirstDropdownTeam();
@@ -433,15 +421,14 @@ const LeadCards = (props) => {
       >
         {!_.isEmpty(leadsData.allLeads) ? (
           _.map(leadsData.allLeads, (lead, index) => {
-            // console.log("---------lead-----", lead);
             return (
               <>
               {console.log(lead,"this is the lead")}
                 <Col sm={18} md={18} lg={11} xl={11}>
                   <LeadCard
                     className="lead-agent-card"
-                    key={lead._id}
-                    id={lead._id}
+                    key_broker={lead._id}
+                    // id={lead._id}
                     appointment_on={lead.appointment_on}
                     Owner_name={lead.name}
                     wallet_size={lead.wallet_size}
@@ -450,6 +437,7 @@ const LeadCards = (props) => {
                     raw_producer_name={lead.raw_producer_name}
                     lob={lead.lob}
                     utilization={lead.utilization}
+                    brokerID={lead.brokerId}
                     // lead_Id={lead.lead_Id}
                     // companyName={lead.companyName}
                     // opportunityName={lead.opportunityName}

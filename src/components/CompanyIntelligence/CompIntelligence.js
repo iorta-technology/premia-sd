@@ -180,7 +180,7 @@ const CompanyIntelligence = React.memo((props) => {
     dispatch(actions.headerName("New Lead"));
     // console.warn('storeFormData--------->>>>>',storeFormData)
     loadValuesToFields(storeFormData);
-    getAppointmentList(storeFormData._id)
+    getAppointmentList(storeFormData._id);
     // opprtunityStatusData()
   }, [storeFormData]);
 

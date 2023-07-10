@@ -9,15 +9,10 @@ import axiosRequest from "../../../axios-request/request.methods";
 import moment from "moment";
 import header from "../header";
 import "./Activity_Tracker.css";
-import { BiToggleRight, BiToggleLeft } from 'react-icons/bi';
-import { AiOutlineStar, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { BsPencil } from "react-icons/bs";
-import { IoMdCall } from "react-icons/io";
+
 import { Card, Col, Row, Button } from "antd";
 import Todo from "../RightSide-Todo/Todo";
-import Grid from '@mui/material/Grid';
 import { stoageGetter } from '../../../helpers'
-// import EventCreateComponent from "../../Contests/CalendarEvent";
 import EventCreateComponent from "../CalendarEvent.js"
 import Activity_Header from "./Activity_tracker_header/Header";
 import {
@@ -131,19 +126,16 @@ const Datescheduler = () => {
 						}
 					</text>
 				</div>
-
-				{/* <div style={{ marginRight: "10px", width: "50px" }}>
-					<svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M5.99992 8.88377L2.91392 10.5063L3.50342 7.06977L1.00342 4.63627L4.45342 4.13627L5.99642 1.00977L7.53942 4.13627L10.9894 4.63627L8.48942 7.06977L9.07892 10.5063L5.99992 8.88377Z" fill="#F4C169" stroke="#F4C169" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
-				</div> */}
-
 				<div style={{ marginRight: "10px", width: "50px", cursor: "pointer" }} onClick={() => { showModal(appointmentData.item); setAppointmentTootip(!appointmentTootip) }}>
 					<svg width="20" height="20" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M7.37333 4.02115L7.98667 4.63448L1.94667 10.6745H1.33333V10.0611L7.37333 4.02115ZM9.77333 0.0078125C9.60667 0.0078125 9.43333 0.0744791 9.30667 0.201146L8.08667 1.42115L10.5867 3.92115L11.8067 2.70115C12.0667 2.44115 12.0667 2.02115 11.8067 1.76115L10.2467 0.201146C10.1133 0.0678125 9.94667 0.0078125 9.77333 0.0078125ZM7.37333 2.13448L0 9.50781V12.0078H2.5L9.87333 4.63448L7.37333 2.13448Z" fill="#4C4C4C" />
+						<path d="M7.37333 4.02115L7.98667 4.63448L1.94667 10.6745H1.33333V10.0611L7.37333 
+						4.02115ZM9.77333 0.0078125C9.60667 0.0078125 9.43333 0.0744791 9.30667 0.201146L8.08667 
+						1.42115L10.5867 3.92115L11.8067 2.70115C12.0667 2.44115 12.0667 2.02115 11.8067 1.76115L10.2467 
+						0.201146C10.1133 0.0678125 9.94667 0.0078125 9.77333 0.0078125ZM7.37333 2.13448L0 
+						9.50781V12.0078H2.5L9.87333 4.63448L7.37333 2.13448Z" fill="#4C4C4C" />
 					</svg>
 				</div>
-				<div style={{ marginRight: "10px", width: "50px", cursor: "pointer" }} onClick={() => { setAppointmentTootip(!appointmentTootip) }}>
+				<div style={{ marginRight: "10px", width: "50px", cursor: "pointer" }} onClick={() => {setAppointmentTootip(!appointmentTootip)}}>
 					<svg width="20" height="25" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M13.5 4.50781L4.5 13.5078" stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 						<path d="M4.5 4.50781L13.5 13.5078" stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -181,19 +173,10 @@ const Datescheduler = () => {
 					<div className="content-dt-time-right"><div>Location</div><div>{appointmentData.Location}</div></div>
 				</div>
 				<div className="content-dt-time">
-					{/* <div className="agenda-content">
-						<div>Agenda</div>
-						<div>{appointmentData.Agenda}</div>
-					</div> */}
-
 					<div className="content-dt-time-left">
 						<div>Agenda</div>
 						<div>{appointmentData.Agenda}</div>
 					</div>
-					{/* <div className="content-dt-time-right">
-						<div>Status</div>
-						<div>{appointmentData.Location}</div>
-					</div> */}
 				</div>
 				<div className="minutes">
 					<div className="minutes-content">
@@ -238,7 +221,6 @@ const Datescheduler = () => {
 		const result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=all`, {
 			secure: true,
 		});
-		// // console.log(month,"present");
 		// //storing the data in res after iterating through the result
 		const res = result.map((item) => {
 			// formating the data
@@ -268,8 +250,6 @@ const Datescheduler = () => {
 				time: start_hour + ":" + start_min + " to " + end_hour + ":" + end_min,
 				item:item
 			}
-
-			//	console.log(ret);
 			return ret;
 		})
 		setData(res);
