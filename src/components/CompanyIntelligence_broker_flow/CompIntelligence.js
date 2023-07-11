@@ -681,9 +681,9 @@ const CompanyIntelligence = React.memo((props) => {
               <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
                 <Row>
                   <p className="app-font" style={{ color: '#444444' }}>Risk Details</p>
-                  {/* <Badge count={riskDetailsArr.length}  color="#faad14" /> */}
+                  {/* <Badge count={riskDetailsArr?.length}  color="#faad14" /> */}
                   <Col style={{display:'flex',alignItems:'center',marginLeft:10}}>
-                    <Badge count={riskDetailsArr.length} style={{background:'#00ACC1'}}/>
+                    <Badge count={riskDetailsArr?.length} style={{background:'#00ACC1'}}/>
                   </Col>
                   
                 </Row>

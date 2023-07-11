@@ -140,8 +140,7 @@ const DocUpload = (props) => {
           newArr.push({ ...res.data.errMsg, recent: true });
           // console.log(newArr,"this is the new upload");
           setFileData(newArr);
-          props.callback(newArr);
-         // document.getElementById("upload-photo").value = "";
+          // props.callback(newArr);
         })
         .catch((err) => {
           throw err;
