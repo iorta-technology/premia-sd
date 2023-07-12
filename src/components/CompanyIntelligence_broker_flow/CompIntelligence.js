@@ -76,11 +76,11 @@ const formItemLayout = {
 const tabMenu = [
   {
     id: 1,
-    value: "Company Intelligence",
+    value: "Broker Intelligence",
   },
   {
     id: 2,
-    value: "History",
+    value: "Activity Log",
   },
 ];
 const CompanyIntelligence = React.memo((props) => {
@@ -403,7 +403,7 @@ const CompanyIntelligence = React.memo((props) => {
     axios.delete(`${baseURL}secure/user/deletekdmDetails?userId=${loginId}&kdmId=${activeKdm}`, { headers }).then(res => {
       // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
       if (res.data.errCode === -1) {
-        dispatch(actions.fetchLeadDetails(storeFormData._id))
+        dispatch(actions.fetchLeadDetails_broker(storeFormData._id))
         message.success("KDM Details Deleted Successfully");
       }
     })
@@ -459,7 +459,7 @@ const CompanyIntelligence = React.memo((props) => {
         // header={companyDetails?.company_name?.toUpperCase()}
         activeKey="1"
         statusLeadData={storeFormData}
-        header={storeFormData.producerdetails.raw_producer_name}
+        header={storeFormData?.producerdetails?.raw_producer_name}
       />
 
       <div
@@ -477,17 +477,17 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails.producer_name}</p>
+                    <p className="text-font">{producerDetails?.producer_name}</p>
                     <p className="label-font">Producer Name</p>
                   </Col>
                 </Row>
                 <Row style={{ marginTop: 10 }}>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails.city}</p>
+                    <p className="text-font">{producerDetails?.city}</p>
                     <p className="label-font">City</p>
                   </Col>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails.wallet_size}</p>
+                    <p className="text-font">{producerDetails?.wallet_size}</p>
                     <p className="label-font">Wallet</p>
                   </Col>
                 </Row>
@@ -661,12 +661,12 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.leadStatus}</p>
+                    <p className="text-font">{opportunityDetails?.leadStatus}</p>
                     <p className="label-font">Status</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.appointmentDate}</p>
+                    <p className="text-font">{opportunityDetails?.appointmentDate}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
@@ -682,7 +682,7 @@ const CompanyIntelligence = React.memo((props) => {
                           overflow: "hidden",
                         }}
                       >
-                        {opportunityDetails.appointmentTime}
+                        {opportunityDetails?.appointmentTime}
                       </p>
                     </Tooltip>
                     <p className="label-font">Appointment Time</p>
@@ -691,12 +691,12 @@ const CompanyIntelligence = React.memo((props) => {
 
                 <Row style={{ marginTop: 10 }}>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.leadDiposition}</p>
+                    <p className="text-font">{opportunityDetails?.leadDiposition}</p>
                     <p className="label-font">Disposition</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.leadsubDisposition}</p>
+                    <p className="text-font">{opportunityDetails?.leadsubDisposition}</p>
                     <p className="label-font">Sub Disposition</p>
                   </Col>
 
@@ -779,11 +779,11 @@ const CompanyIntelligence = React.memo((props) => {
                       <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }}>
                         <p className="app-font" style={{ color: '#444444' }}>{element.lob_for_opportunity}</p>
                         <Row>
-                          <DeleteOutlined  onClick={() => deleteWalletDetails(element, index)} style={{  fontSize: 20 }} />
-                          <FormOutlined  onClick={() => openWalletModal('edit', element, index)} style={{ marginLeft: 15,fontSize: 20 }} />
+                          <DeleteOutlined  onClick={() => deleteWalletDetails(element, index)} style={{  fontSize: 16,color:'grey' }} />
+                          <FormOutlined  onClick={() => openWalletModal('edit', element, index)} style={{ marginLeft: 15,fontSize: 16,color:'grey' }} />
                         </Row>
                       </Row>
-                      <Row justify="space-between" style={{ alignItems: 'center', padding: '10px 60px 10px 10px' }}>
+                      <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 60px 10px 10px' }}>
                         <Row>
                           {/* <Col><p className="app-font" style={{ color: '#444444' }}>{element.wallet_share}</p></Col> */}
                           <Col style={{flex:1}}>

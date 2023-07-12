@@ -64,40 +64,16 @@ const NewLead = React.memo((props) => {
     }
     if (formItem.producerName === "") {
       return message.warning("Producer Name is required");
-    }
-    else if (formItem.brokerCity === "") {
+    }else if (formItem.brokerCity === "") {
       return message.warning("Broker City is required");
-    }
-    else if (formItem.walletSize === "") {
+
+    }else if (formItem.walletSize === "") {
       return message.warning("Wallet Size is required");
-    }
-    else{
+
+    }else{
       await axiosRequest.post(`user/addproducer`,payload,{ secure: true });
       closeBrokerModal()
     }
-
-    return
-
-    let formData = {
-        producer_name: formItem.producerName,
-        brokerCity: formItem.brokerCity ,
-        wallet_size: formItem.walletSize,
-    };
-
-    // console.log('company_id-------->>',company_id); 
-
-    if(company_id){
-      let formData = {
-        companyDocumentID:company_id
-      }
-      let result = await axiosRequest.post(`admin/company/create-opportunity`,formData,{ secure: true });
-      // console.log('OPPORTUNITY RESP',result)
-    }else{
-      let result = await axiosRequest.post(`user/company/add-company`,formData,{ secure: true });
-      // console.log('COMPANY RESP',result)
-    }
-
-    closeBrokerModal()
     
   };
 
