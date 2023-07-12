@@ -934,7 +934,7 @@ const CompanyIntelligence = React.memo((props) => {
                 <TabPane tab="Events" key="1" >
                   <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 15px 15px 15px' }} >
                     <p className="text-font" style={{ color: '#444444' }}>Event List</p>
-                    <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{ fontSize: 18 }} />
+                    {/* <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{ fontSize: 18 }} /> */}
                   </Row>
                   <>
                     {activities_data &&

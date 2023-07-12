@@ -346,9 +346,14 @@ const CompanyIntelligence = React.memo((props) => {
   };
 
   const openRiskModal = (event, data, index) => {
-    setShowRiskModal(true)
-    setRiskType(event)
-    setriskDataSet(data)
+    if(riskDetailsArr?.length >= 10){
+      message.info("Only 10 Risk Details can be Added");
+    }else{
+      setShowRiskModal(true)
+      setRiskType(event)
+      setriskDataSet(data)
+    }
+    
   };
 
   const openRemarkModal = () => {
@@ -681,9 +686,9 @@ const CompanyIntelligence = React.memo((props) => {
               <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
                 <Row>
                   <p className="app-font" style={{ color: '#444444' }}>Risk Details</p>
-                  {/* <Badge count={riskDetailsArr.length}  color="#faad14" /> */}
+                  {/* <Badge count={riskDetailsArr?.length}  color="#faad14" /> */}
                   <Col style={{display:'flex',alignItems:'center',marginLeft:10}}>
-                    <Badge count={riskDetailsArr.length} style={{background:'#00ACC1'}}/>
+                    <Badge count={riskDetailsArr?.length} style={{background:'#00ACC1'}}/>
                   </Col>
                   
                 </Row>

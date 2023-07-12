@@ -1320,11 +1320,11 @@ const HomePage = () => {
                             }}
                             size={{ xl: 40 }}
                           >
-                            <div className="avatar_font">{kdm_name}</div>
+                            <div className="avatar_font">{kdm_name ? kdm_name : '-'}</div>
                           </Avatar>
                           <div className="content-header">
                             <p className="user-name-text capitalize">
-                              {kdm_name}
+                              {kdm_name ? kdm_name : '-'}
                             </p>
                             <span className="user-id uppercase">Ceo</span>
                           </div>
@@ -1337,7 +1337,9 @@ const HomePage = () => {
                             src={contact_opportunity_cake}
                             alt="Opportunities"
                           />
-                          <div className="contact-card-date"> {birthdate}</div>
+                          <div className={`contact-card-date ${birthdate ? '' : 'centered'}`}>
+                            {birthdate ? birthdate : '-'}
+                          </div>
                           <div className="contact-card-sendWish">
                             {" "}
                             Send Wish
