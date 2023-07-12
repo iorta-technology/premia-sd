@@ -53,7 +53,7 @@ const RemarksModalComp = (props) => {
                 form.setFieldsValue({remarks: ""});
                 // setreamrkDataArr([...reamrkDataArr, result]);
                 props.setShowRemarkModal(false)
-                dispatch(actions.fetchLeadDetails(_StoreData._id))
+                dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
                 return 
             }
         

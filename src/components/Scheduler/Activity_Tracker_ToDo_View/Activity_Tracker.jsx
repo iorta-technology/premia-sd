@@ -33,6 +33,7 @@ import { createBreakpoints, height, width } from "@mui/system";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { CloseOutlined , EditOutlined , VideoCameraOutlined } from '@ant-design/icons';
 
 
 const Datescheduler = () => {
@@ -72,9 +73,35 @@ const Datescheduler = () => {
 	// appoitment tool tip states
 
 	const [appointmentMeta, setAppointmentMeta] = useState({ target: null, data: {} });
+
+	const { currentViewName } = state;
+	useEffect(() => {
+		setAppointmentTootip(true);
+	}, [appointmentTootip])
+
+	// invoking the function for retrieving our data
+	useEffect(() => {
+		getScheduler();
+		// console.log(refresh, "this is refresh part");
+	}, [month, refresh]);
+
+	useEffect(() => {
+		const date = new Date();
+		let currentMonth = date.getMonth();
+		if (currentMonth.toString().length == 1) {
+			currentMonth += 1;
+			let num = '0' + currentMonth.toString();
+			currentMonth = num;
+		}
+		setMonth(currentMonth);
+	}, [])
+
+	
 	const showModal = (e) => {
 		setIsModalVisible(true);
 		setEditData(e);
+		setAppointmentTootip(!appointmentTootip)
+		
 	};
 
 	//getting the data when we click appointements  
@@ -116,7 +143,7 @@ const Datescheduler = () => {
 			{...restProps}
 		>
 			<div className="header">
-				<div style={{ marginRight: "10px", width: "50px" }}>
+				<div style={{ width: "50px" }}>
 					<text style={{textTransform:'capitalize',fontWeight:'600',color:appointmentData?.item?.statusType === 'close' ? '#e46a2c' : '#18a4c5'}}>
 						{
 							// appointmentData?.item?.statusType
@@ -126,36 +153,30 @@ const Datescheduler = () => {
 						}
 					</text>
 				</div>
-				<div style={{ marginRight: "10px", width: "50px", cursor: "pointer" }} onClick={() => { showModal(appointmentData.item); setAppointmentTootip(!appointmentTootip) }}>
-					<svg width="20" height="20" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M7.37333 4.02115L7.98667 4.63448L1.94667 10.6745H1.33333V10.0611L7.37333 
-						4.02115ZM9.77333 0.0078125C9.60667 0.0078125 9.43333 0.0744791 9.30667 0.201146L8.08667 
-						1.42115L10.5867 3.92115L11.8067 2.70115C12.0667 2.44115 12.0667 2.02115 11.8067 1.76115L10.2467 
-						0.201146C10.1133 0.0678125 9.94667 0.0078125 9.77333 0.0078125ZM7.37333 2.13448L0 
-						9.50781V12.0078H2.5L9.87333 4.63448L7.37333 2.13448Z" fill="#4C4C4C" />
-					</svg>
+				<div style={{height:15,width:1,backgroundColor:'grey'}}></div>
+				<div style={{ display:'flex',width: "50px", cursor: "pointer",justifyContent:'center' }} onClick={() => showModal(appointmentData.item) }>
+					<EditOutlined style={{fontSize:18,fontWeight:500 }} />
 				</div>
-				<div style={{ marginRight: "10px", width: "50px", cursor: "pointer" }} onClick={() => {setAppointmentTootip(!appointmentTootip)}}>
-					<svg width="20" height="25" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M13.5 4.50781L4.5 13.5078" stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-						<path d="M4.5 4.50781L13.5 13.5078" stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
+				<div style={{height:15,width:1,backgroundColor:'grey'}}></div>
+				<div style={{ display:'flex',width: "50px", cursor: "pointer",justifyContent:'center' }} onClick={() => { setAppointmentTootip(!appointmentTootip) }}>
+					<CloseOutlined style={{fontSize:18,fontWeight:500 }} />
 				</div>
 			</div>
 		</AppointmentTooltip.Header>
 	));
 
 	//declearing the content
-	const Content = (({
-		children, appointmentData, ...restProps
-	}) => {
+	const Content = (({children, appointmentData, ...restProps}) => {
 		return (
 			<AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
 				<div className="content-head">
-					<div className="content-head-svg"><svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M12.5 8.84979L16.2942 6.95312C16.4212 6.88965 16.5623 6.85969 16.7042 6.86608C16.846 6.87247 16.9839 6.915 17.1047 6.98963C17.2255 7.06426 17.3252 7.16852 17.3944 7.29252C17.4636 7.41651 17.4999 7.55613 17.5 7.69812V13.3348C17.4999 13.4768 17.4636 13.6164 17.3944 13.7404C17.3252 13.8644 17.2255 13.9687 17.1047 14.0433C16.9839 14.1179 16.846 14.1604 16.7042 14.1668C16.5623 14.1732 16.4212 14.1433 16.2942 14.0798L12.5 12.1831V8.84979Z" stroke="#CEA0E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-						<path d="M2.5 7.18229C2.5 6.74026 2.67559 6.31634 2.98816 6.00378C3.30072 5.69122 3.72464 5.51563 4.16667 5.51562H10.8333C11.2754 5.51563 11.6993 5.69122 12.0118 6.00378C12.3244 6.31634 12.5 6.74026 12.5 7.18229V13.849C12.5 14.291 12.3244 14.7149 12.0118 15.0275C11.6993 15.34 11.2754 15.5156 10.8333 15.5156H4.16667C3.72464 15.5156 3.30072 15.34 2.98816 15.0275C2.67559 14.7149 2.5 14.291 2.5 13.849V7.18229Z" stroke="#CEA0E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-					</svg></div>
+					<div className="content-head-svg">
+						{/* <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12.5 8.84979L16.2942 6.95312C16.4212 6.88965 16.5623 6.85969 16.7042 6.86608C16.846 6.87247 16.9839 6.915 17.1047 6.98963C17.2255 7.06426 17.3252 7.16852 17.3944 7.29252C17.4636 7.41651 17.4999 7.55613 17.5 7.69812V13.3348C17.4999 13.4768 17.4636 13.6164 17.3944 13.7404C17.3252 13.8644 17.2255 13.9687 17.1047 14.0433C16.9839 14.1179 16.846 14.1604 16.7042 14.1668C16.5623 14.1732 16.4212 14.1433 16.2942 14.0798L12.5 12.1831V8.84979Z" stroke="#CEA0E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M2.5 7.18229C2.5 6.74026 2.67559 6.31634 2.98816 6.00378C3.30072 5.69122 3.72464 5.51563 4.16667 5.51562H10.8333C11.2754 5.51563 11.6993 5.69122 12.0118 6.00378C12.3244 6.31634 12.5 6.74026 12.5 7.18229V13.849C12.5 14.291 12.3244 14.7149 12.0118 15.0275C11.6993 15.34 11.2754 15.5156 10.8333 15.5156H4.16667C3.72464 15.5156 3.30072 15.34 2.98816 15.0275C2.67559 14.7149 2.5 14.291 2.5 13.849V7.18229Z" stroke="#CEA0E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						</svg> */}
+						<VideoCameraOutlined style={{fontSize:18,fontWeight:500,color:'#cea0e1' }} />
+					</div>
 					<div style={{ color: "#CEA0E1", marginLeft: "8px" }}>
 						New Propsition Meeting
 					</div>
@@ -170,13 +191,26 @@ const Datescheduler = () => {
 				</div>
 				<div className="content-dt-time">
 					<div className="content-dt-time-left"><div>Client</div><div>{appointmentData.client}</div></div>
-					<div className="content-dt-time-right"><div>Location</div><div>{appointmentData.Location}</div></div>
-				</div>
-				<div className="content-dt-time">
-					<div className="content-dt-time-left">
+					{/* <div className="content-dt-time-right"><div>Location</div><div>{appointmentData.Location}</div></div> */}
+					<div className="content-dt-time-right">
 						<div>Agenda</div>
 						<div>{appointmentData.Agenda}</div>
 					</div>
+				</div>
+				<div className="content-dt-time">
+					{/* <div className="agenda-content">
+						<div>Agenda</div>
+						<div>{appointmentData.Agenda}</div>
+					</div> */}
+
+					{/* <div className="content-dt-time-left">
+						<div>Agenda</div>
+						<div>{appointmentData.Agenda}</div>
+					</div> */}
+					{/* <div className="content-dt-time-right">
+						<div>Status</div>
+						<div>{appointmentData.Location}</div>
+					</div> */}
 				</div>
 				<div className="minutes">
 					<div className="minutes-content">
@@ -190,22 +224,7 @@ const Datescheduler = () => {
 
 
 	
-	// invoking the function for retrieving our data
-	useEffect(() => {
-		getScheduler();
-		console.log(refresh, "this is refresh part");
-	}, [month, refresh]);
-
-	useEffect(() => {
-		const date = new Date();
-		let currentMonth = date.getMonth();
-		if (currentMonth.toString().length == 1) {
-			currentMonth += 1;
-			let num = '0' + currentMonth.toString();
-			currentMonth = num;
-		}
-		setMonth(currentMonth);
-	}, [])
+	
 	const currentDateChange=(currentDate)=>{
 		// console.log(currentDate.getMonth(),"this is the current date change");
 		let curr_month=currentDate.getMonth();
@@ -245,7 +264,7 @@ const Datescheduler = () => {
 				Location: "Andheri Office",
 				Agenda: item.tata_appointment_type,
 				Minutes: item.event_description,
-				client: "tata AG",
+				client: "tata AIG",
 				date: date,
 				time: start_hour + ":" + start_min + " to " + end_hour + ":" + end_min,
 				item:item
@@ -257,10 +276,7 @@ const Datescheduler = () => {
 	const currentViewNameChange = (e) => {
 		setState({ currentViewName: e.target.value })
 	}
-	const ExternalViewSwitcher = ({
-		currentViewName,
-		onChange,
-	}) => (
+	const ExternalViewSwitcher = ({currentViewName,onChange,}) => (
 		<div className="parent">
 			<div className="event-heading">Events Calender </div>
 			<div className="buttons">
@@ -279,10 +295,8 @@ const Datescheduler = () => {
 		</div>
 	);
 
-	const { currentViewName } = state;
-	useEffect(() => {
-		setAppointmentTootip(true);
-	}, [appointmentTootip])
+	
+
 	const callback = () => {
 		setCreate_event(true);
 	}
@@ -308,14 +322,8 @@ const Datescheduler = () => {
 									currentViewName={currentViewName}
 									onCurrentDateChange={currentDateChange}
 								/>
-								<DayView
-									startDayHour={8}
-									endDayHour={22}
-								/>
-								<WeekView
-									startDayHour={8}
-									endDayHour={22}
-								/>
+								<DayView startDayHour={8} endDayHour={22}/>
+								<WeekView startDayHour={8} endDayHour={22}/>
 								
 								<MonthView />
 								
@@ -327,6 +335,7 @@ const Datescheduler = () => {
 								/>
 								{appointmentTootip == true ?
 									<AppointmentTooltip
+										// visible={appointmentTootip}
 										appointmentMeta={appointmentMeta}
 										onAppointmentMetaChange={onAppointmentMetaChange}
 										headerComponent={Header}

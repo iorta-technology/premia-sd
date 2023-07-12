@@ -106,7 +106,6 @@ export const fetchLeadDetailsFail = (error) => {
 export const fetchLeadDetails = (id) => {
   return async (dispatch) => {
     dispatch(fetchLeadDetailsStart());
-
     let result = await axiosRequest.get(`user/getlead_details/${id}`, {secure: true });
     console.log('__++++++++++++++ getlead_details',result);
     // console.warn("__++++++++++++++ getlead_details", result);
@@ -119,7 +118,7 @@ export const fetchLeadDetails_broker = (id) => {
   return async (dispatch) => {
     dispatch(fetchLeadDetailsStart());
     let result = await axiosRequest.get(`user/getbrokerDetails?brokerId=${id}`, {secure: true });
-    console.log('__++++++++++++++ getlead_details',result);
+    console.log('__++++++++++++++ getlead_details_broker',result);
     if (result.length > 0) {
       return dispatch(fetchLeadDetailsSuccess(result[0]));
     }

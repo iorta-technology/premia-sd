@@ -40,6 +40,7 @@ const KDMDetails = (props) => {
     // const storeLeadId = useSelector((state) => state.newLead.leadId)
     // const storeUserId = useSelector((state) => state.newLead.userId)
     const _StoreData = useSelector((state) => state?.newLead?.formData);
+    // console.log('kdm store data-------------->',_StoreData);
     const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
     const user_id = useSelector((state) => state.login.user.id);
     const states = useSelector((state) => state.address.states);
@@ -96,6 +97,7 @@ const KDMDetails = (props) => {
             setKdmTypeData('update')
             // props.kdmDataSet.map(el =>{
                 // kdmDetArr.forEach(el =>{
+                    // console.log('kdmDataSet----------------->',props.kdmDataSet);
                 setEditKdmId(props.kdmDataSet._id)
                 let _data = {
                     kdmName:props.kdmDataSet.decision_maker_name,
@@ -339,14 +341,14 @@ const KDMDetails = (props) => {
         // return
 
 
-        let _compID = _StoreData?.company_id?._id
+        let _compID = _StoreData?.producer_id;
 
         if(kdmTypeData === 'create'){
-            let result = await axiosRequest.post(`user/postkdmform?userId=${user_id}&companyid=${_compID}&leadId=${_StoreData._id}`,formBody,{ secure: true });
-            dispatch(actions.fetchLeadDetails(_StoreData._id))
+            let result = await axiosRequest.post(`user/postproducerkdm?userId=${user_id}&&producerid=${_StoreData.producer_id}`,formBody,{ secure: true });
+            dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
         }else{
-            let result = await axiosRequest.put(`user/updatekdmform?userId=${user_id}&companyid=${_compID}&kdmId=${editKdmId}`,formBody,{ secure: true });
-            dispatch(actions.fetchLeadDetails(_StoreData._id))
+            let result = await axiosRequest.put(`user/updateproducerkdm?userId=${user_id}&producerid=${_compID}&kdmId=${editKdmId}`,formBody,{ secure: true });
+            dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
         }
 
         // console.warn('formBody ------>>>>>',formBody)
@@ -583,7 +585,7 @@ return (
                                         onChange={ (date,dateString) => onChangeKdmDOB(date,dateString,index) } 
                                         value={el.kdmDOB}
                                         format="MM/DD/YYYY"
-                                        disabledDate={(d) => !d || d.isAfter(minimumDate)}
+                                        // disabledDate={(d) => !d || d.isAfter(minimumDate)}
                                         style={{display:'flex',flex:1,borderColor: el.dobBorder}}
                                     />
                                     {el.showKdmDOBErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Age must be greater than 18 years</p>}

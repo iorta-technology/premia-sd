@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, Input, Radio } from "antd";
+import { Modal, Button, Form, Input, Radio,Popover,Row,Col } from "antd";
 import {
   PlusCircleFilled,
   CalendarOutlined,
   AimOutlined,
   FileTextOutlined,
+  PlusCircleOutlined
 } from "@ant-design/icons";
 import Moment from "moment";
 import { Link, useHistory } from "react-router-dom";
@@ -16,10 +17,11 @@ import { useDispatch,useSelector } from "react-redux";
 import axiosRequest from "../../axios-request/request.methods";
 import "./FloatButton.css";
 import { message } from "antd";
-import lead_icon from '../../assets/Agreement_white_24dp.png'
-import event_icon from '../../assets/Questinairee_white_24dp.png'
-import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png'
-import NewLead from '../StatusLead/NewLeadCreation'
+import lead_icon from '../../assets/Agreement_white_24dp.png';
+import event_icon from '../../assets/Questinairee_white_24dp.png';
+import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png';
+import NewLead from '../StatusLead/NewLeadCreation';
+import NewBroker from '../StatusLead/NewBroker';
 
 // const logindata = stoageGetter('user')
 // let id = ''
@@ -30,6 +32,7 @@ import NewLead from '../StatusLead/NewLeadCreation'
 
 const FloatButton = React.memo(() => {
   const [showNewLeadModal, setShowNewLeadModal] = useState(false);
+  const [showBrokerModal, setShowBrokerModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const [isopen, setisopen] = useState(false);
@@ -163,54 +166,83 @@ const FloatButton = React.memo(() => {
     // setIsModalVisible(true);
     showActivityTracker ? history.push("/calendar") : message.info('This feature is currently not accessible')
   };
+  // const handleOpenChange = (newOpen) => {
+  //   setisopen(newOpen);
+  // };
 
   const onclick_float = () => {
-    setShowNewLeadModal(true)
+    if(showOpportunities){
+      setShowNewLeadModal(true)
+      setisopen(false);
+    }else{
+      message.info('This feature is currently not accessible');
+    }
     
   };
+
+  const addNewBroker = () => {
+      setShowBrokerModal(true)
+      setisopen(false);
+  };
+  
   
   return (
-    <>
+    <div className={`${styles.floatBtn}`}>
       <NewLead showNewLeadModal={showNewLeadModal} setShowNewLeadModal={setShowNewLeadModal} />
-      <PlusCircleFilled className={styles.icon} onClick={floatButtonHandler} />
-      <p
-        className={`${styles.paragraph}  ${styles.eventpg} ${styles.pgpfr}`}
-        style={isopen ? open : close}
-      >
+      <NewBroker showBrokerModal={showBrokerModal} setShowBrokerModal={setShowBrokerModal} />
+      {/* <PlusCircleFilled className={styles.icon} onClick={floatButtonHandler} /> */}
+      {/* <p className={`${styles.paragraph}  ${styles.eventpg} ${styles.pgpfr}`} style={isopen ? open : close}>
         Create an Event
       </p>
       
         <div onClick={openCalendarPage} className={`${styles.floatBtn} ${styles.eventicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
-          {/* <CalendarOutlined /> */}
           <img src={event_icon} style={{height:25, width:25,cursor:"pointer"}}/>
         </div>
-      {/* </Link> */}
   
       <>
-        <p onClick={onclick_float}
-          className={`${styles.paragraph} ${styles.leadpg} ${styles.pgpfr}`}
-          style={isopen ? open : close}
-        >
+        <p onClick={onclick_float} className={`${styles.paragraph} ${styles.leadpg} ${styles.pgpfr}`} style={isopen ? open : close}>
           New Lead Creation
         </p>
-        {/* <Link to="/leadmasterpage/statuslead"> */}
-          {/* <Button
-            onClick={addNewLead}
-            type="primary"
-            shape="circle"
-            size="large"
-            icon={<FileTextOutlined />}
-            className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr}`}
-            style={isopen ? open : close}
-          /> */}
+       
         <div onClick={onclick_float} className={`${styles.floatBtn} ${styles.leadicon} ${styles.iconpfr} ${styles.floatBtnsStyle}`} style={isopen ? open : close}>
-          {/* <FileTextOutlined /> */}
           <img src={lead_icon} style={{height:25, width:25,cursor:"pointer"}}/>
         </div>
-        {/* </Link> */}
-      </>
-      {/* <p className={`${styles.paragraph}  ${styles.recuirementpg} ${styles.pgpfr}`} style={isopen?open:close}>New Recruitment</p> */}
-      {/* <Button onClick={showModal} type="primary" shape="circle" size="large" icon={<FileTextOutlined />} className={`${styles.newrecuirement} ${styles.iconpfr}`} style={isopen?open:close}/> */}
+      </> */}
+     
+      <div className={`${styles.floatBtn}`}>
+        <Popover 
+          overlayStyle={{position:'fixed'}}
+          placement="topRight" 
+          trigger="click"
+          visible={isopen}
+          content={
+            <>
+              <Row onClick={openCalendarPage} style={{alignItems:'center',marginBottom:10,cursor:'pointer'}}>
+                <CalendarOutlined style={{fontSize:20,fontWeight:'bolder'}} />
+                <Col>
+                  <p style={{marginLeft:12,marginBottom:4,fontWeight:'200'}}>Create an Event</p>
+                </Col>
+              </Row>
+
+              <Row onClick={onclick_float} style={{alignItems:'center',cursor:'pointer',marginBottom:10}}>
+                <FileTextOutlined style={{fontSize:20,fontWeight:'bolder'}} />
+                <Col>
+                  <p style={{marginLeft:12,marginBottom:4,fontWeight:'200'}}>New Lead Creation</p>
+                </Col>
+              </Row>
+
+              <Row onClick={addNewBroker} style={{alignItems:'center',cursor:'pointer'}}>
+                <PlusCircleOutlined style={{fontSize:20,fontWeight:'bolder'}} />
+                <Col>
+                  <p style={{marginLeft:12,marginBottom:4,fontWeight:'200'}}>Add Producer</p>
+                </Col>
+              </Row>
+            </>
+          } 
+          >
+          <PlusCircleFilled className={styles.icon} onClick={floatButtonHandler} />
+        </Popover>
+      </div>
 
       {isModalVisible && <Recruitment hideModal={hideModal} />}
 
@@ -219,7 +251,7 @@ const FloatButton = React.memo(() => {
         <div className={styles.content}></div>
         <div className={styles.content}></div>
       </div>
-    </>
+    </div>
   );
 });
 

@@ -37,7 +37,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
   return async (dispatch) => {
     dispatch(fetchAllLeadsStart());
     let result = await axiosRequest.get(
-      `user/getbrokerlist?userId=${id}&filter=${leads}`,
+      `user/getbrokerlist?userId=${id}&filter=${leads}&skip=${skipVal}`,
       { secure: true }
     );
     console.log("+++++++++ GET LEAD DATA ++++++++", result);
@@ -46,10 +46,10 @@ export const fetchAllLeads = (id, leads, pageNo) => {
         fetchAllLeadsSuccess(
           supportLead.readSortDataFromAPI(
             leads,
-            result === "No leads found" ? [] : result,
+            result === "No leads found" ? [] : result[0],
             this
           ),
-          10
+          result[1][0].count
         )
       );
     } else {

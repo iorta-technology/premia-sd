@@ -29,18 +29,9 @@ export const fetchAllState =  (userID,pageNo) => {
         
     return async dispatch => {
         dispatch(fetchStateStart())
-
-        // let result = await axiosRequest.get(`admin/fetchCities`, {secure: true,});
-        // console.log("GETT STATE CITYY_______", result);
-        // if (result.length > 0) {
-        // return dispatch(fetchStateSuccess(result));
-        // }
-
         return axios.get(`admin/getState_city?userId=5b3b4cc28fa96d39870443e3&getstate=allstate`)
             .then(res => {
-                // console.log(res.data.errMsg[1][0].count)
                 if(res.data.errCode===-1){
-
                     return dispatch(fetchStateSuccess(res.data.errMsg))
                 }
             })

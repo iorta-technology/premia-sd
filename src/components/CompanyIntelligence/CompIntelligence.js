@@ -223,7 +223,7 @@ const CompanyIntelligence = React.memo((props) => {
 
         _appntTime = `${_appTime[0]}:${_appTime[1]} ${_appTimeAm[1]}`
       }
-      // console.log()
+
       let _opportunity = {
         appointmentDate: leadData?.appointmentDate,
         appointmentDetails: leadData?.appointmentDetails,

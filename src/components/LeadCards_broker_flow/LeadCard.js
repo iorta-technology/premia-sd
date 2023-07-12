@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Avatar, Switch, Row, Col, Progress } from "antd";
-import { MoreOutlined, PhoneOutlined,EditOutlined } from "@ant-design/icons";
+import { MoreOutlined, PhoneOutlined,EditOutlined,FormOutlined } from "@ant-design/icons";
 import "./LeadCard.css";
 import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router-dom";
@@ -171,7 +171,7 @@ const LeadCard = React.memo((props) => {
           ></input>
         )}
         <div className="main-avtar">
-          <div className="avatar-and-status">
+          <div className="avatar-and-status" >
             <Avatar
               style={{
                 backgroundColor: "#d8d8d8",
@@ -180,37 +180,15 @@ const LeadCard = React.memo((props) => {
             >
               {nameShorter(producer_name)}
             </Avatar>
-            <div className="content-header" style={{marginTop:'10px'}}>
+            <div className="content-header" style={{marginTop:"15px"}} >
               <p className="user-name-text capitalize">{producer_name}</p>
-              {/* <span className="user-id uppercase" style={{color:'#B1B1B1'}}>{lead_Id}</span> */}
             </div>
           </div>
 
           <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
             <div>
-            <EditOutlined size={100}  onClick={() => updateHandler(brokerID)}/>
+            <FormOutlined onClick={() => updateHandler(brokerID)} style={{fontSize:'25px'}} />
             </div>
-            {/* <div>
-              <Progress
-                strokeColor="aquamarine"
-                width={40}
-                format={(percent, successPercent) => percent}
-                type="circle"
-                percent={weightage}
-              />
-            </div> */}
-            {/* <div
-              style={{
-                padding: "5px 15px 5px 15px",
-                backgroundColor: "#00ACC1",
-                borderRadius: 20,
-                display: "flex",
-                justifyContent: "center",
-                marginLeft: 15,
-              }}
-            >
-              <p style={{ marginBottom: 0, color: "#fff" }}> {location} </p>
-            </div> */}
           </div>
         </div>
 
