@@ -187,7 +187,7 @@ const CollaboratorModal = (props) => {
         }
         // console.warn('formBody ------>>>>>',formBody)
         // dispatch(actions.fetchLeadUpdateBody(formBody))
-        dispatch(actions.editLead(formBody, _StoreData._id))
+        dispatch(actions.editCollaborators(formBody, _StoreData._id))
         props.setShowCollabortrModal(false)
     }
 

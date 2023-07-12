@@ -6,6 +6,7 @@ export {
   createLead,
   storeLead,
   editLead,
+  editCollaborators,
   fetchLeadDetails_broker
 } from "./newLead";
 // export {

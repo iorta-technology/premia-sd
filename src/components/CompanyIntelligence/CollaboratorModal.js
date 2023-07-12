@@ -182,7 +182,7 @@ const CollaboratorModal = (props) => {
     const updateRemark = (event) =>{
 
         let formBody = {
-            // lead_id: _StoreData._id,
+            lead_id: _StoreData._id,
             collaborators: teamDataArr,
         }
         // console.warn('formBody ------>>>>>',formBody)

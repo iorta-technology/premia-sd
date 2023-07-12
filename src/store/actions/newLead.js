@@ -60,6 +60,22 @@ export const editLead = (formData, id) => {
   return async (dispatch) => {
     dispatch(editLeadStart());
     // let result = await axiosRequest.put(`user/updateLead/${id}`, formData, {
+    let result = await axiosRequest.post(`user/company/update-opportunity`, formData, {
+      secure: true,
+    });
+    // console.warn("update LEADDDD_______", result);
+      dispatch(fetchLeadDetails(id))
+    // if (result.length > 0) {
+      return dispatch(editLeadSuccess(result));
+      
+    // }
+  };
+};
+
+export const editCollaborators = (formData, id) => {
+  return async (dispatch) => {
+    dispatch(editLeadStart());
+    // let result = await axiosRequest.put(`user/updateLead/${id}`, formData, {
     let result = await axiosRequest.post(`user/addCollaborator?brokerId=${id}`, formData, {
       secure: true,
     });

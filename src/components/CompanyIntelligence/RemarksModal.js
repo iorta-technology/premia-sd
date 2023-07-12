@@ -46,7 +46,7 @@ const RemarksModalComp = (props) => {
     const addRemarks = async () => {
         let result = "";
         if (remark && remark != "") {
-            result = await axiosRequest.post(`user/addRemarks?brokerId=${_StoreData._id}`,{ new_remark: remark },{ secure: true });
+            result = await axiosRequest.post(`user/add-opporunity-remark/${_StoreData._id}`,{ new_remark: remark },{ secure: true });
     
             if (result) {
                 setRemark("");
