@@ -72,6 +72,7 @@ export const editLead = (formData, id) => {
   };
 };
 
+
 export const fetchLeadDetailsStart = () => {
   return {
     type: actionTypes.FETCH_LEAD_DETAILS_START,

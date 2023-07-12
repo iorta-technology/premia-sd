@@ -566,16 +566,16 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.leadStatus}</p>
+                    <p className="text-font">{checkValidity(opportunityDetails?.leadStatusLabel)}</p>
                     <p className="label-font">Status</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.appointmentDate}</p>
-                    <p className="label-font">Appointment Date</p>
+                    <p className="text-font">{checkValidity(opportunityDetails?.leadDispositionLabel)}</p>
+                    <p className="label-font">Disposition</p>
                   </Col>
 
-                  <Col style={{ flex: 1 }}>
+                  <Col style={{flex:1}}>
                     <Tooltip placement="top" title={checkValidity(opportunityDetails?.leadsubDisposition)}>
                       <p
                         className="text-font"
@@ -587,22 +587,22 @@ const CompanyIntelligence = React.memo((props) => {
                           overflow: "hidden",
                         }}
                       >
-                        {opportunityDetails.appointmentTime}
+                        {checkValidity(opportunityDetails.leadsubDisposition)}
                       </p>
                     </Tooltip>
-                    <p className="label-font">Appointment Time</p>
+                    <p className="label-font">Sub Disposition</p>
                   </Col>
                 </Row>
 
-                <Row style={{ marginTop: 10 }}>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.leadDiposition}</p>
-                    <p className="label-font">Disposition</p>
+                <Row style={{marginTop:10}}>
+                  <Col style={{flex:1}}>
+                    <p className="text-font">{checkValidity(opportunityDetails.appoint_Date)}</p>
+                    <p className="label-font">Appointment Date</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails.leadsubDisposition}</p>
-                    <p className="label-font">Sub Disposition</p>
+                    <p className="text-font">{checkValidity(opportunityDetails.appointmentTime)}</p>
+                    <p className="label-font">Appointment TIme</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}></Col>
@@ -762,7 +762,7 @@ const CompanyIntelligence = React.memo((props) => {
           setIsModalVisible={setShowTodoModal}
         />
         <>
-          <KDMDetails kdmDataSet={kdmType === 'create' ? {} : kdmDataSet} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
+          <KDMDetails kdmDataSet={kdmType === 'create' ? {} :kdmDetailsArr.length!==0?kdmDataSet:{}} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
         </>
         <>
           <ProducerVAS producerVasDetails={producerVasDetails} showVasModal={showVasModal} setShowVasModal={setShowVasModal} />

@@ -20,7 +20,6 @@ const RemarksModalComp = (props) => {
     // const storeUserId = useSelector((state) => state.newLead.userId)
     const dispatch = useDispatch()
     const [form] = Form.useForm();
-
     const _StoreData = useSelector((state) => state?.newLead?.formData);
     const user_id = useSelector((state) => state.login.user.id);
 
@@ -46,8 +45,7 @@ const RemarksModalComp = (props) => {
     const addRemarks = async () => {
         let result = "";
         if (remark && remark != "") {
-            result = await axiosRequest.post(`user/add-opporunity-remark/${_StoreData._id}`,{ new_remark: remark },{ secure: true });
-    
+            result = await axiosRequest.post(`user/addRemarks?brokerId=${_StoreData._id}`,{ new_remark: remark },{ secure: true });
             if (result) {
                 setRemark("");
                 form.setFieldsValue({remarks: ""});

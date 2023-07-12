@@ -42,6 +42,7 @@ const KDMDetails = (props) => {
     const _StoreData = useSelector((state) => state?.newLead?.formData);
     // console.log('kdm store data-------------->',_StoreData);
     const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
+        // console.log('kdm upDate data-------------->',_UpdateFormBody);
     const user_id = useSelector((state) => state.login.user.id);
     const states = useSelector((state) => state.address.states);
     // console.log('(((((((((_StoreData)))))))))---->>>>',_StoreData)
@@ -92,12 +93,9 @@ const KDMDetails = (props) => {
     const breakpoint = 620;
 
     useEffect(() => {
-        let _dataArr = []
+        let _dataArr = [];
         if(Object.keys(props.kdmDataSet).length > 0){
             setKdmTypeData('update')
-            // props.kdmDataSet.map(el =>{
-                // kdmDetArr.forEach(el =>{
-                    // console.log('kdmDataSet----------------->',props.kdmDataSet);
                 setEditKdmId(props.kdmDataSet._id)
                 let _data = {
                     kdmName:props.kdmDataSet.decision_maker_name,
@@ -585,7 +583,7 @@ return (
                                         onChange={ (date,dateString) => onChangeKdmDOB(date,dateString,index) } 
                                         value={el.kdmDOB}
                                         format="MM/DD/YYYY"
-                                        // disabledDate={(d) => !d || d.isAfter(minimumDate)}
+                                        disabledDate={(d) => !d || d.isAfter(minimumDate)}
                                         style={{display:'flex',flex:1,borderColor: el.dobBorder}}
                                     />
                                     {el.showKdmDOBErr && <p style={{marginBottom:6,color:'#ff4d4f'}}>Age must be greater than 18 years</p>}
