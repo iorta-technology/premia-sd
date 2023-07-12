@@ -639,6 +639,10 @@ margin-right: -15px;
   font-weight: 600;
   opacity: 0.8;
 }
+.centered {
+  text-align: center;
+  margin-right: 20px;
+}
 .contact-card-column {
   margin-bottom: 10px;
 }

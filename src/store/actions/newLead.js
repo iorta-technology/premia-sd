@@ -61,7 +61,7 @@ export const editLead = (formData, id) => {
     dispatch(editLeadStart());
    
     // let result = await axiosRequest.put(`user/updateLead/${id}`, formData, {
-    let result = await axiosRequest.put(`user/company/update-opportunity`, formData, {
+    let result = await axiosRequest.post(`user/addCollaborator?brokerId=${id}`, formData, {
       secure: true,
     });
     // console.warn("update LEADDDD_______", result);
