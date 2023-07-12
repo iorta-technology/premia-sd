@@ -43,9 +43,9 @@ const OpportunityComp = (props) => {
 
     const [dispoArr, setDispoArr] = useState([]);
     const [subdispoArr, setSubDispoArr] = useState([]);
-    const [showLeadDisposition, setShowLeadDisposition] = useState(true);
-    const [showLeadSubDisposition, setShowLeadSubDisposition] = useState(true);
-    const [showAppointmentFields, setShowAppointmentFields] = useState(true);
+    const [showLeadDisposition, setShowLeadDisposition] = useState(false);
+    const [showLeadSubDisposition, setShowLeadSubDisposition] = useState(false);
+    const [showAppointmentFields, setShowAppointmentFields] = useState(false);
     const [apptDateString, setApptDateString] = useState("");
     const [appointmentStatus, setAppointmentStatus] = useState();
     const [appointmentDisposition, setAppointmentDisposition] = useState();
@@ -312,7 +312,7 @@ return (
                                 message: "Select",
                                 },
                             ]}
-                            style={{ marginBottom: "1rem"}}
+                            style={{ marginBottom: "1rem" }}
                             >
                             <Select
                                 placeholder="Select"
@@ -402,6 +402,7 @@ return (
                                     value={formItem.appointmentDate}
                                     format="MM/DD/YYYY"
                                     style={{ display: "flex", flex: 1 }}
+                                    
                                     />
                                 </Form.Item>
                             </Col>
@@ -411,34 +412,6 @@ return (
                                     className="form-item-name label-color"
                                     name="appointment_time"
                                     label="Appointment Time"
-                                    rules={[
-                                    {
-                                        required: false,
-                                        message: "Select",
-                                    },
-                                    ]}
-                                    style={{ marginBottom: "1rem" }}
-                                >
-                                    <Select
-                                    placeholder="Select"
-                                    options={appointmentTimeOptions}
-                                    value={formItem.appointmentTime}
-                                    style={{width:'100%'}}
-                                    onChange={(val) =>
-                                        setFormItem((res) => ({
-                                        ...res,
-                                        appointmentTime: val,
-                                        }))
-                                    }
-                                    ></Select>
-                                </Form.Item>
-                            </Col>
-                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                                <Form.Item
-                                    {...formItemLayout}
-                                    className="form-item-name label-color"
-                                    name="appointment_time"
-                                    label="Sub-Diposition"
                                     rules={[
                                     {
                                         required: false,
