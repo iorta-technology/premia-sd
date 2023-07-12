@@ -213,111 +213,18 @@ const CompanyIntelligence = React.memo((props) => {
       let _opportunity = {
         appointmentDate: leadData?.appointmentDate == null ? '-' : leadData?.appointmentDate,
         appointmentTime: leadData?.appointmentTime == null ? '-' : leadData?.appointmentTime,
-        // appointmentDetails: leadData?.appointmentDetails,
-        // appointmentId: leadData?.appointmentId,
-        // appointmentTime: _appntTime,
-        // appoint_Date: _appntDate,
         leadStatus: '-',
-        // leadStatusLabel: opprtunityStatusData(leadData?.leadStatus),
-        // leadDisposition: leadData?.leadDisposition,
-        // leadDispositionLabel: opprtunityStatusData(leadData?.leadDisposition),
         leadsubDisposition: '-',
         leadDiposition: '-'
-        // appointment_status: leadData?.appointment_status,
 
       }
       setOpportunityDetails(_opportunity)
 
       //setting wallet details
       setWalletDetails(leadData?.wallet_details)
-      // setProducerDetails(leadData?.)
-      // setUpdateLeadID(leadData?._id)
-      // setCompanyDetails(leadData?.company_id)
-      // Setting Company name header
-      // dispatch(actions.headerName(leadData?.company_id?.company_name.toUpperCase()));
-      // let _appntDate = "";
-      // let _appntTime = "";
-
-      // Setting Opportunity data
-      // if (leadData?.appointmentDate) {     
-      //   let redable_date = new Date(leadData?.appointmentDate).toLocaleString('en-US', { timeZone: 'UTC' }).split(',')
-      //   _appntDate = redable_date[0]
-      //   let _appTime = redable_date[1].trim().split(':')
-      //   let _appTimeAm = _appTime[2].split(' ')
-
-      //   _appntTime = `${_appTime[0]}:${_appTime[1]} ${_appTimeAm[1]}`
-      // }
-      // console.log()
-      // let _opportunity = {
-      //   appointmentDate: leadData?.appointmentDate,
-      //   appointmentDetails: leadData?.appointmentDetails,
-      //   appointmentId: leadData?.appointmentId,
-      //   appointmentTime: _appntTime,
-      //   appoint_Date: _appntDate,
-      //   leadStatus: leadData?.leadStatus,
-      //   leadStatusLabel: opprtunityStatusData(leadData?.leadStatus),
-      //   leadDisposition: leadData?.leadDisposition,
-      //   leadDispositionLabel: opprtunityStatusData(leadData?.leadDisposition),
-      //   leadsubDisposition: leadData?.leadsubDisposition,
-      //   appointment_status: leadData?.appointment_status,
-      // }
-      // setOpportunityDetails(_opportunity)
-
-      // Setting PRODUCER & VAS data
-      // let _vas = {
-      //   VAS_executed: leadData?.VAS_executed,
-      //   VAS_input: leadData?.VAS_input,
-      //   channel_name: leadData?.channel_name,
-      //   producer: leadData?.producer,
-      // }
-      // setProducerVasDetails(_vas)
-
-      // Setting EXPECTATION data
-      // let _expectation = {
-      //   client_expectations: leadData?.client_expectations,
-      //   red_flags: leadData?.red_flags,
-      //   our_ask: leadData?.our_ask,
-      // }
-      // setExpectationDetails(_expectation)
-
-      // setRiskDetailsArr(leadData?.risk_details)
-
-
-      // leadData?.company_id?.kdm_details.forEach((el, index) => {
-      //   el.kdmTabs = `KDM ${index + 1}`
-      // })
-      // setKdmDetailsArr(leadData?.company_id?.kdm_details)
-      // if(leadData?.company_id?.kdm_details?.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
-
-      // var newArr = leadData?.documents?.map((res) => ({ ...res, recent: false }));
-      // setFileData(newArr)
-
+      
       setreamrkDataArr(leadData?.remarks)
-      // let _teamData = leadData?.teamMembers ? JSON.parse(leadData?.teamMembers) : [];
-      // console.log('teamDataArr------------->>>',teamDataArr)
-      // setTeamDataArr(_teamData);
-
-      // userTreeData.reporting_users.map((el) => {
-      //   let sortarray = {
-      //       FullName: el.full_name,
-      //       ShortId: el.employeeCode,
-      //       firstname: el.first_name,
-      //       lastname: el.last_name,
-      //       employecode: el.employeeCode,
-      //       designation: el.hierarchyName,
-      //       _Id: el._id,
-      //       value:
-      //       doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
-      //   };
-      //   _teamMember.push(sortarray);
-      //   sortarray = {};
-      // });
-      // let _finalData = [..._teamMember, _reportManager];
-      // // console.log('_finalData------CIII------->>>',_finalData)
-      // let _data = _finalData.filter(el => _teamData.some(event => el._Id === event.Id));
-
-      // setTeamDataArr(_data);
-      // console.log('_data------CIII------->>>',_data)
+     
 
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
@@ -351,8 +258,6 @@ const CompanyIntelligence = React.memo((props) => {
     setShowVasModal(true)
   };
   const openKDMModal = (event) => {
-    // if(event === 'create') setKdmDataSet({})
-    // const [kdmType, setKdmType] = useState("");
     if (event === 'create') {
       if (kdmDetailsArr?.length >= 4) {
         message.info("Only 4 KDM's can be Added");
@@ -400,10 +305,10 @@ const CompanyIntelligence = React.memo((props) => {
     // console.log('data DATA---->>>', data)
     // secure/user/deletekdmDetails?userId=63dce7c80ae6868961079fe6&kdmId=64786ff0cac6fc279ab38cc6
     const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
-    axios.delete(`${baseURL}secure/user/deletekdmDetails?userId=${loginId}&kdmId=${activeKdm}`, { headers }).then(res => {
+    axios.delete(`${baseURL}secure/user/deletekdm?userId=${loginId}&kdmId=${activeKdm}`, { headers }).then(res => {
       // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
       if (res.data.errCode === -1) {
-        dispatch(actions.fetchLeadDetails_broker(storeFormData._id))
+        dispatch(actions.fetchLeadDetails_broker(storeFormData._id));
         message.success("KDM Details Deleted Successfully");
       }
     })
@@ -705,55 +610,7 @@ const CompanyIntelligence = React.memo((props) => {
               </Col>
             </Card>
 
-            {/* Producer and VAS */}
-            {/* <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
-              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
-                <p className="app-font" style={{ color: '#444444' }}>Producer and VAS</p>
-                <FormOutlined onClick={() => openProdVasModal()} style={{ fontSize: 20 }} />
-              </Row>
-              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
-              <Col style={{ padding: 10 }}>
-                <Row>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(producerVasDetails?.channel_name)}</p>
-                    <p className="label-font">Channel Name</p>
-                  </Col>
-
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(producerVasDetails?.producer)}</p>
-                    <p className="label-font">Producer</p>
-                  </Col>
-                  <Col style={{ flex: 1 }}></Col>
-                </Row>
-              </Col>
-            </Card> */}
-
-            {/* Expectation */}
-            {/* <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
-              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
-                <p className="app-font" style={{ color: '#444444' }}>Expectation</p>
-                <FormOutlined onClick={() => openExpectationModal()} style={{ fontSize: 20 }} />
-              </Row>
-              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
-              <Col style={{ padding: 10 }}>
-                <Row>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(expectationDetails?.client_expectations)}</p>
-                    <p className="label-font">Client Expectation</p>
-                  </Col>
-
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(expectationDetails?.red_flags)}</p>
-                    <p className="label-font">Red Flag</p>
-                  </Col>
-
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(expectationDetails?.our_ask)}</p>
-                    <p className="label-font">Our Ask</p>
-                  </Col>
-                </Row>
-              </Col>
-            </Card> */}
+           
           </Col>
 
           {/* 2nd Column */}
@@ -810,111 +667,7 @@ const CompanyIntelligence = React.memo((props) => {
                   </div>
                 </div>
                 }
-                {/* {riskDetailsArr?.length > 0 ?
-                  riskDetailsArr?.map((el, index) =>
-                    <Collapse accordion={true} onChange={(text) => handleCollapse(text, el, index)} expandIconPosition={'right'} style={panelStyle} defaultActiveKey={['1']}>
-                      <Panel
-                        header={el.total_entities}
-                        key={el.key}
-                        extra={
-                          <Row style={{ marginTop: 3 }} onClick={e => e.stopPropagation()}>
-                            <DeleteOutlined onClick={() => deleteRiskData(el, index)} style={{ fontSize: 18, marginRight: 10, color: '#737373' }} />
-                            <FormOutlined onClick={() => openRiskModal('edit', el, index)} style={{ fontSize: 16, color: '#737373' }} />
-                          </Row>
-                        }
-                      >
-                        <Row>
-                          <Col style={{ flex: 1 }}>
-                            <p className="text-font">{el.inception_date}</p>
-                            <p className="label-font">Inception Date</p>
-                          </Col>
-
-                          <Col style={{ flex: 1 }}>
-                            <p className="text-font">{el.tagic_presence_percentage}</p>
-                            <p className="label-font">TAGIC Presence</p>
-                          </Col>
-
-                          <Col style={{ flex: 1 }}>
-                            <p className="text-font">{el.leader_share}</p>
-                            <p className="label-font">Leader Share %</p>
-                          </Col>
-                        </Row>
-
-                        <Row style={{ marginTop: 10 }}>
-                          <Col style={{ flex: 1 }}>
-                            <p className="text-font">{el.total_entities}</p>
-                            <p className="label-font">Name of Entities</p>
-                          </Col>
-
-                          <Col style={{ flex: 1 }}>
-                            <Tooltip placement="top" title={el.product_for_opportunity}>
-                              <p
-                                className="text-font"
-                                style={{
-                                  marginBottom: 0,
-                                  width: 120,
-                                  textOverflow: "ellipsis",
-                                  whiteSpace: "nowrap",
-                                  overflow: "hidden",
-                                }}
-                              >
-                                {el.product_for_opportunity}
-                              </p>
-                            </Tooltip>
-                            <p className="label-font">Product Name</p>
-                          </Col>
-
-                          <Col style={{ flex: 1 }}>
-                            <p className="text-font">{el.total_premium}</p>
-                            <p className="label-font">Total Premium</p>
-                          </Col>
-                        </Row>
-
-                        <Row style={{ marginTop: 10 }}>
-                          <Col style={{ flex: 1 }}>
-                            <p className="text-font">{el.tagic_premium}</p>
-                            <p className="label-font">TAGIC Premium</p>
-                          </Col>
-
-                          <Col style={{ flex: 1 }}>
-                            <p className="text-font">{el.leader}</p>
-                            <p className="label-font">Lead/Follower</p>
-                          </Col>
-
-                          <Col style={{ flex: 1 }}>
-                            <Tooltip placement="top" title={el.lead_insurer}>
-                              <p
-                                className="text-font"
-                                style={{
-                                  marginBottom: 0,
-                                  width: 120,
-                                  textOverflow: "ellipsis",
-                                  whiteSpace: "nowrap",
-                                  overflow: "hidden",
-                                }}
-                              >
-                                {el.lead_insurer}
-                              </p>
-                            </Tooltip>
-                            <p className="label-font">Lead Insurer</p>
-                          </Col>
-                        </Row>
-                      </Panel>
-                    </Collapse>
-                  )
-                  :
-                  <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
-                    <img src={noDataIcon} style={{ height: 100, width: 100 }} />
-                    <div style={{ marginTop: 10 }}>
-                      <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No Risk details available.
-                        <span onClick={() => openRiskModal('create')} style={{ fontSize: 14, color: '#00ACC1', fontWeight: 500, cursor: 'pointer' }}>Add Details</span>
-                      </text>
-                    </div>
-                  </div>
-                } */}
-                {
-
-                }
+               
               </Col>
             </Card>
 
@@ -995,48 +748,7 @@ const CompanyIntelligence = React.memo((props) => {
 
             </Card>
 
-            {/* Documents Uploaded */}
-            {/* <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">
-              <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }} >
-                <p className="app-font" style={{ color: '#444444' }}>Document Uploaded</p>
-                <UploadOutlined onClick={() => openDocumentModal()} style={{ fontSize: 20 }} />
-              </Row>
-              <div style={{ height: 1, backgroundColor: '#D8D8D8' }}></div>
-              <Col style={{ padding: 10 }}>
-                <Row>
-                  <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                    {fileData?.length > 0 ? 
-                      fileData?.map((item, index) => (
-                        <Row style={{justifyContent:'space-between',alignItems:'center',marginBottom:10}}>
-                          <div className="wrapper1">
-                            <div className="page" ><img style={{ height: 15, width: 15 }}  src={page} /></div>
-
-                            <div style={{width: 300,textOverflow: "ellipsis",whiteSpace: "nowrap",overflow: "hidden",}} >
-                              <a href={item.url} download>
-                                {item.originalname || item.file_name}
-                              </a>
-                            </div>
-                          </div>
-                          <div className="wrapper2">
-                            <div className="trash" onClick={() => delDoc(item,index)} style={{ cursor: "pointer" }}><img src={Trash} /></div>
-                          </div>
-                        </Row>
-                      ))
-                      :
-                      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
-                        <img src={noDataIcon} style={{ height: 100, width: 100 }} />
-                        <div style={{ marginTop: 10 }}>
-                          <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No Documents available.
-                            <span onClick={() => openDocumentModal()} style={{ fontSize: 14, color: '#00ACC1', fontWeight: 500, cursor: 'pointer' }}>Add Documents</span>
-                          </text>
-                        </div>
-                      </div>
-                    }
-                  </div>
-                  <Col style={{ flex: 1 }}></Col>
-                </Row>
-              </Col>
-            </Card> */}
+           
           </Col>
         </Row>
 
@@ -1046,9 +758,6 @@ const CompanyIntelligence = React.memo((props) => {
           getTodoData={getTodo}
           button={"Create"}
           leadID={updateLeadID}
-          // companyID={companyDetails?._id}
-          // company_Name={companyDetails?.company_name}
-          // opportunity_Name={formItem.opportunityName}
           isModalVisible={showTodoModal}
           setIsModalVisible={setShowTodoModal}
         />
