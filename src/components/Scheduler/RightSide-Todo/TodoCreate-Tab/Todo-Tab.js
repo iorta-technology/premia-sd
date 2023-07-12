@@ -720,25 +720,6 @@ const TodoTab = (props) => {
               </Col> */}
             </Row>
             <div className="due-reminder" >
-              {/* <div className="Todo-Create-Header" >
-                <p style={{ marginBottom: "5px"}}> Add Team Member </p>
-                <div className="Todo-Create-SearchBox todoSearch">
-                  <AutoComplete
-                    value={teamMemberData}
-                    style={{ width: "96%" }}
-                    options={hierarAgentList}
-                    onChange={(text, data) => onChangeTeam(text, data)}
-                    onSelect={onSelectTeam}
-                    filterOption={(inputValue, option) =>
-                      option.value
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    }
-                  >
-                    <Search placeholder="Search by Name" style={{width:"100%"}}/>
-                  </AutoComplete>
-                </div>
-              </div> */}
               <Col style={{ flex: 1}} className="searchIcon">
                 <p style={{ marginBottom: 5 }}> Add Team Member </p>
                 <AutoComplete
@@ -814,7 +795,7 @@ const TodoTab = (props) => {
               </div>
             )}
             <div className="Todo-Create-TextBox" style={{marginBottom:"10px"}}>
-            <div style={{marginBottom:"5px"}}>Enter To-Do</div>
+            <div style={{marginBottom:"5px",marginTop:10}}>Enter To-Do</div>
               <input
                 value={todoDesc}
                 onChange={(e) => setTodoDesc(e.target.value)}
@@ -882,13 +863,6 @@ const TodoTab = (props) => {
                 Low
               </Button>
             </div>
-            {/* <hr
-              style={{
-                margin: "10px 0",
-                color: "#f4f4f4 !important",
-                opacity: "0.4",
-              }}
-            /> */}
             
             <div
               className={[
