@@ -76,11 +76,11 @@ const formItemLayout = {
 const tabMenu = [
   {
     id: 1,
-    value: "Broker Intelligence",
+    value: "Company Intelligence",
   },
   {
     id: 2,
-    value: "Activity Log",
+    value: "History",
   },
 ];
 const CompanyIntelligence = React.memo((props) => {
@@ -364,7 +364,7 @@ const CompanyIntelligence = React.memo((props) => {
         // header={companyDetails?.company_name?.toUpperCase()}
         activeKey="1"
         statusLeadData={storeFormData}
-        header={storeFormData?.producerdetails?.raw_producer_name}
+        header={storeFormData.producerdetails.raw_producer_name}
       />
 
       <div
@@ -382,17 +382,17 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails?.producer_name}</p>
+                    <p className="text-font">{producerDetails.producer_name}</p>
                     <p className="label-font">Producer Name</p>
                   </Col>
                 </Row>
                 <Row style={{ marginTop: 10 }}>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails?.city}</p>
+                    <p className="text-font">{producerDetails.city}</p>
                     <p className="label-font">City</p>
                   </Col>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails?.wallet_size}</p>
+                    <p className="text-font">{producerDetails.wallet_size}</p>
                     <p className="label-font">Wallet</p>
                   </Col>
                 </Row>
@@ -566,16 +566,16 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails?.leadStatus}</p>
+                    <p className="text-font">{checkValidity(opportunityDetails?.leadStatusLabel)}</p>
                     <p className="label-font">Status</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails?.appointmentDate}</p>
-                    <p className="label-font">Appointment Date</p>
+                    <p className="text-font">{checkValidity(opportunityDetails?.leadDispositionLabel)}</p>
+                    <p className="label-font">Disposition</p>
                   </Col>
 
-                  <Col style={{ flex: 1 }}>
+                  <Col style={{flex:1}}>
                     <Tooltip placement="top" title={checkValidity(opportunityDetails?.leadsubDisposition)}>
                       <p
                         className="text-font"
@@ -587,22 +587,22 @@ const CompanyIntelligence = React.memo((props) => {
                           overflow: "hidden",
                         }}
                       >
-                        {opportunityDetails?.appointmentTime}
+                        {checkValidity(opportunityDetails.leadsubDisposition)}
                       </p>
                     </Tooltip>
-                    <p className="label-font">Appointment Time</p>
+                    <p className="label-font">Sub Disposition</p>
                   </Col>
                 </Row>
 
-                <Row style={{ marginTop: 10 }}>
-                  <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails?.leadDiposition}</p>
-                    <p className="label-font">Disposition</p>
+                <Row style={{marginTop:10}}>
+                  <Col style={{flex:1}}>
+                    <p className="text-font">{checkValidity(opportunityDetails.appoint_Date)}</p>
+                    <p className="label-font">Appointment Date</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{opportunityDetails?.leadsubDisposition}</p>
-                    <p className="label-font">Sub Disposition</p>
+                    <p className="text-font">{checkValidity(opportunityDetails.appointmentTime)}</p>
+                    <p className="label-font">Appointment TIme</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}></Col>
@@ -636,11 +636,11 @@ const CompanyIntelligence = React.memo((props) => {
                       <Row justify="space-between" style={{ alignItems: 'center', padding: '5px 10px 5px 10px' }}>
                         <p className="app-font" style={{ color: '#444444' }}>{element.lob_for_opportunity}</p>
                         <Row>
-                          <DeleteOutlined  onClick={() => deleteWalletDetails(element, index)} style={{  fontSize: 16,color:'grey' }} />
-                          <FormOutlined  onClick={() => openWalletModal('edit', element, index)} style={{ marginLeft: 15,fontSize: 16,color:'grey' }} />
+                          <DeleteOutlined  onClick={() => deleteWalletDetails(element, index)} style={{  fontSize: 20 }} />
+                          <FormOutlined  onClick={() => openWalletModal('edit', element, index)} style={{ marginLeft: 15,fontSize: 20 }} />
                         </Row>
                       </Row>
-                      <Row justify="space-between" style={{ alignItems: 'center', padding: '0px 60px 10px 10px' }}>
+                      <Row justify="space-between" style={{ alignItems: 'center', padding: '10px 60px 10px 10px' }}>
                         <Row>
                           {/* <Col><p className="app-font" style={{ color: '#444444' }}>{element.wallet_share}</p></Col> */}
                           <Col style={{flex:1}}>
@@ -762,7 +762,7 @@ const CompanyIntelligence = React.memo((props) => {
           setIsModalVisible={setShowTodoModal}
         />
         <>
-          <KDMDetails kdmDataSet={kdmType === 'create' ? {} : kdmDataSet} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
+          <KDMDetails kdmDataSet={kdmType === 'create' ? {} :kdmDetailsArr.length!==0?kdmDataSet:{}} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
         </>
         <>
           <ProducerVAS producerVasDetails={producerVasDetails} showVasModal={showVasModal} setShowVasModal={setShowVasModal} />
