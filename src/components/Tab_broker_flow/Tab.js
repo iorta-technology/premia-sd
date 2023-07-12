@@ -60,6 +60,7 @@ const Tab = ({
   const [leadTabFilter, setLeadTabFilter] = useState("all");
   const [TeamSelf, setTeamSelf] = useState(true);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
+  console.log('Tab Lead--------------------> ',storeFormData);
 
   let history = useHistory();
   let _currentTab = "self";
@@ -70,8 +71,10 @@ const Tab = ({
     console.log("************************ header ___*(*(*((**)))) *********************===========>>>",header);
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
-    if (header === "Lead") getDataForOpen(leadTabFilter);
+    // if (header === "Lead") getDataForOpen(leadTabFilter);
+    if (header === "Broker Listing") getBrokerData(leadTabFilter);
   }, [current]);
+
 
   // ************************Api *********************
 
@@ -114,7 +117,7 @@ const Tab = ({
     }
   };
   const handler = (activeKey) => {
-    // console.log("activeKey------------->>>>>>>>", activeKey);
+    console.log("activeKey------------->>>>>>>>", activeKey);
     setactiveTab(activeKey);
     // dispatch(actions.fetchAllLeads(activeTab,current))
 
@@ -142,11 +145,11 @@ const Tab = ({
           return history.push("/brokerflow/all_leads");
         }
         case "fortoday_broker": {
-          getBrokerData("fortoday");
-          return history.push("/brokerflow/fortoday");
+          getBrokerData("today");
+          return history.push("/brokerflow/today");
         }
         case "1":
-          return history.push("/company-intelligence", {
+          return history.push("/company-intelligence_broker", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
           });
@@ -170,7 +173,6 @@ const Tab = ({
     tabPane = _.map(tabMenu, (value, id) => {
       return <TabPane key={value.id} tab={value.value}></TabPane>;
     });
-    // console.warn("tabPane", tabPane)
   }
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -192,14 +194,10 @@ const Tab = ({
     setCurrentActiveTab(currentTab);
     getDataForOpen("all");
     dispatch(actions.updateTabOfDashboard(currentTab));
-
-    // if (currentTab === "team") getDataForOpen();
     currentTab !== currentActiveTab &&
-      dispatch(actions.updateAllocateOfOpportunities(false));
+    dispatch(actions.updateAllocateOfOpportunities(false));
   };
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -235,7 +233,7 @@ const Tab = ({
             </div>
           </div>
 
-          { header === "Lead" &&
+          {/* { header === "Lead" &&
             <GlobalFilters
               show={show}
               onHide={handleClose}
@@ -243,7 +241,7 @@ const Tab = ({
               setShow={setShow}
               tabFilter={leadTabFilter}
             />
-          }
+          } */}
           {/* {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&
             storeFormData &&

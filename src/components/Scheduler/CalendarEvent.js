@@ -4107,7 +4107,6 @@ export default function CalendarEvent(props) {
                     <DatePicker
                       onChange={StartDateFunc}
                       allowClear={false}
-                      // disabledDate={(d) => !d || d.isBefore(minimumDate)}
                       defaultValue={durationStartDate}
                       value={durationStartDate}
                       format="MM/DD/YYYY"
@@ -4116,7 +4115,6 @@ export default function CalendarEvent(props) {
                           ? "CalendarEvent-Modal-empty-picker-style"
                           : "CalendarEvent-Modal-picker-style"
                       }
-                      // className="CalendarEvent-Modal-picker-style"
                     />
 
                     {durationStartDateDiffCheck == false ? (
@@ -4162,11 +4160,6 @@ export default function CalendarEvent(props) {
                         Start Time should be less than end time
                       </p>
                     ) : null}
-                    {/* <TimePicker onChange={StartTimeFunc}
-                      value={durationStartTime}
-                      defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
-                      className="CalendarEvent-Modal-picker-style"
-                    /> */}
                   </div>
                 </div>
               </div>

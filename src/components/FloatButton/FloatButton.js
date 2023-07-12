@@ -17,11 +17,11 @@ import { useDispatch,useSelector } from "react-redux";
 import axiosRequest from "../../axios-request/request.methods";
 import "./FloatButton.css";
 import { message } from "antd";
-import lead_icon from '../../assets/Agreement_white_24dp.png'
-import event_icon from '../../assets/Questinairee_white_24dp.png'
-import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png'
-import NewLead from '../StatusLead/NewLeadCreation'
-import NewBroker from '../StatusLead/NewBroker'
+import lead_icon from '../../assets/Agreement_white_24dp.png';
+import event_icon from '../../assets/Questinairee_white_24dp.png';
+import goal_icon from '../../assets/MaterialUiIcons/gps_fixed_white_192x192.png';
+import NewLead from '../StatusLead/NewLeadCreation';
+import NewBroker from '../StatusLead/NewBroker';
 
 // const logindata = stoageGetter('user')
 // let id = ''
@@ -224,19 +224,19 @@ const FloatButton = React.memo(() => {
                 </Col>
               </Row>
 
-              <Row onClick={onclick_float} style={{alignItems:'center',cursor:'pointer'}}>
+              <Row onClick={onclick_float} style={{alignItems:'center',cursor:'pointer',marginBottom:10}}>
                 <FileTextOutlined style={{fontSize:20,fontWeight:'bolder'}} />
                 <Col>
                   <p style={{marginLeft:12,marginBottom:4,fontWeight:'200'}}>New Lead Creation</p>
                 </Col>
               </Row>
 
-              {/* <Row onClick={addNewBroker} style={{alignItems:'center',cursor:'pointer'}}>
+              <Row onClick={addNewBroker} style={{alignItems:'center',cursor:'pointer'}}>
                 <PlusCircleOutlined style={{fontSize:20,fontWeight:'bolder'}} />
                 <Col>
                   <p style={{marginLeft:12,marginBottom:4,fontWeight:'200'}}>Add Producer</p>
                 </Col>
-              </Row> */}
+              </Row>
             </>
           } 
           >

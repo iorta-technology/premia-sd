@@ -43,9 +43,9 @@ const OpportunityComp = (props) => {
 
     const [dispoArr, setDispoArr] = useState([]);
     const [subdispoArr, setSubDispoArr] = useState([]);
-    const [showLeadDisposition, setShowLeadDisposition] = useState(false);
-    const [showLeadSubDisposition, setShowLeadSubDisposition] = useState(false);
-    const [showAppointmentFields, setShowAppointmentFields] = useState(false);
+    const [showLeadDisposition, setShowLeadDisposition] = useState(true);
+    const [showLeadSubDisposition, setShowLeadSubDisposition] = useState(true);
+    const [showAppointmentFields, setShowAppointmentFields] = useState(true);
     const [apptDateString, setApptDateString] = useState("");
     const [appointmentStatus, setAppointmentStatus] = useState();
     const [appointmentDisposition, setAppointmentDisposition] = useState();
@@ -312,13 +312,14 @@ return (
                                 message: "Select",
                                 },
                             ]}
-                            style={{ marginBottom: "1rem" }}
+                            style={{ marginBottom: "1rem"}}
                             >
                             <Select
                                 placeholder="Select"
                                 options={leadStatusItems}
                                 value={formItem.status}
                                 onChange={(val) => changeLeadStatus(val)}
+                                style={{width:'100%'}}
                             ></Select>
                             </Form.Item>
                         </Col>
@@ -343,6 +344,7 @@ return (
                                         options={dispoArr}
                                         value={formItem.disposition}
                                         onChange={(val) => changeDispoStatus(val)}
+                                        style={{width:'100%'}}
                                     ></Select>
                                 </Form.Item>
                             </Col>
@@ -367,6 +369,7 @@ return (
                                     placeholder="Select"
                                     options={subdispoArr}
                                     value={formItem.subDisposition}
+                                    style={{width:'100%'}}
                                     onChange={(val) =>
                                         setFormItem((res) => ({
                                         ...res,
@@ -420,6 +423,35 @@ return (
                                     placeholder="Select"
                                     options={appointmentTimeOptions}
                                     value={formItem.appointmentTime}
+                                    style={{width:'100%'}}
+                                    onChange={(val) =>
+                                        setFormItem((res) => ({
+                                        ...res,
+                                        appointmentTime: val,
+                                        }))
+                                    }
+                                    ></Select>
+                                </Form.Item>
+                            </Col>
+                            <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                                <Form.Item
+                                    {...formItemLayout}
+                                    className="form-item-name label-color"
+                                    name="appointment_time"
+                                    label="Sub-Diposition"
+                                    rules={[
+                                    {
+                                        required: false,
+                                        message: "Select",
+                                    },
+                                    ]}
+                                    style={{ marginBottom: "1rem" }}
+                                >
+                                    <Select
+                                    placeholder="Select"
+                                    options={appointmentTimeOptions}
+                                    value={formItem.appointmentTime}
+                                    style={{width:'100%'}}
                                     onChange={(val) =>
                                         setFormItem((res) => ({
                                         ...res,

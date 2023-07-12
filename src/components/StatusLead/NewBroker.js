@@ -57,15 +57,23 @@ const NewLead = React.memo((props) => {
 
 
   const submitBrokerData = async () => {
+    let payload = {
+      producer_name: formItem.producerName,
+      city: formItem.brokerCity,
+      wallet_size: formItem.walletSize
+    }
     if (formItem.producerName === "") {
       return message.warning("Producer Name is required");
     }
-
-    if (formItem.brokerCity === "") {
+    else if (formItem.brokerCity === "") {
       return message.warning("Broker City is required");
     }
-    if (formItem.walletSize === "") {
-        return message.warning("Wallet Size is required");
+    else if (formItem.walletSize === "") {
+      return message.warning("Wallet Size is required");
+    }
+    else{
+      await axiosRequest.post(`user/addproducer`,payload,{ secure: true });
+      closeBrokerModal()
     }
 
     return

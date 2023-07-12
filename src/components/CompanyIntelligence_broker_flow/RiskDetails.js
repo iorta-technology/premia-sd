@@ -56,32 +56,28 @@ import {
 import moment from "moment";
 
 const { Text } = Typography;
-const tabMenu = [
-  {
-    id: 1,
-    value: "Opportunity Details",
-  },
-  {
-    id: 2,
-    value: "Company Intelligence",
-  },
-  {
-    id: 3,
-    value: "History",
-  },
-];
+// const tabMenu = [
+//   {
+//     id: 1,
+//     value: "Opportunity Details",
+//   },
+//   {
+//     id: 2,
+//     value: "Company Intelligence",
+//   },
+//   {
+//     id: 3,
+//     value: "History",
+//   },
+// ];
 
 const RiskDetails = (props) => {
-  // const storeLeadId = useSelector((state) => state.newLead.leadId)
-  // const storeUserId = useSelector((state) => state.newLead.userId)
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const _StoreData = useSelector((state) => state?.newLead?.formData);
+  console.log('formData------------------->',_StoreData);
   const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   const user_id = useSelector((state) => state?.login?.user?.id);
-  // console.log("(((((((((_StoreData____RISKKKK)))))))))---->>>>", _StoreData);
-  // console.log('(((((((((RISKSKKSKS)))))))))---->>>>',props.riskDataSet)
-
   const [noOfEntities, setNoOfEntities] = useState("");
   const [productNameData, setProductNameData] = useState("");
   const [totalPremData, setTotalPremData] = useState("");
@@ -98,9 +94,7 @@ const RiskDetails = (props) => {
   const [productForOpportunity, setProductForOpportunity] = useState("");
   const [editRiskId, setEditRiskId] = useState("");
   const [tenderDriver, setTenderDriver] = useState(false);
-  
   const [riskDataArr, setRiskDataArr] = useState([]);
-
   const [showRiskDetailsPopup, setShowRiskDetailsPopup] = useState(false);
   const [prodForOpportunityArr, setProdForOpportunityArr] = useState([]);
 
@@ -112,43 +106,41 @@ const RiskDetails = (props) => {
       let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date,"MM/DD/YYYY");
 
       setShowRiskDetailsPopup(true);
-      setNoOfEntities(!props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities);
+      setNoOfEntities(!props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share);
       // setProductNameData("");
-      setTotalPremData(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
-      setTagicPresence(!props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage);
-      setTagicPremium(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
-      setLeadrFollowerData(!props.riskDataSet.leader ? "" : props.riskDataSet.leader);
-      setLeadInsurerData(!props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer);
-      setLeaderShareData(!props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share);
-      setInceptionDateData(_InceptnDateFormat);
-      setEditIndex("");
-      setPanNo(!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no);
+      // setTotalPremData(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
+      // setTagicPresence(!props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage);
+      // setTagicPremium(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
+      // setLeadrFollowerData(!props.riskDataSet.leader ? "" : props.riskDataSet.leader);
+      // setLeadInsurerData(!props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer);
+      // setLeaderShareData(!props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share);
+      // setInceptionDateData(_InceptnDateFormat);
+      // setEditIndex("");
+      // setPanNo(!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no);
       setLOBForOpportunity(!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity);
-      setProductForOpportunity(!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity);
-      setTenderDriver(!props.riskDataSet.tender_driven ? "" : props.riskDataSet.tender_driven === 'No' ? false : true);
+      // setProductForOpportunity(!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity);
+      // setTenderDriver(!props.riskDataSet.tender_driven ? "" : props.riskDataSet.tender_driven === 'No' ? false : true);
       
       setEditRiskId(props.riskDataSet._id)
 
       form.setFieldsValue({
-        nameOfentity: !props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities,
-        // productName: "",
-        totPrem: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
-        tagicPresence: !props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage,
-        tagicPremium: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
-        leadrFollowr: !props.riskDataSet.leader ? "" : props.riskDataSet.leader,
-        leadeInsurer: !props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer,
-        leaderShare: !props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share,
-        incepDate: _InceptnDateFormat,
-        pan_No:!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no,
+        nameOfentity: !props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share,
+        // totPrem: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
+        // tagicPresence: !props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage,
+        // tagicPremium: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
+        // leadrFollowr: !props.riskDataSet.leader ? "" : props.riskDataSet.leader,
+        // leadeInsurer: !props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer,
+        // leaderShare: !props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share,
+        // incepDate: _InceptnDateFormat,
+        // pan_No:!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no,
         lob_for_opportunity:!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity,
-        product_for_opportunity:!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity,
+        // product_for_opportunity:!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity,
       });
       
     }else{
       addNewRiskDetails()
       setRiskType('create')
     }
-
     
   }, [props.riskDataSet]);
 
@@ -334,7 +326,6 @@ const RiskDetails = (props) => {
       riskDataArr[editIndex].lobOpportunity = LOBForOpportunity;
       riskDataArr[editIndex].prodOpportunity = productForOpportunity;
       riskDataArr[editIndex].tendrDriver = tenderDriver;
-      // setPanNo(event.Pan_no);
     } else {
       let _data = {
         riskName: !productNameData ? "-" : productNameData,
@@ -365,19 +356,8 @@ const RiskDetails = (props) => {
   const updateRiskDetails = async (event) => {
     let _riskDetailsData = [];
     let form_data = {
-      total_entities: !noOfEntities ? null : noOfEntities,
-      total_premium: !totalPremData ? 0 : totalPremData,
-      tagic_presence_percentage: !tagicPresence ? 0 : tagicPresence,
-      lead_insurer: !leadInsurerData ? null : leadInsurerData,
-      leader_share: !leaderShareData ? 0 : leaderShareData,
-
-      tagic_premium: !tagicPremium ? null : tagicPremium,
-      leader: !leadrFollowerData ? null : leadrFollowerData,
-      inception_date: !inceptionDateData ? null : inceptionDateData,
-      Pan_no: !panNo ? null : panNo,
+      wallet_share: !noOfEntities ? null : noOfEntities,
       lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
-      product_for_opportunity: !productForOpportunity ? null : productForOpportunity,
-      tender_driven: !tenderDriver ? "No" : tenderDriver,
     };
     
     // _riskDetailsData.push(_data);
@@ -388,14 +368,15 @@ const RiskDetails = (props) => {
     
     // console.warn("formBody ------>>>>>", formBody);
     if(riskType === 'create'){
-      let result = await axiosRequest.post(`user/postRiskDetailsform?userId=${user_id}&lead_Id=${_StoreData.lead_Id}`,formBody,{ secure: true });
-      dispatch(actions.fetchLeadDetails(_StoreData._id))
+      let result = await axiosRequest.post(`user/addwalletdetails?userId=${user_id}&broker_id=${_StoreData.broker_id}`,formBody,{ secure: true });
+      dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
+      message.success("Wallet Details Created Successfully");
     }else{
-      let result = await axiosRequest.put(`user/updateriskform?userId=${user_id}&lead_Id=${_StoreData.lead_Id}&riskId=${editRiskId}`,formBody,{ secure: true });
-      dispatch(actions.fetchLeadDetails(_StoreData._id))
+      let result = await axiosRequest.put(`user/updatewalletdetails?userId=${user_id}&broker_id=${_StoreData.broker_id}&walletId=${editRiskId}`,formBody,{ secure: true });
+      dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
+      message.success("Wallet Details Updated Successfully");
     }
-
-    props.setShowRiskModal(false)
+    props.setShowRiskModal(false);
   };
 
   const deleteRisk = (event, ind) => {
@@ -404,12 +385,9 @@ const RiskDetails = (props) => {
   };
 
   const editRisk = (event, ind) => {
-    // console.warn("(((((RISK Details EDIT ))))) -------->>>>", event);
-    // console.warn("(((((RISK Details EDIT ind ))))) -------->>>>", ind);
+    console.log("(((((RISK Details EDIT ))))) -------->>>>", event);
     setEditIndex(ind);
-
     setShowRiskDetailsPopup(true);
-
     setNoOfEntities(event.riskType);
     setProductNameData(event.riskName);
     setTotalPremData(event.totalPrem);
@@ -420,8 +398,6 @@ const RiskDetails = (props) => {
     setLeaderShareData(event.leaderShare);
     setInceptionDateData(moment(event.inceptionDate, "MM/DD/YYYY"));
     setPanNo(event.panNo);
-    // const [panNo, setPanNo] = useState("");
-
     form.setFieldsValue({
       nameOfentity: event.riskType,
       productName: event.riskName,
@@ -434,7 +410,6 @@ const RiskDetails = (props) => {
       pan_No: event.panNo,
       incepDate: moment(event.inceptionDate, "MM/DD/YYYY"),
     });
-    // const [editIndex, setEditIndex] = useState('');
   };
 
   const addNewRiskDetails = () => {
@@ -461,7 +436,7 @@ const RiskDetails = (props) => {
       tagicPresence: "",
       tagicPremium: "",
       leadrFollowr: undefined,
-      leadeInsurer: ' ', //Please do not remove the space from the empty string
+      leadeInsurer: ' ', 
       leaderShare: "",
       incepDate: "",
       pan_No:'',
@@ -508,184 +483,8 @@ const RiskDetails = (props) => {
 
   return (
     <>
-      {/* <Col
-        className="form-body ci-p20 mb-2"
-        xs={24}
-        sm={24}
-        md={16}
-        lg={15}
-        xl={21}
-        span={23}
-      >
-        <p className="form-title">Risk Details</p>
-        <Row
-          gutter={16}
-          className="mb-2 statsLead kdmStyle"
-          style={{ paddingTop: 15,paddingLeft:20,paddingRight:20 }}
-          justify="space-between"
-        >
-          {riskDataArr.length > 0 &&
-            riskDataArr.map((el, index) => (
-              <div className="risk-card-det">
-                <Row
-                  style={{ padding: 20, alignItems: "center" }}
-                  justify="space-between"
-                >
-                  <Row style={{ alignItems: "center" }}>
-                    <div className="risk-profile" style={{}}>
-                      <HomeFilled style={{ fontSize: 25, color: "#00acc1" }} />
-                    </div>
-                    <div style={{ marginLeft: 10 }}>
-                      <p
-                        className="risk-profile-name"
-                        style={{ marginBottom: 0 }}
-                      >
-                        {el.riskName}
-                      </p>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "darkslategrey" }}
-                      >
-                        {el.riskType}
-                      </p>
-                    </div>
-                  </Row>
-                  <div>
-                    <DeleteOutlined
-                      style={{ fontSize: 25, color: "indianred" }}
-                      onClick={() => deleteRisk(el, index)}
-                    />
-                  </div>
-                </Row>
-                <Divider style={{ marginTop: 0, marginBottom: 0 }} />
-                <div style={{ padding: 15 }}>
-                  <Row style={{ alignItems: "center" }} justify="space-between">
-                    <div style={{ flex: 1 }}>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "darkslategrey" }}
-                      >
-                        Total Premium
-                      </p>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "grey" }}
-                      >
-                        {el.totalPrem}
-                      </p>
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "darkslategrey" }}
-                      >
-                        Tagic Presence %
-                      </p>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "grey" }}
-                      >
-                        {el.tagicPresence}
-                      </p>
-                    </div>
-                  </Row>
-                  <Row
-                    style={{ alignItems: "center", marginTop: 20 }}
-                    justify="space-between"
-                  >
-                    <div style={{ flex: 1 }}>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "darkslategrey" }}
-                      >
-                        Lead Insurer
-                      </p>
-                      <Tooltip placement="top" title={el.leadInsurer}>
-                        <p
-                          className="form-title"
-                          style={{
-                            marginBottom: 0,
-                            color: "grey",
-                            width: 170,
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                          }}
-                        >
-                          {el.leadInsurer}
-                        </p>
-                      </Tooltip>
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "darkslategrey" }}
-                      >
-                        Leader Share %
-                      </p>
-                      <p
-                        className="form-title"
-                        style={{ marginBottom: 0, color: "grey" }}
-                      >
-                        {el.leaderShare}
-                      </p>
-                    </div>
-                  </Row>
-                </div>
-                <Divider style={{ marginTop: 0, marginBottom: 0 }} />
-                <Row
-                  onClick={() => editRisk(el, index)}
-                  style={{
-                    alignItems: "center",
-                    padding: 10,
-                    cursor: "pointer",
-                  }}
-                  justify="center"
-                >
-                  <EditOutlined
-                    style={{ fontSize: 16, color: "darkslategrey" }}
-                  />
-                  <Text style={{ marginLeft: 5, color: "darkslategrey" }}>
-                    Edit
-                  </Text>
-                </Row>
-              </div>
-            ))}
-
-          <div className="risk-add" onClick={() => addNewRiskDetails()}>
-            <PlusCircleOutlined style={{ fontSize: 40 }} />
-            <p
-              className="form-title"
-              style={{ color: "black", marginBottom: 0, marginTop: 10 }}
-            >
-              ADD RISK DETAILS
-            </p>
-          </div>
-        </Row>
-     
-        <div
-          style={{
-            display: "flex",
-            flex: 1,
-            justifyContent: "flex-end",
-            marginTop: 20,
-          }}
-        >
-          <Button
-            onClick={() => updateRiskDetails()}
-            style={{
-              borderRadius: 5,
-              backgroundColor: "#3b371e",
-              color: "#fff",
-            }}
-          >
-            Save and Update
-          </Button>
-        </div>
-      </Col> */}
-
       <Modal
-        title="Risk Details"
+        title={riskType=='create'?"Add Wallet Details":'Edit Wallet Details'}
         centered={true}
         visible={props.showRiskModal}
         width={width < breakpoint ? 370 : 700}
@@ -700,55 +499,12 @@ const RiskDetails = (props) => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="nameOfentity"
-                  label="Name of enitity"
-                  style={{ marginBottom: "1rem" }}
-                  rules={[
-                    {
-                      message: "Only Alphabets are Allowed",
-                      pattern: new RegExp(/^[a-zA-Z ]+$/),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter Name of enitity"
-                    value={noOfEntities}
-                    onChange={(item) => setNoOfEntities(item.target.value)}
-                  />
-                </Form.Item>
-              </Col>
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="productName"
-                  label="Product Name"
-                  style={{ marginBottom: "1rem" }}
-                  rules={[
-                    {
-                      message: "Only Alphabets are Allowed",
-                      pattern: new RegExp(/^[a-zA-Z ]+$/),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter Product Name"
-                    value={productNameData}
-                    onChange={(item) => setProductNameData(item.target.value)}
-                  />
-                </Form.Item>
-              </Col> */}
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
                   name="lob_for_opportunity"
-                  label="LOB for Opportunity"
+                  label="LOB"
                   rules={[
                     {
                       required: false,
-                      message: "Select LOB Opportunity",
+                      message: "Select LOB",
                     },
                   ]}
                   style={{ marginBottom: "1rem" }}
@@ -758,11 +514,27 @@ const RiskDetails = (props) => {
                     options={lobOpportunityItems}
                     value={LOBForOpportunity}
                     onChange={(val) => changeLobOpprtunity(val)}
+                    style={{width:'100%'}}
                   ></Select>
                 </Form.Item>
               </Col>
-              
               <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
+                  {...formItemLayout}
+                  className="form-item-name label-color"
+                  name="nameOfentity"
+                  label="Wallet Share"
+                  style={{ marginBottom: "1rem" }}
+                >
+                  <Input
+                    placeholder="Enter Wallet Share"
+                    value={noOfEntities}
+                    onChange={(item) => setNoOfEntities(item.target.value)}
+                  />
+                </Form.Item>
+              </Col>
+              
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -783,9 +555,9 @@ const RiskDetails = (props) => {
                     onChange={(val) => changeProductOpprtunity(val)}
                   ></Select>
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -801,9 +573,9 @@ const RiskDetails = (props) => {
                     <Radio value={false}>No</Radio>
                   </Radio.Group>
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -823,9 +595,9 @@ const RiskDetails = (props) => {
                     onChange={(item) =>  changeTotalPrem(item) }
                   />
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -845,9 +617,9 @@ const RiskDetails = (props) => {
                     onChange={(item) => changeTagicPres(item) }
                   />
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -868,9 +640,9 @@ const RiskDetails = (props) => {
                     onChange={(item) => changeTagicPremium(item)}
                   />
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -883,13 +655,12 @@ const RiskDetails = (props) => {
                     placeholder="Select Leader/Follower"
                     options={leadrOrFollowrItems}
                     value={leadrFollowerData}
-                    // defaultValue={citiesOptions}
                     onChange={(item) => onChangeLeaderFollowerData(item)}
                   ></Select>
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -897,15 +668,6 @@ const RiskDetails = (props) => {
                   label="Lead Insurer"
                   style={{ marginBottom: "1rem" }}
                 >
-                  {/* <Select
-                    bordered={true}
-                    placeholder="Select Lead Insurer"
-                    options={leadInsurerItems}
-                    value={leadInsurerData}
-                    // defaultValue={citiesOptions}
-                    onChange={(item) => setLeadInsurerData(item)}
-                  ></Select> */}
-
                   <AutoComplete
                     placeholder="Select Lead Insurer"
                     options={leadInsurerItems}
@@ -919,9 +681,9 @@ const RiskDetails = (props) => {
                     }
                   ></AutoComplete>
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -941,9 +703,9 @@ const RiskDetails = (props) => {
                     onChange={(item) => setLeaderShareData(item.target.value)}
                   />
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -958,9 +720,9 @@ const RiskDetails = (props) => {
                     style={{ display: "flex", flex: 1 }}
                   />
                 </Form.Item>
-              </Col>
+              </Col> */}
 
-              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
@@ -981,7 +743,7 @@ const RiskDetails = (props) => {
                   />
                   
                 </Form.Item>
-              </Col>
+              </Col> */}
             </Row>
           </Form>
           <div

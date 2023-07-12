@@ -205,6 +205,9 @@ const TodoMobile = React.lazy(() =>
 const CompIntelligence = React.lazy(() =>
   import("./components/CompanyIntelligence/CompIntelligence")
 );
+const CompIntelligence_broker = React.lazy(() =>
+  import("./components/CompanyIntelligence_broker_flow/CompIntelligence")
+);
 
 //importing Our Scheduler
 
@@ -376,7 +379,7 @@ function App() {
                     component={LeadMaster}
                   ></Route>
                    <Route
-                    path="/brokerflow"
+                    path="/brokerflow/:leadType"
                     component={Brokerflow}
                   ></Route>
                   <Route path="/multichannel" component={Multichannel}></Route>
@@ -404,6 +407,10 @@ function App() {
                   <Route
                     path="/company-intelligence"
                     component={CompIntelligence}
+                  ></Route>
+                  <Route
+                    path="/company-intelligence_broker"
+                    component={CompIntelligence_broker}
                   ></Route>
 
                   <Route

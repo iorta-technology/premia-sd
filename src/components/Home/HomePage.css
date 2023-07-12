@@ -459,7 +459,7 @@ margin-right: -15px;
   font-style: normal;
 }
 .num-opp {
-  font-size: 28px;
+  font-size: 30px;
   color: #fff;
   font-weight: 700;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -638,6 +638,10 @@ margin-right: -15px;
   font-size: 12px;
   font-weight: 600;
   opacity: 0.8;
+}
+.centered {
+  text-align: center;
+  margin-right: 20px;
 }
 .contact-card-column {
   margin-bottom: 10px;

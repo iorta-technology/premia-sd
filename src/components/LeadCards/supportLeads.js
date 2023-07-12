@@ -7,7 +7,7 @@ let self = null;
 export default {
   readSortDataFromAPI: function (pageName, response, _this) {
     let memory = [];
-    // console.warn('ONNNNN________response ', response);
+    console.log('ONNNNN________response ', response);
     self = _this;
     try {
       for (let i = 0; i < response.length; i++) {
@@ -49,7 +49,6 @@ export default {
     dataStructure.location = !resObj?.company_id?.client_location? "-": resObj?.company_id?.client_location;
     dataStructure.weightage = !resObj?.weightage ? 0 : resObj?.weightage;
     dataStructure.id = resObj._id;
-
     //  dataStructure.personName = resObj.cust_name
     //  dataStructure.id = resObj._id;
     //  dataStructure.lead_Id = resObj.lead_Id;

@@ -36,42 +36,23 @@ export const fetchAllLeads = (id, leads, pageNo) => {
 
   return async (dispatch) => {
     dispatch(fetchAllLeadsStart());
-    // return axios.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`)
-    //     .then(res => {
-    //         // console.log(res.data.errMsg[1][0].count)
-    //         const response = res.data.errMsg
-    //         const errorCode = res.data.errCode
-    //         if(errorCode===-1){
-
-    //             return dispatch(fetchAllLeadsSuccess(response[0],response[1][0].count))
-    //         }else{
-    //             throw response
-    //         }
-    //     })
-    //     .catch(error => {
-    //         return dispatch(fetchAllLeadsFail(error))
-    //     })
-
     let result = await axiosRequest.get(
-      `user/getbrokerlist?userId=${id}&filter=${leads}`,
+      `user/getbrokerlist?userId=${id}&filter=${leads}&skip=${skipVal}`,
       { secure: true }
     );
     console.log("+++++++++ GET LEAD DATA ++++++++", result);
     if (result.length > 0) {
-      // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
-      // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
       dispatch(
         fetchAllLeadsSuccess(
           supportLead.readSortDataFromAPI(
             leads,
-            result === "No leads found" ? [] : result,
+            result === "No leads found" ? [] : result[0],
             this
           ),
           result[1][0].count
         )
       );
     } else {
-      // fetchAllLeadsSuccess([])
       dispatch(fetchAllLeadsFail());
     }
   };
@@ -95,7 +76,6 @@ export const fetchDataAfterFilter = (
     dispatch(fetchAllLeadsStart());
     // &searchType=fname
     let url = `user/v2/getLead/${id}?skip=${skip}`;
-
     if (searchType.trim().length) url += `&searchType=${searchType}`;
     if (searchtxt.trim().length) {
       url += `&searchtxt=${searchtxt}`;
@@ -118,7 +98,9 @@ export const fetchDataAfterFilter = (
     if (leadType.trim().length) {
       url += `&leadType=${leadType}`;
     }
-    if (dateFilter.trim().length) url += `&inceptionDate=${dateFilter}`;
+    if (dateFilter.trim().length) {
+      url += `&inceptionDate=${dateFilter}`
+    };
 
     let result = await axiosRequest.get(url);
     console.warn("_______Filter", result);
@@ -133,7 +115,6 @@ export const fetchDataAfterFilter = (
           result[1][0].count
         )
       );
-      // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
     } else {
       dispatch(fetchAllLeadsFail());
     }

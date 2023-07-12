@@ -80,6 +80,7 @@ const HomePage = () => {
   const userId = login_user_data.id;
   const channelCode = login_user_data.channelCode;
   let _storeData = useSelector((state) => state);
+  console.log("_storeData--------------------->",_storeData);
 
   const _accessActivityTracker = checkuserAccess("myEvents", _storeData.login); //Activity Tracker
   const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
@@ -825,7 +826,7 @@ const HomePage = () => {
               <div
                 className="dataCard"
                 bordered="false"
-                style={{ backgroundColor: "#00ACC1" }}
+                style={{ backgroundColor: "rgb(94, 192, 173)" }}
               >
                 {/* <Link to="/leadMaster/all_leads"> */}
                 <div className="card-content">
@@ -906,7 +907,7 @@ const HomePage = () => {
               </div>
             </Col>
           )}
-           {/* {showOpportunities && (
+           {showActivityTracker && (
             <Col className="home_section">
               <div
                 className="dataCard"
@@ -929,7 +930,7 @@ const HomePage = () => {
                   <div className="activities-text">
                     <Row>
                       <p
-                        onClick={() => history.push("/brokerflow")}
+                        onClick={() => history.push("/brokerflow/all_leads")}
                         className="ttile_name"
                       >
                         Broker
@@ -945,35 +946,32 @@ const HomePage = () => {
                     overflow: "hidden",
                   }}
                 >
-                  <div className="container-opp" style={{marginTop:"80px"}}>
+                  <div className="container-opp" style={{marginTop:"45px"}}>
                     <div className="column-opp">
-                     
                       <div className="row-opp">
-                        <div className="child1-opp-1">Producer</div>
-                        <p  className="sales-content"
-                            style={{ fontSize: 14}}>Total Count</p>
-
-                        <div className="num-opp"> 30</div>
+                        <div className="child1-opp-1" style={{fontSize:'18px'}}>Producer</div>
+                       <i><p  className="sales-content"
+                            style={{ fontSize: 14,marginTop:'4px'}}>Total Count</p></i>
+                        <div className="num-opp" style={{fontSize:'45px'}}> 30</div>
                       </div>
                     </div>
-                    <div className="vertical-line">
+                    <div className="vertical-line" style={{marginTop:'28px'}}>
                     <div className="verticalLine"></div>
                     </div>
                     <div className="column-opp">
                 
                       <div className="row-opp">
-                        <div className="child1-opp-1">Appointment</div>
-                        <p  className="sales-content"
-                            style={{ fontSize: 14}}>Next 30 Days</p>
-
-                        <div className="num-opp"> 23</div>
+                        <div className="child1-opp-1" style={{fontSize:'18px'}}>Appointment</div>
+                       <i><p className="sales-content"
+                            style={{ fontSize: 14,marginTop:'4px'}}>Next 30 Days</p></i>
+                        <div className="num-opp" style={{fontSize:'45px'}}> 23</div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </Col>
-          )} */}
+          )}
           {showTodo && (
             <Col className="home_section">
               <div
@@ -1322,11 +1320,11 @@ const HomePage = () => {
                             }}
                             size={{ xl: 40 }}
                           >
-                            <div className="avatar_font">{kdm_name}</div>
+                            <div className="avatar_font">{kdm_name ? kdm_name : '-'}</div>
                           </Avatar>
                           <div className="content-header">
                             <p className="user-name-text capitalize">
-                              {kdm_name}
+                              {kdm_name ? kdm_name : '-'}
                             </p>
                             <span className="user-id uppercase">Ceo</span>
                           </div>
@@ -1339,7 +1337,9 @@ const HomePage = () => {
                             src={contact_opportunity_cake}
                             alt="Opportunities"
                           />
-                          <div className="contact-card-date"> {birthdate}</div>
+                          <div className={`contact-card-date ${birthdate ? '' : 'centered'}`}>
+                            {birthdate ? birthdate : '-'}
+                          </div>
                           <div className="contact-card-sendWish">
                             {" "}
                             Send Wish

@@ -25,7 +25,6 @@ const fetchAllLeadsStart = (state, action) => {
 };
 
 const fetchAllLeadsSuccess = (state, action) => {
-  console.log(action,"gfgfgfggfgfgfgfggf");
   return updateObject(state, {
     fetch_allLeads_Loading: false,
     allLeads: action.allLeads,

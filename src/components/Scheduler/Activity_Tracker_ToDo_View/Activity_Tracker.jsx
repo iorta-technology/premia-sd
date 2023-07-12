@@ -9,15 +9,10 @@ import axiosRequest from "../../../axios-request/request.methods";
 import moment from "moment";
 import header from "../header";
 import "./Activity_Tracker.css";
-import { BiToggleRight, BiToggleLeft } from 'react-icons/bi';
-import { AiOutlineStar, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { BsPencil } from "react-icons/bs";
-import { IoMdCall } from "react-icons/io";
+
 import { Card, Col, Row, Button } from "antd";
 import Todo from "../RightSide-Todo/Todo";
-import Grid from '@mui/material/Grid';
 import { stoageGetter } from '../../../helpers'
-// import EventCreateComponent from "../../Contests/CalendarEvent";
 import EventCreateComponent from "../CalendarEvent.js"
 import Activity_Header from "./Activity_tracker_header/Header";
 import {
@@ -163,7 +158,6 @@ const Datescheduler = () => {
 					</text>
 				</div>
 				<div style={{height:15,width:1,backgroundColor:'grey'}}></div>
-
 				<div style={{ display:'flex',width: "50px", cursor: "pointer",justifyContent:'center' }} onClick={() => showModal(appointmentData.item) }>
 					<EditOutlined style={{fontSize:18,fontWeight:500 }} />
 				</div>
@@ -250,7 +244,6 @@ const Datescheduler = () => {
 		const result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=all`, {
 			secure: true,
 		});
-		// // console.log(month,"present");
 		// //storing the data in res after iterating through the result
 		const res = result.map((item) => {
 			// formating the data
@@ -280,8 +273,6 @@ const Datescheduler = () => {
 				time: start_hour + ":" + start_min + " to " + end_hour + ":" + end_min,
 				item:item
 			}
-
-			//	console.log(ret);
 			return ret;
 		})
 		setData(res);
