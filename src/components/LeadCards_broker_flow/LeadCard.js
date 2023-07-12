@@ -187,7 +187,7 @@ const LeadCard = React.memo((props) => {
 
           <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
             <div>
-            <FormOutlined onClick={() => updateHandler(brokerID)} style={{fontSize:'25px'}} />
+            <FormOutlined onClick={() => updateHandler(brokerID)} style={{fontSize:18,color:'grey'}} />
             </div>
           </div>
         </div>

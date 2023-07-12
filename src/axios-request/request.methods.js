@@ -62,6 +62,9 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
               if (config.url.includes("add-company"))
                 message.success("Company Added Successfully");
 
+              if (config.url.includes("addproducer"))
+                message.success("Producer Created Successfully");
+
 
             } else if (config.method === "put") {
               if (config.url.includes("update_task_status"))

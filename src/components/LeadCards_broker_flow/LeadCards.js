@@ -364,7 +364,7 @@ const LeadCards = (props) => {
         )} */}
       </div>
 
-      <div className="dropdown-container lead-ml60">
+      {/* <div className="dropdown-container lead-ml60">
         <div
           style={{ position: "relative", bottom: 26 }}
           className="expt-heading"
@@ -411,8 +411,7 @@ const LeadCards = (props) => {
             <DownloadOutlined /> Export
           </Button>
         </div>
-        {/* )} */}
-      </div>
+      </div> */}
 
       <Row
         justify="center"
