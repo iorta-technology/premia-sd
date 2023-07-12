@@ -64,7 +64,7 @@ export const editLead = (formData, id) => {
       secure: true,
     });
     // console.warn("update LEADDDD_______", result);
-      dispatch(fetchLeadDetails(id))
+      dispatch(fetchLeadDetails_broker(id))
     // if (result.length > 0) {
       return dispatch(editLeadSuccess(result));
       
