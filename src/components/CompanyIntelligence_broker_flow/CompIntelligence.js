@@ -305,10 +305,10 @@ const CompanyIntelligence = React.memo((props) => {
     // console.log('data DATA---->>>', data)
     // secure/user/deletekdmDetails?userId=63dce7c80ae6868961079fe6&kdmId=64786ff0cac6fc279ab38cc6
     const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
-    axios.delete(`${baseURL}secure/user/deletekdmDetails?userId=${loginId}&kdmId=${activeKdm}`, { headers }).then(res => {
+    axios.delete(`${baseURL}secure/user/deletekdm?userId=${loginId}&kdmId=${activeKdm}`, { headers }).then(res => {
       // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
       if (res.data.errCode === -1) {
-        dispatch(actions.fetchLeadDetails(storeFormData._id))
+        dispatch(actions.fetchLeadDetails_broker(storeFormData._id));
         message.success("KDM Details Deleted Successfully");
       }
     })
