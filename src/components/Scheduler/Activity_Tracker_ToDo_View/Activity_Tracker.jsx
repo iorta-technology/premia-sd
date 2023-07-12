@@ -33,7 +33,7 @@ import { createBreakpoints, height, width } from "@mui/system";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { CloseOutlined , EditOutlined , VideoCameraOutlined } from '@ant-design/icons';
+import { CloseOutlined , EditOutlined , VideoCameraOutlined,PhoneOutlined } from '@ant-design/icons';
 
 
 const Datescheduler = () => {
@@ -76,8 +76,14 @@ const Datescheduler = () => {
 
 	const { currentViewName } = state;
 	useEffect(() => {
+		// console.log("🚀 ~ BEFOREEE ~ useEffect ~ appointmentTootip:", appointmentTootip)
 		setAppointmentTootip(true);
+		// console.log("🚀 ~ AFTERRR ~ useEffect ~ appointmentTootip:", appointmentTootip)
 	}, [appointmentTootip])
+
+	// useEffect(() => {
+	// 	console.log("🚀 ~ file: >>>>>>>>>> ~ .................isModalVisible:", isModalVisible)
+	//   },[isModalVisible])
 
 	// invoking the function for retrieving our data
 	useEffect(() => {
@@ -98,10 +104,10 @@ const Datescheduler = () => {
 
 	
 	const showModal = (e) => {
-		setIsModalVisible(true);
-		setEditData(e);
 		setAppointmentTootip(!appointmentTootip)
 		
+		setIsModalVisible(true);
+		setEditData(e);
 	};
 
 	//getting the data when we click appointements  
@@ -128,10 +134,8 @@ const Datescheduler = () => {
 					justifyContent: "center",
 				}}
 			>
-				<div style={{ display: "flex", marginLeft: "4px" }} onClick={() => setAppointmentTootip(true)}>
-					<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M2.75 1H5.75L7.25 4.75L5.375 5.875C6.17822 7.50365 7.49635 8.82178 9.125 9.625L10.25 7.75L14 9.25V12.25C14 12.6478 13.842 13.0294 13.5607 13.3107C13.2794 13.592 12.8978 13.75 12.5 13.75C9.57445 13.5722 6.81512 12.3299 4.74262 10.2574C2.67013 8.18489 1.42779 5.42555 1.25 2.5C1.25 2.10218 1.40804 1.72064 1.68934 1.43934C1.97064 1.15804 2.35218 1 2.75 1Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
+				<div style={{ display: "flex",alignItems:'center' }} onClick={() => setAppointmentTootip(true)}>
+					<PhoneOutlined style={{fontSize:16,fontWeight:500,color:'#fff' }} />
 					<div style={{ color: "white", marginLeft: "3px" }}>{restProps.data.title}</div>
 				</div>
 			</Appointments.Appointment>

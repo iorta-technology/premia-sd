@@ -263,15 +263,21 @@ export default function CalendarEvent(props) {
       }
     } catch (err) {}
   };
+  // useEffect(() => {
+  //   console.log("🚀 ~ file: >>>>>>>>>> ~ props.isModalVisible:", props.isModalVisible)
+  // },[props.isModalVisible])
+  
 
   useEffect(() => {
+    // console.log("🚀 ~ file: CalendarEvent.js:269 ~ useEffect ~ props:", props)
     if (props.click == "data" || props.click == "UPDATE EVENT") {
       // console.log(moment(props.Data.timeline),'full update data--->');
       props.setIsModalVisible(true);
-    }
-    if (props.click == "UPDATE EVENT") {
       setUpdateCheckEvent(true);
-    } //1661472000000
+    }
+    // if (props.click == "UPDATE EVENT") {
+    //   setUpdateCheckEvent(true);
+    // }
     if (props.Data) {
       let timearr = [
         {
@@ -388,7 +394,7 @@ export default function CalendarEvent(props) {
         },
       ]
       let finalstarttime = timearr.filter(item=>{
-        console.log(props.Data.start_time,item.value);
+        // console.log(props.Data.start_time,item.value);
         return props.Data.start_time == item.value
       })
        var dt = new Date(props.Data.start_time_MS);
@@ -402,7 +408,7 @@ export default function CalendarEvent(props) {
       var finalmins = minutes.toString().length <= 1 ? ('0' + minutes) : minutes
       // console.log(minutes,'second hours--->');
       var finalTime = finalhours + ":" + (finalmins)+ " "+AmOrPm; 
-      console.log(finalTime, moment(props.Data.start_date).format('MM/DD/YYYY'),  'final start time------>');
+      // console.log(finalTime, moment(props.Data.start_date).format('MM/DD/YYYY'),  'final start time------>');
       setDurationStartTimeOperation(finalTime)
       setStartTimeSelect(finalTime)
 
@@ -410,16 +416,16 @@ export default function CalendarEvent(props) {
 
       var edt = new Date(1680598800000);
       var endhours = edt.getUTCHours() ; // gives the value in 24 endhours format
-      console.log(endhours,'first endhours--->');
+      // console.log(endhours,'first endhours--->');
       var eAmOrPm = endhours >= 12 ? 'PM' : 'AM';
       endhours = (endhours % 12) || 12;
       var efinalhours = endhours.toString().length <= 1 ? ('0' + endhours) : endhours
-      console.log(endhours.toString().length,efinalhours,'second endhours--->');
+      // console.log(endhours.toString().length,efinalhours,'second endhours--->');
       var eminutes = edt.getUTCMinutes() ;
       var efinalmins = eminutes.toString().length <= 1 ? ('0' + eminutes) : eminutes
-      console.log(eminutes,'second endhours--->');
+      // console.log(eminutes,'second endhours--->');
       var efinalTime = efinalhours + ":" + (efinalmins)+ " "+eAmOrPm; 
-      console.log(efinalTime, moment(props.Data.start_date).format('MM/DD/YYYY'),  'final start time------>');
+      // console.log(efinalTime, moment(props.Data.start_date).format('MM/DD/YYYY'),  'final start time------>');
       setDurationEndTimeOperation(efinalTime)
       setEndTimeSelect(efinalTime)
 
@@ -427,7 +433,7 @@ export default function CalendarEvent(props) {
       let durationfinal = durationList.filter((item) => {
         return item.value == props.Data.durationType;
       });
-      console.log(props.Data, "duration type------>");
+      // console.log(props.Data, "duration type------>");
       if (durationfinal.length != 0) {
         setDurationSelect(durationfinal[0].value);
       }
@@ -597,7 +603,7 @@ export default function CalendarEvent(props) {
       setStakeholdrName(props.Data.stakeholder_name);
       setCustomerNameText(props.Data.location);
       setTimelineDateData(props.Data.timeline);
-      console.warn('PROPSSS----->>>',props.Data)
+      // console.warn('PROPSSS----->>>',props.Data)
       setTimelineDateString(!props.Data.timeline ? '' : moment(props.Data.timeline));
       setEventAgenda(props.Data.title);
       setMinutesofMeet(props.Data.meeting_content);
@@ -615,7 +621,7 @@ export default function CalendarEvent(props) {
         props.Data.event_session != undefined ||
         props.Data.event_session != null
       ) {
-        console.log(props.Data.event_session,'event session enters--->');
+        // console.log(props.Data.event_session,'event session enters--->');
         setEventDurationType(props.Data.event_session);
       }
 
@@ -1234,8 +1240,8 @@ export default function CalendarEvent(props) {
   const onChangeTimelineDate = (date, dateString) => {
     setTimelineDateData(date._d);
     setTimelineDateString(date);
-    console.log(date._d, "date----->");
-    console.log(dateString, "date string------->");
+    // console.log(date._d, "date----->");
+    // console.log(dateString, "date string------->");
   };
   // const[customerLastNameText,setCustomerLastNameText]=useState("");
   const CustomerNameFunc = (e) => {
@@ -1417,21 +1423,21 @@ export default function CalendarEvent(props) {
     setTeamTagVisible(false);
   };
   const StartDateFunc = (date, dateString) => {
-    console.log(
-      moment(new Date()).format("YYYY-MM-DD") ==
-        moment(date).format("YYYY-MM-DD")
-    );
-    console.log(date, dateString,durationStartDateOperation, 'starttt------>');
+    // console.log(
+    //   moment(new Date()).format("YYYY-MM-DD") ==
+    //     moment(date).format("YYYY-MM-DD")
+    // );
+    // console.log(date, dateString,durationStartDateOperation, 'starttt------>');
     setDurationStartDate(moment(date));
     setDurationEndDate(moment(date));
     setDurationEndDateDiffCheck(true);
     let ms_date = new Date(date).setUTCHours(0, 0, 0, 0);
 
-    console.log(ms_date, "ms date---->--->");
+    // console.log(ms_date, "ms date---->--->");
 
     setDurationStartDateOperation(dateString);
     setDurationEndDateOperation(ms_date);
-    console.log("This is Start Date" + ms_date);
+    // console.log("This is Start Date" + ms_date);
     // if(durationEndDateOperation<ms_date){
     //   setDurationStartDateDiffCheck(false)
     //   console.log("Start Date should we after end date")
@@ -1455,7 +1461,7 @@ export default function CalendarEvent(props) {
   };
   const allDayStartDate = (date, dateString) => {
     // console.log(date)
-    console.log(dateString)
+    // console.log(dateString)
     setDurationStartDate(moment(date));
     // let ms_date = new Date(date).setUTCHours(0, 0, 0, 0);
 
@@ -2003,7 +2009,7 @@ export default function CalendarEvent(props) {
     dispatch(actions.createLead(formData)).then((res) => {
       // console.warn('ADD___LEADD_______',res)
       if (res.type === "CREATE_LEAD_SUCCESS") {
-        if (props.api != undefined) props.api();
+        if (props.api !== undefined) props.api();
         if (props.getdata) props.getdata(true);
         props.setIsModalVisible(false);
       }
@@ -2011,7 +2017,7 @@ export default function CalendarEvent(props) {
   };
 
   const BookAppointmentFunc = async (e) => {
-    console.log("book app without lead");
+    // console.log("book app without lead");
 
     if (updateEventCheck == true) {
       // console.log("Update event--->");
@@ -2095,50 +2101,47 @@ export default function CalendarEvent(props) {
         let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
         teammemberclone = [...new Set(teammemberclone)];
         // console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
-        let result = await axiosRequest.put(
-          "user/updateAppointment",
-          {
-            userId: stoageGetter("user").id,
-            // appointment_type: customerCheck ? "customer" : prospectCheck ? "existingapplication" : "existingapplication",
-            // event_type: customerCollection.phone_call_customer || prospectCollection.phone_call || advisorCollection.phone_call_advisor ? "phonecall"
-            //   : customerCollection.appointment_customer || advisorCollection.appointment_advisor ? "appointment"
-            //     : customerCollection.policy_renewal ? "policyrenewals" : prospectCollection.training_prospect || advisorCollection.training ? "training"
-            //       : null,
-            // tata_appointment_type: customerCollection.appointment_customer || advisorCollection.appointment_advisor ? appointmenttypes
-            //   : "",
-            // clientVisit: customerCollection.phone_call_customer == true || prospectCollection.phone_call == true || advisorCollection.phone_call_advisor == true ? clientvisit : '',
-            // Appointment_id : Appointmentid,
-            // leadId: "",
-            durationType: durationSelect,
-            event_session: eventDurationType,
-            start_date: durationStartDateOperation,
-            start_time: durationStartTimeOperation,
-            end_date: durationEndDateOperation,
-            end_time: durationEndTimeOperation,
-            // teamMember: _ownerCollectn,
-            statusType: statusType.openStatus == true ? "open" : "close",
-            // statusreason: statusReasonText,
-            // manuallycustomerAdded: addManuallyButtonCheck ? true : false,
-            // manuallyrenewalCustomer: addManuallyButtonCheck ? [
-            //   {
-            //     Name: customerNameText,
-            //     MobileNumber: customerMobileNoText,
-            //   }
-            // ] : [],
-            // customerId: "",
-            // teamMember_clone: teammemberclone,
-            statusreason: statusReasonText,
-            // leadId : leadlist[0],
-            // mode: modeSelect,
-            // stakeHolder_name: stakeholdrName,
-            // location: customerNameText,
-            timeline_date: timelineDateData,
-            // agenda: eventAgenda,
-            meeting_content: minutesofmeet,
-            eventId: eventid,
-          },
-          { secure: true }
-        );
+        let _formData = {
+          userId: stoageGetter("user").id,
+          // appointment_type: customerCheck ? "customer" : prospectCheck ? "existingapplication" : "existingapplication",
+          // event_type: customerCollection.phone_call_customer || prospectCollection.phone_call || advisorCollection.phone_call_advisor ? "phonecall"
+          //   : customerCollection.appointment_customer || advisorCollection.appointment_advisor ? "appointment"
+          //     : customerCollection.policy_renewal ? "policyrenewals" : prospectCollection.training_prospect || advisorCollection.training ? "training"
+          //       : null,
+          // tata_appointment_type: customerCollection.appointment_customer || advisorCollection.appointment_advisor ? appointmenttypes
+          //   : "",
+          // clientVisit: customerCollection.phone_call_customer == true || prospectCollection.phone_call == true || advisorCollection.phone_call_advisor == true ? clientvisit : '',
+          // Appointment_id : Appointmentid,
+          // leadId: "",
+          durationType: durationSelect,
+          event_session: eventDurationType,
+          start_date: durationStartDateOperation,
+          start_time: durationStartTimeOperation,
+          end_date: durationEndDateOperation,
+          end_time: durationEndTimeOperation,
+          // teamMember: _ownerCollectn,
+          statusType: statusType.openStatus == true ? "open" : "close",
+          // statusreason: statusReasonText,
+          // manuallycustomerAdded: addManuallyButtonCheck ? true : false,
+          // manuallyrenewalCustomer: addManuallyButtonCheck ? [
+          //   {
+          //     Name: customerNameText,
+          //     MobileNumber: customerMobileNoText,
+          //   }
+          // ] : [],
+          // customerId: "",
+          // teamMember_clone: teammemberclone,
+          statusreason: statusReasonText,
+          // leadId : leadlist[0],
+          // mode: modeSelect,
+          // stakeHolder_name: stakeholdrName,
+          // location: customerNameText,
+          timeline_date: timelineDateData,
+          // agenda: eventAgenda,
+          meeting_content: minutesofmeet,
+          eventId: eventid,
+        }
+        let result = await axiosRequest.put("user/updateAppointment",_formData,{ secure: true });
 
         props.setIsModalVisible(false);
         // console.log(result, 'book update appointment result-------->')
@@ -2177,18 +2180,17 @@ export default function CalendarEvent(props) {
       var date = new Date(
         durationStartDateOperation + parseInt(startTimeSelect)
       );
-      console.log(date.getUTCHours());
-      console.log(date.toUTCString().toString().slice(17, 22));
-      var currentTime =
-        new Date().getHours() + ":" + ("0" + new Date().getMinutes()).slice(-2);
-      console.log("current time--->", currentTime);
+      // console.log(date.getUTCHours());
+      // console.log(date.toUTCString().toString().slice(17, 22));
+      var currentTime = new Date().getHours() + ":" + ("0" + new Date().getMinutes()).slice(-2);
+      // console.log("current time--->", currentTime);
       let leadlist = [];
       if (customerlistcollectn.length > 0) {
         customerlistcollectn.map((x) => {
           leadlist.push(x._Id);
         });
       }
-      console.log(leadlist, "list of lead;;;;;;");
+      // console.log(leadlist, "list of lead;;;;;;");
       if (modeSelect == "") {
         message.warning("Mode is Mandatory");
       }
@@ -2704,7 +2706,7 @@ export default function CalendarEvent(props) {
   const [ActivityPageEvent, setActivityPageEvent] = useState(false);
 
   const showModal = (e, date) => {
-    console.log("model opens");
+    // console.log("model opens");
     setUpdateCheckEvent(true);
     setDurationStartDate(moment(e.event.start));
     setDurationEndDate(moment(e.event.end));
@@ -2714,7 +2716,7 @@ export default function CalendarEvent(props) {
     let end_ms_date = new Date(moment(e.event.end)).setUTCHours(0, 0, 0, 0);
     // alert("Start Date"+start_ms_date)
     // alert("End Date"+end_ms_date)
-    console.log(fetchEventArray);
+    // console.log(fetchEventArray);
 
     const greaterThanTen = fetchEventArray.find(
       (element) => element.id == e.event.id
@@ -2875,7 +2877,7 @@ export default function CalendarEvent(props) {
       }
     });
 
-    console.log(greaterThanTen); //11
+    // console.log(greaterThanTen); //11
     let start_ms_time = new Date(moment(e.event.start)).setDate(0, 0, 0);
     // alert("This is the start time"+start_ms_time)
 
@@ -2897,76 +2899,19 @@ export default function CalendarEvent(props) {
         // setDurationEndDate(item.end_date)
         // alert("This works"+item._id)
       }
-
-      //       return(
-      // item.id==e.event.id?{
-      // setHelperUpcomingArr(item)
-      // }:null
-      //       )
     });
-    console.log("This works" + e.event.start);
   };
-
-  // eventClickBtn(showModal);
-  // {
-  //   isModalComponent ? setActivityPageEvent(true):setActivityPageEvent(false);
-  // }
-  // {ActivityPageEvent ? showModal() :""
-
-  // }
-  // isModalComponent(showModal())
   const OnChangeEventText = (e) => {
     setEventText(e.target.value);
   };
   const OnDateClick = (e) => {
     setDateClick(e.target.value);
     // alert(e.target.value)
-    props.setIsModalVisible(true);
+    // props.setIsModalVisible(true);
   };
   const handleOk = (e) => {
-    // alert("This is ok " + clickedDate)
     props.setIsModalVisible(false);
-
-    // alert(MultiSelectDate)
-    // alert("This is endva;l" + endVal.format("H:mm:ss"))
-    // if (MultiSelectDate == true) {
-    //   setAddEvents([...addEvents, {
-
-    //     id: Math.random().toString(36).slice(-6), title: eventText,
-    //     //  start:moment("2017-08-13T12:34:00Z").format(),
-    //     //  end:moment("2017-08-13T13:34:00Z").format()
-    //     start: moment(startDuration).format('YYYY-MM-DD') + moment(value).format("T" + "H:mm:ss" + "z"),
-    //     end: moment(endDuration).format('YYYY-MM-DD') + moment(endVal).format("T" + "H:mm:ss" + "z"),
-    //     // start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
-    //     // end:moment(endDuration).format('YYYY-MM-DD ') + moment(endVal).format("H:mm:ss"),
-    //     // allDay:moment(endVal).format("H:mm:ss")>"23:59:59"?true:false
-
-    //   }])
-    // }
-    // else {
-    //   setAddEvents([...addEvents, {
-
-    //     id: Math.random().toString(36).slice(-6), title: eventText,
-    //     //  date:moment(clickedDate).format('YYYY-MM-DD') + moment(value).format("T"+"H:mm:ss"+"Z"),
-    //     start: moment(clickedDate).format('YYYY-MM-DD') + moment(value).format("T" + "H:mm:ss" + "z"),
-    //     end: moment(clickedDate).format('YYYY-MM-DD') + moment(endVal).format("T" + "H:mm:ss" + "z"),
-    //     allDay: false
-    //   }])
-
-    // }
-
-    // alert(addEvents)
-
-    //   setAddEvents([...addEvents,{
-
-    //       id: Math.random().toString(36).slice(-6), title:eventText,
-    //  start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
-    //       end:moment(endDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
-    //      date:moment(clickedDate).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")
-    //     }])
-    // setAddEvents([addEvents,{title:eventText,date:moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss")}])
-    // console.log(e.dateStr)
-    // alert(moment(e.dateStr).format('YYYY-MM-DD ') + moment(value).format("HH:MM"))
+    console.log("🚀 ~ file: >>>>OKKKKKKK>>>>>> ~ props.isModalVisible:", props.isModalVisible)
   };
 
   const MultiSelect = (e) => {
@@ -3009,6 +2954,7 @@ export default function CalendarEvent(props) {
   const handleCancel = () => {
     props.setIsModalVisible(false);
     setDurationStartDateHelper();
+    console.log("🚀 ~ file: >>>>CANCELLLLLLL>>>>>> ~ props.isModalVisible:", props.isModalVisible)
   };
 
   // let EventFetch=fetchEventCheck==true? fetchUpcomingArr.map((item)=>{
@@ -4348,11 +4294,8 @@ export default function CalendarEvent(props) {
             Add Team Member
           </h4>
           <div className="Todo-Create-Search calSearch">
-            {/* <input type='text' placeholder='Search by Name'/> */}
-            {/* <SearchOutlined /> */}
-            {/* <Input addonAfter={<SearchOutlined />} placeholder="Search by Name" /> */}
-            {/* <Search placeholder="Search by Name" onSearch={onSearch}  /> */}
             <AutoComplete
+              getPopupContainer={(trigger) => trigger.parentElement}
               disabled={updateEventCheck ? true : false}
               value={teamMemberData}
               style={{ width: "100%" }}
@@ -4368,6 +4311,7 @@ export default function CalendarEvent(props) {
               <Search placeholder="Search by Name" />
             </AutoComplete>
           </div>
+          
           {/* {console.log(teamMemberChip,'team member chip----->')} */}
           {teamMemberChip?.length !== 0 && (
             <div
