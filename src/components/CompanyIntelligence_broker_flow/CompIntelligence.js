@@ -206,7 +206,7 @@ const CompanyIntelligence = React.memo((props) => {
       })
       //setting the kdm details
       setKdmDetailsArr(leadData?.producerdetails?.kdm_details);
-      console.log("this is the kdm details", leadData?.producerdetails?.kdm_details);
+      // console.log("this is the kdm details", leadData?.producerdetails?.kdm_details);
       if (leadData?.producerdetails?.kdm_details?.length > 0) handleKdmTabs(leadData?.producerdetails?.kdm_details[0]);
 
       //setting the opportunity details
@@ -224,8 +224,32 @@ const CompanyIntelligence = React.memo((props) => {
       setWalletDetails(leadData?.wallet_details)
       
       setreamrkDataArr(leadData?.remarks)
-     
 
+      let _teamData = leadData?.teamMembers ? JSON.parse(leadData?.teamMembers) : [];
+      // console.log('teamDataArr------------->>>',teamDataArr)
+      // setTeamDataArr(_teamData);
+
+      userTreeData.reporting_users.map((el) => {
+        let sortarray = {
+            FullName: el.full_name,
+            ShortId: el.employeeCode,
+            firstname: el.first_name,
+            lastname: el.last_name,
+            employecode: el.employeeCode,
+            designation: el.hierarchyName,
+            _Id: el._id,
+            value:
+            doSentenceCase(el.full_name) + " " + "(" + el.hierarchyName + ")",
+        };
+        _teamMember.push(sortarray);
+        sortarray = {};
+      });
+      let _finalData = [..._teamMember, _reportManager];
+      // console.log('_finalData------CIII------->>>',_finalData)
+      let _data = _finalData.filter(el => _teamData.some(event => el._Id === event.Id));
+
+      setTeamDataArr(_data);
+     
     } catch (err) {
       console.log("__++++++++++++++ err +++++++++++>>", err);
     }
@@ -533,11 +557,11 @@ const CompanyIntelligence = React.memo((props) => {
                     <PlusCircleOutlined onClick={() => setShowCollabortrModal(true)} style={{ fontSize: 18 }} />
                   </Row>
                   {teamDataArr?.length > 0 ?
-                    teamDataArr.map((res, index) => (
+                    teamDataArr?.map((res, index) => (
                       <Col style={{ padding: '0px 15px 10px 15px' }}>
                         <Row style={{ padding: 5, border: '1px solid #adb5bd', alignItems: 'center' }}>
                           <Avatar icon={<UserOutlined />} />
-                          <p style={{ marginLeft: 10, color: '#444444' }} className="text-font">-</p>
+                          <p style={{ marginLeft: 10, color: '#444444' }} className="text-font">{res?.FullName}</p>
                         </Row>
                       </Col>
                     ))

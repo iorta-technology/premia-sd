@@ -102,6 +102,7 @@ const HomePage = () => {
   const [count40, setCount40] = useState(0);
   const [kdm_name, setKdm_name] = useState('');
   const [birthdate, setBirthdate] = useState('');
+  const [prodCountData, setProdCountData] = useState({});
 
   const [timeList, setTimeList] = useState([
     {
@@ -260,8 +261,22 @@ const HomePage = () => {
     getOpportunities();
     getContactOpportunity();
     getCompanyListing();
+    getProducerCount();
     
   }, []);
+
+  let getProducerCount = async () => {
+    try {
+      let res = await axiosRequest.get(`user/getproducercount/${id}`, {secure: true,});
+      // console.log('getproducercount------------>>>',res)
+      // if (res.length > 0) {
+        // const [prodCountData, setProdCountData] = useState({});
+        setProdCountData(res)
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let getCompanyListing = async () => {
     try {
@@ -290,7 +305,7 @@ const HomePage = () => {
     // const count_10 = "count10%";
     try {
       let res = await axiosRequest.get(`user/company/birthday`, {secure: true,});
-      console.log('birthday------------>>>',res)
+      // console.log('birthday------------>>>',res)
       if (res.length > 0) {
         // kdm_name = res[0]["kdm_name"];
         // birthdate = res[0]["birthdate"];
@@ -952,7 +967,7 @@ const HomePage = () => {
                         <div className="child1-opp-1" style={{fontSize:'18px'}}>Producer</div>
                        <i><p  className="sales-content"
                             style={{ fontSize: 14,marginTop:'4px'}}>Total Count</p></i>
-                        <div className="num-opp" style={{fontSize:'45px'}}> 30</div>
+                        <div className="num-opp" style={{fontSize:'45px'}}>{!prodCountData?.producerCount ? 0 : prodCountData?.producerCount}</div>
                       </div>
                     </div>
                     <div className="vertical-line" style={{marginTop:'28px'}}>
@@ -964,7 +979,7 @@ const HomePage = () => {
                         <div className="child1-opp-1" style={{fontSize:'18px'}}>Appointment</div>
                        <i><p className="sales-content"
                             style={{ fontSize: 14,marginTop:'4px'}}>Next 30 Days</p></i>
-                        <div className="num-opp" style={{fontSize:'45px'}}> 23</div>
+                        <div className="num-opp" style={{fontSize:'45px'}}>{!prodCountData?.appointmentCount ? 0 : prodCountData?.appointmentCount}</div>
                       </div>
                     </div>
                   </div>
