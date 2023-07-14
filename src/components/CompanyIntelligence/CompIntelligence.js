@@ -256,12 +256,23 @@ const CompanyIntelligence = React.memo((props) => {
       }
       setExpectationDetails(_expectation)
 
-      setRiskDetailsArr(leadData?.risk_details)
-
-      leadData?.company_id?.kdm_details.forEach((el, index) => {
-        el.kdmTabs = `KDM ${index + 1}`
+      let total_entities = [];
+      leadData?.risk_details?.map((item, index) => {
+        if(item?.total_entities){
+          total_entities.push(item)
+        }
       })
-      setKdmDetailsArr(leadData?.company_id?.kdm_details)
+      setRiskDetailsArr(total_entities)
+      
+      let decisionMakerName = [];
+      leadData?.company_id?.kdm_details?.map((item, index) => {
+        if(item?.decision_maker_name){
+          decisionMakerName.push(item)
+          item.kdmTabs = `KDM ${index + 1}`
+        }
+      })
+      setKdmDetailsArr(decisionMakerName)
+
       if(leadData?.company_id?.kdm_details?.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
 
       var newArr = leadData?.documents?.map((res) => ({ ...res, recent: false }));
@@ -703,10 +714,10 @@ const CompanyIntelligence = React.memo((props) => {
                         header={el.total_entities}
                         key={el.key}
                         extra={
-                          <Row style={{ marginTop: 3 }} onClick={e => e.stopPropagation()}>
+                          <div>
                             <DeleteOutlined onClick={() => deleteRiskData(el, index)} style={{ fontSize: 18, marginRight: 10, color: '#737373' }} />
                             <FormOutlined onClick={() => openRiskModal('edit', el, index)} style={{ fontSize: 16, color: '#737373' }} />
-                          </Row>
+                          </div>
                         }
                       >
                         <Row>
