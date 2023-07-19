@@ -47,7 +47,6 @@ const RemarksModalComp = (props) => {
         let result = "";
         if (remark && remark != "") {
             result = await axiosRequest.post(`user/add-opporunity-remark/${_StoreData._id}`,{ new_remark: remark },{ secure: true });
-
             if (result) {
                 setRemark("");
                 form.setFieldsValue({remarks: ""});

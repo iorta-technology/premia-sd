@@ -38,15 +38,35 @@ const NewLead = React.memo((props) => {
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
   const [company_id, setCompany_id] = useState("");
+  const [producerListArr, setProducerListArr] = useState([]);
   const [formItem, setFormItem] = useState({
-    producerName: "",
+    producerName: "Select",
     brokerCity: '',
     walletSize: "",
   });
 
+  const login_city = useSelector((state) => state?.login?.user?.city);
+  console.log("🚀 ~ file: NewBroker.js:49 ~ NewLead ~ login_city:", login_city)
+
 
   useEffect(() => {
+    setFormItem((res) => ({ ...res, brokerCity: login_city }));
+    form.setFieldsValue({ broker_city: login_city });
+    getProducerList()
   }, []);
+
+  const getProducerList = async () => {
+    let result = await axiosRequest.get(`user/getproducer`, {secure: true });
+    // console.log('getLocationDetails-------',result)
+    console.log("🚀 ~ file: NewBroker.js:55 ~ getProducerList ~ result:", result)
+    let _producer = [];
+
+    result[0]?.producer.map((el) => {
+      let _data = { label: el, value: el };
+      _producer.push(_data);
+    });
+    setProducerListArr(_producer);
+  };
 
  
   useEffect(() => {
@@ -75,6 +95,13 @@ const NewLead = React.memo((props) => {
       closeBrokerModal()
     }
     
+  };
+
+  const onProducerChange = (event, data) => {
+    // console.log('event--------->>>>',event)
+    // console.log('data--------->>>>',data)
+    setFormItem((res) => ({ ...res, producerName: event }));
+    form.setFieldsValue({ producer_name: event });
   };
 
   const closeBrokerModal = (event) => {
@@ -126,17 +153,12 @@ const NewLead = React.memo((props) => {
                     label="Producer Name"
                     style={{ marginBottom: "1rem" }}
                   >
-                    <Input
-                      placeholder="Enter Producer Name"
+                    <Select
+                      placeholder="Select"
+                      options={producerListArr}
                       value={formItem.producerName}
-                      disabled={false}
-                      onChange={(val) =>
-                        setFormItem((res) => ({
-                          ...res,
-                          producerName: val.target.value,
-                        }))
-                      }
-                    />
+                      onChange={(val, data) => onProducerChange(val, data)}
+                    ></Select>
                   </Form.Item>
                 </Col>
 
@@ -151,7 +173,7 @@ const NewLead = React.memo((props) => {
                     <Input
                       placeholder="Enter City"
                       value={formItem.brokerCity}
-                      disabled={false}
+                      disabled={true}
                       onChange={(val) =>
                         setFormItem((res) => ({
                           ...res,
