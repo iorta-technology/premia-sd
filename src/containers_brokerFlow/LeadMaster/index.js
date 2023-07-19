@@ -25,7 +25,6 @@ const LeadMaster = (props) => {
 
   useEffect(() => {
     setcurrent(1);
-    // console.warn("props----------------->>>>>", props);
   }, [props]);
 
   useEffect(() => {
@@ -40,6 +39,7 @@ const LeadMaster = (props) => {
 
   //Accessing LeadCard data  from store
   const leadsData = useSelector((state) => state.leads.allLeads);
+  // console.log(leadsData,"leads data for broker flow");
   const _leadCount = useSelector((state) => state?.home?.home_obj);
   console.log("_leadCount ----------------->>>>>", _leadCount);
   //Loading leads data

@@ -87,6 +87,7 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   const childRef = useRef(null);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
+  // console.log('storeformdata-------------->'.storeFormData);
   const loginId = useSelector((state) => state?.login?.user?.id);
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);

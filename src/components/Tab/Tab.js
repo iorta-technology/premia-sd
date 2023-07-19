@@ -80,7 +80,7 @@ const Tab = ({
     // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
     let _pageNo = current === undefined || current === null ? 1 : current;
     if (_currentTab === "self") {
-      dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
+      dispatch(actions.fetchAllLeads_broker(id, leadInc, _pageNo));
     } else {
       const teamId = stoageGetter("teamMemberId");
       // console.warn("teamId______===========>>>", teamId);

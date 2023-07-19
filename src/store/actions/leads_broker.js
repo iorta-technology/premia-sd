@@ -40,7 +40,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
       `user/getbrokerlist?userId=${id}&filter=${leads}&skip=${skipVal}`,
       { secure: true }
     );
-    console.log("+++++++++ GET LEAD DATA ++++++++", result.data);
+    console.log("+++++++++ GET LEAD DATA ++++++++", result);
     if (result.data.length > 0) {
       dispatch(
         fetchAllLeadsSuccess(
@@ -49,7 +49,7 @@ export const fetchAllLeads = (id, leads, pageNo) => {
             result === "No leads found" ? [] : result.data,
             this
           ),
-          result.count
+          result.count[0]
         )
       );
     } else {
