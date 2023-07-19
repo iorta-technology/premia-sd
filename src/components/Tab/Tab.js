@@ -70,10 +70,29 @@ const Tab = ({
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead") getDataForOpen(leadTabFilter);
+    if (header === "Broker Listing") getBrokerData(leadTabFilter);
   }, [current]);
 
   // ************************Api *********************
-
+  const getBrokerData = async (leadInc) => {
+    setLeadTabFilter(leadInc);
+    const { id } = stoageGetter("user");
+    // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
+    let _pageNo = current === undefined || current === null ? 1 : current;
+    if (_currentTab === "self") {
+      dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
+    } else {
+      const teamId = stoageGetter("teamMemberId");
+      // console.warn("teamId______===========>>>", teamId);
+      dispatch(
+        actions.fetchAllLeads(
+          teamId === null || teamId === undefined ? id : teamId,
+          leadInc,
+          _pageNo
+        )
+      );
+    }
+  };
   const getDataForOpen = async (leadInc) => {
     setLeadTabFilter(leadInc);
     const { id } = stoageGetter("user");
@@ -122,12 +141,25 @@ const Tab = ({
           getDataForOpen("failed");
           return history.push("/leadMaster/pendingproposal");
         }
+        case "all_broker": {
+          getBrokerData("all");
+          return history.push("/brokerflow/all_leads");
+        }
+        case "fortoday_broker": {
+          getBrokerData("today");
+          return history.push("/brokerflow/today");
+        }
         case "1":
-          return history.push("/company-intelligence", {
+          return history.push("/company-intelligence_broker", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
           });
         case "2":
+          return history.push("/company-intelligence", {
+            leadData: routeLeadData,
+            updateFormData: updateFormData,
+          });
+        case "3":
           return history.push("/leadmasterpage/leadhistory");
 
         case "calendar":

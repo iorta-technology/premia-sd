@@ -40,16 +40,16 @@ export const fetchAllLeads = (id, leads, pageNo) => {
       `user/getbrokerlist?userId=${id}&filter=${leads}&skip=${skipVal}`,
       { secure: true }
     );
-    console.log("+++++++++ GET LEAD DATA ++++++++", result);
-    if (result.length > 0) {
+    console.log("+++++++++ GET LEAD DATA ++++++++", result.data);
+    if (result.data.length > 0) {
       dispatch(
         fetchAllLeadsSuccess(
           supportLead.readSortDataFromAPI(
             leads,
-            result === "No leads found" ? [] : result[0],
+            result === "No leads found" ? [] : result.data,
             this
           ),
-          result[1][0].count
+          result.count
         )
       );
     } else {

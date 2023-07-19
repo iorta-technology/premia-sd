@@ -91,9 +91,8 @@ const OpportunityComp = (props) => {
 
               if (props?.opportunityDetails?.appointmentDate) {
                 _appntDate = moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY");
-                _appntTime = moment(props?.opportunityDetails?.appointmentDate).format("LT");
+                _appntTime = moment(props?.opportunityDetails?.appointmentTime).format("LT");
                 setApptDateString(_appntDate);
-
                 _apptDateFormat = moment(moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY"),"MM/DD/YYYY");
               }
 
@@ -121,7 +120,12 @@ const OpportunityComp = (props) => {
               appointment_date: _apptDateFormat,
               appointment_time: props?.opportunityDetails?.appointmentTime,
             });
-            setFormItem((res) => ({...res,appointmentTime: props?.opportunityDetails?.appointmentTime }));
+           
+            setFormItem((res) => (
+              {...res,appointmentTime: props?.opportunityDetails?.appointmentTime}
+              ));
+              setFormItem((res)=>({...res,disposition:props.opportunityDetails.leadDisposition} ))
+              setFormItem((res)=>({...res,subDisposition:props.opportunityDetails.leadsubDisposition} ))
         }
         
     }, [props]);
@@ -169,7 +173,6 @@ const OpportunityComp = (props) => {
             { label: "High Price", value: "High Price" },
           ]);
           setShowAppointmentFields(false);
-    
           setFormItem((res) => ({ ...res, subDisposition: "Lost to Competition" }));
           form.setFieldsValue({ sub_disposition: "Lost to Competition" });
         } else if (event === "noteligible") {
@@ -253,7 +256,7 @@ const OpportunityComp = (props) => {
 
     const submitOpportunity = () =>{
       let formBody = {
-          lead_id: _StoreData._id,
+          broker_id: _StoreData._id,
           opportunity_status: {
               leadStatus: formItem.status,
               leadDisposition: formItem.disposition,
@@ -262,8 +265,7 @@ const OpportunityComp = (props) => {
               start_time:!formItem.appointmentTime ? null : formItem.appointmentTime ,
           }
       }
-
-      dispatch(actions.editLead(formBody, _StoreData._id))
+      dispatch(actions.editLead_broker(formBody, _StoreData._id))
       props.setShowOpportunityModal(false)
     }
 

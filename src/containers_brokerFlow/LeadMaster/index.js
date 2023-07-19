@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import Tab from "../../components/Tab_broker_flow/Tab";
+import Tab from "../../components/Tab/Tab";
 import LeadCards from "../../components/LeadCards_broker_flow/LeadCards";
 import FloatButton from "../../components/FloatButton/FloatButton";
 import * as actions from "../../store/actions/index";

@@ -212,10 +212,7 @@ const CompanyIntelligence = React.memo((props) => {
       let _appntTime = "";
 
       // Setting Opportunity data
-      if (leadData?.appointmentDate) {
-        // _appntDate = moment(leadData?.appointmentDate).format("MM/DD/YYYY");
-        // _appntTime = moment(leadData?.appointmentDate).format("LT");
-        
+      if (leadData?.appointmentDate) {        
         let redable_date = new Date(leadData?.appointmentDate).toLocaleString('en-US', { timeZone: 'UTC' }).split(',')
         _appntDate = redable_date[0]
         let _appTime = redable_date[1].trim().split(':')
@@ -902,10 +899,10 @@ const CompanyIntelligence = React.memo((props) => {
                 onChange={remarkCollabChange}
               >
                 <TabPane tab="Events" key="1" >
-                  {/* <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
+                  <Row justify="space-between" style={{alignItems:'center',padding:'0px 15px 15px 15px'}} >
                       <p className="text-font" style={{color:'#444444'}}>Create Event</p>
-                      <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} />
-                    </Row> */}
+                      {/* <PlusCircleOutlined onClick={() => setShowRemarkModal(true)} style={{fontSize:18}} /> */}
+                    </Row>
                   <>
                     {activities_data &&
                       !_.isEmpty(activities_data) &&

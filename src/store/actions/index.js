@@ -6,16 +6,9 @@ export {
   createLead,
   storeLead,
   editLead,
+  editLead_broker,
   fetchLeadDetails_broker
 } from "./newLead";
-// export {
-//   fetchLeadDetailsSuccess,
-//   fetchLeadUpdateBody,
-//   fetchLeadDetails,
-//   createLead,
-//   storeLead,
-//   editLead,
-// } from "./newLead_broker";
 export { fetchAllState, fetchAllCities } from "./address";
 export {
   loginSuccess,

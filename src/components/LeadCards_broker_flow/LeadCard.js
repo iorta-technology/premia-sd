@@ -235,29 +235,12 @@ const LeadCard = React.memo((props) => {
                   <p className="text-content capitalize">{lob}</p>
                   <p className="text-type">LOB</p>
                 </div>
-                {/* <div className="grid-style Appoinment-Heading">
-                  <button
-                    type="primary"
-                    className="update-btn"
-                    onClick={() => updateHandler(id)}
-                  >
-                    Update
-                  </button>
-                </div> */}
+                
               </div>
             </div>
-            {/* <div style={{ display: "flex", flex: 1 }}>
-              <button
-                type="primary"
-                className="update-btn"
-                onClick={() => updateHandler(id)}
-              >
-                Update
-              </button>
-            </div> */}
+            
           </div>
         </div>
-        {/* <div className="Update-Btn"></div> */}
       </Card>
     </div>
   );
@@ -296,18 +279,12 @@ const LeadCard = React.memo((props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            // backgroundColor: "blue",
           }}
         >
           {nameShorter(opportunityName)}
         </Avatar>
         <div className="card-content-text capitalize">
           <p className="user-name-text">{opportunityName}</p>
-          {/* {leadComponent} */}
-          {/* <p className="user-status-text">{leadStatus === "newleadentry" || leadStatus === "contact" ? 'Open' : leadStatus}</p> */}
-          {/* <PhoneOutlined
-            style={{ color: "green", cursor: "pointer" }}
-          ></PhoneOutlined> */}
         </div>
         <MoreOutlined
           style={{ fontSize: "25px", marginLeft: "auto", color: "grey" }}

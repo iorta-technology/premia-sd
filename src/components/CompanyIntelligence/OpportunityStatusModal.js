@@ -122,6 +122,7 @@ const OpportunityComp = (props) => {
               appointment_time: props?.opportunityDetails?.appointmentTime,
             });
             setFormItem((res) => ({...res,appointmentTime: props?.opportunityDetails?.appointmentTime }));
+            console.log(formItem,"this is the form item");
         }
         
     }, [props]);
