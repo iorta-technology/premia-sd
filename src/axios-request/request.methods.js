@@ -105,7 +105,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
       })
       .catch((error) => {
         // message.destroy();
-        if (config.method !== "get") message.destroy();
+        if (config.method === "get") message.destroy();
         if (error.response) {
           // console.log('I AM IN CATCHHHHH',error.response);
           // alert(error.response.data.errMsg);
