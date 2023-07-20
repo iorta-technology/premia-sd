@@ -842,6 +842,8 @@ const HomePage = () => {
                 className="dataCard"
                 bordered="false"
                 style={{ backgroundColor: "rgb(94, 192, 173)" }}
+                // style={{ backgroundColor: "#00acc1" }}
+                
               >
                 {/* <Link to="/leadMaster/all_leads"> */}
                 <div className="card-content">
@@ -922,7 +924,7 @@ const HomePage = () => {
               </div>
             </Col>
           )}
-           {showActivityTracker && (
+          {showOpportunities && (
             <Col className="home_section">
               <div
                 className="dataCard"
