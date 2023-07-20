@@ -4,6 +4,7 @@ import { getLeadFilter } from "../../helpers";
 import axiosLms from "../../axios-lmsv2";
 import axiosRequest from "../../axios-request/request.methods";
 import supportLead from "../../components/LeadCards/supportLeads";
+import supportLead_broker from "../../components/LeadCards_broker_flow/supportLeads"
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -13,6 +14,7 @@ export const fetchAllLeadsStart = () => {
 };
 
 export const fetchAllLeadsSuccess = (allLeads, count) => {
+  console.log(allLeads,"broker flow leads");
   return {
     type: actionTypes.FETCH_ALL_LEADS_SUCCESS,
     allLeads: allLeads,
@@ -24,6 +26,36 @@ export const fetchAllLeadsFail = (error) => {
   return {
     type: actionTypes.FETCH_ALL_LEADS_FAIL,
     error: error,
+  };
+};
+export const fetchAllLeads_broker = (id, leads, pageNo) => {
+  console.log(id);
+  console.log("pageNo ===== ", pageNo);
+  // const leadFilter = getLeadFilter(leads)
+  let skipVal;
+  pageNo === 1 ? (skipVal = 0) : (skipVal = (pageNo - 1) * 15);
+
+  return async (dispatch) => {
+    dispatch(fetchAllLeadsStart());
+    let result = await axiosRequest.get(
+      `user/getbrokerlist?userId=${id}&filter=${leads}&skip=${skipVal}`,
+      { secure: true }
+    );
+    console.log("+++++++++ GET LEAD DATA ++++++++", result);
+    if (result.data.length > 0) {
+      dispatch(
+        fetchAllLeadsSuccess(
+          supportLead_broker.readSortDataFromAPI(
+            leads,
+            result === "No leads found" ? [] : result.data,
+            this
+          ),
+          result.count[0]
+        )
+      );
+    } else {
+      dispatch(fetchAllLeadsFail());
+    }
   };
 };
 

@@ -57,6 +57,7 @@ export const editLeadFail = (error) => {
 };
 
 export const editLead = (formData, id) => {
+  
   return async (dispatch) => {
     dispatch(editLeadStart());
     // let result = await axiosRequest.put(`user/updateLead/${id}`, formData, {
@@ -69,6 +70,17 @@ export const editLead = (formData, id) => {
       return dispatch(editLeadSuccess(result));
       
     // }
+  };
+};
+export const editLead_broker = (formData, id) => {
+  return async (dispatch) => {
+    dispatch(editLeadStart());
+    let result = await axiosRequest.put(`user/updateopportunityDetails`, formData, {
+      secure: true,
+    });
+    // console.warn("update LEADDDD_______", result);
+      dispatch(fetchLeadDetails_broker(id))
+      return dispatch(editLeadSuccess(result));
   };
 };
 
@@ -135,7 +147,7 @@ export const fetchLeadDetails_broker = (id) => {
   return async (dispatch) => {
     dispatch(fetchLeadDetailsStart());
     let result = await axiosRequest.get(`user/getbrokerDetails?brokerId=${id}`, {secure: true });
-    console.log('__++++++++++++++ getlead_details_broker',result);
+    console.log('__++++++++++++++ getlead_details_broker',result[0]);
     if (result.length > 0) {
       return dispatch(fetchLeadDetailsSuccess(result[0]));
     }

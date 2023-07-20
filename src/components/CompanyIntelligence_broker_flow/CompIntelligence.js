@@ -3,7 +3,7 @@ import "../../components/StatusLead/StatusLead.css";
 import page from "./icons/page.svg"
 import eye from "./icons/Eye.svg";
 import Trash from "./icons/Trash.svg";
-// import Tab from '../Tab_broker_flow/Tab'
+import Tab from '../Tab/Tab'
 import "./CompIntelligence.css";
 import {
   Row,
@@ -31,7 +31,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
-import TabsComp from "../../components/Tab_broker_flow/Tab";
+import TabsComp from "../../components/Tab/Tab";
 import _ from "lodash";
 import { doSentenceCase } from "../../helpers";
 import moment from "moment";
@@ -87,6 +87,7 @@ const CompanyIntelligence = React.memo((props) => {
   const dispatch = useDispatch();
   const childRef = useRef(null);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
+  // console.log('storeformdata-------------->'.storeFormData);
   const loginId = useSelector((state) => state?.login?.user?.id);
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
@@ -210,13 +211,24 @@ const CompanyIntelligence = React.memo((props) => {
       if (leadData?.producerdetails?.kdm_details?.length > 0) handleKdmTabs(leadData?.producerdetails?.kdm_details[0]);
 
       //setting the opportunity details
-      let _opportunity = {
-        appointmentDate: leadData?.appointmentDate == null ? '-' : leadData?.appointmentDate,
-        appointmentTime: leadData?.appointmentTime == null ? '-' : leadData?.appointmentTime,
-        leadStatus: '-',
-        leadsubDisposition: '-',
-        leadDiposition: '-'
+      let _appntDate = "";
+      let _appntTime = "";
 
+      // Setting Opportunity data
+      if (leadData?.appointmentDate) {        
+        let redable_date = new Date(leadData?.appointmentDate).toLocaleString('en-US', { timeZone: 'UTC' }).split(',')
+        _appntDate = redable_date[0]
+        let _appTime = redable_date[1].trim().split(':')
+        let _appTimeAm = _appTime[2].split(' ')
+
+        _appntTime = `${_appTime[0]}:${_appTime[1]} ${_appTimeAm[1]}`
+      }
+      let _opportunity = {
+        appointmentDate: leadData?.appointmentDate == null ? '-' : _appntDate,
+        appointmentTime: leadData?.appointmentTime == null ? '-' : _appntTime,
+        leadStatus: leadData?.leadStatus==null?'-':leadData.leadStatus,
+        leadDisposition:leadData?.producerDisposition==null?'-':leadData.producerDisposition,
+        leadsubDisposition:leadData?.producersubDisposition==null?'-':leadData.producersubDisposition,
       }
       setOpportunityDetails(_opportunity)
 
@@ -590,12 +602,12 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(opportunityDetails?.leadStatusLabel)}</p>
+                    <p className="text-font">{checkValidity(opportunityDetails?.leadStatus)}</p>
                     <p className="label-font">Status</p>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{checkValidity(opportunityDetails?.leadDispositionLabel)}</p>
+                    <p className="text-font">{checkValidity(opportunityDetails?.leadDisposition)}</p>
                     <p className="label-font">Disposition</p>
                   </Col>
 
@@ -620,7 +632,7 @@ const CompanyIntelligence = React.memo((props) => {
 
                 <Row style={{marginTop:10}}>
                   <Col style={{flex:1}}>
-                    <p className="text-font">{checkValidity(opportunityDetails.appoint_Date)}</p>
+                    <p className="text-font">{checkValidity(opportunityDetails.appointmentDate)}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
@@ -814,7 +826,7 @@ const CompanyIntelligence = React.memo((props) => {
           <ShowPdf show={isModalOpen} />
         </>
         <>
-        {/* <Tab heading={storeFormData.producerdetails.raw_producer_name}/> */}
+        <Tab heading={storeFormData.producerdetails.raw_producer_name}/>
         </>
       </div>
 

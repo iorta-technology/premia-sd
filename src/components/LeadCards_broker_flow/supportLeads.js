@@ -28,16 +28,16 @@ export default {
     let self = this;
     console.log("Response :   ", resObj);
     let dataStructure = {};
-    dataStructure.wallet_size=resObj.wallet_size;
-    dataStructure.producer_name=resObj.producer_name;
+    dataStructure.wallet_size=resObj.producer.wallet_size;
+    dataStructure.producer_name=resObj.producer.producer_name;
     dataStructure._id=resObj._id;
-    dataStructure.city=resObj.city;
+    dataStructure.city=resObj.producer.city;
     dataStructure.name=resObj.userId.first_name + resObj.userId.last_name;
-    dataStructure.appointment_on='-';
-    dataStructure.lob='-'
-    dataStructure.raw_producer_name=resObj.raw_producer_name;
-    dataStructure.utilization='-'
-    dataStructure.brokerId=resObj.broker._id;
+    dataStructure.appointment_on=resObj.appointementDate===undefined?'-':resObj.appointementDate;
+    dataStructure.lob=resObj.lob_for_opportunity===undefined?'-':resObj.lob_for_opportunity
+    dataStructure.raw_producer_name=resObj.producer.raw_producer_name;
+    dataStructure.utilization=resObj.utilization===undefined?'-':resObj.utilization;
+    dataStructure.brokerId=resObj._id;
 
     // console.log("length", resObj.company_id.risk_details.length> 0 )
     // let _inceptDate = ''

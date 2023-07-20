@@ -39,7 +39,7 @@ let dateFormat = "YYYY/MM/DD";
 
 let addEvent = [];
 export default function CalendarEvent(props) {
-  console.log(props.Data,"this is the props data")
+  // console.log(props.Data,"this is the props data")
   const dispatch = useDispatch();
 
   let { innerWidth: width, innerHeight: height } = window;
@@ -68,6 +68,7 @@ export default function CalendarEvent(props) {
   const [todoOpporId, settodoOpporId] = useState(null);
   const [companyArray, setCompanyArray] = useState([]);
   const [opportunityNameArray, setOpportunityNameArray] = useState([]);
+  const [event_For, setEvent_For] = useState(false);
 
   const [durationButton, setDurationButton] = useState({
     select_time: true,
@@ -2247,8 +2248,12 @@ export default function CalendarEvent(props) {
             // console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
             let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
             teammemberclone = [...new Set(teammemberclone)];
+            let API="user/bookAppointment"
+            if(event_For==true){
+              API="user/bookAppointment?event_for=broker"
+            }
             let result = await axiosRequest.post(
-              "user/bookAppointment",
+             API,
               {
                 userId: stoageGetter("user").id,
                 appointment_type: customerCheck
@@ -2315,7 +2320,6 @@ export default function CalendarEvent(props) {
               },
               { secure: true }
             );
-
             if (result.length !== 0) {
               if (props.api != undefined) {
                 props.api();
@@ -2334,9 +2338,12 @@ export default function CalendarEvent(props) {
           setDurationEndTimeAlert(false);
           let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
           teammemberclone = [...new Set(teammemberclone)];
-
+          let API="user/bookAppointment"
+          if(event_For==true){
+            API="iser/bookAppointment?event_for=broker"
+          }
           let result = await axiosRequest.post(
-            "user/bookAppointment",
+            API,
             {
               userId: stoageGetter("user").id,
               appointment_type: customerCheck
@@ -3108,6 +3115,7 @@ export default function CalendarEvent(props) {
     setOpportunityNameArray(_opporArr);
   };
 
+
   const getCompanyDetails = async (lead_id) => {
     let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
@@ -3227,6 +3235,39 @@ export default function CalendarEvent(props) {
                
               </div> */}
 
+          <h4 className="CalendarEvent-Modal-Card-header-type">Event For *</h4>
+            <div
+              className={
+                advisorCheck == true
+                  ? "CalendarEvent-Modal-Card-button-flex-1"
+                  : "CalendarEvent-Modal-Card-button-flex"
+              }
+            >
+              <button
+                // disabled={event_For == true ? true : false}
+                className={
+                 event_For == false
+                    ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style"
+                    : "CalendarEvent-Modal-Card-eventwith-static-button-style"
+                }
+                onClick={()=>{setEvent_For(false);}}
+              >
+                Prospect
+              </button>
+              <button
+                className={
+                  event_For==true
+                    ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style"
+                    : "CalendarEvent-Modal-Card-eventwith-static-button-style"
+                }
+                onClick={()=>{setEvent_For(true);}}
+              >
+                Broker
+              </button>
+            </div>
+
+         
+
           <h4 className="CalendarEvent-Modal-Card-header-type">Event Type *</h4>
           {advisorCheck == true ? (
             <div
@@ -3255,16 +3296,9 @@ export default function CalendarEvent(props) {
                     : "CalendarEvent-Modal-Card-eventwith-static-button-style"
                 }
                 onClick={AdvisorPhoneCallFunc}
-                // style={{marginLeft : 10}}
               >
                 Phone Call
               </button>
-
-              {/* <button
-                    disabled={updateEventCheck==true?true:false}
-                    onClick={AdvisorTrainingFunc}
-                    className={advisorCollection.training == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
-                  >Training</button> */}
             </div>
           ) : prospectCheck == true ? (
             <div
@@ -3297,12 +3331,6 @@ export default function CalendarEvent(props) {
               >
                 Phone Call
               </button>
-
-              {/* <button
-                      disabled={updateEventCheck==true?true:false}
-                      onClick={ProspectTrainingFunc}
-                      className={prospectCollection.training_prospect == true ? "CalendarEvent-Modal-Card-eventwith-onclick-button-style" : "CalendarEvent-Modal-Card-eventwith-static-button-style"}
-                    >Training</button> */}
             </div>
           ) : customerCheck == true ? (
             <div
@@ -3335,13 +3363,6 @@ export default function CalendarEvent(props) {
               >
                 Phone Call
               </button>
-
-              {/* <button
-                        disabled={updateEventCheck==true?true:false}
-                        onClick={CustomerPolicyRenewalFunc}
-                        // style={{marginLeft : 10}}
-                        className={customerCollection.policy_renewal == true ? "CalendarEvent-Modal-documentcollection-onclick-button-style" : "CalendarEvent-Modal-Card-documentcollection-static-button-style"}
-                      >Policy Renewals</button> */}
             </div>
           ) : null}
 
