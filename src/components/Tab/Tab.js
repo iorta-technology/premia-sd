@@ -66,7 +66,7 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
   useEffect(() => {
-    console.log("************************ header ___*(*(*((**)))) *********************===========>>>",header);
+    console.log("************************ header ___*(*(*((**)))) *********************===========>>>", header);
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead") getDataForOpen(leadTabFilter);
@@ -149,17 +149,20 @@ const Tab = ({
           getBrokerData("today");
           return history.push("/brokerflow/today");
         }
+
         case "1":
-          return history.push("/company-intelligence_broker", {
-            leadData: routeLeadData,
-            updateFormData: updateFormData,
-          });
-        case "2":
           return history.push("/company-intelligence", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
           });
+        case "2":
+          return history.push("/leadmasterpage/leadhistory");
         case "3":
+          return history.push("/company-intelligence_broker", {
+            leadData: routeLeadData,
+            updateFormData: updateFormData,
+          });
+        case "4":
           return history.push("/leadmasterpage/leadhistory");
 
         case "calendar":
@@ -223,7 +226,7 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        <div className={"header-img-tabs tabsStyle"} style={{alignItems: header === "Lead" ? 'center' : 'none'}}>
+        <div className={"header-img-tabs tabsStyle"} style={{ alignItems: header === "Lead" ? 'center' : 'none' }}>
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
@@ -244,7 +247,7 @@ const Tab = ({
             </div>
           </div>
 
-          { header === "Lead" &&
+          {header === "Lead" &&
             <GlobalFilters
               show={show}
               onHide={handleClose}
