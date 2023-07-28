@@ -168,12 +168,12 @@ const LeadCards = (props) => {
     // let _pageNo = current === undefined || current === null ? 1 : current
     let _pageNo = 1;
     if (_currentTab === "self") {
-      dispatch(actions.fetchAllLeads(id, leadInc, _pageNo));
+      dispatch(actions.fetchAllLeads_broker(id, leadInc, _pageNo));
     } else {
       const teamId = stoageGetter("teamMemberId");
       // console.warn("teamId______===========>>>", teamId);
       dispatch(
-        actions.fetchAllLeads(
+        actions.fetchAllLeads_broker(
           teamId === null || teamId === undefined ? id : teamId,
           leadInc,
           _pageNo
@@ -343,7 +343,7 @@ const LeadCards = (props) => {
             ></Select>
           </div>
         )}
-        {/* {openSecond && leadsData?.globalTab === "team" && secondValue && (
+        {openSecond && leadsData?.globalTab === "team" && secondValue && (
           <div
             className="lead-ml15"
             style={{ position: "relative", bottom: 26 }}
@@ -361,10 +361,10 @@ const LeadCards = (props) => {
               <DownloadOutlined /> Export
             </Button>
           </div>
-        )} */}
+        )}
       </div>
 
-      {/* <div className="dropdown-container lead-ml60">
+      <div className="dropdown-container lead-ml60">
         <div
           style={{ position: "relative", bottom: 26 }}
           className="expt-heading"
@@ -411,7 +411,7 @@ const LeadCards = (props) => {
             <DownloadOutlined /> Export
           </Button>
         </div>
-      </div> */}
+      </div>
 
       <Row
         justify="center"

@@ -934,7 +934,7 @@ const HomePage = () => {
                 <div className="card-content">
                   <div
                     className="activity-icon"
-                    onClick={() => history.push("/leadMaster/all_leads")}
+                    onClick={() => history.push("/brokerflow/all_leads")}
                   >
                     <Image
                       preview={false}

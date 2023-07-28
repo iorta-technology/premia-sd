@@ -308,6 +308,7 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <AutoComplete
+                    style={{width:'100%'}}
                       placeholder="Select"
                       options={companyArray}
                       value={formItem.companyName}
@@ -331,6 +332,7 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Select
+                    style={{width:'100%'}}
                       disabled={disableParentComp}
                       placeholder="Select"
                       options={parentCompArray}
@@ -355,6 +357,7 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <AutoComplete
+                    style={{width:'100%'}}
                       disabled={disableParentComp}
                       placeholder="Select"
                       options={industryArray}
@@ -402,6 +405,7 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <AutoComplete
+                    style={{width:'100%'}}
                       placeholder="Select"
                       options={clienLocArr}
                       value={formItem.clientLocation}
@@ -425,6 +429,7 @@ const NewLead = React.memo((props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <Input
+                    style={{width:'100%'}}
                       placeholder="Enter zone"
                       value={formItem.clientZone}
                       disabled={true}

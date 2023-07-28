@@ -69,7 +69,7 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
   useEffect(() => {
-    console.log("************************ header ___*(*(*((**)))) *********************===========>>>",header);
+    console.log("************************ header ___*(*(*((**)))) *********************===========>>>", header);
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead") getDataForOpen(leadTabFilter);
@@ -143,20 +143,23 @@ const Tab = ({
           return history.push("/brokerflow/all_leads");
         }
         case "fortoday_broker": {
-          getBrokerData("today");
-          return history.push("/brokerflow/today");
+          getBrokerData("fortoday");
+          return history.push("/brokerflow/fortoday");
         }
+
         case "1":
-          return history.push("/company-intelligence_broker", {
-            leadData: routeLeadData,
-            updateFormData: updateFormData,
-          });
-        case "2":
           return history.push("/company-intelligence", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
           });
+        case "2":
+          return history.push("/leadmasterpage/leadhistory");
         case "3":
+          return history.push("/company-intelligence_broker", {
+            leadData: routeLeadData,
+            updateFormData: updateFormData,
+          });
+        case "4":
           return history.push("/leadmasterpage/leadhistory");
 
         case "calendar":
@@ -176,7 +179,6 @@ const Tab = ({
     tabPane = _.map(tabMenu, (value, id) => {
       return <TabPane key={value.id} tab={value.value}></TabPane>;
     });
-    // console.warn("tabPane", tabPane)
   }
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -220,7 +222,7 @@ const Tab = ({
   return (
     <>
       {width > breakpoint ? (
-        <div className={"header-img-tabs tabsStyle"} style={{alignItems: header === "Lead" ? 'center' : 'none'}}>
+        <div className={"header-img-tabs tabsStyle"} style={{ alignItems: header === "Lead" ? 'center' : 'none' }}>
           <div>
             <div>
               <p className="header-title-tab">{header}</p>
@@ -241,7 +243,7 @@ const Tab = ({
             </div>
           </div>
 
-          { header === "Lead" &&
+          {header === "Lead" &&
             <GlobalFilters
               show={show}
               onHide={handleClose}

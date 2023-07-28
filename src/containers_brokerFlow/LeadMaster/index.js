@@ -8,7 +8,6 @@ import { Pagination, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { stoageGetter } from "../../helpers";
 import { useHistory } from "react-router";
-
 const LeadMaster = (props) => {
   //Set current page no of the page
   const [current, setcurrent] = useState(1);
