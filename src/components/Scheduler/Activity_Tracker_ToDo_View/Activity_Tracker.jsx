@@ -82,8 +82,11 @@ const Datescheduler = () => {
 	}, [appointmentTootip])
 
 	// useEffect(() => {
-	// 	console.log("🚀 ~ file: >>>>>>>>>> ~ .................isModalVisible:", isModalVisible)
-	//   },[isModalVisible])
+	// 	// console.log("🚀 ~ file: >>>>>>>>>> ~ .................isModalVisible:", isModalVisible)
+	// 	let result = axiosRequest.get(`user/emails?value=Dev`,{ secure: true });
+	// 	console.log("🚀 ~ file: Activity_Tracker.jsx:88 ~ useEffect ~ result:", result)
+	//   },[])
+		
 
 	// invoking the function for retrieving our data
 	useEffect(() => {

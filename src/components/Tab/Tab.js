@@ -11,6 +11,7 @@ import { Button } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import LeadCard from "../LeadCards/LeadCard";
 import GlobalFilters from "./Filter";
+import BrokerFilters from "./Filter_Broker";
 import AllocateModalShow from "./Allocate";
 import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
@@ -57,7 +58,9 @@ const Tab = ({
   const [showTab, setShowTab] = useState();
   const [showModal, setShowModal] = useState(false);
   const [leadTabFilter, setLeadTabFilter] = useState("all");
+  const [brokerTabFilter, setBrokerTabFilter] = useState("all");
   const [TeamSelf, setTeamSelf] = useState(true);
+  const [showBrokerFilt, setShowBrokerFilt] = useState(false);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
 
   let history = useHistory();
@@ -70,12 +73,12 @@ const Tab = ({
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead") getDataForOpen(leadTabFilter);
-    if (header === "Broker Listing") getBrokerData(leadTabFilter);
+    if (header === "Broker Listing") getBrokerData(brokerTabFilter);
   }, [current]);
 
   // ************************Api *********************
   const getBrokerData = async (leadInc) => {
-    setLeadTabFilter(leadInc);
+    setBrokerTabFilter(leadInc);
     const { id } = stoageGetter("user");
     // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
     let _pageNo = current === undefined || current === null ? 1 : current;
@@ -84,13 +87,7 @@ const Tab = ({
     } else {
       const teamId = stoageGetter("teamMemberId");
       // console.warn("teamId______===========>>>", teamId);
-      dispatch(
-        actions.fetchAllLeads(
-          teamId === null || teamId === undefined ? id : teamId,
-          leadInc,
-          _pageNo
-        )
-      );
+      dispatch(actions.fetchAllLeads_broker( !teamId ? id : teamId,leadInc,_pageNo));
     }
   };
   const getDataForOpen = async (leadInc) => {
@@ -253,6 +250,17 @@ const Tab = ({
               tabFilter={leadTabFilter}
             />
           }
+
+          {/* { header === "Broker Listing" &&
+            <BrokerFilters
+              showBrokerFilt={showBrokerFilt}
+              onHide={() => setShowBrokerFilt(false)}
+              handleShow={() => setShowBrokerFilt(true)}
+              setShowBrokerFilt={setShowBrokerFilt}
+              tabFilter={brokerTabFilter}
+            />
+          } */}
+          
           {/* {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&
             storeFormData &&

@@ -400,7 +400,7 @@ const CompanyIntelligence = React.memo((props) => {
         // header={companyDetails?.company_name?.toUpperCase()}
         activeKey="1"
         statusLeadData={storeFormData}
-        header={storeFormData.producerdetails.raw_producer_name}
+        header={storeFormData?.producerdetails?.raw_producer_name}
       />
 
       <div
@@ -826,7 +826,7 @@ const CompanyIntelligence = React.memo((props) => {
           <ShowPdf show={isModalOpen} />
         </>
         <>
-        <Tab heading={storeFormData.producerdetails.raw_producer_name}/>
+        <Tab heading={storeFormData?.producerdetails?.raw_producer_name}/>
         </>
       </div>
 

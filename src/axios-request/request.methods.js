@@ -25,6 +25,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
       : headers;
     config.url = `${baseURL}${options.secure ? secure : auth}${config.url}`;
     // console.log("Request: ", { ...config, headers: headers });
+    // if (config.method === "get") message.destroy();
     axios({ ...config, headers: headers })
       .then((res) => {
         const errCode = res.data.errCode;
@@ -104,8 +105,8 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
         }
       })
       .catch((error) => {
-        // message.destroy();
-        if (config.method === "get") message.destroy();
+        message.destroy();
+        // if (config.method === "get") message.destroy();
         if (error.response) {
           // console.log('I AM IN CATCHHHHH',error.response);
           // alert(error.response.data.errMsg);
