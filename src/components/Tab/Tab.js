@@ -146,8 +146,8 @@ const Tab = ({
           return history.push("/brokerflow/all_leads");
         }
         case "fortoday_broker": {
-          getBrokerData("today");
-          return history.push("/brokerflow/today");
+          getBrokerData("fortoday");
+          return history.push("/brokerflow/fortoday");
         }
 
         case "1":
@@ -182,7 +182,6 @@ const Tab = ({
     tabPane = _.map(tabMenu, (value, id) => {
       return <TabPane key={value.id} tab={value.value}></TabPane>;
     });
-    // console.warn("tabPane", tabPane)
   }
 
   const [width, setWidth] = useState(window.innerWidth);

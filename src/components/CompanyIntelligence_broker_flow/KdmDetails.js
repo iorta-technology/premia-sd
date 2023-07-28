@@ -344,9 +344,11 @@ const KDMDetails = (props) => {
         if(kdmTypeData === 'create'){
             let result = await axiosRequest.post(`user/postproducerkdm?userId=${user_id}&&producerid=${_StoreData.producer_id}`,formBody,{ secure: true });
             dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
+            message.success('Kdm details created successfully')
         }else{
             let result = await axiosRequest.put(`user/updateproducerkdm?userId=${user_id}&producerid=${_compID}&kdmId=${editKdmId}`,formBody,{ secure: true });
             dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
+            message.success('Kdm details updated successfully')
         }
 
         // console.warn('formBody ------>>>>>',formBody)

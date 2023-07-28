@@ -148,16 +148,18 @@ const NewLead = React.memo((props) => {
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item
                     {...formItemLayout}
+
                     className="form-item-name txt_color"
                     name="producer_name"
                     label="Producer Name"
-                    style={{ marginBottom: "1rem" }}
+                    style={{ marginBottom: "1rem"}}
                   >
                     <Select
                       placeholder="Select"
                       options={producerListArr}
                       value={formItem.producerName}
                       onChange={(val, data) => onProducerChange(val, data)}
+                      style={{width:'100%'}}
                     ></Select>
                   </Form.Item>
                 </Col>

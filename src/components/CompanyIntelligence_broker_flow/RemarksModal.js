@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Tabs, Form, Input , Select, Button , Modal  } from 'antd';
+import { Row, Col, Tabs, Form, Input , Select, Button , Modal, message  } from 'antd';
 import '../StatusLead/StatusLead.css'
 import * as actions from "../../store/actions/index";
 import _ from "lodash";
@@ -52,6 +52,7 @@ const RemarksModalComp = (props) => {
                 // setreamrkDataArr([...reamrkDataArr, result]);
                 props.setShowRemarkModal(false)
                 dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
+                message.success('Remarks Added Successfully');
                 return 
             }
         
