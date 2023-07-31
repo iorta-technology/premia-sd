@@ -54,6 +54,7 @@ const DocumentsUpload = React.lazy(() =>
   import("./components/DocumentsUpload/DocumentsUpload")
 );
 const History = React.lazy(() => import("./components/History/History"));
+const BrokerHistory = React.lazy(() => import("./components/History/Broker_History"));
 const Login = React.lazy(() => import("./components/Login/Login"));
 const ForgotPassword = React.lazy(() =>
   import("./components/ForgotPassword/ForgotPassword")
@@ -440,6 +441,10 @@ function App() {
                   <Route
                     path="/leadmasterpage/leadhistory"
                     component={History}
+                  ></Route>
+                  <Route
+                    path="/broker-activity"
+                    component={BrokerHistory}
                   ></Route>
                   <Route
                     path="/advisorOnboarding/:type"

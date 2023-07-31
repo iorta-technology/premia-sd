@@ -75,12 +75,12 @@ const formItemLayout = {
 
 const tabMenu = [
   {
-    id: 1,
-    value: "Company Intelligence",
+    id: 'broker_intel',
+    value: "Broker Intelligence",
   },
   {
-    id: 2,
-    value: "History",
+    id: 'activity_log',
+    value: "Activity Log",
   },
 ];
 const CompanyIntelligence = React.memo((props) => {
@@ -398,7 +398,7 @@ const CompanyIntelligence = React.memo((props) => {
         tabMenu={tabMenu}
         // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         // header={companyDetails?.company_name?.toUpperCase()}
-        activeKey="1"
+        activeKey="broker_intel"
         statusLeadData={storeFormData}
         header={storeFormData?.producerdetails?.raw_producer_name}
       />

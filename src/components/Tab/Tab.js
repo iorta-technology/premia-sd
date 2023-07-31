@@ -154,12 +154,13 @@ const Tab = ({
           });
         case "2":
           return history.push("/leadmasterpage/leadhistory");
-        case "3":
+      
+        case "broker_intel":
           return history.push("/company-intelligence_broker", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
           });
-        case "4":
+        case "activity_log":
           return history.push("/leadmasterpage/leadhistory");
 
         case "calendar":
