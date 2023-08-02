@@ -143,8 +143,8 @@ const Tab = ({
           return history.push("/brokerflow/all_leads");
         }
         case "fortoday_broker": {
-          getBrokerData("fortoday");
-          return history.push("/brokerflow/fortoday");
+          getBrokerData("today");
+          return history.push("/brokerflow/today");
         }
 
         case "1":
@@ -161,8 +161,7 @@ const Tab = ({
             updateFormData: updateFormData,
           });
         case "activity_log":
-          return history.push("/leadmasterpage/leadhistory");
-
+          return history.push("/broker-activity");
         case "calendar":
           return history.push("/calendar");
 
@@ -254,7 +253,7 @@ const Tab = ({
             />
           }
 
-          {/* { header === "Broker Listing" &&
+          { header === "Broker Listing" &&
             <BrokerFilters
               showBrokerFilt={showBrokerFilt}
               onHide={() => setShowBrokerFilt(false)}
@@ -262,7 +261,7 @@ const Tab = ({
               setShowBrokerFilt={setShowBrokerFilt}
               tabFilter={brokerTabFilter}
             />
-          } */}
+          }
           
           {/* {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&

@@ -64,7 +64,7 @@ const History = () => {
 
   useEffect(() => {
     dispatch(actionsLead.headerName(storeFormData?.company_id?.company_name.toUpperCase()));
-    dispatch(actions.fetchHistory(leadId, userId));
+    dispatch(actions.fetchHistory_broker(leadId, userId));
   }, [dispatch]);
 
   let { innerWidth: width, innerHeight: height } = window;

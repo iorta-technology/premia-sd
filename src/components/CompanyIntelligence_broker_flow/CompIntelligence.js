@@ -37,7 +37,7 @@ import { doSentenceCase } from "../../helpers";
 import moment from "moment";
 import axiosRequest from "../../axios-request/request.methods";
 import { FormOutlined, PlusCircleOutlined, UploadOutlined, CalendarOutlined, DeleteOutlined, UserOutlined } from "@ant-design/icons";
-import TodoTab from "../Scheduler/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
+import TodoTab from "../Scheduler/RightSide-Todo/TodoCreate-Tab/Todo-Tab_broker";
 // import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import noDataIcon from "../../assets/NoDataFound.png";
@@ -183,10 +183,10 @@ const CompanyIntelligence = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const getAppointmentList = async (lead_id) => {
+  const getAppointmentList = async (broker_id) => {
     // setUpdateLeadID(lead_id)
     let _result = await axiosRequest.get(
-      `user/fetch_appointments/${loginId}?teamdata=0&category=all&lead_id=${lead_id}`,
+      `user/fetch_appointments/${loginId}?teamdata=2&category=broker&broker_id=${broker_id}`,
       { secure: true }
     );
     // console.log('APPOINTMENT DATA---->>>', _result)
@@ -400,7 +400,7 @@ const CompanyIntelligence = React.memo((props) => {
         // header={companyDetails?.company_name?.toUpperCase()}
         activeKey="broker_intel"
         statusLeadData={storeFormData}
-        header={storeFormData?.producerdetails?.raw_producer_name}
+        header={ storeFormData && storeFormData?.producerdetails?.raw_producer_name}
       />
 
       <div
@@ -545,7 +545,7 @@ const CompanyIntelligence = React.memo((props) => {
                       reamrkDataArr?.slice(0).reverse().map((res, index) => (
                         <div key={res.date} className={"mb-3 remarks_bg " + (loginId === res.userId._id ? "left" : "right")}>
                           <div className="d-flex justify-content-between w-100">
-                            <div className="me-3">-</div>
+                            <div className="me-3">{res.userId.full_name}</div>
                             <div className="me-3">{moment(res.date).format("DD/MM/YYYY hh:mm:ss a")}</div>
                           </div>
                           <div>{res.description}</div>

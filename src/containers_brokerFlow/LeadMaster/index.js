@@ -84,11 +84,11 @@ const LeadMaster = (props) => {
   const tabMenu = [
     {
       id: "all_broker",
-      value: "All" + " (" + _leadCount.all_lead + ")",
+      value: "All" + " (" + _leadCount.brokerall + ")",
     },
     {
       id: "fortoday_broker",
-      value: "For Today" + " (" + _leadCount.today + ")",
+      value: "For Today" + " (" + _leadCount.brokertoday + ")",
     }
   ];
   return (
