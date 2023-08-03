@@ -217,13 +217,13 @@ export const fetchDataAfterFilter_broker = (
     // if (dateFilter.trim().length) url += `&inceptionDate=${dateFilter}`;
 
     let result = await axiosRequest.get(url);
-    console.warn("_______Filter", result);
-    if (result.length > 0) {
+    console.log("_______Filter", result.data);
+    if (result.data.length > 0) {
       dispatch(
         fetchAllLeadsSuccess(
           supportLead_broker.readSortDataFromAPI(
             leadfilter,
-            result === "No leads found" ? [] : result.data[0],
+            result === "No leads found" ? [] : result.data,
             this
           ),
           result.count

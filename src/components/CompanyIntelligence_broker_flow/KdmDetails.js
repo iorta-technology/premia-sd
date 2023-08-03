@@ -40,7 +40,7 @@ const KDMDetails = (props) => {
     // const storeLeadId = useSelector((state) => state.newLead.leadId)
     // const storeUserId = useSelector((state) => state.newLead.userId)
     const _StoreData = useSelector((state) => state?.newLead?.formData);
-    // console.log('kdm store data-------------->',_StoreData);
+    console.log('kdm store data-------------->',_StoreData);
     const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
         // console.log('kdm upDate data-------------->',_UpdateFormBody);
     const user_id = useSelector((state) => state.login.user.id);
@@ -342,7 +342,7 @@ const KDMDetails = (props) => {
         let _compID = _StoreData?.producer_id;
 
         if(kdmTypeData === 'create'){
-            let result = await axiosRequest.post(`user/postproducerkdm?userId=${user_id}&&producerid=${_StoreData.producer_id}`,formBody,{ secure: true });
+            let result = await axiosRequest.post(`user/postproducerkdm?userId=${user_id}&&producerid=${_StoreData.producer_id}&brokerId=${_StoreData._id}`,formBody,{ secure: true });
             dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
             message.success('Kdm details created successfully')
         }else{
