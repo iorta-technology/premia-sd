@@ -161,7 +161,7 @@ const History = () => {
       <TabsComp
         tabMenu={tabMenu}
         
-        header={storeFormData?.company_id?.company_name.toUpperCase()}
+        header={storeFormData?.producerdetails?.producer_name.toUpperCase()}
         // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         activeKey="activity_log"
         statusLeadData={storeFormData}
