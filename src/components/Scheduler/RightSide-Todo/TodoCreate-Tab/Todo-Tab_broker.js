@@ -536,16 +536,13 @@ import {
           userId: id,
         };
         // console.log('CHECK PROPPPPSSS ____________', props)
-        if (props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID')) {
-          // if(!props.companyID && props.leadID !== '-'){}
-          formData["company_id"] = props.companyID;
-          // formData["leadId"] = props.leadID;
-        } else {
-          formData["company_id"] = todoCompId;
-          // formData["leadId"] = todoOpporId;
-        }
+        // if (props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID')) {
+        //   formData["company_id"] = props.companyID;
+        // } else {
+        //   formData["company_id"] = todoCompId;
+        // }
   
-        let _resp = await axiosRequest.post(`user/todo_task?task_for=broker&brokerId=`, formData, {
+        let _resp = await axiosRequest.post(`user/todo_task?task_for=broker&brokerId=${props.broker_id}`, formData, {
           secure: true,
         });
         console.log("TODO__RESPPPP", _resp);

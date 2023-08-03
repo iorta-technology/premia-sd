@@ -42,7 +42,6 @@ export const fetchAllLeads_broker = (id, leads, pageNo) => {
       { secure: true }
     )
     // console.log(result.errMsg.data,"data broker flow------------");
-  
     if (result.data.length > 0) {
       dispatch(
         fetchAllLeadsSuccess(

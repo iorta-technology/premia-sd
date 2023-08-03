@@ -127,6 +127,7 @@ const CompanyIntelligence = React.memo((props) => {
   const [fileIndex, setFileIndex] = useState(0);
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
+  const [brokerId, setBrokerId] = useState('');
   let _teamMember = [];
   const callback = (data) => {
     setFileData(data);
@@ -173,6 +174,7 @@ const CompanyIntelligence = React.memo((props) => {
     console.log('storeFormData--------->>>>>', storeFormData);
     loadValuesToFields(storeFormData);
     getAppointmentList(storeFormData._id);
+    setBrokerId(storeFormData._id);
   }, [storeFormData]);
 
 
@@ -773,7 +775,6 @@ const CompanyIntelligence = React.memo((props) => {
                     <p className="text-font" style={{ color: '#444444' }}>Create To Do</p>
                     <PlusCircleOutlined onClick={() => setShowTodoModal(true)} style={{ fontSize: 18 }} />
                   </Row>
-
                   <>
                     <div className="TodoCards" style={{ padding: 10 }}>
                       <TodoCards leadID={updateLeadID} ref={childRef} />
@@ -796,6 +797,7 @@ const CompanyIntelligence = React.memo((props) => {
           leadID={updateLeadID}
           isModalVisible={showTodoModal}
           setIsModalVisible={setShowTodoModal}
+          broker_id={brokerId}
         />
         <>
           <KDMDetails kdmDataSet={kdmType === 'create' ? {} :kdmDetailsArr.length!==0?kdmDataSet:{}} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
