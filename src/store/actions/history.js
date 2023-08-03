@@ -22,9 +22,29 @@ export const fetchHistoryFail = (error) => {
     error: error,
   };
 };
+export const fetchHistory_broker = (leadId,userId) => {
+  // console.log('broker history');
+  return dispatch => {
+      dispatch(fetchHistoryStart())
+      return axiosRequest.get(`user/brokerhistory/${leadId}?user_id=${userId}`, { secure: true })
+          .then(res => {
+              if(res.length > 0){
+                 const  response = res
+                 console.log("dgdf122222-----",res)
+                  return dispatch(fetchHistorySuccess(response))
+
+              }else{
+                return dispatch(fetchHistorySuccess(res))
+              }
+          })
+          .catch(error => {
+              console.log(error)
+              return dispatch(fetchHistoryFail(error))
+          })
+  }
+}
 
 export const fetchHistory = (leadId,userId) => {
-   
     return dispatch => {
         dispatch(fetchHistoryStart())
         return axiosRequest.get(`user/leadhistory/${leadId}?user_id=${userId}`, { secure: true })

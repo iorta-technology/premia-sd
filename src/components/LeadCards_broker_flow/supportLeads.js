@@ -18,7 +18,6 @@ export default {
       console.log("ERROR ", err);
     }
   },
-
   completeAddress(line_01, line_02, line_03, pinCode) {
     //  (pinCode == null ? pinCode = "" : pinCode);
     return line_01 + " " + line_02 + " " + line_03 + "-" + pinCode;

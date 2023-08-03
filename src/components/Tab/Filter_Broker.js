@@ -49,26 +49,32 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 
   //for fetching the inception dates using the API calls
   const getDates = async () => {
-    let result = await axiosRequest.get(`user/getInceptionDates?userId=${state.id}`, {
+    // let result = await axiosRequest.get(`user/getInceptionDates?userId=${state.id}`, {
+    //   secure: true,
+    // });
+    let result = await axiosRequest.get(`user/brokerappointmentdates`, {
       secure: true,
     });
 
-    console.log(result)
-    let _dates = result[0]?.inception_dates.filter(el =>{
-      if(el) return el
-    })
-    // console.log('INCEPT _dates-------',_dates)
+    // console.log(result.bookappointmentDates,'jtththth')
+    let _dates = result.bookappointmentDates.filter(el => {
+      if (el) {
+        // console.log('gfhjfjff ', date);
+        return el;
+      }
+    });
     setInceptionDates(_dates);
   }
   //disabling dates
-  
-  const disabledDate=(current)=>{
+
+  const disabledDate = (current) => {
     let day = current.date();
     if (day < 10) day = '0' + day;
     let month = current.month() + 1;
     if (month < 10) month = '0' + month;
     let year = current.year();
     let date = month + '/' + day + '/' + year;
+    console.log('date---------->', date);
     return !(inceptionDates.includes(date));
   }
 
@@ -76,14 +82,15 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 
 
   const getCompanyDetails = async (lead_id) => {
-    let result = await axiosRequest.get(`admin/company/companies`, {
+    let result = await axiosRequest.get(`user/getproducerdropdown`, {
       secure: true,
     });
     let _compArr = [];
-    result.companies.map((el) => {
-      let _data = { label: el.company_name, value: el._id };
+    result.map((el) => {
+      let _data = { label: el.producer_name, value: el._id };
       _compArr.push(_data);
     });
+    console.log(_compArr,"thjdjfjfhf");
     setCompanyArray(_compArr);
   };
 
@@ -110,10 +117,10 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     label === 'Broker Name' ? setShowCompanyDropdown(true) : setShowCompanyDropdown(false)
   };
   const handleNameSearch = (event) => {
-    // console.log('event------->>',event)
+    console.log('event------->>',event)
     // console.log('data------->>',data)
     setSearchTextFilter(event);
-    searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) :
+    // searchType === 'fname' ? setSearchTextFilter(event.toLowerCase()) :
       searchType === 'leadId' ? setSearchTextFilter(doSentenceCase(event.toLowerCase())) : setSearchTextFilter(event);
   };
 
@@ -126,7 +133,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     let lead_status = "";
 
     dispatch(
-      actions.fetchDataAfterFilter(
+      actions.fetchDataAfterFilter_broker(
         id,
         skip,
         searchTextFilter,
@@ -221,11 +228,11 @@ export function OffCanvasForGlobalFilter({ ...props }) {
             >
               Search Type Selection
             </h6>
-           
+
             <div style={{ marginLeft: "20px", marginTop: 15 }}>
               <p style={{ marginBottom: 5 }}>{fieldLabelName}</p>
             </div>
-            
+
             {showCompanyDropdown ?
 
               <Select
@@ -236,7 +243,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   marginLeft: "1rem",
                   marginBottom: "15px"
                 }}
-                onChange={(val,data) => handleNameSearch(val)}
+                onChange={(val, data) => handleNameSearch(val)}
               ></Select>
               :
               <Input
@@ -250,14 +257,14 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                 onChange={(val) => handleNameSearch(val.target.value)}
               />
             }
-             <div style={{ marginLeft: "20px"}}>
+            <div style={{ marginLeft: "20px" }}>
               <p style={{ marginBottom: 5 }}>Appointment Date</p>
             </div>
-             <div style={{ margin: "10px", marginLeft: "20px" }}>
+            <div style={{ margin: "10px", marginLeft: "20px" }}>
               <DatePicker style={{
-                  width: "25rem",
-                  marginBottom: "15px"
-                }}
+                width: "25rem",
+                marginBottom: "15px"
+              }}
                 onChange={onChangeFromDate}
                 value={dateFilter}
                 disabledDate={disabledDate}
@@ -285,7 +292,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
               />
             </div>
           </div>
-         
+
           <div
             style={{ width: "auto", height: "4rem", backgroundColor: "white" }}
           >

@@ -40,8 +40,9 @@ export const fetchAllLeads_broker = (id, leads, pageNo) => {
     let result = await axiosRequest.get(
       `user/getbrokerlist?userId=${id}&filter=${leads}&skip=${skipVal}`,
       { secure: true }
-    );
-    console.log("+++++++++ GET LEAD DATA ++++++++", result);
+    )
+    // console.log(result.errMsg.data,"data broker flow------------");
+  
     if (result.data.length > 0) {
       dispatch(
         fetchAllLeadsSuccess(
@@ -163,6 +164,69 @@ export const fetchDataAfterFilter = (
             this
           ),
           result[1][0].count
+        )
+      );
+      // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
+    } else {
+      dispatch(fetchAllLeadsFail());
+    }
+  };
+};
+//broker search
+export const fetchDataAfterFilter_broker = (
+  id,
+  skip,
+  searchTextFilter,
+  lead_status,
+  sorByFlter,
+  sort_status,
+  leadfilter,
+  lead_disposition,
+  leadType,
+  searchType,
+  dateFilter
+) => {
+  console.log("_______ dateFilter", dateFilter);
+  return async (dispatch) => {
+    dispatch(fetchAllLeadsStart());
+    // &searchType=fname
+    // let url = `user/v2/getLead/${id}?skip=${skip}`;
+    let url=`user/getbrokerlist?userId=${id}&filter=all&skip=${skip}&searchtxt=${searchTextFilter}`
+    // if (searchType.trim().length) url += `&searchType=${searchType}`;
+    // if (searchtxt.trim().length) {
+    //   url += `&searchtxt=${searchtxt}`;
+    // }
+    // if (lead_status.trim().length) {
+    //   url += `&lead_status=${lead_status}`;
+    // }
+    // if (sorByFlter.trim().length) {
+    //   url += `&sorByFlter=${sorByFlter}`;
+    // }
+    // if (sort_status.trim().length) {
+    //   url += `&sort_status=${sort_status}`;
+    // }
+    // if (leadfilter.trim().length) {
+    //   url += `&leadfilter=${leadfilter}`;
+    // }
+    // if (lead_disposition.trim().length) {
+    //   url += `&lead_disposition=${lead_disposition}`;
+    // }
+    // if (leadType.trim().length) {
+    //   url += `&leadType=${leadType}`;
+    // }
+    // if (dateFilter.trim().length) url += `&inceptionDate=${dateFilter}`;
+
+    let result = await axiosRequest.get(url);
+    console.log("_______Filter", result.data);
+    if (result.data.length > 0) {
+      dispatch(
+        fetchAllLeadsSuccess(
+          supportLead_broker.readSortDataFromAPI(
+            leadfilter,
+            result === "No leads found" ? [] : result.data,
+            this
+          ),
+          result.count
         )
       );
       // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));

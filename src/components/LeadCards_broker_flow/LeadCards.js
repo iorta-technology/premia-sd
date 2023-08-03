@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LeadCard from "./LeadCard";
 import "./LeadCards.css";
 import _ from "lodash";
-import { Row, Col, Avatar, Card, Select, Button, message , DatePicker } from "antd";
+import { Row, Col, Avatar, Card, Select, Button, message, DatePicker } from "antd";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import { useDispatch, useSelector } from "react-redux";
 import { AllocateModal } from "../Tab/Allocate";
@@ -28,6 +28,7 @@ import {
 } from "../actions/allleadAction";
 
 import { fetchAllLeadsSuccess } from "../../store/actions/leads_broker";
+import { login } from "../../store/actions";
 
 const { Option } = Select;
 let _currentTab = "self";
@@ -119,7 +120,7 @@ const LeadCards = (props) => {
       } else {
         return "";
       }
-    } catch (err) {}
+    } catch (err) { }
   };
   const handleSecondDropdown = (event) => {
     // console.warn('event___TEAMM MEMBER((((((((((===>>>>>>>>>>', event)
@@ -140,10 +141,10 @@ const LeadCards = (props) => {
     // console.log("good bye ",currentTab)
     // currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
     _currentTab = currentTab;
-    if(currentTab === "self"){
+    if (currentTab === "self") {
       setTeamSelf(true)
       getDataForOpen("all");
-    }else{
+    } else {
       setTeamSelf(false);
     }
     // console.log("good bye currentActiveTab", currentTab);
@@ -199,14 +200,15 @@ const LeadCards = (props) => {
   };
 
   const exportReport = async (type) => {
-    let _isTeam = leadsData?.globalTab === "self" ? "no" : "yes";
-    if (lobOpportData === "" || fromDateFilter === "" || toDateFilter === "") {
-      message.warning("Please Select the required fields");
-      return;
-    }
+    // let _isTeam = leadsData?.globalTab === "self" ? "no" : "yes";
+    // if (lobOpportData === "" || fromDateFilter === "" || toDateFilter === "") {
+    //   message.warning("Please Select the required fields");
+    //   return;
+    // }
     let data = await axiosRequest.get(
-      `admin/opportunity-dump?userId=${user.id}&team=${_isTeam}&lob_name=${lobOpportData}&start_date=${fromDateString}&end_date=${toDateString}`
-    );
+      `user/getteamReport?userId=${user.id}`
+    ).then((res)=>{
+    })
   };
 
   const handleLobOpprtunity = (event) => {
@@ -224,7 +226,7 @@ const LeadCards = (props) => {
       message.warning("From Date cannot be greater than To date");
       setFromDateFilter('');
       setFromDateString('');
-    }else{
+    } else {
       setFromDateFilter(date);
       setFromDateString(dateString);
     }
@@ -267,6 +269,23 @@ const LeadCards = (props) => {
                 marginBottom: 25,
               }}
             >
+
+              {/* <p style={{ marginBottom: "5px" }}>Opportunity Dump</p> */}
+              <div style={{marginRight:'10px'}}>
+              <Button
+                onClick={exportReport}
+                style={{
+                  backgroundColor: "#3c3d3d",
+                  color: "#fff",
+                  borderRadius: 2,
+                 padding:'15px'
+                }}
+                className="d-flex align-items-center justify-content-center"
+              >
+                <DownloadOutlined /> Export
+              </Button>
+              </div>
+
               {checkAgent() === false && (
                 <button
                   style={{
@@ -286,6 +305,7 @@ const LeadCards = (props) => {
                   Self
                 </button>
               )}
+
 
               {checkAgent() === false && (
                 <button
@@ -308,6 +328,7 @@ const LeadCards = (props) => {
                 </button>
               )}
             </div>
+
           </>
           {/* )} */}
         </div>
@@ -321,7 +342,7 @@ const LeadCards = (props) => {
             <Select
               // className="firstdropdown"
               value={firstValue}
-              style={{ width: 200}}
+              style={{ width: 200 }}
               onChange={handleFirstDropdown}
               placeholder="Select Hierarchy"
               options={firsrDrop}
@@ -348,23 +369,13 @@ const LeadCards = (props) => {
             className="lead-ml15"
             style={{ position: "relative", bottom: 26 }}
           >
-            <p style={{ marginBottom: "5px" }}>Opportunity Dump</p>
-            <Button
-              onClick={exportReport}
-              style={{
-                backgroundColor: "#3c3d3d",
-                color: "#fff",
-                borderRadius: 5,
-              }}
-              className="d-flex align-items-center justify-content-center"
-            >
-              <DownloadOutlined /> Export
-            </Button>
+
           </div>
         )}
       </div>
 
-      <div className="dropdown-container lead-ml60">
+
+      {/* <div className="dropdown-container lead-ml60">
         <div
           style={{ position: "relative", bottom: 26 }}
           className="expt-heading"
@@ -411,7 +422,7 @@ const LeadCards = (props) => {
             <DownloadOutlined /> Export
           </Button>
         </div>
-      </div>
+      </div> */}
 
       <Row
         justify="center"
@@ -422,7 +433,7 @@ const LeadCards = (props) => {
           _.map(leadsData.allLeads, (lead, index) => {
             return (
               <>
-              {console.log(lead,"this is the lead")}
+                {console.log(lead, "this is the lead")}
                 <Col sm={18} md={18} lg={11} xl={11}>
                   <LeadCard
                     className="lead-agent-card"
@@ -437,22 +448,22 @@ const LeadCards = (props) => {
                     lob={lead.lob}
                     utilization={lead.utilization}
                     brokerID={lead.brokerId}
-                    // lead_Id={lead.lead_Id}
-                    // companyName={lead.companyName}
-                    // opportunityName={lead.opportunityName}
-                    // industryName={lead.industryName}
-                    // KDM_Name={lead.KDM_Name}
-                    // mobileNo={lead.mobileNo}
-                    // branch_Name={lead.branch_Name}
-                    // appointDate={lead.appointDate}
-                    // location={lead.location}
-                    // loading={props.leadDataLoading}
-                    // owner_name={lead.userId}
-                    // weightage={lead.weightage}
-                    // lob={lead.lob_for_opportunity}
-                    // tagic_premium={lead.tagic_premium}
-                    // total_premium={lead.total_premium}
-                    // inception_date={lead.inception_date}
+                  // lead_Id={lead.lead_Id}
+                  // companyName={lead.companyName}
+                  // opportunityName={lead.opportunityName}
+                  // industryName={lead.industryName}
+                  // KDM_Name={lead.KDM_Name}
+                  // mobileNo={lead.mobileNo}
+                  // branch_Name={lead.branch_Name}
+                  // appointDate={lead.appointDate}
+                  // location={lead.location}
+                  // loading={props.leadDataLoading}
+                  // owner_name={lead.userId}
+                  // weightage={lead.weightage}
+                  // lob={lead.lob_for_opportunity}
+                  // tagic_premium={lead.tagic_premium}
+                  // total_premium={lead.total_premium}
+                  // inception_date={lead.inception_date}
                   />
                 </Col>
               </>
