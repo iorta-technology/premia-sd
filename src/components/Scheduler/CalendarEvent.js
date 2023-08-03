@@ -123,86 +123,78 @@ export default function CalendarEvent(props) {
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
   const login_user = useSelector((state) => state.login.user);
 
+
   // useEffect(() => {
-  //   try {
-  //     // let _teamMember = _dataStore.reporting_users.filter(event => designationid == event.hierarchy_id)
-  //     let _teamMember = [];
-  //     _dataStore.reporting_users.map((el) => {
-  //       let sortarray = {
-  //         FullName: el.full_name,
-  //         ShortId: el.employeeCode,
-  //         firstname: el.first_name,
-  //         lastname: el.last_name,
-  //         employecode: el.employeeCode,
-  //         designation: el.hierarchyName,
-  //         _Id: el._id,
-  //         value:
-  //           toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-  //       };
-  //       _teamMember.push(sortarray);
-  //       sortarray = {};
-  //     });
-  //     setHierarAgentList(_teamMember);
-  //   } catch (err) { }
+   
+  //   // console.log("USER HIERARCHYY ___DATA__", _dataStore);
+  //   let _teamMember = [];
+  //   if (Object.keys(_dataStore).length !== 0) {
+  //     // let _teamMember = [];
+  //     if (checkAgent() === false) {
+  //       _dataStore.reporting_users.map((el) => {
+  //         let sortarray = {
+  //           FullName: el.full_name,
+  //           ShortId: el.employeeCode,
+  //           firstname: el.first_name,
+  //           lastname: el.last_name,
+  //           employecode: el.employeeCode,
+  //           designation: el.hierarchyName,
+  //           _Id: el._id,
+  //           value:
+  //             toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+  //         };
+  //         _teamMember.push(sortarray);
+  //         sortarray = {};
+  //       });
+  //       let _finalData = [..._teamMember, _reportManager];
+  //       setHierarAgentList(_finalData);
+  //     } else {
+  //       if (login_user.hasOwnProperty("reportingManager")) {
+  //         // login_user.reportingManager
+  //         let _reporting = login_user.reportingManager;
+
+  //         let sortarray = {
+  //           FullName: _reporting.full_name,
+  //           ShortId: _reporting.employeeCode,
+  //           firstname: _reporting.first_name,
+  //           lastname: _reporting.last_name,
+  //           employecode: _reporting.employeeCode,
+  //           designation: _reporting.hierarchyName,
+  //           _Id: _reporting._id,
+  //           value:
+  //             toCapitalize(_reporting.full_name) +
+  //             " " +
+  //             "(" +
+  //             _reporting.hierarchyName +
+  //             ")",
+  //         };
+  //         _teamMember.push(sortarray);
+  //         // sortarray = {};
+  //         setHierarAgentList(_teamMember);
+  //       }
+  //     }
+  //   }
   // }, []);
-
-  useEffect(() => {
-    // console.log("USER HIERARCHYY ___DATA__", _dataStore);
-    let _teamMember = [];
-    if (Object.keys(_dataStore).length !== 0) {
-      // let _teamMember = [];
-      if (checkAgent() === false) {
-        _dataStore.reporting_users.map((el) => {
-          let sortarray = {
-            FullName: el.full_name,
-            ShortId: el.employeeCode,
-            firstname: el.first_name,
-            lastname: el.last_name,
-            employecode: el.employeeCode,
-            designation: el.hierarchyName,
-            _Id: el._id,
-            value:
-              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-          };
-          _teamMember.push(sortarray);
-          sortarray = {};
-        });
-        let _finalData = [..._teamMember, _reportManager];
-        setHierarAgentList(_finalData);
-      } else {
-        if (login_user.hasOwnProperty("reportingManager")) {
-          // login_user.reportingManager
-          let _reporting = login_user.reportingManager;
-
-          let sortarray = {
-            FullName: _reporting.full_name,
-            ShortId: _reporting.employeeCode,
-            firstname: _reporting.first_name,
-            lastname: _reporting.last_name,
-            employecode: _reporting.employeeCode,
-            designation: _reporting.hierarchyName,
-            _Id: _reporting._id,
-            value:
-              toCapitalize(_reporting.full_name) +
-              " " +
-              "(" +
-              _reporting.hierarchyName +
-              ")",
-          };
-          _teamMember.push(sortarray);
-          // sortarray = {};
-          setHierarAgentList(_teamMember);
-        }
-      }
-    }
-  }, []);
 
   useEffect(() => {
     try {
       customerSearch();
       getCompanyDetails();
+      // getTeamDetails();
     } catch (err) {}
   }, []);
+
+  const getTeamDetails = async (searchtxt) => {
+    let result = await axiosRequest.get(`user/emails?value=${searchtxt}`,{ secure: true });
+    console.warn("+++++++++ EMAILS LISTSTSTTS ++++++++", result);
+    // if (result.length > 0) {
+    //   setHierarAgentList(result);
+    // } else {
+
+    // }
+
+    result.length > 0 ? setHierarAgentList(result) : setHierarAgentList([])
+  };
 
   const customerSearch = async () => {
     let id = stoageGetter("user").id;
@@ -1112,11 +1104,10 @@ export default function CalendarEvent(props) {
   };
 
   const onChangeTeam = (text, data) => {
-    console.log(text, "text------>");
-    console.log(data, "data------>");
+    // console.log(text, "text------>");
+    // console.log(data, "data------>");
     setTeamMemberData(text);
-    // console.log('onSelect___text', text);
-    // console.log('onSelect___data', data);
+    if(text.length >= 3) getTeamDetails(text);
     // setOwnerCollectn([...ownerCollectn,data])
   };
 
@@ -1131,7 +1122,6 @@ export default function CalendarEvent(props) {
     });
     // console.log(filteredValue, 'value splitted--->');
     let all = [...ownerCollectn, filteredValue[0]];
-    console.log(all, "after adding ");
     setOwnerCollectn([...ownerCollectn, ...filteredValue]);
     setTeamMemberData("");
     setTeamMemberChip(_data);
@@ -1150,17 +1140,10 @@ export default function CalendarEvent(props) {
   };
 
   const onChangeOpp = (text, data) => {
-    console.log(text, "text------>");
-    console.log(data, "data------>");
     setOppData(text);
-    // console.log('onSelect___text', text);
-    // console.log('onSelect___data', data);
-    // setOwnerCollectn([...ownerCollectn,data])
   };
 
   const onSelectOpp = (value, data) => {
-    console.log("ON SELECTION ______________", data);
-    console.log("ONowner colle ______________", oppList);
     let valuesplit = value.split(" ");
     console.log(valuesplit[0]);
     let _data = [...new Set([...oppChip, value])];
@@ -1169,7 +1152,6 @@ export default function CalendarEvent(props) {
     });
     // console.log(filteredValue, 'value splitted--->');
     let all = [...oppCollectn, filteredValue[0]];
-    console.log(all, "after adding ");
     setOppCollectn([...oppCollectn, ...filteredValue]);
     setOppData("");
     setOppChip(_data);
@@ -2248,12 +2230,12 @@ export default function CalendarEvent(props) {
             // console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
             let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
             teammemberclone = [...new Set(teammemberclone)];
-            let API="user/bookAppointment"
-            if(event_For==true){
-              API="user/bookAppointment?event_for=broker"
-            }
-            let result = await axiosRequest.post(
-             API,
+            // let API = "user/bookAppointment"
+            // if(event_For == true){
+            //   API = "user/bookAppointment?event_for=broker"
+            // }
+            let API = event_For == true ? "user/bookAppointment?event_for=broker" : "user/bookAppointment"
+            let result = await axiosRequest.post(API,
               {
                 userId: stoageGetter("user").id,
                 appointment_type: customerCheck
@@ -2321,12 +2303,8 @@ export default function CalendarEvent(props) {
               { secure: true }
             );
             if (result.length !== 0) {
-              if (props.api != undefined) {
-                props.api();
-              }
-              if (props.getdata) {
-                props.getdata(true);
-              }
+              if (props.api != undefined) props.api();
+              if (props.getdata) props.getdata(true);
               props.setIsModalVisible(false);
             }
           }
@@ -2338,12 +2316,13 @@ export default function CalendarEvent(props) {
           setDurationEndTimeAlert(false);
           let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
           teammemberclone = [...new Set(teammemberclone)];
-          let API="user/bookAppointment"
-          if(event_For==true){
-            API="iser/bookAppointment?event_for=broker"
-          }
-          let result = await axiosRequest.post(
-            API,
+          // let API="user/bookAppointment"
+          // if(event_For==true){
+          //   API="iser/bookAppointment?event_for=broker"
+          // }
+
+          let API = event_For == true ? "user/bookAppointment?event_for=broker" : "user/bookAppointment"
+          let result = await axiosRequest.post(API,
             {
               userId: stoageGetter("user").id,
               appointment_type: customerCheck
@@ -4315,6 +4294,7 @@ export default function CalendarEvent(props) {
             Add Team Member
           </h4>
           <div className="Todo-Create-Search calSearch">
+          
             <AutoComplete
               getPopupContainer={(trigger) => trigger.parentElement}
               disabled={updateEventCheck ? true : false}
