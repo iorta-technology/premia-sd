@@ -124,57 +124,57 @@ export default function CalendarEvent(props) {
   const login_user = useSelector((state) => state.login.user);
 
 
-  // useEffect(() => {
+  useEffect(() => {
    
-  //   // console.log("USER HIERARCHYY ___DATA__", _dataStore);
-  //   let _teamMember = [];
-  //   if (Object.keys(_dataStore).length !== 0) {
-  //     // let _teamMember = [];
-  //     if (checkAgent() === false) {
-  //       _dataStore.reporting_users.map((el) => {
-  //         let sortarray = {
-  //           FullName: el.full_name,
-  //           ShortId: el.employeeCode,
-  //           firstname: el.first_name,
-  //           lastname: el.last_name,
-  //           employecode: el.employeeCode,
-  //           designation: el.hierarchyName,
-  //           _Id: el._id,
-  //           value:
-  //             toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-  //         };
-  //         _teamMember.push(sortarray);
-  //         sortarray = {};
-  //       });
-  //       let _finalData = [..._teamMember, _reportManager];
-  //       setHierarAgentList(_finalData);
-  //     } else {
-  //       if (login_user.hasOwnProperty("reportingManager")) {
-  //         // login_user.reportingManager
-  //         let _reporting = login_user.reportingManager;
+    // console.log("USER HIERARCHYY ___DATA__", _dataStore);
+    let _teamMember = [];
+    if (Object.keys(_dataStore).length !== 0) {
+      // let _teamMember = [];
+      if (checkAgent() === false) {
+        _dataStore.reporting_users.map((el) => {
+          let sortarray = {
+            FullName: el.full_name,
+            ShortId: el.employeeCode,
+            firstname: el.first_name,
+            lastname: el.last_name,
+            employecode: el.employeeCode,
+            designation: el.hierarchyName,
+            _Id: el._id,
+            value:
+              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+          };
+          _teamMember.push(sortarray);
+          sortarray = {};
+        });
+        let _finalData = [..._teamMember, _reportManager];
+        setHierarAgentList(_finalData);
+      } else {
+        if (login_user.hasOwnProperty("reportingManager")) {
+          // login_user.reportingManager
+          let _reporting = login_user.reportingManager;
 
-  //         let sortarray = {
-  //           FullName: _reporting.full_name,
-  //           ShortId: _reporting.employeeCode,
-  //           firstname: _reporting.first_name,
-  //           lastname: _reporting.last_name,
-  //           employecode: _reporting.employeeCode,
-  //           designation: _reporting.hierarchyName,
-  //           _Id: _reporting._id,
-  //           value:
-  //             toCapitalize(_reporting.full_name) +
-  //             " " +
-  //             "(" +
-  //             _reporting.hierarchyName +
-  //             ")",
-  //         };
-  //         _teamMember.push(sortarray);
-  //         // sortarray = {};
-  //         setHierarAgentList(_teamMember);
-  //       }
-  //     }
-  //   }
-  // }, []);
+          let sortarray = {
+            FullName: _reporting.full_name,
+            ShortId: _reporting.employeeCode,
+            firstname: _reporting.first_name,
+            lastname: _reporting.last_name,
+            employecode: _reporting.employeeCode,
+            designation: _reporting.hierarchyName,
+            _Id: _reporting._id,
+            value:
+              toCapitalize(_reporting.full_name) +
+              " " +
+              "(" +
+              _reporting.hierarchyName +
+              ")",
+          };
+          _teamMember.push(sortarray);
+          // sortarray = {};
+          setHierarAgentList(_teamMember);
+        }
+      }
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -187,12 +187,6 @@ export default function CalendarEvent(props) {
   const getTeamDetails = async (searchtxt) => {
     let result = await axiosRequest.get(`user/emails?value=${searchtxt}`,{ secure: true });
     console.warn("+++++++++ EMAILS LISTSTSTTS ++++++++", result);
-    // if (result.length > 0) {
-    //   setHierarAgentList(result);
-    // } else {
-
-    // }
-
     result.length > 0 ? setHierarAgentList(result) : setHierarAgentList([])
   };
 
@@ -1107,7 +1101,7 @@ export default function CalendarEvent(props) {
     // console.log(text, "text------>");
     // console.log(data, "data------>");
     setTeamMemberData(text);
-    if(text.length >= 3) getTeamDetails(text);
+    // if(text.length >= 3) getTeamDetails(text);
     // setOwnerCollectn([...ownerCollectn,data])
   };
 
@@ -1115,7 +1109,7 @@ export default function CalendarEvent(props) {
     // console.log('ON SELECTION ______________', value);
     // console.log('ONowner colle ______________', hierarAgentList);
     let valuesplit = value.split(" ");
-    console.log(valuesplit[0]);
+    // console.log(valuesplit[0]);
     let _data = [...new Set([...teamMemberChip, value])];
     let filteredValue = hierarAgentList.filter((item) => {
       return item.value == value;
