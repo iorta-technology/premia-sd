@@ -123,7 +123,7 @@ const CompanyIntelligence = React.memo((props) => {
   const [fileData, setFileData] = useState([]);
   // const [showFile, setShowFile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [leadId, setLeadId] = useState('');
   const [fileIndex, setFileIndex] = useState(0);
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
@@ -178,9 +178,10 @@ const CompanyIntelligence = React.memo((props) => {
 
   useEffect(() => {
     dispatch(actions.headerName("New Lead"));
-    // console.warn('storeFormData--------->>>>>',storeFormData)
+    console.warn('storeFormData--------->>>>>',storeFormData)
     loadValuesToFields(storeFormData);
     getAppointmentList(storeFormData._id);
+    setLeadId(storeFormData._id);
     // opprtunityStatusData()
   }, [storeFormData]);
 
@@ -530,7 +531,7 @@ const CompanyIntelligence = React.memo((props) => {
                         overflowY: "auto",
                       }}
                     >
-                    { reamrkDataArr?.length > 0 ?
+                    { reamrkDataArr.size> 0 ?
                       reamrkDataArr?.slice(0).reverse().map((res, index) => (
                         <div key={res.date} className={"mb-3 remarks_bg " + (loginId === res.userId._id ? "left" : "right")}>
                           <div className="d-flex justify-content-between w-100">
@@ -1033,6 +1034,7 @@ const CompanyIntelligence = React.memo((props) => {
           companyID={companyDetails?._id}
           company_Name={companyDetails?.company_name}
           // opportunity_Name={formItem.opportunityName}
+          lead_id={leadId}
           isModalVisible={showTodoModal}
           setIsModalVisible={setShowTodoModal}
         />

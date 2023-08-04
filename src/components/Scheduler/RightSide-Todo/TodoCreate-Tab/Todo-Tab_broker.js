@@ -685,7 +685,7 @@ import {
             <div className="" style={{ backgroundColor: '#fff' }}>
               <Row style={{ marginBottom: 10 }}>
                 <Col style={{ flex: 1 }}>
-                  <p style={{ marginBottom: 5 }}> Company Name </p>
+                  <p style={{ marginBottom: 5 }}> Broker Name </p>
                   <Select
                     placeholder="Select"
                     style={{ width: '100%' }}

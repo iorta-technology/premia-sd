@@ -545,7 +545,7 @@ const TodoTab = (props) => {
         // formData["leadId"] = todoOpporId;
       }
 
-      let _resp = await axiosRequest.post(`user/todo_task`, formData, {
+      let _resp = await axiosRequest.post(`user/todo_task?leadId=${props.lead_id}`, formData, {
         secure: true,
       });
       console.log("TODO__RESPPPP", _resp);

@@ -370,14 +370,13 @@ const RiskDetails = (props) => {
       tagic_presence_percentage: !tagicPresence ? 0 : tagicPresence,
       lead_insurer: !leadInsurerData ? null : leadInsurerData,
       leader_share: !leaderShareData ? 0 : leaderShareData,
-
       tagic_premium: !tagicPremium ? null : tagicPremium,
       leader: !leadrFollowerData ? null : leadrFollowerData,
       inception_date: !inceptionDateData ? null : inceptionDateData,
       Pan_no: !panNo ? null : panNo,
       lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
       product_for_opportunity: !productForOpportunity ? null : productForOpportunity,
-      tender_driven: !tenderDriver ? "No" : tenderDriver,
+      tender_driven: !tenderDriver ? "No" : "Yes",
     };
     
     // _riskDetailsData.push(_data);
