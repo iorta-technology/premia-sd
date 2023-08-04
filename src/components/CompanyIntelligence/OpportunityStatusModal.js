@@ -307,18 +307,20 @@ return (
                             className="form-item-name label-color"
                             name="lead_status"
                             label="Status"
+                           
                             rules={[
                                 {
                                 required: false,
                                 message: "Select",
                                 },
                             ]}
-                            style={{ marginBottom: "1rem" }}
+                            style={{ marginBottom: "1rem"}}
                             >
                             <Select
                                 placeholder="Select"
                                 options={leadStatusItems}
                                 value={formItem.status}
+                                style={{width:'100%'}}
                                 onChange={(val) => changeLeadStatus(val)}
                             ></Select>
                             </Form.Item>
@@ -343,6 +345,7 @@ return (
                                         placeholder="Select"
                                         options={dispoArr}
                                         value={formItem.disposition}
+                                        style={{width:'100%'}}
                                         onChange={(val) => changeDispoStatus(val)}
                                     ></Select>
                                 </Form.Item>
@@ -368,6 +371,7 @@ return (
                                     placeholder="Select"
                                     options={subdispoArr}
                                     value={formItem.subDisposition}
+                                    style={{width:'100%'}}
                                     onChange={(val) =>
                                         setFormItem((res) => ({
                                         ...res,
@@ -419,6 +423,7 @@ return (
                                 >
                                     <Select
                                     placeholder="Select"
+                                    style={{width:'100%'}}
                                     options={appointmentTimeOptions}
                                     value={formItem.appointmentTime}
                                     onChange={(val) =>
