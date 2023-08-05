@@ -131,7 +131,6 @@ const RiskDetails = (props) => {
 
       form.setFieldsValue({
         nameOfentity: !props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities,
-        // productName: "",
         totPrem: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
         tagicPresence: !props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage,
         tagicPremium: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
@@ -143,7 +142,6 @@ const RiskDetails = (props) => {
         lob_for_opportunity:!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity,
         product_for_opportunity:!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity,
       });
-      
     }else{
       addNewRiskDetails()
       setRiskType('create')

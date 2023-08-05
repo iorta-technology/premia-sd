@@ -25,16 +25,16 @@ import {
   const TodoTab = (props) => {
     // console.log('editData ___TODOO_________',props)
     useEffect(() => {
-      // console.warn("PROPSSSSSSS---HEREE-----------", props);
+      console.warn("PROPSSSSSSS---HEREE-----------", props);
       getCompanyDetails();
-      if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
-        // console.warn("PROPSSSSSSS--------------", props?.company_Name);
-        setTodoCompName(props?.company_Name)
+      // if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
+        // console.warn("PROPSSSSSSS--------------", props?.producerName);
+        setTodoCompName(props?.producerName)
         setTodoCompId(props?.companyID)
         // setTodoOpportunityName(props?.opportunity_Name)
         // if(props?.company_Name) changeCompanyName(props?.company_Name,props?.companyID)
-      }
-    }, [props.company_Name])
+      // }
+    }, [props.producerName])
   
     const [isHighButtonClick, setIsHighButtonClick] = useState(false);
     const [isMediumButtonClick, setIsMediumButtonClick] = useState(false);
@@ -153,8 +153,7 @@ import {
             setIsMediumButtonClick(true);
             setIsLowButtonClick(false);
           }
-  
-          setTodoCompName(props?.editData?.companyName)
+          setTodoCompName(props?.producerName)
           setTodoOpportunityName(props?.editData?.opportunityName)
   
           setPriorityBtn(props.editData.taskPriority);
@@ -195,14 +194,14 @@ import {
     }, [])
   
     const getCompanyDetails = async (lead_id) => {
-      let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
+      let result = await axiosRequest.get(`user/getproducerdropdown`, {
         secure: true,
       });
-      // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+      console.warn('__++++++COMPANY++++++++ RESPPPP',result)
       if (result.length > 0) {
         let _compArr = [];
-        result[0].company_id.map((el) => {
-          let _data = { value: el.company_name, label: el.company_name, _id: el._id };
+        result.map((el) => {
+          let _data = { value: el.producer_name, label: el.producer_name, _id: el._id };
           _compArr.push(_data);
         });
         setCompanyArray(_compArr);
@@ -535,14 +534,12 @@ import {
           timeOfReminder: selectedTime,
           userId: id,
         };
-        // console.log('CHECK PROPPPPSSS ____________', props)
-        // if (props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID')) {
-        //   formData["company_id"] = props.companyID;
-        // } else {
-        //   formData["company_id"] = todoCompId;
-        // }
+        console.log('CHECK PROPPPPSSS ____________', props)
+      
+          // formData["company_id"] = props.broker_id;
+       
   
-        let _resp = await axiosRequest.post(`user/todo_task?task_for=broker&brokerId=${props.broker_id}`, formData, {
+        let _resp = await axiosRequest.post(`user/todo_task?task_for=broker&brokerId=${props.broker_id}&producerId=${props.producerId}`, formData, {
           secure: true,
         });
         console.log("TODO__RESPPPP", _resp);
@@ -657,6 +654,7 @@ import {
       // console.log("COMPANY NAMEE --------------", value);
       // console.log("opportunityNameArray IDDD --------------", opportunityNameArray);
       setTodoCompName(value)
+      // setTodoCompName(todoCompName)
       setTodoCompId(compId)
       // setOpportunityNameArray([])
   

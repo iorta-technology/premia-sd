@@ -39,7 +39,7 @@ import axiosRequest from "../../axios-request/request.methods";
 import { FormOutlined, PlusCircleOutlined, UploadOutlined, CalendarOutlined, DeleteOutlined, UserOutlined } from "@ant-design/icons";
 import TodoTab from "../Scheduler/RightSide-Todo/TodoCreate-Tab/Todo-Tab_broker";
 // import TodoCards from "../Activitity Tracker/RightSide-Todo/Todo-Event-Cards/TodoCards";
-import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards";
+import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards_broker";
 import noDataIcon from "../../assets/NoDataFound.png";
 import {
   timeList,
@@ -128,6 +128,8 @@ const CompanyIntelligence = React.memo((props) => {
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
   const [brokerId, setBrokerId] = useState('');
+  const [producerId, setProducerId] = useState('');
+  const [producerName, setProducerName] = useState('')
   let _teamMember = [];
   const callback = (data) => {
     setFileData(data);
@@ -175,6 +177,8 @@ const CompanyIntelligence = React.memo((props) => {
     loadValuesToFields(storeFormData);
     getAppointmentList(storeFormData._id);
     setBrokerId(storeFormData._id);
+    setProducerId(storeFormData.producer_id);
+    setProducerName(storeFormData.producerdetails.producer_name);
   }, [storeFormData]);
 
 
@@ -363,7 +367,7 @@ const CompanyIntelligence = React.memo((props) => {
     // const [kdmDataSet, setKdmDataSet] = useState({});
   };
 
-  const getTodo = () => {
+  const getTodo_broker = () => {
     childRef.current.getTodoData(0);
     // getEventTodoCountAPI(res.formData._id);
   };
@@ -792,12 +796,15 @@ const CompanyIntelligence = React.memo((props) => {
 
         {/* MODAL COMPONENTS */}
         <TodoTab
-          getTodoData={getTodo}
+          getTodoData={getTodo_broker}
           button={"Create"}
           leadID={updateLeadID}
           isModalVisible={showTodoModal}
           setIsModalVisible={setShowTodoModal}
           broker_id={brokerId}
+          producerId={producerId}
+          producerName={producerName}
+          // user_id={user_id}
         />
         <>
           <KDMDetails kdmDataSet={kdmType === 'create' ? {} :kdmDetailsArr.length!==0?kdmDataSet:{}} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />

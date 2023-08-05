@@ -23,9 +23,9 @@ const { Option } = Select;
 const { Search } = Input;
 
 const TodoTab = (props) => {
-  // console.log('editData ___TODOO_________',props)
+  console.log('editData ___TODOO_________',props)
   useEffect(() => {
-    // console.warn("PROPSSSSSSS---HEREE-----------", props);
+    console.warn("PROPSSSSSSS---HEREE-----------", props);
     getCompanyDetails();
     if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
       // console.warn("PROPSSSSSSS--------------", props?.company_Name);
@@ -536,18 +536,23 @@ const TodoTab = (props) => {
         userId: id,
       };
       // console.log('CHECK PROPPPPSSS ____________', props)
+      let _resp='';
       if (props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID')) {
         // if(!props.companyID && props.leadID !== '-'){}
         formData["company_id"] = props.companyID;
+        _resp=await axiosRequest.post(`user/todo_task?leadId=${props.lead_id}`, formData, {
+          secure: true,
+        });
         // formData["leadId"] = props.leadID;
       } else {
         formData["company_id"] = todoCompId;
+        _resp=await axiosRequest.post(`user/todo_task`, formData, {
+          secure: true,
+        });
         // formData["leadId"] = todoOpporId;
       }
 
-      let _resp = await axiosRequest.post(`user/todo_task?leadId=${props.lead_id}`, formData, {
-        secure: true,
-      });
+       
       console.log("TODO__RESPPPP", _resp);
       // setIsModalVisible(false);
       if (_resp.length !== 0) {

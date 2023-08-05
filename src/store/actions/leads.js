@@ -50,7 +50,7 @@ export const fetchAllLeads_broker = (id, leads, pageNo) => {
             result === "No leads found" ? [] : result.data,
             this
           ),
-          result.count[0]
+          result.count
         )
       );
     } else {

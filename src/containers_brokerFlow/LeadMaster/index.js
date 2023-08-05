@@ -48,7 +48,7 @@ const LeadMaster = (props) => {
   // lead count of the page
   const totalLeads = useSelector((state) => state?.leads?.count );
   // const _storeee = useSelector((state) => state );
-  // console.log("totalLeads ----------------->>>>>", totalLeads);
+  console.log("totalLeads ----------------->>>>>", totalLeads);
   // console.warn("_storeee ----------------->>>>>", _storeee);
 
   //Pagination numbers function

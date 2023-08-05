@@ -202,6 +202,11 @@ const CompanyIntelligence = React.memo((props) => {
     setActivities_data(_result);
   };
 
+  useEffect(() => {
+  console.log(reamrkDataArr,"this is the remarks");
+  }, [storeFormData])
+  
+
   const loadValuesToFields = (leadData) => {
     try {
       console.warn("__++++++++++++++ leadData +++++++++++>>", leadData);
@@ -276,7 +281,9 @@ const CompanyIntelligence = React.memo((props) => {
       var newArr = leadData?.documents?.map((res) => ({ ...res, recent: false }));
       setFileData(newArr)
       
-      setreamrkDataArr(leadData?.remarks)
+      setreamrkDataArr(leadData.remarks);
+      // console.log('remarks data---------------------->',leadData.remarks);
+   
       let _teamData = leadData?.teamMembers ? JSON.parse(leadData?.teamMembers) : [];
       // console.log('teamDataArr------------->>>',teamDataArr)
       // setTeamDataArr(_teamData);
@@ -358,11 +365,10 @@ const CompanyIntelligence = React.memo((props) => {
     if(riskDetailsArr?.length >= 10){
       message.info("Only 10 Risk Details can be Added");
     }else{
-      setShowRiskModal(true)
-      setRiskType(event)
-      setriskDataSet(data)
+      setShowRiskModal(true);
+      setRiskType(event);
+      setriskDataSet(data);
     }
-    
   };
 
   const openRemarkModal = () => {
@@ -531,9 +537,9 @@ const CompanyIntelligence = React.memo((props) => {
                         overflowY: "auto",
                       }}
                     >
-                    { reamrkDataArr.size> 0 ?
+                    { reamrkDataArr.length >0 ?
                       reamrkDataArr?.slice(0).reverse().map((res, index) => (
-                        <div key={res.date} className={"mb-3 remarks_bg " + (loginId === res.userId._id ? "left" : "right")}>
+                        <div key={res.date} className={"mb-3 remarks_bg " + (loginId == res.userId._id ? "left" : "right")}>
                           <div className="d-flex justify-content-between w-100">
                             <div className="me-3">{res.userId.full_name}</div>
                             <div className="me-3">{moment(res.date).format("DD/MM/YYYY hh:mm:ss a")}</div>
