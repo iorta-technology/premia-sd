@@ -122,6 +122,8 @@ const CompanyIntelligence = React.memo((props) => {
   const [activities_data, setActivities_data] = useState([]);
   const [fileData, setFileData] = useState([]);
   // const [showFile, setShowFile] = useState(false);
+  const [leadDisposition, setleadDisposition] = useState("");
+  const [subLeadDisposition, setsubLeadDisposition] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [leadId, setLeadId] = useState('');
   const [fileIndex, setFileIndex] = useState(0);
@@ -240,7 +242,10 @@ const CompanyIntelligence = React.memo((props) => {
         leadsubDisposition: leadData?.leadsubDisposition,
         appointment_status: leadData?.appointment_status,
       }
-      setOpportunityDetails(_opportunity)
+      setleadDisposition(leadData?.leadDisposition);
+      setsubLeadDisposition(leadData?.leadsubDisposition)
+      console.warn('this is the opportunity details',_opportunity);
+      setOpportunityDetails(_opportunity);
 
       // Setting PRODUCER & VAS data
       let _vas = {
@@ -315,6 +320,10 @@ const CompanyIntelligence = React.memo((props) => {
     }
   };
 
+  useEffect(() => {
+    console.warn(opportunityDetails,"this is the opportunity details")
+  }, [])
+  
   const opprtunityStatusData = (event) =>{
     let _dataObj = [...no_contactItems ,...leadStatusItems,...contactItems]
     let _data = _dataObj.filter(el => el.value === event)

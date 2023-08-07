@@ -73,7 +73,7 @@ const OpportunityComp = (props) => {
 
     useEffect(() => {
         // Data from Store
-        // console.log('((((((_props.opportunityDetails_)))))))',props)
+        console.log('((((((_props.opportunityDetails_)))))))',props.opportunityDetails)
         if(props?.opportunityDetails){
             // changeLeadStatus(props.opportunityDetails.leadStatus);
 
@@ -93,22 +93,17 @@ const OpportunityComp = (props) => {
                 _appntDate = moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY");
                 _appntTime = moment(props?.opportunityDetails?.appointmentDate).format("LT");
                 setApptDateString(_appntDate);
-
                 _apptDateFormat = moment(moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY"),"MM/DD/YYYY");
               }
-
               setShowLeadSubDisposition(true);
               setShowLeadDisposition(true);
               setShowAppointmentFields(true);
             } else {
               if (props?.opportunityDetails?.leadDisposition === "callback" && props?.opportunityDetails?.leadStatus === "contact") {
-                // if (props?.opportunityDetails?.appointmentDetails) {
                 _appntDate = moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY");
                 _appntTime = moment(props?.opportunityDetails?.appointmentDate).format("LT");
                 setApptDateString(_appntDate);
-
                 _apptDateFormat = moment(moment(props?.opportunityDetails?.appointmentDate).format("MM/DD/YYYY"),"MM/DD/YYYY");
-                // }
                 setShowLeadSubDisposition(true);
                 setShowLeadDisposition(true);
                 setShowAppointmentFields(true);
@@ -116,21 +111,30 @@ const OpportunityComp = (props) => {
             }
             form.setFieldsValue({
               lead_status: props?.opportunityDetails?.leadStatus,
-              lead_disposition: props?.opportunityDetails.hasOwnProperty("leadDisposition") ? props?.opportunityDetails.leadDisposition : "",
-              sub_disposition: props?.opportunityDetails.hasOwnProperty("leadsubDisposition") ? props?.opportunityDetails.leadsubDisposition : "",
+              lead_disposition: props?.opportunityDetails?.hasOwnProperty("leadDisposition") ? props?.opportunityDetails?.leadDisposition : "",
+              sub_disposition: props?.opportunityDetails?.hasOwnProperty("leadsubDisposition") ? props?.opportunityDetails?.leadsubDisposition : "",
               appointment_date: _apptDateFormat,
               appointment_time: props?.opportunityDetails?.appointmentTime,
             });
             setFormItem((res) => ({...res,appointmentTime: props?.opportunityDetails?.appointmentTime }));
-            console.log(formItem,"this is the form item");
+            setFormItem((res)=>({...res,disposition:props?.opportunityDetails?.leadDisposition}));
+            setFormItem((res)=>({...res,subDisposition:props?.opportunityDetails?.leadsubDisposition}));
+            
         }
-        
     }, [props]);
+    useEffect(() => {
+      console.log(formItem,"this is the form item");
+    }, [props])
+    
+
+    
+
+    
 
     const changeLeadStatus = (event) => {
       // console.log('((((((changeLeadStatus)))))))',event)
         setFormItem((res) => ({ ...res,status: event }));
-        form.setFieldsValue({lead_disposition: "",});
+        form.setFieldsValue({lead_disposition: event});
         setShowLeadSubDisposition(false);
     
         if (event === "newleadentry") {
@@ -152,6 +156,7 @@ const OpportunityComp = (props) => {
     };
     
     const changeDispoStatus = (event) => {
+        // console.log(event,"this is the event ");
         setFormItem((res) => ({ ...res,disposition: event }));
     
         setShowLeadSubDisposition(true);
@@ -260,7 +265,7 @@ const OpportunityComp = (props) => {
               leadDisposition: formItem.disposition,
               leadsubDisposition: formItem.subDisposition,
               start_date: !apptDateString ? null : apptDateString,
-              start_time:!formItem.appointmentTime ? null : formItem.appointmentTime ,
+              start_time:!formItem.appointmentTime ? null : formItem.appointmentTime,
           }
       }
 

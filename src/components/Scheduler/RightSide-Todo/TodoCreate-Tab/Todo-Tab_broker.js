@@ -689,7 +689,7 @@ import {
                     style={{ width: '100%' }}
                     options={companyArray}
                     value={todoCompName || undefined}
-                    disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
+                    disabled={props.hasOwnProperty('broker_id') && props.hasOwnProperty('producerId') ? true : false}
                     onChange={(val, data) => changeCompanyName(val, data._id)}
                   ></Select>
                 </Col>
