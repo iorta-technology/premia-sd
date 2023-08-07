@@ -711,6 +711,7 @@ const RiskDetails = (props) => {
                     placeholder="Enter Name of enitity"
                     value={noOfEntities}
                     onChange={(item) => setNoOfEntities(item.target.value)}
+                    style={{width:'100%'}}
                   />
                 </Form.Item>
               </Col>
@@ -755,6 +756,7 @@ const RiskDetails = (props) => {
                     options={lobOpportunityItems}
                     value={LOBForOpportunity}
                     onChange={(val) => changeLobOpprtunity(val)}
+                    style={{width:'100%'}}
                   ></Select>
                 </Form.Item>
               </Col>
@@ -778,6 +780,7 @@ const RiskDetails = (props) => {
                     options={prodForOpportunityArr}
                     value={productForOpportunity}
                     onChange={(val) => changeProductOpprtunity(val)}
+                    style={{width:'100%'}}
                   ></Select>
                 </Form.Item>
               </Col>
@@ -880,6 +883,7 @@ const RiskDetails = (props) => {
                     placeholder="Select Leader/Follower"
                     options={leadrOrFollowrItems}
                     value={leadrFollowerData}
+                    style={{width:'100%'}}
                     // defaultValue={citiesOptions}
                     onChange={(item) => onChangeLeaderFollowerData(item)}
                   ></Select>
@@ -894,16 +898,17 @@ const RiskDetails = (props) => {
                   label="Lead Insurer"
                   style={{ marginBottom: "1rem" }}
                 >
-                  {/* <Select
+                  <Select
                     bordered={true}
                     placeholder="Select Lead Insurer"
                     options={leadInsurerItems}
                     value={leadInsurerData}
                     // defaultValue={citiesOptions}
                     onChange={(item) => setLeadInsurerData(item)}
-                  ></Select> */}
+                    style={{width:'100%'}}
+                  ></Select>
 
-                  <AutoComplete
+                  {/* <AutoComplete
                     placeholder="Select Lead Insurer"
                     options={leadInsurerItems}
                     value={leadInsurerData}
@@ -914,7 +919,7 @@ const RiskDetails = (props) => {
                         .toUpperCase()
                         .indexOf(inputValue.toUpperCase()) !== -1
                     }
-                  ></AutoComplete>
+                  ></AutoComplete> */}
                 </Form.Item>
               </Col>
 

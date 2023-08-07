@@ -160,6 +160,7 @@ return (
                                     options={channelDataArr}
                                     value={channelData}
                                     // defaultValue={citiesOptions}
+                                    style={{width:'100%'}}
                                     onChange={(item) => onChangeChannel(item)}
                                 ></Select>
                             </Form.Item>
@@ -182,6 +183,7 @@ return (
                                     value={producerData}
                                     // defaultValue={kdmName}
                                     onChange={(item) => onChangeProducer(item)}
+                                    style={{width:'100%'}}
                                 />
                             </Form.Item>
                         </Col>
