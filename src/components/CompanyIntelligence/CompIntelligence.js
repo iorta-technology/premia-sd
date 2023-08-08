@@ -320,9 +320,7 @@ const CompanyIntelligence = React.memo((props) => {
     }
   };
 
-  useEffect(() => {
-    console.warn(opportunityDetails,"this is the opportunity details")
-  }, [])
+
   
   const opprtunityStatusData = (event) =>{
     let _dataObj = [...no_contactItems ,...leadStatusItems,...contactItems]
