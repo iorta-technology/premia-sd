@@ -53,11 +53,11 @@ export function OffCanvasForGlobalFilter({ ...props }) {
       secure: true,
     });
 
-    console.log(result)
-    let _dates = result[0]?.inception_dates.filter(el =>{
+    console.log(result[0])
+    let _dates = result.inceptionDates?.filter(el =>{
       if(el) return el
     })
-    // console.log('INCEPT _dates-------',_dates)
+    console.log('INCEPT _dates-------',_dates)
     setInceptionDates(_dates);
   }
   //disabling dates
