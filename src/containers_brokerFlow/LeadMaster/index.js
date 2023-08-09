@@ -9,11 +9,17 @@ import { DownloadOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { stoageGetter } from "../../helpers";
 import { useHistory } from "react-router";
+import axiosRequest from "../../axios-request/request.methods";
+
+
+
 const LeadMaster = (props) => {
+
   //Set current page no of the page
   const [current, setcurrent] = useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
+
   // console.warn("current----------------->>>>>", current);
   // console.warn('props----------------->>>>>',props)
 
@@ -22,10 +28,15 @@ const LeadMaster = (props) => {
   const [width, setWidth] = useState(window.innerWidth);
   const [skipVal, setSkipVal] = useState(0);
   const breakpoint = 620;
+  const [userId, setUserId] = useState('')
 
   useEffect(() => {
     setcurrent(1);
   }, [props]);
+
+
+
+
 
   useEffect(() => {
     // const { id } = stoageGetter("user");
@@ -39,6 +50,13 @@ const LeadMaster = (props) => {
 
   //Accessing LeadCard data  from store
   const leadsData = useSelector((state) => state.leads.allLeads);
+  // const loginState = useSelector((state) => state.login);
+  // const { user } = loginState;
+
+
+
+
+
   // console.log(leadsData,"leads data for broker flow");
   const _leadCount = useSelector((state) => state?.home?.home_obj);
   console.log("_leadCount ----------------->>>>>", _leadCount);
@@ -92,7 +110,7 @@ const LeadMaster = (props) => {
       value: "For Today" + " (" + _leadCount.brokertoday + ")",
     }
   ];
- 
+
   return (
     <div
       style={{
@@ -102,33 +120,20 @@ const LeadMaster = (props) => {
     >
       <Tab tabMenu={tabMenu} header="Broker Listing" current={current} />
       <div className="page-holder">
-      {/* <div style={{ marginRight: '40px' }}>
-          <Button
-            // onClick={exportReport}
-            style={{
-              backgroundColor: "#3c3d3d",
-              color: "#fff",
-              borderRadius: 2,
-              padding: '15px'
-            }}
-            className="d-flex align-items-center justify-content-center"
-          >
-            <DownloadOutlined /> Export
-          </Button>
-        </div> */}
-        <Pagination
-          responsive
-          showSizeChanger={false}
-          current={current}
-          onChange={handlePageClick}
-          total={totalLeads}
-          defaultPageSize={15}
-          itemRender={itemRender}
-        />
+          <Pagination
+            responsive
+            showSizeChanger={false}
+            current={current}
+            onChange={handlePageClick}
+            total={totalLeads}
+            defaultPageSize={15}
+            itemRender={itemRender}
+          />
         
+
       </div>
 
-      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
+      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
     </div>
   );
 };

@@ -54,6 +54,7 @@ const LeadCards = (props) => {
   const [toDateFilter, setToDateFilter] = useState("");
   const [cards, setcard] = useState([]);
 
+
   useEffect(() => {
     setFirstValue("Select");
     setSecondValue("Select");
@@ -63,6 +64,9 @@ const LeadCards = (props) => {
   useEffect(() => {
     if (leadsData?.globalTab === "team") getDataForFirstDropdownTeam();
   }, [leadsData]);
+
+
+
 
   const getDataForFirstDropdownTeam = () => {
     userTreeData.reporting_hierarchies.forEach((el) => {
@@ -207,7 +211,7 @@ const LeadCards = (props) => {
     // }
     let data = await axiosRequest.get(
       `user/getteamReport?userId=${user.id}`
-    ).then((res)=>{
+    ).then((res) => {
     })
   };
 
@@ -258,8 +262,9 @@ const LeadCards = (props) => {
 
   return (
     <div className="cards-container cards_data">
+      <div style={{display:'flex',width:'100%',justifyContent:'space-between',marginTop:'20px'}}>
       <div className="dropdown-container">
-        <div className="round-card-main-Tab" style={{width:'100%',marginTop:'10px'}}>
+        <div className="round-card-main-Tab" >
           <>
             <div
               className="CardBodySelf lead-ml60"
@@ -267,13 +272,11 @@ const LeadCards = (props) => {
                 display: "flex",
                 flexDirection: "row",
                 marginBottom: 25,
-                justifyContent:'space-between',
-                width:'100%'
               }}
             >
 
               {/* <p style={{ marginBottom: "5px" }}>Opportunity Dump</p> */}
-             <div style={{display:'flex'}}>
+
               {checkAgent() === false && (
                 <button
                   style={{
@@ -313,24 +316,9 @@ const LeadCards = (props) => {
                   Team
                 </button>
               )}
-            </div>
-            <div style={{display:'flex',marginRight:'70px'}}>
-              <Button
-                onClick={exportReport}
-                style={{
-                  backgroundColor: "#3c3d3d",
-                  color: "#fff",
-                  borderRadius: 2,
-                 padding:'15px'
-                }}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <DownloadOutlined /> Export
-              </Button>
-              </div>
-            </div>
-           
 
+
+            </div>
           </>
           {/* )} */}
         </div>
@@ -375,6 +363,22 @@ const LeadCards = (props) => {
           </div>
         )}
       </div>
+      <div style={{marginRight:'65px'}}>
+        <Button
+          onClick={exportReport}
+          style={{
+            backgroundColor: "#3c3d3d",
+            color: "#fff",
+            borderRadius: 2,
+            padding: '15px'
+          }}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <DownloadOutlined /> Export
+        </Button>
+      </div>
+      </div>
+
 
 
       {/* <div className="dropdown-container lead-ml60">
