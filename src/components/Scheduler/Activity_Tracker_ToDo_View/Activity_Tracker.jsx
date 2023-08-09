@@ -174,15 +174,20 @@ const Datescheduler = () => {
 
 	//declearing the content
 	const Content = (({children, appointmentData, ...restProps}) => {
+		console.log(appointmentData,"this is the appointment data");
 		return (
 			<AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
 				<div className="content-head">
+				<a href={appointmentData.item.meeting_URL} target="_blank" >
 					<div className="content-head-svg">
 						<VideoCameraOutlined style={{fontSize:18,fontWeight:500,color:'#cea0e1' }} />
 					</div>
-					<div style={{ color: "#CEA0E1", marginLeft: "8px" }}>
+					</a>
+					<a href={appointmentData.item.meeting_URL} target="_blank" >
+					<div style={{ color: "#CEA0E1", marginLeft: "8px" }} >
 						New Propsition Meeting
 					</div>
+					</a>
 				</div>
 				<div className="content-dt-time">
 					<div className="content-dt-time-left"><div>Date</div><div>{appointmentData.date}</div></div>
@@ -243,6 +248,7 @@ const Datescheduler = () => {
 		const result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=all`, {
 			secure: true,
 		});
+
 		// //storing the data in res after iterating through the result
 		const res = result.map((item) => {
 			// formating the data
