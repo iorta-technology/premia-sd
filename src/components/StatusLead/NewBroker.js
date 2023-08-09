@@ -53,7 +53,7 @@ const NewLead = React.memo((props) => {
     setFormItem((res) => ({ ...res, brokerCity: login_city }));
     form.setFieldsValue({ broker_city: login_city });
     getProducerList()
-  }, []);
+  }, [props]);
 
   const getProducerList = async () => {
     let result = await axiosRequest.get(`user/getproducer`, {secure: true });

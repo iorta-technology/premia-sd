@@ -259,7 +259,7 @@ const LeadCards = (props) => {
   return (
     <div className="cards-container cards_data">
       <div className="dropdown-container">
-        <div className="round-card-main-Tab">
+        <div className="round-card-main-Tab" style={{width:'100%',marginTop:'10px'}}>
           <>
             <div
               className="CardBodySelf lead-ml60"
@@ -267,25 +267,13 @@ const LeadCards = (props) => {
                 display: "flex",
                 flexDirection: "row",
                 marginBottom: 25,
+                justifyContent:'space-between',
+                width:'100%'
               }}
             >
 
               {/* <p style={{ marginBottom: "5px" }}>Opportunity Dump</p> */}
-              <div style={{marginRight:'10px'}}>
-              <Button
-                onClick={exportReport}
-                style={{
-                  backgroundColor: "#3c3d3d",
-                  color: "#fff",
-                  borderRadius: 2,
-                 padding:'15px'
-                }}
-                className="d-flex align-items-center justify-content-center"
-              >
-                <DownloadOutlined /> Export
-              </Button>
-              </div>
-
+             <div style={{display:'flex'}}>
               {checkAgent() === false && (
                 <button
                   style={{
@@ -305,8 +293,6 @@ const LeadCards = (props) => {
                   Self
                 </button>
               )}
-
-
               {checkAgent() === false && (
                 <button
                   style={{
@@ -328,6 +314,22 @@ const LeadCards = (props) => {
                 </button>
               )}
             </div>
+            <div style={{display:'flex',marginRight:'70px'}}>
+              <Button
+                onClick={exportReport}
+                style={{
+                  backgroundColor: "#3c3d3d",
+                  color: "#fff",
+                  borderRadius: 2,
+                 padding:'15px'
+                }}
+                className="d-flex align-items-center justify-content-center"
+              >
+                <DownloadOutlined /> Export
+              </Button>
+              </div>
+            </div>
+           
 
           </>
           {/* )} */}

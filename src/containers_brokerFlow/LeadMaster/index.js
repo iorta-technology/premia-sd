@@ -5,6 +5,7 @@ import LeadCards from "../../components/LeadCards_broker_flow/LeadCards";
 import FloatButton from "../../components/FloatButton/FloatButton";
 import * as actions from "../../store/actions/index";
 import { Pagination, Button } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { stoageGetter } from "../../helpers";
 import { useHistory } from "react-router";
@@ -46,7 +47,7 @@ const LeadMaster = (props) => {
     (state) => state.leads.fetch_allLeads_Loading
   );
   // lead count of the page
-  const totalLeads = useSelector((state) => state?.leads?.count );
+  const totalLeads = useSelector((state) => state?.leads?.count);
   // const _storeee = useSelector((state) => state );
   console.log("totalLeads ----------------->>>>>", totalLeads);
   // console.warn("_storeee ----------------->>>>>", _storeee);
@@ -91,6 +92,7 @@ const LeadMaster = (props) => {
       value: "For Today" + " (" + _leadCount.brokertoday + ")",
     }
   ];
+ 
   return (
     <div
       style={{
@@ -100,6 +102,20 @@ const LeadMaster = (props) => {
     >
       <Tab tabMenu={tabMenu} header="Broker Listing" current={current} />
       <div className="page-holder">
+      {/* <div style={{ marginRight: '40px' }}>
+          <Button
+            // onClick={exportReport}
+            style={{
+              backgroundColor: "#3c3d3d",
+              color: "#fff",
+              borderRadius: 2,
+              padding: '15px'
+            }}
+            className="d-flex align-items-center justify-content-center"
+          >
+            <DownloadOutlined /> Export
+          </Button>
+        </div> */}
         <Pagination
           responsive
           showSizeChanger={false}
@@ -109,7 +125,9 @@ const LeadMaster = (props) => {
           defaultPageSize={15}
           itemRender={itemRender}
         />
+        
       </div>
+
       <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
     </div>
   );
