@@ -3186,11 +3186,8 @@ export default function CalendarEvent(props) {
     setCompanyArray(_compArr);
     setTodoCompName(_compArr[0].value);
       setTodoCompId(_compArr[0]._id);
-    console.log(_compArr,'after select compare arr');
     if (props.Data) {
       if(props.Data.company_id != null && props.Data.leadId != null){
-      console.log(props.Data, "props full valuess");
-      console.log(_compArr, "full array of company");
       let finalarrofcmpany = _compArr.filter((item) => {
         return item._id == props.Data.company_id;
       });
@@ -3211,7 +3208,6 @@ export default function CalendarEvent(props) {
         _opporArr.push(_data);
       });
       setOpportunityNameArray(_opporArr);
-      console.log(_opporArr, "opp array---->");
       if (_opporArr.length > 0) {
         let finalarrofOpp = _opporArr.filter((item) => {
           return item._id == props.Data.leadId._id;

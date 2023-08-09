@@ -175,7 +175,9 @@ const Datescheduler = () => {
 	//declearing the content
 	const Content = (({children, appointmentData, ...restProps}) => {
 		return (
+			
 			<AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+				{console.log('restProps-------->>>>>>',restProps)}
 				<div className="content-head">
 					<div className="content-head-svg">
 						<VideoCameraOutlined style={{fontSize:18,fontWeight:500,color:'#cea0e1' }} />
