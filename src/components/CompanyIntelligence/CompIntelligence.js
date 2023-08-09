@@ -736,7 +736,6 @@ const CompanyIntelligence = React.memo((props) => {
                             <p className="text-font">{el.inception_date}</p>
                             <p className="label-font">Inception Date</p>
                           </Col>
-
                           <Col style={{ flex: 1 }}>
                             <p className="text-font">{el.tagic_presence_percentage}</p>
                             <p className="label-font">TAGIC Presence</p>
