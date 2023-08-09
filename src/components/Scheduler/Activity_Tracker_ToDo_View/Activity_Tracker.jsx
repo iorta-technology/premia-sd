@@ -176,7 +176,9 @@ const Datescheduler = () => {
 	const Content = (({children, appointmentData, ...restProps}) => {
 		console.log(appointmentData,"this is the appointment data");
 		return (
+			
 			<AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+				{console.log('restProps-------->>>>>>',restProps)}
 				<div className="content-head">
 				<a href={appointmentData.item.meeting_URL} target="_blank" >
 					<div className="content-head-svg">

@@ -124,57 +124,57 @@ export default function CalendarEvent(props) {
   const login_user = useSelector((state) => state.login.user);
 
 
-  useEffect(() => {
+  // useEffect(() => {
    
-    // console.log("USER HIERARCHYY ___DATA__", _dataStore);
-    let _teamMember = [];
-    if (Object.keys(_dataStore).length !== 0) {
-      // let _teamMember = [];
-      if (checkAgent() === false) {
-        _dataStore.reporting_users.map((el) => {
-          let sortarray = {
-            FullName: el.full_name,
-            ShortId: el.employeeCode,
-            firstname: el.first_name,
-            lastname: el.last_name,
-            employecode: el.employeeCode,
-            designation: el.hierarchyName,
-            _Id: el._id,
-            value:
-              toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
-          };
-          _teamMember.push(sortarray);
-          sortarray = {};
-        });
-        let _finalData = [..._teamMember, _reportManager];
-        setHierarAgentList(_finalData);
-      } else {
-        if (login_user.hasOwnProperty("reportingManager")) {
-          // login_user.reportingManager
-          let _reporting = login_user.reportingManager;
+  //   // console.log("USER HIERARCHYY ___DATA__", _dataStore);
+  //   let _teamMember = [];
+  //   if (Object.keys(_dataStore).length !== 0) {
+  //     // let _teamMember = [];
+  //     if (checkAgent() === false) {
+  //       _dataStore.reporting_users.map((el) => {
+  //         let sortarray = {
+  //           FullName: el.full_name,
+  //           ShortId: el.employeeCode,
+  //           firstname: el.first_name,
+  //           lastname: el.last_name,
+  //           employecode: el.employeeCode,
+  //           designation: el.hierarchyName,
+  //           _Id: el._id,
+  //           value:
+  //             toCapitalize(el.full_name) + " " + "(" + el.hierarchyName + ")",
+  //         };
+  //         _teamMember.push(sortarray);
+  //         sortarray = {};
+  //       });
+  //       let _finalData = [..._teamMember, _reportManager];
+  //       setHierarAgentList(_finalData);
+  //     } else {
+  //       if (login_user.hasOwnProperty("reportingManager")) {
+  //         // login_user.reportingManager
+  //         let _reporting = login_user.reportingManager;
 
-          let sortarray = {
-            FullName: _reporting.full_name,
-            ShortId: _reporting.employeeCode,
-            firstname: _reporting.first_name,
-            lastname: _reporting.last_name,
-            employecode: _reporting.employeeCode,
-            designation: _reporting.hierarchyName,
-            _Id: _reporting._id,
-            value:
-              toCapitalize(_reporting.full_name) +
-              " " +
-              "(" +
-              _reporting.hierarchyName +
-              ")",
-          };
-          _teamMember.push(sortarray);
-          // sortarray = {};
-          setHierarAgentList(_teamMember);
-        }
-      }
-    }
-  }, []);
+  //         let sortarray = {
+  //           FullName: _reporting.full_name,
+  //           ShortId: _reporting.employeeCode,
+  //           firstname: _reporting.first_name,
+  //           lastname: _reporting.last_name,
+  //           employecode: _reporting.employeeCode,
+  //           designation: _reporting.hierarchyName,
+  //           _Id: _reporting._id,
+  //           value:
+  //             toCapitalize(_reporting.full_name) +
+  //             " " +
+  //             "(" +
+  //             _reporting.hierarchyName +
+  //             ")",
+  //         };
+  //         _teamMember.push(sortarray);
+  //         // sortarray = {};
+  //         setHierarAgentList(_teamMember);
+  //       }
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     try {
@@ -1101,7 +1101,7 @@ export default function CalendarEvent(props) {
     // console.log(text, "text------>");
     // console.log(data, "data------>");
     setTeamMemberData(text);
-    // if(text.length >= 3) getTeamDetails(text);
+    if(text.length >= 3) getTeamDetails(text);
     // setOwnerCollectn([...ownerCollectn,data])
   };
 
@@ -1114,7 +1114,7 @@ export default function CalendarEvent(props) {
     let filteredValue = hierarAgentList.filter((item) => {
       return item.value == value;
     });
-    // console.log(filteredValue, 'value splitted--->');
+    console.log(filteredValue, 'value splitted--->');
     let all = [...ownerCollectn, filteredValue[0]];
     setOwnerCollectn([...ownerCollectn, ...filteredValue]);
     setTeamMemberData("");
@@ -1805,7 +1805,7 @@ export default function CalendarEvent(props) {
       });
     }
 
-    let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
+    let _ownerCollectn = _.uniqBy(ownerCollectn, "_Id");
     teammemberclone = [...new Set(teammemberclone)];
     // let formData = {
     //   user_id: stoageGetter('user').id,
@@ -2075,7 +2075,7 @@ export default function CalendarEvent(props) {
         setDurationEndDateAlert(false);
         setDurationEndTimeAlert(false);
 
-        let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
+        let _ownerCollectn = _.uniqBy(ownerCollectn, "_Id");
         teammemberclone = [...new Set(teammemberclone)];
         // console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
         let _formData = {
@@ -2222,12 +2222,16 @@ export default function CalendarEvent(props) {
             setDurationEndDateAlert(false);
             setDurationEndTimeAlert(false);
             // console.log(clientvisit, customerCollection.phone_call_customer, 'cline visit----->')
-            let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
+            // console.log("🚀 ~ file: CalendarEvent.js:1809 ~ bookAppointWithLead ~ ownerCollectn:", ownerCollectn)
+            let _ownerCollectn = _.uniqBy(ownerCollectn, "_Id");
+            
+            // console.log("🚀 ~ file: CalendarEvent.js:1809 ~ bookAppointWithLead ~ _ownerCollectn__UNIQUEEEE:", _ownerCollectn)
             teammemberclone = [...new Set(teammemberclone)];
             // let API = "user/bookAppointment"
             // if(event_For == true){
             //   API = "user/bookAppointment?event_for=broker"
             // }
+            // return
             let API = event_For == true ? "user/bookAppointment?event_for=broker" : "user/bookAppointment"
             let result = await axiosRequest.post(API,
               {
@@ -2308,13 +2312,15 @@ export default function CalendarEvent(props) {
           setDurationTimeAlert(false);
           setDurationEndDateAlert(false);
           setDurationEndTimeAlert(false);
-          let _ownerCollectn = _.uniqBy(ownerCollectn, "ShortId");
+          // console.log("🚀 ~ file: CalendarEvent.js:1809 ~ bookAppointWithLead ~ ownerCollectn:", ownerCollectn)
+            let _ownerCollectn = _.uniqBy(ownerCollectn, "_Id");
+            
+            // console.log("🚀 ~ file: CalendarEvent.js:1809 ~ bookAppointWithLead ~ _ownerCollectn__UNIQUEEEE:", _ownerCollectn)
           teammemberclone = [...new Set(teammemberclone)];
           // let API="user/bookAppointment"
           // if(event_For==true){
           //   API="iser/bookAppointment?event_for=broker"
           // }
-
           let API = event_For == true ? "user/bookAppointment?event_for=broker" : "user/bookAppointment"
           let result = await axiosRequest.post(API,
             {
@@ -2891,7 +2897,7 @@ export default function CalendarEvent(props) {
   };
   const handleOk = (e) => {
     props.setIsModalVisible(false);
-    console.log("🚀 ~ file: >>>>OKKKKKKK>>>>>> ~ props.isModalVisible:", props.isModalVisible)
+    // console.log("🚀 ~ file: >>>>OKKKKKKK>>>>>> ~ props.isModalVisible:", props.isModalVisible)
   };
 
   const MultiSelect = (e) => {
@@ -2934,7 +2940,7 @@ export default function CalendarEvent(props) {
   const handleCancel = () => {
     props.setIsModalVisible(false);
     setDurationStartDateHelper();
-    console.log("🚀 ~ file: >>>>CANCELLLLLLL>>>>>> ~ props.isModalVisible:", props.isModalVisible)
+    // console.log("🚀 ~ file: >>>>CANCELLLLLLL>>>>>> ~ props.isModalVisible:", props.isModalVisible)
   };
 
   // let EventFetch=fetchEventCheck==true? fetchUpcomingArr.map((item)=>{
@@ -3067,7 +3073,7 @@ export default function CalendarEvent(props) {
   // };
 
   const changeCompanyName = async (value, compId) => {
-    console.log("COMPANY NAMEE --------------", value, compId);
+    // console.log("COMPANY NAMEE --------------", value, compId);
     // console.log("opportunityNameArray IDDD --------------", opportunityNameArray);
     setTodoCompName(value);
     setTodoCompId(compId);
@@ -3093,7 +3099,7 @@ export default function CalendarEvent(props) {
     let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
     });
-    console.warn("__++++++COMPANY++++++++ RESPPPP", result);
+    // console.warn("__++++++COMPANY++++++++ RESPPPP", result);
 
     if(result.length > 0){
       let _compArr = [];
@@ -3115,7 +3121,6 @@ export default function CalendarEvent(props) {
       setCompanyArray(_compArr);
       setTodoCompName(_compArr[0].value);
         setTodoCompId(_compArr[0]._id);
-      console.log(_compArr,'after select compare arr');
       if (props.Data) {
         if(props.Data.company_id != null && props.Data.leadId != null){
           // console.log(props.Data, "props full valuess");

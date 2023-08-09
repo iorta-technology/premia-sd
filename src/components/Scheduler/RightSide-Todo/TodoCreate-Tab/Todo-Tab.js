@@ -23,9 +23,9 @@ const { Option } = Select;
 const { Search } = Input;
 
 const TodoTab = (props) => {
-  console.log('editData ___TODOO_________',props)
+  // console.log('editData ___TODOO_________',props)
   useEffect(() => {
-    console.warn("PROPSSSSSSS---HEREE-----------", props);
+    // console.warn("PROPSSSSSSS---HEREE-----------", props);
     getCompanyDetails();
     if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
       // console.warn("PROPSSSSSSS--------------", props?.company_Name);
