@@ -4,7 +4,7 @@ import { getLeadFilter } from "../../helpers";
 import axiosLms from "../../axios-lmsv2";
 import axiosRequest from "../../axios-request/request.methods";
 import supportLead from "../../components/LeadCards/supportLeads";
-import supportLead_broker from "../../components/LeadCards_broker_flow/supportLeads"
+import supportLead_broker from "../../components/LeadCards_broker_flow/supportLeads";
 
 // Fetch leads data
 export const fetchAllLeadsStart = () => {
@@ -15,6 +15,7 @@ export const fetchAllLeadsStart = () => {
 
 export const fetchAllLeadsSuccess = (allLeads, count) => {
   console.log(allLeads,"broker flow leads");
+  console.log(count,"broker flow count");
   return {
     type: actionTypes.FETCH_ALL_LEADS_SUCCESS,
     allLeads: allLeads,
@@ -41,8 +42,7 @@ export const fetchAllLeads_broker = (id, leads, pageNo) => {
       `user/getbrokerlist?userId=${id}&filter=${leads}&skip=${skipVal}`,
       { secure: true }
     )
-    // console.log(result.errMsg.data,"data broker flow------------");
-    if (result.data.length > 0) {
+    if (result) {
       dispatch(
         fetchAllLeadsSuccess(
           supportLead_broker.readSortDataFromAPI(

@@ -130,7 +130,7 @@ const LeadCards = (props) => {
     // console.warn('event___TEAMM MEMBER((((((((((===>>>>>>>>>>', event)
     setSecondValue(event);
     stoageSetter("teamMemberId", event);
-    dispatch(actions.fetchAllLeads(event, "all", 1));
+    dispatch(actions.fetchAllLeads_broker(event, "all", 1));
   };
 
   useEffect(() => {

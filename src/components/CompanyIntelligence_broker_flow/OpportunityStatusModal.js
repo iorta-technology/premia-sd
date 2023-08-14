@@ -131,7 +131,7 @@ const OpportunityComp = (props) => {
     }, [props]);
 
     const changeLeadStatus = (event) => {
-      // console.log('((((((changeLeadStatus)))))))',event)
+      console.log('((((((changeLeadStatus)))))))',event)
         setFormItem((res) => ({ ...res,status: event }));
         form.setFieldsValue({lead_disposition: "",});
         setShowLeadSubDisposition(false);
@@ -155,10 +155,9 @@ const OpportunityComp = (props) => {
     };
     
     const changeDispoStatus = (event) => {
+      console.log('disposition status',event);
         setFormItem((res) => ({ ...res,disposition: event }));
-    
         setShowLeadSubDisposition(true);
-    
         if (event === "leadconverted") {
           setSubDispoArr([
             { label: "Application Started", value: "Application Started" },
@@ -167,6 +166,9 @@ const OpportunityComp = (props) => {
           setShowAppointmentFields(false);
           setFormItem((res) => ({ ...res, subDisposition: "Application Started" }));
           form.setFieldsValue({ sub_disposition: "Application Started" });
+          setFormItem((res)=>({...res,appointmentTime:null}));
+          setFormItem((res)=>({...res,appointmentDate:null}));
+          setFormItem((res)=>({...res,subDisposition:null}));
         } else if (event === "notinterested") {
           setSubDispoArr([
             { label: "Lost to Competition", value: "Lost to Competition" },
@@ -175,6 +177,7 @@ const OpportunityComp = (props) => {
           setShowAppointmentFields(false);
           setFormItem((res) => ({ ...res, subDisposition: "Lost to Competition" }));
           form.setFieldsValue({ sub_disposition: "Lost to Competition" });
+          setFormItem((res)=>({...res,appointmentTime:null}));
         } else if (event === "noteligible") {
           setSubDispoArr([
             { label: "Risk not feasible", value: "Risk not feasible" },
@@ -183,6 +186,7 @@ const OpportunityComp = (props) => {
     
           setFormItem((res) => ({ ...res, subDisposition: "Risk not feasible" }));
           form.setFieldsValue({ sub_disposition: "Risk not feasible" });
+          setFormItem((res)=>({...res,appointmentTime:null}));
         } else if (event === "interested") {
           setSubDispoArr([
             { label: "Proposal in progress", value: "Proposal in progress" },
@@ -195,6 +199,7 @@ const OpportunityComp = (props) => {
             subDisposition: "Proposal in progress",
           }));
           form.setFieldsValue({ sub_disposition: "Proposal in progress" });
+          setFormItem((res)=>({...res,appointmentTime:null}));
         } else if (event === "callback") {
           setSubDispoArr([
             { label: "Ask to call back later", value: "Ask to call back later" },
@@ -265,8 +270,8 @@ const OpportunityComp = (props) => {
               start_time:!formItem.appointmentTime ? null : formItem.appointmentTime ,
           }
       }
-      dispatch(actions.editLead_broker(formBody, _StoreData._id))
-      props.setShowOpportunityModal(false)
+      dispatch(actions.editLead_broker(formBody, _StoreData._id));
+      props.setShowOpportunityModal(false);
     }
 
 return (

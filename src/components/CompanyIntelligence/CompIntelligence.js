@@ -589,7 +589,6 @@ const CompanyIntelligence = React.memo((props) => {
                             </text>
                           </div>
                         </div>
-
                     }
                   </TabPane>
               </Tabs>

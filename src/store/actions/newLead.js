@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-common";
 import axiosRequest from "../../axios-request/request.methods";
+import { message } from "antd";
 
 export const createLeadStart = () => {
   return {
@@ -77,10 +78,10 @@ export const editLead_broker = (formData, id) => {
     dispatch(editLeadStart());
     let result = await axiosRequest.put(`user/updateopportunityDetails`, formData, {
       secure: true,
-    });
+    })
     // console.warn("update LEADDDD_______", result);
-      dispatch(fetchLeadDetails_broker(id))
-      return dispatch(editLeadSuccess(result));
+    dispatch(fetchLeadDetails_broker(id));
+    return dispatch(editLeadSuccess(result));
   };
 };
 

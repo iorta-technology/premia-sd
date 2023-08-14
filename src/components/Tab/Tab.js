@@ -255,6 +255,7 @@ const Tab = ({
 
           { header === "Broker Listing" &&
             <BrokerFilters
+              style={{marginTop:'100px'}}
               showBrokerFilt={showBrokerFilt}
               onHide={() => setShowBrokerFilt(false)}
               handleShow={() => setShowBrokerFilt(true)}

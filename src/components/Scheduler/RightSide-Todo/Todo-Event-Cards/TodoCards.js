@@ -41,10 +41,11 @@ const TodoCards = forwardRef((props, ref) => {
   const [sval, setSval] = useState(0);
   //   const [swap_final_count, setSwap_final_count] = useState(false);
   const [remarkDataEnt, setRemarkDataEnt] = useState("");
+  const [brokername, setBrokername] = useState('');
   let swap_final_count = false;
 
   const showModal = (event, ind) => {
-    // console.log('TODO__CARDD___DATA__',event)
+    console.log('TODO__CARDD___DATA__',event)
     // setButtonName('Update')
     getTodoDataArray[ind].showarchiedpopup = false;
     setUpdateData(event);
@@ -75,7 +76,8 @@ const TodoCards = forwardRef((props, ref) => {
         ? `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}&lead_id=${props.leadID}`
         : `user/fetch_todo_list?user_id=${id}&filter=all&skip=${skip}`;
       let _resp = await axiosRequest.get(_api, { secure: true });
-      //   console.log("TODO__GETTTT___RESPPPP", _resp);
+
+      console.log("TODO__GETTTT___RESPPPP", _resp);
       let respData = _resp[0];
 
       setTotalPage(_resp[1][0].count / 5);
@@ -549,16 +551,20 @@ const TodoCards = forwardRef((props, ref) => {
               {element.content}
             </p>
           </div>
-          <div className="TodoCards-Body flex-wrap py-1">
+          {
+            element.wholeData.task_for=='broker'? <div className="TodoCards-Body flex-wrap py-1">
+            <p className="w-50 value">
+              {!element.wholeData.producerId.producer_name ? "-" : element.wholeData.producerId.producer_name}
+            </p>
+            <p className="w-50 term">Broker Name</p>
+          </div>: <div className="TodoCards-Body flex-wrap py-1">
             <p className="w-50 value">
               {!element.companyName ? "-" : element.companyName}
             </p>
-            {/* <p className="w-50 value">
-              {!element.opportunityName ? "-" : element.opportunityName}
-            </p>
-            <p className="w-50 term">Client Name</p> */}
             <p className="w-50 term">Company Name</p>
           </div>
+          }
+         
           <div className="Todo-Footer">
             <p style={{ textTransform: "capitalize", fontWeight: "bolder" }}>
               {element.ownername}

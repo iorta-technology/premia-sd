@@ -103,8 +103,7 @@ const RiskDetails = (props) => {
     if (Object.keys(props.riskDataSet).length > 0) {
       setRiskType('update')
 
-      let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date,"MM/DD/YYYY");
-
+      let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date).format('MM/DD/YYYY');
       setShowRiskDetailsPopup(true);
       setNoOfEntities(!props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share);
       // setProductNameData("");

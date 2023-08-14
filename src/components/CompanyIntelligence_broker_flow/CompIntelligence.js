@@ -146,7 +146,7 @@ const CompanyIntelligence = React.memo((props) => {
     axios.delete(`${baseURL}secure/user/delete_documents?userId=${loginId}&docId=${data._id}`, { headers }).then(res => {
       // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
       if (res.data.errCode === -1) {
-        dispatch(actions.fetchLeadDetails(storeFormData._id));
+        dispatch(actions.fetchLeadDetails(storeFormData?._id));
         message.success("Document Deleted Successfully");
       }
     })
@@ -175,10 +175,10 @@ const CompanyIntelligence = React.memo((props) => {
     dispatch(actions.headerName("New Lead"));
     console.log('storeFormData--------->>>>>', storeFormData);
     loadValuesToFields(storeFormData);
-    getAppointmentList(storeFormData._id);
-    setBrokerId(storeFormData._id);
-    setProducerId(storeFormData.producer_id);
-    setProducerName(storeFormData.producerdetails.producer_name);
+    getAppointmentList(storeFormData?._id);
+    setBrokerId(storeFormData?._id);
+    setProducerId(storeFormData?.producer_id);
+    setProducerName(storeFormData?.producerdetails?.producer_name);
   }, [storeFormData]);
 
 
@@ -289,7 +289,7 @@ const CompanyIntelligence = React.memo((props) => {
 
   const add3Dots = (string, limit) => {
     var dots = "...";
-    if (string.length > limit) {
+    if (string?.length > limit) {
       string = string.substring(0, limit) + dots;
     }
     return string;
@@ -424,17 +424,17 @@ const CompanyIntelligence = React.memo((props) => {
               <Col style={{ padding: 10 }}>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails.producer_name}</p>
+                    <p className="text-font">{producerDetails?.producer_name}</p>
                     <p className="label-font">Producer Name</p>
                   </Col>
                 </Row>
                 <Row style={{ marginTop: 10 }}>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails.city}</p>
+                    <p className="text-font">{producerDetails?.city}</p>
                     <p className="label-font">City</p>
                   </Col>
                   <Col style={{ flex: 1 }}>
-                    <p className="text-font">{producerDetails.wallet_size}</p>
+                    <p className="text-font">{producerDetails?.wallet_size}</p>
                     <p className="label-font">Wallet</p>
                   </Col>
                 </Row>
@@ -807,8 +807,8 @@ const CompanyIntelligence = React.memo((props) => {
           // user_id={user_id}
         />
         <>
-          <KDMDetails kdmDataSet={kdmType === 'create' ? {} :kdmDetailsArr.length!==0?kdmDataSet:{}} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
-        </>
+          <KDMDetails kdmDataSet={kdmType === 'create' ? {} :kdmDetailsArr?.length!==0?kdmDataSet:{}} showKdmModal={showKdmModal} setShowKdmModal={setShowKdmModal} />
+        </> 
         <>
           <ProducerVAS producerVasDetails={producerVasDetails} showVasModal={showVasModal} setShowVasModal={setShowVasModal} />
         </>

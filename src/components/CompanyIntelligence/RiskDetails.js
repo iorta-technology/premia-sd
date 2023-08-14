@@ -108,19 +108,16 @@ const RiskDetails = (props) => {
     let _dataArr = [];
     if (Object.keys(props.riskDataSet).length > 0) {
       setRiskType('update')
-
-      let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date,"MM/DD/YYYY");
-
+      let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date);
       setShowRiskDetailsPopup(true);
       setNoOfEntities(!props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities);
-      // setProductNameData("");
       setTotalPremData(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
       setTagicPresence(!props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage);
       setTagicPremium(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
       setLeadrFollowerData(!props.riskDataSet.leader ? "" : props.riskDataSet.leader);
       setLeadInsurerData(!props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer);
       setLeaderShareData(!props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share);
-      setInceptionDateData(_InceptnDateFormat);
+      setInceptionDateData(moment(_InceptnDateFormat).format('MM/DD/YYYY'));
       setEditIndex("");
       setPanNo(!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no);
       setLOBForOpportunity(!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity);
@@ -128,7 +125,6 @@ const RiskDetails = (props) => {
       setTenderDriver(!props.riskDataSet.tender_driven ? "" : props.riskDataSet.tender_driven === 'No' ? false : true);
       
       setEditRiskId(props.riskDataSet._id)
-
       form.setFieldsValue({
         nameOfentity: !props.riskDataSet.total_entities ? "-" : props.riskDataSet.total_entities,
         totPrem: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
@@ -391,7 +387,6 @@ const RiskDetails = (props) => {
       let result = await axiosRequest.put(`user/updateriskform?userId=${user_id}&lead_Id=${_StoreData.lead_Id}&riskId=${editRiskId}`,formBody,{ secure: true });
       dispatch(actions.fetchLeadDetails(_StoreData._id))
     }
-
     props.setShowRiskModal(false)
   };
 

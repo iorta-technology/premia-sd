@@ -64,7 +64,7 @@ const CollaboratorModal = (props) => {
             })
             // console.log('(((((((((_teamSelected)))))))))---->>>>',_teamSelected)
             
-            setCollaboratorsList(_teamSelected)
+            // setCollaboratorsList(_teamSelected)
            
         }else{
 

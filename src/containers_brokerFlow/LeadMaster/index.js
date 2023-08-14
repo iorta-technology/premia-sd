@@ -66,6 +66,7 @@ const LeadMaster = (props) => {
   );
   // lead count of the page
   const totalLeads = useSelector((state) => state?.leads?.count);
+  // console.log(totalLeads,"total leads-------------------------<");
   // const _storeee = useSelector((state) => state );
   console.log("totalLeads ----------------->>>>>", totalLeads);
   // console.warn("_storeee ----------------->>>>>", _storeee);

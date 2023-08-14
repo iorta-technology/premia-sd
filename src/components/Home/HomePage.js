@@ -1357,10 +1357,10 @@ const HomePage = () => {
                           <div className={`contact-card-date ${birthdate ? '' : 'centered'}`}>
                             {birthdate ? birthdate : '-'}
                           </div>
-                          <div className="contact-card-sendWish">
+                          {/* <div className="contact-card-sendWish">
                             {" "}
                             Send Wish
-                          </div>
+                          </div> */}
                         </p>
                       </div>
                       <div className="nested-card">
