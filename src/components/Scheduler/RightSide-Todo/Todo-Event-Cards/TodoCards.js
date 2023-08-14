@@ -554,7 +554,7 @@ const TodoCards = forwardRef((props, ref) => {
           {
             element.wholeData.task_for=='broker'? <div className="TodoCards-Body flex-wrap py-1">
             <p className="w-50 value">
-              {!element.wholeData.producerId.producer_name ? "-" : element.wholeData.producerId.producer_name}
+              {!element?.wholeData?.producerId?.producer_name ? "-" : element?.wholeData?.producerId?.producer_name}
             </p>
             <p className="w-50 term">Broker Name</p>
           </div>: <div className="TodoCards-Body flex-wrap py-1">

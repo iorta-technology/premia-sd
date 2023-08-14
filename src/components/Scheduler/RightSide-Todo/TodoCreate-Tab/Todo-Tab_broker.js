@@ -202,7 +202,7 @@ import {
       if (result.length > 0) {
         let _compArr = [];
         result.map((el) => {
-          let _data = { value: el.producer_name, label: el.producer_name, _id: el._id };
+          let _data = { value: el?.producer_name, label: el?.producer_name, _id: el._id };
           _compArr.push(_data);
         });
         setCompanyArray(_compArr);
