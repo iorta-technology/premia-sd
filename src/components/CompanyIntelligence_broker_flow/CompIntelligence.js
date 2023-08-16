@@ -427,17 +427,17 @@ const CompanyIntelligence = React.memo((props) => {
                     <p className="text-font">{producerDetails?.producer_name}</p>
                     <p className="label-font">Producer Name</p>
                   </Col>
-                </Row>
-                <Row style={{ marginTop: 10 }}>
                   <Col style={{ flex: 1 }}>
                     <p className="text-font">{producerDetails?.city}</p>
                     <p className="label-font">City</p>
                   </Col>
+                </Row>
+                {/* <Row style={{ marginTop: 10 }}>
                   <Col style={{ flex: 1 }}>
                     <p className="text-font">{producerDetails?.wallet_size}</p>
                     <p className="label-font">Wallet</p>
                   </Col>
-                </Row>
+                </Row> */}
               </Col>
             </Card>
             <Card bordered={false} style={{ marginTop: 20 }} className="app-card-head">

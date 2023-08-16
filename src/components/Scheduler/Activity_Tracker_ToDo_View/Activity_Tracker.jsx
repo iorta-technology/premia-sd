@@ -9,8 +9,9 @@ import axiosRequest from "../../../axios-request/request.methods";
 import moment from "moment";
 import header from "../header";
 import "./Activity_Tracker.css";
+import axios from 'axios';
 
-import { Card, Col, Row, Button } from "antd";
+import { Card, Col, Row, Button, message } from "antd";
 import Todo from "../RightSide-Todo/Todo";
 import { stoageGetter } from '../../../helpers'
 import EventCreateComponent from "../CalendarEvent.js"
@@ -33,7 +34,7 @@ import { createBreakpoints, height, width } from "@mui/system";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { CloseOutlined , EditOutlined , VideoCameraOutlined,PhoneOutlined } from '@ant-design/icons';
+import { CloseOutlined , EditOutlined , VideoCameraOutlined,PhoneOutlined,DeleteOutlined } from '@ant-design/icons';
 
 
 const Datescheduler = () => {
@@ -59,6 +60,7 @@ const Datescheduler = () => {
 	const [editData, setEditData] = useState({});
 	const [month, setMonth] = useState('');
 	const [refresh, setRefresh] = useState(true);
+	const [deleteApp, setDeleteAppointment] = useState(false);
 
 
 
@@ -69,6 +71,8 @@ const Datescheduler = () => {
 
 	const [listData, setListData] = useState([]);
 	const [click, setClick] = useState(true);
+	const loggedInUserToken = useSelector((state) => state?.login?.token);
+
 
 	// appoitment tool tip states
 
@@ -91,7 +95,6 @@ const Datescheduler = () => {
 	// invoking the function for retrieving our data
 	useEffect(() => {
 		getScheduler();
-		// console.log(refresh, "this is refresh part");
 	}, [month, refresh]);
 
 	useEffect(() => {
@@ -108,11 +111,23 @@ const Datescheduler = () => {
 	
 	const showModal = (e) => {
 		setAppointmentTootip(!appointmentTootip)
-		
 		setIsModalVisible(true);
 		setEditData(e);
 	};
 
+	useEffect(() => {
+	  getScheduler();
+	}, [deleteApp])
+	
+	const deleteAppointment=async (e)=>{
+		// console.log(e,"delete");
+		setDeleteAppointment(!deleteApp);
+		setAppointmentTootip(!appointmentTootip);
+		const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
+		const result = await axios.delete(`https://b2bnodedev.salesdrive.app/b2b/secure/user/deleteAppointments?eventId=${e._id}`, { headers }).then((res)=>{
+			message.success(res.data.errMsg);
+		})
+	}
 	//getting the data when we click appointements  
 	const onAppointmentMetaChange = ({ data, target }) => {
 		setAppointmentMeta({ data, target })
@@ -159,6 +174,10 @@ const Datescheduler = () => {
 							appointmentData?.item?.statusType === "open" ? "Open" : "Close"
 						}
 					</text>
+				</div>
+				<div style={{height:15,width:1,backgroundColor:'grey'}}></div>
+				<div style={{ display:'flex',width: "50px", cursor: "pointer",justifyContent:'center' }} onClick={() => deleteAppointment(appointmentData.item) }>
+					<DeleteOutlined style={{fontSize:18,fontWeight:500 }} />
 				</div>
 				<div style={{height:15,width:1,backgroundColor:'grey'}}></div>
 				<div style={{ display:'flex',width: "50px", cursor: "pointer",justifyContent:'center' }} onClick={() => showModal(appointmentData.item) }>
@@ -237,9 +256,10 @@ const Datescheduler = () => {
 	
 	const currentDateChange=(currentDate)=>{
 		// console.log(currentDate.getMonth(),"this is the current date change");
-		let curr_month=currentDate.getMonth();
+		let curr_month=currentDate.getMonth()+1;
+		console.log(curr_month,"this si the current month");
 		if(curr_month.toString().length==1){
-			curr_month+=1;
+			// curr_month+=1;
 			let num='0'+curr_month.toString();
 			curr_month=num;
 		}
@@ -250,7 +270,13 @@ const Datescheduler = () => {
 		const result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=all`, {
 			secure: true,
 		});
-
+		// const result1 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=09/2023&category=all`, {
+		// 	secure: true,
+		// });
+		// result1.map((item)=>{
+		// 	result.push(item)
+		// })
+		// console.log(result,"this is the result");
 		// //storing the data in res after iterating through the result
 		const res = result.map((item) => {
 			// formating the data

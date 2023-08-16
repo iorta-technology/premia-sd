@@ -223,10 +223,7 @@ const LeadCard = React.memo((props) => {
                 </div>
               </div>
               <div className="Dateinfo-Container">
-                <div className="grid-style">
-                  <p className="text-content">{wallet_size}</p>
-                  <p className="text-type">Total Wallet Size</p>
-                </div>
+               
                 <div className="grid-style AllocatedBy-Heading">
                   <p className="text-content capitalize">{utilization}</p>
                   <p className="text-type">Actual Utilization (%)</p>
@@ -235,7 +232,10 @@ const LeadCard = React.memo((props) => {
                   <p className="text-content capitalize">{lob}</p>
                   <p className="text-type">LOB</p>
                 </div>
-                
+                 <div className="grid-style">
+                  {/* <p className="text-content">{wallet_size}</p>
+                  <p className="text-type">Total Wallet Size</p> */}
+                </div>   
               </div>
             </div>
             
