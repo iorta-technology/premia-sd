@@ -121,7 +121,7 @@ const Datescheduler = () => {
 	
 	const deleteAppointment=async (e)=>{
 		// console.log(e,"delete");
-		setDeleteAppointment(!deleteApp);
+		setDeleteAppointment(deleteApp=>!deleteApp);
 		setAppointmentTootip(!appointmentTootip);
 		const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
 		const result = await axios.delete(`https://b2bnodedev.salesdrive.app/b2b/secure/user/deleteAppointments?eventId=${e._id}`, { headers }).then((res)=>{
@@ -269,14 +269,7 @@ const Datescheduler = () => {
 		if (month == '') return;
 		const result = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=all`, {
 			secure: true,
-		});
-		// const result1 = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=09/2023&category=all`, {
-		// 	secure: true,
-		// });
-		// result1.map((item)=>{
-		// 	result.push(item)
-		// })
-		// console.log(result,"this is the result");
+		})
 		// //storing the data in res after iterating through the result
 		const res = result.map((item) => {
 			// formating the data
@@ -341,10 +334,6 @@ const Datescheduler = () => {
 		console.log('get scheduler called');
 		getScheduler();
 	}
-	useEffect(()=>{
-		getScheduler();
-	},[callback1])
-	
 
 	return (
 		<div>
@@ -403,7 +392,7 @@ const Datescheduler = () => {
 						<EventCreateComponent
 							click={"CREATE AN EVENT"}
 							// Data={editData}
-							//api={api}
+							// api={api}
 							isModalVisible={create_event}
 							setIsModalVisible={setCreate_event}
 							callback1={callback1}

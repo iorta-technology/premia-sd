@@ -28,7 +28,7 @@ import Icon from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
 import { stoageGetter, checkAgent } from "../../helpers";
 import axios from "axios";
-import _, { unset } from "lodash";
+import _, { delay, unset } from "lodash";
 import Form from "antd/lib/form/Form";
 import Item from "antd/lib/list/Item";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,6 +69,7 @@ export default function CalendarEvent(props) {
   const [companyArray, setCompanyArray] = useState([]);
   const [opportunityNameArray, setOpportunityNameArray] = useState([]);
   const [event_For, setEvent_For] = useState(false);
+
 
   const [durationButton, setDurationButton] = useState({
     select_time: true,
@@ -117,6 +118,7 @@ export default function CalendarEvent(props) {
   const [oppCollectn, setOppCollectn] = useState([]);
   const [oppsearchchip, setOppSearchChip] = useState([]);
   const [opplistcollectn, setOppListCollectn] = useState([]);
+  const [event_created, setEvent_created] = useState(false);
   const [checkEventWith, setCheckEventWith] = useState("New Prospect");
   const _dataStore = useSelector((state) => state?.home?.user_tree);
 
@@ -449,16 +451,7 @@ export default function CalendarEvent(props) {
               servicing: false,
             });
           }
-          // else if (props.Data.tata_appointment_type == 'Inactive agent reactivation'){
-          //   setAdvisorCollection({
-          //     appointment_advisor: true,
-          //     businessPlanning_review: false,
-          //     inactive_agent_reactivation: true,
-          //     unit_meeting: false,
-          //     joint_customer_visit: false,
-          //     servicing: false
-          //   })
-          // }
+        
           else if (
             props.Data.tata_appointment_type == "Joint Customer Meeting"
           ) {
@@ -471,16 +464,7 @@ export default function CalendarEvent(props) {
               servicing: false,
             });
           }
-          // else if (props.Data.tata_appointment_type == 'Unit Meeting'){
-          //   setAdvisorCollection({
-          //     appointment_advisor: true,
-          //     businessPlanning_review: false,
-          //     inactive_agent_reactivation: false,
-          //     unit_meeting: true,
-          //     joint_customer_visit: false,
-          //     servicing: false
-          //   })
-          // }
+        
           else if (props.Data.tata_appointment_type == "Servicing") {
             setAdvisorCollection({
               appointment_advisor: true,
@@ -615,6 +599,11 @@ export default function CalendarEvent(props) {
       setModeSelect(props.Data.mode);
       // setStatusReasonText(props.Data.statusreason)
       // console.log(moment(1661472000000).format("YYYY-MM-DD"));
+    }
+
+    return ()=>{
+      props.setIsModalVisible(false);
+      setUpdateCheckEvent(false);
     }
   }, []);
 
@@ -1791,10 +1780,21 @@ export default function CalendarEvent(props) {
   const bookAppointmentAPI = () => {
     // prospectCheck === true ? BookAppointmentFunc() :  bookAppointWithLead()
     BookAppointmentFunc();
-    props.callback1();
-   
     // console.log(oppCollectn,'opp collection--->');
   };
+
+  useEffect(() => {
+    console.log('appointment created');
+    props.callback1();
+    setEvent_created('');
+    return () => {
+      
+    }
+  }, [event_created])
+  
+
+
+  
 
   const bookAppointWithLead = async () => {
     console.log("book app with lead");
@@ -2120,10 +2120,12 @@ export default function CalendarEvent(props) {
         }
         let result = await axiosRequest.put("user/updateAppointment",_formData,{ secure: true });
 
+
         props.setIsModalVisible(false);
         // console.log(result, 'book update appointment result-------->')
 
         if (result.length !== 0) {
+          setEvent_created(result.erMsg);
           if (props.api != undefined) {
             props.api();
           }
@@ -2299,8 +2301,9 @@ export default function CalendarEvent(props) {
                 meeting_content: minutesofmeet,
               },
               { secure: true }
-            );
+            )
             if (result.length !== 0) {
+              setEvent_created(result.erMsg);
               if (props.api != undefined) props.api();
               if (props.getdata) props.getdata(true);
               props.setIsModalVisible(false);
@@ -2317,10 +2320,7 @@ export default function CalendarEvent(props) {
             
             // console.log("🚀 ~ file: CalendarEvent.js:1809 ~ bookAppointWithLead ~ _ownerCollectn__UNIQUEEEE:", _ownerCollectn)
           teammemberclone = [...new Set(teammemberclone)];
-          // let API="user/bookAppointment"
-          // if(event_For==true){
-          //   API="iser/bookAppointment?event_for=broker"
-          // }
+          
           let API = event_For == true ? "user/bookAppointment?event_for=broker" : "user/bookAppointment"
           let result = await axiosRequest.post(API,
             {
@@ -2388,17 +2388,20 @@ export default function CalendarEvent(props) {
               meeting_content: minutesofmeet,
             },
             { secure: true }
-          );
-
+          ).then((res)=>{
+            console.log(res);
+          })
           if (result.length !== 0) {
+            setEvent_created(result.erMsg);
             if (props.api != undefined) {
               props.api();
             }
-            if (props.getdata) {
+            if (props.getdata!==undefined) {
               props.getdata(true);
             }
             props.setIsModalVisible(false);
           }
+         
         }
         if (startTimeSelect == "" && durationButton.select_time == true) {
           setDurationStartTimeCheck(false);
