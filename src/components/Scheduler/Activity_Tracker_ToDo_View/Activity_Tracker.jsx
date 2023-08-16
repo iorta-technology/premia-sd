@@ -121,12 +121,12 @@ const Datescheduler = () => {
 	
 	const deleteAppointment=async (e)=>{
 		// console.log(e,"delete");
-		setDeleteAppointment(deleteApp=>!deleteApp);
 		setAppointmentTootip(!appointmentTootip);
 		const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
 		const result = await axios.delete(`https://b2bnodedev.salesdrive.app/b2b/secure/user/deleteAppointments?eventId=${e._id}`, { headers }).then((res)=>{
 			message.success(res.data.errMsg);
 		})
+		setDeleteAppointment(deleteApp=>!deleteApp);
 	}
 	//getting the data when we click appointements  
 	const onAppointmentMetaChange = ({ data, target }) => {
