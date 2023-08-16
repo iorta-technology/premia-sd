@@ -338,8 +338,12 @@ const Datescheduler = () => {
 		setCreate_event(true);
 	}
 	const callback1 = () => {
+		console.log('get scheduler called');
 		getScheduler();
 	}
+	useEffect(()=>{
+		getScheduler();
+	},[callback1])
 	
 
 	return (
