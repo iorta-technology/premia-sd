@@ -65,6 +65,8 @@ const DocUpload = (props) => {
   const [docData, setdocData] = useState([]);
   const [clientExpectationData, setClientExpectationData] = useState("");
   const [uploadFileName, setUploadFileName] = useState("");
+  const [loadingMsg, setLoadingMsg] = useState('');
+  const [loading, setLoading] = useState(true);
 
   let { innerWidth: width, innerHeight: height } = window;
   const { TabPane } = Tabs;
@@ -120,10 +122,9 @@ const DocUpload = (props) => {
     console.warn('handleChangeFile --------------->>>>')
     const _store = store.getState();
     console.log(info[0], "info file---->");
-    setUploadFileName(info[0].name)
+    setUploadFileName('wait your file is uploading...');
     let newArr = [...fileData];
     let documentType = "PDF";
-
     const formData = new FormData();
     formData.append("media_upload", info[0]);
     let _isDup = checkDupDate(info[0])
@@ -138,9 +139,11 @@ const DocUpload = (props) => {
     if(!_isDup){
       axios.post(`${baseURL}secure/admin/v2/uploadFile`,formData,axiosConfig).then((res) => {
           newArr.push({ ...res.data.errMsg, recent: true });
-          // console.log(newArr,"this is the new upload");
           setFileData(newArr);
+          setLoading(false);
           // props.callback(newArr);
+          
+          setUploadFileName(info[0].name);
         })
         .catch((err) => {
           throw err;

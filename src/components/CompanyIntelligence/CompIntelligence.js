@@ -141,7 +141,6 @@ const CompanyIntelligence = React.memo((props) => {
     let newArr = [...fileData];
     newArr.splice(ind, 1);
     setFileData([...newArr]);
-
     const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
     axios.delete(`${baseURL}secure/user/delete_documents?userId=${loginId}&docId=${data._id}`,{ headers }).then(res =>{
         // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
