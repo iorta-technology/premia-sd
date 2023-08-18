@@ -273,17 +273,21 @@ const Datescheduler = () => {
 		// //storing the data in res after iterating through the result
 		const res = result.map((item) => {
 			// formating the data
-			const start_year = moment(item.start_date).format('YYYY');
-			const start_day = moment(item.start_date).format('DD');
-			const start_mon = moment(item.start_date).format('MM') - 1;
-			const end_year = moment(item.end_date).format('YYYY');
-			const end_day = moment(item.end_date).format('DD');
-			const end_mon = moment(item.end_date).format('MM') - 1;
-			const start_hour = moment.duration(item.start_time).hours();
-			const start_min = moment.duration(item.start_time).minutes();
-			const end_hour = moment.duration(item.end_time).hours();
+			let start_year = moment(item.start_date).format('YYYY');
+			let start_day = moment(item.start_date).format('DD');
+			let start_mon = moment(item.start_date).format('MM') - 1;
+			let end_year = moment(item.end_date).format('YYYY');
+			let end_day = moment(item.end_date).format('DD');
+			let end_mon = moment(item.end_date).format('MM') - 1;
+			let start_hour = moment.duration(item.start_time).hours()===0?12:moment.duration(item.start_time).hours();
+			let start_min = moment.duration(item.start_time).minutes();
+			let end_hour = moment.duration(item.end_time).hours()===0?12:moment.duration(item.end_time).hours();
+			if(end_hour<start_hour){
+				end_hour+=12;
+			}
 			const end_min = moment.duration(item.end_time).minutes();
 			const date = moment(item.start_date).format('DD/MM/YYYY');
+			console.log('the appointments time are ',start_hour + ":" + start_min + " to " + end_hour + ":" + end_min);
 			const ret = {
 				title: item.title,
 				startDate: new Date(start_year, start_mon, start_day, start_hour, start_min),

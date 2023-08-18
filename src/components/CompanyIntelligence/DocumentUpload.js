@@ -55,6 +55,7 @@ const DocUpload = (props) => {
   const dispatch = useDispatch();
 
   const _StoreData = useSelector((state) => state?.newLead?.formData);
+  console.log('storedata',_StoreData);
   const _UpdateFormBody = useSelector((state) => state?.newLead?.leadUpdateFormdata);
   const user_id = useSelector((state) => state.login.user.id);
 
@@ -65,8 +66,8 @@ const DocUpload = (props) => {
   const [docData, setdocData] = useState([]);
   const [clientExpectationData, setClientExpectationData] = useState("");
   const [uploadFileName, setUploadFileName] = useState("");
-  const [loadingMsg, setLoadingMsg] = useState('');
   const [loading, setLoading] = useState(true);
+
 
   let { innerWidth: width, innerHeight: height } = window;
   const { TabPane } = Tabs;
@@ -129,7 +130,6 @@ const DocUpload = (props) => {
     formData.append("media_upload", info[0]);
     let _isDup = checkDupDate(info[0])
     // console.warn('_isDup --------------->>>>',_isDup)
-
     let axiosConfig = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -141,8 +141,6 @@ const DocUpload = (props) => {
           newArr.push({ ...res.data.errMsg, recent: true });
           setFileData(newArr);
           setLoading(false);
-          // props.callback(newArr);
-          
           setUploadFileName(info[0].name);
         })
         .catch((err) => {
@@ -158,11 +156,11 @@ const DocUpload = (props) => {
     let _data = null
     var index = fileData.findIndex(el => el.originalname || el.file_name === fileUploaded.name); 
     _data = index === -1 ? false : true
-
     return _data
   };
 
   const saveDocs = async () => {
+    console.log('save docs called');
     var finalData = [];
     console.log("fileData====>>>>>>>>>=============>>>",fileData);
     if (fileData.length != 0 && fileData.length > 0) {

@@ -145,7 +145,7 @@ const CompanyIntelligence = React.memo((props) => {
     axios.delete(`${baseURL}secure/user/delete_documents?userId=${loginId}&docId=${data._id}`,{ headers }).then(res =>{
         // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
         if(res.data.errCode === -1){
-          dispatch(actions.fetchLeadDetails(storeFormData._id))
+          dispatch(actions.fetchLeadDetails(storeFormData._id));
           message.success("Document Deleted Successfully");
         }
     })
