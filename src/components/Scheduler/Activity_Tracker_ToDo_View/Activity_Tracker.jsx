@@ -261,8 +261,8 @@ const Datescheduler = () => {
 	const currentDateChange=(currentDate)=>{
 		// console.log(currentDate.getMonth(),"this is the current date change");
 		let curr_month=currentDate.getMonth();
+		curr_month+=1;
 		if(curr_month.toString().length==1){
-			curr_month+=1;
 			let num='0'+curr_month.toString();
 			curr_month=num;
 		}

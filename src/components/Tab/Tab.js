@@ -18,7 +18,8 @@ import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
 import { useLocation } from "react-router-dom";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined,FilePdfOutlined} from "@ant-design/icons";
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // api's
@@ -242,7 +243,6 @@ const Tab = ({
               </Tabs>
             </div>
           </div>
-
           {header === "Lead" &&
             <GlobalFilters
               show={show}
@@ -252,7 +252,6 @@ const Tab = ({
               tabFilter={leadTabFilter}
             />
           }
-
           { header === "Broker Listing" &&
             <BrokerFilters
               style={{marginTop:'100px'}}
@@ -262,6 +261,15 @@ const Tab = ({
               setShowBrokerFilt={setShowBrokerFilt}
               tabFilter={brokerTabFilter}
             />
+          }
+          {
+            header!=='Lead' && header!=='Broker Listing' && 
+            <div className="download_btn" >
+              <FilePdfOutlined 
+              size={40} 
+              style={{color:"#00ACC1",marginRight:'3px'}}/>
+              <span style={{color:"#00ACC1"}}>Download PDF</span>
+            </div>
           }
           
           {/* {(header !== "Lead" && header !== "Notification" ) &&
