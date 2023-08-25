@@ -129,6 +129,7 @@ const CompanyIntelligence = React.memo((props) => {
   const [fileIndex, setFileIndex] = useState(0);
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
+  const [PdfId, setPdfId] = useState("");
   let _teamMember = [];
   const callback = (data) => {
     // console.log(data, "this is the pdf data");
@@ -183,6 +184,7 @@ const CompanyIntelligence = React.memo((props) => {
     loadValuesToFields(storeFormData);
     getAppointmentList(storeFormData._id);
     setLeadId(storeFormData._id);
+    setPdfId(storeFormData?._id);
     // opprtunityStatusData()
   }, [storeFormData]);
 
@@ -457,6 +459,7 @@ const CompanyIntelligence = React.memo((props) => {
       <TabsComp
         tabMenu={tabMenu}
         // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
+        id={PdfId}
         header={companyDetails?.company_name?.toUpperCase()}
         activeKey="1"
         statusLeadData={storeFormData}

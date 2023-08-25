@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Avatar, Switch, Row, Col, Progress } from "antd";
-import { MoreOutlined, PhoneOutlined,EditOutlined,FormOutlined } from "@ant-design/icons";
+import { Card, Avatar, Switch, Row, Col, Progress, Modal,Select } from "antd";
+import { MoreOutlined, PhoneOutlined, EditOutlined, FormOutlined } from "@ant-design/icons";
 import "./LeadCard.css";
 import * as actions from "../../store/actions/index";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { drop } from "lodash";
 import AllocateModal from "../Tab/Allocate";
-
 import { updateCheckAllocatedLead } from "../../store/actions/leads";
 
 const LeadCard = React.memo((props) => {
@@ -47,8 +46,10 @@ const LeadCard = React.memo((props) => {
     producer_name,
     city,
     raw_producer_name,
-    utilization
+    utilization,
+    viewLob
   } = props;
+  const [isModalopen, setIsmodalopen] = useState(viewLob)
   // console.log("props", props);
 
   // console.warn('PROPSSSS___________',props)
@@ -60,10 +61,10 @@ const LeadCard = React.memo((props) => {
     e.target.checked
       ? dispatch(updateCheckAllocatedLead([...checkedLead, data]))
       : dispatch(
-          updateCheckAllocatedLead(
-            checkedLead?.filter((res) => res.id !== data.id) || []
-          )
-        );
+        updateCheckAllocatedLead(
+          checkedLead?.filter((res) => res.id !== data.id) || []
+        )
+      );
     setChkId(data.id);
     // console.log("checkedLead = ", checkedLead);
   }
@@ -106,7 +107,7 @@ const LeadCard = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
   const updateHandler = (id) => {
-    console.log('____LEADDDD___IDDD',id)
+    console.log('____LEADDDD___IDDD', id)
 
     // dispatch(actions.fetchLeadDetails(id));
     // let _data = actions.fetchLeadDetails(id);
@@ -117,7 +118,7 @@ const LeadCard = React.memo((props) => {
     dispatch(actions.fetchLeadDetails_broker(id));
     history.push("/company-intelligence_broker", { leadID: id });
     // history.push("/company-intelligence", { leadID: id });
-    
+
   };
   let statusColors = {
     closed: "#D04949",
@@ -147,11 +148,29 @@ const LeadCard = React.memo((props) => {
       console.log(error);
     }
   };
+  const handleCancel = () => {
+    viewLob=!viewLob
+  };
+
 
   // Card for desktop
 
   let card = (
     <div className="LeadCard-Main-Page-Container">
+       {
+      viewLob &&
+      <Modal
+        title="Modal 1000px width"
+        className="todo-popup-container-width todo-header-style"
+        centered
+        width={100}
+        onCancel={handleCancel}
+        visible={viewLob}
+      >
+      
+      
+      </Modal>
+      } 
       <Card
         key={key_broker}
         loading={props.loading}
@@ -180,14 +199,14 @@ const LeadCard = React.memo((props) => {
             >
               {nameShorter(producer_name)}
             </Avatar>
-            <div className="content-header" style={{marginTop:"15px"}} >
+            <div className="content-header" style={{ marginTop: "15px" }} >
               <p className="user-name-text capitalize">{producer_name}</p>
             </div>
           </div>
 
-          <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
+          <div style={{ display: "flex", flexDirection: 'row', alignItems: 'center' }}>
             <div>
-            <FormOutlined onClick={() => updateHandler(brokerID)} style={{fontSize:18,color:'grey'}} />
+              <FormOutlined onClick={() => updateHandler(brokerID)} style={{ fontSize: 18, color: 'grey' }} />
             </div>
           </div>
         </div>
@@ -223,7 +242,7 @@ const LeadCard = React.memo((props) => {
                 </div>
               </div>
               <div className="Dateinfo-Container">
-               
+
                 <div className="grid-style AllocatedBy-Heading">
                   <p className="text-content capitalize">{utilization}</p>
                   <p className="text-type">Actual Utilization (%)</p>
@@ -232,13 +251,13 @@ const LeadCard = React.memo((props) => {
                   <p className="text-content capitalize">{lob}</p>
                   <p className="text-type">LOB</p>
                 </div>
-                 <div className="grid-style">
+                <div className="grid-style">
                   {/* <p className="text-content">{wallet_size}</p>
                   <p className="text-type">Total Wallet Size</p> */}
-                </div>   
+                </div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </Card>

@@ -40,6 +40,7 @@ import {
   rural_weatherItems,
   trade_creditItems,
   lobOpportunityItems,
+  months
 } from "../StatusLead/dataSet";
 import "../StatusLead/StatusLead.css";
 import * as actions from "../../store/actions/index";
@@ -97,50 +98,30 @@ const RiskDetails = (props) => {
   const [riskDataArr, setRiskDataArr] = useState([]);
   const [showRiskDetailsPopup, setShowRiskDetailsPopup] = useState(false);
   const [prodForOpportunityArr, setProdForOpportunityArr] = useState([]);
+  const [year, setYear] = useState("");
+  const [yearString, setyearString] = useState("");
+  const [month, setMonth] = useState("");
+
+
 
   useEffect(() => {
     let _dataArr = [];
     if (Object.keys(props.riskDataSet).length > 0) {
       setRiskType('update')
-
       let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date).format('MM/DD/YYYY');
       setShowRiskDetailsPopup(true);
       setNoOfEntities(!props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share);
-      // setProductNameData("");
-      // setTotalPremData(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
-      // setTagicPresence(!props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage);
-      // setTagicPremium(!props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium);
-      // setLeadrFollowerData(!props.riskDataSet.leader ? "" : props.riskDataSet.leader);
-      // setLeadInsurerData(!props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer);
-      // setLeaderShareData(!props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share);
-      // setInceptionDateData(_InceptnDateFormat);
-      // setEditIndex("");
-      // setPanNo(!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no);
       setLOBForOpportunity(!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity);
-      // setProductForOpportunity(!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity);
-      // setTenderDriver(!props.riskDataSet.tender_driven ? "" : props.riskDataSet.tender_driven === 'No' ? false : true);
-      
       setEditRiskId(props.riskDataSet._id)
-
       form.setFieldsValue({
         nameOfentity: !props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share,
-        // totPrem: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
-        // tagicPresence: !props.riskDataSet.tagic_presence_percentage ? "0": props.riskDataSet.tagic_presence_percentage,
-        // tagicPremium: !props.riskDataSet.total_premium ? "0" : props.riskDataSet.total_premium,
-        // leadrFollowr: !props.riskDataSet.leader ? "" : props.riskDataSet.leader,
-        // leadeInsurer: !props.riskDataSet.lead_insurer ? undefined : props.riskDataSet.lead_insurer,
-        // leaderShare: !props.riskDataSet.leader_share ? "0" : props.riskDataSet.leader_share,
-        // incepDate: _InceptnDateFormat,
-        // pan_No:!props.riskDataSet.Pan_no ? "" : props.riskDataSet.Pan_no,
         lob_for_opportunity:!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity,
-        // product_for_opportunity:!props.riskDataSet.product_for_opportunity ? "" : props.riskDataSet.product_for_opportunity,
       });
       
     }else{
-      addNewRiskDetails()
-      setRiskType('create')
+      addNewRiskDetails();
+      setRiskType('create');
     }
-    
   }, [props.riskDataSet]);
 
   let { innerWidth: width, innerHeight: height } = window;
@@ -357,10 +338,11 @@ const RiskDetails = (props) => {
     let form_data = {
       wallet_share: !noOfEntities ? null : noOfEntities,
       lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
+      lob_month:month,
+      lob_year:year
     };
     
     // _riskDetailsData.push(_data);
-
     let formBody = {
       ...form_data,
     };
@@ -424,6 +406,8 @@ const RiskDetails = (props) => {
     setInceptionDateData("");
     setEditIndex("");
     setPanNo("");
+    setYear("");
+    setMonth("");
     setLOBForOpportunity("");
     setProductForOpportunity("");
     setTenderDriver(false);
@@ -479,6 +463,9 @@ const RiskDetails = (props) => {
   const changeTagicPremium = (event) =>{
     setTagicPremium(event.target.value)
   }
+  const handleChangeMonth=(val)=>{
+    setMonth(val);
+  }
 
   return (
     <>
@@ -532,217 +519,38 @@ const RiskDetails = (props) => {
                   />
                 </Form.Item>
               </Col>
-              
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+        
+            </Row>
+            <Row gutter={16} className="mb-2 statsLead kdmStyle">
+              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="product_for_opportunity"
-                  label="Product for Opportunity"
-                  rules={[
-                    {
-                      required: false,
-                      message: "Select product Opportunity",
-                    },
-                  ]}
+                  name="month_date_picker"
+                  label="Month"
                   style={{ marginBottom: "1rem" }}
                 >
-                  <Select
-                    placeholder="Select"
-                    options={prodForOpportunityArr}
-                    value={productForOpportunity}
-                    onChange={(val) => changeProductOpprtunity(val)}
+                 <Select
+                    placeholder="Select Month"
+                    options={months}
+                    value={months}
+                    onChange={ handleChangeMonth}
+                    style={{width:'100%'}}
                   ></Select>
                 </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
+              </Col>
+              <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                  <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  label="Tender Driver"
+                  name="year_datepicker"
+                  label="Year"
                   style={{ marginBottom: "1rem" }}
                 >
-                  <Radio.Group
-                    name="radiogroup"
-                    value={tenderDriver}
-                    onChange={(val) => setTenderDriver(val.target.value) }
-                  >
-                    <Radio value={true}>Yes</Radio>
-                    <Radio value={false}>No</Radio>
-                  </Radio.Group>
+                 <DatePicker picker="year" style={{ width: '100%' }} value={year} onChange={(val)=>setYear(moment(val._d).format('YYYY'))}/>
                 </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="totPrem"
-                  label="Total Premium"
-                  style={{ marginBottom: "1rem" }}
-                  rules={[
-                    {
-                      message: "Only Numbers are Allowed",
-                      pattern: new RegExp(/^[0-9]+$/),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter Total Premium"
-                    value={totalPremData}
-                    onChange={(item) =>  changeTotalPrem(item) }
-                  />
-                </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="tagicPresence"
-                  label="TAGIC Presence %"
-                  style={{ marginBottom: "1rem" }}
-                  rules={[
-                    {
-                      message: "Only Numbers are Allowed",
-                      pattern: new RegExp(/^[0-9.]+$/),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter TAGIC Presence %"
-                    value={tagicPresence}
-                    onChange={(item) => changeTagicPres(item) }
-                  />
-                </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="tagicPremium"
-                  label="TAGIC Premium"
-                  style={{ marginBottom: "1rem" }}
-                  rules={[
-                    {
-                      message: "Only Numbers are Allowed",
-                      pattern: new RegExp(/^[0-9]+$/),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter TAGIC Premium"
-                    disabled={true}
-                    value={tagicPremium}
-                    onChange={(item) => changeTagicPremium(item)}
-                  />
-                </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="leadrFollowr"
-                  label="Leader/Follower"
-                  style={{ marginBottom: "1rem" }}
-                >
-                  <Select
-                    bordered={true}
-                    placeholder="Select Leader/Follower"
-                    options={leadrOrFollowrItems}
-                    value={leadrFollowerData}
-                    onChange={(item) => onChangeLeaderFollowerData(item)}
-                  ></Select>
-                </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="leadeInsurer"
-                  label="Lead Insurer"
-                  style={{ marginBottom: "1rem" }}
-                >
-                  <AutoComplete
-                    placeholder="Select Lead Insurer"
-                    options={leadInsurerItems}
-                    value={leadInsurerData}
-                    onChange={(val, data) => setLeadInsurerData(val)}
-                    onFocus={(val) =>{ form.setFieldsValue({leadeInsurer:''}) } }
-                    filterOption={(inputValue, option) =>
-                      option.value
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    }
-                  ></AutoComplete>
-                </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="leaderShare"
-                  label="Leader Share %"
-                  style={{ marginBottom: "1rem" }}
-                  rules={[
-                    {
-                      message: "Only Numbers are Allowed",
-                      pattern: new RegExp(/^[0-9]+$/),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter Leader Share %"
-                    value={leaderShareData}
-                    onChange={(item) => setLeaderShareData(item.target.value)}
-                  />
-                </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="incepDate"
-                  label="Inception Date"
-                  style={{ marginBottom: "1rem" }}
-                >
-                  <DatePicker
-                    onChange={onChangeIncepDate}
-                    value={inceptionDateData}
-                    format="MM/DD/YYYY"
-                    style={{ display: "flex", flex: 1 }}
-                  />
-                </Form.Item>
-              </Col> */}
-
-              {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
-                <Form.Item
-                  {...formItemLayout}
-                  className="form-item-name label-color"
-                  name="pan_No"
-                  label="PAN No"
-                  style={{ marginBottom: "1rem" }}
-                  rules={[
-                    {
-                      message: "Enter a valid Pan No",
-                      pattern: new RegExp(/(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/),
-                    },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter PAN No"
-                    value={panNo}
-                    onChange={(item) => setPanNo(item.target.value)}
-                  />
-                  
-                </Form.Item>
-              </Col> */}
+              </Col>
+        
             </Row>
           </Form>
           <div

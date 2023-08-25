@@ -181,7 +181,6 @@ const CompanyIntelligence = React.memo((props) => {
     setProducerName(storeFormData?.producerdetails?.producer_name);
   }, [storeFormData]);
 
-
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
@@ -405,6 +404,7 @@ const CompanyIntelligence = React.memo((props) => {
         // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         // header={companyDetails?.company_name?.toUpperCase()}
         activeKey="broker_intel"
+        id={brokerId}
         statusLeadData={storeFormData}
         header={ storeFormData && storeFormData?.producerdetails?.raw_producer_name}
       />
@@ -690,12 +690,28 @@ const CompanyIntelligence = React.memo((props) => {
                             <p className="label-font">Wallet Share</p>
                           </Col>
                         </Row>
+                       
                         <Row>
                           {/* <Col><p className="app-font" style={{ color: '#444444' }}>0</p></Col>
                           <Col><p >Actual Utilisation</p></Col> */}
                           <Col style={{flex:1}}>
                             <p className="text-font">0</p>
                             <p className="label-font">Actual Utilisation</p>
+                          </Col>
+                        </Row>
+                        
+                      </Row>
+                      <Row justify="space-between" style={{ alignItems: 'center', padding: '10px 120px 10px 10px' }}>
+                        <Row>
+                        <Col style={{flex:1}}>
+                            <p className="text-font">-</p>
+                            <p className="label-font">Month</p>
+                          </Col>
+                        </Row>
+                        <Row>
+                        <Col style={{flex:1}}>
+                            <p className="text-font">-</p>
+                            <p className="label-font">Year</p>
                           </Col>
                         </Row>
                       </Row>
@@ -835,7 +851,7 @@ const CompanyIntelligence = React.memo((props) => {
           <ShowPdf show={isModalOpen} />
         </>
         <>
-        <Tab heading={storeFormData?.producerdetails?.raw_producer_name}/>
+        {/* <Tab heading={storeFormData?.producerdetails?.raw_producer_name}/> */}
         </>
       </div>
 

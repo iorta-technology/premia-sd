@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Card, Radio, Tabs, Modal, Form, Select, Input } from "antd";
+import { Card, Radio, Tabs, Modal, Form, Select, Input, message } from "antd";
 import { Option } from "antd/lib/mentions";
 import "./Tab.css";
 import _ from "lodash";
@@ -18,7 +18,8 @@ import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
 import { useLocation } from "react-router-dom";
-import { PlusOutlined,FilePdfOutlined} from "@ant-design/icons";
+import { PlusOutlined, FilePdfOutlined } from "@ant-design/icons";
+import axiosRequest from "../../axios-request/request.methods";
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -38,6 +39,7 @@ import { Column } from "@antv/g2plot";
 const { TabPane } = Tabs;
 
 const Tab = ({
+  id,
   tabMenu,
   header,
   detailsRouteTab,
@@ -88,7 +90,7 @@ const Tab = ({
     } else {
       const teamId = stoageGetter("teamMemberId");
       // console.warn("teamId______===========>>>", teamId);
-      dispatch(actions.fetchAllLeads_broker( !teamId ? id : teamId,leadInc,_pageNo));
+      dispatch(actions.fetchAllLeads_broker(!teamId ? id : teamId, leadInc, _pageNo));
     }
   };
   const getDataForOpen = async (leadInc) => {
@@ -155,7 +157,7 @@ const Tab = ({
           });
         case "2":
           return history.push("/leadmasterpage/leadhistory");
-      
+
         case "broker_intel":
           return history.push("/company-intelligence_broker", {
             leadData: routeLeadData,
@@ -219,6 +221,22 @@ const Tab = ({
   const openCreateTodoPop = () => {
     openTodoPopup();
   };
+  const handlePdfClick_company = async () => {
+    message.success('Your Download is in progress')
+    let result = await axiosRequest.get(`admin/company/company-intelligence-pdf/${id}`, {
+      secure: true
+    }).then((res)=>{
+      window.open(res);
+    })
+  }
+  const handlePdfClick_Broker = async () => {
+    message.success('Your Download is in progress')
+    let result = await axiosRequest.get(`user/get-broker-pdf/${id}`, {
+      secure: true
+    }).then((res)=>{
+      window.open(res);
+    })
+  }
 
   return (
     <>
@@ -252,9 +270,9 @@ const Tab = ({
               tabFilter={leadTabFilter}
             />
           }
-          { header === "Broker Listing" &&
+          {header === "Broker Listing" &&
             <BrokerFilters
-              style={{marginTop:'100px'}}
+              style={{ marginTop: '100px' }}
               showBrokerFilt={showBrokerFilt}
               onHide={() => setShowBrokerFilt(false)}
               handleShow={() => setShowBrokerFilt(true)}
@@ -263,15 +281,24 @@ const Tab = ({
             />
           }
           {
-            header!=='Lead' && header!=='Broker Listing' && 
-            <div className="download_btn" >
-              <FilePdfOutlined 
-              size={40} 
-              style={{color:"#00ACC1",marginRight:'3px'}}/>
-              <span style={{color:"#00ACC1"}}>Download PDF</span>
+            (header !== 'Lead' && header !== 'Broker Listing') && activeKey == '1' &&
+            <div className="download_btn" onClick={handlePdfClick_company}>
+              <FilePdfOutlined
+                size={40}
+                style={{ color: "#00ACC1", marginRight: '3px' }} />
+              <span style={{ color: "#00ACC1" }}>Download PDF</span>
             </div>
           }
-          
+          {
+            (header !== 'Lead' && header !== 'Broker Listing') && activeKey == 'broker_intel' &&
+            <div className="download_btn" onClick={handlePdfClick_Broker}>
+              <FilePdfOutlined
+                size={40}
+                style={{ color: "#00ACC1", marginRight: '3px' }} />
+              <span style={{ color: "#00ACC1" }}>Download PDF</span>
+            </div>
+          }
+
           {/* {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&
             storeFormData &&
