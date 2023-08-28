@@ -98,26 +98,34 @@ const RiskDetails = (props) => {
   const [riskDataArr, setRiskDataArr] = useState([]);
   const [showRiskDetailsPopup, setShowRiskDetailsPopup] = useState(false);
   const [prodForOpportunityArr, setProdForOpportunityArr] = useState([]);
-  const [year, setYear] = useState("");
+  const [year, setYear] = useState('');
   const [yearString, setyearString] = useState("");
-  const [month, setMonth] = useState("");
+  const [month, setMonth] = useState('');
+  const [id, setId] = useState('')
+
 
 
 
   useEffect(() => {
     let _dataArr = [];
+    // console.log('risk data set',props.riskDataSet);
     if (Object.keys(props.riskDataSet).length > 0) {
       setRiskType('update')
-      let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date).format('MM/DD/YYYY');
+      // let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date).format('MM/DD/YYYY');
       setShowRiskDetailsPopup(true);
       setNoOfEntities(!props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share);
       setLOBForOpportunity(!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity);
-      setEditRiskId(props.riskDataSet._id)
+      setMonth(!props.riskDataSet.lob_month?"":props.riskDataSet.lob_month);
+      setYear(!props.riskDataSet.lob_year?"":props.riskDataSet.lob_year);
+      setId(!props.riskDataSet._id?null:props.riskDataSet._id);
+      // setEditRiskId(props.riskDataSet._id)
       form.setFieldsValue({
+        _id:props?.riskDataSet._id,
         nameOfentity: !props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share,
         lob_for_opportunity:!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity,
-      });
-      
+        lob_month:!props.riskDataSet.lob_month?"":props.riskDataSet.lob_month,
+        lob_year:!props.riskDataSet.lob_year?"":moment(props.riskDataSet.lob_year)
+      });   
     }else{
       addNewRiskDetails();
       setRiskType('create');
@@ -335,12 +343,25 @@ const RiskDetails = (props) => {
 
   const updateRiskDetails = async (event) => {
     let _riskDetailsData = [];
-    let form_data = {
+    let form_data={};
+    if(riskType=='update'){
+       form_data = {
+        _id:id,
+        wallet_share: !noOfEntities ? null : noOfEntities,
+        lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
+        lob_month:!month?null:month,
+        lob_year:!year?null:year,
+        producer_name:_StoreData.producerdetails.raw_producer_name
+      };
+    }else{
+     form_data = {
       wallet_share: !noOfEntities ? null : noOfEntities,
       lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
-      lob_month:month,
-      lob_year:year
+      lob_month:!month?null:month,
+      lob_year:!year?null:year,
+      producer_name:_StoreData.producerdetails.raw_producer_name
     };
+  }
     
     // _riskDetailsData.push(_data);
     let formBody = {
@@ -349,11 +370,11 @@ const RiskDetails = (props) => {
     
     // console.warn("formBody ------>>>>>", formBody);
     if(riskType === 'create'){
-      let result = await axiosRequest.post(`user/addwalletdetails?userId=${user_id}&broker_id=${_StoreData.broker_id}`,formBody,{ secure: true });
+      let result = await axiosRequest.post(`user/addupdatelobwallet?userId=${user_id}&producer_id=${_StoreData.producer_id}`,formBody,{ secure: true });
       dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
       message.success("Wallet Details Created Successfully");
     }else{
-      let result = await axiosRequest.put(`user/updatewalletdetails?userId=${user_id}&broker_id=${_StoreData.broker_id}&walletId=${editRiskId}`,formBody,{ secure: true });
+      let result = await axiosRequest.post(`user/addupdatelobwallet?userId=${user_id}&producer_id=${_StoreData.producer_id}`,formBody,{ secure: true });
       dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
       message.success("Wallet Details Updated Successfully");
     }
@@ -425,6 +446,8 @@ const RiskDetails = (props) => {
       pan_No:'',
       lob_for_opportunity:'' || undefined,
       product_for_opportunity:'' || undefined,
+      lob_month:''||undefined,
+      lob_year:''||undefined
     });
   };
 
@@ -463,8 +486,15 @@ const RiskDetails = (props) => {
   const changeTagicPremium = (event) =>{
     setTagicPremium(event.target.value)
   }
-  const handleChangeMonth=(val)=>{
-    setMonth(val);
+  // const handleChangeMonth=(val)=>{
+  //   setMonth(val);
+  //   form.setFieldValue({
+  //     lob_month:val
+  //   })
+  // }
+  const handleYearChange=(date,dateString)=>{
+    console.log(date);
+    setYear(moment(date._d).format('YYYY'));
   }
 
   return (
@@ -515,7 +545,7 @@ const RiskDetails = (props) => {
                   <Input
                     placeholder="Enter Wallet Share"
                     value={noOfEntities}
-                    onChange={(item) => setNoOfEntities(item.target.value)}
+                    onChange={(item) => setNoOfEntities(item.target.value)} 
                   />
                 </Form.Item>
               </Col>
@@ -526,15 +556,15 @@ const RiskDetails = (props) => {
                 <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="month_date_picker"
+                  name="lob_month"
                   label="Month"
                   style={{ marginBottom: "1rem" }}
                 >
                  <Select
                     placeholder="Select Month"
                     options={months}
-                    value={months}
-                    onChange={ handleChangeMonth}
+                    value={month}
+                    onChange={(val)=>setMonth(val)}
                     style={{width:'100%'}}
                   ></Select>
                 </Form.Item>
@@ -543,11 +573,11 @@ const RiskDetails = (props) => {
                   <Form.Item
                   {...formItemLayout}
                   className="form-item-name label-color"
-                  name="year_datepicker"
-                  label="Year"
+                  name="lob_year"
+                  label="year"
                   style={{ marginBottom: "1rem" }}
                 >
-                 <DatePicker picker="year" style={{ width: '100%' }} value={year} onChange={(val)=>setYear(moment(val._d).format('YYYY'))}/>
+                 <DatePicker picker="year" style={{ width: '100%' }} value={year} onChange={(val)=>handleYearChange(val)}/>
                 </Form.Item>
               </Col>
         

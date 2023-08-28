@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LeadCard from "./LeadCard";
 import "./LeadCards.css";
 import _ from "lodash";
-import { Row, Col, Avatar, Card, Select, Button, message, DatePicker, Modal,Table } from "antd";
+import { Row, Col, Avatar, Card, Select, Button, message, DatePicker, Modal, Table } from "antd";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import { useDispatch, useSelector } from "react-redux";
 import { AllocateModal } from "../Tab/Allocate";
@@ -55,7 +55,6 @@ const LeadCards = (props) => {
   const [toDateString, setToDateString] = useState("");
   const [toDateFilter, setToDateFilter] = useState("");
   const [cards, setcard] = useState([]);
-  const [viewLob, setViewLob] = useState(false);
   const [Month, setMonth] = useState('');
   const [Year, setYear] = useState('');
   const [companyArray, setCompanyArray] = useState([]);
@@ -63,6 +62,7 @@ const LeadCards = (props) => {
   const [hierarchy_lob, setHierarchy_lob] = useState([]);
   const [TeamMember_lob, setTeamMember_lob] = useState([]);
   const [dataSource, setdataSource] = useState([]);
+  const [viewLob, setviewLob] = useState(false);
 
 
   useEffect(() => {
@@ -180,6 +180,12 @@ const LeadCards = (props) => {
   }, [width]);
 
   const handleChangeTab = (currentTab) => {
+    if(currentTab=="self"){
+      setviewLob(false);
+    }
+    if(currentTab==="team"){
+    setviewLob(true);
+    }
     // console.log("good bye ",currentTab)
     // currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
     _currentTab = currentTab;
@@ -334,7 +340,7 @@ const LeadCards = (props) => {
   //     age: 42,
   //   },
   // ];
-  
+
   const columns = [
     {
       title: 'LOB',
@@ -347,20 +353,20 @@ const LeadCards = (props) => {
       key: 'age',
     },
   ];
-  const handleViewLob=()=>{
-    let result=axiosRequest.get(`user/get-team-lob-count/63dce7c80ae6868961079fe6?month=${Month}&year=${Year}&producer_name=${Producer}`,{
-      secure:true
+  const handleViewLob = () => {
+    let result = axiosRequest.get(`user/get-team-lob-count/63dce7c80ae6868961079fe6?month=${Month}&year=${Year}&producer_name=${Producer}`, {
+      secure: true
     })
-    let res=result?.errMsg?.map((item)=>{
-        let obj={}
-        obj['key']=item._id;
-        obj['name']=item.lob_for_opportunity;
-        obj['age']=item.wallet_share;
-        return obj;
+    let res = result?.errMsg?.map((item) => {
+      let obj = {}
+      obj['key'] = item._id;
+      obj['name'] = item.lob_for_opportunity;
+      obj['age'] = item.wallet_share;
+      return obj;
     })
     setdataSource(res);
   }
-  const handleDateChange=(val,dateString)=>{
+  const handleDateChange = (val, dateString) => {
     setYear(dateString);
   }
 
@@ -476,22 +482,23 @@ const LeadCards = (props) => {
                     </Col>
                     <Col style={{ flex: 1, margin: '4px' }}>
                       <p style={{ marginBottom: 2 }}> Year </p>
-                      <DatePicker picker="year" style={{ width: '100%' }} onChange={handleDateChange}/>
+                      <DatePicker picker="year" style={{ width: '100%' }} onChange={handleDateChange} />
                     </Col>
-                    <Col style={{ flex: 1, margin: '4px', width: '100%' }}>
-                      <Button style={{ marginTop: '22px', background: '#3b371e', color: '#fff' }} onClick={handleViewLob}>View Lob</Button>
-                    </Col>
+                   
+                      <Col style={{ flex: 1, margin: '4px', width: '100%' }}>
+                        <Button style={{ marginTop: '22px', background: '#3b371e', color: '#fff' }} onClick={handleViewLob}>View Lob</Button>
+                      </Col> 
                   </Row>
                   {
-                    (dataSource?.length===0 || dataSource===undefined)?
-                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
-                      <img src={noDataIcon} style={{ height: 100, width: 100 }} />
-                      <div style={{ marginTop: 10 }}>
-                        <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No LOB details available.
-                        </text>
-                      </div>
-                    </div>:
-                    <Table dataSource={dataSource} columns={columns} />
+                    (dataSource?.length === 0 || dataSource === undefined) ?
+                      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
+                        <img src={noDataIcon} style={{ height: 100, width: 100 }} />
+                        <div style={{ marginTop: 10 }}>
+                          <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No LOB details available.
+                          </text>
+                        </div>
+                      </div> :
+                      <Table dataSource={dataSource} columns={columns} />
                   }
 
                 </Modal>
@@ -542,11 +549,13 @@ const LeadCards = (props) => {
         </div>
 
         <div style={{ marginRight: '65px', display: 'flex' }}>
+          { viewLob &&
           <div style={{ marginRight: '20px' }}>
             <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
               View LOB
             </Button>
           </div>
+}
           <div>
             <Button
               onClick={exportReport}

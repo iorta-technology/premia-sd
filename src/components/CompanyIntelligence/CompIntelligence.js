@@ -280,6 +280,7 @@ const CompanyIntelligence = React.memo((props) => {
           item.kdmTabs = `KDM ${index + 1}`
         }
       })
+      console.log('decision maker name',decisionMakerName);
       setKdmDetailsArr(decisionMakerName)
 
       if(leadData?.company_id?.kdm_details?.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
@@ -419,7 +420,7 @@ const CompanyIntelligence = React.memo((props) => {
     // console.log('handleKdmTabs -------->>>',event)
     setActiveKdm(event._id)
     // const [activeKdm, setActiveKdm] = useState(null)
-    setKdmDataSet(event)
+    setKdmDataSet(event);
     // const [kdmDataSet, setKdmDataSet] = useState({});
   };
 

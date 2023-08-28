@@ -238,8 +238,8 @@ const CompanyIntelligence = React.memo((props) => {
       setOpportunityDetails(_opportunity)
 
       //setting wallet details
-      setWalletDetails(leadData?.wallet_details)
-      
+      console.log('this is the wallet details',leadData?.wallets);
+      setWalletDetails(leadData?.wallets)
       setreamrkDataArr(leadData?.remarks)
 
       let _teamData = leadData?.teamMembers ? JSON.parse(leadData?.teamMembers) : [];
@@ -310,7 +310,6 @@ const CompanyIntelligence = React.memo((props) => {
       setKdmType(event)
       setShowKdmModal(true)
     }
-
   };
   const openExpectationModal = () => {
     setShowExpectationModal(true)
@@ -333,7 +332,7 @@ const CompanyIntelligence = React.memo((props) => {
   const deleteWalletDetails = async (data, index) => {
     // console.log('loggedInUser DATA---->>>', loggedInUserToken)
     const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
-    axios.delete(`${baseURL}secure/user/deletewallet?userId=${loginId}&walletId=${data._id}`, { headers }).then(res => {
+    axios.delete(`${baseURL}secure/user/deletelob?userId=${loginId}&walletId=${data._id}`, { headers }).then(res => {
       // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
       if (res.data.errCode === -1) {
         dispatch(actions.fetchLeadDetails_broker(storeFormData._id));
@@ -704,13 +703,13 @@ const CompanyIntelligence = React.memo((props) => {
                       <Row justify="space-between" style={{ alignItems: 'center', padding: '10px 120px 10px 10px' }}>
                         <Row>
                         <Col style={{flex:1}}>
-                            <p className="text-font">-</p>
+                            <p className="text-font">{element.lob_month}</p>
                             <p className="label-font">Month</p>
                           </Col>
                         </Row>
                         <Row>
                         <Col style={{flex:1}}>
-                            <p className="text-font">-</p>
+                            <p className="text-font">{element.lob_year}</p>
                             <p className="label-font">Year</p>
                           </Col>
                         </Row>
