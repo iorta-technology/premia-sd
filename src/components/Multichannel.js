@@ -31,9 +31,11 @@ function Multichannel() {
 
   const [bankID, setBankID] = useState(_store.login.user.channelCode._id);
 
-  const onValueChange = (e) => {
-    setBankID(e.target.value);
+  const onValueChange = (event) => {
+    console.log("🚀 ~ file: Multichannel.js:37 ~ onValueChange ~ onValueChange:", event)
+    setBankID(event);
   };
+  
 
   const proceedData = async () => {
     try {
@@ -78,22 +80,15 @@ function Multichannel() {
             <div className="card-list" key={index}>
               <Card
                 style={{
-                  backgroundColor:
-                    item.channelCode._id !== bankID
-                      ? "#fff"
-                      : "rgb(228, 106, 37)",
+                  backgroundColor:item.channelCode._id !== bankID ? "#fff" : "rgb(228, 106, 37)",
                   marginBottom: "17px",
                 }}
                 bordered={false}
+                onClick={()=>onValueChange(item?.channelCode?._id)}
               >
                 <Row style={{ padding: "5px" }}>
                   <Col span={22}>
-                    <h6
-                      style={{
-                        color:
-                          item.channelCode._id !== bankID ? "#000" : "#fff",
-                      }}
-                    >
+                    <h6 style={{ color: item.channelCode._id !== bankID ? "#000" : "#fff" }}>
                       {item.channelCode.channelName}
                     </h6>
                   </Col>
@@ -103,7 +98,7 @@ function Multichannel() {
                       checked={item.channelCode._id === bankID}
                       //   checked={true}
                       name="bankData"
-                      onChange={onValueChange}
+                      onChange={(event)=>onValueChange(event.target.value)}
                     />
                   </Col>
                 </Row>

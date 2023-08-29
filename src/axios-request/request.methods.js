@@ -36,7 +36,12 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
         if (errCode === -1) {
           if (typeof data.errMsg === "string") {
             // alert(data.errMsg)
-            message.warning(data.errMsg);
+            if (config.method === "put") {
+              if (config.url.includes("update-opportunity")) message.success(data.errMsg);
+            }else{
+              message.warning(data.errMsg);
+            }
+            
           } else {
             // console.warn('API___URL____',config)
             // alert('Your request has been resolved successfully');
