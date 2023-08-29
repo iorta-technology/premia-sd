@@ -187,7 +187,7 @@ const NewLead = React.memo((props) => {
                   </Form.Item>
                 </Col>
 
-                <Col xs={24} sm={12} md={24} lg={12} xl={12}>
+                {/* <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item
                     {...formItemLayout}
                     className="form-item-name txt_color"
@@ -199,15 +199,15 @@ const NewLead = React.memo((props) => {
                       placeholder="Enter Wallet Size"
                       value={formItem.walletSize}
                       disabled={true}
-                      // onChange={(val) =>
-                      //   setFormItem((res) => ({
-                      //     ...res,
-                      //     walletSize: val.target.value,
-                      //   }))
-                      // }
+                      onChange={(val) =>
+                        setFormItem((res) => ({
+                          ...res,
+                          walletSize: val.target.value,
+                        }))
+                      }
                     />
                   </Form.Item>
-                </Col>
+                </Col> */}
 
               </Row>
               <div  style={{display:'flex',flex:1,justifyContent:'flex-end',marginTop:20}}>

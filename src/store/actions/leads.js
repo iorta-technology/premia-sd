@@ -183,14 +183,21 @@ export const fetchDataAfterFilter_broker = (
   lead_disposition,
   leadType,
   searchType,
-  dateFilter
+  dateFilter,
+  appointmentDateFilter
 ) => {
   console.log("_______ dateFilter", dateFilter);
   return async (dispatch) => {
     dispatch(fetchAllLeadsStart());
     // &searchType=fname
     // let url = `user/v2/getLead/${id}?skip=${skip}`;
-    let url=`user/getbrokerlist?userId=${id}&filter=all&skip=${skip}&searchtxt=${searchTextFilter}`
+    let url="";
+    if(searchTextFilter!==""){
+     url=`user/getbrokerlist?userId=${id}&filter=all&skip=${skip}&searchtxt=${searchTextFilter}`
+    }
+    else{
+      url=`user/getbrokerlist?userId=${id}&filter=all&skip=${skip}&appointmentDate=${appointmentDateFilter}`
+    }
     // if (searchType.trim().length) url += `&searchType=${searchType}`;
     // if (searchtxt.trim().length) {
     //   url += `&searchtxt=${searchtxt}`;
@@ -232,6 +239,7 @@ export const fetchDataAfterFilter_broker = (
     } else {
       dispatch(fetchAllLeadsFail());
     }
+   
   };
 };
 

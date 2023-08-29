@@ -7,6 +7,30 @@
   text-align: center;
   padding: 10px;
 }
+.todo-popup-container-width{
+  width: 45% !important;
+}
+.todo-header-style > div > .ant-modal-header {
+  /* box-shadow: 0px 5px 7px #00000029; */
+  background-color: #3b371e;
+  /* height: 100vh !important; */
+}
+.todo-header-style .ant-modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
 #checkbox {
   margin-top: -6rem;
 }

@@ -316,9 +316,16 @@ const KDMDetails = (props) => {
                 state: !el.kdmState ? null : el.kdmState,
                 branch: !el.kdmBranch ? null : el.kdmBranch,
             }
+            if (_data.decision_maker_name == null) {
+                message.warn('Please enter Decision Maker Name');
+                return;
+            }
             // _kdmDetailsData.push(_data)
             _kdmDetailsData = {..._data}
         })
+        if(_kdmDetailsData.decision_maker_name==null){
+            return;
+        }
         
         // console.warn('_kdmDetailsData ------>>>>>',_kdmDetailsData)
         // console.log('_validationError .... -------KDM---->>',_validationError)

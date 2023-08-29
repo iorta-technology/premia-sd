@@ -20,6 +20,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const [dateFilter, setDateFilter] = useState("");
   const [dateString, setDateString] = useState("");
   const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [appointmentDateFilter, setAppointmentDateFilter] = useState("");
   const [sortByFlter, setSortByFlter] = useState("");
 
   const [shortByStatus, setShortByStatus] = useState("created_date_old");
@@ -98,6 +99,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
   const onChangeFromDate = (date, dateString) => {
     setDateFilter(date);
     setDateString(dateString);
+    setAppointmentDateFilter(dateString);
     // setDateString(dateString);
   };
 
@@ -144,9 +146,12 @@ export function OffCanvasForGlobalFilter({ ...props }) {
         lead_disposition,
         leadType,
         searchType,
-        dateString
+        dateString,
+        appointmentDateFilter
       )
     );
+    setAppointmentDateFilter("");
+    setSearchTextFilter("");
     handleClose();
     setDateFilter('');
     setDateString('');

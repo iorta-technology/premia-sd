@@ -16,6 +16,8 @@ import Todo from "../RightSide-Todo/Todo";
 import { stoageGetter } from '../../../helpers'
 import EventCreateComponent from "../CalendarEvent.js"
 import Activity_Header from "./Activity_tracker_header/Header";
+import apiConfig from '../../../config/api.config'
+
 import {
 	Scheduler,
 	WeekView,
@@ -41,6 +43,7 @@ const Datescheduler = () => {
 	// declearing a usestate for storing our data
 	const [data, setData] = useState();
 	const user_id = useSelector((state) => state.login.user.id);
+	const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 	const format = "YYYY-MM-DD";
 	let date = new Date();
 	let today = moment(date).format(format);
@@ -100,6 +103,7 @@ const Datescheduler = () => {
 	useEffect(() => {
 		const date = new Date();
 		let currentMonth = date.getMonth();
+		console.log(currentMonth+1);
 		if (currentMonth.toString().length == 1) {
 			currentMonth += 1;
 			let num = '0' + currentMonth.toString();
@@ -123,7 +127,7 @@ const Datescheduler = () => {
 		// console.log(e,"delete");
 		setAppointmentTootip(!appointmentTootip);
 		const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
-		const result = await axios.delete(`https://b2bnodedev.salesdrive.app/b2b/secure/user/deleteAppointments?eventId=${e._id}`, { headers }).then((res)=>{
+		const result = await axios.delete(`${baseURL}secure/user/deleteAppointments?eventId=${e._id}`, { headers }).then((res)=>{
 			message.success(res.data.errMsg);
 		})
 		setDeleteAppointment(deleteApp=>!deleteApp);
@@ -256,13 +260,13 @@ const Datescheduler = () => {
 	
 	const currentDateChange=(currentDate)=>{
 		// console.log(currentDate.getMonth(),"this is the current date change");
-		let curr_month=currentDate.getMonth()+1;
-		console.log(curr_month,"this si the current month");
+		let curr_month=currentDate.getMonth();
+		curr_month+=1;
 		if(curr_month.toString().length==1){
-			// curr_month+=1;
 			let num='0'+curr_month.toString();
 			curr_month=num;
 		}
+		console.log(curr_month,"this is the current month");
 		setMonth(curr_month);
 	}
 	const getScheduler = async () => {
@@ -273,17 +277,21 @@ const Datescheduler = () => {
 		// //storing the data in res after iterating through the result
 		const res = result.map((item) => {
 			// formating the data
-			const start_year = moment(item.start_date).format('YYYY');
-			const start_day = moment(item.start_date).format('DD');
-			const start_mon = moment(item.start_date).format('MM') - 1;
-			const end_year = moment(item.end_date).format('YYYY');
-			const end_day = moment(item.end_date).format('DD');
-			const end_mon = moment(item.end_date).format('MM') - 1;
-			const start_hour = moment.duration(item.start_time).hours();
-			const start_min = moment.duration(item.start_time).minutes();
-			const end_hour = moment.duration(item.end_time).hours();
+			let start_year = moment(item.start_date).format('YYYY');
+			let start_day = moment(item.start_date).format('DD');
+			let start_mon = moment(item.start_date).format('MM') - 1;
+			let end_year = moment(item.end_date).format('YYYY');
+			let end_day = moment(item.end_date).format('DD');
+			let end_mon = moment(item.end_date).format('MM') - 1;
+			let start_hour = moment.duration(item.start_time).hours()===0?12:moment.duration(item.start_time).hours();
+			let start_min = moment.duration(item.start_time).minutes();
+			let end_hour = moment.duration(item.end_time).hours()===0?12:moment.duration(item.end_time).hours();
+			if(end_hour<start_hour){
+				end_hour+=12;
+			}
 			const end_min = moment.duration(item.end_time).minutes();
 			const date = moment(item.start_date).format('DD/MM/YYYY');
+			console.log('the appointments time are ',start_hour + ":" + start_min + " to " + end_hour + ":" + end_min);
 			const ret = {
 				title: item.title,
 				startDate: new Date(start_year, start_mon, start_day, start_hour, start_min),

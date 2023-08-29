@@ -129,6 +129,7 @@ const CompanyIntelligence = React.memo((props) => {
   const [fileIndex, setFileIndex] = useState(0);
   const [fileUrl, setFileUrl] = useState('');
   const [open, setOpen] = useState(false);
+  const [PdfId, setPdfId] = useState("");
   let _teamMember = [];
   const callback = (data) => {
     // console.log(data, "this is the pdf data");
@@ -141,12 +142,11 @@ const CompanyIntelligence = React.memo((props) => {
     let newArr = [...fileData];
     newArr.splice(ind, 1);
     setFileData([...newArr]);
-
     const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
     axios.delete(`${baseURL}secure/user/delete_documents?userId=${loginId}&docId=${data._id}`,{ headers }).then(res =>{
         // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
         if(res.data.errCode === -1){
-          dispatch(actions.fetchLeadDetails(storeFormData._id))
+          dispatch(actions.fetchLeadDetails(storeFormData._id));
           message.success("Document Deleted Successfully");
         }
     })
@@ -184,6 +184,7 @@ const CompanyIntelligence = React.memo((props) => {
     loadValuesToFields(storeFormData);
     getAppointmentList(storeFormData._id);
     setLeadId(storeFormData._id);
+    setPdfId(storeFormData?._id);
     // opprtunityStatusData()
   }, [storeFormData]);
 
@@ -279,6 +280,7 @@ const CompanyIntelligence = React.memo((props) => {
           item.kdmTabs = `KDM ${index + 1}`
         }
       })
+      console.log('decision maker name',decisionMakerName);
       setKdmDetailsArr(decisionMakerName)
 
       if(leadData?.company_id?.kdm_details?.length > 0) handleKdmTabs(leadData?.company_id?.kdm_details[0])
@@ -418,7 +420,7 @@ const CompanyIntelligence = React.memo((props) => {
     // console.log('handleKdmTabs -------->>>',event)
     setActiveKdm(event._id)
     // const [activeKdm, setActiveKdm] = useState(null)
-    setKdmDataSet(event)
+    setKdmDataSet(event);
     // const [kdmDataSet, setKdmDataSet] = useState({});
   };
 
@@ -458,6 +460,7 @@ const CompanyIntelligence = React.memo((props) => {
       <TabsComp
         tabMenu={tabMenu}
         // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
+        id={PdfId}
         header={companyDetails?.company_name?.toUpperCase()}
         activeKey="1"
         statusLeadData={storeFormData}

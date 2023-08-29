@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LeadCard from "./LeadCard";
 import "./LeadCards.css";
 import _ from "lodash";
-import { Row, Col, Avatar, Card, Select, Button, message, DatePicker } from "antd";
+import { Row, Col, Avatar, Card, Select, Button, message, DatePicker, Modal, Table } from "antd";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import { useDispatch, useSelector } from "react-redux";
 import { AllocateModal } from "../Tab/Allocate";
@@ -14,7 +14,8 @@ import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
-import { lobOpportunityItems } from "../StatusLead/dataSet";
+import { lobOpportunityItems, months } from "../StatusLead/dataSet";
+import noDataIcon from "../../assets/NoDataFound.png";
 // stoageSetter('user', user);
 
 import {
@@ -41,6 +42,7 @@ const LeadCards = (props) => {
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
+  const [isModalopen, setIsmodalopen] = useState(false);
   const [firsrDrop, setFirstDrop] = useState([]);
   const [openSecond, setOpenSecond] = useState(false);
   const [firstValue, setFirstValue] = useState("Select");
@@ -53,6 +55,14 @@ const LeadCards = (props) => {
   const [toDateString, setToDateString] = useState("");
   const [toDateFilter, setToDateFilter] = useState("");
   const [cards, setcard] = useState([]);
+  const [Month, setMonth] = useState('');
+  const [Year, setYear] = useState('');
+  const [companyArray, setCompanyArray] = useState([]);
+  const [Producer, setProducer] = useState('');
+  const [hierarchy_lob, setHierarchy_lob] = useState([]);
+  const [TeamMember_lob, setTeamMember_lob] = useState([]);
+  const [dataSource, setdataSource] = useState([]);
+  const [viewLob, setviewLob] = useState(false);
 
 
   useEffect(() => {
@@ -64,6 +74,35 @@ const LeadCards = (props) => {
   useEffect(() => {
     if (leadsData?.globalTab === "team") getDataForFirstDropdownTeam();
   }, [leadsData]);
+  useEffect(() => {
+    getCompanyDetails();
+  }, []);
+  const getCompanyDetails = async (lead_id) => {
+    let result = await axiosRequest.get(`user/getproducerdropdown`, {
+      secure: true,
+    });
+    let _compArr = [];
+    result.map((el) => {
+      let _data = { label: el.producer_name, value: el.producer_name };
+      _compArr.push(_data);
+    });
+    // console.log(_compArr,"thjdjfjfhf");
+    setCompanyArray(_compArr);
+
+    userTreeData.reporting_hierarchies.forEach((el) => {
+      el.label = el.dispValue;
+    });
+    // reporting_hierarchies.forEach(el =>{ el.label = el.dispValue })
+    userTreeData.reporting_users.forEach((el) => {
+      // reporting_users.forEach(el =>{
+      el.label = el.full_name;
+      el.value = el._id;
+    });
+    // setFirstDrop(userTreeData.reporting_hierarchies);
+    setHierarchy_lob(userTreeData.reporting_hierarchies);
+  };
+
+
 
 
 
@@ -79,6 +118,7 @@ const LeadCards = (props) => {
       el.value = el._id;
     });
     setFirstDrop(userTreeData.reporting_hierarchies);
+    setHierarchy_lob(userTreeData.reporting_hierarchies);
     // setFirstDrop(reporting_hierarchies)
     // console.warn('firstDrop((((((((((===>>>>>>>>>>', firsrDrop)
     // }
@@ -92,20 +132,18 @@ const LeadCards = (props) => {
   // }, [leadsData.allLeads]);
 
   const handleFirstDropdown = (event) => {
-    // console.warn('event___HIERARCHYYY((((((((((===>>>>>>>>>>', event)
+    console.warn('event___HIERARCHYYY((((((((((===>>>>>>>>>>', event)
     event ? setOpenSecond(true) : setOpenSecond(false);
     setFirstValue(event);
     setSecondValue("");
-    // stoageSetter('teamMemberId', event);
     userTreeData.reporting_users.forEach((el) => {
       el.label = toCapitalize(el.full_name);
       el.value = el._id;
     });
-    // let _teamData = reporting_users.filter(el => el.hierarchy_id === event)
     let _teamData = userTreeData.reporting_users.filter(
       (el) => el.hierarchy_id === event
     );
-    // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
+
     setSecondDropData(_teamData);
   };
   let toCapitalize = (strText) => {
@@ -142,6 +180,12 @@ const LeadCards = (props) => {
   }, [width]);
 
   const handleChangeTab = (currentTab) => {
+    if(currentTab=="self"){
+      setviewLob(false);
+    }
+    if(currentTab==="team"){
+    setviewLob(true);
+    }
     // console.log("good bye ",currentTab)
     // currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
     _currentTab = currentTab;
@@ -219,6 +263,9 @@ const LeadCards = (props) => {
     // console.log("-------loboportunity-------", event);
     setLobOpportData(event);
   };
+  const handleLOB = () => {
+    setIsmodalopen(true);
+  }
 
   const onChangeFromDate = (date, dateString) => {
     // console.warn('APOOOOO__DATE___',date)
@@ -250,6 +297,11 @@ const LeadCards = (props) => {
       setToDateString(dateString);
     }
   };
+  const handleCancel = () => {
+    setIsmodalopen(false);
+    setProducer('');
+    setMonth('');
+  };
 
   const validateDateRange = (startDateStr, endDateStr) => {
     const startDate = new Date(startDateStr);
@@ -259,124 +311,266 @@ const LeadCards = (props) => {
     }
     return true;
   };
+  const handleMonthChange = (val) => {
+    setMonth(val);
+  };
+  const handleProducerChange = (val) => {
+    console.log(val);
+    setProducer(val);
+  };
+  const getSecondDropdownValue = (event) => {
+    userTreeData.reporting_users.forEach((el) => {
+      el.label = toCapitalize(el.full_name);
+      el.value = el._id;
+    });
+    let _teamData = userTreeData.reporting_users.filter(
+      (el) => el.hierarchy_id === event
+    );
+    setTeamMember_lob(_teamData);
+  }
+  // const dataSource = [
+  //   {
+  //     key: '1',
+  //     name: 'Mike',
+  //     age: 32,
+  //   },
+  //   {
+  //     key: '2',
+  //     name: 'John',
+  //     age: 42,
+  //   },
+  // ];
+
+  const columns = [
+    {
+      title: 'LOB',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Number of LOBs',
+      dataIndex: 'age',
+      key: 'age',
+    },
+  ];
+  const handleViewLob = () => {
+    let result = axiosRequest.get(`user/get-team-lob-count/63dce7c80ae6868961079fe6?month=${Month}&year=${Year}&producer_name=${Producer}`, {
+      secure: true
+    })
+    let res = result?.errMsg?.map((item) => {
+      let obj = {}
+      obj['key'] = item._id;
+      obj['name'] = item.lob_for_opportunity;
+      obj['age'] = item.wallet_share;
+      return obj;
+    })
+    setdataSource(res);
+  }
+  const handleDateChange = (val, dateString) => {
+    setYear(dateString);
+  }
 
   return (
     <div className="cards-container cards_data">
-      <div style={{display:'flex',width:'100%',justifyContent:'space-between',marginTop:'20px'}}>
-      <div className="dropdown-container">
-        <div className="round-card-main-Tab" >
-          <>
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', marginTop: '20px' }}>
+        <div className="dropdown-container">
+          <div className="round-card-main-Tab" >
+            <>
+              <div
+                className="CardBodySelf lead-ml60"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginBottom: 25,
+                }}
+              >
+                {checkAgent() === false && (
+                  <button
+                    style={{
+                      width: 95,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    className={TeamSelf ? "activateSelf" : " "}
+                    onClick={() => handleChangeTab("self")}
+                  >
+                    <img
+                      src={TeamSelf ? person_white : person_black}
+                      className="personSelf"
+                      alt="person_png"
+                    />
+                    Self
+                  </button>
+                )}
+                {checkAgent() === false && (
+                  <button
+                    style={{
+                      width: 95,
+                      display: "flex",
+                      marginLeft: 15,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    className={!TeamSelf ? "activateSelf" : ""}
+                    onClick={() => handleChangeTab("team")}
+                  >
+                    <img
+                      src={TeamSelf ? group_black : group_white}
+                      className="personSelf"
+                      alt="group_png"
+                    />
+                    Team
+                  </button>
+                )}
+
+
+              </div>
+              {
+                isModalopen &&
+                <Modal
+                  title="View LOB"
+                  className="todo-popup-container-width todo-header-style"
+                  centered
+                  width={400}
+                  onCancel={handleCancel}
+                  visible={isModalopen}
+                >
+                  <Row style={{ marginBottom: 10 }}>
+                    <Col style={{ flex: 1, margin: '4px' }}>
+                      <p style={{ marginBottom: 2 }}> Heirarchy </p>
+                      <Select
+                        placeholder="Hierarchy"
+                        style={{ width: '100%' }}
+                        options={hierarchy_lob}
+                        onChange={getSecondDropdownValue}
+                      >
+                      </Select>
+                    </Col>
+                    <Col style={{ flex: 1, margin: '4px' }}>
+                      <p style={{ marginBottom: 2 }}> Team Member </p>
+                      <Select
+                        placeholder="team member"
+                        style={{ width: '100%' }}
+                        options={TeamMember_lob}
+                      >
+                      </Select>
+                    </Col>
+                    <Col style={{ flex: 1, margin: '4px' }}>
+                      <p style={{ marginBottom: 2 }}> Producer </p>
+                      <Select
+                        placeholder="producer"
+                        options={companyArray}
+                        onChange={handleProducerChange}
+                        value={Producer}
+                        style={{ width: '100%' }}
+                      >
+                      </Select>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginBottom: 10 }}>
+                    <Col style={{ flex: 1, margin: '4px' }}>
+                      <p style={{ marginBottom: 2 }}> Month </p>
+                      <Select
+                        placeholder="Month"
+                        value={Month}
+                        options={months}
+                        onChange={handleMonthChange}
+                        style={{ width: '100%' }}
+                      >
+                      </Select>
+                    </Col>
+                    <Col style={{ flex: 1, margin: '4px' }}>
+                      <p style={{ marginBottom: 2 }}> Year </p>
+                      <DatePicker picker="year" style={{ width: '100%' }} onChange={handleDateChange} />
+                    </Col>
+                   
+                      <Col style={{ flex: 1, margin: '4px', width: '100%' }}>
+                        <Button style={{ marginTop: '22px', background: '#3b371e', color: '#fff' }} onClick={handleViewLob}>View Lob</Button>
+                      </Col> 
+                  </Row>
+                  {
+                    (dataSource?.length === 0 || dataSource === undefined) ?
+                      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: 40 }}>
+                        <img src={noDataIcon} style={{ height: 100, width: 100 }} />
+                        <div style={{ marginTop: 10 }}>
+                          <text style={{ textAlign: "center", fontSize: 14, color: '#B1B1B1', fontWeight: 500 }}>No LOB details available.
+                          </text>
+                        </div>
+                      </div> :
+                      <Table dataSource={dataSource} columns={columns} />
+                  }
+
+                </Modal>
+              }
+            </>
+            {/* )} */}
+          </div>
+
+          {leadsData?.globalTab === "team" && (
             <div
-              className="CardBodySelf lead-ml60"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                marginBottom: 25,
-              }}
+              className="lead-ml15"
+              style={{ position: "relative", bottom: 26 }}
+            >
+              <p style={{ marginBottom: "5px" }}>Hierarchy</p>
+              <Select
+                // className="firstdropdown"
+                value={firstValue}
+                style={{ width: 200 }}
+                onChange={handleFirstDropdown}
+                placeholder="Select Hierarchy"
+                options={firsrDrop}
+              ></Select>
+            </div>
+          )}
+          {openSecond && leadsData?.globalTab === "team" && (
+            <div
+              className="lead-ml15"
+              style={{ position: "relative", bottom: 26 }}
+            >
+              <p style={{ marginBottom: "5px" }}>Team Member</p>
+              <Select
+                value={secondValue}
+                style={{ width: 200 }}
+                onChange={(item) => handleSecondDropdown(item)}
+                placeholder="Select Team Member"
+                options={secondDropData}
+              ></Select>
+            </div>
+          )}
+          {openSecond && leadsData?.globalTab === "team" && secondValue && (
+            <div
+              className="lead-ml15"
+              style={{ position: "relative", bottom: 26 }}
             >
 
-              {/* <p style={{ marginBottom: "5px" }}>Opportunity Dump</p> */}
-
-              {checkAgent() === false && (
-                <button
-                  style={{
-                    width: 95,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className={TeamSelf ? "activateSelf" : " "}
-                  onClick={() => handleChangeTab("self")}
-                >
-                  <img
-                    src={TeamSelf ? person_white : person_black}
-                    className="personSelf"
-                    alt="person_png"
-                  />
-                  Self
-                </button>
-              )}
-              {checkAgent() === false && (
-                <button
-                  style={{
-                    width: 95,
-                    display: "flex",
-                    marginLeft: 15,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className={!TeamSelf ? "activateSelf" : ""}
-                  onClick={() => handleChangeTab("team")}
-                >
-                  <img
-                    src={TeamSelf ? group_black : group_white}
-                    className="personSelf"
-                    alt="group_png"
-                  />
-                  Team
-                </button>
-              )}
-
-
             </div>
-          </>
-          {/* )} */}
+          )}
         </div>
 
-        {leadsData?.globalTab === "team" && (
-          <div
-            className="lead-ml15"
-            style={{ position: "relative", bottom: 26 }}
-          >
-            <p style={{ marginBottom: "5px" }}>Hierarchy</p>
-            <Select
-              // className="firstdropdown"
-              value={firstValue}
-              style={{ width: 200 }}
-              onChange={handleFirstDropdown}
-              placeholder="Select Hierarchy"
-              options={firsrDrop}
-            ></Select>
+        <div style={{ marginRight: '65px', display: 'flex' }}>
+          { viewLob &&
+          <div style={{ marginRight: '20px' }}>
+            <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
+              View LOB
+            </Button>
           </div>
-        )}
-        {openSecond && leadsData?.globalTab === "team" && (
-          <div
-            className="lead-ml15"
-            style={{ position: "relative", bottom: 26 }}
-          >
-            <p style={{ marginBottom: "5px" }}>Team Member</p>
-            <Select
-              value={secondValue}
-              style={{ width: 200 }}
-              onChange={(item) => handleSecondDropdown(item)}
-              placeholder="Select Team Member"
-              options={secondDropData}
-            ></Select>
+}
+          <div>
+            <Button
+              onClick={exportReport}
+              style={{
+                backgroundColor: "#3c3d3d",
+                color: "#fff",
+                borderRadius: 2,
+                padding: '15px'
+              }}
+              className="d-flex align-items-center justify-content-center"
+            >
+              <DownloadOutlined /> Export
+            </Button>
           </div>
-        )}
-        {openSecond && leadsData?.globalTab === "team" && secondValue && (
-          <div
-            className="lead-ml15"
-            style={{ position: "relative", bottom: 26 }}
-          >
-
-          </div>
-        )}
-      </div>
-      <div style={{marginRight:'65px'}}>
-        <Button
-          onClick={exportReport}
-          style={{
-            backgroundColor: "#3c3d3d",
-            color: "#fff",
-            borderRadius: 2,
-            padding: '15px'
-          }}
-          className="d-flex align-items-center justify-content-center"
-        >
-          <DownloadOutlined /> Export
-        </Button>
-      </div>
+        </div>
       </div>
 
 
@@ -445,6 +639,7 @@ const LeadCards = (props) => {
                     className="lead-agent-card"
                     key_broker={lead._id}
                     // id={lead._id}
+                    // viewLob={viewLob}
                     appointment_on={lead.appointment_on}
                     Owner_name={lead.name}
                     wallet_size={lead.wallet_size}

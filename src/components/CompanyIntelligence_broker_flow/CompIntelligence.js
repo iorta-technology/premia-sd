@@ -181,7 +181,6 @@ const CompanyIntelligence = React.memo((props) => {
     setProducerName(storeFormData?.producerdetails?.producer_name);
   }, [storeFormData]);
 
-
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
@@ -239,8 +238,8 @@ const CompanyIntelligence = React.memo((props) => {
       setOpportunityDetails(_opportunity)
 
       //setting wallet details
-      setWalletDetails(leadData?.wallet_details)
-      
+      console.log('this is the wallet details',leadData?.wallets);
+      setWalletDetails(leadData?.wallets)
       setreamrkDataArr(leadData?.remarks)
 
       let _teamData = leadData?.teamMembers ? JSON.parse(leadData?.teamMembers) : [];
@@ -311,7 +310,6 @@ const CompanyIntelligence = React.memo((props) => {
       setKdmType(event)
       setShowKdmModal(true)
     }
-
   };
   const openExpectationModal = () => {
     setShowExpectationModal(true)
@@ -334,7 +332,7 @@ const CompanyIntelligence = React.memo((props) => {
   const deleteWalletDetails = async (data, index) => {
     // console.log('loggedInUser DATA---->>>', loggedInUserToken)
     const headers = { 'Authorization': `Bearer ${loggedInUserToken}` };
-    axios.delete(`${baseURL}secure/user/deletewallet?userId=${loginId}&walletId=${data._id}`, { headers }).then(res => {
+    axios.delete(`${baseURL}secure/user/deletelob?userId=${loginId}&walletId=${data._id}`, { headers }).then(res => {
       // console.warn("(((( DELETEEEEE  )))) ====>>>",res)
       if (res.data.errCode === -1) {
         dispatch(actions.fetchLeadDetails_broker(storeFormData._id));
@@ -405,6 +403,7 @@ const CompanyIntelligence = React.memo((props) => {
         // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
         // header={companyDetails?.company_name?.toUpperCase()}
         activeKey="broker_intel"
+        id={brokerId}
         statusLeadData={storeFormData}
         header={ storeFormData && storeFormData?.producerdetails?.raw_producer_name}
       />
@@ -690,12 +689,28 @@ const CompanyIntelligence = React.memo((props) => {
                             <p className="label-font">Wallet Share</p>
                           </Col>
                         </Row>
+                       
                         <Row>
                           {/* <Col><p className="app-font" style={{ color: '#444444' }}>0</p></Col>
                           <Col><p >Actual Utilisation</p></Col> */}
                           <Col style={{flex:1}}>
                             <p className="text-font">0</p>
                             <p className="label-font">Actual Utilisation</p>
+                          </Col>
+                        </Row>
+                        
+                      </Row>
+                      <Row justify="space-between" style={{ alignItems: 'center', padding: '10px 120px 10px 10px' }}>
+                        <Row>
+                        <Col style={{flex:1}}>
+                            <p className="text-font">{element.lob_month}</p>
+                            <p className="label-font">Month</p>
+                          </Col>
+                        </Row>
+                        <Row>
+                        <Col style={{flex:1}}>
+                            <p className="text-font">{element.lob_year}</p>
+                            <p className="label-font">Year</p>
                           </Col>
                         </Row>
                       </Row>
@@ -835,7 +850,7 @@ const CompanyIntelligence = React.memo((props) => {
           <ShowPdf show={isModalOpen} />
         </>
         <>
-        <Tab heading={storeFormData?.producerdetails?.raw_producer_name}/>
+        {/* <Tab heading={storeFormData?.producerdetails?.raw_producer_name}/> */}
         </>
       </div>
 
