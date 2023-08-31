@@ -64,12 +64,12 @@ const CollaboratorModal = (props) => {
             })
             // console.log('(((((((((_teamSelected)))))))))---->>>>',_teamSelected)
             
-            // setCollaboratorsList(_teamSelected)
+            setCollaboratorsList(_teamSelected)
            
         }else{
 
         }
-    }, [props.teamDataArr]);
+    }, []);
 
     useEffect(() => {
         getHierarData()
@@ -247,7 +247,6 @@ return (
 
                     <Col span={24} >
                         <div className="d-flex flex-wrap justify-content-start mb-2">
-                        {/* {console.log('formItem.collaborators--->>>',_chipData)} */}
                         {_chipData &&
                             _chipData.map((res, index) => (
                             <div

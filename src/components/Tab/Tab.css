@@ -39,6 +39,18 @@
   margin-right: 5px;
   margin-bottom: 3px;
 }
+.allocate_btn{
+  background: var(--primary-colour, #3B371E);
+  color: #fff;
+  margin-right: 10px;
+}
+.allocate_btn .allocate_btn_inner{
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 6px;
+  padding-right: 6px;
+
+}
 .CardBodySelf .activateSelf {
   color: #fff;
   border: none;

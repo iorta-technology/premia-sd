@@ -35,6 +35,8 @@ import {
 } from "../actions/allleadAction";
 import { flexibleCompare } from "fullcalendar";
 import { Column } from "@antv/g2plot";
+import LeadCards from "../LeadCards_broker_flow/LeadCards";
+import LeadCards_Company from '../LeadCards/LeadCards'
 
 const { TabPane } = Tabs;
 
@@ -64,6 +66,7 @@ const Tab = ({
   const [brokerTabFilter, setBrokerTabFilter] = useState("all");
   const [TeamSelf, setTeamSelf] = useState(true);
   const [showBrokerFilt, setShowBrokerFilt] = useState(false);
+  const [leadcards, setLeadcards] = useState(false);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
 
   let history = useHistory();
@@ -270,6 +273,14 @@ const Tab = ({
               tabFilter={leadTabFilter}
             />
           }
+          {/* {header=='Broker Listing' && <>
+          <LeadCards leadTabFilter={leadTabFilter}/>
+          </>}
+          {
+            header=='Lead' && <>
+            <LeadCards_Company leadTabFilter={leadTabFilter}/>
+            </>
+          } */}
           {header === "Broker Listing" &&
             <BrokerFilters
               style={{ marginTop: '100px' }}
@@ -280,6 +291,7 @@ const Tab = ({
               tabFilter={brokerTabFilter}
             />
           }
+           {/* <AllocateModalShow tabSelected={leadTabFilter} /> */}
           {
             (header !== 'Lead' && header !== 'Broker Listing') && activeKey == '1' &&
             <div className="download_btn" onClick={handlePdfClick_company}>
@@ -410,6 +422,7 @@ const Tab = ({
               {tabPane}
             </Tabs>
           </div>
+        
           {/* {header === "Lead" && (
             <div
               style={{
@@ -460,7 +473,6 @@ const Tab = ({
                   </button>
                 </>
               )}
-              <AllocateModalShow tabSelected={leadTabFilter} />
               <GlobalFilters
                 show={show}
                 onHide={handleClose}
@@ -470,6 +482,7 @@ const Tab = ({
               />
             </div>
           )} */}
+         
         </div>
       )}
     </>

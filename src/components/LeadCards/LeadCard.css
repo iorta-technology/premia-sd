@@ -22,6 +22,14 @@
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
 }
+.checkbox_avatar{
+  margin-right: 3px;
+  padding-right: 5px;
+}
+.checkbox_avatar input{
+  width: 15px;
+  height: 15px;
+}
 .lead-card-mobile > .ant-card-body {
   padding: 30px;
   display: flex;

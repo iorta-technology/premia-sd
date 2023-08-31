@@ -63,13 +63,12 @@ const CollaboratorModal = (props) => {
                 setTeamDataArr([...teamDataArr, apiBody]);
             })
             // console.log('(((((((((_teamSelected)))))))))---->>>>',_teamSelected)
-            
             setCollaboratorsList(_teamSelected)
            
         }else{
 
         }
-    }, [props.teamDataArr]);
+    }, []);
 
     useEffect(() => {
         getHierarData()

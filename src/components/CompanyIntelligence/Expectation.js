@@ -52,7 +52,7 @@ const Expectation = (props) => {
             kdmRedFlag:_StoreData?.red_flags,
             kdmOurAsk:_StoreData?.our_ask,
         });
-    }, []);
+    }, [props]);
     
     let { innerWidth: width, innerHeight: height } = window;
     const { TabPane } = Tabs;

@@ -177,7 +177,11 @@ const LeadCard = React.memo((props) => {
         className="lead-card-desktop"
         hoverable={true}
       >
-        {allocateBtnStatus && (
+        <div className="main-avtar">
+          <div className="avatar-and-status" >
+          <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+          {allocateBtnStatus && (
+          <div  className="checkbox_avatar">
           <input
             id="checkbox"
             type="checkbox"
@@ -188,9 +192,8 @@ const LeadCard = React.memo((props) => {
             }
             onChange={(e) => checkboxes(props, e)}
           ></input>
+          </div>
         )}
-        <div className="main-avtar">
-          <div className="avatar-and-status" >
             <Avatar
               style={{
                 backgroundColor: "#d8d8d8",
@@ -199,6 +202,7 @@ const LeadCard = React.memo((props) => {
             >
               {nameShorter(producer_name)}
             </Avatar>
+            </div>
             <div className="content-header" style={{ marginTop: "15px" }} >
               <p className="user-name-text capitalize">{producer_name}</p>
             </div>

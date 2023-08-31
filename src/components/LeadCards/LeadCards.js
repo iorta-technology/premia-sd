@@ -5,7 +5,7 @@ import _ from "lodash";
 import { Row, Col, Avatar, Card, Select, Button, message , DatePicker } from "antd";
 import NoRecordsFound from "../NoRcordsFound/NoRecordsFound";
 import { useDispatch, useSelector } from "react-redux";
-import { AllocateModal } from "../Tab/Allocate";
+import AllocateModalShow, { AllocateModal } from "../Tab/Allocate";
 import { checkAgent, stoageSetter, stoageGetter } from "../../helpers";
 import * as actions from "../../store/actions/leads";
 import { DownloadOutlined } from "@ant-design/icons";
@@ -58,6 +58,7 @@ const LeadCards = (props) => {
   const [fromDateString, setFromDateString] = useState("");
   const [toDateString, setToDateString] = useState("");
   const [toDateFilter, setToDateFilter] = useState("");
+  const [leadTabFilter, setLeadTabFilter] = useState("all");
   // const [hierarAgentList ,setHierarAgentList]=useState([])
 
   const [cards, setcard] = useState([]);
@@ -176,7 +177,7 @@ const LeadCards = (props) => {
   };
 
   const getDataForOpen = async (leadInc) => {
-    // setLeadTabFilter(leadInc)
+    setLeadTabFilter(leadInc)
     const { id } = stoageGetter("user");
     // let _pageNo = current === undefined || current === null ? 1 : current
     let _pageNo = 1;
@@ -269,10 +270,12 @@ const LeadCards = (props) => {
 
   return (
     <div className="cards-container cards_data">
+      <div style={{display:'flex',justifyContent:'space-between'}}>
       <div className="dropdown-container">
         <div className="round-card-main-Tab">
           {/* {checkAgent() === false && ( */}
           <>
+          <div style={{display:'flex',justifyContent:'space-between'}}>
             <div
               className="CardBodySelf lead-ml60"
               style={{
@@ -322,9 +325,11 @@ const LeadCards = (props) => {
                 </button>
               )}
             </div>
+            </div>
           </>
           {/* )} */}
         </div>
+       
 
         {leadsData?.globalTab === "team" && (
           <div
@@ -376,6 +381,10 @@ const LeadCards = (props) => {
             </Button>
           </div>
         )} */}
+      </div>
+      <div style={{paddingRight:'50px'}}>
+        <AllocateModalShow tabSelected={leadTabFilter}/>
+      </div>
       </div>
 
       <div className="dropdown-container lead-ml60">

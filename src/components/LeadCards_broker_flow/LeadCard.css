@@ -7,6 +7,14 @@
   text-align: center;
   padding: 10px;
 }
+.checkbox_avatar{
+  margin-right: 3px;
+  padding-right: 5px;
+}
+.checkbox_avatar input{
+  width: 15px;
+  height: 15px;
+}
 .todo-popup-container-width{
   width: 45% !important;
 }

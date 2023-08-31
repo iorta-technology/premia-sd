@@ -50,10 +50,10 @@ const LeadCard = React.memo((props) => {
     e.target.checked
       ? dispatch(updateCheckAllocatedLead([...checkedLead, data]))
       : dispatch(
-          updateCheckAllocatedLead(
-            checkedLead?.filter((res) => res.id !== data.id) || []
-          )
-        );
+        updateCheckAllocatedLead(
+          checkedLead?.filter((res) => res.id !== data.id) || []
+        )
+      );
     setChkId(data.id);
     // console.log("checkedLead = ", checkedLead);
   }
@@ -107,7 +107,7 @@ const LeadCard = React.memo((props) => {
     dispatch(actions.fetchLeadDetails(id));
     history.push("/company-intelligence", { leadID: id });
     // history.push("/company-intelligence", { leadID: id });
-    
+
   };
   let statusColors = {
     closed: "#D04949",
@@ -148,41 +148,45 @@ const LeadCard = React.memo((props) => {
         className="lead-card-desktop"
         hoverable={true}
       >
-        {allocateBtnStatus && (
-          <input
-            id="checkbox"
-            type="checkbox"
-            checked={
-              chkID &&
-              checkedLead?.length &&
-              checkedLead?.find((res) => res.id === props.id)
-            }
-            onChange={(e) => checkboxes(props, e)}
-          ></input>
-        )}
         <div className="main-avtar">
           <div className="avatar-and-status">
-            <Avatar
-              style={{
-                // paddingTop: "-40px",
-                // lineHeight: "none",
-                backgroundColor: "#d8d8d8",
-              }}
-              size={{ xl: 50 }}
-            >
-              {nameShorter(companyName)}
-            </Avatar>
+            <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+              {allocateBtnStatus && (
+                <div className="checkbox_avatar">
+                <input
+                  id="checkbox"
+                  type="checkbox"
+                  checked={
+                    chkID &&
+                    checkedLead?.length &&
+                    checkedLead?.find((res) => res.id === props.id)
+                  }
+                  onChange={(e) => checkboxes(props, e)}
+                ></input>
+                </div>
+              )}
+              <Avatar
+                style={{
+                  // paddingTop: "-40px",
+                  // lineHeight: "none",
+                  backgroundColor: "#d8d8d8",
+                }}
+                size={{ xl: 50 }}
+              >
+                {nameShorter(companyName)}
+              </Avatar>
+            </div>
             {/* {leadComponent} */}
 
             <div className="content-header">
               <p className="user-name-text capitalize">{companyName}</p>
-              <span className="user-id uppercase" style={{color:'#B1B1B1'}}>{lead_Id}</span>
+              <span className="user-id uppercase" style={{ color: '#B1B1B1' }}>{lead_Id}</span>
               {/* <a href={`tel:${primaryMobile}`}></a> */}
               {/* <PhoneOutlined className="phoneicon"></PhoneOutlined> */}
             </div>
           </div>
 
-          <div style={{display: "flex",flexDirection:'row',alignItems:'center'}}>
+          <div style={{ display: "flex", flexDirection: 'row', alignItems: 'center' }}>
             <div>
               <Progress
                 strokeColor="aquamarine"

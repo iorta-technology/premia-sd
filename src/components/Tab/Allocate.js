@@ -2,6 +2,9 @@ import { Card, Avatar, Button, Modal } from "antd";
 import React, { useState, useEffect } from "react";
 import "./Tab.css";
 import { getTeamMainTabApi } from "../actions/allleadAction";
+// import UserAddOutlined from 'antd/ico'
+import { UserAddOutlined } from '@ant-design/icons';
+// <UserAddOutlined />
 
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/leads";
@@ -164,14 +167,19 @@ export const AllocateModal = React.memo((props) => {
 
       {allocateBtnStatus ? (
         width > breakpoint - 30 ? (
-          <figure
-            className="round-cards3-active"
-            onClick={handleAllocateTo}
-            key={"allocket"}
-          >
-            {" "}
-            <figcaption className="card-caption">Allocate To</figcaption>{" "}
-          </figure>
+          // <figure
+          //   className="round-cards3-active"
+          //   onClick={handleAllocateTo}
+          //   key={"allocket"}
+          // >
+          //   {" "}
+          //   <figcaption className="card-caption">Allocate To</figcaption>{" "}
+          // </figure>
+          <button onClick={handleAllocateTo} key={'allocket'} className="allocate_btn">
+            <div className="allocate_btn_inner">
+            <UserAddOutlined/> Allocate To
+            </div>
+          </button>
         ) : (
           <button
             key={"allocket active"}
@@ -179,19 +187,25 @@ export const AllocateModal = React.memo((props) => {
             style={{ color: "#fff" }}
             className="active_tabs_button"
           >
-            <img src={person_white} className="person" alt="person_png" />
+            {/* <img src={person_white} className="person" alt="person_png" /> */}
+            <UserAddOutlined />
             <b>+</b> Allocate To
           </button>
         )
       ) : width > breakpoint - 30 ? (
-        <figure
-          className="round-cards3"
-          onClick={() => dispatch(actions.updateAllocateOfOpportunities(true))}
-          key={"allocket"}
-        >
-          {" "}
-          <figcaption className="card-caption">Allocate</figcaption>{" "}
-        </figure>
+        // <figure
+        //   className="round-cards3"
+        //   onClick={() => dispatch(actions.updateAllocateOfOpportunities(true))}
+        //   key={"allocket"}
+        // >
+        //   {" "}
+        //   <figcaption className="card-caption">Allocate </figcaption>{" "}
+        // </figure>
+        <button onClick={() => dispatch(actions.updateAllocateOfOpportunities(true))} className="allocate_btn">
+          <div className="allocate_btn_inner">
+          <UserAddOutlined style={{color:'#fff'}}/> Allocate
+          </div>
+        </button>
       ) : (
         <button
           key={"allocket"}

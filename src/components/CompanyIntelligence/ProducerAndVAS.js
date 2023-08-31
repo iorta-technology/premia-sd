@@ -72,7 +72,7 @@ const ProducerAndVas = (props) => {
             kdmProducer:_StoreData?.producer,
             vasInput:_StoreData?.VAS_input,
         });
-    }, []);
+    }, [props]);
 
     const channelDataArr = [
         {label:'Agency',value:'Agency'},

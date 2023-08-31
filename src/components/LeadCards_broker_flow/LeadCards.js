@@ -16,6 +16,7 @@ import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
 import { lobOpportunityItems, months } from "../StatusLead/dataSet";
 import noDataIcon from "../../assets/NoDataFound.png";
+import AllocateModalShow from "../Tab/Allocate";
 // stoageSetter('user', user);
 
 import {
@@ -63,6 +64,7 @@ const LeadCards = (props) => {
   const [TeamMember_lob, setTeamMember_lob] = useState([]);
   const [dataSource, setdataSource] = useState([]);
   const [viewLob, setviewLob] = useState(false);
+  const [leadTabFilter, setLeadTabFilter] = useState("all");
 
 
   useEffect(() => {
@@ -180,11 +182,11 @@ const LeadCards = (props) => {
   }, [width]);
 
   const handleChangeTab = (currentTab) => {
-    if(currentTab=="self"){
+    if (currentTab == "self") {
       setviewLob(false);
     }
-    if(currentTab==="team"){
-    setviewLob(true);
+    if (currentTab === "team") {
+      setviewLob(true);
     }
     // console.log("good bye ",currentTab)
     // currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
@@ -212,7 +214,7 @@ const LeadCards = (props) => {
   };
 
   const getDataForOpen = async (leadInc) => {
-    // setLeadTabFilter(leadInc)
+    setLeadTabFilter(leadInc)
     const { id } = stoageGetter("user");
     // let _pageNo = current === undefined || current === null ? 1 : current
     let _pageNo = 1;
@@ -484,10 +486,10 @@ const LeadCards = (props) => {
                       <p style={{ marginBottom: 2 }}> Year </p>
                       <DatePicker picker="year" style={{ width: '100%' }} onChange={handleDateChange} />
                     </Col>
-                   
-                      <Col style={{ flex: 1, margin: '4px', width: '100%' }}>
-                        <Button style={{ marginTop: '22px', background: '#3b371e', color: '#fff' }} onClick={handleViewLob}>View Lob</Button>
-                      </Col> 
+
+                    <Col style={{ flex: 1, margin: '4px', width: '100%' }}>
+                      <Button style={{ marginTop: '22px', background: '#3b371e', color: '#fff' }} onClick={handleViewLob}>View Lob</Button>
+                    </Col>
                   </Row>
                   {
                     (dataSource?.length === 0 || dataSource === undefined) ?
@@ -500,7 +502,6 @@ const LeadCards = (props) => {
                       </div> :
                       <Table dataSource={dataSource} columns={columns} />
                   }
-
                 </Modal>
               }
             </>
@@ -549,13 +550,18 @@ const LeadCards = (props) => {
         </div>
 
         <div style={{ marginRight: '65px', display: 'flex' }}>
-          { viewLob &&
-          <div style={{ marginRight: '20px' }}>
-            <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
-              View LOB
-            </Button>
+          {viewLob &&
+            <div style={{ marginRight: '20px' }}>
+              <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
+                View LOB
+              </Button>
+            </div>
+          }
+          <div>
+          <div>
+            <AllocateModalShow tabSelected={props.leadTabFilter}/>
           </div>
-}
+          </div>
           <div>
             <Button
               onClick={exportReport}
@@ -571,6 +577,7 @@ const LeadCards = (props) => {
             </Button>
           </div>
         </div>
+
       </div>
 
 
