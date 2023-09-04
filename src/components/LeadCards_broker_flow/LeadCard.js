@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { drop } from "lodash";
 import AllocateModal from "../Tab/Allocate";
-import { updateCheckAllocatedLead } from "../../store/actions/leads";
+import { updateCheckAllocatedLead_broker } from "../../store/actions/leads_broker";
 
 const LeadCard = React.memo((props) => {
   const dispatch = useDispatch();
@@ -57,11 +57,10 @@ const LeadCard = React.memo((props) => {
   const [chkID, setChkId] = useState("");
 
   function checkboxes(data, e) {
+    console.log('broker data',data);
     console.log(e.target.checked);
-    e.target.checked
-      ? dispatch(updateCheckAllocatedLead([...checkedLead, data]))
-      : dispatch(
-        updateCheckAllocatedLead(
+    e.target.checked? dispatch(updateCheckAllocatedLead_broker([...checkedLead, data])): dispatch(
+        updateCheckAllocatedLead_broker(
           checkedLead?.filter((res) => res.id !== data.id) || []
         )
       );
@@ -78,7 +77,7 @@ const LeadCard = React.memo((props) => {
   }, []);
 
   useEffect(() => {
-    checkedLead.length <= 0 && setChkId("");
+    checkedLead?.length <= 0 && setChkId("");
   }, [checkedLead]);
 
   // const leadComponent =
@@ -285,7 +284,7 @@ const LeadCard = React.memo((props) => {
             type="checkbox"
             checked={
               chkID &&
-              checkedLead.length &&
+              checkedLead?.length &&
               checkedLead?.filter((res) => res.id === chkID).length > 0
             }
             onChange={(e) => checkboxes(props, e)}

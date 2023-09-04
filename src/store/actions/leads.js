@@ -61,7 +61,39 @@ export const fetchAllLeads_broker = (id, leads, pageNo) => {
     }
   };
 };
+export const fetchAllLeads_team = (id, leads, pageNo) => {
+  console.log(id);
+  console.log("pageNo ===== ", pageNo);
+  // const leadFilter = getLeadFilter(leads)
+  let skipVal;
+  pageNo === 1 ? (skipVal = 0) : (skipVal = (pageNo - 1) * 15);
 
+  return async (dispatch) => {
+    dispatch(fetchAllLeadsStart());
+    let result = await axiosRequest.get(
+      `user/v2/getLead/${id}?leadfilter=${leads}&skip=${skipVal}&lob_name=YOUR_VALUE`,
+      { secure: true }
+    );
+    console.log("+++++++++ GET LEAD DATA ++++++++", result);
+    if (result.length > 0) {
+      // dispatch(fetchAllLeadsSuccess(result[0], result[1][0].count));
+      // self.todayLeads.leadsData  = leadSupport.readSortDataFromAPI('all', res.data.errMsg[0], this);
+      dispatch(
+        fetchAllLeadsSuccess(
+          supportLead.readSortDataFromAPI(
+            leads,
+            result === "No leads found" ? [] : result[0],
+            this
+          ),
+          result[1][0].count
+        )
+      );
+    } else {
+      // fetchAllLeadsSuccess([])
+      dispatch(fetchAllLeadsFail());
+    }
+  };
+};
 export const fetchAllLeads = (id, leads, pageNo) => {
   console.log(id);
   console.log("pageNo ===== ", pageNo);
@@ -71,22 +103,6 @@ export const fetchAllLeads = (id, leads, pageNo) => {
 
   return async (dispatch) => {
     dispatch(fetchAllLeadsStart());
-    // return axios.get(`user/v2/getLead/${id}?leadfilter=${leadFilter}&skip=${skipVal}`)
-    //     .then(res => {
-    //         // console.log(res.data.errMsg[1][0].count)
-    //         const response = res.data.errMsg
-    //         const errorCode = res.data.errCode
-    //         if(errorCode===-1){
-
-    //             return dispatch(fetchAllLeadsSuccess(response[0],response[1][0].count))
-    //         }else{
-    //             throw response
-    //         }
-    //     })
-    //     .catch(error => {
-    //         return dispatch(fetchAllLeadsFail(error))
-    //     })
-
     let result = await axiosRequest.get(
       `user/v2/getLead/${id}?leadfilter=${leads}&skip=${skipVal}`,
       { secure: true }
@@ -339,6 +355,7 @@ export const updateTabOfDashboard = (globalTab) => {
 // Action for Allocate satus
 
 export const updateAllocateOfOpportunities = (allocate) => {
+  console.log(allocate,"allocate--");
   return {
     type: actionTypes.UPDATE_ALLCATION_TAB_POSSITION,
     allocateTab: allocate,
@@ -348,6 +365,7 @@ export const updateAllocateOfOpportunities = (allocate) => {
 // Action to store all checked leads
 
 export const updateCheckAllocatedLead = (checkedLead) => {
+  console.log("checklead----------------------->",checkedLead);
   return {
     type: actionTypes.UPDATE_ALLCATED_CHECKED_LEADS,
     checkedLead: checkedLead,

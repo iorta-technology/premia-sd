@@ -35,10 +35,13 @@ const { Option } = Select;
 let _currentTab = "self";
 
 const LeadCards = (props) => {
+  const checkedLead = useSelector((state) => state?.leads?.checkedLead);
+  console.log("checlkfjfjjf",checkedLead);
+  const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
-  // console.warn('userTreeData==========>>>>>>>',userTreeData)
+  console.warn('userTreeData==========>>>>>>>',userTreeData);
 
   // console.warn("leadsData ==========>>>>>>>", leadsData.allLeads);
   // console.log("props lead card ==========>>>>>>>", props)
@@ -59,6 +62,7 @@ const LeadCards = (props) => {
   const [toDateString, setToDateString] = useState("");
   const [toDateFilter, setToDateFilter] = useState("");
   const [leadTabFilter, setLeadTabFilter] = useState("all");
+  const [teamTab, setTeamTab] = useState(false);
   // const [hierarAgentList ,setHierarAgentList]=useState([])
 
   const [cards, setcard] = useState([]);
@@ -88,6 +92,7 @@ const LeadCards = (props) => {
       el.value = el._id;
     });
     setFirstDrop(userTreeData.reporting_hierarchies);
+    console.log(userTreeData,"usertreedataio");
     // setFirstDrop(reporting_hierarchies)
     // console.warn('firstDrop((((((((((===>>>>>>>>>>', firsrDrop)
     // }
@@ -114,7 +119,7 @@ const LeadCards = (props) => {
     let _teamData = userTreeData.reporting_users.filter(
       (el) => el.hierarchy_id === event
     );
-    // console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
+    console.warn('_teamData((((((((((===>>>>>>>>>>', _teamData)
     setSecondDropData(_teamData);
   };
   let toCapitalize = (strText) => {
@@ -382,9 +387,10 @@ const LeadCards = (props) => {
           </div>
         )} */}
       </div>
+      {/* {TeamSelf==false &&
       <div style={{paddingRight:'50px'}}>
         <AllocateModalShow tabSelected={leadTabFilter}/>
-      </div>
+      </div>} */}
       </div>
 
       <div className="dropdown-container lead-ml60">
@@ -439,12 +445,15 @@ const LeadCards = (props) => {
         </div>
         {/* )} */}
       </div>
-
+      {allocateBtnStatus && <div style={{marginLeft:'55px',padding:'5px'}}>
+        <text>"<span style={{color:'#00ACC1',fontWeight:'750'}}>{checkedLead==undefined?0:checkedLead?.length}</span>" Leads got selected <span style={{color:'gray'}}><i>( Assign these Leads by clicking on "Allocate To" button )</i></span></text>
+      </div>}
       <Row
         justify="center"
         gutter={[18, { xs: 8, sm: 10, md: 10, lg: 18 }]}
         className="row-lead"
       >
+      
         {!_.isEmpty(leadsData.allLeads) ? (
           _.map(leadsData.allLeads, (lead, index) => {
             // console.log("---------lead-----", lead);

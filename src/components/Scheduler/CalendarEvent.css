@@ -1,6 +1,18 @@
 .fc .fc-toolbar-title {
   font-size: calc(8px + 1.7vw);
 }
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+.loader .ant-spin-spinning {
+  position: static;
+  /* display: inline-block; */
+  display: flex;
+  opacity: 1;
+}
 .fc .fc-event-title {
   font-weight: bold;
 }

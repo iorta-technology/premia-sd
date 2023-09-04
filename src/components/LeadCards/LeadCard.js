@@ -17,6 +17,7 @@ const LeadCard = React.memo((props) => {
   const dataVal = useSelector((state) => state);
   // console.log("allocateBtnStatus ==== ", dataVal);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
+  // const checkedLead = [];
   const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead);
   const LeadData = useSelector((state) => state?.newLead?.payloadFormData);
 
@@ -46,7 +47,7 @@ const LeadCard = React.memo((props) => {
   const [chkID, setChkId] = useState("");
 
   function checkboxes(data, e) {
-    console.log(e.target.checked);
+    console.log(data,"fj");
     e.target.checked
       ? dispatch(updateCheckAllocatedLead([...checkedLead, data]))
       : dispatch(
@@ -67,7 +68,7 @@ const LeadCard = React.memo((props) => {
   }, []);
 
   useEffect(() => {
-    checkedLead.length <= 0 && setChkId("");
+    checkedLead?.length <= 0 && setChkId("");
   }, [checkedLead]);
 
   // const leadComponent =
@@ -303,7 +304,7 @@ const LeadCard = React.memo((props) => {
             type="checkbox"
             checked={
               chkID &&
-              checkedLead.length &&
+              checkedLead?.length &&
               checkedLead?.filter((res) => res.id === chkID).length > 0
             }
             onChange={(e) => checkboxes(props, e)}

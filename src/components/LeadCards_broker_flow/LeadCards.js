@@ -16,7 +16,7 @@ import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
 import { lobOpportunityItems, months } from "../StatusLead/dataSet";
 import noDataIcon from "../../assets/NoDataFound.png";
-import AllocateModalShow from "../Tab/Allocate";
+import AllocateModalShow from "../Tab/Allocate_Broker";
 // stoageSetter('user', user);
 
 import {
@@ -36,6 +36,9 @@ const { Option } = Select;
 let _currentTab = "self";
 
 const LeadCards = (props) => {
+  const checkedLead = useSelector((state) => state?.leads_broker?.checkedLead);
+  console.log("checkedlead",checkedLead);
+  const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
@@ -551,16 +554,19 @@ const LeadCards = (props) => {
 
         <div style={{ marginRight: '65px', display: 'flex' }}>
           {viewLob &&
-            <div style={{ marginRight: '20px' }}>
+            <div style={{ marginRight: '10px' }}>
               <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
                 View LOB
               </Button>
-            </div>
+            </div> 
           }
           <div>
-          <div>
-            <AllocateModalShow tabSelected={props.leadTabFilter}/>
-          </div>
+            {/* { viewLob
+              &&
+              <div>
+                <AllocateModalShow tabSelected={props.leadTabFilter} />
+              </div>
+            } */}
           </div>
           <div>
             <Button
@@ -579,6 +585,9 @@ const LeadCards = (props) => {
         </div>
 
       </div>
+      {allocateBtnStatus && <div style={{marginLeft:'55px',padding:'10px'}}>
+        <text>"<span style={{color:'#00ACC1'}}>{checkedLead==undefined?0:checkedLead?.length}</span>" Leads got selected <span style={{color:'gray'}}><i>( Assign these Leads by clicking on "Allocate To" button )</i></span></text>
+      </div>}
 
 
 

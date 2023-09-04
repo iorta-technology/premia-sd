@@ -8,12 +8,10 @@ const initialState = {
   fetch_allLeads_Loading: false,
   selected_allLeads: null,
   fetch_allLeads_Error: "",
-
   // lead form meta data
   fetchTeamMemberLoading: false,
   designations: [],
   fetchTeamMemberError: "",
-
   teamMember: {},
   globalTab: "self",
   allocateTab: false,

@@ -213,7 +213,7 @@ export const updateTabOfDashboard = (globalTab) => {
 
 // Action for Allocate satus
 
-export const updateAllocateOfOpportunities = (allocate) => {
+export const updateAllocateOfOpportunities_broker = (allocate) => {
   return {
     type: actionTypes.UPDATE_ALLCATION_TAB_POSSITION,
     allocateTab: allocate,
@@ -222,9 +222,10 @@ export const updateAllocateOfOpportunities = (allocate) => {
 
 // Action to store all checked leads
 
-export const updateCheckAllocatedLead = (checkedLead) => {
+export const updateCheckAllocatedLead_broker = (checkedLead) => {
+  console.log(checkedLead,"checklead");
   return {
     type: actionTypes.UPDATE_ALLCATED_CHECKED_LEADS,
-    checkedLead: checkedLead,
+    checkedLead_broker: checkedLead,
   };
 };

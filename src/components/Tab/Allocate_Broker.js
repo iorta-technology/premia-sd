@@ -1,4 +1,4 @@
-import { Card, Avatar, Button, Modal, Select, Row, Col,Input } from "antd";
+import { Card, Avatar, Button, Modal, Select, Row, Col ,Input} from "antd";
 import React, { useState, useEffect } from "react";
 import "./Tab.css";
 import { getTeamMainTabApi } from "../actions/allleadAction";
@@ -7,7 +7,7 @@ import { UserAddOutlined } from '@ant-design/icons';
 // <UserAddOutlined />
 
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/actions/leads";
+import * as actions from "../../store/actions/leads_broker";
 import axios from "axios";
 import person_black from "./../Activitity Tracker/icons/person_black.png";
 import person_white from "./../Activitity Tracker/icons/person_white.png";
@@ -18,11 +18,11 @@ export const AllocateModal = React.memo((props) => {
   const { id } = stoageGetter("user");
   const [width, setWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log("state------------------>",state);
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
   console.log("checkedlead",checkedLead);
+  const state = useSelector((state) => state);
+  console.log("state-------------->",state);
   const [visible, setVisible] = useState(false);
   const [viewDetails, setviewDetails] = useState("");
   const [cardData, setCardData] = useState([]);
@@ -55,8 +55,8 @@ export const AllocateModal = React.memo((props) => {
   }
   const handleCloseAllocate = () => {
     setVisible(false);
-    dispatch(actions.updateAllocateOfOpportunities(false));
-    dispatch(actions.updateCheckAllocatedLead([]));
+    dispatch(actions.updateAllocateOfOpportunities_broker(false));
+    dispatch(actions.updateCheckAllocatedLead_broker([]));
     setCardData([]);
     // setFirstDrop([]);
     setFirstValue("Select");
@@ -89,8 +89,8 @@ export const AllocateModal = React.memo((props) => {
     console.log('handleallocated ',item);
     let payload = {
       userId: id,
-      Allocated_user_id: item._id,
-      Lead_Id_List: checkedLead.map((res) => ({ _id: res.id })),
+      newOwnerId: item._id,
+      broker_list: checkedLead?.map((res) => ({ _id: res.brokerID })),
       firstName: item.first_name,
       lastName: item.last_name,
       reporting_manager_first_name: "",
@@ -99,7 +99,7 @@ export const AllocateModal = React.memo((props) => {
     };
 
     axiosRequest
-      .put(`user/manualAllocation_lead`, payload, {
+      .put(`user/change-broker-owner`, payload, {
         secure: true,
       })
       .then((res) => {
@@ -107,7 +107,7 @@ export const AllocateModal = React.memo((props) => {
         if (res.length !== 0) {
           handleCloseAllocate();
           setviewDetails("");
-          dispatch(actions.updateCheckAllocatedLead([]));
+          dispatch(actions.updateCheckAllocatedLead_broker([]));
           dispatch(actions.fetchAllLeads(id, props.tabSelected, 1));
         }
       })
@@ -217,7 +217,7 @@ export const AllocateModal = React.memo((props) => {
           //   <figcaption className="card-caption">Allocate To</figcaption>{" "}
           // </figure>
           <button onClick={handleAllocateTo} key={'allocket'} className="allocate_btn">
-            <div className="allocate_btn_inner" >
+            <div className="allocate_btn_inner">
               <UserAddOutlined /> Allocate To
             </div>
           </button>
@@ -242,7 +242,7 @@ export const AllocateModal = React.memo((props) => {
         //   {" "}
         //   <figcaption className="card-caption">Allocate </figcaption>{" "}
         // </figure>
-        <button onClick={() => dispatch(actions.updateAllocateOfOpportunities(true))} className="allocate_btn">
+        <button onClick={() => dispatch(actions.updateAllocateOfOpportunities_broker(true))} className="allocate_btn">
           <div className="allocate_btn_inner">
             <UserAddOutlined style={{ color: '#fff' }} /> Allocate
           </div>
@@ -250,7 +250,7 @@ export const AllocateModal = React.memo((props) => {
       ) : (
         <button
           key={"allocket"}
-          onClick={() => dispatch(actions.updateAllocateOfOpportunities(true))}
+          onClick={() => dispatch(actions.updateAllocateOfOpportunities_broker(true))}
           style={{ color: "#000" }}
           className="tabs_button"
         >
