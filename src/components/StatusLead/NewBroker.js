@@ -61,7 +61,7 @@ const NewLead = React.memo((props) => {
     console.log("🚀 ~ file: NewBroker.js:55 ~ getProducerList ~ result:", result)
     let _producer = [];
 
-    result[0]?.producers.map((el) => {
+    result[0]?.producer.map((el) => {
       let _data = { label: el, value: el };
       _producer.push(_data);
     });
