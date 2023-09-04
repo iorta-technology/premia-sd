@@ -553,13 +553,13 @@ const LeadCards = (props) => {
         </div>
 
         <div style={{ marginRight: '65px', display: 'flex' }}>
-          {viewLob &&
+          {/* {viewLob &&
             <div style={{ marginRight: '10px' }}>
               <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
                 View LOB
               </Button>
             </div> 
-          }
+          } */}
           <div>
             {/* { viewLob
               &&
