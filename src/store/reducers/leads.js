@@ -8,7 +8,6 @@ const initialState = {
   fetch_allLeads_Loading: false,
   selected_allLeads: null,
   fetch_allLeads_Error: "",
-  checklead:[],
   // lead form meta data
   fetchTeamMemberLoading: false,
   designations: [],

@@ -36,8 +36,8 @@ const { Option } = Select;
 let _currentTab = "self";
 
 const LeadCards = (props) => {
-  const checkedLead = useSelector((state) => state?.leads_broker?.checkedLead);
-  console.log("checkedlead",checkedLead);
+  const checkedLead = useSelector((state) => state?.leads?.checkedLead);
+  console.log("checkedLead",checkedLead);
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
@@ -553,20 +553,20 @@ const LeadCards = (props) => {
         </div>
 
         <div style={{ marginRight: '65px', display: 'flex' }}>
-          {/* {viewLob &&
+          {viewLob &&
             <div style={{ marginRight: '10px' }}>
               <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
                 View LOB
               </Button>
             </div> 
-          } */}
+          }
           <div>
-            {/* { viewLob
+            { viewLob
               &&
               <div>
                 <AllocateModalShow tabSelected={props.leadTabFilter} />
               </div>
-            } */}
+            }
           </div>
           <div>
             <Button

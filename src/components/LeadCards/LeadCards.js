@@ -36,7 +36,6 @@ let _currentTab = "self";
 
 const LeadCards = (props) => {
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
-  console.log("checlkfjfjjf",checkedLead);
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
@@ -387,10 +386,10 @@ const LeadCards = (props) => {
           </div>
         )} */}
       </div>
-      {/* {TeamSelf==false &&
+      {TeamSelf==false &&
       <div style={{paddingRight:'50px'}}>
         <AllocateModalShow tabSelected={leadTabFilter}/>
-      </div>} */}
+      </div>}
       </div>
 
       <div className="dropdown-container lead-ml60">

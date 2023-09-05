@@ -17,6 +17,9 @@ const LeadCard = React.memo((props) => {
   const dataVal = useSelector((state) => state);
   // console.log("allocateBtnStatus ==== ", dataVal);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
+  if(checkedLead===undefined){
+    checkedLead=[]
+  }
   // const checkedLead = [];
   const unCheckedLead = useSelector((state) => state?.leads?.unCheckedLead);
   const LeadData = useSelector((state) => state?.newLead?.payloadFormData);

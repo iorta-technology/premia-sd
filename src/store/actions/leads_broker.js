@@ -226,6 +226,6 @@ export const updateCheckAllocatedLead_broker = (checkedLead) => {
   console.log(checkedLead,"checklead");
   return {
     type: actionTypes.UPDATE_ALLCATED_CHECKED_LEADS,
-    checkedLead_broker: checkedLead,
+    checkedLead: checkedLead,
   };
 };
