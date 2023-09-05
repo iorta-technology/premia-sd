@@ -1,4 +1,4 @@
-import { Card, Avatar, Button, Modal, Select, Row, Col ,Input} from "antd";
+import { Card, Avatar, Button, Modal, Select, Row, Col ,Input, message} from "antd";
 import React, { useState, useEffect } from "react";
 import "./Tab.css";
 import { getTeamMainTabApi } from "../actions/allleadAction";
@@ -104,6 +104,7 @@ export const AllocateModal = React.memo((props) => {
       })
       .then((res) => {
         console.warn("res---------->>>>>>>>>>>", res);
+        message.success(res);
         if (res.length !== 0) {
           handleCloseAllocate();
           setviewDetails("");
