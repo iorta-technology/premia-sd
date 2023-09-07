@@ -62,6 +62,7 @@ const LeadCards = (props) => {
   const [toDateFilter, setToDateFilter] = useState("");
   const [leadTabFilter, setLeadTabFilter] = useState("all");
   const [teamTab, setTeamTab] = useState(false);
+  const [allocateBtn, setallocateBtn] = useState(false);
   // const [hierarAgentList ,setHierarAgentList]=useState([])
 
   const [cards, setcard] = useState([]);
@@ -141,6 +142,7 @@ const LeadCards = (props) => {
   };
   const handleSecondDropdown = (event) => {
     // console.warn('event___TEAMM MEMBER((((((((((===>>>>>>>>>>', event)
+    setallocateBtn(true);
     setSecondValue(event);
     stoageSetter("teamMemberId", event);
     dispatch(actions.fetchAllLeads(event, "all", 1));
@@ -161,6 +163,7 @@ const LeadCards = (props) => {
     if(currentTab === "self"){
       setTeamSelf(true)
       getDataForOpen("all");
+      setallocateBtn(false);
     }else{
       setTeamSelf(false);
     }
@@ -177,7 +180,7 @@ const LeadCards = (props) => {
 
     // if (currentTab === "team") getDataForOpen();
     // currentTab !== currentActiveTab &&
-    // dispatch(actions.updateAllocateOfOpportunities(false));
+    // dispatch(actions.updateAllocateOfOpportunites(false));
   };
 
   const getDataForOpen = async (leadInc) => {
@@ -386,7 +389,7 @@ const LeadCards = (props) => {
           </div>
         )} */}
       </div>
-      {TeamSelf==false &&
+      {allocateBtn &&
       <div style={{paddingRight:'50px'}}>
         <AllocateModalShow tabSelected={leadTabFilter}/>
       </div>}

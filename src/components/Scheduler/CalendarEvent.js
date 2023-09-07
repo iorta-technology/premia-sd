@@ -2129,6 +2129,7 @@ export default function CalendarEvent(props) {
 
         if (result.length !== 0) {
           props.callback1();
+          message.success(result);
           // setEvent_created(result.erMsg);
           if (props.api != undefined) {
             props.api();

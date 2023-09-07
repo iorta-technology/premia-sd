@@ -9,6 +9,50 @@
   /* top: 240px; */
   width: 100%;
 }
+.container {
+  width: 100%;
+  max-width: 800px;
+  height: 200px;
+  overflow: scroll;
+  padding: 0 10px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr th {
+  font-size: 15px;
+  padding: 12px;
+  border: 1px solid #eeeeee;
+  text-align: left;
+  background-color: lightgray;
+}
+
+tr td {
+  border: 1px solid #eeeeee;
+  text-align: left;
+}
+.datasource{
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  width: 91%;
+  padding: 12px 12px;
+  /* font-family: 'Poppins', sans-serif; */
+
+}
+input{
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  width: 91%;
+  padding: 12px 12px;
+  /* pointer-events: none; */
+}
+
 .dummy-card-mobile {
   display: none;
 }

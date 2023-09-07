@@ -31,13 +31,14 @@ import {
 
 import { fetchAllLeadsSuccess } from "../../store/actions/leads_broker";
 import { login } from "../../store/actions";
+import { data } from "jquery";
 
 const { Option } = Select;
 let _currentTab = "self";
 
 const LeadCards = (props) => {
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
-  console.log("checkedLead",checkedLead);
+  console.log("checkedLead", checkedLead);
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const leadsData = useSelector((state) => state.leads);
   const loginState = useSelector((state) => state.login);
@@ -68,6 +69,7 @@ const LeadCards = (props) => {
   const [dataSource, setdataSource] = useState([]);
   const [viewLob, setviewLob] = useState(false);
   const [leadTabFilter, setLeadTabFilter] = useState("all");
+  const loginId = useSelector((state) => state?.login?.user?.id);
 
 
   useEffect(() => {
@@ -83,15 +85,16 @@ const LeadCards = (props) => {
     getCompanyDetails();
   }, []);
   const getCompanyDetails = async (lead_id) => {
-    let result = await axiosRequest.get(`user/getproducerdropdown`, {
+    let result = await axiosRequest.get(`user/get-agent-producers?userId=${loginId}`, {
       secure: true,
     });
+    console.warn("result",result);
     let _compArr = [];
     result.map((el) => {
-      let _data = { label: el.producer_name, value: el.producer_name };
+      let _data = { label: el, value: el };
       _compArr.push(_data);
     });
-    // console.log(_compArr,"thjdjfjfhf");
+    console.log(_compArr,"thjdjfjfhf");
     setCompanyArray(_compArr);
 
     userTreeData.reporting_hierarchies.forEach((el) => {
@@ -172,6 +175,7 @@ const LeadCards = (props) => {
   const handleSecondDropdown = (event) => {
     // console.warn('event___TEAMM MEMBER((((((((((===>>>>>>>>>>', event)
     setSecondValue(event);
+    setviewLob(true);
     stoageSetter("teamMemberId", event);
     dispatch(actions.fetchAllLeads_broker(event, "all", 1));
   };
@@ -189,7 +193,7 @@ const LeadCards = (props) => {
       setviewLob(false);
     }
     if (currentTab === "team") {
-      setviewLob(true);
+      // setviewLob(true);
     }
     // console.log("good bye ",currentTab)
     // currentTab === "self" ? setTeamSelf(true) : setTeamSelf(false);
@@ -270,6 +274,7 @@ const LeadCards = (props) => {
   };
   const handleLOB = () => {
     setIsmodalopen(true);
+    // const 
   }
 
   const onChangeFromDate = (date, dateString) => {
@@ -346,30 +351,25 @@ const LeadCards = (props) => {
   //   },
   // ];
 
-  const columns = [
-    {
-      title: 'LOB',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Number of LOBs',
-      dataIndex: 'age',
-      key: 'age',
-    },
-  ];
-  const handleViewLob = () => {
-    let result = axiosRequest.get(`user/get-team-lob-count/63dce7c80ae6868961079fe6?month=${Month}&year=${Year}&producer_name=${Producer}`, {
+  // const columns = [
+  //   {
+  //     title: 'LOB',
+  //     dataIndex: 'name',
+  //     key: 'name',
+  //   },
+  //   {
+  //     title: 'Number of LOBs',
+  //     dataIndex: 'age',
+  //     key: 'age',
+  //   },
+  // ];
+  const handleViewLob = async () => {
+    let result = await axiosRequest.get(`user/get-team-lob-count/63dce7c80ae6868961079fe6?month=${Month}&year=${Year}&producer_name=${Producer}`, {
       secure: true
     })
-    let res = result?.errMsg?.map((item) => {
-      let obj = {}
-      obj['key'] = item._id;
-      obj['name'] = item.lob_for_opportunity;
-      obj['age'] = item.wallet_share;
-      return obj;
-    })
-    setdataSource(res);
+    // console.log(result,'datasource');
+    setdataSource(result);
+    // console.log(dataSource.length,"thtiddhddh");
   }
   const handleDateChange = (val, dateString) => {
     setYear(dateString);
@@ -461,7 +461,7 @@ const LeadCards = (props) => {
                       >
                       </Select>
                     </Col>
-                    <Col style={{ flex: 1, margin: '4px' }}>
+                    <Col style={{ flex: 1, margin: '4px'}}>
                       <p style={{ marginBottom: 2 }}> Producer </p>
                       <Select
                         placeholder="producer"
@@ -503,7 +503,41 @@ const LeadCards = (props) => {
                           </text>
                         </div>
                       </div> :
-                      <Table dataSource={dataSource} columns={columns} />
+                      <div className="container">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>LOB</th>
+                              <th>Wallet Share</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {
+                              dataSource.map((item) => {
+                                return <tr key={item._id}>
+                                  <td> <input
+                                  style={{pointerEvents:"none"}}
+                                  className="datasource"
+                                    name="lob_for_opportunity"
+                                    value={item.lob_for_opportunity}
+                                    type="text"
+                                    placeholder="Type Name"
+                                  /></td>
+                                   <td> <input
+                                   style={{pointerEvents:"none"}}
+                                   className="datasource"
+                                    name="wallet_share"
+                                    value={item.wallet_share}
+                                    type="text"
+                                    placeholder="Type Name"
+                                  /></td>
+                                 
+                                </tr>
+                              })
+                            }
+                          </tbody>
+                        </table>
+                      </div>
                   }
                 </Modal>
               }
@@ -555,13 +589,13 @@ const LeadCards = (props) => {
         <div style={{ marginRight: '65px', display: 'flex' }}>
           {viewLob &&
             <div style={{ marginRight: '10px' }}>
-              <Button style={{ backgroundColor: '#00ACC1', color: '#fff' }} onClick={handleLOB}>
+              <Button style={{ backgroundColor: '#00ACC1', color: '#fff' ,padding:'4px 20px',borderRadius:'4px'}} onClick={handleLOB}>
                 View LOB
               </Button>
-            </div> 
+            </div>
           }
           <div>
-            { viewLob
+            {viewLob
               &&
               <div>
                 <AllocateModalShow tabSelected={props.leadTabFilter} />
@@ -574,8 +608,8 @@ const LeadCards = (props) => {
               style={{
                 backgroundColor: "#3c3d3d",
                 color: "#fff",
-                borderRadius: 2,
-                padding: '15px'
+                borderRadius: '4px',
+                padding: '4px 20px',
               }}
               className="d-flex align-items-center justify-content-center"
             >
@@ -585,8 +619,8 @@ const LeadCards = (props) => {
         </div>
 
       </div>
-      {allocateBtnStatus && <div style={{marginLeft:'55px',padding:'10px'}}>
-        <text>"<span style={{color:'#00ACC1'}}>{checkedLead==undefined?0:checkedLead?.length}</span>" Leads got selected <span style={{color:'gray'}}><i>( Assign these Leads by clicking on "Allocate To" button )</i></span></text>
+      {allocateBtnStatus && <div style={{ marginLeft: '55px', padding: '10px' }}>
+        <text>"<span style={{ color: '#00ACC1' }}>{checkedLead == undefined ? 0 : checkedLead?.length}</span>" Leads got selected <span style={{ color: 'gray' }}><i>( Assign these Leads by clicking on "Allocate To" button )</i></span></text>
       </div>}
 
 

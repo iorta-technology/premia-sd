@@ -92,7 +92,7 @@ const createLeadSuccess = (state, action) => {
     createLeadLoading: false,
     formData: payload,
     payloadFormData: payload,
-    leadId: action.formData._id,
+    leadId: action?.formData?._id,
     // userId:action.formData.userId,
     successMsg: action.succMsg,
   });
@@ -120,7 +120,7 @@ const editLeadSuccess = (state, action) => {
     editLeadLoading: false,
     createLeadLoading: false,
     formData: payload,
-    leadId: action.formData._id,
+    leadId: action?.formData?._id,
     // appointmentData: action.appointmentDetails,
 
     // userId:action.formData[0].userId

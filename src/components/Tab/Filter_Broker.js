@@ -58,7 +58,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     });
 
     // console.log(result.bookappointmentDates,'jtththth')
-    let _dates = result.bookappointmentDates.filter(el => {
+    let _dates = result?.bookappointmentDates?.filter(el => {
       if (el) {
         // console.log('gfhjfjff ', date);
         return el;
@@ -76,7 +76,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     let year = current.year();
     let date = month + '/' + day + '/' + year;
     console.log('date---------->', date);
-    return !(inceptionDates.includes(date));
+    return !(inceptionDates?.includes(date));
   }
 
 
@@ -282,7 +282,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
                   let year = current.year();
                   let date = month + '/' + day + '/' + year;
                   // console.log('INCEPPTTTTTT__DATE-----',date)
-                  if (inceptionDates.includes(date)) {
+                  if (inceptionDates?.includes(date)) {
                     style.color = 'white'
                     style.backgroundColor = '#00acc1';
                   }

@@ -51,7 +51,10 @@ export const AllocateModal = React.memo((props) => {
   }, []);
   const handleDropdown=(event)=>{
     setFirstValue(event);
-    setCardData(userTreeData.reporting_users);
+    let _teamData = userTreeData.reporting_users.filter(
+      (el) => el.hierarchy_id === event
+    );
+    setCardData(_teamData);
   }
   const handleCloseAllocate = () => {
     setVisible(false);
@@ -217,16 +220,17 @@ export const AllocateModal = React.memo((props) => {
           //   {" "}
           //   <figcaption className="card-caption">Allocate To</figcaption>{" "}
           // </figure>
-          <button onClick={handleAllocateTo} key={'allocket'} className="allocate_btn">
+          <button style={{padding:'4px 20px',borderRadius:'4px'}}  onClick={handleAllocateTo} key={'allocket'} className="allocate_btn" >
             <div className="allocate_btn_inner">
               <UserAddOutlined /> Allocate To
             </div>
           </button>
         ) : (
           <button
+          style={{padding:'4px 20px',borderRadius:'4px',color:'#fff'}} 
             key={"allocket active"}
             onClick={handleAllocateTo}
-            style={{ color: "#fff" }}
+            // style={{ color: "#fff" }}
             className="active_tabs_button"
           >
             {/* <img src={person_white} className="person" alt="person_png" /> */}
@@ -243,8 +247,8 @@ export const AllocateModal = React.memo((props) => {
         //   {" "}
         //   <figcaption className="card-caption">Allocate </figcaption>{" "}
         // </figure>
-        <button onClick={() => dispatch(actions.updateAllocateOfOpportunities_broker(true))} className="allocate_btn">
-          <div className="allocate_btn_inner">
+        <button  style={{padding:'4px 20px',borderRadius:'4px'}} onClick={() => dispatch(actions.updateAllocateOfOpportunities_broker(true))} className="allocate_btn">
+          <div className="allocate_btn_inner" >
             <UserAddOutlined style={{ color: '#fff' }} /> Allocate
           </div>
         </button>
@@ -282,10 +286,10 @@ export const AllocateModal = React.memo((props) => {
             ></Select>
           </Col>
           <Col style={{ flex: 1, margin: '2px' }}>
-            <p style={{ marginBottom: 2 }}> Search </p>
+            {/* <p style={{ marginBottom: 2 }}> Search </p>
             <Input
               placeholder="Search"
-              style={{ width: '100%' }}></Input>
+              style={{ width: '100%' }}></Input> */}
           </Col>
         </Row>
         <div style={modelStyle}>
@@ -390,7 +394,7 @@ export const AllocateModal = React.memo((props) => {
                           textTransform: "capitalize",
                         }}
                       >
-                      <span style={{color:'#00ACC1'}}>44</span> <span style={{color:'gray'}}><i>open leads</i></span>
+                      <span style={{color:'#00ACC1'}}>0</span> <span style={{color:'gray'}}><i>open leads</i></span>
                       </p>
                     </div>
                   <div
@@ -412,7 +416,7 @@ export const AllocateModal = React.memo((props) => {
                       View details
                     </Button> */}
                     <Button
-                      style={{ border: '1px solid #00ACC1', color: "#00ACC1", borderRadius: '5px' }}
+                      style={{ border: '1px solid #00ACC1', color: "#00ACC1", borderRadius: '4px',padding:'4px 20px'}}
                       onClick={()=>handleAllocateLead(item)}
                     >
                       Allocate

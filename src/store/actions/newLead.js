@@ -78,6 +78,8 @@ export const editLead_broker = (formData, id) => {
     dispatch(editLeadStart());
     let result = await axiosRequest.put(`user/updateopportunityDetails`, formData, {
       secure: true,
+    }).then((res)=>{
+      message.success(res);
     })
     // console.warn("update LEADDDD_______", result);
     dispatch(fetchLeadDetails_broker(id));
