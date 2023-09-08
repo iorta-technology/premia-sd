@@ -69,6 +69,7 @@ const LeadCards = (props) => {
   const [dataSource, setdataSource] = useState([]);
   const [viewLob, setviewLob] = useState(false);
   const [leadTabFilter, setLeadTabFilter] = useState("all");
+  const [TeamMemberId, setTeamMemberId] = useState('');
   const loginId = useSelector((state) => state?.login?.user?.id);
 
 
@@ -82,10 +83,10 @@ const LeadCards = (props) => {
     if (leadsData?.globalTab === "team") getDataForFirstDropdownTeam();
   }, [leadsData]);
   useEffect(() => {
-    getCompanyDetails();
+    // getCompanyDetails();
   }, []);
-  const getCompanyDetails = async (lead_id) => {
-    let result = await axiosRequest.get(`user/get-agent-producers?userId=${loginId}`, {
+  const getCompanyDetails = async (event) => {
+    let result = await axiosRequest.get(`user/get-agent-producers?userId=${event}`, {
       secure: true,
     });
     console.warn("result",result);
@@ -329,6 +330,7 @@ const LeadCards = (props) => {
     setProducer(val);
   };
   const getSecondDropdownValue = (event) => {
+    console.log('dropdown values',event);
     userTreeData.reporting_users.forEach((el) => {
       el.label = toCapitalize(el.full_name);
       el.value = el._id;
@@ -336,6 +338,7 @@ const LeadCards = (props) => {
     let _teamData = userTreeData.reporting_users.filter(
       (el) => el.hierarchy_id === event
     );
+    console.log(_teamData,"team data users");
     setTeamMember_lob(_teamData);
   }
   // const dataSource = [
@@ -363,8 +366,13 @@ const LeadCards = (props) => {
   //     key: 'age',
   //   },
   // ];
+  const producerDropDownValue=(event)=>{
+    // console.log(event,"producer dropdown");
+    setTeamMemberId(event);
+    getCompanyDetails(event);
+  }
   const handleViewLob = async () => {
-    let result = await axiosRequest.get(`user/get-team-lob-count/63dce7c80ae6868961079fe6?month=${Month}&year=${Year}&producer_name=${Producer}`, {
+    let result = await axiosRequest.get(`user/get-team-lob-count/${TeamMemberId}?month=${Month}&year=${Year}&producer_name=${Producer}`, {
       secure: true
     })
     // console.log(result,'datasource');
@@ -458,6 +466,7 @@ const LeadCards = (props) => {
                         placeholder="team member"
                         style={{ width: '100%' }}
                         options={TeamMember_lob}
+                        onChange={producerDropDownValue}
                       >
                       </Select>
                     </Col>

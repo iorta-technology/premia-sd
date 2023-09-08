@@ -53,9 +53,11 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     // let result = await axiosRequest.get(`user/getInceptionDates?userId=${state.id}`, {
     //   secure: true,
     // });
-    let result = await axiosRequest.get(`user/brokerappointmentdates`, {
+     let result=await axiosRequest.get(`user/brokerappointmentdates`, {
       secure: true,
-    });
+    }).then((res)=>{
+      // message.success(res);
+    })
 
     // console.log(result.bookappointmentDates,'jtththth')
     let _dates = result?.bookappointmentDates?.filter(el => {

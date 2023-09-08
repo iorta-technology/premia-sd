@@ -1,4 +1,4 @@
-import { Card, Avatar, Button, Modal, Select, Row, Col ,Input, message} from "antd";
+import { Card, Avatar, Button, Modal, Select, Row, Col, Input, message } from "antd";
 import React, { useState, useEffect } from "react";
 import "./Tab.css";
 import { getTeamMainTabApi } from "../actions/allleadAction";
@@ -20,9 +20,9 @@ export const AllocateModal = React.memo((props) => {
   const dispatch = useDispatch();
   const allocateBtnStatus = useSelector((state) => state?.leads?.allocateTab);
   const checkedLead = useSelector((state) => state?.leads?.checkedLead);
-  console.log("checkedlead",checkedLead);
+  console.log("checkedlead", checkedLead);
   const state = useSelector((state) => state);
-  console.log("state-------------->",state);
+  console.log("state-------------->", state);
   const [visible, setVisible] = useState(false);
   const [viewDetails, setviewDetails] = useState("");
   const [cardData, setCardData] = useState([]);
@@ -49,7 +49,7 @@ export const AllocateModal = React.memo((props) => {
     // setCardData(userTreeData.reporting_users);
     // console.log("cardData === ", userTreeData);
   }, []);
-  const handleDropdown=(event)=>{
+  const handleDropdown = (event) => {
     setFirstValue(event);
     let _teamData = userTreeData.reporting_users.filter(
       (el) => el.hierarchy_id === event
@@ -88,8 +88,8 @@ export const AllocateModal = React.memo((props) => {
     return manager;
   };
 
-  const handleAllocateLead = (item) => {
-    console.log('handleallocated ',item);
+  const handleAllocateLead = async (item) => {
+    console.log('handleallocated ', item);
     let payload = {
       userId: id,
       newOwnerId: item._id,
@@ -101,37 +101,44 @@ export const AllocateModal = React.memo((props) => {
       reporting_manager_id: item.reporting_manager
     };
 
-    axiosRequest
+    let res = await axiosRequest
       .put(`user/change-broker-owner`, payload, {
         secure: true,
       })
-      .then((res) => {
-        console.warn("res---------->>>>>>>>>>>", res);
-        message.success(res);
-        if (res.length !== 0) {
-          handleCloseAllocate();
-          setviewDetails("");
-          dispatch(actions.updateCheckAllocatedLead_broker([]));
-          dispatch(actions.fetchAllLeads(id, props.tabSelected, 1));
-        }
-      })
-      .catch((err) => console.log(err));
+    .then((res) => {
+    console.warn("res---------->>>>>>>>>>>", res);
+    if (res.length !== 0) {
+      message.success(res);
+      handleCloseAllocate();
+      setviewDetails("");
+      dispatch(actions.updateCheckAllocatedLead_broker([]));
+      dispatch(actions.fetchAllLeads(id, props.tabSelected, 1));
+    }else{
+      message.warn('The brokers are either already mapped to the agent or do not exist in the system');
+      handleCloseAllocate();
+      setviewDetails("");
+      // dispatch(actions.updateCheckAllocatedLead_broker([]));
+      // dispatch(actions.fetchAllLeads(id, props.tabSelected, 1));
+    }
+    })
+    // .catch((err) => console.log(err));
+    // console.log("result------------->",result);
   };
   useEffect(() => {
-  //   axiosRequest
-  //   .get(`user/v2/getleads_team_count/${lead._id}`, {
-  //     secure: true,
-  //   })
-  //   .then((res) => {
-  //     setviewDetails({
-  //       ...lead,
-  //       convertedLead: res.converted,
-  //       open: res.open_lead,
-  //     });
-  //   })
-  //   .catch((err) => console.log(err));
-  // console.log(lead, "lead");
-  // setviewDetails(lead);
+    //   axiosRequest
+    //   .get(`user/v2/getleads_team_count/${lead._id}`, {
+    //     secure: true,
+    //   })
+    //   .then((res) => {
+    //     setviewDetails({
+    //       ...lead,
+    //       convertedLead: res.converted,
+    //       open: res.open_lead,
+    //     });
+    //   })
+    //   .catch((err) => console.log(err));
+    // console.log(lead, "lead");
+    // setviewDetails(lead);
   }, [])
 
 
@@ -220,14 +227,14 @@ export const AllocateModal = React.memo((props) => {
           //   {" "}
           //   <figcaption className="card-caption">Allocate To</figcaption>{" "}
           // </figure>
-          <button style={{padding:'4px 20px',borderRadius:'4px'}}  onClick={handleAllocateTo} key={'allocket'} className="allocate_btn" >
+          <button style={{ padding: '4px 20px', borderRadius: '4px' }} onClick={handleAllocateTo} key={'allocket'} className="allocate_btn" >
             <div className="allocate_btn_inner">
               <UserAddOutlined /> Allocate To
             </div>
           </button>
         ) : (
           <button
-          style={{padding:'4px 20px',borderRadius:'4px',color:'#fff'}} 
+            style={{ padding: '4px 20px', borderRadius: '4px', color: '#fff' }}
             key={"allocket active"}
             onClick={handleAllocateTo}
             // style={{ color: "#fff" }}
@@ -247,7 +254,7 @@ export const AllocateModal = React.memo((props) => {
         //   {" "}
         //   <figcaption className="card-caption">Allocate </figcaption>{" "}
         // </figure>
-        <button  style={{padding:'4px 20px',borderRadius:'4px'}} onClick={() => dispatch(actions.updateAllocateOfOpportunities_broker(true))} className="allocate_btn">
+        <button style={{ padding: '4px 20px', borderRadius: '4px' }} onClick={() => dispatch(actions.updateAllocateOfOpportunities_broker(true))} className="allocate_btn">
           <div className="allocate_btn_inner" >
             <UserAddOutlined style={{ color: '#fff' }} /> Allocate
           </div>
@@ -305,7 +312,7 @@ export const AllocateModal = React.memo((props) => {
               overflowY: "auto",
             }}
           >
-          <div>Members ({cardData.length})</div>
+            <div>Members ({cardData.length})</div>
             {cardData?.map((item, ind) => {
               return (
                 <div
@@ -387,16 +394,16 @@ export const AllocateModal = React.memo((props) => {
                     </div> */}
                   </div>
                   <div>
-                      <p
-                        style={{
-                          marginBottom: 0,
-                          fontWeight: "500",
-                          textTransform: "capitalize",
-                        }}
-                      >
-                      <span style={{color:'#00ACC1'}}>0</span> <span style={{color:'gray'}}><i>open leads</i></span>
-                      </p>
-                    </div>
+                    <p
+                      style={{
+                        marginBottom: 0,
+                        fontWeight: "500",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      <span style={{ color: '#00ACC1' }}>0</span> <span style={{ color: 'gray' }}><i>open leads</i></span>
+                    </p>
+                  </div>
                   <div
                     style={{
                       display: "flex",
@@ -416,8 +423,8 @@ export const AllocateModal = React.memo((props) => {
                       View details
                     </Button> */}
                     <Button
-                      style={{ border: '1px solid #00ACC1', color: "#00ACC1", borderRadius: '4px',padding:'4px 20px'}}
-                      onClick={()=>handleAllocateLead(item)}
+                      style={{ border: '1px solid #00ACC1', color: "#00ACC1", borderRadius: '4px', padding: '4px 20px' }}
+                      onClick={() => handleAllocateLead(item)}
                     >
                       Allocate
                     </Button>
