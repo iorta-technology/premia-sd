@@ -109,12 +109,17 @@ export const AllocateModal = React.memo((props) => {
       })
       .then((res) => {
         console.warn("res---------->>>>>>>>>>>", res);
-        message.success(res);
+        // message.success(res);
         if (res.length !== 0) {
+          message.success(res);
           handleCloseAllocate();
           setviewDetails("");
           dispatch(actions.updateCheckAllocatedLead([]));
           dispatch(actions.fetchAllLeads(id, props.tabSelected, 1));
+        }else{
+          message.warn("The leads are either already mapped to the agent or do not exist in the system");
+          handleCloseAllocate();
+          setviewDetails("");
         }
       })
       .catch((err) => console.log(err));
