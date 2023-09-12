@@ -500,7 +500,7 @@ const LeadCards = (props) => {
                     </Col>
 
                     <Col style={{ flex: 1, margin: '4px', width: '100%' }}>
-                      <Button style={{ marginTop: '22px', background: '#3b371e', color: '#fff' }} onClick={handleViewLob}>View Lob</Button>
+                      <Button style={{ marginTop: '22px', background: '#3b371e', color: '#fff' }} onClick={handleViewLob}>VIEW LOB</Button>
                     </Col>
                   </Row>
                   {
