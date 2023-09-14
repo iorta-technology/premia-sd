@@ -156,6 +156,7 @@ const OpportunityComp = (props) => {
     
     const changeDispoStatus = (event) => {
       console.log('disposition status',event);
+      
         setFormItem((res) => ({ ...res,disposition: event }));
         setShowLeadSubDisposition(true);
         if (event === "leadconverted") {

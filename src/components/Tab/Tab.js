@@ -225,20 +225,18 @@ const Tab = ({
     openTodoPopup();
   };
   const handlePdfClick_company = async () => {
-    message.success('Your Download is in progress')
+    message.warn('Your Download is in progress')
     let result = await axiosRequest.get(`admin/company/company-intelligence-pdf/${id}`, {
       secure: true
-    }).then((res)=>{
-      window.open(res);
     })
+    window.open(result[0].link);
   }
   const handlePdfClick_Broker = async () => {
-    message.success('Your Download is in progress')
+    message.warn('Your Download is in progress')
     let result = await axiosRequest.get(`user/get-broker-pdf/${id}`, {
       secure: true
-    }).then((res)=>{
-      window.open(res);
     })
+    window.open(result[0].link);
   }
 
   return (

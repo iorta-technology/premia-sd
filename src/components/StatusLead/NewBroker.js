@@ -52,13 +52,13 @@ const NewLead = React.memo((props) => {
   useEffect(() => {
     setFormItem((res) => ({ ...res, brokerCity: login_city }));
     form.setFieldsValue({ broker_city: login_city });
-    getProducerList()
+    getProducerList();
   }, [props]);
 
   const getProducerList = async () => {
     let result = await axiosRequest.get(`user/getproducer`, {secure: true });
     // console.log('getLocationDetails-------',result)
-    console.log("🚀 ~ file: NewBroker.js:55 ~ getProducerList ~ result:", result)
+    console.log("🚀 ~ file: NewBroker.js:55 ~ getProducerList ~ result:", result);
     let _producer = [];
 
     result[0]?.producers.map((el) => {

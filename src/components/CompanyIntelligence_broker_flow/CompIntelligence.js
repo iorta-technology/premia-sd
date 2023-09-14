@@ -228,11 +228,28 @@ const CompanyIntelligence = React.memo((props) => {
 
         _appntTime = `${_appTime[0]}:${_appTime[1]} ${_appTimeAm[1]}`
       }
+      let val=leadData?.producerDisposition;
+      if(val==='appointment'){
+        val='Appointment';
+      }else if(val==='notinterested'){
+        val='Not Interested';
+      }else if(val==='noteligible'){
+        val='Not Eligible';
+      }else if(val==='interested'){
+        val='Interested';
+      }
+      else if(val==='callback'){
+        val='Callback'
+      }else if(val==='leadconverted'){
+        val='Converted';
+      }else{
+        val='-'
+      }
       let _opportunity = {
         appointmentDate: leadData?.appointmentDate == null ? '-' : _appntDate,
         appointmentTime: leadData?.appointmentTime == null ? '-' : _appntTime,
         leadStatus: leadData?.leadStatus==null?'-':leadData.leadStatus,
-        leadDisposition:leadData?.producerDisposition==null?'-':leadData.producerDisposition,
+        leadDisposition:val,
         leadsubDisposition:leadData?.producersubDisposition==null?'-':leadData.producersubDisposition,
       }
       setOpportunityDetails(_opportunity)
