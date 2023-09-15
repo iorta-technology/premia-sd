@@ -316,7 +316,7 @@ const Datescheduler = () => {
 	}
 	const ExternalViewSwitcher = ({currentViewName,onChange,}) => (
 		<div className="parent">
-			<div className="event-heading">Events Calender </div>
+			<div className="event-heading">Events Calendar </div>
 			<div className="buttons">
 				<RadioGroup
 					aria-label="Views"

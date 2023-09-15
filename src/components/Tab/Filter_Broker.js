@@ -55,17 +55,17 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     // });
      let result=await axiosRequest.get(`user/brokerappointmentdates`, {
       secure: true,
-    }).then((res)=>{
-      // message.success(res);
     })
 
-    // console.log(result.bookappointmentDates,'jtththth')
+
+    // console.log(result?.bookappointmentDates,'jtththth')
     let _dates = result?.bookappointmentDates?.filter(el => {
       if (el) {
         // console.log('gfhjfjff ', date);
         return el;
       }
     });
+    console.log(_dates,"this is the dates");
     setInceptionDates(_dates);
   }
   //disabling dates
