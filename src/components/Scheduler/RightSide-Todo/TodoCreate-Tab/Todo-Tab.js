@@ -27,6 +27,7 @@ const TodoTab = (props) => {
   useEffect(() => {
     // console.warn("PROPSSSSSSS---HEREE-----------", props);
     getCompanyDetails();
+    producer_details();
     if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
       // console.warn("PROPSSSSSSS--------------", props?.company_Name);
       setTodoCompName(props?.company_Name)
@@ -55,7 +56,9 @@ const TodoTab = (props) => {
   const [todoCompId, setTodoCompId] = useState("");
   const [todoOpporId, settodoOpporId] = useState("");
   const [companyArray, setCompanyArray] = useState([]);
+  const [BrokerArray, setBrokerArray] = useState([]);
   const [opportunityNameArray, setOpportunityNameArray] = useState([]);
+  const [Company, setCompany] = useState(true);
 
   const _dataStore = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
@@ -117,19 +120,27 @@ const TodoTab = (props) => {
 
   useEffect(() => {
     try {
-      // console.log('I AM HEREEEE____CHIPPP',props);
+      console.log('I AM HEREEEE____CHIPPP',props);
       // changeCompanyName(props?.company_Name,props?.companyID)
       // console.log('Calling func',Object.keys(props.editData));
       if (props.button === "Create" && props.isModalVisible === true) {
         setButtonName(props.button);
         clearData();
       }
+     
 
       if (props.button === "Update" && props.isModalVisible === true)
         setButtonName(props.button);
 
       if ( Object.keys(props.editData).length !== 0 || props.editData !== undefined) {
         // console.log('I AM HEREEEE____CHIPPP',props);
+        if(props.editData.companyName===undefined){
+          setCompany(false);
+          setTodoCompName(props?.editData?.wholeData?.producerId?.producer_name);
+        }else{
+          setCompany(true);
+          setTodoCompName(props?.editData?.companyName);
+        }
         let _teamMember = props.editData.searchdata.map((el) => {
           return toCapitalize(el.FullName) + " " + "(" + el.designation + ")";
         });
@@ -153,12 +164,10 @@ const TodoTab = (props) => {
           setIsMediumButtonClick(true);
           setIsLowButtonClick(false);
         }
-
-        setTodoCompName(props?.editData?.companyName)
-        setTodoOpportunityName(props?.editData?.opportunityName)
-
-        setPriorityBtn(props.editData.taskPriority);
-        setPriorityBtnColr(props.editData.priorityIndicatorColor);
+       
+        setTodoOpportunityName(props?.editData?.opportunityName);
+        setPriorityBtn(props?.editData?.taskPriority);
+        setPriorityBtnColr(props?.editData?.priorityIndicatorColor);
         setReminderDate(_data);
         setReminderDateString(
           moment(props.editData.dateofreminder).format("YYYY-MM-DD")
@@ -198,6 +207,7 @@ const TodoTab = (props) => {
     let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
     });
+   
     // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
     if (result.length > 0) {
       let _compArr = [];
@@ -661,6 +671,20 @@ const TodoTab = (props) => {
     setTodoOpportunityName(data.label)
 
   }
+  const producer_details=async()=>{
+    let result = await axiosRequest.get(`user/getproducerdropdown`, {
+      secure: true,
+    });
+    console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+    if (result.length > 0) {
+      let _compArr = [];
+      result.map((el) => {
+        let _data = { value: el?.producer_name, label: el?.producer_name, _id: el._id };
+        _compArr.push(_data);
+      });
+      setBrokerArray(_compArr);
+    }
+  }
 
   const changeCompanyName = async (value, compId) => {
     // console.log("COMPANY NAMEE --------------", value);
@@ -693,7 +717,7 @@ const TodoTab = (props) => {
         <div className="Todo-Create-Container">
           <div className="" style={{ backgroundColor: '#fff' }}>
             <Row style={{ marginBottom: 10 }}>
-              <Col style={{ flex: 1 }}>
+             {Company? <Col style={{ flex: 1,width:'100%' }}>
                 <p style={{ marginBottom: 5 }}> Company Name </p>
                 <Select
                   placeholder="Select"
@@ -703,7 +727,29 @@ const TodoTab = (props) => {
                   disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
                   onChange={(val, data) => changeCompanyName(val, data._id)}
                 ></Select>
-              </Col>
+              </Col>:
+              <Col style={{ flex: 1,width:'100%' }}>
+                <p style={{ marginBottom: 5 }}> Broker Name </p>
+                <Select
+                  placeholder="Select"
+                  style={{ width: '100%' }}
+                  options={companyArray}
+                  value={todoCompName || undefined}
+                  disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
+                  onChange={(val, data) => changeCompanyName(val, data._id)}
+                ></Select>
+              </Col>}
+              {/* <Col style={{ flex: 1,marginLeft:'10px',width:'100%' }}>
+                <p style={{ marginBottom: 5 }}> Broker Name </p>
+                <Select
+                  placeholder="Select"
+                  style={{ width: '100%' }}
+                  options={BrokerArray}
+                  value={todoCompName || undefined}
+                  disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
+                  onChange={(val, data) => changeCompanyName(val, data._id)}
+                ></Select>
+              </Col> */}
               <Col style={{ flex: 1,marginLeft: 15 }}></Col>
 
               {/* <Col style={{ flex: 1, marginLeft: 10 }}>

@@ -720,7 +720,7 @@ const CompanyIntelligence = React.memo((props) => {
                       <Row justify="space-between" style={{ alignItems: 'center', padding: '10px 120px 10px 10px' }}>
                         <Row>
                         <Col style={{flex:1}}>
-                            <p className="text-font">{element.lob_month}</p>
+                            <p className="text-font" style={{textTransform:'capitalize'}}>{element.lob_month}</p>
                             <p className="label-font">Month</p>
                           </Col>
                         </Row>

@@ -108,7 +108,7 @@ const RiskDetails = (props) => {
 
   useEffect(() => {
     let _dataArr = [];
-    // console.log('risk data set',props.riskDataSet);
+    console.log('risk data set',props.riskDataSet);
     if (Object.keys(props.riskDataSet).length > 0) {
       setRiskType('update')
       // let _InceptnDateFormat = !props.riskDataSet.inception_date ? "" :  moment(props.riskDataSet.inception_date).format('MM/DD/YYYY');
@@ -119,11 +119,13 @@ const RiskDetails = (props) => {
       setYear(!props.riskDataSet.lob_year?"":props.riskDataSet.lob_year);
       setId(!props.riskDataSet._id?null:props.riskDataSet._id);
       // setEditRiskId(props.riskDataSet._id)
+      let month=props.riskDataSet.lob_month;
+      const str2 = month.charAt(0).toUpperCase() + month.slice(1);
       form.setFieldsValue({
         _id:props?.riskDataSet._id,
         nameOfentity: !props.riskDataSet.wallet_share ? "-" : props.riskDataSet.wallet_share,
         lob_for_opportunity:!props.riskDataSet.lob_for_opportunity ? "" : props.riskDataSet.lob_for_opportunity,
-        lob_month:!props.riskDataSet.lob_month?"":props.riskDataSet.lob_month,
+        lob_month:!props.riskDataSet.lob_month?"":str2,
         lob_year:!props.riskDataSet.lob_year?"":moment(props.riskDataSet.lob_year)
       });   
     }else{
@@ -322,7 +324,6 @@ const RiskDetails = (props) => {
         tagicPresence: !tagicPresence ? "0" : tagicPresence,
         leadInsurer: !leadInsurerData ? "-" : leadInsurerData,
         leaderShare: !leaderShareData ? "0" : leaderShareData,
-
         tagicPremium: !tagicPremium ? "" : tagicPremium,
         leaderFollower: !leadrFollowerData ? "" : leadrFollowerData,
         inceptionDate: !inceptionDateData ? "" : inceptionDateData,
@@ -345,20 +346,25 @@ const RiskDetails = (props) => {
     let _riskDetailsData = [];
     let form_data={};
     if(riskType=='update'){
+      let date=new Date().getFullYear();
+      date=date.toString();
+
        form_data = {
         _id:id,
         wallet_share: !noOfEntities ? null : noOfEntities,
         lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
         lob_month:!month?null:month,
-        lob_year:!year?null:year,
+        lob_year:date,
         producer_name:_StoreData.producerdetails.raw_producer_name
       };
     }else{
+      let date=new Date().getFullYear();
+      date=date.toString();
      form_data = {
       wallet_share: !noOfEntities ? null : noOfEntities,
       lob_for_opportunity: !LOBForOpportunity ? null : LOBForOpportunity,
       lob_month:!month?null:month,
-      lob_year:!year?null:year,
+      lob_year:date,
       producer_name:_StoreData.producerdetails.raw_producer_name
     };
   }
@@ -370,13 +376,28 @@ const RiskDetails = (props) => {
     
     // console.warn("formBody ------>>>>>", formBody);
     if(riskType === 'create'){
-      let result = await axiosRequest.post(`user/addupdatelobwallet?userId=${user_id}&producer_id=${_StoreData.producer_id}`,formBody,{ secure: true });
+     let result =await axiosRequest.post(`user/addupdatelobwallet?userId=${user_id}&producer_id=${_StoreData.producer_id}`,formBody,{ secure: true });
+     console.log(result);
+    
       dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
-      message.success("Wallet Details Created Successfully");
+      // if(result[0].link!==undefined){
+      //   message.warn(result[0].link);
+      // }
+      if(Object.keys(result).length!=0){
+        message.success("Wallet Details Created Successfully");
+      }
+      // message.success("Wallet Details Created Successfully");
     }else{
       let result = await axiosRequest.post(`user/addupdatelobwallet?userId=${user_id}&producer_id=${_StoreData.producer_id}`,formBody,{ secure: true });
       dispatch(actions.fetchLeadDetails_broker(_StoreData._id));
-      message.success("Wallet Details Updated Successfully");
+     
+      // if(result[0].link!==undefined){
+      //   message.warn(result[0].link);
+      // }
+      if(Object.keys(result).length!=0){
+        message.success("Wallet Details Updated Successfully");
+      }
+      
     }
     props.setShowRiskModal(false);
   };
@@ -415,6 +436,8 @@ const RiskDetails = (props) => {
   };
 
   const addNewRiskDetails = () => {
+    let year=new Date().getFullYear().toString();
+    // console.log('current year ',moment(year));
     setShowRiskDetailsPopup(true);
     setNoOfEntities("");
     setProductNameData("");
@@ -427,7 +450,7 @@ const RiskDetails = (props) => {
     setInceptionDateData("");
     setEditIndex("");
     setPanNo("");
-    setYear("");
+    setYear('');
     setMonth("");
     setLOBForOpportunity("");
     setProductForOpportunity("");
@@ -447,7 +470,7 @@ const RiskDetails = (props) => {
       lob_for_opportunity:'' || undefined,
       product_for_opportunity:'' || undefined,
       lob_month:''||undefined,
-      lob_year:''||undefined
+      lob_year:moment(year)
     });
   };
 
@@ -577,7 +600,7 @@ const RiskDetails = (props) => {
                   label="year"
                   style={{ marginBottom: "1rem" }}
                 >
-                 <DatePicker picker="year" style={{ width: '100%' }} value={year} onChange={(val)=>handleYearChange(val)}/>
+                 <DatePicker picker="year" disabled={true} style={{ width: '100%' }} value={year} onChange={(val)=>handleYearChange(val)}/>
                 </Form.Item>
               </Col>
         

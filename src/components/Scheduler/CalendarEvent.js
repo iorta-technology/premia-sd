@@ -71,6 +71,8 @@ export default function CalendarEvent(props) {
   const [opportunityNameArray, setOpportunityNameArray] = useState([]);
   const [event_For, setEvent_For] = useState(false);
   const [ResMsg, setResMsg] = useState('');
+  const [EmailArray, setEmailArray] = useState([]);
+  const [Email, setEmail] = useState('');
 
 
   const [durationButton, setDurationButton] = useState({
@@ -185,7 +187,7 @@ export default function CalendarEvent(props) {
       getCompanyDetails();
       // getTeamDetails();
     } catch (err) { }
-  }, []);
+  }, [event_For]);
 
   const getTeamDetails = async (searchtxt) => {
     let result = await axiosRequest.get(`user/emails?value=${searchtxt}`, { secure: true });
@@ -1121,6 +1123,17 @@ export default function CalendarEvent(props) {
     setOwnerCollectn(_arrayOwner);
     let _array = teamMemberChip.filter((item, index) => index !== ind);
     setTeamMemberChip(_array);
+  };
+  const removeEmailMember = (data, ind) => {
+    // console.log('removeTeamMember', data);
+    // console.log('ownerCollectn=====>>', ownerCollectn);
+    let _arrayOwner = EmailArray.filter(
+      (item, index) => item.value !== data
+    );
+    console.log(_arrayOwner, "after removing");
+    setEmailArray(_arrayOwner);
+    let _array = EmailArray.filter((item, index) => index !== ind);
+    setEmailArray(_array);
   };
 
   const onChangeOpp = (text, data) => {
@@ -2239,8 +2252,14 @@ export default function CalendarEvent(props) {
             //   API = "user/bookAppointment?event_for=broker"
             // }
             // return
+            let emails=EmailArray.map((item)=>{
+              return {
+                'value':item
+              }
+            })
             message.warn('Appointment booking is in progress');
             props.setIsModalVisible(false);
+            
             let API = event_For == true ? "user/bookAppointment?event_for=broker" : "user/bookAppointment"
             let result = await axiosRequest.post(API,
               {
@@ -2284,6 +2303,7 @@ export default function CalendarEvent(props) {
                 end_date: durationEndDateOperation,
                 end_time: durationEndTimeOperation,
                 teamMember: _ownerCollectn,
+                // email_array:emails,
                 statusType: statusType.openStatus == true ? "open" : "close",
                 statusreason: statusReasonText,
                 manuallycustomerAdded: addManuallyButtonCheck ? true : false,
@@ -2330,6 +2350,11 @@ export default function CalendarEvent(props) {
           teammemberclone = [...new Set(teammemberclone)];
           message.warn(' Appointment Booking is in Progress..');
           props.setIsModalVisible(false);
+          let emails=EmailArray.map((item)=>{
+            return {
+              'value':item
+            }
+          })
           let API = event_For == true ? "user/bookAppointment?event_for=broker" : "user/bookAppointment"
           let result = await axiosRequest.post(API,
             {
@@ -2373,6 +2398,7 @@ export default function CalendarEvent(props) {
               end_date: durationEndDateOperation,
               end_time: durationEndTimeOperation,
               teamMember: _ownerCollectn,
+              // email_array:emails,
               statusType: statusType.openStatus == true ? "open" : "close",
               statusreason: statusReasonText,
               manuallycustomerAdded: addManuallyButtonCheck ? true : false,
@@ -3109,9 +3135,25 @@ export default function CalendarEvent(props) {
 
 
   const getCompanyDetails = async (lead_id) => {
+    if(event_For==true){
+      let result = await axiosRequest.get(`user/getproducerdropdown`, {
+        secure: true,
+      });
+      if (result.length > 0) {
+        let _compArr = [];
+        result.map((el) => {
+          let _data = { value: el?.producer_name, label: el?.producer_name, _id: el._id };
+          _compArr.push(_data);
+        });
+        setCompanyArray(_compArr);
+        // setTodoCompName(_compArr[0].value);
+        // setTodoCompId(_compArr[0]._id);
+      }
+    }else{
     let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
     });
+  
     // console.warn("__++++++COMPANY++++++++ RESPPPP", result);
 
     if (result.length > 0) {
@@ -3143,33 +3185,19 @@ export default function CalendarEvent(props) {
           });
           setTodoCompName(finalarrofcmpany[0].value);
           setTodoCompId(props.Data.company_id);
-          // setOpportunityNameArray([])
-
-          // let _opportunityAPI = await axiosRequest.get(
-          //   `user/opportunity/distinct/opportunity_names?company_id=${props.Data.company_id}`,
-          //   {
-          //     secure: true,
-          //   }
-          // );
-          // // console.warn('__++++++OPPORTUNITYYYYY++++++++ RESPPPP',_opportunityAPI)
-          // let _opporArr = [];
-          // _opportunityAPI.map((el) => {
-          //   let _data = { label: el.opportunity_name, value: el._id, _id: el._id };
-          //   _opporArr.push(_data);
-          // });
-          // setOpportunityNameArray(_opporArr);
-          // console.log(_opporArr, "opp array---->");
-          // if (_opporArr.length > 0) {
-          //   let finalarrofOpp = _opporArr.filter((item) => {
-          //     return item._id == props.Data.leadId._id;
-          //   });
-          //   settodoOpporId(finalarrofOpp[0].value);
-          //   setTodoOpportunityName(finalarrofOpp[0].label);
-          // }
         }
       }
     }
+  }
   };
+  const handleEmailChange=(e)=>{
+    setEmail(e.target.value);
+  }
+  const handleEmailClick=()=>{
+    console.log("clicked email");
+    setEmailArray(EmailArray=>[...EmailArray,Email]);
+    setEmail('');
+  }
 
   return (
     <div className="CalendarEvent-main-class">
@@ -3559,7 +3587,7 @@ export default function CalendarEvent(props) {
 
             <Row style={{ marginBottom: 10 }}>
               <div className="CalendarEvent-Modal-Card-vertical-line"></div>
-              <Col style={{ flex: 1 }}>
+              {event_For==false?<Col style={{ flex: 1 }}>
                 <p className="CalendarEvent-Modal-Card-header-type" style={{ marginBottom: 0 }}> Company Name </p>
                 <Select
                   placeholder="Select"
@@ -3570,7 +3598,20 @@ export default function CalendarEvent(props) {
                   disabled={updateEventCheck == true ? true : false}
                   onChange={(val, data) => changeCompanyName(val, data._id)}
                 ></Select>
-              </Col>
+              </Col>:
+              <Col style={{ flex: 1 }}>
+              <p className="CalendarEvent-Modal-Card-header-type" style={{ marginBottom: 0 }}> Broker Name </p>
+              <Select
+                placeholder="Select"
+                style={{ width: "48%", border: 'none', color: '#666767' }}
+                className="CalendarEvent-Modal-TimePicker-style"
+                options={companyArray}
+                value={todoCompName}
+                disabled={updateEventCheck == true ? true : false}
+                onChange={(val, data) => changeCompanyName(val, data._id)}
+              ></Select>
+            </Col>
+              }
 
               {/* <Col style={{ flex: 1, marginLeft: 10 }}>
                 <p style={{ marginBottom: 5 }}> Client Name </p>
@@ -4309,8 +4350,8 @@ export default function CalendarEvent(props) {
           }
 
           <div className="CalendarEvent-Modal-Card-vertical-line"></div>
-
-
+          <div style={{display:'flex'}}>
+            <div style={{flex:'1'}}>
           <h4 className="CalendarEvent-Modal-Card-header-type">
             Add Team Member
           </h4>
@@ -4384,6 +4425,55 @@ export default function CalendarEvent(props) {
               })}
             </div>
           )}
+          </div>
+          <div style={{flex:'1',padding:'5px'}}></div>
+          {/* <div style={{flex:'1',padding:'5px'}}>
+          <h4 className="CalendarEvent-Modal-Card-header-type">
+            Add Email
+          </h4>
+          <div className="Todo-Create-Search calSearch" >
+          <Input onChange={handleEmailChange} onPressEnter={handleEmailClick} value={Email}/>
+          {
+            EmailArray.map((item,index)=>{
+              return <div style={{ marginRight: 10, marginTop: 10,display:'flex' }}>
+                {updateEventCheck == true ? (
+                      <Button
+                        size="small"
+                        type="primary"
+                        style={{
+                          backgroundColor: "#00ACC1",
+                          border: "none",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                        shape="round"
+                      >
+                        {item.value}{" "}
+                      </Button>
+                    ) : (
+                      <Button
+                        size="small"
+                        type="primary"
+                        style={{
+                          backgroundColor: "#00ACC1",
+                          border: "none",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                        shape="round"
+                      >
+                        {item}{" "}
+                        <CloseOutlined
+                          onClick={() => removeEmailMember(item, index)}
+                        />
+                      </Button>
+                    )}{" "}
+                </div>
+            })
+          }
+          </div>
+          </div> */}
+          </div>
           {/* <div className="CalendarEvent-Modal-Search-flex">
             <Search placeholder="Search By Name" 
             disabled={updateEventCheck?true:false}

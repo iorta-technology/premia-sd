@@ -24,7 +24,7 @@ export const lobOpportunityItems = [
   ];
  export const months = 
   [
-    { label: "january", value: "January" },
+    { label: "January", value: "January" },
     { label: "February", value: "February" },
     { label: "March", value: "March" },
     { label: "April", value: "April" },

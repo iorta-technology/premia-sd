@@ -69,6 +69,7 @@ export function OffCanvasForGlobalFilter({ ...props }) {
     if (month < 10) month = '0' + month;
     let year = current.year();
     let date = month + '/' + day + '/' + year;
+    // console.log(current,"this is the current date");
     return !(inceptionDates.includes(date));
   }
 
@@ -76,11 +77,12 @@ export function OffCanvasForGlobalFilter({ ...props }) {
 
 
   const getCompanyDetails = async (lead_id) => {
-    let result = await axiosRequest.get(`admin/company/companies`, {
+    let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
       secure: true,
     });
     let _compArr = [];
-    result.companies.map((el) => {
+    console.log(result,"company distinct");
+    result[0].company_id.map((el) => {
       let _data = { label: el.company_name, value: el._id };
       _compArr.push(_data);
     });

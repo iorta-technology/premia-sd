@@ -27,15 +27,15 @@ import {
     useEffect(() => {
       // console.warn("PROPSSSSSSS---HEREE-----------", props);
       getCompanyDetails();
-      // if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
-        // console.warn("PROPSSSSSSS--------------", props?.producerName);
-        setTodoCompName(props?.producerName)
+    //   producer_details();
+      if (props.hasOwnProperty('company_Name') && props.hasOwnProperty('companyID')) {
+        // console.warn("PROPSSSSSSS--------------", props?.company_Name);
+        setTodoCompName(props?.company_Name)
         setTodoCompId(props?.companyID)
         // setTodoOpportunityName(props?.opportunity_Name)
         // if(props?.company_Name) changeCompanyName(props?.company_Name,props?.companyID)
-      // }
-    }, [props?.producerName])
-
+      }
+    }, [props.company_Name])
   
     const [isHighButtonClick, setIsHighButtonClick] = useState(false);
     const [isMediumButtonClick, setIsMediumButtonClick] = useState(false);
@@ -56,7 +56,12 @@ import {
     const [todoCompId, setTodoCompId] = useState("");
     const [todoOpporId, settodoOpporId] = useState("");
     const [companyArray, setCompanyArray] = useState([]);
+    const [BrokerArray, setBrokerArray] = useState([]);
     const [opportunityNameArray, setOpportunityNameArray] = useState([]);
+    const [Company, setCompany] = useState(true);
+    const [FirstRadio, setFirstRadio] = useState(true);
+    const [DropDown, setDropDown] = useState(true);
+    const [SecondRadio, setSecondRadio] = useState(false);
   
     const _dataStore = useSelector((state) => state?.home?.user_tree);
     const _reportManager = useSelector((state) => state?.login?.reportingManager);
@@ -118,19 +123,27 @@ import {
   
     useEffect(() => {
       try {
-        // console.log('I AM HEREEEE____CHIPPP',props);
+        console.log('I AM HEREEEE____CHIPPP',props);
         // changeCompanyName(props?.company_Name,props?.companyID)
         // console.log('Calling func',Object.keys(props.editData));
         if (props.button === "Create" && props.isModalVisible === true) {
           setButtonName(props.button);
           clearData();
         }
+       
   
         if (props.button === "Update" && props.isModalVisible === true)
           setButtonName(props.button);
   
         if ( Object.keys(props.editData).length !== 0 || props.editData !== undefined) {
           // console.log('I AM HEREEEE____CHIPPP',props);
+          if(props.editData.companyName===undefined){
+            setCompany(false);
+            setTodoCompName(props?.editData?.wholeData?.producerId?.producer_name);
+          }else{
+            setCompany(true);
+            setTodoCompName(props?.editData?.companyName);
+          }
           let _teamMember = props.editData.searchdata.map((el) => {
             return toCapitalize(el.FullName) + " " + "(" + el.designation + ")";
           });
@@ -154,10 +167,10 @@ import {
             setIsMediumButtonClick(true);
             setIsLowButtonClick(false);
           }
-          setTodoCompName(props?.producerName);
+         
           setTodoOpportunityName(props?.editData?.opportunityName);
-          setPriorityBtn(props.editData.taskPriority);
-          setPriorityBtnColr(props.editData.priorityIndicatorColor);
+          setPriorityBtn(props?.editData?.taskPriority);
+          setPriorityBtnColr(props?.editData?.priorityIndicatorColor);
           setReminderDate(_data);
           setReminderDateString(
             moment(props.editData.dateofreminder).format("YYYY-MM-DD")
@@ -194,14 +207,15 @@ import {
     }, [])
   
     const getCompanyDetails = async (lead_id) => {
-      let result = await axiosRequest.get(`user/getproducerdropdown`, {
+      let result = await axiosRequest.get(`user/opportunity/distinct/companies`, {
         secure: true,
       });
-      console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+     
+      // console.warn('__++++++COMPANY++++++++ RESPPPP',result)
       if (result.length > 0) {
         let _compArr = [];
-        result.map((el) => {
-          let _data = { value: el?.producer_name, label: el?.producer_name, _id: el._id };
+        result[0].company_id.map((el) => {
+          let _data = { value: el.company_name, label: el.company_name, _id: el._id };
           _compArr.push(_data);
         });
         setCompanyArray(_compArr);
@@ -534,14 +548,24 @@ import {
           timeOfReminder: selectedTime,
           userId: id,
         };
-        console.log('CHECK PROPPPPSSS ____________', props)
-      
-          // formData["company_id"] = props.broker_id;
-       
+        // console.log('CHECK PROPPPPSSS ____________', props)
+        let _resp='';
+        if (props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID')) {
+          // if(!props.companyID && props.leadID !== '-'){}
+          formData["company_id"] = props.companyID;
+          _resp=await axiosRequest.post(`user/todo_task?leadId=${props.lead_id}`, formData, {
+            secure: true,
+          });
+          // formData["leadId"] = props.leadID;
+        } else {
+          formData["company_id"] = todoCompId;
+          _resp=await axiosRequest.post(`user/todo_task`, formData, {
+            secure: true,
+          });
+          // formData["leadId"] = todoOpporId;
+        }
   
-        let _resp = await axiosRequest.post(`user/todo_task?task_for=broker&brokerId=${props.broker_id}&producerId=${props.producerId}`, formData, {
-          secure: true,
-        });
+         
         console.log("TODO__RESPPPP", _resp);
         // setIsModalVisible(false);
         if (_resp.length !== 0) {
@@ -648,13 +672,27 @@ import {
     const changeOpportunityName = (value, data) => {
       settodoOpporId(value)
       setTodoOpportunityName(data.label)
+  
+    }
+    const producer_details=async()=>{
+      let result = await axiosRequest.get(`user/getproducerdropdown`, {
+        secure: true,
+      });
+      console.warn('__++++++COMPANY++++++++ RESPPPP',result)
+      if (result.length > 0) {
+        let _compArr = [];
+        result.map((el) => {
+          let _data = { value: el?.producer_name, label: el?.producer_name, _id: el._id };
+          _compArr.push(_data);
+        });
+        setCompanyArray(_compArr);
+      }
     }
   
     const changeCompanyName = async (value, compId) => {
       // console.log("COMPANY NAMEE --------------", value);
       // console.log("opportunityNameArray IDDD --------------", opportunityNameArray);
       setTodoCompName(value)
-      // setTodoCompName(todoCompName)
       setTodoCompId(compId)
       // setOpportunityNameArray([])
   
@@ -669,7 +707,18 @@ import {
       });
       setOpportunityNameArray(_opporArr);
     }
-  
+    const handleFirstChangeRadio=()=>{
+        setSecondRadio(false);
+        setFirstRadio(true);
+        setDropDown(true);
+        getCompanyDetails();
+    }
+  const handleSecondChangeRadio=()=>{
+    setSecondRadio(true);
+    setFirstRadio(false);
+    setDropDown(false);
+    producer_details();
+  }
     return (
       <>
         <Modal
@@ -681,18 +730,49 @@ import {
         >
           <div className="Todo-Create-Container">
             <div className="" style={{ backgroundColor: '#fff' }}>
+            <Row style={{ marginBottom: 10 }}>
+                <Col style={{marginLeft:'4px'}}> 
+                <input type="radio" label="company Name" checked={FirstRadio} onChange={handleFirstChangeRadio} style={{width:'20px'}}/>
+                <label style={{marginLeft:'2px'}}>Company Name</label>
+                </Col>
+                <Col style={{marginLeft:'50px',alignItems:'center'}}> 
+                <input type="radio" label="Broker Name" checked={SecondRadio} onChange={handleSecondChangeRadio} style={{width:'20px'}}/>
+                <label style={{marginLeft:'2px'}}>Broker Name</label>
+                </Col>
+            </Row>
               <Row style={{ marginBottom: 10 }}>
-                <Col style={{ flex: 1 }}>
+                {DropDown?<Col style={{ flex: 1,width:'100%' }}>
+                  <p style={{ marginBottom: 5 }}> Company Name </p>
+                  <Select
+                    placeholder="Select"
+                    style={{ width: '100%' }}
+                    options={companyArray}
+                    value={todoCompName || undefined}
+                    disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
+                    onChange={(val, data) => changeCompanyName(val, data._id)}
+                  ></Select>
+                </Col>:<Col style={{ flex: 1,width:'100%' }}>
                   <p style={{ marginBottom: 5 }}> Broker Name </p>
                   <Select
                     placeholder="Select"
                     style={{ width: '100%' }}
                     options={companyArray}
                     value={todoCompName || undefined}
-                    disabled={props.hasOwnProperty('broker_id') && props.hasOwnProperty('producerId') ? true : false}
+                    disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
                     onChange={(val, data) => changeCompanyName(val, data._id)}
                   ></Select>
-                </Col>
+                </Col>}
+                {/* <Col style={{ flex: 1,marginLeft:'10px',width:'100%' }}>
+                  <p style={{ marginBottom: 5 }}> Broker Name </p>
+                  <Select
+                    placeholder="Select"
+                    style={{ width: '100%' }}
+                    options={BrokerArray}
+                    value={todoCompName || undefined}
+                    disabled={props.hasOwnProperty('companyID') && props.hasOwnProperty('leadID') ? true : false}
+                    onChange={(val, data) => changeCompanyName(val, data._id)}
+                  ></Select>
+                </Col> */}
                 <Col style={{ flex: 1,marginLeft: 15 }}></Col>
   
                 {/* <Col style={{ flex: 1, marginLeft: 10 }}>

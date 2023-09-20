@@ -4,6 +4,7 @@ import { PlusCircleFilled } from "@ant-design/icons";
 import TodoCards from "../RightSide-Todo/Todo-Event-Cards/TodoCards";
 import Archive from "./Archive/Archive";
 import TodoTab from "./TodoCreate-Tab/Todo-Tab";
+import TodoTabCreate from './TodoCreate-Tab/Todo-Tab_create'
 import "./Todo.css";
 // import axiosRequest from '../../../axios-request/request.methods';
 // import {stoageGetter} from '../../../helpers'
@@ -40,7 +41,7 @@ const Todo = () => {
             Add to do
           </Title> */}
           <PlusCircleFilled style={{marginTop:5}} onClick={showModal} />
-          <TodoTab
+          <TodoTabCreate
             getTodoData={getTodo}
             button={"Create"}
             isModalVisible={isModalVisible}
