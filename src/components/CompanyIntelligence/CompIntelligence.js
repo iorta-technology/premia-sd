@@ -638,7 +638,7 @@ const CompanyIntelligence = React.memo((props) => {
 
                 <Row style={{marginTop:10}}>
                   <Col style={{flex:1}}>
-                    <p className="text-font">{opportunityDetails.appoint_Date}</p>
+                    <p className="text-font">{checkValidity(opportunityDetails.appoint_Date)}</p>
                     <p className="label-font">Appointment Date</p>
                   </Col>
 
