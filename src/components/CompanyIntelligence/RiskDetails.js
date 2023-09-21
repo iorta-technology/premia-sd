@@ -832,7 +832,12 @@ const RiskDetails = (props) => {
                       message: "Only Numbers are Allowed",
                       pattern: new RegExp(/^[0-9.]+$/),
                     },
+                    {
+                      message:"Upto 100 percent are allowed",
+                      pattern: new RegExp(/^[0-9][0-9]?$|^100$/)
+                    }
                   ]}
+                 
                 >
                   <Input
                     placeholder="Enter TAGIC Presence %"
@@ -891,11 +896,12 @@ const RiskDetails = (props) => {
                   className="form-item-name label-color"
                   name="leadeInsurer"
                   label="Lead Insurer"
+                  placeholder="Select Lead Insurer"
                   style={{ marginBottom: "1rem" }}
                 >
                   <Select
-                    bordered={true}
                     placeholder="Select Lead Insurer"
+                    bordered={true}
                     options={leadInsurerItems}
                     value={leadInsurerData}
                     // defaultValue={citiesOptions}
@@ -930,6 +936,10 @@ const RiskDetails = (props) => {
                       message: "Only Numbers are Allowed",
                       pattern: new RegExp(/^[0-9]+$/),
                     },
+                    {
+                      message:"Upto 100 percent are allowed",
+                      pattern: new RegExp(/^[0-9][0-9]?$|^100$/)
+                    }
                   ]}
                 >
                   <Input

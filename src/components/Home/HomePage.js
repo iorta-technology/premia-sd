@@ -305,7 +305,7 @@ const HomePage = () => {
   let getContactOpportunity = async () => {
     // const count_10 = "count10%";
     try {
-      let res = await axiosRequest.get(`user/company/contactOpportunity`, { secure: true, });
+      let res = await axiosRequest.get(`user/company/contactOpportunity?userId=${userId}`, { secure: true, });
       console.log('birthday------------>>>', res)
       if (res.length > 0) {
         setContactOpportunity(res);
@@ -1343,7 +1343,7 @@ const HomePage = () => {
                   <div className="activity-block-contact">
                     {/* <div className="action-cards-content-activity"> */}
                       {
-                        ContactOpportunity?
+                        ContactOpportunity.length>0?
                         ContactOpportunity.map((item)=>{
                        return <div className="nested-card">
                           <div className="avatar-and-status">
@@ -1378,38 +1378,25 @@ const HomePage = () => {
                           </p>
                         </div>
                         })
-                      :<div className="events-body">
+                      :
+                      <div className="events-body" style={{color:"#5EC0AD"}}>
                       <Image
+                        // color="#5EC0AD"
                         className="stars"
                         preview={false}
-                        src={event_img}
+                        src={action_data_img}
                         alt="Events"
                       />
                       <p
                         style={{
-                          color: "#CEA0E1",
+                          color: "#5EC0AD",
                           fontSize: "20px",
                           width: "fit-content",
                           margin: "auto",
                         }}
                       >
-                        No  Contact Opportunities Exist
+                        No Contact Opportunities Exist
                       </p>
-                      {/* <Link to="/calendar">
-                        <div
-                          style={{
-                            color: "#fff",
-                            padding: "5px 20px",
-                            backgroundColor: "#CEA0E1",
-                            width: "40%",
-                            width: "fit-content",
-                            margin: "auto",
-                            cursor: "pointer",
-                          }}
-                        >
-                          No Contact Opportunities Found
-                        </div>
-                      </Link> */}
                     </div>
                       }
                     </div>
