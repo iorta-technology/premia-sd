@@ -1372,7 +1372,9 @@ const HomePage = () => {
                             />
                             <div className={`contact-card-date ${birthdate ? '' : 'centered'}`}>
                             {Moment(item.Inception).format("D MMM YYYY")}{" "}
+                            <span style={{color:'grey'}}>Renewal Due</span>
                             </div>
+                            
                           </p>
                         </div>
                         })
