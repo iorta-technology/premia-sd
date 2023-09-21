@@ -1393,9 +1393,9 @@ const HomePage = () => {
                           margin: "auto",
                         }}
                       >
-                        No Opportunities Exist
+                        No  Contact Opportunities Exist
                       </p>
-                      <Link to="/calendar">
+                      {/* <Link to="/calendar">
                         <div
                           style={{
                             color: "#fff",
@@ -1409,7 +1409,7 @@ const HomePage = () => {
                         >
                           No Contact Opportunities Found
                         </div>
-                      </Link>
+                      </Link> */}
                     </div>
                       }
                     </div>
