@@ -3595,6 +3595,7 @@ export default function CalendarEvent(props) {
                   className="CalendarEvent-Modal-TimePicker-style"
                   options={companyArray}
                   value={todoCompName}
+                  // getPopupContainer={() => document.getElementById('select')}
                   disabled={updateEventCheck == true ? true : false}
                   onChange={(val, data) => changeCompanyName(val, data._id)}
                 ></Select>
