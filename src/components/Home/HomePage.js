@@ -919,18 +919,18 @@ const HomePage = () => {
                     <div className="column-opp">
                       <div className="head-opp">TAGIC Presence</div>
                       <div className="row-opp-1">
-                        <span className="child1-opp">{'>10%'}</span>
+                        <span className="child1-opp">{'<10%'}</span>
 
                         <span className="num-opp-1">{count10}</span>
                       </div>
                       {/* <div className="hLine-r1"></div> */}
                       <div className="row-opp-2">
-                        <span className="child1-opp">{'>25%'}</span>
+                        <span className="child1-opp">{'<25%'}</span>
                         <span className="num-opp-1">{count25}</span> <br />
                         {/* <div className="hLine-r1"></div> */}
                       </div>
                       <div className="row-opp-3">
-                        <span className="child1-opp">{'>40%'}</span>
+                        <span className="child1-opp">{'<40%'}</span>
 
                         <span className="num-opp-1">{count40}</span>
                         {/* <div className="hLine-r1"></div> */}
