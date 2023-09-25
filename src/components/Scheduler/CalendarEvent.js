@@ -2303,7 +2303,7 @@ export default function CalendarEvent(props) {
                 end_date: durationEndDateOperation,
                 end_time: durationEndTimeOperation,
                 teamMember: _ownerCollectn,
-                // email_array:emails,
+                email_array:emails,
                 statusType: statusType.openStatus == true ? "open" : "close",
                 statusreason: statusReasonText,
                 manuallycustomerAdded: addManuallyButtonCheck ? true : false,
@@ -2398,7 +2398,7 @@ export default function CalendarEvent(props) {
               end_date: durationEndDateOperation,
               end_time: durationEndTimeOperation,
               teamMember: _ownerCollectn,
-              // email_array:emails,
+              email_array:emails,
               statusType: statusType.openStatus == true ? "open" : "close",
               statusreason: statusReasonText,
               manuallycustomerAdded: addManuallyButtonCheck ? true : false,
@@ -4429,8 +4429,8 @@ export default function CalendarEvent(props) {
             </div>
           )}
           </div>
-          <div style={{flex:'1',padding:'5px'}}></div>
-          {/* <div style={{flex:'1',padding:'5px'}}>
+          {/* <div style={{flex:'1',padding:'5px'}}></div> */}
+          <div style={{flex:'1',padding:'5px'}}>
           <h4 className="CalendarEvent-Modal-Card-header-type">
             Add Email
           </h4>
@@ -4475,7 +4475,7 @@ export default function CalendarEvent(props) {
             })
           }
           </div>
-          </div> */}
+          </div>
           </div>
           {/* <div className="CalendarEvent-Modal-Search-flex">
             <Search placeholder="Search By Name" 
