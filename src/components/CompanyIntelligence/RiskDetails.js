@@ -380,6 +380,14 @@ const RiskDetails = (props) => {
     };
     
     // console.warn("formBody ------>>>>>", formBody);
+    if(tagicPresence>100){
+      message.warn("Upto 100 precent are allowed for Tagic presence");
+      return;
+    }
+    else if(leaderShareData>100){
+      message.warn("Upto 100 precent are allowed for Leader share");
+      return;
+    }
     if(riskType === 'create'){
       let result = await axiosRequest.post(`user/postRiskDetailsform?userId=${user_id}&lead_Id=${_StoreData.lead_Id}`,formBody,{ secure: true });
       dispatch(actions.fetchLeadDetails(_StoreData._id))

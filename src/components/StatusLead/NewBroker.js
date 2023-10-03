@@ -142,14 +142,13 @@ const NewLead = React.memo((props) => {
               md={{ span: 16, order: 2 }}
               lg={{ span: 15, order: 1 }}
               xl={{ span: 24, order: 1 }}
-              span={23}
+              // span={23}
               style={{ height: "max-content" }}
             >
               <Row gutter={16} className="mb-2 statsLead">
                 <Col xs={24} sm={12} md={24} lg={12} xl={12}>
                   <Form.Item
                     {...formItemLayout}
-
                     className="form-item-name txt_color"
                     name="producer_name"
                     label="Producer Name"

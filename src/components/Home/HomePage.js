@@ -100,7 +100,7 @@ const HomePage = () => {
   const [renewal_Last_30, setRenewal_Last_30] = useState(0);
   const [count10, setCount10] = useState(0);
   const [count25, setCount25] = useState(0);
-  const [count40, setCount40] = useState(0);
+  const [count40, setCount40] = useState(0); 
   const [kdm_name, setKdm_name] = useState([]);
   const [birthdate, setBirthdate] = useState([]);
   const [prodCountData, setProdCountData] = useState({});
