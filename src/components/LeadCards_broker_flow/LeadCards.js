@@ -692,7 +692,6 @@ const LeadCards = (props) => {
           _.map(leadsData.allLeads, (lead, index) => {
             return (
               <>
-                {console.log(lead, "this is the lead")}
                 <Col sm={18} md={18} lg={11} xl={11}>
                   <LeadCard
                     className="lead-agent-card"

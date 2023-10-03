@@ -461,7 +461,6 @@ const LeadCards = (props) => {
             // console.log("---------lead-----", lead);
             return (
               <>
-              {console.log(lead ,"this is the lead")}
                 <Col sm={18} md={18} lg={11} xl={11}>
                   <LeadCard
                     className="lead-agent-card"

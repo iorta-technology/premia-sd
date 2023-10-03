@@ -4,40 +4,43 @@ body {
   height: 100%;
 }
 
-.page-holder {
+.page-holder-lead {
   /* margin: 2rem 0rem; */
   /* text-align: end; */
   margin-right: 60px;
+  margin-left: 60px;
+  /* flex-direction: row-reverse; */
+  align-items: center;
   /* position: absolute;
     right: 10px;
     top: 250px; */
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.page-holder > ul > .ant-pagination-item a {
+.page-holder-lead > ul > .ant-pagination-item a {
   font-size: 10px;
   font-weight: bold;
   background-color: #ffffff;
   color: #545454;
 }
-.page-holder > ul > .ant-pagination-item-active a {
+.page-holder-lead > ul > .ant-pagination-item-active a {
   font-size: 10px;
   font-weight: bold;
   color: white;
   background-color: #545454;
 }
 
-.page-holder > ul > .ant-pagination-item {
+.page-holder-lead > ul > .ant-pagination-item {
   font-size: 10px;
   font-weight: 500;
   background-color: #ffffff;
   color: #545454;
   border-color: #e8e8e8;
 }
-.page-holder > ul > .ant-pagination-item-active {
+.page-holder-lead > ul > .ant-pagination-item-active {
   font-size: 10px;
   font-weight: 500;
   color: white;
@@ -45,8 +48,8 @@ body {
   border-color: #e8e8e8;
 }
 
-.page-holder > ul > .ant-pagination-next > button,
-.page-holder > ul > .ant-pagination-prev > button {
+.page-holder-lead > ul > .ant-pagination-next > button,
+.page-holder-lead > ul > .ant-pagination-prev > button {
   color: #545454;
   font-weight: bold;
   background-color: #ffffff;
@@ -58,7 +61,7 @@ body {
   -o-border-radius: none;
 }
 
-.page-holder > ul > .ant-pagination-options {
+.page-holder-lead > ul > .ant-pagination-options {
   display: none;
 }
 .Pagination-Mapbranch {
@@ -97,7 +100,7 @@ body {
 }
 
 @media (max-width: 620px) {
-  .page-holder {
+  .page-holder-lead {
     top: 15%;
   }
 }

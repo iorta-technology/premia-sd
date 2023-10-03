@@ -4,7 +4,7 @@ import Tab from "../../components/Tab/Tab";
 import LeadCards from "../../components/LeadCards/LeadCards";
 import FloatButton from "../../components/FloatButton/FloatButton";
 import * as actions from "../../store/actions/index";
-import { Pagination, Button } from "antd";
+import { Pagination, Button , Row } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { stoageGetter } from "../../helpers";
 import { useHistory } from "react-router";
@@ -42,6 +42,7 @@ const LeadMaster = (props) => {
   const leadsData = useSelector((state) => state.leads.allLeads);
   const _leadCount = useSelector((state) => state?.home?.home_obj);
   console.log("_leadCount ----------------->>>>>", _leadCount);
+  console.log("leadsData ----------------->>>>>", leadsData);
   //Loading leads data
   const leadDataLoading = useSelector(
     (state) => state.leads.fetch_allLeads_Loading
@@ -49,7 +50,7 @@ const LeadMaster = (props) => {
   // lead count of the page
   const totalLeads = useSelector((state) => state?.leads?.count );
   // const _storeee = useSelector((state) => state );
-  // console.warn("totalLeads ----------------->>>>>", totalLeads);
+  console.warn("totalLeads ----------------->>>>>", totalLeads);
   // console.warn("_storeee ----------------->>>>>", _storeee);
 
   //Pagination numbers function
@@ -81,7 +82,7 @@ const LeadMaster = (props) => {
 
   const handlePageClick = (page) => {
     setcurrent(page);
-    console.log("page----------->>>>>", page);
+    // console.log("page----------->>>>>", page);
   };
   const tabMenu = [
     {
@@ -113,17 +114,24 @@ const LeadMaster = (props) => {
       }}
     >
       <Tab tabMenu={tabMenu} header="Lead" current={current} />
-      <div className="page-holder">
-        <Pagination
-          responsive
-          showSizeChanger={false}
-          current={current}
-          onChange={handlePageClick}
-          total={totalLeads}
-          defaultPageSize={15}
-          itemRender={itemRender}
-        />
-      </div>
+      <>
+        <div className="page-holder-lead">
+          <Row>
+            <b style={{color:'#e46a25'}}>{`Showing ${current} to 15`}{' '}<b style={{color:'#3c3d3d'}}>{`out of ${totalLeads} records`}</b></b>
+          </Row>
+
+          <Pagination
+            responsive
+            showSizeChanger={false}
+            current={current}
+            onChange={handlePageClick}
+            total={totalLeads}
+            defaultPageSize={15}
+            itemRender={itemRender}
+          />
+
+        </div>
+      </>
       <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
     </div>
   );
