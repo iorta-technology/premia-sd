@@ -117,7 +117,7 @@ const LeadMaster = (props) => {
       <>
         <div className="page-holder-lead">
           <Row>
-            <b style={{color:'#e46a25'}}>{`Showing ${current === 1 ? current : ((current-1)*15 + 1)} to ${current === 1 ? '15' : current*15}`}{' '}<b style={{color:'#3c3d3d'}}>{`out of ${totalLeads} records`}</b></b>
+            <b style={{color:'#e46a25'}}>{`Showing ${current === 1 ? current : ((current-1)*15 + 1)} to ${current === 1 ? '15' : (current*15 > totalLeads ? totalLeads : current*15)}`}{' '}<b style={{color:'#3c3d3d'}}>{`out of ${totalLeads} records`}</b></b>
           </Row>
 
           <Pagination

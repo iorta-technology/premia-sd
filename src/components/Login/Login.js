@@ -25,11 +25,11 @@ const Login = () => {
   const history = useHistory();
 
   const onLogin = () => {
+
+    const credentials = {email: `${email+'@tataaig.net'}`, password}
+    // const credentials = {email, password}
     axios
-      .post(`${baseURL}auth/user/login`, {
-        email,
-        password,
-      })
+      .post(`${baseURL}auth/user/login`, credentials)
       .then((res, error) => {
         console.warn("(((((((((_loginResp)))))))))", res);
         if (res === undefined || res === null || res === "") {
