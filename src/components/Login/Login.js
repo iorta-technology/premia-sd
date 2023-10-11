@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import loginLogo from "../../images/salesDrivelogo.png";
+import loginLogo from "../../images/philplanLogo.png";
 import axios from "axios";
 import { stoageSetter } from "../../helpers";
 import apiConfig from "../../config/api.config";
@@ -25,8 +25,7 @@ const Login = () => {
   const history = useHistory();
 
   const onLogin = () => {
-
-    const credentials = {email: `${email+'@tataaig.net'}`, password}
+    const credentials = { email: `${email}`, password };
     // const credentials = {email, password}
     axios
       .post(`${baseURL}auth/user/login`, credentials)
@@ -51,7 +50,7 @@ const Login = () => {
               stoageSetter("multi_channel", res.data.errMsg[0]);
               dispatch(actions.loginSuccess(_loginData));
               dispatch(actions.multiChannelData(res.data.errMsg[0]));
-              history.push("/home");
+              history.push("/leadMaster/all_leads");
             } else {
               message.error(res.data.errMsg);
             }
@@ -69,20 +68,22 @@ const Login = () => {
 
   return (
     <div className="main-body">
-      <Form form={form} onFinish={onLogin}>
+      <Form layout="vertical" form={form} onFinish={onLogin}>
         <div className="login-card">
           <Card className="main-card">
             <div className="logo">
               <Image
                 preview={false}
-                width={210}
+                width={126}
                 src={loginLogo}
                 alt="login-logo"
               />
             </div>
             <br />
             <br />
+            <div className="login_heading">Login</div>
             <Form.Item
+              label="USERNAME"
               name="email"
               // rules={emailValidation}
               // rules={[
@@ -112,6 +113,7 @@ const Login = () => {
             </Form.Item>
             <Form.Item
               name="password"
+              label="PASSWORD"
               rules={[
                 {
                   required: true,
@@ -135,8 +137,14 @@ const Login = () => {
               <p className="forgotpasswordtext">Forgot Password</p>
             </Link> */}
             <Button type="primary" htmlType="submit" className="loginbtn" block>
-              Login
+              Submit
             </Button>
+            <div className="register_btn text-center">
+              <div className="register_description">Don’t have a Account?</div>
+              <Link to="" className="register_btn_text">
+                REGISTER
+              </Link>
+            </div>
           </Card>
         </div>
       </Form>

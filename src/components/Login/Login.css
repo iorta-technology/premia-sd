@@ -1,5 +1,6 @@
 .main-body{
-    background-image: url('../../images/Bgimage.png');
+    /* background-image: url('../../images/Bgimage.png'); */
+    background: #F3F3F3;
     overflow: hidden;
     height: 100vh;
     display: flex;
@@ -29,10 +30,19 @@
     padding: 10 !important;
 } */
 
-
+.login-card .ant-form-item .ant-form-item-label{
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.5px;
+    color: #444;
+}
 .login-card{
    width: 400px;
-   background-color: #3e3e3e;
+   background-color: #FFF;
+   border-radius: 8px;
 }
 .logo{
     height: 50px;
@@ -47,17 +57,36 @@
     cursor: pointer;
     text-align: right;
 }
+.login_heading{
+    color: #0054A5;
+text-align: center;
+/* font-family: Roboto; */
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+padding-bottom: 16px;
+text-transform: uppercase;
+border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+margin-bottom: 40px;
+}
+
 .loginbtn{
-    background: #1FB3AB !important;
+    background: #01AB4F !important;
     color: #fff;
     height: 40px;
     border-color: transparent;
+    font-size: 16px !important;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 4px;
+    margin-bottom: 24px;
 }
 .main-card{
-    background-color: #3e3e3e;
+    background-color: #FFF;
 }
 .login-card .ant-card {
-    box-sizing: border-box;
+    /* box-sizing: border-box;
     margin: 0;
     padding: 0;
     color: rgba(0, 0, 0, 0.85);
@@ -68,9 +97,28 @@
     font-feature-settings: 'tnum', "tnum";
     position: relative;
     background: #3e3e3e;
-    border-radius: 2px;
-}
+    border-radius: 2px; */
 
+    border-radius: 8px;
+background: #FFF;
+box-shadow: 0px 4px 60px 0px rgba(0, 0, 0, 0.16);
+}
+.register_btn{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.register_btn .register_btn_text{
+    color: #0054A5;
+/* font-family: Roboto; */
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 0.5px;
+}
 @media screen and (max-width:420px){
     .login-card{
         width: 100% !important;
