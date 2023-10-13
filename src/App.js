@@ -213,6 +213,9 @@ const CompIntelligence = React.lazy(() =>
 const PlanDetail = React.lazy(() =>
   import("./components/PhilPlans/PlanDetails")
 );
+const Maturity = React.lazy(() =>
+  import("./components/PhilPlans/MaturityBenefit")
+);
 const CompIntelligence_broker = React.lazy(() =>
   import("./components/CompanyIntelligence_broker_flow/CompIntelligence")
 );
@@ -415,6 +418,7 @@ function App() {
                     component={CompIntelligence}
                   ></Route>
                   <Route path="/plan-details" component={PlanDetail}></Route>
+                  <Route path="/maturity-benefit" component={Maturity}></Route>
                   <Route
                     path="/company-intelligence_broker"
                     component={CompIntelligence_broker}
