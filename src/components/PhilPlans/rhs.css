@@ -67,7 +67,7 @@
   
   .contact-us {
     border-radius: 16px;
-    gap: 26px;
+    gap: 10px;
   }
   .title {
     flex: 1;
@@ -222,3 +222,72 @@
     font-family: Roboto;
   }
   
+  .tab_title{
+    color: #013261;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+  }
+  /* premium card css start */
+  .premium_card{
+    border-radius: 4px;
+    border: 1px solid var(--Outline-Stroke-box, #EFEFEF);
+    background: var(--White, #FFF);
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.06);
+  }
+  .border_bottom{
+    border-bottom: 1px solid #F3F3F3;
+  }
+  .premium_card .ant-card-head-title{
+    color:  #444;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .premium_card .amount{
+    color: #0054A5;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .premium_card .amt_date{
+    color: #434C55;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .premium_card .pay_btn, .premium_card .pay_btn:hover{
+    border-radius: 4px;
+    background: #01AB4F;
+    box-shadow: 0px 2px 10px 0px rgba(1, 171, 79, 0.40);
+    color: #FFF;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    /* border-color: #01AB4F; */
+    border: none;
+  }
+  .premium_card .paid_btn, .premium_card .paid_btn:hover{
+    border-radius: 8px;
+    background: #E6F7ED;
+    box-shadow: 0px 4px 6px 0px rgba(0, 172, 193, 0.08);
+    color: #01AB4F;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    /* border-color: #01AB4F; */
+    border: none;
+  }

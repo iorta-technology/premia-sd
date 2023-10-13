@@ -48,6 +48,7 @@ import TodoTab from "../Scheduler/RightSide-Todo/TodoCreate-Tab/Todo-Tab";
 import TodoCards from "../Scheduler/RightSide-Todo/Todo-Event-Cards/TodoCards";
 import noDataIcon from "../../assets/NoDataFound.png";
 import { timeList } from "../StatusLead/dataSet";
+import PremiumCard from "./PremiumCard";
 
 // import KDMDetails from "./KdmDetails";
 // import ProducerVAS from "./ProducerAndVAS";
@@ -514,16 +515,17 @@ const PlanDetailsComponent = React.memo((props) => {
         </Col>
       </Row>
       <div className="plan_details_body" style={{ marginTop: 11 }}>
-        <Row gutter={16} style={{ margin: "0", padding: 0 }}>
+        {/* <Row gutter={16} style={{ margin: "0", padding: 0 }}>
           <Col>
             <p className="tab_title">Plan Details</p>
           </Col>
-        </Row>
+        </Row> */}
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           {/* 1st Column */}
           <Col sm={24} md={18} lg={18} xlg={8}>
             {/* Company Details */}
-            <Card bordered={false} className="app-card-head mb-3">
+            <p className="tab_title">Plan Details</p>
+            <Card bordered={false} className="app-card-head rounded mb-3">
               <Col>
                 <Row style={{ marginBottom: 24 }}>
                   <Col style={{ flex: 1 }}>
@@ -552,7 +554,7 @@ const PlanDetailsComponent = React.memo((props) => {
               </Col>
             </Card>
             {/* 2nd card */}
-            <Card bordered={false} className="app-card-head mb-3">
+            <Card bordered={false} className="app-card-head rounded mb-3">
               <Col style={{ padding: 10 }}>
                 <Row style={{ marginBottom: 24 }}>
                   <Col style={{ flex: 1 }}>
@@ -605,7 +607,7 @@ const PlanDetailsComponent = React.memo((props) => {
 
             {/* end */}
             {/* 3 card */}
-            <Card bordered={false} className="app-card-head mb-4">
+            <Card bordered={false} className="app-card-head rounded mb-4">
               <Col style={{ padding: 10 }}>
                 <Row style={{ marginBottom: 24 }}>
                   <Col style={{ flex: 1 }}>
@@ -659,6 +661,9 @@ const PlanDetailsComponent = React.memo((props) => {
           </Col>
           {/* rhs html  */}
           <Col sm={24} md={6} lg={6} xlg={8}>
+            {/* premium payment card */}
+            <PremiumCard />
+            {/* premium payment card end */}
             <div className="rhs">
               <div className="contact-us">
                 <div className="div">

@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Card, Radio, Tabs, Modal, Form, Select, Input, message } from "antd";
+import {
+  Card,
+  Radio,
+  Tabs,
+  Modal,
+  Form,
+  Select,
+  Input,
+  message,
+  Dropdown,
+  Space,
+} from "antd";
 import { Option } from "antd/lib/mentions";
 import "./Tab.css";
 import _ from "lodash";
@@ -18,7 +29,12 @@ import person_white from "./../Activitity Tracker/icons/person_white.png";
 import group_white from "./../Activitity Tracker/icons/group_white.png";
 import group_black from "./../Activitity Tracker/icons/group_black.png";
 import { useLocation } from "react-router-dom";
-import { PlusOutlined, FilePdfOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  FilePdfOutlined,
+  DownOutlined,
+  SmileOutlined,
+} from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -166,8 +182,8 @@ const Tab = ({
         case "2":
           return history.push("agent-details");
 
-          case "3":
-            return history.push("maturity-benefit");
+        case "3":
+          return history.push("maturity-benefit");
         case "broker_intel":
           return history.push("/company-intelligence_broker", {
             leadData: routeLeadData,
@@ -252,6 +268,7 @@ const Tab = ({
   const handleChange = (value) => {
     console.log(value);
   };
+
   const policy_options = [
     {
       value: "Megan 4 Year Collage",
@@ -302,17 +319,16 @@ const Tab = ({
                     label={`${option.title} (${option.description})`}
                   >
                     <p style={{ margin: 0, lineHeight: "normal" }}>
-                      {" "}
                       {option.title}
                     </p>
                     <p style={{ margin: 0, lineHeight: "normal" }}>
-                      {" "}
                       {option.description}
                     </p>
                   </Option>
                 ))}
               </Select>
             </div>
+
             <div>
               <Tabs
                 tabBarGutter={20}

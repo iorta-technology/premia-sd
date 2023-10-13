@@ -27,7 +27,7 @@
 }
 .text-font{
   color: #0054A5;
-/* font-family: Roboto; */
+  font-family: Roboto;
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -35,7 +35,7 @@
 }
 .label-font{
   color:  #434C55;
-  /* font-family: Roboto; */
+  font-family: Roboto;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
