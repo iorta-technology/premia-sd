@@ -545,7 +545,7 @@ const PlanDetailsComponent = React.memo((props) => {
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Active </div>
+                    <div className="text-font mb-1 status-active">Active </div>
                     <div className="label-font">Status</div>
                   </Col>
                 </Row>
