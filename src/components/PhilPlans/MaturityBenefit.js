@@ -668,12 +668,135 @@ const MaturityBenefitComponent = React.memo((props) => {
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           <Col sm={24} md={18} lg={18} xlg={8}>
             <p className="tab_title">Maturity Benefits</p>
-            <Table
+            {/* <Table
               className="table_container"
               columns={columns}
               dataSource={data}
               pagination={false}
-            />
+            /> */}
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Availment Date</th>
+                  <th scope="col">Benefit Amount</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="date">April, 13, 2022</td>
+                  <td data-label="amount">P57,245.00</td>
+                  <td data-label="type">Installment</td>
+                  <td data-label="status" className="not_available">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2009)">
+                        <path
+                          d="M12.6001 2.5C7.0801 2.5 2.6001 6.98 2.6001 12.5C2.6001 18.02 7.0801 22.5 12.6001 22.5C18.1201 22.5 22.6001 18.02 22.6001 12.5C22.6001 6.98 18.1201 2.5 12.6001 2.5ZM12.6001 20.5C8.1801 20.5 4.6001 16.92 4.6001 12.5C4.6001 10.65 5.2301 8.95 6.2901 7.6L17.5001 18.81C16.1501 19.87 14.4501 20.5 12.6001 20.5ZM18.9101 17.4L7.7001 6.19C9.0501 5.13 10.7501 4.5 12.6001 4.5C17.0201 4.5 20.6001 8.08 20.6001 12.5C20.6001 14.35 19.9701 16.05 18.9101 17.4Z"
+                          fill="#434C55"
+                          fill-opacity="0.4"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2009">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.600098 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Not Available</span>{" "}
+                  </td>
+                  <td data-label="actions">
+                    <Button className="applyNow_btn">Apply Now</Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td scope="row" data-label="date">
+                    April, 13, 2022
+                  </td>
+                  <td data-label="amount">P57,245.00</td>
+                  <td data-label="type">Installment</td>
+                  <td data-label="status" className="availed">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2026)">
+                        <path
+                          d="M9.60025 16.6701L5.43025 12.5001L4.01025 13.9101L9.60025 19.5001L21.6003 7.50009L20.1903 6.09009L9.60025 16.6701Z"
+                          fill="#01AB4F"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2026">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.600098 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Availed</span>{" "}
+                  </td>
+                  <td data-label="actions">
+                    <Button className="applyNow_btn">Apply Now</Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td scope="row" data-label="date">
+                    April, 13, 2022
+                  </td>
+                  <td data-label="amount">P57,245.00</td>
+                  <td data-label="type">Installment</td>
+                  <td data-label="status" className="not_available"> <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2009)">
+                        <path
+                          d="M12.6001 2.5C7.0801 2.5 2.6001 6.98 2.6001 12.5C2.6001 18.02 7.0801 22.5 12.6001 22.5C18.1201 22.5 22.6001 18.02 22.6001 12.5C22.6001 6.98 18.1201 2.5 12.6001 2.5ZM12.6001 20.5C8.1801 20.5 4.6001 16.92 4.6001 12.5C4.6001 10.65 5.2301 8.95 6.2901 7.6L17.5001 18.81C16.1501 19.87 14.4501 20.5 12.6001 20.5ZM18.9101 17.4L7.7001 6.19C9.0501 5.13 10.7501 4.5 12.6001 4.5C17.0201 4.5 20.6001 8.08 20.6001 12.5C20.6001 14.35 19.9701 16.05 18.9101 17.4Z"
+                          fill="#434C55"
+                          fill-opacity="0.4"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2009">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.600098 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Not Available</span>{" "}
+</td>
+                  <td data-label="actions">
+                    <Button className="applyNow_btn">Apply Now</Button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </Col>
           <Col sm={24} md={6} lg={6} xlg={8}>
             <div className="rhs">

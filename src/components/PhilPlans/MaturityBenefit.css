@@ -1,66 +1,126 @@
-.table_container,
-.ant-table-wrapper {
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
   width: 100%;
-  /* height: 193px; */
-}
-.ant-table {
-  border: none;
-}
-.ant-table-cell {
-  border: none;
+  table-layout: fixed;
 }
 
-.ant-table-thead > tr > th {
-  border: none;
-  background: #dee5ec;
-  color:#013261;
-  font-family: Roboto;
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+  color: var(--Text_grey, #434C55);
+font-family: Roboto;
 font-size: 14px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
 }
 
-.ant-table-thead
-  > tr
-  > th:not(:last-child):not(.ant-table-selection-column):not(
-    .ant-table-row-expand-icon-cell
-  ):not([colspan])::before {
-  height: 0px;
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+  border: none;
 }
 
-.ant-table-cell{
-    color:  #434C55;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-.Availed{
-    color: #01AB4F;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
+table th {
+  letter-spacing: .1em;
+  background-color: #DEE5EC;
+  color: var(--Text-blue, #013261);
+font-family: Roboto;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
 
-.Not_Available{
-    color: rgba(67, 76, 85, 0.40);
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  /* text-transform: uppercase; */
 }
 
 .applyNow_btn{
-    color:  #0054A5;
-    border-radius: 4px;
-    border: 1px solid rgba(67, 76, 85, 0.20);
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  border-radius: 4px;
+border: 1px solid rgba(67, 76, 85, 0.20);
+color: var(--Secondary, #0054A5);
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+
+
+}
+
+.not_available{
+  color: rgba(67, 76, 85, 0.40);
+font-family: Roboto;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.availed{
+  color: var(--Primary, #01AB4F);
+font-family: Roboto;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+@media screen and (max-width: 768px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
 }
 
