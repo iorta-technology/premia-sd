@@ -515,11 +515,6 @@ const PlanDetailsComponent = React.memo((props) => {
         </Col>
       </Row>
       <div className="plan_details_body" style={{ marginTop: 11 }}>
-        {/* <Row gutter={16} style={{ margin: "0", padding: 0 }}>
-          <Col>
-            <p className="tab_title">Plan Details</p>
-          </Col>
-        </Row> */}
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           {/* 1st Column */}
           <Col sm={24} md={18} lg={18} xlg={8}>
