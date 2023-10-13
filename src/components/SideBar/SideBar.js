@@ -19,7 +19,8 @@ import * as actionType from "./../../store/actions/actionTypes";
 import { message } from "antd";
 
 // -- Import Image -- //
-import sales_logo_img from "../../images/salesDrivelogo.png";
+// import sales_logo_img from "../../images/salesDrivelogo.png";
+import philplanLogo from "../../images/philplanLogo.png";
 import switch_img from "../../assets/Group75902x.png";
 import right_black_img from "../../assets/MaterialUiIcons/chevron_right_black_192x192.png";
 import draftr_img from "../../assets/draftr.png";
@@ -29,10 +30,10 @@ import rdone_img from "../../assets/rdone.png";
 import failed_img from "../../assets/failed.png";
 import needhelp_img from "../../assets/needhelp.png";
 import all_clear_img from "../../assets/MaterialUiIcons/notifications_grey_192x192.png";
-import NewLead from '../StatusLead/NewLeadCreation'
+import NewLead from "../StatusLead/NewLeadCreation";
 
 const Nav = styled.div`
-  background: #3b371e;
+  background: #fff;
   height: 60px;
   display: flex;
   justify-content: flex-end;
@@ -45,6 +46,7 @@ const Nav = styled.div`
   left: 0;
   width: 100%;
   z-index: 10;
+  color: #000;
 `;
 
 const NavIcon = styled(Link)`
@@ -200,16 +202,16 @@ const Sidebar = () => {
     // history.push("/leadmasterpage/statuslead");
     // setSidebar(false);
 
-    if(showOpportunities){
+    if (showOpportunities) {
       // dispatch(actions.fetchLeadUpdateBody({}))
       // dispatch(actions.fetchLeadDetailsSuccess({}))
-      
+
       // // dispatch(actions.storeLead(leadUpdateFormdata));
       // history.push("/leadmasterpage/statuslead");
-      setShowNewLeadModal(true)
+      setShowNewLeadModal(true);
       setSidebar(false);
-    }else{
-      message.info('This feature is currently not accessible');
+    } else {
+      message.info("This feature is currently not accessible");
     }
   };
 
@@ -235,7 +237,10 @@ const Sidebar = () => {
 
   return (
     <>
-      <NewLead showNewLeadModal={showNewLeadModal} setShowNewLeadModal={setShowNewLeadModal} />
+      <NewLead
+        showNewLeadModal={showNewLeadModal}
+        setShowNewLeadModal={setShowNewLeadModal}
+      />
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
           {/* <div style={{ display: "flex", flex: 1 }}>
@@ -260,7 +265,7 @@ const Sidebar = () => {
               onClick={() => {
                 history.push("/home");
               }}
-              src={sales_logo_img}
+              src={philplanLogo}
               style={{
                 width: "130px",
                 marginRight: "auto",
@@ -299,14 +304,14 @@ const Sidebar = () => {
             <NavIcon style={{ marginLeft: 15 }} onClick={showSidebar} to="#">
               <FaIcons.FaUserCircle style={{ height: 30, width: 30 }} />
               <div style={{ marginLeft: 10 }}>
-                <p style={{ marginBottom: 0, color: "#fff", fontSize: 14 }}>
+                <p style={{ marginBottom: 0, color: "#000", fontSize: 14 }}>
                   {logged_in_user}
                 </p>
                 <p
                   style={{
                     marginBottom: 0,
                     marginTop: -4,
-                    color: "#fff",
+                    color: "#000",
                     fontSize: 10,
                   }}
                 >
@@ -319,7 +324,7 @@ const Sidebar = () => {
 
         <Modal1 shown={sidebar} close={() => setSidebar(false)}>
           <div className="indicationArrowProfile"></div>
-          <div className="sideMenu" >
+          <div className="sideMenu">
             <div className="menuHeader">
               <div className="profileLogo">
                 <p

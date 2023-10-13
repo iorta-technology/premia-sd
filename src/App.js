@@ -17,7 +17,9 @@ import ResourceCenter from "./components/SalesPitch/ResourceCenter";
 
 // const Master = React.lazy(() => import("./containers/Master/index"));
 const LeadMaster = React.lazy(() => import("./containers/LeadMaster/index"));
-const Brokerflow = React.lazy(()=> import("./containers_brokerFlow/LeadMaster/index"))
+const Brokerflow = React.lazy(() =>
+  import("./containers_brokerFlow/LeadMaster/index")
+);
 const AdvisorList = React.lazy(() =>
   import("./components/AdvisorOnboarding/AdvisorCard")
 );
@@ -54,7 +56,9 @@ const DocumentsUpload = React.lazy(() =>
   import("./components/DocumentsUpload/DocumentsUpload")
 );
 const History = React.lazy(() => import("./components/History/History"));
-const BrokerHistory = React.lazy(() => import("./components/History/Broker_History"));
+const BrokerHistory = React.lazy(() =>
+  import("./components/History/Broker_History")
+);
 const Login = React.lazy(() => import("./components/Login/Login"));
 const ForgotPassword = React.lazy(() =>
   import("./components/ForgotPassword/ForgotPassword")
@@ -206,6 +210,9 @@ const TodoMobile = React.lazy(() =>
 const CompIntelligence = React.lazy(() =>
   import("./components/CompanyIntelligence/CompIntelligence")
 );
+const PlanDetail = React.lazy(() =>
+  import("./components/PhilPlans/PlanDetails")
+);
 const CompIntelligence_broker = React.lazy(() =>
   import("./components/CompanyIntelligence_broker_flow/CompIntelligence")
 );
@@ -215,8 +222,6 @@ const CompIntelligence_broker = React.lazy(() =>
 // const scheduler=React.lazy(()=>{
 //   import("./components/Scheduler/Scheduler")
 // });
-
-
 
 function App() {
   return (
@@ -379,7 +384,7 @@ function App() {
                     path="/leadMaster/:leadType"
                     component={LeadMaster}
                   ></Route>
-                   <Route
+                  <Route
                     path="/brokerflow/:leadType"
                     component={Brokerflow}
                   ></Route>
@@ -409,6 +414,7 @@ function App() {
                     path="/company-intelligence"
                     component={CompIntelligence}
                   ></Route>
+                  <Route path="/plan-details" component={PlanDetail}></Route>
                   <Route
                     path="/company-intelligence_broker"
                     component={CompIntelligence_broker}
@@ -460,14 +466,11 @@ function App() {
                   ></Route>
 
                   {/* creating a route of scheduler */}
-
                 </div>
               </div>
               <Route path="/products" component={LoanProducts} />
               <Route path="/bulkaction" component={BulkAction} />
-              
             </div>
-            
           </Switch>
         </div>
       </Router>

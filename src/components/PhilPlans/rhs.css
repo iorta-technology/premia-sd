@@ -1,0 +1,224 @@
+.support-img-icon {
+    position: relative;
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .it-is-our {
+    margin: 0;
+  }
+  .it-is-our-container {
+    position: absolute;
+    margin: 0 !important;
+    top: 80.98px;
+    left: 190px;
+    line-height: 120%;
+    font-weight: 500;
+    color: rgb(10, 73, 181);
+    z-index: 1;
+  }
+  .div {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    gap: 10px;
+  }
+  .call-us-at {
+    line-height: 120%;
+    display: inline-block;
+    width: 100%;
+  }
+  .call-us-at,
+  .text {
+    position: relative;
+    font-weight: 500;
+  }
+  .secondary-button {
+    border-radius: 4px;
+    background-color: #0054a5;
+    box-shadow: 0 2px 10px rgba(0, 84, 165, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    color: #fff;
+  }
+  .contact-us,
+  .div1 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 24px 0px 12px 0px;
+  }
+  .div1 {
+    padding: 0 30px;
+    gap: 10px;
+    font-size: 16px;
+    color: #003263;
+  }
+  
+  .contact-us {
+    border-radius: 16px;
+    gap: 26px;
+  }
+  .title {
+    flex: 1;
+    position: relative;
+    line-height: 120%;
+    font-weight: 500;
+  }
+  .keyboard-arrow-left-icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .div2,
+  .nav {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+  .div2 {
+    align-self: stretch;
+    gap: 10px;
+  }
+  .image-13-icon {
+    position: relative;
+    width: 337.5px;
+    height: 225px;
+    object-fit: cover;
+  }
+  .product-image {
+    width: 312px;
+    height: 225px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+  }
+  .product-info,
+  .product-name {
+    align-self: stretch;
+    position: relative;
+    letter-spacing: -0.01em;
+    display: -webkit-inline-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    opacity: 0.8;
+  }
+  .product-name {
+    line-height: 18px;
+    font-weight: 600;
+  }
+  .product-info {
+    font-size: 14px;
+    line-height: 150%;
+    color: #434c55;
+  }
+  .content {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+  }
+  .get-in-touch,
+  .read-more {
+    flex: 1;
+    position: relative;
+    line-height: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .get-in-touch {
+    color: #01ab4f;
+  }
+  .cta {
+    align-self: stretch;
+    border-top: 1px solid rgba(179, 181, 182, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0 0;
+    text-align: center;
+    font-size: 12px;
+    color: #434c55;
+  }
+  .product-card-1,
+  .product-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .product-desc {
+    align-self: stretch;
+    background-color: #fff;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 14px;
+  }
+  .product-card-1 {
+    border-radius: 6px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(179, 181, 182, 0.4);
+    box-sizing: border-box;
+    width: 314px;
+    overflow: hidden;
+    flex-shrink: 0;
+    align-items: flex-end;
+  }
+  .product-cards,
+  .products,
+  .rhs {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 12px 0px 24px 0px;
+  }
+  .product-cards {
+    align-self: stretch;
+    height: 433px;
+    overflow-x: auto;
+    flex-shrink: 0;
+    flex-direction: row;
+    font-size: 16px;
+  }
+  .products,
+  .rhs {
+    flex-direction: column;
+  }
+  .products {
+    align-self: stretch;
+    overflow: hidden;
+    font-size: 20px;
+    color: #013261;
+  }
+  .rhs {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    font-size: 24px;
+    color: #0054a5;
+    font-family: Roboto;
+  }
+  

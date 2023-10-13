@@ -11,32 +11,25 @@ import { stoageGetter } from "../../helpers";
 import { useHistory } from "react-router";
 import axiosRequest from "../../axios-request/request.methods";
 
-
-
 const LeadMaster = (props) => {
-
   //Set current page no of the page
   const [current, setcurrent] = useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
 
   // console.warn("current----------------->>>>>", current);
-  // console.warn('props----------------->>>>>',props)
+  // console.warn("props----------------->>>>>", props);
 
   dispatch(actions.headerName("Opportunities"));
 
   const [width, setWidth] = useState(window.innerWidth);
   const [skipVal, setSkipVal] = useState(0);
   const breakpoint = 620;
-  const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     setcurrent(1);
   }, [props]);
-
-
-
-
 
   useEffect(() => {
     // const { id } = stoageGetter("user");
@@ -52,10 +45,6 @@ const LeadMaster = (props) => {
   const leadsData = useSelector((state) => state.leads.allLeads);
   // const loginState = useSelector((state) => state.login);
   // const { user } = loginState;
-
-
-
-
 
   // console.log(leadsData,"leads data for broker flow");
   const _leadCount = useSelector((state) => state?.home?.home_obj);
@@ -109,7 +98,7 @@ const LeadMaster = (props) => {
     {
       id: "fortoday_broker",
       value: "For Today" + " (" + _leadCount.brokertoday + ")",
-    }
+    },
   ];
 
   return (
@@ -119,22 +108,20 @@ const LeadMaster = (props) => {
         marginTop: width <= 620 ? (width <= 436 ? 15 : 75) : "",
       }}
     >
-      <Tab tabMenu={tabMenu} header="Broker Listing" current={current} />
+      {/* <Tab tabMenu={tabMenu} header="Broker Listing" current={current} /> */}
       <div className="page-holder">
-          <Pagination
-            responsive
-            showSizeChanger={false}
-            current={current}
-            onChange={handlePageClick}
-            total={totalLeads}
-            defaultPageSize={15}
-            itemRender={itemRender}
-          />
-        
-
+        <Pagination
+          responsive
+          showSizeChanger={false}
+          current={current}
+          onChange={handlePageClick}
+          total={totalLeads}
+          defaultPageSize={15}
+          itemRender={itemRender}
+        />
       </div>
 
-      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading}/>
+      <LeadCards leads={leadsData} leadDataLoading={leadDataLoading} />
     </div>
   );
 };

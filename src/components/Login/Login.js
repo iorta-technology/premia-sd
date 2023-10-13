@@ -79,8 +79,8 @@ const Login = () => {
                 alt="login-logo"
               />
             </div>
-            <br />
-            <br />
+            {/* <br />
+            <br /> */}
             <div className="login_heading">Login</div>
             <Form.Item
               label="USERNAME"
@@ -105,6 +105,7 @@ const Login = () => {
               {/* <Input size="large" placeholder="Enter PAN Number / Email" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} /> */}
               {/* onBlur={ () => setEmailValidation([])} */}
               <Input
+                className="form_imput"
                 size="large"
                 placeholder="Enter NTID"
                 prefix={<UserOutlined />}
@@ -131,10 +132,11 @@ const Login = () => {
                 placeholder="Enter your Password"
                 prefix={<KeyOutlined />}
                 onChange={(e) => setPassword(e.target.value)}
+                className="form_imput"
               />
             </Form.Item>
-            {/* <Link to="/forgotpassword">
-              <p className="forgotpasswordtext">Forgot Password</p>
+            {/* <Link to="/forgotpassword" className="forgotpasswordtext">
+              Forgot Username / Password
             </Link> */}
             <Button type="primary" htmlType="submit" className="loginbtn" block>
               Submit
@@ -148,6 +150,10 @@ const Login = () => {
           </Card>
         </div>
       </Form>
+      <div className="footer_powered_by fixed-bottom">
+        Powered by <strong>Salesdrive</strong>
+        <sup>TM</sup>
+      </div>
     </div>
   );
 };

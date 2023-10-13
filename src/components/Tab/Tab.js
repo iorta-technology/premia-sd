@@ -36,7 +36,7 @@ import {
 import { flexibleCompare } from "fullcalendar";
 import { Column } from "@antv/g2plot";
 import LeadCards from "../LeadCards_broker_flow/LeadCards";
-import LeadCards_Company from '../LeadCards/LeadCards'
+import LeadCards_Company from "../LeadCards/LeadCards";
 
 const { TabPane } = Tabs;
 
@@ -75,7 +75,10 @@ const Tab = ({
   const [currentActiveTab, setCurrentActiveTab] = useState("self");
 
   useEffect(() => {
-    console.log("************************ header ___*(*(*((**)))) *********************===========>>>", header);
+    console.log(
+      "************************ header ___*(*(*((**)))) *********************===========>>>",
+      header
+    );
     // console.log('************************ leadTabFilter leadTabFilter *********************===========>>>',leadTabFilter)
     // getDataForOpen(leadTabFilter);
     if (header === "Lead") getDataForOpen(leadTabFilter);
@@ -93,7 +96,9 @@ const Tab = ({
     } else {
       const teamId = stoageGetter("teamMemberId");
       // console.warn("teamId______===========>>>", teamId);
-      dispatch(actions.fetchAllLeads_broker(!teamId ? id : teamId, leadInc, _pageNo));
+      dispatch(
+        actions.fetchAllLeads_broker(!teamId ? id : teamId, leadInc, _pageNo)
+      );
     }
   };
   const getDataForOpen = async (leadInc) => {
@@ -154,7 +159,7 @@ const Tab = ({
         }
 
         case "1":
-          return history.push("/company-intelligence", {
+          return history.push("/plan-details", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
           });
@@ -225,27 +230,86 @@ const Tab = ({
     openTodoPopup();
   };
   const handlePdfClick_company = async () => {
-    message.warn('Your Download is in progress')
-    let result = await axiosRequest.get(`admin/company/company-intelligence-pdf/${id}`, {
-      secure: true
-    })
+    message.warn("Your Download is in progress");
+    let result = await axiosRequest.get(
+      `admin/company/company-intelligence-pdf/${id}`,
+      {
+        secure: true,
+      }
+    );
     window.open(result[0].link);
-  }
+  };
   const handlePdfClick_Broker = async () => {
-    message.warn('Your Download is in progress')
+    message.warn("Your Download is in progress");
     let result = await axiosRequest.get(`user/get-broker-pdf/${id}`, {
-      secure: true
-    })
+      secure: true,
+    });
     window.open(result[0].link);
-  }
-
+  };
+  // DROPDOWN tabs header
+  const handleChange = (value) => {
+    console.log(value);
+  };
+  const policy_options = [
+    {
+      value: "Megan 4 Year Collage",
+      title: "Megan 4 Year Collage",
+      description: "P/303/2020/00004",
+    },
+    {
+      value: "Megan 4 Year Collage",
+      title: "Megan 4 Year Collage",
+      description: "Ps/306/2020/00004",
+    },
+  ];
   return (
     <>
       {width > breakpoint ? (
-        <div className={"header-img-tabs tabsStyle"} style={{ alignItems: header === "Lead" ? 'center' : 'none' }}>
-          <div>
+        <div
+          className={"header-img-tabs tabsStyle"}
+          style={{ alignItems: header === "Lead" ? "center" : "none" }}
+        >
+          <div className="header_tabs">
             <div>
-              <p className="header-title-tab">{header}</p>
+              {/* <p className="header-title-tab">{header}</p> */}
+              <Select
+                labelInValue
+                defaultValue={{
+                  value: "Megan 4 Year Collage",
+                  label: "Megan 4 Year Collage",
+                }}
+                style={{
+                  width: 230,
+                }}
+                onChange={handleChange}
+                // options={[
+                //   {
+                //     value: "Megan 4 Year Collage",
+                //     label: "Megan 4 Year Collage",
+                //   },
+                //   {
+                //     value: "lucy",
+                //     label: "Lucy (101)",
+                //   },
+                // ]}
+              >
+                {policy_options.map((option) => (
+                  <Option
+                    key={option.value}
+                    value={`${option.value}<br>${option.title}`}
+                    label={`${option.title} (${option.description})`}
+                  >
+                    <p style={{ margin: 0, lineHeight: "normal" }}>
+                      {" "}
+                      {option.title}
+                    </p>
+                    <p style={{ margin: 0, lineHeight: "normal" }}>
+                      {" "}
+                      {option.description}
+                    </p>
+                  </Option>
+                ))}
+              </Select>
             </div>
             <div>
               <Tabs
@@ -256,13 +320,13 @@ const Tab = ({
                 size="small"
                 activeKey={activeKey}
                 className="main-lead-tabs"
-                style={{ marginLeft: "40px" }}
+                // style={{ marginLeft: "40px" }}
               >
                 {tabPane}
               </Tabs>
             </div>
           </div>
-          {header === "Lead" &&
+          {header === "Lead" && (
             <GlobalFilters
               show={show}
               onHide={handleClose}
@@ -270,7 +334,7 @@ const Tab = ({
               setShow={setShow}
               tabFilter={leadTabFilter}
             />
-          }
+          )}
           {/* {header=='Broker Listing' && <>
           <LeadCards leadTabFilter={leadTabFilter}/>
           </>}
@@ -279,35 +343,39 @@ const Tab = ({
             <LeadCards_Company leadTabFilter={leadTabFilter}/>
             </>
           } */}
-          {header === "Broker Listing" &&
+          {header === "Broker Listing" && (
             <BrokerFilters
-              style={{ marginTop: '100px' }}
+              style={{ marginTop: "100px" }}
               showBrokerFilt={showBrokerFilt}
               onHide={() => setShowBrokerFilt(false)}
               handleShow={() => setShowBrokerFilt(true)}
               setShowBrokerFilt={setShowBrokerFilt}
               tabFilter={brokerTabFilter}
             />
-          }
-           {/* <AllocateModalShow tabSelected={leadTabFilter} /> */}
-          {
-            (header !== 'Lead' && header !== 'Broker Listing') && activeKey == '1' &&
-            <div className="download_btn" onClick={handlePdfClick_company}>
-              <FilePdfOutlined
-                size={40}
-                style={{ color: "#00ACC1", marginRight: '3px' }} />
-              <span style={{ color: "#00ACC1" }}>Download PDF</span>
-            </div>
-          }
-          {
-            (header !== 'Lead' && header !== 'Broker Listing') && activeKey == 'broker_intel' &&
-            <div className="download_btn" onClick={handlePdfClick_Broker}>
-              <FilePdfOutlined
-                size={40}
-                style={{ color: "#00ACC1", marginRight: '3px' }} />
-              <span style={{ color: "#00ACC1" }}>Download PDF</span>
-            </div>
-          }
+          )}
+          {/* <AllocateModalShow tabSelected={leadTabFilter} /> */}
+          {/* {header !== "Lead" &&
+            header !== "Broker Listing" &&
+            activeKey == "1" && (
+              <div className="download_btn" onClick={handlePdfClick_company}>
+                <FilePdfOutlined
+                  size={40}
+                  style={{ color: "#00ACC1", marginRight: "3px" }}
+                />
+                <span style={{ color: "#00ACC1" }}>Download PDF</span>
+              </div>
+            )}
+          {header !== "Lead" &&
+            header !== "Broker Listing" &&
+            activeKey == "broker_intel" && (
+              <div className="download_btn" onClick={handlePdfClick_Broker}>
+                <FilePdfOutlined
+                  size={40}
+                  style={{ color: "#00ACC1", marginRight: "3px" }}
+                />
+                <span style={{ color: "#00ACC1" }}>Download PDF</span>
+              </div>
+            )} */}
 
           {/* {(header !== "Lead" && header !== "Notification" ) &&
             activeKey === "1" &&
@@ -420,7 +488,7 @@ const Tab = ({
               {tabPane}
             </Tabs>
           </div>
-        
+
           {/* {header === "Lead" && (
             <div
               style={{
@@ -480,7 +548,6 @@ const Tab = ({
               />
             </div>
           )} */}
-         
         </div>
       )}
     </>
