@@ -50,7 +50,7 @@ const Login = () => {
               stoageSetter("multi_channel", res.data.errMsg[0]);
               dispatch(actions.loginSuccess(_loginData));
               dispatch(actions.multiChannelData(res.data.errMsg[0]));
-              history.push("/leadMaster/all_leads");
+              history.push("/plan-details");
             } else {
               message.error(res.data.errMsg);
             }

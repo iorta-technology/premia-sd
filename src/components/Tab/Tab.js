@@ -164,8 +164,10 @@ const Tab = ({
             updateFormData: updateFormData,
           });
         case "2":
-          return history.push("/leadmasterpage/leadhistory");
+          return history.push("agent-details");
 
+          case "3":
+            return history.push("maturity-benefit");
         case "broker_intel":
           return history.push("/company-intelligence_broker", {
             leadData: routeLeadData,
