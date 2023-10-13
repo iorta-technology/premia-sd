@@ -216,6 +216,19 @@ const PlanDetail = React.lazy(() =>
 const Maturity = React.lazy(() =>
   import("./components/PhilPlans/MaturityBenefit")
 );
+const Termination =  React.lazy(() =>
+import("./components/PhilPlans/PlanTermination")
+);
+const Enhance = React.lazy(() =>
+import("./components/PhilPlans/EnhanceAvailment")
+);
+
+const Insurance = React.lazy(() =>
+import("./components/PhilPlans/InsuranceClaims")
+);
+const CashLoan = React.lazy(() =>
+import("./components/PhilPlans/CashLoan")
+);
 const CompIntelligence_broker = React.lazy(() =>
   import("./components/CompanyIntelligence_broker_flow/CompIntelligence")
 );
@@ -265,6 +278,7 @@ function App() {
                   <Route path="/clubsMaster" component={ClubsMaster}></Route>
                   <Route path="/birthday" component={Birthday}></Route>
                   <Route path="/home" component={HomePage}></Route>
+
                   <Route
                     path="/rewardscorner/contests/completed"
                     component={CompletedContest}
@@ -419,6 +433,10 @@ function App() {
                   ></Route>
                   <Route path="/plan-details" component={PlanDetail}></Route>
                   <Route path="/maturity-benefit" component={Maturity}></Route>
+                  <Route path="/plan-termination" component={Termination}></Route>
+                  <Route path="/enhance-availment" component={Enhance}></Route>
+                  <Route path="/insurance-claim" component={Insurance}></Route>
+                  <Route path="/cash-loan" component={CashLoan}></Route>
                   <Route
                     path="/company-intelligence_broker"
                     component={CompIntelligence_broker}
