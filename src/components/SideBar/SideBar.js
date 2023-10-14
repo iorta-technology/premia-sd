@@ -17,6 +17,7 @@ import axiosRequest from "../../axios-request/request.methods";
 import mySocket from "../../Socket";
 import * as actionType from "./../../store/actions/actionTypes";
 import { message } from "antd";
+import { BiBell } from "react-icons/fa";
 
 // -- Import Image -- //
 // import sales_logo_img from "../../images/salesDrivelogo.png";
@@ -262,16 +263,17 @@ const Sidebar = () => {
           </div> */}
           <div>
             <img
+              className="brand_logo"
               onClick={() => {
                 history.push("/home");
               }}
               src={philplanLogo}
-              style={{
-                width: "130px",
-                marginRight: "auto",
-                marginLeft: "auto",
-                cursor: "pointer",
-              }}
+              // style={{
+              //   width: "130px",
+              //   marginRight: "auto",
+              //   marginLeft: "auto",
+              //   cursor: "pointer",
+              // }}
             />
           </div>
           {/* <h3 style={{color:'#fff',textTransform:'capitalize'}}>current route</h3> */}
@@ -283,8 +285,16 @@ const Sidebar = () => {
               justifyContent: "flex-end",
             }}
           >
-            <NavIcon style={{ marginRight: 15, position: "relative" }} to="#">
-              <FaIcons.FaBell onClick={() => toggleModalBox()} />
+            <NavIcon
+              className="me-md-3"
+              style={{ position: "relative" }}
+              to="#"
+            >
+              <FaIcons.FaRegBell
+                className="me-3"
+                onClick={() => toggleModalBox()}
+                style={{ color: "#000" }}
+              />
               {/* <div className="dot"></div> */}
               {_notify?.length &&
               _notify?.length > 0 &&
@@ -294,6 +304,7 @@ const Sidebar = () => {
               ) : null}
             </NavIcon>
             <div
+              className="nav-divider-div d-md-block d-none"
               style={{
                 height: 40,
                 width: 0.5,
@@ -301,9 +312,11 @@ const Sidebar = () => {
                 marginTop: 19,
               }}
             ></div>
-            <NavIcon style={{ marginLeft: 15 }} onClick={showSidebar} to="#">
-              <FaIcons.FaUserCircle style={{ height: 30, width: 30 }} />
-              <div style={{ marginLeft: 10 }}>
+            <NavIcon className="ms-md-3" onClick={showSidebar} to="#">
+              <FaIcons.FaUserCircle
+                style={{ height: 30, width: 30, color: "#000" }}
+              />
+              <div className="d-none d-md-block" style={{ marginLeft: 10 }}>
                 <p style={{ marginBottom: 0, color: "#000", fontSize: 14 }}>
                   {logged_in_user}
                 </p>

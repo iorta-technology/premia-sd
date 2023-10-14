@@ -515,14 +515,17 @@ const PlanDetailsComponent = React.memo((props) => {
         </Col>
       </Row>
       <div className="plan_details_body" style={{ marginTop: 11 }}>
-        <Row gutter={22} style={{ margin: "0", padding: 0 }}>
+        <Row gutter={22} style={{ margin: "0" }}>
           {/* 1st Column */}
           <Col sm={24} md={18} lg={18} xlg={8}>
             {/* Company Details */}
             <p className="tab_title">Plan Details</p>
             <Card bordered={false} className="app-card-head rounded mb-3">
               <Col>
-                <Row style={{ marginBottom: 24 }}>
+                <Row
+                  className="plan_details_card1"
+                  style={{ marginBottom: 24 }}
+                >
                   <Col style={{ flex: 1 }}>
                     <div className="text-font mb-1">E5BSCED4Y000027</div>
                     <div className="label-font">Plan Number</div>
@@ -533,7 +536,7 @@ const PlanDetailsComponent = React.memo((props) => {
                     <div className="label-font">Plan Holder</div>
                   </Col>
                 </Row>
-                <Row>
+                <Row className="plan_details_card1">
                   <Col style={{ flex: 1 }}>
                     <div className="text-font mb-1">
                       Education Plan - Magna 4 Year College

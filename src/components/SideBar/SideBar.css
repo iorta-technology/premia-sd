@@ -294,9 +294,19 @@
   right: 192px;
   z-index: 99999;
 }
-
+.brand_logo{
+  width: 130px;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+}
 @media (max-width: 436px) {
   .kvtQTN {
     position: relative !important;
   }
+  .brand_logo{
+    width: 95px;
+    height: 34px;
+  }
+ 
 }

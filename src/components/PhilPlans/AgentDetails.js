@@ -518,7 +518,7 @@ const AgentDetailsComponent = React.memo((props) => {
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           {/* 1st Column */}
           <Col sm={24} md={18} lg={18} xlg={8}>
-            {/* Company Details */}
+            {/* agent Details */}
             <p className="tab_title">Agent Details</p>
             <Card bordered={false} className="app-card-head rounded mb-3">
               <Col>

@@ -160,28 +160,28 @@ const columns = [
       </span>
     ),
   },
-//   {
-//     title: "Action",
-//     dataIndex: "",
-//     key: "action",
-//     render: () => <Button className="applyNow_btn">Apply Now</Button>,
-//   },
+  //   {
+  //     title: "Action",
+  //     dataIndex: "",
+  //     key: "action",
+  //     render: () => <Button className="applyNow_btn">Apply Now</Button>,
+  //   },
 ];
 const data = [
   {
     key: 1,
     claim: "CLM-ME-0001",
     amount: "P10,000.00",
-     type: "Disability",
-     approval: "Oct 30, 2021",
+    type: "Disability",
+    approval: "Oct 30, 2021",
     status: "Paid",
   },
   {
     key: 2,
     claim: "CLM-ME-0002",
     amount: "P10,000.00",
-     type: "Dismemberment",
-     approval: "Sep 30, 2021",
+    type: "Dismemberment",
+    approval: "Sep 30, 2021",
     status: "Paid",
   },
 ];

@@ -189,44 +189,44 @@ const columns = [
       </span>
     ),
   },
-//   {
-//     title: "Action",
-//     dataIndex: "",
-//     key: "action",
-//     render: () => <Button className="applyNow_btn">Apply Now</Button>,
-//   },
+  //   {
+  //     title: "Action",
+  //     dataIndex: "",
+  //     key: "action",
+  //     render: () => <Button className="applyNow_btn">Apply Now</Button>,
+  //   },
 ];
 const data = [
   {
     key: 1,
     date: "Jan 15, 2021",
     amount: "P3,966.56",
-     receiptno: "-",
-     receiptdate: "--",
+    receiptno: "-",
+    receiptdate: "--",
     status: "Unpaid",
   },
   {
     key: 2,
     date: "Dec 15, 2021",
     amount: "P4,234.87",
-     receiptno: "-",
-     receiptdate: "--",
+    receiptno: "-",
+    receiptdate: "--",
     status: "Unpaid",
   },
   {
     key: 3,
     date: "Dec 15, 2021",
     amount: "P3,889.17",
-     receiptno: "OR12918281",
-     receiptdate: "Oct 30, 2021",
+    receiptno: "OR12918281",
+    receiptdate: "Oct 30, 2021",
     status: "Paid",
   },
   {
     key: 4,
     date: "Dec 15, 2021",
     amount: "P3,889.17",
-     receiptno: "OR12918281",
-     receiptdate: "Sep 30, 2021",
+    receiptno: "OR12918281",
+    receiptdate: "Sep 30, 2021",
     status: "Paid",
   },
 ];

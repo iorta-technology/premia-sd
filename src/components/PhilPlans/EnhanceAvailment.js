@@ -110,11 +110,11 @@ const columns = [
     dataIndex: "amount",
     key: "amount",
   },
-//   {
-//     title: "Type",
-//     dataIndex: "type",
-//     key: "type",
-//   },
+  //   {
+  //     title: "Type",
+  //     dataIndex: "type",
+  //     key: "type",
+  //   },
   {
     title: "Status",
     dataIndex: "status",
@@ -184,12 +184,12 @@ const columns = [
       </span>
     ),
   },
-//   {
-//     title: "Action",
-//     dataIndex: "",
-//     key: "action",
-//     render: () => <Button className="applyNow_btn">Apply Now</Button>,
-//   },
+  //   {
+  //     title: "Action",
+  //     dataIndex: "",
+  //     key: "action",
+  //     render: () => <Button className="applyNow_btn">Apply Now</Button>,
+  //   },
 ];
 const data = [
   {
@@ -199,20 +199,20 @@ const data = [
     // type: "Installment",
     status: "Not Available",
   },
-//   {
-//     key: 2,
-//     date: "April, 13, 2022",
-//     amount: "P50,000.00",
-//     type: "Installment",
-//     status: "Availed",
-//   },
-//   {
-//     key: 3,
-//     date: "April, 13, 2022",
-//     amount: "P50,000.00",
-//     type: "Installment",
-//     status: "Not Available",
-//   },
+  //   {
+  //     key: 2,
+  //     date: "April, 13, 2022",
+  //     amount: "P50,000.00",
+  //     type: "Installment",
+  //     status: "Availed",
+  //   },
+  //   {
+  //     key: 3,
+  //     date: "April, 13, 2022",
+  //     amount: "P50,000.00",
+  //     type: "Installment",
+  //     status: "Not Available",
+  //   },
 ];
 const formItemLayout = {
   labelCol: {
