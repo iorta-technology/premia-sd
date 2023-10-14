@@ -651,18 +651,14 @@ const PlanTerminationComponent = React.memo((props) => {
 
   return (
     <>
-      <Row gutter={16} style={{ margin: "0", padding: 0 }}>
-        <Col>
-          <TabsComp
-            tabMenu={tabMenu}
-            // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
-            // id={PdfId}
-            header={companyDetails?.company_name?.toUpperCase()}
-            activeKey="5"
-            statusLeadData={storeFormData}
-          />
-        </Col>
-      </Row>
+      <TabsComp
+        tabMenu={tabMenu}
+        // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
+        // id={PdfId}
+        header={companyDetails?.company_name?.toUpperCase()}
+        activeKey="5"
+        statusLeadData={storeFormData}
+      />
 
       <div className="plan_details_body" style={{ marginTop: 11 }}>
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
