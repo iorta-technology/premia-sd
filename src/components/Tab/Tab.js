@@ -184,14 +184,14 @@ const Tab = ({
 
         case "3":
           return history.push("maturity-benefit");
-          case "4":
-            return history.push("plan-termination");
-            case "5":
-            return history.push("enhance-availment");
-            case "6":
-              return history.push("insurance-claim");
-              case "7":
-                return history.push("cash-loan");
+        case "4":
+          return history.push("plan-termination");
+        case "5":
+          return history.push("enhance-availment");
+        case "6":
+          return history.push("insurance-claim");
+        case "7":
+          return history.push("cash-loan");
         case "broker_intel":
           return history.push("/company-intelligence_broker", {
             leadData: routeLeadData,

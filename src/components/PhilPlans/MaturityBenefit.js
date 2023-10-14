@@ -191,6 +191,7 @@ const columns = [
     render: () => <Button className="applyNow_btn">Apply Now</Button>,
   },
 ];
+
 const data = [
   {
     key: 1,
@@ -764,7 +765,9 @@ const MaturityBenefitComponent = React.memo((props) => {
                   </td>
                   <td data-label="amount">P57,245.00</td>
                   <td data-label="type">Installment</td>
-                  <td data-label="status" className="not_available"> <svg
+                  <td data-label="status" className="not_available">
+                    {" "}
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
                       height="25"
@@ -790,7 +793,7 @@ const MaturityBenefitComponent = React.memo((props) => {
                       </defs>
                     </svg>
                     <span>Not Available</span>{" "}
-</td>
+                  </td>
                   <td data-label="actions">
                     <Button className="applyNow_btn">Apply Now</Button>
                   </td>
@@ -819,41 +822,7 @@ const MaturityBenefitComponent = React.memo((props) => {
               </div>
             </div>
           </Col>
-          {/* <Col>
-            <p className="tab_title">Maturity Benefits</p>
-          </Col> */}
         </Row>
-        {/* <Row gutter={22}>
-          <Col sm={24} md={18} lg={18} xlg={8}>
-            <Table
-              className="table_container"
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-            />
-          </Col>
-          <Col sm={24} md={6} lg={6} xlg={8}>
-            <div className="rhs">
-              <div className="contact-us">
-                <div className="div">
-                  <img
-                    className="support-img-icon"
-                    alt=""
-                    src="/support-img@2x.png"
-                  />
-                </div>
-                <div className="div1">
-                  <div className="call-us-at">
-                    Call us at (02) 8802-7202 on weekdays from 8:00AM to 5:00PM
-                  </div>
-                  <div className="secondary-button">
-                    <div className="text">Get In Touch With US</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-        </Row> */}
       </div>
     </>
   );

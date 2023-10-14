@@ -124,3 +124,52 @@ line-height: normal;
   }
 }
 
+/* CustomTable.css */
+
+/* Responsive styles for mobile view */
+/* CustomTable.css */
+
+/* Responsive styles for mobile view */
+/* CustomTable.css */
+
+/* Styles for mobile view */
+@media screen and (max-width: 600px) {
+  .ant-table {
+    border: 0;
+  }
+
+  .ant-table-caption {
+    font-size: 1.3em;
+  }
+
+  .ant-table-thead {
+    display: none; /* Hide the default header */
+  }
+
+  .ant-table-tbody > tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+    position: relative;
+  }
+
+  .ant-table-row > .ant-table-cell {
+    display: block;
+    padding-left: 50%; /* Space for the header */
+    font-size: 0.8em;
+    text-align: right;
+  }
+
+  .ant-table-row > .ant-table-cell >span::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .ant-table-cell:last-child {
+    border-bottom: 0;
+  }
+}
+

@@ -213,22 +213,23 @@ const CompIntelligence = React.lazy(() =>
 const PlanDetail = React.lazy(() =>
   import("./components/PhilPlans/PlanDetails")
 );
+const AgentDetails = React.lazy(() =>
+  import("./components/PhilPlans/AgentDetails")
+);
 const Maturity = React.lazy(() =>
   import("./components/PhilPlans/MaturityBenefit")
 );
-const Termination =  React.lazy(() =>
-import("./components/PhilPlans/PlanTermination")
+const Termination = React.lazy(() =>
+  import("./components/PhilPlans/PlanTermination")
 );
 const Enhance = React.lazy(() =>
-import("./components/PhilPlans/EnhanceAvailment")
+  import("./components/PhilPlans/EnhanceAvailment")
 );
 
 const Insurance = React.lazy(() =>
-import("./components/PhilPlans/InsuranceClaims")
+  import("./components/PhilPlans/InsuranceClaims")
 );
-const CashLoan = React.lazy(() =>
-import("./components/PhilPlans/CashLoan")
-);
+const CashLoan = React.lazy(() => import("./components/PhilPlans/CashLoan"));
 const CompIntelligence_broker = React.lazy(() =>
   import("./components/CompanyIntelligence_broker_flow/CompIntelligence")
 );
@@ -432,8 +433,12 @@ function App() {
                     component={CompIntelligence}
                   ></Route>
                   <Route path="/plan-details" component={PlanDetail}></Route>
+                  <Route path="/agent-details" component={AgentDetails}></Route>
                   <Route path="/maturity-benefit" component={Maturity}></Route>
-                  <Route path="/plan-termination" component={Termination}></Route>
+                  <Route
+                    path="/plan-termination"
+                    component={Termination}
+                  ></Route>
                   <Route path="/enhance-availment" component={Enhance}></Route>
                   <Route path="/insurance-claim" component={Insurance}></Route>
                   <Route path="/cash-loan" component={CashLoan}></Route>

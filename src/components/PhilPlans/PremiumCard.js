@@ -2,16 +2,6 @@ import React from "react";
 import { Card, Button } from "antd";
 import "./rhs.css";
 const PremiumCard = () => {
-  const style = {
-    antBtn: {
-      background: "#01AB4F",
-      borderRadius: "4px",
-      fontSize: "14px",
-      color: "#fff",
-      //   fontStyle: "normal",
-      //   fontWeight: 500,
-    },
-  };
   return (
     <>
       <Card
