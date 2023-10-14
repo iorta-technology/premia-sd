@@ -128,7 +128,7 @@
   }
   .product-name {
     line-height: 18px;
-    font-weight: 600;
+    font-weight: 500;
   }
   .product-info {
     font-size: 14px;
@@ -190,7 +190,7 @@
     align-items: flex-end;
   }
   .product-cards,
-  .products,
+  .rhs-products,
   .rhs {
     display: flex;
     align-items: flex-start;
@@ -206,15 +206,16 @@
     flex-direction: row;
     font-size: 16px;
   }
-  .products,
+  .rhs-products,
   .rhs {
     flex-direction: column;
   }
-  .products {
+  .rhs-products {
     align-self: stretch;
     overflow: hidden;
     font-size: 20px;
     color: #013261;
+    width: 100%;
   }
   .rhs {
     position: relative;

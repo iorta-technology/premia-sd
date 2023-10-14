@@ -20,7 +20,7 @@ table tr {
 font-family: Roboto;
 font-size: 14px;
 font-style: normal;
-font-weight: 600;
+font-weight: 500;
 line-height: normal;
 }
 
@@ -38,7 +38,7 @@ table th {
 font-family: Roboto;
 font-size: 14px;
 font-style: normal;
-font-weight: 600;
+font-weight: 500;
 line-height: normal;
 
   /* text-transform: uppercase; */
@@ -51,7 +51,7 @@ color: var(--Secondary, #0054A5);
 font-family: Roboto;
 font-size: 16px;
 font-style: normal;
-font-weight: 600;
+font-weight: 500;
 line-height: normal;
 
 
@@ -62,7 +62,7 @@ line-height: normal;
 font-family: Roboto;
 font-size: 14px;
 font-style: normal;
-font-weight: 600;
+font-weight: 500;
 line-height: normal;
 }
 
@@ -71,7 +71,7 @@ line-height: normal;
 font-family: Roboto;
 font-size: 14px;
 font-style: normal;
-font-weight: 600;
+font-weight: 500;
 line-height: normal;
 }
 

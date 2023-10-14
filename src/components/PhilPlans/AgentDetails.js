@@ -509,7 +509,7 @@ const AgentDetailsComponent = React.memo((props) => {
             // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
             // id={PdfId}
             header={companyDetails?.company_name?.toUpperCase()}
-            activeKey="2"
+            activeKey="3"
             statusLeadData={storeFormData}
           />
         </Col>

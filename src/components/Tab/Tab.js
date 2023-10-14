@@ -174,23 +174,26 @@ const Tab = ({
           return history.push("/brokerflow/today");
         }
 
-        case "1":
-          return history.push("/plan-details", {
-            leadData: routeLeadData,
-            updateFormData: updateFormData,
-          });
-        case "2":
+        
+          case "1": 
+           return history.push("plan-cards");
+           case "2":
+            return history.push("/plan-details", {
+              leadData: routeLeadData,
+              updateFormData: updateFormData,
+            });
+        case "3":
           return history.push("agent-details");
 
-        case "3":
-          return history.push("maturity-benefit");
         case "4":
-          return history.push("plan-termination");
+          return history.push("maturity-benefit");
         case "5":
-          return history.push("enhance-availment");
+          return history.push("plan-termination");
         case "6":
-          return history.push("insurance-claim");
+          return history.push("enhance-availment");
         case "7":
+          return history.push("insurance-claim");
+        case "8":
           return history.push("cash-loan");
         case "broker_intel":
           return history.push("/company-intelligence_broker", {

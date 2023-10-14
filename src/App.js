@@ -213,6 +213,9 @@ const CompIntelligence = React.lazy(() =>
 const PlanDetail = React.lazy(() =>
   import("./components/PhilPlans/PlanDetails")
 );
+const PlanCard = React.lazy(() =>
+  import("./components/PhilPlans/PlanCards")
+);
 const AgentDetails = React.lazy(() =>
   import("./components/PhilPlans/AgentDetails")
 );
@@ -266,7 +269,7 @@ function App() {
             <Route path="/profile" component={AgentMicroService}></Route>
             <Route path="/blog" component={Blog}></Route>
             {/* <Route path="/Master/:masterType" component={Master}></Route> */}
-
+            
             <div>
               {/* Make this route at the end only. */}
               <Route
@@ -433,6 +436,7 @@ function App() {
                     component={CompIntelligence}
                   ></Route>
                   <Route path="/plan-details" component={PlanDetail}></Route>
+                  <Route path="/plan-cards" component={PlanCard}></Route>
                   <Route path="/agent-details" component={AgentDetails}></Route>
                   <Route path="/maturity-benefit" component={Maturity}></Route>
                   <Route
