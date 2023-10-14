@@ -175,25 +175,25 @@ const Tab = ({
         }
 
         
-          case "1": 
-           return history.push("plan-cards");
-           case "2":
+          // case "1": 
+          //  return history.push("plan-cards");
+           case "1":
             return history.push("/plan-details", {
               leadData: routeLeadData,
               updateFormData: updateFormData,
             });
-        case "3":
+        case "2":
           return history.push("agent-details");
 
-        case "4":
+        case "3":
           return history.push("maturity-benefit");
-        case "5":
+        case "4":
           return history.push("plan-termination");
-        case "6":
+        case "5":
           return history.push("enhance-availment");
-        case "7":
+        case "6":
           return history.push("insurance-claim");
-        case "8":
+        case "7":
           return history.push("cash-loan");
         case "broker_intel":
           return history.push("/company-intelligence_broker", {

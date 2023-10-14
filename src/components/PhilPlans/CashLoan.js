@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
 // import "../../components/StatusLead/StatusLead.css";
+import "./CashLoan.css";
 import "./rhs.css";
 import "./MaturityBenefit.css";
 // import page from "./icons/page.svg"
@@ -189,44 +190,44 @@ const columns = [
       </span>
     ),
   },
-//   {
-//     title: "Action",
-//     dataIndex: "",
-//     key: "action",
-//     render: () => <Button className="applyNow_btn">Apply Now</Button>,
-//   },
+  //   {
+  //     title: "Action",
+  //     dataIndex: "",
+  //     key: "action",
+  //     render: () => <Button className="applyNow_btn">Apply Now</Button>,
+  //   },
 ];
 const data = [
   {
     key: 1,
     date: "Jan 15, 2021",
     amount: "P3,966.56",
-     receiptno: "-",
-     receiptdate: "--",
+    receiptno: "-",
+    receiptdate: "--",
     status: "Unpaid",
   },
   {
     key: 2,
     date: "Dec 15, 2021",
     amount: "P4,234.87",
-     receiptno: "-",
-     receiptdate: "--",
+    receiptno: "-",
+    receiptdate: "--",
     status: "Unpaid",
   },
   {
     key: 3,
     date: "Dec 15, 2021",
     amount: "P3,889.17",
-     receiptno: "OR12918281",
-     receiptdate: "Oct 30, 2021",
+    receiptno: "OR12918281",
+    receiptdate: "Oct 30, 2021",
     status: "Paid",
   },
   {
     key: 4,
     date: "Dec 15, 2021",
     amount: "P3,889.17",
-     receiptno: "OR12918281",
-     receiptdate: "Sep 30, 2021",
+    receiptno: "OR12918281",
+    receiptdate: "Sep 30, 2021",
     status: "Paid",
   },
 ];
@@ -674,7 +675,7 @@ const CashLoanComponent = React.memo((props) => {
             // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
             // id={PdfId}
             header={companyDetails?.company_name?.toUpperCase()}
-            activeKey="8"
+            activeKey="7"
             statusLeadData={storeFormData}
           />
         </Col>
@@ -684,13 +685,231 @@ const CashLoanComponent = React.memo((props) => {
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           <Col sm={24} md={18} lg={18} xlg={8}>
             <p className="tab_title">Cash loan</p>
+            <div class="alert-card mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_104_2389)">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+                    fill="#D80808"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_104_2389">
+                    <rect width="24" height="24" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+              <div class="alert-message">
+                <div class="alert-title">
+                  You have two past due installments.
+                </div>
+                <div class="message">
+                  Any instalment not paid on or before it’s due date shall be
+                  subject toa late payment penalty charge of 2% per month of
+                  amertizatioon due.
+                </div>
+              </div>
+            </div>
+            <div class="payment-card mb-4">
+              <div class="payment-row">
+                <div class="payment-info">
+                  <div class="payment-message">
+                    Your Next Payment is on Nov 15, 2023
+                  </div>
+                  <div class="payment-amount">
+                    <b>P11,900.85</b>
+                    <span class="mo">/mo</span>
+                  </div>
+                </div>
+                <div class="payment-details">
+                  <div class="payment-left-col">
+                    <div class="info-1">
+                      <div class="cash-loan-no">
+                        <div class="alert-title">CLH-ME-00001</div>
+                        <div class="label">Cash Loan No.</div>
+                      </div>
+                      <div class="cash-loan-no">
+                        <div class="alert-title">P50,000.00</div>
+                        <div class="label">Loan Amount</div>
+                      </div>
+                    </div>
+                    <div class="info-2">
+                      <div class="cash-loan-no">
+                        <div class="alert-title">Sep 15, 2023</div>
+                        <div class="label">Approved Date</div>
+                      </div>
+                      <div class="cash-loan-no">
+                        <div class="value-parent">
+                          <div class="value3">2/122</div>
+                          <div class="progress-bar">
+                            <div class="progress"></div>
+                          </div>
+                        </div>
+                        <div class="label">Instalment</div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="primary-btn">
+                    <div class="text1">Pay Now</div>
+                  </button>
+                </div>
+              </div>
+            </div>
             <p className="tab_title">Payment History</p>
-            <Table
-              className="table_container"
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-            />
+            <table className="mb-4">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Amount Due</th>
+                  <th scope="col">Original Receipt No.</th>
+                  <th scope="col">Original Receipt Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="date">Jan 15, 2021</td>
+                  <td data-label="amount">P3,966.56</td>
+                  <td data-label="receiptno">-</td>
+                  <td data-label="receiptdate">--</td>
+                  <td data-label="status" className="not_available">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2009)">
+                        <path
+                          d="M12.6001 2.5C7.0801 2.5 2.6001 6.98 2.6001 12.5C2.6001 18.02 7.0801 22.5 12.6001 22.5C18.1201 22.5 22.6001 18.02 22.6001 12.5C22.6001 6.98 18.1201 2.5 12.6001 2.5ZM12.6001 20.5C8.1801 20.5 4.6001 16.92 4.6001 12.5C4.6001 10.65 5.2301 8.95 6.2901 7.6L17.5001 18.81C16.1501 19.87 14.4501 20.5 12.6001 20.5ZM18.9101 17.4L7.7001 6.19C9.0501 5.13 10.7501 4.5 12.6001 4.5C17.0201 4.5 20.6001 8.08 20.6001 12.5C20.6001 14.35 19.9701 16.05 18.9101 17.4Z"
+                          fill="#434C55"
+                          fill-opacity="0.4"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2009">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.600098 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Not Available</span>{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="date">Dec 15, 2021</td>
+                  <td data-label="amount">P4,234.87</td>
+                  <td data-label="receiptno">-</td>
+                  <td data-label="receiptdate">--</td>
+                  <td data-label="status" className="not_available">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2009)">
+                        <path
+                          d="M12.6001 2.5C7.0801 2.5 2.6001 6.98 2.6001 12.5C2.6001 18.02 7.0801 22.5 12.6001 22.5C18.1201 22.5 22.6001 18.02 22.6001 12.5C22.6001 6.98 18.1201 2.5 12.6001 2.5ZM12.6001 20.5C8.1801 20.5 4.6001 16.92 4.6001 12.5C4.6001 10.65 5.2301 8.95 6.2901 7.6L17.5001 18.81C16.1501 19.87 14.4501 20.5 12.6001 20.5ZM18.9101 17.4L7.7001 6.19C9.0501 5.13 10.7501 4.5 12.6001 4.5C17.0201 4.5 20.6001 8.08 20.6001 12.5C20.6001 14.35 19.9701 16.05 18.9101 17.4Z"
+                          fill="#434C55"
+                          fill-opacity="0.4"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2009">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.600098 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Not Available</span>{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="date">Dec 15, 2021</td>
+                  <td data-label="amount">P3,889.17</td>
+                  <td data-label="receiptno">OR12918281</td>
+                  <td data-label="receiptdate">Oct 30, 2021</td>
+                  <td data-label="status" className="availed">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2304)">
+                        <path
+                          d="M9.79996 16.1701L5.62996 12.0001L4.20996 13.4101L9.79996 19.0001L21.8 7.00009L20.39 5.59009L9.79996 16.1701Z"
+                          fill="#01AB4F"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2304">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.799805)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Paid</span>{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="date">Dec 15, 2021</td>
+                  <td data-label="amount">P3,889.17</td>
+                  <td data-label="receiptno">OR12918281</td>
+                  <td data-label="receiptdate">Sep 30, 2021</td>
+                  <td data-label="status" className="availed">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2304)">
+                        <path
+                          d="M9.79996 16.1701L5.62996 12.0001L4.20996 13.4101L9.79996 19.0001L21.8 7.00009L20.39 5.59009L9.79996 16.1701Z"
+                          fill="#01AB4F"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2304">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.799805)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Paid</span>{" "}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </Col>
           <Col sm={24} md={6} lg={6} xlg={8}>
             <div className="rhs">

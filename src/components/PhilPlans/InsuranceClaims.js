@@ -160,28 +160,28 @@ const columns = [
       </span>
     ),
   },
-//   {
-//     title: "Action",
-//     dataIndex: "",
-//     key: "action",
-//     render: () => <Button className="applyNow_btn">Apply Now</Button>,
-//   },
+  //   {
+  //     title: "Action",
+  //     dataIndex: "",
+  //     key: "action",
+  //     render: () => <Button className="applyNow_btn">Apply Now</Button>,
+  //   },
 ];
 const data = [
   {
     key: 1,
     claim: "CLM-ME-0001",
     amount: "P10,000.00",
-     type: "Disability",
-     approval: "Oct 30, 2021",
+    type: "Disability",
+    approval: "Oct 30, 2021",
     status: "Paid",
   },
   {
     key: 2,
     claim: "CLM-ME-0002",
     amount: "P10,000.00",
-     type: "Dismemberment",
-     approval: "Sep 30, 2021",
+    type: "Dismemberment",
+    approval: "Sep 30, 2021",
     status: "Paid",
   },
 ];
@@ -629,7 +629,7 @@ const InsuranceClaimComponent = React.memo((props) => {
             // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
             // id={PdfId}
             header={companyDetails?.company_name?.toUpperCase()}
-            activeKey="7"
+            activeKey="6"
             statusLeadData={storeFormData}
           />
         </Col>
@@ -639,12 +639,85 @@ const InsuranceClaimComponent = React.memo((props) => {
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           <Col sm={24} md={18} lg={18} xlg={8}>
             <p className="tab_title">Insurance Claims</p>
-            <Table
-              className="table_container"
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-            />
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Claim No.</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Approval Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="date">CLM-ME-0001</td>
+                  <td data-label="amount">P10,000.00</td>
+                  <td data-label="type">Disability</td>
+                  <td data-label="approval-date">Oct 30, 2021</td>
+                  <td data-label="status" className="availed">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2304)">
+                        <path
+                          d="M9.79996 16.1701L5.62996 12.0001L4.20996 13.4101L9.79996 19.0001L21.8 7.00009L20.39 5.59009L9.79996 16.1701Z"
+                          fill="#01AB4F"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2304">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.799805)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Paid</span>{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="date">CLM-ME-0002</td>
+                  <td data-label="amount">P10,000.00</td>
+                  <td data-label="type">Dismemberment</td>
+                  <td data-label="approval-date">Sep 30, 2021</td>
+                  <td data-label="status" className="availed">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_104_2304)">
+                        <path
+                          d="M9.79996 16.1701L5.62996 12.0001L4.20996 13.4101L9.79996 19.0001L21.8 7.00009L20.39 5.59009L9.79996 16.1701Z"
+                          fill="#01AB4F"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_104_2304">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0.799805)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <span>Paid</span>{" "}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </Col>
           <Col sm={24} md={6} lg={6} xlg={8}>
             <div className="rhs">
