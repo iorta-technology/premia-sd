@@ -299,6 +299,14 @@
     /* border-color: #01AB4F; */
     border: none;
   }
+  .plan_details_body table td{
+    color: #434C55;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
   @media (max-width: 767px) {
     .plan_details_card1{
       display: flex;
