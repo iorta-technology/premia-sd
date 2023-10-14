@@ -819,6 +819,10 @@ const MaturityBenefitComponent = React.memo((props) => {
             </div>
           </Col>
         </Row>
+        <div className="footer_powered_by fixed-bottom">
+        Powered by <strong>Salesdrive</strong>
+        <sup>TM</sup>
+      </div>
       </div>
     </>
   );

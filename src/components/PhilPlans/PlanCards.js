@@ -3,6 +3,7 @@ import "./PlanCards.css";
 import "./rhs.css";
 
 import { Col, Row } from "antd";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const PlanCard = ({
   planName = "Educational Plan",
@@ -13,6 +14,7 @@ const PlanCard = ({
   payTerm = "Monthly",
   planSatusChipBackgroundColor,
 }) => {
+    const history = useHistory();
   const planSatusChipStyle = useMemo(() => {
     return {
       backgroundColor: planSatusChipBackgroundColor,
@@ -23,6 +25,10 @@ const PlanCard = ({
     // Please sync "Company03- ListingRisk-1" to the project
   }, []);
 
+
+  const handleViewDetails = () => {
+    history.push('/plan-details');
+  };
   return (
     <>
       <div className="plan_details_body" style={{ marginTop: 80 }}>
@@ -51,7 +57,7 @@ const PlanCard = ({
                   {planName} <b className="policy-name">{policyName}</b>
                 </div>
                 <div className="plan-satus-chip" style={planSatusChipStyle}>
-                  <div className="active">Active</div>
+                  <div>Active</div>
                 </div>
               </div>
               <div className="details-div">
@@ -81,7 +87,7 @@ const PlanCard = ({
                   <button className="primary-btn">
                     <div className="text1">Pay Now</div>
                   </button>
-                  <button className="outline-btn">
+                  <button className="outline-btn" onClick={handleViewDetails}>
                     <div className="text2">View Details</div>
                   </button>
                 </div>
@@ -93,7 +99,7 @@ const PlanCard = ({
                   {planName} <b className="policy-name">{policyName}</b>
                 </div>
                 <div className="plan-satus-chip" style={planSatusChipStyle}>
-                  <div className="active">Active</div>
+                  <div>Active</div>
                 </div>
               </div>
               <div className="details-div">
@@ -123,7 +129,7 @@ const PlanCard = ({
                   <button className="primary-btn">
                     <div className="text1">Pay Now</div>
                   </button>
-                  <button className="outline-btn">
+                  <button className="outline-btn" onClick={handleViewDetails}>
                     <div className="text2">View Details</div>
                   </button>
                 </div>
@@ -135,7 +141,7 @@ const PlanCard = ({
                   {planName} <b className="policy-name">{policyName}</b>
                 </div>
                 <div className="plan-satus-chip" style={planSatusChipStyle}>
-                  <div className="active">Active</div>
+                  <div>Active</div>
                 </div>
               </div>
               <div className="details-div">
@@ -165,7 +171,7 @@ const PlanCard = ({
                   <button className="primary-btn">
                     <div className="text1">Pay Now</div>
                   </button>
-                  <button className="outline-btn">
+                  <button className="outline-btn" onClick={handleViewDetails}>
                     <div className="text2">View Details</div>
                   </button>
                 </div>
@@ -289,6 +295,10 @@ const PlanCard = ({
             </div>
           </Col>
         </Row>
+        <div className="footer_powered_by fixed-bottom">
+        Powered by <strong>Salesdrive</strong>
+        <sup>TM</sup>
+      </div>
       </div>
     </>
   );
