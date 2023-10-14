@@ -110,11 +110,11 @@ const columns = [
     dataIndex: "amount",
     key: "amount",
   },
-//   {
-//     title: "Type",
-//     dataIndex: "type",
-//     key: "type",
-//   },
+  //   {
+  //     title: "Type",
+  //     dataIndex: "type",
+  //     key: "type",
+  //   },
   {
     title: "Status",
     dataIndex: "status",
@@ -184,12 +184,12 @@ const columns = [
       </span>
     ),
   },
-//   {
-//     title: "Action",
-//     dataIndex: "",
-//     key: "action",
-//     render: () => <Button className="applyNow_btn">Apply Now</Button>,
-//   },
+  //   {
+  //     title: "Action",
+  //     dataIndex: "",
+  //     key: "action",
+  //     render: () => <Button className="applyNow_btn">Apply Now</Button>,
+  //   },
 ];
 const data = [
   {
@@ -199,20 +199,20 @@ const data = [
     // type: "Installment",
     status: "Not Available",
   },
-//   {
-//     key: 2,
-//     date: "April, 13, 2022",
-//     amount: "P50,000.00",
-//     type: "Installment",
-//     status: "Availed",
-//   },
-//   {
-//     key: 3,
-//     date: "April, 13, 2022",
-//     amount: "P50,000.00",
-//     type: "Installment",
-//     status: "Not Available",
-//   },
+  //   {
+  //     key: 2,
+  //     date: "April, 13, 2022",
+  //     amount: "P50,000.00",
+  //     type: "Installment",
+  //     status: "Availed",
+  //   },
+  //   {
+  //     key: 3,
+  //     date: "April, 13, 2022",
+  //     amount: "P50,000.00",
+  //     type: "Installment",
+  //     status: "Not Available",
+  //   },
 ];
 const formItemLayout = {
   labelCol: {
@@ -651,18 +651,14 @@ const PlanTerminationComponent = React.memo((props) => {
 
   return (
     <>
-      <Row gutter={16} style={{ margin: "0", padding: 0 }}>
-        <Col>
-          <TabsComp
-            tabMenu={tabMenu}
-            // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
-            // id={PdfId}
-            header={companyDetails?.company_name?.toUpperCase()}
-            activeKey="4"
-            statusLeadData={storeFormData}
-          />
-        </Col>
-      </Row>
+      <TabsComp
+        tabMenu={tabMenu}
+        // header={storeFormData && storeFormData._id ? "Update Lead" : "New Lead"}
+        // id={PdfId}
+        header={companyDetails?.company_name?.toUpperCase()}
+        activeKey="4"
+        statusLeadData={storeFormData}
+      />
 
       <div className="plan_details_body" style={{ marginTop: 11 }}>
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>

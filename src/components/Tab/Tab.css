@@ -325,7 +325,9 @@ button.active_tabs_button img {
   color: #00ACC1;
   text-shadow: 0 0 0.25px currentcolor;
 }
-
+.ant-tabs-tab-btn:active{
+  color: #fff;
+}
 .tabsStyleMob .ant-tabs-ink-bar {
   position: absolute;
   background: #00ACC1;
@@ -352,7 +354,7 @@ button.active_tabs_button img {
         color: #7e95ad;
     } */
     .plan_details_body{
-      padding: 0 16px;
+      padding: 0 0px;
       margin-top: 30px !important;
     }
   .tabsStyle .ant-tabs-tab-active,
