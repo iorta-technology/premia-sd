@@ -39,7 +39,6 @@ const PlanCard = ({
   const dispatch = useDispatch();
 
   const handleViewDetails = (policyNo,sysId) => {
-    debugger
     // history.push('/plan-details');
     const credentials = {
       "polNo": policyNo,
