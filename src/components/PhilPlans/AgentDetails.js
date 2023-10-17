@@ -118,6 +118,12 @@ const AgentDetailsComponent = React.memo((props) => {
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
+
+  const AgentInfo = useSelector((state) => state?.planDetails?.planData);
+  console.log('line 126',AgentInfo);
+
+  const {maturityDetails} = AgentInfo
+  console.log('line 129', maturityDetails)
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [riskInd, setRiskInd] = useState(null);

@@ -125,7 +125,10 @@ const PlanCard = ({
                         </div>
                         <div
                           className="plan-satus-chip"
-                          style={planSatusChipStyle}
+                          style={{backgroundColor:
+                            item.POL_ADDL_STATUS === "Matured" ? "#434C55" :
+                            item.POL_ADDL_STATUS === "Lapsed - Cancelled" ? "#F19A49" :
+                            "#6CC100"}}
                         >
                           <div>{item.POL_ADDL_STATUS}</div>
                         </div>
