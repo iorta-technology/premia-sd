@@ -10,6 +10,7 @@ plan-card.css
   font-size: 20px;
   font-weight: 500;
   display: block;
+  line-height: 120%
 }
 .plan-details {
   width: 197px;

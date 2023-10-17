@@ -1,0 +1,286 @@
+.alert-icon-24x24 {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .alert-title,
+  .message {
+    align-self: stretch;
+    position: relative;
+  }
+  .alert-title {
+    font-weight: 500;
+  }
+  .message {
+    font-size: 14px;
+    line-height: 130%;
+    color: #434c55;
+  }
+  .alert-card,
+  .alert-message {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .alert-message {
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .alert-card {
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: #E6F7ED;
+    flex-direction: row;
+    padding: 16px 24px;
+    gap: 12px;
+  }
+  .payment-message {
+    flex: 1;
+    position: relative;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .mo {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .payment-amount {
+    flex: 1;
+    position: relative;
+    color: #434c55;
+    text-align: right;
+    font-size: 28px;
+  }
+  .payment-info {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+  .label {
+    align-self: stretch;
+    position: relative;
+    font-size: 12px;
+    color: #434c55;
+  }
+  .cash-loan-no {
+    width: 100%;
+  }
+  .cash-loan-no,
+  .info-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 4px;
+  }
+  .info-1 {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  .value3 {
+    position: relative;
+    font-weight: 500;
+  }
+  .progress {
+    position: absolute;
+    margin: 0 !important;
+    top: 0;
+    left: 0;
+    background-color: #0054a5;
+    width: 20px;
+    height: 10px;
+    z-index: 0;
+  }
+  .info-2,
+  .payment-left-col,
+  .progress-bar,
+  .value-parent {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .progress-bar {
+    border-radius: 2px;
+    background-color: #ddd;
+    width: 50px;
+    overflow: hidden;
+    flex-shrink: 0;
+    flex-direction: column;
+    position: relative;
+  }
+  .info-2,
+  .payment-left-col,
+  .value-parent {
+    flex-direction: row;
+  }
+  .value-parent {
+    align-self: stretch;
+    gap: 10px;
+  }
+  .info-2,
+  .payment-left-col {
+    gap: 12px;
+  }
+  .info-2 {
+    flex: 1;
+  }
+  .payment-left-col {
+    width: 70%;
+    flex-wrap: wrap;
+  }
+  .text1 {
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Roboto;
+    color: #fff;
+    text-align: center;
+  }
+  .payment-details,
+  .primary-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .primary-btn {
+    cursor: pointer;
+    border: 0;
+    padding: 8px 24px;
+    background-color: #01ab4f;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(1, 171, 79, 0.4);
+    overflow: hidden;
+    justify-content: center;
+  }
+  .payment-details {
+    align-self: stretch;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  .payment-row {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+  }
+  .cash-loan,
+  .payment-card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .payment-card {
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: #fff;
+    flex-direction: row;
+    padding: 24px 24px 16px;
+    color: #0054a5;
+  }
+  .cash-loan {
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+    font-size: 16px;
+    color: #d80808;
+    font-family: Roboto;
+  }
+  .progress-bar{
+    width:100px;
+    height: 12px;
+  }
+  .progress{
+    width:20px;
+    height: 12px;
+    background-color: #0054a5;
+  }
+  @media screen and (max-width: 800px) {
+    .payment-amount,
+    .payment-message {
+      flex: unset;
+      align-self: stretch;
+    }
+    .payment-amount {
+      font-size: 24px;
+    }
+    .payment-message {
+      font-size: 18px;
+    }
+    .payment-amount {
+      text-align: left;
+    }
+    .payment-info {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cash-loan-no{
+      width: 100%;
+    }
+    .info-1,
+    .info-2 {
+      flex: 1;
+    }
+    .payment-left-col {
+      align-self: stretch;
+      width: auto;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0;
+    }
+    .payment-details {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .cash-loan-no {
+      flex: 1;
+    }
+    .alert-card {
+      align-self: stretch;
+      border-radius: 8px;
+      background-color: #E6F7ED;
+      flex-direction: row;
+      padding: 16px 12px;
+      gap: 12px;
+    }
+    .payment-card{
+      padding:12px;
+    }
+    .payment-message {
+      flex: 1;
+      position: relative;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .info-1 {
+      width: auto;
+    }
+    .info-1,
+    .info-2 {
+      align-items: center;
+      justify-content: space-between;
+      gap: 0;
+      flex: unset;
+      align-self: stretch;
+    }
+    .payment-left-col {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+   

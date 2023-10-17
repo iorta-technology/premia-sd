@@ -14,27 +14,102 @@ const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 
 const Login = () => {
   const [form] = Form.useForm();
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("Uatweng@1");
+  const [otp,setOTP] = useState('');
+  const [loginCreds,setLoginCreds] = useState('');
+  const [securityCode,setSecurityCode] = useState('');
+  const [showOTP,setShowOTP] = useState(true)
   const [password, setPassword] = useState("");
   const [emailValidation, setEmailValidation] = useState(null);
 
   const agent_data = useSelector((state) => state.login.login_agent_data);
   // const userId =  useSelector((state) => state.login.user.id)
+  useEffect(() => {
+    // Set the value of securityCode when it changes in state
+    form.setFieldsValue({ securitycode: securityCode });
+  }, [securityCode]);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onLogin = () => {
-    const credentials = { email: `${email}`, password };
+  const getOTP = () => {
+    const credentials = {
+      // email: `${email}`, password
+      userId: `${userId}`,
+      otpFor: "LOGIN",
+      value1: `${userId}`,
+    };
     // const credentials = {email, password}
     axios
-      .post(`${baseURL}auth/user/login`, credentials)
+      .post(`${baseURL}auth/getOtp`, credentials)
       .then((res, error) => {
-        console.warn("(((((((((_loginResp)))))))))", res);
+        console.warn("(((((((((_getOTP)))))))))", res);
         if (res === undefined || res === null || res === "") {
           return;
         }
         if (res.status === 200) {
+          setOTP(res.data.errMsg.responseBody.OTP)
+          setSecurityCode(res.data.errMsg.responseBody.securityCode)
+          setShowOTP(false);
+
+          // if (!res.ok) {
+          //     message.error('Please check your internet connections');
+          // } else {
+          try {
+            if (res.data.errCode === -1) {
+              // let _loginData = [];
+              // // actions.multiChannelData()
+              // let _defaultChannel = res.data.errMsg[0].filter(
+              //   (item, index) => item.setDefault === true
+              // );
+              // console.log('line 65',_defaultChannel)
+              // // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              // _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              // stoageSetter("multi_channel", res.data.errMsg[0]);
+
+              // // dispatch(actions.loginSuccess(_loginData));
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
+              // // history.push("/plan-cards");
+            } else {
+              message.error(res.data.errMsg);
+              console.error("Request failed with status:", res.data.errMsg);
+            }
+          } catch (err) {}
+        }
+      })
+      .catch((error) => {
+        // console.log('ERRROR',error.response)
+        if (error.response?.status === 400) {
+          if (error.response.data.errCode === 1)
+            message.error("Please Enter Correct User Credentials");
+        }
+      });
+  };
+
+  const onLogin = () => {
+    const credentials = {
+      // email: `${email}`, password
+      "userId": `${userId}`,
+      "otpFor": "LOGIN",
+      "otpValue": `${otp}`,
+      "securityCode": `${securityCode}`
+    };
+    // const credentials = {email, password}
+    axios
+      .post(`${baseURL}auth/ValidateOtp`, credentials)
+      .then((res, error) => {
+        console.warn("(((((((((_onLogin)))))))))", res);
+        if (res === undefined || res === null || res === "") {
+          return;
+        }
+        if (res.status === 200) {
+          let loginResponse = res.data.errMsg.responseBody;
+          dispatch(actions.loginSuccess(loginResponse));
+           setLoginCreds(res.data.errMsg.responseBody)
+           history.push("/plan-cards");
+
+          // setOTP(res.data.errMsg.responseBody.OTP)
+          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
           // if (!res.ok) {
           //     message.error('Please check your internet connections');
           // } else {
@@ -48,9 +123,8 @@ const Login = () => {
               // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
               _loginData.push(_defaultChannel, res.data.errMsg[1]);
               stoageSetter("multi_channel", res.data.errMsg[0]);
-              dispatch(actions.loginSuccess(_loginData));
-              dispatch(actions.multiChannelData(res.data.errMsg[0]));
-              history.push("/plan-cards");
+              
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
             } else {
               message.error(res.data.errMsg);
             }
@@ -67,8 +141,54 @@ const Login = () => {
   };
 
   return (
-    <div className="main-body">
-      <Form layout="vertical" form={form} onFinish={onLogin}>
+    <>
+      <div className="main-body">
+      { showOTP ?
+        <Form
+          layout="vertical"
+          form={form}
+          onFinish={getOTP}
+        >
+          <div className="login-card">
+            <Card className="main-card">
+              <div className="logo">
+                <Image
+                  preview={false}
+                  width={126}
+                  src={loginLogo}
+                  alt="login-logo"
+                />
+              </div>
+              {/* <br />
+    <br /> */}
+              <div className="login_heading">LOGIN</div>
+              <Form.Item label="USER ID" name="email">
+                <Input
+                  className="form_imput"
+                  size="large"
+                  placeholder="Enter USERID"
+                  prefix={<UserOutlined />}
+                  defaultValue={userId}
+                  // onChange={(e) => setUserId(e.target.value)}
+                />
+              </Form.Item>
+              {/* <Link to="/forgotpassword" className="forgotpasswordtext">
+      Forgot Username / Password
+    </Link> */}
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="loginbtn"
+                block
+              >
+                Get Otp
+              </Button>
+            </Card>
+          </div>
+        </Form> :
+        <Form layout="vertical" form={form} 
+        onFinish={onLogin}
+        >
         <div className="login-card">
           <Card className="main-card">
             <div className="logo">
@@ -76,68 +196,52 @@ const Login = () => {
                 preview={false}
                 width={126}
                 src={loginLogo}
-                alt="login-logo"
-              />
+                alt="login-logo" />
             </div>
             {/* <br />
-            <br /> */}
-            <div className="login_heading">Login</div>
+    <br /> */}
+            <div className="login_heading">OTP</div>
             <Form.Item
-              label="USERNAME"
-              name="email"
-              // rules={emailValidation}
-              // rules={[
-              // {
-              //     type: "email",
-              //     message: "Please Enter Valid Email"
-              // },
-              // {
-              //     required: true,
-              //     message: "PAN No is Required"
-              //     // message: "Email is Required"
-              // },
-              // {
-              //     message: 'Enter a valid PAN No format',
-              //     pattern: new RegExp(/(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/)
-              // }
-              // ]}
+              label="OTP"
+              name="otp"
             >
               {/* <Input size="large" placeholder="Enter PAN Number / Email" prefix={<UserOutlined />} onChange={(e)=>setEmail(e.target.value)} /> */}
               {/* onBlur={ () => setEmailValidation([])} */}
               <Input
                 className="form_imput"
                 size="large"
-                placeholder="Enter NTID"
+                placeholder="Enter OTP"
                 prefix={<UserOutlined />}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+                defaultValue={otp}
+                // onChange={(e) => setOTP(e.target.value)}
+                 />
             </Form.Item>
             <Form.Item
-              name="password"
-              label="PASSWORD"
+              name="securitycode"
+              label="SECURITY CODE"
               rules={[
                 {
                   required: true,
-                  message: "Password is Required",
+                  message: "Security code is Required",
                 },
-                {
-                  max: 20,
-                  min: 2,
-                  message: "password should be minium 6 characters",
-                },
+                // {
+                //   max: 20,
+                //   min: 2,
+                //   message: "password should be minium 6 characters",
+                // },
               ]}
             >
               <Input.Password
                 size="large"
-                placeholder="Enter your Password"
+                placeholder="Enter your Security Code"
                 prefix={<KeyOutlined />}
-                onChange={(e) => setPassword(e.target.value)}
-                className="form_imput"
-              />
+                value={securityCode}
+                onChange={(e)=> setSecurityCode(e.target.value)}
+                className="form_imput" />
             </Form.Item>
             {/* <Link to="/forgotpassword" className="forgotpasswordtext">
-              Forgot Username / Password
-            </Link> */}
+      Forgot Username / Password
+    </Link> */}
             <Button type="primary" htmlType="submit" className="loginbtn" block>
               Submit
             </Button>
@@ -150,11 +254,13 @@ const Login = () => {
           </Card>
         </div>
       </Form>
+  }
+      </div>
       <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
       </div>
-    </div>
+    </>
   );
 };
 

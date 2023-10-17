@@ -10,7 +10,7 @@ const initialState = {
   login_error: null,
   channelCode: "",
   user: null,
-
+  allPlanDetails: null,
   userDetails: {},
   levelCode: "",
   hierarchy: {},
@@ -46,39 +46,49 @@ const headerNameData = (state, action) => {
   });
 };
 
+const getAllPlanDetails = (state, action) => {
+  debugger
+  return updateObject(state, {
+    allPlanDetails: action.getAllPlanDetails,
+    fetch_allLeads_Loading: false,
+  });
+};
+
 const loginSuccess = (state, action) => {
   console.log("id_______DATATATATTAAT", action);
-  let user = camelCaseKeys({ ...action.login_agent_data[0][0] });
+  let user = camelCaseKeys({ ...action.login_agent_data });
   console.log("LOGIN REPORTTTTING", user);
   // localStorage.setItem('user',user)
   stoageSetter("user", user);
-  let sortarray = {
-    FullName: user?.reportingManager?.full_name,
-    ShortId: user?.reportingManager?.employeeCode,
-    firstname: user?.reportingManager?.first_name,
-    lastname: user?.reportingManager?.last_name,
-    employecode: user?.reportingManager?.employeeCode,
-    designation: user?.reportingManager?.hierarchyName,
-    _Id: user?.reportingManager?._id,
-    value: user?.reportingManager?.full_name + " " + "(" + user?.reportingManager?.hierarchyName + ")",
-  };
+  // let sortarray = {
+  //   FullName: user?.reportingManager?.full_name,
+  //   ShortId: user?.reportingManager?.employeeCode,
+  //   firstname: user?.reportingManager?.first_name,
+  //   lastname: user?.reportingManager?.last_name,
+  //   employecode: user?.reportingManager?.employeeCode,
+  //   designation: user?.reportingManager?.hierarchyName,
+  //   _Id: user?.reportingManager?._id,
+  //   value: user?.reportingManager?.full_name + " " + "(" + user?.reportingManager?.hierarchyName + ")",
+  // };
 
   return updateObject(state, {
     fetch_allLeads_Loading: false,
+    ...user
     // login_agent_data: action.login_agent_data,
-    user: user,
-    reportingManager: sortarray,
-    userList: action.login_agent_data[0],
-    user_name:
-      action.login_agent_data[0][0].first_name +
-      " " +
-      action.login_agent_data[0][0].last_name,
-    agent_id: action.login_agent_data[0][0].agent_id,
-    userId: action.login_agent_data[0][0]._id,
-    token: action.login_agent_data[1].token,
+    // user: user,
+    // reportingManager: sortarray,
+    // userList: action.login_agent_data[0],
+    // user_name:
+    //   action.login_agent_data[0][0].first_name +
+    //   " " +
+    //   action.login_agent_data[0][0].last_name,
+    // agent_id: action.login_agent_data[0][0].agent_id,
+    // userId: action.login_agent_data[0][0]._id,
+    // token: action.login_agent_data[1].token,
     // channelCode:action.login_agent_data[0][0].channelCode
   });
 };
+
 const loginFail = (state, action) => {
   return updateObject(state, {
     fetch_allLeads_Loading: false,
@@ -167,7 +177,8 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.HEADER_NAME:
       return headerNameData(state, action);
-
+      case actionTypes.GET_ALL_PLAN_DETAILS:
+        return getAllPlanDetails(state, action);
     case actionTypes.AUTH_LOGOUT_START:
       return logoutStart(state, action);
     case actionTypes.AUTH_LOGOUT_SUCCESS:

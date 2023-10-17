@@ -224,6 +224,7 @@
     font-size: 24px;
     color: #0054a5;
     font-family: Roboto;
+    margin-bottom: 24px;
   }
   
   .tab_title{
@@ -306,6 +307,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+
   }
   @media (max-width: 767px) {
     .plan_details_card1{

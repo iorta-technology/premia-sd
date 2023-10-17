@@ -277,7 +277,7 @@ function App() {
                 component={AgentMicroService}
               ></Route>
               <div>
-                <Sidebar />
+                 <Sidebar />
                 <div>
                   <Route path="/clubsMaster" component={ClubsMaster}></Route>
                   <Route path="/birthday" component={Birthday}></Route>

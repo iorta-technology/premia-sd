@@ -759,7 +759,7 @@ const CashLoanComponent = React.memo((props) => {
               </div>
             </div>
             <p className="tab_title">Payment History</p>
-            <table className="mb-4">
+            <table className="mb-5">
               <thead>
                 <tr>
                   <th scope="col">Date</th>
@@ -963,10 +963,11 @@ const CashLoanComponent = React.memo((props) => {
             </div>
           </Col>
         </Row> */}
-        <div className="footer_powered_by fixed-bottom">
+       
+      </div>
+      <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
-      </div>
       </div>
     </>
   );

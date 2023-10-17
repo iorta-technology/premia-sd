@@ -101,8 +101,9 @@ function Modal1({ children, shown, close }) {
 const Sidebar = () => {
   const state = useSelector((state) => state);
   // console.log("((((((((((STATEEEEEEE))))))))))",state)
-  const login_user_data = state?.login?.user;
-  const headerName = useSelector((state) => state?.login?.headerName);
+  const login_user_data = state?.login;
+  console.log('line 105',login_user_data)
+  const headerName = useSelector((state) => state?.login?.loginDetails?.userName);
   const userId = useSelector((state) => state.login.userId);
   const history = useHistory();
   // console.warn("_______STOREE_____", state);
@@ -113,12 +114,12 @@ const Sidebar = () => {
   const [showNewLeadModal, setShowNewLeadModal] = useState(false);
 
   let _storeData = useSelector((state) => state);
-
-  const _accessOpportunities = checkuserAccess("myLeads", _storeData.login); // Opportunities
-
-  const [showOpportunities, setShowOpportunities] = useState(
-    _accessOpportunities.props.read === true ? true : false
-  );
+  console.log('state',_storeData)
+ // const _accessOpportunities = checkuserAccess("myLeads", _storeData?.login?.loginDetails); // Opportunities
+  // console.log('line 118', _accessOpportunities )
+  // const [showOpportunities, setShowOpportunities] = useState(
+  //   _accessOpportunities.props.read === true ? true : false
+  // );
 
   const notificationIndicator = (flag) => {
     return {
@@ -177,11 +178,13 @@ const Sidebar = () => {
   const showSidebar = () => setSidebar(!sidebar);
 
   // const logged_in_user = useSelector((state) => state.login.user_name)
-  const logged_in_user =
-    login_user_data.firstName + " " + login_user_data.lastName;
-  let avatar = logged_in_user?.match(/\b(\w)/g);
+  // const logged_in_user =
+  //   login_user_data.firstName + " " + login_user_data.lastName;
+  // let avatar = logged_in_user?.match(/\b(\w)/g);
 
   // const agent_id = useSelector((state) => state.login.agent_id)
+  console.log(login_user_data)
+
   const agent_id = login_user_data.agentId;
 
   const onLogout = () => {
@@ -203,17 +206,17 @@ const Sidebar = () => {
     // history.push("/leadmasterpage/statuslead");
     // setSidebar(false);
 
-    if (showOpportunities) {
-      // dispatch(actions.fetchLeadUpdateBody({}))
-      // dispatch(actions.fetchLeadDetailsSuccess({}))
+    // if (showOpportunities) {
+    //   // dispatch(actions.fetchLeadUpdateBody({}))
+    //   // dispatch(actions.fetchLeadDetailsSuccess({}))
 
-      // // dispatch(actions.storeLead(leadUpdateFormdata));
-      // history.push("/leadmasterpage/statuslead");
-      setShowNewLeadModal(true);
-      setSidebar(false);
-    } else {
-      message.info("This feature is currently not accessible");
-    }
+    //   // // dispatch(actions.storeLead(leadUpdateFormdata));
+    //   // history.push("/leadmasterpage/statuslead");
+    //   setShowNewLeadModal(true);
+    //   setSidebar(false);
+    // } else {
+    //   message.info("This feature is currently not accessible");
+    // }
   };
 
   const openLeadList = () => {
@@ -292,7 +295,7 @@ const Sidebar = () => {
             >
               <FaIcons.FaRegBell
                 className="me-3"
-                onClick={() => toggleModalBox()}
+                // onClick={() => toggleModalBox()}
                 style={{ color: "#000" }}
               />
               {/* <div className="dot"></div> */}
@@ -318,7 +321,7 @@ const Sidebar = () => {
               />
               <div className="d-none d-md-block" style={{ marginLeft: 10 }}>
                 <p style={{ marginBottom: 0, color: "#000", fontSize: 14 }}>
-                  {logged_in_user}
+                {/* {logged_in_user} */}
                 </p>
                 <p
                   style={{
@@ -328,225 +331,13 @@ const Sidebar = () => {
                     fontSize: 10,
                   }}
                 >
-                  Agent ID: {agent_id}
+                  Agent ID: {headerName}
                 </p>
               </div>
             </NavIcon>
           </div>
         </Nav>
 
-        <Modal1 shown={sidebar} close={() => setSidebar(false)}>
-          <div className="indicationArrowProfile"></div>
-          <div className="sideMenu">
-            <div className="menuHeader">
-              <div className="profileLogo">
-                <p
-                  style={{
-                    textTransform: "uppercase",
-                    color: "#fff",
-                    fontSize: 22,
-                  }}
-                >
-                  {avatar}
-                </p>
-              </div>
-              <div className="profileData">
-                <p style={{ textTransform: "capitalize", fontWeight: 600 }}>
-                  {logged_in_user}
-                </p>
-                <p>
-                  <b>{login_user_data?.designation?.designatioName}</b> ({" "}
-                  <b>ID</b> {agent_id})
-                </p>
-                <p>
-                  <FaIcons.FaMapMarker style={{ color: "#787878" }} /> |{" "}
-                  {login_user_data.city} | {login_user_data.state}
-                </p>
-                <p>
-                  <b>Channel : </b>
-                  {login_user_data.channelCode.channelName}
-                </p>
-              </div>
-            </div>
-            <div className="menuBody">
-              <div className="logoutContainer">
-                <button onClick={onLogout}>Logout</button>
-              </div>
-              <div className="menuList">
-                <ul>
-                  <li
-                    onClick={() => {
-                      switchChannel();
-                    }}
-                  >
-                    <div>
-                      <img src={switch_img} /> &nbsp;<span>Switch Channel</span>
-                    </div>{" "}
-                    <img src={right_black_img} />
-                  </li>
-                  {/* <li
-                    onClick={() => {
-                      defaultChannel();
-                    }}
-                  >
-                    <div>
-                      <img src={switch_img} /> &nbsp;
-                      <span>Channel Default</span>
-                    </div>{" "}
-                    <img src={right_black_img} />
-                  </li> */}
-                  {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75902x.png'/> &nbsp;<span>Ticketing Tool</span></div> <img src={right_black_img}/></li> */}
-                  {/* <li><div><img src='https://tataadv2dev.iorta.in/assets/Group75912x.png'/> &nbsp;<span>Download FAQs</span></div> </li> */}
-                </ul>
-                {/* <h3>My Customers</h3>
-              <ul>
-                <li onClick={() => { history.push('/renewalMaster/allRenewals') }}><div><img src='https://tataadv2dev.iorta.in/assets/upr.png'/> &nbsp;<span>Upcomming renewals</span></div> <img src={right_black_img}/></li>
-                <li><div><img src='https://tataadv2dev.iorta.in/assets/lp.png'/> &nbsp;<span>Lapsed Policy</span></div> <img src={right_black_img}/></li>
-              </ul> */}
-                {/* <h3>My Partners</h3>
-              <ul>
-                <li><div><img src={rapps_img}/> &nbsp;<span>All Partners</span></div> <img src={right_black_img}/></li>
-              </ul> */}
-                {showOpportunities && (
-                  <>
-                    <p>Leads</p>
-                    <ul>
-                      <li
-                        onClick={() => {
-                          addSingleLead();
-                        }}
-                      >
-                        <div>
-                          <img src={draftr_img} /> &nbsp;
-                          <span>Add New Lead</span>
-                        </div>{" "}
-                        <img src={right_black_img} />
-                      </li>
-                      {/* <li
-                        onClick={() => {
-                          addBulkLead();
-                        }}
-                      >
-                        <div>
-                          <img src={rapps_img} /> &nbsp;
-                          <span>Add Bulk Lead</span>
-                        </div>{" "}
-                        <img src={right_black_img} />
-                      </li> */}
-                      <li
-                        onClick={() => {
-                          openLeadList();
-                        }}
-                      >
-                        <div>
-                          <img src={draftr_img} /> &nbsp;
-                          <span>Show Leads</span>
-                        </div>{" "}
-                        <img src={right_black_img} />
-                      </li>
-                    </ul>
-                  </>
-                )}
-
-                {/* <p>Need Help?</p>
-                <ul>
-                  <li>
-                    <div>
-                      <img src={needhelp_img} /> &nbsp;
-                      <span>Help &amp; FAQs</span>
-                    </div>{" "}
-                    <img src={right_black_img} />
-                  </li>
-                </ul> */}
-              </div>
-            </div>
-          </div>
-        </Modal1>
-
-        <Modal1
-          shown={modalShown}
-          close={() => {
-            toggleModal(false);
-          }}
-        >
-          <div className="indicationArrowNotif"></div>
-          <div className="sideMenu1">
-            <div className="activity-block1" style={{ height: "350px" }}>
-              <div className="notificationHead">
-                <p>Notification</p>
-                {
-                  // clearBtn &&
-                  _notify?.length && _notify?.length > 0 ? (
-                    <button onClick={clearData}>Clear All</button>
-                  ) : (
-                    ""
-                  )
-                }
-              </div>
-              <div className="menuBody1">
-                {
-                  // clearBtn &&
-                  _notify?.length && _notify?.length > 0 ? (
-                    _notify.map((desc_data, index) => {
-                      return (
-                        <div key={index}>
-                          <div className="notification_data">
-                            <div className="list_data">
-                              <h4>{desc_data.title}</h4>
-                              <p>{desc_data.body}</p>
-                            </div>
-                            <div className="date">
-                              <p>
-                                {moment(desc_data.created_date).format(
-                                  "DD-MM-YYYY"
-                                )}
-                              </p>
-                              <p style={{ marginTop: "-10px" }}>
-                                {moment(desc_data.created_date).format("LT")}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="notification_status">
-                            {desc_data.priority ? (
-                              <button
-                                style={{
-                                  backgroundColor:
-                                    desc_data.priority === "high"
-                                      ? "rgb(253 84 84)"
-                                      : desc_data.priority === "medium"
-                                      ? "#fb8c00"
-                                      : desc_data.priority === "low"
-                                      ? "#4caf50"
-                                      : "",
-                                }}
-                                onClick={() => {
-                                  history.push("/calendar");
-                                }}
-                              >
-                                {desc_data.priority}
-                              </button>
-                            ) : (
-                              ""
-                            )}
-                          </div>
-                          <hr className="hr-line" />
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div className="logoutContainer1">
-                      <img src={all_clear_img} />
-                      <p>All Catch Up!</p>
-                    </div>
-                  )
-                }
-              </div>
-            </div>
-            <div className="notification_footer view_button">
-              <button onClick={() => closeNotificPop()}>View All</button>
-            </div>
-          </div>
-        </Modal1>
 
         {/* <SidebarNav sidebar={sidebar}>
           <SidebarWrap>

@@ -128,7 +128,7 @@ const ExecRequest = (config, options = { secure: true, multipart: false }) => {
               // if token is not sent from the application
               // we consider this type of request is "invalid"
               else if (error.response.data.errCode === 25) {
-                window.location.replace("/login");
+                // window.location.replace("/login");
                 // let self = this;
                 // this.$router.push('/login');
                 // setTimeout(() => {

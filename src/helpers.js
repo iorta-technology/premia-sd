@@ -79,8 +79,8 @@ export const checkuserAccess = (featureCode, userData) => {
   // let _temp = window.localStorage.getItem('persist:root')
   // let _loginUser = JSON.parse(JSON.parse(_temp).login)
   // console.warn('((((((((((hierarchyData))))))))))',userData.user)
-  var storeData_match = userData.user.accessOpt.accessOpt;
-  var roleCODE = userData.user.roleCode;
+  var storeData_match = userData.userList?.accessOpt?.accessOpt;
+  var roleCODE = userData.userList?.roleCode;
   // console.log('Role Code::', roleCODE);
   // Array Itration
   for (var location of storeData_match) {

@@ -1,9 +1,14 @@
 import { useMemo, useCallback } from "react";
 import "./PlanCards.css";
 import "./rhs.css";
-
-import { Col, Row } from "antd";
+import * as actions from "../../store/actions/index";
+import { Col, Row, message } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import axios from "axios";
+import { baseURL } from "../../axios-common";
+import { stoageSetter } from "../../helpers";
 
 const PlanCard = ({
   planName = "Educational Plan",
@@ -15,6 +20,10 @@ const PlanCard = ({
   planSatusChipBackgroundColor,
 }) => {
     const history = useHistory();
+    const planDetailsListing = useSelector((state) => state?.login?.planListing.P_LOP_DTLS);
+   console.log('line 123',planDetailsListing)
+   const sysId = useSelector((state) => state?.login?.planListing?.POL_SYS_ID);
+   const token = useSelector((state) => state?.login?.loginDetails.token);
   const planSatusChipStyle = useMemo(() => {
     return {
       backgroundColor: planSatusChipBackgroundColor,
@@ -25,10 +34,62 @@ const PlanCard = ({
     // Please sync "Company03- ListingRisk-1" to the project
   }, []);
 
+  const dispatch = useDispatch();
 
-  const handleViewDetails = () => {
-    history.push('/plan-details');
+  const handleViewDetails = (policyNo,sysId) => {
+    debugger
+    // history.push('/plan-details');
+    const credentials = {
+      "polNo": policyNo,
+      "sysId": sysId,
+      "Token": `${token}`
+    };
+    // const credentials = {email, password}
+    axios
+      .post(`${baseURL}auth/getPlanAllDetails`, credentials)
+      .then((res, error) => {
+        console.log("(((((((((getPlanAllDetails)))))))))", res);
+        if (res === undefined || res === null || res === "") {
+          return;
+        }
+        if (res.status === 200) {
+          let result = res.data.errMsg.responseBody;
+          dispatch(actions.getAllPlanDetails(result));
+          // setLoginCreds(res.data.errMsg.responseBody)
+           history.push("/plan-details");
+
+          // setOTP(res.data.errMsg.responseBody.OTP)
+          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
+          // if (!res.ok) {
+          //     message.error('Please check your internet connections');
+          // } else {
+          try {
+            if (res.data.errCode === -1) {
+              // let _loginData = [];
+              // actions.multiChannelData()
+              // let _defaultChannel = res.data.errMsg[0].filter(
+              //   (item, index) => item.setDefault === true
+              // );
+              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              // _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              // stoageSetter("multi_channel", res.data.errMsg[0]);
+              
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
+            } else {
+              message.error(res.data.errMsg);
+            }
+          } catch (err) {}
+        }
+      })
+      .catch((error) => {
+        // console.log('ERRROR',error.response)
+        if (error.response.status === 400) {
+          if (error.response.data.errCode === 1)
+            message.error("Please Enter Correct User Credentials");
+        }
+      });
   };
+  
   return (
     <>
       <div className="plan_details_body" style={{ marginTop: 80 }}>
@@ -51,132 +112,58 @@ const PlanCard = ({
             >
               My Policies
             </p>
-            <div className="plan-card mb-4" onClick={onPlanCardContainerClick}>
-              <div className="plan-details">
-                <div className="plan-name">
-                  {planName} <b className="policy-name">{policyName}</b>
-                </div>
-                <div className="plan-satus-chip" style={planSatusChipStyle}>
-                  <div>Active</div>
-                </div>
-              </div>
-              <div className="details-div">
-                <div className="details-col">
-                  <div className="plan-no-date">
-                    <div className="data">
-                      <div className="value">{planNumber}</div>
-                      <div className="label">Plan Number</div>
+            {
+              planDetailsListing?.length > 0 ? planDetailsListing.map((item,index)=> {
+                return (
+                  <div className="plan-card mb-4" onClick={onPlanCardContainerClick}>
+                  <div className="plan-details">
+                    <div className="plan-name">
+                      {item.POL_ASSURED_NAME} <b className="policy-name">{item?.PROD_PORTAL_DESC}</b>
                     </div>
-                    <div className="data">
-                      <div className="value">{dueDate}</div>
-                      <div className="label">Due Date</div>
+                    <div className="plan-satus-chip" style={planSatusChipStyle}>
+                      <div>{item.POL_ADDL_STATUS}</div>
                     </div>
                   </div>
-                  <div className="plan-no-date">
-                    <div className="data">
-                      <div className="value">{premiumAmt}</div>
-                      <div className="label">Premium Amount</div>
+                  <div className="details-div">
+                    <div className="details-col">
+                      <div className="plan-no-date">
+                        <div className="data">
+                          <div className="value">{item?.POL_NO}</div>
+                          <div className="label">Plan Number</div>
+                        </div>
+                        <div className="data">
+                          <div className="value">{item?.DUE_DATE
+                            ? moment(item.DUE_DATE).format("DD-MM-YYYY")
+                            : "--"
+                        }</div>
+                          <div className="label">Due Date</div>
+                        </div>
+                      </div>
+                      <div className="plan-no-date">
+                        <div className="data">
+                          <div className="value">{item?.POL_LC_PRENEED_PRICE}</div>
+                          <div className="label">Premium Amount</div>
+                        </div>
+                        <div className="data">
+                          <div className="value">{item?.POL_MODE_OF_PYMT}</div>
+                          <div className="label">Payment Term</div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="data">
-                      <div className="value">{payTerm}</div>
-                      <div className="label">Payment Term</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="cta-col">
-                  <button className="primary-btn">
-                    <div className="text1">Pay Now</div>
-                  </button>
-                  <button className="outline-btn" onClick={handleViewDetails}>
-                    <div className="text2">View Details</div>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="plan-card mb-4" onClick={onPlanCardContainerClick}>
-              <div className="plan-details">
-                <div className="plan-name">
-                  {planName} <b className="policy-name">{policyName}</b>
-                </div>
-                <div className="plan-satus-chip" style={planSatusChipStyle}>
-                  <div>Active</div>
-                </div>
-              </div>
-              <div className="details-div">
-                <div className="details-col">
-                  <div className="plan-no-date">
-                    <div className="data">
-                      <div className="value">{planNumber}</div>
-                      <div className="label">Plan Number</div>
-                    </div>
-                    <div className="data">
-                      <div className="value">{dueDate}</div>
-                      <div className="label">Due Date</div>
-                    </div>
-                  </div>
-                  <div className="plan-no-date">
-                    <div className="data">
-                      <div className="value">{premiumAmt}</div>
-                      <div className="label">Premium Amount</div>
-                    </div>
-                    <div className="data">
-                      <div className="value">{payTerm}</div>
-                      <div className="label">Payment Term</div>
+                    <div className="cta-col">
+                      <button className="primary-btn">
+                        <div className="text1">Pay Now</div>
+                      </button>
+                      <button className="outline-btn" onClick={() => handleViewDetails(item?.POL_NO,item?.POL_SYS_ID)}>
+                        <div className="text2">View Details</div>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div className="cta-col">
-                  <button className="primary-btn">
-                    <div className="text1">Pay Now</div>
-                  </button>
-                  <button className="outline-btn" onClick={handleViewDetails}>
-                    <div className="text2">View Details</div>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="plan-card mb-4" onClick={onPlanCardContainerClick}>
-              <div className="plan-details">
-                <div className="plan-name">
-                  {planName} <b className="policy-name">{policyName}</b>
-                </div>
-                <div className="plan-satus-chip" style={planSatusChipStyle}>
-                  <div>Active</div>
-                </div>
-              </div>
-              <div className="details-div">
-                <div className="details-col">
-                  <div className="plan-no-date">
-                    <div className="data">
-                      <div className="value">{planNumber}</div>
-                      <div className="label">Plan Number</div>
-                    </div>
-                    <div className="data">
-                      <div className="value">{dueDate}</div>
-                      <div className="label">Due Date</div>
-                    </div>
-                  </div>
-                  <div className="plan-no-date">
-                    <div className="data">
-                      <div className="value">{premiumAmt}</div>
-                      <div className="label">Premium Amount</div>
-                    </div>
-                    <div className="data">
-                      <div className="value">{payTerm}</div>
-                      <div className="label">Payment Term</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="cta-col">
-                  <button className="primary-btn">
-                    <div className="text1">Pay Now</div>
-                  </button>
-                  <button className="outline-btn" onClick={handleViewDetails}>
-                    <div className="text2">View Details</div>
-                  </button>
-                </div>
-              </div>
-            </div>
+                ) 
+              }) : ""
+            }
+            
           </Col>
           <Col sm={24} md={6} lg={6} xlg={8}>
             <div className="rhs">
@@ -295,11 +282,9 @@ const PlanCard = ({
             </div>
           </Col>
         </Row>
-        <div className="footer_powered_by fixed-bottom">
-        Powered by <strong>Salesdrive</strong>
-        <sup>TM</sup>
+        
       </div>
-      </div>
+     
     </>
   );
 };

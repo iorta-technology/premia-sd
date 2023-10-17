@@ -60,6 +60,8 @@ import PremiumCard from "./PremiumCard";
 import axios from "axios";
 // import ShowPdf from "./ShowPdf";
 import apiConfig from "../../config/api.config";
+import Lapsed from "./Lapsed";
+import Maturity from "./Maturity";
 const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 // import { Document, Page } from 'react-pdf';
 
@@ -112,12 +114,11 @@ const PlanDetailsComponent = React.memo((props) => {
   const childRef = useRef(null);
   // const [form] = Form.useForm();
   // console.warn("COMPPP____PROPSS", props?.location?.state?.leadData);
-  let storeFormData = useSelector((state) => state?.newLead?.formData);
+  let storeFormData = useSelector((state) => state?.login?.loginDetails?.userName);
   const loginId = useSelector((state) => state?.login?.user?.id);
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
-
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [riskInd, setRiskInd] = useState(null);
@@ -660,10 +661,12 @@ const PlanDetailsComponent = React.memo((props) => {
           {/* rhs html  */}
           <Col sm={24} md={6} lg={6} xlg={8}>
             {/* premium payment card */}
-            <PremiumCard />
+             <PremiumCard /> 
+            {/* <Lapsed/> */}
+            {/* <Maturity/> */}
             {/* premium payment card end */}
             <div className="rhs">
-              <div className="contact-us">
+             <div className="contact-us">
                 <div className="div">
                   <img
                     className="support-img-icon"
@@ -779,10 +782,10 @@ const PlanDetailsComponent = React.memo((props) => {
             </div>
           </Col>
         </Row>
-        <div className="footer_powered_by fixed-bottom">
+      </div>
+      <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
-      </div>
       </div>
     </>
   );
