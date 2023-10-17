@@ -1,0 +1,28 @@
+.phil_side_bar_item{
+    padding: 16px 32px;
+    border-bottom: 1px solid #E0E0E0;
+    background: #FFF;
+    color: #434C55;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+ .active_item{
+    color: #01AB4F !important;
+}
+
+.ant-drawer-left > .ant-drawer-content-wrapper{
+    /* width: 250px !important;  */
+    top: 60px;
+}
+.ant-drawer-left .ant-drawer-body{
+    padding: 0;
+}
+.ant-drawer-mask{
+    background-color: none;
+}
