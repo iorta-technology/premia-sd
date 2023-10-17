@@ -21,11 +21,13 @@ const PlanCard = ({
   payTerm = "Monthly",
   planSatusChipBackgroundColor,
 }) => {
-    const history = useHistory();
-    const planDetailsListing = useSelector((state) => state?.login?.planListing.P_LOP_DTLS);
-   console.log('line 123',planDetailsListing)
-   const sysId = useSelector((state) => state?.login?.planListing?.POL_SYS_ID);
-   const token = useSelector((state) => state?.login?.loginDetails.token);
+  const history = useHistory();
+  const planDetailsListing = useSelector(
+    (state) => state?.login?.planListing.P_LOP_DTLS
+  );
+  console.log("line 123", planDetailsListing);
+  const sysId = useSelector((state) => state?.login?.planListing?.POL_SYS_ID);
+  const token = useSelector((state) => state?.login?.loginDetails.token);
   const planSatusChipStyle = useMemo(() => {
     return {
       backgroundColor: planSatusChipBackgroundColor,
@@ -38,12 +40,12 @@ const PlanCard = ({
 
   const dispatch = useDispatch();
 
-  const handleViewDetails = (policyNo,sysId) => {
+  const handleViewDetails = (policyNo, sysId) => {
     // history.push('/plan-details');
     const credentials = {
-      "polNo": policyNo,
-      "sysId": sysId,
-      "Token": `${token}`
+      polNo: policyNo,
+      sysId: sysId,
+      Token: `${token}`,
     };
     // const credentials = {email, password}
     axios
@@ -57,7 +59,7 @@ const PlanCard = ({
           let result = res.data.errMsg.responseBody;
           dispatch(actions.getAllPlanDetails(result));
           // setLoginCreds(res.data.errMsg.responseBody)
-           history.push("/plan-details");
+          history.push("/plan-details");
 
           // setOTP(res.data.errMsg.responseBody.OTP)
           // setSecurityCode(res.data.errMsg.responseBody.securityCode)
@@ -74,7 +76,6 @@ const PlanCard = ({
               // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
               // _loginData.push(_defaultChannel, res.data.errMsg[1]);
               // stoageSetter("multi_channel", res.data.errMsg[0]);
-              
               // dispatch(actions.multiChannelData(res.data.errMsg[0]));
             } else {
               message.error(res.data.errMsg);
@@ -90,7 +91,7 @@ const PlanCard = ({
         }
       });
   };
-  
+
   return (
     <>
       <div className="plan_details_body" style={{ marginTop: 80 }}>
@@ -101,70 +102,83 @@ const PlanCard = ({
             padding: 0,
           }}
         >
-          <Col
-            sm={24}
-            md={18}
-            lg={18}
-            xlg={8}
-          >
+          <Col sm={24} md={18} lg={18} xlg={8}>
             <p
               className="tab_title"
               style={{ display: "flex", alignSelf: "flex-start" }}
             >
               My Policies
             </p>
-            {
-              planDetailsListing?.length > 0 ? planDetailsListing.map((item,index)=> {
-                return (
-                  <div className="plan-card mb-3" onClick={onPlanCardContainerClick}>
-                  <div className="plan-details">
-                    <div className="plan-name">
-                      {item.POL_ASSURED_NAME} <p className="policy-name mb-0">{item?.PROD_PORTAL_DESC?.toLowerCase()}</p>
-                    </div>
-                    <div className="plan-satus-chip" style={planSatusChipStyle}>
-                      <div>{item.POL_ADDL_STATUS}</div>
-                    </div>
-                  </div>
-                  <div className="details-div">
-                    <div className="details-col">
-                      <div className="plan-no-date">
-                        <div className="data">
-                          <div className="value">{item?.POL_NO}</div>
-                          <div className="label">Plan Number</div>
+            {planDetailsListing?.length > 0
+              ? planDetailsListing.map((item, index) => {
+                  return (
+                    <div
+                      className="plan-card mb-3"
+                      onClick={onPlanCardContainerClick}
+                    >
+                      <div className="plan-details">
+                        <div className="plan-name">
+                          {item.POL_ASSURED_NAME}{" "}
+                          <p className="policy-name mb-0">
+                            {item?.PROD_PORTAL_DESC?.toLowerCase()}
+                          </p>
                         </div>
-                        <div className="data">
-                          <div className="value">{item?.DUE_DATE
-                            ? moment(item.DUE_DATE).format("DD-MM-YYYY")
-                            : "--"
-                        }</div>
-                          <div className="label">Due Date</div>
+                        <div
+                          className="plan-satus-chip"
+                          style={planSatusChipStyle}
+                        >
+                          <div>{item.POL_ADDL_STATUS}</div>
                         </div>
                       </div>
-                      <div className="plan-no-date">
-                        <div className="data">
-                          <div className="value">{item?.POL_LC_PRENEED_PRICE}</div>
-                          <div className="label">Premium Amount</div>
+                      <div className="details-div">
+                        <div className="details-col">
+                          <div className="plan-no-date">
+                            <div className="data">
+                              <div className="value">{item?.POL_NO}</div>
+                              <div className="label">Plan Number</div>
+                            </div>
+                            <div className="data">
+                              <div className="value">
+                                {item?.DUE_DATE
+                                  ? moment(item.DUE_DATE).format("DD-MM-YYYY")
+                                  : "--"}
+                              </div>
+                              <div className="label">Due Date</div>
+                            </div>
+                          </div>
+                          <div className="plan-no-date">
+                            <div className="data">
+                              <div className="value">
+                                {item?.POL_LC_PRENEED_PRICE}
+                              </div>
+                              <div className="label">Premium Amount</div>
+                            </div>
+                            <div className="data">
+                              <div className="value">
+                                {item?.POL_MODE_OF_PYMT}
+                              </div>
+                              <div className="label">Payment Term</div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="data">
-                          <div className="value">{item?.POL_MODE_OF_PYMT}</div>
-                          <div className="label">Payment Term</div>
+                        <div className="cta-col">
+                          <button className="primary-btn">
+                            <div className="text1">Pay Now</div>
+                          </button>
+                          <button
+                            className="outline-btn"
+                            onClick={() =>
+                              handleViewDetails(item?.POL_NO, item?.POL_SYS_ID)
+                            }
+                          >
+                            <div className="text2">View Details</div>
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <div className="cta-col">
-                      <button className="primary-btn">
-                        <div className="text1">Pay Now</div>
-                      </button>
-                      <button className="outline-btn" onClick={() => handleViewDetails(item?.POL_NO,item?.POL_SYS_ID)}>
-                        <div className="text2">View Details</div>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                ) 
-              }) : ""
-            }
-            
+                  );
+                })
+              : ""}
           </Col>
           <Col sm={24} md={6} lg={6} xlg={8}>
             <div className="rhs">
@@ -185,107 +199,102 @@ const PlanCard = ({
                   </div>
                 </div>
               </div>
-              
-                  <div className="rhs-products">
-                    <div className="div2">
-                      <div className="title">Special Cash Programms</div>
-                      <div className="nav">
-                        <img
-                          className="keyboard-arrow-left-icon"
-                          alt=""
-                          src="/keyboard-arrow-left.svg"
-                        />
 
-                        <img
-                          className="keyboard-arrow-left-icon"
-                          alt=""
-                          src="/keyboard-arrow-right.svg"
-                        />
-                      </div>
+              <div className="rhs-products">
+                <div className="div2">
+                  <div className="title">Special Cash Programms</div>
+                  <div className="nav">
+                    <img
+                      className="keyboard-arrow-left-icon"
+                      alt=""
+                      src="/keyboard-arrow-left.svg"
+                    />
+
+                    <img
+                      className="keyboard-arrow-left-icon"
+                      alt=""
+                      src="/keyboard-arrow-right.svg"
+                    />
+                  </div>
+                </div>
+                <div className="product-cards">
+                  <div className="product-card-1">
+                    <div className="product-image">
+                      <img
+                        className="image-13-icon"
+                        alt=""
+                        src="/image-13@2x.png"
+                      />
                     </div>
-                    <div className="product-cards">
-                      <div className="product-card-1">
-                        <div className="product-image">
-                          <img
-                            className="image-13-icon"
-                            alt=""
-                            src="/image-13@2x.png"
-                          />
-                        </div>
-                        <div className="product-desc">
-                          <div className="content">
-                            <div className="product-name">
-                              Cash Loan Program
-                            </div>
-                            <div className="product-info">
-                              Good News! PhilPlans is offering an exclusive Cash
-                              Loan Program with its lowest-ever 8% per annum
-                              interest rate to qualified planholders.
-                            </div>
-                          </div>
-                          <div className="cta">
-                            <div className="read-more">read more</div>
-                            <div className="get-in-touch">Get in touch</div>
-                          </div>
+                    <div className="product-desc">
+                      <div className="content">
+                        <div className="product-name">Cash Loan Program</div>
+                        <div className="product-info">
+                          Good News! PhilPlans is offering an exclusive Cash
+                          Loan Program with its lowest-ever 8% per annum
+                          interest rate to qualified planholders.
                         </div>
                       </div>
-                      <div className="product-card-1">
-                        <div className="product-image">
-                          <img
-                            className="image-13-icon"
-                            alt=""
-                            src="/image-131@2x.png"
-                          />
-                        </div>
-                        <div className="product-desc">
-                          <div className="content">
-                            <div className="product-name">Lump Sum Payment</div>
-                            <div className="product-info">
-                              Good News! PhilPlans is offering an exclusive Cash
-                              Loan Program with its lowest-ever 8% per annum
-                              interest rate to qualified planholders.
-                            </div>
-                          </div>
-                          <div className="cta">
-                            <div className="read-more">read more</div>
-                            <div className="get-in-touch">Get in touch</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="product-card-1">
-                        <div className="product-image">
-                          <img
-                            className="image-13-icon"
-                            alt=""
-                            src="/image-132@2x.png"
-                          />
-                        </div>
-                        <div className="product-desc">
-                          <div className="content">
-                            <div className="product-name">
-                              Plan Termination Value
-                            </div>
-                            <div className="product-info">
-                              Good News! PhilPlans is offering an exclusive Cash
-                              Loan Program with its lowest-ever 8% per annum
-                              interest rate to qualified planholders.
-                            </div>
-                          </div>
-                          <div className="cta">
-                            <div className="read-more">read more</div>
-                            <div className="get-in-touch">Get in touch</div>
-                          </div>
-                        </div>
+                      <div className="cta">
+                        <div className="read-more">read more</div>
+                        <div className="get-in-touch">Get in touch</div>
                       </div>
                     </div>
                   </div>
-               
+                  <div className="product-card-1">
+                    <div className="product-image">
+                      <img
+                        className="image-13-icon"
+                        alt=""
+                        src="/image-131@2x.png"
+                      />
+                    </div>
+                    <div className="product-desc">
+                      <div className="content">
+                        <div className="product-name">Lump Sum Payment</div>
+                        <div className="product-info">
+                          Good News! PhilPlans is offering an exclusive Cash
+                          Loan Program with its lowest-ever 8% per annum
+                          interest rate to qualified planholders.
+                        </div>
+                      </div>
+                      <div className="cta">
+                        <div className="read-more">read more</div>
+                        <div className="get-in-touch">Get in touch</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="product-card-1">
+                    <div className="product-image">
+                      <img
+                        className="image-13-icon"
+                        alt=""
+                        src="/image-132@2x.png"
+                      />
+                    </div>
+                    <div className="product-desc">
+                      <div className="content">
+                        <div className="product-name">
+                          Plan Termination Value
+                        </div>
+                        <div className="product-info">
+                          Good News! PhilPlans is offering an exclusive Cash
+                          Loan Program with its lowest-ever 8% per annum
+                          interest rate to qualified planholders.
+                        </div>
+                      </div>
+                      <div className="cta">
+                        <div className="read-more">read more</div>
+                        <div className="get-in-touch">Get in touch</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Col>
         </Row>
-        
       </div>
-     
     </>
   );
 };

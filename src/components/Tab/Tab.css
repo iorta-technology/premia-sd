@@ -345,7 +345,72 @@ button.active_tabs_button img {
     /* margin-right: 5rem !important; */
   }
 }
-
+.policy_dropdown{
+  display: flex;
+    align-items: flex-start;
+    color: #013261;
+}
+.dropdown_header_item{
+  color:  #013261;
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  margin-bottom: 6px;
+}
+ .dropdown_inner_item {
+  display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.dropdown_option_head{
+  color: #013261;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+}
+.check-icon{
+  color: #01AB4F;
+}
+.dropsown_view_all{
+  /* color: #01AB4F !important; */
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  padding: 14px 10px;
+  text-align: center
+}
+.dropsown_view_all a{
+  color: #01AB4F;
+  cursor: pointer;
+}
+.dropdown_option_des{
+  color:#737373;
+font-family: Roboto;
+font-size: 12px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+text-transform: capitalize;
+}
+.dropdown_item_des{
+  color:#737373;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+}
 @media (max-width: 620px) {
   /* .ant-tabs-tab,
     .ant-tabs-tab-active

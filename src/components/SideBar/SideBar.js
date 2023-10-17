@@ -32,6 +32,7 @@ import failed_img from "../../assets/failed.png";
 import needhelp_img from "../../assets/needhelp.png";
 import all_clear_img from "../../assets/MaterialUiIcons/notifications_grey_192x192.png";
 import NewLead from "../StatusLead/NewLeadCreation";
+import PhipPlanSideBar from "./PhipPlanSideBar";
 
 const Nav = styled.div`
   background: #fff;
@@ -236,8 +237,20 @@ const Sidebar = () => {
     history.goBack();
   };
 
+  const [open, setOpen] = useState(false);
+  // const [placement, setPlacement] = useState("left");
+
+  const showDrawer = () => {
+    setOpen(!open);
+  };
+
+  // const onClose = () => {
+  //   setOpen(false);
+  // };
+
   return (
     <>
+      <PhipPlanSideBar open={open} setOpen={setOpen} />
       <NewLead
         showNewLeadModal={showNewLeadModal}
         setShowNewLeadModal={setShowNewLeadModal}
@@ -261,7 +274,8 @@ const Sidebar = () => {
               </p>
             </NavIcon>
           </div> */}
-          <div>
+          <div className="d-inline-flex align-item-centet gap-2 ">
+            <FaIcons.FaBars onClick={showDrawer} className="header_hamburger" />
             <img
               className="brand_logo"
               onClick={() => {

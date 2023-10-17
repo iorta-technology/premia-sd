@@ -10,6 +10,8 @@ import {
   message,
   Dropdown,
   Space,
+  Typography,
+  Menu,
 } from "antd";
 import { Option } from "antd/lib/mentions";
 import "./Tab.css";
@@ -17,6 +19,7 @@ import _ from "lodash";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/leads";
+import * as FaIcons from "react-icons/fa";
 import { checkAgent, stoageGetter } from "../../helpers";
 import { Button } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -34,6 +37,7 @@ import {
   FilePdfOutlined,
   DownOutlined,
   SmileOutlined,
+  CheckCircleOutlined,
 } from "@ant-design/icons";
 import axiosRequest from "../../axios-request/request.methods";
 
@@ -174,14 +178,13 @@ const Tab = ({
           return history.push("/brokerflow/today");
         }
 
-        
-          // case "1": 
-          //  return history.push("plan-cards");
-           case "1":
-            return history.push("/plan-details", {
-              leadData: routeLeadData,
-              updateFormData: updateFormData,
-            });
+        // case "1":
+        //  return history.push("plan-cards");
+        case "1":
+          return history.push("/plan-details", {
+            leadData: routeLeadData,
+            updateFormData: updateFormData,
+          });
         case "2":
           return history.push("agent-details");
 
@@ -276,22 +279,30 @@ const Tab = ({
     window.open(result[0].link);
   };
   // DROPDOWN tabs header
-  const handleChange = (value) => {
-    console.log(value);
-  };
 
-  const policy_options = [
+  const items = [
     {
-      value: "Megan 4 Year Collage",
-      title: "Megan 4 Year Collage",
-      description: "P/303/2020/00004",
+      key: "1",
+      label: "Megan 4 Year Collage",
+      describe: "76898798797aaa",
     },
     {
-      value: "Megan 4 Year Collage",
-      title: "Megan 4 Year Collage",
-      description: "Ps/306/2020/00004",
+      key: "2",
+      label: "Megan 4 Year Collage",
+      describe: "76898798797abs",
+    },
+    {
+      key: "3",
+      label: "Megan 4 Year Collage",
+      describe: "76898798797xyu",
     },
   ];
+  const [selectedItem, setSelectedItem] = useState(items[0]); // Default selected item
+
+  const handleMenuItemClick = (item) => {
+    setSelectedItem(item);
+  };
+
   return (
     <>
       {width > breakpoint ? (
@@ -300,8 +311,8 @@ const Tab = ({
           style={{ alignItems: header === "Lead" ? "center" : "none" }}
         >
           <div className="header_tabs">
-            <div>
-              {/* <p className="header-title-tab">{header}</p> */}
+            {/* <p className="header-title-tab">{header}</p> */}
+            {/* <div>
               <Select
                 labelInValue
                 defaultValue={{
@@ -312,16 +323,6 @@ const Tab = ({
                   width: 230,
                 }}
                 onChange={handleChange}
-                // options={[
-                //   {
-                //     value: "Megan 4 Year Collage",
-                //     label: "Megan 4 Year Collage",
-                //   },
-                //   {
-                //     value: "lucy",
-                //     label: "Lucy (101)",
-                //   },
-                // ]}
               >
                 {policy_options.map((option) => (
                   <Option
@@ -338,6 +339,63 @@ const Tab = ({
                   </Option>
                 ))}
               </Select>
+            </div> */}
+            <div style={{ width: 230 }}>
+              <Dropdown
+                overlay={
+                  <Menu
+                    style={{ width: "230px" }}
+                    selectedKeys={[selectedItem.key]}
+                  >
+                    {items.map((item) => (
+                      <Menu.Item
+                        key={item.key}
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          padding: "10px",
+                          borderBottom: "1px solid rgba(67, 76, 85, 0.16)",
+                          background: "none",
+                        }}
+                        onClick={() => handleMenuItemClick(item)}
+                      >
+                        <div className="dropdown_inner_item">
+                          <div>
+                            <div className="dropdown_option_head">
+                              {item.label}
+                            </div>
+                            <div className="dropdown_option_des">
+                              {item.describe}
+                            </div>
+                          </div>
+                          {selectedItem.key === item.key && (
+                            <FaIcons.FaCheckCircle className="check-icon" />
+                          )}
+                        </div>
+                      </Menu.Item>
+                    ))}
+                    <li className="dropsown_view_all">
+                      <a href="/plan-cards">view all</a>
+                    </li>
+                  </Menu>
+                }
+                trigger={["click"]}
+              >
+                <Typography.Link>
+                  <Space className="policy_dropdown" style={{ width: 230 }}>
+                    <div>
+                      <div className="dropdown_header_item">
+                        {selectedItem.label}
+                      </div>
+                      <p className="  dropdown_item_des mb-0 pb-0">
+                        {selectedItem.describe}
+                      </p>
+                    </div>
+                    <DownOutlined />
+                  </Space>
+                </Typography.Link>
+              </Dropdown>
             </div>
 
             <div>

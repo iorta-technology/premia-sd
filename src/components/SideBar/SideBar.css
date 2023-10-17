@@ -295,9 +295,17 @@
   z-index: 99999;
 }
 .brand_logo{
-  width: 130px;
+  width: 94px;
   margin-right: auto;
   margin-left: auto;
+  cursor: pointer;
+  height: 30px;
+  object-fit: cover;
+}
+.header_hamburger{
+  color: #0054A5 !important;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 }
 @media (max-width: 436px) {
