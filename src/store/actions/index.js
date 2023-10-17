@@ -19,11 +19,12 @@ export {
   fetchHierarchy,
   multiChannelData,
   headerName,
-  getAllPlanDetails,
 } from "./auth";
 // export { home,activities } from './home'
 // export { activities } from './home'
 export { kpiDashboard } from "./kpiDashboard";
+export {getAllPlanDetails} from "./allPlanDetails";
+
 export {
   fetchAllRenewals,
   fetchPaidRenewals,

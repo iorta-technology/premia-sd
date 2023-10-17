@@ -10,7 +10,7 @@ const initialState = {
   login_error: null,
   channelCode: "",
   user: null,
-  allPlanDetails: null,
+  // allPlanDetails: null,
   userDetails: {},
   levelCode: "",
   hierarchy: {},

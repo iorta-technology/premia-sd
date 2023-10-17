@@ -119,6 +119,16 @@ const PlanDetailsComponent = React.memo((props) => {
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
+
+
+  // plandetails data start
+  const allPlanDetailsInfo = useSelector((state) => state?.planDetails?.planData);
+  console.log('line 126',allPlanDetailsInfo);
+
+  const {planDetails} = allPlanDetailsInfo
+  console.log('line 129', planDetails)
+
+// plandetails data end
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [riskInd, setRiskInd] = useState(null);

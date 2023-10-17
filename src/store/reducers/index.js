@@ -3,6 +3,7 @@ import leadsReducer from './leads';
 import createLeadReducer from './newLead'
 import addressReducer from './address'
 import loginReducer from './auth';
+import getAllPlanDetails  from './allPlanDetails';
 import homeReducer from './home';
 import activitiesReducer from './home';
 import kpiDashboardReducer from './kpiDashboard'
@@ -32,6 +33,7 @@ export default () => {
         agent:agentReducer,
         advisor:advisorReducer,
         applicationReducer,
+        planDetails: getAllPlanDetails,
         // BICardReducer,
         // pendencies:pendencyReducer
     });
