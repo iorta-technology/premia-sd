@@ -173,20 +173,20 @@ const Team = () => {
   const userOnchange = (element) => {
     // console.log(element)
     setSelected1(element);
-    eventsGetAPI(element);
+   // eventsGetAPI(element);
     // setSelectedValue(element.dispValue)
     setActive1(false);
   };
 
-  const eventsGetAPI = async (userId) => {
-    // console.log( 'MONTHHH-----dd>>-----t',month.toString().length);
-    let _month = month.toString().length === 1 ? "0" + month : month;
-    let data = await axiosRequest.get(
-      `user/fetch_appointments/${userId}?teamdata=0&filter=${_month}/${year}&category=upcoming`
-    );
-    // console.log(data, 'pastt-- second second second-----t');
-    setDataContainer(data);
-  };
+  // const eventsGetAPI = async (userId) => {
+  //   console.log( 'MONTHHH-----dd>>-----t',month.toString().length);
+  //   let _month = month.toString().length === 1 ? "0" + month : month;
+  //   let data = await axiosRequest.get(
+  //     `user/fetch_appointments/${userId}?teamdata=0&filter=${_month}/${year}&category=upcoming`
+  //   );
+  //   console.log(data, 'pastt-- second second second-----t');
+  //   setDataContainer(data);
+  // };
 
   const exportReport = async () => {
     let data = await axiosRequest.get(

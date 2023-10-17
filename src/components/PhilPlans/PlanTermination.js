@@ -363,7 +363,7 @@ const PlanTerminationComponent = React.memo((props) => {
     dispatch(actions.headerName("New Lead"));
     console.warn("storeFormData--------->>>>>", storeFormData);
     loadValuesToFields(storeFormData);
-    getAppointmentList(storeFormData._id);
+    // getAppointmentList(storeFormData._id);
     setLeadId(storeFormData._id);
     setPdfId(storeFormData?._id);
     // opprtunityStatusData()
@@ -376,15 +376,15 @@ const PlanTerminationComponent = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const getAppointmentList = async (lead_id) => {
-    // setUpdateLeadID(lead_id)
-    let _result = await axiosRequest.get(
-      `user/fetch_appointments/${loginId}?teamdata=0&category=all&lead_id=${lead_id}`,
-      { secure: true }
-    );
-    // console.log('APPOINTMENT DATA---->>>', _result)
-    setActivities_data(_result);
-  };
+  // const getAppointmentList = async (lead_id) => {
+  //   // setUpdateLeadID(lead_id)
+  //   let _result = await axiosRequest.get(
+  //     `user/fetch_appointments/${loginId}?teamdata=0&category=all&lead_id=${lead_id}`,
+  //     { secure: true }
+  //   );
+  //   // console.log('APPOINTMENT DATA---->>>', _result)
+  //   setActivities_data(_result);
+  // };
 
   useEffect(() => {
     console.log(reamrkDataArr, "this is the remarks");

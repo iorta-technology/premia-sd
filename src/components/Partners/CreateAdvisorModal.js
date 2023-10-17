@@ -1358,90 +1358,90 @@ setDurationEndTime(time)
 
    
   }
-  const BookAppointmentFunc = (e) => {
+//   const BookAppointmentFunc = (e) => {
 
 
-    console.log(eventLoadCheck)
-    if(updateEventCheck==true){
+//     console.log(eventLoadCheck)
+//     if(updateEventCheck==true){
      
-    axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
+//     axios.put(`https://sdtatadevlmsv2.iorta.in/auth/user/updateAppointment_v2`,{
     
      
-      // showComment: false,
-      //       leadId: "",
-      //       partnerId: "",
-      //       customerId: "",
-      //       teamMember_clone: [],
-      //       statusReason: "sdsd",
-      //       isLeadFailed: false,
-      //       Appointment_id: "6156fe9a4735ef7f94293d8c",
-      //       manuallyrenewalCustomer: [
-      //           {
-      //               Name: "sa",
-      //               MobileNumber: "2"
-      //           }
-      //       ],
-      //       clientVisit: "clientmeeting",
-      //       teamMember: [],
-      //       manuallycustomerAdded: "true",
-      //       statusType: "close",
-      //       tata_appointment_type: "",
-      //       durationType: "customedatetime",
-      //       appointment_type: "customer",
-      //       start_time_MS: 1633170600000,
-      //       end_time_MS: 1633174200000,
-      //       start_time: 37800000,
-      //       start_date: 1633132800000,
-      //       userId: "61519f9a8ce8772eab9838cb",
-      //       end_time: 41400000,
-      //       end_date: 1633132800000,
-      //       event_type: "appointment",
-      //       event_name: "Appointment",
-      //       event_description: "Singh Dhara will have a client meeting with Sa",
-      //       // created_date: 1633091226621
+//       // showComment: false,
+//       //       leadId: "",
+//       //       partnerId: "",
+//       //       customerId: "",
+//       //       teamMember_clone: [],
+//       //       statusReason: "sdsd",
+//       //       isLeadFailed: false,
+//       //       Appointment_id: "6156fe9a4735ef7f94293d8c",
+//       //       manuallyrenewalCustomer: [
+//       //           {
+//       //               Name: "sa",
+//       //               MobileNumber: "2"
+//       //           }
+//       //       ],
+//       //       clientVisit: "clientmeeting",
+//       //       teamMember: [],
+//       //       manuallycustomerAdded: "true",
+//       //       statusType: "close",
+//       //       tata_appointment_type: "",
+//       //       durationType: "customedatetime",
+//       //       appointment_type: "customer",
+//       //       start_time_MS: 1633170600000,
+//       //       end_time_MS: 1633174200000,
+//       //       start_time: 37800000,
+//       //       start_date: 1633132800000,
+//       //       userId: "61519f9a8ce8772eab9838cb",
+//       //       end_time: 41400000,
+//       //       end_date: 1633132800000,
+//       //       event_type: "appointment",
+//       //       event_name: "Appointment",
+//       //       event_description: "Singh Dhara will have a client meeting with Sa",
+//       //       // created_date: 1633091226621
     
     
     
     
     
-     showComment: "false",
-      leadId: "",
-      partnerId: "",
-      customerId: "",
-      teamMember_clone: [],
-      statusReason: "sasa",
-      isLeadFailed: false,
-      Appointment_id: updateEventId, 
-      manuallyrenewalCustomer: [{ "Name": "sss", "MobileNumber": "23232" }],
-      clientVisit: "clientmeeting",
-      teamMember: [],
-      manuallycustomerAdded: "true",
-      statusType: eventStatus,
-      tata_appointment_type: "",
-      durationType: eventDurationType,
-      appointment_type: "customer",
-      // start_time_MS: 1632315600000,
-      // end_time_MS: 1632319200000,
-      start_time: durationStartTimeOperation,
-      start_date: durationStartDateOperation,
-      userId: "61519f9a8ce8772eab9838cb",
-      end_time: durationEndTimeOperation,
-      end_date: durationEndDateOperation,
-      event_type: updateEventType,
-      event_name: "Appointment",
-      event_description: "Birmole Duttprasad will have a client meeting with Sss",
-      // created_date: 1631962470877,
-      advisorName: "",
-      event_repeat_on_every: "",
-      event_repeat_till_date: "",
-      reminder_prority_color: "",
-      set_reminder: "",
+//      showComment: "false",
+//       leadId: "",
+//       partnerId: "",
+//       customerId: "",
+//       teamMember_clone: [],
+//       statusReason: "sasa",
+//       isLeadFailed: false,
+//       Appointment_id: updateEventId, 
+//       manuallyrenewalCustomer: [{ "Name": "sss", "MobileNumber": "23232" }],
+//       clientVisit: "clientmeeting",
+//       teamMember: [],
+//       manuallycustomerAdded: "true",
+//       statusType: eventStatus,
+//       tata_appointment_type: "",
+//       durationType: eventDurationType,
+//       appointment_type: "customer",
+//       // start_time_MS: 1632315600000,
+//       // end_time_MS: 1632319200000,
+//       start_time: durationStartTimeOperation,
+//       start_date: durationStartDateOperation,
+//       userId: "61519f9a8ce8772eab9838cb",
+//       end_time: durationEndTimeOperation,
+//       end_date: durationEndDateOperation,
+//       event_type: updateEventType,
+//       event_name: "Appointment",
+//       event_description: "Birmole Duttprasad will have a client meeting with Sss",
+//       // created_date: 1631962470877,
+//       advisorName: "",
+//       event_repeat_on_every: "",
+//       event_repeat_till_date: "",
+//       reminder_prority_color: "",
+//       set_reminder: "",
       
     
     
     
     
-    // updated_date: 1631962990266
+//     // updated_date: 1631962990266
  
  
  
@@ -1449,145 +1449,145 @@ setDurationEndTime(time)
  
  
  
-    //   _id:"6135e9a3f503954f7e6bba45s", 
-    // userId:"60a61763de95b87f62856c13",
-    //     partnerId:"",
-    //     appointment_type:"customer",
-    //     event_type:"appointment",
-    //     start_date:durationStartDateOperation,
-    //     start_time:durationStartTimeOperation,
-    //     end_date:durationEndDateOperation,
-    //     end_time:durationEndTimeOperation,
-    //     leadId:""
-      })
-      .then((res)=>{
-setEventLoadCheck(true)  
-setAddEvents([])
-setFetchEventArray([])
-        console.log(res.data.errMsg)
-      }).catch((err)=>{
-        console.log(err)
-      })
+//     //   _id:"6135e9a3f503954f7e6bba45s", 
+//     // userId:"60a61763de95b87f62856c13",
+//     //     partnerId:"",
+//     //     appointment_type:"customer",
+//     //     event_type:"appointment",
+//     //     start_date:durationStartDateOperation,
+//     //     start_time:durationStartTimeOperation,
+//     //     end_date:durationEndDateOperation,
+//     //     end_time:durationEndTimeOperation,
+//     //     leadId:""
+//       })
+//       .then((res)=>{
+// setEventLoadCheck(true)  
+// setAddEvents([])
+// setFetchEventArray([])
+//         console.log(res.data.errMsg)
+//       }).catch((err)=>{
+//         console.log(err)
+//       })
  
-      setIsModalVisible(false)
-    }
-    else{
-    
-    
-    
-    axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
-
-      userId:"61519f9a8ce8772eab9838cb",
-        partnerId:"",
-        appointment_type:"customer",
-        durationType: eventDurationType,
-        manuallyrenewalCustomer: [
-          {
-              Name: customerNameText,
-              MobileNumber: customerMobileNoText
-          }
-      ],
-        event_type:customerCollection.phone_call_customer?"phonecall":customerCollection.appointment_customer?"appointment"
-        :customerCollection.policy_renewal?"policyrenewals"
-        :null,
-        status_type:eventStatus,
-        start_date:durationStartDateOperation,
-        start_time:durationStartTimeOperation,
-        end_date:durationEndDateOperation,
-        end_time:durationEndTimeOperation
-      })
-      .then((res)=>{
-        console.log(res)
-        setAddEvents([])
-        setFetchEventArray([])
-        setEventLoadCheck(true)
-      }).catch((err)=>{
-        console.log(err)
-      })
-      
-    // alert(durationEndTime)
-// axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
-
-// userId:"60a61763de95b87f62856c13",
-//   partnerId:"",
-// // appointment_type:customerCheck==true?"customer":null,
-//   appointment_type:"advisor",
-// event_type:"appointment",
-//   // event_type:advisorCollection.appointment_advisor==true||customerCollection.appointment_customer==true||
-//   // prospectCollection.appointment_prospect==true?"appointment":advisorCollection.training==true||
-//   // prospectCollection.training_prospect==true
-//   // ?"training":advisorCollection.phone_call_advisor==true||customerCollection.phone_call_customer==true||
-//   // prospectCollection.phone_call==true
-//   // ?"phone call":customerCollection.policy_renewal==true?"policy renewal":null,
-//   start_date:durationStartDateOperation,
-//   start_time:durationStartTimeOperation,
-//   end_date:durationEndDateOperation,
-//   end_time:durationEndTimeOperation
-// })
-// .then((res)=>{
-//   console.log(res)
-// }).catch((err)=>{
-//   console.log(err)
-// })
-
-// setDurationEndDate( moment(durationEndDate).format("YYYY-MM-DD"))
-// setAddEvents([...addEvents, {
-
-//   title: 'test 7',
-//   description: "This is the description of the event",
-//   // start:1630627200000+32400000,
-//   // end:1630627200000+36000000
-//   // start:1631491200000+32400000,
-//   // end:1631491200000+36000000
-//   start: durationStartDateOperation+durationStartTimeOperation,
-//   end: durationEndDateOperation+durationEndTimeOperation
-//   // start: durationStartDateOperation+durationStartTimeOperation,
-//   // end:durationEndDateOperation+durationEndTimeOperation,
-//   // start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
-//   // end:moment(endDuration).format('YYYY-MM-DD ') + moment(endVal).format("H:mm:ss"),
-//   // allDay:moment(endVal).format("H:mm:ss")>"23:59:59"?true:false
-
-// }])
-
-
-//     if (durationStartDate == "" && durationButton.select_time == true) {
-//       setDurationStartDateCheck(false)
-//       setDurationDateAlert(true)
-    
-//       return false
+//       setIsModalVisible(false)
 //     }
-//  if (durationStartDate == "" && durationButton.all_day == true) {
-//       setDurationStartDateCheck(false)
-//       setDurationDateAlert(true)
+//     else{
+    
+    
+    
+//     axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
+
+//       userId:"61519f9a8ce8772eab9838cb",
+//         partnerId:"",
+//         appointment_type:"customer",
+//         durationType: eventDurationType,
+//         manuallyrenewalCustomer: [
+//           {
+//               Name: customerNameText,
+//               MobileNumber: customerMobileNoText
+//           }
+//       ],
+//         event_type:customerCollection.phone_call_customer?"phonecall":customerCollection.appointment_customer?"appointment"
+//         :customerCollection.policy_renewal?"policyrenewals"
+//         :null,
+//         status_type:eventStatus,
+//         start_date:durationStartDateOperation,
+//         start_time:durationStartTimeOperation,
+//         end_date:durationEndDateOperation,
+//         end_time:durationEndTimeOperation
+//       })
+//       .then((res)=>{
+//         console.log(res)
+//         setAddEvents([])
+//         setFetchEventArray([])
+//         setEventLoadCheck(true)
+//       }).catch((err)=>{
+//         console.log(err)
+//       })
+      
+//     // alert(durationEndTime)
+// // axios.post("https://sdtatadevlmsv2.iorta.in/auth/user/bookAppointment_v2",{
+
+// // userId:"60a61763de95b87f62856c13",
+// //   partnerId:"",
+// // // appointment_type:customerCheck==true?"customer":null,
+// //   appointment_type:"advisor",
+// // event_type:"appointment",
+// //   // event_type:advisorCollection.appointment_advisor==true||customerCollection.appointment_customer==true||
+// //   // prospectCollection.appointment_prospect==true?"appointment":advisorCollection.training==true||
+// //   // prospectCollection.training_prospect==true
+// //   // ?"training":advisorCollection.phone_call_advisor==true||customerCollection.phone_call_customer==true||
+// //   // prospectCollection.phone_call==true
+// //   // ?"phone call":customerCollection.policy_renewal==true?"policy renewal":null,
+// //   start_date:durationStartDateOperation,
+// //   start_time:durationStartTimeOperation,
+// //   end_date:durationEndDateOperation,
+// //   end_time:durationEndTimeOperation
+// // })
+// // .then((res)=>{
+// //   console.log(res)
+// // }).catch((err)=>{
+// //   console.log(err)
+// // })
+
+// // setDurationEndDate( moment(durationEndDate).format("YYYY-MM-DD"))
+// // setAddEvents([...addEvents, {
+
+// //   title: 'test 7',
+// //   description: "This is the description of the event",
+// //   // start:1630627200000+32400000,
+// //   // end:1630627200000+36000000
+// //   // start:1631491200000+32400000,
+// //   // end:1631491200000+36000000
+// //   start: durationStartDateOperation+durationStartTimeOperation,
+// //   end: durationEndDateOperation+durationEndTimeOperation
+// //   // start: durationStartDateOperation+durationStartTimeOperation,
+// //   // end:durationEndDateOperation+durationEndTimeOperation,
+// //   // start:moment(startDuration).format('YYYY-MM-DD ') + moment(value).format("H:mm:ss"),
+// //   // end:moment(endDuration).format('YYYY-MM-DD ') + moment(endVal).format("H:mm:ss"),
+// //   // allDay:moment(endVal).format("H:mm:ss")>"23:59:59"?true:false
+
+// // }])
+
+
+// //     if (durationStartDate == "" && durationButton.select_time == true) {
+// //       setDurationStartDateCheck(false)
+// //       setDurationDateAlert(true)
+    
+// //       return false
+// //     }
+// //  if (durationStartDate == "" && durationButton.all_day == true) {
+// //       setDurationStartDateCheck(false)
+// //       setDurationDateAlert(true)
   
-//       return false
-//     }
-//  if (durationEndDate == "" && durationButton.select_time == true) {
-//       setDurationEndDateCheck(false)
-//       setDurationDateAlert(true)
+// //       return false
+// //     }
+// //  if (durationEndDate == "" && durationButton.select_time == true) {
+// //       setDurationEndDateCheck(false)
+// //       setDurationDateAlert(true)
+
+// //       return false
+// //     }
+// setIsModalVisible(false)
+// if (startTimeSelect == "" && durationButton.select_time == true) {
+//       setDurationStartTimeCheck(false)
+//       setDurationTimeAlert(true)
+// //  alert("This workd")
 
 //       return false
 //     }
-setIsModalVisible(false)
-if (startTimeSelect == "" && durationButton.select_time == true) {
-      setDurationStartTimeCheck(false)
-      setDurationTimeAlert(true)
-//  alert("This workd")
-
-      return false
-    }
- if (endTimeSelect == "" && durationButton.select_time == true) {
-      setDurationEndTimeCheck(false)
-      setDurationTimeAlert(true)
+//  if (endTimeSelect == "" && durationButton.select_time == true) {
+//       setDurationEndTimeCheck(false)
+//       setDurationTimeAlert(true)
     
 
-      return false
-    }
+//       return false
+//     }
     
-    console.log(addEvents)
+//     console.log(addEvents)
 
-    console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
-}}
+//     console.log("Start Date:"+durationStartDateOperation,"End Date"+durationEndDateOperation,"Start Time"+durationStartTimeOperation,"End Time"+durationEndTimeOperation)
+// }}
   const StatusTypeOpenFunc = () => {
     setEventStatus("open")
     setStatusType({
@@ -2908,7 +2908,7 @@ setDurationStartDateHelper(e.dateStr)
           <button
             onClick={() => { }}
             className={"CalendarEvent-Modal-book-appointment-button-style"}
-            onClick={BookAppointmentFunc}
+            // onClick={BookAppointmentFunc}
           >{bookEventCheck==true? "Book Appointment":"Update Appointment"}</button>
         </div>
        

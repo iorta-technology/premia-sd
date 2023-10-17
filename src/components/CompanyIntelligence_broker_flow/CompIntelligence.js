@@ -175,7 +175,7 @@ const CompanyIntelligence = React.memo((props) => {
     dispatch(actions.headerName("New Lead"));
     console.log('storeFormData--------->>>>>', storeFormData);
     loadValuesToFields(storeFormData);
-    getAppointmentList(storeFormData?._id);
+   // getAppointmentList(storeFormData?._id);
     setBrokerId(storeFormData?._id);
     setProducerId(storeFormData?.producer_id);
     setProducerName(storeFormData?.producerdetails?.producer_name);
@@ -188,15 +188,15 @@ const CompanyIntelligence = React.memo((props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const getAppointmentList = async (broker_id) => {
-    // setUpdateLeadID(lead_id)
-    let _result = await axiosRequest.get(
-      `user/fetch_appointments/${loginId}?teamdata=2&category=broker&broker_id=${broker_id}`,
-      { secure: true }
-    );
-    // console.log('APPOINTMENT DATA---->>>', _result)
-    setActivities_data(_result);
-  };
+  // const getAppointmentList = async (broker_id) => {
+  //   // setUpdateLeadID(lead_id)
+  //   let _result = await axiosRequest.get(
+  //     `user/fetch_appointments/${loginId}?teamdata=2&category=broker&broker_id=${broker_id}`,
+  //     { secure: true }
+  //   );
+  //   // console.log('APPOINTMENT DATA---->>>', _result)
+  //   setActivities_data(_result);
+  // };
 
 
   const loadValuesToFields = (leadData) => {

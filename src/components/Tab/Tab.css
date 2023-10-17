@@ -373,6 +373,7 @@ button.active_tabs_button img {
   font-weight: 600;
   line-height: normal;
   text-transform: capitalize;
+  margin-bottom: 5px;
 }
 .check-icon{
   color: #01AB4F;

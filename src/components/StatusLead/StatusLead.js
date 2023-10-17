@@ -227,7 +227,7 @@ const NewLead = React.memo((props) => {
         ? props?.location?.state?._leadData?._id
         : props.location.state.leadID;
       getLeadDetails(_leadID);
-      getAppointmentList(_leadID);
+      // getAppointmentList(_leadID);
       setUpdateLeadID(_leadID);
       getEventTodoCountAPI(_leadID);
       setIsNewLead(false);
@@ -391,15 +391,15 @@ const NewLead = React.memo((props) => {
     // }
   };
 
-  const getAppointmentList = async (lead_id) => {
-    // setUpdateLeadID(lead_id)
-    let _result = await axiosRequest.get(
-      `user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${lead_id}`,
-      { secure: true }
-    );
-    // console.log('APPOINTMENT DATA---->>>',_result)
-    setActivities_data(_result);
-  };
+  // const getAppointmentList = async (lead_id) => {
+  //   // setUpdateLeadID(lead_id)
+  //   let _result = await axiosRequest.get(
+  //     `user/fetch_appointments/${id}?teamdata=0&category=all&lead_id=${lead_id}`,
+  //     { secure: true }
+  //   );
+  //   // console.log('APPOINTMENT DATA---->>>',_result)
+  //   setActivities_data(_result);
+  // };
   const getEventTodoCountAPI = async (lead_id) => {
     // setUpdateLeadID(lead_id)
     let _result = await axiosRequest.get(
@@ -1022,7 +1022,7 @@ const NewLead = React.memo((props) => {
             setLeadScore(res?.formData?.weightage);
             // const [leadScore, setLeadScore] = useState("");
             getEventTodoCountAPI(res?.formData?._id);
-            getAppointmentList(res?.formData?._id);
+           // getAppointmentList(res?.formData?._id);
             setCompany_id(res?.formData?.company_id?._id);
 
             setIncorpDateSummary(
@@ -1049,7 +1049,7 @@ const NewLead = React.memo((props) => {
         if (res.type === "EDIT_LEAD_SUCCESS") {
           console.log("success___UPDATE:", res);
           getEventTodoCountAPI(res.formData._id);
-          getAppointmentList(res.formData._id);
+          // getAppointmentList(res.formData._id);
           setErrorMessage(successMsg);
           setIsNewLead(false);
         } else if (res.type === "EDIT_LEAD_FAIL") {

@@ -26,7 +26,7 @@ const Self = () => {
  
   
   useEffect(()=>{
-    api();
+    // api();
   },[]);
 useEffect(() => {
   console.log(DataContainer,"this is the data");
@@ -35,11 +35,11 @@ useEffect(() => {
 
 // },[month,year,CurentOrPast]);
   let {id}=stoageGetter('user');
-  const api = async ()=>{
-    let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=upcoming`);
-    setPastDataContainer(data);
-    setDataContainer(data)
-  }
+  // const api = async ()=>{
+  //   let data = await axiosRequest.get(`user/fetch_appointments/${id}?teamdata=0&filter=${month}/${year}&category=upcoming`);
+  //   setPastDataContainer(data);
+  //   setDataContainer(data)
+  // }
 
 
   useEffect(()=>{
@@ -71,7 +71,9 @@ useEffect(() => {
  
   return (
     <div className='Self-Container'>
-      <EventCreate monthData={setMonth} yearData={setyear}  getFunc = {api}  getdata = {setGetShow} />
+      <EventCreate monthData={setMonth} yearData={setyear}  
+      // getFunc = {api}  
+      getdata = {setGetShow} />
         <div className='eventChange'>
             {
               (month == 1+new Date().getMonth() && year == new Date().getFullYear())
@@ -85,7 +87,7 @@ useEffect(() => {
         <DataField SelfMonthYear = {month +'/'+ year}
           history={CurentOrPast}
           SelfHere='self'
-          getFunc={api}
+          // getFunc={api}
           getdata = {getshow}
           Dataupdate = {DataContainer}
         />
