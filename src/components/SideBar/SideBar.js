@@ -342,7 +342,7 @@ const Sidebar = () => {
                     fontSize: 10,
                   }}
                 >
-                  Agent ID: {custCode}
+                  Customer ID: {custCode}
                 </p>
               </div>
             </NavIcon>
