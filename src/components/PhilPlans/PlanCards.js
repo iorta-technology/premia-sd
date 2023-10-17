@@ -7,8 +7,10 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import axios from "axios";
-import { baseURL } from "../../axios-common";
+// import { baseURL } from "../../axios-common";
 import { stoageSetter } from "../../helpers";
+import apiConfig from "../../config/api.config";
+const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 
 const PlanCard = ({
   planName = "Educational Plan",
@@ -115,10 +117,10 @@ const PlanCard = ({
             {
               planDetailsListing?.length > 0 ? planDetailsListing.map((item,index)=> {
                 return (
-                  <div className="plan-card mb-4" onClick={onPlanCardContainerClick}>
+                  <div className="plan-card mb-3" onClick={onPlanCardContainerClick}>
                   <div className="plan-details">
                     <div className="plan-name">
-                      {item.POL_ASSURED_NAME} <b className="policy-name">{item?.PROD_PORTAL_DESC}</b>
+                      {item.POL_ASSURED_NAME} <p className="policy-name mb-0">{item?.PROD_PORTAL_DESC?.toLowerCase()}</p>
                     </div>
                     <div className="plan-satus-chip" style={planSatusChipStyle}>
                       <div>{item.POL_ADDL_STATUS}</div>

@@ -19,7 +19,6 @@ export const loginSuccess = (payload) => {
 };
 
 export const getAllPlanDetails = (payload) => {
-  debugger
   // console.log("login success ========", payload);
   return {
     type: actionTypes.GET_ALL_PLAN_DETAILS,

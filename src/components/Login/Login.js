@@ -211,12 +211,13 @@ const Login = () => {
                 className="form_imput"
                 size="large"
                 placeholder="Enter OTP"
-                prefix={<UserOutlined />}
+                // prefix={<UserOutlined />}
                 defaultValue={otp}
                 // onChange={(e) => setOTP(e.target.value)}
                  />
             </Form.Item>
             <Form.Item
+            className="security_code"
               name="securitycode"
               label="SECURITY CODE"
               rules={[
@@ -245,12 +246,12 @@ const Login = () => {
             <Button type="primary" htmlType="submit" className="loginbtn" block>
               Submit
             </Button>
-            <div className="register_btn text-center">
+           {/*<div className="register_btn text-center">
               <div className="register_description">Don’t have a Account?</div>
               <Link to="" className="register_btn_text">
                 REGISTER
               </Link>
-            </div>
+  </div> */}
           </Card>
         </div>
       </Form>

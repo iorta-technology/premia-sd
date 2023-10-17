@@ -103,7 +103,7 @@ const Sidebar = () => {
   // console.log("((((((((((STATEEEEEEE))))))))))",state)
   const login_user_data = state?.login;
   console.log('line 105',login_user_data)
-  const headerName = useSelector((state) => state?.login?.loginDetails?.userName);
+  const custCode = useSelector((state) => state?.login?.loginDetails?.custCode);
   const userId = useSelector((state) => state.login.userId);
   const history = useHistory();
   // console.warn("_______STOREE_____", state);
@@ -177,11 +177,8 @@ const Sidebar = () => {
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  // const logged_in_user = useSelector((state) => state.login.user_name)
-  // const logged_in_user =
-  //   login_user_data.firstName + " " + login_user_data.lastName;
-  // let avatar = logged_in_user?.match(/\b(\w)/g);
-
+  const logged_in_user = useSelector((state) => state.login.loginDetails?.userName)
+  
   // const agent_id = useSelector((state) => state.login.agent_id)
   console.log(login_user_data)
 
@@ -321,7 +318,7 @@ const Sidebar = () => {
               />
               <div className="d-none d-md-block" style={{ marginLeft: 10 }}>
                 <p style={{ marginBottom: 0, color: "#000", fontSize: 14 }}>
-                {/* {logged_in_user} */}
+                {logged_in_user}
                 </p>
                 <p
                   style={{
@@ -331,7 +328,7 @@ const Sidebar = () => {
                     fontSize: 10,
                   }}
                 >
-                  Agent ID: {headerName}
+                  Agent ID: {custCode}
                 </p>
               </div>
             </NavIcon>

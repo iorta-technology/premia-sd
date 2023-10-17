@@ -47,7 +47,6 @@ const headerNameData = (state, action) => {
 };
 
 const getAllPlanDetails = (state, action) => {
-  debugger
   return updateObject(state, {
     allPlanDetails: action.getAllPlanDetails,
     fetch_allLeads_Loading: false,

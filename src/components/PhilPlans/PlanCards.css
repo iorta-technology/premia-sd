@@ -1,16 +1,23 @@
-plan-card.css
-.plan-name,
+plan-card.css .plan-name,
 .policy-name {
   align-self: stretch;
   position: relative;
   line-height: 140%;
-  
 }
 .policy-name {
-  font-size: 20px;
+  /* font-size: 20px;
   font-weight: 500;
   display: block;
-  line-height: 120%
+  line-height: 120%;
+  color: #013261; */
+  color: var(--Text-blue, #013261);
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  text-transform: capitalize !important;
+margin-top: 5px;
 }
 .plan-details {
   width: 197px;
@@ -27,9 +34,12 @@ plan-card.css
   position: relative;
 }
 .value {
-  font-weight: 500;
+  color:  #0054A5;
+  font-family: Roboto;
   font-size: 14px;
-  color: #0054a5;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 .label {
   font-size: 12px;
@@ -152,7 +162,7 @@ plan-card.css
   width: 100%;
   align-items: flex-start;
   padding: 24px;
-  gap: 24px;
+  gap: 16px;
   cursor: pointer;
   text-align: left;
   font-size: 12px;
@@ -189,8 +199,12 @@ plan-card.css
     align-self: stretch;
   }
   .plan-satus-chip {
-    position: inherit;
-  }
+    /* position: inherit; */
+    top: 20px;
+    left: 265px;
+
+}
+  
   .plan-card {
     flex-direction: column;
   }
@@ -202,11 +216,12 @@ plan-card.css
     /* font-size: 12px; */
   }
 
-.primary-btn {
-  font-size: 14px;
-}
+  .primary-btn {
+    font-size: 14px;
+  }
 
-.outline-btn {
-  font-size: 14px;
-}
+  .outline-btn {
+    font-size: 14px;
+  }
+
 }
