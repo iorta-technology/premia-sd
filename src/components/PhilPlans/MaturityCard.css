@@ -18,7 +18,7 @@
     line-height: 130%;
     color: #434c55;
   }
-  .alert-card,
+  .matured-alert-card,
   .alert-message {
     display: flex;
     align-items: flex-start;
@@ -29,10 +29,10 @@
     flex-direction: column;
     gap: 4px;
   }
-  .alert-card {
+  .matured-alert-card {
     align-self: stretch;
     border-radius: 8px;
-    background-color: #FFE9E9;
+    background-color: #E6F7ED;
     flex-direction: row;
     padding: 16px 24px;
     gap: 12px;
@@ -251,7 +251,7 @@
     .cash-loan-no {
       flex: 1;
     }
-    .alert-card {
+    .matured-alert-card {
       align-self: stretch;
       border-radius: 8px;
       background-color: #E6F7ED;

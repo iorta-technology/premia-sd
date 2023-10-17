@@ -4,7 +4,7 @@ import { Select } from "antd";
 
 const Maturity = () => {
   return (
-    <div class="alert-card mb-4">
+    <div class="matured-alert-card mb-4">
       <div class="alert-message" style={{ gap: "24px" }}>
         <div class="alert-title">
           Have you missed the grace period for paying your due premium?Great
