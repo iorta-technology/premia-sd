@@ -32,10 +32,11 @@
   .alert-card {
     align-self: stretch;
     border-radius: 8px;
-    background-color: #E6F7ED;
+    background-color: #FFE9E9;
     flex-direction: row;
     padding: 16px 24px;
     gap: 12px;
+    border-radius: 4px;
   }
   .payment-message {
     flex: 1;

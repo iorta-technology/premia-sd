@@ -114,21 +114,31 @@ const PlanDetailsComponent = React.memo((props) => {
   const childRef = useRef(null);
   // const [form] = Form.useForm();
   // console.warn("COMPPP____PROPSS", props?.location?.state?.leadData);
-  let storeFormData = useSelector((state) => state?.login?.loginDetails?.userName);
+  let storeFormData = useSelector(
+    (state) => state?.login?.loginDetails?.userName
+  );
   const loginId = useSelector((state) => state?.login?.user?.id);
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
-
   // plandetails data start
-  const allPlanDetailsInfo = useSelector((state) => state?.planDetails?.planData);
-  console.log('line 126',allPlanDetailsInfo);
+  const allPlanDetailsInfo = useSelector(
+    (state) => state?.planDetails?.planData
+  );
+  console.log("line 126", allPlanDetailsInfo);
+  const {
+    cashLoan,
+    claimDetails,
+    eab,
+    maturityDetails,
+    planDetails,
+    surrenderDetails,
+  } = allPlanDetailsInfo;
+  // const {planDetails} = allPlanDetailsInfo
+  console.log("line 129", planDetails);
 
-  const {planDetails} = allPlanDetailsInfo
-  console.log('line 129', planDetails)
-
-// plandetails data end
+  // plandetails data end
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [riskInd, setRiskInd] = useState(null);
@@ -167,7 +177,7 @@ const PlanDetailsComponent = React.memo((props) => {
   const [open, setOpen] = useState(false);
   const [PdfId, setPdfId] = useState("");
 
-  const [policy_list, setPolicy_list] = useState(false);
+  // const [policy_list, setPolicy_list] = useState(false);
 
   let _teamMember = [];
   const callback = (data) => {
@@ -531,152 +541,224 @@ const PlanDetailsComponent = React.memo((props) => {
           <Col sm={24} md={18} lg={18} xlg={8}>
             {/* Company Details */}
             <p className="tab_title">Plan Details</p>
-            <Card bordered={false} className="app-card-head rounded mb-3">
-              <Col>
-                <Row
-                  className="plan_details_card1"
-                  style={{ marginBottom: 24 }}
-                >
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">E5BSCED4Y000027</div>
-                    <div className="label-font">Plan Number</div>
-                  </Col>
+            {planDetails.P_LOP_PLAN_DTLS && planDetails.P_LOP_PLAN_DTLS
+              ? planDetails.P_LOP_PLAN_DTLS.map((item, index) => {
+                  return (
+                    <>
+                      <Card
+                        key={item.index}
+                        bordered={false}
+                        className="app-card-head rounded mb-3"
+                      >
+                        <Col>
+                          <Row
+                            className="plan_details_card1"
+                            style={{ marginBottom: 24 }}
+                          >
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_NO}
+                              </div>
+                              <div className="label-font">Plan Number</div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Andy Murray</div>
-                    <div className="label-font">Plan Holder</div>
-                  </Col>
-                </Row>
-                <Row className="plan_details_card1">
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">
-                      Education Plan - Magna 4 Year College
-                    </div>
-                    <div className="label-font">Product</div>
-                  </Col>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.CUST_NAME}
+                              </div>
+                              <div className="label-font">Plan Holder</div>
+                            </Col>
+                          </Row>
+                          <Row className="plan_details_card1">
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.PROD_PORTAL_DESC}
+                              </div>
+                              <div className="label-font">Product</div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1 status-active">Active </div>
-                    <div className="label-font">Status</div>
-                  </Col>
-                </Row>
-              </Col>
-            </Card>
-            {/* 2nd card */}
-            <Card bordered={false} className="app-card-head rounded mb-3">
-              <Col style={{ padding: 10 }}>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">P711,900.00</div>
-                    <div className="label-font">Contact Price</div>
-                  </Col>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1 status-active">
+                                {item.POL_ADDL_STATUS_DESC}
+                              </div>
+                              <div className="label-font">Status</div>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Card>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Jan 14, 2019</div>
-                    <div className="label-font">Effective date</div>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">5 years</div>
-                    <div className="label-font">Payment Term</div>
-                  </Col>
+                      <Card
+                        bordered={false}
+                        className="app-card-head rounded mb-3"
+                      >
+                        <Col style={{ padding: 10 }}>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_LC_PRENEED_PRICE
+                                  ? item.POL_LC_PRENEED_PRICE
+                                  : "000"}
+                              </div>
+                              <div className="label-font">Contact Price</div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Jan 14, 2019 </div>
-                    <div className="label-font">Initial Availment Date</div>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">5 years</div>
-                    <div className="label-font">Payment Term</div>
-                  </Col>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.INST_AVAIL_DT
+                                  ? moment(item.INST_AVAIL_DT).format(
+                                      "MMM DD, YYYY"
+                                    )
+                                  : "--"}
+                              </div>
+                              <div className="label-font">Effective date</div>
+                            </Col>
+                          </Row>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_PREM_PAY_YRS} Years
+                              </div>
+                              <div className="label-font">Payment Term</div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Quarterly </div>
-                    <div className="label-font">Payment Mode</div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">5 years</div>
-                    <div className="label-font">Package</div>
-                  </Col>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_START_DT
+                                  ? moment(item.POL_START_DT).format(
+                                      "MMM DD, YYYY"
+                                    )
+                                  : "--"}
+                              </div>
+                              <div className="label-font">
+                                Initial Availment Date
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_PREM_PAY_YRS} Years
+                              </div>
+                              <div className="label-font">Payment Term</div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Jan 14, 2030 </div>
-                    <div className="label-font">
-                      Full Availment / Maturity Date
-                    </div>
-                  </Col>
-                </Row>
-              </Col>
-            </Card>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {planDetails.P_QUOT_MOP}
+                              </div>
+                              <div className="label-font">Payment Mode</div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_PREM_PAY_YRS} Years
+                              </div>
+                              <div className="label-font">Package</div>
+                            </Col>
 
-            {/* end */}
-            {/* 3 card */}
-            <Card bordered={false} className="app-card-head rounded mb-4">
-              <Col style={{ padding: 10 }}>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">P3,153.00</div>
-                    <div className="label-font">Total Installment Amount</div>
-                  </Col>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">Jan 14, 2030</div>
+                              <div className="label-font">
+                                Full Availment / Maturity Date
+                              </div>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Card>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">P2,598.00</div>
-                    <div className="label-font">Installment Amount</div>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">P525.00</div>
-                    <div className="label-font">Installment VAT</div>
-                  </Col>
+                      {/* end */}
+                      {/* 3 card */}
+                      <Card
+                        bordered={false}
+                        className="app-card-head rounded mb-4"
+                      >
+                        <Col style={{ padding: 10 }}>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">P3,153.00</div>
+                              <div className="label-font">
+                                Total Installment Amount
+                              </div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">P30.00</div>
-                    <div className="label-font">
-                      Documentary Stamp Tax (DST)
-                    </div>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">5 years</div>
-                    <div className="label-font">Payment Term</div>
-                  </Col>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">P2,598.00</div>
+                              <div className="label-font">
+                                Installment Amount
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">P525.00</div>
+                              <div className="label-font">Installment VAT</div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Quarterly </div>
-                    <div className="label-font">Payment Mode</div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Jan 12, 2022</div>
-                    <div className="label-font">Last Payment Due</div>
-                  </Col>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">P30.00</div>
+                              <div className="label-font">
+                                Documentary Stamp Tax (DST)
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_PREM_PAY_YRS} Years
+                              </div>
+                              <div className="label-font">Payment Term</div>
+                            </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Feb 12, 2022 </div>
-                    <div className="label-font">Next Payment Due</div>
-                  </Col>
-                </Row>
-              </Col>
-            </Card>
-            {/* 3 card end*/}
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {planDetails.P_QUOT_MOP}
+                              </div>
+                              <div className="label-font">Payment Mode</div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">Jan 12, 2022</div>
+                              <div className="label-font">Last Payment Due</div>
+                            </Col>
+
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                Feb 12, 2022{" "}
+                              </div>
+                              <div className="label-font">Next Payment Due</div>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Card>
+                      {/* 3 card end*/}
+                    </>
+                  );
+                })
+              : ""}
           </Col>
           {/* rhs html  */}
           <Col sm={24} md={6} lg={6} xlg={8}>
             {/* premium payment card */}
-             <PremiumCard /> 
-            {/* <Lapsed/> */}
-            {/* <Maturity/> */}
+            {planDetails.P_LOP_PLAN_DTLS &&
+              planDetails.P_LOP_PLAN_DTLS.map((item, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    {item.POL_ADDL_STATUS_DESC === "Matured" ? (
+                      <Maturity />
+                    ) : item.POL_ADDL_STATUS_DESC === "Lapsed - Cancelled" ? (
+                      <Lapsed />
+                    ) : (
+                      <PremiumCard />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+
             {/* premium payment card end */}
             <div className="rhs">
-             <div className="contact-us">
+              <div className="contact-us">
                 <div className="div">
                   <img
                     className="support-img-icon"
@@ -693,102 +775,6 @@ const PlanDetailsComponent = React.memo((props) => {
                   </div>
                 </div>
               </div>
-              {policy_list &&
-                policy_list.length(
-                  <div className="products">
-                    <div className="div2">
-                      <div className="title">Special Cash Programms</div>
-                      <div className="nav">
-                        <img
-                          className="keyboard-arrow-left-icon"
-                          alt=""
-                          src="/keyboard-arrow-left.svg"
-                        />
-
-                        <img
-                          className="keyboard-arrow-left-icon"
-                          alt=""
-                          src="/keyboard-arrow-right.svg"
-                        />
-                      </div>
-                    </div>
-                    <div className="product-cards">
-                      <div className="product-card-1">
-                        <div className="product-image">
-                          <img
-                            className="image-13-icon"
-                            alt=""
-                            src="/image-13@2x.png"
-                          />
-                        </div>
-                        <div className="product-desc">
-                          <div className="content">
-                            <div className="product-name">
-                              Cash Loan Program
-                            </div>
-                            <div className="product-info">
-                              Good News! PhilPlans is offering an exclusive Cash
-                              Loan Program with its lowest-ever 8% per annum
-                              interest rate to qualified planholders.
-                            </div>
-                          </div>
-                          <div className="cta">
-                            <div className="read-more">read more</div>
-                            <div className="get-in-touch">Get in touch</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="product-card-1">
-                        <div className="product-image">
-                          <img
-                            className="image-13-icon"
-                            alt=""
-                            src="/image-131@2x.png"
-                          />
-                        </div>
-                        <div className="product-desc">
-                          <div className="content">
-                            <div className="product-name">Lump Sum Payment</div>
-                            <div className="product-info">
-                              Good News! PhilPlans is offering an exclusive Cash
-                              Loan Program with its lowest-ever 8% per annum
-                              interest rate to qualified planholders.
-                            </div>
-                          </div>
-                          <div className="cta">
-                            <div className="read-more">read more</div>
-                            <div className="get-in-touch">Get in touch</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="product-card-1">
-                        <div className="product-image">
-                          <img
-                            className="image-13-icon"
-                            alt=""
-                            src="/image-132@2x.png"
-                          />
-                        </div>
-                        <div className="product-desc">
-                          <div className="content">
-                            <div className="product-name">
-                              Plan Termination Value
-                            </div>
-                            <div className="product-info">
-                              Good News! PhilPlans is offering an exclusive Cash
-                              Loan Program with its lowest-ever 8% per annum
-                              interest rate to qualified planholders.
-                            </div>
-                          </div>
-                          <div className="cta">
-                            <div className="read-more">read more</div>
-                            <div className="get-in-touch">Get in touch</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
             </div>
           </Col>
         </Row>

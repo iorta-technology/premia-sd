@@ -103,7 +103,7 @@ const Sidebar = () => {
   const state = useSelector((state) => state);
   // console.log("((((((((((STATEEEEEEE))))))))))",state)
   const login_user_data = state?.login;
-  console.log('line 105',login_user_data)
+  console.log("line 105", login_user_data);
   const custCode = useSelector((state) => state?.login?.loginDetails?.custCode);
   const userId = useSelector((state) => state.login.userId);
   const history = useHistory();
@@ -115,8 +115,8 @@ const Sidebar = () => {
   const [showNewLeadModal, setShowNewLeadModal] = useState(false);
 
   let _storeData = useSelector((state) => state);
-  console.log('state',_storeData)
- // const _accessOpportunities = checkuserAccess("myLeads", _storeData?.login?.loginDetails); // Opportunities
+  console.log("state", _storeData);
+  // const _accessOpportunities = checkuserAccess("myLeads", _storeData?.login?.loginDetails); // Opportunities
   // console.log('line 118', _accessOpportunities )
   // const [showOpportunities, setShowOpportunities] = useState(
   //   _accessOpportunities.props.read === true ? true : false
@@ -178,10 +178,12 @@ const Sidebar = () => {
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const logged_in_user = useSelector((state) => state.login.loginDetails?.userName)
-  
+  const logged_in_user = useSelector(
+    (state) => state.login.loginDetails?.userName
+  );
+
   // const agent_id = useSelector((state) => state.login.agent_id)
-  console.log(login_user_data)
+  console.log(login_user_data);
 
   const agent_id = login_user_data.agentId;
 
@@ -203,11 +205,9 @@ const Sidebar = () => {
   const addSingleLead = () => {
     // history.push("/leadmasterpage/statuslead");
     // setSidebar(false);
-
     // if (showOpportunities) {
     //   // dispatch(actions.fetchLeadUpdateBody({}))
     //   // dispatch(actions.fetchLeadDetailsSuccess({}))
-
     //   // // dispatch(actions.storeLead(leadUpdateFormdata));
     //   // history.push("/leadmasterpage/statuslead");
     //   setShowNewLeadModal(true);
@@ -332,7 +332,7 @@ const Sidebar = () => {
               />
               <div className="d-none d-md-block" style={{ marginLeft: 10 }}>
                 <p style={{ marginBottom: 0, color: "#000", fontSize: 14 }}>
-                {logged_in_user}
+                  {logged_in_user}
                 </p>
                 <p
                   style={{
@@ -349,11 +349,10 @@ const Sidebar = () => {
           </div>
         </Nav>
 
-
         {/* <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
-            <NavIcon to='#' style={{padding:'18px'}}>
-              <AiIcons.AiOutlineClose onClick={showSidebar}  color="#000"/>
+            <NavIcon to="#" style={{ padding: "18px" }}>
+              <AiIcons.AiOutlineClose onClick={showSidebar} color="#000" />
             </NavIcon>
             {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
