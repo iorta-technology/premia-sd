@@ -148,8 +148,62 @@ const Tab = ({
 
   const token = useSelector((state) => state?.login?.loginDetails.token);
   const custCode = useSelector((state) => state?.planDetails?.planData?.planDetails?.P_LOP_PLAN_DTLS);
-  const [{POBH_BROKER_CODE,POL_NO}] = custCode
+  const [{POBH_BROKER_CODE,POL_NO,POL_SYS_ID}] = custCode
   console.log('line ===>>>>>',POBH_BROKER_CODE)
+
+  const getPlanDetails = () => {
+    // history.push('/plan-details');
+    const credentials = {
+      polNo: POL_NO,
+      sysId: POL_SYS_ID,
+      Token: `${token}`,
+    };
+    // const credentials = {email, password}
+    axios
+      .post(`${baseURL}auth/getPlanDetail`, credentials)
+      .then((res, error) => {
+        console.log("(((((((((getPlanDetail)))))))))", res);
+        if (res === undefined || res === null || res === "") {
+          return;
+        }
+        if (res.status === 200) {
+          let result = res.data.errMsg.responseBody;
+          dispatch(actions.getAllPlanDetails(result));
+          // dispatch(actions.setSelectedPolicy(result));
+          // setLoginCreds(res.data.errMsg.responseBody)
+          //  history.push(`/plan-details/${policyNo}/${sysId}`);
+          // history.push("/plan-details");
+
+          // setOTP(res.data.errMsg.responseBody.OTP)
+          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
+          // if (!res.ok) {
+          //     message.error('Please check your internet connections');
+          // } else {
+          try {
+            if (res.data.errCode === -1) {
+              // let _loginData = [];
+              // actions.multiChannelData()
+              // let _defaultChannel = res.data.errMsg[0].filter(
+              //   (item, index) => item.setDefault === true
+              // );
+              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              // _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              // stoageSetter("multi_channel", res.data.errMsg[0]);
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
+            } else {
+              message.error(res.data.errMsg);
+            }
+          } catch (err) {}
+        }
+      })
+      .catch((error) => {
+        // console.log('ERRROR',error.response)
+        if (error.response.status === 400) {
+          if (error.response.data.errCode === 1)
+            message.error("Please Enter Correct User Credentials");
+        }
+      });
+  };
 
   const getAgentDetails = () => {
     const credentials = {
@@ -296,6 +350,7 @@ const Tab = ({
         // case "1":
         //  return history.push("plan-cards");
         case "1":
+          getPlanDetails();
           return history.push("/plan-details", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
