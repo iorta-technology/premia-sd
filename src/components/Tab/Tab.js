@@ -117,7 +117,7 @@ const Tab = ({
     // console.log('************************ current ___*(*(*((**)))) *********************===========>>>',current)
     let _pageNo = current === undefined || current === null ? 1 : current;
     if (_currentTab === "self") {
-     // dispatch(actions.fetchAllLeads_broker(id, leadInc, _pageNo));
+      // dispatch(actions.fetchAllLeads_broker(id, leadInc, _pageNo));
     } else {
       const teamId = stoageGetter("teamMemberId");
       // console.warn("teamId______===========>>>", teamId);
@@ -147,9 +147,11 @@ const Tab = ({
   };
 
   const token = useSelector((state) => state?.login?.loginDetails.token);
-  const custCode = useSelector((state) => state?.planDetails?.planData?.planDetails?.P_LOP_PLAN_DTLS);
-  const [{POBH_BROKER_CODE,POL_NO,POL_SYS_ID}] = custCode
-  console.log('line ===>>>>>',POBH_BROKER_CODE)
+  const custCode = useSelector(
+    (state) => state?.planDetails?.planData?.planDetails?.P_LOP_PLAN_DTLS
+  );
+  const [{ POBH_BROKER_CODE, POL_NO, POL_SYS_ID }] = custCode;
+  console.log("line ===>>>>>", POBH_BROKER_CODE);
 
   const getPlanDetails = () => {
     // history.push('/plan-details');
@@ -207,8 +209,8 @@ const Tab = ({
 
   const getAgentDetails = () => {
     const credentials = {
-      "agentCode": POBH_BROKER_CODE,
-      "Token": token
+      agentCode: POBH_BROKER_CODE,
+      Token: token,
     };
     // const credentials = {email, password}
     axios
@@ -220,7 +222,7 @@ const Tab = ({
         }
         if (res.status === 200) {
           let agentResponse = res.data.errMsg.responseBody;
-          console.log('agent id ', agentResponse)
+          console.log("agent id ", agentResponse);
           dispatch(actions.getAgentDetails(agentResponse));
           //  setLoginCreds(res.data.errMsg.responseBody)
           //  history.push("/plan-cards");
@@ -240,7 +242,7 @@ const Tab = ({
               // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
               _loginData.push(_defaultChannel, res.data.errMsg[1]);
               //stoageSetter("multi_channel", res.data.errMsg[0]);
-              
+
               // dispatch(actions.multiChannelData(res.data.errMsg[0]));
             } else {
               message.error(res.data.errMsg);
@@ -259,8 +261,8 @@ const Tab = ({
 
   const getMaturityDetails = () => {
     const credentials = {
-      "polNo": POL_NO,
-      "Token": `Bearer ${token}`
+      polNo: POL_NO,
+      Token: `Bearer ${token}`,
     };
     // const credentials = {email, password}
     axios
@@ -272,7 +274,7 @@ const Tab = ({
         }
         if (res.status === 200) {
           let maturityResponse = res.data.errMsg.responseBody;
-          console.log('maturityResponse ', maturityResponse)
+          console.log("maturityResponse ", maturityResponse);
           dispatch(actions.getMaturityDetails(maturityResponse));
           //  setLoginCreds(res.data.errMsg.responseBody)
           //  history.push("/plan-cards");
@@ -292,7 +294,7 @@ const Tab = ({
               // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
               _loginData.push(_defaultChannel, res.data.errMsg[1]);
               //stoageSetter("multi_channel", res.data.errMsg[0]);
-              
+
               // dispatch(actions.multiChannelData(res.data.errMsg[0]));
             } else {
               message.error(res.data.errMsg);
@@ -308,7 +310,58 @@ const Tab = ({
         }
       });
   };
-  
+  const getPlanTermination = () => {
+    const credentials = {
+      polNo: POL_NO,
+      Token: `Bearer ${token}`,
+      sys_id: POL_SYS_ID,
+    };
+    // const credentials = {email, password}
+    axios
+      .post(`${baseURL}auth/getEABdetails`, credentials)
+      .then((res, error) => {
+        console.warn("(((((((((getAgentDetail)))))))))", res);
+        if (res === undefined || res === null || res === "") {
+          return;
+        }
+        if (res.status === 200) {
+          let agentResponse = res.data.errMsg.responseBody;
+          console.log("agent id ", agentResponse);
+          dispatch(actions.getPlanTermination(agentResponse));
+          //  setLoginCreds(res.data.errMsg.responseBody)
+          //  history.push("/plan-cards");
+
+          // setOTP(res.data.errMsg.responseBody.OTP)
+          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
+          // if (!res.ok) {
+          //     message.error('Please check your internet connections');
+          // } else {
+          try {
+            if (res.data.errCode === -1) {
+              let _loginData = [];
+              // actions.multiChannelData()
+              let _defaultChannel = res.data.errMsg[0].filter(
+                (item, index) => item.setDefault === true
+              );
+              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              //stoageSetter("multi_channel", res.data.errMsg[0]);
+
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
+            } else {
+              message.error(res.data.errMsg);
+            }
+          } catch (err) {}
+        }
+      })
+      .catch((error) => {
+        // console.log('ERRROR',error.response)
+        if (error.response.status === 400) {
+          if (error.response.data.errCode === 1)
+            message.error("Please Enter Correct User Credentials");
+        }
+      });
+  };
 
   const handler = (activeKey) => {
     // console.log("activeKey------------->>>>>>>>", activeKey);
@@ -358,13 +411,13 @@ const Tab = ({
         case "2":
           getAgentDetails();
           return history.push("agent-details");
-          
 
         case "3":
           getMaturityDetails();
           return history.push("maturity-benefit");
 
         case "4":
+          getPlanTermination();
           return history.push("plan-termination");
         case "5":
           return history.push("enhance-availment");
@@ -416,11 +469,11 @@ const Tab = ({
     _currentTab = currentTab;
     setCurrentActiveTab(currentTab);
     getDataForOpen("all");
-   // dispatch(actions.updateTabOfDashboard(currentTab));
+    // dispatch(actions.updateTabOfDashboard(currentTab));
 
     // if (currentTab === "team") getDataForOpen();
     // currentTab !== currentActiveTab &&
-     // dispatch(actions.updateAllocateOfOpportunities(false));
+    // dispatch(actions.updateAllocateOfOpportunities(false));
   };
 
   const [show, setShow] = useState(false);
@@ -483,7 +536,6 @@ const Tab = ({
       policy_id: item.POL_NO,
     });
   };
-
 
   return (
     <>

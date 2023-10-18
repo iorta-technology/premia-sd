@@ -539,7 +539,7 @@ const PlanDetailsComponent = React.memo((props) => {
       />
       {/* </Col>
       </Row> */}
-      <div className="plan_details_body" style={{ marginTop: 11 }}>
+      <div className="plan_details_body mb-4" style={{ marginTop: 11 }}>
         <Row gutter={22} style={{ margin: "0" }}>
           {/* 1st Column */}
           <Col sm={24} md={18} lg={18} xlg={8}>
@@ -828,10 +828,10 @@ const PlanDetailsComponent = React.memo((props) => {
           </Col>
         </Row>
       </div>
-      <div className="footer_powered_by fixed-bottom">
+      {/* <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
-      </div>
+      </div> */}
     </>
   );
 });

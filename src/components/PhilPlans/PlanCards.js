@@ -96,7 +96,7 @@ const PlanCard = ({
 
   return (
     <>
-      <div className="plan_details_body" style={{ marginTop: 80 }}>
+      <div className="plan_details_body mb-4" style={{ marginTop: 80 }}>
         <Row
           gutter={22}
           style={{
@@ -304,10 +304,10 @@ const PlanCard = ({
           </Col>
         </Row>
       </div>
-      <div className="footer_powered_by fixed-bottom">
+      {/* <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
-      </div>
+      </div> */}
     </>
   );
 };

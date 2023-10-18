@@ -33,7 +33,13 @@ export const getAgentDetails = (payload) => {
     agentData: payload,
   };
 };
-
+export const getPlanTermination = (payload) => {
+  // console.log("login success ========", payload);
+  return {
+    type: actionTypes.GET_PLAN_TERMINATION,
+    planTerminationData: payload,
+  };
+};
 export const getMaturityDetails = (payload) => {
   // console.log("login success ========", payload);
   return {

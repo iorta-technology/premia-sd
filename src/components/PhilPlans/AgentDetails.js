@@ -118,11 +118,11 @@ const AgentDetailsComponent = React.memo((props) => {
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
-
-  const AgentInfo = useSelector((state) => state?.agentDetails
-  ?.agentData?.agentDetails?.P_LOP_PLAN_AGNT_DTLS);
-  console.log('line 126',AgentInfo);
-
+  const AgentInfo = useSelector(
+    (state) =>
+      state?.agentDetails?.agentData?.agentDetails?.P_LOP_PLAN_AGNT_DTLS
+  );
+  console.log("line 126", AgentInfo);
 
   // const {maturityDetails} = AgentInfo
   // console.log('line 129', maturityDetails)
@@ -508,16 +508,18 @@ const AgentDetailsComponent = React.memo((props) => {
     }
   };
 
-  const [{
-    AGENT_NAME,
-    CUST_EMAIL_ID_OFF,
-    AGENT_STATUS_DESC,
-    CUST_MOBILE_NO,
-    AGENT_TERR_CODE_DESC, 
-    AGENT_TERR_CODE,
-    AGENCY_NAME,
-    BRANCH_NAME
-  }] = AgentInfo
+  const [
+    {
+      AGENT_NAME,
+      CUST_EMAIL_ID_OFF,
+      AGENT_STATUS_DESC,
+      CUST_MOBILE_NO,
+      AGENT_TERR_CODE_DESC,
+      AGENT_TERR_CODE,
+      AGENCY_NAME,
+      BRANCH_NAME,
+    },
+  ] = AgentInfo;
 
   return (
     <>
@@ -530,7 +532,7 @@ const AgentDetailsComponent = React.memo((props) => {
         statusLeadData={storeFormData}
       />
 
-      <div className="plan_details_body" style={{ marginTop: 11 }}>
+      <div className="plan_details_body mb-4" style={{ marginTop: 11 }}>
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           {/* 1st Column */}
           <Col sm={24} md={18} lg={18} xlg={8}>
@@ -545,9 +547,7 @@ const AgentDetailsComponent = React.memo((props) => {
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">
-                     {CUST_EMAIL_ID_OFF}
-                    </div>
+                    <div className="text-font mb-1">{CUST_EMAIL_ID_OFF}</div>
                     <div className="label-font">Email</div>
                   </Col>
                 </Row>
@@ -558,7 +558,9 @@ const AgentDetailsComponent = React.memo((props) => {
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1 status-active">{AGENT_STATUS_DESC}</div>
+                    <div className="text-font mb-1 status-active">
+                      {AGENT_STATUS_DESC}
+                    </div>
                     <div className="label-font">Status</div>
                   </Col>
                 </Row>
@@ -579,9 +581,7 @@ const AgentDetailsComponent = React.memo((props) => {
                 </Row>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">
-                     {AGENCY_NAME}
-                    </div>
+                    <div className="text-font mb-1">{AGENCY_NAME}</div>
                     <div className="label-font">Agency Name</div>
                   </Col>
 
@@ -616,12 +616,11 @@ const AgentDetailsComponent = React.memo((props) => {
             </div>
           </Col>
         </Row>
-       
       </div>
-      <div className="footer_powered_by fixed-bottom">
+      {/* <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
-      </div>
+      </div> */}
     </>
   );
 });

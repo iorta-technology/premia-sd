@@ -334,7 +334,7 @@ const InsuranceClaimComponent = React.memo((props) => {
     dispatch(actions.headerName("New Lead"));
     console.warn("storeFormData--------->>>>>", storeFormData);
     loadValuesToFields(storeFormData);
-   // getAppointmentList(storeFormData._id);
+    // getAppointmentList(storeFormData._id);
     setLeadId(storeFormData._id);
     setPdfId(storeFormData?._id);
     // opprtunityStatusData()
@@ -631,7 +631,7 @@ const InsuranceClaimComponent = React.memo((props) => {
         statusLeadData={storeFormData}
       />
 
-      <div className="plan_details_body" style={{ marginTop: 11 }}>
+      <div className="plan_details_body mb-4" style={{ marginTop: 11 }}>
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           <Col sm={24} md={18} lg={18} xlg={8}>
             <p className="tab_title">Insurance Claims</p>
@@ -771,12 +771,11 @@ const InsuranceClaimComponent = React.memo((props) => {
             </div>
           </Col>
         </Row> */}
-        
       </div>
-      <div className="footer_powered_by fixed-bottom">
+      {/* <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
-      </div>
+      </div> */}
     </>
   );
 });

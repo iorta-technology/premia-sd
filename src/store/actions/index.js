@@ -8,7 +8,7 @@ export {
   editLead,
   editCollaborators,
   editLead_broker,
-  fetchLeadDetails_broker
+  fetchLeadDetails_broker,
 } from "./newLead";
 export { fetchAllState, fetchAllCities } from "./address";
 export {
@@ -23,7 +23,12 @@ export {
 // export { home,activities } from './home'
 // export { activities } from './home'
 export { kpiDashboard } from "./kpiDashboard";
-export {getAllPlanDetails,getAgentDetails,getMaturityDetails} from "./allPlanDetails";
+export {
+  getAllPlanDetails,
+  getAgentDetails,
+  getMaturityDetails,
+  getPlanTermination,
+} from "./allPlanDetails";
 
 export {
   fetchAllRenewals,
