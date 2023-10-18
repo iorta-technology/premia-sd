@@ -314,7 +314,7 @@ const Tab = ({
     const credentials = {
       polNo: POL_NO,
       Token: `Bearer ${token}`,
-      sys_id: POL_SYS_ID,
+      service: "S"
     };
     // const credentials = {email, password}
     axios
@@ -328,6 +328,112 @@ const Tab = ({
           let agentResponse = res.data.errMsg.responseBody;
           console.log("agent id ", agentResponse);
           dispatch(actions.getPlanTermination(agentResponse));
+          //  setLoginCreds(res.data.errMsg.responseBody)
+          //  history.push("/plan-cards");
+
+          // setOTP(res.data.errMsg.responseBody.OTP)
+          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
+          // if (!res.ok) {
+          //     message.error('Please check your internet connections');
+          // } else {
+          try {
+            if (res.data.errCode === -1) {
+              let _loginData = [];
+              // actions.multiChannelData()
+              let _defaultChannel = res.data.errMsg[0].filter(
+                (item, index) => item.setDefault === true
+              );
+              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              //stoageSetter("multi_channel", res.data.errMsg[0]);
+
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
+            } else {
+              message.error(res.data.errMsg);
+            }
+          } catch (err) {}
+        }
+      })
+      .catch((error) => {
+        // console.log('ERRROR',error.response)
+        if (error.response.status === 400) {
+          if (error.response.data.errCode === 1)
+            message.error("Please Enter Correct User Credentials");
+        }
+      });
+  };
+  const getEnhanceAvailment= () => {
+    const credentials = {
+      polNo: POL_NO,
+      Token: `Bearer ${token}`,
+      service: "S"
+    };
+    // const credentials = {email, password}
+    axios
+      .post(`${baseURL}auth/getEABdetails`, credentials)
+      .then((res, error) => {
+        console.warn("(((((((((getAgentDetail)))))))))", res);
+        if (res === undefined || res === null || res === "") {
+          return;
+        }
+        if (res.status === 200) {
+          let agentResponse = res.data.errMsg.responseBody;
+          console.log("agent id ", agentResponse);
+          dispatch(actions.getPlanTermination(agentResponse));
+          //  setLoginCreds(res.data.errMsg.responseBody)
+          //  history.push("/plan-cards");
+
+          // setOTP(res.data.errMsg.responseBody.OTP)
+          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
+          // if (!res.ok) {
+          //     message.error('Please check your internet connections');
+          // } else {
+          try {
+            if (res.data.errCode === -1) {
+              let _loginData = [];
+              // actions.multiChannelData()
+              let _defaultChannel = res.data.errMsg[0].filter(
+                (item, index) => item.setDefault === true
+              );
+              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              //stoageSetter("multi_channel", res.data.errMsg[0]);
+
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
+            } else {
+              message.error(res.data.errMsg);
+            }
+          } catch (err) {}
+        }
+      })
+      .catch((error) => {
+        // console.log('ERRROR',error.response)
+        if (error.response.status === 400) {
+          if (error.response.data.errCode === 1)
+            message.error("Please Enter Correct User Credentials");
+        }
+      });
+  };
+
+
+  const getCashLoan= () => {
+    const credentials = {
+      polNo: POL_NO,
+      // Token: `Bearer ${token}`,
+      // service: "S"
+    };
+    // const credentials = {email, password}
+    axios
+      .post(`${baseURL}auth/getLoanDetails`, credentials)
+      .then((res, error) => {
+        console.warn("(((((((((getLoanDetails)))))))))", res);
+        if (res === undefined || res === null || res === "") {
+          return;
+        }
+        if (res.status === 200) {
+          let cashLoanResponse = res.data.errMsg.responseBody;
+          console.log("cashLoan id ", cashLoanResponse);
+          dispatch(actions.getCashLoan(cashLoanResponse));
           //  setLoginCreds(res.data.errMsg.responseBody)
           //  history.push("/plan-cards");
 
@@ -420,10 +526,12 @@ const Tab = ({
           getPlanTermination();
           return history.push("plan-termination");
         case "5":
+          getEnhanceAvailment();
           return history.push("enhance-availment");
         case "6":
           return history.push("insurance-claim");
         case "7":
+          getCashLoan();
           return history.push("cash-loan");
         case "broker_intel":
           return history.push("/company-intelligence_broker", {

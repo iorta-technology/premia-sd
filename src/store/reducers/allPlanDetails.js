@@ -6,6 +6,7 @@ const initialState = {
   agentData: {},
   maturityData: {},
   planTerminatioData: {},
+  cashLoanData: {},
 };
 
 const getAllPlanDetails = (state, action) => {
@@ -29,6 +30,11 @@ const getPlanTermination = (state, action) => {
     planTerminatioData: action.planTerminatioData,
   });
 };
+const getCashLoan = (state, action) => {
+  return updateObject(state, {
+    cashLoanData: action.cashLoanData,
+  });
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_ALL_PLAN_DETAILS:
@@ -39,6 +45,8 @@ const reducer = (state = initialState, action) => {
       return getMaturityDetails(state, action);
     case actionTypes.GET_PLAN_TERMINATION:
       return getPlanTermination(state, action);
+      case actionTypes.GET_CASH_LOAN:
+        return getCashLoan(state, action);
     default:
       return state;
   }

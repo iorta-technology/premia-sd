@@ -7,6 +7,7 @@ import getAllPlanDetails from "./allPlanDetails";
 import getAgentDetails from "./allPlanDetails";
 import getMaturityDetails from "./allPlanDetails";
 import getPlanTermination from "./allPlanDetails";
+import getCashLoan from "./allPlanDetails";
 import homeReducer from "./home";
 import activitiesReducer from "./home";
 import kpiDashboardReducer from "./kpiDashboard";
@@ -41,6 +42,7 @@ export default () => {
     agentDetails: getAgentDetails,
     maturityDetails: getMaturityDetails,
     planTermination: getPlanTermination,
+    cashLoan: getCashLoan,
     // BICardReducer,
     // pendencies:pendencyReducer
   });

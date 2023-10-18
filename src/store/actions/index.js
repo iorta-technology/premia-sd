@@ -28,6 +28,7 @@ export {
   getAgentDetails,
   getMaturityDetails,
   getPlanTermination,
+  getCashLoan,
 } from "./allPlanDetails";
 
 export {

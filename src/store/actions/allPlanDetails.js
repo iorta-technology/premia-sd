@@ -33,6 +33,15 @@ export const getAgentDetails = (payload) => {
     agentData: payload,
   };
 };
+
+export const getMaturityDetails = (payload) => {
+  // console.log("login success ========", payload);
+  return {
+    type: actionTypes.GET_MATURITY_DETAILS,
+    maturityData: payload,
+  };
+};
+
 export const getPlanTermination = (payload) => {
   // console.log("login success ========", payload);
   return {
@@ -40,11 +49,12 @@ export const getPlanTermination = (payload) => {
     planTerminationData: payload,
   };
 };
-export const getMaturityDetails = (payload) => {
+
+export const getCashLoan = (payload) => {
   // console.log("login success ========", payload);
   return {
-    type: actionTypes.GET_MATURITY_DETAILS,
-    maturityData: payload,
+    type: actionTypes.GET_CASH_LOAN,
+    cashLoanData: payload,
   };
 };
 
