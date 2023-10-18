@@ -304,8 +304,8 @@
 }
 .header_hamburger{
   color: #0054A5 !important;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 @media (max-width: 436px) {

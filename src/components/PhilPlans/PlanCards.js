@@ -59,7 +59,7 @@ const PlanCard = ({
           let result = res.data.errMsg.responseBody;
           dispatch(actions.getAllPlanDetails(result));
           // setLoginCreds(res.data.errMsg.responseBody)
-          history.push("/plan-details");
+          history.push(`/plan-details/${policyNo}/${sysId}`);
 
           // setOTP(res.data.errMsg.responseBody.OTP)
           // setSecurityCode(res.data.errMsg.responseBody.securityCode)
@@ -125,10 +125,14 @@ const PlanCard = ({
                         </div>
                         <div
                           className="plan-satus-chip"
-                          style={{backgroundColor:
-                            item.POL_ADDL_STATUS === "Matured" ? "#434C55" :
-                            item.POL_ADDL_STATUS === "Lapsed - Cancelled" ? "#F19A49" :
-                            "#6CC100"}}
+                          style={{
+                            backgroundColor:
+                              item.POL_ADDL_STATUS === "Matured"
+                                ? "#434C55"
+                                : item.POL_ADDL_STATUS === "Lapsed - Cancelled"
+                                ? "#F19A49"
+                                : "#6CC100",
+                          }}
                         >
                           <div>{item.POL_ADDL_STATUS}</div>
                         </div>

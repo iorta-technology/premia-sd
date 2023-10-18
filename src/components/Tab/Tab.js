@@ -88,7 +88,7 @@ const Tab = ({
   const [showBrokerFilt, setShowBrokerFilt] = useState(false);
   const [leadcards, setLeadcards] = useState(false);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
-
+  const { pol_id, sys_id } = useParams();
   let history = useHistory();
   let _currentTab = "self";
   // const [activeKey, setActiveKey] = useState("self")
@@ -280,27 +280,33 @@ const Tab = ({
   };
   // DROPDOWN tabs header
 
-  const items = [
-    {
-      key: "1",
-      label: "Megan 4 Year Collage",
-      describe: "76898798797aaa",
-    },
-    {
-      key: "2",
-      label: "Megan 4 Year Collage",
-      describe: "76898798797abs",
-    },
-    {
-      key: "3",
-      label: "Megan 4 Year Collage",
-      describe: "76898798797xyu",
-    },
-  ];
-  const [selectedItem, setSelectedItem] = useState(items[0]); // Default selected item
+  const planDetailsListing = useSelector(
+    (state) => state?.login?.planListing.P_LOP_DTLS
+  );
+  const [selectedPolicy, setSelectedPolicy] = useState({
+    key: "",
+    dropdown_label: selectedPolicy.PROD_PORTAL_DESC,
+    policy_id: selectedPolicy.POL_NO,
+  });
+  useEffect(() => {
+    const selectData = planDetailsListing.find((el) => el.POL_NO === pol_id);
+    if (selectData) {
+      console.log("selecte================", selectData);
+      setSelectedPolicy({
+        key: selectData.key,
+        dropdown_label: selectData.PROD_PORTAL_DESC.toLowerCase(),
+        policy_id: selectData.POL_NO,
+      });
+    }
+  }, [planDetailsListing, pol_id]);
 
   const handleMenuItemClick = (item) => {
-    setSelectedItem(item);
+    console.log("item-----------", item);
+    setSelectedPolicy({
+      key: item.key,
+      dropdown_label: item.PROD_PORTAL_DESC.toLowerCase(),
+      policy_id: item.POL_NO,
+    });
   };
 
   return (
@@ -312,42 +318,17 @@ const Tab = ({
         >
           <div className="header_tabs">
             {/* <p className="header-title-tab">{header}</p> */}
-            {/* <div>
-              <Select
-                labelInValue
-                defaultValue={{
-                  value: "Megan 4 Year Collage",
-                  label: "Megan 4 Year Collage",
-                }}
-                style={{
-                  width: 230,
-                }}
-                onChange={handleChange}
-              >
-                {policy_options.map((option) => (
-                  <Option
-                    key={option.value}
-                    value={`${option.value}<br>${option.title}`}
-                    label={`${option.title} (${option.description})`}
-                  >
-                    <p style={{ margin: 0, lineHeight: "normal" }}>
-                      {option.title}
-                    </p>
-                    <p style={{ margin: 0, lineHeight: "normal" }}>
-                      {option.description}
-                    </p>
-                  </Option>
-                ))}
-              </Select>
-            </div> */}
+
             <div style={{ width: 230 }}>
               <Dropdown
                 overlay={
                   <Menu
                     style={{ width: "230px" }}
-                    selectedKeys={[selectedItem.key]}
+                    // selectedKeys={selectedPolicy}
+                    defaultSelectedKeys={selectedPolicy}
+                    value={selectedPolicy}
                   >
-                    {items.map((item) => (
+                    {planDetailsListing.slice(0, 3).map((item, index) => (
                       <Menu.Item
                         key={item.key}
                         style={{
@@ -363,13 +344,13 @@ const Tab = ({
                         <div className="dropdown_inner_item">
                           <div>
                             <div className="dropdown_option_head">
-                              {item.label}
+                              {item.PROD_PORTAL_DESC.toLowerCase()}
                             </div>
                             <div className="dropdown_option_des">
-                              {item.describe}
+                              {item.POL_NO}
                             </div>
                           </div>
-                          {selectedItem.key === item.key && (
+                          {selectedPolicy.policy_id === item.POL_NO && (
                             <FaIcons.FaCheckCircle className="check-icon" />
                           )}
                         </div>
@@ -386,10 +367,10 @@ const Tab = ({
                   <Space className="policy_dropdown" style={{ width: 230 }}>
                     <div>
                       <div className="dropdown_header_item">
-                        {selectedItem.label}
+                        {selectedPolicy.dropdown_label}
                       </div>
-                      <p className="  dropdown_item_des mb-0 pb-0">
-                        {selectedItem.describe}
+                      <p className="dropdown_item_des mb-0 pb-0">
+                        {selectedPolicy.policy_id}
                       </p>
                     </div>
                     <DownOutlined />
@@ -407,7 +388,6 @@ const Tab = ({
                 size="small"
                 activeKey={activeKey}
                 className="main-lead-tabs"
-                // style={{ marginLeft: "40px" }}
               >
                 {tabPane}
               </Tabs>

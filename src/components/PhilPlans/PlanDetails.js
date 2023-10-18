@@ -62,6 +62,7 @@ import axios from "axios";
 import apiConfig from "../../config/api.config";
 import Lapsed from "./Lapsed";
 import Maturity from "./Maturity";
+import { useParams } from "react-router-dom";
 const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 // import { Document, Page } from 'react-pdf';
 
@@ -112,6 +113,8 @@ const tabMenu = [
 const PlanDetailsComponent = React.memo((props) => {
   const dispatch = useDispatch();
   const childRef = useRef(null);
+  const { pol_id, sys_id } = useParams();
+  console.log("policy_id_params=================", pol_id, sys_id);
   // const [form] = Form.useForm();
   // console.warn("COMPPP____PROPSS", props?.location?.state?.leadData);
   let storeFormData = useSelector(
@@ -578,7 +581,19 @@ const PlanDetailsComponent = React.memo((props) => {
                             </Col>
 
                             <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1 status-active">
+                              <div
+                                className="text-font mb-1 status-active"
+                                style={{
+                                  color:
+                                    // item.POL_ADDL_STATUS === "Active" ? "#01AB4F" :
+                                    item.POL_ADDL_STATUS_DESC === "Matured"
+                                      ? "#85e1ab"
+                                      : item.POL_ADDL_STATUS_DESC ===
+                                        "Lapsed - Cancelled"
+                                      ? "#ed8181"
+                                      : "#01AB4F",
+                                }}
+                              >
                                 {item.POL_ADDL_STATUS_DESC}
                               </div>
                               <div className="label-font">Status</div>

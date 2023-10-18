@@ -274,7 +274,7 @@ const Sidebar = () => {
               </p>
             </NavIcon>
           </div> */}
-          <div className="d-inline-flex align-item-centet gap-2 ">
+          <div className="d-inline-flex align-items-center gap-2 ">
             <FaIcons.FaBars onClick={showDrawer} className="header_hamburger" />
             <img
               className="brand_logo"
