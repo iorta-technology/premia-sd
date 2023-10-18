@@ -7,6 +7,7 @@ const initialState = {
   maturityData: {},
   planTerminatioData: {},
   cashLoanData: {},
+  claimData: {}
 };
 
 const getAllPlanDetails = (state, action) => {
@@ -30,6 +31,11 @@ const getPlanTermination = (state, action) => {
     planTerminatioData: action.planTerminatioData,
   });
 };
+const getClaimsDetails = (state, action) => {
+  return updateObject(state, {
+    claimData: action.claimData,
+  });
+};
 const getCashLoan = (state, action) => {
   return updateObject(state, {
     cashLoanData: action.cashLoanData,
@@ -47,6 +53,8 @@ const reducer = (state = initialState, action) => {
       return getPlanTermination(state, action);
       case actionTypes.GET_CASH_LOAN:
         return getCashLoan(state, action);
+        case actionTypes.GET_CLAIM:
+        return getClaimsDetails(state, action);
     default:
       return state;
   }

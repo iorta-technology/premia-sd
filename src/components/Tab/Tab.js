@@ -414,7 +414,58 @@ const Tab = ({
         }
       });
   };
+  const getClaimsDetails= () => {
+    const credentials = {
+      polNo: POL_NO,
+      Token: `Bearer ${token}`,
+      // service: "S"
+    };
+    // const credentials = {email, password}
+    axios
+      .post(`${baseURL}auth/getClaimsDetails`, credentials)
+      .then((res, error) => {
+        console.warn("(((((((((getClaimsDetails)))))))))", res);
+        if (res === undefined || res === null || res === "") {
+          return;
+        }
+        if (res.status === 200) {
+          let claimResponse = res.data.errMsg.responseBody;
+          console.log("claim id ", claimResponse);
+          dispatch(actions.getClaimsDetails(claimResponse));
+          //  setLoginCreds(res.data.errMsg.responseBody)
+          //  history.push("/plan-cards");
 
+          // setOTP(res.data.errMsg.responseBody.OTP)
+          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
+          // if (!res.ok) {
+          //     message.error('Please check your internet connections');
+          // } else {
+          try {
+            if (res.data.errCode === -1) {
+              let _loginData = [];
+              // actions.multiChannelData()
+              let _defaultChannel = res.data.errMsg[0].filter(
+                (item, index) => item.setDefault === true
+              );
+              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
+              _loginData.push(_defaultChannel, res.data.errMsg[1]);
+              //stoageSetter("multi_channel", res.data.errMsg[0]);
+
+              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
+            } else {
+              message.error(res.data.errMsg);
+            }
+          } catch (err) {}
+        }
+      })
+      .catch((error) => {
+        // console.log('ERRROR',error.response)
+        if (error.response.status === 400) {
+          if (error.response.data.errCode === 1)
+            message.error("Please Enter Correct User Credentials");
+        }
+      });
+  };
 
   const getCashLoan= () => {
     const credentials = {
@@ -529,6 +580,7 @@ const Tab = ({
           getEnhanceAvailment();
           return history.push("enhance-availment");
         case "6":
+          getClaimsDetails();
           return history.push("insurance-claim");
         case "7":
           getCashLoan();

@@ -50,6 +50,14 @@ export const getPlanTermination = (payload) => {
   };
 };
 
+export const getClaimsDetails = (payload) => {
+  // console.log("login success ========", payload);
+  return {
+    type: actionTypes.GET_CLAIM,
+    claimData: payload,
+  };
+};
+
 export const getCashLoan = (payload) => {
   // console.log("login success ========", payload);
   return {

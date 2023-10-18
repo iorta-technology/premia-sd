@@ -7,6 +7,7 @@ import getAllPlanDetails from "./allPlanDetails";
 import getAgentDetails from "./allPlanDetails";
 import getMaturityDetails from "./allPlanDetails";
 import getPlanTermination from "./allPlanDetails";
+import getClaimsDetails from "./allPlanDetails";
 import getCashLoan from "./allPlanDetails";
 import homeReducer from "./home";
 import activitiesReducer from "./home";
@@ -42,6 +43,7 @@ export default () => {
     agentDetails: getAgentDetails,
     maturityDetails: getMaturityDetails,
     planTermination: getPlanTermination,
+    claimDetails: getClaimsDetails,
     cashLoan: getCashLoan,
     // BICardReducer,
     // pendencies:pendencyReducer

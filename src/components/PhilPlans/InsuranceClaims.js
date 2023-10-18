@@ -237,6 +237,7 @@ const InsuranceClaimComponent = React.memo((props) => {
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
+  const claimsInfo = useSelector((state) => state?.claimDetails?.claimData?.claimDetails?.P_LOP_CLM_DTLS);
 
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
@@ -646,73 +647,56 @@ const InsuranceClaimComponent = React.memo((props) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td data-label="date">CLM-ME-0001</td>
-                  <td data-label="amount">P10,000.00</td>
-                  <td data-label="type">Disability</td>
-                  <td data-label="approval-date">Oct 30, 2021</td>
-                  <td data-label="status" className="availed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      height="24"
-                      viewBox="0 0 25 24"
-                      fill="none"
-                    >
-                      <g clip-path="url(#clip0_104_2304)">
-                        <path
-                          d="M9.79996 16.1701L5.62996 12.0001L4.20996 13.4101L9.79996 19.0001L21.8 7.00009L20.39 5.59009L9.79996 16.1701Z"
-                          fill="#01AB4F"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_104_2304">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0.799805)"
+              { 
+                claimsInfo?.length > 0 ? claimsInfo.map((item,index)=> {
+                  return(
+                    <tr>
+                    <td data-label="date">{item?.CLAIM_NO}</td>
+                    <td data-label="amount">{item?.CCD_LC_EST_AMT}</td>
+                    <td data-label="type">{item?.CLAIM_TYPE_DESC}</td>
+                    <td data-label="approval-date">{item?.CLAIM_APPRV_DT}</td>
+                    <td data-label="status" className="availed">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="25"
+                        height="24"
+                        viewBox="0 0 25 24"
+                        fill="none"
+                      >
+                        <g clip-path="url(#clip0_104_2304)">
+                          <path
+                            d="M9.79996 16.1701L5.62996 12.0001L4.20996 13.4101L9.79996 19.0001L21.8 7.00009L20.39 5.59009L9.79996 16.1701Z"
+                            fill="#01AB4F"
                           />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <span>Paid</span>{" "}
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="date">CLM-ME-0002</td>
-                  <td data-label="amount">P10,000.00</td>
-                  <td data-label="type">Dismemberment</td>
-                  <td data-label="approval-date">Sep 30, 2021</td>
-                  <td data-label="status" className="availed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      height="24"
-                      viewBox="0 0 25 24"
-                      fill="none"
-                    >
-                      <g clip-path="url(#clip0_104_2304)">
-                        <path
-                          d="M9.79996 16.1701L5.62996 12.0001L4.20996 13.4101L9.79996 19.0001L21.8 7.00009L20.39 5.59009L9.79996 16.1701Z"
-                          fill="#01AB4F"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_104_2304">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0.799805)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <span>Paid</span>{" "}
-                  </td>
-                </tr>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_104_2304">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(0.799805)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                      <span>{item?.CLAIM_ADDL_STATUS_DESC}</span>{" "}
+                    </td>
+                  </tr>
+                  )
+                }) :   <tr>
+                <td data-label="date">-</td>
+                <td data-label="amount">-</td>
+                <td data-label="type">-</td>
+                <td data-label="approval-date">-</td>
+                <td data-label="status" className="availed">
+                  -
+                  <span>-</span>
+                </td>
+              </tr>
+              }
               </tbody>
+              
             </table>
           </Col>
           <Col sm={24} md={6} lg={6} xlg={8}>
