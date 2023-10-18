@@ -60,8 +60,8 @@ const PlanCard = ({
           dispatch(actions.getAllPlanDetails(result));
           // dispatch(actions.setSelectedPolicy(result));
           // setLoginCreds(res.data.errMsg.responseBody)
-        //  history.push(`/plan-details/${policyNo}/${sysId}`);
-          history.push('/plan-details');
+          //  history.push(`/plan-details/${policyNo}/${sysId}`);
+          history.push("/plan-details");
 
           // setOTP(res.data.errMsg.responseBody.OTP)
           // setSecurityCode(res.data.errMsg.responseBody.securityCode)
@@ -171,9 +171,9 @@ const PlanCard = ({
                           </div>
                         </div>
                         <div className="cta-col">
-                          <button className="primary-btn">
+                          {/* <button className="primary-btn">
                             <div className="text1">Pay Now</div>
-                          </button>
+                          </button> */}
                           <button
                             className="outline-btn"
                             onClick={() =>

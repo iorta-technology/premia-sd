@@ -404,9 +404,9 @@ const Tab = ({
   );
 
   const [selectedPolicy, setSelectedPolicy] = useState({
-    key: "",
-    dropdown_label: "",
-    policy_id: "",
+    key: 0,
+    dropdown_label: "Defaoul Policy",
+    policy_id: "08098987989",
   });
   useEffect(() => {
     const selectData = planDetailsListing.find((el) => el.POL_NO === pol_id);

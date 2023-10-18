@@ -380,7 +380,7 @@ const CashLoanComponent = React.memo((props) => {
     dispatch(actions.headerName("New Lead"));
     console.warn("storeFormData--------->>>>>", storeFormData);
     loadValuesToFields(storeFormData);
-   // getAppointmentList(storeFormData._id);
+    // getAppointmentList(storeFormData._id);
     setLeadId(storeFormData._id);
     setPdfId(storeFormData?._id);
     // opprtunityStatusData()
@@ -681,7 +681,7 @@ const CashLoanComponent = React.memo((props) => {
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
           <Col sm={24} md={18} lg={18} xlg={8}>
             <p className="tab_title">Cash loan</p>
-            <div class="alert-card mb-4">
+            <div class="lapsed-alert-card mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -963,7 +963,6 @@ const CashLoanComponent = React.memo((props) => {
             </div>
           </Col>
         </Row> */}
-       
       </div>
       <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>

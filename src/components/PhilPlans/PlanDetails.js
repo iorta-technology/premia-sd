@@ -187,6 +187,7 @@ const PlanDetailsComponent = React.memo((props) => {
     // console.log(data, "this is the pdf data");
     setFileData(data);
   };
+
   // useEffect(() => {
   //   console.log(fileData)
   // }, [fileData]);
@@ -619,8 +620,8 @@ const PlanDetailsComponent = React.memo((props) => {
 
                             <Col style={{ flex: 1 }}>
                               <div className="text-font mb-1">
-                                {item.INST_AVAIL_DT
-                                  ? moment(item.INST_AVAIL_DT).format(
+                                {item.POL_EFFECTIVE_DATE
+                                  ? moment(item.POL_EFFECTIVE_DATE).format(
                                       "MMM DD, YYYY"
                                     )
                                   : "--"}
@@ -638,8 +639,8 @@ const PlanDetailsComponent = React.memo((props) => {
 
                             <Col style={{ flex: 1 }}>
                               <div className="text-font mb-1">
-                                {item.POL_START_DT
-                                  ? moment(item.POL_START_DT).format(
+                                {item.INST_AVAIL_DT
+                                  ? moment(item.INST_AVAIL_DT).format(
                                       "MMM DD, YYYY"
                                     )
                                   : "--"}
@@ -659,7 +660,9 @@ const PlanDetailsComponent = React.memo((props) => {
 
                             <Col style={{ flex: 1 }}>
                               <div className="text-font mb-1">
-                                {planDetails.P_QUOT_MOP}
+                                {item?.POL_MODE_OF_PYMT
+                                  ? item.POL_MODE_OF_PYMT
+                                  : "--"}
                               </div>
                               <div className="label-font">Payment Mode</div>
                             </Col>
@@ -673,7 +676,13 @@ const PlanDetailsComponent = React.memo((props) => {
                             </Col>
 
                             <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">Jan 14, 2030</div>
+                              <div className="text-font mb-1">
+                                {item?.POL_MATURED_DATE
+                                  ? moment(item.POL_MATURED_DATE).format(
+                                      "MMM DD, YYY"
+                                    )
+                                  : "--"}
+                              </div>
                               <div className="label-font">
                                 Full Availment / Maturity Date
                               </div>
@@ -691,14 +700,23 @@ const PlanDetailsComponent = React.memo((props) => {
                         <Col style={{ padding: 10 }}>
                           <Row style={{ marginBottom: 24 }}>
                             <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">P3,153.00</div>
+                              <div className="text-font mb-1">
+                                {item?.POL_LC_SUM_ASSURED
+                                  ? item.POL_LC_SUM_ASSURED
+                                  : "--"}
+                              </div>
                               <div className="label-font">
                                 Total Installment Amount
                               </div>
                             </Col>
 
                             <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">P2,598.00</div>
+                              <div className="text-font mb-1">
+                                {" "}
+                                {item?.POL_LC_PRENEED_PRICE
+                                  ? item.POL_LC_PRENEED_PRICE
+                                  : "--"}
+                              </div>
                               <div className="label-font">
                                 Installment Amount
                               </div>
@@ -706,12 +724,16 @@ const PlanDetailsComponent = React.memo((props) => {
                           </Row>
                           <Row style={{ marginBottom: 24 }}>
                             <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">P525.00</div>
+                              <div className="text-font mb-1">
+                                {item?.VAT ? item.VAT : "--"}
+                              </div>
                               <div className="label-font">Installment VAT</div>
                             </Col>
 
                             <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">P30.00</div>
+                              <div className="text-font mb-1">
+                                {item?.POL_DST ? item.POL_DST : "--"}
+                              </div>
                               <div className="label-font">
                                 Documentary Stamp Tax (DST)
                               </div>
@@ -727,20 +749,32 @@ const PlanDetailsComponent = React.memo((props) => {
 
                             <Col style={{ flex: 1 }}>
                               <div className="text-font mb-1">
-                                {planDetails.P_QUOT_MOP}
+                                {item?.POL_MODE_OF_PYMT
+                                  ? item.POL_MODE_OF_PYMT
+                                  : "--"}
                               </div>
                               <div className="label-font">Payment Mode</div>
                             </Col>
                           </Row>
                           <Row>
                             <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">Jan 12, 2022</div>
+                              <div className="text-font mb-1">
+                                {item?.POL_EXPIRY_DT
+                                  ? moment(item.POL_EXPIRY_DT).format(
+                                      "MMM DD, YYYY"
+                                    )
+                                  : "--"}
+                              </div>
                               <div className="label-font">Last Payment Due</div>
                             </Col>
 
                             <Col style={{ flex: 1 }}>
                               <div className="text-font mb-1">
-                                Feb 12, 2022{" "}
+                                {item?.POL_LAST_PAYOUT_DT
+                                  ? moment(item.POL_LAST_PAYOUT_DT).format(
+                                      "MMM DD, YYYY"
+                                    )
+                                  : "--"}
                               </div>
                               <div className="label-font">Next Payment Due</div>
                             </Col>
