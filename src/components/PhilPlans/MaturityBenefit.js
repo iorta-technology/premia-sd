@@ -793,7 +793,21 @@ const MaturityBenefitComponent = React.memo((props) => {
                         </>
                       );
                     })
-                  : ""}
+                  :  <tr>
+                  <td data-label="date">
+                    -
+                  </td>
+                  <td data-label="amount">
+                    -
+                  </td>
+                  <td data-label="type">-</td>
+                  <td data-label="status" className="availed">
+                    -
+                  </td>
+                  <td data-label="actions">
+                    -
+                  </td>
+                </tr>}
               </tbody>
             </table>
           </Col>
