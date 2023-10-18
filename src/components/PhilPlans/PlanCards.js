@@ -49,17 +49,19 @@ const PlanCard = ({
     };
     // const credentials = {email, password}
     axios
-      .post(`${baseURL}auth/getPlanAllDetails`, credentials)
+      .post(`${baseURL}auth/getPlanDetail`, credentials)
       .then((res, error) => {
-        console.log("(((((((((getPlanAllDetails)))))))))", res);
+        console.log("(((((((((getPlanDetail)))))))))", res);
         if (res === undefined || res === null || res === "") {
           return;
         }
         if (res.status === 200) {
           let result = res.data.errMsg.responseBody;
           dispatch(actions.getAllPlanDetails(result));
+          // dispatch(actions.setSelectedPolicy(result));
           // setLoginCreds(res.data.errMsg.responseBody)
-          history.push(`/plan-details/${policyNo}/${sysId}`);
+        //  history.push(`/plan-details/${policyNo}/${sysId}`);
+          history.push('/plan-details');
 
           // setOTP(res.data.errMsg.responseBody.OTP)
           // setSecurityCode(res.data.errMsg.responseBody.securityCode)

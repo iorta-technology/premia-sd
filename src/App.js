@@ -434,10 +434,6 @@ function App() {
                     component={CompIntelligence}
                   ></Route>
                   <Route path="/plan-details" component={PlanDetail}></Route>
-                  <Route
-                    path="/plan-details/:pol_id/:sys_id"
-                    component={PlanDetail}
-                  />
                   <Route path="/plan-cards" component={PlanCard}></Route>
                   <Route path="/agent-details" component={AgentDetails}></Route>
                   <Route path="/maturity-benefit" component={Maturity}></Route>

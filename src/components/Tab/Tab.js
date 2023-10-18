@@ -285,8 +285,8 @@ const Tab = ({
   );
   const [selectedPolicy, setSelectedPolicy] = useState({
     key: "",
-    dropdown_label: selectedPolicy.PROD_PORTAL_DESC,
-    policy_id: selectedPolicy.POL_NO,
+    dropdown_label: "",
+    policy_id: "",
   });
   useEffect(() => {
     const selectData = planDetailsListing.find((el) => el.POL_NO === pol_id);
