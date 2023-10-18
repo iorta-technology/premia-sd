@@ -4,6 +4,8 @@ import createLeadReducer from './newLead'
 import addressReducer from './address'
 import loginReducer from './auth';
 import getAllPlanDetails  from './allPlanDetails';
+import getAgentDetails  from './allPlanDetails';
+import getMaturityDetails  from './allPlanDetails';
 import homeReducer from './home';
 import activitiesReducer from './home';
 import kpiDashboardReducer from './kpiDashboard'
@@ -17,6 +19,7 @@ import applicationReducer from './applicationreducer'
 import historyReducer from './history'
 
 import configureStore from '../CreateStore'
+
 // import pendencyReducer from './penc'
 export default () => {
     const rootReducer = combineReducers({
@@ -34,6 +37,8 @@ export default () => {
         advisor:advisorReducer,
         applicationReducer,
         planDetails: getAllPlanDetails,
+        agentDetails: getAgentDetails,
+        maturityDetails: getMaturityDetails,
         // BICardReducer,
         // pendencies:pendencyReducer
     });

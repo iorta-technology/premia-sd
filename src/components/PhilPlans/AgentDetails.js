@@ -119,11 +119,13 @@ const AgentDetailsComponent = React.memo((props) => {
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
 
-  const AgentInfo = useSelector((state) => state?.planDetails?.planData);
+  const AgentInfo = useSelector((state) => state?.agentDetails
+  ?.agentData?.agentDetails?.P_LOP_PLAN_AGNT_DTLS);
   console.log('line 126',AgentInfo);
 
-  const {maturityDetails} = AgentInfo
-  console.log('line 129', maturityDetails)
+
+  // const {maturityDetails} = AgentInfo
+  // console.log('line 129', maturityDetails)
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [riskInd, setRiskInd] = useState(null);
@@ -506,6 +508,17 @@ const AgentDetailsComponent = React.memo((props) => {
     }
   };
 
+  const [{
+    AGENT_NAME,
+    CUST_EMAIL_ID_OFF,
+    AGENT_STATUS_DESC,
+    CUST_MOBILE_NO,
+    AGENT_TERR_CODE_DESC, 
+    AGENT_TERR_CODE,
+    AGENCY_NAME,
+    BRANCH_NAME
+  }] = AgentInfo
+
   return (
     <>
       <TabsComp
@@ -527,25 +540,25 @@ const AgentDetailsComponent = React.memo((props) => {
               <Col>
                 <Row style={{ marginBottom: 24 }}>
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Florian Horbach</div>
+                    <div className="text-font mb-1">{AGENT_NAME}</div>
                     <div className="label-font">Name</div>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
                     <div className="text-font mb-1">
-                      f_horach_1224@gmail.com
+                     {CUST_EMAIL_ID_OFF}
                     </div>
                     <div className="label-font">Email</div>
                   </Col>
                 </Row>
                 <Row>
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">0927 879 5245</div>
+                    <div className="text-font mb-1">{CUST_MOBILE_NO}</div>
                     <div className="label-font">Mobile</div>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1 status-active">Active </div>
+                    <div className="text-font mb-1 status-active">{AGENT_STATUS_DESC}</div>
                     <div className="label-font">Status</div>
                   </Col>
                 </Row>
@@ -555,25 +568,25 @@ const AgentDetailsComponent = React.memo((props) => {
               <Col>
                 <Row style={{ marginBottom: 24 }}>
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Metro Manila North</div>
+                    <div className="text-font mb-1">{AGENT_TERR_CODE_DESC}</div>
                     <div className="label-font">Teritory</div>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Manila 1</div>
+                    <div className="text-font mb-1">{AGENT_TERR_CODE}</div>
                     <div className="label-font">Region</div>
                   </Col>
                 </Row>
                 <Row>
                   <Col style={{ flex: 1 }}>
                     <div className="text-font mb-1">
-                      Philplans Direct Agency
+                     {AGENCY_NAME}
                     </div>
                     <div className="label-font">Agency Name</div>
                   </Col>
 
                   <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">Manila </div>
+                    <div className="text-font mb-1">{BRANCH_NAME} </div>
                     <div className="label-font">Branch</div>
                   </Col>
                 </Row>

@@ -23,7 +23,7 @@ export {
 // export { home,activities } from './home'
 // export { activities } from './home'
 export { kpiDashboard } from "./kpiDashboard";
-export {getAllPlanDetails} from "./allPlanDetails";
+export {getAllPlanDetails,getAgentDetails,getMaturityDetails} from "./allPlanDetails";
 
 export {
   fetchAllRenewals,

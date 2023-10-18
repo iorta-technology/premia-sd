@@ -3,6 +3,8 @@ import { updateObject } from "../utility";
 
 const initialState = {
   planData: {},
+  agentData: {},
+  maturityData: {},
 };
 
 const getAllPlanDetails = (state, action) => {
@@ -10,11 +12,25 @@ const getAllPlanDetails = (state, action) => {
     planData: action.planData,
   });
 };
+const getAgentDetails = (state, action) => {
+  return updateObject(state, {
+    agentData: action.agentData,
+  });
+};
+const getMaturityDetails = (state, action) => {
+  return updateObject(state, {
+    maturityData: action.maturityData,
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_ALL_PLAN_DETAILS:
       return getAllPlanDetails(state, action);
+      case actionTypes.GET_AGENT_DETAILS:
+      return getAgentDetails(state, action);
+      case actionTypes.GET_MATURITY_DETAILS:
+      return getMaturityDetails(state, action);
     default:
       return state;
   }

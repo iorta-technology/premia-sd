@@ -26,6 +26,22 @@ export const getAllPlanDetails = (payload) => {
   };
 };
 
+export const getAgentDetails = (payload) => {
+  // console.log("login success ========", payload);
+  return {
+    type: actionTypes.GET_AGENT_DETAILS,
+    agentData: payload,
+  };
+};
+
+export const getMaturityDetails = (payload) => {
+  // console.log("login success ========", payload);
+  return {
+    type: actionTypes.GET_MATURITY_DETAILS,
+    maturityData: payload,
+  };
+};
+
 // export const multiChannelData = (payload) => {
 //   return {
 //     type: actionTypes.MULTI_CHANNEL,
