@@ -94,6 +94,7 @@ const Tab = ({
   const [leadcards, setLeadcards] = useState(false);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const { pol_id, sys_id } = useParams();
+  console.log("🚀 ~ file: Tab.js:97 ~ pol_id:", pol_id)
   let history = useHistory();
   let _currentTab = "self";
   // const [activeKey, setActiveKey] = useState("self")
@@ -671,13 +672,19 @@ const Tab = ({
     (state) => state?.login?.planListing.P_LOP_DTLS
   );
 
+  const planDetails = useSelector((state) => state?.planDetails?.planData?.planDetails?.P_LOP_PLAN_DTLS);
+  // console.log("🚀 ~ file: Tab.js:674 ~ getCashLoan ~ planDetails:", planDetails)
+
   const [selectedPolicy, setSelectedPolicy] = useState({
     key: 0,
     dropdown_label: "Defaoul Policy",
     policy_id: "08098987989",
   });
   useEffect(() => {
-    const selectData = planDetailsListing.find((el) => el.POL_NO === pol_id);
+    // console.log("🚀 ~ file: Tab.js:681 ~ useEffect ~ planDetails:", planDetails)
+    const selectData = planDetailsListing.find((el) => el.POL_NO === planDetails[0].POL_NO);
+    
+    console.log("selectData_BEFFF================", selectData);
     if (selectData) {
       console.log("selecte================", selectData);
       setSelectedPolicy({
@@ -686,7 +693,7 @@ const Tab = ({
         policy_id: selectData.POL_NO,
       });
     }
-  }, [planDetailsListing, pol_id]);
+  }, []);
 
   const handleMenuItemClick = (item) => {
     console.log("item-----------", item);
@@ -727,7 +734,7 @@ const Tab = ({
                           borderBottom: "1px solid rgba(67, 76, 85, 0.16)",
                           background: "none",
                         }}
-                        onClick={() => handleMenuItemClick(item)}
+                        onClick={(event) => handleMenuItemClick(item)}
                       >
                         <div className="dropdown_inner_item">
                           <div>
