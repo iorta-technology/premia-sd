@@ -11,6 +11,9 @@
     line-height: normal;
     text-transform: uppercase;
 }
+.phil_side_bar_item a{
+    color: #434C55;
+}
 
  .active_item{
     color: #01AB4F !important;

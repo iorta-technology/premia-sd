@@ -31,21 +31,21 @@ const PhipPlanSideBar = ({ open, setOpen }) => {
         // style={{ top: "64px" }}
       >
         <div className="phil_side_bar_item">
-          <a hred="#" className="active_item">
+          <a href="#" className="active_item">
             my plan
           </a>
         </div>
         <div className="phil_side_bar_item">
-          <a hred="#">Online Payments</a>
+          <a href="#">Online Payments</a>
         </div>
         <div className="phil_side_bar_item">
-          <a hred="#">Benefits & Claims</a>
+          <a href="#">Benefits & Claims</a>
         </div>
         <div className="phil_side_bar_item">
-          <a hred="#">Cash Programs</a>
+          <a href="#">Cash Programs</a>
         </div>
         <div className="phil_side_bar_item">
-          <a hred="#">Service Requests</a>
+          <a href="#">Service Requests</a>
         </div>
       </Drawer>
     </div>

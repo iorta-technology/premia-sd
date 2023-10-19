@@ -279,7 +279,7 @@ const Sidebar = () => {
             <img
               className="brand_logo"
               onClick={() => {
-                history.push("/home");
+                history.push("/plan-cards");
               }}
               src={philplanLogo}
               // style={{
@@ -306,7 +306,7 @@ const Sidebar = () => {
             >
               <FaIcons.FaRegBell
                 className="me-3"
-                // onClick={() => toggleModalBox()}
+                onClick={() => toggleModalBox()}
                 style={{ color: "#000" }}
               />
               {/* <div className="dot"></div> */}
@@ -349,6 +349,49 @@ const Sidebar = () => {
           </div>
         </Nav>
 
+        <Modal1 shown={sidebar} close={() => setSidebar(false)}>
+          <div className="indicationArrowProfile"></div>
+          <div className="sideMenu">
+            <div className="menuHeader">
+              <div className="profileData">
+                <p style={{ textTransform: "capitalize", fontWeight: 600 }}>
+                  USER : {logged_in_user}
+                </p>
+                <p>
+                  <b>{login_user_data?.designation?.designatioName}</b>
+                  <b>CUSTOMER ID :</b> {custCode}
+                </p>
+                {/* <p>
+                  <FaIcons.FaMapMarker style={{ color: "#787878" }} /> |{" "}
+                  {login_user_data.city} | {login_user_data.state}
+                </p> */}
+                {/* <p>
+                  <b>Channel : </b>
+                  {login_user_data.channelCode.channelName}
+                </p> */}
+              </div>
+            </div>
+            <div className="menuBody">
+              <div className="logoutContainer">
+                <button onClick={onLogout}>Logout</button>
+              </div>
+              {/* <div className="menuList">
+                <ul>
+                  <li
+                    onClick={() => {
+                      switchChannel();
+                    }}
+                  >
+                    <div>
+                      <img src={switch_img} /> &nbsp;<span>Switch Channel</span>
+                    </div>{" "}
+                    <img src={right_black_img} />
+                  </li>
+                </ul>
+              </div> */}
+            </div>
+          </div>
+        </Modal1>
         {/* <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to="#" style={{ padding: "18px" }}>

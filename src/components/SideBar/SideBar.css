@@ -19,10 +19,12 @@
   font-size: 3rem;
 }
 .sideMenu {
-  height: calc(100vh - 60px);
+  /* height: calc(100vh - 60px); */
+  height: auto;
   position: fixed;
   right: 0;
-  bottom: 0;
+  top: 60px;
+  /* bottom: 0; */
   width: 350px;
   z-index: 10;
   background-color: #fff;
@@ -60,7 +62,7 @@
 
 .menuBody {
   background-color: #f7f7f7;
-  height: calc(100vh - 160px);
+  /* height: calc(100vh - 160px); */
   overflow-y: auto;
 }
 /* .menuBody1{

@@ -266,9 +266,10 @@ const PlanTerminationComponent = React.memo((props) => {
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
-  const planTerminationInfo = useSelector((state) => state?.planTermination
-  ?.planTerminationData);
-  console.log('planTerminationInfo',planTerminationInfo)
+  const planTerminationInfo = useSelector(
+    (state) => state?.planTermination?.planTerminationData?.eab?.P_LOP_SURR_DTLS
+  );
+  console.log("planTerminationInfo", planTerminationInfo);
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [riskInd, setRiskInd] = useState(null);
@@ -675,38 +676,56 @@ const PlanTerminationComponent = React.memo((props) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td data-label="date">April, 30, 2022</td>
-                  <td data-label="amount">P57,245.00</td>
-                  <td data-label="status" className="not_available">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      height="25"
-                      viewBox="0 0 25 25"
-                      fill="none"
-                    >
-                      <g clip-path="url(#clip0_104_2009)">
-                        <path
-                          d="M12.6001 2.5C7.0801 2.5 2.6001 6.98 2.6001 12.5C2.6001 18.02 7.0801 22.5 12.6001 22.5C18.1201 22.5 22.6001 18.02 22.6001 12.5C22.6001 6.98 18.1201 2.5 12.6001 2.5ZM12.6001 20.5C8.1801 20.5 4.6001 16.92 4.6001 12.5C4.6001 10.65 5.2301 8.95 6.2901 7.6L17.5001 18.81C16.1501 19.87 14.4501 20.5 12.6001 20.5ZM18.9101 17.4L7.7001 6.19C9.0501 5.13 10.7501 4.5 12.6001 4.5C17.0201 4.5 20.6001 8.08 20.6001 12.5C20.6001 14.35 19.9701 16.05 18.9101 17.4Z"
-                          fill="#434C55"
-                          fill-opacity="0.4"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_104_2009">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0.600098 0.5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <span>Not Available</span>{" "}
-                  </td>
-                </tr>
+                {planTerminationInfo?.length > 0 ? (
+                  planTerminationInfo.map((el) => {
+                    return (
+                      <tr>
+                        <td data-label="date">
+                          {el.SDFV_DATE
+                            ? moment(el.SDFV_DATE).format("MMM DD, YYY")
+                            : "--"}
+                        </td>
+                        <td data-label="amount">{el.SDFV_LC_GROSS_AMT}0</td>
+                        <td data-label="status" className="not_available">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                          >
+                            <g clip-path="url(#clip0_104_2009)">
+                              <path
+                                d="M12.6001 2.5C7.0801 2.5 2.6001 6.98 2.6001 12.5C2.6001 18.02 7.0801 22.5 12.6001 22.5C18.1201 22.5 22.6001 18.02 22.6001 12.5C22.6001 6.98 18.1201 2.5 12.6001 2.5ZM12.6001 20.5C8.1801 20.5 4.6001 16.92 4.6001 12.5C4.6001 10.65 5.2301 8.95 6.2901 7.6L17.5001 18.81C16.1501 19.87 14.4501 20.5 12.6001 20.5ZM18.9101 17.4L7.7001 6.19C9.0501 5.13 10.7501 4.5 12.6001 4.5C17.0201 4.5 20.6001 8.08 20.6001 12.5C20.6001 14.35 19.9701 16.05 18.9101 17.4Z"
+                                fill="#434C55"
+                                fill-opacity="0.4"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_104_2009">
+                                <rect
+                                  width="24"
+                                  height="24"
+                                  fill="white"
+                                  transform="translate(0.600098 0.5)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          <span>{el.SDFV_STATUS}</span>{" "}
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td data-label="date">--</td>
+                    <td data-label="amount">--</td>
+                    <td data-label="status" className="not_available">
+                      <span>--</span>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </Col>
