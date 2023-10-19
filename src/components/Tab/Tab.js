@@ -154,7 +154,7 @@ const Tab = ({
   const [{ POBH_BROKER_CODE, POL_NO, POL_SYS_ID }] = custCode;
   console.log("line ===>>>>>", POBH_BROKER_CODE);
 
-  const getPlanDetails = () => {
+  const PlanDetails = () => {
     // history.push('/plan-details');
     const credentials = {
       polNo: POL_NO,
@@ -561,7 +561,7 @@ const Tab = ({
         // case "1":
         //  return history.push("plan-cards");
         case "1":
-          getPlanDetails();
+          PlanDetails();
           return history.push("/plan-details", {
             leadData: routeLeadData,
             updateFormData: updateFormData,
@@ -710,8 +710,8 @@ console.log('tab state',state)
     console.log("item-----------", item);
     try {
      
-      await getPlanDetails(item.POL_NO, item.POL_SYS_ID, token);
-  
+     const response =  await dispatch(actions.getPlanDetails(item.POL_NO, item.POL_SYS_ID, token));
+      console.log('response is ',response)
       setSelectedPolicy({
         key: item.POL_SYS_ID,
         dropdown_label: item.PROD_PORTAL_DESC.toLowerCase(),
