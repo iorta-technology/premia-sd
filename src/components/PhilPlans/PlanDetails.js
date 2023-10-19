@@ -127,19 +127,9 @@ const PlanDetailsComponent = React.memo((props) => {
 
   // plandetails data start
   const allPlanDetailsInfo = useSelector(
-    (state) => state?.planDetails?.planData
+    (state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS
   );
   console.log("line 126", allPlanDetailsInfo);
-  const {
-    cashLoan,
-    claimDetails,
-    eab,
-    maturityDetails,
-    planDetails,
-    surrenderDetails,
-  } = allPlanDetailsInfo;
-  // const {planDetails} = allPlanDetailsInfo
-  console.log("line 129", planDetails);
 
   // plandetails data end
   const [width, setWidth] = useState(window.innerWidth);
@@ -545,8 +535,7 @@ const PlanDetailsComponent = React.memo((props) => {
           <Col sm={24} md={18} lg={18} xlg={8}>
             {/* Company Details */}
             <p className="tab_title">Plan Details</p>
-            {planDetails.P_LOP_PLAN_DTLS && planDetails.P_LOP_PLAN_DTLS
-              ? planDetails.P_LOP_PLAN_DTLS.map((item, index) => {
+            {allPlanDetailsInfo?.length > 0 && allPlanDetailsInfo?.map((item, index) => {
                   return (
                     <>
                       <Card
@@ -785,13 +774,13 @@ const PlanDetailsComponent = React.memo((props) => {
                     </>
                   );
                 })
-              : ""}
+              }
           </Col>
           {/* rhs html  */}
           <Col sm={24} md={6} lg={6} xlg={8}>
             {/* premium payment card */}
-            {planDetails.P_LOP_PLAN_DTLS &&
-              planDetails.P_LOP_PLAN_DTLS.map((item, index) => {
+            {allPlanDetailsInfo?.length > 0 &&
+              allPlanDetailsInfo.map((item, index) => {
                 return (
                   <React.Fragment key={index}>
                     {item.POL_ADDL_STATUS_DESC === "Matured" ? (

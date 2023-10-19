@@ -3,7 +3,7 @@ import leadsReducer from "./leads";
 import createLeadReducer from "./newLead";
 import addressReducer from "./address";
 import loginReducer from "./auth";
-import getAllPlanDetails from "./allPlanDetails";
+import getPlanDetails from "./planDetailReducer";
 import getAgentDetails from "./allPlanDetails";
 import getMaturityDetails from "./allPlanDetails";
 import getPlanTermination from "./allPlanDetails";
@@ -39,7 +39,7 @@ export default () => {
     agent: agentReducer,
     advisor: advisorReducer,
     applicationReducer,
-    planDetails: getAllPlanDetails,
+    planInfo: getPlanDetails,
     agentDetails: getAgentDetails,
     maturityDetails: getMaturityDetails,
     planTermination: getPlanTermination,

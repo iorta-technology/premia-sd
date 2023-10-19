@@ -133,7 +133,7 @@ const Login = () => {
       })
       .catch((error) => {
         // console.log('ERRROR',error.response)
-        if (error.response.status === 400) {
+        if (error.response?.status === 400) {
           if (error.response.data.errCode === 1)
             message.error("Please Enter Correct User Credentials");
         }

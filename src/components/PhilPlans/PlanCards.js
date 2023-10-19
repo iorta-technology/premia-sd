@@ -10,6 +10,9 @@ import axios from "axios";
 // import { baseURL } from "../../axios-common";
 import { stoageSetter } from "../../helpers";
 import apiConfig from "../../config/api.config";
+import { planDetailsFailure, planDetailsStart, planDetailsSuccess } from "../../store/actions/allPlanDetails";
+import {getPlanDetails} from "../../store/actions/planDetailsAction";
+import { TokenOutlined } from "@mui/icons-material";
 const { baseURL, auth, secure, NODE_ENV } = apiConfig;
 
 const PlanCard = ({
@@ -22,6 +25,10 @@ const PlanCard = ({
   planSatusChipBackgroundColor,
 }) => {
   const history = useHistory();
+  const state = useSelector(
+    (state) => state
+  );
+  console.log('plancard state',state)
   const planDetailsListing = useSelector(
     (state) => state?.login?.planListing.P_LOP_DTLS
   );
@@ -40,60 +47,11 @@ const PlanCard = ({
 
   const dispatch = useDispatch();
 
-  const handleViewDetails = (policyNo, sysId) => {
-    // history.push('/plan-details');
-    const credentials = {
-      polNo: policyNo,
-      sysId: sysId,
-      Token: `${token}`,
-    };
-    // const credentials = {email, password}
-    axios
-      .post(`${baseURL}auth/getPlanDetail`, credentials)
-      .then((res, error) => {
-        console.log("(((((((((getPlanDetail)))))))))", res);
-        if (res === undefined || res === null || res === "") {
-          return;
-        }
-        if (res.status === 200) {
-          let result = res.data.errMsg.responseBody;
-          dispatch(actions.getAllPlanDetails(result));
-          // dispatch(actions.setSelectedPolicy(result));
-          // setLoginCreds(res.data.errMsg.responseBody)
-          //  history.push(`/plan-details/${policyNo}/${sysId}`);
-          history.push("/plan-details");
-
-          // setOTP(res.data.errMsg.responseBody.OTP)
-          // setSecurityCode(res.data.errMsg.responseBody.securityCode)
-          // if (!res.ok) {
-          //     message.error('Please check your internet connections');
-          // } else {
-          try {
-            if (res.data.errCode === -1) {
-              // let _loginData = [];
-              // actions.multiChannelData()
-              // let _defaultChannel = res.data.errMsg[0].filter(
-              //   (item, index) => item.setDefault === true
-              // );
-              // console.warn('(((((((((DEFAULTTTT_arrayOwner)))))))))',_defaultChannel)
-              // _loginData.push(_defaultChannel, res.data.errMsg[1]);
-              // stoageSetter("multi_channel", res.data.errMsg[0]);
-              // dispatch(actions.multiChannelData(res.data.errMsg[0]));
-            } else {
-              message.error(res.data.errMsg);
-            }
-          } catch (err) {}
-        }
-      })
-      .catch((error) => {
-        // console.log('ERRROR',error.response)
-        if (error.response.status === 400) {
-          if (error.response.data.errCode === 1)
-            message.error("Please Enter Correct User Credentials");
-        }
-      });
+  const handleViewDetails =  (polNo, sysId) => {
+   
+    dispatch(getPlanDetails(polNo, sysId, token));
+    history.push('/plan-details')
   };
-
   return (
     <>
       <div className="plan_details_body mb-4" style={{ marginTop: 80 }}>

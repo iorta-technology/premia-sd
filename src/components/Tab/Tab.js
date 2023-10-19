@@ -149,7 +149,7 @@ const Tab = ({
 
   const token = useSelector((state) => state?.login?.loginDetails.token);
   const custCode = useSelector(
-    (state) => state?.planDetails?.planData?.planDetails?.P_LOP_PLAN_DTLS
+    (state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS
   );
   const [{ POBH_BROKER_CODE, POL_NO, POL_SYS_ID }] = custCode;
   console.log("line ===>>>>>", POBH_BROKER_CODE);
@@ -171,7 +171,7 @@ const Tab = ({
         }
         if (res.status === 200) {
           let result = res.data.errMsg.responseBody;
-          dispatch(actions.getAllPlanDetails(result));
+          dispatch(actions.getPlanDetails(result));
           // dispatch(actions.setSelectedPolicy(result));
           // setLoginCreds(res.data.errMsg.responseBody)
           //  history.push(`/plan-details/${policyNo}/${sysId}`);
@@ -672,37 +672,57 @@ const Tab = ({
     (state) => state?.login?.planListing.P_LOP_DTLS
   );
 
-  const planDetails = useSelector((state) => state?.planDetails?.planData?.planDetails?.P_LOP_PLAN_DTLS);
+  const state = useSelector((state) => state);
+console.log('tab state',state)
+  const planDetails = useSelector((state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS);
   // console.log("🚀 ~ file: Tab.js:674 ~ getCashLoan ~ planDetails:", planDetails)
 
+  const allPlanDetailsInfo = useSelector(
+    (state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS
+  );
+  console.log('dropdown defaultvalue',allPlanDetailsInfo)
   const [selectedPolicy, setSelectedPolicy] = useState({
-    key: 0,
-    dropdown_label: "Defaoul Policy",
-    policy_id: "08098987989",
+    sys_id: allPlanDetailsInfo?.POL_SYS_ID,
+    dropdown_label: allPlanDetailsInfo?.PROD_PORTAL_DESC,
+    policy_id: allPlanDetailsInfo?.POL_NO,
   });
+ 
   useEffect(() => {
-    // console.log("🚀 ~ file: Tab.js:681 ~ useEffect ~ planDetails:", planDetails)
-    const selectData = planDetailsListing.find((el) => el.POL_NO === planDetails[0].POL_NO);
-    
+   
+    // console.log('allPlanDetailsInfo---',allPlanDetailsInfo)
+    const selectData = allPlanDetailsInfo?.find((el) => el.POL_NO === planDetails[0].POL_NO);
+
     console.log("selectData_BEFFF================", selectData);
     if (selectData) {
       console.log("selecte================", selectData);
       setSelectedPolicy({
-        key: selectData.key,
-        dropdown_label: selectData.PROD_PORTAL_DESC.toLowerCase(),
-        policy_id: selectData.POL_NO,
+        sys_id: selectData?.POL_SYS_ID,
+        dropdown_label: selectData.PROD_PORTAL_DESC?.toLowerCase(),
+        policy_id: selectData?.POL_NO,
       });
     }
   }, []);
+  console.log("Before setSelectedPolicy:", selectedPolicy);
 
-  const handleMenuItemClick = (item) => {
+
+  
+  const handleMenuItemClick = async (event, item) => {
     console.log("item-----------", item);
-    setSelectedPolicy({
-      key: item.key,
-      dropdown_label: item.PROD_PORTAL_DESC.toLowerCase(),
-      policy_id: item.POL_NO,
-    });
+    try {
+     
+      await getPlanDetails(item.POL_NO, item.POL_SYS_ID, token);
+  
+      setSelectedPolicy({
+        key: item.POL_SYS_ID,
+        dropdown_label: item.PROD_PORTAL_DESC.toLowerCase(),
+        policy_id: item.POL_NO,
+      });
+    } catch (error) {
+      console.error("API call error:", error);
+    }
   };
+  
+  console.log("After setSelectedPolicy:", selectedPolicy);
 
   return (
     <>
@@ -719,9 +739,13 @@ const Tab = ({
                 overlay={
                   <Menu
                     style={{ width: "230px" }}
-                    // selectedKeys={selectedPolicy}
-                    defaultSelectedKeys={selectedPolicy}
-                    value={selectedPolicy}
+                    selectedKeys={selectedPolicy}
+                    defaultSelectedKeys={
+                      selectedPolicy
+                    }
+                    value={
+                      selectedPolicy
+                    }
                   >
                     {planDetailsListing.slice(0, 3).map((item, index) => (
                       <Menu.Item
@@ -734,7 +758,7 @@ const Tab = ({
                           borderBottom: "1px solid rgba(67, 76, 85, 0.16)",
                           background: "none",
                         }}
-                        onClick={(event) => handleMenuItemClick(item)}
+                        onClick={(event) => handleMenuItemClick(event,item)}
                       >
                         <div className="dropdown_inner_item">
                           <div>
@@ -745,9 +769,9 @@ const Tab = ({
                               {item.POL_NO}
                             </div>
                           </div>
-                          {selectedPolicy.policy_id === item.POL_NO && (
+                         {selectedPolicy.policy_id === item.POL_NO && (
                             <FaIcons.FaCheckCircle className="check-icon" />
-                          )}
+                         )} 
                         </div>
                       </Menu.Item>
                     ))}
@@ -762,10 +786,10 @@ const Tab = ({
                   <Space className="policy_dropdown" style={{ width: 230 }}>
                     <div>
                       <div className="dropdown_header_item">
-                        {selectedPolicy.dropdown_label}
+                        {selectedPolicy.dropdown_label} 
                       </div>
                       <p className="dropdown_item_des mb-0 pb-0">
-                        {selectedPolicy.policy_id}
+                      {selectedPolicy.policy_id} 
                       </p>
                     </div>
                     <DownOutlined />

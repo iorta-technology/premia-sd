@@ -24,13 +24,14 @@ export {
 // export { activities } from './home'
 export { kpiDashboard } from "./kpiDashboard";
 export {
-  getAllPlanDetails,
   getAgentDetails,
   getMaturityDetails,
   getPlanTermination,
   getClaimsDetails,
   getCashLoan,
 } from "./allPlanDetails";
+
+export { getPlanDetails } from "./planDetailsAction";
 
 export {
   fetchAllRenewals,
