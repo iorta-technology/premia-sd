@@ -266,7 +266,9 @@ const PlanTerminationComponent = React.memo((props) => {
   const loggedInUserToken = useSelector((state) => state?.login?.token);
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
-
+  const planTerminationInfo = useSelector((state) => state?.planTermination
+  ?.planTerminationData);
+  console.log('planTerminationInfo',planTerminationInfo)
   const [width, setWidth] = useState(window.innerWidth);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [riskInd, setRiskInd] = useState(null);

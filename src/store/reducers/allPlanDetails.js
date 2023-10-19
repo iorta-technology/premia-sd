@@ -5,7 +5,7 @@ const initialState = {
   planData: {},
   agentData: {},
   maturityData: {},
-  planTerminatioData: {},
+  planTerminationData: {},
   cashLoanData: {},
   claimData: {}
 };
@@ -28,7 +28,7 @@ const getMaturityDetails = (state, action) => {
 };
 const getPlanTermination = (state, action) => {
   return updateObject(state, {
-    planTerminatioData: action.planTerminatioData,
+    planTerminationData: action.planTerminationData,
   });
 };
 const getClaimsDetails = (state, action) => {

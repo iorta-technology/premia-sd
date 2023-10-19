@@ -325,9 +325,9 @@ const Tab = ({
           return;
         }
         if (res.status === 200) {
-          let agentResponse = res.data.errMsg.responseBody;
-          console.log("agent id ", agentResponse);
-          dispatch(actions.getPlanTermination(agentResponse));
+          let planTerminationResponse = res.data.errMsg.responseBody;
+          console.log("planTermination id ", planTerminationResponse);
+          dispatch(actions.getPlanTermination(planTerminationResponse));
           //  setLoginCreds(res.data.errMsg.responseBody)
           //  history.push("/plan-cards");
 
