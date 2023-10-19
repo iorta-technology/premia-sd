@@ -508,7 +508,7 @@ const AgentDetailsComponent = React.memo((props) => {
     }
   };
 
-  const [
+  const 
     {
       AGENT_NAME,
       CUST_EMAIL_ID_OFF,
@@ -518,8 +518,9 @@ const AgentDetailsComponent = React.memo((props) => {
       AGENT_TERR_CODE,
       AGENCY_NAME,
       BRANCH_NAME,
-    },
-  ] = AgentInfo;
+    } = AgentInfo[0];
+
+  
 
   return (
     <>
