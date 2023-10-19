@@ -508,17 +508,17 @@ const AgentDetailsComponent = React.memo((props) => {
     }
   };
 
-  const 
-    {
-      AGENT_NAME,
-      CUST_EMAIL_ID_OFF,
-      AGENT_STATUS_DESC,
-      CUST_MOBILE_NO,
-      AGENT_TERR_CODE_DESC,
-      AGENT_TERR_CODE,
-      AGENCY_NAME,
-      BRANCH_NAME,
-    } = AgentInfo[0];
+  // const 
+  //   {
+  //     AGENT_NAME,
+  //     CUST_EMAIL_ID_OFF,
+  //     AGENT_STATUS_DESC,
+  //     CUST_MOBILE_NO,
+  //     AGENT_TERR_CODE_DESC,
+  //     AGENT_TERR_CODE,
+  //     AGENCY_NAME,
+  //     BRANCH_NAME,
+  //   } = AgentInfo[0];
 
   
 
@@ -539,60 +539,66 @@ const AgentDetailsComponent = React.memo((props) => {
           <Col sm={24} md={18} lg={18} xlg={8}>
             {/* agent Details */}
             <p className="tab_title">Agent Details</p>
-            <Card bordered={false} className="app-card-head rounded mb-3">
-              <Col>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">{AGENT_NAME}</div>
-                    <div className="label-font">Name</div>
-                  </Col>
+            {
+              AgentInfo?.length > 0 ? AgentInfo?.map((item)=> {
+                return (
+                  <><Card bordered={false} className="app-card-head rounded mb-3">
+                    <Col>
+                      <Row style={{ marginBottom: 24 }}>
+                        <Col style={{ flex: 1 }}>
+                          <div className="text-font mb-1">{item?.AGENT_NAME}</div>
+                          <div className="label-font">Name</div>
+                        </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">{CUST_EMAIL_ID_OFF}</div>
-                    <div className="label-font">Email</div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">{CUST_MOBILE_NO}</div>
-                    <div className="label-font">Mobile</div>
-                  </Col>
+                        <Col style={{ flex: 1 }}>
+                          <div className="text-font mb-1">{item?.CUST_EMAIL_ID_OFF}</div>
+                          <div className="label-font">Email</div>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col style={{ flex: 1 }}>
+                          <div className="text-font mb-1">{item?.CUST_MOBILE_NO}</div>
+                          <div className="label-font">Mobile</div>
+                        </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1 status-active">
-                      {AGENT_STATUS_DESC}
-                    </div>
-                    <div className="label-font">Status</div>
-                  </Col>
-                </Row>
-              </Col>
-            </Card>
-            <Card bordered={false} className="app-card-head rounded mb-3">
-              <Col>
-                <Row style={{ marginBottom: 24 }}>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">{AGENT_TERR_CODE_DESC}</div>
-                    <div className="label-font">Teritory</div>
-                  </Col>
+                        <Col style={{ flex: 1 }}>
+                          <div className="text-font mb-1 status-active">
+                            {item?.AGENT_STATUS_DESC}
+                          </div>
+                          <div className="label-font">Status</div>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Card><Card bordered={false} className="app-card-head rounded mb-3">
+                      <Col>
+                        <Row style={{ marginBottom: 24 }}>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">{item?.AGENT_TERR_CODE_DESC}</div>
+                            <div className="label-font">Teritory</div>
+                          </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">{AGENT_TERR_CODE}</div>
-                    <div className="label-font">Region</div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">{AGENCY_NAME}</div>
-                    <div className="label-font">Agency Name</div>
-                  </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">{item?.AGENT_TERR_CODE}</div>
+                            <div className="label-font">Region</div>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">{item?.AGENCY_NAME}</div>
+                            <div className="label-font">Agency Name</div>
+                          </Col>
 
-                  <Col style={{ flex: 1 }}>
-                    <div className="text-font mb-1">{BRANCH_NAME} </div>
-                    <div className="label-font">Branch</div>
-                  </Col>
-                </Row>
-              </Col>
-            </Card>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">{item?.BRANCH_NAME} </div>
+                            <div className="label-font">Branch</div>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Card></>
+                )
+              }) : ""
+           
+            }
           </Col>
           {/* rhs html  */}
           <Col sm={24} md={6} lg={6} xlg={8}>

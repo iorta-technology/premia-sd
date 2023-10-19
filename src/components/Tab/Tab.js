@@ -690,8 +690,11 @@ console.log('tab state',state)
   useEffect(() => {
    
     // console.log('allPlanDetailsInfo---',allPlanDetailsInfo)
+    console.log('after view details dropdown defaultvalue',allPlanDetailsInfo)
+
     const selectData = allPlanDetailsInfo?.find((el) => el.POL_NO === planDetails[0].POL_NO);
 
+    console.log('after selecting dropdown value',selectData)
     console.log("selectData_BEFFF================", selectData);
     if (selectData) {
       console.log("selecte================", selectData);
