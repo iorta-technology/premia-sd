@@ -1,3 +1,13 @@
+.ant-drawer-mask {
+    /* position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000; */
+    background: none;
+    /* pointer-events: auto; */
+}
 .phil_side_bar_item{
     padding: 16px 32px;
     border-bottom: 1px solid #E0E0E0;

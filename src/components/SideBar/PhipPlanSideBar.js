@@ -17,7 +17,7 @@ const PhipPlanSideBar = ({ open, setOpen }) => {
   };
 
   return (
-    <div>
+    <div className="phil-side-bar">
       <Drawer
         // title="MY PLAN"
         placement={"left"}
@@ -26,9 +26,8 @@ const PhipPlanSideBar = ({ open, setOpen }) => {
         open={open}
         // key={placement}
         width={250}
-        mask={false}
+        // mask={false}
         maskClosable={true}
-        // style={{ top: "64px" }}
       >
         <div className="phil_side_bar_item">
           <a href="#" className="active_item">
