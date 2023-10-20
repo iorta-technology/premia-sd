@@ -33,7 +33,7 @@ import needhelp_img from "../../assets/needhelp.png";
 import all_clear_img from "../../assets/MaterialUiIcons/notifications_grey_192x192.png";
 import NewLead from "../StatusLead/NewLeadCreation";
 import PhipPlanSideBar from "./PhipPlanSideBar";
-
+import userimage from "../../images/userImage.png"
 const Nav = styled.div`
   background: #fff;
   height: 60px;
@@ -327,9 +327,8 @@ const Sidebar = () => {
               }}
             ></div>
             <NavIcon className="ms-md-3" onClick={showSidebar} to="#">
-              <FaIcons.FaUserCircle
-                style={{ height: 30, width: 30, color: "#000" }}
-              />
+            <img src={userimage} alt="User" style={{ width: '30px', height: '30px', borderRadius: '50%' }} />
+        
               <div className="d-none d-md-block" style={{ marginLeft: 10 }}>
                 <p style={{ marginBottom: 0, color: "#000", fontSize: 14 }}>
                   {logged_in_user}

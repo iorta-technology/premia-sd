@@ -596,7 +596,7 @@ const PlanDetailsComponent = React.memo((props) => {
                         bordered={false}
                         className="app-card-head rounded mb-3"
                       >
-                        <Col style={{ padding: 10 }}>
+                        <Col>
                           <Row style={{ marginBottom: 24 }}>
                             <Col style={{ flex: 1 }}>
                               <div className="text-font mb-1">
@@ -686,7 +686,7 @@ const PlanDetailsComponent = React.memo((props) => {
                         bordered={false}
                         className="app-card-head rounded mb-4"
                       >
-                        <Col style={{ padding: 10 }}>
+                        <Col>
                           <Row style={{ marginBottom: 24 }}>
                             <Col style={{ flex: 1 }}>
                               <div className="text-font mb-1">

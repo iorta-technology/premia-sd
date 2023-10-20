@@ -17,7 +17,7 @@ plan-card.css .plan-name,
   font-weight: 700;
   line-height: 120%;
   text-transform: capitalize !important;
-margin-top: 5px;
+/* margin-top: 5px; */
 }
 .plan-details {
   width: 197px;
@@ -141,7 +141,6 @@ margin-top: 5px;
   margin: 0 !important;
   position: absolute;
   top: -9px;
-  left: 245px;
   border-radius: 5px;
   background-color: #6cc100;
   box-shadow: 0 4px 6px rgba(0, 172, 193, 0.1);
@@ -169,7 +168,7 @@ margin-top: 5px;
   color: #013261;
   font-family: Roboto;
 }
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 768px) {
   .plan-details {
     width: 100%;
     display: flex;
@@ -200,8 +199,8 @@ margin-top: 5px;
   }
   .plan-satus-chip {
     /* position: inherit; */
-    top: 20px;
-    left: 265px;
+    /* top: 20px;
+    left: 265px; */
 
 }
   
