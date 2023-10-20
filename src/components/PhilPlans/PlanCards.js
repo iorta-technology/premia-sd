@@ -54,7 +54,7 @@ const PlanCard = ({
   };
   return (
     <>
-      <div className="plan_details_body mb-4" style={{ marginTop: 80 }}>
+      <div className="planlist_details_body mb-4" style={{ marginTop: 80 }}>
         <Row
           gutter={22}
           style={{
@@ -83,7 +83,11 @@ const PlanCard = ({
                             {item?.PROD_PORTAL_DESC?.toLowerCase()}
                           </p>
                         </div>
-                        <div
+                      </div>
+                      <div className="details-div">
+                        <div className="details-col">
+                          <div className="plan-no-date">
+                          <div
                           className="plan-satus-chip"
                           style={{
                             backgroundColor:
@@ -96,10 +100,6 @@ const PlanCard = ({
                         >
                           <div>{item.POL_ADDL_STATUS}</div>
                         </div>
-                      </div>
-                      <div className="details-div">
-                        <div className="details-col">
-                          <div className="plan-no-date">
                             <div className="data">
                               <div className="value">{item?.POL_NO}</div>
                               <div className="label">Plan Number</div>

@@ -322,7 +322,7 @@ button.active_tabs_button img {
 }
 
 .tabsStyleMob .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #00ACC1;
+  color: #01AB4F;
   text-shadow: 0 0 0.25px currentcolor;
 }
 .ant-tabs-tab-btn:active{
@@ -330,7 +330,7 @@ button.active_tabs_button img {
 }
 .tabsStyleMob .ant-tabs-ink-bar {
   position: absolute;
-  background: #00ACC1;
+  background: #01AB4F;
   pointer-events: none;
 }
 
@@ -420,8 +420,12 @@ text-transform: capitalize;
         color: #7e95ad;
     } */
     .plan_details_body{
-      padding: 0 0px;
+      padding: 0 5px;
       margin-top: 30px !important;
+    }
+    .planlist_details_body{
+      padding: 0 5px;
+      margin-top: 76px !important;
     }
   .tabsStyle .ant-tabs-tab-active,
   .ant-tabs-tab {
@@ -461,7 +465,7 @@ text-transform: capitalize;
     color: #ffffff;
   }
   .tabsStyle .ant-tabs-tab.ant-tabs-tab-active {
-    background-color: #00acc1;
+    background-color: red;
   }
   .tabsStyle .ant-tabs-tab {
     min-width: 135px;

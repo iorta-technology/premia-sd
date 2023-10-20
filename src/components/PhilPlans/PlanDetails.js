@@ -591,20 +591,20 @@ const PlanDetailsComponent = React.memo((props) => {
                       </Col>
                     </Card>
 
-                    <Card
-                      bordered={false}
-                      className="app-card-head rounded mb-3"
-                    >
-                      <Col style={{ padding: 10 }}>
-                        <Row style={{ marginBottom: 24 }}>
-                          <Col style={{ flex: 1 }}>
-                            <div className="text-font mb-1">
-                              {item.POL_LC_PRENEED_PRICE
-                                ? item.POL_LC_PRENEED_PRICE
-                                : "000"}
-                            </div>
-                            <div className="label-font">Contact Price</div>
-                          </Col>
+                      <Card
+                        bordered={false}
+                        className="app-card-head rounded mb-3"
+                      >
+                        <Col>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item.POL_LC_PRENEED_PRICE
+                                  ? item.POL_LC_PRENEED_PRICE
+                                  : "000"}
+                              </div>
+                              <div className="label-font">Contact Price</div>
+                            </Col>
 
                           <Col style={{ flex: 1 }}>
                             <div className="text-font mb-1">
@@ -679,24 +679,24 @@ const PlanDetailsComponent = React.memo((props) => {
                       </Col>
                     </Card>
 
-                    {/* end */}
-                    {/* 3 card */}
-                    <Card
-                      bordered={false}
-                      className="app-card-head rounded mb-4"
-                    >
-                      <Col style={{ padding: 10 }}>
-                        <Row style={{ marginBottom: 24 }}>
-                          <Col style={{ flex: 1 }}>
-                            <div className="text-font mb-1">
-                              {item?.POL_LC_SUM_ASSURED
-                                ? item.POL_LC_SUM_ASSURED
-                                : "--"}
-                            </div>
-                            <div className="label-font">
-                              Total Installment Amount
-                            </div>
-                          </Col>
+                      {/* end */}
+                      {/* 3 card */}
+                      <Card
+                        bordered={false}
+                        className="app-card-head rounded mb-4"
+                      >
+                        <Col>
+                          <Row style={{ marginBottom: 24 }}>
+                            <Col style={{ flex: 1 }}>
+                              <div className="text-font mb-1">
+                                {item?.POL_LC_SUM_ASSURED
+                                  ? item.POL_LC_SUM_ASSURED
+                                  : "--"}
+                              </div>
+                              <div className="label-font">
+                                Total Installment Amount
+                              </div>
+                            </Col>
 
                           <Col style={{ flex: 1 }}>
                             <div className="text-font mb-1">
