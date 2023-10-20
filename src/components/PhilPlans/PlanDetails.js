@@ -530,251 +530,247 @@ const PlanDetailsComponent = React.memo((props) => {
       {/* </Col>
       </Row> */}
       <div className="plan_details_body mb-4" style={{ marginTop: 11 }}>
-        <Row gutter={22} style={{ margin: "0" }}>
+        <Row gutter={22} className="mb-5">
           {/* 1st Column */}
-          <Col sm={24} md={18} lg={18} xlg={8}>
+          <Col sm={24} md={18} lg={18} xlg={8} className="mb-5">
             {/* Company Details */}
             <p className="tab_title">Plan Details</p>
-            {allPlanDetailsInfo?.length > 0 && allPlanDetailsInfo?.map((item, index) => {
-                  return (
-                    <>
-                      <Card
-                        key={item.index}
-                        bordered={false}
-                        className="app-card-head rounded mb-3"
-                      >
-                        <Col>
-                          <Row
-                            className="plan_details_card1"
-                            style={{ marginBottom: 24 }}
-                          >
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.POL_NO}
-                              </div>
-                              <div className="label-font">Plan Number</div>
-                            </Col>
+            {allPlanDetailsInfo?.length > 0 &&
+              allPlanDetailsInfo?.map((item, index) => {
+                return (
+                  <>
+                    <Card
+                      key={item.index}
+                      bordered={false}
+                      className="app-card-head rounded mb-3"
+                    >
+                      <Col>
+                        <Row
+                          className="plan_details_card1"
+                          style={{ marginBottom: 24 }}
+                        >
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">{item.POL_NO}</div>
+                            <div className="label-font">Plan Number</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.CUST_NAME}
-                              </div>
-                              <div className="label-font">Plan Holder</div>
-                            </Col>
-                          </Row>
-                          <Row className="plan_details_card1">
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.PROD_PORTAL_DESC}
-                              </div>
-                              <div className="label-font">Product</div>
-                            </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.CUST_NAME}
+                            </div>
+                            <div className="label-font">Plan Holder</div>
+                          </Col>
+                        </Row>
+                        <Row className="plan_details_card1">
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.PROD_PORTAL_DESC}
+                            </div>
+                            <div className="label-font">Product</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div
-                                className="text-font mb-1 status-active"
-                                style={{
-                                  color:
-                                    // item.POL_ADDL_STATUS === "Active" ? "#01AB4F" :
-                                    item.POL_ADDL_STATUS_DESC === "Matured"
-                                      ? "#85e1ab"
-                                      : item.POL_ADDL_STATUS_DESC ===
-                                        "Lapsed - Cancelled"
-                                      ? "#ed8181"
-                                      : "#01AB4F",
-                                }}
-                              >
-                                {item.POL_ADDL_STATUS_DESC}
-                              </div>
-                              <div className="label-font">Status</div>
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Card>
+                          <Col style={{ flex: 1 }}>
+                            <div
+                              className="text-font mb-1 status-active"
+                              style={{
+                                color:
+                                  // item.POL_ADDL_STATUS === "Active" ? "#01AB4F" :
+                                  item.POL_ADDL_STATUS_DESC === "Matured"
+                                    ? "#85e1ab"
+                                    : item.POL_ADDL_STATUS_DESC ===
+                                      "Lapsed - Cancelled"
+                                    ? "#ed8181"
+                                    : "#01AB4F",
+                              }}
+                            >
+                              {item.POL_ADDL_STATUS_DESC}
+                            </div>
+                            <div className="label-font">Status</div>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Card>
 
-                      <Card
-                        bordered={false}
-                        className="app-card-head rounded mb-3"
-                      >
-                        <Col style={{ padding: 10 }}>
-                          <Row style={{ marginBottom: 24 }}>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.POL_LC_PRENEED_PRICE
-                                  ? item.POL_LC_PRENEED_PRICE
-                                  : "000"}
-                              </div>
-                              <div className="label-font">Contact Price</div>
-                            </Col>
+                    <Card
+                      bordered={false}
+                      className="app-card-head rounded mb-3"
+                    >
+                      <Col style={{ padding: 10 }}>
+                        <Row style={{ marginBottom: 24 }}>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.POL_LC_PRENEED_PRICE
+                                ? item.POL_LC_PRENEED_PRICE
+                                : "000"}
+                            </div>
+                            <div className="label-font">Contact Price</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.POL_EFFECTIVE_DATE
-                                  ? moment(item.POL_EFFECTIVE_DATE).format(
-                                      "MMM DD, YYYY"
-                                    )
-                                  : "--"}
-                              </div>
-                              <div className="label-font">Effective date</div>
-                            </Col>
-                          </Row>
-                          <Row style={{ marginBottom: 24 }}>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.POL_PREM_PAY_YRS} Years
-                              </div>
-                              <div className="label-font">Payment Term</div>
-                            </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.POL_EFFECTIVE_DATE
+                                ? moment(item.POL_EFFECTIVE_DATE).format(
+                                    "MMM DD, YYYY"
+                                  )
+                                : "--"}
+                            </div>
+                            <div className="label-font">Effective date</div>
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 24 }}>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.POL_PREM_PAY_YRS} Years
+                            </div>
+                            <div className="label-font">Payment Term</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.INST_AVAIL_DT
-                                  ? moment(item.INST_AVAIL_DT).format(
-                                      "MMM DD, YYYY"
-                                    )
-                                  : "--"}
-                              </div>
-                              <div className="label-font">
-                                Initial Availment Date
-                              </div>
-                            </Col>
-                          </Row>
-                          <Row style={{ marginBottom: 24 }}>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.POL_PREM_PAY_YRS} Years
-                              </div>
-                              <div className="label-font">Payment Term</div>
-                            </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.INST_AVAIL_DT
+                                ? moment(item.INST_AVAIL_DT).format(
+                                    "MMM DD, YYYY"
+                                  )
+                                : "--"}
+                            </div>
+                            <div className="label-font">
+                              Initial Availment Date
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 24 }}>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.POL_PREM_PAY_YRS} Years
+                            </div>
+                            <div className="label-font">Payment Term</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.POL_MODE_OF_PYMT
-                                  ? item.POL_MODE_OF_PYMT
-                                  : "--"}
-                              </div>
-                              <div className="label-font">Payment Mode</div>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.POL_PREM_PAY_YRS} Years
-                              </div>
-                              <div className="label-font">Package</div>
-                            </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.POL_MODE_OF_PYMT
+                                ? item.POL_MODE_OF_PYMT
+                                : "--"}
+                            </div>
+                            <div className="label-font">Payment Mode</div>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.POL_PREM_PAY_YRS} Years
+                            </div>
+                            <div className="label-font">Package</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.POL_MATURED_DATE
-                                  ? moment(item.POL_MATURED_DATE).format(
-                                      "MMM DD, YYY"
-                                    )
-                                  : "--"}
-                              </div>
-                              <div className="label-font">
-                                Full Availment / Maturity Date
-                              </div>
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Card>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.POL_MATURED_DATE
+                                ? moment(item.POL_MATURED_DATE).format(
+                                    "MMM DD, YYY"
+                                  )
+                                : "--"}
+                            </div>
+                            <div className="label-font">
+                              Full Availment / Maturity Date
+                            </div>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Card>
 
-                      {/* end */}
-                      {/* 3 card */}
-                      <Card
-                        bordered={false}
-                        className="app-card-head rounded mb-4"
-                      >
-                        <Col style={{ padding: 10 }}>
-                          <Row style={{ marginBottom: 24 }}>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.POL_LC_SUM_ASSURED
-                                  ? item.POL_LC_SUM_ASSURED
-                                  : "--"}
-                              </div>
-                              <div className="label-font">
-                                Total Installment Amount
-                              </div>
-                            </Col>
+                    {/* end */}
+                    {/* 3 card */}
+                    <Card
+                      bordered={false}
+                      className="app-card-head rounded mb-4"
+                    >
+                      <Col style={{ padding: 10 }}>
+                        <Row style={{ marginBottom: 24 }}>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.POL_LC_SUM_ASSURED
+                                ? item.POL_LC_SUM_ASSURED
+                                : "--"}
+                            </div>
+                            <div className="label-font">
+                              Total Installment Amount
+                            </div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {" "}
-                                {item?.POL_LC_PRENEED_PRICE
-                                  ? item.POL_LC_PRENEED_PRICE
-                                  : "--"}
-                              </div>
-                              <div className="label-font">
-                                Installment Amount
-                              </div>
-                            </Col>
-                          </Row>
-                          <Row style={{ marginBottom: 24 }}>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.VAT ? item.VAT : "--"}
-                              </div>
-                              <div className="label-font">Installment VAT</div>
-                            </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {" "}
+                              {item?.POL_LC_PRENEED_PRICE
+                                ? item.POL_LC_PRENEED_PRICE
+                                : "--"}
+                            </div>
+                            <div className="label-font">Installment Amount</div>
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 24 }}>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.VAT ? item.VAT : "--"}
+                            </div>
+                            <div className="label-font">Installment VAT</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.POL_DST ? item.POL_DST : "--"}
-                              </div>
-                              <div className="label-font">
-                                Documentary Stamp Tax (DST)
-                              </div>
-                            </Col>
-                          </Row>
-                          <Row style={{ marginBottom: 24 }}>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item.POL_PREM_PAY_YRS} Years
-                              </div>
-                              <div className="label-font">Payment Term</div>
-                            </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.POL_DST ? item.POL_DST : "--"}
+                            </div>
+                            <div className="label-font">
+                              Documentary Stamp Tax (DST)
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 24 }}>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item.POL_PREM_PAY_YRS} Years
+                            </div>
+                            <div className="label-font">Payment Term</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.POL_MODE_OF_PYMT
-                                  ? item.POL_MODE_OF_PYMT
-                                  : "--"}
-                              </div>
-                              <div className="label-font">Payment Mode</div>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.POL_EXPIRY_DT
-                                  ? moment(item.POL_EXPIRY_DT).format(
-                                      "MMM DD, YYYY"
-                                    )
-                                  : "--"}
-                              </div>
-                              <div className="label-font">Last Payment Due</div>
-                            </Col>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.POL_MODE_OF_PYMT
+                                ? item.POL_MODE_OF_PYMT
+                                : "--"}
+                            </div>
+                            <div className="label-font">Payment Mode</div>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.POL_EXPIRY_DT
+                                ? moment(item.POL_EXPIRY_DT).format(
+                                    "MMM DD, YYYY"
+                                  )
+                                : "--"}
+                            </div>
+                            <div className="label-font">Last Payment Due</div>
+                          </Col>
 
-                            <Col style={{ flex: 1 }}>
-                              <div className="text-font mb-1">
-                                {item?.POL_LAST_PAYOUT_DT
-                                  ? moment(item.POL_LAST_PAYOUT_DT).format(
-                                      "MMM DD, YYYY"
-                                    )
-                                  : "--"}
-                              </div>
-                              <div className="label-font">Next Payment Due</div>
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Card>
-                      {/* 3 card end*/}
-                    </>
-                  );
-                })
-              }
+                          <Col style={{ flex: 1 }}>
+                            <div className="text-font mb-1">
+                              {item?.POL_LAST_PAYOUT_DT
+                                ? moment(item.POL_LAST_PAYOUT_DT).format(
+                                    "MMM DD, YYYY"
+                                  )
+                                : "--"}
+                            </div>
+                            <div className="label-font">Next Payment Due</div>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Card>
+                    {/* 3 card end*/}
+                  </>
+                );
+              })}
           </Col>
           {/* rhs html  */}
           <Col sm={24} md={6} lg={6} xlg={8}>
