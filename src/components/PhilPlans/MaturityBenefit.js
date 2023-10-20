@@ -699,90 +699,39 @@ const MaturityBenefitComponent = React.memo((props) => {
                             </td>
                             <td data-label="type">{item.TYPE === null ? "-" : item.TYPE}</td>
                             <td data-label="status" className="availed">
-                              {item?.STATUS === "Not Availed" ? (
-                                <>
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="25"
-                                height="25"
-                                viewBox="0 0 25 25"
-                                fill="none"
-                              >
-                                <g clip-path="url(#clip0_104_2026)">
-                                  <path
-                                    d="M9.60025 16.6701L5.43025 12.5001L4.01025 13.9101L9.60025 19.5001L21.6003 7.50009L20.1903 6.09009L9.60025 16.6701Z"
-                                    fill="#01AB4F"
-                                  />
-                                </g>
-                                <defs>
-                                  <clipPath id="clip0_104_2026">
-                                    <rect
-                                      width="24"
-                                      height="24"
-                                      fill="white"
-                                      transform="translate(0.600098 0.5)"
-                                    />
-                                  </clipPath>
-                                </defs>
-                              </svg>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="25"
-                                height="25"
-                                viewBox="0 0 25 25"
-                                fill="none"
-                              >
-                                <g clip-path="url(#clip0_104_2009)">
-                                  <path
-                                    d="M12.6001 2.5C7.0801 2.5 2.6001 6.98 2.6001 12.5C2.6001 18.02 7.0801 22.5 12.6001 22.5C18.1201 22.5 22.6001 18.02 22.6001 12.5C22.6001 6.98 18.1201 2.5 12.6001 2.5ZM12.6001 20.5C8.1801 20.5 4.6001 16.92 4.6001 12.5C4.6001 10.65 5.2301 8.95 6.2901 7.6L17.5001 18.81C16.1501 19.87 14.4501 20.5 12.6001 20.5ZM18.9101 17.4L7.7001 6.19C9.0501 5.13 10.7501 4.5 12.6001 4.5C17.0201 4.5 20.6001 8.08 20.6001 12.5C20.6001 14.35 19.9701 16.05 18.9101 17.4Z"
-                                    fill="#434C55"
-                                    fill-opacity="0.4"
-                                  />
-                                </g>
-                                <defs>
-                                  <clipPath id="clip0_104_2009">
-                                    <rect
-                                      width="24"
-                                      height="24"
-                                      fill="white"
-                                      transform="translate(0.600098 0.5)"
-                                    />
-                                  </clipPath>
-                                </defs>
-                              </svg>
+                            {item?.STATUS === "Not Availed" ? (
+                              <>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+  <g clip-path="url(#clip0_104_2130)">
+    <path d="M12.3335 2C6.8135 2 2.3335 6.48 2.3335 12C2.3335 17.52 6.8135 22 12.3335 22C17.8535 22 22.3335 17.52 22.3335 12C22.3335 6.48 17.8535 2 12.3335 2ZM12.3335 20C7.9135 20 4.3335 16.42 4.3335 12C4.3335 10.15 4.9635 8.45 6.0235 7.1L17.2335 18.31C15.8835 19.37 14.1835 20 12.3335 20ZM18.6435 16.9L7.4335 5.69C8.7835 4.63 10.4835 4 12.3335 4C16.7535 4 20.3335 7.58 20.3335 12C20.3335 13.85 19.7035 15.55 18.6435 16.9Z" fill="#434C55" fill-opacity="0.4"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_104_2130">
+      <rect width="24" height="24" fill="white" transform="translate(0.333496)"/>
+    </clipPath>
+  </defs>
+</svg>
+                                <span>{item?.STATUS}</span>
+                              </>
+                            ) : item?.STATUS === "Availed" ? (
+                              <>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+  <g clip-path="url(#clip0_104_2026)">
+    <path d="M9.60025 16.6701L5.43025 12.5001L4.01025 13.9101L9.60025 19.5001L21.6003 7.50009L20.1903 6.09009L9.60025 16.6701Z" fill="#01AB4F"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_104_2026">
+      <rect width="24" height="24" fill="white" transform="translate(0.600098 0.5)"/>
+    </clipPath>
+  </defs>
+</svg>
+                            
+                                <span>{item?.STATUS}</span>
+                              </>
+                            ) : (
+                              // Add default behavior here if STATUS is neither "Not Availed" nor "Availed"
                               <span>{item?.STATUS}</span>
-
-                                                                 </>
-                              ) : (
-                                <>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="25"
-                                    height="25"
-                                    viewBox="0 0 25 25"
-                                    fill="none"
-                                  >
-                                    <g clip-path="url(#clip0_104_2026)">
-                                      <path
-                                        d="M9.60025 16.6701L5.43025 12.5001L4.01025 13.9101L9.60025 19.5001L21.6003 7.50009L20.1903 6.09009L9.60025 16.6701Z"
-                                        fill="#01AB4F"
-                                      />
-                                    </g>
-                                    <defs>
-                                      <clipPath id="clip0_104_2026">
-                                        <rect
-                                          width="24"
-                                          height="24"
-                                          fill="white"
-                                          transform="translate(0.600098 0.5)"
-                                        />
-                                      </clipPath>
-                                    </defs>
-                                  </svg>
-                                  <span>{item?.STATUS}</span>
- 
-                                                                 </>
-                              )}
+                            )}
                             </td>
                             <td data-label="actions">
                               <Button className="applyNow_btn">
