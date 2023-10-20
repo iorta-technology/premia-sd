@@ -20,7 +20,7 @@ import {
   FormOutlined,
   ShopOutlined,
 } from "@ant-design/icons";
-import axios from 'axios'
+import axios from "axios";
 
 // import image -----
 import business_img from "../../assets/DashboardIconNew/Group3366.png";
@@ -100,7 +100,7 @@ const HomePage = () => {
   const [renewal_Last_30, setRenewal_Last_30] = useState(0);
   const [count10, setCount10] = useState(0);
   const [count25, setCount25] = useState(0);
-  const [count40, setCount40] = useState(0); 
+  const [count40, setCount40] = useState(0);
   const [kdm_name, setKdm_name] = useState([]);
   const [birthdate, setBirthdate] = useState([]);
   const [prodCountData, setProdCountData] = useState({});
@@ -264,16 +264,17 @@ const HomePage = () => {
     getContactOpportunity();
     getCompanyListing();
     getProducerCount();
-
   }, []);
 
   let getProducerCount = async () => {
     try {
-      let res = await axiosRequest.get(`user/getproducercount/${id}`, { secure: true, });
+      let res = await axiosRequest.get(`user/getproducercount/${id}`, {
+        secure: true,
+      });
       // console.log('getproducercount------------>>>',res)
       // if (res.length > 0) {
       // const [prodCountData, setProdCountData] = useState({});
-      setProdCountData(res)
+      setProdCountData(res);
       // }
     } catch (error) {
       console.log(error);
@@ -282,21 +283,22 @@ const HomePage = () => {
 
   let getCompanyListing = async () => {
     try {
-      let res = await axiosRequest.get(`user/getrenewal/${id}`, { secure: true, });
+      let res = await axiosRequest.get(`user/getrenewal/${id}`, {
+        secure: true,
+      });
       // console.log('getrenewal------------>>>',res)
       if (res.length > 0) {
-
-        setCompanyListingResponse(res[0]["Renewals Next 30 days"])
-        setRenewal_Last_30(res[0]["Renewals Last 30 days"])
-        setCount10(res[0]["count10%"])
-        setCount25(res[0]["count25%"])
-        setCount40(res[0]["count40%"])
+        setCompanyListingResponse(res[0]["Renewals Next 30 days"]);
+        setRenewal_Last_30(res[0]["Renewals Last 30 days"]);
+        setCount10(res[0]["count10%"]);
+        setCount25(res[0]["count25%"]);
+        setCount40(res[0]["count40%"]);
       } else {
-        setCompanyListingResponse(0)
-        setRenewal_Last_30(0)
-        setCount10(0)
-        setCount25(0)
-        setCount40(0)
+        setCompanyListingResponse(0);
+        setRenewal_Last_30(0);
+        setCount10(0);
+        setCount25(0);
+        setCount40(0);
       }
     } catch (error) {
       console.log(error);
@@ -306,8 +308,11 @@ const HomePage = () => {
   let getContactOpportunity = async () => {
     // const count_10 = "count10%";
     try {
-      let res = await axiosRequest.get(`user/company/contactOpportunity?userId=${userId}`, { secure: true, });
-      console.log('birthday------------>>>', res)
+      let res = await axiosRequest.get(
+        `user/company/contactOpportunity?userId=${userId}`,
+        { secure: true }
+      );
+      console.log("birthday------------>>>", res);
       if (res.length > 0) {
         setContactOpportunity(res);
       } else {
@@ -413,7 +418,10 @@ const HomePage = () => {
           stringtimeofreminder: _data?._stringVersionTimeOfReminder,
           ownername:
             _data?.taskOwner?.first_name + " " + _data?.taskOwner?.last_name,
-          status: setTodoStatus(_data?.dateOfReminder, parseInt(_data?.timeOfReminder)),
+          status: setTodoStatus(
+            _data?.dateOfReminder,
+            parseInt(_data?.timeOfReminder)
+          ),
           searchdata: _data?.owernersCollectionDetails,
           taskOwner_id: _data?.taskOwner?._id,
           taskPriority: _data?.taskPriority,
@@ -431,7 +439,7 @@ const HomePage = () => {
       // console.log('arrData------->>>',arrData)
       setGetTodoDataArray(arrData);
       setShowData(true);
-    } catch (err) { }
+    } catch (err) {}
   };
 
   let setTodoStatus = (reminderDate, reminderTime) => {
@@ -770,8 +778,8 @@ const HomePage = () => {
                 </div>
 
                 {activities_data &&
-                  !_.isEmpty(activities_data) &&
-                  activities_data !== "No appointment " ? (
+                !_.isEmpty(activities_data) &&
+                activities_data !== "No appointment " ? (
                   <div className="activity-block">
                     {activities_data?.map((item) => {
                       return (
@@ -860,8 +868,7 @@ const HomePage = () => {
                 className="dataCard"
                 bordered="false"
                 style={{ backgroundColor: "rgb(94, 192, 173)" }}
-              // style={{ backgroundColor: "#00acc1" }}
-
+                // style={{ backgroundColor: "#00acc1" }}
               >
                 {/* <Link to="/leadMaster/all_leads"> */}
                 <div className="card-content">
@@ -920,18 +927,18 @@ const HomePage = () => {
                     <div className="column-opp">
                       <div className="head-opp">TAGIC Presence</div>
                       <div className="row-opp-1">
-                        <span className="child1-opp">{'<10%'}</span>
+                        <span className="child1-opp">{"<10%"}</span>
 
                         <span className="num-opp-1">{count10}</span>
                       </div>
                       {/* <div className="hLine-r1"></div> */}
                       <div className="row-opp-2">
-                        <span className="child1-opp">{'<25%'}</span>
+                        <span className="child1-opp">{"<25%"}</span>
                         <span className="num-opp-1">{count25}</span> <br />
                         {/* <div className="hLine-r1"></div> */}
                       </div>
                       <div className="row-opp-3">
-                        <span className="child1-opp">{'<40%'}</span>
+                        <span className="child1-opp">{"<40%"}</span>
 
                         <span className="num-opp-1">{count40}</span>
                         {/* <div className="hLine-r1"></div> */}
@@ -984,22 +991,54 @@ const HomePage = () => {
                   <div className="container-opp" style={{ marginTop: "45px" }}>
                     <div className="column-opp">
                       <div className="row-opp">
-                        <div className="child1-opp-1" style={{ fontSize: '18px' }}>Producer</div>
-                        <i><p className="sales-content"
-                          style={{ fontSize: 14, marginTop: '4px' }}>Total Count</p></i>
-                        <div className="num-opp" style={{ fontSize: '45px' }}>{!prodCountData?.producerCount ? 0 : prodCountData?.producerCount}</div>
+                        <div
+                          className="child1-opp-1"
+                          style={{ fontSize: "18px" }}
+                        >
+                          Producer
+                        </div>
+                        <i>
+                          <p
+                            className="sales-content"
+                            style={{ fontSize: 14, marginTop: "4px" }}
+                          >
+                            Total Count
+                          </p>
+                        </i>
+                        <div className="num-opp" style={{ fontSize: "45px" }}>
+                          {!prodCountData?.producerCount
+                            ? 0
+                            : prodCountData?.producerCount}
+                        </div>
                       </div>
                     </div>
-                    <div className="vertical-line" style={{ marginTop: '28px' }}>
+                    <div
+                      className="vertical-line"
+                      style={{ marginTop: "28px" }}
+                    >
                       <div className="verticalLine"></div>
                     </div>
                     <div className="column-opp">
-
                       <div className="row-opp">
-                        <div className="child1-opp-1" style={{ fontSize: '18px' }}>Appointment</div>
-                        <i><p className="sales-content"
-                          style={{ fontSize: 14, marginTop: '4px' }}>Next 30 Days</p></i>
-                        <div className="num-opp" style={{ fontSize: '45px' }}>{!prodCountData?.appointmentCount ? 0 : prodCountData?.appointmentCount}</div>
+                        <div
+                          className="child1-opp-1"
+                          style={{ fontSize: "18px" }}
+                        >
+                          Appointment
+                        </div>
+                        <i>
+                          <p
+                            className="sales-content"
+                            style={{ fontSize: 14, marginTop: "4px" }}
+                          >
+                            Next 30 Days
+                          </p>
+                        </i>
+                        <div className="num-opp" style={{ fontSize: "45px" }}>
+                          {!prodCountData?.appointmentCount
+                            ? 0
+                            : prodCountData?.appointmentCount}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1034,8 +1073,8 @@ const HomePage = () => {
                 </Link>
 
                 {getTodoDataArray &&
-                  !_.isEmpty(getTodoDataArray) &&
-                  getTodoDataArray !== "No appointment " ? (
+                !_.isEmpty(getTodoDataArray) &&
+                getTodoDataArray !== "No appointment " ? (
                   <div className="activity-block">
                     {getTodoDataArray.map((element, index, item) => {
                       return (
@@ -1059,8 +1098,8 @@ const HomePage = () => {
                                         element.status === "Soon"
                                           ? element.sooncolor
                                           : element.status === "Overdue"
-                                            ? element.overduecolor
-                                            : "red",
+                                          ? element.overduecolor
+                                          : "red",
                                       fontSize: 12,
                                       fontWeight: 700,
                                     }}
@@ -1075,16 +1114,30 @@ const HomePage = () => {
                                         element.status === "Soon"
                                           ? element.sooncolor
                                           : element.status === "Overdue"
-                                            ? element.overduecolor
-                                            : "#000",
+                                          ? element.overduecolor
+                                          : "#000",
                                     }}
                                   >
-                                    {element.dateofreminder} : {element.stringtimeofreminder}
+                                    {element.dateofreminder} :{" "}
+                                    {element.stringtimeofreminder}
                                   </text>
                                 </div>
-                                <div className='priority'>
-                                  <div style={{ backgroundColor: element.priorityIndicatorColor }} className="priority-circle"></div>
-                                  <div style={{ textTransform: "capitalize", color: element.priorityIndicatorColor }}>{element.taskPriority}</div>
+                                <div className="priority">
+                                  <div
+                                    style={{
+                                      backgroundColor:
+                                        element.priorityIndicatorColor,
+                                    }}
+                                    className="priority-circle"
+                                  ></div>
+                                  <div
+                                    style={{
+                                      textTransform: "capitalize",
+                                      color: element.priorityIndicatorColor,
+                                    }}
+                                  >
+                                    {element.taskPriority}
+                                  </div>
                                 </div>
                               </Col>
 
@@ -1107,8 +1160,20 @@ const HomePage = () => {
                                 {element.showarchiedpopup === true && (
                                   <div className="TodoCard-Container-Hamburger">
                                     <Card className="Hamburger-Card Hamburger-box">
-                                      <p onClick={() => archiveData(element)} style={{ display: "flex", alignItems: "center", }}>
-                                        <ShopOutlined style={{ marginRight: "10px", marginTop: 5 }} />{" "}Archive
+                                      <p
+                                        onClick={() => archiveData(element)}
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                        }}
+                                      >
+                                        <ShopOutlined
+                                          style={{
+                                            marginRight: "10px",
+                                            marginTop: 5,
+                                          }}
+                                        />{" "}
+                                        Archive
                                       </p>
                                     </Card>
                                   </div>
@@ -1117,11 +1182,26 @@ const HomePage = () => {
                             </div>
                           </div>
 
-                          <div className="TodoCards-Body" style={{ display: 'flex', alignItems: 'center' }}>
-                            <div className="TodoCard-Body-CheckBox todoCard-mr15" onClick={() => removListFromToDo(element, index)}>
-                              <img src={element.icon} className="archive-trueCheckBox" alt="trueCheckBox" />
+                          <div
+                            className="TodoCards-Body"
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <div
+                              className="TodoCard-Body-CheckBox todoCard-mr15"
+                              onClick={() => removListFromToDo(element, index)}
+                            >
+                              <img
+                                src={element.icon}
+                                className="archive-trueCheckBox"
+                                alt="trueCheckBox"
+                              />
                             </div>
-                            <p style={{ textDecorationLine: element.textOverLine.textDecorationLine, }}>
+                            <p
+                              style={{
+                                textDecorationLine:
+                                  element.textOverLine.textDecorationLine,
+                              }}
+                            >
                               {element.content}
                             </p>
                           </div>
@@ -1343,66 +1423,76 @@ const HomePage = () => {
                 >
                   <div className="activity-block-contact">
                     {/* <div className="action-cards-content-activity"> */}
-                      {
-                        ContactOpportunity.length>0?
-                        ContactOpportunity.map((item)=>{
-                       return <div className="nested-card">
-                          <div className="avatar-and-status">
-                            <Avatar
-                              style={{
-                                backgroundColor: "#d8d8d8",
-                              }}
-                              size={{ xl: 40 }}
-                            >
-                              <div className="avatar_font">{nameShorter(item.companyName)}</div>
-                            </Avatar>
-                            <div  className="action-cards-content-activity">
-                              <p className="user-name-text capitalize">
-                                {item.companyName}
-                              </p>
-                              <span className="user-id uppercase">company Name</span>
+                    {ContactOpportunity.length > 0 ? (
+                      ContactOpportunity.map((item) => {
+                        return (
+                          <div className="nested-card">
+                            <div className="avatar-and-status">
+                              <Avatar
+                                style={{
+                                  backgroundColor: "#d8d8d8",
+                                }}
+                                size={{ xl: 40 }}
+                              >
+                                <div className="avatar_font">
+                                  {nameShorter(item.companyName)}
+                                </div>
+                              </Avatar>
+                              <div className="action-cards-content-activity">
+                                <p className="user-name-text capitalize">
+                                  {item.companyName}
+                                </p>
+                                <span className="user-id uppercase">
+                                  company Name
+                                </span>
+                              </div>
                             </div>
+                            <p className="card-title">
+                              <Image
+                                preview={false}
+                                width={24}
+                                height={24}
+                                src={contact_opportunity_alarm}
+                                alt="Opportunities"
+                              />
+                              <div
+                                className={`contact-card-date ${
+                                  birthdate ? "" : "centered"
+                                }`}
+                              >
+                                {Moment(item.Inception).format("D MMM YYYY")}{" "}
+                                <span style={{ color: "grey" }}>
+                                  Renewal Due
+                                </span>
+                              </div>
+                            </p>
                           </div>
-                          <p className="card-title">
-                            <Image
-                              preview={false}
-                              width={24}
-                              height={24}
-                              src={contact_opportunity_alarm}
-                              alt="Opportunities"
-                            />
-                            <div className={`contact-card-date ${birthdate ? '' : 'centered'}`}>
-                            {Moment(item.Inception).format("D MMM YYYY")}{" "}
-                            <span style={{color:'grey'}}>Renewal Due</span>
-                            </div>
-                            
-                          </p>
-                        </div>
-                        })
-                      :
-                      <div className="events-body" style={{color:"#5EC0AD"}}>
-                      <Image
-                        // color="#5EC0AD"
-                        className="stars"
-                        preview={false}
-                        src={action_data_img}
-                        alt="Events"
-                      />
-                      <p
-                        style={{
-                          color: "#5EC0AD",
-                          fontSize: "20px",
-                          width: "fit-content",
-                          margin: "auto",
-                        }}
-                      >
-                        No Contact Opportunities Exist
-                      </p>
-                    </div>
-                      }
-                    </div>
+                        );
+                      })
+                    ) : (
+                      <div className="events-body" style={{ color: "#5EC0AD" }}>
+                        <Image
+                          // color="#5EC0AD"
+                          className="stars"
+                          preview={false}
+                          src={action_data_img}
+                          alt="Events"
+                        />
+                        <p
+                          style={{
+                            color: "#5EC0AD",
+                            fontSize: "20px",
+                            width: "fit-content",
+                            margin: "auto",
+                          }}
+                        >
+                          No Contact Opportunities Exist
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
+              </div>
             </Col>
           }
 

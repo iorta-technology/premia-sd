@@ -268,8 +268,9 @@ const MaturityBenefitComponent = React.memo((props) => {
   const userTreeData = useSelector((state) => state?.home?.user_tree);
   const _reportManager = useSelector((state) => state?.login?.reportingManager);
 
-  const maturityInfo = useSelector((state) => state?.maturityDetails
-  ?.maturityData?.maturityDetails);
+  const maturityInfo = useSelector(
+    (state) => state?.maturityDetails?.maturityData?.maturityDetails
+  );
   console.log("line 126", maturityInfo);
 
   const tableData = maturityInfo;
@@ -682,81 +683,104 @@ const MaturityBenefitComponent = React.memo((props) => {
                 </tr>
               </thead>
               <tbody>
-                {tableData?.length > 0
-                  ? tableData.map((item, index) => {
-                      return (
-                        <>
-                          <tr>
-                            <td data-label="date">
-                              {item?.IPD_AVAILAMENT_DT
-                                ? moment(item?.IPD_AVAILAMENT_DT).format(
-                                    "DD-MM-YYYY"
-                                  )
-                                : "--"}
-                            </td>
-                            <td data-label="amount">
-                              {item?.IPD_BENEFIT_VALUE}
-                            </td>
-                            <td data-label="type">{item.TYPE === null ? "-" : item.TYPE}</td>
-                            <td data-label="status" className="availed">
+                {tableData?.length > 0 ? (
+                  tableData.map((item, index) => {
+                    return (
+                      <>
+                        <tr>
+                          <td data-label="date">
+                            {item?.IPD_AVAILAMENT_DT
+                              ? moment(item?.IPD_AVAILAMENT_DT).format(
+                                  "DD-MM-YYYY"
+                                )
+                              : "--"}
+                          </td>
+                          <td data-label="amount">{item?.IPD_BENEFIT_VALUE}</td>
+                          <td data-label="type">
+                            {item.TYPE === null ? "-" : item.TYPE}
+                          </td>
+                          <td data-label="status" className="availed">
                             {item?.STATUS === "Not Availed" ? (
                               <>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-  <g clip-path="url(#clip0_104_2130)">
-    <path d="M12.3335 2C6.8135 2 2.3335 6.48 2.3335 12C2.3335 17.52 6.8135 22 12.3335 22C17.8535 22 22.3335 17.52 22.3335 12C22.3335 6.48 17.8535 2 12.3335 2ZM12.3335 20C7.9135 20 4.3335 16.42 4.3335 12C4.3335 10.15 4.9635 8.45 6.0235 7.1L17.2335 18.31C15.8835 19.37 14.1835 20 12.3335 20ZM18.6435 16.9L7.4335 5.69C8.7835 4.63 10.4835 4 12.3335 4C16.7535 4 20.3335 7.58 20.3335 12C20.3335 13.85 19.7035 15.55 18.6435 16.9Z" fill="#434C55" fill-opacity="0.4"/>
-  </g>
-  <defs>
-    <clipPath id="clip0_104_2130">
-      <rect width="24" height="24" fill="white" transform="translate(0.333496)"/>
-    </clipPath>
-  </defs>
-</svg>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="25"
+                                  height="24"
+                                  viewBox="0 0 25 24"
+                                  fill="none"
+                                >
+                                  <g clip-path="url(#clip0_104_2130)">
+                                    <path
+                                      d="M12.3335 2C6.8135 2 2.3335 6.48 2.3335 12C2.3335 17.52 6.8135 22 12.3335 22C17.8535 22 22.3335 17.52 22.3335 12C22.3335 6.48 17.8535 2 12.3335 2ZM12.3335 20C7.9135 20 4.3335 16.42 4.3335 12C4.3335 10.15 4.9635 8.45 6.0235 7.1L17.2335 18.31C15.8835 19.37 14.1835 20 12.3335 20ZM18.6435 16.9L7.4335 5.69C8.7835 4.63 10.4835 4 12.3335 4C16.7535 4 20.3335 7.58 20.3335 12C20.3335 13.85 19.7035 15.55 18.6435 16.9Z"
+                                      fill="#434C55"
+                                      fill-opacity="0.4"
+                                    />
+                                  </g>
+                                  <defs>
+                                    <clipPath id="clip0_104_2130">
+                                      <rect
+                                        width="24"
+                                        height="24"
+                                        fill="white"
+                                        transform="translate(0.333496)"
+                                      />
+                                    </clipPath>
+                                  </defs>
+                                </svg>
                                 <span>{item?.STATUS}</span>
                               </>
                             ) : item?.STATUS === "Availed" ? (
                               <>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-  <g clip-path="url(#clip0_104_2026)">
-    <path d="M9.60025 16.6701L5.43025 12.5001L4.01025 13.9101L9.60025 19.5001L21.6003 7.50009L20.1903 6.09009L9.60025 16.6701Z" fill="#01AB4F"/>
-  </g>
-  <defs>
-    <clipPath id="clip0_104_2026">
-      <rect width="24" height="24" fill="white" transform="translate(0.600098 0.5)"/>
-    </clipPath>
-  </defs>
-</svg>
-                            
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="25"
+                                  height="25"
+                                  viewBox="0 0 25 25"
+                                  fill="none"
+                                >
+                                  <g clip-path="url(#clip0_104_2026)">
+                                    <path
+                                      d="M9.60025 16.6701L5.43025 12.5001L4.01025 13.9101L9.60025 19.5001L21.6003 7.50009L20.1903 6.09009L9.60025 16.6701Z"
+                                      fill="#01AB4F"
+                                    />
+                                  </g>
+                                  <defs>
+                                    <clipPath id="clip0_104_2026">
+                                      <rect
+                                        width="24"
+                                        height="24"
+                                        fill="white"
+                                        transform="translate(0.600098 0.5)"
+                                      />
+                                    </clipPath>
+                                  </defs>
+                                </svg>
+
                                 <span>{item?.STATUS}</span>
                               </>
                             ) : (
                               // Add default behavior here if STATUS is neither "Not Availed" nor "Availed"
                               <span>{item?.STATUS}</span>
                             )}
-                            </td>
-                            <td data-label="actions">
-                              <Button className="applyNow_btn">
-                                Apply Now
-                              </Button>
-                            </td>
-                          </tr>
-                        </>
-                      );
-                    })
-                  :  <tr>
-                  <td data-label="date">
-                    -
-                  </td>
-                  <td data-label="amount">
-                    -
-                  </td>
-                  <td data-label="type">-</td>
-                  <td data-label="status" className="availed">
-                    -
-                  </td>
-                  <td data-label="actions">
-                    -
-                  </td>
-                </tr>}
+                          </td>
+                          <td data-label="actions">
+                            <Button className="applyNow_btn">Apply Now</Button>
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td data-label="date">-</td>
+                    <td data-label="amount">-</td>
+                    <td data-label="type">-</td>
+                    <td data-label="status" className="availed">
+                      -
+                    </td>
+                    <td data-label="actions">-</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </Col>

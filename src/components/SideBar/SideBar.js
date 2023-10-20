@@ -402,10 +402,10 @@ const Sidebar = () => {
           </SidebarWrap>
         </SidebarNav> */}
       </IconContext.Provider>
-      <div className="footer_powered_by fixed-bottom">
+      {/* <div className="footer_powered_by fixed-bottom">
         Powered by <strong>Salesdrive</strong>
         <sup>TM</sup>
-      </div>
+      </div> */}
     </>
   );
 };

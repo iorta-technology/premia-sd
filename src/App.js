@@ -268,7 +268,7 @@ function App() {
             <Route path="/blog" component={Blog}></Route>
             {/* <Route path="/Master/:masterType" component={Master}></Route> */}
 
-            <div>
+            <div className="h-100">
               {/* Make this route at the end only. */}
               <Route
                 path="/agentMicrosite"
@@ -276,6 +276,7 @@ function App() {
               ></Route>
               <div>
                 <Sidebar />
+
                 <div>
                   <Route path="/clubsMaster" component={ClubsMaster}></Route>
                   <Route path="/birthday" component={Birthday}></Route>
@@ -497,8 +498,13 @@ function App() {
                   {/* creating a route of scheduler */}
                 </div>
               </div>
+
               <Route path="/products" component={LoanProducts} />
               <Route path="/bulkaction" component={BulkAction} />
+              <div className="footer_powered_by fixed-bottom footerinapp">
+                Powered by <strong>Salesdrive</strong>
+                <sup>TM</sup>
+              </div>
             </div>
           </Switch>
         </div>
