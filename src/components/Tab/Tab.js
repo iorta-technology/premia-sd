@@ -94,7 +94,7 @@ const Tab = ({
   const [leadcards, setLeadcards] = useState(false);
   let storeFormData = useSelector((state) => state?.newLead?.formData);
   const { pol_id, sys_id } = useParams();
-  console.log("🚀 ~ file: Tab.js:97 ~ pol_id:", pol_id)
+  console.log("🚀 ~ file: Tab.js:97 ~ pol_id:", pol_id);
   let history = useHistory();
   let _currentTab = "self";
   // const [activeKey, setActiveKey] = useState("self")
@@ -151,8 +151,8 @@ const Tab = ({
   const custCode = useSelector(
     (state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS
   );
-  const [{ POBH_BROKER_CODE, POL_NO, POL_SYS_ID }] = custCode;
-  console.log("line ===>>>>>", POBH_BROKER_CODE);
+  const { POBH_BROKER_CODE, POL_NO, POL_SYS_ID } = custCode[0];
+  console.log("line 155 ===>>>>>", custCode);
 
   const PlanDetails = () => {
     // history.push('/plan-details');
@@ -210,7 +210,7 @@ const Tab = ({
 
   const getAgentDetails = () => {
     const credentials = {
-      agentCode: POBH_BROKER_CODE,
+      agentCode: POBH_BROKER_CODE ? POBH_BROKER_CODE : null,
       Token: token,
     };
     // const credentials = {email, password}
@@ -315,7 +315,7 @@ const Tab = ({
     const credentials = {
       polNo: POL_NO,
       Token: `Bearer ${token}`,
-      service: "S"
+      service: "S",
     };
     // const credentials = {email, password}
     axios
@@ -363,11 +363,11 @@ const Tab = ({
         }
       });
   };
-  const getEnhanceAvailment= () => {
+  const getEnhanceAvailment = () => {
     const credentials = {
       polNo: POL_NO,
       Token: `Bearer ${token}`,
-      service: "S"
+      service: "S",
     };
     // const credentials = {email, password}
     axios
@@ -415,7 +415,7 @@ const Tab = ({
         }
       });
   };
-  const getClaimsDetails= () => {
+  const getClaimsDetails = () => {
     const credentials = {
       polNo: POL_NO,
       Token: `Bearer ${token}`,
@@ -468,7 +468,7 @@ const Tab = ({
       });
   };
 
-  const getCashLoan= () => {
+  const getCashLoan = () => {
     const credentials = {
       polNo: POL_NO,
       // Token: `Bearer ${token}`,
@@ -673,25 +673,28 @@ const Tab = ({
   );
 
   const state = useSelector((state) => state);
-console.log('tab state',state)
-  const planDetails = useSelector((state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS);
+  console.log("tab state", state);
+  const planDetails = useSelector(
+    (state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS
+  );
   // console.log("🚀 ~ file: Tab.js:674 ~ getCashLoan ~ planDetails:", planDetails)
 
   const allPlanDetailsInfo = useSelector(
     (state) => state?.planInfo?.planData?.planDetails?.P_LOP_PLAN_DTLS
   );
-  console.log('dropdown defaultvalue',allPlanDetailsInfo)
+  console.log("dropdown defaultvalue", allPlanDetailsInfo);
   const [selectedPolicy, setSelectedPolicy] = useState({
     sys_id: allPlanDetailsInfo?.POL_SYS_ID,
     dropdown_label: allPlanDetailsInfo?.PROD_PORTAL_DESC,
     policy_id: allPlanDetailsInfo?.POL_NO,
   });
- 
+
   useEffect(() => {
-   
     // console.log('allPlanDetailsInfo---',allPlanDetailsInfo)
-   
-    const selectData = allPlanDetailsInfo?.find((el) => el.POL_NO === planDetails[0].POL_NO);
+
+    const selectData = allPlanDetailsInfo?.find(
+      (el) => el.POL_NO === planDetails[0].POL_NO
+    );
 
     console.log("selectData_BEFFF================", selectData);
     if (selectData) {
@@ -702,17 +705,16 @@ console.log('tab state',state)
         policy_id: selectData?.POL_NO,
       });
     }
-  }, [allPlanDetailsInfo,planDetails]);
+  }, [allPlanDetailsInfo, planDetails]);
   console.log("Before setSelectedPolicy:", selectedPolicy);
 
-
-  
   const handleMenuItemClick = async (event, item) => {
     console.log("item-----------", item);
     try {
-     
-     const response =  await dispatch(actions.getPlanDetails(item.POL_NO, item.POL_SYS_ID, token));
-      console.log('response is ',response)
+      const response = await dispatch(
+        actions.getPlanDetails(item.POL_NO, item.POL_SYS_ID, token)
+      );
+      console.log("response is ", response);
       setSelectedPolicy({
         key: item.POL_SYS_ID,
         dropdown_label: item.PROD_PORTAL_DESC.toLowerCase(),
@@ -722,7 +724,7 @@ console.log('tab state',state)
       console.error("API call error:", error);
     }
   };
-  
+
   console.log("After setSelectedPolicy:", selectedPolicy);
 
   return (
@@ -741,12 +743,8 @@ console.log('tab state',state)
                   <Menu
                     style={{ width: "230px" }}
                     selectedKeys={selectedPolicy}
-                    defaultSelectedKeys={
-                      selectedPolicy
-                    }
-                    value={
-                      selectedPolicy
-                    }
+                    defaultSelectedKeys={selectedPolicy}
+                    value={selectedPolicy}
                   >
                     {planDetailsListing.slice(0, 3).map((item, index) => (
                       <Menu.Item
@@ -759,7 +757,7 @@ console.log('tab state',state)
                           borderBottom: "1px solid rgba(67, 76, 85, 0.16)",
                           background: "none",
                         }}
-                        onClick={(event) => handleMenuItemClick(event,item)}
+                        onClick={(event) => handleMenuItemClick(event, item)}
                       >
                         <div className="dropdown_inner_item">
                           <div>
@@ -770,9 +768,9 @@ console.log('tab state',state)
                               {item.POL_NO}
                             </div>
                           </div>
-                         {selectedPolicy.policy_id === item.POL_NO && (
+                          {selectedPolicy.policy_id === item.POL_NO && (
                             <FaIcons.FaCheckCircle className="check-icon" />
-                         )} 
+                          )}
                         </div>
                       </Menu.Item>
                     ))}
@@ -787,10 +785,10 @@ console.log('tab state',state)
                   <Space className="policy_dropdown" style={{ width: 230 }}>
                     <div>
                       <div className="dropdown_header_item">
-                        {selectedPolicy.dropdown_label} 
+                        {selectedPolicy.dropdown_label}
                       </div>
                       <p className="dropdown_item_des mb-0 pb-0">
-                      {selectedPolicy.policy_id} 
+                        {selectedPolicy.policy_id}
                       </p>
                     </div>
                     <DownOutlined />
