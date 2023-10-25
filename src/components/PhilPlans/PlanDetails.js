@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
 import "../../components/StatusLead/StatusLead.css";
-import "./rhs.css";
+// import "./rhs.css";
+import "../../components/Tab/Tab.css"
 // import page from "./icons/page.svg"
 // import eye from "./icons/Eye.svg";
 // import Trash from "./icons/Trash.svg";

@@ -422,10 +422,8 @@ text-transform: capitalize;
     .plan_details_body{
       padding: 0 5px;
       margin-top: 30px !important;
-    }
-    .planlist_details_body{
-      padding: 0 5px;
-      margin-top: 76px !important;
+      margin-left: 16px;
+      margin-right: 16px;
     }
   .tabsStyle .ant-tabs-tab-active,
   .ant-tabs-tab {

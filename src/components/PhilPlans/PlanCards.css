@@ -168,6 +168,11 @@ plan-card.css .plan-name,
   color: #013261;
   font-family: Roboto;
 }
+.planlist_details_body{
+  max-width: 1440px;
+  margin: auto;
+  padding: 0 62px;
+}
 @media screen and (max-width: 768px) {
   .plan-details {
     width: 100%;
@@ -175,6 +180,10 @@ plan-card.css .plan-name,
     align-content: space-between;
     flex-direction: row;
     justify-content: space-between;
+  }
+  .planlist_details_body{
+    padding: 0 5px;
+    margin-top: 76px !important;
   }
   .details-col {
     flex: unset;

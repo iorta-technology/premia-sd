@@ -214,6 +214,10 @@
       flex: unset;
       align-self: stretch;
     }
+    /* .plan_details_body .ant-col{
+      padding-left: 0px;
+      padding-right: 0px;
+    } */
     .payment-amount {
       font-size: 24px;
     }

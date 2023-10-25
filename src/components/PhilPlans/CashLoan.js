@@ -696,7 +696,7 @@ const CashLoanComponent = React.memo((props) => {
 
       <div className="plan_details_body mb-4" style={{ marginTop: 11 }}>
         <Row gutter={22} style={{ margin: "0", padding: 0 }}>
-          <Col sm={24} md={18} lg={18} xlg={8}>
+          <Col sm={24} md={18} lg={18} xlg={8} style={{padding: 0}}>
             <p className="tab_title">Cash loan</p>
             {pastDueInstallmentCount > 0 && (
               <div class="lapsed-alert-card mb-4">

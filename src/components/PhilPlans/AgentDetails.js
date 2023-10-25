@@ -534,7 +534,7 @@ const AgentDetailsComponent = React.memo((props) => {
       />
 
       <div className="plan_details_body mb-4" style={{ marginTop: 11 }}>
-        <Row gutter={22} style={{ margin: "0", padding: 0 }}>
+        <Row gutter={22}>
           {/* 1st Column */}
           <Col sm={24} md={18} lg={18} xlg={8}>
             {/* agent Details */}

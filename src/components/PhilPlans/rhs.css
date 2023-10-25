@@ -315,9 +315,6 @@
       flex-direction: column;
       gap: 16px;
     }
-    .plan_details_body .ant-col{
-      padding-left: 0px;
-      padding-right: 0px;
-  }
+
     
   }
